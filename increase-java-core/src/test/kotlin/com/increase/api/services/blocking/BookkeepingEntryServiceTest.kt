@@ -4,7 +4,7 @@ package com.increase.api.services.blocking
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.BookkeepingEntryRetrieveParams
+import com.increase.api.models.bookkeepingentries.BookkeepingEntryRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 

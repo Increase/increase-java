@@ -15,8 +15,8 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.SimulationInboundFundsHoldReleaseParams
-import com.increase.api.models.SimulationInboundFundsHoldReleaseResponse
+import com.increase.api.models.simulations.inboundfundsholds.InboundFundsHoldReleaseParams
+import com.increase.api.models.simulations.inboundfundsholds.InboundFundsHoldReleaseResponse
 
 class InboundFundsHoldServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     InboundFundsHoldService {
@@ -28,9 +28,9 @@ class InboundFundsHoldServiceImpl internal constructor(private val clientOptions
     override fun withRawResponse(): InboundFundsHoldService.WithRawResponse = withRawResponse
 
     override fun release(
-        params: SimulationInboundFundsHoldReleaseParams,
+        params: InboundFundsHoldReleaseParams,
         requestOptions: RequestOptions,
-    ): SimulationInboundFundsHoldReleaseResponse =
+    ): InboundFundsHoldReleaseResponse =
         // post /simulations/inbound_funds_holds/{inbound_funds_hold_id}/release
         withRawResponse().release(params, requestOptions).parse()
 
@@ -39,14 +39,14 @@ class InboundFundsHoldServiceImpl internal constructor(private val clientOptions
 
         private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
-        private val releaseHandler: Handler<SimulationInboundFundsHoldReleaseResponse> =
-            jsonHandler<SimulationInboundFundsHoldReleaseResponse>(clientOptions.jsonMapper)
+        private val releaseHandler: Handler<InboundFundsHoldReleaseResponse> =
+            jsonHandler<InboundFundsHoldReleaseResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override fun release(
-            params: SimulationInboundFundsHoldReleaseParams,
+            params: InboundFundsHoldReleaseParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<SimulationInboundFundsHoldReleaseResponse> {
+        ): HttpResponseFor<InboundFundsHoldReleaseResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)

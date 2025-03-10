@@ -4,7 +4,7 @@ package com.increase.api.services.blocking.simulations
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.SimulationInboundCheckDepositCreateParams
+import com.increase.api.models.simulations.inboundcheckdeposits.InboundCheckDepositCreateParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -22,7 +22,7 @@ class InboundCheckDepositServiceTest {
 
         val inboundCheckDeposit =
             inboundCheckDepositService.create(
-                SimulationInboundCheckDepositCreateParams.builder()
+                InboundCheckDepositCreateParams.builder()
                     .accountNumberId("account_number_v18nkfqm6afpsrvy82b2")
                     .amount(1000L)
                     .checkNumber("1234567890")

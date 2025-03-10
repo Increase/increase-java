@@ -14,10 +14,10 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.CardPayment
-import com.increase.api.models.CardPaymentListPageAsync
-import com.increase.api.models.CardPaymentListParams
-import com.increase.api.models.CardPaymentRetrieveParams
+import com.increase.api.models.cardpayments.CardPayment
+import com.increase.api.models.cardpayments.CardPaymentListPageAsync
+import com.increase.api.models.cardpayments.CardPaymentListParams
+import com.increase.api.models.cardpayments.CardPaymentRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 class CardPaymentServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :

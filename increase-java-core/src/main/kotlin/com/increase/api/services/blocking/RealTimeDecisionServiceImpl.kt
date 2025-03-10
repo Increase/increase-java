@@ -15,9 +15,9 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.RealTimeDecision
-import com.increase.api.models.RealTimeDecisionActionParams
-import com.increase.api.models.RealTimeDecisionRetrieveParams
+import com.increase.api.models.realtimedecisions.RealTimeDecision
+import com.increase.api.models.realtimedecisions.RealTimeDecisionActionParams
+import com.increase.api.models.realtimedecisions.RealTimeDecisionRetrieveParams
 
 class RealTimeDecisionServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     RealTimeDecisionService {

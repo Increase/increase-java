@@ -4,10 +4,10 @@ package com.increase.api.services.blocking
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.AchTransferApproveParams
-import com.increase.api.models.AchTransferCancelParams
-import com.increase.api.models.AchTransferCreateParams
-import com.increase.api.models.AchTransferRetrieveParams
+import com.increase.api.models.achtransfers.AchTransferApproveParams
+import com.increase.api.models.achtransfers.AchTransferCancelParams
+import com.increase.api.models.achtransfers.AchTransferCreateParams
+import com.increase.api.models.achtransfers.AchTransferRetrieveParams
 import java.time.LocalDate
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith

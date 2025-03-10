@@ -15,11 +15,11 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.CardDispute
-import com.increase.api.models.CardDisputeCreateParams
-import com.increase.api.models.CardDisputeListPageAsync
-import com.increase.api.models.CardDisputeListParams
-import com.increase.api.models.CardDisputeRetrieveParams
+import com.increase.api.models.carddisputes.CardDispute
+import com.increase.api.models.carddisputes.CardDisputeCreateParams
+import com.increase.api.models.carddisputes.CardDisputeListPageAsync
+import com.increase.api.models.carddisputes.CardDisputeListParams
+import com.increase.api.models.carddisputes.CardDisputeRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 class CardDisputeServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :

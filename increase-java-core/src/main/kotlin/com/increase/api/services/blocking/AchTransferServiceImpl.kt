@@ -15,13 +15,13 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.AchTransfer
-import com.increase.api.models.AchTransferApproveParams
-import com.increase.api.models.AchTransferCancelParams
-import com.increase.api.models.AchTransferCreateParams
-import com.increase.api.models.AchTransferListPage
-import com.increase.api.models.AchTransferListParams
-import com.increase.api.models.AchTransferRetrieveParams
+import com.increase.api.models.achtransfers.AchTransfer
+import com.increase.api.models.achtransfers.AchTransferApproveParams
+import com.increase.api.models.achtransfers.AchTransferCancelParams
+import com.increase.api.models.achtransfers.AchTransferCreateParams
+import com.increase.api.models.achtransfers.AchTransferListPage
+import com.increase.api.models.achtransfers.AchTransferListParams
+import com.increase.api.models.achtransfers.AchTransferRetrieveParams
 
 class AchTransferServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     AchTransferService {

@@ -4,7 +4,7 @@ package com.increase.api.services.async.simulations
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
-import com.increase.api.models.SimulationProgramCreateParams
+import com.increase.api.models.simulations.programs.ProgramCreateParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -21,9 +21,7 @@ class ProgramServiceAsyncTest {
         val programServiceAsync = client.simulations().programs()
 
         val programFuture =
-            programServiceAsync.create(
-                SimulationProgramCreateParams.builder().name("For Benefit Of").build()
-            )
+            programServiceAsync.create(ProgramCreateParams.builder().name("For Benefit Of").build())
 
         val program = programFuture.get()
         program.validate()

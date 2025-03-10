@@ -5,13 +5,13 @@ package com.increase.api.services.blocking
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.InboundAchTransfer
-import com.increase.api.models.InboundAchTransferCreateNotificationOfChangeParams
-import com.increase.api.models.InboundAchTransferDeclineParams
-import com.increase.api.models.InboundAchTransferListPage
-import com.increase.api.models.InboundAchTransferListParams
-import com.increase.api.models.InboundAchTransferRetrieveParams
-import com.increase.api.models.InboundAchTransferTransferReturnParams
+import com.increase.api.models.inboundachtransfers.InboundAchTransfer
+import com.increase.api.models.inboundachtransfers.InboundAchTransferCreateNotificationOfChangeParams
+import com.increase.api.models.inboundachtransfers.InboundAchTransferDeclineParams
+import com.increase.api.models.inboundachtransfers.InboundAchTransferListPage
+import com.increase.api.models.inboundachtransfers.InboundAchTransferListParams
+import com.increase.api.models.inboundachtransfers.InboundAchTransferRetrieveParams
+import com.increase.api.models.inboundachtransfers.InboundAchTransferTransferReturnParams
 
 interface InboundAchTransferService {
 

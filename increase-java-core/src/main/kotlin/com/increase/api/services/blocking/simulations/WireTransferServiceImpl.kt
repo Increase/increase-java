@@ -15,9 +15,9 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.SimulationWireTransferReverseParams
-import com.increase.api.models.SimulationWireTransferSubmitParams
-import com.increase.api.models.WireTransfer
+import com.increase.api.models.simulations.wiretransfers.WireTransferReverseParams
+import com.increase.api.models.simulations.wiretransfers.WireTransferSubmitParams
+import com.increase.api.models.wiretransfers.WireTransfer
 
 class WireTransferServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     WireTransferService {
@@ -29,14 +29,14 @@ class WireTransferServiceImpl internal constructor(private val clientOptions: Cl
     override fun withRawResponse(): WireTransferService.WithRawResponse = withRawResponse
 
     override fun reverse(
-        params: SimulationWireTransferReverseParams,
+        params: WireTransferReverseParams,
         requestOptions: RequestOptions,
     ): WireTransfer =
         // post /simulations/wire_transfers/{wire_transfer_id}/reverse
         withRawResponse().reverse(params, requestOptions).parse()
 
     override fun submit(
-        params: SimulationWireTransferSubmitParams,
+        params: WireTransferSubmitParams,
         requestOptions: RequestOptions,
     ): WireTransfer =
         // post /simulations/wire_transfers/{wire_transfer_id}/submit
@@ -51,7 +51,7 @@ class WireTransferServiceImpl internal constructor(private val clientOptions: Cl
             jsonHandler<WireTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
         override fun reverse(
-            params: SimulationWireTransferReverseParams,
+            params: WireTransferReverseParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<WireTransfer> {
             val request =
@@ -83,7 +83,7 @@ class WireTransferServiceImpl internal constructor(private val clientOptions: Cl
             jsonHandler<WireTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
         override fun submit(
-            params: SimulationWireTransferSubmitParams,
+            params: WireTransferSubmitParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<WireTransfer> {
             val request =

@@ -5,10 +5,10 @@ package com.increase.api.services.async
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.InboundWireDrawdownRequest
-import com.increase.api.models.InboundWireDrawdownRequestListPageAsync
-import com.increase.api.models.InboundWireDrawdownRequestListParams
-import com.increase.api.models.InboundWireDrawdownRequestRetrieveParams
+import com.increase.api.models.inboundwiredrawdownrequests.InboundWireDrawdownRequest
+import com.increase.api.models.inboundwiredrawdownrequests.InboundWireDrawdownRequestListPageAsync
+import com.increase.api.models.inboundwiredrawdownrequests.InboundWireDrawdownRequestListParams
+import com.increase.api.models.inboundwiredrawdownrequests.InboundWireDrawdownRequestRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 interface InboundWireDrawdownRequestServiceAsync {

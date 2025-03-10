@@ -5,8 +5,8 @@ package com.increase.api.services.blocking.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.Document
-import com.increase.api.models.SimulationDocumentCreateParams
+import com.increase.api.models.documents.Document
+import com.increase.api.models.simulations.documents.DocumentCreateParams
 
 interface DocumentService {
 
@@ -16,12 +16,11 @@ interface DocumentService {
     fun withRawResponse(): WithRawResponse
 
     /** Simulates an tax document being created for an account. */
-    fun create(params: SimulationDocumentCreateParams): Document =
-        create(params, RequestOptions.none())
+    fun create(params: DocumentCreateParams): Document = create(params, RequestOptions.none())
 
     /** @see [create] */
     fun create(
-        params: SimulationDocumentCreateParams,
+        params: DocumentCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Document
 
@@ -33,13 +32,13 @@ interface DocumentService {
          * as [DocumentService.create].
          */
         @MustBeClosed
-        fun create(params: SimulationDocumentCreateParams): HttpResponseFor<Document> =
+        fun create(params: DocumentCreateParams): HttpResponseFor<Document> =
             create(params, RequestOptions.none())
 
         /** @see [create] */
         @MustBeClosed
         fun create(
-            params: SimulationDocumentCreateParams,
+            params: DocumentCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Document>
     }

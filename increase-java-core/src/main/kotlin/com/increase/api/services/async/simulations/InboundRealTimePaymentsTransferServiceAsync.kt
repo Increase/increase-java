@@ -5,8 +5,8 @@ package com.increase.api.services.async.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.InboundRealTimePaymentsTransfer
-import com.increase.api.models.SimulationInboundRealTimePaymentsTransferCreateParams
+import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransfer
+import com.increase.api.models.simulations.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransferCreateParams
 import java.util.concurrent.CompletableFuture
 
 interface InboundRealTimePaymentsTransferServiceAsync {
@@ -21,12 +21,12 @@ interface InboundRealTimePaymentsTransferServiceAsync {
      * your account. Real-Time Payments are a beta feature.
      */
     fun create(
-        params: SimulationInboundRealTimePaymentsTransferCreateParams
+        params: InboundRealTimePaymentsTransferCreateParams
     ): CompletableFuture<InboundRealTimePaymentsTransfer> = create(params, RequestOptions.none())
 
     /** @see [create] */
     fun create(
-        params: SimulationInboundRealTimePaymentsTransferCreateParams,
+        params: InboundRealTimePaymentsTransferCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<InboundRealTimePaymentsTransfer>
 
@@ -42,14 +42,14 @@ interface InboundRealTimePaymentsTransferServiceAsync {
          */
         @MustBeClosed
         fun create(
-            params: SimulationInboundRealTimePaymentsTransferCreateParams
+            params: InboundRealTimePaymentsTransferCreateParams
         ): CompletableFuture<HttpResponseFor<InboundRealTimePaymentsTransfer>> =
             create(params, RequestOptions.none())
 
         /** @see [create] */
         @MustBeClosed
         fun create(
-            params: SimulationInboundRealTimePaymentsTransferCreateParams,
+            params: InboundRealTimePaymentsTransferCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<InboundRealTimePaymentsTransfer>>
     }

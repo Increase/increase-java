@@ -5,12 +5,12 @@ package com.increase.api.services.blocking
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.ExternalAccount
-import com.increase.api.models.ExternalAccountCreateParams
-import com.increase.api.models.ExternalAccountListPage
-import com.increase.api.models.ExternalAccountListParams
-import com.increase.api.models.ExternalAccountRetrieveParams
-import com.increase.api.models.ExternalAccountUpdateParams
+import com.increase.api.models.externalaccounts.ExternalAccount
+import com.increase.api.models.externalaccounts.ExternalAccountCreateParams
+import com.increase.api.models.externalaccounts.ExternalAccountListPage
+import com.increase.api.models.externalaccounts.ExternalAccountListParams
+import com.increase.api.models.externalaccounts.ExternalAccountRetrieveParams
+import com.increase.api.models.externalaccounts.ExternalAccountUpdateParams
 
 interface ExternalAccountService {
 

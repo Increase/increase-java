@@ -5,8 +5,8 @@ package com.increase.api.services.blocking.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.CardPayment
-import com.increase.api.models.SimulationCardIncrementCreateParams
+import com.increase.api.models.cardpayments.CardPayment
+import com.increase.api.models.simulations.cardincrements.CardIncrementCreateParams
 
 interface CardIncrementService {
 
@@ -19,12 +19,12 @@ interface CardIncrementService {
      * Simulates the increment of an authorization by a card acquirer. An authorization can be
      * incremented multiple times.
      */
-    fun create(params: SimulationCardIncrementCreateParams): CardPayment =
+    fun create(params: CardIncrementCreateParams): CardPayment =
         create(params, RequestOptions.none())
 
     /** @see [create] */
     fun create(
-        params: SimulationCardIncrementCreateParams,
+        params: CardIncrementCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CardPayment
 
@@ -38,13 +38,13 @@ interface CardIncrementService {
          * same as [CardIncrementService.create].
          */
         @MustBeClosed
-        fun create(params: SimulationCardIncrementCreateParams): HttpResponseFor<CardPayment> =
+        fun create(params: CardIncrementCreateParams): HttpResponseFor<CardPayment> =
             create(params, RequestOptions.none())
 
         /** @see [create] */
         @MustBeClosed
         fun create(
-            params: SimulationCardIncrementCreateParams,
+            params: CardIncrementCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CardPayment>
     }

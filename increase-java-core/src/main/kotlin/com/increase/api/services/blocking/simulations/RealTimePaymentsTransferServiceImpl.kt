@@ -15,8 +15,8 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.RealTimePaymentsTransfer
-import com.increase.api.models.SimulationRealTimePaymentsTransferCompleteParams
+import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransfer
+import com.increase.api.models.simulations.realtimepaymentstransfers.RealTimePaymentsTransferCompleteParams
 
 class RealTimePaymentsTransferServiceImpl
 internal constructor(private val clientOptions: ClientOptions) : RealTimePaymentsTransferService {
@@ -29,7 +29,7 @@ internal constructor(private val clientOptions: ClientOptions) : RealTimePayment
         withRawResponse
 
     override fun complete(
-        params: SimulationRealTimePaymentsTransferCompleteParams,
+        params: RealTimePaymentsTransferCompleteParams,
         requestOptions: RequestOptions,
     ): RealTimePaymentsTransfer =
         // post /simulations/real_time_payments_transfers/{real_time_payments_transfer_id}/complete
@@ -45,7 +45,7 @@ internal constructor(private val clientOptions: ClientOptions) : RealTimePayment
                 .withErrorHandler(errorHandler)
 
         override fun complete(
-            params: SimulationRealTimePaymentsTransferCompleteParams,
+            params: RealTimePaymentsTransferCompleteParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<RealTimePaymentsTransfer> {
             val request =

@@ -5,10 +5,10 @@ package com.increase.api.services.blocking
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.PendingTransaction
-import com.increase.api.models.PendingTransactionListPage
-import com.increase.api.models.PendingTransactionListParams
-import com.increase.api.models.PendingTransactionRetrieveParams
+import com.increase.api.models.pendingtransactions.PendingTransaction
+import com.increase.api.models.pendingtransactions.PendingTransactionListPage
+import com.increase.api.models.pendingtransactions.PendingTransactionListParams
+import com.increase.api.models.pendingtransactions.PendingTransactionRetrieveParams
 
 interface PendingTransactionService {
 

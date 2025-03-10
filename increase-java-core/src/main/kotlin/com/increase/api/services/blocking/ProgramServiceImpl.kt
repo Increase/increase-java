@@ -14,10 +14,10 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.Program
-import com.increase.api.models.ProgramListPage
-import com.increase.api.models.ProgramListParams
-import com.increase.api.models.ProgramRetrieveParams
+import com.increase.api.models.programs.Program
+import com.increase.api.models.programs.ProgramListPage
+import com.increase.api.models.programs.ProgramListParams
+import com.increase.api.models.programs.ProgramRetrieveParams
 
 class ProgramServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     ProgramService {

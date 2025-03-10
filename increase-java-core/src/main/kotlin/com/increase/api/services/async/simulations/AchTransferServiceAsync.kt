@@ -5,12 +5,12 @@ package com.increase.api.services.async.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.AchTransfer
-import com.increase.api.models.SimulationAchTransferAcknowledgeParams
-import com.increase.api.models.SimulationAchTransferCreateNotificationOfChangeParams
-import com.increase.api.models.SimulationAchTransferReturnParams
-import com.increase.api.models.SimulationAchTransferSettleParams
-import com.increase.api.models.SimulationAchTransferSubmitParams
+import com.increase.api.models.achtransfers.AchTransfer
+import com.increase.api.models.simulations.achtransfers.AchTransferAcknowledgeParams
+import com.increase.api.models.simulations.achtransfers.AchTransferCreateNotificationOfChangeParams
+import com.increase.api.models.simulations.achtransfers.AchTransferReturnParams
+import com.increase.api.models.simulations.achtransfers.AchTransferSettleParams
+import com.increase.api.models.simulations.achtransfers.AchTransferSubmitParams
 import java.util.concurrent.CompletableFuture
 
 interface AchTransferServiceAsync {
@@ -27,24 +27,23 @@ interface AchTransferServiceAsync {
      * not submitted to the Federal Reserve, this endpoint allows you to skip that delay and add the
      * acknowledgment subresource to the ACH Transfer.
      */
-    fun acknowledge(
-        params: SimulationAchTransferAcknowledgeParams
-    ): CompletableFuture<AchTransfer> = acknowledge(params, RequestOptions.none())
+    fun acknowledge(params: AchTransferAcknowledgeParams): CompletableFuture<AchTransfer> =
+        acknowledge(params, RequestOptions.none())
 
     /** @see [acknowledge] */
     fun acknowledge(
-        params: SimulationAchTransferAcknowledgeParams,
+        params: AchTransferAcknowledgeParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AchTransfer>
 
     /** Simulates receiving a Notification of Change for an [ACH Transfer](#ach-transfers). */
     fun createNotificationOfChange(
-        params: SimulationAchTransferCreateNotificationOfChangeParams
+        params: AchTransferCreateNotificationOfChangeParams
     ): CompletableFuture<AchTransfer> = createNotificationOfChange(params, RequestOptions.none())
 
     /** @see [createNotificationOfChange] */
     fun createNotificationOfChange(
-        params: SimulationAchTransferCreateNotificationOfChangeParams,
+        params: AchTransferCreateNotificationOfChangeParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AchTransfer>
 
@@ -53,12 +52,12 @@ interface AchTransferServiceAsync {
      * error condition. This will also create a Transaction to account for the returned funds. This
      * transfer must first have a `status` of `submitted`.
      */
-    fun return_(params: SimulationAchTransferReturnParams): CompletableFuture<AchTransfer> =
+    fun return_(params: AchTransferReturnParams): CompletableFuture<AchTransfer> =
         return_(params, RequestOptions.none())
 
     /** @see [return_] */
     fun return_(
-        params: SimulationAchTransferReturnParams,
+        params: AchTransferReturnParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AchTransfer>
 
@@ -67,12 +66,12 @@ interface AchTransferServiceAsync {
      * transfer must first have a `status` of `submitted`. Without this simulation the transfer will
      * eventually settle on its own following the same Federal Reserve timeline as in production.
      */
-    fun settle(params: SimulationAchTransferSettleParams): CompletableFuture<AchTransfer> =
+    fun settle(params: AchTransferSettleParams): CompletableFuture<AchTransfer> =
         settle(params, RequestOptions.none())
 
     /** @see [settle] */
     fun settle(
-        params: SimulationAchTransferSettleParams,
+        params: AchTransferSettleParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AchTransfer>
 
@@ -83,12 +82,12 @@ interface AchTransferServiceAsync {
      * weekdays. Since sandbox ACH Transfers are not submitted to the Federal Reserve, this endpoint
      * allows you to skip that delay and transition the ACH Transfer to a status of `submitted`.
      */
-    fun submit(params: SimulationAchTransferSubmitParams): CompletableFuture<AchTransfer> =
+    fun submit(params: AchTransferSubmitParams): CompletableFuture<AchTransfer> =
         submit(params, RequestOptions.none())
 
     /** @see [submit] */
     fun submit(
-        params: SimulationAchTransferSubmitParams,
+        params: AchTransferSubmitParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AchTransfer>
 
@@ -105,14 +104,14 @@ interface AchTransferServiceAsync {
          */
         @MustBeClosed
         fun acknowledge(
-            params: SimulationAchTransferAcknowledgeParams
+            params: AchTransferAcknowledgeParams
         ): CompletableFuture<HttpResponseFor<AchTransfer>> =
             acknowledge(params, RequestOptions.none())
 
         /** @see [acknowledge] */
         @MustBeClosed
         fun acknowledge(
-            params: SimulationAchTransferAcknowledgeParams,
+            params: AchTransferAcknowledgeParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<AchTransfer>>
 
@@ -123,14 +122,14 @@ interface AchTransferServiceAsync {
          */
         @MustBeClosed
         fun createNotificationOfChange(
-            params: SimulationAchTransferCreateNotificationOfChangeParams
+            params: AchTransferCreateNotificationOfChangeParams
         ): CompletableFuture<HttpResponseFor<AchTransfer>> =
             createNotificationOfChange(params, RequestOptions.none())
 
         /** @see [createNotificationOfChange] */
         @MustBeClosed
         fun createNotificationOfChange(
-            params: SimulationAchTransferCreateNotificationOfChangeParams,
+            params: AchTransferCreateNotificationOfChangeParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<AchTransfer>>
 
@@ -141,13 +140,13 @@ interface AchTransferServiceAsync {
          */
         @MustBeClosed
         fun return_(
-            params: SimulationAchTransferReturnParams
+            params: AchTransferReturnParams
         ): CompletableFuture<HttpResponseFor<AchTransfer>> = return_(params, RequestOptions.none())
 
         /** @see [return_] */
         @MustBeClosed
         fun return_(
-            params: SimulationAchTransferReturnParams,
+            params: AchTransferReturnParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<AchTransfer>>
 
@@ -158,13 +157,13 @@ interface AchTransferServiceAsync {
          */
         @MustBeClosed
         fun settle(
-            params: SimulationAchTransferSettleParams
+            params: AchTransferSettleParams
         ): CompletableFuture<HttpResponseFor<AchTransfer>> = settle(params, RequestOptions.none())
 
         /** @see [settle] */
         @MustBeClosed
         fun settle(
-            params: SimulationAchTransferSettleParams,
+            params: AchTransferSettleParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<AchTransfer>>
 
@@ -175,13 +174,13 @@ interface AchTransferServiceAsync {
          */
         @MustBeClosed
         fun submit(
-            params: SimulationAchTransferSubmitParams
+            params: AchTransferSubmitParams
         ): CompletableFuture<HttpResponseFor<AchTransfer>> = submit(params, RequestOptions.none())
 
         /** @see [submit] */
         @MustBeClosed
         fun submit(
-            params: SimulationAchTransferSubmitParams,
+            params: AchTransferSubmitParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<AchTransfer>>
     }

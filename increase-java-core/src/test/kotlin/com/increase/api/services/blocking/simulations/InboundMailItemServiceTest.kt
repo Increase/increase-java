@@ -4,7 +4,7 @@ package com.increase.api.services.blocking.simulations
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.SimulationInboundMailItemCreateParams
+import com.increase.api.models.simulations.inboundmailitems.InboundMailItemCreateParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -22,7 +22,7 @@ class InboundMailItemServiceTest {
 
         val inboundMailItem =
             inboundMailItemService.create(
-                SimulationInboundMailItemCreateParams.builder()
+                InboundMailItemCreateParams.builder()
                     .amount(1000L)
                     .lockboxId("lockbox_3xt21ok13q19advds4t5")
                     .contentsFileId("contents_file_id")

@@ -5,8 +5,8 @@ package com.increase.api.services.async.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.InboundAchTransfer
-import com.increase.api.models.SimulationInboundAchTransferCreateParams
+import com.increase.api.models.inboundachtransfers.InboundAchTransfer
+import com.increase.api.models.simulations.inboundachtransfers.InboundAchTransferCreateParams
 import java.util.concurrent.CompletableFuture
 
 interface InboundAchTransferServiceAsync {
@@ -27,13 +27,12 @@ interface InboundAchTransferServiceAsync {
      * [Transaction](#transactions) or a [Declined Transaction](#declined-transactions) depending on
      * whether or not the transfer is allowed.
      */
-    fun create(
-        params: SimulationInboundAchTransferCreateParams
-    ): CompletableFuture<InboundAchTransfer> = create(params, RequestOptions.none())
+    fun create(params: InboundAchTransferCreateParams): CompletableFuture<InboundAchTransfer> =
+        create(params, RequestOptions.none())
 
     /** @see [create] */
     fun create(
-        params: SimulationInboundAchTransferCreateParams,
+        params: InboundAchTransferCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<InboundAchTransfer>
 
@@ -49,14 +48,14 @@ interface InboundAchTransferServiceAsync {
          */
         @MustBeClosed
         fun create(
-            params: SimulationInboundAchTransferCreateParams
+            params: InboundAchTransferCreateParams
         ): CompletableFuture<HttpResponseFor<InboundAchTransfer>> =
             create(params, RequestOptions.none())
 
         /** @see [create] */
         @MustBeClosed
         fun create(
-            params: SimulationInboundAchTransferCreateParams,
+            params: InboundAchTransferCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<InboundAchTransfer>>
     }

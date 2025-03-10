@@ -5,12 +5,12 @@ package com.increase.api.services.blocking.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.AchTransfer
-import com.increase.api.models.SimulationAchTransferAcknowledgeParams
-import com.increase.api.models.SimulationAchTransferCreateNotificationOfChangeParams
-import com.increase.api.models.SimulationAchTransferReturnParams
-import com.increase.api.models.SimulationAchTransferSettleParams
-import com.increase.api.models.SimulationAchTransferSubmitParams
+import com.increase.api.models.achtransfers.AchTransfer
+import com.increase.api.models.simulations.achtransfers.AchTransferAcknowledgeParams
+import com.increase.api.models.simulations.achtransfers.AchTransferCreateNotificationOfChangeParams
+import com.increase.api.models.simulations.achtransfers.AchTransferReturnParams
+import com.increase.api.models.simulations.achtransfers.AchTransferSettleParams
+import com.increase.api.models.simulations.achtransfers.AchTransferSubmitParams
 
 interface AchTransferService {
 
@@ -26,23 +26,23 @@ interface AchTransferService {
      * not submitted to the Federal Reserve, this endpoint allows you to skip that delay and add the
      * acknowledgment subresource to the ACH Transfer.
      */
-    fun acknowledge(params: SimulationAchTransferAcknowledgeParams): AchTransfer =
+    fun acknowledge(params: AchTransferAcknowledgeParams): AchTransfer =
         acknowledge(params, RequestOptions.none())
 
     /** @see [acknowledge] */
     fun acknowledge(
-        params: SimulationAchTransferAcknowledgeParams,
+        params: AchTransferAcknowledgeParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AchTransfer
 
     /** Simulates receiving a Notification of Change for an [ACH Transfer](#ach-transfers). */
     fun createNotificationOfChange(
-        params: SimulationAchTransferCreateNotificationOfChangeParams
+        params: AchTransferCreateNotificationOfChangeParams
     ): AchTransfer = createNotificationOfChange(params, RequestOptions.none())
 
     /** @see [createNotificationOfChange] */
     fun createNotificationOfChange(
-        params: SimulationAchTransferCreateNotificationOfChangeParams,
+        params: AchTransferCreateNotificationOfChangeParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AchTransfer
 
@@ -51,12 +51,12 @@ interface AchTransferService {
      * error condition. This will also create a Transaction to account for the returned funds. This
      * transfer must first have a `status` of `submitted`.
      */
-    fun return_(params: SimulationAchTransferReturnParams): AchTransfer =
+    fun return_(params: AchTransferReturnParams): AchTransfer =
         return_(params, RequestOptions.none())
 
     /** @see [return_] */
     fun return_(
-        params: SimulationAchTransferReturnParams,
+        params: AchTransferReturnParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AchTransfer
 
@@ -65,12 +65,11 @@ interface AchTransferService {
      * transfer must first have a `status` of `submitted`. Without this simulation the transfer will
      * eventually settle on its own following the same Federal Reserve timeline as in production.
      */
-    fun settle(params: SimulationAchTransferSettleParams): AchTransfer =
-        settle(params, RequestOptions.none())
+    fun settle(params: AchTransferSettleParams): AchTransfer = settle(params, RequestOptions.none())
 
     /** @see [settle] */
     fun settle(
-        params: SimulationAchTransferSettleParams,
+        params: AchTransferSettleParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AchTransfer
 
@@ -81,12 +80,11 @@ interface AchTransferService {
      * weekdays. Since sandbox ACH Transfers are not submitted to the Federal Reserve, this endpoint
      * allows you to skip that delay and transition the ACH Transfer to a status of `submitted`.
      */
-    fun submit(params: SimulationAchTransferSubmitParams): AchTransfer =
-        submit(params, RequestOptions.none())
+    fun submit(params: AchTransferSubmitParams): AchTransfer = submit(params, RequestOptions.none())
 
     /** @see [submit] */
     fun submit(
-        params: SimulationAchTransferSubmitParams,
+        params: AchTransferSubmitParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AchTransfer
 
@@ -101,14 +99,13 @@ interface AchTransferService {
          * [AchTransferService.acknowledge].
          */
         @MustBeClosed
-        fun acknowledge(
-            params: SimulationAchTransferAcknowledgeParams
-        ): HttpResponseFor<AchTransfer> = acknowledge(params, RequestOptions.none())
+        fun acknowledge(params: AchTransferAcknowledgeParams): HttpResponseFor<AchTransfer> =
+            acknowledge(params, RequestOptions.none())
 
         /** @see [acknowledge] */
         @MustBeClosed
         fun acknowledge(
-            params: SimulationAchTransferAcknowledgeParams,
+            params: AchTransferAcknowledgeParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AchTransfer>
 
@@ -119,13 +116,13 @@ interface AchTransferService {
          */
         @MustBeClosed
         fun createNotificationOfChange(
-            params: SimulationAchTransferCreateNotificationOfChangeParams
+            params: AchTransferCreateNotificationOfChangeParams
         ): HttpResponseFor<AchTransfer> = createNotificationOfChange(params, RequestOptions.none())
 
         /** @see [createNotificationOfChange] */
         @MustBeClosed
         fun createNotificationOfChange(
-            params: SimulationAchTransferCreateNotificationOfChangeParams,
+            params: AchTransferCreateNotificationOfChangeParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AchTransfer>
 
@@ -135,13 +132,13 @@ interface AchTransferService {
          * [AchTransferService.return_].
          */
         @MustBeClosed
-        fun return_(params: SimulationAchTransferReturnParams): HttpResponseFor<AchTransfer> =
+        fun return_(params: AchTransferReturnParams): HttpResponseFor<AchTransfer> =
             return_(params, RequestOptions.none())
 
         /** @see [return_] */
         @MustBeClosed
         fun return_(
-            params: SimulationAchTransferReturnParams,
+            params: AchTransferReturnParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AchTransfer>
 
@@ -151,13 +148,13 @@ interface AchTransferService {
          * [AchTransferService.settle].
          */
         @MustBeClosed
-        fun settle(params: SimulationAchTransferSettleParams): HttpResponseFor<AchTransfer> =
+        fun settle(params: AchTransferSettleParams): HttpResponseFor<AchTransfer> =
             settle(params, RequestOptions.none())
 
         /** @see [settle] */
         @MustBeClosed
         fun settle(
-            params: SimulationAchTransferSettleParams,
+            params: AchTransferSettleParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AchTransfer>
 
@@ -167,13 +164,13 @@ interface AchTransferService {
          * [AchTransferService.submit].
          */
         @MustBeClosed
-        fun submit(params: SimulationAchTransferSubmitParams): HttpResponseFor<AchTransfer> =
+        fun submit(params: AchTransferSubmitParams): HttpResponseFor<AchTransfer> =
             submit(params, RequestOptions.none())
 
         /** @see [submit] */
         @MustBeClosed
         fun submit(
-            params: SimulationAchTransferSubmitParams,
+            params: AchTransferSubmitParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AchTransfer>
     }

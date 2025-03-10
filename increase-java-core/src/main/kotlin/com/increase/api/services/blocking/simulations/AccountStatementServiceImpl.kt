@@ -15,8 +15,8 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.AccountStatement
-import com.increase.api.models.SimulationAccountStatementCreateParams
+import com.increase.api.models.accountstatements.AccountStatement
+import com.increase.api.models.simulations.accountstatements.AccountStatementCreateParams
 
 class AccountStatementServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     AccountStatementService {
@@ -28,7 +28,7 @@ class AccountStatementServiceImpl internal constructor(private val clientOptions
     override fun withRawResponse(): AccountStatementService.WithRawResponse = withRawResponse
 
     override fun create(
-        params: SimulationAccountStatementCreateParams,
+        params: AccountStatementCreateParams,
         requestOptions: RequestOptions,
     ): AccountStatement =
         // post /simulations/account_statements
@@ -43,7 +43,7 @@ class AccountStatementServiceImpl internal constructor(private val clientOptions
             jsonHandler<AccountStatement>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
         override fun create(
-            params: SimulationAccountStatementCreateParams,
+            params: AccountStatementCreateParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<AccountStatement> {
             val request =

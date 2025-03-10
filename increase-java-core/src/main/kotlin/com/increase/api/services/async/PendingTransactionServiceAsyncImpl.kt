@@ -14,10 +14,10 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.PendingTransaction
-import com.increase.api.models.PendingTransactionListPageAsync
-import com.increase.api.models.PendingTransactionListParams
-import com.increase.api.models.PendingTransactionRetrieveParams
+import com.increase.api.models.pendingtransactions.PendingTransaction
+import com.increase.api.models.pendingtransactions.PendingTransactionListPageAsync
+import com.increase.api.models.pendingtransactions.PendingTransactionListParams
+import com.increase.api.models.pendingtransactions.PendingTransactionRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 class PendingTransactionServiceAsyncImpl

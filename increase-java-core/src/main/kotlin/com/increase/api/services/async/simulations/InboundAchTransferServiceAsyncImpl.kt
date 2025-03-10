@@ -15,8 +15,8 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.InboundAchTransfer
-import com.increase.api.models.SimulationInboundAchTransferCreateParams
+import com.increase.api.models.inboundachtransfers.InboundAchTransfer
+import com.increase.api.models.simulations.inboundachtransfers.InboundAchTransferCreateParams
 import java.util.concurrent.CompletableFuture
 
 class InboundAchTransferServiceAsyncImpl
@@ -29,7 +29,7 @@ internal constructor(private val clientOptions: ClientOptions) : InboundAchTrans
     override fun withRawResponse(): InboundAchTransferServiceAsync.WithRawResponse = withRawResponse
 
     override fun create(
-        params: SimulationInboundAchTransferCreateParams,
+        params: InboundAchTransferCreateParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<InboundAchTransfer> =
         // post /simulations/inbound_ach_transfers
@@ -44,7 +44,7 @@ internal constructor(private val clientOptions: ClientOptions) : InboundAchTrans
             jsonHandler<InboundAchTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
         override fun create(
-            params: SimulationInboundAchTransferCreateParams,
+            params: InboundAchTransferCreateParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<InboundAchTransfer>> {
             val request =

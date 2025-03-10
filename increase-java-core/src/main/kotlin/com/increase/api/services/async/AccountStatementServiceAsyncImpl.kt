@@ -14,10 +14,10 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.AccountStatement
-import com.increase.api.models.AccountStatementListPageAsync
-import com.increase.api.models.AccountStatementListParams
-import com.increase.api.models.AccountStatementRetrieveParams
+import com.increase.api.models.accountstatements.AccountStatement
+import com.increase.api.models.accountstatements.AccountStatementListPageAsync
+import com.increase.api.models.accountstatements.AccountStatementListParams
+import com.increase.api.models.accountstatements.AccountStatementRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 class AccountStatementServiceAsyncImpl

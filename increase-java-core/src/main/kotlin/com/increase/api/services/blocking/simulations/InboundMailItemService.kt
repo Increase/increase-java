@@ -5,8 +5,8 @@ package com.increase.api.services.blocking.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.InboundMailItem
-import com.increase.api.models.SimulationInboundMailItemCreateParams
+import com.increase.api.models.inboundmailitems.InboundMailItem
+import com.increase.api.models.simulations.inboundmailitems.InboundMailItemCreateParams
 
 interface InboundMailItemService {
 
@@ -19,12 +19,12 @@ interface InboundMailItemService {
      * Simulates an inbound mail item to your account, as if someone had mailed a physical check to
      * one of your account's Lockboxes.
      */
-    fun create(params: SimulationInboundMailItemCreateParams): InboundMailItem =
+    fun create(params: InboundMailItemCreateParams): InboundMailItem =
         create(params, RequestOptions.none())
 
     /** @see [create] */
     fun create(
-        params: SimulationInboundMailItemCreateParams,
+        params: InboundMailItemCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundMailItem
 
@@ -39,14 +39,13 @@ interface InboundMailItemService {
          * the same as [InboundMailItemService.create].
          */
         @MustBeClosed
-        fun create(
-            params: SimulationInboundMailItemCreateParams
-        ): HttpResponseFor<InboundMailItem> = create(params, RequestOptions.none())
+        fun create(params: InboundMailItemCreateParams): HttpResponseFor<InboundMailItem> =
+            create(params, RequestOptions.none())
 
         /** @see [create] */
         @MustBeClosed
         fun create(
-            params: SimulationInboundMailItemCreateParams,
+            params: InboundMailItemCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InboundMailItem>
     }

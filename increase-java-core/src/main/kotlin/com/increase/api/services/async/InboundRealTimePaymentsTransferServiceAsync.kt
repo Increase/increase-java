@@ -5,10 +5,10 @@ package com.increase.api.services.async
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.InboundRealTimePaymentsTransfer
-import com.increase.api.models.InboundRealTimePaymentsTransferListPageAsync
-import com.increase.api.models.InboundRealTimePaymentsTransferListParams
-import com.increase.api.models.InboundRealTimePaymentsTransferRetrieveParams
+import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransfer
+import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransferListPageAsync
+import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransferListParams
+import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransferRetrieveParams
 import java.util.concurrent.CompletableFuture
 
 interface InboundRealTimePaymentsTransferServiceAsync {

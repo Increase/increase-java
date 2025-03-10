@@ -5,8 +5,8 @@ package com.increase.api.services.blocking.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.CheckTransfer
-import com.increase.api.models.SimulationCheckTransferMailParams
+import com.increase.api.models.checktransfers.CheckTransfer
+import com.increase.api.models.simulations.checktransfers.CheckTransferMailParams
 
 interface CheckTransferService {
 
@@ -20,12 +20,11 @@ interface CheckTransferService {
      * throughout the day in production but can be sped up in sandbox. This transfer must first have
      * a `status` of `pending_approval` or `pending_submission`.
      */
-    fun mail(params: SimulationCheckTransferMailParams): CheckTransfer =
-        mail(params, RequestOptions.none())
+    fun mail(params: CheckTransferMailParams): CheckTransfer = mail(params, RequestOptions.none())
 
     /** @see [mail] */
     fun mail(
-        params: SimulationCheckTransferMailParams,
+        params: CheckTransferMailParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckTransfer
 
@@ -40,13 +39,13 @@ interface CheckTransferService {
          * [CheckTransferService.mail].
          */
         @MustBeClosed
-        fun mail(params: SimulationCheckTransferMailParams): HttpResponseFor<CheckTransfer> =
+        fun mail(params: CheckTransferMailParams): HttpResponseFor<CheckTransfer> =
             mail(params, RequestOptions.none())
 
         /** @see [mail] */
         @MustBeClosed
         fun mail(
-            params: SimulationCheckTransferMailParams,
+            params: CheckTransferMailParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CheckTransfer>
     }
