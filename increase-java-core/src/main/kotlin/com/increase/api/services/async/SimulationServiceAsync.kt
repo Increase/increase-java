@@ -33,8 +33,7 @@ import com.increase.api.services.async.simulations.WireTransferServiceAsync
 interface SimulationServiceAsync {
 
     /**
-     * Returns a view of this service that provides access to raw HTTP responses for
-     * each method.
+     * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
 
@@ -93,8 +92,8 @@ interface SimulationServiceAsync {
     fun documents(): DocumentServiceAsync
 
     /**
-     * A view of [SimulationServiceAsync] that provides access to raw HTTP responses
-     * for each method.
+     * A view of [SimulationServiceAsync] that provides access to raw HTTP responses for each
+     * method.
      */
     interface WithRawResponse {
 
@@ -140,7 +139,8 @@ interface SimulationServiceAsync {
 
         fun realTimePaymentsTransfers(): RealTimePaymentsTransferServiceAsync.WithRawResponse
 
-        fun inboundRealTimePaymentsTransfers(): InboundRealTimePaymentsTransferServiceAsync.WithRawResponse
+        fun inboundRealTimePaymentsTransfers():
+            InboundRealTimePaymentsTransferServiceAsync.WithRawResponse
 
         fun checkDeposits(): CheckDepositServiceAsync.WithRawResponse
 

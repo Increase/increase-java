@@ -10,35 +10,37 @@ class CardReversalCreateParamsTest {
 
     @Test
     fun create() {
-      CardReversalCreateParams.builder()
-          .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
-          .amount(1L)
-          .build()
+        CardReversalCreateParams.builder()
+            .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
+            .amount(1L)
+            .build()
     }
 
     @Test
     fun body() {
-      val params = CardReversalCreateParams.builder()
-          .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
-          .amount(1L)
-          .build()
+        val params =
+            CardReversalCreateParams.builder()
+                .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
+                .amount(1L)
+                .build()
 
-      val body = params._body()
+        val body = params._body()
 
-      assertNotNull(body)
-      assertThat(body.cardPaymentId()).isEqualTo("card_payment_nd3k2kacrqjli8482ave")
-      assertThat(body.amount()).contains(1L)
+        assertNotNull(body)
+        assertThat(body.cardPaymentId()).isEqualTo("card_payment_nd3k2kacrqjli8482ave")
+        assertThat(body.amount()).contains(1L)
     }
 
     @Test
     fun bodyWithoutOptionalFields() {
-      val params = CardReversalCreateParams.builder()
-          .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
-          .build()
+        val params =
+            CardReversalCreateParams.builder()
+                .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
+                .build()
 
-      val body = params._body()
+        val body = params._body()
 
-      assertNotNull(body)
-      assertThat(body.cardPaymentId()).isEqualTo("card_payment_nd3k2kacrqjli8482ave")
+        assertNotNull(body)
+        assertThat(body.cardPaymentId()).isEqualTo("card_payment_nd3k2kacrqjli8482ave")
     }
 }

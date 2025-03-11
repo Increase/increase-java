@@ -12,41 +12,43 @@ import java.util.concurrent.CompletableFuture
 interface CardRefundServiceAsync {
 
     /**
-     * Returns a view of this service that provides access to raw HTTP responses for
-     * each method.
+     * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
 
     /**
-     * Simulates refunding a card transaction. The full value of the original sandbox
-     * transaction is refunded.
+     * Simulates refunding a card transaction. The full value of the original sandbox transaction is
+     * refunded.
      */
     fun create(params: CardRefundCreateParams): CompletableFuture<Transaction> =
-        create(
-          params, RequestOptions.none()
-        )
+        create(params, RequestOptions.none())
 
     /** @see [create] */
-    fun create(params: CardRefundCreateParams, requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<Transaction>
+    fun create(
+        params: CardRefundCreateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Transaction>
 
     /**
-     * A view of [CardRefundServiceAsync] that provides access to raw HTTP responses
-     * for each method.
+     * A view of [CardRefundServiceAsync] that provides access to raw HTTP responses for each
+     * method.
      */
     interface WithRawResponse {
 
         /**
-         * Returns a raw HTTP response for `post /simulations/card_refunds`, but is
-         * otherwise the same as [CardRefundServiceAsync.create].
+         * Returns a raw HTTP response for `post /simulations/card_refunds`, but is otherwise the
+         * same as [CardRefundServiceAsync.create].
          */
         @MustBeClosed
-        fun create(params: CardRefundCreateParams): CompletableFuture<HttpResponseFor<Transaction>> =
-            create(
-              params, RequestOptions.none()
-            )
+        fun create(
+            params: CardRefundCreateParams
+        ): CompletableFuture<HttpResponseFor<Transaction>> = create(params, RequestOptions.none())
 
         /** @see [create] */
         @MustBeClosed
-        fun create(params: CardRefundCreateParams, requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<HttpResponseFor<Transaction>>
+        fun create(
+            params: CardRefundCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<Transaction>>
     }
 }

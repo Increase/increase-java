@@ -14,97 +14,104 @@ import java.util.concurrent.CompletableFuture
 interface CheckDepositServiceAsync {
 
     /**
-     * Returns a view of this service that provides access to raw HTTP responses for
-     * each method.
+     * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
 
     /**
-     * Simulates the rejection of a [Check Deposit](#check-deposits) by Increase due to
-     * factors like poor image quality. This Check Deposit must first have a `status`
-     * of `pending`.
+     * Simulates the rejection of a [Check Deposit](#check-deposits) by Increase due to factors like
+     * poor image quality. This Check Deposit must first have a `status` of `pending`.
      */
     fun reject(params: CheckDepositRejectParams): CompletableFuture<CheckDeposit> =
-        reject(
-          params, RequestOptions.none()
-        )
+        reject(params, RequestOptions.none())
 
     /** @see [reject] */
-    fun reject(params: CheckDepositRejectParams, requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<CheckDeposit>
+    fun reject(
+        params: CheckDepositRejectParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<CheckDeposit>
 
     /**
-     * Simulates the return of a [Check Deposit](#check-deposits). This Check Deposit
-     * must first have a `status` of `submitted`.
+     * Simulates the return of a [Check Deposit](#check-deposits). This Check Deposit must first
+     * have a `status` of `submitted`.
      */
     fun return_(params: CheckDepositReturnParams): CompletableFuture<CheckDeposit> =
-        return_(
-          params, RequestOptions.none()
-        )
+        return_(params, RequestOptions.none())
 
     /** @see [return_] */
-    fun return_(params: CheckDepositReturnParams, requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<CheckDeposit>
+    fun return_(
+        params: CheckDepositReturnParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<CheckDeposit>
 
     /**
-     * Simulates the submission of a [Check Deposit](#check-deposits) to the Federal
-     * Reserve. This Check Deposit must first have a `status` of `pending`.
+     * Simulates the submission of a [Check Deposit](#check-deposits) to the Federal Reserve. This
+     * Check Deposit must first have a `status` of `pending`.
      */
     fun submit(params: CheckDepositSubmitParams): CompletableFuture<CheckDeposit> =
-        submit(
-          params, RequestOptions.none()
-        )
+        submit(params, RequestOptions.none())
 
     /** @see [submit] */
-    fun submit(params: CheckDepositSubmitParams, requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<CheckDeposit>
+    fun submit(
+        params: CheckDepositSubmitParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<CheckDeposit>
 
     /**
-     * A view of [CheckDepositServiceAsync] that provides access to raw HTTP responses
-     * for each method.
+     * A view of [CheckDepositServiceAsync] that provides access to raw HTTP responses for each
+     * method.
      */
     interface WithRawResponse {
 
         /**
-         * Returns a raw HTTP response for
-         * `post /simulations/check_deposits/{check_deposit_id}/reject`, but is otherwise
-         * the same as [CheckDepositServiceAsync.reject].
+         * Returns a raw HTTP response for `post
+         * /simulations/check_deposits/{check_deposit_id}/reject`, but is otherwise the same as
+         * [CheckDepositServiceAsync.reject].
          */
         @MustBeClosed
-        fun reject(params: CheckDepositRejectParams): CompletableFuture<HttpResponseFor<CheckDeposit>> =
-            reject(
-              params, RequestOptions.none()
-            )
+        fun reject(
+            params: CheckDepositRejectParams
+        ): CompletableFuture<HttpResponseFor<CheckDeposit>> = reject(params, RequestOptions.none())
 
         /** @see [reject] */
         @MustBeClosed
-        fun reject(params: CheckDepositRejectParams, requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<HttpResponseFor<CheckDeposit>>
+        fun reject(
+            params: CheckDepositRejectParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<CheckDeposit>>
 
         /**
-         * Returns a raw HTTP response for
-         * `post /simulations/check_deposits/{check_deposit_id}/return`, but is otherwise
-         * the same as [CheckDepositServiceAsync.return_].
+         * Returns a raw HTTP response for `post
+         * /simulations/check_deposits/{check_deposit_id}/return`, but is otherwise the same as
+         * [CheckDepositServiceAsync.return_].
          */
         @MustBeClosed
-        fun return_(params: CheckDepositReturnParams): CompletableFuture<HttpResponseFor<CheckDeposit>> =
-            return_(
-              params, RequestOptions.none()
-            )
+        fun return_(
+            params: CheckDepositReturnParams
+        ): CompletableFuture<HttpResponseFor<CheckDeposit>> = return_(params, RequestOptions.none())
 
         /** @see [return_] */
         @MustBeClosed
-        fun return_(params: CheckDepositReturnParams, requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<HttpResponseFor<CheckDeposit>>
+        fun return_(
+            params: CheckDepositReturnParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<CheckDeposit>>
 
         /**
-         * Returns a raw HTTP response for
-         * `post /simulations/check_deposits/{check_deposit_id}/submit`, but is otherwise
-         * the same as [CheckDepositServiceAsync.submit].
+         * Returns a raw HTTP response for `post
+         * /simulations/check_deposits/{check_deposit_id}/submit`, but is otherwise the same as
+         * [CheckDepositServiceAsync.submit].
          */
         @MustBeClosed
-        fun submit(params: CheckDepositSubmitParams): CompletableFuture<HttpResponseFor<CheckDeposit>> =
-            submit(
-              params, RequestOptions.none()
-            )
+        fun submit(
+            params: CheckDepositSubmitParams
+        ): CompletableFuture<HttpResponseFor<CheckDeposit>> = submit(params, RequestOptions.none())
 
         /** @see [submit] */
         @MustBeClosed
-        fun submit(params: CheckDepositSubmitParams, requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<HttpResponseFor<CheckDeposit>>
+        fun submit(
+            params: CheckDepositSubmitParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<CheckDeposit>>
     }
 }

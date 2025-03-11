@@ -9,20 +9,21 @@ class DeclinedTransactionRetrieveParamsTest {
 
     @Test
     fun create() {
-      DeclinedTransactionRetrieveParams.builder()
-          .declinedTransactionId("declined_transaction_17jbn0yyhvkt4v4ooym8")
-          .build()
+        DeclinedTransactionRetrieveParams.builder()
+            .declinedTransactionId("declined_transaction_17jbn0yyhvkt4v4ooym8")
+            .build()
     }
 
     @Test
     fun getPathParam() {
-      val params = DeclinedTransactionRetrieveParams.builder()
-          .declinedTransactionId("declined_transaction_17jbn0yyhvkt4v4ooym8")
-          .build()
-      assertThat(params).isNotNull
-      // path param "declinedTransactionId"
-      assertThat(params.getPathParam(0)).isEqualTo("declined_transaction_17jbn0yyhvkt4v4ooym8")
-      // out-of-bound path param
-      assertThat(params.getPathParam(1)).isEqualTo("")
+        val params =
+            DeclinedTransactionRetrieveParams.builder()
+                .declinedTransactionId("declined_transaction_17jbn0yyhvkt4v4ooym8")
+                .build()
+        assertThat(params).isNotNull
+        // path param "declinedTransactionId"
+        assertThat(params.getPathParam(0)).isEqualTo("declined_transaction_17jbn0yyhvkt4v4ooym8")
+        // out-of-bound path param
+        assertThat(params.getPathParam(1)).isEqualTo("")
     }
 }

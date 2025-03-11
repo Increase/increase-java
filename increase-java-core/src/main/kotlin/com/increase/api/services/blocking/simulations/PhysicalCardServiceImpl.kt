@@ -18,50 +18,57 @@ import com.increase.api.errors.IncreaseError
 import com.increase.api.models.physicalcards.PhysicalCard
 import com.increase.api.models.simulations.physicalcards.PhysicalCardAdvanceShipmentParams
 
-class PhysicalCardServiceImpl internal constructor(
-    private val clientOptions: ClientOptions,
+class PhysicalCardServiceImpl internal constructor(private val clientOptions: ClientOptions) :
+    PhysicalCardService {
 
-) : PhysicalCardService {
-
-    private val withRawResponse: PhysicalCardService.WithRawResponse by lazy { WithRawResponseImpl(clientOptions) }
+    private val withRawResponse: PhysicalCardService.WithRawResponse by lazy {
+        WithRawResponseImpl(clientOptions)
+    }
 
     override fun withRawResponse(): PhysicalCardService.WithRawResponse = withRawResponse
 
-    override fun advanceShipment(params: PhysicalCardAdvanceShipmentParams, requestOptions: RequestOptions): PhysicalCard =
+    override fun advanceShipment(
+        params: PhysicalCardAdvanceShipmentParams,
+        requestOptions: RequestOptions,
+    ): PhysicalCard =
         // post /simulations/physical_cards/{physical_card_id}/advance_shipment
         withRawResponse().advanceShipment(params, requestOptions).parse()
 
-    class WithRawResponseImpl internal constructor(
-        private val clientOptions: ClientOptions,
-
-    ) : PhysicalCardService.WithRawResponse {
+    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
+        PhysicalCardService.WithRawResponse {
 
         private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
-        private val advanceShipmentHandler: Handler<PhysicalCard> = jsonHandler<PhysicalCard>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val advanceShipmentHandler: Handler<PhysicalCard> =
+            jsonHandler<PhysicalCard>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-        override fun advanceShipment(params: PhysicalCardAdvanceShipmentParams, requestOptions: RequestOptions): HttpResponseFor<PhysicalCard> {
-          val request = HttpRequest.builder()
-            .method(HttpMethod.POST)
-            .addPathSegments("simulations", "physical_cards", params.getPathParam(0), "advance_shipment")
-            .body(json(clientOptions.jsonMapper, params._body()))
-            .build()
-            .prepare(clientOptions, params)
-          val requestOptions = requestOptions
-              .applyDefaults(RequestOptions.from(clientOptions))
-          val response = clientOptions.httpClient.execute(
-            request, requestOptions
-          )
-          return response.parseable {
-              response.use {
-                  advanceShipmentHandler.handle(it)
-              }
-              .also {
-                  if (requestOptions.responseValidation!!) {
-                    it.validate()
-                  }
-              }
-          }
+        override fun advanceShipment(
+            params: PhysicalCardAdvanceShipmentParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<PhysicalCard> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .addPathSegments(
+                        "simulations",
+                        "physical_cards",
+                        params.getPathParam(0),
+                        "advance_shipment",
+                    )
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { advanceShipmentHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
         }
     }
 }

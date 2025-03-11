@@ -5,7 +5,6 @@ package com.increase.api.services.blocking
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentCreateParams
-import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentListParams
 import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentRetrieveParams
 import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentUnenrollParams
 import org.junit.jupiter.api.Test
@@ -16,60 +15,73 @@ class IntrafiAccountEnrollmentServiceTest {
 
     @Test
     fun create() {
-      val client = IncreaseOkHttpClient.builder()
-          .baseUrl(TestServerExtension.BASE_URL)
-          .apiKey("My API Key")
-          .build()
-      val intrafiAccountEnrollmentService = client.intrafiAccountEnrollments()
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val intrafiAccountEnrollmentService = client.intrafiAccountEnrollments()
 
-      val intrafiAccountEnrollment = intrafiAccountEnrollmentService.create(IntrafiAccountEnrollmentCreateParams.builder()
-          .accountId("account_in71c4amph0vgo2qllky")
-          .emailAddress("user@example.com")
-          .build())
+        val intrafiAccountEnrollment =
+            intrafiAccountEnrollmentService.create(
+                IntrafiAccountEnrollmentCreateParams.builder()
+                    .accountId("account_in71c4amph0vgo2qllky")
+                    .emailAddress("user@example.com")
+                    .build()
+            )
 
-      intrafiAccountEnrollment.validate()
+        intrafiAccountEnrollment.validate()
     }
 
     @Test
     fun retrieve() {
-      val client = IncreaseOkHttpClient.builder()
-          .baseUrl(TestServerExtension.BASE_URL)
-          .apiKey("My API Key")
-          .build()
-      val intrafiAccountEnrollmentService = client.intrafiAccountEnrollments()
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val intrafiAccountEnrollmentService = client.intrafiAccountEnrollments()
 
-      val intrafiAccountEnrollment = intrafiAccountEnrollmentService.retrieve(IntrafiAccountEnrollmentRetrieveParams.builder()
-          .intrafiAccountEnrollmentId("intrafi_account_enrollment_w8l97znzreopkwf2tg75")
-          .build())
+        val intrafiAccountEnrollment =
+            intrafiAccountEnrollmentService.retrieve(
+                IntrafiAccountEnrollmentRetrieveParams.builder()
+                    .intrafiAccountEnrollmentId("intrafi_account_enrollment_w8l97znzreopkwf2tg75")
+                    .build()
+            )
 
-      intrafiAccountEnrollment.validate()
+        intrafiAccountEnrollment.validate()
     }
 
     @Test
     fun list() {
-      val client = IncreaseOkHttpClient.builder()
-          .baseUrl(TestServerExtension.BASE_URL)
-          .apiKey("My API Key")
-          .build()
-      val intrafiAccountEnrollmentService = client.intrafiAccountEnrollments()
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val intrafiAccountEnrollmentService = client.intrafiAccountEnrollments()
 
-      val page = intrafiAccountEnrollmentService.list()
+        val page = intrafiAccountEnrollmentService.list()
 
-      page.response().validate()
+        page.response().validate()
     }
 
     @Test
     fun unenroll() {
-      val client = IncreaseOkHttpClient.builder()
-          .baseUrl(TestServerExtension.BASE_URL)
-          .apiKey("My API Key")
-          .build()
-      val intrafiAccountEnrollmentService = client.intrafiAccountEnrollments()
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val intrafiAccountEnrollmentService = client.intrafiAccountEnrollments()
 
-      val intrafiAccountEnrollment = intrafiAccountEnrollmentService.unenroll(IntrafiAccountEnrollmentUnenrollParams.builder()
-          .intrafiAccountEnrollmentId("intrafi_account_enrollment_w8l97znzreopkwf2tg75")
-          .build())
+        val intrafiAccountEnrollment =
+            intrafiAccountEnrollmentService.unenroll(
+                IntrafiAccountEnrollmentUnenrollParams.builder()
+                    .intrafiAccountEnrollmentId("intrafi_account_enrollment_w8l97znzreopkwf2tg75")
+                    .build()
+            )
 
-      intrafiAccountEnrollment.validate()
+        intrafiAccountEnrollment.validate()
     }
 }

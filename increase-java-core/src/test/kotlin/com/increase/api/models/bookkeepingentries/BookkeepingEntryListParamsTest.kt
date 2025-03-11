@@ -10,31 +10,32 @@ class BookkeepingEntryListParamsTest {
 
     @Test
     fun create() {
-      BookkeepingEntryListParams.builder()
-          .accountId("account_id")
-          .cursor("cursor")
-          .limit(1L)
-          .build()
+        BookkeepingEntryListParams.builder()
+            .accountId("account_id")
+            .cursor("cursor")
+            .limit(1L)
+            .build()
     }
 
     @Test
     fun queryParams() {
-      val params = BookkeepingEntryListParams.builder()
-          .accountId("account_id")
-          .cursor("cursor")
-          .limit(1L)
-          .build()
-      val expected = QueryParams.builder()
-      expected.put("account_id", "account_id")
-      expected.put("cursor", "cursor")
-      expected.put("limit", "1")
-      assertThat(params._queryParams()).isEqualTo(expected.build())
+        val params =
+            BookkeepingEntryListParams.builder()
+                .accountId("account_id")
+                .cursor("cursor")
+                .limit(1L)
+                .build()
+        val expected = QueryParams.builder()
+        expected.put("account_id", "account_id")
+        expected.put("cursor", "cursor")
+        expected.put("limit", "1")
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
     @Test
     fun queryParamsWithoutOptionalFields() {
-      val params = BookkeepingEntryListParams.builder().build()
-      val expected = QueryParams.builder()
-      assertThat(params._queryParams()).isEqualTo(expected.build())
+        val params = BookkeepingEntryListParams.builder().build()
+        val expected = QueryParams.builder()
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 }

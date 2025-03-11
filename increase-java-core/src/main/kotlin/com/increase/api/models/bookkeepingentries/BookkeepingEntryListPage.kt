@@ -21,11 +21,11 @@ import java.util.stream.StreamSupport
 import kotlin.jvm.optionals.getOrNull
 
 /** List Bookkeeping Entries */
-class BookkeepingEntryListPage private constructor(
+class BookkeepingEntryListPage
+private constructor(
     private val bookkeepingEntriesService: BookkeepingEntryService,
     private val params: BookkeepingEntryListParams,
     private val response: Response,
-
 ) {
 
     fun response(): Response = response
@@ -35,35 +35,41 @@ class BookkeepingEntryListPage private constructor(
     fun nextCursor(): Optional<String> = response().nextCursor()
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return /* spotless:off */ other is BookkeepingEntryListPage && bookkeepingEntriesService == other.bookkeepingEntriesService && params == other.params && response == other.response /* spotless:on */
+        return /* spotless:off */ other is BookkeepingEntryListPage && bookkeepingEntriesService == other.bookkeepingEntriesService && params == other.params && response == other.response /* spotless:on */
     }
 
     override fun hashCode(): Int = /* spotless:off */ Objects.hash(bookkeepingEntriesService, params, response) /* spotless:on */
 
-    override fun toString() = "BookkeepingEntryListPage{bookkeepingEntriesService=$bookkeepingEntriesService, params=$params, response=$response}"
+    override fun toString() =
+        "BookkeepingEntryListPage{bookkeepingEntriesService=$bookkeepingEntriesService, params=$params, response=$response}"
 
     fun hasNextPage(): Boolean {
-      if (data().isEmpty()) {
-        return false;
-      }
+        if (data().isEmpty()) {
+            return false
+        }
 
-      return nextCursor().isPresent
+        return nextCursor().isPresent
     }
 
     fun getNextPageParams(): Optional<BookkeepingEntryListParams> {
-      if (!hasNextPage()) {
-        return Optional.empty()
-      }
+        if (!hasNextPage()) {
+            return Optional.empty()
+        }
 
-      return Optional.of(BookkeepingEntryListParams.builder().from(params).apply {nextCursor().ifPresent{ this.cursor(it) } }.build())
+        return Optional.of(
+            BookkeepingEntryListParams.builder()
+                .from(params)
+                .apply { nextCursor().ifPresent { this.cursor(it) } }
+                .build()
+        )
     }
 
     fun getNextPage(): Optional<BookkeepingEntryListPage> {
-      return getNextPageParams().map { bookkeepingEntriesService.list(it) }
+        return getNextPageParams().map { bookkeepingEntriesService.list(it) }
     }
 
     fun autoPager(): AutoPager = AutoPager(this)
@@ -71,25 +77,28 @@ class BookkeepingEntryListPage private constructor(
     companion object {
 
         @JvmStatic
-        fun of(bookkeepingEntriesService: BookkeepingEntryService, params: BookkeepingEntryListParams, response: Response) =
-            BookkeepingEntryListPage(
-              bookkeepingEntriesService,
-              params,
-              response,
-            )
+        fun of(
+            bookkeepingEntriesService: BookkeepingEntryService,
+            params: BookkeepingEntryListParams,
+            response: Response,
+        ) = BookkeepingEntryListPage(bookkeepingEntriesService, params, response)
     }
 
     @NoAutoDetect
-    class Response @JsonCreator constructor(
-        @JsonProperty("data") private val data: JsonField<List<BookkeepingEntry>> = JsonMissing.of(),
+    class Response
+    @JsonCreator
+    constructor(
+        @JsonProperty("data")
+        private val data: JsonField<List<BookkeepingEntry>> = JsonMissing.of(),
         @JsonProperty("next_cursor") private val nextCursor: JsonField<String> = JsonMissing.of(),
-        @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         fun data(): List<BookkeepingEntry> = data.getNullable("data") ?: listOf()
 
-        fun nextCursor(): Optional<String> = Optional.ofNullable(nextCursor.getNullable("next_cursor"))
+        fun nextCursor(): Optional<String> =
+            Optional.ofNullable(nextCursor.getNullable("next_cursor"))
 
         @JsonProperty("data")
         fun _data(): Optional<JsonField<List<BookkeepingEntry>>> = Optional.ofNullable(data)
@@ -103,39 +112,37 @@ class BookkeepingEntryListPage private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): Response =
-            apply {
-                if (validated) {
-                  return@apply
-                }
-
-                data().map { it.validate() }
-                nextCursor()
-                validated = true
+        fun validate(): Response = apply {
+            if (validated) {
+                return@apply
             }
+
+            data().map { it.validate() }
+            nextCursor()
+            validated = true
+        }
 
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return /* spotless:off */ other is Response && data == other.data && nextCursor == other.nextCursor && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Response && data == other.data && nextCursor == other.nextCursor && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         override fun hashCode(): Int = /* spotless:off */ Objects.hash(data, nextCursor, additionalProperties) /* spotless:on */
 
-        override fun toString() = "Response{data=$data, nextCursor=$nextCursor, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "Response{data=$data, nextCursor=$nextCursor, additionalProperties=$additionalProperties}"
 
         companion object {
 
             /**
-             * Returns a mutable builder for constructing an instance of
-             * [BookkeepingEntryListPage].
+             * Returns a mutable builder for constructing an instance of [BookkeepingEntryListPage].
              */
-            @JvmStatic
-            fun builder() = Builder()
+            @JvmStatic fun builder() = Builder()
         }
 
         class Builder {
@@ -145,12 +152,11 @@ class BookkeepingEntryListPage private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(page: Response) =
-                apply {
-                    this.data = page.data
-                    this.nextCursor = page.nextCursor
-                    this.additionalProperties.putAll(page.additionalProperties)
-                }
+            internal fun from(page: Response) = apply {
+                this.data = page.data
+                this.nextCursor = page.nextCursor
+                this.additionalProperties.putAll(page.additionalProperties)
+            }
 
             fun data(data: List<BookkeepingEntry>) = data(JsonField.of(data))
 
@@ -160,40 +166,30 @@ class BookkeepingEntryListPage private constructor(
 
             fun nextCursor(nextCursor: JsonField<String>) = apply { this.nextCursor = nextCursor }
 
-            fun putAdditionalProperty(key: String, value: JsonValue) =
-                apply {
-                    this.additionalProperties.put(key, value)
-                }
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                this.additionalProperties.put(key, value)
+            }
 
-            fun build() =
-                Response(
-                  data,
-                  nextCursor,
-                  additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: BookkeepingEntryListPage,
+    class AutoPager(private val firstPage: BookkeepingEntryListPage) : Iterable<BookkeepingEntry> {
 
-    ) : Iterable<BookkeepingEntry> {
-
-        override fun iterator(): Iterator<BookkeepingEntry> =
-            iterator {
-                var page = firstPage
-                var index = 0
-                while (true) {
-                  while (index < page.data().size) {
+        override fun iterator(): Iterator<BookkeepingEntry> = iterator {
+            var page = firstPage
+            var index = 0
+            while (true) {
+                while (index < page.data().size) {
                     yield(page.data()[index++])
-                  }
-                  page = page.getNextPage().getOrNull() ?: break
-                  index = 0
                 }
+                page = page.getNextPage().getOrNull() ?: break
+                index = 0
             }
+        }
 
         fun stream(): Stream<BookkeepingEntry> {
-          return StreamSupport.stream(spliterator(), false)
+            return StreamSupport.stream(spliterator(), false)
         }
     }
 }

@@ -10,31 +10,32 @@ class BookkeepingAccountListParamsTest {
 
     @Test
     fun create() {
-      BookkeepingAccountListParams.builder()
-          .cursor("cursor")
-          .idempotencyKey("x")
-          .limit(1L)
-          .build()
+        BookkeepingAccountListParams.builder()
+            .cursor("cursor")
+            .idempotencyKey("x")
+            .limit(1L)
+            .build()
     }
 
     @Test
     fun queryParams() {
-      val params = BookkeepingAccountListParams.builder()
-          .cursor("cursor")
-          .idempotencyKey("x")
-          .limit(1L)
-          .build()
-      val expected = QueryParams.builder()
-      expected.put("cursor", "cursor")
-      expected.put("idempotency_key", "x")
-      expected.put("limit", "1")
-      assertThat(params._queryParams()).isEqualTo(expected.build())
+        val params =
+            BookkeepingAccountListParams.builder()
+                .cursor("cursor")
+                .idempotencyKey("x")
+                .limit(1L)
+                .build()
+        val expected = QueryParams.builder()
+        expected.put("cursor", "cursor")
+        expected.put("idempotency_key", "x")
+        expected.put("limit", "1")
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
     @Test
     fun queryParamsWithoutOptionalFields() {
-      val params = BookkeepingAccountListParams.builder().build()
-      val expected = QueryParams.builder()
-      assertThat(params._queryParams()).isEqualTo(expected.build())
+        val params = BookkeepingAccountListParams.builder().build()
+        val expected = QueryParams.builder()
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 }

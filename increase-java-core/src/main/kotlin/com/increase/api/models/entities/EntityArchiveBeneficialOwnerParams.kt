@@ -20,30 +20,21 @@ import com.increase.api.core.toImmutable
 import java.util.Objects
 
 /** Archive a beneficial owner for a corporate Entity */
-class EntityArchiveBeneficialOwnerParams private constructor(
+class EntityArchiveBeneficialOwnerParams
+private constructor(
     private val entityId: String,
     private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-
 ) : Params {
 
-    /**
-     * The identifier of the Entity associated with the Beneficial Owner that is being
-     * archived.
-     */
+    /** The identifier of the Entity associated with the Beneficial Owner that is being archived. */
     fun entityId(): String = entityId
 
-    /**
-     * The identifying details of anyone controlling or owning 25% or more of the
-     * corporation.
-     */
+    /** The identifying details of anyone controlling or owning 25% or more of the corporation. */
     fun beneficialOwnerId(): String = body.beneficialOwnerId()
 
-    /**
-     * The identifying details of anyone controlling or owning 25% or more of the
-     * corporation.
-     */
+    /** The identifying details of anyone controlling or owning 25% or more of the corporation. */
     fun _beneficialOwnerId(): JsonField<String> = body._beneficialOwnerId()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
@@ -52,36 +43,37 @@ class EntityArchiveBeneficialOwnerParams private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    @JvmSynthetic
-    internal fun _body(): Body = body
+    @JvmSynthetic internal fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     fun getPathParam(index: Int): String {
-      return when (index) {
-          0 -> entityId
-          else -> ""
-      }
+        return when (index) {
+            0 -> entityId
+            else -> ""
+        }
     }
 
     @NoAutoDetect
-    class Body @JsonCreator private constructor(
-        @JsonProperty("beneficial_owner_id") @ExcludeMissing private val beneficialOwnerId: JsonField<String> = JsonMissing.of(),
-        @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-
+    class Body
+    @JsonCreator
+    private constructor(
+        @JsonProperty("beneficial_owner_id")
+        @ExcludeMissing
+        private val beneficialOwnerId: JsonField<String> = JsonMissing.of(),
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /**
-         * The identifying details of anyone controlling or owning 25% or more of the
-         * corporation.
+         * The identifying details of anyone controlling or owning 25% or more of the corporation.
          */
         fun beneficialOwnerId(): String = beneficialOwnerId.getRequired("beneficial_owner_id")
 
         /**
-         * The identifying details of anyone controlling or owning 25% or more of the
-         * corporation.
+         * The identifying details of anyone controlling or owning 25% or more of the corporation.
          */
         @JsonProperty("beneficial_owner_id")
         @ExcludeMissing
@@ -93,15 +85,14 @@ class EntityArchiveBeneficialOwnerParams private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): Body =
-            apply {
-                if (validated) {
-                  return@apply
-                }
-
-                beneficialOwnerId()
-                validated = true
+        fun validate(): Body = apply {
+            if (validated) {
+                return@apply
             }
+
+            beneficialOwnerId()
+            validated = true
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -111,13 +102,11 @@ class EntityArchiveBeneficialOwnerParams private constructor(
              * Returns a mutable builder for constructing an instance of [Body].
              *
              * The following fields are required:
-             *
              * ```java
              * .beneficialOwnerId()
              * ```
              */
-            @JvmStatic
-            fun builder() = Builder()
+            @JvmStatic fun builder() = Builder()
         }
 
         /** A builder for [Body]. */
@@ -127,67 +116,58 @@ class EntityArchiveBeneficialOwnerParams private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(body: Body) =
-                apply {
-                    beneficialOwnerId = body.beneficialOwnerId
-                    additionalProperties = body.additionalProperties.toMutableMap()
-                }
+            internal fun from(body: Body) = apply {
+                beneficialOwnerId = body.beneficialOwnerId
+                additionalProperties = body.additionalProperties.toMutableMap()
+            }
 
             /**
              * The identifying details of anyone controlling or owning 25% or more of the
              * corporation.
              */
-            fun beneficialOwnerId(beneficialOwnerId: String) = beneficialOwnerId(JsonField.of(beneficialOwnerId))
+            fun beneficialOwnerId(beneficialOwnerId: String) =
+                beneficialOwnerId(JsonField.of(beneficialOwnerId))
 
             /**
              * The identifying details of anyone controlling or owning 25% or more of the
              * corporation.
              */
-            fun beneficialOwnerId(beneficialOwnerId: JsonField<String>) =
-                apply {
-                    this.beneficialOwnerId = beneficialOwnerId
-                }
+            fun beneficialOwnerId(beneficialOwnerId: JsonField<String>) = apply {
+                this.beneficialOwnerId = beneficialOwnerId
+            }
 
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
-                apply {
-                    this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
-                }
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
 
-            fun putAdditionalProperty(key: String, value: JsonValue) =
-                apply {
-                    additionalProperties.put(key, value)
-                }
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
 
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                apply {
-                    this.additionalProperties.putAll(additionalProperties)
-                }
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
 
-            fun removeAdditionalProperty(key: String) =
-                apply {
-                    additionalProperties.remove(key)
-                }
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
 
-            fun removeAllAdditionalProperties(keys: Set<String>) =
-                apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
 
             fun build(): Body =
                 Body(
-                  checkRequired(
-                    "beneficialOwnerId", beneficialOwnerId
-                  ), additionalProperties.toImmutable()
+                    checkRequired("beneficialOwnerId", beneficialOwnerId),
+                    additionalProperties.toImmutable(),
                 )
         }
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return /* spotless:off */ other is Body && beneficialOwnerId == other.beneficialOwnerId && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && beneficialOwnerId == other.beneficialOwnerId && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -196,7 +176,8 @@ class EntityArchiveBeneficialOwnerParams private constructor(
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() = "Body{beneficialOwnerId=$beneficialOwnerId, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "Body{beneficialOwnerId=$beneficialOwnerId, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -208,14 +189,12 @@ class EntityArchiveBeneficialOwnerParams private constructor(
          * [EntityArchiveBeneficialOwnerParams].
          *
          * The following fields are required:
-         *
          * ```java
          * .entityId()
          * .beneficialOwnerId()
          * ```
          */
-        @JvmStatic
-        fun builder() = Builder()
+        @JvmStatic fun builder() = Builder()
     }
 
     /** A builder for [EntityArchiveBeneficialOwnerParams]. */
@@ -233,207 +212,165 @@ class EntityArchiveBeneficialOwnerParams private constructor(
                 entityId = entityArchiveBeneficialOwnerParams.entityId
                 body = entityArchiveBeneficialOwnerParams.body.toBuilder()
                 additionalHeaders = entityArchiveBeneficialOwnerParams.additionalHeaders.toBuilder()
-                additionalQueryParams = entityArchiveBeneficialOwnerParams.additionalQueryParams.toBuilder()
+                additionalQueryParams =
+                    entityArchiveBeneficialOwnerParams.additionalQueryParams.toBuilder()
             }
 
         /**
-         * The identifier of the Entity associated with the Beneficial Owner that is being
-         * archived.
+         * The identifier of the Entity associated with the Beneficial Owner that is being archived.
          */
-        fun entityId(entityId: String) =
-            apply {
-                this.entityId = entityId
-            }
+        fun entityId(entityId: String) = apply { this.entityId = entityId }
 
         /**
-         * The identifying details of anyone controlling or owning 25% or more of the
-         * corporation.
+         * The identifying details of anyone controlling or owning 25% or more of the corporation.
          */
-        fun beneficialOwnerId(beneficialOwnerId: String) =
-            apply {
-                body.beneficialOwnerId(beneficialOwnerId)
-            }
+        fun beneficialOwnerId(beneficialOwnerId: String) = apply {
+            body.beneficialOwnerId(beneficialOwnerId)
+        }
 
         /**
-         * The identifying details of anyone controlling or owning 25% or more of the
-         * corporation.
+         * The identifying details of anyone controlling or owning 25% or more of the corporation.
          */
-        fun beneficialOwnerId(beneficialOwnerId: JsonField<String>) =
-            apply {
-                body.beneficialOwnerId(beneficialOwnerId)
-            }
+        fun beneficialOwnerId(beneficialOwnerId: JsonField<String>) = apply {
+            body.beneficialOwnerId(beneficialOwnerId)
+        }
 
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.additionalProperties(additionalBodyProperties)
-            }
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
 
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) =
-            apply {
-                body.putAdditionalProperty(
-                  key, value
-                )
-            }
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
                 body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) =
-            apply {
-                body.removeAdditionalProperty(key)
-            }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) =
-            apply {
-                body.removeAllAdditionalProperties(keys)
-            }
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
 
-        fun additionalHeaders(additionalHeaders: Headers) =
-            apply {
-                this.additionalHeaders.clear()
-                putAllAdditionalHeaders(additionalHeaders)
-            }
+        fun additionalHeaders(additionalHeaders: Headers) = apply {
+            this.additionalHeaders.clear()
+            putAllAdditionalHeaders(additionalHeaders)
+        }
 
-        fun additionalHeaders(additionalHeaders: Map<String, Iterable<String>>) =
-            apply {
-                this.additionalHeaders.clear()
-                putAllAdditionalHeaders(additionalHeaders)
-            }
+        fun additionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
+            this.additionalHeaders.clear()
+            putAllAdditionalHeaders(additionalHeaders)
+        }
 
-        fun putAdditionalHeader(name: String, value: String) =
-            apply {
-                additionalHeaders.put(name, value)
-            }
+        fun putAdditionalHeader(name: String, value: String) = apply {
+            additionalHeaders.put(name, value)
+        }
 
-        fun putAdditionalHeaders(name: String, values: Iterable<String>) =
-            apply {
-                additionalHeaders.put(name, values)
-            }
+        fun putAdditionalHeaders(name: String, values: Iterable<String>) = apply {
+            additionalHeaders.put(name, values)
+        }
 
-        fun putAllAdditionalHeaders(additionalHeaders: Headers) =
-            apply {
-                this.additionalHeaders.putAll(additionalHeaders)
-            }
+        fun putAllAdditionalHeaders(additionalHeaders: Headers) = apply {
+            this.additionalHeaders.putAll(additionalHeaders)
+        }
 
-        fun putAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) =
-            apply {
-                this.additionalHeaders.putAll(additionalHeaders)
-            }
+        fun putAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
+            this.additionalHeaders.putAll(additionalHeaders)
+        }
 
-        fun replaceAdditionalHeaders(name: String, value: String) =
-            apply {
-                additionalHeaders.replace(name, value)
-            }
+        fun replaceAdditionalHeaders(name: String, value: String) = apply {
+            additionalHeaders.replace(name, value)
+        }
 
-        fun replaceAdditionalHeaders(name: String, values: Iterable<String>) =
-            apply {
-                additionalHeaders.replace(name, values)
-            }
+        fun replaceAdditionalHeaders(name: String, values: Iterable<String>) = apply {
+            additionalHeaders.replace(name, values)
+        }
 
-        fun replaceAllAdditionalHeaders(additionalHeaders: Headers) =
-            apply {
-                this.additionalHeaders.replaceAll(additionalHeaders)
-            }
+        fun replaceAllAdditionalHeaders(additionalHeaders: Headers) = apply {
+            this.additionalHeaders.replaceAll(additionalHeaders)
+        }
 
-        fun replaceAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) =
-            apply {
-                this.additionalHeaders.replaceAll(additionalHeaders)
-            }
+        fun replaceAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
+            this.additionalHeaders.replaceAll(additionalHeaders)
+        }
 
-        fun removeAdditionalHeaders(name: String) =
-            apply {
-                additionalHeaders.remove(name)
-            }
+        fun removeAdditionalHeaders(name: String) = apply { additionalHeaders.remove(name) }
 
-        fun removeAllAdditionalHeaders(names: Set<String>) =
-            apply {
-                additionalHeaders.removeAll(names)
-            }
+        fun removeAllAdditionalHeaders(names: Set<String>) = apply {
+            additionalHeaders.removeAll(names)
+        }
 
-        fun additionalQueryParams(additionalQueryParams: QueryParams) =
-            apply {
-                this.additionalQueryParams.clear()
-                putAllAdditionalQueryParams(additionalQueryParams)
-            }
+        fun additionalQueryParams(additionalQueryParams: QueryParams) = apply {
+            this.additionalQueryParams.clear()
+            putAllAdditionalQueryParams(additionalQueryParams)
+        }
 
-        fun additionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
-            apply {
-                this.additionalQueryParams.clear()
-                putAllAdditionalQueryParams(additionalQueryParams)
-            }
+        fun additionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) = apply {
+            this.additionalQueryParams.clear()
+            putAllAdditionalQueryParams(additionalQueryParams)
+        }
 
-        fun putAdditionalQueryParam(key: String, value: String) =
-            apply {
-                additionalQueryParams.put(key, value)
-            }
+        fun putAdditionalQueryParam(key: String, value: String) = apply {
+            additionalQueryParams.put(key, value)
+        }
 
-        fun putAdditionalQueryParams(key: String, values: Iterable<String>) =
-            apply {
-                additionalQueryParams.put(key, values)
-            }
+        fun putAdditionalQueryParams(key: String, values: Iterable<String>) = apply {
+            additionalQueryParams.put(key, values)
+        }
 
-        fun putAllAdditionalQueryParams(additionalQueryParams: QueryParams) =
-            apply {
-                this.additionalQueryParams.putAll(additionalQueryParams)
-            }
+        fun putAllAdditionalQueryParams(additionalQueryParams: QueryParams) = apply {
+            this.additionalQueryParams.putAll(additionalQueryParams)
+        }
 
         fun putAllAdditionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
             apply {
                 this.additionalQueryParams.putAll(additionalQueryParams)
             }
 
-        fun replaceAdditionalQueryParams(key: String, value: String) =
-            apply {
-                additionalQueryParams.replace(key, value)
-            }
+        fun replaceAdditionalQueryParams(key: String, value: String) = apply {
+            additionalQueryParams.replace(key, value)
+        }
 
-        fun replaceAdditionalQueryParams(key: String, values: Iterable<String>) =
-            apply {
-                additionalQueryParams.replace(key, values)
-            }
+        fun replaceAdditionalQueryParams(key: String, values: Iterable<String>) = apply {
+            additionalQueryParams.replace(key, values)
+        }
 
-        fun replaceAllAdditionalQueryParams(additionalQueryParams: QueryParams) =
-            apply {
-                this.additionalQueryParams.replaceAll(additionalQueryParams)
-            }
+        fun replaceAllAdditionalQueryParams(additionalQueryParams: QueryParams) = apply {
+            this.additionalQueryParams.replaceAll(additionalQueryParams)
+        }
 
         fun replaceAllAdditionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
             apply {
                 this.additionalQueryParams.replaceAll(additionalQueryParams)
             }
 
-        fun removeAdditionalQueryParams(key: String) =
-            apply {
-                additionalQueryParams.remove(key)
-            }
+        fun removeAdditionalQueryParams(key: String) = apply { additionalQueryParams.remove(key) }
 
-        fun removeAllAdditionalQueryParams(keys: Set<String>) =
-            apply {
-                additionalQueryParams.removeAll(keys)
-            }
+        fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
+            additionalQueryParams.removeAll(keys)
+        }
 
         fun build(): EntityArchiveBeneficialOwnerParams =
             EntityArchiveBeneficialOwnerParams(
-              checkRequired(
-                "entityId", entityId
-              ),
-              body.build(),
-              additionalHeaders.build(),
-              additionalQueryParams.build(),
+                checkRequired("entityId", entityId),
+                body.build(),
+                additionalHeaders.build(),
+                additionalQueryParams.build(),
             )
     }
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return /* spotless:off */ other is EntityArchiveBeneficialOwnerParams && entityId == other.entityId && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return /* spotless:off */ other is EntityArchiveBeneficialOwnerParams && entityId == other.entityId && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
     override fun hashCode(): Int = /* spotless:off */ Objects.hash(entityId, body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
-    override fun toString() = "EntityArchiveBeneficialOwnerParams{entityId=$entityId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+    override fun toString() =
+        "EntityArchiveBeneficialOwnerParams{entityId=$entityId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

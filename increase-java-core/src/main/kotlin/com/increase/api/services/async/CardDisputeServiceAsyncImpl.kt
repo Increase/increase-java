@@ -17,114 +17,140 @@ import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
 import com.increase.api.models.carddisputes.CardDispute
 import com.increase.api.models.carddisputes.CardDisputeCreateParams
-import com.increase.api.models.carddisputes.CardDisputeListPage
 import com.increase.api.models.carddisputes.CardDisputeListPageAsync
 import com.increase.api.models.carddisputes.CardDisputeListParams
 import com.increase.api.models.carddisputes.CardDisputeRetrieveParams
 import java.util.concurrent.CompletableFuture
 
-class CardDisputeServiceAsyncImpl internal constructor(
-    private val clientOptions: ClientOptions,
+class CardDisputeServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
+    CardDisputeServiceAsync {
 
-) : CardDisputeServiceAsync {
-
-    private val withRawResponse: CardDisputeServiceAsync.WithRawResponse by lazy { WithRawResponseImpl(clientOptions) }
+    private val withRawResponse: CardDisputeServiceAsync.WithRawResponse by lazy {
+        WithRawResponseImpl(clientOptions)
+    }
 
     override fun withRawResponse(): CardDisputeServiceAsync.WithRawResponse = withRawResponse
 
-    override fun create(params: CardDisputeCreateParams, requestOptions: RequestOptions): CompletableFuture<CardDispute> =
+    override fun create(
+        params: CardDisputeCreateParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<CardDispute> =
         // post /card_disputes
         withRawResponse().create(params, requestOptions).thenApply { it.parse() }
 
-    override fun retrieve(params: CardDisputeRetrieveParams, requestOptions: RequestOptions): CompletableFuture<CardDispute> =
+    override fun retrieve(
+        params: CardDisputeRetrieveParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<CardDispute> =
         // get /card_disputes/{card_dispute_id}
         withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
 
-    override fun list(params: CardDisputeListParams, requestOptions: RequestOptions): CompletableFuture<CardDisputeListPageAsync> =
+    override fun list(
+        params: CardDisputeListParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<CardDisputeListPageAsync> =
         // get /card_disputes
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
-    class WithRawResponseImpl internal constructor(
-        private val clientOptions: ClientOptions,
-
-    ) : CardDisputeServiceAsync.WithRawResponse {
+    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
+        CardDisputeServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
-        private val createHandler: Handler<CardDispute> = jsonHandler<CardDispute>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val createHandler: Handler<CardDispute> =
+            jsonHandler<CardDispute>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-        override fun create(params: CardDisputeCreateParams, requestOptions: RequestOptions): CompletableFuture<HttpResponseFor<CardDispute>> {
-          val request = HttpRequest.builder()
-            .method(HttpMethod.POST)
-            .addPathSegments("card_disputes")
-            .body(json(clientOptions.jsonMapper, params._body()))
-            .build()
-            .prepareAsync(clientOptions, params)
-          val requestOptions = requestOptions
-              .applyDefaults(RequestOptions.from(clientOptions))
-          return request.thenComposeAsync { clientOptions.httpClient.executeAsync(
-            it, requestOptions
-          ) }.thenApply { response -> response.parseable {
-              response.use {
-                  createHandler.handle(it)
-              }
-              .also {
-                  if (requestOptions.responseValidation!!) {
-                    it.validate()
-                  }
-              }
-          } }
+        override fun create(
+            params: CardDisputeCreateParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<CardDispute>> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .addPathSegments("card_disputes")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    response.parseable {
+                        response
+                            .use { createHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
         }
 
-        private val retrieveHandler: Handler<CardDispute> = jsonHandler<CardDispute>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val retrieveHandler: Handler<CardDispute> =
+            jsonHandler<CardDispute>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-        override fun retrieve(params: CardDisputeRetrieveParams, requestOptions: RequestOptions): CompletableFuture<HttpResponseFor<CardDispute>> {
-          val request = HttpRequest.builder()
-            .method(HttpMethod.GET)
-            .addPathSegments("card_disputes", params.getPathParam(0))
-            .build()
-            .prepareAsync(clientOptions, params)
-          val requestOptions = requestOptions
-              .applyDefaults(RequestOptions.from(clientOptions))
-          return request.thenComposeAsync { clientOptions.httpClient.executeAsync(
-            it, requestOptions
-          ) }.thenApply { response -> response.parseable {
-              response.use {
-                  retrieveHandler.handle(it)
-              }
-              .also {
-                  if (requestOptions.responseValidation!!) {
-                    it.validate()
-                  }
-              }
-          } }
+        override fun retrieve(
+            params: CardDisputeRetrieveParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<CardDispute>> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .addPathSegments("card_disputes", params.getPathParam(0))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    response.parseable {
+                        response
+                            .use { retrieveHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
         }
 
-        private val listHandler: Handler<CardDisputeListPageAsync.Response> = jsonHandler<CardDisputeListPageAsync.Response>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val listHandler: Handler<CardDisputeListPageAsync.Response> =
+            jsonHandler<CardDisputeListPageAsync.Response>(clientOptions.jsonMapper)
+                .withErrorHandler(errorHandler)
 
-        override fun list(params: CardDisputeListParams, requestOptions: RequestOptions): CompletableFuture<HttpResponseFor<CardDisputeListPageAsync>> {
-          val request = HttpRequest.builder()
-            .method(HttpMethod.GET)
-            .addPathSegments("card_disputes")
-            .build()
-            .prepareAsync(clientOptions, params)
-          val requestOptions = requestOptions
-              .applyDefaults(RequestOptions.from(clientOptions))
-          return request.thenComposeAsync { clientOptions.httpClient.executeAsync(
-            it, requestOptions
-          ) }.thenApply { response -> response.parseable {
-              response.use {
-                  listHandler.handle(it)
-              }
-              .also {
-                  if (requestOptions.responseValidation!!) {
-                    it.validate()
-                  }
-              }
-              .let {
-                  CardDisputeListPageAsync.of(CardDisputeServiceAsyncImpl(clientOptions), params, it)
-              }
-          } }
+        override fun list(
+            params: CardDisputeListParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<CardDisputeListPageAsync>> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .addPathSegments("card_disputes")
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    response.parseable {
+                        response
+                            .use { listHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                            .let {
+                                CardDisputeListPageAsync.of(
+                                    CardDisputeServiceAsyncImpl(clientOptions),
+                                    params,
+                                    it,
+                                )
+                            }
+                    }
+                }
         }
     }
 }

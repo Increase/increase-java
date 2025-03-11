@@ -23,29 +23,58 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * ACH Prenotifications are one way you can verify account and routing numbers by
- * Automated Clearing House (ACH).
+ * ACH Prenotifications are one way you can verify account and routing numbers by Automated Clearing
+ * House (ACH).
  */
 @NoAutoDetect
-class AchPrenotification @JsonCreator private constructor(
+class AchPrenotification
+@JsonCreator
+private constructor(
     @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("account_number") @ExcludeMissing private val accountNumber: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("addendum") @ExcludeMissing private val addendum: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("company_descriptive_date") @ExcludeMissing private val companyDescriptiveDate: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("company_discretionary_data") @ExcludeMissing private val companyDiscretionaryData: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("company_entry_description") @ExcludeMissing private val companyEntryDescription: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("company_name") @ExcludeMissing private val companyName: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("created_at") @ExcludeMissing private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("credit_debit_indicator") @ExcludeMissing private val creditDebitIndicator: JsonField<CreditDebitIndicator> = JsonMissing.of(),
-    @JsonProperty("effective_date") @ExcludeMissing private val effectiveDate: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("idempotency_key") @ExcludeMissing private val idempotencyKey: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("notifications_of_change") @ExcludeMissing private val notificationsOfChange: JsonField<List<NotificationsOfChange>> = JsonMissing.of(),
-    @JsonProperty("prenotification_return") @ExcludeMissing private val prenotificationReturn: JsonField<PrenotificationReturn> = JsonMissing.of(),
-    @JsonProperty("routing_number") @ExcludeMissing private val routingNumber: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("status") @ExcludeMissing private val status: JsonField<Status> = JsonMissing.of(),
+    @JsonProperty("account_number")
+    @ExcludeMissing
+    private val accountNumber: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("addendum")
+    @ExcludeMissing
+    private val addendum: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("company_descriptive_date")
+    @ExcludeMissing
+    private val companyDescriptiveDate: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("company_discretionary_data")
+    @ExcludeMissing
+    private val companyDiscretionaryData: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("company_entry_description")
+    @ExcludeMissing
+    private val companyEntryDescription: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("company_name")
+    @ExcludeMissing
+    private val companyName: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("credit_debit_indicator")
+    @ExcludeMissing
+    private val creditDebitIndicator: JsonField<CreditDebitIndicator> = JsonMissing.of(),
+    @JsonProperty("effective_date")
+    @ExcludeMissing
+    private val effectiveDate: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("idempotency_key")
+    @ExcludeMissing
+    private val idempotencyKey: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("notifications_of_change")
+    @ExcludeMissing
+    private val notificationsOfChange: JsonField<List<NotificationsOfChange>> = JsonMissing.of(),
+    @JsonProperty("prenotification_return")
+    @ExcludeMissing
+    private val prenotificationReturn: JsonField<PrenotificationReturn> = JsonMissing.of(),
+    @JsonProperty("routing_number")
+    @ExcludeMissing
+    private val routingNumber: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("status")
+    @ExcludeMissing
+    private val status: JsonField<Status> = JsonMissing.of(),
     @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-
 ) {
 
     /** The ACH Prenotification's identifier. */
@@ -58,44 +87,53 @@ class AchPrenotification @JsonCreator private constructor(
     fun addendum(): Optional<String> = Optional.ofNullable(addendum.getNullable("addendum"))
 
     /** The description of the date of the notification. */
-    fun companyDescriptiveDate(): Optional<String> = Optional.ofNullable(companyDescriptiveDate.getNullable("company_descriptive_date"))
+    fun companyDescriptiveDate(): Optional<String> =
+        Optional.ofNullable(companyDescriptiveDate.getNullable("company_descriptive_date"))
 
     /** Optional data associated with the notification. */
-    fun companyDiscretionaryData(): Optional<String> = Optional.ofNullable(companyDiscretionaryData.getNullable("company_discretionary_data"))
+    fun companyDiscretionaryData(): Optional<String> =
+        Optional.ofNullable(companyDiscretionaryData.getNullable("company_discretionary_data"))
 
     /** The description of the notification. */
-    fun companyEntryDescription(): Optional<String> = Optional.ofNullable(companyEntryDescription.getNullable("company_entry_description"))
+    fun companyEntryDescription(): Optional<String> =
+        Optional.ofNullable(companyEntryDescription.getNullable("company_entry_description"))
 
     /** The name by which you know the company. */
-    fun companyName(): Optional<String> = Optional.ofNullable(companyName.getNullable("company_name"))
+    fun companyName(): Optional<String> =
+        Optional.ofNullable(companyName.getNullable("company_name"))
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
-     * the prenotification was created.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+     * prenotification was created.
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
     /** If the notification is for a future credit or debit. */
-    fun creditDebitIndicator(): Optional<CreditDebitIndicator> = Optional.ofNullable(creditDebitIndicator.getNullable("credit_debit_indicator"))
+    fun creditDebitIndicator(): Optional<CreditDebitIndicator> =
+        Optional.ofNullable(creditDebitIndicator.getNullable("credit_debit_indicator"))
 
     /** The effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. */
-    fun effectiveDate(): Optional<OffsetDateTime> = Optional.ofNullable(effectiveDate.getNullable("effective_date"))
+    fun effectiveDate(): Optional<OffsetDateTime> =
+        Optional.ofNullable(effectiveDate.getNullable("effective_date"))
 
     /**
-     * The idempotency key you chose for this object. This value is unique across
-     * Increase and is used to ensure that a request is only processed once. Learn more
-     * about [idempotency](https://increase.com/documentation/idempotency-keys).
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
      */
-    fun idempotencyKey(): Optional<String> = Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
+    fun idempotencyKey(): Optional<String> =
+        Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
 
     /**
-     * If the receiving bank notifies that future transfers should use different
-     * details, this will contain those details.
+     * If the receiving bank notifies that future transfers should use different details, this will
+     * contain those details.
      */
-    fun notificationsOfChange(): List<NotificationsOfChange> = notificationsOfChange.getRequired("notifications_of_change")
+    fun notificationsOfChange(): List<NotificationsOfChange> =
+        notificationsOfChange.getRequired("notifications_of_change")
 
     /** If your prenotification is returned, this will contain details of the return. */
-    fun prenotificationReturn(): Optional<PrenotificationReturn> = Optional.ofNullable(prenotificationReturn.getNullable("prenotification_return"))
+    fun prenotificationReturn(): Optional<PrenotificationReturn> =
+        Optional.ofNullable(prenotificationReturn.getNullable("prenotification_return"))
 
     /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
     fun routingNumber(): String = routingNumber.getRequired("routing_number")
@@ -110,9 +148,7 @@ class AchPrenotification @JsonCreator private constructor(
     fun type(): Type = type.getRequired("type")
 
     /** The ACH Prenotification's identifier. */
-    @JsonProperty("id")
-    @ExcludeMissing
-    fun _id(): JsonField<String> = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /** The destination account number. */
     @JsonProperty("account_number")
@@ -120,9 +156,7 @@ class AchPrenotification @JsonCreator private constructor(
     fun _accountNumber(): JsonField<String> = accountNumber
 
     /** Additional information for the recipient. */
-    @JsonProperty("addendum")
-    @ExcludeMissing
-    fun _addendum(): JsonField<String> = addendum
+    @JsonProperty("addendum") @ExcludeMissing fun _addendum(): JsonField<String> = addendum
 
     /** The description of the date of the notification. */
     @JsonProperty("company_descriptive_date")
@@ -145,8 +179,8 @@ class AchPrenotification @JsonCreator private constructor(
     fun _companyName(): JsonField<String> = companyName
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
-     * the prenotification was created.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+     * prenotification was created.
      */
     @JsonProperty("created_at")
     @ExcludeMissing
@@ -163,17 +197,17 @@ class AchPrenotification @JsonCreator private constructor(
     fun _effectiveDate(): JsonField<OffsetDateTime> = effectiveDate
 
     /**
-     * The idempotency key you chose for this object. This value is unique across
-     * Increase and is used to ensure that a request is only processed once. Learn more
-     * about [idempotency](https://increase.com/documentation/idempotency-keys).
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
      */
     @JsonProperty("idempotency_key")
     @ExcludeMissing
     fun _idempotencyKey(): JsonField<String> = idempotencyKey
 
     /**
-     * If the receiving bank notifies that future transfers should use different
-     * details, this will contain those details.
+     * If the receiving bank notifies that future transfers should use different details, this will
+     * contain those details.
      */
     @JsonProperty("notifications_of_change")
     @ExcludeMissing
@@ -190,17 +224,13 @@ class AchPrenotification @JsonCreator private constructor(
     fun _routingNumber(): JsonField<String> = routingNumber
 
     /** The lifecycle status of the ACH Prenotification. */
-    @JsonProperty("status")
-    @ExcludeMissing
-    fun _status(): JsonField<Status> = status
+    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `ach_prenotification`.
      */
-    @JsonProperty("type")
-    @ExcludeMissing
-    fun _type(): JsonField<Type> = type
+    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -208,30 +238,29 @@ class AchPrenotification @JsonCreator private constructor(
 
     private var validated: Boolean = false
 
-    fun validate(): AchPrenotification =
-        apply {
-            if (validated) {
-              return@apply
-            }
-
-            id()
-            accountNumber()
-            addendum()
-            companyDescriptiveDate()
-            companyDiscretionaryData()
-            companyEntryDescription()
-            companyName()
-            createdAt()
-            creditDebitIndicator()
-            effectiveDate()
-            idempotencyKey()
-            notificationsOfChange().forEach { it.validate() }
-            prenotificationReturn().ifPresent { it.validate() }
-            routingNumber()
-            status()
-            type()
-            validated = true
+    fun validate(): AchPrenotification = apply {
+        if (validated) {
+            return@apply
         }
+
+        id()
+        accountNumber()
+        addendum()
+        companyDescriptiveDate()
+        companyDiscretionaryData()
+        companyEntryDescription()
+        companyName()
+        createdAt()
+        creditDebitIndicator()
+        effectiveDate()
+        idempotencyKey()
+        notificationsOfChange().forEach { it.validate() }
+        prenotificationReturn().ifPresent { it.validate() }
+        routingNumber()
+        status()
+        type()
+        validated = true
+    }
 
     fun toBuilder() = Builder().from(this)
 
@@ -241,7 +270,6 @@ class AchPrenotification @JsonCreator private constructor(
          * Returns a mutable builder for constructing an instance of [AchPrenotification].
          *
          * The following fields are required:
-         *
          * ```java
          * .id()
          * .accountNumber()
@@ -261,8 +289,7 @@ class AchPrenotification @JsonCreator private constructor(
          * .type()
          * ```
          */
-        @JvmStatic
-        fun builder() = Builder()
+        @JvmStatic fun builder() = Builder()
     }
 
     /** A builder for [AchPrenotification]. */
@@ -287,44 +314,40 @@ class AchPrenotification @JsonCreator private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(achPrenotification: AchPrenotification) =
-            apply {
-                id = achPrenotification.id
-                accountNumber = achPrenotification.accountNumber
-                addendum = achPrenotification.addendum
-                companyDescriptiveDate = achPrenotification.companyDescriptiveDate
-                companyDiscretionaryData = achPrenotification.companyDiscretionaryData
-                companyEntryDescription = achPrenotification.companyEntryDescription
-                companyName = achPrenotification.companyName
-                createdAt = achPrenotification.createdAt
-                creditDebitIndicator = achPrenotification.creditDebitIndicator
-                effectiveDate = achPrenotification.effectiveDate
-                idempotencyKey = achPrenotification.idempotencyKey
-                notificationsOfChange = achPrenotification.notificationsOfChange.map { it.toMutableList() }
-                prenotificationReturn = achPrenotification.prenotificationReturn
-                routingNumber = achPrenotification.routingNumber
-                status = achPrenotification.status
-                type = achPrenotification.type
-                additionalProperties = achPrenotification.additionalProperties.toMutableMap()
-            }
+        internal fun from(achPrenotification: AchPrenotification) = apply {
+            id = achPrenotification.id
+            accountNumber = achPrenotification.accountNumber
+            addendum = achPrenotification.addendum
+            companyDescriptiveDate = achPrenotification.companyDescriptiveDate
+            companyDiscretionaryData = achPrenotification.companyDiscretionaryData
+            companyEntryDescription = achPrenotification.companyEntryDescription
+            companyName = achPrenotification.companyName
+            createdAt = achPrenotification.createdAt
+            creditDebitIndicator = achPrenotification.creditDebitIndicator
+            effectiveDate = achPrenotification.effectiveDate
+            idempotencyKey = achPrenotification.idempotencyKey
+            notificationsOfChange =
+                achPrenotification.notificationsOfChange.map { it.toMutableList() }
+            prenotificationReturn = achPrenotification.prenotificationReturn
+            routingNumber = achPrenotification.routingNumber
+            status = achPrenotification.status
+            type = achPrenotification.type
+            additionalProperties = achPrenotification.additionalProperties.toMutableMap()
+        }
 
         /** The ACH Prenotification's identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
         /** The ACH Prenotification's identifier. */
-        fun id(id: JsonField<String>) =
-            apply {
-                this.id = id
-            }
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The destination account number. */
         fun accountNumber(accountNumber: String) = accountNumber(JsonField.of(accountNumber))
 
         /** The destination account number. */
-        fun accountNumber(accountNumber: JsonField<String>) =
-            apply {
-                this.accountNumber = accountNumber
-            }
+        fun accountNumber(accountNumber: JsonField<String>) = apply {
+            this.accountNumber = accountNumber
+        }
 
         /** Additional information for the recipient. */
         fun addendum(addendum: String?) = addendum(JsonField.ofNullable(addendum))
@@ -333,46 +356,46 @@ class AchPrenotification @JsonCreator private constructor(
         fun addendum(addendum: Optional<String>) = addendum(addendum.getOrNull())
 
         /** Additional information for the recipient. */
-        fun addendum(addendum: JsonField<String>) =
-            apply {
-                this.addendum = addendum
-            }
+        fun addendum(addendum: JsonField<String>) = apply { this.addendum = addendum }
 
         /** The description of the date of the notification. */
-        fun companyDescriptiveDate(companyDescriptiveDate: String?) = companyDescriptiveDate(JsonField.ofNullable(companyDescriptiveDate))
+        fun companyDescriptiveDate(companyDescriptiveDate: String?) =
+            companyDescriptiveDate(JsonField.ofNullable(companyDescriptiveDate))
 
         /** The description of the date of the notification. */
-        fun companyDescriptiveDate(companyDescriptiveDate: Optional<String>) = companyDescriptiveDate(companyDescriptiveDate.getOrNull())
+        fun companyDescriptiveDate(companyDescriptiveDate: Optional<String>) =
+            companyDescriptiveDate(companyDescriptiveDate.getOrNull())
 
         /** The description of the date of the notification. */
-        fun companyDescriptiveDate(companyDescriptiveDate: JsonField<String>) =
-            apply {
-                this.companyDescriptiveDate = companyDescriptiveDate
-            }
+        fun companyDescriptiveDate(companyDescriptiveDate: JsonField<String>) = apply {
+            this.companyDescriptiveDate = companyDescriptiveDate
+        }
 
         /** Optional data associated with the notification. */
-        fun companyDiscretionaryData(companyDiscretionaryData: String?) = companyDiscretionaryData(JsonField.ofNullable(companyDiscretionaryData))
+        fun companyDiscretionaryData(companyDiscretionaryData: String?) =
+            companyDiscretionaryData(JsonField.ofNullable(companyDiscretionaryData))
 
         /** Optional data associated with the notification. */
-        fun companyDiscretionaryData(companyDiscretionaryData: Optional<String>) = companyDiscretionaryData(companyDiscretionaryData.getOrNull())
+        fun companyDiscretionaryData(companyDiscretionaryData: Optional<String>) =
+            companyDiscretionaryData(companyDiscretionaryData.getOrNull())
 
         /** Optional data associated with the notification. */
-        fun companyDiscretionaryData(companyDiscretionaryData: JsonField<String>) =
-            apply {
-                this.companyDiscretionaryData = companyDiscretionaryData
-            }
+        fun companyDiscretionaryData(companyDiscretionaryData: JsonField<String>) = apply {
+            this.companyDiscretionaryData = companyDiscretionaryData
+        }
 
         /** The description of the notification. */
-        fun companyEntryDescription(companyEntryDescription: String?) = companyEntryDescription(JsonField.ofNullable(companyEntryDescription))
+        fun companyEntryDescription(companyEntryDescription: String?) =
+            companyEntryDescription(JsonField.ofNullable(companyEntryDescription))
 
         /** The description of the notification. */
-        fun companyEntryDescription(companyEntryDescription: Optional<String>) = companyEntryDescription(companyEntryDescription.getOrNull())
+        fun companyEntryDescription(companyEntryDescription: Optional<String>) =
+            companyEntryDescription(companyEntryDescription.getOrNull())
 
         /** The description of the notification. */
-        fun companyEntryDescription(companyEntryDescription: JsonField<String>) =
-            apply {
-                this.companyEntryDescription = companyEntryDescription
-            }
+        fun companyEntryDescription(companyEntryDescription: JsonField<String>) = apply {
+            this.companyEntryDescription = companyEntryDescription
+        }
 
         /** The name by which you know the company. */
         fun companyName(companyName: String?) = companyName(JsonField.ofNullable(companyName))
@@ -381,83 +404,81 @@ class AchPrenotification @JsonCreator private constructor(
         fun companyName(companyName: Optional<String>) = companyName(companyName.getOrNull())
 
         /** The name by which you know the company. */
-        fun companyName(companyName: JsonField<String>) =
-            apply {
-                this.companyName = companyName
-            }
+        fun companyName(companyName: JsonField<String>) = apply { this.companyName = companyName }
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
-         * the prenotification was created.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+         * prenotification was created.
          */
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
-         * the prenotification was created.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+         * prenotification was created.
          */
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) =
-            apply {
-                this.createdAt = createdAt
-            }
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** If the notification is for a future credit or debit. */
-        fun creditDebitIndicator(creditDebitIndicator: CreditDebitIndicator?) = creditDebitIndicator(JsonField.ofNullable(creditDebitIndicator))
+        fun creditDebitIndicator(creditDebitIndicator: CreditDebitIndicator?) =
+            creditDebitIndicator(JsonField.ofNullable(creditDebitIndicator))
 
         /** If the notification is for a future credit or debit. */
-        fun creditDebitIndicator(creditDebitIndicator: Optional<CreditDebitIndicator>) = creditDebitIndicator(creditDebitIndicator.getOrNull())
+        fun creditDebitIndicator(creditDebitIndicator: Optional<CreditDebitIndicator>) =
+            creditDebitIndicator(creditDebitIndicator.getOrNull())
 
         /** If the notification is for a future credit or debit. */
-        fun creditDebitIndicator(creditDebitIndicator: JsonField<CreditDebitIndicator>) =
-            apply {
-                this.creditDebitIndicator = creditDebitIndicator
-            }
+        fun creditDebitIndicator(creditDebitIndicator: JsonField<CreditDebitIndicator>) = apply {
+            this.creditDebitIndicator = creditDebitIndicator
+        }
 
         /** The effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. */
-        fun effectiveDate(effectiveDate: OffsetDateTime?) = effectiveDate(JsonField.ofNullable(effectiveDate))
+        fun effectiveDate(effectiveDate: OffsetDateTime?) =
+            effectiveDate(JsonField.ofNullable(effectiveDate))
 
         /** The effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. */
-        fun effectiveDate(effectiveDate: Optional<OffsetDateTime>) = effectiveDate(effectiveDate.getOrNull())
+        fun effectiveDate(effectiveDate: Optional<OffsetDateTime>) =
+            effectiveDate(effectiveDate.getOrNull())
 
         /** The effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. */
-        fun effectiveDate(effectiveDate: JsonField<OffsetDateTime>) =
-            apply {
-                this.effectiveDate = effectiveDate
-            }
+        fun effectiveDate(effectiveDate: JsonField<OffsetDateTime>) = apply {
+            this.effectiveDate = effectiveDate
+        }
 
         /**
-         * The idempotency key you chose for this object. This value is unique across
-         * Increase and is used to ensure that a request is only processed once. Learn more
-         * about [idempotency](https://increase.com/documentation/idempotency-keys).
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        fun idempotencyKey(idempotencyKey: String?) = idempotencyKey(JsonField.ofNullable(idempotencyKey))
+        fun idempotencyKey(idempotencyKey: String?) =
+            idempotencyKey(JsonField.ofNullable(idempotencyKey))
 
         /**
-         * The idempotency key you chose for this object. This value is unique across
-         * Increase and is used to ensure that a request is only processed once. Learn more
-         * about [idempotency](https://increase.com/documentation/idempotency-keys).
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        fun idempotencyKey(idempotencyKey: Optional<String>) = idempotencyKey(idempotencyKey.getOrNull())
+        fun idempotencyKey(idempotencyKey: Optional<String>) =
+            idempotencyKey(idempotencyKey.getOrNull())
 
         /**
-         * The idempotency key you chose for this object. This value is unique across
-         * Increase and is used to ensure that a request is only processed once. Learn more
-         * about [idempotency](https://increase.com/documentation/idempotency-keys).
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        fun idempotencyKey(idempotencyKey: JsonField<String>) =
-            apply {
-                this.idempotencyKey = idempotencyKey
-            }
+        fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
+            this.idempotencyKey = idempotencyKey
+        }
 
         /**
-         * If the receiving bank notifies that future transfers should use different
-         * details, this will contain those details.
+         * If the receiving bank notifies that future transfers should use different details, this
+         * will contain those details.
          */
-        fun notificationsOfChange(notificationsOfChange: List<NotificationsOfChange>) = notificationsOfChange(JsonField.of(notificationsOfChange))
+        fun notificationsOfChange(notificationsOfChange: List<NotificationsOfChange>) =
+            notificationsOfChange(JsonField.of(notificationsOfChange))
 
         /**
-         * If the receiving bank notifies that future transfers should use different
-         * details, this will contain those details.
+         * If the receiving bank notifies that future transfers should use different details, this
+         * will contain those details.
          */
         fun notificationsOfChange(notificationsOfChange: JsonField<List<NotificationsOfChange>>) =
             apply {
@@ -465,45 +486,42 @@ class AchPrenotification @JsonCreator private constructor(
             }
 
         /**
-         * If the receiving bank notifies that future transfers should use different
-         * details, this will contain those details.
+         * If the receiving bank notifies that future transfers should use different details, this
+         * will contain those details.
          */
-        fun addNotificationsOfChange(notificationsOfChange: NotificationsOfChange) =
-            apply {
-                this.notificationsOfChange = (this.notificationsOfChange ?: JsonField.of(mutableListOf())).also {
+        fun addNotificationsOfChange(notificationsOfChange: NotificationsOfChange) = apply {
+            this.notificationsOfChange =
+                (this.notificationsOfChange ?: JsonField.of(mutableListOf())).also {
                     checkKnown("notificationsOfChange", it).add(notificationsOfChange)
                 }
-            }
+        }
 
         /** If your prenotification is returned, this will contain details of the return. */
-        fun prenotificationReturn(prenotificationReturn: PrenotificationReturn?) = prenotificationReturn(JsonField.ofNullable(prenotificationReturn))
+        fun prenotificationReturn(prenotificationReturn: PrenotificationReturn?) =
+            prenotificationReturn(JsonField.ofNullable(prenotificationReturn))
 
         /** If your prenotification is returned, this will contain details of the return. */
-        fun prenotificationReturn(prenotificationReturn: Optional<PrenotificationReturn>) = prenotificationReturn(prenotificationReturn.getOrNull())
+        fun prenotificationReturn(prenotificationReturn: Optional<PrenotificationReturn>) =
+            prenotificationReturn(prenotificationReturn.getOrNull())
 
         /** If your prenotification is returned, this will contain details of the return. */
-        fun prenotificationReturn(prenotificationReturn: JsonField<PrenotificationReturn>) =
-            apply {
-                this.prenotificationReturn = prenotificationReturn
-            }
+        fun prenotificationReturn(prenotificationReturn: JsonField<PrenotificationReturn>) = apply {
+            this.prenotificationReturn = prenotificationReturn
+        }
 
         /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
         fun routingNumber(routingNumber: String) = routingNumber(JsonField.of(routingNumber))
 
         /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
-        fun routingNumber(routingNumber: JsonField<String>) =
-            apply {
-                this.routingNumber = routingNumber
-            }
+        fun routingNumber(routingNumber: JsonField<String>) = apply {
+            this.routingNumber = routingNumber
+        }
 
         /** The lifecycle status of the ACH Prenotification. */
         fun status(status: Status) = status(JsonField.of(status))
 
         /** The lifecycle status of the ACH Prenotification. */
-        fun status(status: JsonField<Status>) =
-            apply {
-                this.status = status
-            }
+        fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /**
          * A constant representing the object's type. For this resource it will always be
@@ -515,107 +533,65 @@ class AchPrenotification @JsonCreator private constructor(
          * A constant representing the object's type. For this resource it will always be
          * `ach_prenotification`.
          */
-        fun type(type: JsonField<Type>) =
-            apply {
-                this.type = type
-            }
+        fun type(type: JsonField<Type>) = apply { this.type = type }
 
-        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
-            apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
+        fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+            this.additionalProperties.clear()
+            putAllAdditionalProperties(additionalProperties)
+        }
 
-        fun putAdditionalProperty(key: String, value: JsonValue) =
-            apply {
-                additionalProperties.put(key, value)
-            }
+        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+            additionalProperties.put(key, value)
+        }
 
-        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-            apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
+        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+            this.additionalProperties.putAll(additionalProperties)
+        }
 
-        fun removeAdditionalProperty(key: String) =
-            apply {
-                additionalProperties.remove(key)
-            }
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
 
-        fun removeAllAdditionalProperties(keys: Set<String>) =
-            apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
+        }
 
         fun build(): AchPrenotification =
             AchPrenotification(
-              checkRequired(
-                "id", id
-              ),
-              checkRequired(
-                "accountNumber", accountNumber
-              ),
-              checkRequired(
-                "addendum", addendum
-              ),
-              checkRequired(
-                "companyDescriptiveDate", companyDescriptiveDate
-              ),
-              checkRequired(
-                "companyDiscretionaryData", companyDiscretionaryData
-              ),
-              checkRequired(
-                "companyEntryDescription", companyEntryDescription
-              ),
-              checkRequired(
-                "companyName", companyName
-              ),
-              checkRequired(
-                "createdAt", createdAt
-              ),
-              checkRequired(
-                "creditDebitIndicator", creditDebitIndicator
-              ),
-              checkRequired(
-                "effectiveDate", effectiveDate
-              ),
-              checkRequired(
-                "idempotencyKey", idempotencyKey
-              ),
-              checkRequired(
-                "notificationsOfChange", notificationsOfChange
-              ).map { it.toImmutable() },
-              checkRequired(
-                "prenotificationReturn", prenotificationReturn
-              ),
-              checkRequired(
-                "routingNumber", routingNumber
-              ),
-              checkRequired(
-                "status", status
-              ),
-              checkRequired(
-                "type", type
-              ),
-              additionalProperties.toImmutable(),
+                checkRequired("id", id),
+                checkRequired("accountNumber", accountNumber),
+                checkRequired("addendum", addendum),
+                checkRequired("companyDescriptiveDate", companyDescriptiveDate),
+                checkRequired("companyDiscretionaryData", companyDiscretionaryData),
+                checkRequired("companyEntryDescription", companyEntryDescription),
+                checkRequired("companyName", companyName),
+                checkRequired("createdAt", createdAt),
+                checkRequired("creditDebitIndicator", creditDebitIndicator),
+                checkRequired("effectiveDate", effectiveDate),
+                checkRequired("idempotencyKey", idempotencyKey),
+                checkRequired("notificationsOfChange", notificationsOfChange).map {
+                    it.toImmutable()
+                },
+                checkRequired("prenotificationReturn", prenotificationReturn),
+                checkRequired("routingNumber", routingNumber),
+                checkRequired("status", status),
+                checkRequired("type", type),
+                additionalProperties.toImmutable(),
             )
     }
 
     /** If the notification is for a future credit or debit. */
-    class CreditDebitIndicator @JsonCreator private constructor(
-        private val value: JsonField<String>,
-
-    ) : Enum {
+    class CreditDebitIndicator
+    @JsonCreator
+    private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that
-         * doesn't match any known member, and you want to know that value. For example, if
-         * the SDK is on an older version than the API, then the API may respond with new
-         * members that the SDK is unaware of.
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -637,16 +613,13 @@ class AchPrenotification @JsonCreator private constructor(
         }
 
         /**
-         * An enum containing [CreditDebitIndicator]'s known values, as well as an
-         * [_UNKNOWN] member.
+         * An enum containing [CreditDebitIndicator]'s known values, as well as an [_UNKNOWN]
+         * member.
          *
-         * An instance of [CreditDebitIndicator] can contain an unknown value in a couple
-         * of cases:
-         *
-         * - It was deserialized from data that doesn't match any known member. For
-         *   example, if the SDK is on an older version than the API, then the API may
-         *   respond with new members that the SDK is unaware of.
-         *
+         * An instance of [CreditDebitIndicator] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
@@ -662,11 +635,11 @@ class AchPrenotification @JsonCreator private constructor(
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or
-         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if
-         * you want to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -678,11 +651,11 @@ class AchPrenotification @JsonCreator private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and
-         * don't want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value is a not a
-         * known member.
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+         *   member.
          */
         fun known(): Known =
             when (this) {
@@ -694,20 +667,23 @@ class AchPrenotification @JsonCreator private constructor(
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for
-         * debugging and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value does not
-         * have the expected primitive type.
+         * @throws IncreaseInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
          */
-        fun asString(): String = _value().asString().orElseThrow { IncreaseInvalidDataException("Value is not a String") }
+        fun asString(): String =
+            _value().asString().orElseThrow {
+                IncreaseInvalidDataException("Value is not a String")
+            }
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return /* spotless:off */ other is CreditDebitIndicator && value == other.value /* spotless:on */
+            return /* spotless:off */ other is CreditDebitIndicator && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -716,12 +692,20 @@ class AchPrenotification @JsonCreator private constructor(
     }
 
     @NoAutoDetect
-    class NotificationsOfChange @JsonCreator private constructor(
-        @JsonProperty("change_code") @ExcludeMissing private val changeCode: JsonField<ChangeCode> = JsonMissing.of(),
-        @JsonProperty("corrected_data") @ExcludeMissing private val correctedData: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("created_at") @ExcludeMissing private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-
+    class NotificationsOfChange
+    @JsonCreator
+    private constructor(
+        @JsonProperty("change_code")
+        @ExcludeMissing
+        private val changeCode: JsonField<ChangeCode> = JsonMissing.of(),
+        @JsonProperty("corrected_data")
+        @ExcludeMissing
+        private val correctedData: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /**
@@ -731,17 +715,17 @@ class AchPrenotification @JsonCreator private constructor(
         fun changeCode(): ChangeCode = changeCode.getRequired("change_code")
 
         /**
-         * The corrected data that should be used in future ACHs to this account. This may
-         * contain the suggested new account number or routing number. When the
-         * `change_code` is `incorrect_transaction_code`, this field contains an integer.
-         * Numbers starting with a 2 encourage changing the `funding` parameter to
-         * checking; numbers starting with a 3 encourage changing to savings.
+         * The corrected data that should be used in future ACHs to this account. This may contain
+         * the suggested new account number or routing number. When the `change_code` is
+         * `incorrect_transaction_code`, this field contains an integer. Numbers starting with a 2
+         * encourage changing the `funding` parameter to checking; numbers starting with a 3
+         * encourage changing to savings.
          */
         fun correctedData(): String = correctedData.getRequired("corrected_data")
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
-         * the notification occurred.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+         * notification occurred.
          */
         fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
@@ -754,19 +738,19 @@ class AchPrenotification @JsonCreator private constructor(
         fun _changeCode(): JsonField<ChangeCode> = changeCode
 
         /**
-         * The corrected data that should be used in future ACHs to this account. This may
-         * contain the suggested new account number or routing number. When the
-         * `change_code` is `incorrect_transaction_code`, this field contains an integer.
-         * Numbers starting with a 2 encourage changing the `funding` parameter to
-         * checking; numbers starting with a 3 encourage changing to savings.
+         * The corrected data that should be used in future ACHs to this account. This may contain
+         * the suggested new account number or routing number. When the `change_code` is
+         * `incorrect_transaction_code`, this field contains an integer. Numbers starting with a 2
+         * encourage changing the `funding` parameter to checking; numbers starting with a 3
+         * encourage changing to savings.
          */
         @JsonProperty("corrected_data")
         @ExcludeMissing
         fun _correctedData(): JsonField<String> = correctedData
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
-         * the notification occurred.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+         * notification occurred.
          */
         @JsonProperty("created_at")
         @ExcludeMissing
@@ -778,36 +762,32 @@ class AchPrenotification @JsonCreator private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): NotificationsOfChange =
-            apply {
-                if (validated) {
-                  return@apply
-                }
-
-                changeCode()
-                correctedData()
-                createdAt()
-                validated = true
+        fun validate(): NotificationsOfChange = apply {
+            if (validated) {
+                return@apply
             }
+
+            changeCode()
+            correctedData()
+            createdAt()
+            validated = true
+        }
 
         fun toBuilder() = Builder().from(this)
 
         companion object {
 
             /**
-             * Returns a mutable builder for constructing an instance of
-             * [NotificationsOfChange].
+             * Returns a mutable builder for constructing an instance of [NotificationsOfChange].
              *
              * The following fields are required:
-             *
              * ```java
              * .changeCode()
              * .correctedData()
              * .createdAt()
              * ```
              */
-            @JvmStatic
-            fun builder() = Builder()
+            @JvmStatic fun builder() = Builder()
         }
 
         /** A builder for [NotificationsOfChange]. */
@@ -819,13 +799,12 @@ class AchPrenotification @JsonCreator private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(notificationsOfChange: NotificationsOfChange) =
-                apply {
-                    changeCode = notificationsOfChange.changeCode
-                    correctedData = notificationsOfChange.correctedData
-                    createdAt = notificationsOfChange.createdAt
-                    additionalProperties = notificationsOfChange.additionalProperties.toMutableMap()
-                }
+            internal fun from(notificationsOfChange: NotificationsOfChange) = apply {
+                changeCode = notificationsOfChange.changeCode
+                correctedData = notificationsOfChange.correctedData
+                createdAt = notificationsOfChange.createdAt
+                additionalProperties = notificationsOfChange.additionalProperties.toMutableMap()
+            }
 
             /**
              * The required type of change that is being signaled by the receiving financial
@@ -837,85 +816,69 @@ class AchPrenotification @JsonCreator private constructor(
              * The required type of change that is being signaled by the receiving financial
              * institution.
              */
-            fun changeCode(changeCode: JsonField<ChangeCode>) =
-                apply {
-                    this.changeCode = changeCode
-                }
+            fun changeCode(changeCode: JsonField<ChangeCode>) = apply {
+                this.changeCode = changeCode
+            }
 
             /**
              * The corrected data that should be used in future ACHs to this account. This may
-             * contain the suggested new account number or routing number. When the
-             * `change_code` is `incorrect_transaction_code`, this field contains an integer.
-             * Numbers starting with a 2 encourage changing the `funding` parameter to
-             * checking; numbers starting with a 3 encourage changing to savings.
+             * contain the suggested new account number or routing number. When the `change_code` is
+             * `incorrect_transaction_code`, this field contains an integer. Numbers starting with a
+             * 2 encourage changing the `funding` parameter to checking; numbers starting with a 3
+             * encourage changing to savings.
              */
             fun correctedData(correctedData: String) = correctedData(JsonField.of(correctedData))
 
             /**
              * The corrected data that should be used in future ACHs to this account. This may
-             * contain the suggested new account number or routing number. When the
-             * `change_code` is `incorrect_transaction_code`, this field contains an integer.
-             * Numbers starting with a 2 encourage changing the `funding` parameter to
-             * checking; numbers starting with a 3 encourage changing to savings.
+             * contain the suggested new account number or routing number. When the `change_code` is
+             * `incorrect_transaction_code`, this field contains an integer. Numbers starting with a
+             * 2 encourage changing the `funding` parameter to checking; numbers starting with a 3
+             * encourage changing to savings.
              */
-            fun correctedData(correctedData: JsonField<String>) =
-                apply {
-                    this.correctedData = correctedData
-                }
+            fun correctedData(correctedData: JsonField<String>) = apply {
+                this.correctedData = correctedData
+            }
 
             /**
-             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
-             * the notification occurred.
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+             * notification occurred.
              */
             fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
             /**
-             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
-             * the notification occurred.
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+             * notification occurred.
              */
-            fun createdAt(createdAt: JsonField<OffsetDateTime>) =
-                apply {
-                    this.createdAt = createdAt
-                }
+            fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
+                this.createdAt = createdAt
+            }
 
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
-                apply {
-                    this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
-                }
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
 
-            fun putAdditionalProperty(key: String, value: JsonValue) =
-                apply {
-                    additionalProperties.put(key, value)
-                }
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
 
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                apply {
-                    this.additionalProperties.putAll(additionalProperties)
-                }
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
 
-            fun removeAdditionalProperty(key: String) =
-                apply {
-                    additionalProperties.remove(key)
-                }
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
 
-            fun removeAllAdditionalProperties(keys: Set<String>) =
-                apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
 
             fun build(): NotificationsOfChange =
                 NotificationsOfChange(
-                  checkRequired(
-                    "changeCode", changeCode
-                  ),
-                  checkRequired(
-                    "correctedData", correctedData
-                  ),
-                  checkRequired(
-                    "createdAt", createdAt
-                  ),
-                  additionalProperties.toImmutable(),
+                    checkRequired("changeCode", changeCode),
+                    checkRequired("correctedData", correctedData),
+                    checkRequired("createdAt", createdAt),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -923,21 +886,18 @@ class AchPrenotification @JsonCreator private constructor(
          * The required type of change that is being signaled by the receiving financial
          * institution.
          */
-        class ChangeCode @JsonCreator private constructor(
-            private val value: JsonField<String>,
-
-        ) : Enum {
+        class ChangeCode @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
 
             /**
              * Returns this class instance's raw value.
              *
-             * This is usually only useful if this instance was deserialized from data that
-             * doesn't match any known member, and you want to know that value. For example, if
-             * the SDK is on an older version than the API, then the API may respond with new
-             * members that the SDK is unaware of.
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
              */
-            @com.fasterxml.jackson.annotation.JsonValue
-            fun _value(): JsonField<String> = value
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
             companion object {
 
@@ -948,7 +908,9 @@ class AchPrenotification @JsonCreator private constructor(
                 @JvmField val INCORRECT_ROUTING_NUMBER = of("incorrect_routing_number")
 
                 /** Both the routing number and the account number were incorrect. */
-                @JvmField val INCORRECT_ROUTING_NUMBER_AND_ACCOUNT_NUMBER = of("incorrect_routing_number_and_account_number")
+                @JvmField
+                val INCORRECT_ROUTING_NUMBER_AND_ACCOUNT_NUMBER =
+                    of("incorrect_routing_number_and_account_number")
 
                 /**
                  * The transaction code was incorrect. Try changing the `funding` parameter from
@@ -957,16 +919,24 @@ class AchPrenotification @JsonCreator private constructor(
                 @JvmField val INCORRECT_TRANSACTION_CODE = of("incorrect_transaction_code")
 
                 /** The account number and the transaction code were incorrect. */
-                @JvmField val INCORRECT_ACCOUNT_NUMBER_AND_TRANSACTION_CODE = of("incorrect_account_number_and_transaction_code")
+                @JvmField
+                val INCORRECT_ACCOUNT_NUMBER_AND_TRANSACTION_CODE =
+                    of("incorrect_account_number_and_transaction_code")
 
                 /** The routing number, account number, and transaction code were incorrect. */
-                @JvmField val INCORRECT_ROUTING_NUMBER_ACCOUNT_NUMBER_AND_TRANSACTION_CODE = of("incorrect_routing_number_account_number_and_transaction_code")
+                @JvmField
+                val INCORRECT_ROUTING_NUMBER_ACCOUNT_NUMBER_AND_TRANSACTION_CODE =
+                    of("incorrect_routing_number_account_number_and_transaction_code")
 
                 /** The receiving depository financial institution identification was incorrect. */
-                @JvmField val INCORRECT_RECEIVING_DEPOSITORY_FINANCIAL_INSTITUTION_IDENTIFICATION = of("incorrect_receiving_depository_financial_institution_identification")
+                @JvmField
+                val INCORRECT_RECEIVING_DEPOSITORY_FINANCIAL_INSTITUTION_IDENTIFICATION =
+                    of("incorrect_receiving_depository_financial_institution_identification")
 
                 /** The individual identification number was incorrect. */
-                @JvmField val INCORRECT_INDIVIDUAL_IDENTIFICATION_NUMBER = of("incorrect_individual_identification_number")
+                @JvmField
+                val INCORRECT_INDIVIDUAL_IDENTIFICATION_NUMBER =
+                    of("incorrect_individual_identification_number")
 
                 /** The addenda had an incorrect format. */
                 @JvmField val ADDENDA_FORMAT_ERROR = of("addenda_format_error")
@@ -975,40 +945,56 @@ class AchPrenotification @JsonCreator private constructor(
                  * The standard entry class code was incorrect for an outbound international
                  * payment.
                  */
-                @JvmField val INCORRECT_STANDARD_ENTRY_CLASS_CODE_FOR_OUTBOUND_INTERNATIONAL_PAYMENT = of("incorrect_standard_entry_class_code_for_outbound_international_payment")
+                @JvmField
+                val INCORRECT_STANDARD_ENTRY_CLASS_CODE_FOR_OUTBOUND_INTERNATIONAL_PAYMENT =
+                    of("incorrect_standard_entry_class_code_for_outbound_international_payment")
 
                 /** The notification of change was misrouted. */
-                @JvmField val MISROUTED_NOTIFICATION_OF_CHANGE = of("misrouted_notification_of_change")
+                @JvmField
+                val MISROUTED_NOTIFICATION_OF_CHANGE = of("misrouted_notification_of_change")
 
                 /** The trace number was incorrect. */
                 @JvmField val INCORRECT_TRACE_NUMBER = of("incorrect_trace_number")
 
                 /** The company identification number was incorrect. */
-                @JvmField val INCORRECT_COMPANY_IDENTIFICATION_NUMBER = of("incorrect_company_identification_number")
+                @JvmField
+                val INCORRECT_COMPANY_IDENTIFICATION_NUMBER =
+                    of("incorrect_company_identification_number")
 
                 /** The individual identification number or identification number was incorrect. */
-                @JvmField val INCORRECT_IDENTIFICATION_NUMBER = of("incorrect_identification_number")
+                @JvmField
+                val INCORRECT_IDENTIFICATION_NUMBER = of("incorrect_identification_number")
 
                 /** The corrected data was incorrectly formatted. */
-                @JvmField val INCORRECTLY_FORMATTED_CORRECTED_DATA = of("incorrectly_formatted_corrected_data")
+                @JvmField
+                val INCORRECTLY_FORMATTED_CORRECTED_DATA =
+                    of("incorrectly_formatted_corrected_data")
 
                 /** The discretionary data was incorrect. */
                 @JvmField val INCORRECT_DISCRETIONARY_DATA = of("incorrect_discretionary_data")
 
                 /** The routing number was not from the original entry detail record. */
-                @JvmField val ROUTING_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD = of("routing_number_not_from_original_entry_detail_record")
+                @JvmField
+                val ROUTING_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD =
+                    of("routing_number_not_from_original_entry_detail_record")
 
                 /**
                  * The depository financial institution account number was not from the original
                  * entry detail record.
                  */
-                @JvmField val DEPOSITORY_FINANCIAL_INSTITUTION_ACCOUNT_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD = of("depository_financial_institution_account_number_not_from_original_entry_detail_record")
+                @JvmField
+                val DEPOSITORY_FINANCIAL_INSTITUTION_ACCOUNT_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD =
+                    of(
+                        "depository_financial_institution_account_number_not_from_original_entry_detail_record"
+                    )
 
                 /**
                  * The transaction code was incorrect, initiated by the originating depository
                  * financial institution.
                  */
-                @JvmField val INCORRECT_TRANSACTION_CODE_BY_ORIGINATING_DEPOSITORY_FINANCIAL_INSTITUTION = of("incorrect_transaction_code_by_originating_depository_financial_institution")
+                @JvmField
+                val INCORRECT_TRANSACTION_CODE_BY_ORIGINATING_DEPOSITORY_FINANCIAL_INSTITUTION =
+                    of("incorrect_transaction_code_by_originating_depository_financial_institution")
 
                 @JvmStatic fun of(value: String) = ChangeCode(JsonField.of(value))
             }
@@ -1071,11 +1057,9 @@ class AchPrenotification @JsonCreator private constructor(
              * An enum containing [ChangeCode]'s known values, as well as an [_UNKNOWN] member.
              *
              * An instance of [ChangeCode] can contain an unknown value in a couple of cases:
-             *
-             * - It was deserialized from data that doesn't match any known member. For
-             *   example, if the SDK is on an older version than the API, then the API may
-             *   respond with new members that the SDK is unaware of.
-             *
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
              * - It was constructed with an arbitrary value using the [of] method.
              */
             enum class Value {
@@ -1140,30 +1124,43 @@ class AchPrenotification @JsonCreator private constructor(
              * Returns an enum member corresponding to this class instance's value, or
              * [Value._UNKNOWN] if the class was instantiated with an unknown value.
              *
-             * Use the [known] method instead if you're certain the value is always known or if
-             * you want to throw for the unknown case.
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
              */
             fun value(): Value =
                 when (this) {
                     INCORRECT_ACCOUNT_NUMBER -> Value.INCORRECT_ACCOUNT_NUMBER
                     INCORRECT_ROUTING_NUMBER -> Value.INCORRECT_ROUTING_NUMBER
-                    INCORRECT_ROUTING_NUMBER_AND_ACCOUNT_NUMBER -> Value.INCORRECT_ROUTING_NUMBER_AND_ACCOUNT_NUMBER
+                    INCORRECT_ROUTING_NUMBER_AND_ACCOUNT_NUMBER ->
+                        Value.INCORRECT_ROUTING_NUMBER_AND_ACCOUNT_NUMBER
                     INCORRECT_TRANSACTION_CODE -> Value.INCORRECT_TRANSACTION_CODE
-                    INCORRECT_ACCOUNT_NUMBER_AND_TRANSACTION_CODE -> Value.INCORRECT_ACCOUNT_NUMBER_AND_TRANSACTION_CODE
-                    INCORRECT_ROUTING_NUMBER_ACCOUNT_NUMBER_AND_TRANSACTION_CODE -> Value.INCORRECT_ROUTING_NUMBER_ACCOUNT_NUMBER_AND_TRANSACTION_CODE
-                    INCORRECT_RECEIVING_DEPOSITORY_FINANCIAL_INSTITUTION_IDENTIFICATION -> Value.INCORRECT_RECEIVING_DEPOSITORY_FINANCIAL_INSTITUTION_IDENTIFICATION
-                    INCORRECT_INDIVIDUAL_IDENTIFICATION_NUMBER -> Value.INCORRECT_INDIVIDUAL_IDENTIFICATION_NUMBER
+                    INCORRECT_ACCOUNT_NUMBER_AND_TRANSACTION_CODE ->
+                        Value.INCORRECT_ACCOUNT_NUMBER_AND_TRANSACTION_CODE
+                    INCORRECT_ROUTING_NUMBER_ACCOUNT_NUMBER_AND_TRANSACTION_CODE ->
+                        Value.INCORRECT_ROUTING_NUMBER_ACCOUNT_NUMBER_AND_TRANSACTION_CODE
+                    INCORRECT_RECEIVING_DEPOSITORY_FINANCIAL_INSTITUTION_IDENTIFICATION ->
+                        Value.INCORRECT_RECEIVING_DEPOSITORY_FINANCIAL_INSTITUTION_IDENTIFICATION
+                    INCORRECT_INDIVIDUAL_IDENTIFICATION_NUMBER ->
+                        Value.INCORRECT_INDIVIDUAL_IDENTIFICATION_NUMBER
                     ADDENDA_FORMAT_ERROR -> Value.ADDENDA_FORMAT_ERROR
-                    INCORRECT_STANDARD_ENTRY_CLASS_CODE_FOR_OUTBOUND_INTERNATIONAL_PAYMENT -> Value.INCORRECT_STANDARD_ENTRY_CLASS_CODE_FOR_OUTBOUND_INTERNATIONAL_PAYMENT
+                    INCORRECT_STANDARD_ENTRY_CLASS_CODE_FOR_OUTBOUND_INTERNATIONAL_PAYMENT ->
+                        Value.INCORRECT_STANDARD_ENTRY_CLASS_CODE_FOR_OUTBOUND_INTERNATIONAL_PAYMENT
                     MISROUTED_NOTIFICATION_OF_CHANGE -> Value.MISROUTED_NOTIFICATION_OF_CHANGE
                     INCORRECT_TRACE_NUMBER -> Value.INCORRECT_TRACE_NUMBER
-                    INCORRECT_COMPANY_IDENTIFICATION_NUMBER -> Value.INCORRECT_COMPANY_IDENTIFICATION_NUMBER
+                    INCORRECT_COMPANY_IDENTIFICATION_NUMBER ->
+                        Value.INCORRECT_COMPANY_IDENTIFICATION_NUMBER
                     INCORRECT_IDENTIFICATION_NUMBER -> Value.INCORRECT_IDENTIFICATION_NUMBER
-                    INCORRECTLY_FORMATTED_CORRECTED_DATA -> Value.INCORRECTLY_FORMATTED_CORRECTED_DATA
+                    INCORRECTLY_FORMATTED_CORRECTED_DATA ->
+                        Value.INCORRECTLY_FORMATTED_CORRECTED_DATA
                     INCORRECT_DISCRETIONARY_DATA -> Value.INCORRECT_DISCRETIONARY_DATA
-                    ROUTING_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD -> Value.ROUTING_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD
-                    DEPOSITORY_FINANCIAL_INSTITUTION_ACCOUNT_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD -> Value.DEPOSITORY_FINANCIAL_INSTITUTION_ACCOUNT_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD
-                    INCORRECT_TRANSACTION_CODE_BY_ORIGINATING_DEPOSITORY_FINANCIAL_INSTITUTION -> Value.INCORRECT_TRANSACTION_CODE_BY_ORIGINATING_DEPOSITORY_FINANCIAL_INSTITUTION
+                    ROUTING_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD ->
+                        Value.ROUTING_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD
+                    DEPOSITORY_FINANCIAL_INSTITUTION_ACCOUNT_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD ->
+                        Value
+                            .DEPOSITORY_FINANCIAL_INSTITUTION_ACCOUNT_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD
+                    INCORRECT_TRANSACTION_CODE_BY_ORIGINATING_DEPOSITORY_FINANCIAL_INSTITUTION ->
+                        Value
+                            .INCORRECT_TRANSACTION_CODE_BY_ORIGINATING_DEPOSITORY_FINANCIAL_INSTITUTION
                     else -> Value._UNKNOWN
                 }
 
@@ -1173,30 +1170,43 @@ class AchPrenotification @JsonCreator private constructor(
              * Use the [value] method instead if you're uncertain the value is always known and
              * don't want to throw for the unknown case.
              *
-             * @throws IncreaseInvalidDataException if this class instance's value is a not a
-             * known member.
+             * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+             *   member.
              */
             fun known(): Known =
                 when (this) {
                     INCORRECT_ACCOUNT_NUMBER -> Known.INCORRECT_ACCOUNT_NUMBER
                     INCORRECT_ROUTING_NUMBER -> Known.INCORRECT_ROUTING_NUMBER
-                    INCORRECT_ROUTING_NUMBER_AND_ACCOUNT_NUMBER -> Known.INCORRECT_ROUTING_NUMBER_AND_ACCOUNT_NUMBER
+                    INCORRECT_ROUTING_NUMBER_AND_ACCOUNT_NUMBER ->
+                        Known.INCORRECT_ROUTING_NUMBER_AND_ACCOUNT_NUMBER
                     INCORRECT_TRANSACTION_CODE -> Known.INCORRECT_TRANSACTION_CODE
-                    INCORRECT_ACCOUNT_NUMBER_AND_TRANSACTION_CODE -> Known.INCORRECT_ACCOUNT_NUMBER_AND_TRANSACTION_CODE
-                    INCORRECT_ROUTING_NUMBER_ACCOUNT_NUMBER_AND_TRANSACTION_CODE -> Known.INCORRECT_ROUTING_NUMBER_ACCOUNT_NUMBER_AND_TRANSACTION_CODE
-                    INCORRECT_RECEIVING_DEPOSITORY_FINANCIAL_INSTITUTION_IDENTIFICATION -> Known.INCORRECT_RECEIVING_DEPOSITORY_FINANCIAL_INSTITUTION_IDENTIFICATION
-                    INCORRECT_INDIVIDUAL_IDENTIFICATION_NUMBER -> Known.INCORRECT_INDIVIDUAL_IDENTIFICATION_NUMBER
+                    INCORRECT_ACCOUNT_NUMBER_AND_TRANSACTION_CODE ->
+                        Known.INCORRECT_ACCOUNT_NUMBER_AND_TRANSACTION_CODE
+                    INCORRECT_ROUTING_NUMBER_ACCOUNT_NUMBER_AND_TRANSACTION_CODE ->
+                        Known.INCORRECT_ROUTING_NUMBER_ACCOUNT_NUMBER_AND_TRANSACTION_CODE
+                    INCORRECT_RECEIVING_DEPOSITORY_FINANCIAL_INSTITUTION_IDENTIFICATION ->
+                        Known.INCORRECT_RECEIVING_DEPOSITORY_FINANCIAL_INSTITUTION_IDENTIFICATION
+                    INCORRECT_INDIVIDUAL_IDENTIFICATION_NUMBER ->
+                        Known.INCORRECT_INDIVIDUAL_IDENTIFICATION_NUMBER
                     ADDENDA_FORMAT_ERROR -> Known.ADDENDA_FORMAT_ERROR
-                    INCORRECT_STANDARD_ENTRY_CLASS_CODE_FOR_OUTBOUND_INTERNATIONAL_PAYMENT -> Known.INCORRECT_STANDARD_ENTRY_CLASS_CODE_FOR_OUTBOUND_INTERNATIONAL_PAYMENT
+                    INCORRECT_STANDARD_ENTRY_CLASS_CODE_FOR_OUTBOUND_INTERNATIONAL_PAYMENT ->
+                        Known.INCORRECT_STANDARD_ENTRY_CLASS_CODE_FOR_OUTBOUND_INTERNATIONAL_PAYMENT
                     MISROUTED_NOTIFICATION_OF_CHANGE -> Known.MISROUTED_NOTIFICATION_OF_CHANGE
                     INCORRECT_TRACE_NUMBER -> Known.INCORRECT_TRACE_NUMBER
-                    INCORRECT_COMPANY_IDENTIFICATION_NUMBER -> Known.INCORRECT_COMPANY_IDENTIFICATION_NUMBER
+                    INCORRECT_COMPANY_IDENTIFICATION_NUMBER ->
+                        Known.INCORRECT_COMPANY_IDENTIFICATION_NUMBER
                     INCORRECT_IDENTIFICATION_NUMBER -> Known.INCORRECT_IDENTIFICATION_NUMBER
-                    INCORRECTLY_FORMATTED_CORRECTED_DATA -> Known.INCORRECTLY_FORMATTED_CORRECTED_DATA
+                    INCORRECTLY_FORMATTED_CORRECTED_DATA ->
+                        Known.INCORRECTLY_FORMATTED_CORRECTED_DATA
                     INCORRECT_DISCRETIONARY_DATA -> Known.INCORRECT_DISCRETIONARY_DATA
-                    ROUTING_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD -> Known.ROUTING_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD
-                    DEPOSITORY_FINANCIAL_INSTITUTION_ACCOUNT_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD -> Known.DEPOSITORY_FINANCIAL_INSTITUTION_ACCOUNT_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD
-                    INCORRECT_TRANSACTION_CODE_BY_ORIGINATING_DEPOSITORY_FINANCIAL_INSTITUTION -> Known.INCORRECT_TRANSACTION_CODE_BY_ORIGINATING_DEPOSITORY_FINANCIAL_INSTITUTION
+                    ROUTING_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD ->
+                        Known.ROUTING_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD
+                    DEPOSITORY_FINANCIAL_INSTITUTION_ACCOUNT_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD ->
+                        Known
+                            .DEPOSITORY_FINANCIAL_INSTITUTION_ACCOUNT_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD
+                    INCORRECT_TRANSACTION_CODE_BY_ORIGINATING_DEPOSITORY_FINANCIAL_INSTITUTION ->
+                        Known
+                            .INCORRECT_TRANSACTION_CODE_BY_ORIGINATING_DEPOSITORY_FINANCIAL_INSTITUTION
                     else -> throw IncreaseInvalidDataException("Unknown ChangeCode: $value")
                 }
 
@@ -1206,17 +1216,20 @@ class AchPrenotification @JsonCreator private constructor(
              * This differs from the [toString] method because that method is primarily for
              * debugging and generally doesn't throw.
              *
-             * @throws IncreaseInvalidDataException if this class instance's value does not
-             * have the expected primitive type.
+             * @throws IncreaseInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
              */
-            fun asString(): String = _value().asString().orElseThrow { IncreaseInvalidDataException("Value is not a String") }
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    IncreaseInvalidDataException("Value is not a String")
+                }
 
             override fun equals(other: Any?): Boolean {
-              if (this === other) {
-                  return true
-              }
+                if (this === other) {
+                    return true
+                }
 
-              return /* spotless:off */ other is ChangeCode && value == other.value /* spotless:on */
+                return /* spotless:off */ other is ChangeCode && value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -1225,11 +1238,11 @@ class AchPrenotification @JsonCreator private constructor(
         }
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return /* spotless:off */ other is NotificationsOfChange && changeCode == other.changeCode && correctedData == other.correctedData && createdAt == other.createdAt && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is NotificationsOfChange && changeCode == other.changeCode && correctedData == other.correctedData && createdAt == other.createdAt && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -1238,30 +1251,38 @@ class AchPrenotification @JsonCreator private constructor(
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() = "NotificationsOfChange{changeCode=$changeCode, correctedData=$correctedData, createdAt=$createdAt, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "NotificationsOfChange{changeCode=$changeCode, correctedData=$correctedData, createdAt=$createdAt, additionalProperties=$additionalProperties}"
     }
 
     /** If your prenotification is returned, this will contain details of the return. */
     @NoAutoDetect
-    class PrenotificationReturn @JsonCreator private constructor(
-        @JsonProperty("created_at") @ExcludeMissing private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonProperty("return_reason_code") @ExcludeMissing private val returnReasonCode: JsonField<ReturnReasonCode> = JsonMissing.of(),
-        @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-
+    class PrenotificationReturn
+    @JsonCreator
+    private constructor(
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("return_reason_code")
+        @ExcludeMissing
+        private val returnReasonCode: JsonField<ReturnReasonCode> = JsonMissing.of(),
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
-         * the Prenotification was returned.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+         * Prenotification was returned.
          */
         fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
         /** Why the Prenotification was returned. */
-        fun returnReasonCode(): ReturnReasonCode = returnReasonCode.getRequired("return_reason_code")
+        fun returnReasonCode(): ReturnReasonCode =
+            returnReasonCode.getRequired("return_reason_code")
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
-         * the Prenotification was returned.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+         * Prenotification was returned.
          */
         @JsonProperty("created_at")
         @ExcludeMissing
@@ -1278,34 +1299,30 @@ class AchPrenotification @JsonCreator private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): PrenotificationReturn =
-            apply {
-                if (validated) {
-                  return@apply
-                }
-
-                createdAt()
-                returnReasonCode()
-                validated = true
+        fun validate(): PrenotificationReturn = apply {
+            if (validated) {
+                return@apply
             }
+
+            createdAt()
+            returnReasonCode()
+            validated = true
+        }
 
         fun toBuilder() = Builder().from(this)
 
         companion object {
 
             /**
-             * Returns a mutable builder for constructing an instance of
-             * [PrenotificationReturn].
+             * Returns a mutable builder for constructing an instance of [PrenotificationReturn].
              *
              * The following fields are required:
-             *
              * ```java
              * .createdAt()
              * .returnReasonCode()
              * ```
              */
-            @JvmStatic
-            fun builder() = Builder()
+            @JvmStatic fun builder() = Builder()
         }
 
         /** A builder for [PrenotificationReturn]. */
@@ -1316,91 +1333,76 @@ class AchPrenotification @JsonCreator private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(prenotificationReturn: PrenotificationReturn) =
-                apply {
-                    createdAt = prenotificationReturn.createdAt
-                    returnReasonCode = prenotificationReturn.returnReasonCode
-                    additionalProperties = prenotificationReturn.additionalProperties.toMutableMap()
-                }
+            internal fun from(prenotificationReturn: PrenotificationReturn) = apply {
+                createdAt = prenotificationReturn.createdAt
+                returnReasonCode = prenotificationReturn.returnReasonCode
+                additionalProperties = prenotificationReturn.additionalProperties.toMutableMap()
+            }
 
             /**
-             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
-             * the Prenotification was returned.
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+             * Prenotification was returned.
              */
             fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
             /**
-             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
-             * the Prenotification was returned.
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+             * Prenotification was returned.
              */
-            fun createdAt(createdAt: JsonField<OffsetDateTime>) =
-                apply {
-                    this.createdAt = createdAt
-                }
+            fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
+                this.createdAt = createdAt
+            }
 
             /** Why the Prenotification was returned. */
-            fun returnReasonCode(returnReasonCode: ReturnReasonCode) = returnReasonCode(JsonField.of(returnReasonCode))
+            fun returnReasonCode(returnReasonCode: ReturnReasonCode) =
+                returnReasonCode(JsonField.of(returnReasonCode))
 
             /** Why the Prenotification was returned. */
-            fun returnReasonCode(returnReasonCode: JsonField<ReturnReasonCode>) =
-                apply {
-                    this.returnReasonCode = returnReasonCode
-                }
+            fun returnReasonCode(returnReasonCode: JsonField<ReturnReasonCode>) = apply {
+                this.returnReasonCode = returnReasonCode
+            }
 
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
-                apply {
-                    this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
-                }
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
 
-            fun putAdditionalProperty(key: String, value: JsonValue) =
-                apply {
-                    additionalProperties.put(key, value)
-                }
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
 
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                apply {
-                    this.additionalProperties.putAll(additionalProperties)
-                }
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
 
-            fun removeAdditionalProperty(key: String) =
-                apply {
-                    additionalProperties.remove(key)
-                }
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
 
-            fun removeAllAdditionalProperties(keys: Set<String>) =
-                apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
 
             fun build(): PrenotificationReturn =
                 PrenotificationReturn(
-                  checkRequired(
-                    "createdAt", createdAt
-                  ),
-                  checkRequired(
-                    "returnReasonCode", returnReasonCode
-                  ),
-                  additionalProperties.toImmutable(),
+                    checkRequired("createdAt", createdAt),
+                    checkRequired("returnReasonCode", returnReasonCode),
+                    additionalProperties.toImmutable(),
                 )
         }
 
         /** Why the Prenotification was returned. */
-        class ReturnReasonCode @JsonCreator private constructor(
-            private val value: JsonField<String>,
-
-        ) : Enum {
+        class ReturnReasonCode
+        @JsonCreator
+        private constructor(private val value: JsonField<String>) : Enum {
 
             /**
              * Returns this class instance's raw value.
              *
-             * This is usually only useful if this instance was deserialized from data that
-             * doesn't match any known member, and you want to know that value. For example, if
-             * the SDK is on an older version than the API, then the API may respond with new
-             * members that the SDK is unaware of.
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
              */
-            @com.fasterxml.jackson.annotation.JsonValue
-            fun _value(): JsonField<String> = value
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
             companion object {
 
@@ -1420,25 +1422,33 @@ class AchPrenotification @JsonCreator private constructor(
                 @JvmField val ACCOUNT_CLOSED = of("account_closed")
 
                 /** Code R04. The account number is invalid at the receiving bank. */
-                @JvmField val INVALID_ACCOUNT_NUMBER_STRUCTURE = of("invalid_account_number_structure")
+                @JvmField
+                val INVALID_ACCOUNT_NUMBER_STRUCTURE = of("invalid_account_number_structure")
 
                 /**
                  * Code R16. The account at the receiving bank was frozen per the Office of Foreign
                  * Assets Control.
                  */
-                @JvmField val ACCOUNT_FROZEN_ENTRY_RETURNED_PER_OFAC_INSTRUCTION = of("account_frozen_entry_returned_per_ofac_instruction")
+                @JvmField
+                val ACCOUNT_FROZEN_ENTRY_RETURNED_PER_OFAC_INSTRUCTION =
+                    of("account_frozen_entry_returned_per_ofac_instruction")
 
                 /** Code R23. The receiving bank account refused a credit transfer. */
-                @JvmField val CREDIT_ENTRY_REFUSED_BY_RECEIVER = of("credit_entry_refused_by_receiver")
+                @JvmField
+                val CREDIT_ENTRY_REFUSED_BY_RECEIVER = of("credit_entry_refused_by_receiver")
 
                 /**
                  * Code R05. The receiving bank rejected because of an incorrect Standard Entry
                  * Class code.
                  */
-                @JvmField val UNAUTHORIZED_DEBIT_TO_CONSUMER_ACCOUNT_USING_CORPORATE_SEC_CODE = of("unauthorized_debit_to_consumer_account_using_corporate_sec_code")
+                @JvmField
+                val UNAUTHORIZED_DEBIT_TO_CONSUMER_ACCOUNT_USING_CORPORATE_SEC_CODE =
+                    of("unauthorized_debit_to_consumer_account_using_corporate_sec_code")
 
                 /** Code R29. The corporate customer at the receiving bank reversed the transfer. */
-                @JvmField val CORPORATE_CUSTOMER_ADVISED_NOT_AUTHORIZED = of("corporate_customer_advised_not_authorized")
+                @JvmField
+                val CORPORATE_CUSTOMER_ADVISED_NOT_AUTHORIZED =
+                    of("corporate_customer_advised_not_authorized")
 
                 /** Code R08. The receiving bank stopped payment on this transfer. */
                 @JvmField val PAYMENT_STOPPED = of("payment_stopped")
@@ -1453,19 +1463,23 @@ class AchPrenotification @JsonCreator private constructor(
                 @JvmField val UNCOLLECTED_FUNDS = of("uncollected_funds")
 
                 /** Code R28. The routing number is incorrect. */
-                @JvmField val ROUTING_NUMBER_CHECK_DIGIT_ERROR = of("routing_number_check_digit_error")
+                @JvmField
+                val ROUTING_NUMBER_CHECK_DIGIT_ERROR = of("routing_number_check_digit_error")
 
                 /** Code R10. The customer at the receiving bank reversed the transfer. */
-                @JvmField val CUSTOMER_ADVISED_UNAUTHORIZED_IMPROPER_INELIGIBLE_OR_INCOMPLETE = of("customer_advised_unauthorized_improper_ineligible_or_incomplete")
+                @JvmField
+                val CUSTOMER_ADVISED_UNAUTHORIZED_IMPROPER_INELIGIBLE_OR_INCOMPLETE =
+                    of("customer_advised_unauthorized_improper_ineligible_or_incomplete")
 
                 /** Code R19. The amount field is incorrect or too large. */
                 @JvmField val AMOUNT_FIELD_ERROR = of("amount_field_error")
 
                 /**
-                 * Code R07. The customer at the receiving institution informed their bank that
-                 * they have revoked authorization for a previously authorized transfer.
+                 * Code R07. The customer at the receiving institution informed their bank that they
+                 * have revoked authorization for a previously authorized transfer.
                  */
-                @JvmField val AUTHORIZATION_REVOKED_BY_CUSTOMER = of("authorization_revoked_by_customer")
+                @JvmField
+                val AUTHORIZATION_REVOKED_BY_CUSTOMER = of("authorization_revoked_by_customer")
 
                 /** Code R13. The routing number is invalid. */
                 @JvmField val INVALID_ACH_ROUTING_NUMBER = of("invalid_ach_routing_number")
@@ -1489,7 +1503,9 @@ class AchPrenotification @JsonCreator private constructor(
                 @JvmField val LIMITED_PARTICIPATION_DFI = of("limited_participation_dfi")
 
                 /** Code R85. The outbound international ACH transfer was incorrect. */
-                @JvmField val INCORRECTLY_CODED_OUTBOUND_INTERNATIONAL_PAYMENT = of("incorrectly_coded_outbound_international_payment")
+                @JvmField
+                val INCORRECTLY_CODED_OUTBOUND_INTERNATIONAL_PAYMENT =
+                    of("incorrectly_coded_outbound_international_payment")
 
                 /** Code R12. A rare return reason. The account was sold to another bank. */
                 @JvmField val ACCOUNT_SOLD_TO_ANOTHER_DFI = of("account_sold_to_another_dfi")
@@ -1498,18 +1514,21 @@ class AchPrenotification @JsonCreator private constructor(
                 @JvmField val ADDENDA_ERROR = of("addenda_error")
 
                 /** Code R15. A rare return reason. The account holder is deceased. */
-                @JvmField val BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED = of("beneficiary_or_account_holder_deceased")
+                @JvmField
+                val BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED =
+                    of("beneficiary_or_account_holder_deceased")
 
                 /**
                  * Code R11. A rare return reason. The customer authorized some payment to the
                  * sender, but this payment was not in error.
                  */
-                @JvmField val CUSTOMER_ADVISED_NOT_WITHIN_AUTHORIZATION_TERMS = of("customer_advised_not_within_authorization_terms")
+                @JvmField
+                val CUSTOMER_ADVISED_NOT_WITHIN_AUTHORIZATION_TERMS =
+                    of("customer_advised_not_within_authorization_terms")
 
                 /**
                  * Code R74. A rare return reason. Sent in response to a return that was returned
-                 * with code `field_error`. The latest return should include the corrected
-                 * field(s).
+                 * with code `field_error`. The latest return should include the corrected field(s).
                  */
                 @JvmField val CORRECTED_RETURN = of("corrected_return")
 
@@ -1541,13 +1560,16 @@ class AchPrenotification @JsonCreator private constructor(
                  * Code R44. A rare return reason. Only used for US Government agency non-monetary
                  * automatic enrollment messages.
                  */
-                @JvmField val ENR_INVALID_INDIVIDUAL_ID_NUMBER = of("enr_invalid_individual_id_number")
+                @JvmField
+                val ENR_INVALID_INDIVIDUAL_ID_NUMBER = of("enr_invalid_individual_id_number")
 
                 /**
                  * Code R46. A rare return reason. Only used for US Government agency non-monetary
                  * automatic enrollment messages.
                  */
-                @JvmField val ENR_INVALID_REPRESENTATIVE_PAYEE_INDICATOR = of("enr_invalid_representative_payee_indicator")
+                @JvmField
+                val ENR_INVALID_REPRESENTATIVE_PAYEE_INDICATOR =
+                    of("enr_invalid_representative_payee_indicator")
 
                 /**
                  * Code R41. A rare return reason. Only used for US Government agency non-monetary
@@ -1565,7 +1587,9 @@ class AchPrenotification @JsonCreator private constructor(
                  * Code R42. A rare return reason. Only used for US Government agency non-monetary
                  * automatic enrollment messages.
                  */
-                @JvmField val ENR_ROUTING_NUMBER_CHECK_DIGIT_ERROR = of("enr_routing_number_check_digit_error")
+                @JvmField
+                val ENR_ROUTING_NUMBER_CHECK_DIGIT_ERROR =
+                    of("enr_routing_number_check_digit_error")
 
                 /**
                  * Code R84. A rare return reason. The International ACH Transfer cannot be
@@ -1583,7 +1607,9 @@ class AchPrenotification @JsonCreator private constructor(
                  * Code R83. A rare return reason. The Foreign receiving bank was unable to settle
                  * this ACH transfer.
                  */
-                @JvmField val FOREIGN_RECEIVING_DFI_UNABLE_TO_SETTLE = of("foreign_receiving_dfi_unable_to_settle")
+                @JvmField
+                val FOREIGN_RECEIVING_DFI_UNABLE_TO_SETTLE =
+                    of("foreign_receiving_dfi_unable_to_settle")
 
                 /** Code R80. A rare return reason. The International ACH Transfer is malformed. */
                 @JvmField val IAT_ENTRY_CODING_ERROR = of("iat_entry_coding_error")
@@ -1598,7 +1624,9 @@ class AchPrenotification @JsonCreator private constructor(
                  * Code R39. A rare return reason. The source document related to this ACH, usually
                  * an ACH check conversion, was presented to the bank.
                  */
-                @JvmField val IMPROPER_SOURCE_DOCUMENT_SOURCE_DOCUMENT_PRESENTED = of("improper_source_document_source_document_presented")
+                @JvmField
+                val IMPROPER_SOURCE_DOCUMENT_SOURCE_DOCUMENT_PRESENTED =
+                    of("improper_source_document_source_document_presented")
 
                 /** Code R21. A rare return reason. The Company ID field of the ACH was invalid. */
                 @JvmField val INVALID_COMPANY_ID = of("invalid_company_id")
@@ -1607,7 +1635,9 @@ class AchPrenotification @JsonCreator private constructor(
                  * Code R82. A rare return reason. The foreign receiving bank identifier for an
                  * International ACH Transfer was invalid.
                  */
-                @JvmField val INVALID_FOREIGN_RECEIVING_DFI_IDENTIFICATION = of("invalid_foreign_receiving_dfi_identification")
+                @JvmField
+                val INVALID_FOREIGN_RECEIVING_DFI_IDENTIFICATION =
+                    of("invalid_foreign_receiving_dfi_identification")
 
                 /**
                  * Code R22. A rare return reason. The Individual ID number field of the ACH was
@@ -1619,26 +1649,30 @@ class AchPrenotification @JsonCreator private constructor(
                  * Code R53. A rare return reason. Both the Represented Check ("RCK") entry and the
                  * original check were presented to the bank.
                  */
-                @JvmField val ITEM_AND_RCK_ENTRY_PRESENTED_FOR_PAYMENT = of("item_and_rck_entry_presented_for_payment")
+                @JvmField
+                val ITEM_AND_RCK_ENTRY_PRESENTED_FOR_PAYMENT =
+                    of("item_and_rck_entry_presented_for_payment")
 
                 /**
                  * Code R51. A rare return reason. The Represented Check ("RCK") entry is
                  * ineligible.
                  */
-                @JvmField val ITEM_RELATED_TO_RCK_ENTRY_IS_INELIGIBLE = of("item_related_to_rck_entry_is_ineligible")
+                @JvmField
+                val ITEM_RELATED_TO_RCK_ENTRY_IS_INELIGIBLE =
+                    of("item_related_to_rck_entry_is_ineligible")
 
                 /** Code R26. A rare return reason. The ACH is missing a required field. */
                 @JvmField val MANDATORY_FIELD_ERROR = of("mandatory_field_error")
 
                 /**
-                 * Code R71. A rare return reason. The receiving bank does not recognize the
-                 * routing number in a dishonored return entry.
+                 * Code R71. A rare return reason. The receiving bank does not recognize the routing
+                 * number in a dishonored return entry.
                  */
                 @JvmField val MISROUTED_DISHONORED_RETURN = of("misrouted_dishonored_return")
 
                 /**
-                 * Code R61. A rare return reason. The receiving bank does not recognize the
-                 * routing number in a return entry.
+                 * Code R61. A rare return reason. The receiving bank does not recognize the routing
+                 * number in a return entry.
                  */
                 @JvmField val MISROUTED_RETURN = of("misrouted_return")
 
@@ -1652,7 +1686,9 @@ class AchPrenotification @JsonCreator private constructor(
                  * Code R77. A rare return reason. The receiving bank does not accept the return of
                  * the erroneous debit. The funds are not available at the receiving bank.
                  */
-                @JvmField val NON_ACCEPTANCE_OF_R62_DISHONORED_RETURN = of("non_acceptance_of_r62_dishonored_return")
+                @JvmField
+                val NON_ACCEPTANCE_OF_R62_DISHONORED_RETURN =
+                    of("non_acceptance_of_r62_dishonored_return")
 
                 /**
                  * Code R81. A rare return reason. The receiving bank does not accept International
@@ -1666,8 +1702,12 @@ class AchPrenotification @JsonCreator private constructor(
                  */
                 @JvmField val PERMISSIBLE_RETURN_ENTRY = of("permissible_return_entry")
 
-                /** Code R70. A rare return reason. The receiving bank had not approved this return. */
-                @JvmField val PERMISSIBLE_RETURN_ENTRY_NOT_ACCEPTED = of("permissible_return_entry_not_accepted")
+                /**
+                 * Code R70. A rare return reason. The receiving bank had not approved this return.
+                 */
+                @JvmField
+                val PERMISSIBLE_RETURN_ENTRY_NOT_ACCEPTED =
+                    of("permissible_return_entry_not_accepted")
 
                 /**
                  * Code R32. A rare return reason. The receiving bank could not settle this
@@ -1679,10 +1719,14 @@ class AchPrenotification @JsonCreator private constructor(
                  * Code R30. A rare return reason. The receiving bank does not accept Check
                  * Truncation ACH transfers.
                  */
-                @JvmField val RDFI_PARTICIPANT_IN_CHECK_TRUNCATION_PROGRAM = of("rdfi_participant_in_check_truncation_program")
+                @JvmField
+                val RDFI_PARTICIPANT_IN_CHECK_TRUNCATION_PROGRAM =
+                    of("rdfi_participant_in_check_truncation_program")
 
                 /** Code R14. A rare return reason. The payee is deceased. */
-                @JvmField val REPRESENTATIVE_PAYEE_DECEASED_OR_UNABLE_TO_CONTINUE_IN_THAT_CAPACITY = of("representative_payee_deceased_or_unable_to_continue_in_that_capacity")
+                @JvmField
+                val REPRESENTATIVE_PAYEE_DECEASED_OR_UNABLE_TO_CONTINUE_IN_THAT_CAPACITY =
+                    of("representative_payee_deceased_or_unable_to_continue_in_that_capacity")
 
                 /**
                  * Code R75. A rare return reason. The originating bank disputes that an earlier
@@ -1694,10 +1738,13 @@ class AchPrenotification @JsonCreator private constructor(
                  * Code R62. A rare return reason. The originating financial institution made a
                  * mistake and this return corrects it.
                  */
-                @JvmField val RETURN_OF_ERRONEOUS_OR_REVERSING_DEBIT = of("return_of_erroneous_or_reversing_debit")
+                @JvmField
+                val RETURN_OF_ERRONEOUS_OR_REVERSING_DEBIT =
+                    of("return_of_erroneous_or_reversing_debit")
 
                 /** Code R36. A rare return reason. Return of a malformed credit entry. */
-                @JvmField val RETURN_OF_IMPROPER_CREDIT_ENTRY = of("return_of_improper_credit_entry")
+                @JvmField
+                val RETURN_OF_IMPROPER_CREDIT_ENTRY = of("return_of_improper_credit_entry")
 
                 /** Code R35. A rare return reason. Return of a malformed debit entry. */
                 @JvmField val RETURN_OF_IMPROPER_DEBIT_ENTRY = of("return_of_improper_debit_entry")
@@ -1709,25 +1756,31 @@ class AchPrenotification @JsonCreator private constructor(
                  * Code R37. A rare return reason. The source document related to this ACH, usually
                  * an ACH check conversion, was presented to the bank.
                  */
-                @JvmField val SOURCE_DOCUMENT_PRESENTED_FOR_PAYMENT = of("source_document_presented_for_payment")
+                @JvmField
+                val SOURCE_DOCUMENT_PRESENTED_FOR_PAYMENT =
+                    of("source_document_presented_for_payment")
 
                 /**
                  * Code R50. A rare return reason. State law prevents the bank from accepting the
                  * Represented Check ("RCK") entry.
                  */
-                @JvmField val STATE_LAW_AFFECTING_RCK_ACCEPTANCE = of("state_law_affecting_rck_acceptance")
+                @JvmField
+                val STATE_LAW_AFFECTING_RCK_ACCEPTANCE = of("state_law_affecting_rck_acceptance")
 
                 /**
                  * Code R52. A rare return reason. A stop payment was issued on a Represented Check
                  * ("RCK") entry.
                  */
-                @JvmField val STOP_PAYMENT_ON_ITEM_RELATED_TO_RCK_ENTRY = of("stop_payment_on_item_related_to_rck_entry")
+                @JvmField
+                val STOP_PAYMENT_ON_ITEM_RELATED_TO_RCK_ENTRY =
+                    of("stop_payment_on_item_related_to_rck_entry")
 
                 /**
                  * Code R38. A rare return reason. The source attached to the ACH, usually an ACH
                  * check conversion, includes a stop payment.
                  */
-                @JvmField val STOP_PAYMENT_ON_SOURCE_DOCUMENT = of("stop_payment_on_source_document")
+                @JvmField
+                val STOP_PAYMENT_ON_SOURCE_DOCUMENT = of("stop_payment_on_source_document")
 
                 /**
                  * Code R73. A rare return reason. The bank receiving an `untimely_return` believes
@@ -1796,8 +1849,8 @@ class AchPrenotification @JsonCreator private constructor(
                 /** Code R19. The amount field is incorrect or too large. */
                 AMOUNT_FIELD_ERROR,
                 /**
-                 * Code R07. The customer at the receiving institution informed their bank that
-                 * they have revoked authorization for a previously authorized transfer.
+                 * Code R07. The customer at the receiving institution informed their bank that they
+                 * have revoked authorization for a previously authorized transfer.
                  */
                 AUTHORIZATION_REVOKED_BY_CUSTOMER,
                 /** Code R13. The routing number is invalid. */
@@ -1831,8 +1884,7 @@ class AchPrenotification @JsonCreator private constructor(
                 CUSTOMER_ADVISED_NOT_WITHIN_AUTHORIZATION_TERMS,
                 /**
                  * Code R74. A rare return reason. Sent in response to a return that was returned
-                 * with code `field_error`. The latest return should include the corrected
-                 * field(s).
+                 * with code `field_error`. The latest return should include the corrected field(s).
                  */
                 CORRECTED_RETURN,
                 /**
@@ -1932,13 +1984,13 @@ class AchPrenotification @JsonCreator private constructor(
                 /** Code R26. A rare return reason. The ACH is missing a required field. */
                 MANDATORY_FIELD_ERROR,
                 /**
-                 * Code R71. A rare return reason. The receiving bank does not recognize the
-                 * routing number in a dishonored return entry.
+                 * Code R71. A rare return reason. The receiving bank does not recognize the routing
+                 * number in a dishonored return entry.
                  */
                 MISROUTED_DISHONORED_RETURN,
                 /**
-                 * Code R61. A rare return reason. The receiving bank does not recognize the
-                 * routing number in a return entry.
+                 * Code R61. A rare return reason. The receiving bank does not recognize the routing
+                 * number in a return entry.
                  */
                 MISROUTED_RETURN,
                 /**
@@ -1961,7 +2013,9 @@ class AchPrenotification @JsonCreator private constructor(
                  * the receiving bank, despite falling outside of the usual return timeframe.
                  */
                 PERMISSIBLE_RETURN_ENTRY,
-                /** Code R70. A rare return reason. The receiving bank had not approved this return. */
+                /**
+                 * Code R70. A rare return reason. The receiving bank had not approved this return.
+                 */
                 PERMISSIBLE_RETURN_ENTRY_NOT_ACCEPTED,
                 /**
                  * Code R32. A rare return reason. The receiving bank could not settle this
@@ -2031,13 +2085,10 @@ class AchPrenotification @JsonCreator private constructor(
              * An enum containing [ReturnReasonCode]'s known values, as well as an [_UNKNOWN]
              * member.
              *
-             * An instance of [ReturnReasonCode] can contain an unknown value in a couple of
-             * cases:
-             *
-             * - It was deserialized from data that doesn't match any known member. For
-             *   example, if the SDK is on an older version than the API, then the API may
-             *   respond with new members that the SDK is unaware of.
-             *
+             * An instance of [ReturnReasonCode] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
              * - It was constructed with an arbitrary value using the [of] method.
              */
             enum class Value {
@@ -2085,8 +2136,8 @@ class AchPrenotification @JsonCreator private constructor(
                 /** Code R19. The amount field is incorrect or too large. */
                 AMOUNT_FIELD_ERROR,
                 /**
-                 * Code R07. The customer at the receiving institution informed their bank that
-                 * they have revoked authorization for a previously authorized transfer.
+                 * Code R07. The customer at the receiving institution informed their bank that they
+                 * have revoked authorization for a previously authorized transfer.
                  */
                 AUTHORIZATION_REVOKED_BY_CUSTOMER,
                 /** Code R13. The routing number is invalid. */
@@ -2120,8 +2171,7 @@ class AchPrenotification @JsonCreator private constructor(
                 CUSTOMER_ADVISED_NOT_WITHIN_AUTHORIZATION_TERMS,
                 /**
                  * Code R74. A rare return reason. Sent in response to a return that was returned
-                 * with code `field_error`. The latest return should include the corrected
-                 * field(s).
+                 * with code `field_error`. The latest return should include the corrected field(s).
                  */
                 CORRECTED_RETURN,
                 /**
@@ -2221,13 +2271,13 @@ class AchPrenotification @JsonCreator private constructor(
                 /** Code R26. A rare return reason. The ACH is missing a required field. */
                 MANDATORY_FIELD_ERROR,
                 /**
-                 * Code R71. A rare return reason. The receiving bank does not recognize the
-                 * routing number in a dishonored return entry.
+                 * Code R71. A rare return reason. The receiving bank does not recognize the routing
+                 * number in a dishonored return entry.
                  */
                 MISROUTED_DISHONORED_RETURN,
                 /**
-                 * Code R61. A rare return reason. The receiving bank does not recognize the
-                 * routing number in a return entry.
+                 * Code R61. A rare return reason. The receiving bank does not recognize the routing
+                 * number in a return entry.
                  */
                 MISROUTED_RETURN,
                 /**
@@ -2250,7 +2300,9 @@ class AchPrenotification @JsonCreator private constructor(
                  * the receiving bank, despite falling outside of the usual return timeframe.
                  */
                 PERMISSIBLE_RETURN_ENTRY,
-                /** Code R70. A rare return reason. The receiving bank had not approved this return. */
+                /**
+                 * Code R70. A rare return reason. The receiving bank had not approved this return.
+                 */
                 PERMISSIBLE_RETURN_ENTRY_NOT_ACCEPTED,
                 /**
                  * Code R32. A rare return reason. The receiving bank could not settle this
@@ -2325,8 +2377,8 @@ class AchPrenotification @JsonCreator private constructor(
              * Returns an enum member corresponding to this class instance's value, or
              * [Value._UNKNOWN] if the class was instantiated with an unknown value.
              *
-             * Use the [known] method instead if you're certain the value is always known or if
-             * you want to throw for the unknown case.
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
              */
             fun value(): Value =
                 when (this) {
@@ -2334,15 +2386,19 @@ class AchPrenotification @JsonCreator private constructor(
                     NO_ACCOUNT -> Value.NO_ACCOUNT
                     ACCOUNT_CLOSED -> Value.ACCOUNT_CLOSED
                     INVALID_ACCOUNT_NUMBER_STRUCTURE -> Value.INVALID_ACCOUNT_NUMBER_STRUCTURE
-                    ACCOUNT_FROZEN_ENTRY_RETURNED_PER_OFAC_INSTRUCTION -> Value.ACCOUNT_FROZEN_ENTRY_RETURNED_PER_OFAC_INSTRUCTION
+                    ACCOUNT_FROZEN_ENTRY_RETURNED_PER_OFAC_INSTRUCTION ->
+                        Value.ACCOUNT_FROZEN_ENTRY_RETURNED_PER_OFAC_INSTRUCTION
                     CREDIT_ENTRY_REFUSED_BY_RECEIVER -> Value.CREDIT_ENTRY_REFUSED_BY_RECEIVER
-                    UNAUTHORIZED_DEBIT_TO_CONSUMER_ACCOUNT_USING_CORPORATE_SEC_CODE -> Value.UNAUTHORIZED_DEBIT_TO_CONSUMER_ACCOUNT_USING_CORPORATE_SEC_CODE
-                    CORPORATE_CUSTOMER_ADVISED_NOT_AUTHORIZED -> Value.CORPORATE_CUSTOMER_ADVISED_NOT_AUTHORIZED
+                    UNAUTHORIZED_DEBIT_TO_CONSUMER_ACCOUNT_USING_CORPORATE_SEC_CODE ->
+                        Value.UNAUTHORIZED_DEBIT_TO_CONSUMER_ACCOUNT_USING_CORPORATE_SEC_CODE
+                    CORPORATE_CUSTOMER_ADVISED_NOT_AUTHORIZED ->
+                        Value.CORPORATE_CUSTOMER_ADVISED_NOT_AUTHORIZED
                     PAYMENT_STOPPED -> Value.PAYMENT_STOPPED
                     NON_TRANSACTION_ACCOUNT -> Value.NON_TRANSACTION_ACCOUNT
                     UNCOLLECTED_FUNDS -> Value.UNCOLLECTED_FUNDS
                     ROUTING_NUMBER_CHECK_DIGIT_ERROR -> Value.ROUTING_NUMBER_CHECK_DIGIT_ERROR
-                    CUSTOMER_ADVISED_UNAUTHORIZED_IMPROPER_INELIGIBLE_OR_INCOMPLETE -> Value.CUSTOMER_ADVISED_UNAUTHORIZED_IMPROPER_INELIGIBLE_OR_INCOMPLETE
+                    CUSTOMER_ADVISED_UNAUTHORIZED_IMPROPER_INELIGIBLE_OR_INCOMPLETE ->
+                        Value.CUSTOMER_ADVISED_UNAUTHORIZED_IMPROPER_INELIGIBLE_OR_INCOMPLETE
                     AMOUNT_FIELD_ERROR -> Value.AMOUNT_FIELD_ERROR
                     AUTHORIZATION_REVOKED_BY_CUSTOMER -> Value.AUTHORIZATION_REVOKED_BY_CUSTOMER
                     INVALID_ACH_ROUTING_NUMBER -> Value.INVALID_ACH_ROUTING_NUMBER
@@ -2350,51 +2406,68 @@ class AchPrenotification @JsonCreator private constructor(
                     ENR_INVALID_INDIVIDUAL_NAME -> Value.ENR_INVALID_INDIVIDUAL_NAME
                     RETURNED_PER_ODFI_REQUEST -> Value.RETURNED_PER_ODFI_REQUEST
                     LIMITED_PARTICIPATION_DFI -> Value.LIMITED_PARTICIPATION_DFI
-                    INCORRECTLY_CODED_OUTBOUND_INTERNATIONAL_PAYMENT -> Value.INCORRECTLY_CODED_OUTBOUND_INTERNATIONAL_PAYMENT
+                    INCORRECTLY_CODED_OUTBOUND_INTERNATIONAL_PAYMENT ->
+                        Value.INCORRECTLY_CODED_OUTBOUND_INTERNATIONAL_PAYMENT
                     ACCOUNT_SOLD_TO_ANOTHER_DFI -> Value.ACCOUNT_SOLD_TO_ANOTHER_DFI
                     ADDENDA_ERROR -> Value.ADDENDA_ERROR
-                    BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED -> Value.BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED
-                    CUSTOMER_ADVISED_NOT_WITHIN_AUTHORIZATION_TERMS -> Value.CUSTOMER_ADVISED_NOT_WITHIN_AUTHORIZATION_TERMS
+                    BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED ->
+                        Value.BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED
+                    CUSTOMER_ADVISED_NOT_WITHIN_AUTHORIZATION_TERMS ->
+                        Value.CUSTOMER_ADVISED_NOT_WITHIN_AUTHORIZATION_TERMS
                     CORRECTED_RETURN -> Value.CORRECTED_RETURN
                     DUPLICATE_ENTRY -> Value.DUPLICATE_ENTRY
                     DUPLICATE_RETURN -> Value.DUPLICATE_RETURN
                     ENR_DUPLICATE_ENROLLMENT -> Value.ENR_DUPLICATE_ENROLLMENT
                     ENR_INVALID_DFI_ACCOUNT_NUMBER -> Value.ENR_INVALID_DFI_ACCOUNT_NUMBER
                     ENR_INVALID_INDIVIDUAL_ID_NUMBER -> Value.ENR_INVALID_INDIVIDUAL_ID_NUMBER
-                    ENR_INVALID_REPRESENTATIVE_PAYEE_INDICATOR -> Value.ENR_INVALID_REPRESENTATIVE_PAYEE_INDICATOR
+                    ENR_INVALID_REPRESENTATIVE_PAYEE_INDICATOR ->
+                        Value.ENR_INVALID_REPRESENTATIVE_PAYEE_INDICATOR
                     ENR_INVALID_TRANSACTION_CODE -> Value.ENR_INVALID_TRANSACTION_CODE
                     ENR_RETURN_OF_ENR_ENTRY -> Value.ENR_RETURN_OF_ENR_ENTRY
-                    ENR_ROUTING_NUMBER_CHECK_DIGIT_ERROR -> Value.ENR_ROUTING_NUMBER_CHECK_DIGIT_ERROR
+                    ENR_ROUTING_NUMBER_CHECK_DIGIT_ERROR ->
+                        Value.ENR_ROUTING_NUMBER_CHECK_DIGIT_ERROR
                     ENTRY_NOT_PROCESSED_BY_GATEWAY -> Value.ENTRY_NOT_PROCESSED_BY_GATEWAY
                     FIELD_ERROR -> Value.FIELD_ERROR
-                    FOREIGN_RECEIVING_DFI_UNABLE_TO_SETTLE -> Value.FOREIGN_RECEIVING_DFI_UNABLE_TO_SETTLE
+                    FOREIGN_RECEIVING_DFI_UNABLE_TO_SETTLE ->
+                        Value.FOREIGN_RECEIVING_DFI_UNABLE_TO_SETTLE
                     IAT_ENTRY_CODING_ERROR -> Value.IAT_ENTRY_CODING_ERROR
                     IMPROPER_EFFECTIVE_ENTRY_DATE -> Value.IMPROPER_EFFECTIVE_ENTRY_DATE
-                    IMPROPER_SOURCE_DOCUMENT_SOURCE_DOCUMENT_PRESENTED -> Value.IMPROPER_SOURCE_DOCUMENT_SOURCE_DOCUMENT_PRESENTED
+                    IMPROPER_SOURCE_DOCUMENT_SOURCE_DOCUMENT_PRESENTED ->
+                        Value.IMPROPER_SOURCE_DOCUMENT_SOURCE_DOCUMENT_PRESENTED
                     INVALID_COMPANY_ID -> Value.INVALID_COMPANY_ID
-                    INVALID_FOREIGN_RECEIVING_DFI_IDENTIFICATION -> Value.INVALID_FOREIGN_RECEIVING_DFI_IDENTIFICATION
+                    INVALID_FOREIGN_RECEIVING_DFI_IDENTIFICATION ->
+                        Value.INVALID_FOREIGN_RECEIVING_DFI_IDENTIFICATION
                     INVALID_INDIVIDUAL_ID_NUMBER -> Value.INVALID_INDIVIDUAL_ID_NUMBER
-                    ITEM_AND_RCK_ENTRY_PRESENTED_FOR_PAYMENT -> Value.ITEM_AND_RCK_ENTRY_PRESENTED_FOR_PAYMENT
-                    ITEM_RELATED_TO_RCK_ENTRY_IS_INELIGIBLE -> Value.ITEM_RELATED_TO_RCK_ENTRY_IS_INELIGIBLE
+                    ITEM_AND_RCK_ENTRY_PRESENTED_FOR_PAYMENT ->
+                        Value.ITEM_AND_RCK_ENTRY_PRESENTED_FOR_PAYMENT
+                    ITEM_RELATED_TO_RCK_ENTRY_IS_INELIGIBLE ->
+                        Value.ITEM_RELATED_TO_RCK_ENTRY_IS_INELIGIBLE
                     MANDATORY_FIELD_ERROR -> Value.MANDATORY_FIELD_ERROR
                     MISROUTED_DISHONORED_RETURN -> Value.MISROUTED_DISHONORED_RETURN
                     MISROUTED_RETURN -> Value.MISROUTED_RETURN
                     NO_ERRORS_FOUND -> Value.NO_ERRORS_FOUND
-                    NON_ACCEPTANCE_OF_R62_DISHONORED_RETURN -> Value.NON_ACCEPTANCE_OF_R62_DISHONORED_RETURN
+                    NON_ACCEPTANCE_OF_R62_DISHONORED_RETURN ->
+                        Value.NON_ACCEPTANCE_OF_R62_DISHONORED_RETURN
                     NON_PARTICIPANT_IN_IAT_PROGRAM -> Value.NON_PARTICIPANT_IN_IAT_PROGRAM
                     PERMISSIBLE_RETURN_ENTRY -> Value.PERMISSIBLE_RETURN_ENTRY
-                    PERMISSIBLE_RETURN_ENTRY_NOT_ACCEPTED -> Value.PERMISSIBLE_RETURN_ENTRY_NOT_ACCEPTED
+                    PERMISSIBLE_RETURN_ENTRY_NOT_ACCEPTED ->
+                        Value.PERMISSIBLE_RETURN_ENTRY_NOT_ACCEPTED
                     RDFI_NON_SETTLEMENT -> Value.RDFI_NON_SETTLEMENT
-                    RDFI_PARTICIPANT_IN_CHECK_TRUNCATION_PROGRAM -> Value.RDFI_PARTICIPANT_IN_CHECK_TRUNCATION_PROGRAM
-                    REPRESENTATIVE_PAYEE_DECEASED_OR_UNABLE_TO_CONTINUE_IN_THAT_CAPACITY -> Value.REPRESENTATIVE_PAYEE_DECEASED_OR_UNABLE_TO_CONTINUE_IN_THAT_CAPACITY
+                    RDFI_PARTICIPANT_IN_CHECK_TRUNCATION_PROGRAM ->
+                        Value.RDFI_PARTICIPANT_IN_CHECK_TRUNCATION_PROGRAM
+                    REPRESENTATIVE_PAYEE_DECEASED_OR_UNABLE_TO_CONTINUE_IN_THAT_CAPACITY ->
+                        Value.REPRESENTATIVE_PAYEE_DECEASED_OR_UNABLE_TO_CONTINUE_IN_THAT_CAPACITY
                     RETURN_NOT_A_DUPLICATE -> Value.RETURN_NOT_A_DUPLICATE
-                    RETURN_OF_ERRONEOUS_OR_REVERSING_DEBIT -> Value.RETURN_OF_ERRONEOUS_OR_REVERSING_DEBIT
+                    RETURN_OF_ERRONEOUS_OR_REVERSING_DEBIT ->
+                        Value.RETURN_OF_ERRONEOUS_OR_REVERSING_DEBIT
                     RETURN_OF_IMPROPER_CREDIT_ENTRY -> Value.RETURN_OF_IMPROPER_CREDIT_ENTRY
                     RETURN_OF_IMPROPER_DEBIT_ENTRY -> Value.RETURN_OF_IMPROPER_DEBIT_ENTRY
                     RETURN_OF_XCK_ENTRY -> Value.RETURN_OF_XCK_ENTRY
-                    SOURCE_DOCUMENT_PRESENTED_FOR_PAYMENT -> Value.SOURCE_DOCUMENT_PRESENTED_FOR_PAYMENT
+                    SOURCE_DOCUMENT_PRESENTED_FOR_PAYMENT ->
+                        Value.SOURCE_DOCUMENT_PRESENTED_FOR_PAYMENT
                     STATE_LAW_AFFECTING_RCK_ACCEPTANCE -> Value.STATE_LAW_AFFECTING_RCK_ACCEPTANCE
-                    STOP_PAYMENT_ON_ITEM_RELATED_TO_RCK_ENTRY -> Value.STOP_PAYMENT_ON_ITEM_RELATED_TO_RCK_ENTRY
+                    STOP_PAYMENT_ON_ITEM_RELATED_TO_RCK_ENTRY ->
+                        Value.STOP_PAYMENT_ON_ITEM_RELATED_TO_RCK_ENTRY
                     STOP_PAYMENT_ON_SOURCE_DOCUMENT -> Value.STOP_PAYMENT_ON_SOURCE_DOCUMENT
                     TIMELY_ORIGINAL_RETURN -> Value.TIMELY_ORIGINAL_RETURN
                     TRACE_NUMBER_ERROR -> Value.TRACE_NUMBER_ERROR
@@ -2409,8 +2482,8 @@ class AchPrenotification @JsonCreator private constructor(
              * Use the [value] method instead if you're uncertain the value is always known and
              * don't want to throw for the unknown case.
              *
-             * @throws IncreaseInvalidDataException if this class instance's value is a not a
-             * known member.
+             * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+             *   member.
              */
             fun known(): Known =
                 when (this) {
@@ -2418,15 +2491,19 @@ class AchPrenotification @JsonCreator private constructor(
                     NO_ACCOUNT -> Known.NO_ACCOUNT
                     ACCOUNT_CLOSED -> Known.ACCOUNT_CLOSED
                     INVALID_ACCOUNT_NUMBER_STRUCTURE -> Known.INVALID_ACCOUNT_NUMBER_STRUCTURE
-                    ACCOUNT_FROZEN_ENTRY_RETURNED_PER_OFAC_INSTRUCTION -> Known.ACCOUNT_FROZEN_ENTRY_RETURNED_PER_OFAC_INSTRUCTION
+                    ACCOUNT_FROZEN_ENTRY_RETURNED_PER_OFAC_INSTRUCTION ->
+                        Known.ACCOUNT_FROZEN_ENTRY_RETURNED_PER_OFAC_INSTRUCTION
                     CREDIT_ENTRY_REFUSED_BY_RECEIVER -> Known.CREDIT_ENTRY_REFUSED_BY_RECEIVER
-                    UNAUTHORIZED_DEBIT_TO_CONSUMER_ACCOUNT_USING_CORPORATE_SEC_CODE -> Known.UNAUTHORIZED_DEBIT_TO_CONSUMER_ACCOUNT_USING_CORPORATE_SEC_CODE
-                    CORPORATE_CUSTOMER_ADVISED_NOT_AUTHORIZED -> Known.CORPORATE_CUSTOMER_ADVISED_NOT_AUTHORIZED
+                    UNAUTHORIZED_DEBIT_TO_CONSUMER_ACCOUNT_USING_CORPORATE_SEC_CODE ->
+                        Known.UNAUTHORIZED_DEBIT_TO_CONSUMER_ACCOUNT_USING_CORPORATE_SEC_CODE
+                    CORPORATE_CUSTOMER_ADVISED_NOT_AUTHORIZED ->
+                        Known.CORPORATE_CUSTOMER_ADVISED_NOT_AUTHORIZED
                     PAYMENT_STOPPED -> Known.PAYMENT_STOPPED
                     NON_TRANSACTION_ACCOUNT -> Known.NON_TRANSACTION_ACCOUNT
                     UNCOLLECTED_FUNDS -> Known.UNCOLLECTED_FUNDS
                     ROUTING_NUMBER_CHECK_DIGIT_ERROR -> Known.ROUTING_NUMBER_CHECK_DIGIT_ERROR
-                    CUSTOMER_ADVISED_UNAUTHORIZED_IMPROPER_INELIGIBLE_OR_INCOMPLETE -> Known.CUSTOMER_ADVISED_UNAUTHORIZED_IMPROPER_INELIGIBLE_OR_INCOMPLETE
+                    CUSTOMER_ADVISED_UNAUTHORIZED_IMPROPER_INELIGIBLE_OR_INCOMPLETE ->
+                        Known.CUSTOMER_ADVISED_UNAUTHORIZED_IMPROPER_INELIGIBLE_OR_INCOMPLETE
                     AMOUNT_FIELD_ERROR -> Known.AMOUNT_FIELD_ERROR
                     AUTHORIZATION_REVOKED_BY_CUSTOMER -> Known.AUTHORIZATION_REVOKED_BY_CUSTOMER
                     INVALID_ACH_ROUTING_NUMBER -> Known.INVALID_ACH_ROUTING_NUMBER
@@ -2434,51 +2511,68 @@ class AchPrenotification @JsonCreator private constructor(
                     ENR_INVALID_INDIVIDUAL_NAME -> Known.ENR_INVALID_INDIVIDUAL_NAME
                     RETURNED_PER_ODFI_REQUEST -> Known.RETURNED_PER_ODFI_REQUEST
                     LIMITED_PARTICIPATION_DFI -> Known.LIMITED_PARTICIPATION_DFI
-                    INCORRECTLY_CODED_OUTBOUND_INTERNATIONAL_PAYMENT -> Known.INCORRECTLY_CODED_OUTBOUND_INTERNATIONAL_PAYMENT
+                    INCORRECTLY_CODED_OUTBOUND_INTERNATIONAL_PAYMENT ->
+                        Known.INCORRECTLY_CODED_OUTBOUND_INTERNATIONAL_PAYMENT
                     ACCOUNT_SOLD_TO_ANOTHER_DFI -> Known.ACCOUNT_SOLD_TO_ANOTHER_DFI
                     ADDENDA_ERROR -> Known.ADDENDA_ERROR
-                    BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED -> Known.BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED
-                    CUSTOMER_ADVISED_NOT_WITHIN_AUTHORIZATION_TERMS -> Known.CUSTOMER_ADVISED_NOT_WITHIN_AUTHORIZATION_TERMS
+                    BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED ->
+                        Known.BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED
+                    CUSTOMER_ADVISED_NOT_WITHIN_AUTHORIZATION_TERMS ->
+                        Known.CUSTOMER_ADVISED_NOT_WITHIN_AUTHORIZATION_TERMS
                     CORRECTED_RETURN -> Known.CORRECTED_RETURN
                     DUPLICATE_ENTRY -> Known.DUPLICATE_ENTRY
                     DUPLICATE_RETURN -> Known.DUPLICATE_RETURN
                     ENR_DUPLICATE_ENROLLMENT -> Known.ENR_DUPLICATE_ENROLLMENT
                     ENR_INVALID_DFI_ACCOUNT_NUMBER -> Known.ENR_INVALID_DFI_ACCOUNT_NUMBER
                     ENR_INVALID_INDIVIDUAL_ID_NUMBER -> Known.ENR_INVALID_INDIVIDUAL_ID_NUMBER
-                    ENR_INVALID_REPRESENTATIVE_PAYEE_INDICATOR -> Known.ENR_INVALID_REPRESENTATIVE_PAYEE_INDICATOR
+                    ENR_INVALID_REPRESENTATIVE_PAYEE_INDICATOR ->
+                        Known.ENR_INVALID_REPRESENTATIVE_PAYEE_INDICATOR
                     ENR_INVALID_TRANSACTION_CODE -> Known.ENR_INVALID_TRANSACTION_CODE
                     ENR_RETURN_OF_ENR_ENTRY -> Known.ENR_RETURN_OF_ENR_ENTRY
-                    ENR_ROUTING_NUMBER_CHECK_DIGIT_ERROR -> Known.ENR_ROUTING_NUMBER_CHECK_DIGIT_ERROR
+                    ENR_ROUTING_NUMBER_CHECK_DIGIT_ERROR ->
+                        Known.ENR_ROUTING_NUMBER_CHECK_DIGIT_ERROR
                     ENTRY_NOT_PROCESSED_BY_GATEWAY -> Known.ENTRY_NOT_PROCESSED_BY_GATEWAY
                     FIELD_ERROR -> Known.FIELD_ERROR
-                    FOREIGN_RECEIVING_DFI_UNABLE_TO_SETTLE -> Known.FOREIGN_RECEIVING_DFI_UNABLE_TO_SETTLE
+                    FOREIGN_RECEIVING_DFI_UNABLE_TO_SETTLE ->
+                        Known.FOREIGN_RECEIVING_DFI_UNABLE_TO_SETTLE
                     IAT_ENTRY_CODING_ERROR -> Known.IAT_ENTRY_CODING_ERROR
                     IMPROPER_EFFECTIVE_ENTRY_DATE -> Known.IMPROPER_EFFECTIVE_ENTRY_DATE
-                    IMPROPER_SOURCE_DOCUMENT_SOURCE_DOCUMENT_PRESENTED -> Known.IMPROPER_SOURCE_DOCUMENT_SOURCE_DOCUMENT_PRESENTED
+                    IMPROPER_SOURCE_DOCUMENT_SOURCE_DOCUMENT_PRESENTED ->
+                        Known.IMPROPER_SOURCE_DOCUMENT_SOURCE_DOCUMENT_PRESENTED
                     INVALID_COMPANY_ID -> Known.INVALID_COMPANY_ID
-                    INVALID_FOREIGN_RECEIVING_DFI_IDENTIFICATION -> Known.INVALID_FOREIGN_RECEIVING_DFI_IDENTIFICATION
+                    INVALID_FOREIGN_RECEIVING_DFI_IDENTIFICATION ->
+                        Known.INVALID_FOREIGN_RECEIVING_DFI_IDENTIFICATION
                     INVALID_INDIVIDUAL_ID_NUMBER -> Known.INVALID_INDIVIDUAL_ID_NUMBER
-                    ITEM_AND_RCK_ENTRY_PRESENTED_FOR_PAYMENT -> Known.ITEM_AND_RCK_ENTRY_PRESENTED_FOR_PAYMENT
-                    ITEM_RELATED_TO_RCK_ENTRY_IS_INELIGIBLE -> Known.ITEM_RELATED_TO_RCK_ENTRY_IS_INELIGIBLE
+                    ITEM_AND_RCK_ENTRY_PRESENTED_FOR_PAYMENT ->
+                        Known.ITEM_AND_RCK_ENTRY_PRESENTED_FOR_PAYMENT
+                    ITEM_RELATED_TO_RCK_ENTRY_IS_INELIGIBLE ->
+                        Known.ITEM_RELATED_TO_RCK_ENTRY_IS_INELIGIBLE
                     MANDATORY_FIELD_ERROR -> Known.MANDATORY_FIELD_ERROR
                     MISROUTED_DISHONORED_RETURN -> Known.MISROUTED_DISHONORED_RETURN
                     MISROUTED_RETURN -> Known.MISROUTED_RETURN
                     NO_ERRORS_FOUND -> Known.NO_ERRORS_FOUND
-                    NON_ACCEPTANCE_OF_R62_DISHONORED_RETURN -> Known.NON_ACCEPTANCE_OF_R62_DISHONORED_RETURN
+                    NON_ACCEPTANCE_OF_R62_DISHONORED_RETURN ->
+                        Known.NON_ACCEPTANCE_OF_R62_DISHONORED_RETURN
                     NON_PARTICIPANT_IN_IAT_PROGRAM -> Known.NON_PARTICIPANT_IN_IAT_PROGRAM
                     PERMISSIBLE_RETURN_ENTRY -> Known.PERMISSIBLE_RETURN_ENTRY
-                    PERMISSIBLE_RETURN_ENTRY_NOT_ACCEPTED -> Known.PERMISSIBLE_RETURN_ENTRY_NOT_ACCEPTED
+                    PERMISSIBLE_RETURN_ENTRY_NOT_ACCEPTED ->
+                        Known.PERMISSIBLE_RETURN_ENTRY_NOT_ACCEPTED
                     RDFI_NON_SETTLEMENT -> Known.RDFI_NON_SETTLEMENT
-                    RDFI_PARTICIPANT_IN_CHECK_TRUNCATION_PROGRAM -> Known.RDFI_PARTICIPANT_IN_CHECK_TRUNCATION_PROGRAM
-                    REPRESENTATIVE_PAYEE_DECEASED_OR_UNABLE_TO_CONTINUE_IN_THAT_CAPACITY -> Known.REPRESENTATIVE_PAYEE_DECEASED_OR_UNABLE_TO_CONTINUE_IN_THAT_CAPACITY
+                    RDFI_PARTICIPANT_IN_CHECK_TRUNCATION_PROGRAM ->
+                        Known.RDFI_PARTICIPANT_IN_CHECK_TRUNCATION_PROGRAM
+                    REPRESENTATIVE_PAYEE_DECEASED_OR_UNABLE_TO_CONTINUE_IN_THAT_CAPACITY ->
+                        Known.REPRESENTATIVE_PAYEE_DECEASED_OR_UNABLE_TO_CONTINUE_IN_THAT_CAPACITY
                     RETURN_NOT_A_DUPLICATE -> Known.RETURN_NOT_A_DUPLICATE
-                    RETURN_OF_ERRONEOUS_OR_REVERSING_DEBIT -> Known.RETURN_OF_ERRONEOUS_OR_REVERSING_DEBIT
+                    RETURN_OF_ERRONEOUS_OR_REVERSING_DEBIT ->
+                        Known.RETURN_OF_ERRONEOUS_OR_REVERSING_DEBIT
                     RETURN_OF_IMPROPER_CREDIT_ENTRY -> Known.RETURN_OF_IMPROPER_CREDIT_ENTRY
                     RETURN_OF_IMPROPER_DEBIT_ENTRY -> Known.RETURN_OF_IMPROPER_DEBIT_ENTRY
                     RETURN_OF_XCK_ENTRY -> Known.RETURN_OF_XCK_ENTRY
-                    SOURCE_DOCUMENT_PRESENTED_FOR_PAYMENT -> Known.SOURCE_DOCUMENT_PRESENTED_FOR_PAYMENT
+                    SOURCE_DOCUMENT_PRESENTED_FOR_PAYMENT ->
+                        Known.SOURCE_DOCUMENT_PRESENTED_FOR_PAYMENT
                     STATE_LAW_AFFECTING_RCK_ACCEPTANCE -> Known.STATE_LAW_AFFECTING_RCK_ACCEPTANCE
-                    STOP_PAYMENT_ON_ITEM_RELATED_TO_RCK_ENTRY -> Known.STOP_PAYMENT_ON_ITEM_RELATED_TO_RCK_ENTRY
+                    STOP_PAYMENT_ON_ITEM_RELATED_TO_RCK_ENTRY ->
+                        Known.STOP_PAYMENT_ON_ITEM_RELATED_TO_RCK_ENTRY
                     STOP_PAYMENT_ON_SOURCE_DOCUMENT -> Known.STOP_PAYMENT_ON_SOURCE_DOCUMENT
                     TIMELY_ORIGINAL_RETURN -> Known.TIMELY_ORIGINAL_RETURN
                     TRACE_NUMBER_ERROR -> Known.TRACE_NUMBER_ERROR
@@ -2493,17 +2587,20 @@ class AchPrenotification @JsonCreator private constructor(
              * This differs from the [toString] method because that method is primarily for
              * debugging and generally doesn't throw.
              *
-             * @throws IncreaseInvalidDataException if this class instance's value does not
-             * have the expected primitive type.
+             * @throws IncreaseInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
              */
-            fun asString(): String = _value().asString().orElseThrow { IncreaseInvalidDataException("Value is not a String") }
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    IncreaseInvalidDataException("Value is not a String")
+                }
 
             override fun equals(other: Any?): Boolean {
-              if (this === other) {
-                  return true
-              }
+                if (this === other) {
+                    return true
+                }
 
-              return /* spotless:off */ other is ReturnReasonCode && value == other.value /* spotless:on */
+                return /* spotless:off */ other is ReturnReasonCode && value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -2512,11 +2609,11 @@ class AchPrenotification @JsonCreator private constructor(
         }
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return /* spotless:off */ other is PrenotificationReturn && createdAt == other.createdAt && returnReasonCode == other.returnReasonCode && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is PrenotificationReturn && createdAt == other.createdAt && returnReasonCode == other.returnReasonCode && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -2525,25 +2622,22 @@ class AchPrenotification @JsonCreator private constructor(
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() = "PrenotificationReturn{createdAt=$createdAt, returnReasonCode=$returnReasonCode, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "PrenotificationReturn{createdAt=$createdAt, returnReasonCode=$returnReasonCode, additionalProperties=$additionalProperties}"
     }
 
     /** The lifecycle status of the ACH Prenotification. */
-    class Status @JsonCreator private constructor(
-        private val value: JsonField<String>,
-
-    ) : Enum {
+    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that
-         * doesn't match any known member, and you want to know that value. For example, if
-         * the SDK is on an older version than the API, then the API may respond with new
-         * members that the SDK is unaware of.
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -2578,11 +2672,9 @@ class AchPrenotification @JsonCreator private constructor(
          * An enum containing [Status]'s known values, as well as an [_UNKNOWN] member.
          *
          * An instance of [Status] can contain an unknown value in a couple of cases:
-         *
-         * - It was deserialized from data that doesn't match any known member. For
-         *   example, if the SDK is on an older version than the API, then the API may
-         *   respond with new members that the SDK is unaware of.
-         *
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
@@ -2599,11 +2691,11 @@ class AchPrenotification @JsonCreator private constructor(
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or
-         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if
-         * you want to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -2617,11 +2709,11 @@ class AchPrenotification @JsonCreator private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and
-         * don't want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value is a not a
-         * known member.
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+         *   member.
          */
         fun known(): Known =
             when (this) {
@@ -2635,20 +2727,23 @@ class AchPrenotification @JsonCreator private constructor(
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for
-         * debugging and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value does not
-         * have the expected primitive type.
+         * @throws IncreaseInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
          */
-        fun asString(): String = _value().asString().orElseThrow { IncreaseInvalidDataException("Value is not a String") }
+        fun asString(): String =
+            _value().asString().orElseThrow {
+                IncreaseInvalidDataException("Value is not a String")
+            }
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return /* spotless:off */ other is Status && value == other.value /* spotless:on */
+            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -2660,21 +2755,17 @@ class AchPrenotification @JsonCreator private constructor(
      * A constant representing the object's type. For this resource it will always be
      * `ach_prenotification`.
      */
-    class Type @JsonCreator private constructor(
-        private val value: JsonField<String>,
-
-    ) : Enum {
+    class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that
-         * doesn't match any known member, and you want to know that value. For example, if
-         * the SDK is on an older version than the API, then the API may respond with new
-         * members that the SDK is unaware of.
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -2685,18 +2776,16 @@ class AchPrenotification @JsonCreator private constructor(
 
         /** An enum containing [Type]'s known values. */
         enum class Known {
-            ACH_PRENOTIFICATION,
+            ACH_PRENOTIFICATION
         }
 
         /**
          * An enum containing [Type]'s known values, as well as an [_UNKNOWN] member.
          *
          * An instance of [Type] can contain an unknown value in a couple of cases:
-         *
-         * - It was deserialized from data that doesn't match any known member. For
-         *   example, if the SDK is on an older version than the API, then the API may
-         *   respond with new members that the SDK is unaware of.
-         *
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
@@ -2706,11 +2795,11 @@ class AchPrenotification @JsonCreator private constructor(
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or
-         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if
-         * you want to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -2721,11 +2810,11 @@ class AchPrenotification @JsonCreator private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and
-         * don't want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value is a not a
-         * known member.
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+         *   member.
          */
         fun known(): Known =
             when (this) {
@@ -2736,20 +2825,23 @@ class AchPrenotification @JsonCreator private constructor(
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for
-         * debugging and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value does not
-         * have the expected primitive type.
+         * @throws IncreaseInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
          */
-        fun asString(): String = _value().asString().orElseThrow { IncreaseInvalidDataException("Value is not a String") }
+        fun asString(): String =
+            _value().asString().orElseThrow {
+                IncreaseInvalidDataException("Value is not a String")
+            }
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return /* spotless:off */ other is Type && value == other.value /* spotless:on */
+            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -2758,11 +2850,11 @@ class AchPrenotification @JsonCreator private constructor(
     }
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return /* spotless:off */ other is AchPrenotification && id == other.id && accountNumber == other.accountNumber && addendum == other.addendum && companyDescriptiveDate == other.companyDescriptiveDate && companyDiscretionaryData == other.companyDiscretionaryData && companyEntryDescription == other.companyEntryDescription && companyName == other.companyName && createdAt == other.createdAt && creditDebitIndicator == other.creditDebitIndicator && effectiveDate == other.effectiveDate && idempotencyKey == other.idempotencyKey && notificationsOfChange == other.notificationsOfChange && prenotificationReturn == other.prenotificationReturn && routingNumber == other.routingNumber && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is AchPrenotification && id == other.id && accountNumber == other.accountNumber && addendum == other.addendum && companyDescriptiveDate == other.companyDescriptiveDate && companyDiscretionaryData == other.companyDiscretionaryData && companyEntryDescription == other.companyEntryDescription && companyName == other.companyName && createdAt == other.createdAt && creditDebitIndicator == other.creditDebitIndicator && effectiveDate == other.effectiveDate && idempotencyKey == other.idempotencyKey && notificationsOfChange == other.notificationsOfChange && prenotificationReturn == other.prenotificationReturn && routingNumber == other.routingNumber && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
@@ -2771,5 +2863,6 @@ class AchPrenotification @JsonCreator private constructor(
 
     override fun hashCode(): Int = hashCode
 
-    override fun toString() = "AchPrenotification{id=$id, accountNumber=$accountNumber, addendum=$addendum, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, createdAt=$createdAt, creditDebitIndicator=$creditDebitIndicator, effectiveDate=$effectiveDate, idempotencyKey=$idempotencyKey, notificationsOfChange=$notificationsOfChange, prenotificationReturn=$prenotificationReturn, routingNumber=$routingNumber, status=$status, type=$type, additionalProperties=$additionalProperties}"
+    override fun toString() =
+        "AchPrenotification{id=$id, accountNumber=$accountNumber, addendum=$addendum, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, createdAt=$createdAt, creditDebitIndicator=$creditDebitIndicator, effectiveDate=$effectiveDate, idempotencyKey=$idempotencyKey, notificationsOfChange=$notificationsOfChange, prenotificationReturn=$prenotificationReturn, routingNumber=$routingNumber, status=$status, type=$type, additionalProperties=$additionalProperties}"
 }

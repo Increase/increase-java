@@ -19,12 +19,12 @@ import com.increase.api.models.programs.ProgramListPage
 import com.increase.api.models.programs.ProgramListParams
 import com.increase.api.models.programs.ProgramRetrieveParams
 
-class ProgramServiceImpl internal constructor(
-    private val clientOptions: ClientOptions,
+class ProgramServiceImpl internal constructor(private val clientOptions: ClientOptions) :
+    ProgramService {
 
-) : ProgramService {
-
-    private val withRawResponse: ProgramService.WithRawResponse by lazy { WithRawResponseImpl(clientOptions) }
+    private val withRawResponse: ProgramService.WithRawResponse by lazy {
+        WithRawResponseImpl(clientOptions)
+    }
 
     override fun withRawResponse(): ProgramService.WithRawResponse = withRawResponse
 
@@ -36,64 +36,63 @@ class ProgramServiceImpl internal constructor(
         // get /programs
         withRawResponse().list(params, requestOptions).parse()
 
-    class WithRawResponseImpl internal constructor(
-        private val clientOptions: ClientOptions,
-
-    ) : ProgramService.WithRawResponse {
+    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
+        ProgramService.WithRawResponse {
 
         private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
-        private val retrieveHandler: Handler<Program> = jsonHandler<Program>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val retrieveHandler: Handler<Program> =
+            jsonHandler<Program>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-        override fun retrieve(params: ProgramRetrieveParams, requestOptions: RequestOptions): HttpResponseFor<Program> {
-          val request = HttpRequest.builder()
-            .method(HttpMethod.GET)
-            .addPathSegments("programs", params.getPathParam(0))
-            .build()
-            .prepare(clientOptions, params)
-          val requestOptions = requestOptions
-              .applyDefaults(RequestOptions.from(clientOptions))
-          val response = clientOptions.httpClient.execute(
-            request, requestOptions
-          )
-          return response.parseable {
-              response.use {
-                  retrieveHandler.handle(it)
-              }
-              .also {
-                  if (requestOptions.responseValidation!!) {
-                    it.validate()
-                  }
-              }
-          }
+        override fun retrieve(
+            params: ProgramRetrieveParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<Program> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .addPathSegments("programs", params.getPathParam(0))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { retrieveHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
         }
 
-        private val listHandler: Handler<ProgramListPage.Response> = jsonHandler<ProgramListPage.Response>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val listHandler: Handler<ProgramListPage.Response> =
+            jsonHandler<ProgramListPage.Response>(clientOptions.jsonMapper)
+                .withErrorHandler(errorHandler)
 
-        override fun list(params: ProgramListParams, requestOptions: RequestOptions): HttpResponseFor<ProgramListPage> {
-          val request = HttpRequest.builder()
-            .method(HttpMethod.GET)
-            .addPathSegments("programs")
-            .build()
-            .prepare(clientOptions, params)
-          val requestOptions = requestOptions
-              .applyDefaults(RequestOptions.from(clientOptions))
-          val response = clientOptions.httpClient.execute(
-            request, requestOptions
-          )
-          return response.parseable {
-              response.use {
-                  listHandler.handle(it)
-              }
-              .also {
-                  if (requestOptions.responseValidation!!) {
-                    it.validate()
-                  }
-              }
-              .let {
-                  ProgramListPage.of(ProgramServiceImpl(clientOptions), params, it)
-              }
-          }
+        override fun list(
+            params: ProgramListParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<ProgramListPage> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .addPathSegments("programs")
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { listHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+                    .let { ProgramListPage.of(ProgramServiceImpl(clientOptions), params, it) }
+            }
         }
     }
 }

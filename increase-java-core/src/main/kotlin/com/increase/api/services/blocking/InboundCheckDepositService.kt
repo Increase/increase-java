@@ -15,124 +15,137 @@ import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositReturnPar
 interface InboundCheckDepositService {
 
     /**
-     * Returns a view of this service that provides access to raw HTTP responses for
-     * each method.
+     * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
 
     /** Retrieve an Inbound Check Deposit */
     fun retrieve(params: InboundCheckDepositRetrieveParams): InboundCheckDeposit =
-        retrieve(
-          params, RequestOptions.none()
-        )
+        retrieve(params, RequestOptions.none())
 
     /** @see [retrieve] */
-    fun retrieve(params: InboundCheckDepositRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): InboundCheckDeposit
+    fun retrieve(
+        params: InboundCheckDepositRetrieveParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): InboundCheckDeposit
 
     /** List Inbound Check Deposits */
     fun list(): InboundCheckDepositListPage = list(InboundCheckDepositListParams.none())
 
     /** @see [list] */
-    fun list(params: InboundCheckDepositListParams = InboundCheckDepositListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): InboundCheckDepositListPage
+    fun list(
+        params: InboundCheckDepositListParams = InboundCheckDepositListParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): InboundCheckDepositListPage
 
     /** @see [list] */
-    fun list(params: InboundCheckDepositListParams = InboundCheckDepositListParams.none()): InboundCheckDepositListPage =
-        list(
-          params, RequestOptions.none()
-        )
+    fun list(
+        params: InboundCheckDepositListParams = InboundCheckDepositListParams.none()
+    ): InboundCheckDepositListPage = list(params, RequestOptions.none())
 
     /** @see [list] */
-    fun list(requestOptions: RequestOptions): InboundCheckDepositListPage = list(InboundCheckDepositListParams.none(), requestOptions)
+    fun list(requestOptions: RequestOptions): InboundCheckDepositListPage =
+        list(InboundCheckDepositListParams.none(), requestOptions)
 
     /** Decline an Inbound Check Deposit */
     fun decline(params: InboundCheckDepositDeclineParams): InboundCheckDeposit =
-        decline(
-          params, RequestOptions.none()
-        )
+        decline(params, RequestOptions.none())
 
     /** @see [decline] */
-    fun decline(params: InboundCheckDepositDeclineParams, requestOptions: RequestOptions = RequestOptions.none()): InboundCheckDeposit
+    fun decline(
+        params: InboundCheckDepositDeclineParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): InboundCheckDeposit
 
     /** Return an Inbound Check Deposit */
     fun return_(params: InboundCheckDepositReturnParams): InboundCheckDeposit =
-        return_(
-          params, RequestOptions.none()
-        )
+        return_(params, RequestOptions.none())
 
     /** @see [return_] */
-    fun return_(params: InboundCheckDepositReturnParams, requestOptions: RequestOptions = RequestOptions.none()): InboundCheckDeposit
+    fun return_(
+        params: InboundCheckDepositReturnParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): InboundCheckDeposit
 
     /**
-     * A view of [InboundCheckDepositService] that provides access to raw HTTP
-     * responses for each method.
+     * A view of [InboundCheckDepositService] that provides access to raw HTTP responses for each
+     * method.
      */
     interface WithRawResponse {
 
         /**
-         * Returns a raw HTTP response for
-         * `get /inbound_check_deposits/{inbound_check_deposit_id}`, but is otherwise the
-         * same as [InboundCheckDepositService.retrieve].
+         * Returns a raw HTTP response for `get /inbound_check_deposits/{inbound_check_deposit_id}`,
+         * but is otherwise the same as [InboundCheckDepositService.retrieve].
          */
         @MustBeClosed
-        fun retrieve(params: InboundCheckDepositRetrieveParams): HttpResponseFor<InboundCheckDeposit> =
-            retrieve(
-              params, RequestOptions.none()
-            )
+        fun retrieve(
+            params: InboundCheckDepositRetrieveParams
+        ): HttpResponseFor<InboundCheckDeposit> = retrieve(params, RequestOptions.none())
 
         /** @see [retrieve] */
         @MustBeClosed
-        fun retrieve(params: InboundCheckDepositRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<InboundCheckDeposit>
+        fun retrieve(
+            params: InboundCheckDepositRetrieveParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<InboundCheckDeposit>
 
         /**
-         * Returns a raw HTTP response for `get /inbound_check_deposits`, but is otherwise
-         * the same as [InboundCheckDepositService.list].
+         * Returns a raw HTTP response for `get /inbound_check_deposits`, but is otherwise the same
+         * as [InboundCheckDepositService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<InboundCheckDepositListPage> = list(InboundCheckDepositListParams.none())
+        fun list(): HttpResponseFor<InboundCheckDepositListPage> =
+            list(InboundCheckDepositListParams.none())
 
         /** @see [list] */
         @MustBeClosed
-        fun list(params: InboundCheckDepositListParams = InboundCheckDepositListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<InboundCheckDepositListPage>
+        fun list(
+            params: InboundCheckDepositListParams = InboundCheckDepositListParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<InboundCheckDepositListPage>
 
         /** @see [list] */
         @MustBeClosed
-        fun list(params: InboundCheckDepositListParams = InboundCheckDepositListParams.none()): HttpResponseFor<InboundCheckDepositListPage> =
-            list(
-              params, RequestOptions.none()
-            )
+        fun list(
+            params: InboundCheckDepositListParams = InboundCheckDepositListParams.none()
+        ): HttpResponseFor<InboundCheckDepositListPage> = list(params, RequestOptions.none())
 
         /** @see [list] */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<InboundCheckDepositListPage> = list(InboundCheckDepositListParams.none(), requestOptions)
+        fun list(requestOptions: RequestOptions): HttpResponseFor<InboundCheckDepositListPage> =
+            list(InboundCheckDepositListParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for
-         * `post /inbound_check_deposits/{inbound_check_deposit_id}/decline`, but is
-         * otherwise the same as [InboundCheckDepositService.decline].
+         * Returns a raw HTTP response for `post
+         * /inbound_check_deposits/{inbound_check_deposit_id}/decline`, but is otherwise the same as
+         * [InboundCheckDepositService.decline].
          */
         @MustBeClosed
-        fun decline(params: InboundCheckDepositDeclineParams): HttpResponseFor<InboundCheckDeposit> =
-            decline(
-              params, RequestOptions.none()
-            )
+        fun decline(
+            params: InboundCheckDepositDeclineParams
+        ): HttpResponseFor<InboundCheckDeposit> = decline(params, RequestOptions.none())
 
         /** @see [decline] */
         @MustBeClosed
-        fun decline(params: InboundCheckDepositDeclineParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<InboundCheckDeposit>
+        fun decline(
+            params: InboundCheckDepositDeclineParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<InboundCheckDeposit>
 
         /**
-         * Returns a raw HTTP response for
-         * `post /inbound_check_deposits/{inbound_check_deposit_id}/return`, but is
-         * otherwise the same as [InboundCheckDepositService.return_].
+         * Returns a raw HTTP response for `post
+         * /inbound_check_deposits/{inbound_check_deposit_id}/return`, but is otherwise the same as
+         * [InboundCheckDepositService.return_].
          */
         @MustBeClosed
         fun return_(params: InboundCheckDepositReturnParams): HttpResponseFor<InboundCheckDeposit> =
-            return_(
-              params, RequestOptions.none()
-            )
+            return_(params, RequestOptions.none())
 
         /** @see [return_] */
         @MustBeClosed
-        fun return_(params: InboundCheckDepositReturnParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<InboundCheckDeposit>
+        fun return_(
+            params: InboundCheckDepositReturnParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<InboundCheckDeposit>
     }
 }

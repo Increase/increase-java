@@ -15,85 +15,109 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
 import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransfer
-import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransferListPage
 import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransferListPageAsync
 import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransferListParams
 import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransferRetrieveParams
 import java.util.concurrent.CompletableFuture
 
-class InboundRealTimePaymentsTransferServiceAsyncImpl internal constructor(
-    private val clientOptions: ClientOptions,
+class InboundRealTimePaymentsTransferServiceAsyncImpl
+internal constructor(private val clientOptions: ClientOptions) :
+    InboundRealTimePaymentsTransferServiceAsync {
 
-) : InboundRealTimePaymentsTransferServiceAsync {
+    private val withRawResponse:
+        InboundRealTimePaymentsTransferServiceAsync.WithRawResponse by lazy {
+        WithRawResponseImpl(clientOptions)
+    }
 
-    private val withRawResponse: InboundRealTimePaymentsTransferServiceAsync.WithRawResponse by lazy { WithRawResponseImpl(clientOptions) }
+    override fun withRawResponse(): InboundRealTimePaymentsTransferServiceAsync.WithRawResponse =
+        withRawResponse
 
-    override fun withRawResponse(): InboundRealTimePaymentsTransferServiceAsync.WithRawResponse = withRawResponse
-
-    override fun retrieve(params: InboundRealTimePaymentsTransferRetrieveParams, requestOptions: RequestOptions): CompletableFuture<InboundRealTimePaymentsTransfer> =
+    override fun retrieve(
+        params: InboundRealTimePaymentsTransferRetrieveParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<InboundRealTimePaymentsTransfer> =
         // get /inbound_real_time_payments_transfers/{inbound_real_time_payments_transfer_id}
         withRawResponse().retrieve(params, requestOptions).thenApply { it.parse() }
 
-    override fun list(params: InboundRealTimePaymentsTransferListParams, requestOptions: RequestOptions): CompletableFuture<InboundRealTimePaymentsTransferListPageAsync> =
+    override fun list(
+        params: InboundRealTimePaymentsTransferListParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<InboundRealTimePaymentsTransferListPageAsync> =
         // get /inbound_real_time_payments_transfers
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
-    class WithRawResponseImpl internal constructor(
-        private val clientOptions: ClientOptions,
-
-    ) : InboundRealTimePaymentsTransferServiceAsync.WithRawResponse {
+    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
+        InboundRealTimePaymentsTransferServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
-        private val retrieveHandler: Handler<InboundRealTimePaymentsTransfer> = jsonHandler<InboundRealTimePaymentsTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val retrieveHandler: Handler<InboundRealTimePaymentsTransfer> =
+            jsonHandler<InboundRealTimePaymentsTransfer>(clientOptions.jsonMapper)
+                .withErrorHandler(errorHandler)
 
-        override fun retrieve(params: InboundRealTimePaymentsTransferRetrieveParams, requestOptions: RequestOptions): CompletableFuture<HttpResponseFor<InboundRealTimePaymentsTransfer>> {
-          val request = HttpRequest.builder()
-            .method(HttpMethod.GET)
-            .addPathSegments("inbound_real_time_payments_transfers", params.getPathParam(0))
-            .build()
-            .prepareAsync(clientOptions, params)
-          val requestOptions = requestOptions
-              .applyDefaults(RequestOptions.from(clientOptions))
-          return request.thenComposeAsync { clientOptions.httpClient.executeAsync(
-            it, requestOptions
-          ) }.thenApply { response -> response.parseable {
-              response.use {
-                  retrieveHandler.handle(it)
-              }
-              .also {
-                  if (requestOptions.responseValidation!!) {
-                    it.validate()
-                  }
-              }
-          } }
+        override fun retrieve(
+            params: InboundRealTimePaymentsTransferRetrieveParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<InboundRealTimePaymentsTransfer>> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .addPathSegments("inbound_real_time_payments_transfers", params.getPathParam(0))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    response.parseable {
+                        response
+                            .use { retrieveHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
         }
 
-        private val listHandler: Handler<InboundRealTimePaymentsTransferListPageAsync.Response> = jsonHandler<InboundRealTimePaymentsTransferListPageAsync.Response>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val listHandler: Handler<InboundRealTimePaymentsTransferListPageAsync.Response> =
+            jsonHandler<InboundRealTimePaymentsTransferListPageAsync.Response>(
+                    clientOptions.jsonMapper
+                )
+                .withErrorHandler(errorHandler)
 
-        override fun list(params: InboundRealTimePaymentsTransferListParams, requestOptions: RequestOptions): CompletableFuture<HttpResponseFor<InboundRealTimePaymentsTransferListPageAsync>> {
-          val request = HttpRequest.builder()
-            .method(HttpMethod.GET)
-            .addPathSegments("inbound_real_time_payments_transfers")
-            .build()
-            .prepareAsync(clientOptions, params)
-          val requestOptions = requestOptions
-              .applyDefaults(RequestOptions.from(clientOptions))
-          return request.thenComposeAsync { clientOptions.httpClient.executeAsync(
-            it, requestOptions
-          ) }.thenApply { response -> response.parseable {
-              response.use {
-                  listHandler.handle(it)
-              }
-              .also {
-                  if (requestOptions.responseValidation!!) {
-                    it.validate()
-                  }
-              }
-              .let {
-                  InboundRealTimePaymentsTransferListPageAsync.of(InboundRealTimePaymentsTransferServiceAsyncImpl(clientOptions), params, it)
-              }
-          } }
+        override fun list(
+            params: InboundRealTimePaymentsTransferListParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<InboundRealTimePaymentsTransferListPageAsync>> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .addPathSegments("inbound_real_time_payments_transfers")
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    response.parseable {
+                        response
+                            .use { listHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                            .let {
+                                InboundRealTimePaymentsTransferListPageAsync.of(
+                                    InboundRealTimePaymentsTransferServiceAsyncImpl(clientOptions),
+                                    params,
+                                    it,
+                                )
+                            }
+                    }
+                }
         }
     }
 }

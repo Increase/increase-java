@@ -9,20 +9,21 @@ class WireTransferCancelParamsTest {
 
     @Test
     fun create() {
-      WireTransferCancelParams.builder()
-          .wireTransferId("wire_transfer_5akynk7dqsq25qwk9q2u")
-          .build()
+        WireTransferCancelParams.builder()
+            .wireTransferId("wire_transfer_5akynk7dqsq25qwk9q2u")
+            .build()
     }
 
     @Test
     fun getPathParam() {
-      val params = WireTransferCancelParams.builder()
-          .wireTransferId("wire_transfer_5akynk7dqsq25qwk9q2u")
-          .build()
-      assertThat(params).isNotNull
-      // path param "wireTransferId"
-      assertThat(params.getPathParam(0)).isEqualTo("wire_transfer_5akynk7dqsq25qwk9q2u")
-      // out-of-bound path param
-      assertThat(params.getPathParam(1)).isEqualTo("")
+        val params =
+            WireTransferCancelParams.builder()
+                .wireTransferId("wire_transfer_5akynk7dqsq25qwk9q2u")
+                .build()
+        assertThat(params).isNotNull
+        // path param "wireTransferId"
+        assertThat(params.getPathParam(0)).isEqualTo("wire_transfer_5akynk7dqsq25qwk9q2u")
+        // out-of-bound path param
+        assertThat(params.getPathParam(1)).isEqualTo("")
     }
 }

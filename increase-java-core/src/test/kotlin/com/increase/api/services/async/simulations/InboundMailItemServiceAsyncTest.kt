@@ -13,19 +13,23 @@ class InboundMailItemServiceAsyncTest {
 
     @Test
     fun create() {
-      val client = IncreaseOkHttpClientAsync.builder()
-          .baseUrl(TestServerExtension.BASE_URL)
-          .apiKey("My API Key")
-          .build()
-      val inboundMailItemServiceAsync = client.simulations().inboundMailItems()
+        val client =
+            IncreaseOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val inboundMailItemServiceAsync = client.simulations().inboundMailItems()
 
-      val inboundMailItemFuture = inboundMailItemServiceAsync.create(InboundMailItemCreateParams.builder()
-          .amount(1000L)
-          .lockboxId("lockbox_3xt21ok13q19advds4t5")
-          .contentsFileId("contents_file_id")
-          .build())
+        val inboundMailItemFuture =
+            inboundMailItemServiceAsync.create(
+                InboundMailItemCreateParams.builder()
+                    .amount(1000L)
+                    .lockboxId("lockbox_3xt21ok13q19advds4t5")
+                    .contentsFileId("contents_file_id")
+                    .build()
+            )
 
-      val inboundMailItem = inboundMailItemFuture.get()
-      inboundMailItem.validate()
+        val inboundMailItem = inboundMailItemFuture.get()
+        inboundMailItem.validate()
     }
 }

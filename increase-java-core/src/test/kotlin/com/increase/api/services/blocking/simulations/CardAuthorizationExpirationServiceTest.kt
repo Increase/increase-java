@@ -13,16 +13,20 @@ class CardAuthorizationExpirationServiceTest {
 
     @Test
     fun create() {
-      val client = IncreaseOkHttpClient.builder()
-          .baseUrl(TestServerExtension.BASE_URL)
-          .apiKey("My API Key")
-          .build()
-      val cardAuthorizationExpirationService = client.simulations().cardAuthorizationExpirations()
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val cardAuthorizationExpirationService = client.simulations().cardAuthorizationExpirations()
 
-      val cardPayment = cardAuthorizationExpirationService.create(CardAuthorizationExpirationCreateParams.builder()
-          .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
-          .build())
+        val cardPayment =
+            cardAuthorizationExpirationService.create(
+                CardAuthorizationExpirationCreateParams.builder()
+                    .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
+                    .build()
+            )
 
-      cardPayment.validate()
+        cardPayment.validate()
     }
 }

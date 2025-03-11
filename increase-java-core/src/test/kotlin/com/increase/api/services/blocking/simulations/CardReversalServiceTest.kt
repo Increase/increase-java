@@ -13,17 +13,21 @@ class CardReversalServiceTest {
 
     @Test
     fun create() {
-      val client = IncreaseOkHttpClient.builder()
-          .baseUrl(TestServerExtension.BASE_URL)
-          .apiKey("My API Key")
-          .build()
-      val cardReversalService = client.simulations().cardReversals()
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val cardReversalService = client.simulations().cardReversals()
 
-      val cardPayment = cardReversalService.create(CardReversalCreateParams.builder()
-          .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
-          .amount(1L)
-          .build())
+        val cardPayment =
+            cardReversalService.create(
+                CardReversalCreateParams.builder()
+                    .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
+                    .amount(1L)
+                    .build()
+            )
 
-      cardPayment.validate()
+        cardPayment.validate()
     }
 }

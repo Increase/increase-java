@@ -18,50 +18,52 @@ import com.increase.api.errors.IncreaseError
 import com.increase.api.models.simulations.interestpayments.InterestPaymentCreateParams
 import com.increase.api.models.transactions.Transaction
 
-class InterestPaymentServiceImpl internal constructor(
-    private val clientOptions: ClientOptions,
+class InterestPaymentServiceImpl internal constructor(private val clientOptions: ClientOptions) :
+    InterestPaymentService {
 
-) : InterestPaymentService {
-
-    private val withRawResponse: InterestPaymentService.WithRawResponse by lazy { WithRawResponseImpl(clientOptions) }
+    private val withRawResponse: InterestPaymentService.WithRawResponse by lazy {
+        WithRawResponseImpl(clientOptions)
+    }
 
     override fun withRawResponse(): InterestPaymentService.WithRawResponse = withRawResponse
 
-    override fun create(params: InterestPaymentCreateParams, requestOptions: RequestOptions): Transaction =
+    override fun create(
+        params: InterestPaymentCreateParams,
+        requestOptions: RequestOptions,
+    ): Transaction =
         // post /simulations/interest_payments
         withRawResponse().create(params, requestOptions).parse()
 
-    class WithRawResponseImpl internal constructor(
-        private val clientOptions: ClientOptions,
-
-    ) : InterestPaymentService.WithRawResponse {
+    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
+        InterestPaymentService.WithRawResponse {
 
         private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
-        private val createHandler: Handler<Transaction> = jsonHandler<Transaction>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val createHandler: Handler<Transaction> =
+            jsonHandler<Transaction>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-        override fun create(params: InterestPaymentCreateParams, requestOptions: RequestOptions): HttpResponseFor<Transaction> {
-          val request = HttpRequest.builder()
-            .method(HttpMethod.POST)
-            .addPathSegments("simulations", "interest_payments")
-            .body(json(clientOptions.jsonMapper, params._body()))
-            .build()
-            .prepare(clientOptions, params)
-          val requestOptions = requestOptions
-              .applyDefaults(RequestOptions.from(clientOptions))
-          val response = clientOptions.httpClient.execute(
-            request, requestOptions
-          )
-          return response.parseable {
-              response.use {
-                  createHandler.handle(it)
-              }
-              .also {
-                  if (requestOptions.responseValidation!!) {
-                    it.validate()
-                  }
-              }
-          }
+        override fun create(
+            params: InterestPaymentCreateParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<Transaction> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .addPathSegments("simulations", "interest_payments")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { createHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
         }
     }
 }

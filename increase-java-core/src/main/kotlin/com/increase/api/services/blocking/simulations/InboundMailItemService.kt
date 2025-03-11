@@ -11,41 +11,42 @@ import com.increase.api.models.simulations.inboundmailitems.InboundMailItemCreat
 interface InboundMailItemService {
 
     /**
-     * Returns a view of this service that provides access to raw HTTP responses for
-     * each method.
+     * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
 
     /**
-     * Simulates an inbound mail item to your account, as if someone had mailed a
-     * physical check to one of your account's Lockboxes.
+     * Simulates an inbound mail item to your account, as if someone had mailed a physical check to
+     * one of your account's Lockboxes.
      */
     fun create(params: InboundMailItemCreateParams): InboundMailItem =
-        create(
-          params, RequestOptions.none()
-        )
+        create(params, RequestOptions.none())
 
     /** @see [create] */
-    fun create(params: InboundMailItemCreateParams, requestOptions: RequestOptions = RequestOptions.none()): InboundMailItem
+    fun create(
+        params: InboundMailItemCreateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): InboundMailItem
 
     /**
-     * A view of [InboundMailItemService] that provides access to raw HTTP responses
-     * for each method.
+     * A view of [InboundMailItemService] that provides access to raw HTTP responses for each
+     * method.
      */
     interface WithRawResponse {
 
         /**
-         * Returns a raw HTTP response for `post /simulations/inbound_mail_items`, but is
-         * otherwise the same as [InboundMailItemService.create].
+         * Returns a raw HTTP response for `post /simulations/inbound_mail_items`, but is otherwise
+         * the same as [InboundMailItemService.create].
          */
         @MustBeClosed
         fun create(params: InboundMailItemCreateParams): HttpResponseFor<InboundMailItem> =
-            create(
-              params, RequestOptions.none()
-            )
+            create(params, RequestOptions.none())
 
         /** @see [create] */
         @MustBeClosed
-        fun create(params: InboundMailItemCreateParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<InboundMailItem>
+        fun create(
+            params: InboundMailItemCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<InboundMailItem>
     }
 }

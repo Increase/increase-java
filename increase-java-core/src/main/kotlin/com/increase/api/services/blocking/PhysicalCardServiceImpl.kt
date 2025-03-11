@@ -22,141 +22,156 @@ import com.increase.api.models.physicalcards.PhysicalCardListParams
 import com.increase.api.models.physicalcards.PhysicalCardRetrieveParams
 import com.increase.api.models.physicalcards.PhysicalCardUpdateParams
 
-class PhysicalCardServiceImpl internal constructor(
-    private val clientOptions: ClientOptions,
+class PhysicalCardServiceImpl internal constructor(private val clientOptions: ClientOptions) :
+    PhysicalCardService {
 
-) : PhysicalCardService {
-
-    private val withRawResponse: PhysicalCardService.WithRawResponse by lazy { WithRawResponseImpl(clientOptions) }
+    private val withRawResponse: PhysicalCardService.WithRawResponse by lazy {
+        WithRawResponseImpl(clientOptions)
+    }
 
     override fun withRawResponse(): PhysicalCardService.WithRawResponse = withRawResponse
 
-    override fun create(params: PhysicalCardCreateParams, requestOptions: RequestOptions): PhysicalCard =
+    override fun create(
+        params: PhysicalCardCreateParams,
+        requestOptions: RequestOptions,
+    ): PhysicalCard =
         // post /physical_cards
         withRawResponse().create(params, requestOptions).parse()
 
-    override fun retrieve(params: PhysicalCardRetrieveParams, requestOptions: RequestOptions): PhysicalCard =
+    override fun retrieve(
+        params: PhysicalCardRetrieveParams,
+        requestOptions: RequestOptions,
+    ): PhysicalCard =
         // get /physical_cards/{physical_card_id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
-    override fun update(params: PhysicalCardUpdateParams, requestOptions: RequestOptions): PhysicalCard =
+    override fun update(
+        params: PhysicalCardUpdateParams,
+        requestOptions: RequestOptions,
+    ): PhysicalCard =
         // patch /physical_cards/{physical_card_id}
         withRawResponse().update(params, requestOptions).parse()
 
-    override fun list(params: PhysicalCardListParams, requestOptions: RequestOptions): PhysicalCardListPage =
+    override fun list(
+        params: PhysicalCardListParams,
+        requestOptions: RequestOptions,
+    ): PhysicalCardListPage =
         // get /physical_cards
         withRawResponse().list(params, requestOptions).parse()
 
-    class WithRawResponseImpl internal constructor(
-        private val clientOptions: ClientOptions,
-
-    ) : PhysicalCardService.WithRawResponse {
+    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
+        PhysicalCardService.WithRawResponse {
 
         private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
-        private val createHandler: Handler<PhysicalCard> = jsonHandler<PhysicalCard>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val createHandler: Handler<PhysicalCard> =
+            jsonHandler<PhysicalCard>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-        override fun create(params: PhysicalCardCreateParams, requestOptions: RequestOptions): HttpResponseFor<PhysicalCard> {
-          val request = HttpRequest.builder()
-            .method(HttpMethod.POST)
-            .addPathSegments("physical_cards")
-            .body(json(clientOptions.jsonMapper, params._body()))
-            .build()
-            .prepare(clientOptions, params)
-          val requestOptions = requestOptions
-              .applyDefaults(RequestOptions.from(clientOptions))
-          val response = clientOptions.httpClient.execute(
-            request, requestOptions
-          )
-          return response.parseable {
-              response.use {
-                  createHandler.handle(it)
-              }
-              .also {
-                  if (requestOptions.responseValidation!!) {
-                    it.validate()
-                  }
-              }
-          }
+        override fun create(
+            params: PhysicalCardCreateParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<PhysicalCard> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .addPathSegments("physical_cards")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { createHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
         }
 
-        private val retrieveHandler: Handler<PhysicalCard> = jsonHandler<PhysicalCard>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val retrieveHandler: Handler<PhysicalCard> =
+            jsonHandler<PhysicalCard>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-        override fun retrieve(params: PhysicalCardRetrieveParams, requestOptions: RequestOptions): HttpResponseFor<PhysicalCard> {
-          val request = HttpRequest.builder()
-            .method(HttpMethod.GET)
-            .addPathSegments("physical_cards", params.getPathParam(0))
-            .build()
-            .prepare(clientOptions, params)
-          val requestOptions = requestOptions
-              .applyDefaults(RequestOptions.from(clientOptions))
-          val response = clientOptions.httpClient.execute(
-            request, requestOptions
-          )
-          return response.parseable {
-              response.use {
-                  retrieveHandler.handle(it)
-              }
-              .also {
-                  if (requestOptions.responseValidation!!) {
-                    it.validate()
-                  }
-              }
-          }
+        override fun retrieve(
+            params: PhysicalCardRetrieveParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<PhysicalCard> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .addPathSegments("physical_cards", params.getPathParam(0))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { retrieveHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
         }
 
-        private val updateHandler: Handler<PhysicalCard> = jsonHandler<PhysicalCard>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val updateHandler: Handler<PhysicalCard> =
+            jsonHandler<PhysicalCard>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-        override fun update(params: PhysicalCardUpdateParams, requestOptions: RequestOptions): HttpResponseFor<PhysicalCard> {
-          val request = HttpRequest.builder()
-            .method(HttpMethod.PATCH)
-            .addPathSegments("physical_cards", params.getPathParam(0))
-            .body(json(clientOptions.jsonMapper, params._body()))
-            .build()
-            .prepare(clientOptions, params)
-          val requestOptions = requestOptions
-              .applyDefaults(RequestOptions.from(clientOptions))
-          val response = clientOptions.httpClient.execute(
-            request, requestOptions
-          )
-          return response.parseable {
-              response.use {
-                  updateHandler.handle(it)
-              }
-              .also {
-                  if (requestOptions.responseValidation!!) {
-                    it.validate()
-                  }
-              }
-          }
+        override fun update(
+            params: PhysicalCardUpdateParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<PhysicalCard> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.PATCH)
+                    .addPathSegments("physical_cards", params.getPathParam(0))
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { updateHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
         }
 
-        private val listHandler: Handler<PhysicalCardListPage.Response> = jsonHandler<PhysicalCardListPage.Response>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val listHandler: Handler<PhysicalCardListPage.Response> =
+            jsonHandler<PhysicalCardListPage.Response>(clientOptions.jsonMapper)
+                .withErrorHandler(errorHandler)
 
-        override fun list(params: PhysicalCardListParams, requestOptions: RequestOptions): HttpResponseFor<PhysicalCardListPage> {
-          val request = HttpRequest.builder()
-            .method(HttpMethod.GET)
-            .addPathSegments("physical_cards")
-            .build()
-            .prepare(clientOptions, params)
-          val requestOptions = requestOptions
-              .applyDefaults(RequestOptions.from(clientOptions))
-          val response = clientOptions.httpClient.execute(
-            request, requestOptions
-          )
-          return response.parseable {
-              response.use {
-                  listHandler.handle(it)
-              }
-              .also {
-                  if (requestOptions.responseValidation!!) {
-                    it.validate()
-                  }
-              }
-              .let {
-                  PhysicalCardListPage.of(PhysicalCardServiceImpl(clientOptions), params, it)
-              }
-          }
+        override fun list(
+            params: PhysicalCardListParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<PhysicalCardListPage> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .addPathSegments("physical_cards")
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { listHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+                    .let {
+                        PhysicalCardListPage.of(PhysicalCardServiceImpl(clientOptions), params, it)
+                    }
+            }
         }
     }
 }

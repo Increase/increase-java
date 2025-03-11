@@ -22,24 +22,43 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * External Accounts represent accounts at financial institutions other than
- * Increase. You can use this API to store their details for reuse.
+ * External Accounts represent accounts at financial institutions other than Increase. You can use
+ * this API to store their details for reuse.
  */
 @NoAutoDetect
-class ExternalAccount @JsonCreator private constructor(
+class ExternalAccount
+@JsonCreator
+private constructor(
     @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("account_holder") @ExcludeMissing private val accountHolder: JsonField<AccountHolder> = JsonMissing.of(),
-    @JsonProperty("account_number") @ExcludeMissing private val accountNumber: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("created_at") @ExcludeMissing private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("description") @ExcludeMissing private val description: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("funding") @ExcludeMissing private val funding: JsonField<Funding> = JsonMissing.of(),
-    @JsonProperty("idempotency_key") @ExcludeMissing private val idempotencyKey: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("routing_number") @ExcludeMissing private val routingNumber: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("status") @ExcludeMissing private val status: JsonField<Status> = JsonMissing.of(),
+    @JsonProperty("account_holder")
+    @ExcludeMissing
+    private val accountHolder: JsonField<AccountHolder> = JsonMissing.of(),
+    @JsonProperty("account_number")
+    @ExcludeMissing
+    private val accountNumber: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("description")
+    @ExcludeMissing
+    private val description: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("funding")
+    @ExcludeMissing
+    private val funding: JsonField<Funding> = JsonMissing.of(),
+    @JsonProperty("idempotency_key")
+    @ExcludeMissing
+    private val idempotencyKey: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("routing_number")
+    @ExcludeMissing
+    private val routingNumber: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("status")
+    @ExcludeMissing
+    private val status: JsonField<Status> = JsonMissing.of(),
     @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
-    @JsonProperty("verification_status") @ExcludeMissing private val verificationStatus: JsonField<VerificationStatus> = JsonMissing.of(),
+    @JsonProperty("verification_status")
+    @ExcludeMissing
+    private val verificationStatus: JsonField<VerificationStatus> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-
 ) {
 
     /** The External Account's identifier. */
@@ -52,8 +71,8 @@ class ExternalAccount @JsonCreator private constructor(
     fun accountNumber(): String = accountNumber.getRequired("account_number")
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
-     * the External Account was created.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the External
+     * Account was created.
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
@@ -64,11 +83,12 @@ class ExternalAccount @JsonCreator private constructor(
     fun funding(): Funding = funding.getRequired("funding")
 
     /**
-     * The idempotency key you chose for this object. This value is unique across
-     * Increase and is used to ensure that a request is only processed once. Learn more
-     * about [idempotency](https://increase.com/documentation/idempotency-keys).
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
      */
-    fun idempotencyKey(): Optional<String> = Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
+    fun idempotencyKey(): Optional<String> =
+        Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
 
     /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
     fun routingNumber(): String = routingNumber.getRequired("routing_number")
@@ -83,12 +103,11 @@ class ExternalAccount @JsonCreator private constructor(
     fun type(): Type = type.getRequired("type")
 
     /** If you have verified ownership of the External Account. */
-    fun verificationStatus(): VerificationStatus = verificationStatus.getRequired("verification_status")
+    fun verificationStatus(): VerificationStatus =
+        verificationStatus.getRequired("verification_status")
 
     /** The External Account's identifier. */
-    @JsonProperty("id")
-    @ExcludeMissing
-    fun _id(): JsonField<String> = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /** The type of entity that owns the External Account. */
     @JsonProperty("account_holder")
@@ -101,27 +120,23 @@ class ExternalAccount @JsonCreator private constructor(
     fun _accountNumber(): JsonField<String> = accountNumber
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
-     * the External Account was created.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the External
+     * Account was created.
      */
     @JsonProperty("created_at")
     @ExcludeMissing
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /** The External Account's description for display purposes. */
-    @JsonProperty("description")
-    @ExcludeMissing
-    fun _description(): JsonField<String> = description
+    @JsonProperty("description") @ExcludeMissing fun _description(): JsonField<String> = description
 
     /** The type of the account to which the transfer will be sent. */
-    @JsonProperty("funding")
-    @ExcludeMissing
-    fun _funding(): JsonField<Funding> = funding
+    @JsonProperty("funding") @ExcludeMissing fun _funding(): JsonField<Funding> = funding
 
     /**
-     * The idempotency key you chose for this object. This value is unique across
-     * Increase and is used to ensure that a request is only processed once. Learn more
-     * about [idempotency](https://increase.com/documentation/idempotency-keys).
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
      */
     @JsonProperty("idempotency_key")
     @ExcludeMissing
@@ -133,17 +148,13 @@ class ExternalAccount @JsonCreator private constructor(
     fun _routingNumber(): JsonField<String> = routingNumber
 
     /** The External Account's status. */
-    @JsonProperty("status")
-    @ExcludeMissing
-    fun _status(): JsonField<Status> = status
+    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `external_account`.
      */
-    @JsonProperty("type")
-    @ExcludeMissing
-    fun _type(): JsonField<Type> = type
+    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
     /** If you have verified ownership of the External Account. */
     @JsonProperty("verification_status")
@@ -156,25 +167,24 @@ class ExternalAccount @JsonCreator private constructor(
 
     private var validated: Boolean = false
 
-    fun validate(): ExternalAccount =
-        apply {
-            if (validated) {
-              return@apply
-            }
-
-            id()
-            accountHolder()
-            accountNumber()
-            createdAt()
-            description()
-            funding()
-            idempotencyKey()
-            routingNumber()
-            status()
-            type()
-            verificationStatus()
-            validated = true
+    fun validate(): ExternalAccount = apply {
+        if (validated) {
+            return@apply
         }
+
+        id()
+        accountHolder()
+        accountNumber()
+        createdAt()
+        description()
+        funding()
+        idempotencyKey()
+        routingNumber()
+        status()
+        type()
+        verificationStatus()
+        validated = true
+    }
 
     fun toBuilder() = Builder().from(this)
 
@@ -184,7 +194,6 @@ class ExternalAccount @JsonCreator private constructor(
          * Returns a mutable builder for constructing an instance of [ExternalAccount].
          *
          * The following fields are required:
-         *
          * ```java
          * .id()
          * .accountHolder()
@@ -199,8 +208,7 @@ class ExternalAccount @JsonCreator private constructor(
          * .verificationStatus()
          * ```
          */
-        @JvmStatic
-        fun builder() = Builder()
+        @JvmStatic fun builder() = Builder()
     }
 
     /** A builder for [ExternalAccount]. */
@@ -220,123 +228,105 @@ class ExternalAccount @JsonCreator private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(externalAccount: ExternalAccount) =
-            apply {
-                id = externalAccount.id
-                accountHolder = externalAccount.accountHolder
-                accountNumber = externalAccount.accountNumber
-                createdAt = externalAccount.createdAt
-                description = externalAccount.description
-                funding = externalAccount.funding
-                idempotencyKey = externalAccount.idempotencyKey
-                routingNumber = externalAccount.routingNumber
-                status = externalAccount.status
-                type = externalAccount.type
-                verificationStatus = externalAccount.verificationStatus
-                additionalProperties = externalAccount.additionalProperties.toMutableMap()
-            }
+        internal fun from(externalAccount: ExternalAccount) = apply {
+            id = externalAccount.id
+            accountHolder = externalAccount.accountHolder
+            accountNumber = externalAccount.accountNumber
+            createdAt = externalAccount.createdAt
+            description = externalAccount.description
+            funding = externalAccount.funding
+            idempotencyKey = externalAccount.idempotencyKey
+            routingNumber = externalAccount.routingNumber
+            status = externalAccount.status
+            type = externalAccount.type
+            verificationStatus = externalAccount.verificationStatus
+            additionalProperties = externalAccount.additionalProperties.toMutableMap()
+        }
 
         /** The External Account's identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
         /** The External Account's identifier. */
-        fun id(id: JsonField<String>) =
-            apply {
-                this.id = id
-            }
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The type of entity that owns the External Account. */
         fun accountHolder(accountHolder: AccountHolder) = accountHolder(JsonField.of(accountHolder))
 
         /** The type of entity that owns the External Account. */
-        fun accountHolder(accountHolder: JsonField<AccountHolder>) =
-            apply {
-                this.accountHolder = accountHolder
-            }
+        fun accountHolder(accountHolder: JsonField<AccountHolder>) = apply {
+            this.accountHolder = accountHolder
+        }
 
         /** The destination account number. */
         fun accountNumber(accountNumber: String) = accountNumber(JsonField.of(accountNumber))
 
         /** The destination account number. */
-        fun accountNumber(accountNumber: JsonField<String>) =
-            apply {
-                this.accountNumber = accountNumber
-            }
+        fun accountNumber(accountNumber: JsonField<String>) = apply {
+            this.accountNumber = accountNumber
+        }
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
-         * the External Account was created.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+         * External Account was created.
          */
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
-         * the External Account was created.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+         * External Account was created.
          */
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) =
-            apply {
-                this.createdAt = createdAt
-            }
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** The External Account's description for display purposes. */
         fun description(description: String) = description(JsonField.of(description))
 
         /** The External Account's description for display purposes. */
-        fun description(description: JsonField<String>) =
-            apply {
-                this.description = description
-            }
+        fun description(description: JsonField<String>) = apply { this.description = description }
 
         /** The type of the account to which the transfer will be sent. */
         fun funding(funding: Funding) = funding(JsonField.of(funding))
 
         /** The type of the account to which the transfer will be sent. */
-        fun funding(funding: JsonField<Funding>) =
-            apply {
-                this.funding = funding
-            }
+        fun funding(funding: JsonField<Funding>) = apply { this.funding = funding }
 
         /**
-         * The idempotency key you chose for this object. This value is unique across
-         * Increase and is used to ensure that a request is only processed once. Learn more
-         * about [idempotency](https://increase.com/documentation/idempotency-keys).
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        fun idempotencyKey(idempotencyKey: String?) = idempotencyKey(JsonField.ofNullable(idempotencyKey))
+        fun idempotencyKey(idempotencyKey: String?) =
+            idempotencyKey(JsonField.ofNullable(idempotencyKey))
 
         /**
-         * The idempotency key you chose for this object. This value is unique across
-         * Increase and is used to ensure that a request is only processed once. Learn more
-         * about [idempotency](https://increase.com/documentation/idempotency-keys).
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        fun idempotencyKey(idempotencyKey: Optional<String>) = idempotencyKey(idempotencyKey.getOrNull())
+        fun idempotencyKey(idempotencyKey: Optional<String>) =
+            idempotencyKey(idempotencyKey.getOrNull())
 
         /**
-         * The idempotency key you chose for this object. This value is unique across
-         * Increase and is used to ensure that a request is only processed once. Learn more
-         * about [idempotency](https://increase.com/documentation/idempotency-keys).
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        fun idempotencyKey(idempotencyKey: JsonField<String>) =
-            apply {
-                this.idempotencyKey = idempotencyKey
-            }
+        fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
+            this.idempotencyKey = idempotencyKey
+        }
 
         /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
         fun routingNumber(routingNumber: String) = routingNumber(JsonField.of(routingNumber))
 
         /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
-        fun routingNumber(routingNumber: JsonField<String>) =
-            apply {
-                this.routingNumber = routingNumber
-            }
+        fun routingNumber(routingNumber: JsonField<String>) = apply {
+            this.routingNumber = routingNumber
+        }
 
         /** The External Account's status. */
         fun status(status: Status) = status(JsonField.of(status))
 
         /** The External Account's status. */
-        fun status(status: JsonField<Status>) =
-            apply {
-                this.status = status
-            }
+        fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /**
          * A constant representing the object's type. For this resource it will always be
@@ -348,101 +338,66 @@ class ExternalAccount @JsonCreator private constructor(
          * A constant representing the object's type. For this resource it will always be
          * `external_account`.
          */
-        fun type(type: JsonField<Type>) =
-            apply {
-                this.type = type
-            }
+        fun type(type: JsonField<Type>) = apply { this.type = type }
 
         /** If you have verified ownership of the External Account. */
-        fun verificationStatus(verificationStatus: VerificationStatus) = verificationStatus(JsonField.of(verificationStatus))
+        fun verificationStatus(verificationStatus: VerificationStatus) =
+            verificationStatus(JsonField.of(verificationStatus))
 
         /** If you have verified ownership of the External Account. */
-        fun verificationStatus(verificationStatus: JsonField<VerificationStatus>) =
-            apply {
-                this.verificationStatus = verificationStatus
-            }
+        fun verificationStatus(verificationStatus: JsonField<VerificationStatus>) = apply {
+            this.verificationStatus = verificationStatus
+        }
 
-        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
-            apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
+        fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+            this.additionalProperties.clear()
+            putAllAdditionalProperties(additionalProperties)
+        }
 
-        fun putAdditionalProperty(key: String, value: JsonValue) =
-            apply {
-                additionalProperties.put(key, value)
-            }
+        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+            additionalProperties.put(key, value)
+        }
 
-        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-            apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
+        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+            this.additionalProperties.putAll(additionalProperties)
+        }
 
-        fun removeAdditionalProperty(key: String) =
-            apply {
-                additionalProperties.remove(key)
-            }
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
 
-        fun removeAllAdditionalProperties(keys: Set<String>) =
-            apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
+        }
 
         fun build(): ExternalAccount =
             ExternalAccount(
-              checkRequired(
-                "id", id
-              ),
-              checkRequired(
-                "accountHolder", accountHolder
-              ),
-              checkRequired(
-                "accountNumber", accountNumber
-              ),
-              checkRequired(
-                "createdAt", createdAt
-              ),
-              checkRequired(
-                "description", description
-              ),
-              checkRequired(
-                "funding", funding
-              ),
-              checkRequired(
-                "idempotencyKey", idempotencyKey
-              ),
-              checkRequired(
-                "routingNumber", routingNumber
-              ),
-              checkRequired(
-                "status", status
-              ),
-              checkRequired(
-                "type", type
-              ),
-              checkRequired(
-                "verificationStatus", verificationStatus
-              ),
-              additionalProperties.toImmutable(),
+                checkRequired("id", id),
+                checkRequired("accountHolder", accountHolder),
+                checkRequired("accountNumber", accountNumber),
+                checkRequired("createdAt", createdAt),
+                checkRequired("description", description),
+                checkRequired("funding", funding),
+                checkRequired("idempotencyKey", idempotencyKey),
+                checkRequired("routingNumber", routingNumber),
+                checkRequired("status", status),
+                checkRequired("type", type),
+                checkRequired("verificationStatus", verificationStatus),
+                additionalProperties.toImmutable(),
             )
     }
 
     /** The type of entity that owns the External Account. */
-    class AccountHolder @JsonCreator private constructor(
-        private val value: JsonField<String>,
-
-    ) : Enum {
+    class AccountHolder @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that
-         * doesn't match any known member, and you want to know that value. For example, if
-         * the SDK is on an older version than the API, then the API may respond with new
-         * members that the SDK is unaware of.
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -469,16 +424,12 @@ class ExternalAccount @JsonCreator private constructor(
         }
 
         /**
-         * An enum containing [AccountHolder]'s known values, as well as an [_UNKNOWN]
-         * member.
+         * An enum containing [AccountHolder]'s known values, as well as an [_UNKNOWN] member.
          *
-         * An instance of [AccountHolder] can contain an unknown value in a couple of
-         * cases:
-         *
-         * - It was deserialized from data that doesn't match any known member. For
-         *   example, if the SDK is on an older version than the API, then the API may
-         *   respond with new members that the SDK is unaware of.
-         *
+         * An instance of [AccountHolder] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
@@ -496,11 +447,11 @@ class ExternalAccount @JsonCreator private constructor(
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or
-         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if
-         * you want to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -513,11 +464,11 @@ class ExternalAccount @JsonCreator private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and
-         * don't want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value is a not a
-         * known member.
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+         *   member.
          */
         fun known(): Known =
             when (this) {
@@ -530,20 +481,23 @@ class ExternalAccount @JsonCreator private constructor(
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for
-         * debugging and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value does not
-         * have the expected primitive type.
+         * @throws IncreaseInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
          */
-        fun asString(): String = _value().asString().orElseThrow { IncreaseInvalidDataException("Value is not a String") }
+        fun asString(): String =
+            _value().asString().orElseThrow {
+                IncreaseInvalidDataException("Value is not a String")
+            }
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return /* spotless:off */ other is AccountHolder && value == other.value /* spotless:on */
+            return /* spotless:off */ other is AccountHolder && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -552,21 +506,17 @@ class ExternalAccount @JsonCreator private constructor(
     }
 
     /** The type of the account to which the transfer will be sent. */
-    class Funding @JsonCreator private constructor(
-        private val value: JsonField<String>,
-
-    ) : Enum {
+    class Funding @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that
-         * doesn't match any known member, and you want to know that value. For example, if
-         * the SDK is on an older version than the API, then the API may respond with new
-         * members that the SDK is unaware of.
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -596,11 +546,9 @@ class ExternalAccount @JsonCreator private constructor(
          * An enum containing [Funding]'s known values, as well as an [_UNKNOWN] member.
          *
          * An instance of [Funding] can contain an unknown value in a couple of cases:
-         *
-         * - It was deserialized from data that doesn't match any known member. For
-         *   example, if the SDK is on an older version than the API, then the API may
-         *   respond with new members that the SDK is unaware of.
-         *
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
@@ -615,11 +563,11 @@ class ExternalAccount @JsonCreator private constructor(
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or
-         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if
-         * you want to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -632,11 +580,11 @@ class ExternalAccount @JsonCreator private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and
-         * don't want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value is a not a
-         * known member.
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+         *   member.
          */
         fun known(): Known =
             when (this) {
@@ -649,20 +597,23 @@ class ExternalAccount @JsonCreator private constructor(
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for
-         * debugging and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value does not
-         * have the expected primitive type.
+         * @throws IncreaseInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
          */
-        fun asString(): String = _value().asString().orElseThrow { IncreaseInvalidDataException("Value is not a String") }
+        fun asString(): String =
+            _value().asString().orElseThrow {
+                IncreaseInvalidDataException("Value is not a String")
+            }
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return /* spotless:off */ other is Funding && value == other.value /* spotless:on */
+            return /* spotless:off */ other is Funding && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -671,21 +622,17 @@ class ExternalAccount @JsonCreator private constructor(
     }
 
     /** The External Account's status. */
-    class Status @JsonCreator private constructor(
-        private val value: JsonField<String>,
-
-    ) : Enum {
+    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that
-         * doesn't match any known member, and you want to know that value. For example, if
-         * the SDK is on an older version than the API, then the API may respond with new
-         * members that the SDK is unaware of.
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -710,11 +657,9 @@ class ExternalAccount @JsonCreator private constructor(
          * An enum containing [Status]'s known values, as well as an [_UNKNOWN] member.
          *
          * An instance of [Status] can contain an unknown value in a couple of cases:
-         *
-         * - It was deserialized from data that doesn't match any known member. For
-         *   example, if the SDK is on an older version than the API, then the API may
-         *   respond with new members that the SDK is unaware of.
-         *
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
@@ -727,11 +672,11 @@ class ExternalAccount @JsonCreator private constructor(
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or
-         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if
-         * you want to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -743,11 +688,11 @@ class ExternalAccount @JsonCreator private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and
-         * don't want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value is a not a
-         * known member.
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+         *   member.
          */
         fun known(): Known =
             when (this) {
@@ -759,20 +704,23 @@ class ExternalAccount @JsonCreator private constructor(
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for
-         * debugging and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value does not
-         * have the expected primitive type.
+         * @throws IncreaseInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
          */
-        fun asString(): String = _value().asString().orElseThrow { IncreaseInvalidDataException("Value is not a String") }
+        fun asString(): String =
+            _value().asString().orElseThrow {
+                IncreaseInvalidDataException("Value is not a String")
+            }
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return /* spotless:off */ other is Status && value == other.value /* spotless:on */
+            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -784,21 +732,17 @@ class ExternalAccount @JsonCreator private constructor(
      * A constant representing the object's type. For this resource it will always be
      * `external_account`.
      */
-    class Type @JsonCreator private constructor(
-        private val value: JsonField<String>,
-
-    ) : Enum {
+    class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that
-         * doesn't match any known member, and you want to know that value. For example, if
-         * the SDK is on an older version than the API, then the API may respond with new
-         * members that the SDK is unaware of.
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -809,18 +753,16 @@ class ExternalAccount @JsonCreator private constructor(
 
         /** An enum containing [Type]'s known values. */
         enum class Known {
-            EXTERNAL_ACCOUNT,
+            EXTERNAL_ACCOUNT
         }
 
         /**
          * An enum containing [Type]'s known values, as well as an [_UNKNOWN] member.
          *
          * An instance of [Type] can contain an unknown value in a couple of cases:
-         *
-         * - It was deserialized from data that doesn't match any known member. For
-         *   example, if the SDK is on an older version than the API, then the API may
-         *   respond with new members that the SDK is unaware of.
-         *
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
@@ -830,11 +772,11 @@ class ExternalAccount @JsonCreator private constructor(
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or
-         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if
-         * you want to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -845,11 +787,11 @@ class ExternalAccount @JsonCreator private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and
-         * don't want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value is a not a
-         * known member.
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+         *   member.
          */
         fun known(): Known =
             when (this) {
@@ -860,20 +802,23 @@ class ExternalAccount @JsonCreator private constructor(
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for
-         * debugging and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value does not
-         * have the expected primitive type.
+         * @throws IncreaseInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
          */
-        fun asString(): String = _value().asString().orElseThrow { IncreaseInvalidDataException("Value is not a String") }
+        fun asString(): String =
+            _value().asString().orElseThrow {
+                IncreaseInvalidDataException("Value is not a String")
+            }
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return /* spotless:off */ other is Type && value == other.value /* spotless:on */
+            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -882,21 +827,19 @@ class ExternalAccount @JsonCreator private constructor(
     }
 
     /** If you have verified ownership of the External Account. */
-    class VerificationStatus @JsonCreator private constructor(
-        private val value: JsonField<String>,
-
-    ) : Enum {
+    class VerificationStatus
+    @JsonCreator
+    private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that
-         * doesn't match any known member, and you want to know that value. For example, if
-         * the SDK is on an older version than the API, then the API may respond with new
-         * members that the SDK is unaware of.
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -923,16 +866,12 @@ class ExternalAccount @JsonCreator private constructor(
         }
 
         /**
-         * An enum containing [VerificationStatus]'s known values, as well as an [_UNKNOWN]
-         * member.
+         * An enum containing [VerificationStatus]'s known values, as well as an [_UNKNOWN] member.
          *
-         * An instance of [VerificationStatus] can contain an unknown value in a couple of
-         * cases:
-         *
-         * - It was deserialized from data that doesn't match any known member. For
-         *   example, if the SDK is on an older version than the API, then the API may
-         *   respond with new members that the SDK is unaware of.
-         *
+         * An instance of [VerificationStatus] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
@@ -943,18 +882,18 @@ class ExternalAccount @JsonCreator private constructor(
             /** The External Account is verified. */
             VERIFIED,
             /**
-             * An enum member indicating that [VerificationStatus] was instantiated with an
-             * unknown value.
+             * An enum member indicating that [VerificationStatus] was instantiated with an unknown
+             * value.
              */
             _UNKNOWN,
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or
-         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if
-         * you want to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -967,11 +906,11 @@ class ExternalAccount @JsonCreator private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and
-         * don't want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value is a not a
-         * known member.
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+         *   member.
          */
         fun known(): Known =
             when (this) {
@@ -984,20 +923,23 @@ class ExternalAccount @JsonCreator private constructor(
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for
-         * debugging and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value does not
-         * have the expected primitive type.
+         * @throws IncreaseInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
          */
-        fun asString(): String = _value().asString().orElseThrow { IncreaseInvalidDataException("Value is not a String") }
+        fun asString(): String =
+            _value().asString().orElseThrow {
+                IncreaseInvalidDataException("Value is not a String")
+            }
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return /* spotless:off */ other is VerificationStatus && value == other.value /* spotless:on */
+            return /* spotless:off */ other is VerificationStatus && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -1006,11 +948,11 @@ class ExternalAccount @JsonCreator private constructor(
     }
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return /* spotless:off */ other is ExternalAccount && id == other.id && accountHolder == other.accountHolder && accountNumber == other.accountNumber && createdAt == other.createdAt && description == other.description && funding == other.funding && idempotencyKey == other.idempotencyKey && routingNumber == other.routingNumber && status == other.status && type == other.type && verificationStatus == other.verificationStatus && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is ExternalAccount && id == other.id && accountHolder == other.accountHolder && accountNumber == other.accountNumber && createdAt == other.createdAt && description == other.description && funding == other.funding && idempotencyKey == other.idempotencyKey && routingNumber == other.routingNumber && status == other.status && type == other.type && verificationStatus == other.verificationStatus && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
@@ -1019,5 +961,6 @@ class ExternalAccount @JsonCreator private constructor(
 
     override fun hashCode(): Int = hashCode
 
-    override fun toString() = "ExternalAccount{id=$id, accountHolder=$accountHolder, accountNumber=$accountNumber, createdAt=$createdAt, description=$description, funding=$funding, idempotencyKey=$idempotencyKey, routingNumber=$routingNumber, status=$status, type=$type, verificationStatus=$verificationStatus, additionalProperties=$additionalProperties}"
+    override fun toString() =
+        "ExternalAccount{id=$id, accountHolder=$accountHolder, accountNumber=$accountNumber, createdAt=$createdAt, description=$description, funding=$funding, idempotencyKey=$idempotencyKey, routingNumber=$routingNumber, status=$status, type=$type, verificationStatus=$verificationStatus, additionalProperties=$additionalProperties}"
 }
