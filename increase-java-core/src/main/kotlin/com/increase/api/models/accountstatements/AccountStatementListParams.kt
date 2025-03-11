@@ -13,14 +13,14 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /** List Account Statements */
-class AccountStatementListParams
-private constructor(
+class AccountStatementListParams private constructor(
     private val accountId: String?,
     private val cursor: String?,
     private val limit: Long?,
     private val statementPeriodStart: StatementPeriodStart?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
+
 ) : Params {
 
     /** Filter Account Statements to those belonging to the specified Account. */
@@ -29,11 +29,13 @@ private constructor(
     /** Return the page of entries after this one. */
     fun cursor(): Optional<String> = Optional.ofNullable(cursor)
 
-    /** Limit the size of the list that is returned. The default (and maximum) is 100 objects. */
+    /**
+     * Limit the size of the list that is returned. The default (and maximum) is 100
+     * objects.
+     */
     fun limit(): Optional<Long> = Optional.ofNullable(limit)
 
-    fun statementPeriodStart(): Optional<StatementPeriodStart> =
-        Optional.ofNullable(statementPeriodStart)
+    fun statementPeriodStart(): Optional<StatementPeriodStart> = Optional.ofNullable(statementPeriodStart)
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
@@ -42,27 +44,44 @@ private constructor(
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams {
-        val queryParams = QueryParams.builder()
-        this.accountId?.let { queryParams.put("account_id", listOf(it.toString())) }
-        this.cursor?.let { queryParams.put("cursor", listOf(it.toString())) }
-        this.limit?.let { queryParams.put("limit", listOf(it.toString())) }
-        this.statementPeriodStart?.forEachQueryParam { key, values ->
-            queryParams.put("statement_period_start.$key", values)
-        }
-        queryParams.putAll(additionalQueryParams)
-        return queryParams.build()
+      val queryParams = QueryParams.builder()
+      this.accountId?.let {
+          queryParams.put(
+            "account_id", listOf(it.toString())
+          )
+      }
+      this.cursor?.let {
+          queryParams.put(
+            "cursor", listOf(it.toString())
+          )
+      }
+      this.limit?.let {
+          queryParams.put(
+            "limit", listOf(it.toString())
+          )
+      }
+      this.statementPeriodStart?.forEachQueryParam { key, values ->
+          queryParams.put(
+            "statement_period_start.$key", values
+          )
+      }
+      queryParams.putAll(additionalQueryParams)
+      return queryParams.build()
     }
 
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
-        @JvmStatic fun none(): AccountStatementListParams = builder().build()
+        @JvmStatic
+        fun none(): AccountStatementListParams = builder().build()
 
         /**
-         * Returns a mutable builder for constructing an instance of [AccountStatementListParams].
+         * Returns a mutable builder for constructing an instance of
+         * [AccountStatementListParams].
          */
-        @JvmStatic fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
     /** A builder for [AccountStatementListParams]. */
@@ -77,186 +96,227 @@ private constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
-        internal fun from(accountStatementListParams: AccountStatementListParams) = apply {
-            accountId = accountStatementListParams.accountId
-            cursor = accountStatementListParams.cursor
-            limit = accountStatementListParams.limit
-            statementPeriodStart = accountStatementListParams.statementPeriodStart
-            additionalHeaders = accountStatementListParams.additionalHeaders.toBuilder()
-            additionalQueryParams = accountStatementListParams.additionalQueryParams.toBuilder()
-        }
+        internal fun from(accountStatementListParams: AccountStatementListParams) =
+            apply {
+                accountId = accountStatementListParams.accountId
+                cursor = accountStatementListParams.cursor
+                limit = accountStatementListParams.limit
+                statementPeriodStart = accountStatementListParams.statementPeriodStart
+                additionalHeaders = accountStatementListParams.additionalHeaders.toBuilder()
+                additionalQueryParams = accountStatementListParams.additionalQueryParams.toBuilder()
+            }
 
         /** Filter Account Statements to those belonging to the specified Account. */
-        fun accountId(accountId: String?) = apply { this.accountId = accountId }
+        fun accountId(accountId: String?) =
+            apply {
+                this.accountId = accountId
+            }
 
         /** Filter Account Statements to those belonging to the specified Account. */
         fun accountId(accountId: Optional<String>) = accountId(accountId.getOrNull())
 
         /** Return the page of entries after this one. */
-        fun cursor(cursor: String?) = apply { this.cursor = cursor }
+        fun cursor(cursor: String?) =
+            apply {
+                this.cursor = cursor
+            }
 
         /** Return the page of entries after this one. */
         fun cursor(cursor: Optional<String>) = cursor(cursor.getOrNull())
 
         /**
-         * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
+         * Limit the size of the list that is returned. The default (and maximum) is 100
+         * objects.
          */
-        fun limit(limit: Long?) = apply { this.limit = limit }
+        fun limit(limit: Long?) =
+            apply {
+                this.limit = limit
+            }
 
         /**
-         * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
+         * Limit the size of the list that is returned. The default (and maximum) is 100
+         * objects.
          */
         fun limit(limit: Long) = limit(limit as Long?)
 
         /**
-         * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
+         * Limit the size of the list that is returned. The default (and maximum) is 100
+         * objects.
          */
         fun limit(limit: Optional<Long>) = limit(limit.getOrNull())
 
-        fun statementPeriodStart(statementPeriodStart: StatementPeriodStart?) = apply {
-            this.statementPeriodStart = statementPeriodStart
-        }
+        fun statementPeriodStart(statementPeriodStart: StatementPeriodStart?) =
+            apply {
+                this.statementPeriodStart = statementPeriodStart
+            }
 
-        fun statementPeriodStart(statementPeriodStart: Optional<StatementPeriodStart>) =
-            statementPeriodStart(statementPeriodStart.getOrNull())
+        fun statementPeriodStart(statementPeriodStart: Optional<StatementPeriodStart>) = statementPeriodStart(statementPeriodStart.getOrNull())
 
-        fun additionalHeaders(additionalHeaders: Headers) = apply {
-            this.additionalHeaders.clear()
-            putAllAdditionalHeaders(additionalHeaders)
-        }
+        fun additionalHeaders(additionalHeaders: Headers) =
+            apply {
+                this.additionalHeaders.clear()
+                putAllAdditionalHeaders(additionalHeaders)
+            }
 
-        fun additionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
-            this.additionalHeaders.clear()
-            putAllAdditionalHeaders(additionalHeaders)
-        }
+        fun additionalHeaders(additionalHeaders: Map<String, Iterable<String>>) =
+            apply {
+                this.additionalHeaders.clear()
+                putAllAdditionalHeaders(additionalHeaders)
+            }
 
-        fun putAdditionalHeader(name: String, value: String) = apply {
-            additionalHeaders.put(name, value)
-        }
+        fun putAdditionalHeader(name: String, value: String) =
+            apply {
+                additionalHeaders.put(name, value)
+            }
 
-        fun putAdditionalHeaders(name: String, values: Iterable<String>) = apply {
-            additionalHeaders.put(name, values)
-        }
+        fun putAdditionalHeaders(name: String, values: Iterable<String>) =
+            apply {
+                additionalHeaders.put(name, values)
+            }
 
-        fun putAllAdditionalHeaders(additionalHeaders: Headers) = apply {
-            this.additionalHeaders.putAll(additionalHeaders)
-        }
+        fun putAllAdditionalHeaders(additionalHeaders: Headers) =
+            apply {
+                this.additionalHeaders.putAll(additionalHeaders)
+            }
 
-        fun putAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
-            this.additionalHeaders.putAll(additionalHeaders)
-        }
+        fun putAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) =
+            apply {
+                this.additionalHeaders.putAll(additionalHeaders)
+            }
 
-        fun replaceAdditionalHeaders(name: String, value: String) = apply {
-            additionalHeaders.replace(name, value)
-        }
+        fun replaceAdditionalHeaders(name: String, value: String) =
+            apply {
+                additionalHeaders.replace(name, value)
+            }
 
-        fun replaceAdditionalHeaders(name: String, values: Iterable<String>) = apply {
-            additionalHeaders.replace(name, values)
-        }
+        fun replaceAdditionalHeaders(name: String, values: Iterable<String>) =
+            apply {
+                additionalHeaders.replace(name, values)
+            }
 
-        fun replaceAllAdditionalHeaders(additionalHeaders: Headers) = apply {
-            this.additionalHeaders.replaceAll(additionalHeaders)
-        }
+        fun replaceAllAdditionalHeaders(additionalHeaders: Headers) =
+            apply {
+                this.additionalHeaders.replaceAll(additionalHeaders)
+            }
 
-        fun replaceAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
-            this.additionalHeaders.replaceAll(additionalHeaders)
-        }
+        fun replaceAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) =
+            apply {
+                this.additionalHeaders.replaceAll(additionalHeaders)
+            }
 
-        fun removeAdditionalHeaders(name: String) = apply { additionalHeaders.remove(name) }
+        fun removeAdditionalHeaders(name: String) =
+            apply {
+                additionalHeaders.remove(name)
+            }
 
-        fun removeAllAdditionalHeaders(names: Set<String>) = apply {
-            additionalHeaders.removeAll(names)
-        }
+        fun removeAllAdditionalHeaders(names: Set<String>) =
+            apply {
+                additionalHeaders.removeAll(names)
+            }
 
-        fun additionalQueryParams(additionalQueryParams: QueryParams) = apply {
-            this.additionalQueryParams.clear()
-            putAllAdditionalQueryParams(additionalQueryParams)
-        }
+        fun additionalQueryParams(additionalQueryParams: QueryParams) =
+            apply {
+                this.additionalQueryParams.clear()
+                putAllAdditionalQueryParams(additionalQueryParams)
+            }
 
-        fun additionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) = apply {
-            this.additionalQueryParams.clear()
-            putAllAdditionalQueryParams(additionalQueryParams)
-        }
+        fun additionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
+            apply {
+                this.additionalQueryParams.clear()
+                putAllAdditionalQueryParams(additionalQueryParams)
+            }
 
-        fun putAdditionalQueryParam(key: String, value: String) = apply {
-            additionalQueryParams.put(key, value)
-        }
+        fun putAdditionalQueryParam(key: String, value: String) =
+            apply {
+                additionalQueryParams.put(key, value)
+            }
 
-        fun putAdditionalQueryParams(key: String, values: Iterable<String>) = apply {
-            additionalQueryParams.put(key, values)
-        }
+        fun putAdditionalQueryParams(key: String, values: Iterable<String>) =
+            apply {
+                additionalQueryParams.put(key, values)
+            }
 
-        fun putAllAdditionalQueryParams(additionalQueryParams: QueryParams) = apply {
-            this.additionalQueryParams.putAll(additionalQueryParams)
-        }
+        fun putAllAdditionalQueryParams(additionalQueryParams: QueryParams) =
+            apply {
+                this.additionalQueryParams.putAll(additionalQueryParams)
+            }
 
         fun putAllAdditionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
             apply {
                 this.additionalQueryParams.putAll(additionalQueryParams)
             }
 
-        fun replaceAdditionalQueryParams(key: String, value: String) = apply {
-            additionalQueryParams.replace(key, value)
-        }
+        fun replaceAdditionalQueryParams(key: String, value: String) =
+            apply {
+                additionalQueryParams.replace(key, value)
+            }
 
-        fun replaceAdditionalQueryParams(key: String, values: Iterable<String>) = apply {
-            additionalQueryParams.replace(key, values)
-        }
+        fun replaceAdditionalQueryParams(key: String, values: Iterable<String>) =
+            apply {
+                additionalQueryParams.replace(key, values)
+            }
 
-        fun replaceAllAdditionalQueryParams(additionalQueryParams: QueryParams) = apply {
-            this.additionalQueryParams.replaceAll(additionalQueryParams)
-        }
+        fun replaceAllAdditionalQueryParams(additionalQueryParams: QueryParams) =
+            apply {
+                this.additionalQueryParams.replaceAll(additionalQueryParams)
+            }
 
         fun replaceAllAdditionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
             apply {
                 this.additionalQueryParams.replaceAll(additionalQueryParams)
             }
 
-        fun removeAdditionalQueryParams(key: String) = apply { additionalQueryParams.remove(key) }
+        fun removeAdditionalQueryParams(key: String) =
+            apply {
+                additionalQueryParams.remove(key)
+            }
 
-        fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
-            additionalQueryParams.removeAll(keys)
-        }
+        fun removeAllAdditionalQueryParams(keys: Set<String>) =
+            apply {
+                additionalQueryParams.removeAll(keys)
+            }
 
         fun build(): AccountStatementListParams =
             AccountStatementListParams(
-                accountId,
-                cursor,
-                limit,
-                statementPeriodStart,
-                additionalHeaders.build(),
-                additionalQueryParams.build(),
+              accountId,
+              cursor,
+              limit,
+              statementPeriodStart,
+              additionalHeaders.build(),
+              additionalQueryParams.build(),
             )
     }
 
-    class StatementPeriodStart
-    private constructor(
+    class StatementPeriodStart private constructor(
         private val after: OffsetDateTime?,
         private val before: OffsetDateTime?,
         private val onOrAfter: OffsetDateTime?,
         private val onOrBefore: OffsetDateTime?,
         private val additionalProperties: QueryParams,
+
     ) {
 
         /**
-         * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
+         * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+         * timestamp.
          */
         fun after(): Optional<OffsetDateTime> = Optional.ofNullable(after)
 
         /**
-         * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
+         * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+         * timestamp.
          */
         fun before(): Optional<OffsetDateTime> = Optional.ofNullable(before)
 
         /**
-         * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-         * timestamp.
+         * Return results on or after this
+         * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
          */
         fun onOrAfter(): Optional<OffsetDateTime> = Optional.ofNullable(onOrAfter)
 
         /**
-         * Return results on or before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-         * timestamp.
+         * Return results on or before this
+         * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
          */
         fun onOrBefore(): Optional<OffsetDateTime> = Optional.ofNullable(onOrBefore)
 
@@ -264,27 +324,41 @@ private constructor(
 
         @JvmSynthetic
         internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-            this.after?.let {
-                putParam("after", listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)))
-            }
-            this.before?.let {
-                putParam("before", listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)))
-            }
-            this.onOrAfter?.let {
-                putParam("on_or_after", listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)))
-            }
-            this.onOrBefore?.let {
-                putParam("on_or_before", listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)))
-            }
-            additionalProperties.keys().forEach { putParam(it, additionalProperties.values(it)) }
+          this.after?.let {
+              putParam(
+                "after", listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
+              )
+          }
+          this.before?.let {
+              putParam(
+                "before", listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
+              )
+          }
+          this.onOrAfter?.let {
+              putParam(
+                "on_or_after", listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
+              )
+          }
+          this.onOrBefore?.let {
+              putParam(
+                "on_or_before", listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
+              )
+          }
+          additionalProperties.keys().forEach {
+              putParam(it, additionalProperties.values(it))
+          }
         }
 
         fun toBuilder() = Builder().from(this)
 
         companion object {
 
-            /** Returns a mutable builder for constructing an instance of [StatementPeriodStart]. */
-            @JvmStatic fun builder() = Builder()
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [StatementPeriodStart].
+             */
+            @JvmStatic
+            fun builder() = Builder()
         }
 
         /** A builder for [StatementPeriodStart]. */
@@ -297,19 +371,23 @@ private constructor(
             private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
             @JvmSynthetic
-            internal fun from(statementPeriodStart: StatementPeriodStart) = apply {
-                after = statementPeriodStart.after
-                before = statementPeriodStart.before
-                onOrAfter = statementPeriodStart.onOrAfter
-                onOrBefore = statementPeriodStart.onOrBefore
-                additionalProperties = statementPeriodStart.additionalProperties.toBuilder()
-            }
+            internal fun from(statementPeriodStart: StatementPeriodStart) =
+                apply {
+                    after = statementPeriodStart.after
+                    before = statementPeriodStart.before
+                    onOrAfter = statementPeriodStart.onOrAfter
+                    onOrBefore = statementPeriodStart.onOrBefore
+                    additionalProperties = statementPeriodStart.additionalProperties.toBuilder()
+                }
 
             /**
              * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            fun after(after: OffsetDateTime?) = apply { this.after = after }
+            fun after(after: OffsetDateTime?) =
+                apply {
+                    this.after = after
+                }
 
             /**
              * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
@@ -321,7 +399,10 @@ private constructor(
              * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            fun before(before: OffsetDateTime?) = apply { this.before = before }
+            fun before(before: OffsetDateTime?) =
+                apply {
+                    this.before = before
+                }
 
             /**
              * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
@@ -330,95 +411,113 @@ private constructor(
             fun before(before: Optional<OffsetDateTime>) = before(before.getOrNull())
 
             /**
-             * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-             * timestamp.
+             * Return results on or after this
+             * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
              */
-            fun onOrAfter(onOrAfter: OffsetDateTime?) = apply { this.onOrAfter = onOrAfter }
+            fun onOrAfter(onOrAfter: OffsetDateTime?) =
+                apply {
+                    this.onOrAfter = onOrAfter
+                }
 
             /**
-             * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-             * timestamp.
+             * Return results on or after this
+             * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
              */
             fun onOrAfter(onOrAfter: Optional<OffsetDateTime>) = onOrAfter(onOrAfter.getOrNull())
 
             /**
-             * Return results on or before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-             * timestamp.
+             * Return results on or before this
+             * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
              */
-            fun onOrBefore(onOrBefore: OffsetDateTime?) = apply { this.onOrBefore = onOrBefore }
+            fun onOrBefore(onOrBefore: OffsetDateTime?) =
+                apply {
+                    this.onOrBefore = onOrBefore
+                }
 
             /**
-             * Return results on or before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-             * timestamp.
+             * Return results on or before this
+             * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
              */
-            fun onOrBefore(onOrBefore: Optional<OffsetDateTime>) =
-                onOrBefore(onOrBefore.getOrNull())
+            fun onOrBefore(onOrBefore: Optional<OffsetDateTime>) = onOrBefore(onOrBefore.getOrNull())
 
-            fun additionalProperties(additionalProperties: QueryParams) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
+            fun additionalProperties(additionalProperties: QueryParams) =
+                apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
 
-            fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
+            fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
 
-            fun putAdditionalProperty(key: String, value: String) = apply {
-                additionalProperties.put(key, value)
-            }
+            fun putAdditionalProperty(key: String, value: String) =
+                apply {
+                    additionalProperties.put(key, value)
+                }
 
-            fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
-                additionalProperties.put(key, values)
-            }
+            fun putAdditionalProperties(key: String, values: Iterable<String>) =
+                apply {
+                    additionalProperties.put(key, values)
+                }
 
-            fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
+            fun putAllAdditionalProperties(additionalProperties: QueryParams) =
+                apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, Iterable<String>>) =
                 apply {
                     this.additionalProperties.putAll(additionalProperties)
                 }
 
-            fun replaceAdditionalProperties(key: String, value: String) = apply {
-                additionalProperties.replace(key, value)
-            }
+            fun replaceAdditionalProperties(key: String, value: String) =
+                apply {
+                    additionalProperties.replace(key, value)
+                }
 
-            fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
-                additionalProperties.replace(key, values)
-            }
+            fun replaceAdditionalProperties(key: String, values: Iterable<String>) =
+                apply {
+                    additionalProperties.replace(key, values)
+                }
 
-            fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
-                this.additionalProperties.replaceAll(additionalProperties)
-            }
+            fun replaceAllAdditionalProperties(additionalProperties: QueryParams) =
+                apply {
+                    this.additionalProperties.replaceAll(additionalProperties)
+                }
 
-            fun replaceAllAdditionalProperties(
-                additionalProperties: Map<String, Iterable<String>>
-            ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+            fun replaceAllAdditionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                apply {
+                    this.additionalProperties.replaceAll(additionalProperties)
+                }
 
-            fun removeAdditionalProperties(key: String) = apply { additionalProperties.remove(key) }
+            fun removeAdditionalProperties(key: String) =
+                apply {
+                    additionalProperties.remove(key)
+                }
 
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                additionalProperties.removeAll(keys)
-            }
+            fun removeAllAdditionalProperties(keys: Set<String>) =
+                apply {
+                    additionalProperties.removeAll(keys)
+                }
 
             fun build(): StatementPeriodStart =
                 StatementPeriodStart(
-                    after,
-                    before,
-                    onOrAfter,
-                    onOrBefore,
-                    additionalProperties.build(),
+                  after,
+                  before,
+                  onOrAfter,
+                  onOrBefore,
+                  additionalProperties.build(),
                 )
         }
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return /* spotless:off */ other is StatementPeriodStart && after == other.after && before == other.before && onOrAfter == other.onOrAfter && onOrBefore == other.onOrBefore && additionalProperties == other.additionalProperties /* spotless:on */
+          return /* spotless:off */ other is StatementPeriodStart && after == other.after && before == other.before && onOrAfter == other.onOrAfter && onOrBefore == other.onOrBefore && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -427,20 +526,18 @@ private constructor(
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() =
-            "StatementPeriodStart{after=$after, before=$before, onOrAfter=$onOrAfter, onOrBefore=$onOrBefore, additionalProperties=$additionalProperties}"
+        override fun toString() = "StatementPeriodStart{after=$after, before=$before, onOrAfter=$onOrAfter, onOrBefore=$onOrBefore, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return /* spotless:off */ other is AccountStatementListParams && accountId == other.accountId && cursor == other.cursor && limit == other.limit && statementPeriodStart == other.statementPeriodStart && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+      return /* spotless:off */ other is AccountStatementListParams && accountId == other.accountId && cursor == other.cursor && limit == other.limit && statementPeriodStart == other.statementPeriodStart && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
     override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, cursor, limit, statementPeriodStart, additionalHeaders, additionalQueryParams) /* spotless:on */
 
-    override fun toString() =
-        "AccountStatementListParams{accountId=$accountId, cursor=$cursor, limit=$limit, statementPeriodStart=$statementPeriodStart, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+    override fun toString() = "AccountStatementListParams{accountId=$accountId, cursor=$cursor, limit=$limit, statementPeriodStart=$statementPeriodStart, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

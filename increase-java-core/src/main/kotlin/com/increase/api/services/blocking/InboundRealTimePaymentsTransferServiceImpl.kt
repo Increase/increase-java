@@ -19,95 +19,81 @@ import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimeP
 import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransferListParams
 import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransferRetrieveParams
 
-class InboundRealTimePaymentsTransferServiceImpl
-internal constructor(private val clientOptions: ClientOptions) :
-    InboundRealTimePaymentsTransferService {
+class InboundRealTimePaymentsTransferServiceImpl internal constructor(
+    private val clientOptions: ClientOptions,
 
-    private val withRawResponse: InboundRealTimePaymentsTransferService.WithRawResponse by lazy {
-        WithRawResponseImpl(clientOptions)
-    }
+) : InboundRealTimePaymentsTransferService {
 
-    override fun withRawResponse(): InboundRealTimePaymentsTransferService.WithRawResponse =
-        withRawResponse
+    private val withRawResponse: InboundRealTimePaymentsTransferService.WithRawResponse by lazy { WithRawResponseImpl(clientOptions) }
 
-    override fun retrieve(
-        params: InboundRealTimePaymentsTransferRetrieveParams,
-        requestOptions: RequestOptions,
-    ): InboundRealTimePaymentsTransfer =
+    override fun withRawResponse(): InboundRealTimePaymentsTransferService.WithRawResponse = withRawResponse
+
+    override fun retrieve(params: InboundRealTimePaymentsTransferRetrieveParams, requestOptions: RequestOptions): InboundRealTimePaymentsTransfer =
         // get /inbound_real_time_payments_transfers/{inbound_real_time_payments_transfer_id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
-    override fun list(
-        params: InboundRealTimePaymentsTransferListParams,
-        requestOptions: RequestOptions,
-    ): InboundRealTimePaymentsTransferListPage =
+    override fun list(params: InboundRealTimePaymentsTransferListParams, requestOptions: RequestOptions): InboundRealTimePaymentsTransferListPage =
         // get /inbound_real_time_payments_transfers
         withRawResponse().list(params, requestOptions).parse()
 
-    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
-        InboundRealTimePaymentsTransferService.WithRawResponse {
+    class WithRawResponseImpl internal constructor(
+        private val clientOptions: ClientOptions,
+
+    ) : InboundRealTimePaymentsTransferService.WithRawResponse {
 
         private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
-        private val retrieveHandler: Handler<InboundRealTimePaymentsTransfer> =
-            jsonHandler<InboundRealTimePaymentsTransfer>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
+        private val retrieveHandler: Handler<InboundRealTimePaymentsTransfer> = jsonHandler<InboundRealTimePaymentsTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-        override fun retrieve(
-            params: InboundRealTimePaymentsTransferRetrieveParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<InboundRealTimePaymentsTransfer> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .addPathSegments("inbound_real_time_payments_transfers", params.getPathParam(0))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
-                response
-                    .use { retrieveHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override fun retrieve(params: InboundRealTimePaymentsTransferRetrieveParams, requestOptions: RequestOptions): HttpResponseFor<InboundRealTimePaymentsTransfer> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.GET)
+            .addPathSegments("inbound_real_time_payments_transfers", params.getPathParam(0))
+            .build()
+            .prepare(clientOptions, params)
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return response.parseable {
+              response.use {
+                  retrieveHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
-        private val listHandler: Handler<InboundRealTimePaymentsTransferListPage.Response> =
-            jsonHandler<InboundRealTimePaymentsTransferListPage.Response>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
+        private val listHandler: Handler<InboundRealTimePaymentsTransferListPage.Response> = jsonHandler<InboundRealTimePaymentsTransferListPage.Response>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-        override fun list(
-            params: InboundRealTimePaymentsTransferListParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<InboundRealTimePaymentsTransferListPage> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .addPathSegments("inbound_real_time_payments_transfers")
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
-                response
-                    .use { listHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-                    .let {
-                        InboundRealTimePaymentsTransferListPage.of(
-                            InboundRealTimePaymentsTransferServiceImpl(clientOptions),
-                            params,
-                            it,
-                        )
-                    }
-            }
+        override fun list(params: InboundRealTimePaymentsTransferListParams, requestOptions: RequestOptions): HttpResponseFor<InboundRealTimePaymentsTransferListPage> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.GET)
+            .addPathSegments("inbound_real_time_payments_transfers")
+            .build()
+            .prepare(clientOptions, params)
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return response.parseable {
+              response.use {
+                  listHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+              .let {
+                  InboundRealTimePaymentsTransferListPage.of(InboundRealTimePaymentsTransferServiceImpl(clientOptions), params, it)
+              }
+          }
         }
     }
 }

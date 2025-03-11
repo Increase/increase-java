@@ -14,41 +14,33 @@ class WireTransferServiceAsyncTest {
 
     @Test
     fun reverse() {
-        val client =
-            IncreaseOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
-        val wireTransferServiceAsync = client.simulations().wireTransfers()
+      val client = IncreaseOkHttpClientAsync.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .build()
+      val wireTransferServiceAsync = client.simulations().wireTransfers()
 
-        val wireTransferFuture =
-            wireTransferServiceAsync.reverse(
-                WireTransferReverseParams.builder()
-                    .wireTransferId("wire_transfer_5akynk7dqsq25qwk9q2u")
-                    .build()
-            )
+      val wireTransferFuture = wireTransferServiceAsync.reverse(WireTransferReverseParams.builder()
+          .wireTransferId("wire_transfer_5akynk7dqsq25qwk9q2u")
+          .build())
 
-        val wireTransfer = wireTransferFuture.get()
-        wireTransfer.validate()
+      val wireTransfer = wireTransferFuture.get()
+      wireTransfer.validate()
     }
 
     @Test
     fun submit() {
-        val client =
-            IncreaseOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
-        val wireTransferServiceAsync = client.simulations().wireTransfers()
+      val client = IncreaseOkHttpClientAsync.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .build()
+      val wireTransferServiceAsync = client.simulations().wireTransfers()
 
-        val wireTransferFuture =
-            wireTransferServiceAsync.submit(
-                WireTransferSubmitParams.builder()
-                    .wireTransferId("wire_transfer_5akynk7dqsq25qwk9q2u")
-                    .build()
-            )
+      val wireTransferFuture = wireTransferServiceAsync.submit(WireTransferSubmitParams.builder()
+          .wireTransferId("wire_transfer_5akynk7dqsq25qwk9q2u")
+          .build())
 
-        val wireTransfer = wireTransferFuture.get()
-        wireTransfer.validate()
+      val wireTransfer = wireTransferFuture.get()
+      wireTransfer.validate()
     }
 }

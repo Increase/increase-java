@@ -18,77 +18,78 @@ import com.increase.api.models.accounts.BalanceLookup
 interface AccountService {
 
     /**
-     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     * Returns a view of this service that provides access to raw HTTP responses for
+     * each method.
      */
     fun withRawResponse(): WithRawResponse
 
     /** Create an Account */
-    fun create(params: AccountCreateParams): Account = create(params, RequestOptions.none())
+    fun create(params: AccountCreateParams): Account =
+        create(
+          params, RequestOptions.none()
+        )
 
     /** @see [create] */
-    fun create(
-        params: AccountCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): Account
+    fun create(params: AccountCreateParams, requestOptions: RequestOptions = RequestOptions.none()): Account
 
     /** Retrieve an Account */
-    fun retrieve(params: AccountRetrieveParams): Account = retrieve(params, RequestOptions.none())
+    fun retrieve(params: AccountRetrieveParams): Account =
+        retrieve(
+          params, RequestOptions.none()
+        )
 
     /** @see [retrieve] */
-    fun retrieve(
-        params: AccountRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): Account
+    fun retrieve(params: AccountRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): Account
 
     /** Update an Account */
-    fun update(params: AccountUpdateParams): Account = update(params, RequestOptions.none())
+    fun update(params: AccountUpdateParams): Account =
+        update(
+          params, RequestOptions.none()
+        )
 
     /** @see [update] */
-    fun update(
-        params: AccountUpdateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): Account
+    fun update(params: AccountUpdateParams, requestOptions: RequestOptions = RequestOptions.none()): Account
 
     /** List Accounts */
     fun list(): AccountListPage = list(AccountListParams.none())
 
     /** @see [list] */
-    fun list(
-        params: AccountListParams = AccountListParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): AccountListPage
+    fun list(params: AccountListParams = AccountListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): AccountListPage
 
     /** @see [list] */
     fun list(params: AccountListParams = AccountListParams.none()): AccountListPage =
-        list(params, RequestOptions.none())
+        list(
+          params, RequestOptions.none()
+        )
 
     /** @see [list] */
-    fun list(requestOptions: RequestOptions): AccountListPage =
-        list(AccountListParams.none(), requestOptions)
+    fun list(requestOptions: RequestOptions): AccountListPage = list(AccountListParams.none(), requestOptions)
 
     /**
-     * Retrieve the current and available balances for an account in minor units of the account's
-     * currency. Learn more about [account balances](/documentation/balance).
+     * Retrieve the current and available balances for an account in minor units of the
+     * account's currency. Learn more about [account balances](/documentation/balance).
      */
     fun balance(params: AccountBalanceParams): BalanceLookup =
-        balance(params, RequestOptions.none())
+        balance(
+          params, RequestOptions.none()
+        )
 
     /** @see [balance] */
-    fun balance(
-        params: AccountBalanceParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): BalanceLookup
+    fun balance(params: AccountBalanceParams, requestOptions: RequestOptions = RequestOptions.none()): BalanceLookup
 
     /** Close an Account */
-    fun close(params: AccountCloseParams): Account = close(params, RequestOptions.none())
+    fun close(params: AccountCloseParams): Account =
+        close(
+          params, RequestOptions.none()
+        )
 
     /** @see [close] */
-    fun close(
-        params: AccountCloseParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): Account
+    fun close(params: AccountCloseParams, requestOptions: RequestOptions = RequestOptions.none()): Account
 
-    /** A view of [AccountService] that provides access to raw HTTP responses for each method. */
+    /**
+     * A view of [AccountService] that provides access to raw HTTP responses for each
+     * method.
+     */
     interface WithRawResponse {
 
         /**
@@ -97,97 +98,90 @@ interface AccountService {
          */
         @MustBeClosed
         fun create(params: AccountCreateParams): HttpResponseFor<Account> =
-            create(params, RequestOptions.none())
+            create(
+              params, RequestOptions.none()
+            )
 
         /** @see [create] */
         @MustBeClosed
-        fun create(
-            params: AccountCreateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<Account>
+        fun create(params: AccountCreateParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<Account>
 
         /**
-         * Returns a raw HTTP response for `get /accounts/{account_id}`, but is otherwise the same
-         * as [AccountService.retrieve].
+         * Returns a raw HTTP response for `get /accounts/{account_id}`, but is otherwise
+         * the same as [AccountService.retrieve].
          */
         @MustBeClosed
         fun retrieve(params: AccountRetrieveParams): HttpResponseFor<Account> =
-            retrieve(params, RequestOptions.none())
+            retrieve(
+              params, RequestOptions.none()
+            )
 
         /** @see [retrieve] */
         @MustBeClosed
-        fun retrieve(
-            params: AccountRetrieveParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<Account>
+        fun retrieve(params: AccountRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<Account>
 
         /**
-         * Returns a raw HTTP response for `patch /accounts/{account_id}`, but is otherwise the same
-         * as [AccountService.update].
+         * Returns a raw HTTP response for `patch /accounts/{account_id}`, but is otherwise
+         * the same as [AccountService.update].
          */
         @MustBeClosed
         fun update(params: AccountUpdateParams): HttpResponseFor<Account> =
-            update(params, RequestOptions.none())
+            update(
+              params, RequestOptions.none()
+            )
 
         /** @see [update] */
         @MustBeClosed
-        fun update(
-            params: AccountUpdateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<Account>
+        fun update(params: AccountUpdateParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<Account>
 
         /**
          * Returns a raw HTTP response for `get /accounts`, but is otherwise the same as
          * [AccountService.list].
          */
-        @MustBeClosed fun list(): HttpResponseFor<AccountListPage> = list(AccountListParams.none())
+        @MustBeClosed
+        fun list(): HttpResponseFor<AccountListPage> = list(AccountListParams.none())
 
         /** @see [list] */
         @MustBeClosed
-        fun list(
-            params: AccountListParams = AccountListParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AccountListPage>
+        fun list(params: AccountListParams = AccountListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<AccountListPage>
 
         /** @see [list] */
         @MustBeClosed
-        fun list(
-            params: AccountListParams = AccountListParams.none()
-        ): HttpResponseFor<AccountListPage> = list(params, RequestOptions.none())
+        fun list(params: AccountListParams = AccountListParams.none()): HttpResponseFor<AccountListPage> =
+            list(
+              params, RequestOptions.none()
+            )
 
         /** @see [list] */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<AccountListPage> =
-            list(AccountListParams.none(), requestOptions)
+        fun list(requestOptions: RequestOptions): HttpResponseFor<AccountListPage> = list(AccountListParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `get /accounts/{account_id}/balance`, but is otherwise
-         * the same as [AccountService.balance].
+         * Returns a raw HTTP response for `get /accounts/{account_id}/balance`, but is
+         * otherwise the same as [AccountService.balance].
          */
         @MustBeClosed
         fun balance(params: AccountBalanceParams): HttpResponseFor<BalanceLookup> =
-            balance(params, RequestOptions.none())
+            balance(
+              params, RequestOptions.none()
+            )
 
         /** @see [balance] */
         @MustBeClosed
-        fun balance(
-            params: AccountBalanceParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BalanceLookup>
+        fun balance(params: AccountBalanceParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<BalanceLookup>
 
         /**
-         * Returns a raw HTTP response for `post /accounts/{account_id}/close`, but is otherwise the
-         * same as [AccountService.close].
+         * Returns a raw HTTP response for `post /accounts/{account_id}/close`, but is
+         * otherwise the same as [AccountService.close].
          */
         @MustBeClosed
         fun close(params: AccountCloseParams): HttpResponseFor<Account> =
-            close(params, RequestOptions.none())
+            close(
+              params, RequestOptions.none()
+            )
 
         /** @see [close] */
         @MustBeClosed
-        fun close(
-            params: AccountCloseParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<Account>
+        fun close(params: AccountCloseParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<Account>
     }
 }

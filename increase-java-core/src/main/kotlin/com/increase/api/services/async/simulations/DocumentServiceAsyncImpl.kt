@@ -19,55 +19,49 @@ import com.increase.api.models.documents.Document
 import com.increase.api.models.simulations.documents.DocumentCreateParams
 import java.util.concurrent.CompletableFuture
 
-class DocumentServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
-    DocumentServiceAsync {
+class DocumentServiceAsyncImpl internal constructor(
+    private val clientOptions: ClientOptions,
 
-    private val withRawResponse: DocumentServiceAsync.WithRawResponse by lazy {
-        WithRawResponseImpl(clientOptions)
-    }
+) : DocumentServiceAsync {
+
+    private val withRawResponse: DocumentServiceAsync.WithRawResponse by lazy { WithRawResponseImpl(clientOptions) }
 
     override fun withRawResponse(): DocumentServiceAsync.WithRawResponse = withRawResponse
 
-    override fun create(
-        params: DocumentCreateParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<Document> =
+    override fun create(params: DocumentCreateParams, requestOptions: RequestOptions): CompletableFuture<Document> =
         // post /simulations/documents
         withRawResponse().create(params, requestOptions).thenApply { it.parse() }
 
-    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
-        DocumentServiceAsync.WithRawResponse {
+    class WithRawResponseImpl internal constructor(
+        private val clientOptions: ClientOptions,
+
+    ) : DocumentServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
-        private val createHandler: Handler<Document> =
-            jsonHandler<Document>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val createHandler: Handler<Document> = jsonHandler<Document>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-        override fun create(
-            params: DocumentCreateParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<Document>> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .addPathSegments("simulations", "documents")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
-                    response.parseable {
-                        response
-                            .use { createHandler.handle(it) }
-                            .also {
-                                if (requestOptions.responseValidation!!) {
-                                    it.validate()
-                                }
-                            }
-                    }
-                }
+        override fun create(params: DocumentCreateParams, requestOptions: RequestOptions): CompletableFuture<HttpResponseFor<Document>> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.POST)
+            .addPathSegments("simulations", "documents")
+            .body(json(clientOptions.jsonMapper, params._body()))
+            .build()
+            .prepareAsync(clientOptions, params)
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          return request.thenComposeAsync { clientOptions.httpClient.executeAsync(
+            it, requestOptions
+          ) }.thenApply { response -> response.parseable {
+              response.use {
+                  createHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          } }
         }
     }
 }

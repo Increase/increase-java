@@ -33,7 +33,8 @@ import com.increase.api.services.blocking.simulations.WireTransferService
 interface SimulationService {
 
     /**
-     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     * Returns a view of this service that provides access to raw HTTP responses for
+     * each method.
      */
     fun withRawResponse(): WithRawResponse
 
@@ -91,7 +92,10 @@ interface SimulationService {
 
     fun documents(): DocumentService
 
-    /** A view of [SimulationService] that provides access to raw HTTP responses for each method. */
+    /**
+     * A view of [SimulationService] that provides access to raw HTTP responses for
+     * each method.
+     */
     interface WithRawResponse {
 
         fun interestPayments(): InterestPaymentService.WithRawResponse
@@ -136,8 +140,7 @@ interface SimulationService {
 
         fun realTimePaymentsTransfers(): RealTimePaymentsTransferService.WithRawResponse
 
-        fun inboundRealTimePaymentsTransfers():
-            InboundRealTimePaymentsTransferService.WithRawResponse
+        fun inboundRealTimePaymentsTransfers(): InboundRealTimePaymentsTransferService.WithRawResponse
 
         fun checkDeposits(): CheckDepositService.WithRawResponse
 

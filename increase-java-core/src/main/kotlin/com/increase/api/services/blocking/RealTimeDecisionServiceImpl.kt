@@ -19,85 +19,79 @@ import com.increase.api.models.realtimedecisions.RealTimeDecision
 import com.increase.api.models.realtimedecisions.RealTimeDecisionActionParams
 import com.increase.api.models.realtimedecisions.RealTimeDecisionRetrieveParams
 
-class RealTimeDecisionServiceImpl internal constructor(private val clientOptions: ClientOptions) :
-    RealTimeDecisionService {
+class RealTimeDecisionServiceImpl internal constructor(
+    private val clientOptions: ClientOptions,
 
-    private val withRawResponse: RealTimeDecisionService.WithRawResponse by lazy {
-        WithRawResponseImpl(clientOptions)
-    }
+) : RealTimeDecisionService {
+
+    private val withRawResponse: RealTimeDecisionService.WithRawResponse by lazy { WithRawResponseImpl(clientOptions) }
 
     override fun withRawResponse(): RealTimeDecisionService.WithRawResponse = withRawResponse
 
-    override fun retrieve(
-        params: RealTimeDecisionRetrieveParams,
-        requestOptions: RequestOptions,
-    ): RealTimeDecision =
+    override fun retrieve(params: RealTimeDecisionRetrieveParams, requestOptions: RequestOptions): RealTimeDecision =
         // get /real_time_decisions/{real_time_decision_id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
-    override fun action(
-        params: RealTimeDecisionActionParams,
-        requestOptions: RequestOptions,
-    ): RealTimeDecision =
+    override fun action(params: RealTimeDecisionActionParams, requestOptions: RequestOptions): RealTimeDecision =
         // post /real_time_decisions/{real_time_decision_id}/action
         withRawResponse().action(params, requestOptions).parse()
 
-    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
-        RealTimeDecisionService.WithRawResponse {
+    class WithRawResponseImpl internal constructor(
+        private val clientOptions: ClientOptions,
+
+    ) : RealTimeDecisionService.WithRawResponse {
 
         private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
-        private val retrieveHandler: Handler<RealTimeDecision> =
-            jsonHandler<RealTimeDecision>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val retrieveHandler: Handler<RealTimeDecision> = jsonHandler<RealTimeDecision>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-        override fun retrieve(
-            params: RealTimeDecisionRetrieveParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<RealTimeDecision> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .addPathSegments("real_time_decisions", params.getPathParam(0))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
-                response
-                    .use { retrieveHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override fun retrieve(params: RealTimeDecisionRetrieveParams, requestOptions: RequestOptions): HttpResponseFor<RealTimeDecision> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.GET)
+            .addPathSegments("real_time_decisions", params.getPathParam(0))
+            .build()
+            .prepare(clientOptions, params)
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return response.parseable {
+              response.use {
+                  retrieveHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
-        private val actionHandler: Handler<RealTimeDecision> =
-            jsonHandler<RealTimeDecision>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val actionHandler: Handler<RealTimeDecision> = jsonHandler<RealTimeDecision>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-        override fun action(
-            params: RealTimeDecisionActionParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<RealTimeDecision> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .addPathSegments("real_time_decisions", params.getPathParam(0), "action")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
-                response
-                    .use { actionHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override fun action(params: RealTimeDecisionActionParams, requestOptions: RequestOptions): HttpResponseFor<RealTimeDecision> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.POST)
+            .addPathSegments("real_time_decisions", params.getPathParam(0), "action")
+            .body(json(clientOptions.jsonMapper, params._body()))
+            .build()
+            .prepare(clientOptions, params)
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return response.parseable {
+              response.use {
+                  actionHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
     }
 }

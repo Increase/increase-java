@@ -22,67 +22,43 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * This contains artwork and metadata relating to a Physical Card's appearance. For more
- * information, see our guide on
+ * This contains artwork and metadata relating to a Physical Card's appearance. For
+ * more information, see our guide on
  * [physical card artwork](https://increase.com/documentation/card-art-physical-cards).
  */
 @NoAutoDetect
-class PhysicalCardProfile
-@JsonCreator
-private constructor(
+class PhysicalCardProfile @JsonCreator private constructor(
     @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("back_image_file_id")
-    @ExcludeMissing
-    private val backImageFileId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("carrier_image_file_id")
-    @ExcludeMissing
-    private val carrierImageFileId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("contact_phone")
-    @ExcludeMissing
-    private val contactPhone: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("created_at")
-    @ExcludeMissing
-    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("creator")
-    @ExcludeMissing
-    private val creator: JsonField<Creator> = JsonMissing.of(),
-    @JsonProperty("description")
-    @ExcludeMissing
-    private val description: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("front_image_file_id")
-    @ExcludeMissing
-    private val frontImageFileId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("idempotency_key")
-    @ExcludeMissing
-    private val idempotencyKey: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("is_default")
-    @ExcludeMissing
-    private val isDefault: JsonField<Boolean> = JsonMissing.of(),
-    @JsonProperty("status")
-    @ExcludeMissing
-    private val status: JsonField<Status> = JsonMissing.of(),
+    @JsonProperty("back_image_file_id") @ExcludeMissing private val backImageFileId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("carrier_image_file_id") @ExcludeMissing private val carrierImageFileId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("contact_phone") @ExcludeMissing private val contactPhone: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("created_at") @ExcludeMissing private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("creator") @ExcludeMissing private val creator: JsonField<Creator> = JsonMissing.of(),
+    @JsonProperty("description") @ExcludeMissing private val description: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("front_image_file_id") @ExcludeMissing private val frontImageFileId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("idempotency_key") @ExcludeMissing private val idempotencyKey: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("is_default") @ExcludeMissing private val isDefault: JsonField<Boolean> = JsonMissing.of(),
+    @JsonProperty("status") @ExcludeMissing private val status: JsonField<Status> = JsonMissing.of(),
     @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+
 ) {
 
     /** The Card Profile identifier. */
     fun id(): String = id.getRequired("id")
 
     /** The identifier of the File containing the physical card's back image. */
-    fun backImageFileId(): Optional<String> =
-        Optional.ofNullable(backImageFileId.getNullable("back_image_file_id"))
+    fun backImageFileId(): Optional<String> = Optional.ofNullable(backImageFileId.getNullable("back_image_file_id"))
 
     /** The identifier of the File containing the physical card's carrier image. */
-    fun carrierImageFileId(): Optional<String> =
-        Optional.ofNullable(carrierImageFileId.getNullable("carrier_image_file_id"))
+    fun carrierImageFileId(): Optional<String> = Optional.ofNullable(carrierImageFileId.getNullable("carrier_image_file_id"))
 
     /** A phone number the user can contact to receive support for their card. */
-    fun contactPhone(): Optional<String> =
-        Optional.ofNullable(contactPhone.getNullable("contact_phone"))
+    fun contactPhone(): Optional<String> = Optional.ofNullable(contactPhone.getNullable("contact_phone"))
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
-     * Dispute was created.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
+     * the Card Dispute was created.
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
@@ -93,18 +69,19 @@ private constructor(
     fun description(): String = description.getRequired("description")
 
     /** The identifier of the File containing the physical card's front image. */
-    fun frontImageFileId(): Optional<String> =
-        Optional.ofNullable(frontImageFileId.getNullable("front_image_file_id"))
+    fun frontImageFileId(): Optional<String> = Optional.ofNullable(frontImageFileId.getNullable("front_image_file_id"))
 
     /**
-     * The idempotency key you chose for this object. This value is unique across Increase and is
-     * used to ensure that a request is only processed once. Learn more about
-     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     * The idempotency key you chose for this object. This value is unique across
+     * Increase and is used to ensure that a request is only processed once. Learn more
+     * about [idempotency](https://increase.com/documentation/idempotency-keys).
      */
-    fun idempotencyKey(): Optional<String> =
-        Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
+    fun idempotencyKey(): Optional<String> = Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
 
-    /** Whether this Physical Card Profile is the default for all cards in its Increase group. */
+    /**
+     * Whether this Physical Card Profile is the default for all cards in its Increase
+     * group.
+     */
     fun isDefault(): Boolean = isDefault.getRequired("is_default")
 
     /** The status of the Physical Card Profile. */
@@ -117,7 +94,9 @@ private constructor(
     fun type(): Type = type.getRequired("type")
 
     /** The Card Profile identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+    @JsonProperty("id")
+    @ExcludeMissing
+    fun _id(): JsonField<String> = id
 
     /** The identifier of the File containing the physical card's back image. */
     @JsonProperty("back_image_file_id")
@@ -135,18 +114,22 @@ private constructor(
     fun _contactPhone(): JsonField<String> = contactPhone
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
-     * Dispute was created.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
+     * the Card Dispute was created.
      */
     @JsonProperty("created_at")
     @ExcludeMissing
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /** The creator of this Physical Card Profile. */
-    @JsonProperty("creator") @ExcludeMissing fun _creator(): JsonField<Creator> = creator
+    @JsonProperty("creator")
+    @ExcludeMissing
+    fun _creator(): JsonField<Creator> = creator
 
     /** A description you can use to identify the Physical Card Profile. */
-    @JsonProperty("description") @ExcludeMissing fun _description(): JsonField<String> = description
+    @JsonProperty("description")
+    @ExcludeMissing
+    fun _description(): JsonField<String> = description
 
     /** The identifier of the File containing the physical card's front image. */
     @JsonProperty("front_image_file_id")
@@ -154,25 +137,34 @@ private constructor(
     fun _frontImageFileId(): JsonField<String> = frontImageFileId
 
     /**
-     * The idempotency key you chose for this object. This value is unique across Increase and is
-     * used to ensure that a request is only processed once. Learn more about
-     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     * The idempotency key you chose for this object. This value is unique across
+     * Increase and is used to ensure that a request is only processed once. Learn more
+     * about [idempotency](https://increase.com/documentation/idempotency-keys).
      */
     @JsonProperty("idempotency_key")
     @ExcludeMissing
     fun _idempotencyKey(): JsonField<String> = idempotencyKey
 
-    /** Whether this Physical Card Profile is the default for all cards in its Increase group. */
-    @JsonProperty("is_default") @ExcludeMissing fun _isDefault(): JsonField<Boolean> = isDefault
+    /**
+     * Whether this Physical Card Profile is the default for all cards in its Increase
+     * group.
+     */
+    @JsonProperty("is_default")
+    @ExcludeMissing
+    fun _isDefault(): JsonField<Boolean> = isDefault
 
     /** The status of the Physical Card Profile. */
-    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
+    @JsonProperty("status")
+    @ExcludeMissing
+    fun _status(): JsonField<Status> = status
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `physical_card_profile`.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
+    @JsonProperty("type")
+    @ExcludeMissing
+    fun _type(): JsonField<Type> = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -180,25 +172,26 @@ private constructor(
 
     private var validated: Boolean = false
 
-    fun validate(): PhysicalCardProfile = apply {
-        if (validated) {
-            return@apply
-        }
+    fun validate(): PhysicalCardProfile =
+        apply {
+            if (validated) {
+              return@apply
+            }
 
-        id()
-        backImageFileId()
-        carrierImageFileId()
-        contactPhone()
-        createdAt()
-        creator()
-        description()
-        frontImageFileId()
-        idempotencyKey()
-        isDefault()
-        status()
-        type()
-        validated = true
-    }
+            id()
+            backImageFileId()
+            carrierImageFileId()
+            contactPhone()
+            createdAt()
+            creator()
+            description()
+            frontImageFileId()
+            idempotencyKey()
+            isDefault()
+            status()
+            type()
+            validated = true
+        }
 
     fun toBuilder() = Builder().from(this)
 
@@ -208,6 +201,7 @@ private constructor(
          * Returns a mutable builder for constructing an instance of [PhysicalCardProfile].
          *
          * The following fields are required:
+         *
          * ```java
          * .id()
          * .backImageFileId()
@@ -223,7 +217,8 @@ private constructor(
          * .type()
          * ```
          */
-        @JvmStatic fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
     /** A builder for [PhysicalCardProfile]. */
@@ -244,53 +239,55 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(physicalCardProfile: PhysicalCardProfile) = apply {
-            id = physicalCardProfile.id
-            backImageFileId = physicalCardProfile.backImageFileId
-            carrierImageFileId = physicalCardProfile.carrierImageFileId
-            contactPhone = physicalCardProfile.contactPhone
-            createdAt = physicalCardProfile.createdAt
-            creator = physicalCardProfile.creator
-            description = physicalCardProfile.description
-            frontImageFileId = physicalCardProfile.frontImageFileId
-            idempotencyKey = physicalCardProfile.idempotencyKey
-            isDefault = physicalCardProfile.isDefault
-            status = physicalCardProfile.status
-            type = physicalCardProfile.type
-            additionalProperties = physicalCardProfile.additionalProperties.toMutableMap()
-        }
+        internal fun from(physicalCardProfile: PhysicalCardProfile) =
+            apply {
+                id = physicalCardProfile.id
+                backImageFileId = physicalCardProfile.backImageFileId
+                carrierImageFileId = physicalCardProfile.carrierImageFileId
+                contactPhone = physicalCardProfile.contactPhone
+                createdAt = physicalCardProfile.createdAt
+                creator = physicalCardProfile.creator
+                description = physicalCardProfile.description
+                frontImageFileId = physicalCardProfile.frontImageFileId
+                idempotencyKey = physicalCardProfile.idempotencyKey
+                isDefault = physicalCardProfile.isDefault
+                status = physicalCardProfile.status
+                type = physicalCardProfile.type
+                additionalProperties = physicalCardProfile.additionalProperties.toMutableMap()
+            }
 
         /** The Card Profile identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
         /** The Card Profile identifier. */
-        fun id(id: JsonField<String>) = apply { this.id = id }
+        fun id(id: JsonField<String>) =
+            apply {
+                this.id = id
+            }
 
         /** The identifier of the File containing the physical card's back image. */
-        fun backImageFileId(backImageFileId: String?) =
-            backImageFileId(JsonField.ofNullable(backImageFileId))
+        fun backImageFileId(backImageFileId: String?) = backImageFileId(JsonField.ofNullable(backImageFileId))
 
         /** The identifier of the File containing the physical card's back image. */
-        fun backImageFileId(backImageFileId: Optional<String>) =
-            backImageFileId(backImageFileId.getOrNull())
+        fun backImageFileId(backImageFileId: Optional<String>) = backImageFileId(backImageFileId.getOrNull())
 
         /** The identifier of the File containing the physical card's back image. */
-        fun backImageFileId(backImageFileId: JsonField<String>) = apply {
-            this.backImageFileId = backImageFileId
-        }
+        fun backImageFileId(backImageFileId: JsonField<String>) =
+            apply {
+                this.backImageFileId = backImageFileId
+            }
 
         /** The identifier of the File containing the physical card's carrier image. */
-        fun carrierImageFileId(carrierImageFileId: String?) =
-            carrierImageFileId(JsonField.ofNullable(carrierImageFileId))
+        fun carrierImageFileId(carrierImageFileId: String?) = carrierImageFileId(JsonField.ofNullable(carrierImageFileId))
 
         /** The identifier of the File containing the physical card's carrier image. */
-        fun carrierImageFileId(carrierImageFileId: Optional<String>) =
-            carrierImageFileId(carrierImageFileId.getOrNull())
+        fun carrierImageFileId(carrierImageFileId: Optional<String>) = carrierImageFileId(carrierImageFileId.getOrNull())
 
         /** The identifier of the File containing the physical card's carrier image. */
-        fun carrierImageFileId(carrierImageFileId: JsonField<String>) = apply {
-            this.carrierImageFileId = carrierImageFileId
-        }
+        fun carrierImageFileId(carrierImageFileId: JsonField<String>) =
+            apply {
+                this.carrierImageFileId = carrierImageFileId
+            }
 
         /** A phone number the user can contact to receive support for their card. */
         fun contactPhone(contactPhone: String?) = contactPhone(JsonField.ofNullable(contactPhone))
@@ -299,87 +296,103 @@ private constructor(
         fun contactPhone(contactPhone: Optional<String>) = contactPhone(contactPhone.getOrNull())
 
         /** A phone number the user can contact to receive support for their card. */
-        fun contactPhone(contactPhone: JsonField<String>) = apply {
-            this.contactPhone = contactPhone
-        }
+        fun contactPhone(contactPhone: JsonField<String>) =
+            apply {
+                this.contactPhone = contactPhone
+            }
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
-         * Dispute was created.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
+         * the Card Dispute was created.
          */
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
-         * Dispute was created.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
+         * the Card Dispute was created.
          */
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) =
+            apply {
+                this.createdAt = createdAt
+            }
 
         /** The creator of this Physical Card Profile. */
         fun creator(creator: Creator) = creator(JsonField.of(creator))
 
         /** The creator of this Physical Card Profile. */
-        fun creator(creator: JsonField<Creator>) = apply { this.creator = creator }
+        fun creator(creator: JsonField<Creator>) =
+            apply {
+                this.creator = creator
+            }
 
         /** A description you can use to identify the Physical Card Profile. */
         fun description(description: String) = description(JsonField.of(description))
 
         /** A description you can use to identify the Physical Card Profile. */
-        fun description(description: JsonField<String>) = apply { this.description = description }
+        fun description(description: JsonField<String>) =
+            apply {
+                this.description = description
+            }
 
         /** The identifier of the File containing the physical card's front image. */
-        fun frontImageFileId(frontImageFileId: String?) =
-            frontImageFileId(JsonField.ofNullable(frontImageFileId))
+        fun frontImageFileId(frontImageFileId: String?) = frontImageFileId(JsonField.ofNullable(frontImageFileId))
 
         /** The identifier of the File containing the physical card's front image. */
-        fun frontImageFileId(frontImageFileId: Optional<String>) =
-            frontImageFileId(frontImageFileId.getOrNull())
+        fun frontImageFileId(frontImageFileId: Optional<String>) = frontImageFileId(frontImageFileId.getOrNull())
 
         /** The identifier of the File containing the physical card's front image. */
-        fun frontImageFileId(frontImageFileId: JsonField<String>) = apply {
-            this.frontImageFileId = frontImageFileId
-        }
+        fun frontImageFileId(frontImageFileId: JsonField<String>) =
+            apply {
+                this.frontImageFileId = frontImageFileId
+            }
 
         /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         * The idempotency key you chose for this object. This value is unique across
+         * Increase and is used to ensure that a request is only processed once. Learn more
+         * about [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        fun idempotencyKey(idempotencyKey: String?) =
-            idempotencyKey(JsonField.ofNullable(idempotencyKey))
+        fun idempotencyKey(idempotencyKey: String?) = idempotencyKey(JsonField.ofNullable(idempotencyKey))
 
         /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         * The idempotency key you chose for this object. This value is unique across
+         * Increase and is used to ensure that a request is only processed once. Learn more
+         * about [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        fun idempotencyKey(idempotencyKey: Optional<String>) =
-            idempotencyKey(idempotencyKey.getOrNull())
+        fun idempotencyKey(idempotencyKey: Optional<String>) = idempotencyKey(idempotencyKey.getOrNull())
 
         /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         * The idempotency key you chose for this object. This value is unique across
+         * Increase and is used to ensure that a request is only processed once. Learn more
+         * about [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
-            this.idempotencyKey = idempotencyKey
-        }
+        fun idempotencyKey(idempotencyKey: JsonField<String>) =
+            apply {
+                this.idempotencyKey = idempotencyKey
+            }
 
         /**
-         * Whether this Physical Card Profile is the default for all cards in its Increase group.
+         * Whether this Physical Card Profile is the default for all cards in its Increase
+         * group.
          */
         fun isDefault(isDefault: Boolean) = isDefault(JsonField.of(isDefault))
 
         /**
-         * Whether this Physical Card Profile is the default for all cards in its Increase group.
+         * Whether this Physical Card Profile is the default for all cards in its Increase
+         * group.
          */
-        fun isDefault(isDefault: JsonField<Boolean>) = apply { this.isDefault = isDefault }
+        fun isDefault(isDefault: JsonField<Boolean>) =
+            apply {
+                this.isDefault = isDefault
+            }
 
         /** The status of the Physical Card Profile. */
         fun status(status: Status) = status(JsonField.of(status))
 
         /** The status of the Physical Card Profile. */
-        fun status(status: JsonField<Status>) = apply { this.status = status }
+        fun status(status: JsonField<Status>) =
+            apply {
+                this.status = status
+            }
 
         /**
          * A constant representing the object's type. For this resource it will always be
@@ -391,57 +404,95 @@ private constructor(
          * A constant representing the object's type. For this resource it will always be
          * `physical_card_profile`.
          */
-        fun type(type: JsonField<Type>) = apply { this.type = type }
+        fun type(type: JsonField<Type>) =
+            apply {
+                this.type = type
+            }
 
-        fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-            this.additionalProperties.clear()
-            putAllAdditionalProperties(additionalProperties)
-        }
+        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
 
-        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            additionalProperties.put(key, value)
-        }
+        fun putAdditionalProperty(key: String, value: JsonValue) =
+            apply {
+                additionalProperties.put(key, value)
+            }
 
-        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-            this.additionalProperties.putAll(additionalProperties)
-        }
+        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
 
-        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+        fun removeAdditionalProperty(key: String) =
+            apply {
+                additionalProperties.remove(key)
+            }
 
-        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalProperty)
-        }
+        fun removeAllAdditionalProperties(keys: Set<String>) =
+            apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
 
         fun build(): PhysicalCardProfile =
             PhysicalCardProfile(
-                checkRequired("id", id),
-                checkRequired("backImageFileId", backImageFileId),
-                checkRequired("carrierImageFileId", carrierImageFileId),
-                checkRequired("contactPhone", contactPhone),
-                checkRequired("createdAt", createdAt),
-                checkRequired("creator", creator),
-                checkRequired("description", description),
-                checkRequired("frontImageFileId", frontImageFileId),
-                checkRequired("idempotencyKey", idempotencyKey),
-                checkRequired("isDefault", isDefault),
-                checkRequired("status", status),
-                checkRequired("type", type),
-                additionalProperties.toImmutable(),
+              checkRequired(
+                "id", id
+              ),
+              checkRequired(
+                "backImageFileId", backImageFileId
+              ),
+              checkRequired(
+                "carrierImageFileId", carrierImageFileId
+              ),
+              checkRequired(
+                "contactPhone", contactPhone
+              ),
+              checkRequired(
+                "createdAt", createdAt
+              ),
+              checkRequired(
+                "creator", creator
+              ),
+              checkRequired(
+                "description", description
+              ),
+              checkRequired(
+                "frontImageFileId", frontImageFileId
+              ),
+              checkRequired(
+                "idempotencyKey", idempotencyKey
+              ),
+              checkRequired(
+                "isDefault", isDefault
+              ),
+              checkRequired(
+                "status", status
+              ),
+              checkRequired(
+                "type", type
+              ),
+              additionalProperties.toImmutable(),
             )
     }
 
     /** The creator of this Physical Card Profile. */
-    class Creator @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+    class Creator @JsonCreator private constructor(
+        private val value: JsonField<String>,
+
+    ) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
+         * This is usually only useful if this instance was deserialized from data that
+         * doesn't match any known member, and you want to know that value. For example, if
+         * the SDK is on an older version than the API, then the API may respond with new
+         * members that the SDK is unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -466,9 +517,11 @@ private constructor(
          * An enum containing [Creator]'s known values, as well as an [_UNKNOWN] member.
          *
          * An instance of [Creator] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
+         *
+         * - It was deserialized from data that doesn't match any known member. For
+         *   example, if the SDK is on an older version than the API, then the API may
+         *   respond with new members that the SDK is unaware of.
+         *
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
@@ -481,11 +534,11 @@ private constructor(
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or
+         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if
+         * you want to throw for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -497,11 +550,11 @@ private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and
+         * don't want to throw for the unknown case.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
-         *   member.
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a
+         * known member.
          */
         fun known(): Known =
             when (this) {
@@ -513,23 +566,20 @@ private constructor(
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for
+         * debugging and generally doesn't throw.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value does not have the
-         *   expected primitive type.
+         * @throws IncreaseInvalidDataException if this class instance's value does not
+         * have the expected primitive type.
          */
-        fun asString(): String =
-            _value().asString().orElseThrow {
-                IncreaseInvalidDataException("Value is not a String")
-            }
+        fun asString(): String = _value().asString().orElseThrow { IncreaseInvalidDataException("Value is not a String") }
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return /* spotless:off */ other is Creator && value == other.value /* spotless:on */
+          return /* spotless:off */ other is Creator && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -538,17 +588,21 @@ private constructor(
     }
 
     /** The status of the Physical Card Profile. */
-    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+    class Status @JsonCreator private constructor(
+        private val value: JsonField<String>,
+
+    ) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
+         * This is usually only useful if this instance was deserialized from data that
+         * doesn't match any known member, and you want to know that value. For example, if
+         * the SDK is on an older version than the API, then the API may respond with new
+         * members that the SDK is unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -565,8 +619,8 @@ private constructor(
             @JvmField val PENDING_SUBMITTING = of("pending_submitting")
 
             /**
-             * The Physical Card Profile has been submitted to the fulfillment provider and is ready
-             * to use.
+             * The Physical Card Profile has been submitted to the fulfillment provider and is
+             * ready to use.
              */
             @JvmField val ACTIVE = of("active")
 
@@ -587,8 +641,8 @@ private constructor(
             /** The card profile is awaiting submission to the fulfillment provider. */
             PENDING_SUBMITTING,
             /**
-             * The Physical Card Profile has been submitted to the fulfillment provider and is ready
-             * to use.
+             * The Physical Card Profile has been submitted to the fulfillment provider and is
+             * ready to use.
              */
             ACTIVE,
             /** The Physical Card Profile has been archived. */
@@ -599,9 +653,11 @@ private constructor(
          * An enum containing [Status]'s known values, as well as an [_UNKNOWN] member.
          *
          * An instance of [Status] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
+         *
+         * - It was deserialized from data that doesn't match any known member. For
+         *   example, if the SDK is on an older version than the API, then the API may
+         *   respond with new members that the SDK is unaware of.
+         *
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
@@ -614,8 +670,8 @@ private constructor(
             /** The card profile is awaiting submission to the fulfillment provider. */
             PENDING_SUBMITTING,
             /**
-             * The Physical Card Profile has been submitted to the fulfillment provider and is ready
-             * to use.
+             * The Physical Card Profile has been submitted to the fulfillment provider and is
+             * ready to use.
              */
             ACTIVE,
             /** The Physical Card Profile has been archived. */
@@ -625,11 +681,11 @@ private constructor(
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or
+         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if
+         * you want to throw for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -645,11 +701,11 @@ private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and
+         * don't want to throw for the unknown case.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
-         *   member.
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a
+         * known member.
          */
         fun known(): Known =
             when (this) {
@@ -665,23 +721,20 @@ private constructor(
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for
+         * debugging and generally doesn't throw.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value does not have the
-         *   expected primitive type.
+         * @throws IncreaseInvalidDataException if this class instance's value does not
+         * have the expected primitive type.
          */
-        fun asString(): String =
-            _value().asString().orElseThrow {
-                IncreaseInvalidDataException("Value is not a String")
-            }
+        fun asString(): String = _value().asString().orElseThrow { IncreaseInvalidDataException("Value is not a String") }
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
+          return /* spotless:off */ other is Status && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -693,17 +746,21 @@ private constructor(
      * A constant representing the object's type. For this resource it will always be
      * `physical_card_profile`.
      */
-    class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+    class Type @JsonCreator private constructor(
+        private val value: JsonField<String>,
+
+    ) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
+         * This is usually only useful if this instance was deserialized from data that
+         * doesn't match any known member, and you want to know that value. For example, if
+         * the SDK is on an older version than the API, then the API may respond with new
+         * members that the SDK is unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -714,16 +771,18 @@ private constructor(
 
         /** An enum containing [Type]'s known values. */
         enum class Known {
-            PHYSICAL_CARD_PROFILE
+            PHYSICAL_CARD_PROFILE,
         }
 
         /**
          * An enum containing [Type]'s known values, as well as an [_UNKNOWN] member.
          *
          * An instance of [Type] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
+         *
+         * - It was deserialized from data that doesn't match any known member. For
+         *   example, if the SDK is on an older version than the API, then the API may
+         *   respond with new members that the SDK is unaware of.
+         *
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
@@ -733,11 +792,11 @@ private constructor(
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or
+         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if
+         * you want to throw for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -748,11 +807,11 @@ private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and
+         * don't want to throw for the unknown case.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
-         *   member.
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a
+         * known member.
          */
         fun known(): Known =
             when (this) {
@@ -763,23 +822,20 @@ private constructor(
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for
+         * debugging and generally doesn't throw.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value does not have the
-         *   expected primitive type.
+         * @throws IncreaseInvalidDataException if this class instance's value does not
+         * have the expected primitive type.
          */
-        fun asString(): String =
-            _value().asString().orElseThrow {
-                IncreaseInvalidDataException("Value is not a String")
-            }
+        fun asString(): String = _value().asString().orElseThrow { IncreaseInvalidDataException("Value is not a String") }
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
+          return /* spotless:off */ other is Type && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -788,11 +844,11 @@ private constructor(
     }
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return /* spotless:off */ other is PhysicalCardProfile && id == other.id && backImageFileId == other.backImageFileId && carrierImageFileId == other.carrierImageFileId && contactPhone == other.contactPhone && createdAt == other.createdAt && creator == other.creator && description == other.description && frontImageFileId == other.frontImageFileId && idempotencyKey == other.idempotencyKey && isDefault == other.isDefault && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+      return /* spotless:off */ other is PhysicalCardProfile && id == other.id && backImageFileId == other.backImageFileId && carrierImageFileId == other.carrierImageFileId && contactPhone == other.contactPhone && createdAt == other.createdAt && creator == other.creator && description == other.description && frontImageFileId == other.frontImageFileId && idempotencyKey == other.idempotencyKey && isDefault == other.isDefault && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
@@ -801,6 +857,5 @@ private constructor(
 
     override fun hashCode(): Int = hashCode
 
-    override fun toString() =
-        "PhysicalCardProfile{id=$id, backImageFileId=$backImageFileId, carrierImageFileId=$carrierImageFileId, contactPhone=$contactPhone, createdAt=$createdAt, creator=$creator, description=$description, frontImageFileId=$frontImageFileId, idempotencyKey=$idempotencyKey, isDefault=$isDefault, status=$status, type=$type, additionalProperties=$additionalProperties}"
+    override fun toString() = "PhysicalCardProfile{id=$id, backImageFileId=$backImageFileId, carrierImageFileId=$carrierImageFileId, contactPhone=$contactPhone, createdAt=$createdAt, creator=$creator, description=$description, frontImageFileId=$frontImageFileId, idempotencyKey=$idempotencyKey, isDefault=$isDefault, status=$status, type=$type, additionalProperties=$additionalProperties}"
 }

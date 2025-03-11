@@ -17,59 +17,52 @@ import com.increase.api.errors.IncreaseError
 import com.increase.api.models.routingnumbers.RoutingNumberListPage
 import com.increase.api.models.routingnumbers.RoutingNumberListParams
 
-class RoutingNumberServiceImpl internal constructor(private val clientOptions: ClientOptions) :
-    RoutingNumberService {
+class RoutingNumberServiceImpl internal constructor(
+    private val clientOptions: ClientOptions,
 
-    private val withRawResponse: RoutingNumberService.WithRawResponse by lazy {
-        WithRawResponseImpl(clientOptions)
-    }
+) : RoutingNumberService {
+
+    private val withRawResponse: RoutingNumberService.WithRawResponse by lazy { WithRawResponseImpl(clientOptions) }
 
     override fun withRawResponse(): RoutingNumberService.WithRawResponse = withRawResponse
 
-    override fun list(
-        params: RoutingNumberListParams,
-        requestOptions: RequestOptions,
-    ): RoutingNumberListPage =
+    override fun list(params: RoutingNumberListParams, requestOptions: RequestOptions): RoutingNumberListPage =
         // get /routing_numbers
         withRawResponse().list(params, requestOptions).parse()
 
-    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
-        RoutingNumberService.WithRawResponse {
+    class WithRawResponseImpl internal constructor(
+        private val clientOptions: ClientOptions,
+
+    ) : RoutingNumberService.WithRawResponse {
 
         private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
-        private val listHandler: Handler<RoutingNumberListPage.Response> =
-            jsonHandler<RoutingNumberListPage.Response>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
+        private val listHandler: Handler<RoutingNumberListPage.Response> = jsonHandler<RoutingNumberListPage.Response>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-        override fun list(
-            params: RoutingNumberListParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<RoutingNumberListPage> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .addPathSegments("routing_numbers")
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
-                response
-                    .use { listHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-                    .let {
-                        RoutingNumberListPage.of(
-                            RoutingNumberServiceImpl(clientOptions),
-                            params,
-                            it,
-                        )
-                    }
-            }
+        override fun list(params: RoutingNumberListParams, requestOptions: RequestOptions): HttpResponseFor<RoutingNumberListPage> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.GET)
+            .addPathSegments("routing_numbers")
+            .build()
+            .prepare(clientOptions, params)
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return response.parseable {
+              response.use {
+                  listHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+              .let {
+                  RoutingNumberListPage.of(RoutingNumberServiceImpl(clientOptions), params, it)
+              }
+          }
         }
     }
 }

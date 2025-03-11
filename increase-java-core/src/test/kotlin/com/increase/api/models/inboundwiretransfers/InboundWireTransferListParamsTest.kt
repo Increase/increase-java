@@ -11,72 +11,69 @@ class InboundWireTransferListParamsTest {
 
     @Test
     fun create() {
-        InboundWireTransferListParams.builder()
-            .accountId("account_id")
-            .accountNumberId("account_number_id")
-            .createdAt(
-                InboundWireTransferListParams.CreatedAt.builder()
-                    .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .build()
-            )
-            .cursor("cursor")
-            .limit(1L)
-            .status(
-                InboundWireTransferListParams.Status.builder()
-                    .addIn(InboundWireTransferListParams.Status.In.PENDING)
-                    .build()
-            )
-            .build()
+      InboundWireTransferListParams.builder()
+          .accountId("account_id")
+          .accountNumberId("account_number_id")
+          .createdAt(InboundWireTransferListParams.CreatedAt.builder()
+              .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+              .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+              .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+              .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+              .build())
+          .cursor("cursor")
+          .limit(1L)
+          .status(InboundWireTransferListParams.Status.builder()
+              .addIn(InboundWireTransferListParams.Status.In.PENDING)
+              .build())
+          .build()
     }
 
     @Test
     fun queryParams() {
-        val params =
-            InboundWireTransferListParams.builder()
-                .accountId("account_id")
-                .accountNumberId("account_number_id")
-                .createdAt(
-                    InboundWireTransferListParams.CreatedAt.builder()
-                        .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .build()
-                )
-                .cursor("cursor")
-                .limit(1L)
-                .status(
-                    InboundWireTransferListParams.Status.builder()
-                        .addIn(InboundWireTransferListParams.Status.In.PENDING)
-                        .build()
-                )
-                .build()
-        val expected = QueryParams.builder()
-        expected.put("account_id", "account_id")
-        expected.put("account_number_id", "account_number_id")
-        InboundWireTransferListParams.CreatedAt.builder()
-            .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-            .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-            .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-            .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-            .build()
-            .forEachQueryParam { key, values -> expected.put("created_at.$key", values) }
-        expected.put("cursor", "cursor")
-        expected.put("limit", "1")
-        InboundWireTransferListParams.Status.builder()
-            .addIn(InboundWireTransferListParams.Status.In.PENDING)
-            .build()
-            .forEachQueryParam { key, values -> expected.put("status.$key", values) }
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+      val params = InboundWireTransferListParams.builder()
+          .accountId("account_id")
+          .accountNumberId("account_number_id")
+          .createdAt(InboundWireTransferListParams.CreatedAt.builder()
+              .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+              .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+              .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+              .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+              .build())
+          .cursor("cursor")
+          .limit(1L)
+          .status(InboundWireTransferListParams.Status.builder()
+              .addIn(InboundWireTransferListParams.Status.In.PENDING)
+              .build())
+          .build()
+      val expected = QueryParams.builder()
+      expected.put("account_id", "account_id")
+      expected.put("account_number_id", "account_number_id")
+      InboundWireTransferListParams.CreatedAt.builder()
+          .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+          .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+          .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+          .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+          .build().forEachQueryParam { key, values ->
+          expected.put(
+            "created_at.$key", values
+          )
+      }
+      expected.put("cursor", "cursor")
+      expected.put("limit", "1")
+      InboundWireTransferListParams.Status.builder()
+          .addIn(InboundWireTransferListParams.Status.In.PENDING)
+          .build().forEachQueryParam { key, values ->
+          expected.put(
+            "status.$key", values
+          )
+      }
+      assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
     @Test
     fun queryParamsWithoutOptionalFields() {
-        val params = InboundWireTransferListParams.builder().build()
-        val expected = QueryParams.builder()
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+      val params = InboundWireTransferListParams.builder().build()
+      val expected = QueryParams.builder()
+      assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 }

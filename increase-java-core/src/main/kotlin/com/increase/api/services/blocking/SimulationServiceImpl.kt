@@ -58,108 +58,64 @@ import com.increase.api.services.blocking.simulations.RealTimePaymentsTransferSe
 import com.increase.api.services.blocking.simulations.WireTransferService
 import com.increase.api.services.blocking.simulations.WireTransferServiceImpl
 
-class SimulationServiceImpl internal constructor(private val clientOptions: ClientOptions) :
-    SimulationService {
+class SimulationServiceImpl internal constructor(
+    private val clientOptions: ClientOptions,
 
-    private val withRawResponse: SimulationService.WithRawResponse by lazy {
-        WithRawResponseImpl(clientOptions)
-    }
+) : SimulationService {
 
-    private val interestPayments: InterestPaymentService by lazy {
-        InterestPaymentServiceImpl(clientOptions)
-    }
+    private val withRawResponse: SimulationService.WithRawResponse by lazy { WithRawResponseImpl(clientOptions) }
 
-    private val cardAuthorizations: CardAuthorizationService by lazy {
-        CardAuthorizationServiceImpl(clientOptions)
-    }
+    private val interestPayments: InterestPaymentService by lazy { InterestPaymentServiceImpl(clientOptions) }
 
-    private val cardAuthorizationExpirations: CardAuthorizationExpirationService by lazy {
-        CardAuthorizationExpirationServiceImpl(clientOptions)
-    }
+    private val cardAuthorizations: CardAuthorizationService by lazy { CardAuthorizationServiceImpl(clientOptions) }
 
-    private val cardSettlements: CardSettlementService by lazy {
-        CardSettlementServiceImpl(clientOptions)
-    }
+    private val cardAuthorizationExpirations: CardAuthorizationExpirationService by lazy { CardAuthorizationExpirationServiceImpl(clientOptions) }
 
-    private val cardReversals: CardReversalService by lazy {
-        CardReversalServiceImpl(clientOptions)
-    }
+    private val cardSettlements: CardSettlementService by lazy { CardSettlementServiceImpl(clientOptions) }
 
-    private val cardIncrements: CardIncrementService by lazy {
-        CardIncrementServiceImpl(clientOptions)
-    }
+    private val cardReversals: CardReversalService by lazy { CardReversalServiceImpl(clientOptions) }
 
-    private val cardFuelConfirmations: CardFuelConfirmationService by lazy {
-        CardFuelConfirmationServiceImpl(clientOptions)
-    }
+    private val cardIncrements: CardIncrementService by lazy { CardIncrementServiceImpl(clientOptions) }
+
+    private val cardFuelConfirmations: CardFuelConfirmationService by lazy { CardFuelConfirmationServiceImpl(clientOptions) }
 
     private val cardRefunds: CardRefundService by lazy { CardRefundServiceImpl(clientOptions) }
 
     private val cardDisputes: CardDisputeService by lazy { CardDisputeServiceImpl(clientOptions) }
 
-    private val physicalCards: PhysicalCardService by lazy {
-        PhysicalCardServiceImpl(clientOptions)
-    }
+    private val physicalCards: PhysicalCardService by lazy { PhysicalCardServiceImpl(clientOptions) }
 
-    private val digitalWalletTokenRequests: DigitalWalletTokenRequestService by lazy {
-        DigitalWalletTokenRequestServiceImpl(clientOptions)
-    }
+    private val digitalWalletTokenRequests: DigitalWalletTokenRequestService by lazy { DigitalWalletTokenRequestServiceImpl(clientOptions) }
 
-    private val inboundFundsHolds: InboundFundsHoldService by lazy {
-        InboundFundsHoldServiceImpl(clientOptions)
-    }
+    private val inboundFundsHolds: InboundFundsHoldService by lazy { InboundFundsHoldServiceImpl(clientOptions) }
 
-    private val accountTransfers: AccountTransferService by lazy {
-        AccountTransferServiceImpl(clientOptions)
-    }
+    private val accountTransfers: AccountTransferService by lazy { AccountTransferServiceImpl(clientOptions) }
 
     private val achTransfers: AchTransferService by lazy { AchTransferServiceImpl(clientOptions) }
 
-    private val inboundAchTransfers: InboundAchTransferService by lazy {
-        InboundAchTransferServiceImpl(clientOptions)
-    }
+    private val inboundAchTransfers: InboundAchTransferService by lazy { InboundAchTransferServiceImpl(clientOptions) }
 
-    private val wireTransfers: WireTransferService by lazy {
-        WireTransferServiceImpl(clientOptions)
-    }
+    private val wireTransfers: WireTransferService by lazy { WireTransferServiceImpl(clientOptions) }
 
-    private val inboundWireTransfers: InboundWireTransferService by lazy {
-        InboundWireTransferServiceImpl(clientOptions)
-    }
+    private val inboundWireTransfers: InboundWireTransferService by lazy { InboundWireTransferServiceImpl(clientOptions) }
 
-    private val inboundWireDrawdownRequests: InboundWireDrawdownRequestService by lazy {
-        InboundWireDrawdownRequestServiceImpl(clientOptions)
-    }
+    private val inboundWireDrawdownRequests: InboundWireDrawdownRequestService by lazy { InboundWireDrawdownRequestServiceImpl(clientOptions) }
 
-    private val checkTransfers: CheckTransferService by lazy {
-        CheckTransferServiceImpl(clientOptions)
-    }
+    private val checkTransfers: CheckTransferService by lazy { CheckTransferServiceImpl(clientOptions) }
 
-    private val inboundCheckDeposits: InboundCheckDepositService by lazy {
-        InboundCheckDepositServiceImpl(clientOptions)
-    }
+    private val inboundCheckDeposits: InboundCheckDepositService by lazy { InboundCheckDepositServiceImpl(clientOptions) }
 
-    private val realTimePaymentsTransfers: RealTimePaymentsTransferService by lazy {
-        RealTimePaymentsTransferServiceImpl(clientOptions)
-    }
+    private val realTimePaymentsTransfers: RealTimePaymentsTransferService by lazy { RealTimePaymentsTransferServiceImpl(clientOptions) }
 
-    private val inboundRealTimePaymentsTransfers: InboundRealTimePaymentsTransferService by lazy {
-        InboundRealTimePaymentsTransferServiceImpl(clientOptions)
-    }
+    private val inboundRealTimePaymentsTransfers: InboundRealTimePaymentsTransferService by lazy { InboundRealTimePaymentsTransferServiceImpl(clientOptions) }
 
-    private val checkDeposits: CheckDepositService by lazy {
-        CheckDepositServiceImpl(clientOptions)
-    }
+    private val checkDeposits: CheckDepositService by lazy { CheckDepositServiceImpl(clientOptions) }
 
-    private val inboundMailItems: InboundMailItemService by lazy {
-        InboundMailItemServiceImpl(clientOptions)
-    }
+    private val inboundMailItems: InboundMailItemService by lazy { InboundMailItemServiceImpl(clientOptions) }
 
     private val programs: ProgramService by lazy { ProgramServiceImpl(clientOptions) }
 
-    private val accountStatements: AccountStatementService by lazy {
-        AccountStatementServiceImpl(clientOptions)
-    }
+    private val accountStatements: AccountStatementService by lazy { AccountStatementServiceImpl(clientOptions) }
 
     private val documents: DocumentService by lazy { DocumentServiceImpl(clientOptions) }
 
@@ -169,8 +125,7 @@ class SimulationServiceImpl internal constructor(private val clientOptions: Clie
 
     override fun cardAuthorizations(): CardAuthorizationService = cardAuthorizations
 
-    override fun cardAuthorizationExpirations(): CardAuthorizationExpirationService =
-        cardAuthorizationExpirations
+    override fun cardAuthorizationExpirations(): CardAuthorizationExpirationService = cardAuthorizationExpirations
 
     override fun cardSettlements(): CardSettlementService = cardSettlements
 
@@ -186,8 +141,7 @@ class SimulationServiceImpl internal constructor(private val clientOptions: Clie
 
     override fun physicalCards(): PhysicalCardService = physicalCards
 
-    override fun digitalWalletTokenRequests(): DigitalWalletTokenRequestService =
-        digitalWalletTokenRequests
+    override fun digitalWalletTokenRequests(): DigitalWalletTokenRequestService = digitalWalletTokenRequests
 
     override fun inboundFundsHolds(): InboundFundsHoldService = inboundFundsHolds
 
@@ -201,18 +155,15 @@ class SimulationServiceImpl internal constructor(private val clientOptions: Clie
 
     override fun inboundWireTransfers(): InboundWireTransferService = inboundWireTransfers
 
-    override fun inboundWireDrawdownRequests(): InboundWireDrawdownRequestService =
-        inboundWireDrawdownRequests
+    override fun inboundWireDrawdownRequests(): InboundWireDrawdownRequestService = inboundWireDrawdownRequests
 
     override fun checkTransfers(): CheckTransferService = checkTransfers
 
     override fun inboundCheckDeposits(): InboundCheckDepositService = inboundCheckDeposits
 
-    override fun realTimePaymentsTransfers(): RealTimePaymentsTransferService =
-        realTimePaymentsTransfers
+    override fun realTimePaymentsTransfers(): RealTimePaymentsTransferService = realTimePaymentsTransfers
 
-    override fun inboundRealTimePaymentsTransfers(): InboundRealTimePaymentsTransferService =
-        inboundRealTimePaymentsTransfers
+    override fun inboundRealTimePaymentsTransfers(): InboundRealTimePaymentsTransferService = inboundRealTimePaymentsTransfers
 
     override fun checkDeposits(): CheckDepositService = checkDeposits
 
@@ -224,129 +175,70 @@ class SimulationServiceImpl internal constructor(private val clientOptions: Clie
 
     override fun documents(): DocumentService = documents
 
-    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
-        SimulationService.WithRawResponse {
+    class WithRawResponseImpl internal constructor(
+        private val clientOptions: ClientOptions,
 
-        private val interestPayments: InterestPaymentService.WithRawResponse by lazy {
-            InterestPaymentServiceImpl.WithRawResponseImpl(clientOptions)
-        }
+    ) : SimulationService.WithRawResponse {
 
-        private val cardAuthorizations: CardAuthorizationService.WithRawResponse by lazy {
-            CardAuthorizationServiceImpl.WithRawResponseImpl(clientOptions)
-        }
+        private val interestPayments: InterestPaymentService.WithRawResponse by lazy { InterestPaymentServiceImpl.WithRawResponseImpl(clientOptions) }
 
-        private val cardAuthorizationExpirations:
-            CardAuthorizationExpirationService.WithRawResponse by lazy {
-            CardAuthorizationExpirationServiceImpl.WithRawResponseImpl(clientOptions)
-        }
+        private val cardAuthorizations: CardAuthorizationService.WithRawResponse by lazy { CardAuthorizationServiceImpl.WithRawResponseImpl(clientOptions) }
 
-        private val cardSettlements: CardSettlementService.WithRawResponse by lazy {
-            CardSettlementServiceImpl.WithRawResponseImpl(clientOptions)
-        }
+        private val cardAuthorizationExpirations: CardAuthorizationExpirationService.WithRawResponse by lazy { CardAuthorizationExpirationServiceImpl.WithRawResponseImpl(clientOptions) }
 
-        private val cardReversals: CardReversalService.WithRawResponse by lazy {
-            CardReversalServiceImpl.WithRawResponseImpl(clientOptions)
-        }
+        private val cardSettlements: CardSettlementService.WithRawResponse by lazy { CardSettlementServiceImpl.WithRawResponseImpl(clientOptions) }
 
-        private val cardIncrements: CardIncrementService.WithRawResponse by lazy {
-            CardIncrementServiceImpl.WithRawResponseImpl(clientOptions)
-        }
+        private val cardReversals: CardReversalService.WithRawResponse by lazy { CardReversalServiceImpl.WithRawResponseImpl(clientOptions) }
 
-        private val cardFuelConfirmations: CardFuelConfirmationService.WithRawResponse by lazy {
-            CardFuelConfirmationServiceImpl.WithRawResponseImpl(clientOptions)
-        }
+        private val cardIncrements: CardIncrementService.WithRawResponse by lazy { CardIncrementServiceImpl.WithRawResponseImpl(clientOptions) }
 
-        private val cardRefunds: CardRefundService.WithRawResponse by lazy {
-            CardRefundServiceImpl.WithRawResponseImpl(clientOptions)
-        }
+        private val cardFuelConfirmations: CardFuelConfirmationService.WithRawResponse by lazy { CardFuelConfirmationServiceImpl.WithRawResponseImpl(clientOptions) }
 
-        private val cardDisputes: CardDisputeService.WithRawResponse by lazy {
-            CardDisputeServiceImpl.WithRawResponseImpl(clientOptions)
-        }
+        private val cardRefunds: CardRefundService.WithRawResponse by lazy { CardRefundServiceImpl.WithRawResponseImpl(clientOptions) }
 
-        private val physicalCards: PhysicalCardService.WithRawResponse by lazy {
-            PhysicalCardServiceImpl.WithRawResponseImpl(clientOptions)
-        }
+        private val cardDisputes: CardDisputeService.WithRawResponse by lazy { CardDisputeServiceImpl.WithRawResponseImpl(clientOptions) }
 
-        private val digitalWalletTokenRequests:
-            DigitalWalletTokenRequestService.WithRawResponse by lazy {
-            DigitalWalletTokenRequestServiceImpl.WithRawResponseImpl(clientOptions)
-        }
+        private val physicalCards: PhysicalCardService.WithRawResponse by lazy { PhysicalCardServiceImpl.WithRawResponseImpl(clientOptions) }
 
-        private val inboundFundsHolds: InboundFundsHoldService.WithRawResponse by lazy {
-            InboundFundsHoldServiceImpl.WithRawResponseImpl(clientOptions)
-        }
+        private val digitalWalletTokenRequests: DigitalWalletTokenRequestService.WithRawResponse by lazy { DigitalWalletTokenRequestServiceImpl.WithRawResponseImpl(clientOptions) }
 
-        private val accountTransfers: AccountTransferService.WithRawResponse by lazy {
-            AccountTransferServiceImpl.WithRawResponseImpl(clientOptions)
-        }
+        private val inboundFundsHolds: InboundFundsHoldService.WithRawResponse by lazy { InboundFundsHoldServiceImpl.WithRawResponseImpl(clientOptions) }
 
-        private val achTransfers: AchTransferService.WithRawResponse by lazy {
-            AchTransferServiceImpl.WithRawResponseImpl(clientOptions)
-        }
+        private val accountTransfers: AccountTransferService.WithRawResponse by lazy { AccountTransferServiceImpl.WithRawResponseImpl(clientOptions) }
 
-        private val inboundAchTransfers: InboundAchTransferService.WithRawResponse by lazy {
-            InboundAchTransferServiceImpl.WithRawResponseImpl(clientOptions)
-        }
+        private val achTransfers: AchTransferService.WithRawResponse by lazy { AchTransferServiceImpl.WithRawResponseImpl(clientOptions) }
 
-        private val wireTransfers: WireTransferService.WithRawResponse by lazy {
-            WireTransferServiceImpl.WithRawResponseImpl(clientOptions)
-        }
+        private val inboundAchTransfers: InboundAchTransferService.WithRawResponse by lazy { InboundAchTransferServiceImpl.WithRawResponseImpl(clientOptions) }
 
-        private val inboundWireTransfers: InboundWireTransferService.WithRawResponse by lazy {
-            InboundWireTransferServiceImpl.WithRawResponseImpl(clientOptions)
-        }
+        private val wireTransfers: WireTransferService.WithRawResponse by lazy { WireTransferServiceImpl.WithRawResponseImpl(clientOptions) }
 
-        private val inboundWireDrawdownRequests:
-            InboundWireDrawdownRequestService.WithRawResponse by lazy {
-            InboundWireDrawdownRequestServiceImpl.WithRawResponseImpl(clientOptions)
-        }
+        private val inboundWireTransfers: InboundWireTransferService.WithRawResponse by lazy { InboundWireTransferServiceImpl.WithRawResponseImpl(clientOptions) }
 
-        private val checkTransfers: CheckTransferService.WithRawResponse by lazy {
-            CheckTransferServiceImpl.WithRawResponseImpl(clientOptions)
-        }
+        private val inboundWireDrawdownRequests: InboundWireDrawdownRequestService.WithRawResponse by lazy { InboundWireDrawdownRequestServiceImpl.WithRawResponseImpl(clientOptions) }
 
-        private val inboundCheckDeposits: InboundCheckDepositService.WithRawResponse by lazy {
-            InboundCheckDepositServiceImpl.WithRawResponseImpl(clientOptions)
-        }
+        private val checkTransfers: CheckTransferService.WithRawResponse by lazy { CheckTransferServiceImpl.WithRawResponseImpl(clientOptions) }
 
-        private val realTimePaymentsTransfers:
-            RealTimePaymentsTransferService.WithRawResponse by lazy {
-            RealTimePaymentsTransferServiceImpl.WithRawResponseImpl(clientOptions)
-        }
+        private val inboundCheckDeposits: InboundCheckDepositService.WithRawResponse by lazy { InboundCheckDepositServiceImpl.WithRawResponseImpl(clientOptions) }
 
-        private val inboundRealTimePaymentsTransfers:
-            InboundRealTimePaymentsTransferService.WithRawResponse by lazy {
-            InboundRealTimePaymentsTransferServiceImpl.WithRawResponseImpl(clientOptions)
-        }
+        private val realTimePaymentsTransfers: RealTimePaymentsTransferService.WithRawResponse by lazy { RealTimePaymentsTransferServiceImpl.WithRawResponseImpl(clientOptions) }
 
-        private val checkDeposits: CheckDepositService.WithRawResponse by lazy {
-            CheckDepositServiceImpl.WithRawResponseImpl(clientOptions)
-        }
+        private val inboundRealTimePaymentsTransfers: InboundRealTimePaymentsTransferService.WithRawResponse by lazy { InboundRealTimePaymentsTransferServiceImpl.WithRawResponseImpl(clientOptions) }
 
-        private val inboundMailItems: InboundMailItemService.WithRawResponse by lazy {
-            InboundMailItemServiceImpl.WithRawResponseImpl(clientOptions)
-        }
+        private val checkDeposits: CheckDepositService.WithRawResponse by lazy { CheckDepositServiceImpl.WithRawResponseImpl(clientOptions) }
 
-        private val programs: ProgramService.WithRawResponse by lazy {
-            ProgramServiceImpl.WithRawResponseImpl(clientOptions)
-        }
+        private val inboundMailItems: InboundMailItemService.WithRawResponse by lazy { InboundMailItemServiceImpl.WithRawResponseImpl(clientOptions) }
 
-        private val accountStatements: AccountStatementService.WithRawResponse by lazy {
-            AccountStatementServiceImpl.WithRawResponseImpl(clientOptions)
-        }
+        private val programs: ProgramService.WithRawResponse by lazy { ProgramServiceImpl.WithRawResponseImpl(clientOptions) }
 
-        private val documents: DocumentService.WithRawResponse by lazy {
-            DocumentServiceImpl.WithRawResponseImpl(clientOptions)
-        }
+        private val accountStatements: AccountStatementService.WithRawResponse by lazy { AccountStatementServiceImpl.WithRawResponseImpl(clientOptions) }
+
+        private val documents: DocumentService.WithRawResponse by lazy { DocumentServiceImpl.WithRawResponseImpl(clientOptions) }
 
         override fun interestPayments(): InterestPaymentService.WithRawResponse = interestPayments
 
-        override fun cardAuthorizations(): CardAuthorizationService.WithRawResponse =
-            cardAuthorizations
+        override fun cardAuthorizations(): CardAuthorizationService.WithRawResponse = cardAuthorizations
 
-        override fun cardAuthorizationExpirations():
-            CardAuthorizationExpirationService.WithRawResponse = cardAuthorizationExpirations
+        override fun cardAuthorizationExpirations(): CardAuthorizationExpirationService.WithRawResponse = cardAuthorizationExpirations
 
         override fun cardSettlements(): CardSettlementService.WithRawResponse = cardSettlements
 
@@ -354,8 +246,7 @@ class SimulationServiceImpl internal constructor(private val clientOptions: Clie
 
         override fun cardIncrements(): CardIncrementService.WithRawResponse = cardIncrements
 
-        override fun cardFuelConfirmations(): CardFuelConfirmationService.WithRawResponse =
-            cardFuelConfirmations
+        override fun cardFuelConfirmations(): CardFuelConfirmationService.WithRawResponse = cardFuelConfirmations
 
         override fun cardRefunds(): CardRefundService.WithRawResponse = cardRefunds
 
@@ -363,38 +254,29 @@ class SimulationServiceImpl internal constructor(private val clientOptions: Clie
 
         override fun physicalCards(): PhysicalCardService.WithRawResponse = physicalCards
 
-        override fun digitalWalletTokenRequests():
-            DigitalWalletTokenRequestService.WithRawResponse = digitalWalletTokenRequests
+        override fun digitalWalletTokenRequests(): DigitalWalletTokenRequestService.WithRawResponse = digitalWalletTokenRequests
 
-        override fun inboundFundsHolds(): InboundFundsHoldService.WithRawResponse =
-            inboundFundsHolds
+        override fun inboundFundsHolds(): InboundFundsHoldService.WithRawResponse = inboundFundsHolds
 
         override fun accountTransfers(): AccountTransferService.WithRawResponse = accountTransfers
 
         override fun achTransfers(): AchTransferService.WithRawResponse = achTransfers
 
-        override fun inboundAchTransfers(): InboundAchTransferService.WithRawResponse =
-            inboundAchTransfers
+        override fun inboundAchTransfers(): InboundAchTransferService.WithRawResponse = inboundAchTransfers
 
         override fun wireTransfers(): WireTransferService.WithRawResponse = wireTransfers
 
-        override fun inboundWireTransfers(): InboundWireTransferService.WithRawResponse =
-            inboundWireTransfers
+        override fun inboundWireTransfers(): InboundWireTransferService.WithRawResponse = inboundWireTransfers
 
-        override fun inboundWireDrawdownRequests():
-            InboundWireDrawdownRequestService.WithRawResponse = inboundWireDrawdownRequests
+        override fun inboundWireDrawdownRequests(): InboundWireDrawdownRequestService.WithRawResponse = inboundWireDrawdownRequests
 
         override fun checkTransfers(): CheckTransferService.WithRawResponse = checkTransfers
 
-        override fun inboundCheckDeposits(): InboundCheckDepositService.WithRawResponse =
-            inboundCheckDeposits
+        override fun inboundCheckDeposits(): InboundCheckDepositService.WithRawResponse = inboundCheckDeposits
 
-        override fun realTimePaymentsTransfers(): RealTimePaymentsTransferService.WithRawResponse =
-            realTimePaymentsTransfers
+        override fun realTimePaymentsTransfers(): RealTimePaymentsTransferService.WithRawResponse = realTimePaymentsTransfers
 
-        override fun inboundRealTimePaymentsTransfers():
-            InboundRealTimePaymentsTransferService.WithRawResponse =
-            inboundRealTimePaymentsTransfers
+        override fun inboundRealTimePaymentsTransfers(): InboundRealTimePaymentsTransferService.WithRawResponse = inboundRealTimePaymentsTransfers
 
         override fun checkDeposits(): CheckDepositService.WithRawResponse = checkDeposits
 
@@ -402,8 +284,7 @@ class SimulationServiceImpl internal constructor(private val clientOptions: Clie
 
         override fun programs(): ProgramService.WithRawResponse = programs
 
-        override fun accountStatements(): AccountStatementService.WithRawResponse =
-            accountStatements
+        override fun accountStatements(): AccountStatementService.WithRawResponse = accountStatements
 
         override fun documents(): DocumentService.WithRawResponse = documents
     }

@@ -24,33 +24,27 @@ import kotlin.jvm.optionals.getOrNull
 
 /** The results of a Card Authorization simulation. */
 @NoAutoDetect
-class CardAuthorizationCreateResponse
-@JsonCreator
-private constructor(
-    @JsonProperty("declined_transaction")
-    @ExcludeMissing
-    private val declinedTransaction: JsonField<DeclinedTransaction> = JsonMissing.of(),
-    @JsonProperty("pending_transaction")
-    @ExcludeMissing
-    private val pendingTransaction: JsonField<PendingTransaction> = JsonMissing.of(),
+class CardAuthorizationCreateResponse @JsonCreator private constructor(
+    @JsonProperty("declined_transaction") @ExcludeMissing private val declinedTransaction: JsonField<DeclinedTransaction> = JsonMissing.of(),
+    @JsonProperty("pending_transaction") @ExcludeMissing private val pendingTransaction: JsonField<PendingTransaction> = JsonMissing.of(),
     @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+
 ) {
 
     /**
      * If the authorization attempt fails, this will contain the resulting
-     * [Declined Transaction](#declined-transactions) object. The Declined Transaction's `source`
-     * will be of `category: card_decline`.
+     * [Declined Transaction](#declined-transactions) object. The Declined
+     * Transaction's `source` will be of `category: card_decline`.
      */
-    fun declinedTransaction(): Optional<DeclinedTransaction> =
-        Optional.ofNullable(declinedTransaction.getNullable("declined_transaction"))
+    fun declinedTransaction(): Optional<DeclinedTransaction> = Optional.ofNullable(declinedTransaction.getNullable("declined_transaction"))
 
     /**
-     * If the authorization attempt succeeds, this will contain the resulting Pending Transaction
-     * object. The Pending Transaction's `source` will be of `category: card_authorization`.
+     * If the authorization attempt succeeds, this will contain the resulting Pending
+     * Transaction object. The Pending Transaction's `source` will be of
+     * `category: card_authorization`.
      */
-    fun pendingTransaction(): Optional<PendingTransaction> =
-        Optional.ofNullable(pendingTransaction.getNullable("pending_transaction"))
+    fun pendingTransaction(): Optional<PendingTransaction> = Optional.ofNullable(pendingTransaction.getNullable("pending_transaction"))
 
     /**
      * A constant representing the object's type. For this resource it will always be
@@ -60,16 +54,17 @@ private constructor(
 
     /**
      * If the authorization attempt fails, this will contain the resulting
-     * [Declined Transaction](#declined-transactions) object. The Declined Transaction's `source`
-     * will be of `category: card_decline`.
+     * [Declined Transaction](#declined-transactions) object. The Declined
+     * Transaction's `source` will be of `category: card_decline`.
      */
     @JsonProperty("declined_transaction")
     @ExcludeMissing
     fun _declinedTransaction(): JsonField<DeclinedTransaction> = declinedTransaction
 
     /**
-     * If the authorization attempt succeeds, this will contain the resulting Pending Transaction
-     * object. The Pending Transaction's `source` will be of `category: card_authorization`.
+     * If the authorization attempt succeeds, this will contain the resulting Pending
+     * Transaction object. The Pending Transaction's `source` will be of
+     * `category: card_authorization`.
      */
     @JsonProperty("pending_transaction")
     @ExcludeMissing
@@ -79,7 +74,9 @@ private constructor(
      * A constant representing the object's type. For this resource it will always be
      * `inbound_card_authorization_simulation_result`.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
+    @JsonProperty("type")
+    @ExcludeMissing
+    fun _type(): JsonField<Type> = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -87,16 +84,17 @@ private constructor(
 
     private var validated: Boolean = false
 
-    fun validate(): CardAuthorizationCreateResponse = apply {
-        if (validated) {
-            return@apply
-        }
+    fun validate(): CardAuthorizationCreateResponse =
+        apply {
+            if (validated) {
+              return@apply
+            }
 
-        declinedTransaction().ifPresent { it.validate() }
-        pendingTransaction().ifPresent { it.validate() }
-        type()
-        validated = true
-    }
+            declinedTransaction().ifPresent { it.validate() }
+            pendingTransaction().ifPresent { it.validate() }
+            type()
+            validated = true
+        }
 
     fun toBuilder() = Builder().from(this)
 
@@ -107,13 +105,15 @@ private constructor(
          * [CardAuthorizationCreateResponse].
          *
          * The following fields are required:
+         *
          * ```java
          * .declinedTransaction()
          * .pendingTransaction()
          * .type()
          * ```
          */
-        @JvmStatic fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
     /** A builder for [CardAuthorizationCreateResponse]. */
@@ -130,59 +130,56 @@ private constructor(
                 declinedTransaction = cardAuthorizationCreateResponse.declinedTransaction
                 pendingTransaction = cardAuthorizationCreateResponse.pendingTransaction
                 type = cardAuthorizationCreateResponse.type
-                additionalProperties =
-                    cardAuthorizationCreateResponse.additionalProperties.toMutableMap()
+                additionalProperties = cardAuthorizationCreateResponse.additionalProperties.toMutableMap()
             }
 
         /**
          * If the authorization attempt fails, this will contain the resulting
-         * [Declined Transaction](#declined-transactions) object. The Declined Transaction's
-         * `source` will be of `category: card_decline`.
+         * [Declined Transaction](#declined-transactions) object. The Declined
+         * Transaction's `source` will be of `category: card_decline`.
          */
-        fun declinedTransaction(declinedTransaction: DeclinedTransaction?) =
-            declinedTransaction(JsonField.ofNullable(declinedTransaction))
+        fun declinedTransaction(declinedTransaction: DeclinedTransaction?) = declinedTransaction(JsonField.ofNullable(declinedTransaction))
 
         /**
          * If the authorization attempt fails, this will contain the resulting
-         * [Declined Transaction](#declined-transactions) object. The Declined Transaction's
-         * `source` will be of `category: card_decline`.
+         * [Declined Transaction](#declined-transactions) object. The Declined
+         * Transaction's `source` will be of `category: card_decline`.
          */
-        fun declinedTransaction(declinedTransaction: Optional<DeclinedTransaction>) =
-            declinedTransaction(declinedTransaction.getOrNull())
+        fun declinedTransaction(declinedTransaction: Optional<DeclinedTransaction>) = declinedTransaction(declinedTransaction.getOrNull())
 
         /**
          * If the authorization attempt fails, this will contain the resulting
-         * [Declined Transaction](#declined-transactions) object. The Declined Transaction's
-         * `source` will be of `category: card_decline`.
+         * [Declined Transaction](#declined-transactions) object. The Declined
+         * Transaction's `source` will be of `category: card_decline`.
          */
-        fun declinedTransaction(declinedTransaction: JsonField<DeclinedTransaction>) = apply {
-            this.declinedTransaction = declinedTransaction
-        }
+        fun declinedTransaction(declinedTransaction: JsonField<DeclinedTransaction>) =
+            apply {
+                this.declinedTransaction = declinedTransaction
+            }
 
         /**
          * If the authorization attempt succeeds, this will contain the resulting Pending
-         * Transaction object. The Pending Transaction's `source` will be of `category:
-         * card_authorization`.
+         * Transaction object. The Pending Transaction's `source` will be of
+         * `category: card_authorization`.
          */
-        fun pendingTransaction(pendingTransaction: PendingTransaction?) =
-            pendingTransaction(JsonField.ofNullable(pendingTransaction))
+        fun pendingTransaction(pendingTransaction: PendingTransaction?) = pendingTransaction(JsonField.ofNullable(pendingTransaction))
 
         /**
          * If the authorization attempt succeeds, this will contain the resulting Pending
-         * Transaction object. The Pending Transaction's `source` will be of `category:
-         * card_authorization`.
+         * Transaction object. The Pending Transaction's `source` will be of
+         * `category: card_authorization`.
          */
-        fun pendingTransaction(pendingTransaction: Optional<PendingTransaction>) =
-            pendingTransaction(pendingTransaction.getOrNull())
+        fun pendingTransaction(pendingTransaction: Optional<PendingTransaction>) = pendingTransaction(pendingTransaction.getOrNull())
 
         /**
          * If the authorization attempt succeeds, this will contain the resulting Pending
-         * Transaction object. The Pending Transaction's `source` will be of `category:
-         * card_authorization`.
+         * Transaction object. The Pending Transaction's `source` will be of
+         * `category: card_authorization`.
          */
-        fun pendingTransaction(pendingTransaction: JsonField<PendingTransaction>) = apply {
-            this.pendingTransaction = pendingTransaction
-        }
+        fun pendingTransaction(pendingTransaction: JsonField<PendingTransaction>) =
+            apply {
+                this.pendingTransaction = pendingTransaction
+            }
 
         /**
          * A constant representing the object's type. For this resource it will always be
@@ -194,33 +191,49 @@ private constructor(
          * A constant representing the object's type. For this resource it will always be
          * `inbound_card_authorization_simulation_result`.
          */
-        fun type(type: JsonField<Type>) = apply { this.type = type }
+        fun type(type: JsonField<Type>) =
+            apply {
+                this.type = type
+            }
 
-        fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-            this.additionalProperties.clear()
-            putAllAdditionalProperties(additionalProperties)
-        }
+        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
 
-        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            additionalProperties.put(key, value)
-        }
+        fun putAdditionalProperty(key: String, value: JsonValue) =
+            apply {
+                additionalProperties.put(key, value)
+            }
 
-        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-            this.additionalProperties.putAll(additionalProperties)
-        }
+        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
 
-        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+        fun removeAdditionalProperty(key: String) =
+            apply {
+                additionalProperties.remove(key)
+            }
 
-        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalProperty)
-        }
+        fun removeAllAdditionalProperties(keys: Set<String>) =
+            apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
 
         fun build(): CardAuthorizationCreateResponse =
             CardAuthorizationCreateResponse(
-                checkRequired("declinedTransaction", declinedTransaction),
-                checkRequired("pendingTransaction", pendingTransaction),
-                checkRequired("type", type),
-                additionalProperties.toImmutable(),
+              checkRequired(
+                "declinedTransaction", declinedTransaction
+              ),
+              checkRequired(
+                "pendingTransaction", pendingTransaction
+              ),
+              checkRequired(
+                "type", type
+              ),
+              additionalProperties.toImmutable(),
             )
     }
 
@@ -228,39 +241,43 @@ private constructor(
      * A constant representing the object's type. For this resource it will always be
      * `inbound_card_authorization_simulation_result`.
      */
-    class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+    class Type @JsonCreator private constructor(
+        private val value: JsonField<String>,
+
+    ) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
+         * This is usually only useful if this instance was deserialized from data that
+         * doesn't match any known member, and you want to know that value. For example, if
+         * the SDK is on an older version than the API, then the API may respond with new
+         * members that the SDK is unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         companion object {
 
-            @JvmField
-            val INBOUND_CARD_AUTHORIZATION_SIMULATION_RESULT =
-                of("inbound_card_authorization_simulation_result")
+            @JvmField val INBOUND_CARD_AUTHORIZATION_SIMULATION_RESULT = of("inbound_card_authorization_simulation_result")
 
             @JvmStatic fun of(value: String) = Type(JsonField.of(value))
         }
 
         /** An enum containing [Type]'s known values. */
         enum class Known {
-            INBOUND_CARD_AUTHORIZATION_SIMULATION_RESULT
+            INBOUND_CARD_AUTHORIZATION_SIMULATION_RESULT,
         }
 
         /**
          * An enum containing [Type]'s known values, as well as an [_UNKNOWN] member.
          *
          * An instance of [Type] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
+         *
+         * - It was deserialized from data that doesn't match any known member. For
+         *   example, if the SDK is on an older version than the API, then the API may
+         *   respond with new members that the SDK is unaware of.
+         *
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
@@ -270,55 +287,50 @@ private constructor(
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or
+         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if
+         * you want to throw for the unknown case.
          */
         fun value(): Value =
             when (this) {
-                INBOUND_CARD_AUTHORIZATION_SIMULATION_RESULT ->
-                    Value.INBOUND_CARD_AUTHORIZATION_SIMULATION_RESULT
+                INBOUND_CARD_AUTHORIZATION_SIMULATION_RESULT -> Value.INBOUND_CARD_AUTHORIZATION_SIMULATION_RESULT
                 else -> Value._UNKNOWN
             }
 
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and
+         * don't want to throw for the unknown case.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
-         *   member.
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a
+         * known member.
          */
         fun known(): Known =
             when (this) {
-                INBOUND_CARD_AUTHORIZATION_SIMULATION_RESULT ->
-                    Known.INBOUND_CARD_AUTHORIZATION_SIMULATION_RESULT
+                INBOUND_CARD_AUTHORIZATION_SIMULATION_RESULT -> Known.INBOUND_CARD_AUTHORIZATION_SIMULATION_RESULT
                 else -> throw IncreaseInvalidDataException("Unknown Type: $value")
             }
 
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for
+         * debugging and generally doesn't throw.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value does not have the
-         *   expected primitive type.
+         * @throws IncreaseInvalidDataException if this class instance's value does not
+         * have the expected primitive type.
          */
-        fun asString(): String =
-            _value().asString().orElseThrow {
-                IncreaseInvalidDataException("Value is not a String")
-            }
+        fun asString(): String = _value().asString().orElseThrow { IncreaseInvalidDataException("Value is not a String") }
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
+          return /* spotless:off */ other is Type && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -327,11 +339,11 @@ private constructor(
     }
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return /* spotless:off */ other is CardAuthorizationCreateResponse && declinedTransaction == other.declinedTransaction && pendingTransaction == other.pendingTransaction && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+      return /* spotless:off */ other is CardAuthorizationCreateResponse && declinedTransaction == other.declinedTransaction && pendingTransaction == other.pendingTransaction && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
@@ -340,6 +352,5 @@ private constructor(
 
     override fun hashCode(): Int = hashCode
 
-    override fun toString() =
-        "CardAuthorizationCreateResponse{declinedTransaction=$declinedTransaction, pendingTransaction=$pendingTransaction, type=$type, additionalProperties=$additionalProperties}"
+    override fun toString() = "CardAuthorizationCreateResponse{declinedTransaction=$declinedTransaction, pendingTransaction=$pendingTransaction, type=$type, additionalProperties=$additionalProperties}"
 }

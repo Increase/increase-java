@@ -12,38 +12,38 @@ import java.util.concurrent.CompletableFuture
 interface DocumentServiceAsync {
 
     /**
-     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     * Returns a view of this service that provides access to raw HTTP responses for
+     * each method.
      */
     fun withRawResponse(): WithRawResponse
 
     /** Simulates an tax document being created for an account. */
     fun create(params: DocumentCreateParams): CompletableFuture<Document> =
-        create(params, RequestOptions.none())
+        create(
+          params, RequestOptions.none()
+        )
 
     /** @see [create] */
-    fun create(
-        params: DocumentCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Document>
+    fun create(params: DocumentCreateParams, requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<Document>
 
     /**
-     * A view of [DocumentServiceAsync] that provides access to raw HTTP responses for each method.
+     * A view of [DocumentServiceAsync] that provides access to raw HTTP responses for
+     * each method.
      */
     interface WithRawResponse {
 
         /**
-         * Returns a raw HTTP response for `post /simulations/documents`, but is otherwise the same
-         * as [DocumentServiceAsync.create].
+         * Returns a raw HTTP response for `post /simulations/documents`, but is otherwise
+         * the same as [DocumentServiceAsync.create].
          */
         @MustBeClosed
         fun create(params: DocumentCreateParams): CompletableFuture<HttpResponseFor<Document>> =
-            create(params, RequestOptions.none())
+            create(
+              params, RequestOptions.none()
+            )
 
         /** @see [create] */
         @MustBeClosed
-        fun create(
-            params: DocumentCreateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<Document>>
+        fun create(params: DocumentCreateParams, requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<HttpResponseFor<Document>>
     }
 }

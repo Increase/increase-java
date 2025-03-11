@@ -14,90 +14,76 @@ import java.util.concurrent.CompletableFuture
 interface DeclinedTransactionServiceAsync {
 
     /**
-     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     * Returns a view of this service that provides access to raw HTTP responses for
+     * each method.
      */
     fun withRawResponse(): WithRawResponse
 
     /** Retrieve a Declined Transaction */
-    fun retrieve(
-        params: DeclinedTransactionRetrieveParams
-    ): CompletableFuture<DeclinedTransaction> = retrieve(params, RequestOptions.none())
+    fun retrieve(params: DeclinedTransactionRetrieveParams): CompletableFuture<DeclinedTransaction> =
+        retrieve(
+          params, RequestOptions.none()
+        )
 
     /** @see [retrieve] */
-    fun retrieve(
-        params: DeclinedTransactionRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<DeclinedTransaction>
+    fun retrieve(params: DeclinedTransactionRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<DeclinedTransaction>
 
     /** List Declined Transactions */
-    fun list(): CompletableFuture<DeclinedTransactionListPageAsync> =
-        list(DeclinedTransactionListParams.none())
+    fun list(): CompletableFuture<DeclinedTransactionListPageAsync> = list(DeclinedTransactionListParams.none())
 
     /** @see [list] */
-    fun list(
-        params: DeclinedTransactionListParams = DeclinedTransactionListParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<DeclinedTransactionListPageAsync>
+    fun list(params: DeclinedTransactionListParams = DeclinedTransactionListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<DeclinedTransactionListPageAsync>
 
     /** @see [list] */
-    fun list(
-        params: DeclinedTransactionListParams = DeclinedTransactionListParams.none()
-    ): CompletableFuture<DeclinedTransactionListPageAsync> = list(params, RequestOptions.none())
+    fun list(params: DeclinedTransactionListParams = DeclinedTransactionListParams.none()): CompletableFuture<DeclinedTransactionListPageAsync> =
+        list(
+          params, RequestOptions.none()
+        )
 
     /** @see [list] */
-    fun list(requestOptions: RequestOptions): CompletableFuture<DeclinedTransactionListPageAsync> =
-        list(DeclinedTransactionListParams.none(), requestOptions)
+    fun list(requestOptions: RequestOptions): CompletableFuture<DeclinedTransactionListPageAsync> = list(DeclinedTransactionListParams.none(), requestOptions)
 
     /**
-     * A view of [DeclinedTransactionServiceAsync] that provides access to raw HTTP responses for
-     * each method.
+     * A view of [DeclinedTransactionServiceAsync] that provides access to raw HTTP
+     * responses for each method.
      */
     interface WithRawResponse {
 
         /**
-         * Returns a raw HTTP response for `get /declined_transactions/{declined_transaction_id}`,
-         * but is otherwise the same as [DeclinedTransactionServiceAsync.retrieve].
+         * Returns a raw HTTP response for
+         * `get /declined_transactions/{declined_transaction_id}`, but is otherwise the
+         * same as [DeclinedTransactionServiceAsync.retrieve].
          */
         @MustBeClosed
-        fun retrieve(
-            params: DeclinedTransactionRetrieveParams
-        ): CompletableFuture<HttpResponseFor<DeclinedTransaction>> =
-            retrieve(params, RequestOptions.none())
+        fun retrieve(params: DeclinedTransactionRetrieveParams): CompletableFuture<HttpResponseFor<DeclinedTransaction>> =
+            retrieve(
+              params, RequestOptions.none()
+            )
 
         /** @see [retrieve] */
         @MustBeClosed
-        fun retrieve(
-            params: DeclinedTransactionRetrieveParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<DeclinedTransaction>>
+        fun retrieve(params: DeclinedTransactionRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<HttpResponseFor<DeclinedTransaction>>
 
         /**
-         * Returns a raw HTTP response for `get /declined_transactions`, but is otherwise the same
-         * as [DeclinedTransactionServiceAsync.list].
+         * Returns a raw HTTP response for `get /declined_transactions`, but is otherwise
+         * the same as [DeclinedTransactionServiceAsync.list].
          */
         @MustBeClosed
-        fun list(): CompletableFuture<HttpResponseFor<DeclinedTransactionListPageAsync>> =
-            list(DeclinedTransactionListParams.none())
+        fun list(): CompletableFuture<HttpResponseFor<DeclinedTransactionListPageAsync>> = list(DeclinedTransactionListParams.none())
 
         /** @see [list] */
         @MustBeClosed
-        fun list(
-            params: DeclinedTransactionListParams = DeclinedTransactionListParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<DeclinedTransactionListPageAsync>>
+        fun list(params: DeclinedTransactionListParams = DeclinedTransactionListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<HttpResponseFor<DeclinedTransactionListPageAsync>>
 
         /** @see [list] */
         @MustBeClosed
-        fun list(
-            params: DeclinedTransactionListParams = DeclinedTransactionListParams.none()
-        ): CompletableFuture<HttpResponseFor<DeclinedTransactionListPageAsync>> =
-            list(params, RequestOptions.none())
+        fun list(params: DeclinedTransactionListParams = DeclinedTransactionListParams.none()): CompletableFuture<HttpResponseFor<DeclinedTransactionListPageAsync>> =
+            list(
+              params, RequestOptions.none()
+            )
 
         /** @see [list] */
         @MustBeClosed
-        fun list(
-            requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<DeclinedTransactionListPageAsync>> =
-            list(DeclinedTransactionListParams.none(), requestOptions)
+        fun list(requestOptions: RequestOptions): CompletableFuture<HttpResponseFor<DeclinedTransactionListPageAsync>> = list(DeclinedTransactionListParams.none(), requestOptions)
     }
 }

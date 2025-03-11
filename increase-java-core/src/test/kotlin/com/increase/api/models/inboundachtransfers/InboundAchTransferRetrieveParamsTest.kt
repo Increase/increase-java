@@ -9,21 +9,20 @@ class InboundAchTransferRetrieveParamsTest {
 
     @Test
     fun create() {
-        InboundAchTransferRetrieveParams.builder()
-            .inboundAchTransferId("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
-            .build()
+      InboundAchTransferRetrieveParams.builder()
+          .inboundAchTransferId("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
+          .build()
     }
 
     @Test
     fun getPathParam() {
-        val params =
-            InboundAchTransferRetrieveParams.builder()
-                .inboundAchTransferId("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
-                .build()
-        assertThat(params).isNotNull
-        // path param "inboundAchTransferId"
-        assertThat(params.getPathParam(0)).isEqualTo("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
-        // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
+      val params = InboundAchTransferRetrieveParams.builder()
+          .inboundAchTransferId("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
+          .build()
+      assertThat(params).isNotNull
+      // path param "inboundAchTransferId"
+      assertThat(params.getPathParam(0)).isEqualTo("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
+      // out-of-bound path param
+      assertThat(params.getPathParam(1)).isEqualTo("")
     }
 }

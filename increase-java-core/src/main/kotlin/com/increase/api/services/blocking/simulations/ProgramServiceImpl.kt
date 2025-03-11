@@ -18,12 +18,12 @@ import com.increase.api.errors.IncreaseError
 import com.increase.api.models.programs.Program
 import com.increase.api.models.simulations.programs.ProgramCreateParams
 
-class ProgramServiceImpl internal constructor(private val clientOptions: ClientOptions) :
-    ProgramService {
+class ProgramServiceImpl internal constructor(
+    private val clientOptions: ClientOptions,
 
-    private val withRawResponse: ProgramService.WithRawResponse by lazy {
-        WithRawResponseImpl(clientOptions)
-    }
+) : ProgramService {
+
+    private val withRawResponse: ProgramService.WithRawResponse by lazy { WithRawResponseImpl(clientOptions) }
 
     override fun withRawResponse(): ProgramService.WithRawResponse = withRawResponse
 
@@ -31,36 +31,37 @@ class ProgramServiceImpl internal constructor(private val clientOptions: ClientO
         // post /simulations/programs
         withRawResponse().create(params, requestOptions).parse()
 
-    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
-        ProgramService.WithRawResponse {
+    class WithRawResponseImpl internal constructor(
+        private val clientOptions: ClientOptions,
+
+    ) : ProgramService.WithRawResponse {
 
         private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
-        private val createHandler: Handler<Program> =
-            jsonHandler<Program>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val createHandler: Handler<Program> = jsonHandler<Program>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-        override fun create(
-            params: ProgramCreateParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<Program> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .addPathSegments("simulations", "programs")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
-                response
-                    .use { createHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override fun create(params: ProgramCreateParams, requestOptions: RequestOptions): HttpResponseFor<Program> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.POST)
+            .addPathSegments("simulations", "programs")
+            .body(json(clientOptions.jsonMapper, params._body()))
+            .build()
+            .prepare(clientOptions, params)
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return response.parseable {
+              response.use {
+                  createHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
     }
 }

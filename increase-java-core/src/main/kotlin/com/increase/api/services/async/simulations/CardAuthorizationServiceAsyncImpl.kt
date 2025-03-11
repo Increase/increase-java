@@ -19,56 +19,49 @@ import com.increase.api.models.simulations.cardauthorizations.CardAuthorizationC
 import com.increase.api.models.simulations.cardauthorizations.CardAuthorizationCreateResponse
 import java.util.concurrent.CompletableFuture
 
-class CardAuthorizationServiceAsyncImpl
-internal constructor(private val clientOptions: ClientOptions) : CardAuthorizationServiceAsync {
+class CardAuthorizationServiceAsyncImpl internal constructor(
+    private val clientOptions: ClientOptions,
 
-    private val withRawResponse: CardAuthorizationServiceAsync.WithRawResponse by lazy {
-        WithRawResponseImpl(clientOptions)
-    }
+) : CardAuthorizationServiceAsync {
+
+    private val withRawResponse: CardAuthorizationServiceAsync.WithRawResponse by lazy { WithRawResponseImpl(clientOptions) }
 
     override fun withRawResponse(): CardAuthorizationServiceAsync.WithRawResponse = withRawResponse
 
-    override fun create(
-        params: CardAuthorizationCreateParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<CardAuthorizationCreateResponse> =
+    override fun create(params: CardAuthorizationCreateParams, requestOptions: RequestOptions): CompletableFuture<CardAuthorizationCreateResponse> =
         // post /simulations/card_authorizations
         withRawResponse().create(params, requestOptions).thenApply { it.parse() }
 
-    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
-        CardAuthorizationServiceAsync.WithRawResponse {
+    class WithRawResponseImpl internal constructor(
+        private val clientOptions: ClientOptions,
+
+    ) : CardAuthorizationServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
-        private val createHandler: Handler<CardAuthorizationCreateResponse> =
-            jsonHandler<CardAuthorizationCreateResponse>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
+        private val createHandler: Handler<CardAuthorizationCreateResponse> = jsonHandler<CardAuthorizationCreateResponse>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-        override fun create(
-            params: CardAuthorizationCreateParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CardAuthorizationCreateResponse>> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .addPathSegments("simulations", "card_authorizations")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
-                    response.parseable {
-                        response
-                            .use { createHandler.handle(it) }
-                            .also {
-                                if (requestOptions.responseValidation!!) {
-                                    it.validate()
-                                }
-                            }
-                    }
-                }
+        override fun create(params: CardAuthorizationCreateParams, requestOptions: RequestOptions): CompletableFuture<HttpResponseFor<CardAuthorizationCreateResponse>> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.POST)
+            .addPathSegments("simulations", "card_authorizations")
+            .body(json(clientOptions.jsonMapper, params._body()))
+            .build()
+            .prepareAsync(clientOptions, params)
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          return request.thenComposeAsync { clientOptions.httpClient.executeAsync(
+            it, requestOptions
+          ) }.thenApply { response -> response.parseable {
+              response.use {
+                  createHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          } }
         }
     }
 }

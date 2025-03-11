@@ -9,16 +9,20 @@ class CardDetailsParamsTest {
 
     @Test
     fun create() {
-        CardDetailsParams.builder().cardId("card_oubs0hwk5rn6knuecxg2").build()
+      CardDetailsParams.builder()
+          .cardId("card_oubs0hwk5rn6knuecxg2")
+          .build()
     }
 
     @Test
     fun getPathParam() {
-        val params = CardDetailsParams.builder().cardId("card_oubs0hwk5rn6knuecxg2").build()
-        assertThat(params).isNotNull
-        // path param "cardId"
-        assertThat(params.getPathParam(0)).isEqualTo("card_oubs0hwk5rn6knuecxg2")
-        // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
+      val params = CardDetailsParams.builder()
+          .cardId("card_oubs0hwk5rn6knuecxg2")
+          .build()
+      assertThat(params).isNotNull
+      // path param "cardId"
+      assertThat(params.getPathParam(0)).isEqualTo("card_oubs0hwk5rn6knuecxg2")
+      // out-of-bound path param
+      assertThat(params.getPathParam(1)).isEqualTo("")
     }
 }

@@ -11,44 +11,43 @@ import com.increase.api.models.simulations.inboundrealtimepaymentstransfers.Inbo
 interface InboundRealTimePaymentsTransferService {
 
     /**
-     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     * Returns a view of this service that provides access to raw HTTP responses for
+     * each method.
      */
     fun withRawResponse(): WithRawResponse
 
     /**
-     * Simulates an [Inbound Real-Time Payments Transfer](#inbound-real-time-payments-transfers) to
+     * Simulates an
+     * [Inbound Real-Time Payments Transfer](#inbound-real-time-payments-transfers) to
      * your account. Real-Time Payments are a beta feature.
      */
-    fun create(
-        params: InboundRealTimePaymentsTransferCreateParams
-    ): InboundRealTimePaymentsTransfer = create(params, RequestOptions.none())
+    fun create(params: InboundRealTimePaymentsTransferCreateParams): InboundRealTimePaymentsTransfer =
+        create(
+          params, RequestOptions.none()
+        )
 
     /** @see [create] */
-    fun create(
-        params: InboundRealTimePaymentsTransferCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): InboundRealTimePaymentsTransfer
+    fun create(params: InboundRealTimePaymentsTransferCreateParams, requestOptions: RequestOptions = RequestOptions.none()): InboundRealTimePaymentsTransfer
 
     /**
-     * A view of [InboundRealTimePaymentsTransferService] that provides access to raw HTTP responses
-     * for each method.
+     * A view of [InboundRealTimePaymentsTransferService] that provides access to raw
+     * HTTP responses for each method.
      */
     interface WithRawResponse {
 
         /**
-         * Returns a raw HTTP response for `post /simulations/inbound_real_time_payments_transfers`,
-         * but is otherwise the same as [InboundRealTimePaymentsTransferService.create].
+         * Returns a raw HTTP response for
+         * `post /simulations/inbound_real_time_payments_transfers`, but is otherwise the
+         * same as [InboundRealTimePaymentsTransferService.create].
          */
         @MustBeClosed
-        fun create(
-            params: InboundRealTimePaymentsTransferCreateParams
-        ): HttpResponseFor<InboundRealTimePaymentsTransfer> = create(params, RequestOptions.none())
+        fun create(params: InboundRealTimePaymentsTransferCreateParams): HttpResponseFor<InboundRealTimePaymentsTransfer> =
+            create(
+              params, RequestOptions.none()
+            )
 
         /** @see [create] */
         @MustBeClosed
-        fun create(
-            params: InboundRealTimePaymentsTransferCreateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<InboundRealTimePaymentsTransfer>
+        fun create(params: InboundRealTimePaymentsTransferCreateParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<InboundRealTimePaymentsTransfer>
     }
 }

@@ -17,165 +17,144 @@ import java.util.concurrent.CompletableFuture
 interface AchTransferServiceAsync {
 
     /**
-     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     * Returns a view of this service that provides access to raw HTTP responses for
+     * each method.
      */
     fun withRawResponse(): WithRawResponse
 
     /** Create an ACH Transfer */
     fun create(params: AchTransferCreateParams): CompletableFuture<AchTransfer> =
-        create(params, RequestOptions.none())
+        create(
+          params, RequestOptions.none()
+        )
 
     /** @see [create] */
-    fun create(
-        params: AchTransferCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<AchTransfer>
+    fun create(params: AchTransferCreateParams, requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<AchTransfer>
 
     /** Retrieve an ACH Transfer */
     fun retrieve(params: AchTransferRetrieveParams): CompletableFuture<AchTransfer> =
-        retrieve(params, RequestOptions.none())
+        retrieve(
+          params, RequestOptions.none()
+        )
 
     /** @see [retrieve] */
-    fun retrieve(
-        params: AchTransferRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<AchTransfer>
+    fun retrieve(params: AchTransferRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<AchTransfer>
 
     /** List ACH Transfers */
     fun list(): CompletableFuture<AchTransferListPageAsync> = list(AchTransferListParams.none())
 
     /** @see [list] */
-    fun list(
-        params: AchTransferListParams = AchTransferListParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<AchTransferListPageAsync>
+    fun list(params: AchTransferListParams = AchTransferListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<AchTransferListPageAsync>
 
     /** @see [list] */
-    fun list(
-        params: AchTransferListParams = AchTransferListParams.none()
-    ): CompletableFuture<AchTransferListPageAsync> = list(params, RequestOptions.none())
+    fun list(params: AchTransferListParams = AchTransferListParams.none()): CompletableFuture<AchTransferListPageAsync> =
+        list(
+          params, RequestOptions.none()
+        )
 
     /** @see [list] */
-    fun list(requestOptions: RequestOptions): CompletableFuture<AchTransferListPageAsync> =
-        list(AchTransferListParams.none(), requestOptions)
+    fun list(requestOptions: RequestOptions): CompletableFuture<AchTransferListPageAsync> = list(AchTransferListParams.none(), requestOptions)
 
     /** Approves an ACH Transfer in a pending_approval state. */
     fun approve(params: AchTransferApproveParams): CompletableFuture<AchTransfer> =
-        approve(params, RequestOptions.none())
+        approve(
+          params, RequestOptions.none()
+        )
 
     /** @see [approve] */
-    fun approve(
-        params: AchTransferApproveParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<AchTransfer>
+    fun approve(params: AchTransferApproveParams, requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<AchTransfer>
 
     /** Cancels an ACH Transfer in a pending_approval state. */
     fun cancel(params: AchTransferCancelParams): CompletableFuture<AchTransfer> =
-        cancel(params, RequestOptions.none())
+        cancel(
+          params, RequestOptions.none()
+        )
 
     /** @see [cancel] */
-    fun cancel(
-        params: AchTransferCancelParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<AchTransfer>
+    fun cancel(params: AchTransferCancelParams, requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<AchTransfer>
 
     /**
-     * A view of [AchTransferServiceAsync] that provides access to raw HTTP responses for each
-     * method.
+     * A view of [AchTransferServiceAsync] that provides access to raw HTTP responses
+     * for each method.
      */
     interface WithRawResponse {
 
         /**
-         * Returns a raw HTTP response for `post /ach_transfers`, but is otherwise the same as
-         * [AchTransferServiceAsync.create].
+         * Returns a raw HTTP response for `post /ach_transfers`, but is otherwise the same
+         * as [AchTransferServiceAsync.create].
          */
         @MustBeClosed
-        fun create(
-            params: AchTransferCreateParams
-        ): CompletableFuture<HttpResponseFor<AchTransfer>> = create(params, RequestOptions.none())
+        fun create(params: AchTransferCreateParams): CompletableFuture<HttpResponseFor<AchTransfer>> =
+            create(
+              params, RequestOptions.none()
+            )
 
         /** @see [create] */
         @MustBeClosed
-        fun create(
-            params: AchTransferCreateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<AchTransfer>>
+        fun create(params: AchTransferCreateParams, requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<HttpResponseFor<AchTransfer>>
 
         /**
-         * Returns a raw HTTP response for `get /ach_transfers/{ach_transfer_id}`, but is otherwise
-         * the same as [AchTransferServiceAsync.retrieve].
+         * Returns a raw HTTP response for `get /ach_transfers/{ach_transfer_id}`, but is
+         * otherwise the same as [AchTransferServiceAsync.retrieve].
          */
         @MustBeClosed
-        fun retrieve(
-            params: AchTransferRetrieveParams
-        ): CompletableFuture<HttpResponseFor<AchTransfer>> = retrieve(params, RequestOptions.none())
+        fun retrieve(params: AchTransferRetrieveParams): CompletableFuture<HttpResponseFor<AchTransfer>> =
+            retrieve(
+              params, RequestOptions.none()
+            )
 
         /** @see [retrieve] */
         @MustBeClosed
-        fun retrieve(
-            params: AchTransferRetrieveParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<AchTransfer>>
+        fun retrieve(params: AchTransferRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<HttpResponseFor<AchTransfer>>
 
         /**
-         * Returns a raw HTTP response for `get /ach_transfers`, but is otherwise the same as
-         * [AchTransferServiceAsync.list].
+         * Returns a raw HTTP response for `get /ach_transfers`, but is otherwise the same
+         * as [AchTransferServiceAsync.list].
          */
         @MustBeClosed
-        fun list(): CompletableFuture<HttpResponseFor<AchTransferListPageAsync>> =
-            list(AchTransferListParams.none())
+        fun list(): CompletableFuture<HttpResponseFor<AchTransferListPageAsync>> = list(AchTransferListParams.none())
 
         /** @see [list] */
         @MustBeClosed
-        fun list(
-            params: AchTransferListParams = AchTransferListParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<AchTransferListPageAsync>>
+        fun list(params: AchTransferListParams = AchTransferListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<HttpResponseFor<AchTransferListPageAsync>>
 
         /** @see [list] */
         @MustBeClosed
-        fun list(
-            params: AchTransferListParams = AchTransferListParams.none()
-        ): CompletableFuture<HttpResponseFor<AchTransferListPageAsync>> =
-            list(params, RequestOptions.none())
+        fun list(params: AchTransferListParams = AchTransferListParams.none()): CompletableFuture<HttpResponseFor<AchTransferListPageAsync>> =
+            list(
+              params, RequestOptions.none()
+            )
 
         /** @see [list] */
         @MustBeClosed
-        fun list(
-            requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<AchTransferListPageAsync>> =
-            list(AchTransferListParams.none(), requestOptions)
+        fun list(requestOptions: RequestOptions): CompletableFuture<HttpResponseFor<AchTransferListPageAsync>> = list(AchTransferListParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `post /ach_transfers/{ach_transfer_id}/approve`, but is
-         * otherwise the same as [AchTransferServiceAsync.approve].
+         * Returns a raw HTTP response for `post /ach_transfers/{ach_transfer_id}/approve`,
+         * but is otherwise the same as [AchTransferServiceAsync.approve].
          */
         @MustBeClosed
-        fun approve(
-            params: AchTransferApproveParams
-        ): CompletableFuture<HttpResponseFor<AchTransfer>> = approve(params, RequestOptions.none())
+        fun approve(params: AchTransferApproveParams): CompletableFuture<HttpResponseFor<AchTransfer>> =
+            approve(
+              params, RequestOptions.none()
+            )
 
         /** @see [approve] */
         @MustBeClosed
-        fun approve(
-            params: AchTransferApproveParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<AchTransfer>>
+        fun approve(params: AchTransferApproveParams, requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<HttpResponseFor<AchTransfer>>
 
         /**
-         * Returns a raw HTTP response for `post /ach_transfers/{ach_transfer_id}/cancel`, but is
-         * otherwise the same as [AchTransferServiceAsync.cancel].
+         * Returns a raw HTTP response for `post /ach_transfers/{ach_transfer_id}/cancel`,
+         * but is otherwise the same as [AchTransferServiceAsync.cancel].
          */
         @MustBeClosed
-        fun cancel(
-            params: AchTransferCancelParams
-        ): CompletableFuture<HttpResponseFor<AchTransfer>> = cancel(params, RequestOptions.none())
+        fun cancel(params: AchTransferCancelParams): CompletableFuture<HttpResponseFor<AchTransfer>> =
+            cancel(
+              params, RequestOptions.none()
+            )
 
         /** @see [cancel] */
         @MustBeClosed
-        fun cancel(
-            params: AchTransferCancelParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<AchTransfer>>
+        fun cancel(params: AchTransferCancelParams, requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<HttpResponseFor<AchTransfer>>
     }
 }

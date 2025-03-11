@@ -13,95 +13,76 @@ import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimeP
 interface InboundRealTimePaymentsTransferService {
 
     /**
-     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     * Returns a view of this service that provides access to raw HTTP responses for
+     * each method.
      */
     fun withRawResponse(): WithRawResponse
 
     /** Retrieve an Inbound Real-Time Payments Transfer */
-    fun retrieve(
-        params: InboundRealTimePaymentsTransferRetrieveParams
-    ): InboundRealTimePaymentsTransfer = retrieve(params, RequestOptions.none())
+    fun retrieve(params: InboundRealTimePaymentsTransferRetrieveParams): InboundRealTimePaymentsTransfer =
+        retrieve(
+          params, RequestOptions.none()
+        )
 
     /** @see [retrieve] */
-    fun retrieve(
-        params: InboundRealTimePaymentsTransferRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): InboundRealTimePaymentsTransfer
+    fun retrieve(params: InboundRealTimePaymentsTransferRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): InboundRealTimePaymentsTransfer
 
     /** List Inbound Real-Time Payments Transfers */
-    fun list(): InboundRealTimePaymentsTransferListPage =
-        list(InboundRealTimePaymentsTransferListParams.none())
+    fun list(): InboundRealTimePaymentsTransferListPage = list(InboundRealTimePaymentsTransferListParams.none())
 
     /** @see [list] */
-    fun list(
-        params: InboundRealTimePaymentsTransferListParams =
-            InboundRealTimePaymentsTransferListParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): InboundRealTimePaymentsTransferListPage
+    fun list(params: InboundRealTimePaymentsTransferListParams = InboundRealTimePaymentsTransferListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): InboundRealTimePaymentsTransferListPage
 
     /** @see [list] */
-    fun list(
-        params: InboundRealTimePaymentsTransferListParams =
-            InboundRealTimePaymentsTransferListParams.none()
-    ): InboundRealTimePaymentsTransferListPage = list(params, RequestOptions.none())
+    fun list(params: InboundRealTimePaymentsTransferListParams = InboundRealTimePaymentsTransferListParams.none()): InboundRealTimePaymentsTransferListPage =
+        list(
+          params, RequestOptions.none()
+        )
 
     /** @see [list] */
-    fun list(requestOptions: RequestOptions): InboundRealTimePaymentsTransferListPage =
-        list(InboundRealTimePaymentsTransferListParams.none(), requestOptions)
+    fun list(requestOptions: RequestOptions): InboundRealTimePaymentsTransferListPage = list(InboundRealTimePaymentsTransferListParams.none(), requestOptions)
 
     /**
-     * A view of [InboundRealTimePaymentsTransferService] that provides access to raw HTTP responses
-     * for each method.
+     * A view of [InboundRealTimePaymentsTransferService] that provides access to raw
+     * HTTP responses for each method.
      */
     interface WithRawResponse {
 
         /**
-         * Returns a raw HTTP response for `get
-         * /inbound_real_time_payments_transfers/{inbound_real_time_payments_transfer_id}`, but is
-         * otherwise the same as [InboundRealTimePaymentsTransferService.retrieve].
+         * Returns a raw HTTP response for
+         * `get /inbound_real_time_payments_transfers/{inbound_real_time_payments_transfer_id}`,
+         * but is otherwise the same as [InboundRealTimePaymentsTransferService.retrieve].
          */
         @MustBeClosed
-        fun retrieve(
-            params: InboundRealTimePaymentsTransferRetrieveParams
-        ): HttpResponseFor<InboundRealTimePaymentsTransfer> =
-            retrieve(params, RequestOptions.none())
+        fun retrieve(params: InboundRealTimePaymentsTransferRetrieveParams): HttpResponseFor<InboundRealTimePaymentsTransfer> =
+            retrieve(
+              params, RequestOptions.none()
+            )
 
         /** @see [retrieve] */
         @MustBeClosed
-        fun retrieve(
-            params: InboundRealTimePaymentsTransferRetrieveParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<InboundRealTimePaymentsTransfer>
+        fun retrieve(params: InboundRealTimePaymentsTransferRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<InboundRealTimePaymentsTransfer>
 
         /**
-         * Returns a raw HTTP response for `get /inbound_real_time_payments_transfers`, but is
-         * otherwise the same as [InboundRealTimePaymentsTransferService.list].
+         * Returns a raw HTTP response for `get /inbound_real_time_payments_transfers`, but
+         * is otherwise the same as [InboundRealTimePaymentsTransferService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<InboundRealTimePaymentsTransferListPage> =
-            list(InboundRealTimePaymentsTransferListParams.none())
+        fun list(): HttpResponseFor<InboundRealTimePaymentsTransferListPage> = list(InboundRealTimePaymentsTransferListParams.none())
 
         /** @see [list] */
         @MustBeClosed
-        fun list(
-            params: InboundRealTimePaymentsTransferListParams =
-                InboundRealTimePaymentsTransferListParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<InboundRealTimePaymentsTransferListPage>
+        fun list(params: InboundRealTimePaymentsTransferListParams = InboundRealTimePaymentsTransferListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<InboundRealTimePaymentsTransferListPage>
 
         /** @see [list] */
         @MustBeClosed
-        fun list(
-            params: InboundRealTimePaymentsTransferListParams =
-                InboundRealTimePaymentsTransferListParams.none()
-        ): HttpResponseFor<InboundRealTimePaymentsTransferListPage> =
-            list(params, RequestOptions.none())
+        fun list(params: InboundRealTimePaymentsTransferListParams = InboundRealTimePaymentsTransferListParams.none()): HttpResponseFor<InboundRealTimePaymentsTransferListPage> =
+            list(
+              params, RequestOptions.none()
+            )
 
         /** @see [list] */
         @MustBeClosed
-        fun list(
-            requestOptions: RequestOptions
-        ): HttpResponseFor<InboundRealTimePaymentsTransferListPage> =
-            list(InboundRealTimePaymentsTransferListParams.none(), requestOptions)
+        fun list(requestOptions: RequestOptions): HttpResponseFor<InboundRealTimePaymentsTransferListPage> = list(InboundRealTimePaymentsTransferListParams.none(), requestOptions)
     }
 }

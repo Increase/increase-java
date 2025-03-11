@@ -19,59 +19,49 @@ import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimeP
 import com.increase.api.models.simulations.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransferCreateParams
 import java.util.concurrent.CompletableFuture
 
-class InboundRealTimePaymentsTransferServiceAsyncImpl
-internal constructor(private val clientOptions: ClientOptions) :
-    InboundRealTimePaymentsTransferServiceAsync {
+class InboundRealTimePaymentsTransferServiceAsyncImpl internal constructor(
+    private val clientOptions: ClientOptions,
 
-    private val withRawResponse:
-        InboundRealTimePaymentsTransferServiceAsync.WithRawResponse by lazy {
-        WithRawResponseImpl(clientOptions)
-    }
+) : InboundRealTimePaymentsTransferServiceAsync {
 
-    override fun withRawResponse(): InboundRealTimePaymentsTransferServiceAsync.WithRawResponse =
-        withRawResponse
+    private val withRawResponse: InboundRealTimePaymentsTransferServiceAsync.WithRawResponse by lazy { WithRawResponseImpl(clientOptions) }
 
-    override fun create(
-        params: InboundRealTimePaymentsTransferCreateParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<InboundRealTimePaymentsTransfer> =
+    override fun withRawResponse(): InboundRealTimePaymentsTransferServiceAsync.WithRawResponse = withRawResponse
+
+    override fun create(params: InboundRealTimePaymentsTransferCreateParams, requestOptions: RequestOptions): CompletableFuture<InboundRealTimePaymentsTransfer> =
         // post /simulations/inbound_real_time_payments_transfers
         withRawResponse().create(params, requestOptions).thenApply { it.parse() }
 
-    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
-        InboundRealTimePaymentsTransferServiceAsync.WithRawResponse {
+    class WithRawResponseImpl internal constructor(
+        private val clientOptions: ClientOptions,
+
+    ) : InboundRealTimePaymentsTransferServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
-        private val createHandler: Handler<InboundRealTimePaymentsTransfer> =
-            jsonHandler<InboundRealTimePaymentsTransfer>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
+        private val createHandler: Handler<InboundRealTimePaymentsTransfer> = jsonHandler<InboundRealTimePaymentsTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-        override fun create(
-            params: InboundRealTimePaymentsTransferCreateParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<InboundRealTimePaymentsTransfer>> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .addPathSegments("simulations", "inbound_real_time_payments_transfers")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
-                    response.parseable {
-                        response
-                            .use { createHandler.handle(it) }
-                            .also {
-                                if (requestOptions.responseValidation!!) {
-                                    it.validate()
-                                }
-                            }
-                    }
-                }
+        override fun create(params: InboundRealTimePaymentsTransferCreateParams, requestOptions: RequestOptions): CompletableFuture<HttpResponseFor<InboundRealTimePaymentsTransfer>> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.POST)
+            .addPathSegments("simulations", "inbound_real_time_payments_transfers")
+            .body(json(clientOptions.jsonMapper, params._body()))
+            .build()
+            .prepareAsync(clientOptions, params)
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          return request.thenComposeAsync { clientOptions.httpClient.executeAsync(
+            it, requestOptions
+          ) }.thenApply { response -> response.parseable {
+              response.use {
+                  createHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          } }
         }
     }
 }

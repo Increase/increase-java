@@ -14,23 +14,19 @@ class InterestPaymentServiceTest {
 
     @Test
     fun create() {
-        val client =
-            IncreaseOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
-        val interestPaymentService = client.simulations().interestPayments()
+      val client = IncreaseOkHttpClient.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .build()
+      val interestPaymentService = client.simulations().interestPayments()
 
-        val transaction =
-            interestPaymentService.create(
-                InterestPaymentCreateParams.builder()
-                    .accountId("account_in71c4amph0vgo2qllky")
-                    .amount(1000L)
-                    .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .periodStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .build()
-            )
+      val transaction = interestPaymentService.create(InterestPaymentCreateParams.builder()
+          .accountId("account_in71c4amph0vgo2qllky")
+          .amount(1000L)
+          .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+          .periodStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+          .build())
 
-        transaction.validate()
+      transaction.validate()
     }
 }

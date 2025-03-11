@@ -7,11 +7,12 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.HttpResponse
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.errors.BadRequestException
-import com.increase.api.errors.IncreaseError
 import com.increase.api.errors.InternalServerException
 import com.increase.api.errors.NotFoundException
 import com.increase.api.errors.PermissionDeniedException
 import com.increase.api.errors.RateLimitException
+import com.increase.api.errors.IncreaseError
+import com.increase.api.errors.IncreaseException
 import com.increase.api.errors.UnauthorizedException
 import com.increase.api.errors.UnexpectedStatusCodeException
 import com.increase.api.errors.UnprocessableEntityException

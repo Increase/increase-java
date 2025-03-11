@@ -21,11 +21,11 @@ import java.util.stream.StreamSupport
 import kotlin.jvm.optionals.getOrNull
 
 /** List Inbound Mail Items */
-class InboundMailItemListPage
-private constructor(
+class InboundMailItemListPage private constructor(
     private val inboundMailItemsService: InboundMailItemService,
     private val params: InboundMailItemListParams,
     private val response: Response,
+
 ) {
 
     fun response(): Response = response
@@ -35,41 +35,35 @@ private constructor(
     fun nextCursor(): Optional<String> = response().nextCursor()
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return /* spotless:off */ other is InboundMailItemListPage && inboundMailItemsService == other.inboundMailItemsService && params == other.params && response == other.response /* spotless:on */
+      return /* spotless:off */ other is InboundMailItemListPage && inboundMailItemsService == other.inboundMailItemsService && params == other.params && response == other.response /* spotless:on */
     }
 
     override fun hashCode(): Int = /* spotless:off */ Objects.hash(inboundMailItemsService, params, response) /* spotless:on */
 
-    override fun toString() =
-        "InboundMailItemListPage{inboundMailItemsService=$inboundMailItemsService, params=$params, response=$response}"
+    override fun toString() = "InboundMailItemListPage{inboundMailItemsService=$inboundMailItemsService, params=$params, response=$response}"
 
     fun hasNextPage(): Boolean {
-        if (data().isEmpty()) {
-            return false
-        }
+      if (data().isEmpty()) {
+        return false;
+      }
 
-        return nextCursor().isPresent
+      return nextCursor().isPresent
     }
 
     fun getNextPageParams(): Optional<InboundMailItemListParams> {
-        if (!hasNextPage()) {
-            return Optional.empty()
-        }
+      if (!hasNextPage()) {
+        return Optional.empty()
+      }
 
-        return Optional.of(
-            InboundMailItemListParams.builder()
-                .from(params)
-                .apply { nextCursor().ifPresent { this.cursor(it) } }
-                .build()
-        )
+      return Optional.of(InboundMailItemListParams.builder().from(params).apply {nextCursor().ifPresent{ this.cursor(it) } }.build())
     }
 
     fun getNextPage(): Optional<InboundMailItemListPage> {
-        return getNextPageParams().map { inboundMailItemsService.list(it) }
+      return getNextPageParams().map { inboundMailItemsService.list(it) }
     }
 
     fun autoPager(): AutoPager = AutoPager(this)
@@ -77,27 +71,25 @@ private constructor(
     companion object {
 
         @JvmStatic
-        fun of(
-            inboundMailItemsService: InboundMailItemService,
-            params: InboundMailItemListParams,
-            response: Response,
-        ) = InboundMailItemListPage(inboundMailItemsService, params, response)
+        fun of(inboundMailItemsService: InboundMailItemService, params: InboundMailItemListParams, response: Response) =
+            InboundMailItemListPage(
+              inboundMailItemsService,
+              params,
+              response,
+            )
     }
 
     @NoAutoDetect
-    class Response
-    @JsonCreator
-    constructor(
+    class Response @JsonCreator constructor(
         @JsonProperty("data") private val data: JsonField<List<InboundMailItem>> = JsonMissing.of(),
         @JsonProperty("next_cursor") private val nextCursor: JsonField<String> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+
     ) {
 
         fun data(): List<InboundMailItem> = data.getNullable("data") ?: listOf()
 
-        fun nextCursor(): Optional<String> =
-            Optional.ofNullable(nextCursor.getNullable("next_cursor"))
+        fun nextCursor(): Optional<String> = Optional.ofNullable(nextCursor.getNullable("next_cursor"))
 
         @JsonProperty("data")
         fun _data(): Optional<JsonField<List<InboundMailItem>>> = Optional.ofNullable(data)
@@ -111,37 +103,39 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): Response = apply {
-            if (validated) {
-                return@apply
-            }
+        fun validate(): Response =
+            apply {
+                if (validated) {
+                  return@apply
+                }
 
-            data().map { it.validate() }
-            nextCursor()
-            validated = true
-        }
+                data().map { it.validate() }
+                nextCursor()
+                validated = true
+            }
 
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return /* spotless:off */ other is Response && data == other.data && nextCursor == other.nextCursor && additionalProperties == other.additionalProperties /* spotless:on */
+          return /* spotless:off */ other is Response && data == other.data && nextCursor == other.nextCursor && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         override fun hashCode(): Int = /* spotless:off */ Objects.hash(data, nextCursor, additionalProperties) /* spotless:on */
 
-        override fun toString() =
-            "Response{data=$data, nextCursor=$nextCursor, additionalProperties=$additionalProperties}"
+        override fun toString() = "Response{data=$data, nextCursor=$nextCursor, additionalProperties=$additionalProperties}"
 
         companion object {
 
             /**
-             * Returns a mutable builder for constructing an instance of [InboundMailItemListPage].
+             * Returns a mutable builder for constructing an instance of
+             * [InboundMailItemListPage].
              */
-            @JvmStatic fun builder() = Builder()
+            @JvmStatic
+            fun builder() = Builder()
         }
 
         class Builder {
@@ -151,11 +145,12 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(page: Response) = apply {
-                this.data = page.data
-                this.nextCursor = page.nextCursor
-                this.additionalProperties.putAll(page.additionalProperties)
-            }
+            internal fun from(page: Response) =
+                apply {
+                    this.data = page.data
+                    this.nextCursor = page.nextCursor
+                    this.additionalProperties.putAll(page.additionalProperties)
+                }
 
             fun data(data: List<InboundMailItem>) = data(JsonField.of(data))
 
@@ -165,30 +160,40 @@ private constructor(
 
             fun nextCursor(nextCursor: JsonField<String>) = apply { this.nextCursor = nextCursor }
 
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
-            }
+            fun putAdditionalProperty(key: String, value: JsonValue) =
+                apply {
+                    this.additionalProperties.put(key, value)
+                }
 
-            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
+            fun build() =
+                Response(
+                  data,
+                  nextCursor,
+                  additionalProperties.toImmutable(),
+                )
         }
     }
 
-    class AutoPager(private val firstPage: InboundMailItemListPage) : Iterable<InboundMailItem> {
+    class AutoPager(
+        private val firstPage: InboundMailItemListPage,
 
-        override fun iterator(): Iterator<InboundMailItem> = iterator {
-            var page = firstPage
-            var index = 0
-            while (true) {
-                while (index < page.data().size) {
+    ) : Iterable<InboundMailItem> {
+
+        override fun iterator(): Iterator<InboundMailItem> =
+            iterator {
+                var page = firstPage
+                var index = 0
+                while (true) {
+                  while (index < page.data().size) {
                     yield(page.data()[index++])
+                  }
+                  page = page.getNextPage().getOrNull() ?: break
+                  index = 0
                 }
-                page = page.getNextPage().getOrNull() ?: break
-                index = 0
             }
-        }
 
         fun stream(): Stream<InboundMailItem> {
-            return StreamSupport.stream(spliterator(), false)
+          return StreamSupport.stream(spliterator(), false)
         }
     }
 }

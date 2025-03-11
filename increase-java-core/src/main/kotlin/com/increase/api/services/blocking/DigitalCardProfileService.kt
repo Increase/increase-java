@@ -16,161 +16,147 @@ import com.increase.api.models.digitalcardprofiles.DigitalCardProfileRetrievePar
 interface DigitalCardProfileService {
 
     /**
-     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     * Returns a view of this service that provides access to raw HTTP responses for
+     * each method.
      */
     fun withRawResponse(): WithRawResponse
 
     /** Create a Digital Card Profile */
     fun create(params: DigitalCardProfileCreateParams): DigitalCardProfile =
-        create(params, RequestOptions.none())
+        create(
+          params, RequestOptions.none()
+        )
 
     /** @see [create] */
-    fun create(
-        params: DigitalCardProfileCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): DigitalCardProfile
+    fun create(params: DigitalCardProfileCreateParams, requestOptions: RequestOptions = RequestOptions.none()): DigitalCardProfile
 
     /** Retrieve a Digital Card Profile */
     fun retrieve(params: DigitalCardProfileRetrieveParams): DigitalCardProfile =
-        retrieve(params, RequestOptions.none())
+        retrieve(
+          params, RequestOptions.none()
+        )
 
     /** @see [retrieve] */
-    fun retrieve(
-        params: DigitalCardProfileRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): DigitalCardProfile
+    fun retrieve(params: DigitalCardProfileRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): DigitalCardProfile
 
     /** List Card Profiles */
     fun list(): DigitalCardProfileListPage = list(DigitalCardProfileListParams.none())
 
     /** @see [list] */
-    fun list(
-        params: DigitalCardProfileListParams = DigitalCardProfileListParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): DigitalCardProfileListPage
+    fun list(params: DigitalCardProfileListParams = DigitalCardProfileListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): DigitalCardProfileListPage
 
     /** @see [list] */
-    fun list(
-        params: DigitalCardProfileListParams = DigitalCardProfileListParams.none()
-    ): DigitalCardProfileListPage = list(params, RequestOptions.none())
+    fun list(params: DigitalCardProfileListParams = DigitalCardProfileListParams.none()): DigitalCardProfileListPage =
+        list(
+          params, RequestOptions.none()
+        )
 
     /** @see [list] */
-    fun list(requestOptions: RequestOptions): DigitalCardProfileListPage =
-        list(DigitalCardProfileListParams.none(), requestOptions)
+    fun list(requestOptions: RequestOptions): DigitalCardProfileListPage = list(DigitalCardProfileListParams.none(), requestOptions)
 
     /** Archive a Digital Card Profile */
     fun archive(params: DigitalCardProfileArchiveParams): DigitalCardProfile =
-        archive(params, RequestOptions.none())
+        archive(
+          params, RequestOptions.none()
+        )
 
     /** @see [archive] */
-    fun archive(
-        params: DigitalCardProfileArchiveParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): DigitalCardProfile
+    fun archive(params: DigitalCardProfileArchiveParams, requestOptions: RequestOptions = RequestOptions.none()): DigitalCardProfile
 
     /** Clones a Digital Card Profile */
     fun clone(params: DigitalCardProfileCloneParams): DigitalCardProfile =
-        clone(params, RequestOptions.none())
+        clone(
+          params, RequestOptions.none()
+        )
 
     /** @see [clone] */
-    fun clone(
-        params: DigitalCardProfileCloneParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): DigitalCardProfile
+    fun clone(params: DigitalCardProfileCloneParams, requestOptions: RequestOptions = RequestOptions.none()): DigitalCardProfile
 
     /**
-     * A view of [DigitalCardProfileService] that provides access to raw HTTP responses for each
-     * method.
+     * A view of [DigitalCardProfileService] that provides access to raw HTTP responses
+     * for each method.
      */
     interface WithRawResponse {
 
         /**
-         * Returns a raw HTTP response for `post /digital_card_profiles`, but is otherwise the same
-         * as [DigitalCardProfileService.create].
+         * Returns a raw HTTP response for `post /digital_card_profiles`, but is otherwise
+         * the same as [DigitalCardProfileService.create].
          */
         @MustBeClosed
         fun create(params: DigitalCardProfileCreateParams): HttpResponseFor<DigitalCardProfile> =
-            create(params, RequestOptions.none())
+            create(
+              params, RequestOptions.none()
+            )
 
         /** @see [create] */
         @MustBeClosed
-        fun create(
-            params: DigitalCardProfileCreateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<DigitalCardProfile>
+        fun create(params: DigitalCardProfileCreateParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<DigitalCardProfile>
 
         /**
-         * Returns a raw HTTP response for `get /digital_card_profiles/{digital_card_profile_id}`,
-         * but is otherwise the same as [DigitalCardProfileService.retrieve].
+         * Returns a raw HTTP response for
+         * `get /digital_card_profiles/{digital_card_profile_id}`, but is otherwise the
+         * same as [DigitalCardProfileService.retrieve].
          */
         @MustBeClosed
-        fun retrieve(
-            params: DigitalCardProfileRetrieveParams
-        ): HttpResponseFor<DigitalCardProfile> = retrieve(params, RequestOptions.none())
+        fun retrieve(params: DigitalCardProfileRetrieveParams): HttpResponseFor<DigitalCardProfile> =
+            retrieve(
+              params, RequestOptions.none()
+            )
 
         /** @see [retrieve] */
         @MustBeClosed
-        fun retrieve(
-            params: DigitalCardProfileRetrieveParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<DigitalCardProfile>
+        fun retrieve(params: DigitalCardProfileRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<DigitalCardProfile>
 
         /**
-         * Returns a raw HTTP response for `get /digital_card_profiles`, but is otherwise the same
-         * as [DigitalCardProfileService.list].
+         * Returns a raw HTTP response for `get /digital_card_profiles`, but is otherwise
+         * the same as [DigitalCardProfileService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<DigitalCardProfileListPage> =
-            list(DigitalCardProfileListParams.none())
+        fun list(): HttpResponseFor<DigitalCardProfileListPage> = list(DigitalCardProfileListParams.none())
 
         /** @see [list] */
         @MustBeClosed
-        fun list(
-            params: DigitalCardProfileListParams = DigitalCardProfileListParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<DigitalCardProfileListPage>
+        fun list(params: DigitalCardProfileListParams = DigitalCardProfileListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<DigitalCardProfileListPage>
 
         /** @see [list] */
         @MustBeClosed
-        fun list(
-            params: DigitalCardProfileListParams = DigitalCardProfileListParams.none()
-        ): HttpResponseFor<DigitalCardProfileListPage> = list(params, RequestOptions.none())
+        fun list(params: DigitalCardProfileListParams = DigitalCardProfileListParams.none()): HttpResponseFor<DigitalCardProfileListPage> =
+            list(
+              params, RequestOptions.none()
+            )
 
         /** @see [list] */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<DigitalCardProfileListPage> =
-            list(DigitalCardProfileListParams.none(), requestOptions)
+        fun list(requestOptions: RequestOptions): HttpResponseFor<DigitalCardProfileListPage> = list(DigitalCardProfileListParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `post
-         * /digital_card_profiles/{digital_card_profile_id}/archive`, but is otherwise the same as
-         * [DigitalCardProfileService.archive].
+         * Returns a raw HTTP response for
+         * `post /digital_card_profiles/{digital_card_profile_id}/archive`, but is
+         * otherwise the same as [DigitalCardProfileService.archive].
          */
         @MustBeClosed
         fun archive(params: DigitalCardProfileArchiveParams): HttpResponseFor<DigitalCardProfile> =
-            archive(params, RequestOptions.none())
+            archive(
+              params, RequestOptions.none()
+            )
 
         /** @see [archive] */
         @MustBeClosed
-        fun archive(
-            params: DigitalCardProfileArchiveParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<DigitalCardProfile>
+        fun archive(params: DigitalCardProfileArchiveParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<DigitalCardProfile>
 
         /**
-         * Returns a raw HTTP response for `post
-         * /digital_card_profiles/{digital_card_profile_id}/clone`, but is otherwise the same as
-         * [DigitalCardProfileService.clone].
+         * Returns a raw HTTP response for
+         * `post /digital_card_profiles/{digital_card_profile_id}/clone`, but is otherwise
+         * the same as [DigitalCardProfileService.clone].
          */
         @MustBeClosed
         fun clone(params: DigitalCardProfileCloneParams): HttpResponseFor<DigitalCardProfile> =
-            clone(params, RequestOptions.none())
+            clone(
+              params, RequestOptions.none()
+            )
 
         /** @see [clone] */
         @MustBeClosed
-        fun clone(
-            params: DigitalCardProfileCloneParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<DigitalCardProfile>
+        fun clone(params: DigitalCardProfileCloneParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<DigitalCardProfile>
     }
 }

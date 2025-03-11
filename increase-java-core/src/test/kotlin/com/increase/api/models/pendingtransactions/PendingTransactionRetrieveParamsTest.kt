@@ -9,21 +9,20 @@ class PendingTransactionRetrieveParamsTest {
 
     @Test
     fun create() {
-        PendingTransactionRetrieveParams.builder()
-            .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")
-            .build()
+      PendingTransactionRetrieveParams.builder()
+          .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")
+          .build()
     }
 
     @Test
     fun getPathParam() {
-        val params =
-            PendingTransactionRetrieveParams.builder()
-                .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")
-                .build()
-        assertThat(params).isNotNull
-        // path param "pendingTransactionId"
-        assertThat(params.getPathParam(0)).isEqualTo("pending_transaction_k1sfetcau2qbvjbzgju4")
-        // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
+      val params = PendingTransactionRetrieveParams.builder()
+          .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")
+          .build()
+      assertThat(params).isNotNull
+      // path param "pendingTransactionId"
+      assertThat(params.getPathParam(0)).isEqualTo("pending_transaction_k1sfetcau2qbvjbzgju4")
+      // out-of-bound path param
+      assertThat(params.getPathParam(1)).isEqualTo("")
     }
 }

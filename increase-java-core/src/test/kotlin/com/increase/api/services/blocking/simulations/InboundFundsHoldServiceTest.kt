@@ -13,20 +13,16 @@ class InboundFundsHoldServiceTest {
 
     @Test
     fun release() {
-        val client =
-            IncreaseOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
-        val inboundFundsHoldService = client.simulations().inboundFundsHolds()
+      val client = IncreaseOkHttpClient.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .build()
+      val inboundFundsHoldService = client.simulations().inboundFundsHolds()
 
-        val response =
-            inboundFundsHoldService.release(
-                InboundFundsHoldReleaseParams.builder()
-                    .inboundFundsHoldId("inbound_funds_hold_9vuasmywdo7xb3zt4071")
-                    .build()
-            )
+      val response = inboundFundsHoldService.release(InboundFundsHoldReleaseParams.builder()
+          .inboundFundsHoldId("inbound_funds_hold_9vuasmywdo7xb3zt4071")
+          .build())
 
-        response.validate()
+      response.validate()
     }
 }

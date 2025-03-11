@@ -10,32 +10,32 @@ class DigitalWalletTokenRequestCreateParamsTest {
 
     @Test
     fun create() {
-        DigitalWalletTokenRequestCreateParams.builder().cardId("card_oubs0hwk5rn6knuecxg2").build()
+      DigitalWalletTokenRequestCreateParams.builder()
+          .cardId("card_oubs0hwk5rn6knuecxg2")
+          .build()
     }
 
     @Test
     fun body() {
-        val params =
-            DigitalWalletTokenRequestCreateParams.builder()
-                .cardId("card_oubs0hwk5rn6knuecxg2")
-                .build()
+      val params = DigitalWalletTokenRequestCreateParams.builder()
+          .cardId("card_oubs0hwk5rn6knuecxg2")
+          .build()
 
-        val body = params._body()
+      val body = params._body()
 
-        assertNotNull(body)
-        assertThat(body.cardId()).isEqualTo("card_oubs0hwk5rn6knuecxg2")
+      assertNotNull(body)
+      assertThat(body.cardId()).isEqualTo("card_oubs0hwk5rn6knuecxg2")
     }
 
     @Test
     fun bodyWithoutOptionalFields() {
-        val params =
-            DigitalWalletTokenRequestCreateParams.builder()
-                .cardId("card_oubs0hwk5rn6knuecxg2")
-                .build()
+      val params = DigitalWalletTokenRequestCreateParams.builder()
+          .cardId("card_oubs0hwk5rn6knuecxg2")
+          .build()
 
-        val body = params._body()
+      val body = params._body()
 
-        assertNotNull(body)
-        assertThat(body.cardId()).isEqualTo("card_oubs0hwk5rn6knuecxg2")
+      assertNotNull(body)
+      assertThat(body.cardId()).isEqualTo("card_oubs0hwk5rn6knuecxg2")
     }
 }

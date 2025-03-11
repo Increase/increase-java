@@ -13,19 +13,17 @@ class RoutingNumberServiceAsyncTest {
 
     @Test
     fun list() {
-        val client =
-            IncreaseOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
-        val routingNumberServiceAsync = client.routingNumbers()
+      val client = IncreaseOkHttpClientAsync.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .build()
+      val routingNumberServiceAsync = client.routingNumbers()
 
-        val pageFuture =
-            routingNumberServiceAsync.list(
-                RoutingNumberListParams.builder().routingNumber("xxxxxxxxx").build()
-            )
+      val pageFuture = routingNumberServiceAsync.list(RoutingNumberListParams.builder()
+          .routingNumber("xxxxxxxxx")
+          .build())
 
-        val page = pageFuture.get()
-        page.response().validate()
+      val page = pageFuture.get()
+      page.response().validate()
     }
 }

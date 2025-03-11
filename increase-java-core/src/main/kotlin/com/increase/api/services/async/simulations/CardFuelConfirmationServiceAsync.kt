@@ -12,44 +12,42 @@ import java.util.concurrent.CompletableFuture
 interface CardFuelConfirmationServiceAsync {
 
     /**
-     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     * Returns a view of this service that provides access to raw HTTP responses for
+     * each method.
      */
     fun withRawResponse(): WithRawResponse
 
     /**
-     * Simulates the fuel confirmation of an authorization by a card acquirer. This happens
-     * asynchronously right after a fuel pump transaction is completed. A fuel confirmation can only
-     * happen once per authorization.
+     * Simulates the fuel confirmation of an authorization by a card acquirer. This
+     * happens asynchronously right after a fuel pump transaction is completed. A fuel
+     * confirmation can only happen once per authorization.
      */
     fun create(params: CardFuelConfirmationCreateParams): CompletableFuture<CardPayment> =
-        create(params, RequestOptions.none())
+        create(
+          params, RequestOptions.none()
+        )
 
     /** @see [create] */
-    fun create(
-        params: CardFuelConfirmationCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CardPayment>
+    fun create(params: CardFuelConfirmationCreateParams, requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<CardPayment>
 
     /**
-     * A view of [CardFuelConfirmationServiceAsync] that provides access to raw HTTP responses for
-     * each method.
+     * A view of [CardFuelConfirmationServiceAsync] that provides access to raw HTTP
+     * responses for each method.
      */
     interface WithRawResponse {
 
         /**
-         * Returns a raw HTTP response for `post /simulations/card_fuel_confirmations`, but is
-         * otherwise the same as [CardFuelConfirmationServiceAsync.create].
+         * Returns a raw HTTP response for `post /simulations/card_fuel_confirmations`, but
+         * is otherwise the same as [CardFuelConfirmationServiceAsync.create].
          */
         @MustBeClosed
-        fun create(
-            params: CardFuelConfirmationCreateParams
-        ): CompletableFuture<HttpResponseFor<CardPayment>> = create(params, RequestOptions.none())
+        fun create(params: CardFuelConfirmationCreateParams): CompletableFuture<HttpResponseFor<CardPayment>> =
+            create(
+              params, RequestOptions.none()
+            )
 
         /** @see [create] */
         @MustBeClosed
-        fun create(
-            params: CardFuelConfirmationCreateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CardPayment>>
+        fun create(params: CardFuelConfirmationCreateParams, requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<HttpResponseFor<CardPayment>>
     }
 }

@@ -11,57 +11,53 @@ class AccountStatementListParamsTest {
 
     @Test
     fun create() {
-        AccountStatementListParams.builder()
-            .accountId("account_id")
-            .cursor("cursor")
-            .limit(1L)
-            .statementPeriodStart(
-                AccountStatementListParams.StatementPeriodStart.builder()
-                    .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .build()
-            )
-            .build()
+      AccountStatementListParams.builder()
+          .accountId("account_id")
+          .cursor("cursor")
+          .limit(1L)
+          .statementPeriodStart(AccountStatementListParams.StatementPeriodStart.builder()
+              .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+              .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+              .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+              .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+              .build())
+          .build()
     }
 
     @Test
     fun queryParams() {
-        val params =
-            AccountStatementListParams.builder()
-                .accountId("account_id")
-                .cursor("cursor")
-                .limit(1L)
-                .statementPeriodStart(
-                    AccountStatementListParams.StatementPeriodStart.builder()
-                        .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .build()
-                )
-                .build()
-        val expected = QueryParams.builder()
-        expected.put("account_id", "account_id")
-        expected.put("cursor", "cursor")
-        expected.put("limit", "1")
-        AccountStatementListParams.StatementPeriodStart.builder()
-            .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-            .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-            .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-            .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-            .build()
-            .forEachQueryParam { key, values ->
-                expected.put("statement_period_start.$key", values)
-            }
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+      val params = AccountStatementListParams.builder()
+          .accountId("account_id")
+          .cursor("cursor")
+          .limit(1L)
+          .statementPeriodStart(AccountStatementListParams.StatementPeriodStart.builder()
+              .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+              .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+              .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+              .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+              .build())
+          .build()
+      val expected = QueryParams.builder()
+      expected.put("account_id", "account_id")
+      expected.put("cursor", "cursor")
+      expected.put("limit", "1")
+      AccountStatementListParams.StatementPeriodStart.builder()
+          .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+          .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+          .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+          .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+          .build().forEachQueryParam { key, values ->
+          expected.put(
+            "statement_period_start.$key", values
+          )
+      }
+      assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
     @Test
     fun queryParamsWithoutOptionalFields() {
-        val params = AccountStatementListParams.builder().build()
-        val expected = QueryParams.builder()
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+      val params = AccountStatementListParams.builder().build()
+      val expected = QueryParams.builder()
+      assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 }
