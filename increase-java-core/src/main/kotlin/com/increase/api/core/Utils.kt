@@ -2,6 +2,7 @@
 
 package com.increase.api.core
 
+import com.increase.api.core.http.Headers
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Collections
 import java.util.SortedMap
@@ -60,5 +61,9 @@ internal fun Any?.contentToString(): String {
     }
     return string
 }
+
+@JvmSynthetic
+internal fun Headers.getRequiredHeader(name: String): String =
+    values(name).firstOrNull() ?: throw IncreaseInvalidDataException("Could not find $name header")
 
 internal interface Enum

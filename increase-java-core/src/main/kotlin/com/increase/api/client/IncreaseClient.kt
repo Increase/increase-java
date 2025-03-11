@@ -53,6 +53,7 @@ import com.increase.api.services.blocking.RoutingNumberService
 import com.increase.api.services.blocking.SimulationService
 import com.increase.api.services.blocking.SupplementalDocumentService
 import com.increase.api.services.blocking.TransactionService
+import com.increase.api.services.blocking.WebhookService
 import com.increase.api.services.blocking.WireDrawdownRequestService
 import com.increase.api.services.blocking.WireTransferService
 
@@ -180,6 +181,8 @@ interface IncreaseClient {
     fun oauthApplications(): OAuthApplicationService
 
     fun oauthConnections(): OAuthConnectionService
+
+    fun webhooks(): WebhookService
 
     fun oauthTokens(): OAuthTokenService
 

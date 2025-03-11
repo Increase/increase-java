@@ -106,6 +106,8 @@ import com.increase.api.services.blocking.SupplementalDocumentService
 import com.increase.api.services.blocking.SupplementalDocumentServiceImpl
 import com.increase.api.services.blocking.TransactionService
 import com.increase.api.services.blocking.TransactionServiceImpl
+import com.increase.api.services.blocking.WebhookService
+import com.increase.api.services.blocking.WebhookServiceImpl
 import com.increase.api.services.blocking.WireDrawdownRequestService
 import com.increase.api.services.blocking.WireDrawdownRequestServiceImpl
 import com.increase.api.services.blocking.WireTransferService
@@ -319,6 +321,8 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
         IntrafiExclusionServiceImpl(clientOptionsWithUserAgent)
     }
 
+    private val webhooks: WebhookService by lazy { WebhookServiceImpl(clientOptionsWithUserAgent) }
+
     private val simulations: SimulationService by lazy {
         SimulationServiceImpl(clientOptionsWithUserAgent)
     }
@@ -436,6 +440,8 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
     override fun intrafiBalances(): IntrafiBalanceService = intrafiBalances
 
     override fun intrafiExclusions(): IntrafiExclusionService = intrafiExclusions
+
+    override fun webhooks(): WebhookService = webhooks
 
     override fun simulations(): SimulationService = simulations
 
