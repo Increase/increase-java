@@ -21,126 +21,111 @@ import com.increase.api.models.achprenotifications.AchPrenotificationListPage
 import com.increase.api.models.achprenotifications.AchPrenotificationListParams
 import com.increase.api.models.achprenotifications.AchPrenotificationRetrieveParams
 
-class AchPrenotificationServiceImpl internal constructor(private val clientOptions: ClientOptions) :
-    AchPrenotificationService {
+class AchPrenotificationServiceImpl internal constructor(
+    private val clientOptions: ClientOptions,
 
-    private val withRawResponse: AchPrenotificationService.WithRawResponse by lazy {
-        WithRawResponseImpl(clientOptions)
-    }
+) : AchPrenotificationService {
+
+    private val withRawResponse: AchPrenotificationService.WithRawResponse by lazy { WithRawResponseImpl(clientOptions) }
 
     override fun withRawResponse(): AchPrenotificationService.WithRawResponse = withRawResponse
 
-    override fun create(
-        params: AchPrenotificationCreateParams,
-        requestOptions: RequestOptions,
-    ): AchPrenotification =
+    override fun create(params: AchPrenotificationCreateParams, requestOptions: RequestOptions): AchPrenotification =
         // post /ach_prenotifications
         withRawResponse().create(params, requestOptions).parse()
 
-    override fun retrieve(
-        params: AchPrenotificationRetrieveParams,
-        requestOptions: RequestOptions,
-    ): AchPrenotification =
+    override fun retrieve(params: AchPrenotificationRetrieveParams, requestOptions: RequestOptions): AchPrenotification =
         // get /ach_prenotifications/{ach_prenotification_id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
-    override fun list(
-        params: AchPrenotificationListParams,
-        requestOptions: RequestOptions,
-    ): AchPrenotificationListPage =
+    override fun list(params: AchPrenotificationListParams, requestOptions: RequestOptions): AchPrenotificationListPage =
         // get /ach_prenotifications
         withRawResponse().list(params, requestOptions).parse()
 
-    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
-        AchPrenotificationService.WithRawResponse {
+    class WithRawResponseImpl internal constructor(
+        private val clientOptions: ClientOptions,
+
+    ) : AchPrenotificationService.WithRawResponse {
 
         private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
-        private val createHandler: Handler<AchPrenotification> =
-            jsonHandler<AchPrenotification>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val createHandler: Handler<AchPrenotification> = jsonHandler<AchPrenotification>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-        override fun create(
-            params: AchPrenotificationCreateParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<AchPrenotification> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .addPathSegments("ach_prenotifications")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
-                response
-                    .use { createHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override fun create(params: AchPrenotificationCreateParams, requestOptions: RequestOptions): HttpResponseFor<AchPrenotification> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.POST)
+            .addPathSegments("ach_prenotifications")
+            .body(json(clientOptions.jsonMapper, params._body()))
+            .build()
+            .prepare(clientOptions, params)
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return response.parseable {
+              response.use {
+                  createHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
-        private val retrieveHandler: Handler<AchPrenotification> =
-            jsonHandler<AchPrenotification>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val retrieveHandler: Handler<AchPrenotification> = jsonHandler<AchPrenotification>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-        override fun retrieve(
-            params: AchPrenotificationRetrieveParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<AchPrenotification> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .addPathSegments("ach_prenotifications", params.getPathParam(0))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
-                response
-                    .use { retrieveHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override fun retrieve(params: AchPrenotificationRetrieveParams, requestOptions: RequestOptions): HttpResponseFor<AchPrenotification> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.GET)
+            .addPathSegments("ach_prenotifications", params.getPathParam(0))
+            .build()
+            .prepare(clientOptions, params)
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return response.parseable {
+              response.use {
+                  retrieveHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
-        private val listHandler: Handler<AchPrenotificationListPage.Response> =
-            jsonHandler<AchPrenotificationListPage.Response>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
+        private val listHandler: Handler<AchPrenotificationListPage.Response> = jsonHandler<AchPrenotificationListPage.Response>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-        override fun list(
-            params: AchPrenotificationListParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<AchPrenotificationListPage> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .addPathSegments("ach_prenotifications")
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
-                response
-                    .use { listHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-                    .let {
-                        AchPrenotificationListPage.of(
-                            AchPrenotificationServiceImpl(clientOptions),
-                            params,
-                            it,
-                        )
-                    }
-            }
+        override fun list(params: AchPrenotificationListParams, requestOptions: RequestOptions): HttpResponseFor<AchPrenotificationListPage> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.GET)
+            .addPathSegments("ach_prenotifications")
+            .build()
+            .prepare(clientOptions, params)
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return response.parseable {
+              response.use {
+                  listHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+              .let {
+                  AchPrenotificationListPage.of(AchPrenotificationServiceImpl(clientOptions), params, it)
+              }
+          }
         }
     }
 }

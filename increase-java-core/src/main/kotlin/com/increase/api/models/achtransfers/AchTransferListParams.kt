@@ -13,8 +13,7 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /** List ACH Transfers */
-class AchTransferListParams
-private constructor(
+class AchTransferListParams private constructor(
     private val accountId: String?,
     private val createdAt: CreatedAt?,
     private val cursor: String?,
@@ -23,6 +22,7 @@ private constructor(
     private val limit: Long?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
+
 ) : Params {
 
     /** Filter ACH Transfers to those that originated from the specified Account. */
@@ -37,13 +37,17 @@ private constructor(
     fun externalAccountId(): Optional<String> = Optional.ofNullable(externalAccountId)
 
     /**
-     * Filter records to the one with the specified `idempotency_key` you chose for that object.
-     * This value is unique across Increase and is used to ensure that a request is only processed
-     * once. Learn more about [idempotency](https://increase.com/documentation/idempotency-keys).
+     * Filter records to the one with the specified `idempotency_key` you chose for
+     * that object. This value is unique across Increase and is used to ensure that a
+     * request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
      */
     fun idempotencyKey(): Optional<String> = Optional.ofNullable(idempotencyKey)
 
-    /** Limit the size of the list that is returned. The default (and maximum) is 100 objects. */
+    /**
+     * Limit the size of the list that is returned. The default (and maximum) is 100
+     * objects.
+     */
     fun limit(): Optional<Long> = Optional.ofNullable(limit)
 
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -53,29 +57,54 @@ private constructor(
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams {
-        val queryParams = QueryParams.builder()
-        this.accountId?.let { queryParams.put("account_id", listOf(it.toString())) }
-        this.createdAt?.forEachQueryParam { key, values ->
-            queryParams.put("created_at.$key", values)
-        }
-        this.cursor?.let { queryParams.put("cursor", listOf(it.toString())) }
-        this.externalAccountId?.let {
-            queryParams.put("external_account_id", listOf(it.toString()))
-        }
-        this.idempotencyKey?.let { queryParams.put("idempotency_key", listOf(it.toString())) }
-        this.limit?.let { queryParams.put("limit", listOf(it.toString())) }
-        queryParams.putAll(additionalQueryParams)
-        return queryParams.build()
+      val queryParams = QueryParams.builder()
+      this.accountId?.let {
+          queryParams.put(
+            "account_id", listOf(it.toString())
+          )
+      }
+      this.createdAt?.forEachQueryParam { key, values ->
+          queryParams.put(
+            "created_at.$key", values
+          )
+      }
+      this.cursor?.let {
+          queryParams.put(
+            "cursor", listOf(it.toString())
+          )
+      }
+      this.externalAccountId?.let {
+          queryParams.put(
+            "external_account_id", listOf(it.toString())
+          )
+      }
+      this.idempotencyKey?.let {
+          queryParams.put(
+            "idempotency_key", listOf(it.toString())
+          )
+      }
+      this.limit?.let {
+          queryParams.put(
+            "limit", listOf(it.toString())
+          )
+      }
+      queryParams.putAll(additionalQueryParams)
+      return queryParams.build()
     }
 
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
-        @JvmStatic fun none(): AchTransferListParams = builder().build()
+        @JvmStatic
+        fun none(): AchTransferListParams = builder().build()
 
-        /** Returns a mutable builder for constructing an instance of [AchTransferListParams]. */
-        @JvmStatic fun builder() = Builder()
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [AchTransferListParams].
+         */
+        @JvmStatic
+        fun builder() = Builder()
     }
 
     /** A builder for [AchTransferListParams]. */
@@ -92,213 +121,259 @@ private constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
-        internal fun from(achTransferListParams: AchTransferListParams) = apply {
-            accountId = achTransferListParams.accountId
-            createdAt = achTransferListParams.createdAt
-            cursor = achTransferListParams.cursor
-            externalAccountId = achTransferListParams.externalAccountId
-            idempotencyKey = achTransferListParams.idempotencyKey
-            limit = achTransferListParams.limit
-            additionalHeaders = achTransferListParams.additionalHeaders.toBuilder()
-            additionalQueryParams = achTransferListParams.additionalQueryParams.toBuilder()
-        }
+        internal fun from(achTransferListParams: AchTransferListParams) =
+            apply {
+                accountId = achTransferListParams.accountId
+                createdAt = achTransferListParams.createdAt
+                cursor = achTransferListParams.cursor
+                externalAccountId = achTransferListParams.externalAccountId
+                idempotencyKey = achTransferListParams.idempotencyKey
+                limit = achTransferListParams.limit
+                additionalHeaders = achTransferListParams.additionalHeaders.toBuilder()
+                additionalQueryParams = achTransferListParams.additionalQueryParams.toBuilder()
+            }
 
         /** Filter ACH Transfers to those that originated from the specified Account. */
-        fun accountId(accountId: String?) = apply { this.accountId = accountId }
+        fun accountId(accountId: String?) =
+            apply {
+                this.accountId = accountId
+            }
 
         /** Filter ACH Transfers to those that originated from the specified Account. */
         fun accountId(accountId: Optional<String>) = accountId(accountId.getOrNull())
 
-        fun createdAt(createdAt: CreatedAt?) = apply { this.createdAt = createdAt }
+        fun createdAt(createdAt: CreatedAt?) =
+            apply {
+                this.createdAt = createdAt
+            }
 
         fun createdAt(createdAt: Optional<CreatedAt>) = createdAt(createdAt.getOrNull())
 
         /** Return the page of entries after this one. */
-        fun cursor(cursor: String?) = apply { this.cursor = cursor }
+        fun cursor(cursor: String?) =
+            apply {
+                this.cursor = cursor
+            }
 
         /** Return the page of entries after this one. */
         fun cursor(cursor: Optional<String>) = cursor(cursor.getOrNull())
 
         /** Filter ACH Transfers to those made to the specified External Account. */
-        fun externalAccountId(externalAccountId: String?) = apply {
-            this.externalAccountId = externalAccountId
-        }
+        fun externalAccountId(externalAccountId: String?) =
+            apply {
+                this.externalAccountId = externalAccountId
+            }
 
         /** Filter ACH Transfers to those made to the specified External Account. */
-        fun externalAccountId(externalAccountId: Optional<String>) =
-            externalAccountId(externalAccountId.getOrNull())
+        fun externalAccountId(externalAccountId: Optional<String>) = externalAccountId(externalAccountId.getOrNull())
 
         /**
-         * Filter records to the one with the specified `idempotency_key` you chose for that object.
-         * This value is unique across Increase and is used to ensure that a request is only
-         * processed once. Learn more about
+         * Filter records to the one with the specified `idempotency_key` you chose for
+         * that object. This value is unique across Increase and is used to ensure that a
+         * request is only processed once. Learn more about
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        fun idempotencyKey(idempotencyKey: String?) = apply { this.idempotencyKey = idempotencyKey }
+        fun idempotencyKey(idempotencyKey: String?) =
+            apply {
+                this.idempotencyKey = idempotencyKey
+            }
 
         /**
-         * Filter records to the one with the specified `idempotency_key` you chose for that object.
-         * This value is unique across Increase and is used to ensure that a request is only
-         * processed once. Learn more about
+         * Filter records to the one with the specified `idempotency_key` you chose for
+         * that object. This value is unique across Increase and is used to ensure that a
+         * request is only processed once. Learn more about
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        fun idempotencyKey(idempotencyKey: Optional<String>) =
-            idempotencyKey(idempotencyKey.getOrNull())
+        fun idempotencyKey(idempotencyKey: Optional<String>) = idempotencyKey(idempotencyKey.getOrNull())
 
         /**
-         * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
+         * Limit the size of the list that is returned. The default (and maximum) is 100
+         * objects.
          */
-        fun limit(limit: Long?) = apply { this.limit = limit }
+        fun limit(limit: Long?) =
+            apply {
+                this.limit = limit
+            }
 
         /**
-         * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
+         * Limit the size of the list that is returned. The default (and maximum) is 100
+         * objects.
          */
         fun limit(limit: Long) = limit(limit as Long?)
 
         /**
-         * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
+         * Limit the size of the list that is returned. The default (and maximum) is 100
+         * objects.
          */
         fun limit(limit: Optional<Long>) = limit(limit.getOrNull())
 
-        fun additionalHeaders(additionalHeaders: Headers) = apply {
-            this.additionalHeaders.clear()
-            putAllAdditionalHeaders(additionalHeaders)
-        }
+        fun additionalHeaders(additionalHeaders: Headers) =
+            apply {
+                this.additionalHeaders.clear()
+                putAllAdditionalHeaders(additionalHeaders)
+            }
 
-        fun additionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
-            this.additionalHeaders.clear()
-            putAllAdditionalHeaders(additionalHeaders)
-        }
+        fun additionalHeaders(additionalHeaders: Map<String, Iterable<String>>) =
+            apply {
+                this.additionalHeaders.clear()
+                putAllAdditionalHeaders(additionalHeaders)
+            }
 
-        fun putAdditionalHeader(name: String, value: String) = apply {
-            additionalHeaders.put(name, value)
-        }
+        fun putAdditionalHeader(name: String, value: String) =
+            apply {
+                additionalHeaders.put(name, value)
+            }
 
-        fun putAdditionalHeaders(name: String, values: Iterable<String>) = apply {
-            additionalHeaders.put(name, values)
-        }
+        fun putAdditionalHeaders(name: String, values: Iterable<String>) =
+            apply {
+                additionalHeaders.put(name, values)
+            }
 
-        fun putAllAdditionalHeaders(additionalHeaders: Headers) = apply {
-            this.additionalHeaders.putAll(additionalHeaders)
-        }
+        fun putAllAdditionalHeaders(additionalHeaders: Headers) =
+            apply {
+                this.additionalHeaders.putAll(additionalHeaders)
+            }
 
-        fun putAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
-            this.additionalHeaders.putAll(additionalHeaders)
-        }
+        fun putAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) =
+            apply {
+                this.additionalHeaders.putAll(additionalHeaders)
+            }
 
-        fun replaceAdditionalHeaders(name: String, value: String) = apply {
-            additionalHeaders.replace(name, value)
-        }
+        fun replaceAdditionalHeaders(name: String, value: String) =
+            apply {
+                additionalHeaders.replace(name, value)
+            }
 
-        fun replaceAdditionalHeaders(name: String, values: Iterable<String>) = apply {
-            additionalHeaders.replace(name, values)
-        }
+        fun replaceAdditionalHeaders(name: String, values: Iterable<String>) =
+            apply {
+                additionalHeaders.replace(name, values)
+            }
 
-        fun replaceAllAdditionalHeaders(additionalHeaders: Headers) = apply {
-            this.additionalHeaders.replaceAll(additionalHeaders)
-        }
+        fun replaceAllAdditionalHeaders(additionalHeaders: Headers) =
+            apply {
+                this.additionalHeaders.replaceAll(additionalHeaders)
+            }
 
-        fun replaceAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
-            this.additionalHeaders.replaceAll(additionalHeaders)
-        }
+        fun replaceAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) =
+            apply {
+                this.additionalHeaders.replaceAll(additionalHeaders)
+            }
 
-        fun removeAdditionalHeaders(name: String) = apply { additionalHeaders.remove(name) }
+        fun removeAdditionalHeaders(name: String) =
+            apply {
+                additionalHeaders.remove(name)
+            }
 
-        fun removeAllAdditionalHeaders(names: Set<String>) = apply {
-            additionalHeaders.removeAll(names)
-        }
+        fun removeAllAdditionalHeaders(names: Set<String>) =
+            apply {
+                additionalHeaders.removeAll(names)
+            }
 
-        fun additionalQueryParams(additionalQueryParams: QueryParams) = apply {
-            this.additionalQueryParams.clear()
-            putAllAdditionalQueryParams(additionalQueryParams)
-        }
+        fun additionalQueryParams(additionalQueryParams: QueryParams) =
+            apply {
+                this.additionalQueryParams.clear()
+                putAllAdditionalQueryParams(additionalQueryParams)
+            }
 
-        fun additionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) = apply {
-            this.additionalQueryParams.clear()
-            putAllAdditionalQueryParams(additionalQueryParams)
-        }
+        fun additionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
+            apply {
+                this.additionalQueryParams.clear()
+                putAllAdditionalQueryParams(additionalQueryParams)
+            }
 
-        fun putAdditionalQueryParam(key: String, value: String) = apply {
-            additionalQueryParams.put(key, value)
-        }
+        fun putAdditionalQueryParam(key: String, value: String) =
+            apply {
+                additionalQueryParams.put(key, value)
+            }
 
-        fun putAdditionalQueryParams(key: String, values: Iterable<String>) = apply {
-            additionalQueryParams.put(key, values)
-        }
+        fun putAdditionalQueryParams(key: String, values: Iterable<String>) =
+            apply {
+                additionalQueryParams.put(key, values)
+            }
 
-        fun putAllAdditionalQueryParams(additionalQueryParams: QueryParams) = apply {
-            this.additionalQueryParams.putAll(additionalQueryParams)
-        }
+        fun putAllAdditionalQueryParams(additionalQueryParams: QueryParams) =
+            apply {
+                this.additionalQueryParams.putAll(additionalQueryParams)
+            }
 
         fun putAllAdditionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
             apply {
                 this.additionalQueryParams.putAll(additionalQueryParams)
             }
 
-        fun replaceAdditionalQueryParams(key: String, value: String) = apply {
-            additionalQueryParams.replace(key, value)
-        }
+        fun replaceAdditionalQueryParams(key: String, value: String) =
+            apply {
+                additionalQueryParams.replace(key, value)
+            }
 
-        fun replaceAdditionalQueryParams(key: String, values: Iterable<String>) = apply {
-            additionalQueryParams.replace(key, values)
-        }
+        fun replaceAdditionalQueryParams(key: String, values: Iterable<String>) =
+            apply {
+                additionalQueryParams.replace(key, values)
+            }
 
-        fun replaceAllAdditionalQueryParams(additionalQueryParams: QueryParams) = apply {
-            this.additionalQueryParams.replaceAll(additionalQueryParams)
-        }
+        fun replaceAllAdditionalQueryParams(additionalQueryParams: QueryParams) =
+            apply {
+                this.additionalQueryParams.replaceAll(additionalQueryParams)
+            }
 
         fun replaceAllAdditionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
             apply {
                 this.additionalQueryParams.replaceAll(additionalQueryParams)
             }
 
-        fun removeAdditionalQueryParams(key: String) = apply { additionalQueryParams.remove(key) }
+        fun removeAdditionalQueryParams(key: String) =
+            apply {
+                additionalQueryParams.remove(key)
+            }
 
-        fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
-            additionalQueryParams.removeAll(keys)
-        }
+        fun removeAllAdditionalQueryParams(keys: Set<String>) =
+            apply {
+                additionalQueryParams.removeAll(keys)
+            }
 
         fun build(): AchTransferListParams =
             AchTransferListParams(
-                accountId,
-                createdAt,
-                cursor,
-                externalAccountId,
-                idempotencyKey,
-                limit,
-                additionalHeaders.build(),
-                additionalQueryParams.build(),
+              accountId,
+              createdAt,
+              cursor,
+              externalAccountId,
+              idempotencyKey,
+              limit,
+              additionalHeaders.build(),
+              additionalQueryParams.build(),
             )
     }
 
-    class CreatedAt
-    private constructor(
+    class CreatedAt private constructor(
         private val after: OffsetDateTime?,
         private val before: OffsetDateTime?,
         private val onOrAfter: OffsetDateTime?,
         private val onOrBefore: OffsetDateTime?,
         private val additionalProperties: QueryParams,
+
     ) {
 
         /**
-         * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
+         * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+         * timestamp.
          */
         fun after(): Optional<OffsetDateTime> = Optional.ofNullable(after)
 
         /**
-         * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
+         * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+         * timestamp.
          */
         fun before(): Optional<OffsetDateTime> = Optional.ofNullable(before)
 
         /**
-         * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-         * timestamp.
+         * Return results on or after this
+         * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
          */
         fun onOrAfter(): Optional<OffsetDateTime> = Optional.ofNullable(onOrAfter)
 
         /**
-         * Return results on or before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-         * timestamp.
+         * Return results on or before this
+         * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
          */
         fun onOrBefore(): Optional<OffsetDateTime> = Optional.ofNullable(onOrBefore)
 
@@ -306,19 +381,29 @@ private constructor(
 
         @JvmSynthetic
         internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-            this.after?.let {
-                putParam("after", listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)))
-            }
-            this.before?.let {
-                putParam("before", listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)))
-            }
-            this.onOrAfter?.let {
-                putParam("on_or_after", listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)))
-            }
-            this.onOrBefore?.let {
-                putParam("on_or_before", listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)))
-            }
-            additionalProperties.keys().forEach { putParam(it, additionalProperties.values(it)) }
+          this.after?.let {
+              putParam(
+                "after", listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
+              )
+          }
+          this.before?.let {
+              putParam(
+                "before", listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
+              )
+          }
+          this.onOrAfter?.let {
+              putParam(
+                "on_or_after", listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
+              )
+          }
+          this.onOrBefore?.let {
+              putParam(
+                "on_or_before", listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
+              )
+          }
+          additionalProperties.keys().forEach {
+              putParam(it, additionalProperties.values(it))
+          }
         }
 
         fun toBuilder() = Builder().from(this)
@@ -326,7 +411,8 @@ private constructor(
         companion object {
 
             /** Returns a mutable builder for constructing an instance of [CreatedAt]. */
-            @JvmStatic fun builder() = Builder()
+            @JvmStatic
+            fun builder() = Builder()
         }
 
         /** A builder for [CreatedAt]. */
@@ -339,19 +425,23 @@ private constructor(
             private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
             @JvmSynthetic
-            internal fun from(createdAt: CreatedAt) = apply {
-                after = createdAt.after
-                before = createdAt.before
-                onOrAfter = createdAt.onOrAfter
-                onOrBefore = createdAt.onOrBefore
-                additionalProperties = createdAt.additionalProperties.toBuilder()
-            }
+            internal fun from(createdAt: CreatedAt) =
+                apply {
+                    after = createdAt.after
+                    before = createdAt.before
+                    onOrAfter = createdAt.onOrAfter
+                    onOrBefore = createdAt.onOrBefore
+                    additionalProperties = createdAt.additionalProperties.toBuilder()
+                }
 
             /**
              * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            fun after(after: OffsetDateTime?) = apply { this.after = after }
+            fun after(after: OffsetDateTime?) =
+                apply {
+                    this.after = after
+                }
 
             /**
              * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
@@ -363,7 +453,10 @@ private constructor(
              * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            fun before(before: OffsetDateTime?) = apply { this.before = before }
+            fun before(before: OffsetDateTime?) =
+                apply {
+                    this.before = before
+                }
 
             /**
              * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
@@ -372,89 +465,113 @@ private constructor(
             fun before(before: Optional<OffsetDateTime>) = before(before.getOrNull())
 
             /**
-             * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-             * timestamp.
+             * Return results on or after this
+             * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
              */
-            fun onOrAfter(onOrAfter: OffsetDateTime?) = apply { this.onOrAfter = onOrAfter }
+            fun onOrAfter(onOrAfter: OffsetDateTime?) =
+                apply {
+                    this.onOrAfter = onOrAfter
+                }
 
             /**
-             * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-             * timestamp.
+             * Return results on or after this
+             * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
              */
             fun onOrAfter(onOrAfter: Optional<OffsetDateTime>) = onOrAfter(onOrAfter.getOrNull())
 
             /**
-             * Return results on or before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-             * timestamp.
+             * Return results on or before this
+             * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
              */
-            fun onOrBefore(onOrBefore: OffsetDateTime?) = apply { this.onOrBefore = onOrBefore }
+            fun onOrBefore(onOrBefore: OffsetDateTime?) =
+                apply {
+                    this.onOrBefore = onOrBefore
+                }
 
             /**
-             * Return results on or before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-             * timestamp.
+             * Return results on or before this
+             * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
              */
-            fun onOrBefore(onOrBefore: Optional<OffsetDateTime>) =
-                onOrBefore(onOrBefore.getOrNull())
+            fun onOrBefore(onOrBefore: Optional<OffsetDateTime>) = onOrBefore(onOrBefore.getOrNull())
 
-            fun additionalProperties(additionalProperties: QueryParams) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
+            fun additionalProperties(additionalProperties: QueryParams) =
+                apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
 
-            fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
+            fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
 
-            fun putAdditionalProperty(key: String, value: String) = apply {
-                additionalProperties.put(key, value)
-            }
+            fun putAdditionalProperty(key: String, value: String) =
+                apply {
+                    additionalProperties.put(key, value)
+                }
 
-            fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
-                additionalProperties.put(key, values)
-            }
+            fun putAdditionalProperties(key: String, values: Iterable<String>) =
+                apply {
+                    additionalProperties.put(key, values)
+                }
 
-            fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
+            fun putAllAdditionalProperties(additionalProperties: QueryParams) =
+                apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, Iterable<String>>) =
                 apply {
                     this.additionalProperties.putAll(additionalProperties)
                 }
 
-            fun replaceAdditionalProperties(key: String, value: String) = apply {
-                additionalProperties.replace(key, value)
-            }
+            fun replaceAdditionalProperties(key: String, value: String) =
+                apply {
+                    additionalProperties.replace(key, value)
+                }
 
-            fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
-                additionalProperties.replace(key, values)
-            }
+            fun replaceAdditionalProperties(key: String, values: Iterable<String>) =
+                apply {
+                    additionalProperties.replace(key, values)
+                }
 
-            fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
-                this.additionalProperties.replaceAll(additionalProperties)
-            }
+            fun replaceAllAdditionalProperties(additionalProperties: QueryParams) =
+                apply {
+                    this.additionalProperties.replaceAll(additionalProperties)
+                }
 
-            fun replaceAllAdditionalProperties(
-                additionalProperties: Map<String, Iterable<String>>
-            ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+            fun replaceAllAdditionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                apply {
+                    this.additionalProperties.replaceAll(additionalProperties)
+                }
 
-            fun removeAdditionalProperties(key: String) = apply { additionalProperties.remove(key) }
+            fun removeAdditionalProperties(key: String) =
+                apply {
+                    additionalProperties.remove(key)
+                }
 
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                additionalProperties.removeAll(keys)
-            }
+            fun removeAllAdditionalProperties(keys: Set<String>) =
+                apply {
+                    additionalProperties.removeAll(keys)
+                }
 
             fun build(): CreatedAt =
-                CreatedAt(after, before, onOrAfter, onOrBefore, additionalProperties.build())
+                CreatedAt(
+                  after,
+                  before,
+                  onOrAfter,
+                  onOrBefore,
+                  additionalProperties.build(),
+                )
         }
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return /* spotless:off */ other is CreatedAt && after == other.after && before == other.before && onOrAfter == other.onOrAfter && onOrBefore == other.onOrBefore && additionalProperties == other.additionalProperties /* spotless:on */
+          return /* spotless:off */ other is CreatedAt && after == other.after && before == other.before && onOrAfter == other.onOrAfter && onOrBefore == other.onOrBefore && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -463,20 +580,18 @@ private constructor(
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() =
-            "CreatedAt{after=$after, before=$before, onOrAfter=$onOrAfter, onOrBefore=$onOrBefore, additionalProperties=$additionalProperties}"
+        override fun toString() = "CreatedAt{after=$after, before=$before, onOrAfter=$onOrAfter, onOrBefore=$onOrBefore, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return /* spotless:off */ other is AchTransferListParams && accountId == other.accountId && createdAt == other.createdAt && cursor == other.cursor && externalAccountId == other.externalAccountId && idempotencyKey == other.idempotencyKey && limit == other.limit && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+      return /* spotless:off */ other is AchTransferListParams && accountId == other.accountId && createdAt == other.createdAt && cursor == other.cursor && externalAccountId == other.externalAccountId && idempotencyKey == other.idempotencyKey && limit == other.limit && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
     override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, createdAt, cursor, externalAccountId, idempotencyKey, limit, additionalHeaders, additionalQueryParams) /* spotless:on */
 
-    override fun toString() =
-        "AchTransferListParams{accountId=$accountId, createdAt=$createdAt, cursor=$cursor, externalAccountId=$externalAccountId, idempotencyKey=$idempotencyKey, limit=$limit, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+    override fun toString() = "AchTransferListParams{accountId=$accountId, createdAt=$createdAt, cursor=$cursor, externalAccountId=$externalAccountId, idempotencyKey=$idempotencyKey, limit=$limit, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

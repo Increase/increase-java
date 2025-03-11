@@ -13,28 +13,19 @@ class RealTimePaymentsTransferServiceTest {
 
     @Test
     fun complete() {
-        val client =
-            IncreaseOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
-        val realTimePaymentsTransferService = client.simulations().realTimePaymentsTransfers()
+      val client = IncreaseOkHttpClient.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .build()
+      val realTimePaymentsTransferService = client.simulations().realTimePaymentsTransfers()
 
-        val realTimePaymentsTransfer =
-            realTimePaymentsTransferService.complete(
-                RealTimePaymentsTransferCompleteParams.builder()
-                    .realTimePaymentsTransferId("real_time_payments_transfer_iyuhl5kdn7ssmup83mvq")
-                    .rejection(
-                        RealTimePaymentsTransferCompleteParams.Rejection.builder()
-                            .rejectReasonCode(
-                                RealTimePaymentsTransferCompleteParams.Rejection.RejectReasonCode
-                                    .ACCOUNT_CLOSED
-                            )
-                            .build()
-                    )
-                    .build()
-            )
+      val realTimePaymentsTransfer = realTimePaymentsTransferService.complete(RealTimePaymentsTransferCompleteParams.builder()
+          .realTimePaymentsTransferId("real_time_payments_transfer_iyuhl5kdn7ssmup83mvq")
+          .rejection(RealTimePaymentsTransferCompleteParams.Rejection.builder()
+              .rejectReasonCode(RealTimePaymentsTransferCompleteParams.Rejection.RejectReasonCode.ACCOUNT_CLOSED)
+              .build())
+          .build())
 
-        realTimePaymentsTransfer.validate()
+      realTimePaymentsTransfer.validate()
     }
 }

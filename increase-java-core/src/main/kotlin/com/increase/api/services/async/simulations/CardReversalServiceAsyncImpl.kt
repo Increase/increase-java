@@ -19,55 +19,49 @@ import com.increase.api.models.cardpayments.CardPayment
 import com.increase.api.models.simulations.cardreversals.CardReversalCreateParams
 import java.util.concurrent.CompletableFuture
 
-class CardReversalServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
-    CardReversalServiceAsync {
+class CardReversalServiceAsyncImpl internal constructor(
+    private val clientOptions: ClientOptions,
 
-    private val withRawResponse: CardReversalServiceAsync.WithRawResponse by lazy {
-        WithRawResponseImpl(clientOptions)
-    }
+) : CardReversalServiceAsync {
+
+    private val withRawResponse: CardReversalServiceAsync.WithRawResponse by lazy { WithRawResponseImpl(clientOptions) }
 
     override fun withRawResponse(): CardReversalServiceAsync.WithRawResponse = withRawResponse
 
-    override fun create(
-        params: CardReversalCreateParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<CardPayment> =
+    override fun create(params: CardReversalCreateParams, requestOptions: RequestOptions): CompletableFuture<CardPayment> =
         // post /simulations/card_reversals
         withRawResponse().create(params, requestOptions).thenApply { it.parse() }
 
-    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
-        CardReversalServiceAsync.WithRawResponse {
+    class WithRawResponseImpl internal constructor(
+        private val clientOptions: ClientOptions,
+
+    ) : CardReversalServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
-        private val createHandler: Handler<CardPayment> =
-            jsonHandler<CardPayment>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val createHandler: Handler<CardPayment> = jsonHandler<CardPayment>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-        override fun create(
-            params: CardReversalCreateParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CardPayment>> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .addPathSegments("simulations", "card_reversals")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
-                    response.parseable {
-                        response
-                            .use { createHandler.handle(it) }
-                            .also {
-                                if (requestOptions.responseValidation!!) {
-                                    it.validate()
-                                }
-                            }
-                    }
-                }
+        override fun create(params: CardReversalCreateParams, requestOptions: RequestOptions): CompletableFuture<HttpResponseFor<CardPayment>> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.POST)
+            .addPathSegments("simulations", "card_reversals")
+            .body(json(clientOptions.jsonMapper, params._body()))
+            .build()
+            .prepareAsync(clientOptions, params)
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          return request.thenComposeAsync { clientOptions.httpClient.executeAsync(
+            it, requestOptions
+          ) }.thenApply { response -> response.parseable {
+              response.use {
+                  createHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          } }
         }
     }
 }

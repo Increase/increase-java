@@ -24,11 +24,12 @@ import com.increase.api.models.cards.CardListParams
 import com.increase.api.models.cards.CardRetrieveParams
 import com.increase.api.models.cards.CardUpdateParams
 
-class CardServiceImpl internal constructor(private val clientOptions: ClientOptions) : CardService {
+class CardServiceImpl internal constructor(
+    private val clientOptions: ClientOptions,
 
-    private val withRawResponse: CardService.WithRawResponse by lazy {
-        WithRawResponseImpl(clientOptions)
-    }
+) : CardService {
+
+    private val withRawResponse: CardService.WithRawResponse by lazy { WithRawResponseImpl(clientOptions) }
 
     override fun withRawResponse(): CardService.WithRawResponse = withRawResponse
 
@@ -52,143 +53,141 @@ class CardServiceImpl internal constructor(private val clientOptions: ClientOpti
         // get /cards/{card_id}/details
         withRawResponse().details(params, requestOptions).parse()
 
-    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
-        CardService.WithRawResponse {
+    class WithRawResponseImpl internal constructor(
+        private val clientOptions: ClientOptions,
+
+    ) : CardService.WithRawResponse {
 
         private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
-        private val createHandler: Handler<Card> =
-            jsonHandler<Card>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val createHandler: Handler<Card> = jsonHandler<Card>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-        override fun create(
-            params: CardCreateParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<Card> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .addPathSegments("cards")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
-                response
-                    .use { createHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override fun create(params: CardCreateParams, requestOptions: RequestOptions): HttpResponseFor<Card> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.POST)
+            .addPathSegments("cards")
+            .body(json(clientOptions.jsonMapper, params._body()))
+            .build()
+            .prepare(clientOptions, params)
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return response.parseable {
+              response.use {
+                  createHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
-        private val retrieveHandler: Handler<Card> =
-            jsonHandler<Card>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val retrieveHandler: Handler<Card> = jsonHandler<Card>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-        override fun retrieve(
-            params: CardRetrieveParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<Card> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .addPathSegments("cards", params.getPathParam(0))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
-                response
-                    .use { retrieveHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override fun retrieve(params: CardRetrieveParams, requestOptions: RequestOptions): HttpResponseFor<Card> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.GET)
+            .addPathSegments("cards", params.getPathParam(0))
+            .build()
+            .prepare(clientOptions, params)
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return response.parseable {
+              response.use {
+                  retrieveHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
-        private val updateHandler: Handler<Card> =
-            jsonHandler<Card>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val updateHandler: Handler<Card> = jsonHandler<Card>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-        override fun update(
-            params: CardUpdateParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<Card> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.PATCH)
-                    .addPathSegments("cards", params.getPathParam(0))
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
-                response
-                    .use { updateHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override fun update(params: CardUpdateParams, requestOptions: RequestOptions): HttpResponseFor<Card> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.PATCH)
+            .addPathSegments("cards", params.getPathParam(0))
+            .body(json(clientOptions.jsonMapper, params._body()))
+            .build()
+            .prepare(clientOptions, params)
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return response.parseable {
+              response.use {
+                  updateHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
-        private val listHandler: Handler<CardListPage.Response> =
-            jsonHandler<CardListPage.Response>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
+        private val listHandler: Handler<CardListPage.Response> = jsonHandler<CardListPage.Response>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-        override fun list(
-            params: CardListParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<CardListPage> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .addPathSegments("cards")
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
-                response
-                    .use { listHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-                    .let { CardListPage.of(CardServiceImpl(clientOptions), params, it) }
-            }
+        override fun list(params: CardListParams, requestOptions: RequestOptions): HttpResponseFor<CardListPage> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.GET)
+            .addPathSegments("cards")
+            .build()
+            .prepare(clientOptions, params)
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return response.parseable {
+              response.use {
+                  listHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+              .let {
+                  CardListPage.of(CardServiceImpl(clientOptions), params, it)
+              }
+          }
         }
 
-        private val detailsHandler: Handler<CardDetails> =
-            jsonHandler<CardDetails>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val detailsHandler: Handler<CardDetails> = jsonHandler<CardDetails>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-        override fun details(
-            params: CardDetailsParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<CardDetails> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .addPathSegments("cards", params.getPathParam(0), "details")
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
-                response
-                    .use { detailsHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override fun details(params: CardDetailsParams, requestOptions: RequestOptions): HttpResponseFor<CardDetails> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.GET)
+            .addPathSegments("cards", params.getPathParam(0), "details")
+            .build()
+            .prepare(clientOptions, params)
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return response.parseable {
+              response.use {
+                  detailsHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
     }
 }

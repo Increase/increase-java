@@ -22,12 +22,12 @@ import com.increase.api.models.lockboxes.LockboxListParams
 import com.increase.api.models.lockboxes.LockboxRetrieveParams
 import com.increase.api.models.lockboxes.LockboxUpdateParams
 
-class LockboxServiceImpl internal constructor(private val clientOptions: ClientOptions) :
-    LockboxService {
+class LockboxServiceImpl internal constructor(
+    private val clientOptions: ClientOptions,
 
-    private val withRawResponse: LockboxService.WithRawResponse by lazy {
-        WithRawResponseImpl(clientOptions)
-    }
+) : LockboxService {
+
+    private val withRawResponse: LockboxService.WithRawResponse by lazy { WithRawResponseImpl(clientOptions) }
 
     override fun withRawResponse(): LockboxService.WithRawResponse = withRawResponse
 
@@ -47,117 +47,116 @@ class LockboxServiceImpl internal constructor(private val clientOptions: ClientO
         // get /lockboxes
         withRawResponse().list(params, requestOptions).parse()
 
-    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
-        LockboxService.WithRawResponse {
+    class WithRawResponseImpl internal constructor(
+        private val clientOptions: ClientOptions,
+
+    ) : LockboxService.WithRawResponse {
 
         private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
-        private val createHandler: Handler<Lockbox> =
-            jsonHandler<Lockbox>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val createHandler: Handler<Lockbox> = jsonHandler<Lockbox>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-        override fun create(
-            params: LockboxCreateParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<Lockbox> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .addPathSegments("lockboxes")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
-                response
-                    .use { createHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override fun create(params: LockboxCreateParams, requestOptions: RequestOptions): HttpResponseFor<Lockbox> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.POST)
+            .addPathSegments("lockboxes")
+            .body(json(clientOptions.jsonMapper, params._body()))
+            .build()
+            .prepare(clientOptions, params)
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return response.parseable {
+              response.use {
+                  createHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
-        private val retrieveHandler: Handler<Lockbox> =
-            jsonHandler<Lockbox>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val retrieveHandler: Handler<Lockbox> = jsonHandler<Lockbox>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-        override fun retrieve(
-            params: LockboxRetrieveParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<Lockbox> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .addPathSegments("lockboxes", params.getPathParam(0))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
-                response
-                    .use { retrieveHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override fun retrieve(params: LockboxRetrieveParams, requestOptions: RequestOptions): HttpResponseFor<Lockbox> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.GET)
+            .addPathSegments("lockboxes", params.getPathParam(0))
+            .build()
+            .prepare(clientOptions, params)
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return response.parseable {
+              response.use {
+                  retrieveHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
-        private val updateHandler: Handler<Lockbox> =
-            jsonHandler<Lockbox>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val updateHandler: Handler<Lockbox> = jsonHandler<Lockbox>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-        override fun update(
-            params: LockboxUpdateParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<Lockbox> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.PATCH)
-                    .addPathSegments("lockboxes", params.getPathParam(0))
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
-                response
-                    .use { updateHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override fun update(params: LockboxUpdateParams, requestOptions: RequestOptions): HttpResponseFor<Lockbox> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.PATCH)
+            .addPathSegments("lockboxes", params.getPathParam(0))
+            .body(json(clientOptions.jsonMapper, params._body()))
+            .build()
+            .prepare(clientOptions, params)
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return response.parseable {
+              response.use {
+                  updateHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
-        private val listHandler: Handler<LockboxListPage.Response> =
-            jsonHandler<LockboxListPage.Response>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
+        private val listHandler: Handler<LockboxListPage.Response> = jsonHandler<LockboxListPage.Response>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-        override fun list(
-            params: LockboxListParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<LockboxListPage> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .addPathSegments("lockboxes")
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
-                response
-                    .use { listHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-                    .let { LockboxListPage.of(LockboxServiceImpl(clientOptions), params, it) }
-            }
+        override fun list(params: LockboxListParams, requestOptions: RequestOptions): HttpResponseFor<LockboxListPage> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.GET)
+            .addPathSegments("lockboxes")
+            .build()
+            .prepare(clientOptions, params)
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return response.parseable {
+              response.use {
+                  listHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+              .let {
+                  LockboxListPage.of(LockboxServiceImpl(clientOptions), params, it)
+              }
+          }
         }
     }
 }

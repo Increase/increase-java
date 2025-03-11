@@ -4,6 +4,7 @@ package com.increase.api.services.async
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
+import com.increase.api.models.inboundwiredrawdownrequests.InboundWireDrawdownRequestListParams
 import com.increase.api.models.inboundwiredrawdownrequests.InboundWireDrawdownRequestRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -13,38 +14,31 @@ class InboundWireDrawdownRequestServiceAsyncTest {
 
     @Test
     fun retrieve() {
-        val client =
-            IncreaseOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
-        val inboundWireDrawdownRequestServiceAsync = client.inboundWireDrawdownRequests()
+      val client = IncreaseOkHttpClientAsync.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .build()
+      val inboundWireDrawdownRequestServiceAsync = client.inboundWireDrawdownRequests()
 
-        val inboundWireDrawdownRequestFuture =
-            inboundWireDrawdownRequestServiceAsync.retrieve(
-                InboundWireDrawdownRequestRetrieveParams.builder()
-                    .inboundWireDrawdownRequestId(
-                        "inbound_wire_drawdown_request_u5a92ikqhz1ytphn799e"
-                    )
-                    .build()
-            )
+      val inboundWireDrawdownRequestFuture = inboundWireDrawdownRequestServiceAsync.retrieve(InboundWireDrawdownRequestRetrieveParams.builder()
+          .inboundWireDrawdownRequestId("inbound_wire_drawdown_request_u5a92ikqhz1ytphn799e")
+          .build())
 
-        val inboundWireDrawdownRequest = inboundWireDrawdownRequestFuture.get()
-        inboundWireDrawdownRequest.validate()
+      val inboundWireDrawdownRequest = inboundWireDrawdownRequestFuture.get()
+      inboundWireDrawdownRequest.validate()
     }
 
     @Test
     fun list() {
-        val client =
-            IncreaseOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
-        val inboundWireDrawdownRequestServiceAsync = client.inboundWireDrawdownRequests()
+      val client = IncreaseOkHttpClientAsync.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .build()
+      val inboundWireDrawdownRequestServiceAsync = client.inboundWireDrawdownRequests()
 
-        val pageFuture = inboundWireDrawdownRequestServiceAsync.list()
+      val pageFuture = inboundWireDrawdownRequestServiceAsync.list()
 
-        val page = pageFuture.get()
-        page.response().validate()
+      val page = pageFuture.get()
+      page.response().validate()
     }
 }

@@ -17,12 +17,12 @@ import com.increase.api.errors.IncreaseError
 import com.increase.api.models.groups.Group
 import com.increase.api.models.groups.GroupRetrieveParams
 
-class GroupServiceImpl internal constructor(private val clientOptions: ClientOptions) :
-    GroupService {
+class GroupServiceImpl internal constructor(
+    private val clientOptions: ClientOptions,
 
-    private val withRawResponse: GroupService.WithRawResponse by lazy {
-        WithRawResponseImpl(clientOptions)
-    }
+) : GroupService {
+
+    private val withRawResponse: GroupService.WithRawResponse by lazy { WithRawResponseImpl(clientOptions) }
 
     override fun withRawResponse(): GroupService.WithRawResponse = withRawResponse
 
@@ -30,35 +30,36 @@ class GroupServiceImpl internal constructor(private val clientOptions: ClientOpt
         // get /groups/current
         withRawResponse().retrieve(params, requestOptions).parse()
 
-    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
-        GroupService.WithRawResponse {
+    class WithRawResponseImpl internal constructor(
+        private val clientOptions: ClientOptions,
+
+    ) : GroupService.WithRawResponse {
 
         private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
-        private val retrieveHandler: Handler<Group> =
-            jsonHandler<Group>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val retrieveHandler: Handler<Group> = jsonHandler<Group>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-        override fun retrieve(
-            params: GroupRetrieveParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<Group> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .addPathSegments("groups", "current")
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
-                response
-                    .use { retrieveHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override fun retrieve(params: GroupRetrieveParams, requestOptions: RequestOptions): HttpResponseFor<Group> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.GET)
+            .addPathSegments("groups", "current")
+            .build()
+            .prepare(clientOptions, params)
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return response.parseable {
+              response.use {
+                  retrieveHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
     }
 }

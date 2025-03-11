@@ -23,51 +23,28 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Accounts are your bank accounts with Increase. They store money, receive transfers, and send
- * payments. They earn interest and have depository insurance.
+ * Accounts are your bank accounts with Increase. They store money, receive
+ * transfers, and send payments. They earn interest and have depository insurance.
  */
 @NoAutoDetect
-class Account
-@JsonCreator
-private constructor(
+class Account @JsonCreator private constructor(
     @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("bank") @ExcludeMissing private val bank: JsonField<Bank> = JsonMissing.of(),
-    @JsonProperty("closed_at")
-    @ExcludeMissing
-    private val closedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("created_at")
-    @ExcludeMissing
-    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("currency")
-    @ExcludeMissing
-    private val currency: JsonField<Currency> = JsonMissing.of(),
-    @JsonProperty("entity_id")
-    @ExcludeMissing
-    private val entityId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("idempotency_key")
-    @ExcludeMissing
-    private val idempotencyKey: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("informational_entity_id")
-    @ExcludeMissing
-    private val informationalEntityId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("interest_accrued")
-    @ExcludeMissing
-    private val interestAccrued: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("interest_accrued_at")
-    @ExcludeMissing
-    private val interestAccruedAt: JsonField<LocalDate> = JsonMissing.of(),
-    @JsonProperty("interest_rate")
-    @ExcludeMissing
-    private val interestRate: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("closed_at") @ExcludeMissing private val closedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("created_at") @ExcludeMissing private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("currency") @ExcludeMissing private val currency: JsonField<Currency> = JsonMissing.of(),
+    @JsonProperty("entity_id") @ExcludeMissing private val entityId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("idempotency_key") @ExcludeMissing private val idempotencyKey: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("informational_entity_id") @ExcludeMissing private val informationalEntityId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("interest_accrued") @ExcludeMissing private val interestAccrued: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("interest_accrued_at") @ExcludeMissing private val interestAccruedAt: JsonField<LocalDate> = JsonMissing.of(),
+    @JsonProperty("interest_rate") @ExcludeMissing private val interestRate: JsonField<String> = JsonMissing.of(),
     @JsonProperty("name") @ExcludeMissing private val name: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("program_id")
-    @ExcludeMissing
-    private val programId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("status")
-    @ExcludeMissing
-    private val status: JsonField<Status> = JsonMissing.of(),
+    @JsonProperty("program_id") @ExcludeMissing private val programId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("status") @ExcludeMissing private val status: JsonField<Status> = JsonMissing.of(),
     @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+
 ) {
 
     /** The Account identifier. */
@@ -77,53 +54,55 @@ private constructor(
     fun bank(): Bank = bank.getRequired("bank")
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account was closed.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account
+     * was closed.
      */
-    fun closedAt(): Optional<OffsetDateTime> =
-        Optional.ofNullable(closedAt.getNullable("closed_at"))
+    fun closedAt(): Optional<OffsetDateTime> = Optional.ofNullable(closedAt.getNullable("closed_at"))
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account was created.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account
+     * was created.
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
-    /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the Account currency. */
+    /**
+     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the Account
+     * currency.
+     */
     fun currency(): Currency = currency.getRequired("currency")
 
     /** The identifier for the Entity the Account belongs to. */
     fun entityId(): Optional<String> = Optional.ofNullable(entityId.getNullable("entity_id"))
 
     /**
-     * The idempotency key you chose for this object. This value is unique across Increase and is
-     * used to ensure that a request is only processed once. Learn more about
-     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     * The idempotency key you chose for this object. This value is unique across
+     * Increase and is used to ensure that a request is only processed once. Learn more
+     * about [idempotency](https://increase.com/documentation/idempotency-keys).
      */
-    fun idempotencyKey(): Optional<String> =
-        Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
+    fun idempotencyKey(): Optional<String> = Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
 
     /**
-     * The identifier of an Entity that, while not owning the Account, is associated with its
-     * activity.
+     * The identifier of an Entity that, while not owning the Account, is associated
+     * with its activity.
      */
-    fun informationalEntityId(): Optional<String> =
-        Optional.ofNullable(informationalEntityId.getNullable("informational_entity_id"))
+    fun informationalEntityId(): Optional<String> = Optional.ofNullable(informationalEntityId.getNullable("informational_entity_id"))
 
     /**
-     * The interest accrued but not yet paid, expressed as a string containing a floating-point
-     * value.
+     * The interest accrued but not yet paid, expressed as a string containing a
+     * floating-point value.
      */
     fun interestAccrued(): String = interestAccrued.getRequired("interest_accrued")
 
     /**
-     * The latest [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date on which interest was
-     * accrued.
+     * The latest [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date on which
+     * interest was accrued.
      */
-    fun interestAccruedAt(): Optional<LocalDate> =
-        Optional.ofNullable(interestAccruedAt.getNullable("interest_accrued_at"))
+    fun interestAccruedAt(): Optional<LocalDate> = Optional.ofNullable(interestAccruedAt.getNullable("interest_accrued_at"))
 
     /**
-     * The Interest Rate currently being earned on the account, as a string containing a decimal
-     * number. For example, a 1% interest rate would be represented as "0.01".
+     * The Interest Rate currently being earned on the account, as a string containing
+     * a decimal number. For example, a 1% interest rate would be represented as
+     * "0.01".
      */
     fun interestRate(): String = interestRate.getRequired("interest_rate")
 
@@ -131,96 +110,126 @@ private constructor(
     fun name(): String = name.getRequired("name")
 
     /**
-     * The identifier of the Program determining the compliance and commercial terms of this
-     * Account.
+     * The identifier of the Program determining the compliance and commercial terms of
+     * this Account.
      */
     fun programId(): String = programId.getRequired("program_id")
 
     /** The status of the Account. */
     fun status(): Status = status.getRequired("status")
 
-    /** A constant representing the object's type. For this resource it will always be `account`. */
+    /**
+     * A constant representing the object's type. For this resource it will always be
+     * `account`.
+     */
     fun type(): Type = type.getRequired("type")
 
     /** The Account identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+    @JsonProperty("id")
+    @ExcludeMissing
+    fun _id(): JsonField<String> = id
 
     /** The bank the Account is with. */
-    @JsonProperty("bank") @ExcludeMissing fun _bank(): JsonField<Bank> = bank
+    @JsonProperty("bank")
+    @ExcludeMissing
+    fun _bank(): JsonField<Bank> = bank
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account was closed.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account
+     * was closed.
      */
-    @JsonProperty("closed_at") @ExcludeMissing fun _closedAt(): JsonField<OffsetDateTime> = closedAt
+    @JsonProperty("closed_at")
+    @ExcludeMissing
+    fun _closedAt(): JsonField<OffsetDateTime> = closedAt
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account was created.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account
+     * was created.
      */
     @JsonProperty("created_at")
     @ExcludeMissing
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
-    /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the Account currency. */
-    @JsonProperty("currency") @ExcludeMissing fun _currency(): JsonField<Currency> = currency
+    /**
+     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the Account
+     * currency.
+     */
+    @JsonProperty("currency")
+    @ExcludeMissing
+    fun _currency(): JsonField<Currency> = currency
 
     /** The identifier for the Entity the Account belongs to. */
-    @JsonProperty("entity_id") @ExcludeMissing fun _entityId(): JsonField<String> = entityId
+    @JsonProperty("entity_id")
+    @ExcludeMissing
+    fun _entityId(): JsonField<String> = entityId
 
     /**
-     * The idempotency key you chose for this object. This value is unique across Increase and is
-     * used to ensure that a request is only processed once. Learn more about
-     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     * The idempotency key you chose for this object. This value is unique across
+     * Increase and is used to ensure that a request is only processed once. Learn more
+     * about [idempotency](https://increase.com/documentation/idempotency-keys).
      */
     @JsonProperty("idempotency_key")
     @ExcludeMissing
     fun _idempotencyKey(): JsonField<String> = idempotencyKey
 
     /**
-     * The identifier of an Entity that, while not owning the Account, is associated with its
-     * activity.
+     * The identifier of an Entity that, while not owning the Account, is associated
+     * with its activity.
      */
     @JsonProperty("informational_entity_id")
     @ExcludeMissing
     fun _informationalEntityId(): JsonField<String> = informationalEntityId
 
     /**
-     * The interest accrued but not yet paid, expressed as a string containing a floating-point
-     * value.
+     * The interest accrued but not yet paid, expressed as a string containing a
+     * floating-point value.
      */
     @JsonProperty("interest_accrued")
     @ExcludeMissing
     fun _interestAccrued(): JsonField<String> = interestAccrued
 
     /**
-     * The latest [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date on which interest was
-     * accrued.
+     * The latest [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date on which
+     * interest was accrued.
      */
     @JsonProperty("interest_accrued_at")
     @ExcludeMissing
     fun _interestAccruedAt(): JsonField<LocalDate> = interestAccruedAt
 
     /**
-     * The Interest Rate currently being earned on the account, as a string containing a decimal
-     * number. For example, a 1% interest rate would be represented as "0.01".
+     * The Interest Rate currently being earned on the account, as a string containing
+     * a decimal number. For example, a 1% interest rate would be represented as
+     * "0.01".
      */
     @JsonProperty("interest_rate")
     @ExcludeMissing
     fun _interestRate(): JsonField<String> = interestRate
 
     /** The name you choose for the Account. */
-    @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+    @JsonProperty("name")
+    @ExcludeMissing
+    fun _name(): JsonField<String> = name
 
     /**
-     * The identifier of the Program determining the compliance and commercial terms of this
-     * Account.
+     * The identifier of the Program determining the compliance and commercial terms of
+     * this Account.
      */
-    @JsonProperty("program_id") @ExcludeMissing fun _programId(): JsonField<String> = programId
+    @JsonProperty("program_id")
+    @ExcludeMissing
+    fun _programId(): JsonField<String> = programId
 
     /** The status of the Account. */
-    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
+    @JsonProperty("status")
+    @ExcludeMissing
+    fun _status(): JsonField<Status> = status
 
-    /** A constant representing the object's type. For this resource it will always be `account`. */
-    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
+    /**
+     * A constant representing the object's type. For this resource it will always be
+     * `account`.
+     */
+    @JsonProperty("type")
+    @ExcludeMissing
+    fun _type(): JsonField<Type> = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -228,28 +237,29 @@ private constructor(
 
     private var validated: Boolean = false
 
-    fun validate(): Account = apply {
-        if (validated) {
-            return@apply
-        }
+    fun validate(): Account =
+        apply {
+            if (validated) {
+              return@apply
+            }
 
-        id()
-        bank()
-        closedAt()
-        createdAt()
-        currency()
-        entityId()
-        idempotencyKey()
-        informationalEntityId()
-        interestAccrued()
-        interestAccruedAt()
-        interestRate()
-        name()
-        programId()
-        status()
-        type()
-        validated = true
-    }
+            id()
+            bank()
+            closedAt()
+            createdAt()
+            currency()
+            entityId()
+            idempotencyKey()
+            informationalEntityId()
+            interestAccrued()
+            interestAccruedAt()
+            interestRate()
+            name()
+            programId()
+            status()
+            type()
+            validated = true
+        }
 
     fun toBuilder() = Builder().from(this)
 
@@ -259,6 +269,7 @@ private constructor(
          * Returns a mutable builder for constructing an instance of [Account].
          *
          * The following fields are required:
+         *
          * ```java
          * .id()
          * .bank()
@@ -277,7 +288,8 @@ private constructor(
          * .type()
          * ```
          */
-        @JvmStatic fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
     /** A builder for [Account]. */
@@ -301,72 +313,94 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(account: Account) = apply {
-            id = account.id
-            bank = account.bank
-            closedAt = account.closedAt
-            createdAt = account.createdAt
-            currency = account.currency
-            entityId = account.entityId
-            idempotencyKey = account.idempotencyKey
-            informationalEntityId = account.informationalEntityId
-            interestAccrued = account.interestAccrued
-            interestAccruedAt = account.interestAccruedAt
-            interestRate = account.interestRate
-            name = account.name
-            programId = account.programId
-            status = account.status
-            type = account.type
-            additionalProperties = account.additionalProperties.toMutableMap()
-        }
+        internal fun from(account: Account) =
+            apply {
+                id = account.id
+                bank = account.bank
+                closedAt = account.closedAt
+                createdAt = account.createdAt
+                currency = account.currency
+                entityId = account.entityId
+                idempotencyKey = account.idempotencyKey
+                informationalEntityId = account.informationalEntityId
+                interestAccrued = account.interestAccrued
+                interestAccruedAt = account.interestAccruedAt
+                interestRate = account.interestRate
+                name = account.name
+                programId = account.programId
+                status = account.status
+                type = account.type
+                additionalProperties = account.additionalProperties.toMutableMap()
+            }
 
         /** The Account identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
         /** The Account identifier. */
-        fun id(id: JsonField<String>) = apply { this.id = id }
+        fun id(id: JsonField<String>) =
+            apply {
+                this.id = id
+            }
 
         /** The bank the Account is with. */
         fun bank(bank: Bank) = bank(JsonField.of(bank))
 
         /** The bank the Account is with. */
-        fun bank(bank: JsonField<Bank>) = apply { this.bank = bank }
+        fun bank(bank: JsonField<Bank>) =
+            apply {
+                this.bank = bank
+            }
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account was
-         * closed.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account
+         * was closed.
          */
         fun closedAt(closedAt: OffsetDateTime?) = closedAt(JsonField.ofNullable(closedAt))
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account was
-         * closed.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account
+         * was closed.
          */
         fun closedAt(closedAt: Optional<OffsetDateTime>) = closedAt(closedAt.getOrNull())
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account was
-         * closed.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account
+         * was closed.
          */
-        fun closedAt(closedAt: JsonField<OffsetDateTime>) = apply { this.closedAt = closedAt }
+        fun closedAt(closedAt: JsonField<OffsetDateTime>) =
+            apply {
+                this.closedAt = closedAt
+            }
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account was
-         * created.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account
+         * was created.
          */
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account was
-         * created.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account
+         * was created.
          */
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) =
+            apply {
+                this.createdAt = createdAt
+            }
 
-        /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the Account currency. */
+        /**
+         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the Account
+         * currency.
+         */
         fun currency(currency: Currency) = currency(JsonField.of(currency))
 
-        /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the Account currency. */
-        fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
+        /**
+         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the Account
+         * currency.
+         */
+        fun currency(currency: JsonField<Currency>) =
+            apply {
+                this.currency = currency
+            }
 
         /** The identifier for the Entity the Account belongs to. */
         fun entityId(entityId: String?) = entityId(JsonField.ofNullable(entityId))
@@ -375,192 +409,250 @@ private constructor(
         fun entityId(entityId: Optional<String>) = entityId(entityId.getOrNull())
 
         /** The identifier for the Entity the Account belongs to. */
-        fun entityId(entityId: JsonField<String>) = apply { this.entityId = entityId }
+        fun entityId(entityId: JsonField<String>) =
+            apply {
+                this.entityId = entityId
+            }
 
         /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         * The idempotency key you chose for this object. This value is unique across
+         * Increase and is used to ensure that a request is only processed once. Learn more
+         * about [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        fun idempotencyKey(idempotencyKey: String?) =
-            idempotencyKey(JsonField.ofNullable(idempotencyKey))
+        fun idempotencyKey(idempotencyKey: String?) = idempotencyKey(JsonField.ofNullable(idempotencyKey))
 
         /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         * The idempotency key you chose for this object. This value is unique across
+         * Increase and is used to ensure that a request is only processed once. Learn more
+         * about [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        fun idempotencyKey(idempotencyKey: Optional<String>) =
-            idempotencyKey(idempotencyKey.getOrNull())
+        fun idempotencyKey(idempotencyKey: Optional<String>) = idempotencyKey(idempotencyKey.getOrNull())
 
         /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         * The idempotency key you chose for this object. This value is unique across
+         * Increase and is used to ensure that a request is only processed once. Learn more
+         * about [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
-            this.idempotencyKey = idempotencyKey
-        }
+        fun idempotencyKey(idempotencyKey: JsonField<String>) =
+            apply {
+                this.idempotencyKey = idempotencyKey
+            }
 
         /**
-         * The identifier of an Entity that, while not owning the Account, is associated with its
-         * activity.
+         * The identifier of an Entity that, while not owning the Account, is associated
+         * with its activity.
          */
-        fun informationalEntityId(informationalEntityId: String?) =
-            informationalEntityId(JsonField.ofNullable(informationalEntityId))
+        fun informationalEntityId(informationalEntityId: String?) = informationalEntityId(JsonField.ofNullable(informationalEntityId))
 
         /**
-         * The identifier of an Entity that, while not owning the Account, is associated with its
-         * activity.
+         * The identifier of an Entity that, while not owning the Account, is associated
+         * with its activity.
          */
-        fun informationalEntityId(informationalEntityId: Optional<String>) =
-            informationalEntityId(informationalEntityId.getOrNull())
+        fun informationalEntityId(informationalEntityId: Optional<String>) = informationalEntityId(informationalEntityId.getOrNull())
 
         /**
-         * The identifier of an Entity that, while not owning the Account, is associated with its
-         * activity.
+         * The identifier of an Entity that, while not owning the Account, is associated
+         * with its activity.
          */
-        fun informationalEntityId(informationalEntityId: JsonField<String>) = apply {
-            this.informationalEntityId = informationalEntityId
-        }
+        fun informationalEntityId(informationalEntityId: JsonField<String>) =
+            apply {
+                this.informationalEntityId = informationalEntityId
+            }
 
         /**
-         * The interest accrued but not yet paid, expressed as a string containing a floating-point
-         * value.
+         * The interest accrued but not yet paid, expressed as a string containing a
+         * floating-point value.
          */
-        fun interestAccrued(interestAccrued: String) =
-            interestAccrued(JsonField.of(interestAccrued))
+        fun interestAccrued(interestAccrued: String) = interestAccrued(JsonField.of(interestAccrued))
 
         /**
-         * The interest accrued but not yet paid, expressed as a string containing a floating-point
-         * value.
+         * The interest accrued but not yet paid, expressed as a string containing a
+         * floating-point value.
          */
-        fun interestAccrued(interestAccrued: JsonField<String>) = apply {
-            this.interestAccrued = interestAccrued
-        }
+        fun interestAccrued(interestAccrued: JsonField<String>) =
+            apply {
+                this.interestAccrued = interestAccrued
+            }
 
         /**
-         * The latest [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date on which interest was
-         * accrued.
+         * The latest [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date on which
+         * interest was accrued.
          */
-        fun interestAccruedAt(interestAccruedAt: LocalDate?) =
-            interestAccruedAt(JsonField.ofNullable(interestAccruedAt))
+        fun interestAccruedAt(interestAccruedAt: LocalDate?) = interestAccruedAt(JsonField.ofNullable(interestAccruedAt))
 
         /**
-         * The latest [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date on which interest was
-         * accrued.
+         * The latest [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date on which
+         * interest was accrued.
          */
-        fun interestAccruedAt(interestAccruedAt: Optional<LocalDate>) =
-            interestAccruedAt(interestAccruedAt.getOrNull())
+        fun interestAccruedAt(interestAccruedAt: Optional<LocalDate>) = interestAccruedAt(interestAccruedAt.getOrNull())
 
         /**
-         * The latest [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date on which interest was
-         * accrued.
+         * The latest [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date on which
+         * interest was accrued.
          */
-        fun interestAccruedAt(interestAccruedAt: JsonField<LocalDate>) = apply {
-            this.interestAccruedAt = interestAccruedAt
-        }
+        fun interestAccruedAt(interestAccruedAt: JsonField<LocalDate>) =
+            apply {
+                this.interestAccruedAt = interestAccruedAt
+            }
 
         /**
-         * The Interest Rate currently being earned on the account, as a string containing a decimal
-         * number. For example, a 1% interest rate would be represented as "0.01".
+         * The Interest Rate currently being earned on the account, as a string containing
+         * a decimal number. For example, a 1% interest rate would be represented as
+         * "0.01".
          */
         fun interestRate(interestRate: String) = interestRate(JsonField.of(interestRate))
 
         /**
-         * The Interest Rate currently being earned on the account, as a string containing a decimal
-         * number. For example, a 1% interest rate would be represented as "0.01".
+         * The Interest Rate currently being earned on the account, as a string containing
+         * a decimal number. For example, a 1% interest rate would be represented as
+         * "0.01".
          */
-        fun interestRate(interestRate: JsonField<String>) = apply {
-            this.interestRate = interestRate
-        }
+        fun interestRate(interestRate: JsonField<String>) =
+            apply {
+                this.interestRate = interestRate
+            }
 
         /** The name you choose for the Account. */
         fun name(name: String) = name(JsonField.of(name))
 
         /** The name you choose for the Account. */
-        fun name(name: JsonField<String>) = apply { this.name = name }
+        fun name(name: JsonField<String>) =
+            apply {
+                this.name = name
+            }
 
         /**
-         * The identifier of the Program determining the compliance and commercial terms of this
-         * Account.
+         * The identifier of the Program determining the compliance and commercial terms of
+         * this Account.
          */
         fun programId(programId: String) = programId(JsonField.of(programId))
 
         /**
-         * The identifier of the Program determining the compliance and commercial terms of this
-         * Account.
+         * The identifier of the Program determining the compliance and commercial terms of
+         * this Account.
          */
-        fun programId(programId: JsonField<String>) = apply { this.programId = programId }
+        fun programId(programId: JsonField<String>) =
+            apply {
+                this.programId = programId
+            }
 
         /** The status of the Account. */
         fun status(status: Status) = status(JsonField.of(status))
 
         /** The status of the Account. */
-        fun status(status: JsonField<Status>) = apply { this.status = status }
+        fun status(status: JsonField<Status>) =
+            apply {
+                this.status = status
+            }
 
         /**
-         * A constant representing the object's type. For this resource it will always be `account`.
+         * A constant representing the object's type. For this resource it will always be
+         * `account`.
          */
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
-         * A constant representing the object's type. For this resource it will always be `account`.
+         * A constant representing the object's type. For this resource it will always be
+         * `account`.
          */
-        fun type(type: JsonField<Type>) = apply { this.type = type }
+        fun type(type: JsonField<Type>) =
+            apply {
+                this.type = type
+            }
 
-        fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-            this.additionalProperties.clear()
-            putAllAdditionalProperties(additionalProperties)
-        }
+        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
 
-        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            additionalProperties.put(key, value)
-        }
+        fun putAdditionalProperty(key: String, value: JsonValue) =
+            apply {
+                additionalProperties.put(key, value)
+            }
 
-        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-            this.additionalProperties.putAll(additionalProperties)
-        }
+        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
 
-        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+        fun removeAdditionalProperty(key: String) =
+            apply {
+                additionalProperties.remove(key)
+            }
 
-        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalProperty)
-        }
+        fun removeAllAdditionalProperties(keys: Set<String>) =
+            apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
 
         fun build(): Account =
             Account(
-                checkRequired("id", id),
-                checkRequired("bank", bank),
-                checkRequired("closedAt", closedAt),
-                checkRequired("createdAt", createdAt),
-                checkRequired("currency", currency),
-                checkRequired("entityId", entityId),
-                checkRequired("idempotencyKey", idempotencyKey),
-                checkRequired("informationalEntityId", informationalEntityId),
-                checkRequired("interestAccrued", interestAccrued),
-                checkRequired("interestAccruedAt", interestAccruedAt),
-                checkRequired("interestRate", interestRate),
-                checkRequired("name", name),
-                checkRequired("programId", programId),
-                checkRequired("status", status),
-                checkRequired("type", type),
-                additionalProperties.toImmutable(),
+              checkRequired(
+                "id", id
+              ),
+              checkRequired(
+                "bank", bank
+              ),
+              checkRequired(
+                "closedAt", closedAt
+              ),
+              checkRequired(
+                "createdAt", createdAt
+              ),
+              checkRequired(
+                "currency", currency
+              ),
+              checkRequired(
+                "entityId", entityId
+              ),
+              checkRequired(
+                "idempotencyKey", idempotencyKey
+              ),
+              checkRequired(
+                "informationalEntityId", informationalEntityId
+              ),
+              checkRequired(
+                "interestAccrued", interestAccrued
+              ),
+              checkRequired(
+                "interestAccruedAt", interestAccruedAt
+              ),
+              checkRequired(
+                "interestRate", interestRate
+              ),
+              checkRequired(
+                "name", name
+              ),
+              checkRequired(
+                "programId", programId
+              ),
+              checkRequired(
+                "status", status
+              ),
+              checkRequired(
+                "type", type
+              ),
+              additionalProperties.toImmutable(),
             )
     }
 
     /** The bank the Account is with. */
-    class Bank @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+    class Bank @JsonCreator private constructor(
+        private val value: JsonField<String>,
+
+    ) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
+         * This is usually only useful if this instance was deserialized from data that
+         * doesn't match any known member, and you want to know that value. For example, if
+         * the SDK is on an older version than the API, then the API may respond with new
+         * members that the SDK is unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -590,9 +682,11 @@ private constructor(
          * An enum containing [Bank]'s known values, as well as an [_UNKNOWN] member.
          *
          * An instance of [Bank] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
+         *
+         * - It was deserialized from data that doesn't match any known member. For
+         *   example, if the SDK is on an older version than the API, then the API may
+         *   respond with new members that the SDK is unaware of.
+         *
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
@@ -607,11 +701,11 @@ private constructor(
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or
+         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if
+         * you want to throw for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -624,11 +718,11 @@ private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and
+         * don't want to throw for the unknown case.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
-         *   member.
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a
+         * known member.
          */
         fun known(): Known =
             when (this) {
@@ -641,23 +735,20 @@ private constructor(
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for
+         * debugging and generally doesn't throw.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value does not have the
-         *   expected primitive type.
+         * @throws IncreaseInvalidDataException if this class instance's value does not
+         * have the expected primitive type.
          */
-        fun asString(): String =
-            _value().asString().orElseThrow {
-                IncreaseInvalidDataException("Value is not a String")
-            }
+        fun asString(): String = _value().asString().orElseThrow { IncreaseInvalidDataException("Value is not a String") }
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return /* spotless:off */ other is Bank && value == other.value /* spotless:on */
+          return /* spotless:off */ other is Bank && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -665,18 +756,25 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the Account currency. */
-    class Currency @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+    /**
+     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the Account
+     * currency.
+     */
+    class Currency @JsonCreator private constructor(
+        private val value: JsonField<String>,
+
+    ) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
+         * This is usually only useful if this instance was deserialized from data that
+         * doesn't match any known member, and you want to know that value. For example, if
+         * the SDK is on an older version than the API, then the API may respond with new
+         * members that the SDK is unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -721,9 +819,11 @@ private constructor(
          * An enum containing [Currency]'s known values, as well as an [_UNKNOWN] member.
          *
          * An instance of [Currency] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
+         *
+         * - It was deserialized from data that doesn't match any known member. For
+         *   example, if the SDK is on an older version than the API, then the API may
+         *   respond with new members that the SDK is unaware of.
+         *
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
@@ -739,16 +839,19 @@ private constructor(
             JPY,
             /** US Dollar (USD) */
             USD,
-            /** An enum member indicating that [Currency] was instantiated with an unknown value. */
+            /**
+             * An enum member indicating that [Currency] was instantiated with an unknown
+             * value.
+             */
             _UNKNOWN,
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or
+         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if
+         * you want to throw for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -764,11 +867,11 @@ private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and
+         * don't want to throw for the unknown case.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
-         *   member.
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a
+         * known member.
          */
         fun known(): Known =
             when (this) {
@@ -784,23 +887,20 @@ private constructor(
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for
+         * debugging and generally doesn't throw.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value does not have the
-         *   expected primitive type.
+         * @throws IncreaseInvalidDataException if this class instance's value does not
+         * have the expected primitive type.
          */
-        fun asString(): String =
-            _value().asString().orElseThrow {
-                IncreaseInvalidDataException("Value is not a String")
-            }
+        fun asString(): String = _value().asString().orElseThrow { IncreaseInvalidDataException("Value is not a String") }
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return /* spotless:off */ other is Currency && value == other.value /* spotless:on */
+          return /* spotless:off */ other is Currency && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -809,17 +909,21 @@ private constructor(
     }
 
     /** The status of the Account. */
-    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+    class Status @JsonCreator private constructor(
+        private val value: JsonField<String>,
+
+    ) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
+         * This is usually only useful if this instance was deserialized from data that
+         * doesn't match any known member, and you want to know that value. For example, if
+         * the SDK is on an older version than the API, then the API may respond with new
+         * members that the SDK is unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -844,9 +948,11 @@ private constructor(
          * An enum containing [Status]'s known values, as well as an [_UNKNOWN] member.
          *
          * An instance of [Status] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
+         *
+         * - It was deserialized from data that doesn't match any known member. For
+         *   example, if the SDK is on an older version than the API, then the API may
+         *   respond with new members that the SDK is unaware of.
+         *
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
@@ -859,11 +965,11 @@ private constructor(
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or
+         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if
+         * you want to throw for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -875,11 +981,11 @@ private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and
+         * don't want to throw for the unknown case.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
-         *   member.
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a
+         * known member.
          */
         fun known(): Known =
             when (this) {
@@ -891,23 +997,20 @@ private constructor(
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for
+         * debugging and generally doesn't throw.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value does not have the
-         *   expected primitive type.
+         * @throws IncreaseInvalidDataException if this class instance's value does not
+         * have the expected primitive type.
          */
-        fun asString(): String =
-            _value().asString().orElseThrow {
-                IncreaseInvalidDataException("Value is not a String")
-            }
+        fun asString(): String = _value().asString().orElseThrow { IncreaseInvalidDataException("Value is not a String") }
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
+          return /* spotless:off */ other is Status && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -915,18 +1018,25 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    /** A constant representing the object's type. For this resource it will always be `account`. */
-    class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+    /**
+     * A constant representing the object's type. For this resource it will always be
+     * `account`.
+     */
+    class Type @JsonCreator private constructor(
+        private val value: JsonField<String>,
+
+    ) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
+         * This is usually only useful if this instance was deserialized from data that
+         * doesn't match any known member, and you want to know that value. For example, if
+         * the SDK is on an older version than the API, then the API may respond with new
+         * members that the SDK is unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -937,16 +1047,18 @@ private constructor(
 
         /** An enum containing [Type]'s known values. */
         enum class Known {
-            ACCOUNT
+            ACCOUNT,
         }
 
         /**
          * An enum containing [Type]'s known values, as well as an [_UNKNOWN] member.
          *
          * An instance of [Type] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
+         *
+         * - It was deserialized from data that doesn't match any known member. For
+         *   example, if the SDK is on an older version than the API, then the API may
+         *   respond with new members that the SDK is unaware of.
+         *
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
@@ -956,11 +1068,11 @@ private constructor(
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or
+         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if
+         * you want to throw for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -971,11 +1083,11 @@ private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and
+         * don't want to throw for the unknown case.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
-         *   member.
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a
+         * known member.
          */
         fun known(): Known =
             when (this) {
@@ -986,23 +1098,20 @@ private constructor(
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for
+         * debugging and generally doesn't throw.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value does not have the
-         *   expected primitive type.
+         * @throws IncreaseInvalidDataException if this class instance's value does not
+         * have the expected primitive type.
          */
-        fun asString(): String =
-            _value().asString().orElseThrow {
-                IncreaseInvalidDataException("Value is not a String")
-            }
+        fun asString(): String = _value().asString().orElseThrow { IncreaseInvalidDataException("Value is not a String") }
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
+          return /* spotless:off */ other is Type && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -1011,11 +1120,11 @@ private constructor(
     }
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return /* spotless:off */ other is Account && id == other.id && bank == other.bank && closedAt == other.closedAt && createdAt == other.createdAt && currency == other.currency && entityId == other.entityId && idempotencyKey == other.idempotencyKey && informationalEntityId == other.informationalEntityId && interestAccrued == other.interestAccrued && interestAccruedAt == other.interestAccruedAt && interestRate == other.interestRate && name == other.name && programId == other.programId && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+      return /* spotless:off */ other is Account && id == other.id && bank == other.bank && closedAt == other.closedAt && createdAt == other.createdAt && currency == other.currency && entityId == other.entityId && idempotencyKey == other.idempotencyKey && informationalEntityId == other.informationalEntityId && interestAccrued == other.interestAccrued && interestAccruedAt == other.interestAccruedAt && interestRate == other.interestRate && name == other.name && programId == other.programId && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
@@ -1024,6 +1133,5 @@ private constructor(
 
     override fun hashCode(): Int = hashCode
 
-    override fun toString() =
-        "Account{id=$id, bank=$bank, closedAt=$closedAt, createdAt=$createdAt, currency=$currency, entityId=$entityId, idempotencyKey=$idempotencyKey, informationalEntityId=$informationalEntityId, interestAccrued=$interestAccrued, interestAccruedAt=$interestAccruedAt, interestRate=$interestRate, name=$name, programId=$programId, status=$status, type=$type, additionalProperties=$additionalProperties}"
+    override fun toString() = "Account{id=$id, bank=$bank, closedAt=$closedAt, createdAt=$createdAt, currency=$currency, entityId=$entityId, idempotencyKey=$idempotencyKey, informationalEntityId=$informationalEntityId, interestAccrued=$interestAccrued, interestAccruedAt=$interestAccruedAt, interestRate=$interestRate, name=$name, programId=$programId, status=$status, type=$type, additionalProperties=$additionalProperties}"
 }

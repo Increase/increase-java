@@ -12,41 +12,38 @@ import java.util.concurrent.CompletableFuture
 interface InboundWireTransferServiceAsync {
 
     /**
-     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     * Returns a view of this service that provides access to raw HTTP responses for
+     * each method.
      */
     fun withRawResponse(): WithRawResponse
 
     /** Simulates an [Inbound Wire Transfer](#inbound-wire-transfers) to your account. */
     fun create(params: InboundWireTransferCreateParams): CompletableFuture<InboundWireTransfer> =
-        create(params, RequestOptions.none())
+        create(
+          params, RequestOptions.none()
+        )
 
     /** @see [create] */
-    fun create(
-        params: InboundWireTransferCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<InboundWireTransfer>
+    fun create(params: InboundWireTransferCreateParams, requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<InboundWireTransfer>
 
     /**
-     * A view of [InboundWireTransferServiceAsync] that provides access to raw HTTP responses for
-     * each method.
+     * A view of [InboundWireTransferServiceAsync] that provides access to raw HTTP
+     * responses for each method.
      */
     interface WithRawResponse {
 
         /**
-         * Returns a raw HTTP response for `post /simulations/inbound_wire_transfers`, but is
-         * otherwise the same as [InboundWireTransferServiceAsync.create].
+         * Returns a raw HTTP response for `post /simulations/inbound_wire_transfers`, but
+         * is otherwise the same as [InboundWireTransferServiceAsync.create].
          */
         @MustBeClosed
-        fun create(
-            params: InboundWireTransferCreateParams
-        ): CompletableFuture<HttpResponseFor<InboundWireTransfer>> =
-            create(params, RequestOptions.none())
+        fun create(params: InboundWireTransferCreateParams): CompletableFuture<HttpResponseFor<InboundWireTransfer>> =
+            create(
+              params, RequestOptions.none()
+            )
 
         /** @see [create] */
         @MustBeClosed
-        fun create(
-            params: InboundWireTransferCreateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<InboundWireTransfer>>
+        fun create(params: InboundWireTransferCreateParams, requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<HttpResponseFor<InboundWireTransfer>>
     }
 }

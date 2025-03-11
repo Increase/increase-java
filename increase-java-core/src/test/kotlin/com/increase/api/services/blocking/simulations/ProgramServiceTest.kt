@@ -13,16 +13,16 @@ class ProgramServiceTest {
 
     @Test
     fun create() {
-        val client =
-            IncreaseOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
-        val programService = client.simulations().programs()
+      val client = IncreaseOkHttpClient.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .build()
+      val programService = client.simulations().programs()
 
-        val program =
-            programService.create(ProgramCreateParams.builder().name("For Benefit Of").build())
+      val program = programService.create(ProgramCreateParams.builder()
+          .name("For Benefit Of")
+          .build())
 
-        program.validate()
+      program.validate()
     }
 }

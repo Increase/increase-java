@@ -13,22 +13,18 @@ class CardSettlementServiceTest {
 
     @Test
     fun create() {
-        val client =
-            IncreaseOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
-        val cardSettlementService = client.simulations().cardSettlements()
+      val client = IncreaseOkHttpClient.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .build()
+      val cardSettlementService = client.simulations().cardSettlements()
 
-        val transaction =
-            cardSettlementService.create(
-                CardSettlementCreateParams.builder()
-                    .cardId("card_oubs0hwk5rn6knuecxg2")
-                    .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")
-                    .amount(1L)
-                    .build()
-            )
+      val transaction = cardSettlementService.create(CardSettlementCreateParams.builder()
+          .cardId("card_oubs0hwk5rn6knuecxg2")
+          .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")
+          .amount(1L)
+          .build())
 
-        transaction.validate()
+      transaction.validate()
     }
 }

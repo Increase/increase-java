@@ -22,64 +22,33 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Information submitted in response to a proof of authorization request. Per Nacha's guidance on
- * proof of authorization, the originator must ensure that the authorization complies with
- * applicable legal requirements, is readily identifiable as an authorization, and has clear and
- * readily understandable terms.
+ * Information submitted in response to a proof of authorization request. Per
+ * Nacha's guidance on proof of authorization, the originator must ensure that the
+ * authorization complies with applicable legal requirements, is readily
+ * identifiable as an authorization, and has clear and readily understandable
+ * terms.
  */
 @NoAutoDetect
-class ProofOfAuthorizationRequestSubmission
-@JsonCreator
-private constructor(
+class ProofOfAuthorizationRequestSubmission @JsonCreator private constructor(
     @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("authorization_terms")
-    @ExcludeMissing
-    private val authorizationTerms: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("authorized_at")
-    @ExcludeMissing
-    private val authorizedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("authorizer_company")
-    @ExcludeMissing
-    private val authorizerCompany: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("authorizer_email")
-    @ExcludeMissing
-    private val authorizerEmail: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("authorizer_ip_address")
-    @ExcludeMissing
-    private val authorizerIpAddress: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("authorizer_name")
-    @ExcludeMissing
-    private val authorizerName: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("created_at")
-    @ExcludeMissing
-    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("customer_has_been_offboarded")
-    @ExcludeMissing
-    private val customerHasBeenOffboarded: JsonField<Boolean> = JsonMissing.of(),
-    @JsonProperty("idempotency_key")
-    @ExcludeMissing
-    private val idempotencyKey: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("proof_of_authorization_request_id")
-    @ExcludeMissing
-    private val proofOfAuthorizationRequestId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("status")
-    @ExcludeMissing
-    private val status: JsonField<Status> = JsonMissing.of(),
+    @JsonProperty("authorization_terms") @ExcludeMissing private val authorizationTerms: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("authorized_at") @ExcludeMissing private val authorizedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("authorizer_company") @ExcludeMissing private val authorizerCompany: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("authorizer_email") @ExcludeMissing private val authorizerEmail: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("authorizer_ip_address") @ExcludeMissing private val authorizerIpAddress: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("authorizer_name") @ExcludeMissing private val authorizerName: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("created_at") @ExcludeMissing private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("customer_has_been_offboarded") @ExcludeMissing private val customerHasBeenOffboarded: JsonField<Boolean> = JsonMissing.of(),
+    @JsonProperty("idempotency_key") @ExcludeMissing private val idempotencyKey: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("proof_of_authorization_request_id") @ExcludeMissing private val proofOfAuthorizationRequestId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("status") @ExcludeMissing private val status: JsonField<Status> = JsonMissing.of(),
     @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
-    @JsonProperty("updated_at")
-    @ExcludeMissing
-    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("validated_account_ownership_via_credential")
-    @ExcludeMissing
-    private val validatedAccountOwnershipViaCredential: JsonField<Boolean> = JsonMissing.of(),
-    @JsonProperty("validated_account_ownership_with_account_statement")
-    @ExcludeMissing
-    private val validatedAccountOwnershipWithAccountStatement: JsonField<Boolean> =
-        JsonMissing.of(),
-    @JsonProperty("validated_account_ownership_with_microdeposit")
-    @ExcludeMissing
-    private val validatedAccountOwnershipWithMicrodeposit: JsonField<Boolean> = JsonMissing.of(),
+    @JsonProperty("updated_at") @ExcludeMissing private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("validated_account_ownership_via_credential") @ExcludeMissing private val validatedAccountOwnershipViaCredential: JsonField<Boolean> = JsonMissing.of(),
+    @JsonProperty("validated_account_ownership_with_account_statement") @ExcludeMissing private val validatedAccountOwnershipWithAccountStatement: JsonField<Boolean> = JsonMissing.of(),
+    @JsonProperty("validated_account_ownership_with_microdeposit") @ExcludeMissing private val validatedAccountOwnershipWithMicrodeposit: JsonField<Boolean> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+
 ) {
 
     /** The Proof of Authorization Request Submission identifier. */
@@ -92,39 +61,32 @@ private constructor(
     fun authorizedAt(): OffsetDateTime = authorizedAt.getRequired("authorized_at")
 
     /** Company of the authorizer. */
-    fun authorizerCompany(): Optional<String> =
-        Optional.ofNullable(authorizerCompany.getNullable("authorizer_company"))
+    fun authorizerCompany(): Optional<String> = Optional.ofNullable(authorizerCompany.getNullable("authorizer_company"))
 
     /** Email of the authorizer. */
-    fun authorizerEmail(): Optional<String> =
-        Optional.ofNullable(authorizerEmail.getNullable("authorizer_email"))
+    fun authorizerEmail(): Optional<String> = Optional.ofNullable(authorizerEmail.getNullable("authorizer_email"))
 
     /** IP address of the authorizer. */
-    fun authorizerIpAddress(): Optional<String> =
-        Optional.ofNullable(authorizerIpAddress.getNullable("authorizer_ip_address"))
+    fun authorizerIpAddress(): Optional<String> = Optional.ofNullable(authorizerIpAddress.getNullable("authorizer_ip_address"))
 
     /** Name of the authorizer. */
-    fun authorizerName(): Optional<String> =
-        Optional.ofNullable(authorizerName.getNullable("authorizer_name"))
+    fun authorizerName(): Optional<String> = Optional.ofNullable(authorizerName.getNullable("authorizer_name"))
 
     /** The time the Proof of Authorization Request Submission was created. */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
     /** Whether the customer has been offboarded. */
-    fun customerHasBeenOffboarded(): Optional<Boolean> =
-        Optional.ofNullable(customerHasBeenOffboarded.getNullable("customer_has_been_offboarded"))
+    fun customerHasBeenOffboarded(): Optional<Boolean> = Optional.ofNullable(customerHasBeenOffboarded.getNullable("customer_has_been_offboarded"))
 
     /**
-     * The idempotency key you chose for this object. This value is unique across Increase and is
-     * used to ensure that a request is only processed once. Learn more about
-     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     * The idempotency key you chose for this object. This value is unique across
+     * Increase and is used to ensure that a request is only processed once. Learn more
+     * about [idempotency](https://increase.com/documentation/idempotency-keys).
      */
-    fun idempotencyKey(): Optional<String> =
-        Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
+    fun idempotencyKey(): Optional<String> = Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
 
     /** ID of the proof of authorization request. */
-    fun proofOfAuthorizationRequestId(): String =
-        proofOfAuthorizationRequestId.getRequired("proof_of_authorization_request_id")
+    fun proofOfAuthorizationRequestId(): String = proofOfAuthorizationRequestId.getRequired("proof_of_authorization_request_id")
 
     /** Status of the proof of authorization request submission. */
     fun status(): Status = status.getRequired("status")
@@ -139,31 +101,18 @@ private constructor(
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
     /** Whether account ownership was validated via credential (for instance, Plaid). */
-    fun validatedAccountOwnershipViaCredential(): Optional<Boolean> =
-        Optional.ofNullable(
-            validatedAccountOwnershipViaCredential.getNullable(
-                "validated_account_ownership_via_credential"
-            )
-        )
+    fun validatedAccountOwnershipViaCredential(): Optional<Boolean> = Optional.ofNullable(validatedAccountOwnershipViaCredential.getNullable("validated_account_ownership_via_credential"))
 
     /** Whether account ownership was validated with an account statement. */
-    fun validatedAccountOwnershipWithAccountStatement(): Optional<Boolean> =
-        Optional.ofNullable(
-            validatedAccountOwnershipWithAccountStatement.getNullable(
-                "validated_account_ownership_with_account_statement"
-            )
-        )
+    fun validatedAccountOwnershipWithAccountStatement(): Optional<Boolean> = Optional.ofNullable(validatedAccountOwnershipWithAccountStatement.getNullable("validated_account_ownership_with_account_statement"))
 
     /** Whether account ownership was validated with microdeposit. */
-    fun validatedAccountOwnershipWithMicrodeposit(): Optional<Boolean> =
-        Optional.ofNullable(
-            validatedAccountOwnershipWithMicrodeposit.getNullable(
-                "validated_account_ownership_with_microdeposit"
-            )
-        )
+    fun validatedAccountOwnershipWithMicrodeposit(): Optional<Boolean> = Optional.ofNullable(validatedAccountOwnershipWithMicrodeposit.getNullable("validated_account_ownership_with_microdeposit"))
 
     /** The Proof of Authorization Request Submission identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+    @JsonProperty("id")
+    @ExcludeMissing
+    fun _id(): JsonField<String> = id
 
     /** Terms of authorization. */
     @JsonProperty("authorization_terms")
@@ -206,9 +155,9 @@ private constructor(
     fun _customerHasBeenOffboarded(): JsonField<Boolean> = customerHasBeenOffboarded
 
     /**
-     * The idempotency key you chose for this object. This value is unique across Increase and is
-     * used to ensure that a request is only processed once. Learn more about
-     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     * The idempotency key you chose for this object. This value is unique across
+     * Increase and is used to ensure that a request is only processed once. Learn more
+     * about [idempotency](https://increase.com/documentation/idempotency-keys).
      */
     @JsonProperty("idempotency_key")
     @ExcludeMissing
@@ -220,13 +169,17 @@ private constructor(
     fun _proofOfAuthorizationRequestId(): JsonField<String> = proofOfAuthorizationRequestId
 
     /** Status of the proof of authorization request submission. */
-    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
+    @JsonProperty("status")
+    @ExcludeMissing
+    fun _status(): JsonField<Status> = status
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `proof_of_authorization_request_submission`.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
+    @JsonProperty("type")
+    @ExcludeMissing
+    fun _type(): JsonField<Type> = type
 
     /** The time the Proof of Authorization Request Submission was last updated. */
     @JsonProperty("updated_at")
@@ -236,20 +189,17 @@ private constructor(
     /** Whether account ownership was validated via credential (for instance, Plaid). */
     @JsonProperty("validated_account_ownership_via_credential")
     @ExcludeMissing
-    fun _validatedAccountOwnershipViaCredential(): JsonField<Boolean> =
-        validatedAccountOwnershipViaCredential
+    fun _validatedAccountOwnershipViaCredential(): JsonField<Boolean> = validatedAccountOwnershipViaCredential
 
     /** Whether account ownership was validated with an account statement. */
     @JsonProperty("validated_account_ownership_with_account_statement")
     @ExcludeMissing
-    fun _validatedAccountOwnershipWithAccountStatement(): JsonField<Boolean> =
-        validatedAccountOwnershipWithAccountStatement
+    fun _validatedAccountOwnershipWithAccountStatement(): JsonField<Boolean> = validatedAccountOwnershipWithAccountStatement
 
     /** Whether account ownership was validated with microdeposit. */
     @JsonProperty("validated_account_ownership_with_microdeposit")
     @ExcludeMissing
-    fun _validatedAccountOwnershipWithMicrodeposit(): JsonField<Boolean> =
-        validatedAccountOwnershipWithMicrodeposit
+    fun _validatedAccountOwnershipWithMicrodeposit(): JsonField<Boolean> = validatedAccountOwnershipWithMicrodeposit
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -257,30 +207,31 @@ private constructor(
 
     private var validated: Boolean = false
 
-    fun validate(): ProofOfAuthorizationRequestSubmission = apply {
-        if (validated) {
-            return@apply
-        }
+    fun validate(): ProofOfAuthorizationRequestSubmission =
+        apply {
+            if (validated) {
+              return@apply
+            }
 
-        id()
-        authorizationTerms()
-        authorizedAt()
-        authorizerCompany()
-        authorizerEmail()
-        authorizerIpAddress()
-        authorizerName()
-        createdAt()
-        customerHasBeenOffboarded()
-        idempotencyKey()
-        proofOfAuthorizationRequestId()
-        status()
-        type()
-        updatedAt()
-        validatedAccountOwnershipViaCredential()
-        validatedAccountOwnershipWithAccountStatement()
-        validatedAccountOwnershipWithMicrodeposit()
-        validated = true
-    }
+            id()
+            authorizationTerms()
+            authorizedAt()
+            authorizerCompany()
+            authorizerEmail()
+            authorizerIpAddress()
+            authorizerName()
+            createdAt()
+            customerHasBeenOffboarded()
+            idempotencyKey()
+            proofOfAuthorizationRequestId()
+            status()
+            type()
+            updatedAt()
+            validatedAccountOwnershipViaCredential()
+            validatedAccountOwnershipWithAccountStatement()
+            validatedAccountOwnershipWithMicrodeposit()
+            validated = true
+        }
 
     fun toBuilder() = Builder().from(this)
 
@@ -291,6 +242,7 @@ private constructor(
          * [ProofOfAuthorizationRequestSubmission].
          *
          * The following fields are required:
+         *
          * ```java
          * .id()
          * .authorizationTerms()
@@ -311,7 +263,8 @@ private constructor(
          * .validatedAccountOwnershipWithMicrodeposit()
          * ```
          */
-        @JvmStatic fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
     /** A builder for [ProofOfAuthorizationRequestSubmission]. */
@@ -337,161 +290,153 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(
-            proofOfAuthorizationRequestSubmission: ProofOfAuthorizationRequestSubmission
-        ) = apply {
-            id = proofOfAuthorizationRequestSubmission.id
-            authorizationTerms = proofOfAuthorizationRequestSubmission.authorizationTerms
-            authorizedAt = proofOfAuthorizationRequestSubmission.authorizedAt
-            authorizerCompany = proofOfAuthorizationRequestSubmission.authorizerCompany
-            authorizerEmail = proofOfAuthorizationRequestSubmission.authorizerEmail
-            authorizerIpAddress = proofOfAuthorizationRequestSubmission.authorizerIpAddress
-            authorizerName = proofOfAuthorizationRequestSubmission.authorizerName
-            createdAt = proofOfAuthorizationRequestSubmission.createdAt
-            customerHasBeenOffboarded =
-                proofOfAuthorizationRequestSubmission.customerHasBeenOffboarded
-            idempotencyKey = proofOfAuthorizationRequestSubmission.idempotencyKey
-            proofOfAuthorizationRequestId =
-                proofOfAuthorizationRequestSubmission.proofOfAuthorizationRequestId
-            status = proofOfAuthorizationRequestSubmission.status
-            type = proofOfAuthorizationRequestSubmission.type
-            updatedAt = proofOfAuthorizationRequestSubmission.updatedAt
-            validatedAccountOwnershipViaCredential =
-                proofOfAuthorizationRequestSubmission.validatedAccountOwnershipViaCredential
-            validatedAccountOwnershipWithAccountStatement =
-                proofOfAuthorizationRequestSubmission.validatedAccountOwnershipWithAccountStatement
-            validatedAccountOwnershipWithMicrodeposit =
-                proofOfAuthorizationRequestSubmission.validatedAccountOwnershipWithMicrodeposit
-            additionalProperties =
-                proofOfAuthorizationRequestSubmission.additionalProperties.toMutableMap()
-        }
+        internal fun from(proofOfAuthorizationRequestSubmission: ProofOfAuthorizationRequestSubmission) =
+            apply {
+                id = proofOfAuthorizationRequestSubmission.id
+                authorizationTerms = proofOfAuthorizationRequestSubmission.authorizationTerms
+                authorizedAt = proofOfAuthorizationRequestSubmission.authorizedAt
+                authorizerCompany = proofOfAuthorizationRequestSubmission.authorizerCompany
+                authorizerEmail = proofOfAuthorizationRequestSubmission.authorizerEmail
+                authorizerIpAddress = proofOfAuthorizationRequestSubmission.authorizerIpAddress
+                authorizerName = proofOfAuthorizationRequestSubmission.authorizerName
+                createdAt = proofOfAuthorizationRequestSubmission.createdAt
+                customerHasBeenOffboarded = proofOfAuthorizationRequestSubmission.customerHasBeenOffboarded
+                idempotencyKey = proofOfAuthorizationRequestSubmission.idempotencyKey
+                proofOfAuthorizationRequestId = proofOfAuthorizationRequestSubmission.proofOfAuthorizationRequestId
+                status = proofOfAuthorizationRequestSubmission.status
+                type = proofOfAuthorizationRequestSubmission.type
+                updatedAt = proofOfAuthorizationRequestSubmission.updatedAt
+                validatedAccountOwnershipViaCredential = proofOfAuthorizationRequestSubmission.validatedAccountOwnershipViaCredential
+                validatedAccountOwnershipWithAccountStatement = proofOfAuthorizationRequestSubmission.validatedAccountOwnershipWithAccountStatement
+                validatedAccountOwnershipWithMicrodeposit = proofOfAuthorizationRequestSubmission.validatedAccountOwnershipWithMicrodeposit
+                additionalProperties = proofOfAuthorizationRequestSubmission.additionalProperties.toMutableMap()
+            }
 
         /** The Proof of Authorization Request Submission identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
         /** The Proof of Authorization Request Submission identifier. */
-        fun id(id: JsonField<String>) = apply { this.id = id }
+        fun id(id: JsonField<String>) =
+            apply {
+                this.id = id
+            }
 
         /** Terms of authorization. */
-        fun authorizationTerms(authorizationTerms: String) =
-            authorizationTerms(JsonField.of(authorizationTerms))
+        fun authorizationTerms(authorizationTerms: String) = authorizationTerms(JsonField.of(authorizationTerms))
 
         /** Terms of authorization. */
-        fun authorizationTerms(authorizationTerms: JsonField<String>) = apply {
-            this.authorizationTerms = authorizationTerms
-        }
+        fun authorizationTerms(authorizationTerms: JsonField<String>) =
+            apply {
+                this.authorizationTerms = authorizationTerms
+            }
 
         /** Time of authorization. */
         fun authorizedAt(authorizedAt: OffsetDateTime) = authorizedAt(JsonField.of(authorizedAt))
 
         /** Time of authorization. */
-        fun authorizedAt(authorizedAt: JsonField<OffsetDateTime>) = apply {
-            this.authorizedAt = authorizedAt
-        }
+        fun authorizedAt(authorizedAt: JsonField<OffsetDateTime>) =
+            apply {
+                this.authorizedAt = authorizedAt
+            }
 
         /** Company of the authorizer. */
-        fun authorizerCompany(authorizerCompany: String?) =
-            authorizerCompany(JsonField.ofNullable(authorizerCompany))
+        fun authorizerCompany(authorizerCompany: String?) = authorizerCompany(JsonField.ofNullable(authorizerCompany))
 
         /** Company of the authorizer. */
-        fun authorizerCompany(authorizerCompany: Optional<String>) =
-            authorizerCompany(authorizerCompany.getOrNull())
+        fun authorizerCompany(authorizerCompany: Optional<String>) = authorizerCompany(authorizerCompany.getOrNull())
 
         /** Company of the authorizer. */
-        fun authorizerCompany(authorizerCompany: JsonField<String>) = apply {
-            this.authorizerCompany = authorizerCompany
-        }
+        fun authorizerCompany(authorizerCompany: JsonField<String>) =
+            apply {
+                this.authorizerCompany = authorizerCompany
+            }
 
         /** Email of the authorizer. */
-        fun authorizerEmail(authorizerEmail: String?) =
-            authorizerEmail(JsonField.ofNullable(authorizerEmail))
+        fun authorizerEmail(authorizerEmail: String?) = authorizerEmail(JsonField.ofNullable(authorizerEmail))
 
         /** Email of the authorizer. */
-        fun authorizerEmail(authorizerEmail: Optional<String>) =
-            authorizerEmail(authorizerEmail.getOrNull())
+        fun authorizerEmail(authorizerEmail: Optional<String>) = authorizerEmail(authorizerEmail.getOrNull())
 
         /** Email of the authorizer. */
-        fun authorizerEmail(authorizerEmail: JsonField<String>) = apply {
-            this.authorizerEmail = authorizerEmail
-        }
+        fun authorizerEmail(authorizerEmail: JsonField<String>) =
+            apply {
+                this.authorizerEmail = authorizerEmail
+            }
 
         /** IP address of the authorizer. */
-        fun authorizerIpAddress(authorizerIpAddress: String?) =
-            authorizerIpAddress(JsonField.ofNullable(authorizerIpAddress))
+        fun authorizerIpAddress(authorizerIpAddress: String?) = authorizerIpAddress(JsonField.ofNullable(authorizerIpAddress))
 
         /** IP address of the authorizer. */
-        fun authorizerIpAddress(authorizerIpAddress: Optional<String>) =
-            authorizerIpAddress(authorizerIpAddress.getOrNull())
+        fun authorizerIpAddress(authorizerIpAddress: Optional<String>) = authorizerIpAddress(authorizerIpAddress.getOrNull())
 
         /** IP address of the authorizer. */
-        fun authorizerIpAddress(authorizerIpAddress: JsonField<String>) = apply {
-            this.authorizerIpAddress = authorizerIpAddress
-        }
+        fun authorizerIpAddress(authorizerIpAddress: JsonField<String>) =
+            apply {
+                this.authorizerIpAddress = authorizerIpAddress
+            }
 
         /** Name of the authorizer. */
-        fun authorizerName(authorizerName: String?) =
-            authorizerName(JsonField.ofNullable(authorizerName))
+        fun authorizerName(authorizerName: String?) = authorizerName(JsonField.ofNullable(authorizerName))
 
         /** Name of the authorizer. */
-        fun authorizerName(authorizerName: Optional<String>) =
-            authorizerName(authorizerName.getOrNull())
+        fun authorizerName(authorizerName: Optional<String>) = authorizerName(authorizerName.getOrNull())
 
         /** Name of the authorizer. */
-        fun authorizerName(authorizerName: JsonField<String>) = apply {
-            this.authorizerName = authorizerName
-        }
+        fun authorizerName(authorizerName: JsonField<String>) =
+            apply {
+                this.authorizerName = authorizerName
+            }
 
         /** The time the Proof of Authorization Request Submission was created. */
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /** The time the Proof of Authorization Request Submission was created. */
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) =
+            apply {
+                this.createdAt = createdAt
+            }
 
         /** Whether the customer has been offboarded. */
-        fun customerHasBeenOffboarded(customerHasBeenOffboarded: Boolean?) =
-            customerHasBeenOffboarded(JsonField.ofNullable(customerHasBeenOffboarded))
+        fun customerHasBeenOffboarded(customerHasBeenOffboarded: Boolean?) = customerHasBeenOffboarded(JsonField.ofNullable(customerHasBeenOffboarded))
 
         /** Whether the customer has been offboarded. */
-        fun customerHasBeenOffboarded(customerHasBeenOffboarded: Boolean) =
-            customerHasBeenOffboarded(customerHasBeenOffboarded as Boolean?)
+        fun customerHasBeenOffboarded(customerHasBeenOffboarded: Boolean) = customerHasBeenOffboarded(customerHasBeenOffboarded as Boolean?)
 
         /** Whether the customer has been offboarded. */
-        fun customerHasBeenOffboarded(customerHasBeenOffboarded: Optional<Boolean>) =
-            customerHasBeenOffboarded(customerHasBeenOffboarded.getOrNull())
+        fun customerHasBeenOffboarded(customerHasBeenOffboarded: Optional<Boolean>) = customerHasBeenOffboarded(customerHasBeenOffboarded.getOrNull())
 
         /** Whether the customer has been offboarded. */
-        fun customerHasBeenOffboarded(customerHasBeenOffboarded: JsonField<Boolean>) = apply {
-            this.customerHasBeenOffboarded = customerHasBeenOffboarded
-        }
+        fun customerHasBeenOffboarded(customerHasBeenOffboarded: JsonField<Boolean>) =
+            apply {
+                this.customerHasBeenOffboarded = customerHasBeenOffboarded
+            }
 
         /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         * The idempotency key you chose for this object. This value is unique across
+         * Increase and is used to ensure that a request is only processed once. Learn more
+         * about [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        fun idempotencyKey(idempotencyKey: String?) =
-            idempotencyKey(JsonField.ofNullable(idempotencyKey))
+        fun idempotencyKey(idempotencyKey: String?) = idempotencyKey(JsonField.ofNullable(idempotencyKey))
 
         /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         * The idempotency key you chose for this object. This value is unique across
+         * Increase and is used to ensure that a request is only processed once. Learn more
+         * about [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        fun idempotencyKey(idempotencyKey: Optional<String>) =
-            idempotencyKey(idempotencyKey.getOrNull())
+        fun idempotencyKey(idempotencyKey: Optional<String>) = idempotencyKey(idempotencyKey.getOrNull())
 
         /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         * The idempotency key you chose for this object. This value is unique across
+         * Increase and is used to ensure that a request is only processed once. Learn more
+         * about [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
-            this.idempotencyKey = idempotencyKey
-        }
+        fun idempotencyKey(idempotencyKey: JsonField<String>) =
+            apply {
+                this.idempotencyKey = idempotencyKey
+            }
 
         /** ID of the proof of authorization request. */
-        fun proofOfAuthorizationRequestId(proofOfAuthorizationRequestId: String) =
-            proofOfAuthorizationRequestId(JsonField.of(proofOfAuthorizationRequestId))
+        fun proofOfAuthorizationRequestId(proofOfAuthorizationRequestId: String) = proofOfAuthorizationRequestId(JsonField.of(proofOfAuthorizationRequestId))
 
         /** ID of the proof of authorization request. */
         fun proofOfAuthorizationRequestId(proofOfAuthorizationRequestId: JsonField<String>) =
@@ -503,7 +448,10 @@ private constructor(
         fun status(status: Status) = status(JsonField.of(status))
 
         /** Status of the proof of authorization request submission. */
-        fun status(status: JsonField<Status>) = apply { this.status = status }
+        fun status(status: JsonField<Status>) =
+            apply {
+                this.status = status
+            }
 
         /**
          * A constant representing the object's type. For this resource it will always be
@@ -515,172 +463,164 @@ private constructor(
          * A constant representing the object's type. For this resource it will always be
          * `proof_of_authorization_request_submission`.
          */
-        fun type(type: JsonField<Type>) = apply { this.type = type }
+        fun type(type: JsonField<Type>) =
+            apply {
+                this.type = type
+            }
 
         /** The time the Proof of Authorization Request Submission was last updated. */
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
         /** The time the Proof of Authorization Request Submission was last updated. */
-        fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
+        fun updatedAt(updatedAt: JsonField<OffsetDateTime>) =
+            apply {
+                this.updatedAt = updatedAt
+            }
 
         /** Whether account ownership was validated via credential (for instance, Plaid). */
-        fun validatedAccountOwnershipViaCredential(
-            validatedAccountOwnershipViaCredential: Boolean?
-        ) =
-            validatedAccountOwnershipViaCredential(
-                JsonField.ofNullable(validatedAccountOwnershipViaCredential)
-            )
+        fun validatedAccountOwnershipViaCredential(validatedAccountOwnershipViaCredential: Boolean?) = validatedAccountOwnershipViaCredential(JsonField.ofNullable(validatedAccountOwnershipViaCredential))
 
         /** Whether account ownership was validated via credential (for instance, Plaid). */
-        fun validatedAccountOwnershipViaCredential(
-            validatedAccountOwnershipViaCredential: Boolean
-        ) =
-            validatedAccountOwnershipViaCredential(
-                validatedAccountOwnershipViaCredential as Boolean?
-            )
+        fun validatedAccountOwnershipViaCredential(validatedAccountOwnershipViaCredential: Boolean) = validatedAccountOwnershipViaCredential(validatedAccountOwnershipViaCredential as Boolean?)
 
         /** Whether account ownership was validated via credential (for instance, Plaid). */
-        fun validatedAccountOwnershipViaCredential(
-            validatedAccountOwnershipViaCredential: Optional<Boolean>
-        ) =
-            validatedAccountOwnershipViaCredential(
-                validatedAccountOwnershipViaCredential.getOrNull()
-            )
+        fun validatedAccountOwnershipViaCredential(validatedAccountOwnershipViaCredential: Optional<Boolean>) = validatedAccountOwnershipViaCredential(validatedAccountOwnershipViaCredential.getOrNull())
 
         /** Whether account ownership was validated via credential (for instance, Plaid). */
-        fun validatedAccountOwnershipViaCredential(
-            validatedAccountOwnershipViaCredential: JsonField<Boolean>
-        ) = apply {
-            this.validatedAccountOwnershipViaCredential = validatedAccountOwnershipViaCredential
-        }
+        fun validatedAccountOwnershipViaCredential(validatedAccountOwnershipViaCredential: JsonField<Boolean>) =
+            apply {
+                this.validatedAccountOwnershipViaCredential = validatedAccountOwnershipViaCredential
+            }
 
         /** Whether account ownership was validated with an account statement. */
-        fun validatedAccountOwnershipWithAccountStatement(
-            validatedAccountOwnershipWithAccountStatement: Boolean?
-        ) =
-            validatedAccountOwnershipWithAccountStatement(
-                JsonField.ofNullable(validatedAccountOwnershipWithAccountStatement)
-            )
+        fun validatedAccountOwnershipWithAccountStatement(validatedAccountOwnershipWithAccountStatement: Boolean?) = validatedAccountOwnershipWithAccountStatement(JsonField.ofNullable(validatedAccountOwnershipWithAccountStatement))
 
         /** Whether account ownership was validated with an account statement. */
-        fun validatedAccountOwnershipWithAccountStatement(
-            validatedAccountOwnershipWithAccountStatement: Boolean
-        ) =
-            validatedAccountOwnershipWithAccountStatement(
-                validatedAccountOwnershipWithAccountStatement as Boolean?
-            )
+        fun validatedAccountOwnershipWithAccountStatement(validatedAccountOwnershipWithAccountStatement: Boolean) = validatedAccountOwnershipWithAccountStatement(validatedAccountOwnershipWithAccountStatement as Boolean?)
 
         /** Whether account ownership was validated with an account statement. */
-        fun validatedAccountOwnershipWithAccountStatement(
-            validatedAccountOwnershipWithAccountStatement: Optional<Boolean>
-        ) =
-            validatedAccountOwnershipWithAccountStatement(
-                validatedAccountOwnershipWithAccountStatement.getOrNull()
-            )
+        fun validatedAccountOwnershipWithAccountStatement(validatedAccountOwnershipWithAccountStatement: Optional<Boolean>) = validatedAccountOwnershipWithAccountStatement(validatedAccountOwnershipWithAccountStatement.getOrNull())
 
         /** Whether account ownership was validated with an account statement. */
-        fun validatedAccountOwnershipWithAccountStatement(
-            validatedAccountOwnershipWithAccountStatement: JsonField<Boolean>
-        ) = apply {
-            this.validatedAccountOwnershipWithAccountStatement =
-                validatedAccountOwnershipWithAccountStatement
-        }
+        fun validatedAccountOwnershipWithAccountStatement(validatedAccountOwnershipWithAccountStatement: JsonField<Boolean>) =
+            apply {
+                this.validatedAccountOwnershipWithAccountStatement = validatedAccountOwnershipWithAccountStatement
+            }
 
         /** Whether account ownership was validated with microdeposit. */
-        fun validatedAccountOwnershipWithMicrodeposit(
-            validatedAccountOwnershipWithMicrodeposit: Boolean?
-        ) =
-            validatedAccountOwnershipWithMicrodeposit(
-                JsonField.ofNullable(validatedAccountOwnershipWithMicrodeposit)
-            )
+        fun validatedAccountOwnershipWithMicrodeposit(validatedAccountOwnershipWithMicrodeposit: Boolean?) = validatedAccountOwnershipWithMicrodeposit(JsonField.ofNullable(validatedAccountOwnershipWithMicrodeposit))
 
         /** Whether account ownership was validated with microdeposit. */
-        fun validatedAccountOwnershipWithMicrodeposit(
-            validatedAccountOwnershipWithMicrodeposit: Boolean
-        ) =
-            validatedAccountOwnershipWithMicrodeposit(
-                validatedAccountOwnershipWithMicrodeposit as Boolean?
-            )
+        fun validatedAccountOwnershipWithMicrodeposit(validatedAccountOwnershipWithMicrodeposit: Boolean) = validatedAccountOwnershipWithMicrodeposit(validatedAccountOwnershipWithMicrodeposit as Boolean?)
 
         /** Whether account ownership was validated with microdeposit. */
-        fun validatedAccountOwnershipWithMicrodeposit(
-            validatedAccountOwnershipWithMicrodeposit: Optional<Boolean>
-        ) =
-            validatedAccountOwnershipWithMicrodeposit(
-                validatedAccountOwnershipWithMicrodeposit.getOrNull()
-            )
+        fun validatedAccountOwnershipWithMicrodeposit(validatedAccountOwnershipWithMicrodeposit: Optional<Boolean>) = validatedAccountOwnershipWithMicrodeposit(validatedAccountOwnershipWithMicrodeposit.getOrNull())
 
         /** Whether account ownership was validated with microdeposit. */
-        fun validatedAccountOwnershipWithMicrodeposit(
-            validatedAccountOwnershipWithMicrodeposit: JsonField<Boolean>
-        ) = apply {
-            this.validatedAccountOwnershipWithMicrodeposit =
-                validatedAccountOwnershipWithMicrodeposit
-        }
+        fun validatedAccountOwnershipWithMicrodeposit(validatedAccountOwnershipWithMicrodeposit: JsonField<Boolean>) =
+            apply {
+                this.validatedAccountOwnershipWithMicrodeposit = validatedAccountOwnershipWithMicrodeposit
+            }
 
-        fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-            this.additionalProperties.clear()
-            putAllAdditionalProperties(additionalProperties)
-        }
+        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
 
-        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            additionalProperties.put(key, value)
-        }
+        fun putAdditionalProperty(key: String, value: JsonValue) =
+            apply {
+                additionalProperties.put(key, value)
+            }
 
-        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-            this.additionalProperties.putAll(additionalProperties)
-        }
+        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
 
-        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+        fun removeAdditionalProperty(key: String) =
+            apply {
+                additionalProperties.remove(key)
+            }
 
-        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalProperty)
-        }
+        fun removeAllAdditionalProperties(keys: Set<String>) =
+            apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
 
         fun build(): ProofOfAuthorizationRequestSubmission =
             ProofOfAuthorizationRequestSubmission(
-                checkRequired("id", id),
-                checkRequired("authorizationTerms", authorizationTerms),
-                checkRequired("authorizedAt", authorizedAt),
-                checkRequired("authorizerCompany", authorizerCompany),
-                checkRequired("authorizerEmail", authorizerEmail),
-                checkRequired("authorizerIpAddress", authorizerIpAddress),
-                checkRequired("authorizerName", authorizerName),
-                checkRequired("createdAt", createdAt),
-                checkRequired("customerHasBeenOffboarded", customerHasBeenOffboarded),
-                checkRequired("idempotencyKey", idempotencyKey),
-                checkRequired("proofOfAuthorizationRequestId", proofOfAuthorizationRequestId),
-                checkRequired("status", status),
-                checkRequired("type", type),
-                checkRequired("updatedAt", updatedAt),
-                checkRequired(
-                    "validatedAccountOwnershipViaCredential",
-                    validatedAccountOwnershipViaCredential,
-                ),
-                checkRequired(
-                    "validatedAccountOwnershipWithAccountStatement",
-                    validatedAccountOwnershipWithAccountStatement,
-                ),
-                checkRequired(
-                    "validatedAccountOwnershipWithMicrodeposit",
-                    validatedAccountOwnershipWithMicrodeposit,
-                ),
-                additionalProperties.toImmutable(),
+              checkRequired(
+                "id", id
+              ),
+              checkRequired(
+                "authorizationTerms", authorizationTerms
+              ),
+              checkRequired(
+                "authorizedAt", authorizedAt
+              ),
+              checkRequired(
+                "authorizerCompany", authorizerCompany
+              ),
+              checkRequired(
+                "authorizerEmail", authorizerEmail
+              ),
+              checkRequired(
+                "authorizerIpAddress", authorizerIpAddress
+              ),
+              checkRequired(
+                "authorizerName", authorizerName
+              ),
+              checkRequired(
+                "createdAt", createdAt
+              ),
+              checkRequired(
+                "customerHasBeenOffboarded", customerHasBeenOffboarded
+              ),
+              checkRequired(
+                "idempotencyKey", idempotencyKey
+              ),
+              checkRequired(
+                "proofOfAuthorizationRequestId", proofOfAuthorizationRequestId
+              ),
+              checkRequired(
+                "status", status
+              ),
+              checkRequired(
+                "type", type
+              ),
+              checkRequired(
+                "updatedAt", updatedAt
+              ),
+              checkRequired(
+                "validatedAccountOwnershipViaCredential", validatedAccountOwnershipViaCredential
+              ),
+              checkRequired(
+                "validatedAccountOwnershipWithAccountStatement", validatedAccountOwnershipWithAccountStatement
+              ),
+              checkRequired(
+                "validatedAccountOwnershipWithMicrodeposit", validatedAccountOwnershipWithMicrodeposit
+              ),
+              additionalProperties.toImmutable(),
             )
     }
 
     /** Status of the proof of authorization request submission. */
-    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+    class Status @JsonCreator private constructor(
+        private val value: JsonField<String>,
+
+    ) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
+         * This is usually only useful if this instance was deserialized from data that
+         * doesn't match any known member, and you want to know that value. For example, if
+         * the SDK is on an older version than the API, then the API may respond with new
+         * members that the SDK is unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -691,7 +631,8 @@ private constructor(
             @JvmField val REJECTED = of("rejected")
 
             /**
-             * The proof of authorization request submission was canceled and replaced with another.
+             * The proof of authorization request submission was canceled and replaced with
+             * another.
              */
             @JvmField val CANCELED = of("canceled")
 
@@ -711,7 +652,8 @@ private constructor(
             /** The proof of authorization request submission was rejected. */
             REJECTED,
             /**
-             * The proof of authorization request submission was canceled and replaced with another.
+             * The proof of authorization request submission was canceled and replaced with
+             * another.
              */
             CANCELED,
             /** The proof of authorization request submission is pending sending. */
@@ -724,9 +666,11 @@ private constructor(
          * An enum containing [Status]'s known values, as well as an [_UNKNOWN] member.
          *
          * An instance of [Status] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
+         *
+         * - It was deserialized from data that doesn't match any known member. For
+         *   example, if the SDK is on an older version than the API, then the API may
+         *   respond with new members that the SDK is unaware of.
+         *
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
@@ -735,7 +679,8 @@ private constructor(
             /** The proof of authorization request submission was rejected. */
             REJECTED,
             /**
-             * The proof of authorization request submission was canceled and replaced with another.
+             * The proof of authorization request submission was canceled and replaced with
+             * another.
              */
             CANCELED,
             /** The proof of authorization request submission is pending sending. */
@@ -747,11 +692,11 @@ private constructor(
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or
+         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if
+         * you want to throw for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -766,11 +711,11 @@ private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and
+         * don't want to throw for the unknown case.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
-         *   member.
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a
+         * known member.
          */
         fun known(): Known =
             when (this) {
@@ -785,23 +730,20 @@ private constructor(
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for
+         * debugging and generally doesn't throw.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value does not have the
-         *   expected primitive type.
+         * @throws IncreaseInvalidDataException if this class instance's value does not
+         * have the expected primitive type.
          */
-        fun asString(): String =
-            _value().asString().orElseThrow {
-                IncreaseInvalidDataException("Value is not a String")
-            }
+        fun asString(): String = _value().asString().orElseThrow { IncreaseInvalidDataException("Value is not a String") }
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
+          return /* spotless:off */ other is Status && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -813,39 +755,43 @@ private constructor(
      * A constant representing the object's type. For this resource it will always be
      * `proof_of_authorization_request_submission`.
      */
-    class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+    class Type @JsonCreator private constructor(
+        private val value: JsonField<String>,
+
+    ) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
+         * This is usually only useful if this instance was deserialized from data that
+         * doesn't match any known member, and you want to know that value. For example, if
+         * the SDK is on an older version than the API, then the API may respond with new
+         * members that the SDK is unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         companion object {
 
-            @JvmField
-            val PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION =
-                of("proof_of_authorization_request_submission")
+            @JvmField val PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION = of("proof_of_authorization_request_submission")
 
             @JvmStatic fun of(value: String) = Type(JsonField.of(value))
         }
 
         /** An enum containing [Type]'s known values. */
         enum class Known {
-            PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION
+            PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION,
         }
 
         /**
          * An enum containing [Type]'s known values, as well as an [_UNKNOWN] member.
          *
          * An instance of [Type] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
+         *
+         * - It was deserialized from data that doesn't match any known member. For
+         *   example, if the SDK is on an older version than the API, then the API may
+         *   respond with new members that the SDK is unaware of.
+         *
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
@@ -855,55 +801,50 @@ private constructor(
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or
+         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if
+         * you want to throw for the unknown case.
          */
         fun value(): Value =
             when (this) {
-                PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION ->
-                    Value.PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION
+                PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION -> Value.PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION
                 else -> Value._UNKNOWN
             }
 
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and
+         * don't want to throw for the unknown case.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
-         *   member.
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a
+         * known member.
          */
         fun known(): Known =
             when (this) {
-                PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION ->
-                    Known.PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION
+                PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION -> Known.PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION
                 else -> throw IncreaseInvalidDataException("Unknown Type: $value")
             }
 
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for
+         * debugging and generally doesn't throw.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value does not have the
-         *   expected primitive type.
+         * @throws IncreaseInvalidDataException if this class instance's value does not
+         * have the expected primitive type.
          */
-        fun asString(): String =
-            _value().asString().orElseThrow {
-                IncreaseInvalidDataException("Value is not a String")
-            }
+        fun asString(): String = _value().asString().orElseThrow { IncreaseInvalidDataException("Value is not a String") }
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
+          return /* spotless:off */ other is Type && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -912,11 +853,11 @@ private constructor(
     }
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return /* spotless:off */ other is ProofOfAuthorizationRequestSubmission && id == other.id && authorizationTerms == other.authorizationTerms && authorizedAt == other.authorizedAt && authorizerCompany == other.authorizerCompany && authorizerEmail == other.authorizerEmail && authorizerIpAddress == other.authorizerIpAddress && authorizerName == other.authorizerName && createdAt == other.createdAt && customerHasBeenOffboarded == other.customerHasBeenOffboarded && idempotencyKey == other.idempotencyKey && proofOfAuthorizationRequestId == other.proofOfAuthorizationRequestId && status == other.status && type == other.type && updatedAt == other.updatedAt && validatedAccountOwnershipViaCredential == other.validatedAccountOwnershipViaCredential && validatedAccountOwnershipWithAccountStatement == other.validatedAccountOwnershipWithAccountStatement && validatedAccountOwnershipWithMicrodeposit == other.validatedAccountOwnershipWithMicrodeposit && additionalProperties == other.additionalProperties /* spotless:on */
+      return /* spotless:off */ other is ProofOfAuthorizationRequestSubmission && id == other.id && authorizationTerms == other.authorizationTerms && authorizedAt == other.authorizedAt && authorizerCompany == other.authorizerCompany && authorizerEmail == other.authorizerEmail && authorizerIpAddress == other.authorizerIpAddress && authorizerName == other.authorizerName && createdAt == other.createdAt && customerHasBeenOffboarded == other.customerHasBeenOffboarded && idempotencyKey == other.idempotencyKey && proofOfAuthorizationRequestId == other.proofOfAuthorizationRequestId && status == other.status && type == other.type && updatedAt == other.updatedAt && validatedAccountOwnershipViaCredential == other.validatedAccountOwnershipViaCredential && validatedAccountOwnershipWithAccountStatement == other.validatedAccountOwnershipWithAccountStatement && validatedAccountOwnershipWithMicrodeposit == other.validatedAccountOwnershipWithMicrodeposit && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
@@ -925,6 +866,5 @@ private constructor(
 
     override fun hashCode(): Int = hashCode
 
-    override fun toString() =
-        "ProofOfAuthorizationRequestSubmission{id=$id, authorizationTerms=$authorizationTerms, authorizedAt=$authorizedAt, authorizerCompany=$authorizerCompany, authorizerEmail=$authorizerEmail, authorizerIpAddress=$authorizerIpAddress, authorizerName=$authorizerName, createdAt=$createdAt, customerHasBeenOffboarded=$customerHasBeenOffboarded, idempotencyKey=$idempotencyKey, proofOfAuthorizationRequestId=$proofOfAuthorizationRequestId, status=$status, type=$type, updatedAt=$updatedAt, validatedAccountOwnershipViaCredential=$validatedAccountOwnershipViaCredential, validatedAccountOwnershipWithAccountStatement=$validatedAccountOwnershipWithAccountStatement, validatedAccountOwnershipWithMicrodeposit=$validatedAccountOwnershipWithMicrodeposit, additionalProperties=$additionalProperties}"
+    override fun toString() = "ProofOfAuthorizationRequestSubmission{id=$id, authorizationTerms=$authorizationTerms, authorizedAt=$authorizedAt, authorizerCompany=$authorizerCompany, authorizerEmail=$authorizerEmail, authorizerIpAddress=$authorizerIpAddress, authorizerName=$authorizerName, createdAt=$createdAt, customerHasBeenOffboarded=$customerHasBeenOffboarded, idempotencyKey=$idempotencyKey, proofOfAuthorizationRequestId=$proofOfAuthorizationRequestId, status=$status, type=$type, updatedAt=$updatedAt, validatedAccountOwnershipViaCredential=$validatedAccountOwnershipViaCredential, validatedAccountOwnershipWithAccountStatement=$validatedAccountOwnershipWithAccountStatement, validatedAccountOwnershipWithMicrodeposit=$validatedAccountOwnershipWithMicrodeposit, additionalProperties=$additionalProperties}"
 }

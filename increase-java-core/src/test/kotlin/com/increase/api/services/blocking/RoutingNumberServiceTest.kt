@@ -13,18 +13,16 @@ class RoutingNumberServiceTest {
 
     @Test
     fun list() {
-        val client =
-            IncreaseOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
-        val routingNumberService = client.routingNumbers()
+      val client = IncreaseOkHttpClient.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .build()
+      val routingNumberService = client.routingNumbers()
 
-        val page =
-            routingNumberService.list(
-                RoutingNumberListParams.builder().routingNumber("xxxxxxxxx").build()
-            )
+      val page = routingNumberService.list(RoutingNumberListParams.builder()
+          .routingNumber("xxxxxxxxx")
+          .build())
 
-        page.response().validate()
+      page.response().validate()
     }
 }

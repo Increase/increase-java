@@ -19,60 +19,49 @@ import com.increase.api.models.carddisputes.CardDispute
 import com.increase.api.models.simulations.carddisputes.CardDisputeActionParams
 import java.util.concurrent.CompletableFuture
 
-class CardDisputeServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
-    CardDisputeServiceAsync {
+class CardDisputeServiceAsyncImpl internal constructor(
+    private val clientOptions: ClientOptions,
 
-    private val withRawResponse: CardDisputeServiceAsync.WithRawResponse by lazy {
-        WithRawResponseImpl(clientOptions)
-    }
+) : CardDisputeServiceAsync {
+
+    private val withRawResponse: CardDisputeServiceAsync.WithRawResponse by lazy { WithRawResponseImpl(clientOptions) }
 
     override fun withRawResponse(): CardDisputeServiceAsync.WithRawResponse = withRawResponse
 
-    override fun action(
-        params: CardDisputeActionParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<CardDispute> =
+    override fun action(params: CardDisputeActionParams, requestOptions: RequestOptions): CompletableFuture<CardDispute> =
         // post /simulations/card_disputes/{card_dispute_id}/action
         withRawResponse().action(params, requestOptions).thenApply { it.parse() }
 
-    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
-        CardDisputeServiceAsync.WithRawResponse {
+    class WithRawResponseImpl internal constructor(
+        private val clientOptions: ClientOptions,
+
+    ) : CardDisputeServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
-        private val actionHandler: Handler<CardDispute> =
-            jsonHandler<CardDispute>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val actionHandler: Handler<CardDispute> = jsonHandler<CardDispute>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-        override fun action(
-            params: CardDisputeActionParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CardDispute>> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .addPathSegments(
-                        "simulations",
-                        "card_disputes",
-                        params.getPathParam(0),
-                        "action",
-                    )
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
-                    response.parseable {
-                        response
-                            .use { actionHandler.handle(it) }
-                            .also {
-                                if (requestOptions.responseValidation!!) {
-                                    it.validate()
-                                }
-                            }
-                    }
-                }
+        override fun action(params: CardDisputeActionParams, requestOptions: RequestOptions): CompletableFuture<HttpResponseFor<CardDispute>> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.POST)
+            .addPathSegments("simulations", "card_disputes", params.getPathParam(0), "action")
+            .body(json(clientOptions.jsonMapper, params._body()))
+            .build()
+            .prepareAsync(clientOptions, params)
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          return request.thenComposeAsync { clientOptions.httpClient.executeAsync(
+            it, requestOptions
+          ) }.thenApply { response -> response.parseable {
+              response.use {
+                  actionHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          } }
         }
     }
 }

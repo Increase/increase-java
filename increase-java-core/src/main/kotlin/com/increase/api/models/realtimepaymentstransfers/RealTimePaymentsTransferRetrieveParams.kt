@@ -10,11 +10,11 @@ import com.increase.api.core.http.QueryParams
 import java.util.Objects
 
 /** Retrieve a Real-Time Payments Transfer */
-class RealTimePaymentsTransferRetrieveParams
-private constructor(
+class RealTimePaymentsTransferRetrieveParams private constructor(
     private val realTimePaymentsTransferId: String,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
+
 ) : Params {
 
     /** The identifier of the Real-Time Payments Transfer. */
@@ -29,10 +29,10 @@ private constructor(
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     fun getPathParam(index: Int): String {
-        return when (index) {
-            0 -> realTimePaymentsTransferId
-            else -> ""
-        }
+      return when (index) {
+          0 -> realTimePaymentsTransferId
+          else -> ""
+      }
     }
 
     fun toBuilder() = Builder().from(this)
@@ -44,11 +44,13 @@ private constructor(
          * [RealTimePaymentsTransferRetrieveParams].
          *
          * The following fields are required:
+         *
          * ```java
          * .realTimePaymentsTransferId()
          * ```
          */
-        @JvmStatic fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
     /** A builder for [RealTimePaymentsTransferRetrieveParams]. */
@@ -60,137 +62,162 @@ private constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
-        internal fun from(
-            realTimePaymentsTransferRetrieveParams: RealTimePaymentsTransferRetrieveParams
-        ) = apply {
-            realTimePaymentsTransferId =
-                realTimePaymentsTransferRetrieveParams.realTimePaymentsTransferId
-            additionalHeaders = realTimePaymentsTransferRetrieveParams.additionalHeaders.toBuilder()
-            additionalQueryParams =
-                realTimePaymentsTransferRetrieveParams.additionalQueryParams.toBuilder()
-        }
+        internal fun from(realTimePaymentsTransferRetrieveParams: RealTimePaymentsTransferRetrieveParams) =
+            apply {
+                realTimePaymentsTransferId = realTimePaymentsTransferRetrieveParams.realTimePaymentsTransferId
+                additionalHeaders = realTimePaymentsTransferRetrieveParams.additionalHeaders.toBuilder()
+                additionalQueryParams = realTimePaymentsTransferRetrieveParams.additionalQueryParams.toBuilder()
+            }
 
         /** The identifier of the Real-Time Payments Transfer. */
-        fun realTimePaymentsTransferId(realTimePaymentsTransferId: String) = apply {
-            this.realTimePaymentsTransferId = realTimePaymentsTransferId
-        }
+        fun realTimePaymentsTransferId(realTimePaymentsTransferId: String) =
+            apply {
+                this.realTimePaymentsTransferId = realTimePaymentsTransferId
+            }
 
-        fun additionalHeaders(additionalHeaders: Headers) = apply {
-            this.additionalHeaders.clear()
-            putAllAdditionalHeaders(additionalHeaders)
-        }
+        fun additionalHeaders(additionalHeaders: Headers) =
+            apply {
+                this.additionalHeaders.clear()
+                putAllAdditionalHeaders(additionalHeaders)
+            }
 
-        fun additionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
-            this.additionalHeaders.clear()
-            putAllAdditionalHeaders(additionalHeaders)
-        }
+        fun additionalHeaders(additionalHeaders: Map<String, Iterable<String>>) =
+            apply {
+                this.additionalHeaders.clear()
+                putAllAdditionalHeaders(additionalHeaders)
+            }
 
-        fun putAdditionalHeader(name: String, value: String) = apply {
-            additionalHeaders.put(name, value)
-        }
+        fun putAdditionalHeader(name: String, value: String) =
+            apply {
+                additionalHeaders.put(name, value)
+            }
 
-        fun putAdditionalHeaders(name: String, values: Iterable<String>) = apply {
-            additionalHeaders.put(name, values)
-        }
+        fun putAdditionalHeaders(name: String, values: Iterable<String>) =
+            apply {
+                additionalHeaders.put(name, values)
+            }
 
-        fun putAllAdditionalHeaders(additionalHeaders: Headers) = apply {
-            this.additionalHeaders.putAll(additionalHeaders)
-        }
+        fun putAllAdditionalHeaders(additionalHeaders: Headers) =
+            apply {
+                this.additionalHeaders.putAll(additionalHeaders)
+            }
 
-        fun putAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
-            this.additionalHeaders.putAll(additionalHeaders)
-        }
+        fun putAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) =
+            apply {
+                this.additionalHeaders.putAll(additionalHeaders)
+            }
 
-        fun replaceAdditionalHeaders(name: String, value: String) = apply {
-            additionalHeaders.replace(name, value)
-        }
+        fun replaceAdditionalHeaders(name: String, value: String) =
+            apply {
+                additionalHeaders.replace(name, value)
+            }
 
-        fun replaceAdditionalHeaders(name: String, values: Iterable<String>) = apply {
-            additionalHeaders.replace(name, values)
-        }
+        fun replaceAdditionalHeaders(name: String, values: Iterable<String>) =
+            apply {
+                additionalHeaders.replace(name, values)
+            }
 
-        fun replaceAllAdditionalHeaders(additionalHeaders: Headers) = apply {
-            this.additionalHeaders.replaceAll(additionalHeaders)
-        }
+        fun replaceAllAdditionalHeaders(additionalHeaders: Headers) =
+            apply {
+                this.additionalHeaders.replaceAll(additionalHeaders)
+            }
 
-        fun replaceAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
-            this.additionalHeaders.replaceAll(additionalHeaders)
-        }
+        fun replaceAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) =
+            apply {
+                this.additionalHeaders.replaceAll(additionalHeaders)
+            }
 
-        fun removeAdditionalHeaders(name: String) = apply { additionalHeaders.remove(name) }
+        fun removeAdditionalHeaders(name: String) =
+            apply {
+                additionalHeaders.remove(name)
+            }
 
-        fun removeAllAdditionalHeaders(names: Set<String>) = apply {
-            additionalHeaders.removeAll(names)
-        }
+        fun removeAllAdditionalHeaders(names: Set<String>) =
+            apply {
+                additionalHeaders.removeAll(names)
+            }
 
-        fun additionalQueryParams(additionalQueryParams: QueryParams) = apply {
-            this.additionalQueryParams.clear()
-            putAllAdditionalQueryParams(additionalQueryParams)
-        }
+        fun additionalQueryParams(additionalQueryParams: QueryParams) =
+            apply {
+                this.additionalQueryParams.clear()
+                putAllAdditionalQueryParams(additionalQueryParams)
+            }
 
-        fun additionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) = apply {
-            this.additionalQueryParams.clear()
-            putAllAdditionalQueryParams(additionalQueryParams)
-        }
+        fun additionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
+            apply {
+                this.additionalQueryParams.clear()
+                putAllAdditionalQueryParams(additionalQueryParams)
+            }
 
-        fun putAdditionalQueryParam(key: String, value: String) = apply {
-            additionalQueryParams.put(key, value)
-        }
+        fun putAdditionalQueryParam(key: String, value: String) =
+            apply {
+                additionalQueryParams.put(key, value)
+            }
 
-        fun putAdditionalQueryParams(key: String, values: Iterable<String>) = apply {
-            additionalQueryParams.put(key, values)
-        }
+        fun putAdditionalQueryParams(key: String, values: Iterable<String>) =
+            apply {
+                additionalQueryParams.put(key, values)
+            }
 
-        fun putAllAdditionalQueryParams(additionalQueryParams: QueryParams) = apply {
-            this.additionalQueryParams.putAll(additionalQueryParams)
-        }
+        fun putAllAdditionalQueryParams(additionalQueryParams: QueryParams) =
+            apply {
+                this.additionalQueryParams.putAll(additionalQueryParams)
+            }
 
         fun putAllAdditionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
             apply {
                 this.additionalQueryParams.putAll(additionalQueryParams)
             }
 
-        fun replaceAdditionalQueryParams(key: String, value: String) = apply {
-            additionalQueryParams.replace(key, value)
-        }
+        fun replaceAdditionalQueryParams(key: String, value: String) =
+            apply {
+                additionalQueryParams.replace(key, value)
+            }
 
-        fun replaceAdditionalQueryParams(key: String, values: Iterable<String>) = apply {
-            additionalQueryParams.replace(key, values)
-        }
+        fun replaceAdditionalQueryParams(key: String, values: Iterable<String>) =
+            apply {
+                additionalQueryParams.replace(key, values)
+            }
 
-        fun replaceAllAdditionalQueryParams(additionalQueryParams: QueryParams) = apply {
-            this.additionalQueryParams.replaceAll(additionalQueryParams)
-        }
+        fun replaceAllAdditionalQueryParams(additionalQueryParams: QueryParams) =
+            apply {
+                this.additionalQueryParams.replaceAll(additionalQueryParams)
+            }
 
         fun replaceAllAdditionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
             apply {
                 this.additionalQueryParams.replaceAll(additionalQueryParams)
             }
 
-        fun removeAdditionalQueryParams(key: String) = apply { additionalQueryParams.remove(key) }
+        fun removeAdditionalQueryParams(key: String) =
+            apply {
+                additionalQueryParams.remove(key)
+            }
 
-        fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
-            additionalQueryParams.removeAll(keys)
-        }
+        fun removeAllAdditionalQueryParams(keys: Set<String>) =
+            apply {
+                additionalQueryParams.removeAll(keys)
+            }
 
         fun build(): RealTimePaymentsTransferRetrieveParams =
             RealTimePaymentsTransferRetrieveParams(
-                checkRequired("realTimePaymentsTransferId", realTimePaymentsTransferId),
-                additionalHeaders.build(),
-                additionalQueryParams.build(),
+              checkRequired(
+                "realTimePaymentsTransferId", realTimePaymentsTransferId
+              ),
+              additionalHeaders.build(),
+              additionalQueryParams.build(),
             )
     }
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return /* spotless:off */ other is RealTimePaymentsTransferRetrieveParams && realTimePaymentsTransferId == other.realTimePaymentsTransferId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+      return /* spotless:off */ other is RealTimePaymentsTransferRetrieveParams && realTimePaymentsTransferId == other.realTimePaymentsTransferId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
     override fun hashCode(): Int = /* spotless:off */ Objects.hash(realTimePaymentsTransferId, additionalHeaders, additionalQueryParams) /* spotless:on */
 
-    override fun toString() =
-        "RealTimePaymentsTransferRetrieveParams{realTimePaymentsTransferId=$realTimePaymentsTransferId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+    override fun toString() = "RealTimePaymentsTransferRetrieveParams{realTimePaymentsTransferId=$realTimePaymentsTransferId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

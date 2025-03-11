@@ -16,153 +16,144 @@ import com.increase.api.models.achtransfers.AchTransferRetrieveParams
 interface AchTransferService {
 
     /**
-     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     * Returns a view of this service that provides access to raw HTTP responses for
+     * each method.
      */
     fun withRawResponse(): WithRawResponse
 
     /** Create an ACH Transfer */
-    fun create(params: AchTransferCreateParams): AchTransfer = create(params, RequestOptions.none())
+    fun create(params: AchTransferCreateParams): AchTransfer =
+        create(
+          params, RequestOptions.none()
+        )
 
     /** @see [create] */
-    fun create(
-        params: AchTransferCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): AchTransfer
+    fun create(params: AchTransferCreateParams, requestOptions: RequestOptions = RequestOptions.none()): AchTransfer
 
     /** Retrieve an ACH Transfer */
     fun retrieve(params: AchTransferRetrieveParams): AchTransfer =
-        retrieve(params, RequestOptions.none())
+        retrieve(
+          params, RequestOptions.none()
+        )
 
     /** @see [retrieve] */
-    fun retrieve(
-        params: AchTransferRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): AchTransfer
+    fun retrieve(params: AchTransferRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): AchTransfer
 
     /** List ACH Transfers */
     fun list(): AchTransferListPage = list(AchTransferListParams.none())
 
     /** @see [list] */
-    fun list(
-        params: AchTransferListParams = AchTransferListParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): AchTransferListPage
+    fun list(params: AchTransferListParams = AchTransferListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): AchTransferListPage
 
     /** @see [list] */
     fun list(params: AchTransferListParams = AchTransferListParams.none()): AchTransferListPage =
-        list(params, RequestOptions.none())
+        list(
+          params, RequestOptions.none()
+        )
 
     /** @see [list] */
-    fun list(requestOptions: RequestOptions): AchTransferListPage =
-        list(AchTransferListParams.none(), requestOptions)
+    fun list(requestOptions: RequestOptions): AchTransferListPage = list(AchTransferListParams.none(), requestOptions)
 
     /** Approves an ACH Transfer in a pending_approval state. */
     fun approve(params: AchTransferApproveParams): AchTransfer =
-        approve(params, RequestOptions.none())
+        approve(
+          params, RequestOptions.none()
+        )
 
     /** @see [approve] */
-    fun approve(
-        params: AchTransferApproveParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): AchTransfer
+    fun approve(params: AchTransferApproveParams, requestOptions: RequestOptions = RequestOptions.none()): AchTransfer
 
     /** Cancels an ACH Transfer in a pending_approval state. */
-    fun cancel(params: AchTransferCancelParams): AchTransfer = cancel(params, RequestOptions.none())
+    fun cancel(params: AchTransferCancelParams): AchTransfer =
+        cancel(
+          params, RequestOptions.none()
+        )
 
     /** @see [cancel] */
-    fun cancel(
-        params: AchTransferCancelParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): AchTransfer
+    fun cancel(params: AchTransferCancelParams, requestOptions: RequestOptions = RequestOptions.none()): AchTransfer
 
     /**
-     * A view of [AchTransferService] that provides access to raw HTTP responses for each method.
+     * A view of [AchTransferService] that provides access to raw HTTP responses for
+     * each method.
      */
     interface WithRawResponse {
 
         /**
-         * Returns a raw HTTP response for `post /ach_transfers`, but is otherwise the same as
-         * [AchTransferService.create].
+         * Returns a raw HTTP response for `post /ach_transfers`, but is otherwise the same
+         * as [AchTransferService.create].
          */
         @MustBeClosed
         fun create(params: AchTransferCreateParams): HttpResponseFor<AchTransfer> =
-            create(params, RequestOptions.none())
+            create(
+              params, RequestOptions.none()
+            )
 
         /** @see [create] */
         @MustBeClosed
-        fun create(
-            params: AchTransferCreateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AchTransfer>
+        fun create(params: AchTransferCreateParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<AchTransfer>
 
         /**
-         * Returns a raw HTTP response for `get /ach_transfers/{ach_transfer_id}`, but is otherwise
-         * the same as [AchTransferService.retrieve].
+         * Returns a raw HTTP response for `get /ach_transfers/{ach_transfer_id}`, but is
+         * otherwise the same as [AchTransferService.retrieve].
          */
         @MustBeClosed
         fun retrieve(params: AchTransferRetrieveParams): HttpResponseFor<AchTransfer> =
-            retrieve(params, RequestOptions.none())
+            retrieve(
+              params, RequestOptions.none()
+            )
 
         /** @see [retrieve] */
         @MustBeClosed
-        fun retrieve(
-            params: AchTransferRetrieveParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AchTransfer>
+        fun retrieve(params: AchTransferRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<AchTransfer>
 
         /**
-         * Returns a raw HTTP response for `get /ach_transfers`, but is otherwise the same as
-         * [AchTransferService.list].
+         * Returns a raw HTTP response for `get /ach_transfers`, but is otherwise the same
+         * as [AchTransferService.list].
          */
         @MustBeClosed
         fun list(): HttpResponseFor<AchTransferListPage> = list(AchTransferListParams.none())
 
         /** @see [list] */
         @MustBeClosed
-        fun list(
-            params: AchTransferListParams = AchTransferListParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AchTransferListPage>
+        fun list(params: AchTransferListParams = AchTransferListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<AchTransferListPage>
 
         /** @see [list] */
         @MustBeClosed
-        fun list(
-            params: AchTransferListParams = AchTransferListParams.none()
-        ): HttpResponseFor<AchTransferListPage> = list(params, RequestOptions.none())
+        fun list(params: AchTransferListParams = AchTransferListParams.none()): HttpResponseFor<AchTransferListPage> =
+            list(
+              params, RequestOptions.none()
+            )
 
         /** @see [list] */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<AchTransferListPage> =
-            list(AchTransferListParams.none(), requestOptions)
+        fun list(requestOptions: RequestOptions): HttpResponseFor<AchTransferListPage> = list(AchTransferListParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `post /ach_transfers/{ach_transfer_id}/approve`, but is
-         * otherwise the same as [AchTransferService.approve].
+         * Returns a raw HTTP response for `post /ach_transfers/{ach_transfer_id}/approve`,
+         * but is otherwise the same as [AchTransferService.approve].
          */
         @MustBeClosed
         fun approve(params: AchTransferApproveParams): HttpResponseFor<AchTransfer> =
-            approve(params, RequestOptions.none())
+            approve(
+              params, RequestOptions.none()
+            )
 
         /** @see [approve] */
         @MustBeClosed
-        fun approve(
-            params: AchTransferApproveParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AchTransfer>
+        fun approve(params: AchTransferApproveParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<AchTransfer>
 
         /**
-         * Returns a raw HTTP response for `post /ach_transfers/{ach_transfer_id}/cancel`, but is
-         * otherwise the same as [AchTransferService.cancel].
+         * Returns a raw HTTP response for `post /ach_transfers/{ach_transfer_id}/cancel`,
+         * but is otherwise the same as [AchTransferService.cancel].
          */
         @MustBeClosed
         fun cancel(params: AchTransferCancelParams): HttpResponseFor<AchTransfer> =
-            cancel(params, RequestOptions.none())
+            cancel(
+              params, RequestOptions.none()
+            )
 
         /** @see [cancel] */
         @MustBeClosed
-        fun cancel(
-            params: AchTransferCancelParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AchTransfer>
+        fun cancel(params: AchTransferCancelParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<AchTransfer>
     }
 }

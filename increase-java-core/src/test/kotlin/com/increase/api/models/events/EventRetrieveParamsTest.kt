@@ -9,17 +9,20 @@ class EventRetrieveParamsTest {
 
     @Test
     fun create() {
-        EventRetrieveParams.builder().eventId("event_001dzz0r20rzr4zrhrr1364hy80").build()
+      EventRetrieveParams.builder()
+          .eventId("event_001dzz0r20rzr4zrhrr1364hy80")
+          .build()
     }
 
     @Test
     fun getPathParam() {
-        val params =
-            EventRetrieveParams.builder().eventId("event_001dzz0r20rzr4zrhrr1364hy80").build()
-        assertThat(params).isNotNull
-        // path param "eventId"
-        assertThat(params.getPathParam(0)).isEqualTo("event_001dzz0r20rzr4zrhrr1364hy80")
-        // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
+      val params = EventRetrieveParams.builder()
+          .eventId("event_001dzz0r20rzr4zrhrr1364hy80")
+          .build()
+      assertThat(params).isNotNull
+      // path param "eventId"
+      assertThat(params.getPathParam(0)).isEqualTo("event_001dzz0r20rzr4zrhrr1364hy80")
+      // out-of-bound path param
+      assertThat(params.getPathParam(1)).isEqualTo("")
     }
 }

@@ -22,41 +22,25 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Certain institutions may be excluded per Entity when sweeping funds into the IntraFi network.
- * This is useful when an Entity already has deposits at a particular bank, and does not want to
- * sweep additional funds to it. It may take 5 business days for an exclusion to be processed.
+ * Certain institutions may be excluded per Entity when sweeping funds into the
+ * IntraFi network. This is useful when an Entity already has deposits at a
+ * particular bank, and does not want to sweep additional funds to it. It may take
+ * 5 business days for an exclusion to be processed.
  */
 @NoAutoDetect
-class IntrafiExclusion
-@JsonCreator
-private constructor(
+class IntrafiExclusion @JsonCreator private constructor(
     @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("bank_name")
-    @ExcludeMissing
-    private val bankName: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("created_at")
-    @ExcludeMissing
-    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("entity_id")
-    @ExcludeMissing
-    private val entityId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("excluded_at")
-    @ExcludeMissing
-    private val excludedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("fdic_certificate_number")
-    @ExcludeMissing
-    private val fdicCertificateNumber: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("idempotency_key")
-    @ExcludeMissing
-    private val idempotencyKey: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("status")
-    @ExcludeMissing
-    private val status: JsonField<Status> = JsonMissing.of(),
-    @JsonProperty("submitted_at")
-    @ExcludeMissing
-    private val submittedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("bank_name") @ExcludeMissing private val bankName: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("created_at") @ExcludeMissing private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("entity_id") @ExcludeMissing private val entityId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("excluded_at") @ExcludeMissing private val excludedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("fdic_certificate_number") @ExcludeMissing private val fdicCertificateNumber: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("idempotency_key") @ExcludeMissing private val idempotencyKey: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("status") @ExcludeMissing private val status: JsonField<Status> = JsonMissing.of(),
+    @JsonProperty("submitted_at") @ExcludeMissing private val submittedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
     @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+
 ) {
 
     /** The identifier of this exclusion request. */
@@ -66,8 +50,8 @@ private constructor(
     fun bankName(): String = bankName.getRequired("bank_name")
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the exclusion
-     * was created.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
+     * the exclusion was created.
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
@@ -75,27 +59,26 @@ private constructor(
     fun entityId(): String = entityId.getRequired("entity_id")
 
     /** When this was exclusion was confirmed by IntraFi. */
-    fun excludedAt(): Optional<OffsetDateTime> =
-        Optional.ofNullable(excludedAt.getNullable("excluded_at"))
-
-    /** The Federal Deposit Insurance Corporation's certificate number for the institution. */
-    fun fdicCertificateNumber(): Optional<String> =
-        Optional.ofNullable(fdicCertificateNumber.getNullable("fdic_certificate_number"))
+    fun excludedAt(): Optional<OffsetDateTime> = Optional.ofNullable(excludedAt.getNullable("excluded_at"))
 
     /**
-     * The idempotency key you chose for this object. This value is unique across Increase and is
-     * used to ensure that a request is only processed once. Learn more about
-     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     * The Federal Deposit Insurance Corporation's certificate number for the
+     * institution.
      */
-    fun idempotencyKey(): Optional<String> =
-        Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
+    fun fdicCertificateNumber(): Optional<String> = Optional.ofNullable(fdicCertificateNumber.getNullable("fdic_certificate_number"))
+
+    /**
+     * The idempotency key you chose for this object. This value is unique across
+     * Increase and is used to ensure that a request is only processed once. Learn more
+     * about [idempotency](https://increase.com/documentation/idempotency-keys).
+     */
+    fun idempotencyKey(): Optional<String> = Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
 
     /** The status of the exclusion request. */
     fun status(): Status = status.getRequired("status")
 
     /** When this was exclusion was submitted to IntraFi by Increase. */
-    fun submittedAt(): Optional<OffsetDateTime> =
-        Optional.ofNullable(submittedAt.getNullable("submitted_at"))
+    fun submittedAt(): Optional<OffsetDateTime> = Optional.ofNullable(submittedAt.getNullable("submitted_at"))
 
     /**
      * A constant representing the object's type. For this resource it will always be
@@ -104,43 +87,54 @@ private constructor(
     fun type(): Type = type.getRequired("type")
 
     /** The identifier of this exclusion request. */
-    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+    @JsonProperty("id")
+    @ExcludeMissing
+    fun _id(): JsonField<String> = id
 
     /** The name of the excluded institution. */
-    @JsonProperty("bank_name") @ExcludeMissing fun _bankName(): JsonField<String> = bankName
+    @JsonProperty("bank_name")
+    @ExcludeMissing
+    fun _bankName(): JsonField<String> = bankName
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the exclusion
-     * was created.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
+     * the exclusion was created.
      */
     @JsonProperty("created_at")
     @ExcludeMissing
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /** The entity for which this institution is excluded. */
-    @JsonProperty("entity_id") @ExcludeMissing fun _entityId(): JsonField<String> = entityId
+    @JsonProperty("entity_id")
+    @ExcludeMissing
+    fun _entityId(): JsonField<String> = entityId
 
     /** When this was exclusion was confirmed by IntraFi. */
     @JsonProperty("excluded_at")
     @ExcludeMissing
     fun _excludedAt(): JsonField<OffsetDateTime> = excludedAt
 
-    /** The Federal Deposit Insurance Corporation's certificate number for the institution. */
+    /**
+     * The Federal Deposit Insurance Corporation's certificate number for the
+     * institution.
+     */
     @JsonProperty("fdic_certificate_number")
     @ExcludeMissing
     fun _fdicCertificateNumber(): JsonField<String> = fdicCertificateNumber
 
     /**
-     * The idempotency key you chose for this object. This value is unique across Increase and is
-     * used to ensure that a request is only processed once. Learn more about
-     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     * The idempotency key you chose for this object. This value is unique across
+     * Increase and is used to ensure that a request is only processed once. Learn more
+     * about [idempotency](https://increase.com/documentation/idempotency-keys).
      */
     @JsonProperty("idempotency_key")
     @ExcludeMissing
     fun _idempotencyKey(): JsonField<String> = idempotencyKey
 
     /** The status of the exclusion request. */
-    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
+    @JsonProperty("status")
+    @ExcludeMissing
+    fun _status(): JsonField<Status> = status
 
     /** When this was exclusion was submitted to IntraFi by Increase. */
     @JsonProperty("submitted_at")
@@ -151,7 +145,9 @@ private constructor(
      * A constant representing the object's type. For this resource it will always be
      * `intrafi_exclusion`.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
+    @JsonProperty("type")
+    @ExcludeMissing
+    fun _type(): JsonField<Type> = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -159,23 +155,24 @@ private constructor(
 
     private var validated: Boolean = false
 
-    fun validate(): IntrafiExclusion = apply {
-        if (validated) {
-            return@apply
-        }
+    fun validate(): IntrafiExclusion =
+        apply {
+            if (validated) {
+              return@apply
+            }
 
-        id()
-        bankName()
-        createdAt()
-        entityId()
-        excludedAt()
-        fdicCertificateNumber()
-        idempotencyKey()
-        status()
-        submittedAt()
-        type()
-        validated = true
-    }
+            id()
+            bankName()
+            createdAt()
+            entityId()
+            excludedAt()
+            fdicCertificateNumber()
+            idempotencyKey()
+            status()
+            submittedAt()
+            type()
+            validated = true
+        }
 
     fun toBuilder() = Builder().from(this)
 
@@ -185,6 +182,7 @@ private constructor(
          * Returns a mutable builder for constructing an instance of [IntrafiExclusion].
          *
          * The following fields are required:
+         *
          * ```java
          * .id()
          * .bankName()
@@ -198,7 +196,8 @@ private constructor(
          * .type()
          * ```
          */
-        @JvmStatic fun builder() = Builder()
+        @JvmStatic
+        fun builder() = Builder()
     }
 
     /** A builder for [IntrafiExclusion]. */
@@ -217,49 +216,62 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(intrafiExclusion: IntrafiExclusion) = apply {
-            id = intrafiExclusion.id
-            bankName = intrafiExclusion.bankName
-            createdAt = intrafiExclusion.createdAt
-            entityId = intrafiExclusion.entityId
-            excludedAt = intrafiExclusion.excludedAt
-            fdicCertificateNumber = intrafiExclusion.fdicCertificateNumber
-            idempotencyKey = intrafiExclusion.idempotencyKey
-            status = intrafiExclusion.status
-            submittedAt = intrafiExclusion.submittedAt
-            type = intrafiExclusion.type
-            additionalProperties = intrafiExclusion.additionalProperties.toMutableMap()
-        }
+        internal fun from(intrafiExclusion: IntrafiExclusion) =
+            apply {
+                id = intrafiExclusion.id
+                bankName = intrafiExclusion.bankName
+                createdAt = intrafiExclusion.createdAt
+                entityId = intrafiExclusion.entityId
+                excludedAt = intrafiExclusion.excludedAt
+                fdicCertificateNumber = intrafiExclusion.fdicCertificateNumber
+                idempotencyKey = intrafiExclusion.idempotencyKey
+                status = intrafiExclusion.status
+                submittedAt = intrafiExclusion.submittedAt
+                type = intrafiExclusion.type
+                additionalProperties = intrafiExclusion.additionalProperties.toMutableMap()
+            }
 
         /** The identifier of this exclusion request. */
         fun id(id: String) = id(JsonField.of(id))
 
         /** The identifier of this exclusion request. */
-        fun id(id: JsonField<String>) = apply { this.id = id }
+        fun id(id: JsonField<String>) =
+            apply {
+                this.id = id
+            }
 
         /** The name of the excluded institution. */
         fun bankName(bankName: String) = bankName(JsonField.of(bankName))
 
         /** The name of the excluded institution. */
-        fun bankName(bankName: JsonField<String>) = apply { this.bankName = bankName }
+        fun bankName(bankName: JsonField<String>) =
+            apply {
+                this.bankName = bankName
+            }
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-         * exclusion was created.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
+         * the exclusion was created.
          */
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-         * exclusion was created.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
+         * the exclusion was created.
          */
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) =
+            apply {
+                this.createdAt = createdAt
+            }
 
         /** The entity for which this institution is excluded. */
         fun entityId(entityId: String) = entityId(JsonField.of(entityId))
 
         /** The entity for which this institution is excluded. */
-        fun entityId(entityId: JsonField<String>) = apply { this.entityId = entityId }
+        fun entityId(entityId: JsonField<String>) =
+            apply {
+                this.entityId = entityId
+            }
 
         /** When this was exclusion was confirmed by IntraFi. */
         fun excludedAt(excludedAt: OffsetDateTime?) = excludedAt(JsonField.ofNullable(excludedAt))
@@ -268,66 +280,76 @@ private constructor(
         fun excludedAt(excludedAt: Optional<OffsetDateTime>) = excludedAt(excludedAt.getOrNull())
 
         /** When this was exclusion was confirmed by IntraFi. */
-        fun excludedAt(excludedAt: JsonField<OffsetDateTime>) = apply {
-            this.excludedAt = excludedAt
-        }
-
-        /** The Federal Deposit Insurance Corporation's certificate number for the institution. */
-        fun fdicCertificateNumber(fdicCertificateNumber: String?) =
-            fdicCertificateNumber(JsonField.ofNullable(fdicCertificateNumber))
-
-        /** The Federal Deposit Insurance Corporation's certificate number for the institution. */
-        fun fdicCertificateNumber(fdicCertificateNumber: Optional<String>) =
-            fdicCertificateNumber(fdicCertificateNumber.getOrNull())
-
-        /** The Federal Deposit Insurance Corporation's certificate number for the institution. */
-        fun fdicCertificateNumber(fdicCertificateNumber: JsonField<String>) = apply {
-            this.fdicCertificateNumber = fdicCertificateNumber
-        }
+        fun excludedAt(excludedAt: JsonField<OffsetDateTime>) =
+            apply {
+                this.excludedAt = excludedAt
+            }
 
         /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         * The Federal Deposit Insurance Corporation's certificate number for the
+         * institution.
          */
-        fun idempotencyKey(idempotencyKey: String?) =
-            idempotencyKey(JsonField.ofNullable(idempotencyKey))
+        fun fdicCertificateNumber(fdicCertificateNumber: String?) = fdicCertificateNumber(JsonField.ofNullable(fdicCertificateNumber))
 
         /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         * The Federal Deposit Insurance Corporation's certificate number for the
+         * institution.
          */
-        fun idempotencyKey(idempotencyKey: Optional<String>) =
-            idempotencyKey(idempotencyKey.getOrNull())
+        fun fdicCertificateNumber(fdicCertificateNumber: Optional<String>) = fdicCertificateNumber(fdicCertificateNumber.getOrNull())
 
         /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         * The Federal Deposit Insurance Corporation's certificate number for the
+         * institution.
          */
-        fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
-            this.idempotencyKey = idempotencyKey
-        }
+        fun fdicCertificateNumber(fdicCertificateNumber: JsonField<String>) =
+            apply {
+                this.fdicCertificateNumber = fdicCertificateNumber
+            }
+
+        /**
+         * The idempotency key you chose for this object. This value is unique across
+         * Increase and is used to ensure that a request is only processed once. Learn more
+         * about [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        fun idempotencyKey(idempotencyKey: String?) = idempotencyKey(JsonField.ofNullable(idempotencyKey))
+
+        /**
+         * The idempotency key you chose for this object. This value is unique across
+         * Increase and is used to ensure that a request is only processed once. Learn more
+         * about [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        fun idempotencyKey(idempotencyKey: Optional<String>) = idempotencyKey(idempotencyKey.getOrNull())
+
+        /**
+         * The idempotency key you chose for this object. This value is unique across
+         * Increase and is used to ensure that a request is only processed once. Learn more
+         * about [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        fun idempotencyKey(idempotencyKey: JsonField<String>) =
+            apply {
+                this.idempotencyKey = idempotencyKey
+            }
 
         /** The status of the exclusion request. */
         fun status(status: Status) = status(JsonField.of(status))
 
         /** The status of the exclusion request. */
-        fun status(status: JsonField<Status>) = apply { this.status = status }
+        fun status(status: JsonField<Status>) =
+            apply {
+                this.status = status
+            }
 
         /** When this was exclusion was submitted to IntraFi by Increase. */
-        fun submittedAt(submittedAt: OffsetDateTime?) =
-            submittedAt(JsonField.ofNullable(submittedAt))
+        fun submittedAt(submittedAt: OffsetDateTime?) = submittedAt(JsonField.ofNullable(submittedAt))
 
         /** When this was exclusion was submitted to IntraFi by Increase. */
-        fun submittedAt(submittedAt: Optional<OffsetDateTime>) =
-            submittedAt(submittedAt.getOrNull())
+        fun submittedAt(submittedAt: Optional<OffsetDateTime>) = submittedAt(submittedAt.getOrNull())
 
         /** When this was exclusion was submitted to IntraFi by Increase. */
-        fun submittedAt(submittedAt: JsonField<OffsetDateTime>) = apply {
-            this.submittedAt = submittedAt
-        }
+        fun submittedAt(submittedAt: JsonField<OffsetDateTime>) =
+            apply {
+                this.submittedAt = submittedAt
+            }
 
         /**
          * A constant representing the object's type. For this resource it will always be
@@ -339,55 +361,89 @@ private constructor(
          * A constant representing the object's type. For this resource it will always be
          * `intrafi_exclusion`.
          */
-        fun type(type: JsonField<Type>) = apply { this.type = type }
+        fun type(type: JsonField<Type>) =
+            apply {
+                this.type = type
+            }
 
-        fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-            this.additionalProperties.clear()
-            putAllAdditionalProperties(additionalProperties)
-        }
+        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
 
-        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            additionalProperties.put(key, value)
-        }
+        fun putAdditionalProperty(key: String, value: JsonValue) =
+            apply {
+                additionalProperties.put(key, value)
+            }
 
-        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-            this.additionalProperties.putAll(additionalProperties)
-        }
+        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
 
-        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+        fun removeAdditionalProperty(key: String) =
+            apply {
+                additionalProperties.remove(key)
+            }
 
-        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalProperty)
-        }
+        fun removeAllAdditionalProperties(keys: Set<String>) =
+            apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
 
         fun build(): IntrafiExclusion =
             IntrafiExclusion(
-                checkRequired("id", id),
-                checkRequired("bankName", bankName),
-                checkRequired("createdAt", createdAt),
-                checkRequired("entityId", entityId),
-                checkRequired("excludedAt", excludedAt),
-                checkRequired("fdicCertificateNumber", fdicCertificateNumber),
-                checkRequired("idempotencyKey", idempotencyKey),
-                checkRequired("status", status),
-                checkRequired("submittedAt", submittedAt),
-                checkRequired("type", type),
-                additionalProperties.toImmutable(),
+              checkRequired(
+                "id", id
+              ),
+              checkRequired(
+                "bankName", bankName
+              ),
+              checkRequired(
+                "createdAt", createdAt
+              ),
+              checkRequired(
+                "entityId", entityId
+              ),
+              checkRequired(
+                "excludedAt", excludedAt
+              ),
+              checkRequired(
+                "fdicCertificateNumber", fdicCertificateNumber
+              ),
+              checkRequired(
+                "idempotencyKey", idempotencyKey
+              ),
+              checkRequired(
+                "status", status
+              ),
+              checkRequired(
+                "submittedAt", submittedAt
+              ),
+              checkRequired(
+                "type", type
+              ),
+              additionalProperties.toImmutable(),
             )
     }
 
     /** The status of the exclusion request. */
-    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+    class Status @JsonCreator private constructor(
+        private val value: JsonField<String>,
+
+    ) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
+         * This is usually only useful if this instance was deserialized from data that
+         * doesn't match any known member, and you want to know that value. For example, if
+         * the SDK is on an older version than the API, then the API may respond with new
+         * members that the SDK is unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -417,9 +473,11 @@ private constructor(
          * An enum containing [Status]'s known values, as well as an [_UNKNOWN] member.
          *
          * An instance of [Status] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
+         *
+         * - It was deserialized from data that doesn't match any known member. For
+         *   example, if the SDK is on an older version than the API, then the API may
+         *   respond with new members that the SDK is unaware of.
+         *
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
@@ -434,11 +492,11 @@ private constructor(
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or
+         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if
+         * you want to throw for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -451,11 +509,11 @@ private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and
+         * don't want to throw for the unknown case.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
-         *   member.
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a
+         * known member.
          */
         fun known(): Known =
             when (this) {
@@ -468,23 +526,20 @@ private constructor(
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for
+         * debugging and generally doesn't throw.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value does not have the
-         *   expected primitive type.
+         * @throws IncreaseInvalidDataException if this class instance's value does not
+         * have the expected primitive type.
          */
-        fun asString(): String =
-            _value().asString().orElseThrow {
-                IncreaseInvalidDataException("Value is not a String")
-            }
+        fun asString(): String = _value().asString().orElseThrow { IncreaseInvalidDataException("Value is not a String") }
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
+          return /* spotless:off */ other is Status && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -496,17 +551,21 @@ private constructor(
      * A constant representing the object's type. For this resource it will always be
      * `intrafi_exclusion`.
      */
-    class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+    class Type @JsonCreator private constructor(
+        private val value: JsonField<String>,
+
+    ) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
+         * This is usually only useful if this instance was deserialized from data that
+         * doesn't match any known member, and you want to know that value. For example, if
+         * the SDK is on an older version than the API, then the API may respond with new
+         * members that the SDK is unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -517,16 +576,18 @@ private constructor(
 
         /** An enum containing [Type]'s known values. */
         enum class Known {
-            INTRAFI_EXCLUSION
+            INTRAFI_EXCLUSION,
         }
 
         /**
          * An enum containing [Type]'s known values, as well as an [_UNKNOWN] member.
          *
          * An instance of [Type] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
+         *
+         * - It was deserialized from data that doesn't match any known member. For
+         *   example, if the SDK is on an older version than the API, then the API may
+         *   respond with new members that the SDK is unaware of.
+         *
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
@@ -536,11 +597,11 @@ private constructor(
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or
+         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if
+         * you want to throw for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -551,11 +612,11 @@ private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and
+         * don't want to throw for the unknown case.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
-         *   member.
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a
+         * known member.
          */
         fun known(): Known =
             when (this) {
@@ -566,23 +627,20 @@ private constructor(
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for
+         * debugging and generally doesn't throw.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value does not have the
-         *   expected primitive type.
+         * @throws IncreaseInvalidDataException if this class instance's value does not
+         * have the expected primitive type.
          */
-        fun asString(): String =
-            _value().asString().orElseThrow {
-                IncreaseInvalidDataException("Value is not a String")
-            }
+        fun asString(): String = _value().asString().orElseThrow { IncreaseInvalidDataException("Value is not a String") }
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
+          return /* spotless:off */ other is Type && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -591,11 +649,11 @@ private constructor(
     }
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return /* spotless:off */ other is IntrafiExclusion && id == other.id && bankName == other.bankName && createdAt == other.createdAt && entityId == other.entityId && excludedAt == other.excludedAt && fdicCertificateNumber == other.fdicCertificateNumber && idempotencyKey == other.idempotencyKey && status == other.status && submittedAt == other.submittedAt && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+      return /* spotless:off */ other is IntrafiExclusion && id == other.id && bankName == other.bankName && createdAt == other.createdAt && entityId == other.entityId && excludedAt == other.excludedAt && fdicCertificateNumber == other.fdicCertificateNumber && idempotencyKey == other.idempotencyKey && status == other.status && submittedAt == other.submittedAt && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
@@ -604,6 +662,5 @@ private constructor(
 
     override fun hashCode(): Int = hashCode
 
-    override fun toString() =
-        "IntrafiExclusion{id=$id, bankName=$bankName, createdAt=$createdAt, entityId=$entityId, excludedAt=$excludedAt, fdicCertificateNumber=$fdicCertificateNumber, idempotencyKey=$idempotencyKey, status=$status, submittedAt=$submittedAt, type=$type, additionalProperties=$additionalProperties}"
+    override fun toString() = "IntrafiExclusion{id=$id, bankName=$bankName, createdAt=$createdAt, entityId=$entityId, excludedAt=$excludedAt, fdicCertificateNumber=$fdicCertificateNumber, idempotencyKey=$idempotencyKey, status=$status, submittedAt=$submittedAt, type=$type, additionalProperties=$additionalProperties}"
 }

@@ -13,22 +13,18 @@ class CardFuelConfirmationServiceAsyncTest {
 
     @Test
     fun create() {
-        val client =
-            IncreaseOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
-        val cardFuelConfirmationServiceAsync = client.simulations().cardFuelConfirmations()
+      val client = IncreaseOkHttpClientAsync.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .build()
+      val cardFuelConfirmationServiceAsync = client.simulations().cardFuelConfirmations()
 
-        val cardPaymentFuture =
-            cardFuelConfirmationServiceAsync.create(
-                CardFuelConfirmationCreateParams.builder()
-                    .amount(5000L)
-                    .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
-                    .build()
-            )
+      val cardPaymentFuture = cardFuelConfirmationServiceAsync.create(CardFuelConfirmationCreateParams.builder()
+          .amount(5000L)
+          .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
+          .build())
 
-        val cardPayment = cardPaymentFuture.get()
-        cardPayment.validate()
+      val cardPayment = cardPaymentFuture.get()
+      cardPayment.validate()
     }
 }

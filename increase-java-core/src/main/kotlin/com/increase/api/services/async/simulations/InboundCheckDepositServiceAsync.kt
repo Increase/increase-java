@@ -12,47 +12,45 @@ import java.util.concurrent.CompletableFuture
 interface InboundCheckDepositServiceAsync {
 
     /**
-     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     * Returns a view of this service that provides access to raw HTTP responses for
+     * each method.
      */
     fun withRawResponse(): WithRawResponse
 
     /**
-     * Simulates an Inbound Check Deposit against your account. This imitates someone depositing a
-     * check at their bank that was issued from your account. It may or may not be associated with a
-     * Check Transfer. Increase will evaluate the Check Deposit as we would in production and either
-     * create a Transaction or a Declined Transaction as a result. You can inspect the resulting
-     * Inbound Check Deposit object to see the result.
+     * Simulates an Inbound Check Deposit against your account. This imitates someone
+     * depositing a check at their bank that was issued from your account. It may or
+     * may not be associated with a Check Transfer. Increase will evaluate the Check
+     * Deposit as we would in production and either create a Transaction or a Declined
+     * Transaction as a result. You can inspect the resulting Inbound Check Deposit
+     * object to see the result.
      */
     fun create(params: InboundCheckDepositCreateParams): CompletableFuture<InboundCheckDeposit> =
-        create(params, RequestOptions.none())
+        create(
+          params, RequestOptions.none()
+        )
 
     /** @see [create] */
-    fun create(
-        params: InboundCheckDepositCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<InboundCheckDeposit>
+    fun create(params: InboundCheckDepositCreateParams, requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<InboundCheckDeposit>
 
     /**
-     * A view of [InboundCheckDepositServiceAsync] that provides access to raw HTTP responses for
-     * each method.
+     * A view of [InboundCheckDepositServiceAsync] that provides access to raw HTTP
+     * responses for each method.
      */
     interface WithRawResponse {
 
         /**
-         * Returns a raw HTTP response for `post /simulations/inbound_check_deposits`, but is
-         * otherwise the same as [InboundCheckDepositServiceAsync.create].
+         * Returns a raw HTTP response for `post /simulations/inbound_check_deposits`, but
+         * is otherwise the same as [InboundCheckDepositServiceAsync.create].
          */
         @MustBeClosed
-        fun create(
-            params: InboundCheckDepositCreateParams
-        ): CompletableFuture<HttpResponseFor<InboundCheckDeposit>> =
-            create(params, RequestOptions.none())
+        fun create(params: InboundCheckDepositCreateParams): CompletableFuture<HttpResponseFor<InboundCheckDeposit>> =
+            create(
+              params, RequestOptions.none()
+            )
 
         /** @see [create] */
         @MustBeClosed
-        fun create(
-            params: InboundCheckDepositCreateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<InboundCheckDeposit>>
+        fun create(params: InboundCheckDepositCreateParams, requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<HttpResponseFor<InboundCheckDeposit>>
     }
 }

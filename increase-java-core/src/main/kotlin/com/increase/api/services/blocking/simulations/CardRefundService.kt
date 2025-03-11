@@ -11,38 +11,41 @@ import com.increase.api.models.transactions.Transaction
 interface CardRefundService {
 
     /**
-     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     * Returns a view of this service that provides access to raw HTTP responses for
+     * each method.
      */
     fun withRawResponse(): WithRawResponse
 
     /**
-     * Simulates refunding a card transaction. The full value of the original sandbox transaction is
-     * refunded.
+     * Simulates refunding a card transaction. The full value of the original sandbox
+     * transaction is refunded.
      */
-    fun create(params: CardRefundCreateParams): Transaction = create(params, RequestOptions.none())
+    fun create(params: CardRefundCreateParams): Transaction =
+        create(
+          params, RequestOptions.none()
+        )
 
     /** @see [create] */
-    fun create(
-        params: CardRefundCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): Transaction
+    fun create(params: CardRefundCreateParams, requestOptions: RequestOptions = RequestOptions.none()): Transaction
 
-    /** A view of [CardRefundService] that provides access to raw HTTP responses for each method. */
+    /**
+     * A view of [CardRefundService] that provides access to raw HTTP responses for
+     * each method.
+     */
     interface WithRawResponse {
 
         /**
-         * Returns a raw HTTP response for `post /simulations/card_refunds`, but is otherwise the
-         * same as [CardRefundService.create].
+         * Returns a raw HTTP response for `post /simulations/card_refunds`, but is
+         * otherwise the same as [CardRefundService.create].
          */
         @MustBeClosed
         fun create(params: CardRefundCreateParams): HttpResponseFor<Transaction> =
-            create(params, RequestOptions.none())
+            create(
+              params, RequestOptions.none()
+            )
 
         /** @see [create] */
         @MustBeClosed
-        fun create(
-            params: CardRefundCreateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<Transaction>
+        fun create(params: CardRefundCreateParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<Transaction>
     }
 }

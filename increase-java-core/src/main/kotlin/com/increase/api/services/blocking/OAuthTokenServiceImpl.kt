@@ -18,52 +18,50 @@ import com.increase.api.errors.IncreaseError
 import com.increase.api.models.oauthtokens.OAuthToken
 import com.increase.api.models.oauthtokens.OAuthTokenCreateParams
 
-class OAuthTokenServiceImpl internal constructor(private val clientOptions: ClientOptions) :
-    OAuthTokenService {
+class OAuthTokenServiceImpl internal constructor(
+    private val clientOptions: ClientOptions,
 
-    private val withRawResponse: OAuthTokenService.WithRawResponse by lazy {
-        WithRawResponseImpl(clientOptions)
-    }
+) : OAuthTokenService {
+
+    private val withRawResponse: OAuthTokenService.WithRawResponse by lazy { WithRawResponseImpl(clientOptions) }
 
     override fun withRawResponse(): OAuthTokenService.WithRawResponse = withRawResponse
 
-    override fun create(
-        params: OAuthTokenCreateParams,
-        requestOptions: RequestOptions,
-    ): OAuthToken =
+    override fun create(params: OAuthTokenCreateParams, requestOptions: RequestOptions): OAuthToken =
         // post /oauth/tokens
         withRawResponse().create(params, requestOptions).parse()
 
-    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
-        OAuthTokenService.WithRawResponse {
+    class WithRawResponseImpl internal constructor(
+        private val clientOptions: ClientOptions,
+
+    ) : OAuthTokenService.WithRawResponse {
 
         private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
-        private val createHandler: Handler<OAuthToken> =
-            jsonHandler<OAuthToken>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val createHandler: Handler<OAuthToken> = jsonHandler<OAuthToken>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-        override fun create(
-            params: OAuthTokenCreateParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<OAuthToken> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .addPathSegments("oauth", "tokens")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
-                response
-                    .use { createHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override fun create(params: OAuthTokenCreateParams, requestOptions: RequestOptions): HttpResponseFor<OAuthToken> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.POST)
+            .addPathSegments("oauth", "tokens")
+            .body(json(clientOptions.jsonMapper, params._body()))
+            .build()
+            .prepare(clientOptions, params)
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return response.parseable {
+              response.use {
+                  createHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
     }
 }

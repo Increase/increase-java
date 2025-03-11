@@ -10,28 +10,32 @@ class AccountStatementCreateParamsTest {
 
     @Test
     fun create() {
-        AccountStatementCreateParams.builder().accountId("account_in71c4amph0vgo2qllky").build()
+      AccountStatementCreateParams.builder()
+          .accountId("account_in71c4amph0vgo2qllky")
+          .build()
     }
 
     @Test
     fun body() {
-        val params =
-            AccountStatementCreateParams.builder().accountId("account_in71c4amph0vgo2qllky").build()
+      val params = AccountStatementCreateParams.builder()
+          .accountId("account_in71c4amph0vgo2qllky")
+          .build()
 
-        val body = params._body()
+      val body = params._body()
 
-        assertNotNull(body)
-        assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
+      assertNotNull(body)
+      assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
     }
 
     @Test
     fun bodyWithoutOptionalFields() {
-        val params =
-            AccountStatementCreateParams.builder().accountId("account_in71c4amph0vgo2qllky").build()
+      val params = AccountStatementCreateParams.builder()
+          .accountId("account_in71c4amph0vgo2qllky")
+          .build()
 
-        val body = params._body()
+      val body = params._body()
 
-        assertNotNull(body)
-        assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
+      assertNotNull(body)
+      assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
     }
 }

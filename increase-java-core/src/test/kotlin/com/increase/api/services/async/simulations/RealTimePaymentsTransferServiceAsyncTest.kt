@@ -13,29 +13,20 @@ class RealTimePaymentsTransferServiceAsyncTest {
 
     @Test
     fun complete() {
-        val client =
-            IncreaseOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
-        val realTimePaymentsTransferServiceAsync = client.simulations().realTimePaymentsTransfers()
+      val client = IncreaseOkHttpClientAsync.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .build()
+      val realTimePaymentsTransferServiceAsync = client.simulations().realTimePaymentsTransfers()
 
-        val realTimePaymentsTransferFuture =
-            realTimePaymentsTransferServiceAsync.complete(
-                RealTimePaymentsTransferCompleteParams.builder()
-                    .realTimePaymentsTransferId("real_time_payments_transfer_iyuhl5kdn7ssmup83mvq")
-                    .rejection(
-                        RealTimePaymentsTransferCompleteParams.Rejection.builder()
-                            .rejectReasonCode(
-                                RealTimePaymentsTransferCompleteParams.Rejection.RejectReasonCode
-                                    .ACCOUNT_CLOSED
-                            )
-                            .build()
-                    )
-                    .build()
-            )
+      val realTimePaymentsTransferFuture = realTimePaymentsTransferServiceAsync.complete(RealTimePaymentsTransferCompleteParams.builder()
+          .realTimePaymentsTransferId("real_time_payments_transfer_iyuhl5kdn7ssmup83mvq")
+          .rejection(RealTimePaymentsTransferCompleteParams.Rejection.builder()
+              .rejectReasonCode(RealTimePaymentsTransferCompleteParams.Rejection.RejectReasonCode.ACCOUNT_CLOSED)
+              .build())
+          .build())
 
-        val realTimePaymentsTransfer = realTimePaymentsTransferFuture.get()
-        realTimePaymentsTransfer.validate()
+      val realTimePaymentsTransfer = realTimePaymentsTransferFuture.get()
+      realTimePaymentsTransfer.validate()
     }
 }

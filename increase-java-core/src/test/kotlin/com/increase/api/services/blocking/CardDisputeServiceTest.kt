@@ -5,6 +5,7 @@ package com.increase.api.services.blocking
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.models.carddisputes.CardDisputeCreateParams
+import com.increase.api.models.carddisputes.CardDisputeListParams
 import com.increase.api.models.carddisputes.CardDisputeRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -14,55 +15,46 @@ class CardDisputeServiceTest {
 
     @Test
     fun create() {
-        val client =
-            IncreaseOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
-        val cardDisputeService = client.cardDisputes()
+      val client = IncreaseOkHttpClient.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .build()
+      val cardDisputeService = client.cardDisputes()
 
-        val cardDispute =
-            cardDisputeService.create(
-                CardDisputeCreateParams.builder()
-                    .disputedTransactionId("transaction_uyrp7fld2ium70oa7oi")
-                    .explanation("Unauthorized recurring transaction.")
-                    .amount(1L)
-                    .build()
-            )
+      val cardDispute = cardDisputeService.create(CardDisputeCreateParams.builder()
+          .disputedTransactionId("transaction_uyrp7fld2ium70oa7oi")
+          .explanation("Unauthorized recurring transaction.")
+          .amount(1L)
+          .build())
 
-        cardDispute.validate()
+      cardDispute.validate()
     }
 
     @Test
     fun retrieve() {
-        val client =
-            IncreaseOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
-        val cardDisputeService = client.cardDisputes()
+      val client = IncreaseOkHttpClient.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .build()
+      val cardDisputeService = client.cardDisputes()
 
-        val cardDispute =
-            cardDisputeService.retrieve(
-                CardDisputeRetrieveParams.builder()
-                    .cardDisputeId("card_dispute_h9sc95nbl1cgltpp7men")
-                    .build()
-            )
+      val cardDispute = cardDisputeService.retrieve(CardDisputeRetrieveParams.builder()
+          .cardDisputeId("card_dispute_h9sc95nbl1cgltpp7men")
+          .build())
 
-        cardDispute.validate()
+      cardDispute.validate()
     }
 
     @Test
     fun list() {
-        val client =
-            IncreaseOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
-        val cardDisputeService = client.cardDisputes()
+      val client = IncreaseOkHttpClient.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .build()
+      val cardDisputeService = client.cardDisputes()
 
-        val page = cardDisputeService.list()
+      val page = cardDisputeService.list()
 
-        page.response().validate()
+      page.response().validate()
     }
 }

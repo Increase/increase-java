@@ -14,70 +14,61 @@ import java.util.concurrent.CompletableFuture
 interface SupplementalDocumentServiceAsync {
 
     /**
-     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     * Returns a view of this service that provides access to raw HTTP responses for
+     * each method.
      */
     fun withRawResponse(): WithRawResponse
 
     /** Create a supplemental document for an Entity */
-    fun create(
-        params: SupplementalDocumentCreateParams
-    ): CompletableFuture<EntitySupplementalDocument> = create(params, RequestOptions.none())
+    fun create(params: SupplementalDocumentCreateParams): CompletableFuture<EntitySupplementalDocument> =
+        create(
+          params, RequestOptions.none()
+        )
 
     /** @see [create] */
-    fun create(
-        params: SupplementalDocumentCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<EntitySupplementalDocument>
+    fun create(params: SupplementalDocumentCreateParams, requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<EntitySupplementalDocument>
 
     /** List Entity Supplemental Document Submissions */
-    fun list(
-        params: SupplementalDocumentListParams
-    ): CompletableFuture<SupplementalDocumentListPageAsync> = list(params, RequestOptions.none())
+    fun list(params: SupplementalDocumentListParams): CompletableFuture<SupplementalDocumentListPageAsync> =
+        list(
+          params, RequestOptions.none()
+        )
 
     /** @see [list] */
-    fun list(
-        params: SupplementalDocumentListParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<SupplementalDocumentListPageAsync>
+    fun list(params: SupplementalDocumentListParams, requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<SupplementalDocumentListPageAsync>
 
     /**
-     * A view of [SupplementalDocumentServiceAsync] that provides access to raw HTTP responses for
-     * each method.
+     * A view of [SupplementalDocumentServiceAsync] that provides access to raw HTTP
+     * responses for each method.
      */
     interface WithRawResponse {
 
         /**
-         * Returns a raw HTTP response for `post /entity_supplemental_documents`, but is otherwise
-         * the same as [SupplementalDocumentServiceAsync.create].
+         * Returns a raw HTTP response for `post /entity_supplemental_documents`, but is
+         * otherwise the same as [SupplementalDocumentServiceAsync.create].
          */
         @MustBeClosed
-        fun create(
-            params: SupplementalDocumentCreateParams
-        ): CompletableFuture<HttpResponseFor<EntitySupplementalDocument>> =
-            create(params, RequestOptions.none())
+        fun create(params: SupplementalDocumentCreateParams): CompletableFuture<HttpResponseFor<EntitySupplementalDocument>> =
+            create(
+              params, RequestOptions.none()
+            )
 
         /** @see [create] */
         @MustBeClosed
-        fun create(
-            params: SupplementalDocumentCreateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<EntitySupplementalDocument>>
+        fun create(params: SupplementalDocumentCreateParams, requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<HttpResponseFor<EntitySupplementalDocument>>
 
         /**
-         * Returns a raw HTTP response for `get /entity_supplemental_documents`, but is otherwise
-         * the same as [SupplementalDocumentServiceAsync.list].
+         * Returns a raw HTTP response for `get /entity_supplemental_documents`, but is
+         * otherwise the same as [SupplementalDocumentServiceAsync.list].
          */
         @MustBeClosed
-        fun list(
-            params: SupplementalDocumentListParams
-        ): CompletableFuture<HttpResponseFor<SupplementalDocumentListPageAsync>> =
-            list(params, RequestOptions.none())
+        fun list(params: SupplementalDocumentListParams): CompletableFuture<HttpResponseFor<SupplementalDocumentListPageAsync>> =
+            list(
+              params, RequestOptions.none()
+            )
 
         /** @see [list] */
         @MustBeClosed
-        fun list(
-            params: SupplementalDocumentListParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<SupplementalDocumentListPageAsync>>
+        fun list(params: SupplementalDocumentListParams, requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<HttpResponseFor<SupplementalDocumentListPageAsync>>
     }
 }

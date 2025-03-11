@@ -19,92 +19,81 @@ import com.increase.api.models.oauthapplications.OAuthApplicationListPage
 import com.increase.api.models.oauthapplications.OAuthApplicationListParams
 import com.increase.api.models.oauthapplications.OAuthApplicationRetrieveParams
 
-class OAuthApplicationServiceImpl internal constructor(private val clientOptions: ClientOptions) :
-    OAuthApplicationService {
+class OAuthApplicationServiceImpl internal constructor(
+    private val clientOptions: ClientOptions,
 
-    private val withRawResponse: OAuthApplicationService.WithRawResponse by lazy {
-        WithRawResponseImpl(clientOptions)
-    }
+) : OAuthApplicationService {
+
+    private val withRawResponse: OAuthApplicationService.WithRawResponse by lazy { WithRawResponseImpl(clientOptions) }
 
     override fun withRawResponse(): OAuthApplicationService.WithRawResponse = withRawResponse
 
-    override fun retrieve(
-        params: OAuthApplicationRetrieveParams,
-        requestOptions: RequestOptions,
-    ): OAuthApplication =
+    override fun retrieve(params: OAuthApplicationRetrieveParams, requestOptions: RequestOptions): OAuthApplication =
         // get /oauth_applications/{oauth_application_id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
-    override fun list(
-        params: OAuthApplicationListParams,
-        requestOptions: RequestOptions,
-    ): OAuthApplicationListPage =
+    override fun list(params: OAuthApplicationListParams, requestOptions: RequestOptions): OAuthApplicationListPage =
         // get /oauth_applications
         withRawResponse().list(params, requestOptions).parse()
 
-    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
-        OAuthApplicationService.WithRawResponse {
+    class WithRawResponseImpl internal constructor(
+        private val clientOptions: ClientOptions,
+
+    ) : OAuthApplicationService.WithRawResponse {
 
         private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
-        private val retrieveHandler: Handler<OAuthApplication> =
-            jsonHandler<OAuthApplication>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val retrieveHandler: Handler<OAuthApplication> = jsonHandler<OAuthApplication>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-        override fun retrieve(
-            params: OAuthApplicationRetrieveParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<OAuthApplication> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .addPathSegments("oauth_applications", params.getPathParam(0))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
-                response
-                    .use { retrieveHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override fun retrieve(params: OAuthApplicationRetrieveParams, requestOptions: RequestOptions): HttpResponseFor<OAuthApplication> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.GET)
+            .addPathSegments("oauth_applications", params.getPathParam(0))
+            .build()
+            .prepare(clientOptions, params)
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return response.parseable {
+              response.use {
+                  retrieveHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
-        private val listHandler: Handler<OAuthApplicationListPage.Response> =
-            jsonHandler<OAuthApplicationListPage.Response>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
+        private val listHandler: Handler<OAuthApplicationListPage.Response> = jsonHandler<OAuthApplicationListPage.Response>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-        override fun list(
-            params: OAuthApplicationListParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<OAuthApplicationListPage> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .addPathSegments("oauth_applications")
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
-                response
-                    .use { listHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-                    .let {
-                        OAuthApplicationListPage.of(
-                            OAuthApplicationServiceImpl(clientOptions),
-                            params,
-                            it,
-                        )
-                    }
-            }
+        override fun list(params: OAuthApplicationListParams, requestOptions: RequestOptions): HttpResponseFor<OAuthApplicationListPage> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.GET)
+            .addPathSegments("oauth_applications")
+            .build()
+            .prepare(clientOptions, params)
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return response.parseable {
+              response.use {
+                  listHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+              .let {
+                  OAuthApplicationListPage.of(OAuthApplicationServiceImpl(clientOptions), params, it)
+              }
+          }
         }
     }
 }

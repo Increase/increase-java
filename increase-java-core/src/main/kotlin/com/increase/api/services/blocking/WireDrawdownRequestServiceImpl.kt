@@ -21,128 +21,111 @@ import com.increase.api.models.wiredrawdownrequests.WireDrawdownRequestListPage
 import com.increase.api.models.wiredrawdownrequests.WireDrawdownRequestListParams
 import com.increase.api.models.wiredrawdownrequests.WireDrawdownRequestRetrieveParams
 
-class WireDrawdownRequestServiceImpl
-internal constructor(private val clientOptions: ClientOptions) : WireDrawdownRequestService {
+class WireDrawdownRequestServiceImpl internal constructor(
+    private val clientOptions: ClientOptions,
 
-    private val withRawResponse: WireDrawdownRequestService.WithRawResponse by lazy {
-        WithRawResponseImpl(clientOptions)
-    }
+) : WireDrawdownRequestService {
+
+    private val withRawResponse: WireDrawdownRequestService.WithRawResponse by lazy { WithRawResponseImpl(clientOptions) }
 
     override fun withRawResponse(): WireDrawdownRequestService.WithRawResponse = withRawResponse
 
-    override fun create(
-        params: WireDrawdownRequestCreateParams,
-        requestOptions: RequestOptions,
-    ): WireDrawdownRequest =
+    override fun create(params: WireDrawdownRequestCreateParams, requestOptions: RequestOptions): WireDrawdownRequest =
         // post /wire_drawdown_requests
         withRawResponse().create(params, requestOptions).parse()
 
-    override fun retrieve(
-        params: WireDrawdownRequestRetrieveParams,
-        requestOptions: RequestOptions,
-    ): WireDrawdownRequest =
+    override fun retrieve(params: WireDrawdownRequestRetrieveParams, requestOptions: RequestOptions): WireDrawdownRequest =
         // get /wire_drawdown_requests/{wire_drawdown_request_id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
-    override fun list(
-        params: WireDrawdownRequestListParams,
-        requestOptions: RequestOptions,
-    ): WireDrawdownRequestListPage =
+    override fun list(params: WireDrawdownRequestListParams, requestOptions: RequestOptions): WireDrawdownRequestListPage =
         // get /wire_drawdown_requests
         withRawResponse().list(params, requestOptions).parse()
 
-    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
-        WireDrawdownRequestService.WithRawResponse {
+    class WithRawResponseImpl internal constructor(
+        private val clientOptions: ClientOptions,
+
+    ) : WireDrawdownRequestService.WithRawResponse {
 
         private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
-        private val createHandler: Handler<WireDrawdownRequest> =
-            jsonHandler<WireDrawdownRequest>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
+        private val createHandler: Handler<WireDrawdownRequest> = jsonHandler<WireDrawdownRequest>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-        override fun create(
-            params: WireDrawdownRequestCreateParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<WireDrawdownRequest> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .addPathSegments("wire_drawdown_requests")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
-                response
-                    .use { createHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override fun create(params: WireDrawdownRequestCreateParams, requestOptions: RequestOptions): HttpResponseFor<WireDrawdownRequest> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.POST)
+            .addPathSegments("wire_drawdown_requests")
+            .body(json(clientOptions.jsonMapper, params._body()))
+            .build()
+            .prepare(clientOptions, params)
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return response.parseable {
+              response.use {
+                  createHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
-        private val retrieveHandler: Handler<WireDrawdownRequest> =
-            jsonHandler<WireDrawdownRequest>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
+        private val retrieveHandler: Handler<WireDrawdownRequest> = jsonHandler<WireDrawdownRequest>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-        override fun retrieve(
-            params: WireDrawdownRequestRetrieveParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<WireDrawdownRequest> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .addPathSegments("wire_drawdown_requests", params.getPathParam(0))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
-                response
-                    .use { retrieveHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override fun retrieve(params: WireDrawdownRequestRetrieveParams, requestOptions: RequestOptions): HttpResponseFor<WireDrawdownRequest> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.GET)
+            .addPathSegments("wire_drawdown_requests", params.getPathParam(0))
+            .build()
+            .prepare(clientOptions, params)
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return response.parseable {
+              response.use {
+                  retrieveHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
-        private val listHandler: Handler<WireDrawdownRequestListPage.Response> =
-            jsonHandler<WireDrawdownRequestListPage.Response>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
+        private val listHandler: Handler<WireDrawdownRequestListPage.Response> = jsonHandler<WireDrawdownRequestListPage.Response>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-        override fun list(
-            params: WireDrawdownRequestListParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<WireDrawdownRequestListPage> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .addPathSegments("wire_drawdown_requests")
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
-                response
-                    .use { listHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-                    .let {
-                        WireDrawdownRequestListPage.of(
-                            WireDrawdownRequestServiceImpl(clientOptions),
-                            params,
-                            it,
-                        )
-                    }
-            }
+        override fun list(params: WireDrawdownRequestListParams, requestOptions: RequestOptions): HttpResponseFor<WireDrawdownRequestListPage> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.GET)
+            .addPathSegments("wire_drawdown_requests")
+            .build()
+            .prepare(clientOptions, params)
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return response.parseable {
+              response.use {
+                  listHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+              .let {
+                  WireDrawdownRequestListPage.of(WireDrawdownRequestServiceImpl(clientOptions), params, it)
+              }
+          }
         }
     }
 }

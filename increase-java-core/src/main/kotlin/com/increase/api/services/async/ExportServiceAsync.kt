@@ -15,50 +15,47 @@ import java.util.concurrent.CompletableFuture
 interface ExportServiceAsync {
 
     /**
-     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     * Returns a view of this service that provides access to raw HTTP responses for
+     * each method.
      */
     fun withRawResponse(): WithRawResponse
 
     /** Create an Export */
     fun create(params: ExportCreateParams): CompletableFuture<Export> =
-        create(params, RequestOptions.none())
+        create(
+          params, RequestOptions.none()
+        )
 
     /** @see [create] */
-    fun create(
-        params: ExportCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Export>
+    fun create(params: ExportCreateParams, requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<Export>
 
     /** Retrieve an Export */
     fun retrieve(params: ExportRetrieveParams): CompletableFuture<Export> =
-        retrieve(params, RequestOptions.none())
+        retrieve(
+          params, RequestOptions.none()
+        )
 
     /** @see [retrieve] */
-    fun retrieve(
-        params: ExportRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Export>
+    fun retrieve(params: ExportRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<Export>
 
     /** List Exports */
     fun list(): CompletableFuture<ExportListPageAsync> = list(ExportListParams.none())
 
     /** @see [list] */
-    fun list(
-        params: ExportListParams = ExportListParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ExportListPageAsync>
+    fun list(params: ExportListParams = ExportListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<ExportListPageAsync>
 
     /** @see [list] */
-    fun list(
-        params: ExportListParams = ExportListParams.none()
-    ): CompletableFuture<ExportListPageAsync> = list(params, RequestOptions.none())
+    fun list(params: ExportListParams = ExportListParams.none()): CompletableFuture<ExportListPageAsync> =
+        list(
+          params, RequestOptions.none()
+        )
 
     /** @see [list] */
-    fun list(requestOptions: RequestOptions): CompletableFuture<ExportListPageAsync> =
-        list(ExportListParams.none(), requestOptions)
+    fun list(requestOptions: RequestOptions): CompletableFuture<ExportListPageAsync> = list(ExportListParams.none(), requestOptions)
 
     /**
-     * A view of [ExportServiceAsync] that provides access to raw HTTP responses for each method.
+     * A view of [ExportServiceAsync] that provides access to raw HTTP responses for
+     * each method.
      */
     interface WithRawResponse {
 
@@ -68,57 +65,48 @@ interface ExportServiceAsync {
          */
         @MustBeClosed
         fun create(params: ExportCreateParams): CompletableFuture<HttpResponseFor<Export>> =
-            create(params, RequestOptions.none())
+            create(
+              params, RequestOptions.none()
+            )
 
         /** @see [create] */
         @MustBeClosed
-        fun create(
-            params: ExportCreateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<Export>>
+        fun create(params: ExportCreateParams, requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<HttpResponseFor<Export>>
 
         /**
-         * Returns a raw HTTP response for `get /exports/{export_id}`, but is otherwise the same as
-         * [ExportServiceAsync.retrieve].
+         * Returns a raw HTTP response for `get /exports/{export_id}`, but is otherwise the
+         * same as [ExportServiceAsync.retrieve].
          */
         @MustBeClosed
         fun retrieve(params: ExportRetrieveParams): CompletableFuture<HttpResponseFor<Export>> =
-            retrieve(params, RequestOptions.none())
+            retrieve(
+              params, RequestOptions.none()
+            )
 
         /** @see [retrieve] */
         @MustBeClosed
-        fun retrieve(
-            params: ExportRetrieveParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<Export>>
+        fun retrieve(params: ExportRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<HttpResponseFor<Export>>
 
         /**
          * Returns a raw HTTP response for `get /exports`, but is otherwise the same as
          * [ExportServiceAsync.list].
          */
         @MustBeClosed
-        fun list(): CompletableFuture<HttpResponseFor<ExportListPageAsync>> =
-            list(ExportListParams.none())
+        fun list(): CompletableFuture<HttpResponseFor<ExportListPageAsync>> = list(ExportListParams.none())
 
         /** @see [list] */
         @MustBeClosed
-        fun list(
-            params: ExportListParams = ExportListParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ExportListPageAsync>>
+        fun list(params: ExportListParams = ExportListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<HttpResponseFor<ExportListPageAsync>>
 
         /** @see [list] */
         @MustBeClosed
-        fun list(
-            params: ExportListParams = ExportListParams.none()
-        ): CompletableFuture<HttpResponseFor<ExportListPageAsync>> =
-            list(params, RequestOptions.none())
+        fun list(params: ExportListParams = ExportListParams.none()): CompletableFuture<HttpResponseFor<ExportListPageAsync>> =
+            list(
+              params, RequestOptions.none()
+            )
 
         /** @see [list] */
         @MustBeClosed
-        fun list(
-            requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<ExportListPageAsync>> =
-            list(ExportListParams.none(), requestOptions)
+        fun list(requestOptions: RequestOptions): CompletableFuture<HttpResponseFor<ExportListPageAsync>> = list(ExportListParams.none(), requestOptions)
     }
 }

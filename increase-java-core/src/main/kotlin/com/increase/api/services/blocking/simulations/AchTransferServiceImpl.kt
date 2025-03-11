@@ -22,213 +22,170 @@ import com.increase.api.models.simulations.achtransfers.AchTransferReturnParams
 import com.increase.api.models.simulations.achtransfers.AchTransferSettleParams
 import com.increase.api.models.simulations.achtransfers.AchTransferSubmitParams
 
-class AchTransferServiceImpl internal constructor(private val clientOptions: ClientOptions) :
-    AchTransferService {
+class AchTransferServiceImpl internal constructor(
+    private val clientOptions: ClientOptions,
 
-    private val withRawResponse: AchTransferService.WithRawResponse by lazy {
-        WithRawResponseImpl(clientOptions)
-    }
+) : AchTransferService {
+
+    private val withRawResponse: AchTransferService.WithRawResponse by lazy { WithRawResponseImpl(clientOptions) }
 
     override fun withRawResponse(): AchTransferService.WithRawResponse = withRawResponse
 
-    override fun acknowledge(
-        params: AchTransferAcknowledgeParams,
-        requestOptions: RequestOptions,
-    ): AchTransfer =
+    override fun acknowledge(params: AchTransferAcknowledgeParams, requestOptions: RequestOptions): AchTransfer =
         // post /simulations/ach_transfers/{ach_transfer_id}/acknowledge
         withRawResponse().acknowledge(params, requestOptions).parse()
 
-    override fun createNotificationOfChange(
-        params: AchTransferCreateNotificationOfChangeParams,
-        requestOptions: RequestOptions,
-    ): AchTransfer =
+    override fun createNotificationOfChange(params: AchTransferCreateNotificationOfChangeParams, requestOptions: RequestOptions): AchTransfer =
         // post /simulations/ach_transfers/{ach_transfer_id}/create_notification_of_change
         withRawResponse().createNotificationOfChange(params, requestOptions).parse()
 
-    override fun return_(
-        params: AchTransferReturnParams,
-        requestOptions: RequestOptions,
-    ): AchTransfer =
+    override fun return_(params: AchTransferReturnParams, requestOptions: RequestOptions): AchTransfer =
         // post /simulations/ach_transfers/{ach_transfer_id}/return
         withRawResponse().return_(params, requestOptions).parse()
 
-    override fun settle(
-        params: AchTransferSettleParams,
-        requestOptions: RequestOptions,
-    ): AchTransfer =
+    override fun settle(params: AchTransferSettleParams, requestOptions: RequestOptions): AchTransfer =
         // post /simulations/ach_transfers/{ach_transfer_id}/settle
         withRawResponse().settle(params, requestOptions).parse()
 
-    override fun submit(
-        params: AchTransferSubmitParams,
-        requestOptions: RequestOptions,
-    ): AchTransfer =
+    override fun submit(params: AchTransferSubmitParams, requestOptions: RequestOptions): AchTransfer =
         // post /simulations/ach_transfers/{ach_transfer_id}/submit
         withRawResponse().submit(params, requestOptions).parse()
 
-    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
-        AchTransferService.WithRawResponse {
+    class WithRawResponseImpl internal constructor(
+        private val clientOptions: ClientOptions,
+
+    ) : AchTransferService.WithRawResponse {
 
         private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
-        private val acknowledgeHandler: Handler<AchTransfer> =
-            jsonHandler<AchTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val acknowledgeHandler: Handler<AchTransfer> = jsonHandler<AchTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-        override fun acknowledge(
-            params: AchTransferAcknowledgeParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<AchTransfer> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .addPathSegments(
-                        "simulations",
-                        "ach_transfers",
-                        params.getPathParam(0),
-                        "acknowledge",
-                    )
-                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
-                response
-                    .use { acknowledgeHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override fun acknowledge(params: AchTransferAcknowledgeParams, requestOptions: RequestOptions): HttpResponseFor<AchTransfer> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.POST)
+            .addPathSegments("simulations", "ach_transfers", params.getPathParam(0), "acknowledge")
+            .apply { params._body().ifPresent{ body(json(clientOptions.jsonMapper, it)) } }
+            .build()
+            .prepare(clientOptions, params)
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return response.parseable {
+              response.use {
+                  acknowledgeHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
-        private val createNotificationOfChangeHandler: Handler<AchTransfer> =
-            jsonHandler<AchTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val createNotificationOfChangeHandler: Handler<AchTransfer> = jsonHandler<AchTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-        override fun createNotificationOfChange(
-            params: AchTransferCreateNotificationOfChangeParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<AchTransfer> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .addPathSegments(
-                        "simulations",
-                        "ach_transfers",
-                        params.getPathParam(0),
-                        "create_notification_of_change",
-                    )
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
-                response
-                    .use { createNotificationOfChangeHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override fun createNotificationOfChange(params: AchTransferCreateNotificationOfChangeParams, requestOptions: RequestOptions): HttpResponseFor<AchTransfer> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.POST)
+            .addPathSegments("simulations", "ach_transfers", params.getPathParam(0), "create_notification_of_change")
+            .body(json(clientOptions.jsonMapper, params._body()))
+            .build()
+            .prepare(clientOptions, params)
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return response.parseable {
+              response.use {
+                  createNotificationOfChangeHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
-        private val returnHandler: Handler<AchTransfer> =
-            jsonHandler<AchTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val returnHandler: Handler<AchTransfer> = jsonHandler<AchTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-        override fun return_(
-            params: AchTransferReturnParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<AchTransfer> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .addPathSegments(
-                        "simulations",
-                        "ach_transfers",
-                        params.getPathParam(0),
-                        "return",
-                    )
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
-                response
-                    .use { returnHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override fun return_(params: AchTransferReturnParams, requestOptions: RequestOptions): HttpResponseFor<AchTransfer> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.POST)
+            .addPathSegments("simulations", "ach_transfers", params.getPathParam(0), "return")
+            .body(json(clientOptions.jsonMapper, params._body()))
+            .build()
+            .prepare(clientOptions, params)
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return response.parseable {
+              response.use {
+                  returnHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
-        private val settleHandler: Handler<AchTransfer> =
-            jsonHandler<AchTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val settleHandler: Handler<AchTransfer> = jsonHandler<AchTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-        override fun settle(
-            params: AchTransferSettleParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<AchTransfer> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .addPathSegments(
-                        "simulations",
-                        "ach_transfers",
-                        params.getPathParam(0),
-                        "settle",
-                    )
-                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
-                response
-                    .use { settleHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override fun settle(params: AchTransferSettleParams, requestOptions: RequestOptions): HttpResponseFor<AchTransfer> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.POST)
+            .addPathSegments("simulations", "ach_transfers", params.getPathParam(0), "settle")
+            .apply { params._body().ifPresent{ body(json(clientOptions.jsonMapper, it)) } }
+            .build()
+            .prepare(clientOptions, params)
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return response.parseable {
+              response.use {
+                  settleHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
-        private val submitHandler: Handler<AchTransfer> =
-            jsonHandler<AchTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val submitHandler: Handler<AchTransfer> = jsonHandler<AchTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-        override fun submit(
-            params: AchTransferSubmitParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<AchTransfer> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .addPathSegments(
-                        "simulations",
-                        "ach_transfers",
-                        params.getPathParam(0),
-                        "submit",
-                    )
-                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
-                response
-                    .use { submitHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override fun submit(params: AchTransferSubmitParams, requestOptions: RequestOptions): HttpResponseFor<AchTransfer> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.POST)
+            .addPathSegments("simulations", "ach_transfers", params.getPathParam(0), "submit")
+            .apply { params._body().ifPresent{ body(json(clientOptions.jsonMapper, it)) } }
+            .build()
+            .prepare(clientOptions, params)
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return response.parseable {
+              response.use {
+                  submitHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
     }
 }

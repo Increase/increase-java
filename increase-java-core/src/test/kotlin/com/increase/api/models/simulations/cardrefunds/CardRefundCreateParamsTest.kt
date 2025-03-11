@@ -10,32 +10,32 @@ class CardRefundCreateParamsTest {
 
     @Test
     fun create() {
-        CardRefundCreateParams.builder().transactionId("transaction_uyrp7fld2ium70oa7oi").build()
+      CardRefundCreateParams.builder()
+          .transactionId("transaction_uyrp7fld2ium70oa7oi")
+          .build()
     }
 
     @Test
     fun body() {
-        val params =
-            CardRefundCreateParams.builder()
-                .transactionId("transaction_uyrp7fld2ium70oa7oi")
-                .build()
+      val params = CardRefundCreateParams.builder()
+          .transactionId("transaction_uyrp7fld2ium70oa7oi")
+          .build()
 
-        val body = params._body()
+      val body = params._body()
 
-        assertNotNull(body)
-        assertThat(body.transactionId()).isEqualTo("transaction_uyrp7fld2ium70oa7oi")
+      assertNotNull(body)
+      assertThat(body.transactionId()).isEqualTo("transaction_uyrp7fld2ium70oa7oi")
     }
 
     @Test
     fun bodyWithoutOptionalFields() {
-        val params =
-            CardRefundCreateParams.builder()
-                .transactionId("transaction_uyrp7fld2ium70oa7oi")
-                .build()
+      val params = CardRefundCreateParams.builder()
+          .transactionId("transaction_uyrp7fld2ium70oa7oi")
+          .build()
 
-        val body = params._body()
+      val body = params._body()
 
-        assertNotNull(body)
-        assertThat(body.transactionId()).isEqualTo("transaction_uyrp7fld2ium70oa7oi")
+      assertNotNull(body)
+      assertThat(body.transactionId()).isEqualTo("transaction_uyrp7fld2ium70oa7oi")
     }
 }

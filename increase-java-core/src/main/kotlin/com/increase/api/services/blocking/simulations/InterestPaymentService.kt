@@ -11,42 +11,41 @@ import com.increase.api.models.transactions.Transaction
 interface InterestPaymentService {
 
     /**
-     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     * Returns a view of this service that provides access to raw HTTP responses for
+     * each method.
      */
     fun withRawResponse(): WithRawResponse
 
     /**
-     * Simulates an interest payment to your account. In production, this happens automatically on
-     * the first of each month.
+     * Simulates an interest payment to your account. In production, this happens
+     * automatically on the first of each month.
      */
     fun create(params: InterestPaymentCreateParams): Transaction =
-        create(params, RequestOptions.none())
+        create(
+          params, RequestOptions.none()
+        )
 
     /** @see [create] */
-    fun create(
-        params: InterestPaymentCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): Transaction
+    fun create(params: InterestPaymentCreateParams, requestOptions: RequestOptions = RequestOptions.none()): Transaction
 
     /**
-     * A view of [InterestPaymentService] that provides access to raw HTTP responses for each
-     * method.
+     * A view of [InterestPaymentService] that provides access to raw HTTP responses
+     * for each method.
      */
     interface WithRawResponse {
 
         /**
-         * Returns a raw HTTP response for `post /simulations/interest_payments`, but is otherwise
-         * the same as [InterestPaymentService.create].
+         * Returns a raw HTTP response for `post /simulations/interest_payments`, but is
+         * otherwise the same as [InterestPaymentService.create].
          */
         @MustBeClosed
         fun create(params: InterestPaymentCreateParams): HttpResponseFor<Transaction> =
-            create(params, RequestOptions.none())
+            create(
+              params, RequestOptions.none()
+            )
 
         /** @see [create] */
         @MustBeClosed
-        fun create(
-            params: InterestPaymentCreateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<Transaction>
+        fun create(params: InterestPaymentCreateParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<Transaction>
     }
 }

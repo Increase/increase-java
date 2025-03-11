@@ -12,47 +12,44 @@ import java.util.concurrent.CompletableFuture
 interface AccountTransferServiceAsync {
 
     /**
-     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     * Returns a view of this service that provides access to raw HTTP responses for
+     * each method.
      */
     fun withRawResponse(): WithRawResponse
 
     /**
-     * If your account is configured to require approval for each transfer, this endpoint simulates
-     * the approval of an [Account Transfer](#account-transfers). You can also approve sandbox
-     * Account Transfers in the dashboard. This transfer must first have a `status` of
-     * `pending_approval`.
+     * If your account is configured to require approval for each transfer, this
+     * endpoint simulates the approval of an [Account Transfer](#account-transfers).
+     * You can also approve sandbox Account Transfers in the dashboard. This transfer
+     * must first have a `status` of `pending_approval`.
      */
     fun complete(params: AccountTransferCompleteParams): CompletableFuture<AccountTransfer> =
-        complete(params, RequestOptions.none())
+        complete(
+          params, RequestOptions.none()
+        )
 
     /** @see [complete] */
-    fun complete(
-        params: AccountTransferCompleteParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<AccountTransfer>
+    fun complete(params: AccountTransferCompleteParams, requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<AccountTransfer>
 
     /**
-     * A view of [AccountTransferServiceAsync] that provides access to raw HTTP responses for each
-     * method.
+     * A view of [AccountTransferServiceAsync] that provides access to raw HTTP
+     * responses for each method.
      */
     interface WithRawResponse {
 
         /**
-         * Returns a raw HTTP response for `post
-         * /simulations/account_transfers/{account_transfer_id}/complete`, but is otherwise the same
-         * as [AccountTransferServiceAsync.complete].
+         * Returns a raw HTTP response for
+         * `post /simulations/account_transfers/{account_transfer_id}/complete`, but is
+         * otherwise the same as [AccountTransferServiceAsync.complete].
          */
         @MustBeClosed
-        fun complete(
-            params: AccountTransferCompleteParams
-        ): CompletableFuture<HttpResponseFor<AccountTransfer>> =
-            complete(params, RequestOptions.none())
+        fun complete(params: AccountTransferCompleteParams): CompletableFuture<HttpResponseFor<AccountTransfer>> =
+            complete(
+              params, RequestOptions.none()
+            )
 
         /** @see [complete] */
         @MustBeClosed
-        fun complete(
-            params: AccountTransferCompleteParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<AccountTransfer>>
+        fun complete(params: AccountTransferCompleteParams, requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<HttpResponseFor<AccountTransfer>>
     }
 }

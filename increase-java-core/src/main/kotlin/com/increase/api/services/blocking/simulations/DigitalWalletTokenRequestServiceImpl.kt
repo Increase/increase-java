@@ -18,54 +18,50 @@ import com.increase.api.errors.IncreaseError
 import com.increase.api.models.simulations.digitalwallettokenrequests.DigitalWalletTokenRequestCreateParams
 import com.increase.api.models.simulations.digitalwallettokenrequests.DigitalWalletTokenRequestCreateResponse
 
-class DigitalWalletTokenRequestServiceImpl
-internal constructor(private val clientOptions: ClientOptions) : DigitalWalletTokenRequestService {
+class DigitalWalletTokenRequestServiceImpl internal constructor(
+    private val clientOptions: ClientOptions,
 
-    private val withRawResponse: DigitalWalletTokenRequestService.WithRawResponse by lazy {
-        WithRawResponseImpl(clientOptions)
-    }
+) : DigitalWalletTokenRequestService {
 
-    override fun withRawResponse(): DigitalWalletTokenRequestService.WithRawResponse =
-        withRawResponse
+    private val withRawResponse: DigitalWalletTokenRequestService.WithRawResponse by lazy { WithRawResponseImpl(clientOptions) }
 
-    override fun create(
-        params: DigitalWalletTokenRequestCreateParams,
-        requestOptions: RequestOptions,
-    ): DigitalWalletTokenRequestCreateResponse =
+    override fun withRawResponse(): DigitalWalletTokenRequestService.WithRawResponse = withRawResponse
+
+    override fun create(params: DigitalWalletTokenRequestCreateParams, requestOptions: RequestOptions): DigitalWalletTokenRequestCreateResponse =
         // post /simulations/digital_wallet_token_requests
         withRawResponse().create(params, requestOptions).parse()
 
-    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
-        DigitalWalletTokenRequestService.WithRawResponse {
+    class WithRawResponseImpl internal constructor(
+        private val clientOptions: ClientOptions,
+
+    ) : DigitalWalletTokenRequestService.WithRawResponse {
 
         private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
-        private val createHandler: Handler<DigitalWalletTokenRequestCreateResponse> =
-            jsonHandler<DigitalWalletTokenRequestCreateResponse>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
+        private val createHandler: Handler<DigitalWalletTokenRequestCreateResponse> = jsonHandler<DigitalWalletTokenRequestCreateResponse>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-        override fun create(
-            params: DigitalWalletTokenRequestCreateParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<DigitalWalletTokenRequestCreateResponse> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .addPathSegments("simulations", "digital_wallet_token_requests")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
-                response
-                    .use { createHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override fun create(params: DigitalWalletTokenRequestCreateParams, requestOptions: RequestOptions): HttpResponseFor<DigitalWalletTokenRequestCreateResponse> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.POST)
+            .addPathSegments("simulations", "digital_wallet_token_requests")
+            .body(json(clientOptions.jsonMapper, params._body()))
+            .build()
+            .prepare(clientOptions, params)
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.execute(
+            request, requestOptions
+          )
+          return response.parseable {
+              response.use {
+                  createHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
     }
 }

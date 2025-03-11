@@ -11,42 +11,43 @@ import com.increase.api.models.simulations.cardreversals.CardReversalCreateParam
 interface CardReversalService {
 
     /**
-     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     * Returns a view of this service that provides access to raw HTTP responses for
+     * each method.
      */
     fun withRawResponse(): WithRawResponse
 
     /**
-     * Simulates the reversal of an authorization by a card acquirer. An authorization can be
-     * partially reversed multiple times, up until the total authorized amount. Marks the pending
-     * transaction as complete if the authorization is fully reversed.
+     * Simulates the reversal of an authorization by a card acquirer. An authorization
+     * can be partially reversed multiple times, up until the total authorized amount.
+     * Marks the pending transaction as complete if the authorization is fully
+     * reversed.
      */
     fun create(params: CardReversalCreateParams): CardPayment =
-        create(params, RequestOptions.none())
+        create(
+          params, RequestOptions.none()
+        )
 
     /** @see [create] */
-    fun create(
-        params: CardReversalCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CardPayment
+    fun create(params: CardReversalCreateParams, requestOptions: RequestOptions = RequestOptions.none()): CardPayment
 
     /**
-     * A view of [CardReversalService] that provides access to raw HTTP responses for each method.
+     * A view of [CardReversalService] that provides access to raw HTTP responses for
+     * each method.
      */
     interface WithRawResponse {
 
         /**
-         * Returns a raw HTTP response for `post /simulations/card_reversals`, but is otherwise the
-         * same as [CardReversalService.create].
+         * Returns a raw HTTP response for `post /simulations/card_reversals`, but is
+         * otherwise the same as [CardReversalService.create].
          */
         @MustBeClosed
         fun create(params: CardReversalCreateParams): HttpResponseFor<CardPayment> =
-            create(params, RequestOptions.none())
+            create(
+              params, RequestOptions.none()
+            )
 
         /** @see [create] */
         @MustBeClosed
-        fun create(
-            params: CardReversalCreateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CardPayment>
+        fun create(params: CardReversalCreateParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<CardPayment>
     }
 }
