@@ -14,56 +14,66 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.routingnumbers.RoutingNumberListPage
 import com.increase.api.models.routingnumbers.RoutingNumberListPageAsync
 import com.increase.api.models.routingnumbers.RoutingNumberListParams
 import java.util.concurrent.CompletableFuture
 
-class RoutingNumberServiceAsyncImpl internal constructor(
-    private val clientOptions: ClientOptions,
+class RoutingNumberServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
+    RoutingNumberServiceAsync {
 
-) : RoutingNumberServiceAsync {
-
-    private val withRawResponse: RoutingNumberServiceAsync.WithRawResponse by lazy { WithRawResponseImpl(clientOptions) }
+    private val withRawResponse: RoutingNumberServiceAsync.WithRawResponse by lazy {
+        WithRawResponseImpl(clientOptions)
+    }
 
     override fun withRawResponse(): RoutingNumberServiceAsync.WithRawResponse = withRawResponse
 
-    override fun list(params: RoutingNumberListParams, requestOptions: RequestOptions): CompletableFuture<RoutingNumberListPageAsync> =
+    override fun list(
+        params: RoutingNumberListParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<RoutingNumberListPageAsync> =
         // get /routing_numbers
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
-    class WithRawResponseImpl internal constructor(
-        private val clientOptions: ClientOptions,
-
-    ) : RoutingNumberServiceAsync.WithRawResponse {
+    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
+        RoutingNumberServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
-        private val listHandler: Handler<RoutingNumberListPageAsync.Response> = jsonHandler<RoutingNumberListPageAsync.Response>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val listHandler: Handler<RoutingNumberListPageAsync.Response> =
+            jsonHandler<RoutingNumberListPageAsync.Response>(clientOptions.jsonMapper)
+                .withErrorHandler(errorHandler)
 
-        override fun list(params: RoutingNumberListParams, requestOptions: RequestOptions): CompletableFuture<HttpResponseFor<RoutingNumberListPageAsync>> {
-          val request = HttpRequest.builder()
-            .method(HttpMethod.GET)
-            .addPathSegments("routing_numbers")
-            .build()
-            .prepareAsync(clientOptions, params)
-          val requestOptions = requestOptions
-              .applyDefaults(RequestOptions.from(clientOptions))
-          return request.thenComposeAsync { clientOptions.httpClient.executeAsync(
-            it, requestOptions
-          ) }.thenApply { response -> response.parseable {
-              response.use {
-                  listHandler.handle(it)
-              }
-              .also {
-                  if (requestOptions.responseValidation!!) {
-                    it.validate()
-                  }
-              }
-              .let {
-                  RoutingNumberListPageAsync.of(RoutingNumberServiceAsyncImpl(clientOptions), params, it)
-              }
-          } }
+        override fun list(
+            params: RoutingNumberListParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<RoutingNumberListPageAsync>> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .addPathSegments("routing_numbers")
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    response.parseable {
+                        response
+                            .use { listHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                            .let {
+                                RoutingNumberListPageAsync.of(
+                                    RoutingNumberServiceAsyncImpl(clientOptions),
+                                    params,
+                                    it,
+                                )
+                            }
+                    }
+                }
         }
     }
 }

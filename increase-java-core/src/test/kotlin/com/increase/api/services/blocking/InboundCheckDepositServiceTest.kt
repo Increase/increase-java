@@ -5,7 +5,6 @@ package com.increase.api.services.blocking
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositDeclineParams
-import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositListParams
 import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositRetrieveParams
 import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositReturnParams
 import org.junit.jupiter.api.Test
@@ -16,60 +15,73 @@ class InboundCheckDepositServiceTest {
 
     @Test
     fun retrieve() {
-      val client = IncreaseOkHttpClient.builder()
-          .baseUrl(TestServerExtension.BASE_URL)
-          .apiKey("My API Key")
-          .build()
-      val inboundCheckDepositService = client.inboundCheckDeposits()
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val inboundCheckDepositService = client.inboundCheckDeposits()
 
-      val inboundCheckDeposit = inboundCheckDepositService.retrieve(InboundCheckDepositRetrieveParams.builder()
-          .inboundCheckDepositId("inbound_check_deposit_zoshvqybq0cjjm31mra")
-          .build())
+        val inboundCheckDeposit =
+            inboundCheckDepositService.retrieve(
+                InboundCheckDepositRetrieveParams.builder()
+                    .inboundCheckDepositId("inbound_check_deposit_zoshvqybq0cjjm31mra")
+                    .build()
+            )
 
-      inboundCheckDeposit.validate()
+        inboundCheckDeposit.validate()
     }
 
     @Test
     fun list() {
-      val client = IncreaseOkHttpClient.builder()
-          .baseUrl(TestServerExtension.BASE_URL)
-          .apiKey("My API Key")
-          .build()
-      val inboundCheckDepositService = client.inboundCheckDeposits()
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val inboundCheckDepositService = client.inboundCheckDeposits()
 
-      val page = inboundCheckDepositService.list()
+        val page = inboundCheckDepositService.list()
 
-      page.response().validate()
+        page.response().validate()
     }
 
     @Test
     fun decline() {
-      val client = IncreaseOkHttpClient.builder()
-          .baseUrl(TestServerExtension.BASE_URL)
-          .apiKey("My API Key")
-          .build()
-      val inboundCheckDepositService = client.inboundCheckDeposits()
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val inboundCheckDepositService = client.inboundCheckDeposits()
 
-      val inboundCheckDeposit = inboundCheckDepositService.decline(InboundCheckDepositDeclineParams.builder()
-          .inboundCheckDepositId("inbound_check_deposit_zoshvqybq0cjjm31mra")
-          .build())
+        val inboundCheckDeposit =
+            inboundCheckDepositService.decline(
+                InboundCheckDepositDeclineParams.builder()
+                    .inboundCheckDepositId("inbound_check_deposit_zoshvqybq0cjjm31mra")
+                    .build()
+            )
 
-      inboundCheckDeposit.validate()
+        inboundCheckDeposit.validate()
     }
 
     @Test
     fun return_() {
-      val client = IncreaseOkHttpClient.builder()
-          .baseUrl(TestServerExtension.BASE_URL)
-          .apiKey("My API Key")
-          .build()
-      val inboundCheckDepositService = client.inboundCheckDeposits()
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val inboundCheckDepositService = client.inboundCheckDeposits()
 
-      val inboundCheckDeposit = inboundCheckDepositService.return_(InboundCheckDepositReturnParams.builder()
-          .inboundCheckDepositId("inbound_check_deposit_zoshvqybq0cjjm31mra")
-          .reason(InboundCheckDepositReturnParams.Reason.ALTERED_OR_FICTITIOUS)
-          .build())
+        val inboundCheckDeposit =
+            inboundCheckDepositService.return_(
+                InboundCheckDepositReturnParams.builder()
+                    .inboundCheckDepositId("inbound_check_deposit_zoshvqybq0cjjm31mra")
+                    .reason(InboundCheckDepositReturnParams.Reason.ALTERED_OR_FICTITIOUS)
+                    .build()
+            )
 
-      inboundCheckDeposit.validate()
+        inboundCheckDeposit.validate()
     }
 }

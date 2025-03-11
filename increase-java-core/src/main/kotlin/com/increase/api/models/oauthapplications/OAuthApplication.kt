@@ -22,44 +22,50 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * An OAuth Application lets you build an application for others to use with their
- * Increase data. You can create an OAuth Application via the Dashboard and read
- * information about it with the API. Learn more about OAuth
- * [here](https://increase.com/documentation/oauth).
+ * An OAuth Application lets you build an application for others to use with their Increase data.
+ * You can create an OAuth Application via the Dashboard and read information about it with the API.
+ * Learn more about OAuth [here](https://increase.com/documentation/oauth).
  */
 @NoAutoDetect
-class OAuthApplication @JsonCreator private constructor(
+class OAuthApplication
+@JsonCreator
+private constructor(
     @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("client_id") @ExcludeMissing private val clientId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("created_at") @ExcludeMissing private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("deleted_at") @ExcludeMissing private val deletedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("client_id")
+    @ExcludeMissing
+    private val clientId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("deleted_at")
+    @ExcludeMissing
+    private val deletedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
     @JsonProperty("name") @ExcludeMissing private val name: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("status") @ExcludeMissing private val status: JsonField<Status> = JsonMissing.of(),
+    @JsonProperty("status")
+    @ExcludeMissing
+    private val status: JsonField<Status> = JsonMissing.of(),
     @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-
 ) {
 
     /** The OAuth Application's identifier. */
     fun id(): String = id.getRequired("id")
 
-    /**
-     * The OAuth Application's client_id. Use this to authenticate with the OAuth
-     * Application.
-     */
+    /** The OAuth Application's client_id. Use this to authenticate with the OAuth Application. */
     fun clientId(): String = clientId.getRequired("client_id")
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp when the OAuth
-     * Application was created.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp when the OAuth Application
+     * was created.
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp when the OAuth
-     * Application was deleted.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp when the OAuth Application
+     * was deleted.
      */
-    fun deletedAt(): Optional<OffsetDateTime> = Optional.ofNullable(deletedAt.getNullable("deleted_at"))
+    fun deletedAt(): Optional<OffsetDateTime> =
+        Optional.ofNullable(deletedAt.getNullable("deleted_at"))
 
     /** The name you chose for this OAuth Application. */
     fun name(): Optional<String> = Optional.ofNullable(name.getNullable("name"))
@@ -74,51 +80,38 @@ class OAuthApplication @JsonCreator private constructor(
     fun type(): Type = type.getRequired("type")
 
     /** The OAuth Application's identifier. */
-    @JsonProperty("id")
-    @ExcludeMissing
-    fun _id(): JsonField<String> = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+
+    /** The OAuth Application's client_id. Use this to authenticate with the OAuth Application. */
+    @JsonProperty("client_id") @ExcludeMissing fun _clientId(): JsonField<String> = clientId
 
     /**
-     * The OAuth Application's client_id. Use this to authenticate with the OAuth
-     * Application.
-     */
-    @JsonProperty("client_id")
-    @ExcludeMissing
-    fun _clientId(): JsonField<String> = clientId
-
-    /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp when the OAuth
-     * Application was created.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp when the OAuth Application
+     * was created.
      */
     @JsonProperty("created_at")
     @ExcludeMissing
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp when the OAuth
-     * Application was deleted.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp when the OAuth Application
+     * was deleted.
      */
     @JsonProperty("deleted_at")
     @ExcludeMissing
     fun _deletedAt(): JsonField<OffsetDateTime> = deletedAt
 
     /** The name you chose for this OAuth Application. */
-    @JsonProperty("name")
-    @ExcludeMissing
-    fun _name(): JsonField<String> = name
+    @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
     /** Whether the application is active. */
-    @JsonProperty("status")
-    @ExcludeMissing
-    fun _status(): JsonField<Status> = status
+    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `oauth_application`.
      */
-    @JsonProperty("type")
-    @ExcludeMissing
-    fun _type(): JsonField<Type> = type
+    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -126,21 +119,20 @@ class OAuthApplication @JsonCreator private constructor(
 
     private var validated: Boolean = false
 
-    fun validate(): OAuthApplication =
-        apply {
-            if (validated) {
-              return@apply
-            }
-
-            id()
-            clientId()
-            createdAt()
-            deletedAt()
-            name()
-            status()
-            type()
-            validated = true
+    fun validate(): OAuthApplication = apply {
+        if (validated) {
+            return@apply
         }
+
+        id()
+        clientId()
+        createdAt()
+        deletedAt()
+        name()
+        status()
+        type()
+        validated = true
+    }
 
     fun toBuilder() = Builder().from(this)
 
@@ -150,7 +142,6 @@ class OAuthApplication @JsonCreator private constructor(
          * Returns a mutable builder for constructing an instance of [OAuthApplication].
          *
          * The following fields are required:
-         *
          * ```java
          * .id()
          * .clientId()
@@ -161,8 +152,7 @@ class OAuthApplication @JsonCreator private constructor(
          * .type()
          * ```
          */
-        @JvmStatic
-        fun builder() = Builder()
+        @JvmStatic fun builder() = Builder()
     }
 
     /** A builder for [OAuthApplication]. */
@@ -178,41 +168,32 @@ class OAuthApplication @JsonCreator private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(oauthApplication: OAuthApplication) =
-            apply {
-                id = oauthApplication.id
-                clientId = oauthApplication.clientId
-                createdAt = oauthApplication.createdAt
-                deletedAt = oauthApplication.deletedAt
-                name = oauthApplication.name
-                status = oauthApplication.status
-                type = oauthApplication.type
-                additionalProperties = oauthApplication.additionalProperties.toMutableMap()
-            }
+        internal fun from(oauthApplication: OAuthApplication) = apply {
+            id = oauthApplication.id
+            clientId = oauthApplication.clientId
+            createdAt = oauthApplication.createdAt
+            deletedAt = oauthApplication.deletedAt
+            name = oauthApplication.name
+            status = oauthApplication.status
+            type = oauthApplication.type
+            additionalProperties = oauthApplication.additionalProperties.toMutableMap()
+        }
 
         /** The OAuth Application's identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
         /** The OAuth Application's identifier. */
-        fun id(id: JsonField<String>) =
-            apply {
-                this.id = id
-            }
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
-         * The OAuth Application's client_id. Use this to authenticate with the OAuth
-         * Application.
+         * The OAuth Application's client_id. Use this to authenticate with the OAuth Application.
          */
         fun clientId(clientId: String) = clientId(JsonField.of(clientId))
 
         /**
-         * The OAuth Application's client_id. Use this to authenticate with the OAuth
-         * Application.
+         * The OAuth Application's client_id. Use this to authenticate with the OAuth Application.
          */
-        fun clientId(clientId: JsonField<String>) =
-            apply {
-                this.clientId = clientId
-            }
+        fun clientId(clientId: JsonField<String>) = apply { this.clientId = clientId }
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp when the OAuth
@@ -224,10 +205,7 @@ class OAuthApplication @JsonCreator private constructor(
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp when the OAuth
          * Application was created.
          */
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) =
-            apply {
-                this.createdAt = createdAt
-            }
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp when the OAuth
@@ -245,10 +223,7 @@ class OAuthApplication @JsonCreator private constructor(
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp when the OAuth
          * Application was deleted.
          */
-        fun deletedAt(deletedAt: JsonField<OffsetDateTime>) =
-            apply {
-                this.deletedAt = deletedAt
-            }
+        fun deletedAt(deletedAt: JsonField<OffsetDateTime>) = apply { this.deletedAt = deletedAt }
 
         /** The name you chose for this OAuth Application. */
         fun name(name: String?) = name(JsonField.ofNullable(name))
@@ -257,19 +232,13 @@ class OAuthApplication @JsonCreator private constructor(
         fun name(name: Optional<String>) = name(name.getOrNull())
 
         /** The name you chose for this OAuth Application. */
-        fun name(name: JsonField<String>) =
-            apply {
-                this.name = name
-            }
+        fun name(name: JsonField<String>) = apply { this.name = name }
 
         /** Whether the application is active. */
         fun status(status: Status) = status(JsonField.of(status))
 
         /** Whether the application is active. */
-        fun status(status: JsonField<Status>) =
-            apply {
-                this.status = status
-            }
+        fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /**
          * A constant representing the object's type. For this resource it will always be
@@ -281,80 +250,52 @@ class OAuthApplication @JsonCreator private constructor(
          * A constant representing the object's type. For this resource it will always be
          * `oauth_application`.
          */
-        fun type(type: JsonField<Type>) =
-            apply {
-                this.type = type
-            }
+        fun type(type: JsonField<Type>) = apply { this.type = type }
 
-        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
-            apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
+        fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+            this.additionalProperties.clear()
+            putAllAdditionalProperties(additionalProperties)
+        }
 
-        fun putAdditionalProperty(key: String, value: JsonValue) =
-            apply {
-                additionalProperties.put(key, value)
-            }
+        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+            additionalProperties.put(key, value)
+        }
 
-        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-            apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
+        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+            this.additionalProperties.putAll(additionalProperties)
+        }
 
-        fun removeAdditionalProperty(key: String) =
-            apply {
-                additionalProperties.remove(key)
-            }
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
 
-        fun removeAllAdditionalProperties(keys: Set<String>) =
-            apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
+        }
 
         fun build(): OAuthApplication =
             OAuthApplication(
-              checkRequired(
-                "id", id
-              ),
-              checkRequired(
-                "clientId", clientId
-              ),
-              checkRequired(
-                "createdAt", createdAt
-              ),
-              checkRequired(
-                "deletedAt", deletedAt
-              ),
-              checkRequired(
-                "name", name
-              ),
-              checkRequired(
-                "status", status
-              ),
-              checkRequired(
-                "type", type
-              ),
-              additionalProperties.toImmutable(),
+                checkRequired("id", id),
+                checkRequired("clientId", clientId),
+                checkRequired("createdAt", createdAt),
+                checkRequired("deletedAt", deletedAt),
+                checkRequired("name", name),
+                checkRequired("status", status),
+                checkRequired("type", type),
+                additionalProperties.toImmutable(),
             )
     }
 
     /** Whether the application is active. */
-    class Status @JsonCreator private constructor(
-        private val value: JsonField<String>,
-
-    ) : Enum {
+    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that
-         * doesn't match any known member, and you want to know that value. For example, if
-         * the SDK is on an older version than the API, then the API may respond with new
-         * members that the SDK is unaware of.
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -379,11 +320,9 @@ class OAuthApplication @JsonCreator private constructor(
          * An enum containing [Status]'s known values, as well as an [_UNKNOWN] member.
          *
          * An instance of [Status] can contain an unknown value in a couple of cases:
-         *
-         * - It was deserialized from data that doesn't match any known member. For
-         *   example, if the SDK is on an older version than the API, then the API may
-         *   respond with new members that the SDK is unaware of.
-         *
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
@@ -396,11 +335,11 @@ class OAuthApplication @JsonCreator private constructor(
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or
-         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if
-         * you want to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -412,11 +351,11 @@ class OAuthApplication @JsonCreator private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and
-         * don't want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value is a not a
-         * known member.
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+         *   member.
          */
         fun known(): Known =
             when (this) {
@@ -428,20 +367,23 @@ class OAuthApplication @JsonCreator private constructor(
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for
-         * debugging and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value does not
-         * have the expected primitive type.
+         * @throws IncreaseInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
          */
-        fun asString(): String = _value().asString().orElseThrow { IncreaseInvalidDataException("Value is not a String") }
+        fun asString(): String =
+            _value().asString().orElseThrow {
+                IncreaseInvalidDataException("Value is not a String")
+            }
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return /* spotless:off */ other is Status && value == other.value /* spotless:on */
+            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -453,21 +395,17 @@ class OAuthApplication @JsonCreator private constructor(
      * A constant representing the object's type. For this resource it will always be
      * `oauth_application`.
      */
-    class Type @JsonCreator private constructor(
-        private val value: JsonField<String>,
-
-    ) : Enum {
+    class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that
-         * doesn't match any known member, and you want to know that value. For example, if
-         * the SDK is on an older version than the API, then the API may respond with new
-         * members that the SDK is unaware of.
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -478,18 +416,16 @@ class OAuthApplication @JsonCreator private constructor(
 
         /** An enum containing [Type]'s known values. */
         enum class Known {
-            OAUTH_APPLICATION,
+            OAUTH_APPLICATION
         }
 
         /**
          * An enum containing [Type]'s known values, as well as an [_UNKNOWN] member.
          *
          * An instance of [Type] can contain an unknown value in a couple of cases:
-         *
-         * - It was deserialized from data that doesn't match any known member. For
-         *   example, if the SDK is on an older version than the API, then the API may
-         *   respond with new members that the SDK is unaware of.
-         *
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
@@ -499,11 +435,11 @@ class OAuthApplication @JsonCreator private constructor(
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or
-         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if
-         * you want to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -514,11 +450,11 @@ class OAuthApplication @JsonCreator private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and
-         * don't want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value is a not a
-         * known member.
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+         *   member.
          */
         fun known(): Known =
             when (this) {
@@ -529,20 +465,23 @@ class OAuthApplication @JsonCreator private constructor(
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for
-         * debugging and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value does not
-         * have the expected primitive type.
+         * @throws IncreaseInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
          */
-        fun asString(): String = _value().asString().orElseThrow { IncreaseInvalidDataException("Value is not a String") }
+        fun asString(): String =
+            _value().asString().orElseThrow {
+                IncreaseInvalidDataException("Value is not a String")
+            }
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return /* spotless:off */ other is Type && value == other.value /* spotless:on */
+            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -551,11 +490,11 @@ class OAuthApplication @JsonCreator private constructor(
     }
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return /* spotless:off */ other is OAuthApplication && id == other.id && clientId == other.clientId && createdAt == other.createdAt && deletedAt == other.deletedAt && name == other.name && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is OAuthApplication && id == other.id && clientId == other.clientId && createdAt == other.createdAt && deletedAt == other.deletedAt && name == other.name && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
@@ -564,5 +503,6 @@ class OAuthApplication @JsonCreator private constructor(
 
     override fun hashCode(): Int = hashCode
 
-    override fun toString() = "OAuthApplication{id=$id, clientId=$clientId, createdAt=$createdAt, deletedAt=$deletedAt, name=$name, status=$status, type=$type, additionalProperties=$additionalProperties}"
+    override fun toString() =
+        "OAuthApplication{id=$id, clientId=$clientId, createdAt=$createdAt, deletedAt=$deletedAt, name=$name, status=$status, type=$type, additionalProperties=$additionalProperties}"
 }

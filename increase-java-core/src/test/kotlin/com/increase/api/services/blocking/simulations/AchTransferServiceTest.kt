@@ -17,79 +17,102 @@ class AchTransferServiceTest {
 
     @Test
     fun acknowledge() {
-      val client = IncreaseOkHttpClient.builder()
-          .baseUrl(TestServerExtension.BASE_URL)
-          .apiKey("My API Key")
-          .build()
-      val achTransferService = client.simulations().achTransfers()
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val achTransferService = client.simulations().achTransfers()
 
-      val achTransfer = achTransferService.acknowledge(AchTransferAcknowledgeParams.builder()
-          .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
-          .build())
+        val achTransfer =
+            achTransferService.acknowledge(
+                AchTransferAcknowledgeParams.builder()
+                    .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
+                    .build()
+            )
 
-      achTransfer.validate()
+        achTransfer.validate()
     }
 
     @Test
     fun createNotificationOfChange() {
-      val client = IncreaseOkHttpClient.builder()
-          .baseUrl(TestServerExtension.BASE_URL)
-          .apiKey("My API Key")
-          .build()
-      val achTransferService = client.simulations().achTransfers()
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val achTransferService = client.simulations().achTransfers()
 
-      val achTransfer = achTransferService.createNotificationOfChange(AchTransferCreateNotificationOfChangeParams.builder()
-          .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
-          .changeCode(AchTransferCreateNotificationOfChangeParams.ChangeCode.INCORRECT_ACCOUNT_NUMBER)
-          .correctedData("123456789")
-          .build())
+        val achTransfer =
+            achTransferService.createNotificationOfChange(
+                AchTransferCreateNotificationOfChangeParams.builder()
+                    .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
+                    .changeCode(
+                        AchTransferCreateNotificationOfChangeParams.ChangeCode
+                            .INCORRECT_ACCOUNT_NUMBER
+                    )
+                    .correctedData("123456789")
+                    .build()
+            )
 
-      achTransfer.validate()
+        achTransfer.validate()
     }
 
     @Test
     fun return_() {
-      val client = IncreaseOkHttpClient.builder()
-          .baseUrl(TestServerExtension.BASE_URL)
-          .apiKey("My API Key")
-          .build()
-      val achTransferService = client.simulations().achTransfers()
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val achTransferService = client.simulations().achTransfers()
 
-      val achTransfer = achTransferService.return_(AchTransferReturnParams.builder()
-          .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
-          .reason(AchTransferReturnParams.Reason.INSUFFICIENT_FUND)
-          .build())
+        val achTransfer =
+            achTransferService.return_(
+                AchTransferReturnParams.builder()
+                    .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
+                    .reason(AchTransferReturnParams.Reason.INSUFFICIENT_FUND)
+                    .build()
+            )
 
-      achTransfer.validate()
+        achTransfer.validate()
     }
 
     @Test
     fun settle() {
-      val client = IncreaseOkHttpClient.builder()
-          .baseUrl(TestServerExtension.BASE_URL)
-          .apiKey("My API Key")
-          .build()
-      val achTransferService = client.simulations().achTransfers()
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val achTransferService = client.simulations().achTransfers()
 
-      val achTransfer = achTransferService.settle(AchTransferSettleParams.builder()
-          .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
-          .build())
+        val achTransfer =
+            achTransferService.settle(
+                AchTransferSettleParams.builder()
+                    .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
+                    .build()
+            )
 
-      achTransfer.validate()
+        achTransfer.validate()
     }
 
     @Test
     fun submit() {
-      val client = IncreaseOkHttpClient.builder()
-          .baseUrl(TestServerExtension.BASE_URL)
-          .apiKey("My API Key")
-          .build()
-      val achTransferService = client.simulations().achTransfers()
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val achTransferService = client.simulations().achTransfers()
 
-      val achTransfer = achTransferService.submit(AchTransferSubmitParams.builder()
-          .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
-          .build())
+        val achTransfer =
+            achTransferService.submit(
+                AchTransferSubmitParams.builder()
+                    .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
+                    .build()
+            )
 
-      achTransfer.validate()
+        achTransfer.validate()
     }
 }

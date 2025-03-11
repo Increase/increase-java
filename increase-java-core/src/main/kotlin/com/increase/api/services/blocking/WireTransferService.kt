@@ -16,81 +16,86 @@ import com.increase.api.models.wiretransfers.WireTransferRetrieveParams
 interface WireTransferService {
 
     /**
-     * Returns a view of this service that provides access to raw HTTP responses for
-     * each method.
+     * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
 
     /** Create a Wire Transfer */
     fun create(params: WireTransferCreateParams): WireTransfer =
-        create(
-          params, RequestOptions.none()
-        )
+        create(params, RequestOptions.none())
 
     /** @see [create] */
-    fun create(params: WireTransferCreateParams, requestOptions: RequestOptions = RequestOptions.none()): WireTransfer
+    fun create(
+        params: WireTransferCreateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): WireTransfer
 
     /** Retrieve a Wire Transfer */
     fun retrieve(params: WireTransferRetrieveParams): WireTransfer =
-        retrieve(
-          params, RequestOptions.none()
-        )
+        retrieve(params, RequestOptions.none())
 
     /** @see [retrieve] */
-    fun retrieve(params: WireTransferRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): WireTransfer
+    fun retrieve(
+        params: WireTransferRetrieveParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): WireTransfer
 
     /** List Wire Transfers */
     fun list(): WireTransferListPage = list(WireTransferListParams.none())
 
     /** @see [list] */
-    fun list(params: WireTransferListParams = WireTransferListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): WireTransferListPage
+    fun list(
+        params: WireTransferListParams = WireTransferListParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): WireTransferListPage
 
     /** @see [list] */
     fun list(params: WireTransferListParams = WireTransferListParams.none()): WireTransferListPage =
-        list(
-          params, RequestOptions.none()
-        )
+        list(params, RequestOptions.none())
 
     /** @see [list] */
-    fun list(requestOptions: RequestOptions): WireTransferListPage = list(WireTransferListParams.none(), requestOptions)
+    fun list(requestOptions: RequestOptions): WireTransferListPage =
+        list(WireTransferListParams.none(), requestOptions)
 
     /** Approve a Wire Transfer */
     fun approve(params: WireTransferApproveParams): WireTransfer =
-        approve(
-          params, RequestOptions.none()
-        )
+        approve(params, RequestOptions.none())
 
     /** @see [approve] */
-    fun approve(params: WireTransferApproveParams, requestOptions: RequestOptions = RequestOptions.none()): WireTransfer
+    fun approve(
+        params: WireTransferApproveParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): WireTransfer
 
     /** Cancel a pending Wire Transfer */
     fun cancel(params: WireTransferCancelParams): WireTransfer =
-        cancel(
-          params, RequestOptions.none()
-        )
+        cancel(params, RequestOptions.none())
 
     /** @see [cancel] */
-    fun cancel(params: WireTransferCancelParams, requestOptions: RequestOptions = RequestOptions.none()): WireTransfer
+    fun cancel(
+        params: WireTransferCancelParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): WireTransfer
 
     /**
-     * A view of [WireTransferService] that provides access to raw HTTP responses for
-     * each method.
+     * A view of [WireTransferService] that provides access to raw HTTP responses for each method.
      */
     interface WithRawResponse {
 
         /**
-         * Returns a raw HTTP response for `post /wire_transfers`, but is otherwise the
-         * same as [WireTransferService.create].
+         * Returns a raw HTTP response for `post /wire_transfers`, but is otherwise the same as
+         * [WireTransferService.create].
          */
         @MustBeClosed
         fun create(params: WireTransferCreateParams): HttpResponseFor<WireTransfer> =
-            create(
-              params, RequestOptions.none()
-            )
+            create(params, RequestOptions.none())
 
         /** @see [create] */
         @MustBeClosed
-        fun create(params: WireTransferCreateParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<WireTransfer>
+        fun create(
+            params: WireTransferCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<WireTransfer>
 
         /**
          * Returns a raw HTTP response for `get /wire_transfers/{wire_transfer_id}`, but is
@@ -98,64 +103,68 @@ interface WireTransferService {
          */
         @MustBeClosed
         fun retrieve(params: WireTransferRetrieveParams): HttpResponseFor<WireTransfer> =
-            retrieve(
-              params, RequestOptions.none()
-            )
+            retrieve(params, RequestOptions.none())
 
         /** @see [retrieve] */
         @MustBeClosed
-        fun retrieve(params: WireTransferRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<WireTransfer>
+        fun retrieve(
+            params: WireTransferRetrieveParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<WireTransfer>
 
         /**
-         * Returns a raw HTTP response for `get /wire_transfers`, but is otherwise the same
-         * as [WireTransferService.list].
+         * Returns a raw HTTP response for `get /wire_transfers`, but is otherwise the same as
+         * [WireTransferService.list].
          */
         @MustBeClosed
         fun list(): HttpResponseFor<WireTransferListPage> = list(WireTransferListParams.none())
 
         /** @see [list] */
         @MustBeClosed
-        fun list(params: WireTransferListParams = WireTransferListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<WireTransferListPage>
+        fun list(
+            params: WireTransferListParams = WireTransferListParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<WireTransferListPage>
 
         /** @see [list] */
         @MustBeClosed
-        fun list(params: WireTransferListParams = WireTransferListParams.none()): HttpResponseFor<WireTransferListPage> =
-            list(
-              params, RequestOptions.none()
-            )
+        fun list(
+            params: WireTransferListParams = WireTransferListParams.none()
+        ): HttpResponseFor<WireTransferListPage> = list(params, RequestOptions.none())
 
         /** @see [list] */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<WireTransferListPage> = list(WireTransferListParams.none(), requestOptions)
+        fun list(requestOptions: RequestOptions): HttpResponseFor<WireTransferListPage> =
+            list(WireTransferListParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for
-         * `post /wire_transfers/{wire_transfer_id}/approve`, but is otherwise the same as
-         * [WireTransferService.approve].
+         * Returns a raw HTTP response for `post /wire_transfers/{wire_transfer_id}/approve`, but is
+         * otherwise the same as [WireTransferService.approve].
          */
         @MustBeClosed
         fun approve(params: WireTransferApproveParams): HttpResponseFor<WireTransfer> =
-            approve(
-              params, RequestOptions.none()
-            )
+            approve(params, RequestOptions.none())
 
         /** @see [approve] */
         @MustBeClosed
-        fun approve(params: WireTransferApproveParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<WireTransfer>
+        fun approve(
+            params: WireTransferApproveParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<WireTransfer>
 
         /**
-         * Returns a raw HTTP response for
-         * `post /wire_transfers/{wire_transfer_id}/cancel`, but is otherwise the same as
-         * [WireTransferService.cancel].
+         * Returns a raw HTTP response for `post /wire_transfers/{wire_transfer_id}/cancel`, but is
+         * otherwise the same as [WireTransferService.cancel].
          */
         @MustBeClosed
         fun cancel(params: WireTransferCancelParams): HttpResponseFor<WireTransfer> =
-            cancel(
-              params, RequestOptions.none()
-            )
+            cancel(params, RequestOptions.none())
 
         /** @see [cancel] */
         @MustBeClosed
-        fun cancel(params: WireTransferCancelParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<WireTransfer>
+        fun cancel(
+            params: WireTransferCancelParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<WireTransfer>
     }
 }

@@ -19,49 +19,58 @@ import com.increase.api.models.inboundwiredrawdownrequests.InboundWireDrawdownRe
 import com.increase.api.models.simulations.inboundwiredrawdownrequests.InboundWireDrawdownRequestCreateParams
 import java.util.concurrent.CompletableFuture
 
-class InboundWireDrawdownRequestServiceAsyncImpl internal constructor(
-    private val clientOptions: ClientOptions,
+class InboundWireDrawdownRequestServiceAsyncImpl
+internal constructor(private val clientOptions: ClientOptions) :
+    InboundWireDrawdownRequestServiceAsync {
 
-) : InboundWireDrawdownRequestServiceAsync {
+    private val withRawResponse: InboundWireDrawdownRequestServiceAsync.WithRawResponse by lazy {
+        WithRawResponseImpl(clientOptions)
+    }
 
-    private val withRawResponse: InboundWireDrawdownRequestServiceAsync.WithRawResponse by lazy { WithRawResponseImpl(clientOptions) }
+    override fun withRawResponse(): InboundWireDrawdownRequestServiceAsync.WithRawResponse =
+        withRawResponse
 
-    override fun withRawResponse(): InboundWireDrawdownRequestServiceAsync.WithRawResponse = withRawResponse
-
-    override fun create(params: InboundWireDrawdownRequestCreateParams, requestOptions: RequestOptions): CompletableFuture<InboundWireDrawdownRequest> =
+    override fun create(
+        params: InboundWireDrawdownRequestCreateParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<InboundWireDrawdownRequest> =
         // post /simulations/inbound_wire_drawdown_requests
         withRawResponse().create(params, requestOptions).thenApply { it.parse() }
 
-    class WithRawResponseImpl internal constructor(
-        private val clientOptions: ClientOptions,
-
-    ) : InboundWireDrawdownRequestServiceAsync.WithRawResponse {
+    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
+        InboundWireDrawdownRequestServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
-        private val createHandler: Handler<InboundWireDrawdownRequest> = jsonHandler<InboundWireDrawdownRequest>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val createHandler: Handler<InboundWireDrawdownRequest> =
+            jsonHandler<InboundWireDrawdownRequest>(clientOptions.jsonMapper)
+                .withErrorHandler(errorHandler)
 
-        override fun create(params: InboundWireDrawdownRequestCreateParams, requestOptions: RequestOptions): CompletableFuture<HttpResponseFor<InboundWireDrawdownRequest>> {
-          val request = HttpRequest.builder()
-            .method(HttpMethod.POST)
-            .addPathSegments("simulations", "inbound_wire_drawdown_requests")
-            .body(json(clientOptions.jsonMapper, params._body()))
-            .build()
-            .prepareAsync(clientOptions, params)
-          val requestOptions = requestOptions
-              .applyDefaults(RequestOptions.from(clientOptions))
-          return request.thenComposeAsync { clientOptions.httpClient.executeAsync(
-            it, requestOptions
-          ) }.thenApply { response -> response.parseable {
-              response.use {
-                  createHandler.handle(it)
-              }
-              .also {
-                  if (requestOptions.responseValidation!!) {
-                    it.validate()
-                  }
-              }
-          } }
+        override fun create(
+            params: InboundWireDrawdownRequestCreateParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<InboundWireDrawdownRequest>> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .addPathSegments("simulations", "inbound_wire_drawdown_requests")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    response.parseable {
+                        response
+                            .use { createHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
         }
     }
 }

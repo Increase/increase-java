@@ -15,102 +15,130 @@ import java.util.concurrent.CompletableFuture
 interface ProofOfAuthorizationRequestSubmissionServiceAsync {
 
     /**
-     * Returns a view of this service that provides access to raw HTTP responses for
-     * each method.
+     * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
 
     /** Submit Proof of Authorization */
-    fun create(params: ProofOfAuthorizationRequestSubmissionCreateParams): CompletableFuture<ProofOfAuthorizationRequestSubmission> =
-        create(
-          params, RequestOptions.none()
-        )
+    fun create(
+        params: ProofOfAuthorizationRequestSubmissionCreateParams
+    ): CompletableFuture<ProofOfAuthorizationRequestSubmission> =
+        create(params, RequestOptions.none())
 
     /** @see [create] */
-    fun create(params: ProofOfAuthorizationRequestSubmissionCreateParams, requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<ProofOfAuthorizationRequestSubmission>
+    fun create(
+        params: ProofOfAuthorizationRequestSubmissionCreateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<ProofOfAuthorizationRequestSubmission>
 
     /** Retrieve a Proof of Authorization Request Submission */
-    fun retrieve(params: ProofOfAuthorizationRequestSubmissionRetrieveParams): CompletableFuture<ProofOfAuthorizationRequestSubmission> =
-        retrieve(
-          params, RequestOptions.none()
-        )
+    fun retrieve(
+        params: ProofOfAuthorizationRequestSubmissionRetrieveParams
+    ): CompletableFuture<ProofOfAuthorizationRequestSubmission> =
+        retrieve(params, RequestOptions.none())
 
     /** @see [retrieve] */
-    fun retrieve(params: ProofOfAuthorizationRequestSubmissionRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<ProofOfAuthorizationRequestSubmission>
+    fun retrieve(
+        params: ProofOfAuthorizationRequestSubmissionRetrieveParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<ProofOfAuthorizationRequestSubmission>
 
     /** List Proof of Authorization Request Submissions */
-    fun list(): CompletableFuture<ProofOfAuthorizationRequestSubmissionListPageAsync> = list(ProofOfAuthorizationRequestSubmissionListParams.none())
+    fun list(): CompletableFuture<ProofOfAuthorizationRequestSubmissionListPageAsync> =
+        list(ProofOfAuthorizationRequestSubmissionListParams.none())
 
     /** @see [list] */
-    fun list(params: ProofOfAuthorizationRequestSubmissionListParams = ProofOfAuthorizationRequestSubmissionListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<ProofOfAuthorizationRequestSubmissionListPageAsync>
+    fun list(
+        params: ProofOfAuthorizationRequestSubmissionListParams =
+            ProofOfAuthorizationRequestSubmissionListParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<ProofOfAuthorizationRequestSubmissionListPageAsync>
 
     /** @see [list] */
-    fun list(params: ProofOfAuthorizationRequestSubmissionListParams = ProofOfAuthorizationRequestSubmissionListParams.none()): CompletableFuture<ProofOfAuthorizationRequestSubmissionListPageAsync> =
-        list(
-          params, RequestOptions.none()
-        )
+    fun list(
+        params: ProofOfAuthorizationRequestSubmissionListParams =
+            ProofOfAuthorizationRequestSubmissionListParams.none()
+    ): CompletableFuture<ProofOfAuthorizationRequestSubmissionListPageAsync> =
+        list(params, RequestOptions.none())
 
     /** @see [list] */
-    fun list(requestOptions: RequestOptions): CompletableFuture<ProofOfAuthorizationRequestSubmissionListPageAsync> = list(ProofOfAuthorizationRequestSubmissionListParams.none(), requestOptions)
+    fun list(
+        requestOptions: RequestOptions
+    ): CompletableFuture<ProofOfAuthorizationRequestSubmissionListPageAsync> =
+        list(ProofOfAuthorizationRequestSubmissionListParams.none(), requestOptions)
 
     /**
-     * A view of [ProofOfAuthorizationRequestSubmissionServiceAsync] that provides
-     * access to raw HTTP responses for each method.
+     * A view of [ProofOfAuthorizationRequestSubmissionServiceAsync] that provides access to raw
+     * HTTP responses for each method.
      */
     interface WithRawResponse {
 
         /**
-         * Returns a raw HTTP response for
-         * `post /proof_of_authorization_request_submissions`, but is otherwise the same as
-         * [ProofOfAuthorizationRequestSubmissionServiceAsync.create].
+         * Returns a raw HTTP response for `post /proof_of_authorization_request_submissions`, but
+         * is otherwise the same as [ProofOfAuthorizationRequestSubmissionServiceAsync.create].
          */
         @MustBeClosed
-        fun create(params: ProofOfAuthorizationRequestSubmissionCreateParams): CompletableFuture<HttpResponseFor<ProofOfAuthorizationRequestSubmission>> =
-            create(
-              params, RequestOptions.none()
-            )
+        fun create(
+            params: ProofOfAuthorizationRequestSubmissionCreateParams
+        ): CompletableFuture<HttpResponseFor<ProofOfAuthorizationRequestSubmission>> =
+            create(params, RequestOptions.none())
 
         /** @see [create] */
         @MustBeClosed
-        fun create(params: ProofOfAuthorizationRequestSubmissionCreateParams, requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<HttpResponseFor<ProofOfAuthorizationRequestSubmission>>
+        fun create(
+            params: ProofOfAuthorizationRequestSubmissionCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<ProofOfAuthorizationRequestSubmission>>
 
         /**
-         * Returns a raw HTTP response for
-         * `get /proof_of_authorization_request_submissions/{proof_of_authorization_request_submission_id}`,
+         * Returns a raw HTTP response for `get
+         * /proof_of_authorization_request_submissions/{proof_of_authorization_request_submission_id}`,
          * but is otherwise the same as
          * [ProofOfAuthorizationRequestSubmissionServiceAsync.retrieve].
          */
         @MustBeClosed
-        fun retrieve(params: ProofOfAuthorizationRequestSubmissionRetrieveParams): CompletableFuture<HttpResponseFor<ProofOfAuthorizationRequestSubmission>> =
-            retrieve(
-              params, RequestOptions.none()
-            )
+        fun retrieve(
+            params: ProofOfAuthorizationRequestSubmissionRetrieveParams
+        ): CompletableFuture<HttpResponseFor<ProofOfAuthorizationRequestSubmission>> =
+            retrieve(params, RequestOptions.none())
 
         /** @see [retrieve] */
         @MustBeClosed
-        fun retrieve(params: ProofOfAuthorizationRequestSubmissionRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<HttpResponseFor<ProofOfAuthorizationRequestSubmission>>
+        fun retrieve(
+            params: ProofOfAuthorizationRequestSubmissionRetrieveParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<ProofOfAuthorizationRequestSubmission>>
 
         /**
-         * Returns a raw HTTP response for
-         * `get /proof_of_authorization_request_submissions`, but is otherwise the same as
-         * [ProofOfAuthorizationRequestSubmissionServiceAsync.list].
+         * Returns a raw HTTP response for `get /proof_of_authorization_request_submissions`, but is
+         * otherwise the same as [ProofOfAuthorizationRequestSubmissionServiceAsync.list].
          */
         @MustBeClosed
-        fun list(): CompletableFuture<HttpResponseFor<ProofOfAuthorizationRequestSubmissionListPageAsync>> = list(ProofOfAuthorizationRequestSubmissionListParams.none())
+        fun list():
+            CompletableFuture<HttpResponseFor<ProofOfAuthorizationRequestSubmissionListPageAsync>> =
+            list(ProofOfAuthorizationRequestSubmissionListParams.none())
 
         /** @see [list] */
         @MustBeClosed
-        fun list(params: ProofOfAuthorizationRequestSubmissionListParams = ProofOfAuthorizationRequestSubmissionListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<HttpResponseFor<ProofOfAuthorizationRequestSubmissionListPageAsync>>
+        fun list(
+            params: ProofOfAuthorizationRequestSubmissionListParams =
+                ProofOfAuthorizationRequestSubmissionListParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<ProofOfAuthorizationRequestSubmissionListPageAsync>>
 
         /** @see [list] */
         @MustBeClosed
-        fun list(params: ProofOfAuthorizationRequestSubmissionListParams = ProofOfAuthorizationRequestSubmissionListParams.none()): CompletableFuture<HttpResponseFor<ProofOfAuthorizationRequestSubmissionListPageAsync>> =
-            list(
-              params, RequestOptions.none()
-            )
+        fun list(
+            params: ProofOfAuthorizationRequestSubmissionListParams =
+                ProofOfAuthorizationRequestSubmissionListParams.none()
+        ): CompletableFuture<HttpResponseFor<ProofOfAuthorizationRequestSubmissionListPageAsync>> =
+            list(params, RequestOptions.none())
 
         /** @see [list] */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): CompletableFuture<HttpResponseFor<ProofOfAuthorizationRequestSubmissionListPageAsync>> = list(ProofOfAuthorizationRequestSubmissionListParams.none(), requestOptions)
+        fun list(
+            requestOptions: RequestOptions
+        ): CompletableFuture<HttpResponseFor<ProofOfAuthorizationRequestSubmissionListPageAsync>> =
+            list(ProofOfAuthorizationRequestSubmissionListParams.none(), requestOptions)
     }
 }

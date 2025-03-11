@@ -18,50 +18,55 @@ import com.increase.api.errors.IncreaseError
 import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransfer
 import com.increase.api.models.simulations.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransferCreateParams
 
-class InboundRealTimePaymentsTransferServiceImpl internal constructor(
-    private val clientOptions: ClientOptions,
+class InboundRealTimePaymentsTransferServiceImpl
+internal constructor(private val clientOptions: ClientOptions) :
+    InboundRealTimePaymentsTransferService {
 
-) : InboundRealTimePaymentsTransferService {
+    private val withRawResponse: InboundRealTimePaymentsTransferService.WithRawResponse by lazy {
+        WithRawResponseImpl(clientOptions)
+    }
 
-    private val withRawResponse: InboundRealTimePaymentsTransferService.WithRawResponse by lazy { WithRawResponseImpl(clientOptions) }
+    override fun withRawResponse(): InboundRealTimePaymentsTransferService.WithRawResponse =
+        withRawResponse
 
-    override fun withRawResponse(): InboundRealTimePaymentsTransferService.WithRawResponse = withRawResponse
-
-    override fun create(params: InboundRealTimePaymentsTransferCreateParams, requestOptions: RequestOptions): InboundRealTimePaymentsTransfer =
+    override fun create(
+        params: InboundRealTimePaymentsTransferCreateParams,
+        requestOptions: RequestOptions,
+    ): InboundRealTimePaymentsTransfer =
         // post /simulations/inbound_real_time_payments_transfers
         withRawResponse().create(params, requestOptions).parse()
 
-    class WithRawResponseImpl internal constructor(
-        private val clientOptions: ClientOptions,
-
-    ) : InboundRealTimePaymentsTransferService.WithRawResponse {
+    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
+        InboundRealTimePaymentsTransferService.WithRawResponse {
 
         private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
-        private val createHandler: Handler<InboundRealTimePaymentsTransfer> = jsonHandler<InboundRealTimePaymentsTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val createHandler: Handler<InboundRealTimePaymentsTransfer> =
+            jsonHandler<InboundRealTimePaymentsTransfer>(clientOptions.jsonMapper)
+                .withErrorHandler(errorHandler)
 
-        override fun create(params: InboundRealTimePaymentsTransferCreateParams, requestOptions: RequestOptions): HttpResponseFor<InboundRealTimePaymentsTransfer> {
-          val request = HttpRequest.builder()
-            .method(HttpMethod.POST)
-            .addPathSegments("simulations", "inbound_real_time_payments_transfers")
-            .body(json(clientOptions.jsonMapper, params._body()))
-            .build()
-            .prepare(clientOptions, params)
-          val requestOptions = requestOptions
-              .applyDefaults(RequestOptions.from(clientOptions))
-          val response = clientOptions.httpClient.execute(
-            request, requestOptions
-          )
-          return response.parseable {
-              response.use {
-                  createHandler.handle(it)
-              }
-              .also {
-                  if (requestOptions.responseValidation!!) {
-                    it.validate()
-                  }
-              }
-          }
+        override fun create(
+            params: InboundRealTimePaymentsTransferCreateParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<InboundRealTimePaymentsTransfer> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .addPathSegments("simulations", "inbound_real_time_payments_transfers")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { createHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
         }
     }
 }

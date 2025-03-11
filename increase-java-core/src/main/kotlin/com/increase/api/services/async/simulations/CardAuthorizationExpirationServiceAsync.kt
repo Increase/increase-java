@@ -12,39 +12,40 @@ import java.util.concurrent.CompletableFuture
 interface CardAuthorizationExpirationServiceAsync {
 
     /**
-     * Returns a view of this service that provides access to raw HTTP responses for
-     * each method.
+     * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
 
     /** Simulates expiring a Card Authorization immediately. */
     fun create(params: CardAuthorizationExpirationCreateParams): CompletableFuture<CardPayment> =
-        create(
-          params, RequestOptions.none()
-        )
+        create(params, RequestOptions.none())
 
     /** @see [create] */
-    fun create(params: CardAuthorizationExpirationCreateParams, requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<CardPayment>
+    fun create(
+        params: CardAuthorizationExpirationCreateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<CardPayment>
 
     /**
-     * A view of [CardAuthorizationExpirationServiceAsync] that provides access to raw
-     * HTTP responses for each method.
+     * A view of [CardAuthorizationExpirationServiceAsync] that provides access to raw HTTP
+     * responses for each method.
      */
     interface WithRawResponse {
 
         /**
-         * Returns a raw HTTP response for
-         * `post /simulations/card_authorization_expirations`, but is otherwise the same as
-         * [CardAuthorizationExpirationServiceAsync.create].
+         * Returns a raw HTTP response for `post /simulations/card_authorization_expirations`, but
+         * is otherwise the same as [CardAuthorizationExpirationServiceAsync.create].
          */
         @MustBeClosed
-        fun create(params: CardAuthorizationExpirationCreateParams): CompletableFuture<HttpResponseFor<CardPayment>> =
-            create(
-              params, RequestOptions.none()
-            )
+        fun create(
+            params: CardAuthorizationExpirationCreateParams
+        ): CompletableFuture<HttpResponseFor<CardPayment>> = create(params, RequestOptions.none())
 
         /** @see [create] */
         @MustBeClosed
-        fun create(params: CardAuthorizationExpirationCreateParams, requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<HttpResponseFor<CardPayment>>
+        fun create(
+            params: CardAuthorizationExpirationCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<CardPayment>>
     }
 }

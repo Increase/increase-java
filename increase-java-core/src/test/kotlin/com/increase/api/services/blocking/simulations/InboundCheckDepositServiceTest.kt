@@ -13,18 +13,22 @@ class InboundCheckDepositServiceTest {
 
     @Test
     fun create() {
-      val client = IncreaseOkHttpClient.builder()
-          .baseUrl(TestServerExtension.BASE_URL)
-          .apiKey("My API Key")
-          .build()
-      val inboundCheckDepositService = client.simulations().inboundCheckDeposits()
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val inboundCheckDepositService = client.simulations().inboundCheckDeposits()
 
-      val inboundCheckDeposit = inboundCheckDepositService.create(InboundCheckDepositCreateParams.builder()
-          .accountNumberId("account_number_v18nkfqm6afpsrvy82b2")
-          .amount(1000L)
-          .checkNumber("1234567890")
-          .build())
+        val inboundCheckDeposit =
+            inboundCheckDepositService.create(
+                InboundCheckDepositCreateParams.builder()
+                    .accountNumberId("account_number_v18nkfqm6afpsrvy82b2")
+                    .amount(1000L)
+                    .checkNumber("1234567890")
+                    .build()
+            )
 
-      inboundCheckDeposit.validate()
+        inboundCheckDeposit.validate()
     }
 }

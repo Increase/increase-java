@@ -9,20 +9,21 @@ class IntrafiExclusionRetrieveParamsTest {
 
     @Test
     fun create() {
-      IntrafiExclusionRetrieveParams.builder()
-          .intrafiExclusionId("account_in71c4amph0vgo2qllky")
-          .build()
+        IntrafiExclusionRetrieveParams.builder()
+            .intrafiExclusionId("account_in71c4amph0vgo2qllky")
+            .build()
     }
 
     @Test
     fun getPathParam() {
-      val params = IntrafiExclusionRetrieveParams.builder()
-          .intrafiExclusionId("account_in71c4amph0vgo2qllky")
-          .build()
-      assertThat(params).isNotNull
-      // path param "intrafiExclusionId"
-      assertThat(params.getPathParam(0)).isEqualTo("account_in71c4amph0vgo2qllky")
-      // out-of-bound path param
-      assertThat(params.getPathParam(1)).isEqualTo("")
+        val params =
+            IntrafiExclusionRetrieveParams.builder()
+                .intrafiExclusionId("account_in71c4amph0vgo2qllky")
+                .build()
+        assertThat(params).isNotNull
+        // path param "intrafiExclusionId"
+        assertThat(params.getPathParam(0)).isEqualTo("account_in71c4amph0vgo2qllky")
+        // out-of-bound path param
+        assertThat(params.getPathParam(1)).isEqualTo("")
     }
 }

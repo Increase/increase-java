@@ -13,16 +13,20 @@ class AccountStatementServiceTest {
 
     @Test
     fun create() {
-      val client = IncreaseOkHttpClient.builder()
-          .baseUrl(TestServerExtension.BASE_URL)
-          .apiKey("My API Key")
-          .build()
-      val accountStatementService = client.simulations().accountStatements()
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val accountStatementService = client.simulations().accountStatements()
 
-      val accountStatement = accountStatementService.create(AccountStatementCreateParams.builder()
-          .accountId("account_in71c4amph0vgo2qllky")
-          .build())
+        val accountStatement =
+            accountStatementService.create(
+                AccountStatementCreateParams.builder()
+                    .accountId("account_in71c4amph0vgo2qllky")
+                    .build()
+            )
 
-      accountStatement.validate()
+        accountStatement.validate()
     }
 }

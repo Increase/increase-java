@@ -9,20 +9,21 @@ class InboundFundsHoldReleaseParamsTest {
 
     @Test
     fun create() {
-      InboundFundsHoldReleaseParams.builder()
-          .inboundFundsHoldId("inbound_funds_hold_9vuasmywdo7xb3zt4071")
-          .build()
+        InboundFundsHoldReleaseParams.builder()
+            .inboundFundsHoldId("inbound_funds_hold_9vuasmywdo7xb3zt4071")
+            .build()
     }
 
     @Test
     fun getPathParam() {
-      val params = InboundFundsHoldReleaseParams.builder()
-          .inboundFundsHoldId("inbound_funds_hold_9vuasmywdo7xb3zt4071")
-          .build()
-      assertThat(params).isNotNull
-      // path param "inboundFundsHoldId"
-      assertThat(params.getPathParam(0)).isEqualTo("inbound_funds_hold_9vuasmywdo7xb3zt4071")
-      // out-of-bound path param
-      assertThat(params.getPathParam(1)).isEqualTo("")
+        val params =
+            InboundFundsHoldReleaseParams.builder()
+                .inboundFundsHoldId("inbound_funds_hold_9vuasmywdo7xb3zt4071")
+                .build()
+        assertThat(params).isNotNull
+        // path param "inboundFundsHoldId"
+        assertThat(params.getPathParam(0)).isEqualTo("inbound_funds_hold_9vuasmywdo7xb3zt4071")
+        // out-of-bound path param
+        assertThat(params.getPathParam(1)).isEqualTo("")
     }
 }

@@ -4,7 +4,6 @@ package com.increase.api.services.blocking
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.cardpurchasesupplements.CardPurchaseSupplementListParams
 import com.increase.api.models.cardpurchasesupplements.CardPurchaseSupplementRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -14,29 +13,34 @@ class CardPurchaseSupplementServiceTest {
 
     @Test
     fun retrieve() {
-      val client = IncreaseOkHttpClient.builder()
-          .baseUrl(TestServerExtension.BASE_URL)
-          .apiKey("My API Key")
-          .build()
-      val cardPurchaseSupplementService = client.cardPurchaseSupplements()
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val cardPurchaseSupplementService = client.cardPurchaseSupplements()
 
-      val cardPurchaseSupplement = cardPurchaseSupplementService.retrieve(CardPurchaseSupplementRetrieveParams.builder()
-          .cardPurchaseSupplementId("card_purchase_supplement_ijuc45iym4jchnh2sfk3")
-          .build())
+        val cardPurchaseSupplement =
+            cardPurchaseSupplementService.retrieve(
+                CardPurchaseSupplementRetrieveParams.builder()
+                    .cardPurchaseSupplementId("card_purchase_supplement_ijuc45iym4jchnh2sfk3")
+                    .build()
+            )
 
-      cardPurchaseSupplement.validate()
+        cardPurchaseSupplement.validate()
     }
 
     @Test
     fun list() {
-      val client = IncreaseOkHttpClient.builder()
-          .baseUrl(TestServerExtension.BASE_URL)
-          .apiKey("My API Key")
-          .build()
-      val cardPurchaseSupplementService = client.cardPurchaseSupplements()
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val cardPurchaseSupplementService = client.cardPurchaseSupplements()
 
-      val page = cardPurchaseSupplementService.list()
+        val page = cardPurchaseSupplementService.list()
 
-      page.response().validate()
+        page.response().validate()
     }
 }

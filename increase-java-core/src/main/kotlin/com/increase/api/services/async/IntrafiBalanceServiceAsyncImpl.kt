@@ -18,48 +18,54 @@ import com.increase.api.models.intrafibalances.IntrafiBalance
 import com.increase.api.models.intrafibalances.IntrafiBalanceIntrafiBalanceParams
 import java.util.concurrent.CompletableFuture
 
-class IntrafiBalanceServiceAsyncImpl internal constructor(
-    private val clientOptions: ClientOptions,
+class IntrafiBalanceServiceAsyncImpl
+internal constructor(private val clientOptions: ClientOptions) : IntrafiBalanceServiceAsync {
 
-) : IntrafiBalanceServiceAsync {
-
-    private val withRawResponse: IntrafiBalanceServiceAsync.WithRawResponse by lazy { WithRawResponseImpl(clientOptions) }
+    private val withRawResponse: IntrafiBalanceServiceAsync.WithRawResponse by lazy {
+        WithRawResponseImpl(clientOptions)
+    }
 
     override fun withRawResponse(): IntrafiBalanceServiceAsync.WithRawResponse = withRawResponse
 
-    override fun intrafiBalance(params: IntrafiBalanceIntrafiBalanceParams, requestOptions: RequestOptions): CompletableFuture<IntrafiBalance> =
+    override fun intrafiBalance(
+        params: IntrafiBalanceIntrafiBalanceParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<IntrafiBalance> =
         // get /accounts/{account_id}/intrafi_balance
         withRawResponse().intrafiBalance(params, requestOptions).thenApply { it.parse() }
 
-    class WithRawResponseImpl internal constructor(
-        private val clientOptions: ClientOptions,
-
-    ) : IntrafiBalanceServiceAsync.WithRawResponse {
+    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
+        IntrafiBalanceServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
-        private val intrafiBalanceHandler: Handler<IntrafiBalance> = jsonHandler<IntrafiBalance>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val intrafiBalanceHandler: Handler<IntrafiBalance> =
+            jsonHandler<IntrafiBalance>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-        override fun intrafiBalance(params: IntrafiBalanceIntrafiBalanceParams, requestOptions: RequestOptions): CompletableFuture<HttpResponseFor<IntrafiBalance>> {
-          val request = HttpRequest.builder()
-            .method(HttpMethod.GET)
-            .addPathSegments("accounts", params.getPathParam(0), "intrafi_balance")
-            .build()
-            .prepareAsync(clientOptions, params)
-          val requestOptions = requestOptions
-              .applyDefaults(RequestOptions.from(clientOptions))
-          return request.thenComposeAsync { clientOptions.httpClient.executeAsync(
-            it, requestOptions
-          ) }.thenApply { response -> response.parseable {
-              response.use {
-                  intrafiBalanceHandler.handle(it)
-              }
-              .also {
-                  if (requestOptions.responseValidation!!) {
-                    it.validate()
-                  }
-              }
-          } }
+        override fun intrafiBalance(
+            params: IntrafiBalanceIntrafiBalanceParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<IntrafiBalance>> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .addPathSegments("accounts", params.getPathParam(0), "intrafi_balance")
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    response.parseable {
+                        response
+                            .use { intrafiBalanceHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
         }
     }
 }

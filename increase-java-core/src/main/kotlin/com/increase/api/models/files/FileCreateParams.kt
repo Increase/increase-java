@@ -23,20 +23,20 @@ import kotlin.io.path.name
 
 /**
  * To upload a file to Increase, you'll need to send a request of Content-Type
- * `multipart/form-data`. The request should contain the file you would like to
- * upload, as well as the parameters for creating a file.
+ * `multipart/form-data`. The request should contain the file you would like to upload, as well as
+ * the parameters for creating a file.
  */
-class FileCreateParams private constructor(
+class FileCreateParams
+private constructor(
     private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-
 ) : Params {
 
     /**
      * The file contents. This should follow the specifications of
-     * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file
-     * transfers for the multipart/form-data protocol.
+     * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file transfers for
+     * the multipart/form-data protocol.
      */
     fun file(): InputStream = body.file()
 
@@ -48,8 +48,8 @@ class FileCreateParams private constructor(
 
     /**
      * The file contents. This should follow the specifications of
-     * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file
-     * transfers for the multipart/form-data protocol.
+     * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file transfers for
+     * the multipart/form-data protocol.
      */
     fun _file(): MultipartField<InputStream> = body._file()
 
@@ -65,28 +65,26 @@ class FileCreateParams private constructor(
 
     @JvmSynthetic
     internal fun _body(): Map<String, MultipartField<*>> =
-        mapOf(
-          "file" to _file(),
-          "purpose" to _purpose(),
-          "description" to _description(),
-        ).toImmutable()
+        mapOf("file" to _file(), "purpose" to _purpose(), "description" to _description())
+            .toImmutable()
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class Body @JsonCreator private constructor(
+    class Body
+    @JsonCreator
+    private constructor(
         private val file: MultipartField<InputStream>,
         private val purpose: MultipartField<Purpose>,
         private val description: MultipartField<String>,
-
     ) {
 
         /**
          * The file contents. This should follow the specifications of
-         * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file
-         * transfers for the multipart/form-data protocol.
+         * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file transfers
+         * for the multipart/form-data protocol.
          */
         fun file(): InputStream = file.value.getRequired("file")
 
@@ -94,12 +92,13 @@ class FileCreateParams private constructor(
         fun purpose(): Purpose = purpose.value.getRequired("purpose")
 
         /** The description you choose to give the File. */
-        fun description(): Optional<String> = Optional.ofNullable(description.value.getNullable("description"))
+        fun description(): Optional<String> =
+            Optional.ofNullable(description.value.getNullable("description"))
 
         /**
          * The file contents. This should follow the specifications of
-         * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file
-         * transfers for the multipart/form-data protocol.
+         * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file transfers
+         * for the multipart/form-data protocol.
          */
         fun _file(): MultipartField<InputStream> = file
 
@@ -111,17 +110,16 @@ class FileCreateParams private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): Body =
-            apply {
-                if (validated) {
-                  return@apply
-                }
-
-                file()
-                purpose()
-                description()
-                validated = true
+        fun validate(): Body = apply {
+            if (validated) {
+                return@apply
             }
+
+            file()
+            purpose()
+            description()
+            validated = true
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -131,14 +129,12 @@ class FileCreateParams private constructor(
              * Returns a mutable builder for constructing an instance of [Body].
              *
              * The following fields are required:
-             *
              * ```java
              * .file()
              * .purpose()
              * ```
              */
-            @JvmStatic
-            fun builder() = Builder()
+            @JvmStatic fun builder() = Builder()
         }
 
         /** A builder for [Body]. */
@@ -149,12 +145,11 @@ class FileCreateParams private constructor(
             private var description: MultipartField<String> = MultipartField.of(null)
 
             @JvmSynthetic
-            internal fun from(body: Body) =
-                apply {
-                    file = body.file
-                    purpose = body.purpose
-                    description = body.description
-                }
+            internal fun from(body: Body) = apply {
+                file = body.file
+                purpose = body.purpose
+                description = body.description
+            }
 
             /**
              * The file contents. This should follow the specifications of
@@ -168,10 +163,7 @@ class FileCreateParams private constructor(
              * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file
              * transfers for the multipart/form-data protocol.
              */
-            fun file(file: MultipartField<InputStream>) =
-                apply {
-                    this.file = file
-                }
+            fun file(file: MultipartField<InputStream>) = apply { this.file = file }
 
             /**
              * The file contents. This should follow the specifications of
@@ -186,47 +178,37 @@ class FileCreateParams private constructor(
              * transfers for the multipart/form-data protocol.
              */
             fun file(file: Path) =
-                file(MultipartField.builder<InputStream>()
-                    .value(file.inputStream())
-                    .filename(file.name)
-                    .build())
+                file(
+                    MultipartField.builder<InputStream>()
+                        .value(file.inputStream())
+                        .filename(file.name)
+                        .build()
+                )
 
             /** What the File will be used for in Increase's systems. */
             fun purpose(purpose: Purpose) = purpose(MultipartField.of(purpose))
 
             /** What the File will be used for in Increase's systems. */
-            fun purpose(purpose: MultipartField<Purpose>) =
-                apply {
-                    this.purpose = purpose
-                }
+            fun purpose(purpose: MultipartField<Purpose>) = apply { this.purpose = purpose }
 
             /** The description you choose to give the File. */
             fun description(description: String) = description(MultipartField.of(description))
 
             /** The description you choose to give the File. */
-            fun description(description: MultipartField<String>) =
-                apply {
-                    this.description = description
-                }
+            fun description(description: MultipartField<String>) = apply {
+                this.description = description
+            }
 
             fun build(): Body =
-                Body(
-                  checkRequired(
-                    "file", file
-                  ),
-                  checkRequired(
-                    "purpose", purpose
-                  ),
-                  description,
-                )
+                Body(checkRequired("file", file), checkRequired("purpose", purpose), description)
         }
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return /* spotless:off */ other is Body && file == other.file && purpose == other.purpose && description == other.description /* spotless:on */
+            return /* spotless:off */ other is Body && file == other.file && purpose == other.purpose && description == other.description /* spotless:on */
         }
 
         /* spotless:off */
@@ -246,14 +228,12 @@ class FileCreateParams private constructor(
          * Returns a mutable builder for constructing an instance of [FileCreateParams].
          *
          * The following fields are required:
-         *
          * ```java
          * .file()
          * .purpose()
          * ```
          */
-        @JvmStatic
-        fun builder() = Builder()
+        @JvmStatic fun builder() = Builder()
     }
 
     /** A builder for [FileCreateParams]. */
@@ -265,225 +245,168 @@ class FileCreateParams private constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
-        internal fun from(fileCreateParams: FileCreateParams) =
-            apply {
-                body = fileCreateParams.body.toBuilder()
-                additionalHeaders = fileCreateParams.additionalHeaders.toBuilder()
-                additionalQueryParams = fileCreateParams.additionalQueryParams.toBuilder()
-            }
+        internal fun from(fileCreateParams: FileCreateParams) = apply {
+            body = fileCreateParams.body.toBuilder()
+            additionalHeaders = fileCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = fileCreateParams.additionalQueryParams.toBuilder()
+        }
 
         /**
          * The file contents. This should follow the specifications of
-         * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file
-         * transfers for the multipart/form-data protocol.
+         * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file transfers
+         * for the multipart/form-data protocol.
          */
-        fun file(file: InputStream) =
-            apply {
-                body.file(file)
-            }
+        fun file(file: InputStream) = apply { body.file(file) }
 
         /**
          * The file contents. This should follow the specifications of
-         * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file
-         * transfers for the multipart/form-data protocol.
+         * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file transfers
+         * for the multipart/form-data protocol.
          */
-        fun file(file: MultipartField<InputStream>) =
-            apply {
-                body.file(file)
-            }
+        fun file(file: MultipartField<InputStream>) = apply { body.file(file) }
 
         /**
          * The file contents. This should follow the specifications of
-         * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file
-         * transfers for the multipart/form-data protocol.
+         * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file transfers
+         * for the multipart/form-data protocol.
          */
-        fun file(file: ByteArray) =
-            apply {
-                body.file(file)
-            }
+        fun file(file: ByteArray) = apply { body.file(file) }
 
         /**
          * The file contents. This should follow the specifications of
-         * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file
-         * transfers for the multipart/form-data protocol.
+         * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file transfers
+         * for the multipart/form-data protocol.
          */
-        fun file(file: Path) =
-            apply {
-                body.file(file)
-            }
+        fun file(file: Path) = apply { body.file(file) }
 
         /** What the File will be used for in Increase's systems. */
-        fun purpose(purpose: Purpose) =
-            apply {
-                body.purpose(purpose)
-            }
+        fun purpose(purpose: Purpose) = apply { body.purpose(purpose) }
 
         /** What the File will be used for in Increase's systems. */
-        fun purpose(purpose: MultipartField<Purpose>) =
-            apply {
-                body.purpose(purpose)
-            }
+        fun purpose(purpose: MultipartField<Purpose>) = apply { body.purpose(purpose) }
 
         /** The description you choose to give the File. */
-        fun description(description: String) =
-            apply {
-                body.description(description)
-            }
+        fun description(description: String) = apply { body.description(description) }
 
         /** The description you choose to give the File. */
-        fun description(description: MultipartField<String>) =
-            apply {
-                body.description(description)
-            }
+        fun description(description: MultipartField<String>) = apply {
+            body.description(description)
+        }
 
-        fun additionalHeaders(additionalHeaders: Headers) =
-            apply {
-                this.additionalHeaders.clear()
-                putAllAdditionalHeaders(additionalHeaders)
-            }
+        fun additionalHeaders(additionalHeaders: Headers) = apply {
+            this.additionalHeaders.clear()
+            putAllAdditionalHeaders(additionalHeaders)
+        }
 
-        fun additionalHeaders(additionalHeaders: Map<String, Iterable<String>>) =
-            apply {
-                this.additionalHeaders.clear()
-                putAllAdditionalHeaders(additionalHeaders)
-            }
+        fun additionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
+            this.additionalHeaders.clear()
+            putAllAdditionalHeaders(additionalHeaders)
+        }
 
-        fun putAdditionalHeader(name: String, value: String) =
-            apply {
-                additionalHeaders.put(name, value)
-            }
+        fun putAdditionalHeader(name: String, value: String) = apply {
+            additionalHeaders.put(name, value)
+        }
 
-        fun putAdditionalHeaders(name: String, values: Iterable<String>) =
-            apply {
-                additionalHeaders.put(name, values)
-            }
+        fun putAdditionalHeaders(name: String, values: Iterable<String>) = apply {
+            additionalHeaders.put(name, values)
+        }
 
-        fun putAllAdditionalHeaders(additionalHeaders: Headers) =
-            apply {
-                this.additionalHeaders.putAll(additionalHeaders)
-            }
+        fun putAllAdditionalHeaders(additionalHeaders: Headers) = apply {
+            this.additionalHeaders.putAll(additionalHeaders)
+        }
 
-        fun putAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) =
-            apply {
-                this.additionalHeaders.putAll(additionalHeaders)
-            }
+        fun putAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
+            this.additionalHeaders.putAll(additionalHeaders)
+        }
 
-        fun replaceAdditionalHeaders(name: String, value: String) =
-            apply {
-                additionalHeaders.replace(name, value)
-            }
+        fun replaceAdditionalHeaders(name: String, value: String) = apply {
+            additionalHeaders.replace(name, value)
+        }
 
-        fun replaceAdditionalHeaders(name: String, values: Iterable<String>) =
-            apply {
-                additionalHeaders.replace(name, values)
-            }
+        fun replaceAdditionalHeaders(name: String, values: Iterable<String>) = apply {
+            additionalHeaders.replace(name, values)
+        }
 
-        fun replaceAllAdditionalHeaders(additionalHeaders: Headers) =
-            apply {
-                this.additionalHeaders.replaceAll(additionalHeaders)
-            }
+        fun replaceAllAdditionalHeaders(additionalHeaders: Headers) = apply {
+            this.additionalHeaders.replaceAll(additionalHeaders)
+        }
 
-        fun replaceAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) =
-            apply {
-                this.additionalHeaders.replaceAll(additionalHeaders)
-            }
+        fun replaceAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
+            this.additionalHeaders.replaceAll(additionalHeaders)
+        }
 
-        fun removeAdditionalHeaders(name: String) =
-            apply {
-                additionalHeaders.remove(name)
-            }
+        fun removeAdditionalHeaders(name: String) = apply { additionalHeaders.remove(name) }
 
-        fun removeAllAdditionalHeaders(names: Set<String>) =
-            apply {
-                additionalHeaders.removeAll(names)
-            }
+        fun removeAllAdditionalHeaders(names: Set<String>) = apply {
+            additionalHeaders.removeAll(names)
+        }
 
-        fun additionalQueryParams(additionalQueryParams: QueryParams) =
-            apply {
-                this.additionalQueryParams.clear()
-                putAllAdditionalQueryParams(additionalQueryParams)
-            }
+        fun additionalQueryParams(additionalQueryParams: QueryParams) = apply {
+            this.additionalQueryParams.clear()
+            putAllAdditionalQueryParams(additionalQueryParams)
+        }
 
-        fun additionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
-            apply {
-                this.additionalQueryParams.clear()
-                putAllAdditionalQueryParams(additionalQueryParams)
-            }
+        fun additionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) = apply {
+            this.additionalQueryParams.clear()
+            putAllAdditionalQueryParams(additionalQueryParams)
+        }
 
-        fun putAdditionalQueryParam(key: String, value: String) =
-            apply {
-                additionalQueryParams.put(key, value)
-            }
+        fun putAdditionalQueryParam(key: String, value: String) = apply {
+            additionalQueryParams.put(key, value)
+        }
 
-        fun putAdditionalQueryParams(key: String, values: Iterable<String>) =
-            apply {
-                additionalQueryParams.put(key, values)
-            }
+        fun putAdditionalQueryParams(key: String, values: Iterable<String>) = apply {
+            additionalQueryParams.put(key, values)
+        }
 
-        fun putAllAdditionalQueryParams(additionalQueryParams: QueryParams) =
-            apply {
-                this.additionalQueryParams.putAll(additionalQueryParams)
-            }
+        fun putAllAdditionalQueryParams(additionalQueryParams: QueryParams) = apply {
+            this.additionalQueryParams.putAll(additionalQueryParams)
+        }
 
         fun putAllAdditionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
             apply {
                 this.additionalQueryParams.putAll(additionalQueryParams)
             }
 
-        fun replaceAdditionalQueryParams(key: String, value: String) =
-            apply {
-                additionalQueryParams.replace(key, value)
-            }
+        fun replaceAdditionalQueryParams(key: String, value: String) = apply {
+            additionalQueryParams.replace(key, value)
+        }
 
-        fun replaceAdditionalQueryParams(key: String, values: Iterable<String>) =
-            apply {
-                additionalQueryParams.replace(key, values)
-            }
+        fun replaceAdditionalQueryParams(key: String, values: Iterable<String>) = apply {
+            additionalQueryParams.replace(key, values)
+        }
 
-        fun replaceAllAdditionalQueryParams(additionalQueryParams: QueryParams) =
-            apply {
-                this.additionalQueryParams.replaceAll(additionalQueryParams)
-            }
+        fun replaceAllAdditionalQueryParams(additionalQueryParams: QueryParams) = apply {
+            this.additionalQueryParams.replaceAll(additionalQueryParams)
+        }
 
         fun replaceAllAdditionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
             apply {
                 this.additionalQueryParams.replaceAll(additionalQueryParams)
             }
 
-        fun removeAdditionalQueryParams(key: String) =
-            apply {
-                additionalQueryParams.remove(key)
-            }
+        fun removeAdditionalQueryParams(key: String) = apply { additionalQueryParams.remove(key) }
 
-        fun removeAllAdditionalQueryParams(keys: Set<String>) =
-            apply {
-                additionalQueryParams.removeAll(keys)
-            }
+        fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
+            additionalQueryParams.removeAll(keys)
+        }
 
         fun build(): FileCreateParams =
-            FileCreateParams(
-              body.build(),
-              additionalHeaders.build(),
-              additionalQueryParams.build(),
-            )
+            FileCreateParams(body.build(), additionalHeaders.build(), additionalQueryParams.build())
     }
 
     /** What the File will be used for in Increase's systems. */
-    class Purpose @JsonCreator private constructor(
-        private val value: JsonField<String>,
-
-    ) : Enum {
+    class Purpose @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that
-         * doesn't match any known member, and you want to know that value. For example, if
-         * the SDK is on an older version than the API, then the API may respond with new
-         * members that the SDK is unaware of.
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -521,26 +444,26 @@ class FileCreateParams private constructor(
             @JvmField val TRUST_FORMATION_DOCUMENT = of("trust_formation_document")
 
             /**
-             * A card image to be rendered inside digital wallet apps. This must be a 1536x969
-             * pixel PNG.
+             * A card image to be rendered inside digital wallet apps. This must be a 1536x969 pixel
+             * PNG.
              */
             @JvmField val DIGITAL_WALLET_ARTWORK = of("digital_wallet_artwork")
 
             /**
-             * An icon for you app to be rendered inside digital wallet apps. This must be a
-             * 100x100 pixel PNG.
+             * An icon for you app to be rendered inside digital wallet apps. This must be a 100x100
+             * pixel PNG.
              */
             @JvmField val DIGITAL_WALLET_APP_ICON = of("digital_wallet_app_icon")
 
             /**
-             * A card image to be printed on the front of a physical card. This must be a
-             * 2100x1340 pixel PNG with no other color but black.
+             * A card image to be printed on the front of a physical card. This must be a 2100x1340
+             * pixel PNG with no other color but black.
              */
             @JvmField val PHYSICAL_CARD_FRONT = of("physical_card_front")
 
             /**
-             * An image representing the entirety of the carrier used for a physical card. This
-             * must be a 2550x3300 pixel PNG with no other color but black.
+             * An image representing the entirety of the carrier used for a physical card. This must
+             * be a 2550x3300 pixel PNG with no other color but black.
              */
             @JvmField val PHYSICAL_CARD_CARRIER = of("physical_card_carrier")
 
@@ -551,7 +474,8 @@ class FileCreateParams private constructor(
             @JvmField val ENTITY_SUPPLEMENTAL_DOCUMENT = of("entity_supplemental_document")
 
             /** An attachment to an Unusual Activity Report. */
-            @JvmField val UNUSUAL_ACTIVITY_REPORT_ATTACHMENT = of("unusual_activity_report_attachment")
+            @JvmField
+            val UNUSUAL_ACTIVITY_REPORT_ATTACHMENT = of("unusual_activity_report_attachment")
 
             @JvmStatic fun of(value: String) = Purpose(JsonField.of(value))
         }
@@ -583,23 +507,23 @@ class FileCreateParams private constructor(
             /** A legal document forming a trust. */
             TRUST_FORMATION_DOCUMENT,
             /**
-             * A card image to be rendered inside digital wallet apps. This must be a 1536x969
-             * pixel PNG.
+             * A card image to be rendered inside digital wallet apps. This must be a 1536x969 pixel
+             * PNG.
              */
             DIGITAL_WALLET_ARTWORK,
             /**
-             * An icon for you app to be rendered inside digital wallet apps. This must be a
-             * 100x100 pixel PNG.
+             * An icon for you app to be rendered inside digital wallet apps. This must be a 100x100
+             * pixel PNG.
              */
             DIGITAL_WALLET_APP_ICON,
             /**
-             * A card image to be printed on the front of a physical card. This must be a
-             * 2100x1340 pixel PNG with no other color but black.
+             * A card image to be printed on the front of a physical card. This must be a 2100x1340
+             * pixel PNG with no other color but black.
              */
             PHYSICAL_CARD_FRONT,
             /**
-             * An image representing the entirety of the carrier used for a physical card. This
-             * must be a 2550x3300 pixel PNG with no other color but black.
+             * An image representing the entirety of the carrier used for a physical card. This must
+             * be a 2550x3300 pixel PNG with no other color but black.
              */
             PHYSICAL_CARD_CARRIER,
             /** A document requested by Increase. */
@@ -614,11 +538,9 @@ class FileCreateParams private constructor(
          * An enum containing [Purpose]'s known values, as well as an [_UNKNOWN] member.
          *
          * An instance of [Purpose] can contain an unknown value in a couple of cases:
-         *
-         * - It was deserialized from data that doesn't match any known member. For
-         *   example, if the SDK is on an older version than the API, then the API may
-         *   respond with new members that the SDK is unaware of.
-         *
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
@@ -647,23 +569,23 @@ class FileCreateParams private constructor(
             /** A legal document forming a trust. */
             TRUST_FORMATION_DOCUMENT,
             /**
-             * A card image to be rendered inside digital wallet apps. This must be a 1536x969
-             * pixel PNG.
+             * A card image to be rendered inside digital wallet apps. This must be a 1536x969 pixel
+             * PNG.
              */
             DIGITAL_WALLET_ARTWORK,
             /**
-             * An icon for you app to be rendered inside digital wallet apps. This must be a
-             * 100x100 pixel PNG.
+             * An icon for you app to be rendered inside digital wallet apps. This must be a 100x100
+             * pixel PNG.
              */
             DIGITAL_WALLET_APP_ICON,
             /**
-             * A card image to be printed on the front of a physical card. This must be a
-             * 2100x1340 pixel PNG with no other color but black.
+             * A card image to be printed on the front of a physical card. This must be a 2100x1340
+             * pixel PNG with no other color but black.
              */
             PHYSICAL_CARD_FRONT,
             /**
-             * An image representing the entirety of the carrier used for a physical card. This
-             * must be a 2550x3300 pixel PNG with no other color but black.
+             * An image representing the entirety of the carrier used for a physical card. This must
+             * be a 2550x3300 pixel PNG with no other color but black.
              */
             PHYSICAL_CARD_CARRIER,
             /** A document requested by Increase. */
@@ -677,11 +599,11 @@ class FileCreateParams private constructor(
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or
-         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if
-         * you want to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -707,11 +629,11 @@ class FileCreateParams private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and
-         * don't want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value is a not a
-         * known member.
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+         *   member.
          */
         fun known(): Known =
             when (this) {
@@ -737,20 +659,23 @@ class FileCreateParams private constructor(
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for
-         * debugging and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value does not
-         * have the expected primitive type.
+         * @throws IncreaseInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
          */
-        fun asString(): String = _value().asString().orElseThrow { IncreaseInvalidDataException("Value is not a String") }
+        fun asString(): String =
+            _value().asString().orElseThrow {
+                IncreaseInvalidDataException("Value is not a String")
+            }
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return /* spotless:off */ other is Purpose && value == other.value /* spotless:on */
+            return /* spotless:off */ other is Purpose && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -759,14 +684,15 @@ class FileCreateParams private constructor(
     }
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return /* spotless:off */ other is FileCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return /* spotless:off */ other is FileCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
     override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
-    override fun toString() = "FileCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+    override fun toString() =
+        "FileCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

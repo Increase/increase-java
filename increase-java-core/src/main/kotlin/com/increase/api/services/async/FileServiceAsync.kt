@@ -15,52 +15,52 @@ import java.util.concurrent.CompletableFuture
 interface FileServiceAsync {
 
     /**
-     * Returns a view of this service that provides access to raw HTTP responses for
-     * each method.
+     * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
 
     /**
      * To upload a file to Increase, you'll need to send a request of Content-Type
-     * `multipart/form-data`. The request should contain the file you would like to
-     * upload, as well as the parameters for creating a file.
+     * `multipart/form-data`. The request should contain the file you would like to upload, as well
+     * as the parameters for creating a file.
      */
     fun create(params: FileCreateParams): CompletableFuture<File> =
-        create(
-          params, RequestOptions.none()
-        )
+        create(params, RequestOptions.none())
 
     /** @see [create] */
-    fun create(params: FileCreateParams, requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<File>
+    fun create(
+        params: FileCreateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<File>
 
     /** Retrieve a File */
     fun retrieve(params: FileRetrieveParams): CompletableFuture<File> =
-        retrieve(
-          params, RequestOptions.none()
-        )
+        retrieve(params, RequestOptions.none())
 
     /** @see [retrieve] */
-    fun retrieve(params: FileRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<File>
+    fun retrieve(
+        params: FileRetrieveParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<File>
 
     /** List Files */
     fun list(): CompletableFuture<FileListPageAsync> = list(FileListParams.none())
 
     /** @see [list] */
-    fun list(params: FileListParams = FileListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<FileListPageAsync>
+    fun list(
+        params: FileListParams = FileListParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<FileListPageAsync>
 
     /** @see [list] */
     fun list(params: FileListParams = FileListParams.none()): CompletableFuture<FileListPageAsync> =
-        list(
-          params, RequestOptions.none()
-        )
+        list(params, RequestOptions.none())
 
     /** @see [list] */
-    fun list(requestOptions: RequestOptions): CompletableFuture<FileListPageAsync> = list(FileListParams.none(), requestOptions)
+    fun list(requestOptions: RequestOptions): CompletableFuture<FileListPageAsync> =
+        list(FileListParams.none(), requestOptions)
 
-    /**
-     * A view of [FileServiceAsync] that provides access to raw HTTP responses for each
-     * method.
-     */
+    /** A view of [FileServiceAsync] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
 
         /**
@@ -69,48 +69,57 @@ interface FileServiceAsync {
          */
         @MustBeClosed
         fun create(params: FileCreateParams): CompletableFuture<HttpResponseFor<File>> =
-            create(
-              params, RequestOptions.none()
-            )
+            create(params, RequestOptions.none())
 
         /** @see [create] */
         @MustBeClosed
-        fun create(params: FileCreateParams, requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<HttpResponseFor<File>>
+        fun create(
+            params: FileCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<File>>
 
         /**
-         * Returns a raw HTTP response for `get /files/{file_id}`, but is otherwise the
-         * same as [FileServiceAsync.retrieve].
+         * Returns a raw HTTP response for `get /files/{file_id}`, but is otherwise the same as
+         * [FileServiceAsync.retrieve].
          */
         @MustBeClosed
         fun retrieve(params: FileRetrieveParams): CompletableFuture<HttpResponseFor<File>> =
-            retrieve(
-              params, RequestOptions.none()
-            )
+            retrieve(params, RequestOptions.none())
 
         /** @see [retrieve] */
         @MustBeClosed
-        fun retrieve(params: FileRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<HttpResponseFor<File>>
+        fun retrieve(
+            params: FileRetrieveParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<File>>
 
         /**
          * Returns a raw HTTP response for `get /files`, but is otherwise the same as
          * [FileServiceAsync.list].
          */
         @MustBeClosed
-        fun list(): CompletableFuture<HttpResponseFor<FileListPageAsync>> = list(FileListParams.none())
+        fun list(): CompletableFuture<HttpResponseFor<FileListPageAsync>> =
+            list(FileListParams.none())
 
         /** @see [list] */
         @MustBeClosed
-        fun list(params: FileListParams = FileListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<HttpResponseFor<FileListPageAsync>>
+        fun list(
+            params: FileListParams = FileListParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<FileListPageAsync>>
 
         /** @see [list] */
         @MustBeClosed
-        fun list(params: FileListParams = FileListParams.none()): CompletableFuture<HttpResponseFor<FileListPageAsync>> =
-            list(
-              params, RequestOptions.none()
-            )
+        fun list(
+            params: FileListParams = FileListParams.none()
+        ): CompletableFuture<HttpResponseFor<FileListPageAsync>> =
+            list(params, RequestOptions.none())
 
         /** @see [list] */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): CompletableFuture<HttpResponseFor<FileListPageAsync>> = list(FileListParams.none(), requestOptions)
+        fun list(
+            requestOptions: RequestOptions
+        ): CompletableFuture<HttpResponseFor<FileListPageAsync>> =
+            list(FileListParams.none(), requestOptions)
     }
 }

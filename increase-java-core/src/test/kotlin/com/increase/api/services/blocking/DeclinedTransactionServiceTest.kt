@@ -4,7 +4,6 @@ package com.increase.api.services.blocking
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.declinedtransactions.DeclinedTransactionListParams
 import com.increase.api.models.declinedtransactions.DeclinedTransactionRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -14,29 +13,34 @@ class DeclinedTransactionServiceTest {
 
     @Test
     fun retrieve() {
-      val client = IncreaseOkHttpClient.builder()
-          .baseUrl(TestServerExtension.BASE_URL)
-          .apiKey("My API Key")
-          .build()
-      val declinedTransactionService = client.declinedTransactions()
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val declinedTransactionService = client.declinedTransactions()
 
-      val declinedTransaction = declinedTransactionService.retrieve(DeclinedTransactionRetrieveParams.builder()
-          .declinedTransactionId("declined_transaction_17jbn0yyhvkt4v4ooym8")
-          .build())
+        val declinedTransaction =
+            declinedTransactionService.retrieve(
+                DeclinedTransactionRetrieveParams.builder()
+                    .declinedTransactionId("declined_transaction_17jbn0yyhvkt4v4ooym8")
+                    .build()
+            )
 
-      declinedTransaction.validate()
+        declinedTransaction.validate()
     }
 
     @Test
     fun list() {
-      val client = IncreaseOkHttpClient.builder()
-          .baseUrl(TestServerExtension.BASE_URL)
-          .apiKey("My API Key")
-          .build()
-      val declinedTransactionService = client.declinedTransactions()
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val declinedTransactionService = client.declinedTransactions()
 
-      val page = declinedTransactionService.list()
+        val page = declinedTransactionService.list()
 
-      page.response().validate()
+        page.response().validate()
     }
 }

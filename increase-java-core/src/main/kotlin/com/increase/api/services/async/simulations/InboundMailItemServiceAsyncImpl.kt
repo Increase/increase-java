@@ -19,49 +19,55 @@ import com.increase.api.models.inboundmailitems.InboundMailItem
 import com.increase.api.models.simulations.inboundmailitems.InboundMailItemCreateParams
 import java.util.concurrent.CompletableFuture
 
-class InboundMailItemServiceAsyncImpl internal constructor(
-    private val clientOptions: ClientOptions,
+class InboundMailItemServiceAsyncImpl
+internal constructor(private val clientOptions: ClientOptions) : InboundMailItemServiceAsync {
 
-) : InboundMailItemServiceAsync {
-
-    private val withRawResponse: InboundMailItemServiceAsync.WithRawResponse by lazy { WithRawResponseImpl(clientOptions) }
+    private val withRawResponse: InboundMailItemServiceAsync.WithRawResponse by lazy {
+        WithRawResponseImpl(clientOptions)
+    }
 
     override fun withRawResponse(): InboundMailItemServiceAsync.WithRawResponse = withRawResponse
 
-    override fun create(params: InboundMailItemCreateParams, requestOptions: RequestOptions): CompletableFuture<InboundMailItem> =
+    override fun create(
+        params: InboundMailItemCreateParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<InboundMailItem> =
         // post /simulations/inbound_mail_items
         withRawResponse().create(params, requestOptions).thenApply { it.parse() }
 
-    class WithRawResponseImpl internal constructor(
-        private val clientOptions: ClientOptions,
-
-    ) : InboundMailItemServiceAsync.WithRawResponse {
+    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
+        InboundMailItemServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
-        private val createHandler: Handler<InboundMailItem> = jsonHandler<InboundMailItem>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val createHandler: Handler<InboundMailItem> =
+            jsonHandler<InboundMailItem>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-        override fun create(params: InboundMailItemCreateParams, requestOptions: RequestOptions): CompletableFuture<HttpResponseFor<InboundMailItem>> {
-          val request = HttpRequest.builder()
-            .method(HttpMethod.POST)
-            .addPathSegments("simulations", "inbound_mail_items")
-            .body(json(clientOptions.jsonMapper, params._body()))
-            .build()
-            .prepareAsync(clientOptions, params)
-          val requestOptions = requestOptions
-              .applyDefaults(RequestOptions.from(clientOptions))
-          return request.thenComposeAsync { clientOptions.httpClient.executeAsync(
-            it, requestOptions
-          ) }.thenApply { response -> response.parseable {
-              response.use {
-                  createHandler.handle(it)
-              }
-              .also {
-                  if (requestOptions.responseValidation!!) {
-                    it.validate()
-                  }
-              }
-          } }
+        override fun create(
+            params: InboundMailItemCreateParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<InboundMailItem>> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .addPathSegments("simulations", "inbound_mail_items")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    response.parseable {
+                        response
+                            .use { createHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
         }
     }
 }

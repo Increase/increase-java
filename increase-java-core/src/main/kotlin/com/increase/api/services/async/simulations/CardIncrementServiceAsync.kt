@@ -12,41 +12,43 @@ import java.util.concurrent.CompletableFuture
 interface CardIncrementServiceAsync {
 
     /**
-     * Returns a view of this service that provides access to raw HTTP responses for
-     * each method.
+     * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
 
     /**
-     * Simulates the increment of an authorization by a card acquirer. An authorization
-     * can be incremented multiple times.
+     * Simulates the increment of an authorization by a card acquirer. An authorization can be
+     * incremented multiple times.
      */
     fun create(params: CardIncrementCreateParams): CompletableFuture<CardPayment> =
-        create(
-          params, RequestOptions.none()
-        )
+        create(params, RequestOptions.none())
 
     /** @see [create] */
-    fun create(params: CardIncrementCreateParams, requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<CardPayment>
+    fun create(
+        params: CardIncrementCreateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<CardPayment>
 
     /**
-     * A view of [CardIncrementServiceAsync] that provides access to raw HTTP responses
-     * for each method.
+     * A view of [CardIncrementServiceAsync] that provides access to raw HTTP responses for each
+     * method.
      */
     interface WithRawResponse {
 
         /**
-         * Returns a raw HTTP response for `post /simulations/card_increments`, but is
-         * otherwise the same as [CardIncrementServiceAsync.create].
+         * Returns a raw HTTP response for `post /simulations/card_increments`, but is otherwise the
+         * same as [CardIncrementServiceAsync.create].
          */
         @MustBeClosed
-        fun create(params: CardIncrementCreateParams): CompletableFuture<HttpResponseFor<CardPayment>> =
-            create(
-              params, RequestOptions.none()
-            )
+        fun create(
+            params: CardIncrementCreateParams
+        ): CompletableFuture<HttpResponseFor<CardPayment>> = create(params, RequestOptions.none())
 
         /** @see [create] */
         @MustBeClosed
-        fun create(params: CardIncrementCreateParams, requestOptions: RequestOptions = RequestOptions.none()): CompletableFuture<HttpResponseFor<CardPayment>>
+        fun create(
+            params: CardIncrementCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<CardPayment>>
     }
 }

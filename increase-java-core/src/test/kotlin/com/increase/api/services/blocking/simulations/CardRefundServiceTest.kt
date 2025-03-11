@@ -13,16 +13,20 @@ class CardRefundServiceTest {
 
     @Test
     fun create() {
-      val client = IncreaseOkHttpClient.builder()
-          .baseUrl(TestServerExtension.BASE_URL)
-          .apiKey("My API Key")
-          .build()
-      val cardRefundService = client.simulations().cardRefunds()
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val cardRefundService = client.simulations().cardRefunds()
 
-      val transaction = cardRefundService.create(CardRefundCreateParams.builder()
-          .transactionId("transaction_uyrp7fld2ium70oa7oi")
-          .build())
+        val transaction =
+            cardRefundService.create(
+                CardRefundCreateParams.builder()
+                    .transactionId("transaction_uyrp7fld2ium70oa7oi")
+                    .build()
+            )
 
-      transaction.validate()
+        transaction.validate()
     }
 }

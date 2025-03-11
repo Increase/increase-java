@@ -10,40 +10,42 @@ class CardDisputeCreateParamsTest {
 
     @Test
     fun create() {
-      CardDisputeCreateParams.builder()
-          .disputedTransactionId("transaction_uyrp7fld2ium70oa7oi")
-          .explanation("Unauthorized recurring transaction.")
-          .amount(1L)
-          .build()
+        CardDisputeCreateParams.builder()
+            .disputedTransactionId("transaction_uyrp7fld2ium70oa7oi")
+            .explanation("Unauthorized recurring transaction.")
+            .amount(1L)
+            .build()
     }
 
     @Test
     fun body() {
-      val params = CardDisputeCreateParams.builder()
-          .disputedTransactionId("transaction_uyrp7fld2ium70oa7oi")
-          .explanation("Unauthorized recurring transaction.")
-          .amount(1L)
-          .build()
+        val params =
+            CardDisputeCreateParams.builder()
+                .disputedTransactionId("transaction_uyrp7fld2ium70oa7oi")
+                .explanation("Unauthorized recurring transaction.")
+                .amount(1L)
+                .build()
 
-      val body = params._body()
+        val body = params._body()
 
-      assertNotNull(body)
-      assertThat(body.disputedTransactionId()).isEqualTo("transaction_uyrp7fld2ium70oa7oi")
-      assertThat(body.explanation()).isEqualTo("Unauthorized recurring transaction.")
-      assertThat(body.amount()).contains(1L)
+        assertNotNull(body)
+        assertThat(body.disputedTransactionId()).isEqualTo("transaction_uyrp7fld2ium70oa7oi")
+        assertThat(body.explanation()).isEqualTo("Unauthorized recurring transaction.")
+        assertThat(body.amount()).contains(1L)
     }
 
     @Test
     fun bodyWithoutOptionalFields() {
-      val params = CardDisputeCreateParams.builder()
-          .disputedTransactionId("transaction_uyrp7fld2ium70oa7oi")
-          .explanation("Unauthorized recurring transaction.")
-          .build()
+        val params =
+            CardDisputeCreateParams.builder()
+                .disputedTransactionId("transaction_uyrp7fld2ium70oa7oi")
+                .explanation("Unauthorized recurring transaction.")
+                .build()
 
-      val body = params._body()
+        val body = params._body()
 
-      assertNotNull(body)
-      assertThat(body.disputedTransactionId()).isEqualTo("transaction_uyrp7fld2ium70oa7oi")
-      assertThat(body.explanation()).isEqualTo("Unauthorized recurring transaction.")
+        assertNotNull(body)
+        assertThat(body.disputedTransactionId()).isEqualTo("transaction_uyrp7fld2ium70oa7oi")
+        assertThat(body.explanation()).isEqualTo("Unauthorized recurring transaction.")
     }
 }

@@ -5,7 +5,6 @@ package com.increase.api.services.blocking
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.models.files.FileCreateParams
-import com.increase.api.models.files.FileListParams
 import com.increase.api.models.files.FileRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -15,46 +14,53 @@ class FileServiceTest {
 
     @Test
     fun create() {
-      val client = IncreaseOkHttpClient.builder()
-          .baseUrl(TestServerExtension.BASE_URL)
-          .apiKey("My API Key")
-          .build()
-      val fileService = client.files()
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val fileService = client.files()
 
-      val file = fileService.create(FileCreateParams.builder()
-          .file("some content".toByteArray())
-          .purpose(FileCreateParams.Purpose.CHECK_IMAGE_FRONT)
-          .description("x")
-          .build())
+        val file =
+            fileService.create(
+                FileCreateParams.builder()
+                    .file("some content".toByteArray())
+                    .purpose(FileCreateParams.Purpose.CHECK_IMAGE_FRONT)
+                    .description("x")
+                    .build()
+            )
 
-      file.validate()
+        file.validate()
     }
 
     @Test
     fun retrieve() {
-      val client = IncreaseOkHttpClient.builder()
-          .baseUrl(TestServerExtension.BASE_URL)
-          .apiKey("My API Key")
-          .build()
-      val fileService = client.files()
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val fileService = client.files()
 
-      val file = fileService.retrieve(FileRetrieveParams.builder()
-          .fileId("file_makxrc67oh9l6sg7w9yc")
-          .build())
+        val file =
+            fileService.retrieve(
+                FileRetrieveParams.builder().fileId("file_makxrc67oh9l6sg7w9yc").build()
+            )
 
-      file.validate()
+        file.validate()
     }
 
     @Test
     fun list() {
-      val client = IncreaseOkHttpClient.builder()
-          .baseUrl(TestServerExtension.BASE_URL)
-          .apiKey("My API Key")
-          .build()
-      val fileService = client.files()
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val fileService = client.files()
 
-      val page = fileService.list()
+        val page = fileService.list()
 
-      page.response().validate()
+        page.response().validate()
     }
 }

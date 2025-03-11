@@ -5,7 +5,6 @@ package com.increase.api.services.async
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
 import com.increase.api.models.externalaccounts.ExternalAccountCreateParams
-import com.increase.api.models.externalaccounts.ExternalAccountListParams
 import com.increase.api.models.externalaccounts.ExternalAccountRetrieveParams
 import com.increase.api.models.externalaccounts.ExternalAccountUpdateParams
 import org.junit.jupiter.api.Test
@@ -16,71 +15,84 @@ class ExternalAccountServiceAsyncTest {
 
     @Test
     fun create() {
-      val client = IncreaseOkHttpClientAsync.builder()
-          .baseUrl(TestServerExtension.BASE_URL)
-          .apiKey("My API Key")
-          .build()
-      val externalAccountServiceAsync = client.externalAccounts()
+        val client =
+            IncreaseOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val externalAccountServiceAsync = client.externalAccounts()
 
-      val externalAccountFuture = externalAccountServiceAsync.create(ExternalAccountCreateParams.builder()
-          .accountNumber("987654321")
-          .description("Landlord")
-          .routingNumber("101050001")
-          .accountHolder(ExternalAccountCreateParams.AccountHolder.BUSINESS)
-          .funding(ExternalAccountCreateParams.Funding.CHECKING)
-          .build())
+        val externalAccountFuture =
+            externalAccountServiceAsync.create(
+                ExternalAccountCreateParams.builder()
+                    .accountNumber("987654321")
+                    .description("Landlord")
+                    .routingNumber("101050001")
+                    .accountHolder(ExternalAccountCreateParams.AccountHolder.BUSINESS)
+                    .funding(ExternalAccountCreateParams.Funding.CHECKING)
+                    .build()
+            )
 
-      val externalAccount = externalAccountFuture.get()
-      externalAccount.validate()
+        val externalAccount = externalAccountFuture.get()
+        externalAccount.validate()
     }
 
     @Test
     fun retrieve() {
-      val client = IncreaseOkHttpClientAsync.builder()
-          .baseUrl(TestServerExtension.BASE_URL)
-          .apiKey("My API Key")
-          .build()
-      val externalAccountServiceAsync = client.externalAccounts()
+        val client =
+            IncreaseOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val externalAccountServiceAsync = client.externalAccounts()
 
-      val externalAccountFuture = externalAccountServiceAsync.retrieve(ExternalAccountRetrieveParams.builder()
-          .externalAccountId("external_account_ukk55lr923a3ac0pp7iv")
-          .build())
+        val externalAccountFuture =
+            externalAccountServiceAsync.retrieve(
+                ExternalAccountRetrieveParams.builder()
+                    .externalAccountId("external_account_ukk55lr923a3ac0pp7iv")
+                    .build()
+            )
 
-      val externalAccount = externalAccountFuture.get()
-      externalAccount.validate()
+        val externalAccount = externalAccountFuture.get()
+        externalAccount.validate()
     }
 
     @Test
     fun update() {
-      val client = IncreaseOkHttpClientAsync.builder()
-          .baseUrl(TestServerExtension.BASE_URL)
-          .apiKey("My API Key")
-          .build()
-      val externalAccountServiceAsync = client.externalAccounts()
+        val client =
+            IncreaseOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val externalAccountServiceAsync = client.externalAccounts()
 
-      val externalAccountFuture = externalAccountServiceAsync.update(ExternalAccountUpdateParams.builder()
-          .externalAccountId("external_account_ukk55lr923a3ac0pp7iv")
-          .accountHolder(ExternalAccountUpdateParams.AccountHolder.BUSINESS)
-          .description("New description")
-          .funding(ExternalAccountUpdateParams.Funding.CHECKING)
-          .status(ExternalAccountUpdateParams.Status.ACTIVE)
-          .build())
+        val externalAccountFuture =
+            externalAccountServiceAsync.update(
+                ExternalAccountUpdateParams.builder()
+                    .externalAccountId("external_account_ukk55lr923a3ac0pp7iv")
+                    .accountHolder(ExternalAccountUpdateParams.AccountHolder.BUSINESS)
+                    .description("New description")
+                    .funding(ExternalAccountUpdateParams.Funding.CHECKING)
+                    .status(ExternalAccountUpdateParams.Status.ACTIVE)
+                    .build()
+            )
 
-      val externalAccount = externalAccountFuture.get()
-      externalAccount.validate()
+        val externalAccount = externalAccountFuture.get()
+        externalAccount.validate()
     }
 
     @Test
     fun list() {
-      val client = IncreaseOkHttpClientAsync.builder()
-          .baseUrl(TestServerExtension.BASE_URL)
-          .apiKey("My API Key")
-          .build()
-      val externalAccountServiceAsync = client.externalAccounts()
+        val client =
+            IncreaseOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val externalAccountServiceAsync = client.externalAccounts()
 
-      val pageFuture = externalAccountServiceAsync.list()
+        val pageFuture = externalAccountServiceAsync.list()
 
-      val page = pageFuture.get()
-      page.response().validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 }

@@ -10,28 +10,23 @@ class InboundWireDrawdownRequestListParamsTest {
 
     @Test
     fun create() {
-      InboundWireDrawdownRequestListParams.builder()
-          .cursor("cursor")
-          .limit(1L)
-          .build()
+        InboundWireDrawdownRequestListParams.builder().cursor("cursor").limit(1L).build()
     }
 
     @Test
     fun queryParams() {
-      val params = InboundWireDrawdownRequestListParams.builder()
-          .cursor("cursor")
-          .limit(1L)
-          .build()
-      val expected = QueryParams.builder()
-      expected.put("cursor", "cursor")
-      expected.put("limit", "1")
-      assertThat(params._queryParams()).isEqualTo(expected.build())
+        val params =
+            InboundWireDrawdownRequestListParams.builder().cursor("cursor").limit(1L).build()
+        val expected = QueryParams.builder()
+        expected.put("cursor", "cursor")
+        expected.put("limit", "1")
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
     @Test
     fun queryParamsWithoutOptionalFields() {
-      val params = InboundWireDrawdownRequestListParams.builder().build()
-      val expected = QueryParams.builder()
-      assertThat(params._queryParams()).isEqualTo(expected.build())
+        val params = InboundWireDrawdownRequestListParams.builder().build()
+        val expected = QueryParams.builder()
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 }

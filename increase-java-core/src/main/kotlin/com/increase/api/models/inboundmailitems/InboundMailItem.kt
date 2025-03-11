@@ -23,25 +23,38 @@ import kotlin.jvm.optionals.getOrNull
 
 /** Inbound Mail Items represent pieces of physical mail delivered to a Lockbox. */
 @NoAutoDetect
-class InboundMailItem @JsonCreator private constructor(
+class InboundMailItem
+@JsonCreator
+private constructor(
     @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("created_at") @ExcludeMissing private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("file_id") @ExcludeMissing private val fileId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("lockbox_id") @ExcludeMissing private val lockboxId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("recipient_name") @ExcludeMissing private val recipientName: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("rejection_reason") @ExcludeMissing private val rejectionReason: JsonField<RejectionReason> = JsonMissing.of(),
-    @JsonProperty("status") @ExcludeMissing private val status: JsonField<Status> = JsonMissing.of(),
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("file_id")
+    @ExcludeMissing
+    private val fileId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("lockbox_id")
+    @ExcludeMissing
+    private val lockboxId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("recipient_name")
+    @ExcludeMissing
+    private val recipientName: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("rejection_reason")
+    @ExcludeMissing
+    private val rejectionReason: JsonField<RejectionReason> = JsonMissing.of(),
+    @JsonProperty("status")
+    @ExcludeMissing
+    private val status: JsonField<Status> = JsonMissing.of(),
     @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-
 ) {
 
     /** The Inbound Mail Item identifier. */
     fun id(): String = id.getRequired("id")
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Inbound
-     * Mail Item was created.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Inbound Mail Item
+     * was created.
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
@@ -49,16 +62,18 @@ class InboundMailItem @JsonCreator private constructor(
     fun fileId(): String = fileId.getRequired("file_id")
 
     /**
-     * The identifier for the Lockbox that received this mail item. For mail items that
-     * could not be processed due to an invalid address, this will be null.
+     * The identifier for the Lockbox that received this mail item. For mail items that could not be
+     * processed due to an invalid address, this will be null.
      */
     fun lockboxId(): Optional<String> = Optional.ofNullable(lockboxId.getNullable("lockbox_id"))
 
     /** The recipient name as written on the mail item. */
-    fun recipientName(): Optional<String> = Optional.ofNullable(recipientName.getNullable("recipient_name"))
+    fun recipientName(): Optional<String> =
+        Optional.ofNullable(recipientName.getNullable("recipient_name"))
 
     /** If the mail item has been rejected, why it was rejected. */
-    fun rejectionReason(): Optional<RejectionReason> = Optional.ofNullable(rejectionReason.getNullable("rejection_reason"))
+    fun rejectionReason(): Optional<RejectionReason> =
+        Optional.ofNullable(rejectionReason.getNullable("rejection_reason"))
 
     /** If the mail item has been processed. */
     fun status(): Status = status.getRequired("status")
@@ -70,30 +85,24 @@ class InboundMailItem @JsonCreator private constructor(
     fun type(): Type = type.getRequired("type")
 
     /** The Inbound Mail Item identifier. */
-    @JsonProperty("id")
-    @ExcludeMissing
-    fun _id(): JsonField<String> = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Inbound
-     * Mail Item was created.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Inbound Mail Item
+     * was created.
      */
     @JsonProperty("created_at")
     @ExcludeMissing
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /** The identifier for the File containing the scanned contents of the mail item. */
-    @JsonProperty("file_id")
-    @ExcludeMissing
-    fun _fileId(): JsonField<String> = fileId
+    @JsonProperty("file_id") @ExcludeMissing fun _fileId(): JsonField<String> = fileId
 
     /**
-     * The identifier for the Lockbox that received this mail item. For mail items that
-     * could not be processed due to an invalid address, this will be null.
+     * The identifier for the Lockbox that received this mail item. For mail items that could not be
+     * processed due to an invalid address, this will be null.
      */
-    @JsonProperty("lockbox_id")
-    @ExcludeMissing
-    fun _lockboxId(): JsonField<String> = lockboxId
+    @JsonProperty("lockbox_id") @ExcludeMissing fun _lockboxId(): JsonField<String> = lockboxId
 
     /** The recipient name as written on the mail item. */
     @JsonProperty("recipient_name")
@@ -106,17 +115,13 @@ class InboundMailItem @JsonCreator private constructor(
     fun _rejectionReason(): JsonField<RejectionReason> = rejectionReason
 
     /** If the mail item has been processed. */
-    @JsonProperty("status")
-    @ExcludeMissing
-    fun _status(): JsonField<Status> = status
+    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `inbound_mail_item`.
      */
-    @JsonProperty("type")
-    @ExcludeMissing
-    fun _type(): JsonField<Type> = type
+    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -124,22 +129,21 @@ class InboundMailItem @JsonCreator private constructor(
 
     private var validated: Boolean = false
 
-    fun validate(): InboundMailItem =
-        apply {
-            if (validated) {
-              return@apply
-            }
-
-            id()
-            createdAt()
-            fileId()
-            lockboxId()
-            recipientName()
-            rejectionReason()
-            status()
-            type()
-            validated = true
+    fun validate(): InboundMailItem = apply {
+        if (validated) {
+            return@apply
         }
+
+        id()
+        createdAt()
+        fileId()
+        lockboxId()
+        recipientName()
+        rejectionReason()
+        status()
+        type()
+        validated = true
+    }
 
     fun toBuilder() = Builder().from(this)
 
@@ -149,7 +153,6 @@ class InboundMailItem @JsonCreator private constructor(
          * Returns a mutable builder for constructing an instance of [InboundMailItem].
          *
          * The following fields are required:
-         *
          * ```java
          * .id()
          * .createdAt()
@@ -161,8 +164,7 @@ class InboundMailItem @JsonCreator private constructor(
          * .type()
          * ```
          */
-        @JvmStatic
-        fun builder() = Builder()
+        @JvmStatic fun builder() = Builder()
     }
 
     /** A builder for [InboundMailItem]. */
@@ -179,105 +181,91 @@ class InboundMailItem @JsonCreator private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(inboundMailItem: InboundMailItem) =
-            apply {
-                id = inboundMailItem.id
-                createdAt = inboundMailItem.createdAt
-                fileId = inboundMailItem.fileId
-                lockboxId = inboundMailItem.lockboxId
-                recipientName = inboundMailItem.recipientName
-                rejectionReason = inboundMailItem.rejectionReason
-                status = inboundMailItem.status
-                type = inboundMailItem.type
-                additionalProperties = inboundMailItem.additionalProperties.toMutableMap()
-            }
+        internal fun from(inboundMailItem: InboundMailItem) = apply {
+            id = inboundMailItem.id
+            createdAt = inboundMailItem.createdAt
+            fileId = inboundMailItem.fileId
+            lockboxId = inboundMailItem.lockboxId
+            recipientName = inboundMailItem.recipientName
+            rejectionReason = inboundMailItem.rejectionReason
+            status = inboundMailItem.status
+            type = inboundMailItem.type
+            additionalProperties = inboundMailItem.additionalProperties.toMutableMap()
+        }
 
         /** The Inbound Mail Item identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
         /** The Inbound Mail Item identifier. */
-        fun id(id: JsonField<String>) =
-            apply {
-                this.id = id
-            }
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Inbound
-         * Mail Item was created.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Inbound Mail
+         * Item was created.
          */
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Inbound
-         * Mail Item was created.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Inbound Mail
+         * Item was created.
          */
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) =
-            apply {
-                this.createdAt = createdAt
-            }
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** The identifier for the File containing the scanned contents of the mail item. */
         fun fileId(fileId: String) = fileId(JsonField.of(fileId))
 
         /** The identifier for the File containing the scanned contents of the mail item. */
-        fun fileId(fileId: JsonField<String>) =
-            apply {
-                this.fileId = fileId
-            }
+        fun fileId(fileId: JsonField<String>) = apply { this.fileId = fileId }
 
         /**
-         * The identifier for the Lockbox that received this mail item. For mail items that
-         * could not be processed due to an invalid address, this will be null.
+         * The identifier for the Lockbox that received this mail item. For mail items that could
+         * not be processed due to an invalid address, this will be null.
          */
         fun lockboxId(lockboxId: String?) = lockboxId(JsonField.ofNullable(lockboxId))
 
         /**
-         * The identifier for the Lockbox that received this mail item. For mail items that
-         * could not be processed due to an invalid address, this will be null.
+         * The identifier for the Lockbox that received this mail item. For mail items that could
+         * not be processed due to an invalid address, this will be null.
          */
         fun lockboxId(lockboxId: Optional<String>) = lockboxId(lockboxId.getOrNull())
 
         /**
-         * The identifier for the Lockbox that received this mail item. For mail items that
-         * could not be processed due to an invalid address, this will be null.
+         * The identifier for the Lockbox that received this mail item. For mail items that could
+         * not be processed due to an invalid address, this will be null.
          */
-        fun lockboxId(lockboxId: JsonField<String>) =
-            apply {
-                this.lockboxId = lockboxId
-            }
+        fun lockboxId(lockboxId: JsonField<String>) = apply { this.lockboxId = lockboxId }
 
         /** The recipient name as written on the mail item. */
-        fun recipientName(recipientName: String?) = recipientName(JsonField.ofNullable(recipientName))
+        fun recipientName(recipientName: String?) =
+            recipientName(JsonField.ofNullable(recipientName))
 
         /** The recipient name as written on the mail item. */
-        fun recipientName(recipientName: Optional<String>) = recipientName(recipientName.getOrNull())
+        fun recipientName(recipientName: Optional<String>) =
+            recipientName(recipientName.getOrNull())
 
         /** The recipient name as written on the mail item. */
-        fun recipientName(recipientName: JsonField<String>) =
-            apply {
-                this.recipientName = recipientName
-            }
+        fun recipientName(recipientName: JsonField<String>) = apply {
+            this.recipientName = recipientName
+        }
 
         /** If the mail item has been rejected, why it was rejected. */
-        fun rejectionReason(rejectionReason: RejectionReason?) = rejectionReason(JsonField.ofNullable(rejectionReason))
+        fun rejectionReason(rejectionReason: RejectionReason?) =
+            rejectionReason(JsonField.ofNullable(rejectionReason))
 
         /** If the mail item has been rejected, why it was rejected. */
-        fun rejectionReason(rejectionReason: Optional<RejectionReason>) = rejectionReason(rejectionReason.getOrNull())
+        fun rejectionReason(rejectionReason: Optional<RejectionReason>) =
+            rejectionReason(rejectionReason.getOrNull())
 
         /** If the mail item has been rejected, why it was rejected. */
-        fun rejectionReason(rejectionReason: JsonField<RejectionReason>) =
-            apply {
-                this.rejectionReason = rejectionReason
-            }
+        fun rejectionReason(rejectionReason: JsonField<RejectionReason>) = apply {
+            this.rejectionReason = rejectionReason
+        }
 
         /** If the mail item has been processed. */
         fun status(status: Status) = status(JsonField.of(status))
 
         /** If the mail item has been processed. */
-        fun status(status: JsonField<Status>) =
-            apply {
-                this.status = status
-            }
+        fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /**
          * A constant representing the object's type. For this resource it will always be
@@ -289,83 +277,54 @@ class InboundMailItem @JsonCreator private constructor(
          * A constant representing the object's type. For this resource it will always be
          * `inbound_mail_item`.
          */
-        fun type(type: JsonField<Type>) =
-            apply {
-                this.type = type
-            }
+        fun type(type: JsonField<Type>) = apply { this.type = type }
 
-        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
-            apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
+        fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+            this.additionalProperties.clear()
+            putAllAdditionalProperties(additionalProperties)
+        }
 
-        fun putAdditionalProperty(key: String, value: JsonValue) =
-            apply {
-                additionalProperties.put(key, value)
-            }
+        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+            additionalProperties.put(key, value)
+        }
 
-        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-            apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
+        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+            this.additionalProperties.putAll(additionalProperties)
+        }
 
-        fun removeAdditionalProperty(key: String) =
-            apply {
-                additionalProperties.remove(key)
-            }
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
 
-        fun removeAllAdditionalProperties(keys: Set<String>) =
-            apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
+        }
 
         fun build(): InboundMailItem =
             InboundMailItem(
-              checkRequired(
-                "id", id
-              ),
-              checkRequired(
-                "createdAt", createdAt
-              ),
-              checkRequired(
-                "fileId", fileId
-              ),
-              checkRequired(
-                "lockboxId", lockboxId
-              ),
-              checkRequired(
-                "recipientName", recipientName
-              ),
-              checkRequired(
-                "rejectionReason", rejectionReason
-              ),
-              checkRequired(
-                "status", status
-              ),
-              checkRequired(
-                "type", type
-              ),
-              additionalProperties.toImmutable(),
+                checkRequired("id", id),
+                checkRequired("createdAt", createdAt),
+                checkRequired("fileId", fileId),
+                checkRequired("lockboxId", lockboxId),
+                checkRequired("recipientName", recipientName),
+                checkRequired("rejectionReason", rejectionReason),
+                checkRequired("status", status),
+                checkRequired("type", type),
+                additionalProperties.toImmutable(),
             )
     }
 
     /** If the mail item has been rejected, why it was rejected. */
-    class RejectionReason @JsonCreator private constructor(
-        private val value: JsonField<String>,
-
-    ) : Enum {
+    class RejectionReason @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that
-         * doesn't match any known member, and you want to know that value. For example, if
-         * the SDK is on an older version than the API, then the API may respond with new
-         * members that the SDK is unaware of.
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -392,16 +351,12 @@ class InboundMailItem @JsonCreator private constructor(
         }
 
         /**
-         * An enum containing [RejectionReason]'s known values, as well as an [_UNKNOWN]
-         * member.
+         * An enum containing [RejectionReason]'s known values, as well as an [_UNKNOWN] member.
          *
-         * An instance of [RejectionReason] can contain an unknown value in a couple of
-         * cases:
-         *
-         * - It was deserialized from data that doesn't match any known member. For
-         *   example, if the SDK is on an older version than the API, then the API may
-         *   respond with new members that the SDK is unaware of.
-         *
+         * An instance of [RejectionReason] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
@@ -412,18 +367,18 @@ class InboundMailItem @JsonCreator private constructor(
             /** The Lockbox or its associated Account is not active. */
             LOCKBOX_NOT_ACTIVE,
             /**
-             * An enum member indicating that [RejectionReason] was instantiated with an
-             * unknown value.
+             * An enum member indicating that [RejectionReason] was instantiated with an unknown
+             * value.
              */
             _UNKNOWN,
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or
-         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if
-         * you want to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -436,11 +391,11 @@ class InboundMailItem @JsonCreator private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and
-         * don't want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value is a not a
-         * known member.
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+         *   member.
          */
         fun known(): Known =
             when (this) {
@@ -453,20 +408,23 @@ class InboundMailItem @JsonCreator private constructor(
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for
-         * debugging and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value does not
-         * have the expected primitive type.
+         * @throws IncreaseInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
          */
-        fun asString(): String = _value().asString().orElseThrow { IncreaseInvalidDataException("Value is not a String") }
+        fun asString(): String =
+            _value().asString().orElseThrow {
+                IncreaseInvalidDataException("Value is not a String")
+            }
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return /* spotless:off */ other is RejectionReason && value == other.value /* spotless:on */
+            return /* spotless:off */ other is RejectionReason && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -475,21 +433,17 @@ class InboundMailItem @JsonCreator private constructor(
     }
 
     /** If the mail item has been processed. */
-    class Status @JsonCreator private constructor(
-        private val value: JsonField<String>,
-
-    ) : Enum {
+    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that
-         * doesn't match any known member, and you want to know that value. For example, if
-         * the SDK is on an older version than the API, then the API may respond with new
-         * members that the SDK is unaware of.
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -519,11 +473,9 @@ class InboundMailItem @JsonCreator private constructor(
          * An enum containing [Status]'s known values, as well as an [_UNKNOWN] member.
          *
          * An instance of [Status] can contain an unknown value in a couple of cases:
-         *
-         * - It was deserialized from data that doesn't match any known member. For
-         *   example, if the SDK is on an older version than the API, then the API may
-         *   respond with new members that the SDK is unaware of.
-         *
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
@@ -538,11 +490,11 @@ class InboundMailItem @JsonCreator private constructor(
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or
-         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if
-         * you want to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -555,11 +507,11 @@ class InboundMailItem @JsonCreator private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and
-         * don't want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value is a not a
-         * known member.
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+         *   member.
          */
         fun known(): Known =
             when (this) {
@@ -572,20 +524,23 @@ class InboundMailItem @JsonCreator private constructor(
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for
-         * debugging and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value does not
-         * have the expected primitive type.
+         * @throws IncreaseInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
          */
-        fun asString(): String = _value().asString().orElseThrow { IncreaseInvalidDataException("Value is not a String") }
+        fun asString(): String =
+            _value().asString().orElseThrow {
+                IncreaseInvalidDataException("Value is not a String")
+            }
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return /* spotless:off */ other is Status && value == other.value /* spotless:on */
+            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -597,21 +552,17 @@ class InboundMailItem @JsonCreator private constructor(
      * A constant representing the object's type. For this resource it will always be
      * `inbound_mail_item`.
      */
-    class Type @JsonCreator private constructor(
-        private val value: JsonField<String>,
-
-    ) : Enum {
+    class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that
-         * doesn't match any known member, and you want to know that value. For example, if
-         * the SDK is on an older version than the API, then the API may respond with new
-         * members that the SDK is unaware of.
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -622,18 +573,16 @@ class InboundMailItem @JsonCreator private constructor(
 
         /** An enum containing [Type]'s known values. */
         enum class Known {
-            INBOUND_MAIL_ITEM,
+            INBOUND_MAIL_ITEM
         }
 
         /**
          * An enum containing [Type]'s known values, as well as an [_UNKNOWN] member.
          *
          * An instance of [Type] can contain an unknown value in a couple of cases:
-         *
-         * - It was deserialized from data that doesn't match any known member. For
-         *   example, if the SDK is on an older version than the API, then the API may
-         *   respond with new members that the SDK is unaware of.
-         *
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
@@ -643,11 +592,11 @@ class InboundMailItem @JsonCreator private constructor(
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or
-         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if
-         * you want to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -658,11 +607,11 @@ class InboundMailItem @JsonCreator private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and
-         * don't want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value is a not a
-         * known member.
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+         *   member.
          */
         fun known(): Known =
             when (this) {
@@ -673,20 +622,23 @@ class InboundMailItem @JsonCreator private constructor(
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for
-         * debugging and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value does not
-         * have the expected primitive type.
+         * @throws IncreaseInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
          */
-        fun asString(): String = _value().asString().orElseThrow { IncreaseInvalidDataException("Value is not a String") }
+        fun asString(): String =
+            _value().asString().orElseThrow {
+                IncreaseInvalidDataException("Value is not a String")
+            }
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return /* spotless:off */ other is Type && value == other.value /* spotless:on */
+            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -695,11 +647,11 @@ class InboundMailItem @JsonCreator private constructor(
     }
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return /* spotless:off */ other is InboundMailItem && id == other.id && createdAt == other.createdAt && fileId == other.fileId && lockboxId == other.lockboxId && recipientName == other.recipientName && rejectionReason == other.rejectionReason && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is InboundMailItem && id == other.id && createdAt == other.createdAt && fileId == other.fileId && lockboxId == other.lockboxId && recipientName == other.recipientName && rejectionReason == other.rejectionReason && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
@@ -708,5 +660,6 @@ class InboundMailItem @JsonCreator private constructor(
 
     override fun hashCode(): Int = hashCode
 
-    override fun toString() = "InboundMailItem{id=$id, createdAt=$createdAt, fileId=$fileId, lockboxId=$lockboxId, recipientName=$recipientName, rejectionReason=$rejectionReason, status=$status, type=$type, additionalProperties=$additionalProperties}"
+    override fun toString() =
+        "InboundMailItem{id=$id, createdAt=$createdAt, fileId=$fileId, lockboxId=$lockboxId, recipientName=$recipientName, rejectionReason=$rejectionReason, status=$status, type=$type, additionalProperties=$additionalProperties}"
 }

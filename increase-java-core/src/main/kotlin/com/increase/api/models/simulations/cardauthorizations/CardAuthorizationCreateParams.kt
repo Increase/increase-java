@@ -23,65 +23,61 @@ import java.util.Objects
 import java.util.Optional
 
 /**
- * Simulates a purchase authorization on a [Card](#cards). Depending on the balance
- * available to the card and the `amount` submitted, the authorization activity
- * will result in a [Pending Transaction](#pending-transactions) of type
- * `card_authorization` or a [Declined Transaction](#declined-transactions) of type
- * `card_decline`. You can pass either a Card id or a
- * [Digital Wallet Token](#digital-wallet-tokens) id to simulate the two different
- * ways purchases can be made.
+ * Simulates a purchase authorization on a [Card](#cards). Depending on the balance available to the
+ * card and the `amount` submitted, the authorization activity will result in a
+ * [Pending Transaction](#pending-transactions) of type `card_authorization` or a
+ * [Declined Transaction](#declined-transactions) of type `card_decline`. You can pass either a Card
+ * id or a [Digital Wallet Token](#digital-wallet-tokens) id to simulate the two different ways
+ * purchases can be made.
  */
-class CardAuthorizationCreateParams private constructor(
+class CardAuthorizationCreateParams
+private constructor(
     private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-
 ) : Params {
 
     /** The authorization amount in cents. */
     fun amount(): Long = body.amount()
 
     /**
-     * The identifier of a Card Payment with a `card_authentication` if you want to
-     * simulate an authenticated authorization.
+     * The identifier of a Card Payment with a `card_authentication` if you want to simulate an
+     * authenticated authorization.
      */
     fun authenticatedCardPaymentId(): Optional<String> = body.authenticatedCardPaymentId()
 
     /** The identifier of the Card to be authorized. */
     fun cardId(): Optional<String> = body.cardId()
 
-    /**
-     * Forces a card decline with a specific reason. No real time decision will be
-     * sent.
-     */
+    /** Forces a card decline with a specific reason. No real time decision will be sent. */
     fun declineReason(): Optional<DeclineReason> = body.declineReason()
 
     /** The identifier of the Digital Wallet Token to be authorized. */
     fun digitalWalletTokenId(): Optional<String> = body.digitalWalletTokenId()
 
     /**
-     * The direction describes the direction the funds will move, either from the
-     * cardholder to the merchant or from the merchant to the cardholder.
+     * The direction describes the direction the funds will move, either from the cardholder to the
+     * merchant or from the merchant to the cardholder.
      */
     fun direction(): Optional<Direction> = body.direction()
 
     /**
-     * The identifier of the Event Subscription to use. If provided, will override the
-     * default real time event subscription. Because you can only create one real time
-     * decision event subscription, you can use this field to route events to any
-     * specified event subscription for testing purposes.
+     * The identifier of the Event Subscription to use. If provided, will override the default real
+     * time event subscription. Because you can only create one real time decision event
+     * subscription, you can use this field to route events to any specified event subscription for
+     * testing purposes.
      */
     fun eventSubscriptionId(): Optional<String> = body.eventSubscriptionId()
 
     /**
-     * The merchant identifier (commonly abbreviated as MID) of the merchant the card
-     * is transacting with.
+     * The merchant identifier (commonly abbreviated as MID) of the merchant the card is transacting
+     * with.
      */
     fun merchantAcceptorId(): Optional<String> = body.merchantAcceptorId()
 
     /**
-     * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the
-     * card is transacting with.
+     * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the card is
+     * transacting with.
      */
     fun merchantCategoryCode(): Optional<String> = body.merchantCategoryCode()
 
@@ -104,8 +100,8 @@ class CardAuthorizationCreateParams private constructor(
     fun physicalCardId(): Optional<String> = body.physicalCardId()
 
     /**
-     * The terminal identifier (commonly abbreviated as TID) of the terminal the card
-     * is transacting with.
+     * The terminal identifier (commonly abbreviated as TID) of the terminal the card is transacting
+     * with.
      */
     fun terminalId(): Optional<String> = body.terminalId()
 
@@ -113,46 +109,43 @@ class CardAuthorizationCreateParams private constructor(
     fun _amount(): JsonField<Long> = body._amount()
 
     /**
-     * The identifier of a Card Payment with a `card_authentication` if you want to
-     * simulate an authenticated authorization.
+     * The identifier of a Card Payment with a `card_authentication` if you want to simulate an
+     * authenticated authorization.
      */
     fun _authenticatedCardPaymentId(): JsonField<String> = body._authenticatedCardPaymentId()
 
     /** The identifier of the Card to be authorized. */
     fun _cardId(): JsonField<String> = body._cardId()
 
-    /**
-     * Forces a card decline with a specific reason. No real time decision will be
-     * sent.
-     */
+    /** Forces a card decline with a specific reason. No real time decision will be sent. */
     fun _declineReason(): JsonField<DeclineReason> = body._declineReason()
 
     /** The identifier of the Digital Wallet Token to be authorized. */
     fun _digitalWalletTokenId(): JsonField<String> = body._digitalWalletTokenId()
 
     /**
-     * The direction describes the direction the funds will move, either from the
-     * cardholder to the merchant or from the merchant to the cardholder.
+     * The direction describes the direction the funds will move, either from the cardholder to the
+     * merchant or from the merchant to the cardholder.
      */
     fun _direction(): JsonField<Direction> = body._direction()
 
     /**
-     * The identifier of the Event Subscription to use. If provided, will override the
-     * default real time event subscription. Because you can only create one real time
-     * decision event subscription, you can use this field to route events to any
-     * specified event subscription for testing purposes.
+     * The identifier of the Event Subscription to use. If provided, will override the default real
+     * time event subscription. Because you can only create one real time decision event
+     * subscription, you can use this field to route events to any specified event subscription for
+     * testing purposes.
      */
     fun _eventSubscriptionId(): JsonField<String> = body._eventSubscriptionId()
 
     /**
-     * The merchant identifier (commonly abbreviated as MID) of the merchant the card
-     * is transacting with.
+     * The merchant identifier (commonly abbreviated as MID) of the merchant the card is transacting
+     * with.
      */
     fun _merchantAcceptorId(): JsonField<String> = body._merchantAcceptorId()
 
     /**
-     * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the
-     * card is transacting with.
+     * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the card is
+     * transacting with.
      */
     fun _merchantCategoryCode(): JsonField<String> = body._merchantCategoryCode()
 
@@ -175,8 +168,8 @@ class CardAuthorizationCreateParams private constructor(
     fun _physicalCardId(): JsonField<String> = body._physicalCardId()
 
     /**
-     * The terminal identifier (commonly abbreviated as TID) of the terminal the card
-     * is transacting with.
+     * The terminal identifier (commonly abbreviated as TID) of the terminal the card is transacting
+     * with.
      */
     fun _terminalId(): JsonField<String> = body._terminalId()
 
@@ -186,128 +179,167 @@ class CardAuthorizationCreateParams private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    @JvmSynthetic
-    internal fun _body(): Body = body
+    @JvmSynthetic internal fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class Body @JsonCreator private constructor(
-        @JsonProperty("amount") @ExcludeMissing private val amount: JsonField<Long> = JsonMissing.of(),
-        @JsonProperty("authenticated_card_payment_id") @ExcludeMissing private val authenticatedCardPaymentId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("card_id") @ExcludeMissing private val cardId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("decline_reason") @ExcludeMissing private val declineReason: JsonField<DeclineReason> = JsonMissing.of(),
-        @JsonProperty("digital_wallet_token_id") @ExcludeMissing private val digitalWalletTokenId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("direction") @ExcludeMissing private val direction: JsonField<Direction> = JsonMissing.of(),
-        @JsonProperty("event_subscription_id") @ExcludeMissing private val eventSubscriptionId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("merchant_acceptor_id") @ExcludeMissing private val merchantAcceptorId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("merchant_category_code") @ExcludeMissing private val merchantCategoryCode: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("merchant_city") @ExcludeMissing private val merchantCity: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("merchant_country") @ExcludeMissing private val merchantCountry: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("merchant_descriptor") @ExcludeMissing private val merchantDescriptor: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("merchant_state") @ExcludeMissing private val merchantState: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("network_details") @ExcludeMissing private val networkDetails: JsonField<NetworkDetails> = JsonMissing.of(),
-        @JsonProperty("physical_card_id") @ExcludeMissing private val physicalCardId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("terminal_id") @ExcludeMissing private val terminalId: JsonField<String> = JsonMissing.of(),
-        @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-
+    class Body
+    @JsonCreator
+    private constructor(
+        @JsonProperty("amount")
+        @ExcludeMissing
+        private val amount: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("authenticated_card_payment_id")
+        @ExcludeMissing
+        private val authenticatedCardPaymentId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("card_id")
+        @ExcludeMissing
+        private val cardId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("decline_reason")
+        @ExcludeMissing
+        private val declineReason: JsonField<DeclineReason> = JsonMissing.of(),
+        @JsonProperty("digital_wallet_token_id")
+        @ExcludeMissing
+        private val digitalWalletTokenId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("direction")
+        @ExcludeMissing
+        private val direction: JsonField<Direction> = JsonMissing.of(),
+        @JsonProperty("event_subscription_id")
+        @ExcludeMissing
+        private val eventSubscriptionId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("merchant_acceptor_id")
+        @ExcludeMissing
+        private val merchantAcceptorId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("merchant_category_code")
+        @ExcludeMissing
+        private val merchantCategoryCode: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("merchant_city")
+        @ExcludeMissing
+        private val merchantCity: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("merchant_country")
+        @ExcludeMissing
+        private val merchantCountry: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("merchant_descriptor")
+        @ExcludeMissing
+        private val merchantDescriptor: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("merchant_state")
+        @ExcludeMissing
+        private val merchantState: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("network_details")
+        @ExcludeMissing
+        private val networkDetails: JsonField<NetworkDetails> = JsonMissing.of(),
+        @JsonProperty("physical_card_id")
+        @ExcludeMissing
+        private val physicalCardId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("terminal_id")
+        @ExcludeMissing
+        private val terminalId: JsonField<String> = JsonMissing.of(),
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The authorization amount in cents. */
         fun amount(): Long = amount.getRequired("amount")
 
         /**
-         * The identifier of a Card Payment with a `card_authentication` if you want to
-         * simulate an authenticated authorization.
+         * The identifier of a Card Payment with a `card_authentication` if you want to simulate an
+         * authenticated authorization.
          */
-        fun authenticatedCardPaymentId(): Optional<String> = Optional.ofNullable(authenticatedCardPaymentId.getNullable("authenticated_card_payment_id"))
+        fun authenticatedCardPaymentId(): Optional<String> =
+            Optional.ofNullable(
+                authenticatedCardPaymentId.getNullable("authenticated_card_payment_id")
+            )
 
         /** The identifier of the Card to be authorized. */
         fun cardId(): Optional<String> = Optional.ofNullable(cardId.getNullable("card_id"))
 
-        /**
-         * Forces a card decline with a specific reason. No real time decision will be
-         * sent.
-         */
-        fun declineReason(): Optional<DeclineReason> = Optional.ofNullable(declineReason.getNullable("decline_reason"))
+        /** Forces a card decline with a specific reason. No real time decision will be sent. */
+        fun declineReason(): Optional<DeclineReason> =
+            Optional.ofNullable(declineReason.getNullable("decline_reason"))
 
         /** The identifier of the Digital Wallet Token to be authorized. */
-        fun digitalWalletTokenId(): Optional<String> = Optional.ofNullable(digitalWalletTokenId.getNullable("digital_wallet_token_id"))
+        fun digitalWalletTokenId(): Optional<String> =
+            Optional.ofNullable(digitalWalletTokenId.getNullable("digital_wallet_token_id"))
 
         /**
-         * The direction describes the direction the funds will move, either from the
-         * cardholder to the merchant or from the merchant to the cardholder.
+         * The direction describes the direction the funds will move, either from the cardholder to
+         * the merchant or from the merchant to the cardholder.
          */
-        fun direction(): Optional<Direction> = Optional.ofNullable(direction.getNullable("direction"))
+        fun direction(): Optional<Direction> =
+            Optional.ofNullable(direction.getNullable("direction"))
 
         /**
-         * The identifier of the Event Subscription to use. If provided, will override the
-         * default real time event subscription. Because you can only create one real time
-         * decision event subscription, you can use this field to route events to any
-         * specified event subscription for testing purposes.
+         * The identifier of the Event Subscription to use. If provided, will override the default
+         * real time event subscription. Because you can only create one real time decision event
+         * subscription, you can use this field to route events to any specified event subscription
+         * for testing purposes.
          */
-        fun eventSubscriptionId(): Optional<String> = Optional.ofNullable(eventSubscriptionId.getNullable("event_subscription_id"))
+        fun eventSubscriptionId(): Optional<String> =
+            Optional.ofNullable(eventSubscriptionId.getNullable("event_subscription_id"))
 
         /**
-         * The merchant identifier (commonly abbreviated as MID) of the merchant the card
-         * is transacting with.
+         * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
+         * transacting with.
          */
-        fun merchantAcceptorId(): Optional<String> = Optional.ofNullable(merchantAcceptorId.getNullable("merchant_acceptor_id"))
+        fun merchantAcceptorId(): Optional<String> =
+            Optional.ofNullable(merchantAcceptorId.getNullable("merchant_acceptor_id"))
 
         /**
-         * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the
-         * card is transacting with.
+         * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the card is
+         * transacting with.
          */
-        fun merchantCategoryCode(): Optional<String> = Optional.ofNullable(merchantCategoryCode.getNullable("merchant_category_code"))
+        fun merchantCategoryCode(): Optional<String> =
+            Optional.ofNullable(merchantCategoryCode.getNullable("merchant_category_code"))
 
         /** The city the merchant resides in. */
-        fun merchantCity(): Optional<String> = Optional.ofNullable(merchantCity.getNullable("merchant_city"))
+        fun merchantCity(): Optional<String> =
+            Optional.ofNullable(merchantCity.getNullable("merchant_city"))
 
         /** The country the merchant resides in. */
-        fun merchantCountry(): Optional<String> = Optional.ofNullable(merchantCountry.getNullable("merchant_country"))
+        fun merchantCountry(): Optional<String> =
+            Optional.ofNullable(merchantCountry.getNullable("merchant_country"))
 
         /** The merchant descriptor of the merchant the card is transacting with. */
-        fun merchantDescriptor(): Optional<String> = Optional.ofNullable(merchantDescriptor.getNullable("merchant_descriptor"))
+        fun merchantDescriptor(): Optional<String> =
+            Optional.ofNullable(merchantDescriptor.getNullable("merchant_descriptor"))
 
         /** The state the merchant resides in. */
-        fun merchantState(): Optional<String> = Optional.ofNullable(merchantState.getNullable("merchant_state"))
+        fun merchantState(): Optional<String> =
+            Optional.ofNullable(merchantState.getNullable("merchant_state"))
 
         /** Fields specific to a given card network. */
-        fun networkDetails(): Optional<NetworkDetails> = Optional.ofNullable(networkDetails.getNullable("network_details"))
+        fun networkDetails(): Optional<NetworkDetails> =
+            Optional.ofNullable(networkDetails.getNullable("network_details"))
 
         /** The identifier of the Physical Card to be authorized. */
-        fun physicalCardId(): Optional<String> = Optional.ofNullable(physicalCardId.getNullable("physical_card_id"))
+        fun physicalCardId(): Optional<String> =
+            Optional.ofNullable(physicalCardId.getNullable("physical_card_id"))
 
         /**
-         * The terminal identifier (commonly abbreviated as TID) of the terminal the card
-         * is transacting with.
+         * The terminal identifier (commonly abbreviated as TID) of the terminal the card is
+         * transacting with.
          */
-        fun terminalId(): Optional<String> = Optional.ofNullable(terminalId.getNullable("terminal_id"))
+        fun terminalId(): Optional<String> =
+            Optional.ofNullable(terminalId.getNullable("terminal_id"))
 
         /** The authorization amount in cents. */
-        @JsonProperty("amount")
-        @ExcludeMissing
-        fun _amount(): JsonField<Long> = amount
+        @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
         /**
-         * The identifier of a Card Payment with a `card_authentication` if you want to
-         * simulate an authenticated authorization.
+         * The identifier of a Card Payment with a `card_authentication` if you want to simulate an
+         * authenticated authorization.
          */
         @JsonProperty("authenticated_card_payment_id")
         @ExcludeMissing
         fun _authenticatedCardPaymentId(): JsonField<String> = authenticatedCardPaymentId
 
         /** The identifier of the Card to be authorized. */
-        @JsonProperty("card_id")
-        @ExcludeMissing
-        fun _cardId(): JsonField<String> = cardId
+        @JsonProperty("card_id") @ExcludeMissing fun _cardId(): JsonField<String> = cardId
 
-        /**
-         * Forces a card decline with a specific reason. No real time decision will be
-         * sent.
-         */
+        /** Forces a card decline with a specific reason. No real time decision will be sent. */
         @JsonProperty("decline_reason")
         @ExcludeMissing
         fun _declineReason(): JsonField<DeclineReason> = declineReason
@@ -318,34 +350,34 @@ class CardAuthorizationCreateParams private constructor(
         fun _digitalWalletTokenId(): JsonField<String> = digitalWalletTokenId
 
         /**
-         * The direction describes the direction the funds will move, either from the
-         * cardholder to the merchant or from the merchant to the cardholder.
+         * The direction describes the direction the funds will move, either from the cardholder to
+         * the merchant or from the merchant to the cardholder.
          */
         @JsonProperty("direction")
         @ExcludeMissing
         fun _direction(): JsonField<Direction> = direction
 
         /**
-         * The identifier of the Event Subscription to use. If provided, will override the
-         * default real time event subscription. Because you can only create one real time
-         * decision event subscription, you can use this field to route events to any
-         * specified event subscription for testing purposes.
+         * The identifier of the Event Subscription to use. If provided, will override the default
+         * real time event subscription. Because you can only create one real time decision event
+         * subscription, you can use this field to route events to any specified event subscription
+         * for testing purposes.
          */
         @JsonProperty("event_subscription_id")
         @ExcludeMissing
         fun _eventSubscriptionId(): JsonField<String> = eventSubscriptionId
 
         /**
-         * The merchant identifier (commonly abbreviated as MID) of the merchant the card
-         * is transacting with.
+         * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
+         * transacting with.
          */
         @JsonProperty("merchant_acceptor_id")
         @ExcludeMissing
         fun _merchantAcceptorId(): JsonField<String> = merchantAcceptorId
 
         /**
-         * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the
-         * card is transacting with.
+         * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the card is
+         * transacting with.
          */
         @JsonProperty("merchant_category_code")
         @ExcludeMissing
@@ -382,8 +414,8 @@ class CardAuthorizationCreateParams private constructor(
         fun _physicalCardId(): JsonField<String> = physicalCardId
 
         /**
-         * The terminal identifier (commonly abbreviated as TID) of the terminal the card
-         * is transacting with.
+         * The terminal identifier (commonly abbreviated as TID) of the terminal the card is
+         * transacting with.
          */
         @JsonProperty("terminal_id")
         @ExcludeMissing
@@ -395,30 +427,29 @@ class CardAuthorizationCreateParams private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): Body =
-            apply {
-                if (validated) {
-                  return@apply
-                }
-
-                amount()
-                authenticatedCardPaymentId()
-                cardId()
-                declineReason()
-                digitalWalletTokenId()
-                direction()
-                eventSubscriptionId()
-                merchantAcceptorId()
-                merchantCategoryCode()
-                merchantCity()
-                merchantCountry()
-                merchantDescriptor()
-                merchantState()
-                networkDetails().ifPresent { it.validate() }
-                physicalCardId()
-                terminalId()
-                validated = true
+        fun validate(): Body = apply {
+            if (validated) {
+                return@apply
             }
+
+            amount()
+            authenticatedCardPaymentId()
+            cardId()
+            declineReason()
+            digitalWalletTokenId()
+            direction()
+            eventSubscriptionId()
+            merchantAcceptorId()
+            merchantCategoryCode()
+            merchantCity()
+            merchantCountry()
+            merchantDescriptor()
+            merchantState()
+            networkDetails().ifPresent { it.validate() }
+            physicalCardId()
+            terminalId()
+            validated = true
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -428,13 +459,11 @@ class CardAuthorizationCreateParams private constructor(
              * Returns a mutable builder for constructing an instance of [Body].
              *
              * The following fields are required:
-             *
              * ```java
              * .amount()
              * ```
              */
-            @JvmStatic
-            fun builder() = Builder()
+            @JvmStatic fun builder() = Builder()
         }
 
         /** A builder for [Body]. */
@@ -459,273 +488,243 @@ class CardAuthorizationCreateParams private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(body: Body) =
-                apply {
-                    amount = body.amount
-                    authenticatedCardPaymentId = body.authenticatedCardPaymentId
-                    cardId = body.cardId
-                    declineReason = body.declineReason
-                    digitalWalletTokenId = body.digitalWalletTokenId
-                    direction = body.direction
-                    eventSubscriptionId = body.eventSubscriptionId
-                    merchantAcceptorId = body.merchantAcceptorId
-                    merchantCategoryCode = body.merchantCategoryCode
-                    merchantCity = body.merchantCity
-                    merchantCountry = body.merchantCountry
-                    merchantDescriptor = body.merchantDescriptor
-                    merchantState = body.merchantState
-                    networkDetails = body.networkDetails
-                    physicalCardId = body.physicalCardId
-                    terminalId = body.terminalId
-                    additionalProperties = body.additionalProperties.toMutableMap()
-                }
+            internal fun from(body: Body) = apply {
+                amount = body.amount
+                authenticatedCardPaymentId = body.authenticatedCardPaymentId
+                cardId = body.cardId
+                declineReason = body.declineReason
+                digitalWalletTokenId = body.digitalWalletTokenId
+                direction = body.direction
+                eventSubscriptionId = body.eventSubscriptionId
+                merchantAcceptorId = body.merchantAcceptorId
+                merchantCategoryCode = body.merchantCategoryCode
+                merchantCity = body.merchantCity
+                merchantCountry = body.merchantCountry
+                merchantDescriptor = body.merchantDescriptor
+                merchantState = body.merchantState
+                networkDetails = body.networkDetails
+                physicalCardId = body.physicalCardId
+                terminalId = body.terminalId
+                additionalProperties = body.additionalProperties.toMutableMap()
+            }
 
             /** The authorization amount in cents. */
             fun amount(amount: Long) = amount(JsonField.of(amount))
 
             /** The authorization amount in cents. */
-            fun amount(amount: JsonField<Long>) =
-                apply {
-                    this.amount = amount
-                }
+            fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
             /**
-             * The identifier of a Card Payment with a `card_authentication` if you want to
-             * simulate an authenticated authorization.
+             * The identifier of a Card Payment with a `card_authentication` if you want to simulate
+             * an authenticated authorization.
              */
-            fun authenticatedCardPaymentId(authenticatedCardPaymentId: String) = authenticatedCardPaymentId(JsonField.of(authenticatedCardPaymentId))
+            fun authenticatedCardPaymentId(authenticatedCardPaymentId: String) =
+                authenticatedCardPaymentId(JsonField.of(authenticatedCardPaymentId))
 
             /**
-             * The identifier of a Card Payment with a `card_authentication` if you want to
-             * simulate an authenticated authorization.
+             * The identifier of a Card Payment with a `card_authentication` if you want to simulate
+             * an authenticated authorization.
              */
-            fun authenticatedCardPaymentId(authenticatedCardPaymentId: JsonField<String>) =
-                apply {
-                    this.authenticatedCardPaymentId = authenticatedCardPaymentId
-                }
+            fun authenticatedCardPaymentId(authenticatedCardPaymentId: JsonField<String>) = apply {
+                this.authenticatedCardPaymentId = authenticatedCardPaymentId
+            }
 
             /** The identifier of the Card to be authorized. */
             fun cardId(cardId: String) = cardId(JsonField.of(cardId))
 
             /** The identifier of the Card to be authorized. */
-            fun cardId(cardId: JsonField<String>) =
-                apply {
-                    this.cardId = cardId
-                }
+            fun cardId(cardId: JsonField<String>) = apply { this.cardId = cardId }
 
-            /**
-             * Forces a card decline with a specific reason. No real time decision will be
-             * sent.
-             */
-            fun declineReason(declineReason: DeclineReason) = declineReason(JsonField.of(declineReason))
+            /** Forces a card decline with a specific reason. No real time decision will be sent. */
+            fun declineReason(declineReason: DeclineReason) =
+                declineReason(JsonField.of(declineReason))
 
-            /**
-             * Forces a card decline with a specific reason. No real time decision will be
-             * sent.
-             */
-            fun declineReason(declineReason: JsonField<DeclineReason>) =
-                apply {
-                    this.declineReason = declineReason
-                }
+            /** Forces a card decline with a specific reason. No real time decision will be sent. */
+            fun declineReason(declineReason: JsonField<DeclineReason>) = apply {
+                this.declineReason = declineReason
+            }
 
             /** The identifier of the Digital Wallet Token to be authorized. */
-            fun digitalWalletTokenId(digitalWalletTokenId: String) = digitalWalletTokenId(JsonField.of(digitalWalletTokenId))
+            fun digitalWalletTokenId(digitalWalletTokenId: String) =
+                digitalWalletTokenId(JsonField.of(digitalWalletTokenId))
 
             /** The identifier of the Digital Wallet Token to be authorized. */
-            fun digitalWalletTokenId(digitalWalletTokenId: JsonField<String>) =
-                apply {
-                    this.digitalWalletTokenId = digitalWalletTokenId
-                }
+            fun digitalWalletTokenId(digitalWalletTokenId: JsonField<String>) = apply {
+                this.digitalWalletTokenId = digitalWalletTokenId
+            }
 
             /**
-             * The direction describes the direction the funds will move, either from the
-             * cardholder to the merchant or from the merchant to the cardholder.
+             * The direction describes the direction the funds will move, either from the cardholder
+             * to the merchant or from the merchant to the cardholder.
              */
             fun direction(direction: Direction) = direction(JsonField.of(direction))
 
             /**
-             * The direction describes the direction the funds will move, either from the
-             * cardholder to the merchant or from the merchant to the cardholder.
+             * The direction describes the direction the funds will move, either from the cardholder
+             * to the merchant or from the merchant to the cardholder.
              */
-            fun direction(direction: JsonField<Direction>) =
-                apply {
-                    this.direction = direction
-                }
+            fun direction(direction: JsonField<Direction>) = apply { this.direction = direction }
 
             /**
              * The identifier of the Event Subscription to use. If provided, will override the
              * default real time event subscription. Because you can only create one real time
-             * decision event subscription, you can use this field to route events to any
-             * specified event subscription for testing purposes.
+             * decision event subscription, you can use this field to route events to any specified
+             * event subscription for testing purposes.
              */
-            fun eventSubscriptionId(eventSubscriptionId: String) = eventSubscriptionId(JsonField.of(eventSubscriptionId))
+            fun eventSubscriptionId(eventSubscriptionId: String) =
+                eventSubscriptionId(JsonField.of(eventSubscriptionId))
 
             /**
              * The identifier of the Event Subscription to use. If provided, will override the
              * default real time event subscription. Because you can only create one real time
-             * decision event subscription, you can use this field to route events to any
-             * specified event subscription for testing purposes.
+             * decision event subscription, you can use this field to route events to any specified
+             * event subscription for testing purposes.
              */
-            fun eventSubscriptionId(eventSubscriptionId: JsonField<String>) =
-                apply {
-                    this.eventSubscriptionId = eventSubscriptionId
-                }
+            fun eventSubscriptionId(eventSubscriptionId: JsonField<String>) = apply {
+                this.eventSubscriptionId = eventSubscriptionId
+            }
 
             /**
-             * The merchant identifier (commonly abbreviated as MID) of the merchant the card
-             * is transacting with.
+             * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
+             * transacting with.
              */
-            fun merchantAcceptorId(merchantAcceptorId: String) = merchantAcceptorId(JsonField.of(merchantAcceptorId))
+            fun merchantAcceptorId(merchantAcceptorId: String) =
+                merchantAcceptorId(JsonField.of(merchantAcceptorId))
 
             /**
-             * The merchant identifier (commonly abbreviated as MID) of the merchant the card
-             * is transacting with.
+             * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
+             * transacting with.
              */
-            fun merchantAcceptorId(merchantAcceptorId: JsonField<String>) =
-                apply {
-                    this.merchantAcceptorId = merchantAcceptorId
-                }
+            fun merchantAcceptorId(merchantAcceptorId: JsonField<String>) = apply {
+                this.merchantAcceptorId = merchantAcceptorId
+            }
 
             /**
-             * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the
-             * card is transacting with.
+             * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the card is
+             * transacting with.
              */
-            fun merchantCategoryCode(merchantCategoryCode: String) = merchantCategoryCode(JsonField.of(merchantCategoryCode))
+            fun merchantCategoryCode(merchantCategoryCode: String) =
+                merchantCategoryCode(JsonField.of(merchantCategoryCode))
 
             /**
-             * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the
-             * card is transacting with.
+             * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the card is
+             * transacting with.
              */
-            fun merchantCategoryCode(merchantCategoryCode: JsonField<String>) =
-                apply {
-                    this.merchantCategoryCode = merchantCategoryCode
-                }
+            fun merchantCategoryCode(merchantCategoryCode: JsonField<String>) = apply {
+                this.merchantCategoryCode = merchantCategoryCode
+            }
 
             /** The city the merchant resides in. */
             fun merchantCity(merchantCity: String) = merchantCity(JsonField.of(merchantCity))
 
             /** The city the merchant resides in. */
-            fun merchantCity(merchantCity: JsonField<String>) =
-                apply {
-                    this.merchantCity = merchantCity
-                }
+            fun merchantCity(merchantCity: JsonField<String>) = apply {
+                this.merchantCity = merchantCity
+            }
 
             /** The country the merchant resides in. */
-            fun merchantCountry(merchantCountry: String) = merchantCountry(JsonField.of(merchantCountry))
+            fun merchantCountry(merchantCountry: String) =
+                merchantCountry(JsonField.of(merchantCountry))
 
             /** The country the merchant resides in. */
-            fun merchantCountry(merchantCountry: JsonField<String>) =
-                apply {
-                    this.merchantCountry = merchantCountry
-                }
+            fun merchantCountry(merchantCountry: JsonField<String>) = apply {
+                this.merchantCountry = merchantCountry
+            }
 
             /** The merchant descriptor of the merchant the card is transacting with. */
-            fun merchantDescriptor(merchantDescriptor: String) = merchantDescriptor(JsonField.of(merchantDescriptor))
+            fun merchantDescriptor(merchantDescriptor: String) =
+                merchantDescriptor(JsonField.of(merchantDescriptor))
 
             /** The merchant descriptor of the merchant the card is transacting with. */
-            fun merchantDescriptor(merchantDescriptor: JsonField<String>) =
-                apply {
-                    this.merchantDescriptor = merchantDescriptor
-                }
+            fun merchantDescriptor(merchantDescriptor: JsonField<String>) = apply {
+                this.merchantDescriptor = merchantDescriptor
+            }
 
             /** The state the merchant resides in. */
             fun merchantState(merchantState: String) = merchantState(JsonField.of(merchantState))
 
             /** The state the merchant resides in. */
-            fun merchantState(merchantState: JsonField<String>) =
-                apply {
-                    this.merchantState = merchantState
-                }
+            fun merchantState(merchantState: JsonField<String>) = apply {
+                this.merchantState = merchantState
+            }
 
             /** Fields specific to a given card network. */
-            fun networkDetails(networkDetails: NetworkDetails) = networkDetails(JsonField.of(networkDetails))
+            fun networkDetails(networkDetails: NetworkDetails) =
+                networkDetails(JsonField.of(networkDetails))
 
             /** Fields specific to a given card network. */
-            fun networkDetails(networkDetails: JsonField<NetworkDetails>) =
-                apply {
-                    this.networkDetails = networkDetails
-                }
+            fun networkDetails(networkDetails: JsonField<NetworkDetails>) = apply {
+                this.networkDetails = networkDetails
+            }
 
             /** The identifier of the Physical Card to be authorized. */
-            fun physicalCardId(physicalCardId: String) = physicalCardId(JsonField.of(physicalCardId))
+            fun physicalCardId(physicalCardId: String) =
+                physicalCardId(JsonField.of(physicalCardId))
 
             /** The identifier of the Physical Card to be authorized. */
-            fun physicalCardId(physicalCardId: JsonField<String>) =
-                apply {
-                    this.physicalCardId = physicalCardId
-                }
+            fun physicalCardId(physicalCardId: JsonField<String>) = apply {
+                this.physicalCardId = physicalCardId
+            }
 
             /**
-             * The terminal identifier (commonly abbreviated as TID) of the terminal the card
-             * is transacting with.
+             * The terminal identifier (commonly abbreviated as TID) of the terminal the card is
+             * transacting with.
              */
             fun terminalId(terminalId: String) = terminalId(JsonField.of(terminalId))
 
             /**
-             * The terminal identifier (commonly abbreviated as TID) of the terminal the card
-             * is transacting with.
+             * The terminal identifier (commonly abbreviated as TID) of the terminal the card is
+             * transacting with.
              */
-            fun terminalId(terminalId: JsonField<String>) =
-                apply {
-                    this.terminalId = terminalId
-                }
+            fun terminalId(terminalId: JsonField<String>) = apply { this.terminalId = terminalId }
 
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
-                apply {
-                    this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
-                }
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
 
-            fun putAdditionalProperty(key: String, value: JsonValue) =
-                apply {
-                    additionalProperties.put(key, value)
-                }
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
 
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                apply {
-                    this.additionalProperties.putAll(additionalProperties)
-                }
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
 
-            fun removeAdditionalProperty(key: String) =
-                apply {
-                    additionalProperties.remove(key)
-                }
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
 
-            fun removeAllAdditionalProperties(keys: Set<String>) =
-                apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
 
             fun build(): Body =
                 Body(
-                  checkRequired(
-                    "amount", amount
-                  ),
-                  authenticatedCardPaymentId,
-                  cardId,
-                  declineReason,
-                  digitalWalletTokenId,
-                  direction,
-                  eventSubscriptionId,
-                  merchantAcceptorId,
-                  merchantCategoryCode,
-                  merchantCity,
-                  merchantCountry,
-                  merchantDescriptor,
-                  merchantState,
-                  networkDetails,
-                  physicalCardId,
-                  terminalId,
-                  additionalProperties.toImmutable(),
+                    checkRequired("amount", amount),
+                    authenticatedCardPaymentId,
+                    cardId,
+                    declineReason,
+                    digitalWalletTokenId,
+                    direction,
+                    eventSubscriptionId,
+                    merchantAcceptorId,
+                    merchantCategoryCode,
+                    merchantCity,
+                    merchantCountry,
+                    merchantDescriptor,
+                    merchantState,
+                    networkDetails,
+                    physicalCardId,
+                    terminalId,
+                    additionalProperties.toImmutable(),
                 )
         }
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return /* spotless:off */ other is Body && amount == other.amount && authenticatedCardPaymentId == other.authenticatedCardPaymentId && cardId == other.cardId && declineReason == other.declineReason && digitalWalletTokenId == other.digitalWalletTokenId && direction == other.direction && eventSubscriptionId == other.eventSubscriptionId && merchantAcceptorId == other.merchantAcceptorId && merchantCategoryCode == other.merchantCategoryCode && merchantCity == other.merchantCity && merchantCountry == other.merchantCountry && merchantDescriptor == other.merchantDescriptor && merchantState == other.merchantState && networkDetails == other.networkDetails && physicalCardId == other.physicalCardId && terminalId == other.terminalId && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && amount == other.amount && authenticatedCardPaymentId == other.authenticatedCardPaymentId && cardId == other.cardId && declineReason == other.declineReason && digitalWalletTokenId == other.digitalWalletTokenId && direction == other.direction && eventSubscriptionId == other.eventSubscriptionId && merchantAcceptorId == other.merchantAcceptorId && merchantCategoryCode == other.merchantCategoryCode && merchantCity == other.merchantCity && merchantCountry == other.merchantCountry && merchantDescriptor == other.merchantDescriptor && merchantState == other.merchantState && networkDetails == other.networkDetails && physicalCardId == other.physicalCardId && terminalId == other.terminalId && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -734,7 +733,8 @@ class CardAuthorizationCreateParams private constructor(
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() = "Body{amount=$amount, authenticatedCardPaymentId=$authenticatedCardPaymentId, cardId=$cardId, declineReason=$declineReason, digitalWalletTokenId=$digitalWalletTokenId, direction=$direction, eventSubscriptionId=$eventSubscriptionId, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantState=$merchantState, networkDetails=$networkDetails, physicalCardId=$physicalCardId, terminalId=$terminalId, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "Body{amount=$amount, authenticatedCardPaymentId=$authenticatedCardPaymentId, cardId=$cardId, declineReason=$declineReason, digitalWalletTokenId=$digitalWalletTokenId, direction=$direction, eventSubscriptionId=$eventSubscriptionId, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantState=$merchantState, networkDetails=$networkDetails, physicalCardId=$physicalCardId, terminalId=$terminalId, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -746,13 +746,11 @@ class CardAuthorizationCreateParams private constructor(
          * [CardAuthorizationCreateParams].
          *
          * The following fields are required:
-         *
          * ```java
          * .amount()
          * ```
          */
-        @JvmStatic
-        fun builder() = Builder()
+        @JvmStatic fun builder() = Builder()
     }
 
     /** A builder for [CardAuthorizationCreateParams]. */
@@ -764,429 +762,328 @@ class CardAuthorizationCreateParams private constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
-        internal fun from(cardAuthorizationCreateParams: CardAuthorizationCreateParams) =
-            apply {
-                body = cardAuthorizationCreateParams.body.toBuilder()
-                additionalHeaders = cardAuthorizationCreateParams.additionalHeaders.toBuilder()
-                additionalQueryParams = cardAuthorizationCreateParams.additionalQueryParams.toBuilder()
-            }
+        internal fun from(cardAuthorizationCreateParams: CardAuthorizationCreateParams) = apply {
+            body = cardAuthorizationCreateParams.body.toBuilder()
+            additionalHeaders = cardAuthorizationCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = cardAuthorizationCreateParams.additionalQueryParams.toBuilder()
+        }
 
         /** The authorization amount in cents. */
-        fun amount(amount: Long) =
-            apply {
-                body.amount(amount)
-            }
+        fun amount(amount: Long) = apply { body.amount(amount) }
 
         /** The authorization amount in cents. */
-        fun amount(amount: JsonField<Long>) =
-            apply {
-                body.amount(amount)
-            }
+        fun amount(amount: JsonField<Long>) = apply { body.amount(amount) }
 
         /**
-         * The identifier of a Card Payment with a `card_authentication` if you want to
-         * simulate an authenticated authorization.
+         * The identifier of a Card Payment with a `card_authentication` if you want to simulate an
+         * authenticated authorization.
          */
-        fun authenticatedCardPaymentId(authenticatedCardPaymentId: String) =
-            apply {
-                body.authenticatedCardPaymentId(authenticatedCardPaymentId)
-            }
+        fun authenticatedCardPaymentId(authenticatedCardPaymentId: String) = apply {
+            body.authenticatedCardPaymentId(authenticatedCardPaymentId)
+        }
 
         /**
-         * The identifier of a Card Payment with a `card_authentication` if you want to
-         * simulate an authenticated authorization.
+         * The identifier of a Card Payment with a `card_authentication` if you want to simulate an
+         * authenticated authorization.
          */
-        fun authenticatedCardPaymentId(authenticatedCardPaymentId: JsonField<String>) =
-            apply {
-                body.authenticatedCardPaymentId(authenticatedCardPaymentId)
-            }
+        fun authenticatedCardPaymentId(authenticatedCardPaymentId: JsonField<String>) = apply {
+            body.authenticatedCardPaymentId(authenticatedCardPaymentId)
+        }
 
         /** The identifier of the Card to be authorized. */
-        fun cardId(cardId: String) =
-            apply {
-                body.cardId(cardId)
-            }
+        fun cardId(cardId: String) = apply { body.cardId(cardId) }
 
         /** The identifier of the Card to be authorized. */
-        fun cardId(cardId: JsonField<String>) =
-            apply {
-                body.cardId(cardId)
-            }
+        fun cardId(cardId: JsonField<String>) = apply { body.cardId(cardId) }
 
-        /**
-         * Forces a card decline with a specific reason. No real time decision will be
-         * sent.
-         */
-        fun declineReason(declineReason: DeclineReason) =
-            apply {
-                body.declineReason(declineReason)
-            }
+        /** Forces a card decline with a specific reason. No real time decision will be sent. */
+        fun declineReason(declineReason: DeclineReason) = apply {
+            body.declineReason(declineReason)
+        }
 
-        /**
-         * Forces a card decline with a specific reason. No real time decision will be
-         * sent.
-         */
-        fun declineReason(declineReason: JsonField<DeclineReason>) =
-            apply {
-                body.declineReason(declineReason)
-            }
+        /** Forces a card decline with a specific reason. No real time decision will be sent. */
+        fun declineReason(declineReason: JsonField<DeclineReason>) = apply {
+            body.declineReason(declineReason)
+        }
 
         /** The identifier of the Digital Wallet Token to be authorized. */
-        fun digitalWalletTokenId(digitalWalletTokenId: String) =
-            apply {
-                body.digitalWalletTokenId(digitalWalletTokenId)
-            }
+        fun digitalWalletTokenId(digitalWalletTokenId: String) = apply {
+            body.digitalWalletTokenId(digitalWalletTokenId)
+        }
 
         /** The identifier of the Digital Wallet Token to be authorized. */
-        fun digitalWalletTokenId(digitalWalletTokenId: JsonField<String>) =
-            apply {
-                body.digitalWalletTokenId(digitalWalletTokenId)
-            }
+        fun digitalWalletTokenId(digitalWalletTokenId: JsonField<String>) = apply {
+            body.digitalWalletTokenId(digitalWalletTokenId)
+        }
 
         /**
-         * The direction describes the direction the funds will move, either from the
-         * cardholder to the merchant or from the merchant to the cardholder.
+         * The direction describes the direction the funds will move, either from the cardholder to
+         * the merchant or from the merchant to the cardholder.
          */
-        fun direction(direction: Direction) =
-            apply {
-                body.direction(direction)
-            }
+        fun direction(direction: Direction) = apply { body.direction(direction) }
 
         /**
-         * The direction describes the direction the funds will move, either from the
-         * cardholder to the merchant or from the merchant to the cardholder.
+         * The direction describes the direction the funds will move, either from the cardholder to
+         * the merchant or from the merchant to the cardholder.
          */
-        fun direction(direction: JsonField<Direction>) =
-            apply {
-                body.direction(direction)
-            }
+        fun direction(direction: JsonField<Direction>) = apply { body.direction(direction) }
 
         /**
-         * The identifier of the Event Subscription to use. If provided, will override the
-         * default real time event subscription. Because you can only create one real time
-         * decision event subscription, you can use this field to route events to any
-         * specified event subscription for testing purposes.
+         * The identifier of the Event Subscription to use. If provided, will override the default
+         * real time event subscription. Because you can only create one real time decision event
+         * subscription, you can use this field to route events to any specified event subscription
+         * for testing purposes.
          */
-        fun eventSubscriptionId(eventSubscriptionId: String) =
-            apply {
-                body.eventSubscriptionId(eventSubscriptionId)
-            }
+        fun eventSubscriptionId(eventSubscriptionId: String) = apply {
+            body.eventSubscriptionId(eventSubscriptionId)
+        }
 
         /**
-         * The identifier of the Event Subscription to use. If provided, will override the
-         * default real time event subscription. Because you can only create one real time
-         * decision event subscription, you can use this field to route events to any
-         * specified event subscription for testing purposes.
+         * The identifier of the Event Subscription to use. If provided, will override the default
+         * real time event subscription. Because you can only create one real time decision event
+         * subscription, you can use this field to route events to any specified event subscription
+         * for testing purposes.
          */
-        fun eventSubscriptionId(eventSubscriptionId: JsonField<String>) =
-            apply {
-                body.eventSubscriptionId(eventSubscriptionId)
-            }
+        fun eventSubscriptionId(eventSubscriptionId: JsonField<String>) = apply {
+            body.eventSubscriptionId(eventSubscriptionId)
+        }
 
         /**
-         * The merchant identifier (commonly abbreviated as MID) of the merchant the card
-         * is transacting with.
+         * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
+         * transacting with.
          */
-        fun merchantAcceptorId(merchantAcceptorId: String) =
-            apply {
-                body.merchantAcceptorId(merchantAcceptorId)
-            }
+        fun merchantAcceptorId(merchantAcceptorId: String) = apply {
+            body.merchantAcceptorId(merchantAcceptorId)
+        }
 
         /**
-         * The merchant identifier (commonly abbreviated as MID) of the merchant the card
-         * is transacting with.
+         * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
+         * transacting with.
          */
-        fun merchantAcceptorId(merchantAcceptorId: JsonField<String>) =
-            apply {
-                body.merchantAcceptorId(merchantAcceptorId)
-            }
+        fun merchantAcceptorId(merchantAcceptorId: JsonField<String>) = apply {
+            body.merchantAcceptorId(merchantAcceptorId)
+        }
 
         /**
-         * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the
-         * card is transacting with.
+         * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the card is
+         * transacting with.
          */
-        fun merchantCategoryCode(merchantCategoryCode: String) =
-            apply {
-                body.merchantCategoryCode(merchantCategoryCode)
-            }
+        fun merchantCategoryCode(merchantCategoryCode: String) = apply {
+            body.merchantCategoryCode(merchantCategoryCode)
+        }
 
         /**
-         * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the
-         * card is transacting with.
+         * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the card is
+         * transacting with.
          */
-        fun merchantCategoryCode(merchantCategoryCode: JsonField<String>) =
-            apply {
-                body.merchantCategoryCode(merchantCategoryCode)
-            }
+        fun merchantCategoryCode(merchantCategoryCode: JsonField<String>) = apply {
+            body.merchantCategoryCode(merchantCategoryCode)
+        }
 
         /** The city the merchant resides in. */
-        fun merchantCity(merchantCity: String) =
-            apply {
-                body.merchantCity(merchantCity)
-            }
+        fun merchantCity(merchantCity: String) = apply { body.merchantCity(merchantCity) }
 
         /** The city the merchant resides in. */
-        fun merchantCity(merchantCity: JsonField<String>) =
-            apply {
-                body.merchantCity(merchantCity)
-            }
+        fun merchantCity(merchantCity: JsonField<String>) = apply {
+            body.merchantCity(merchantCity)
+        }
 
         /** The country the merchant resides in. */
-        fun merchantCountry(merchantCountry: String) =
-            apply {
-                body.merchantCountry(merchantCountry)
-            }
+        fun merchantCountry(merchantCountry: String) = apply {
+            body.merchantCountry(merchantCountry)
+        }
 
         /** The country the merchant resides in. */
-        fun merchantCountry(merchantCountry: JsonField<String>) =
-            apply {
-                body.merchantCountry(merchantCountry)
-            }
+        fun merchantCountry(merchantCountry: JsonField<String>) = apply {
+            body.merchantCountry(merchantCountry)
+        }
 
         /** The merchant descriptor of the merchant the card is transacting with. */
-        fun merchantDescriptor(merchantDescriptor: String) =
-            apply {
-                body.merchantDescriptor(merchantDescriptor)
-            }
+        fun merchantDescriptor(merchantDescriptor: String) = apply {
+            body.merchantDescriptor(merchantDescriptor)
+        }
 
         /** The merchant descriptor of the merchant the card is transacting with. */
-        fun merchantDescriptor(merchantDescriptor: JsonField<String>) =
-            apply {
-                body.merchantDescriptor(merchantDescriptor)
-            }
+        fun merchantDescriptor(merchantDescriptor: JsonField<String>) = apply {
+            body.merchantDescriptor(merchantDescriptor)
+        }
 
         /** The state the merchant resides in. */
-        fun merchantState(merchantState: String) =
-            apply {
-                body.merchantState(merchantState)
-            }
+        fun merchantState(merchantState: String) = apply { body.merchantState(merchantState) }
 
         /** The state the merchant resides in. */
-        fun merchantState(merchantState: JsonField<String>) =
-            apply {
-                body.merchantState(merchantState)
-            }
+        fun merchantState(merchantState: JsonField<String>) = apply {
+            body.merchantState(merchantState)
+        }
 
         /** Fields specific to a given card network. */
-        fun networkDetails(networkDetails: NetworkDetails) =
-            apply {
-                body.networkDetails(networkDetails)
-            }
+        fun networkDetails(networkDetails: NetworkDetails) = apply {
+            body.networkDetails(networkDetails)
+        }
 
         /** Fields specific to a given card network. */
-        fun networkDetails(networkDetails: JsonField<NetworkDetails>) =
-            apply {
-                body.networkDetails(networkDetails)
-            }
+        fun networkDetails(networkDetails: JsonField<NetworkDetails>) = apply {
+            body.networkDetails(networkDetails)
+        }
 
         /** The identifier of the Physical Card to be authorized. */
-        fun physicalCardId(physicalCardId: String) =
-            apply {
-                body.physicalCardId(physicalCardId)
-            }
+        fun physicalCardId(physicalCardId: String) = apply { body.physicalCardId(physicalCardId) }
 
         /** The identifier of the Physical Card to be authorized. */
-        fun physicalCardId(physicalCardId: JsonField<String>) =
-            apply {
-                body.physicalCardId(physicalCardId)
-            }
+        fun physicalCardId(physicalCardId: JsonField<String>) = apply {
+            body.physicalCardId(physicalCardId)
+        }
 
         /**
-         * The terminal identifier (commonly abbreviated as TID) of the terminal the card
-         * is transacting with.
+         * The terminal identifier (commonly abbreviated as TID) of the terminal the card is
+         * transacting with.
          */
-        fun terminalId(terminalId: String) =
-            apply {
-                body.terminalId(terminalId)
-            }
+        fun terminalId(terminalId: String) = apply { body.terminalId(terminalId) }
 
         /**
-         * The terminal identifier (commonly abbreviated as TID) of the terminal the card
-         * is transacting with.
+         * The terminal identifier (commonly abbreviated as TID) of the terminal the card is
+         * transacting with.
          */
-        fun terminalId(terminalId: JsonField<String>) =
-            apply {
-                body.terminalId(terminalId)
-            }
+        fun terminalId(terminalId: JsonField<String>) = apply { body.terminalId(terminalId) }
 
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.additionalProperties(additionalBodyProperties)
-            }
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
 
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) =
-            apply {
-                body.putAdditionalProperty(
-                  key, value
-                )
-            }
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
                 body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) =
-            apply {
-                body.removeAdditionalProperty(key)
-            }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) =
-            apply {
-                body.removeAllAdditionalProperties(keys)
-            }
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
 
-        fun additionalHeaders(additionalHeaders: Headers) =
-            apply {
-                this.additionalHeaders.clear()
-                putAllAdditionalHeaders(additionalHeaders)
-            }
+        fun additionalHeaders(additionalHeaders: Headers) = apply {
+            this.additionalHeaders.clear()
+            putAllAdditionalHeaders(additionalHeaders)
+        }
 
-        fun additionalHeaders(additionalHeaders: Map<String, Iterable<String>>) =
-            apply {
-                this.additionalHeaders.clear()
-                putAllAdditionalHeaders(additionalHeaders)
-            }
+        fun additionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
+            this.additionalHeaders.clear()
+            putAllAdditionalHeaders(additionalHeaders)
+        }
 
-        fun putAdditionalHeader(name: String, value: String) =
-            apply {
-                additionalHeaders.put(name, value)
-            }
+        fun putAdditionalHeader(name: String, value: String) = apply {
+            additionalHeaders.put(name, value)
+        }
 
-        fun putAdditionalHeaders(name: String, values: Iterable<String>) =
-            apply {
-                additionalHeaders.put(name, values)
-            }
+        fun putAdditionalHeaders(name: String, values: Iterable<String>) = apply {
+            additionalHeaders.put(name, values)
+        }
 
-        fun putAllAdditionalHeaders(additionalHeaders: Headers) =
-            apply {
-                this.additionalHeaders.putAll(additionalHeaders)
-            }
+        fun putAllAdditionalHeaders(additionalHeaders: Headers) = apply {
+            this.additionalHeaders.putAll(additionalHeaders)
+        }
 
-        fun putAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) =
-            apply {
-                this.additionalHeaders.putAll(additionalHeaders)
-            }
+        fun putAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
+            this.additionalHeaders.putAll(additionalHeaders)
+        }
 
-        fun replaceAdditionalHeaders(name: String, value: String) =
-            apply {
-                additionalHeaders.replace(name, value)
-            }
+        fun replaceAdditionalHeaders(name: String, value: String) = apply {
+            additionalHeaders.replace(name, value)
+        }
 
-        fun replaceAdditionalHeaders(name: String, values: Iterable<String>) =
-            apply {
-                additionalHeaders.replace(name, values)
-            }
+        fun replaceAdditionalHeaders(name: String, values: Iterable<String>) = apply {
+            additionalHeaders.replace(name, values)
+        }
 
-        fun replaceAllAdditionalHeaders(additionalHeaders: Headers) =
-            apply {
-                this.additionalHeaders.replaceAll(additionalHeaders)
-            }
+        fun replaceAllAdditionalHeaders(additionalHeaders: Headers) = apply {
+            this.additionalHeaders.replaceAll(additionalHeaders)
+        }
 
-        fun replaceAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) =
-            apply {
-                this.additionalHeaders.replaceAll(additionalHeaders)
-            }
+        fun replaceAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
+            this.additionalHeaders.replaceAll(additionalHeaders)
+        }
 
-        fun removeAdditionalHeaders(name: String) =
-            apply {
-                additionalHeaders.remove(name)
-            }
+        fun removeAdditionalHeaders(name: String) = apply { additionalHeaders.remove(name) }
 
-        fun removeAllAdditionalHeaders(names: Set<String>) =
-            apply {
-                additionalHeaders.removeAll(names)
-            }
+        fun removeAllAdditionalHeaders(names: Set<String>) = apply {
+            additionalHeaders.removeAll(names)
+        }
 
-        fun additionalQueryParams(additionalQueryParams: QueryParams) =
-            apply {
-                this.additionalQueryParams.clear()
-                putAllAdditionalQueryParams(additionalQueryParams)
-            }
+        fun additionalQueryParams(additionalQueryParams: QueryParams) = apply {
+            this.additionalQueryParams.clear()
+            putAllAdditionalQueryParams(additionalQueryParams)
+        }
 
-        fun additionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
-            apply {
-                this.additionalQueryParams.clear()
-                putAllAdditionalQueryParams(additionalQueryParams)
-            }
+        fun additionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) = apply {
+            this.additionalQueryParams.clear()
+            putAllAdditionalQueryParams(additionalQueryParams)
+        }
 
-        fun putAdditionalQueryParam(key: String, value: String) =
-            apply {
-                additionalQueryParams.put(key, value)
-            }
+        fun putAdditionalQueryParam(key: String, value: String) = apply {
+            additionalQueryParams.put(key, value)
+        }
 
-        fun putAdditionalQueryParams(key: String, values: Iterable<String>) =
-            apply {
-                additionalQueryParams.put(key, values)
-            }
+        fun putAdditionalQueryParams(key: String, values: Iterable<String>) = apply {
+            additionalQueryParams.put(key, values)
+        }
 
-        fun putAllAdditionalQueryParams(additionalQueryParams: QueryParams) =
-            apply {
-                this.additionalQueryParams.putAll(additionalQueryParams)
-            }
+        fun putAllAdditionalQueryParams(additionalQueryParams: QueryParams) = apply {
+            this.additionalQueryParams.putAll(additionalQueryParams)
+        }
 
         fun putAllAdditionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
             apply {
                 this.additionalQueryParams.putAll(additionalQueryParams)
             }
 
-        fun replaceAdditionalQueryParams(key: String, value: String) =
-            apply {
-                additionalQueryParams.replace(key, value)
-            }
+        fun replaceAdditionalQueryParams(key: String, value: String) = apply {
+            additionalQueryParams.replace(key, value)
+        }
 
-        fun replaceAdditionalQueryParams(key: String, values: Iterable<String>) =
-            apply {
-                additionalQueryParams.replace(key, values)
-            }
+        fun replaceAdditionalQueryParams(key: String, values: Iterable<String>) = apply {
+            additionalQueryParams.replace(key, values)
+        }
 
-        fun replaceAllAdditionalQueryParams(additionalQueryParams: QueryParams) =
-            apply {
-                this.additionalQueryParams.replaceAll(additionalQueryParams)
-            }
+        fun replaceAllAdditionalQueryParams(additionalQueryParams: QueryParams) = apply {
+            this.additionalQueryParams.replaceAll(additionalQueryParams)
+        }
 
         fun replaceAllAdditionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
             apply {
                 this.additionalQueryParams.replaceAll(additionalQueryParams)
             }
 
-        fun removeAdditionalQueryParams(key: String) =
-            apply {
-                additionalQueryParams.remove(key)
-            }
+        fun removeAdditionalQueryParams(key: String) = apply { additionalQueryParams.remove(key) }
 
-        fun removeAllAdditionalQueryParams(keys: Set<String>) =
-            apply {
-                additionalQueryParams.removeAll(keys)
-            }
+        fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
+            additionalQueryParams.removeAll(keys)
+        }
 
         fun build(): CardAuthorizationCreateParams =
             CardAuthorizationCreateParams(
-              body.build(),
-              additionalHeaders.build(),
-              additionalQueryParams.build(),
+                body.build(),
+                additionalHeaders.build(),
+                additionalQueryParams.build(),
             )
     }
 
-    /**
-     * Forces a card decline with a specific reason. No real time decision will be
-     * sent.
-     */
-    class DeclineReason @JsonCreator private constructor(
-        private val value: JsonField<String>,
-
-    ) : Enum {
+    /** Forces a card decline with a specific reason. No real time decision will be sent. */
+    class DeclineReason @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that
-         * doesn't match any known member, and you want to know that value. For example, if
-         * the SDK is on an older version than the API, then the API may respond with new
-         * members that the SDK is unaware of.
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -1215,8 +1112,8 @@ class CardAuthorizationCreateParams private constructor(
             @JvmField val CVV2_MISMATCH = of("cvv2_mismatch")
 
             /**
-             * The given expiration date did not match the card's value. Only applies when a
-             * CVV2 is present.
+             * The given expiration date did not match the card's value. Only applies when a CVV2 is
+             * present.
              */
             @JvmField val CARD_EXPIRATION_MISMATCH = of("card_expiration_mismatch")
 
@@ -1239,8 +1136,7 @@ class CardAuthorizationCreateParams private constructor(
             @JvmField val INVALID_PHYSICAL_CARD = of("invalid_physical_card")
 
             /**
-             * The original card authorization for this incremental authorization does not
-             * exist.
+             * The original card authorization for this incremental authorization does not exist.
              */
             @JvmField val MISSING_ORIGINAL_AUTHORIZATION = of("missing_original_authorization")
 
@@ -1272,8 +1168,8 @@ class CardAuthorizationCreateParams private constructor(
             /** The given CVV2 did not match the card's value. */
             CVV2_MISMATCH,
             /**
-             * The given expiration date did not match the card's value. Only applies when a
-             * CVV2 is present.
+             * The given expiration date did not match the card's value. Only applies when a CVV2 is
+             * present.
              */
             CARD_EXPIRATION_MISMATCH,
             /** The attempted card transaction is not allowed per Increase's terms. */
@@ -1289,8 +1185,7 @@ class CardAuthorizationCreateParams private constructor(
             /** The card read had an invalid CVV, dCVV, or authorization request cryptogram. */
             INVALID_PHYSICAL_CARD,
             /**
-             * The original card authorization for this incremental authorization does not
-             * exist.
+             * The original card authorization for this incremental authorization does not exist.
              */
             MISSING_ORIGINAL_AUTHORIZATION,
             /**
@@ -1301,16 +1196,12 @@ class CardAuthorizationCreateParams private constructor(
         }
 
         /**
-         * An enum containing [DeclineReason]'s known values, as well as an [_UNKNOWN]
-         * member.
+         * An enum containing [DeclineReason]'s known values, as well as an [_UNKNOWN] member.
          *
-         * An instance of [DeclineReason] can contain an unknown value in a couple of
-         * cases:
-         *
-         * - It was deserialized from data that doesn't match any known member. For
-         *   example, if the SDK is on an older version than the API, then the API may
-         *   respond with new members that the SDK is unaware of.
-         *
+         * An instance of [DeclineReason] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
@@ -1331,8 +1222,8 @@ class CardAuthorizationCreateParams private constructor(
             /** The given CVV2 did not match the card's value. */
             CVV2_MISMATCH,
             /**
-             * The given expiration date did not match the card's value. Only applies when a
-             * CVV2 is present.
+             * The given expiration date did not match the card's value. Only applies when a CVV2 is
+             * present.
              */
             CARD_EXPIRATION_MISMATCH,
             /** The attempted card transaction is not allowed per Increase's terms. */
@@ -1348,8 +1239,7 @@ class CardAuthorizationCreateParams private constructor(
             /** The card read had an invalid CVV, dCVV, or authorization request cryptogram. */
             INVALID_PHYSICAL_CARD,
             /**
-             * The original card authorization for this incremental authorization does not
-             * exist.
+             * The original card authorization for this incremental authorization does not exist.
              */
             MISSING_ORIGINAL_AUTHORIZATION,
             /**
@@ -1365,11 +1255,11 @@ class CardAuthorizationCreateParams private constructor(
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or
-         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if
-         * you want to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -1396,11 +1286,11 @@ class CardAuthorizationCreateParams private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and
-         * don't want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value is a not a
-         * known member.
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+         *   member.
          */
         fun known(): Known =
             when (this) {
@@ -1427,20 +1317,23 @@ class CardAuthorizationCreateParams private constructor(
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for
-         * debugging and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value does not
-         * have the expected primitive type.
+         * @throws IncreaseInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
          */
-        fun asString(): String = _value().asString().orElseThrow { IncreaseInvalidDataException("Value is not a String") }
+        fun asString(): String =
+            _value().asString().orElseThrow {
+                IncreaseInvalidDataException("Value is not a String")
+            }
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return /* spotless:off */ other is DeclineReason && value == other.value /* spotless:on */
+            return /* spotless:off */ other is DeclineReason && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -1449,24 +1342,20 @@ class CardAuthorizationCreateParams private constructor(
     }
 
     /**
-     * The direction describes the direction the funds will move, either from the
-     * cardholder to the merchant or from the merchant to the cardholder.
+     * The direction describes the direction the funds will move, either from the cardholder to the
+     * merchant or from the merchant to the cardholder.
      */
-    class Direction @JsonCreator private constructor(
-        private val value: JsonField<String>,
-
-    ) : Enum {
+    class Direction @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that
-         * doesn't match any known member, and you want to know that value. For example, if
-         * the SDK is on an older version than the API, then the API may respond with new
-         * members that the SDK is unaware of.
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -1474,8 +1363,8 @@ class CardAuthorizationCreateParams private constructor(
             @JvmField val SETTLEMENT = of("settlement")
 
             /**
-             * A refund card authorization, sometimes referred to as a credit voucher
-             * authorization, where funds are credited to the cardholder.
+             * A refund card authorization, sometimes referred to as a credit voucher authorization,
+             * where funds are credited to the cardholder.
              */
             @JvmField val REFUND = of("refund")
 
@@ -1487,8 +1376,8 @@ class CardAuthorizationCreateParams private constructor(
             /** A regular card authorization where funds are debited from the cardholder. */
             SETTLEMENT,
             /**
-             * A refund card authorization, sometimes referred to as a credit voucher
-             * authorization, where funds are credited to the cardholder.
+             * A refund card authorization, sometimes referred to as a credit voucher authorization,
+             * where funds are credited to the cardholder.
              */
             REFUND,
         }
@@ -1497,34 +1386,31 @@ class CardAuthorizationCreateParams private constructor(
          * An enum containing [Direction]'s known values, as well as an [_UNKNOWN] member.
          *
          * An instance of [Direction] can contain an unknown value in a couple of cases:
-         *
-         * - It was deserialized from data that doesn't match any known member. For
-         *   example, if the SDK is on an older version than the API, then the API may
-         *   respond with new members that the SDK is unaware of.
-         *
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
             /** A regular card authorization where funds are debited from the cardholder. */
             SETTLEMENT,
             /**
-             * A refund card authorization, sometimes referred to as a credit voucher
-             * authorization, where funds are credited to the cardholder.
+             * A refund card authorization, sometimes referred to as a credit voucher authorization,
+             * where funds are credited to the cardholder.
              */
             REFUND,
             /**
-             * An enum member indicating that [Direction] was instantiated with an unknown
-             * value.
+             * An enum member indicating that [Direction] was instantiated with an unknown value.
              */
             _UNKNOWN,
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or
-         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if
-         * you want to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -1536,11 +1422,11 @@ class CardAuthorizationCreateParams private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and
-         * don't want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value is a not a
-         * known member.
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+         *   member.
          */
         fun known(): Known =
             when (this) {
@@ -1552,20 +1438,23 @@ class CardAuthorizationCreateParams private constructor(
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for
-         * debugging and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value does not
-         * have the expected primitive type.
+         * @throws IncreaseInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
          */
-        fun asString(): String = _value().asString().orElseThrow { IncreaseInvalidDataException("Value is not a String") }
+        fun asString(): String =
+            _value().asString().orElseThrow {
+                IncreaseInvalidDataException("Value is not a String")
+            }
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return /* spotless:off */ other is Direction && value == other.value /* spotless:on */
+            return /* spotless:off */ other is Direction && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -1575,19 +1464,19 @@ class CardAuthorizationCreateParams private constructor(
 
     /** Fields specific to a given card network. */
     @NoAutoDetect
-    class NetworkDetails @JsonCreator private constructor(
+    class NetworkDetails
+    @JsonCreator
+    private constructor(
         @JsonProperty("visa") @ExcludeMissing private val visa: JsonField<Visa> = JsonMissing.of(),
-        @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** Fields specific to the Visa network. */
         fun visa(): Visa = visa.getRequired("visa")
 
         /** Fields specific to the Visa network. */
-        @JsonProperty("visa")
-        @ExcludeMissing
-        fun _visa(): JsonField<Visa> = visa
+        @JsonProperty("visa") @ExcludeMissing fun _visa(): JsonField<Visa> = visa
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -1595,15 +1484,14 @@ class CardAuthorizationCreateParams private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): NetworkDetails =
-            apply {
-                if (validated) {
-                  return@apply
-                }
-
-                visa().validate()
-                validated = true
+        fun validate(): NetworkDetails = apply {
+            if (validated) {
+                return@apply
             }
+
+            visa().validate()
+            validated = true
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -1613,13 +1501,11 @@ class CardAuthorizationCreateParams private constructor(
              * Returns a mutable builder for constructing an instance of [NetworkDetails].
              *
              * The following fields are required:
-             *
              * ```java
              * .visa()
              * ```
              */
-            @JvmStatic
-            fun builder() = Builder()
+            @JvmStatic fun builder() = Builder()
         }
 
         /** A builder for [NetworkDetails]. */
@@ -1629,70 +1515,64 @@ class CardAuthorizationCreateParams private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(networkDetails: NetworkDetails) =
-                apply {
-                    visa = networkDetails.visa
-                    additionalProperties = networkDetails.additionalProperties.toMutableMap()
-                }
+            internal fun from(networkDetails: NetworkDetails) = apply {
+                visa = networkDetails.visa
+                additionalProperties = networkDetails.additionalProperties.toMutableMap()
+            }
 
             /** Fields specific to the Visa network. */
             fun visa(visa: Visa) = visa(JsonField.of(visa))
 
             /** Fields specific to the Visa network. */
-            fun visa(visa: JsonField<Visa>) =
-                apply {
-                    this.visa = visa
-                }
+            fun visa(visa: JsonField<Visa>) = apply { this.visa = visa }
 
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
-                apply {
-                    this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
-                }
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
 
-            fun putAdditionalProperty(key: String, value: JsonValue) =
-                apply {
-                    additionalProperties.put(key, value)
-                }
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
 
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                apply {
-                    this.additionalProperties.putAll(additionalProperties)
-                }
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
 
-            fun removeAdditionalProperty(key: String) =
-                apply {
-                    additionalProperties.remove(key)
-                }
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
 
-            fun removeAllAdditionalProperties(keys: Set<String>) =
-                apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
 
             fun build(): NetworkDetails =
-                NetworkDetails(
-                  checkRequired(
-                    "visa", visa
-                  ), additionalProperties.toImmutable()
-                )
+                NetworkDetails(checkRequired("visa", visa), additionalProperties.toImmutable())
         }
 
         /** Fields specific to the Visa network. */
         @NoAutoDetect
-        class Visa @JsonCreator private constructor(
-            @JsonProperty("stand_in_processing_reason") @ExcludeMissing private val standInProcessingReason: JsonField<StandInProcessingReason> = JsonMissing.of(),
-            @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-
+        class Visa
+        @JsonCreator
+        private constructor(
+            @JsonProperty("stand_in_processing_reason")
+            @ExcludeMissing
+            private val standInProcessingReason: JsonField<StandInProcessingReason> =
+                JsonMissing.of(),
+            @JsonAnySetter
+            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
             /** The reason code for the stand-in processing. */
-            fun standInProcessingReason(): Optional<StandInProcessingReason> = Optional.ofNullable(standInProcessingReason.getNullable("stand_in_processing_reason"))
+            fun standInProcessingReason(): Optional<StandInProcessingReason> =
+                Optional.ofNullable(
+                    standInProcessingReason.getNullable("stand_in_processing_reason")
+                )
 
             /** The reason code for the stand-in processing. */
             @JsonProperty("stand_in_processing_reason")
             @ExcludeMissing
-            fun _standInProcessingReason(): JsonField<StandInProcessingReason> = standInProcessingReason
+            fun _standInProcessingReason(): JsonField<StandInProcessingReason> =
+                standInProcessingReason
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -1700,84 +1580,75 @@ class CardAuthorizationCreateParams private constructor(
 
             private var validated: Boolean = false
 
-            fun validate(): Visa =
-                apply {
-                    if (validated) {
-                      return@apply
-                    }
-
-                    standInProcessingReason()
-                    validated = true
+            fun validate(): Visa = apply {
+                if (validated) {
+                    return@apply
                 }
+
+                standInProcessingReason()
+                validated = true
+            }
 
             fun toBuilder() = Builder().from(this)
 
             companion object {
 
                 /** Returns a mutable builder for constructing an instance of [Visa]. */
-                @JvmStatic
-                fun builder() = Builder()
+                @JvmStatic fun builder() = Builder()
             }
 
             /** A builder for [Visa]. */
             class Builder internal constructor() {
 
-                private var standInProcessingReason: JsonField<StandInProcessingReason> = JsonMissing.of()
+                private var standInProcessingReason: JsonField<StandInProcessingReason> =
+                    JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
-                internal fun from(visa: Visa) =
-                    apply {
-                        standInProcessingReason = visa.standInProcessingReason
-                        additionalProperties = visa.additionalProperties.toMutableMap()
-                    }
+                internal fun from(visa: Visa) = apply {
+                    standInProcessingReason = visa.standInProcessingReason
+                    additionalProperties = visa.additionalProperties.toMutableMap()
+                }
 
                 /** The reason code for the stand-in processing. */
-                fun standInProcessingReason(standInProcessingReason: StandInProcessingReason) = standInProcessingReason(JsonField.of(standInProcessingReason))
+                fun standInProcessingReason(standInProcessingReason: StandInProcessingReason) =
+                    standInProcessingReason(JsonField.of(standInProcessingReason))
 
                 /** The reason code for the stand-in processing. */
-                fun standInProcessingReason(standInProcessingReason: JsonField<StandInProcessingReason>) =
-                    apply {
-                        this.standInProcessingReason = standInProcessingReason
-                    }
+                fun standInProcessingReason(
+                    standInProcessingReason: JsonField<StandInProcessingReason>
+                ) = apply { this.standInProcessingReason = standInProcessingReason }
 
-                fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
-                    apply {
-                        this.additionalProperties.clear()
-                        putAllAdditionalProperties(additionalProperties)
-                    }
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
 
-                fun putAdditionalProperty(key: String, value: JsonValue) =
-                    apply {
-                        additionalProperties.put(key, value)
-                    }
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
 
                 fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
 
-                fun removeAdditionalProperty(key: String) =
-                    apply {
-                        additionalProperties.remove(key)
-                    }
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
 
-                fun removeAllAdditionalProperties(keys: Set<String>) =
-                    apply {
-                        keys.forEach(::removeAdditionalProperty)
-                    }
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
                 fun build(): Visa =
-                    Visa(
-                      standInProcessingReason, additionalProperties.toImmutable()
-                    )
+                    Visa(standInProcessingReason, additionalProperties.toImmutable())
             }
 
             /** The reason code for the stand-in processing. */
-            class StandInProcessingReason @JsonCreator private constructor(
-                private val value: JsonField<String>,
-
-            ) : Enum {
+            class StandInProcessingReason
+            @JsonCreator
+            private constructor(private val value: JsonField<String>) : Enum {
 
                 /**
                  * Returns this class instance's raw value.
@@ -1787,8 +1658,7 @@ class CardAuthorizationCreateParams private constructor(
                  * the SDK is on an older version than the API, then the API may respond with new
                  * members that the SDK is unaware of.
                  */
-                @com.fasterxml.jackson.annotation.JsonValue
-                fun _value(): JsonField<String> = value
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
                 companion object {
 
@@ -1802,11 +1672,14 @@ class CardAuthorizationCreateParams private constructor(
                     @JvmField val INVALID_PHYSICAL_CARD = of("invalid_physical_card")
 
                     /** The 3DS cardholder authentication verification value was invalid. */
-                    @JvmField val INVALID_CARDHOLDER_AUTHENTICATION_VERIFICATION_VALUE = of("invalid_cardholder_authentication_verification_value")
+                    @JvmField
+                    val INVALID_CARDHOLDER_AUTHENTICATION_VERIFICATION_VALUE =
+                        of("invalid_cardholder_authentication_verification_value")
 
                     /**
-                     * An internal Visa error occurred. Visa uses this reason code for certain expected
-                     * occurrences as well, such as Application Transaction Counter (ATC) replays.
+                     * An internal Visa error occurred. Visa uses this reason code for certain
+                     * expected occurrences as well, such as Application Transaction Counter (ATC)
+                     * replays.
                      */
                     @JvmField val INTERNAL_VISA_ERROR = of("internal_visa_error")
 
@@ -1815,13 +1688,17 @@ class CardAuthorizationCreateParams private constructor(
                      * further authentication to perform the transaction. In practice this is often
                      * utilized at fuel pumps to tell the cardholder to see the cashier.
                      */
-                    @JvmField val MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED = of("merchant_transaction_advisory_service_authentication_required")
+                    @JvmField
+                    val MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED =
+                        of("merchant_transaction_advisory_service_authentication_required")
 
                     /**
                      * The transaction was blocked by Visa's Payment Fraud Disruption service due to
                      * fraudulent Acquirer behavior, such as card testing.
                      */
-                    @JvmField val PAYMENT_FRAUD_DISRUPTION_ACQUIRER_BLOCK = of("payment_fraud_disruption_acquirer_block")
+                    @JvmField
+                    val PAYMENT_FRAUD_DISRUPTION_ACQUIRER_BLOCK =
+                        of("payment_fraud_disruption_acquirer_block")
 
                     /** An unspecific reason for stand-in processing. */
                     @JvmField val OTHER = of("other")
@@ -1841,8 +1718,9 @@ class CardAuthorizationCreateParams private constructor(
                     /** The 3DS cardholder authentication verification value was invalid. */
                     INVALID_CARDHOLDER_AUTHENTICATION_VERIFICATION_VALUE,
                     /**
-                     * An internal Visa error occurred. Visa uses this reason code for certain expected
-                     * occurrences as well, such as Application Transaction Counter (ATC) replays.
+                     * An internal Visa error occurred. Visa uses this reason code for certain
+                     * expected occurrences as well, such as Application Transaction Counter (ATC)
+                     * replays.
                      */
                     INTERNAL_VISA_ERROR,
                     /**
@@ -1864,13 +1742,11 @@ class CardAuthorizationCreateParams private constructor(
                  * An enum containing [StandInProcessingReason]'s known values, as well as an
                  * [_UNKNOWN] member.
                  *
-                 * An instance of [StandInProcessingReason] can contain an unknown value in a
-                 * couple of cases:
-                 *
-                 * - It was deserialized from data that doesn't match any known member. For
-                 *   example, if the SDK is on an older version than the API, then the API may
-                 *   respond with new members that the SDK is unaware of.
-                 *
+                 * An instance of [StandInProcessingReason] can contain an unknown value in a couple
+                 * of cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
                  * - It was constructed with an arbitrary value using the [of] method.
                  */
                 enum class Value {
@@ -1884,8 +1760,9 @@ class CardAuthorizationCreateParams private constructor(
                     /** The 3DS cardholder authentication verification value was invalid. */
                     INVALID_CARDHOLDER_AUTHENTICATION_VERIFICATION_VALUE,
                     /**
-                     * An internal Visa error occurred. Visa uses this reason code for certain expected
-                     * occurrences as well, such as Application Transaction Counter (ATC) replays.
+                     * An internal Visa error occurred. Visa uses this reason code for certain
+                     * expected occurrences as well, such as Application Transaction Counter (ATC)
+                     * replays.
                      */
                     INTERNAL_VISA_ERROR,
                     /**
@@ -1902,8 +1779,8 @@ class CardAuthorizationCreateParams private constructor(
                     /** An unspecific reason for stand-in processing. */
                     OTHER,
                     /**
-                     * An enum member indicating that [StandInProcessingReason] was instantiated with
-                     * an unknown value.
+                     * An enum member indicating that [StandInProcessingReason] was instantiated
+                     * with an unknown value.
                      */
                     _UNKNOWN,
                 }
@@ -1919,10 +1796,13 @@ class CardAuthorizationCreateParams private constructor(
                     when (this) {
                         ISSUER_ERROR -> Value.ISSUER_ERROR
                         INVALID_PHYSICAL_CARD -> Value.INVALID_PHYSICAL_CARD
-                        INVALID_CARDHOLDER_AUTHENTICATION_VERIFICATION_VALUE -> Value.INVALID_CARDHOLDER_AUTHENTICATION_VERIFICATION_VALUE
+                        INVALID_CARDHOLDER_AUTHENTICATION_VERIFICATION_VALUE ->
+                            Value.INVALID_CARDHOLDER_AUTHENTICATION_VERIFICATION_VALUE
                         INTERNAL_VISA_ERROR -> Value.INTERNAL_VISA_ERROR
-                        MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED -> Value.MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED
-                        PAYMENT_FRAUD_DISRUPTION_ACQUIRER_BLOCK -> Value.PAYMENT_FRAUD_DISRUPTION_ACQUIRER_BLOCK
+                        MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED ->
+                            Value.MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED
+                        PAYMENT_FRAUD_DISRUPTION_ACQUIRER_BLOCK ->
+                            Value.PAYMENT_FRAUD_DISRUPTION_ACQUIRER_BLOCK
                         OTHER -> Value.OTHER
                         else -> Value._UNKNOWN
                     }
@@ -1934,18 +1814,24 @@ class CardAuthorizationCreateParams private constructor(
                  * don't want to throw for the unknown case.
                  *
                  * @throws IncreaseInvalidDataException if this class instance's value is a not a
-                 * known member.
+                 *   known member.
                  */
                 fun known(): Known =
                     when (this) {
                         ISSUER_ERROR -> Known.ISSUER_ERROR
                         INVALID_PHYSICAL_CARD -> Known.INVALID_PHYSICAL_CARD
-                        INVALID_CARDHOLDER_AUTHENTICATION_VERIFICATION_VALUE -> Known.INVALID_CARDHOLDER_AUTHENTICATION_VERIFICATION_VALUE
+                        INVALID_CARDHOLDER_AUTHENTICATION_VERIFICATION_VALUE ->
+                            Known.INVALID_CARDHOLDER_AUTHENTICATION_VERIFICATION_VALUE
                         INTERNAL_VISA_ERROR -> Known.INTERNAL_VISA_ERROR
-                        MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED -> Known.MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED
-                        PAYMENT_FRAUD_DISRUPTION_ACQUIRER_BLOCK -> Known.PAYMENT_FRAUD_DISRUPTION_ACQUIRER_BLOCK
+                        MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED ->
+                            Known.MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED
+                        PAYMENT_FRAUD_DISRUPTION_ACQUIRER_BLOCK ->
+                            Known.PAYMENT_FRAUD_DISRUPTION_ACQUIRER_BLOCK
                         OTHER -> Known.OTHER
-                        else -> throw IncreaseInvalidDataException("Unknown StandInProcessingReason: $value")
+                        else ->
+                            throw IncreaseInvalidDataException(
+                                "Unknown StandInProcessingReason: $value"
+                            )
                     }
 
                 /**
@@ -1954,17 +1840,20 @@ class CardAuthorizationCreateParams private constructor(
                  * This differs from the [toString] method because that method is primarily for
                  * debugging and generally doesn't throw.
                  *
-                 * @throws IncreaseInvalidDataException if this class instance's value does not
-                 * have the expected primitive type.
+                 * @throws IncreaseInvalidDataException if this class instance's value does not have
+                 *   the expected primitive type.
                  */
-                fun asString(): String = _value().asString().orElseThrow { IncreaseInvalidDataException("Value is not a String") }
+                fun asString(): String =
+                    _value().asString().orElseThrow {
+                        IncreaseInvalidDataException("Value is not a String")
+                    }
 
                 override fun equals(other: Any?): Boolean {
-                  if (this === other) {
-                      return true
-                  }
+                    if (this === other) {
+                        return true
+                    }
 
-                  return /* spotless:off */ other is StandInProcessingReason && value == other.value /* spotless:on */
+                    return /* spotless:off */ other is StandInProcessingReason && value == other.value /* spotless:on */
                 }
 
                 override fun hashCode() = value.hashCode()
@@ -1973,11 +1862,11 @@ class CardAuthorizationCreateParams private constructor(
             }
 
             override fun equals(other: Any?): Boolean {
-              if (this === other) {
-                  return true
-              }
+                if (this === other) {
+                    return true
+                }
 
-              return /* spotless:off */ other is Visa && standInProcessingReason == other.standInProcessingReason && additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is Visa && standInProcessingReason == other.standInProcessingReason && additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             /* spotless:off */
@@ -1986,15 +1875,16 @@ class CardAuthorizationCreateParams private constructor(
 
             override fun hashCode(): Int = hashCode
 
-            override fun toString() = "Visa{standInProcessingReason=$standInProcessingReason, additionalProperties=$additionalProperties}"
+            override fun toString() =
+                "Visa{standInProcessingReason=$standInProcessingReason, additionalProperties=$additionalProperties}"
         }
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return /* spotless:off */ other is NetworkDetails && visa == other.visa && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is NetworkDetails && visa == other.visa && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -2003,18 +1893,20 @@ class CardAuthorizationCreateParams private constructor(
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() = "NetworkDetails{visa=$visa, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "NetworkDetails{visa=$visa, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return /* spotless:off */ other is CardAuthorizationCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return /* spotless:off */ other is CardAuthorizationCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
     override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
-    override fun toString() = "CardAuthorizationCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+    override fun toString() =
+        "CardAuthorizationCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

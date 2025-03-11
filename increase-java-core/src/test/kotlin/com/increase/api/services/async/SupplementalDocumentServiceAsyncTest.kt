@@ -14,34 +14,40 @@ class SupplementalDocumentServiceAsyncTest {
 
     @Test
     fun create() {
-      val client = IncreaseOkHttpClientAsync.builder()
-          .baseUrl(TestServerExtension.BASE_URL)
-          .apiKey("My API Key")
-          .build()
-      val supplementalDocumentServiceAsync = client.supplementalDocuments()
+        val client =
+            IncreaseOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val supplementalDocumentServiceAsync = client.supplementalDocuments()
 
-      val entitySupplementalDocumentFuture = supplementalDocumentServiceAsync.create(SupplementalDocumentCreateParams.builder()
-          .entityId("entity_n8y8tnk2p9339ti393yi")
-          .fileId("file_makxrc67oh9l6sg7w9yc")
-          .build())
+        val entitySupplementalDocumentFuture =
+            supplementalDocumentServiceAsync.create(
+                SupplementalDocumentCreateParams.builder()
+                    .entityId("entity_n8y8tnk2p9339ti393yi")
+                    .fileId("file_makxrc67oh9l6sg7w9yc")
+                    .build()
+            )
 
-      val entitySupplementalDocument = entitySupplementalDocumentFuture.get()
-      entitySupplementalDocument.validate()
+        val entitySupplementalDocument = entitySupplementalDocumentFuture.get()
+        entitySupplementalDocument.validate()
     }
 
     @Test
     fun list() {
-      val client = IncreaseOkHttpClientAsync.builder()
-          .baseUrl(TestServerExtension.BASE_URL)
-          .apiKey("My API Key")
-          .build()
-      val supplementalDocumentServiceAsync = client.supplementalDocuments()
+        val client =
+            IncreaseOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val supplementalDocumentServiceAsync = client.supplementalDocuments()
 
-      val pageFuture = supplementalDocumentServiceAsync.list(SupplementalDocumentListParams.builder()
-          .entityId("entity_id")
-          .build())
+        val pageFuture =
+            supplementalDocumentServiceAsync.list(
+                SupplementalDocumentListParams.builder().entityId("entity_id").build()
+            )
 
-      val page = pageFuture.get()
-      page.response().validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 }

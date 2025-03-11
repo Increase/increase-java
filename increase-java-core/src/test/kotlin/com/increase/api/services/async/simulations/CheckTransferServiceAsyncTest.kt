@@ -13,17 +13,21 @@ class CheckTransferServiceAsyncTest {
 
     @Test
     fun mail() {
-      val client = IncreaseOkHttpClientAsync.builder()
-          .baseUrl(TestServerExtension.BASE_URL)
-          .apiKey("My API Key")
-          .build()
-      val checkTransferServiceAsync = client.simulations().checkTransfers()
+        val client =
+            IncreaseOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val checkTransferServiceAsync = client.simulations().checkTransfers()
 
-      val checkTransferFuture = checkTransferServiceAsync.mail(CheckTransferMailParams.builder()
-          .checkTransferId("check_transfer_30b43acfu9vw8fyc4f5")
-          .build())
+        val checkTransferFuture =
+            checkTransferServiceAsync.mail(
+                CheckTransferMailParams.builder()
+                    .checkTransferId("check_transfer_30b43acfu9vw8fyc4f5")
+                    .build()
+            )
 
-      val checkTransfer = checkTransferFuture.get()
-      checkTransfer.validate()
+        val checkTransfer = checkTransferFuture.get()
+        checkTransfer.validate()
     }
 }

@@ -9,20 +9,24 @@ class ProofOfAuthorizationRequestRetrieveParamsTest {
 
     @Test
     fun create() {
-      ProofOfAuthorizationRequestRetrieveParams.builder()
-          .proofOfAuthorizationRequestId("proof_of_authorization_request_iwp8no25h3rjvil6ad3b")
-          .build()
+        ProofOfAuthorizationRequestRetrieveParams.builder()
+            .proofOfAuthorizationRequestId("proof_of_authorization_request_iwp8no25h3rjvil6ad3b")
+            .build()
     }
 
     @Test
     fun getPathParam() {
-      val params = ProofOfAuthorizationRequestRetrieveParams.builder()
-          .proofOfAuthorizationRequestId("proof_of_authorization_request_iwp8no25h3rjvil6ad3b")
-          .build()
-      assertThat(params).isNotNull
-      // path param "proofOfAuthorizationRequestId"
-      assertThat(params.getPathParam(0)).isEqualTo("proof_of_authorization_request_iwp8no25h3rjvil6ad3b")
-      // out-of-bound path param
-      assertThat(params.getPathParam(1)).isEqualTo("")
+        val params =
+            ProofOfAuthorizationRequestRetrieveParams.builder()
+                .proofOfAuthorizationRequestId(
+                    "proof_of_authorization_request_iwp8no25h3rjvil6ad3b"
+                )
+                .build()
+        assertThat(params).isNotNull
+        // path param "proofOfAuthorizationRequestId"
+        assertThat(params.getPathParam(0))
+            .isEqualTo("proof_of_authorization_request_iwp8no25h3rjvil6ad3b")
+        // out-of-bound path param
+        assertThat(params.getPathParam(1)).isEqualTo("")
     }
 }

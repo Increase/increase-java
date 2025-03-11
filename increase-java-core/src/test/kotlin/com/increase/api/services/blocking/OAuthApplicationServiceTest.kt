@@ -4,7 +4,6 @@ package com.increase.api.services.blocking
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.oauthapplications.OAuthApplicationListParams
 import com.increase.api.models.oauthapplications.OAuthApplicationRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -14,29 +13,34 @@ class OAuthApplicationServiceTest {
 
     @Test
     fun retrieve() {
-      val client = IncreaseOkHttpClient.builder()
-          .baseUrl(TestServerExtension.BASE_URL)
-          .apiKey("My API Key")
-          .build()
-      val oauthApplicationService = client.oauthApplications()
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val oauthApplicationService = client.oauthApplications()
 
-      val oauthApplication = oauthApplicationService.retrieve(OAuthApplicationRetrieveParams.builder()
-          .oauthApplicationId("application_gj9ufmpgh5i56k4vyriy")
-          .build())
+        val oauthApplication =
+            oauthApplicationService.retrieve(
+                OAuthApplicationRetrieveParams.builder()
+                    .oauthApplicationId("application_gj9ufmpgh5i56k4vyriy")
+                    .build()
+            )
 
-      oauthApplication.validate()
+        oauthApplication.validate()
     }
 
     @Test
     fun list() {
-      val client = IncreaseOkHttpClient.builder()
-          .baseUrl(TestServerExtension.BASE_URL)
-          .apiKey("My API Key")
-          .build()
-      val oauthApplicationService = client.oauthApplications()
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val oauthApplicationService = client.oauthApplications()
 
-      val page = oauthApplicationService.list()
+        val page = oauthApplicationService.list()
 
-      page.response().validate()
+        page.response().validate()
     }
 }

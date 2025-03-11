@@ -11,41 +11,41 @@ import com.increase.api.models.simulations.cardincrements.CardIncrementCreatePar
 interface CardIncrementService {
 
     /**
-     * Returns a view of this service that provides access to raw HTTP responses for
-     * each method.
+     * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
 
     /**
-     * Simulates the increment of an authorization by a card acquirer. An authorization
-     * can be incremented multiple times.
+     * Simulates the increment of an authorization by a card acquirer. An authorization can be
+     * incremented multiple times.
      */
     fun create(params: CardIncrementCreateParams): CardPayment =
-        create(
-          params, RequestOptions.none()
-        )
+        create(params, RequestOptions.none())
 
     /** @see [create] */
-    fun create(params: CardIncrementCreateParams, requestOptions: RequestOptions = RequestOptions.none()): CardPayment
+    fun create(
+        params: CardIncrementCreateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CardPayment
 
     /**
-     * A view of [CardIncrementService] that provides access to raw HTTP responses for
-     * each method.
+     * A view of [CardIncrementService] that provides access to raw HTTP responses for each method.
      */
     interface WithRawResponse {
 
         /**
-         * Returns a raw HTTP response for `post /simulations/card_increments`, but is
-         * otherwise the same as [CardIncrementService.create].
+         * Returns a raw HTTP response for `post /simulations/card_increments`, but is otherwise the
+         * same as [CardIncrementService.create].
          */
         @MustBeClosed
         fun create(params: CardIncrementCreateParams): HttpResponseFor<CardPayment> =
-            create(
-              params, RequestOptions.none()
-            )
+            create(params, RequestOptions.none())
 
         /** @see [create] */
         @MustBeClosed
-        fun create(params: CardIncrementCreateParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<CardPayment>
+        fun create(
+            params: CardIncrementCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CardPayment>
     }
 }

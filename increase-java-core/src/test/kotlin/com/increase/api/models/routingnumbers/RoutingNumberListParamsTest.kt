@@ -10,34 +10,33 @@ class RoutingNumberListParamsTest {
 
     @Test
     fun create() {
-      RoutingNumberListParams.builder()
-          .routingNumber("xxxxxxxxx")
-          .cursor("cursor")
-          .limit(1L)
-          .build()
+        RoutingNumberListParams.builder()
+            .routingNumber("xxxxxxxxx")
+            .cursor("cursor")
+            .limit(1L)
+            .build()
     }
 
     @Test
     fun queryParams() {
-      val params = RoutingNumberListParams.builder()
-          .routingNumber("xxxxxxxxx")
-          .cursor("cursor")
-          .limit(1L)
-          .build()
-      val expected = QueryParams.builder()
-      expected.put("routing_number", "xxxxxxxxx")
-      expected.put("cursor", "cursor")
-      expected.put("limit", "1")
-      assertThat(params._queryParams()).isEqualTo(expected.build())
+        val params =
+            RoutingNumberListParams.builder()
+                .routingNumber("xxxxxxxxx")
+                .cursor("cursor")
+                .limit(1L)
+                .build()
+        val expected = QueryParams.builder()
+        expected.put("routing_number", "xxxxxxxxx")
+        expected.put("cursor", "cursor")
+        expected.put("limit", "1")
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
     @Test
     fun queryParamsWithoutOptionalFields() {
-      val params = RoutingNumberListParams.builder()
-          .routingNumber("xxxxxxxxx")
-          .build()
-      val expected = QueryParams.builder()
-      expected.put("routing_number", "xxxxxxxxx")
-      assertThat(params._queryParams()).isEqualTo(expected.build())
+        val params = RoutingNumberListParams.builder().routingNumber("xxxxxxxxx").build()
+        val expected = QueryParams.builder()
+        expected.put("routing_number", "xxxxxxxxx")
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 }

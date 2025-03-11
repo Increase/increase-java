@@ -10,28 +10,22 @@ class ProgramListParamsTest {
 
     @Test
     fun create() {
-      ProgramListParams.builder()
-          .cursor("cursor")
-          .limit(1L)
-          .build()
+        ProgramListParams.builder().cursor("cursor").limit(1L).build()
     }
 
     @Test
     fun queryParams() {
-      val params = ProgramListParams.builder()
-          .cursor("cursor")
-          .limit(1L)
-          .build()
-      val expected = QueryParams.builder()
-      expected.put("cursor", "cursor")
-      expected.put("limit", "1")
-      assertThat(params._queryParams()).isEqualTo(expected.build())
+        val params = ProgramListParams.builder().cursor("cursor").limit(1L).build()
+        val expected = QueryParams.builder()
+        expected.put("cursor", "cursor")
+        expected.put("limit", "1")
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
     @Test
     fun queryParamsWithoutOptionalFields() {
-      val params = ProgramListParams.builder().build()
-      val expected = QueryParams.builder()
-      assertThat(params._queryParams()).isEqualTo(expected.build())
+        val params = ProgramListParams.builder().build()
+        val expected = QueryParams.builder()
+        assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 }

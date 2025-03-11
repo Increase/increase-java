@@ -22,32 +22,44 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Exports are batch summaries of your Increase data. You can make them from the
- * API or dashboard. Since they can take a while, they are generated
- * asynchronously. We send a webhook when they are ready. For more information,
- * please read our
+ * Exports are batch summaries of your Increase data. You can make them from the API or dashboard.
+ * Since they can take a while, they are generated asynchronously. We send a webhook when they are
+ * ready. For more information, please read our
  * [Exports documentation](https://increase.com/documentation/exports).
  */
 @NoAutoDetect
-class Export @JsonCreator private constructor(
+class Export
+@JsonCreator
+private constructor(
     @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("category") @ExcludeMissing private val category: JsonField<Category> = JsonMissing.of(),
-    @JsonProperty("created_at") @ExcludeMissing private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("file_download_url") @ExcludeMissing private val fileDownloadUrl: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("file_id") @ExcludeMissing private val fileId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("idempotency_key") @ExcludeMissing private val idempotencyKey: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("status") @ExcludeMissing private val status: JsonField<Status> = JsonMissing.of(),
+    @JsonProperty("category")
+    @ExcludeMissing
+    private val category: JsonField<Category> = JsonMissing.of(),
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("file_download_url")
+    @ExcludeMissing
+    private val fileDownloadUrl: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("file_id")
+    @ExcludeMissing
+    private val fileId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("idempotency_key")
+    @ExcludeMissing
+    private val idempotencyKey: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("status")
+    @ExcludeMissing
+    private val status: JsonField<Status> = JsonMissing.of(),
     @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-
 ) {
 
     /** The Export identifier. */
     fun id(): String = id.getRequired("id")
 
     /**
-     * The category of the Export. We may add additional possible values for this enum
-     * over time; your application should be able to handle that gracefully.
+     * The category of the Export. We may add additional possible values for this enum over time;
+     * your application should be able to handle that gracefully.
      */
     fun category(): Category = category.getRequired("category")
 
@@ -55,45 +67,40 @@ class Export @JsonCreator private constructor(
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
     /**
-     * A URL at which the Export's file can be downloaded. This will be present when
-     * the Export's status transitions to `complete`.
+     * A URL at which the Export's file can be downloaded. This will be present when the Export's
+     * status transitions to `complete`.
      */
-    fun fileDownloadUrl(): Optional<String> = Optional.ofNullable(fileDownloadUrl.getNullable("file_download_url"))
+    fun fileDownloadUrl(): Optional<String> =
+        Optional.ofNullable(fileDownloadUrl.getNullable("file_download_url"))
 
     /**
-     * The File containing the contents of the Export. This will be present when the
-     * Export's status transitions to `complete`.
+     * The File containing the contents of the Export. This will be present when the Export's status
+     * transitions to `complete`.
      */
     fun fileId(): Optional<String> = Optional.ofNullable(fileId.getNullable("file_id"))
 
     /**
-     * The idempotency key you chose for this object. This value is unique across
-     * Increase and is used to ensure that a request is only processed once. Learn more
-     * about [idempotency](https://increase.com/documentation/idempotency-keys).
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
      */
-    fun idempotencyKey(): Optional<String> = Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
+    fun idempotencyKey(): Optional<String> =
+        Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
 
     /** The status of the Export. */
     fun status(): Status = status.getRequired("status")
 
-    /**
-     * A constant representing the object's type. For this resource it will always be
-     * `export`.
-     */
+    /** A constant representing the object's type. For this resource it will always be `export`. */
     fun type(): Type = type.getRequired("type")
 
     /** The Export identifier. */
-    @JsonProperty("id")
-    @ExcludeMissing
-    fun _id(): JsonField<String> = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /**
-     * The category of the Export. We may add additional possible values for this enum
-     * over time; your application should be able to handle that gracefully.
+     * The category of the Export. We may add additional possible values for this enum over time;
+     * your application should be able to handle that gracefully.
      */
-    @JsonProperty("category")
-    @ExcludeMissing
-    fun _category(): JsonField<Category> = category
+    @JsonProperty("category") @ExcludeMissing fun _category(): JsonField<Category> = category
 
     /** The time the Export was created. */
     @JsonProperty("created_at")
@@ -101,42 +108,33 @@ class Export @JsonCreator private constructor(
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /**
-     * A URL at which the Export's file can be downloaded. This will be present when
-     * the Export's status transitions to `complete`.
+     * A URL at which the Export's file can be downloaded. This will be present when the Export's
+     * status transitions to `complete`.
      */
     @JsonProperty("file_download_url")
     @ExcludeMissing
     fun _fileDownloadUrl(): JsonField<String> = fileDownloadUrl
 
     /**
-     * The File containing the contents of the Export. This will be present when the
-     * Export's status transitions to `complete`.
+     * The File containing the contents of the Export. This will be present when the Export's status
+     * transitions to `complete`.
      */
-    @JsonProperty("file_id")
-    @ExcludeMissing
-    fun _fileId(): JsonField<String> = fileId
+    @JsonProperty("file_id") @ExcludeMissing fun _fileId(): JsonField<String> = fileId
 
     /**
-     * The idempotency key you chose for this object. This value is unique across
-     * Increase and is used to ensure that a request is only processed once. Learn more
-     * about [idempotency](https://increase.com/documentation/idempotency-keys).
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
      */
     @JsonProperty("idempotency_key")
     @ExcludeMissing
     fun _idempotencyKey(): JsonField<String> = idempotencyKey
 
     /** The status of the Export. */
-    @JsonProperty("status")
-    @ExcludeMissing
-    fun _status(): JsonField<Status> = status
+    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
-    /**
-     * A constant representing the object's type. For this resource it will always be
-     * `export`.
-     */
-    @JsonProperty("type")
-    @ExcludeMissing
-    fun _type(): JsonField<Type> = type
+    /** A constant representing the object's type. For this resource it will always be `export`. */
+    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -144,22 +142,21 @@ class Export @JsonCreator private constructor(
 
     private var validated: Boolean = false
 
-    fun validate(): Export =
-        apply {
-            if (validated) {
-              return@apply
-            }
-
-            id()
-            category()
-            createdAt()
-            fileDownloadUrl()
-            fileId()
-            idempotencyKey()
-            status()
-            type()
-            validated = true
+    fun validate(): Export = apply {
+        if (validated) {
+            return@apply
         }
+
+        id()
+        category()
+        createdAt()
+        fileDownloadUrl()
+        fileId()
+        idempotencyKey()
+        status()
+        type()
+        validated = true
+    }
 
     fun toBuilder() = Builder().from(this)
 
@@ -169,7 +166,6 @@ class Export @JsonCreator private constructor(
          * Returns a mutable builder for constructing an instance of [Export].
          *
          * The following fields are required:
-         *
          * ```java
          * .id()
          * .category()
@@ -181,8 +177,7 @@ class Export @JsonCreator private constructor(
          * .type()
          * ```
          */
-        @JvmStatic
-        fun builder() = Builder()
+        @JvmStatic fun builder() = Builder()
     }
 
     /** A builder for [Export]. */
@@ -199,223 +194,177 @@ class Export @JsonCreator private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(export: Export) =
-            apply {
-                id = export.id
-                category = export.category
-                createdAt = export.createdAt
-                fileDownloadUrl = export.fileDownloadUrl
-                fileId = export.fileId
-                idempotencyKey = export.idempotencyKey
-                status = export.status
-                type = export.type
-                additionalProperties = export.additionalProperties.toMutableMap()
-            }
+        internal fun from(export: Export) = apply {
+            id = export.id
+            category = export.category
+            createdAt = export.createdAt
+            fileDownloadUrl = export.fileDownloadUrl
+            fileId = export.fileId
+            idempotencyKey = export.idempotencyKey
+            status = export.status
+            type = export.type
+            additionalProperties = export.additionalProperties.toMutableMap()
+        }
 
         /** The Export identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
         /** The Export identifier. */
-        fun id(id: JsonField<String>) =
-            apply {
-                this.id = id
-            }
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
-         * The category of the Export. We may add additional possible values for this enum
-         * over time; your application should be able to handle that gracefully.
+         * The category of the Export. We may add additional possible values for this enum over
+         * time; your application should be able to handle that gracefully.
          */
         fun category(category: Category) = category(JsonField.of(category))
 
         /**
-         * The category of the Export. We may add additional possible values for this enum
-         * over time; your application should be able to handle that gracefully.
+         * The category of the Export. We may add additional possible values for this enum over
+         * time; your application should be able to handle that gracefully.
          */
-        fun category(category: JsonField<Category>) =
-            apply {
-                this.category = category
-            }
+        fun category(category: JsonField<Category>) = apply { this.category = category }
 
         /** The time the Export was created. */
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /** The time the Export was created. */
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) =
-            apply {
-                this.createdAt = createdAt
-            }
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /**
-         * A URL at which the Export's file can be downloaded. This will be present when
-         * the Export's status transitions to `complete`.
-         */
-        fun fileDownloadUrl(fileDownloadUrl: String?) = fileDownloadUrl(JsonField.ofNullable(fileDownloadUrl))
-
-        /**
-         * A URL at which the Export's file can be downloaded. This will be present when
-         * the Export's status transitions to `complete`.
-         */
-        fun fileDownloadUrl(fileDownloadUrl: Optional<String>) = fileDownloadUrl(fileDownloadUrl.getOrNull())
-
-        /**
-         * A URL at which the Export's file can be downloaded. This will be present when
-         * the Export's status transitions to `complete`.
-         */
-        fun fileDownloadUrl(fileDownloadUrl: JsonField<String>) =
-            apply {
-                this.fileDownloadUrl = fileDownloadUrl
-            }
-
-        /**
-         * The File containing the contents of the Export. This will be present when the
+         * A URL at which the Export's file can be downloaded. This will be present when the
          * Export's status transitions to `complete`.
+         */
+        fun fileDownloadUrl(fileDownloadUrl: String?) =
+            fileDownloadUrl(JsonField.ofNullable(fileDownloadUrl))
+
+        /**
+         * A URL at which the Export's file can be downloaded. This will be present when the
+         * Export's status transitions to `complete`.
+         */
+        fun fileDownloadUrl(fileDownloadUrl: Optional<String>) =
+            fileDownloadUrl(fileDownloadUrl.getOrNull())
+
+        /**
+         * A URL at which the Export's file can be downloaded. This will be present when the
+         * Export's status transitions to `complete`.
+         */
+        fun fileDownloadUrl(fileDownloadUrl: JsonField<String>) = apply {
+            this.fileDownloadUrl = fileDownloadUrl
+        }
+
+        /**
+         * The File containing the contents of the Export. This will be present when the Export's
+         * status transitions to `complete`.
          */
         fun fileId(fileId: String?) = fileId(JsonField.ofNullable(fileId))
 
         /**
-         * The File containing the contents of the Export. This will be present when the
-         * Export's status transitions to `complete`.
+         * The File containing the contents of the Export. This will be present when the Export's
+         * status transitions to `complete`.
          */
         fun fileId(fileId: Optional<String>) = fileId(fileId.getOrNull())
 
         /**
-         * The File containing the contents of the Export. This will be present when the
-         * Export's status transitions to `complete`.
+         * The File containing the contents of the Export. This will be present when the Export's
+         * status transitions to `complete`.
          */
-        fun fileId(fileId: JsonField<String>) =
-            apply {
-                this.fileId = fileId
-            }
+        fun fileId(fileId: JsonField<String>) = apply { this.fileId = fileId }
 
         /**
-         * The idempotency key you chose for this object. This value is unique across
-         * Increase and is used to ensure that a request is only processed once. Learn more
-         * about [idempotency](https://increase.com/documentation/idempotency-keys).
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        fun idempotencyKey(idempotencyKey: String?) = idempotencyKey(JsonField.ofNullable(idempotencyKey))
+        fun idempotencyKey(idempotencyKey: String?) =
+            idempotencyKey(JsonField.ofNullable(idempotencyKey))
 
         /**
-         * The idempotency key you chose for this object. This value is unique across
-         * Increase and is used to ensure that a request is only processed once. Learn more
-         * about [idempotency](https://increase.com/documentation/idempotency-keys).
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        fun idempotencyKey(idempotencyKey: Optional<String>) = idempotencyKey(idempotencyKey.getOrNull())
+        fun idempotencyKey(idempotencyKey: Optional<String>) =
+            idempotencyKey(idempotencyKey.getOrNull())
 
         /**
-         * The idempotency key you chose for this object. This value is unique across
-         * Increase and is used to ensure that a request is only processed once. Learn more
-         * about [idempotency](https://increase.com/documentation/idempotency-keys).
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        fun idempotencyKey(idempotencyKey: JsonField<String>) =
-            apply {
-                this.idempotencyKey = idempotencyKey
-            }
+        fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
+            this.idempotencyKey = idempotencyKey
+        }
 
         /** The status of the Export. */
         fun status(status: Status) = status(JsonField.of(status))
 
         /** The status of the Export. */
-        fun status(status: JsonField<Status>) =
-            apply {
-                this.status = status
-            }
+        fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /**
-         * A constant representing the object's type. For this resource it will always be
-         * `export`.
+         * A constant representing the object's type. For this resource it will always be `export`.
          */
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
-         * A constant representing the object's type. For this resource it will always be
-         * `export`.
+         * A constant representing the object's type. For this resource it will always be `export`.
          */
-        fun type(type: JsonField<Type>) =
-            apply {
-                this.type = type
-            }
+        fun type(type: JsonField<Type>) = apply { this.type = type }
 
-        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
-            apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
+        fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+            this.additionalProperties.clear()
+            putAllAdditionalProperties(additionalProperties)
+        }
 
-        fun putAdditionalProperty(key: String, value: JsonValue) =
-            apply {
-                additionalProperties.put(key, value)
-            }
+        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+            additionalProperties.put(key, value)
+        }
 
-        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-            apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
+        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+            this.additionalProperties.putAll(additionalProperties)
+        }
 
-        fun removeAdditionalProperty(key: String) =
-            apply {
-                additionalProperties.remove(key)
-            }
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
 
-        fun removeAllAdditionalProperties(keys: Set<String>) =
-            apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
+        }
 
         fun build(): Export =
             Export(
-              checkRequired(
-                "id", id
-              ),
-              checkRequired(
-                "category", category
-              ),
-              checkRequired(
-                "createdAt", createdAt
-              ),
-              checkRequired(
-                "fileDownloadUrl", fileDownloadUrl
-              ),
-              checkRequired(
-                "fileId", fileId
-              ),
-              checkRequired(
-                "idempotencyKey", idempotencyKey
-              ),
-              checkRequired(
-                "status", status
-              ),
-              checkRequired(
-                "type", type
-              ),
-              additionalProperties.toImmutable(),
+                checkRequired("id", id),
+                checkRequired("category", category),
+                checkRequired("createdAt", createdAt),
+                checkRequired("fileDownloadUrl", fileDownloadUrl),
+                checkRequired("fileId", fileId),
+                checkRequired("idempotencyKey", idempotencyKey),
+                checkRequired("status", status),
+                checkRequired("type", type),
+                additionalProperties.toImmutable(),
             )
     }
 
     /**
-     * The category of the Export. We may add additional possible values for this enum
-     * over time; your application should be able to handle that gracefully.
+     * The category of the Export. We may add additional possible values for this enum over time;
+     * your application should be able to handle that gracefully.
      */
-    class Category @JsonCreator private constructor(
-        private val value: JsonField<String>,
-
-    ) : Enum {
+    class Category @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that
-         * doesn't match any known member, and you want to know that value. For example, if
-         * the SDK is on an older version than the API, then the API may respond with new
-         * members that the SDK is unaware of.
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         companion object {
 
             /**
-             * Export an Open Financial Exchange (OFX) file of transactions and balances for a
-             * given time range and Account.
+             * Export an Open Financial Exchange (OFX) file of transactions and balances for a given
+             * time range and Account.
              */
             @JvmField val ACCOUNT_STATEMENT_OFX = of("account_statement_ofx")
 
@@ -435,8 +384,8 @@ class Export @JsonCreator private constructor(
             @JvmField val VENDOR_CSV = of("vendor_csv")
 
             /**
-             * Certain dashboard tables are available as CSV exports. This export cannot be
-             * created via the API.
+             * Certain dashboard tables are available as CSV exports. This export cannot be created
+             * via the API.
              */
             @JvmField val DASHBOARD_TABLE_CSV = of("dashboard_table_csv")
 
@@ -446,8 +395,8 @@ class Export @JsonCreator private constructor(
         /** An enum containing [Category]'s known values. */
         enum class Known {
             /**
-             * Export an Open Financial Exchange (OFX) file of transactions and balances for a
-             * given time range and Account.
+             * Export an Open Financial Exchange (OFX) file of transactions and balances for a given
+             * time range and Account.
              */
             ACCOUNT_STATEMENT_OFX,
             /** Export a CSV of all transactions for a given time range. */
@@ -461,8 +410,8 @@ class Export @JsonCreator private constructor(
             /** Export a CSV of vendors added to the third-party risk management dashboard. */
             VENDOR_CSV,
             /**
-             * Certain dashboard tables are available as CSV exports. This export cannot be
-             * created via the API.
+             * Certain dashboard tables are available as CSV exports. This export cannot be created
+             * via the API.
              */
             DASHBOARD_TABLE_CSV,
         }
@@ -471,17 +420,15 @@ class Export @JsonCreator private constructor(
          * An enum containing [Category]'s known values, as well as an [_UNKNOWN] member.
          *
          * An instance of [Category] can contain an unknown value in a couple of cases:
-         *
-         * - It was deserialized from data that doesn't match any known member. For
-         *   example, if the SDK is on an older version than the API, then the API may
-         *   respond with new members that the SDK is unaware of.
-         *
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
             /**
-             * Export an Open Financial Exchange (OFX) file of transactions and balances for a
-             * given time range and Account.
+             * Export an Open Financial Exchange (OFX) file of transactions and balances for a given
+             * time range and Account.
              */
             ACCOUNT_STATEMENT_OFX,
             /** Export a CSV of all transactions for a given time range. */
@@ -495,23 +442,20 @@ class Export @JsonCreator private constructor(
             /** Export a CSV of vendors added to the third-party risk management dashboard. */
             VENDOR_CSV,
             /**
-             * Certain dashboard tables are available as CSV exports. This export cannot be
-             * created via the API.
+             * Certain dashboard tables are available as CSV exports. This export cannot be created
+             * via the API.
              */
             DASHBOARD_TABLE_CSV,
-            /**
-             * An enum member indicating that [Category] was instantiated with an unknown
-             * value.
-             */
+            /** An enum member indicating that [Category] was instantiated with an unknown value. */
             _UNKNOWN,
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or
-         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if
-         * you want to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -528,11 +472,11 @@ class Export @JsonCreator private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and
-         * don't want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value is a not a
-         * known member.
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+         *   member.
          */
         fun known(): Known =
             when (this) {
@@ -549,20 +493,23 @@ class Export @JsonCreator private constructor(
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for
-         * debugging and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value does not
-         * have the expected primitive type.
+         * @throws IncreaseInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
          */
-        fun asString(): String = _value().asString().orElseThrow { IncreaseInvalidDataException("Value is not a String") }
+        fun asString(): String =
+            _value().asString().orElseThrow {
+                IncreaseInvalidDataException("Value is not a String")
+            }
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return /* spotless:off */ other is Category && value == other.value /* spotless:on */
+            return /* spotless:off */ other is Category && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -571,21 +518,17 @@ class Export @JsonCreator private constructor(
     }
 
     /** The status of the Export. */
-    class Status @JsonCreator private constructor(
-        private val value: JsonField<String>,
-
-    ) : Enum {
+    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that
-         * doesn't match any known member, and you want to know that value. For example, if
-         * the SDK is on an older version than the API, then the API may respond with new
-         * members that the SDK is unaware of.
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -596,8 +539,7 @@ class Export @JsonCreator private constructor(
             @JvmField val COMPLETE = of("complete")
 
             /**
-             * The export failed to generate. Increase will reach out to you to resolve the
-             * issue.
+             * The export failed to generate. Increase will reach out to you to resolve the issue.
              */
             @JvmField val FAILED = of("failed")
 
@@ -611,8 +553,7 @@ class Export @JsonCreator private constructor(
             /** The export has been successfully generated. */
             COMPLETE,
             /**
-             * The export failed to generate. Increase will reach out to you to resolve the
-             * issue.
+             * The export failed to generate. Increase will reach out to you to resolve the issue.
              */
             FAILED,
         }
@@ -621,11 +562,9 @@ class Export @JsonCreator private constructor(
          * An enum containing [Status]'s known values, as well as an [_UNKNOWN] member.
          *
          * An instance of [Status] can contain an unknown value in a couple of cases:
-         *
-         * - It was deserialized from data that doesn't match any known member. For
-         *   example, if the SDK is on an older version than the API, then the API may
-         *   respond with new members that the SDK is unaware of.
-         *
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
@@ -634,8 +573,7 @@ class Export @JsonCreator private constructor(
             /** The export has been successfully generated. */
             COMPLETE,
             /**
-             * The export failed to generate. Increase will reach out to you to resolve the
-             * issue.
+             * The export failed to generate. Increase will reach out to you to resolve the issue.
              */
             FAILED,
             /** An enum member indicating that [Status] was instantiated with an unknown value. */
@@ -643,11 +581,11 @@ class Export @JsonCreator private constructor(
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or
-         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if
-         * you want to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -660,11 +598,11 @@ class Export @JsonCreator private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and
-         * don't want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value is a not a
-         * known member.
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+         *   member.
          */
         fun known(): Known =
             when (this) {
@@ -677,20 +615,23 @@ class Export @JsonCreator private constructor(
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for
-         * debugging and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value does not
-         * have the expected primitive type.
+         * @throws IncreaseInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
          */
-        fun asString(): String = _value().asString().orElseThrow { IncreaseInvalidDataException("Value is not a String") }
+        fun asString(): String =
+            _value().asString().orElseThrow {
+                IncreaseInvalidDataException("Value is not a String")
+            }
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return /* spotless:off */ other is Status && value == other.value /* spotless:on */
+            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -698,25 +639,18 @@ class Export @JsonCreator private constructor(
         override fun toString() = value.toString()
     }
 
-    /**
-     * A constant representing the object's type. For this resource it will always be
-     * `export`.
-     */
-    class Type @JsonCreator private constructor(
-        private val value: JsonField<String>,
-
-    ) : Enum {
+    /** A constant representing the object's type. For this resource it will always be `export`. */
+    class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that
-         * doesn't match any known member, and you want to know that value. For example, if
-         * the SDK is on an older version than the API, then the API may respond with new
-         * members that the SDK is unaware of.
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -727,18 +661,16 @@ class Export @JsonCreator private constructor(
 
         /** An enum containing [Type]'s known values. */
         enum class Known {
-            EXPORT,
+            EXPORT
         }
 
         /**
          * An enum containing [Type]'s known values, as well as an [_UNKNOWN] member.
          *
          * An instance of [Type] can contain an unknown value in a couple of cases:
-         *
-         * - It was deserialized from data that doesn't match any known member. For
-         *   example, if the SDK is on an older version than the API, then the API may
-         *   respond with new members that the SDK is unaware of.
-         *
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
@@ -748,11 +680,11 @@ class Export @JsonCreator private constructor(
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or
-         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if
-         * you want to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -763,11 +695,11 @@ class Export @JsonCreator private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and
-         * don't want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value is a not a
-         * known member.
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+         *   member.
          */
         fun known(): Known =
             when (this) {
@@ -778,20 +710,23 @@ class Export @JsonCreator private constructor(
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for
-         * debugging and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value does not
-         * have the expected primitive type.
+         * @throws IncreaseInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
          */
-        fun asString(): String = _value().asString().orElseThrow { IncreaseInvalidDataException("Value is not a String") }
+        fun asString(): String =
+            _value().asString().orElseThrow {
+                IncreaseInvalidDataException("Value is not a String")
+            }
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return /* spotless:off */ other is Type && value == other.value /* spotless:on */
+            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -800,11 +735,11 @@ class Export @JsonCreator private constructor(
     }
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return /* spotless:off */ other is Export && id == other.id && category == other.category && createdAt == other.createdAt && fileDownloadUrl == other.fileDownloadUrl && fileId == other.fileId && idempotencyKey == other.idempotencyKey && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is Export && id == other.id && category == other.category && createdAt == other.createdAt && fileDownloadUrl == other.fileDownloadUrl && fileId == other.fileId && idempotencyKey == other.idempotencyKey && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
@@ -813,5 +748,6 @@ class Export @JsonCreator private constructor(
 
     override fun hashCode(): Int = hashCode
 
-    override fun toString() = "Export{id=$id, category=$category, createdAt=$createdAt, fileDownloadUrl=$fileDownloadUrl, fileId=$fileId, idempotencyKey=$idempotencyKey, status=$status, type=$type, additionalProperties=$additionalProperties}"
+    override fun toString() =
+        "Export{id=$id, category=$category, createdAt=$createdAt, fileDownloadUrl=$fileDownloadUrl, fileId=$fileId, idempotencyKey=$idempotencyKey, status=$status, type=$type, additionalProperties=$additionalProperties}"
 }

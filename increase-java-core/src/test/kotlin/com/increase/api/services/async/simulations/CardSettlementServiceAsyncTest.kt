@@ -13,19 +13,23 @@ class CardSettlementServiceAsyncTest {
 
     @Test
     fun create() {
-      val client = IncreaseOkHttpClientAsync.builder()
-          .baseUrl(TestServerExtension.BASE_URL)
-          .apiKey("My API Key")
-          .build()
-      val cardSettlementServiceAsync = client.simulations().cardSettlements()
+        val client =
+            IncreaseOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val cardSettlementServiceAsync = client.simulations().cardSettlements()
 
-      val transactionFuture = cardSettlementServiceAsync.create(CardSettlementCreateParams.builder()
-          .cardId("card_oubs0hwk5rn6knuecxg2")
-          .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")
-          .amount(1L)
-          .build())
+        val transactionFuture =
+            cardSettlementServiceAsync.create(
+                CardSettlementCreateParams.builder()
+                    .cardId("card_oubs0hwk5rn6knuecxg2")
+                    .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")
+                    .amount(1L)
+                    .build()
+            )
 
-      val transaction = transactionFuture.get()
-      transaction.validate()
+        val transaction = transactionFuture.get()
+        transaction.validate()
     }
 }

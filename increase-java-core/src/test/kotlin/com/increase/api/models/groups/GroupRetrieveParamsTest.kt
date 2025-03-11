@@ -8,6 +8,6 @@ class GroupRetrieveParamsTest {
 
     @Test
     fun create() {
-      GroupRetrieveParams.builder().build()
+        GroupRetrieveParams.builder().build()
     }
 }
