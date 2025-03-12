@@ -24,6 +24,11 @@ class CheckTransferListParamsTest {
             .cursor("cursor")
             .idempotencyKey("x")
             .limit(1L)
+            .status(
+                CheckTransferListParams.Status.builder()
+                    .addIn(CheckTransferListParams.Status.In.PENDING_APPROVAL)
+                    .build()
+            )
             .build()
     }
 
@@ -43,6 +48,11 @@ class CheckTransferListParamsTest {
                 .cursor("cursor")
                 .idempotencyKey("x")
                 .limit(1L)
+                .status(
+                    CheckTransferListParams.Status.builder()
+                        .addIn(CheckTransferListParams.Status.In.PENDING_APPROVAL)
+                        .build()
+                )
                 .build()
         val expected = QueryParams.builder()
         expected.put("account_id", "account_id")
@@ -56,6 +66,10 @@ class CheckTransferListParamsTest {
         expected.put("cursor", "cursor")
         expected.put("idempotency_key", "x")
         expected.put("limit", "1")
+        CheckTransferListParams.Status.builder()
+            .addIn(CheckTransferListParams.Status.In.PENDING_APPROVAL)
+            .build()
+            .forEachQueryParam { key, values -> expected.put("status.$key", values) }
         assertThat(params._queryParams()).isEqualTo(expected.build())
     }
 
