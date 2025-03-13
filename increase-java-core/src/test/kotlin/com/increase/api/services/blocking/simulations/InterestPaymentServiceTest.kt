@@ -26,6 +26,7 @@ class InterestPaymentServiceTest {
                 InterestPaymentCreateParams.builder()
                     .accountId("account_in71c4amph0vgo2qllky")
                     .amount(1000L)
+                    .accruedOnAccountId("accrued_on_account_id")
                     .periodEnd(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .periodStart(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()

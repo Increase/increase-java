@@ -32,11 +32,14 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** The identifier of the Account Number the Interest Payment is for. */
+    /** The identifier of the Account the Interest Payment should be paid to is for. */
     fun accountId(): String = body.accountId()
 
     /** The interest amount in cents. Must be positive. */
     fun amount(): Long = body.amount()
+
+    /** The identifier of the Account the Interest accrued on. Defaults to `account_id`. */
+    fun accruedOnAccountId(): Optional<String> = body.accruedOnAccountId()
 
     /** The end of the interest period. If not provided, defaults to the current time. */
     fun periodEnd(): Optional<OffsetDateTime> = body.periodEnd()
@@ -44,11 +47,14 @@ private constructor(
     /** The start of the interest period. If not provided, defaults to the current time. */
     fun periodStart(): Optional<OffsetDateTime> = body.periodStart()
 
-    /** The identifier of the Account Number the Interest Payment is for. */
+    /** The identifier of the Account the Interest Payment should be paid to is for. */
     fun _accountId(): JsonField<String> = body._accountId()
 
     /** The interest amount in cents. Must be positive. */
     fun _amount(): JsonField<Long> = body._amount()
+
+    /** The identifier of the Account the Interest accrued on. Defaults to `account_id`. */
+    fun _accruedOnAccountId(): JsonField<String> = body._accruedOnAccountId()
 
     /** The end of the interest period. If not provided, defaults to the current time. */
     fun _periodEnd(): JsonField<OffsetDateTime> = body._periodEnd()
@@ -78,6 +84,9 @@ private constructor(
         @JsonProperty("amount")
         @ExcludeMissing
         private val amount: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("accrued_on_account_id")
+        @ExcludeMissing
+        private val accruedOnAccountId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("period_end")
         @ExcludeMissing
         private val periodEnd: JsonField<OffsetDateTime> = JsonMissing.of(),
@@ -88,11 +97,15 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The identifier of the Account Number the Interest Payment is for. */
+        /** The identifier of the Account the Interest Payment should be paid to is for. */
         fun accountId(): String = accountId.getRequired("account_id")
 
         /** The interest amount in cents. Must be positive. */
         fun amount(): Long = amount.getRequired("amount")
+
+        /** The identifier of the Account the Interest accrued on. Defaults to `account_id`. */
+        fun accruedOnAccountId(): Optional<String> =
+            Optional.ofNullable(accruedOnAccountId.getNullable("accrued_on_account_id"))
 
         /** The end of the interest period. If not provided, defaults to the current time. */
         fun periodEnd(): Optional<OffsetDateTime> =
@@ -102,11 +115,16 @@ private constructor(
         fun periodStart(): Optional<OffsetDateTime> =
             Optional.ofNullable(periodStart.getNullable("period_start"))
 
-        /** The identifier of the Account Number the Interest Payment is for. */
+        /** The identifier of the Account the Interest Payment should be paid to is for. */
         @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
 
         /** The interest amount in cents. Must be positive. */
         @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
+
+        /** The identifier of the Account the Interest accrued on. Defaults to `account_id`. */
+        @JsonProperty("accrued_on_account_id")
+        @ExcludeMissing
+        fun _accruedOnAccountId(): JsonField<String> = accruedOnAccountId
 
         /** The end of the interest period. If not provided, defaults to the current time. */
         @JsonProperty("period_end")
@@ -131,6 +149,7 @@ private constructor(
 
             accountId()
             amount()
+            accruedOnAccountId()
             periodEnd()
             periodStart()
             validated = true
@@ -157,6 +176,7 @@ private constructor(
 
             private var accountId: JsonField<String>? = null
             private var amount: JsonField<Long>? = null
+            private var accruedOnAccountId: JsonField<String> = JsonMissing.of()
             private var periodEnd: JsonField<OffsetDateTime> = JsonMissing.of()
             private var periodStart: JsonField<OffsetDateTime> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -165,15 +185,16 @@ private constructor(
             internal fun from(body: Body) = apply {
                 accountId = body.accountId
                 amount = body.amount
+                accruedOnAccountId = body.accruedOnAccountId
                 periodEnd = body.periodEnd
                 periodStart = body.periodStart
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
-            /** The identifier of the Account Number the Interest Payment is for. */
+            /** The identifier of the Account the Interest Payment should be paid to is for. */
             fun accountId(accountId: String) = accountId(JsonField.of(accountId))
 
-            /** The identifier of the Account Number the Interest Payment is for. */
+            /** The identifier of the Account the Interest Payment should be paid to is for. */
             fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
             /** The interest amount in cents. Must be positive. */
@@ -181,6 +202,15 @@ private constructor(
 
             /** The interest amount in cents. Must be positive. */
             fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+
+            /** The identifier of the Account the Interest accrued on. Defaults to `account_id`. */
+            fun accruedOnAccountId(accruedOnAccountId: String) =
+                accruedOnAccountId(JsonField.of(accruedOnAccountId))
+
+            /** The identifier of the Account the Interest accrued on. Defaults to `account_id`. */
+            fun accruedOnAccountId(accruedOnAccountId: JsonField<String>) = apply {
+                this.accruedOnAccountId = accruedOnAccountId
+            }
 
             /** The end of the interest period. If not provided, defaults to the current time. */
             fun periodEnd(periodEnd: OffsetDateTime) = periodEnd(JsonField.of(periodEnd))
@@ -221,6 +251,7 @@ private constructor(
                 Body(
                     checkRequired("accountId", accountId),
                     checkRequired("amount", amount),
+                    accruedOnAccountId,
                     periodEnd,
                     periodStart,
                     additionalProperties.toImmutable(),
@@ -232,17 +263,17 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Body && accountId == other.accountId && amount == other.amount && periodEnd == other.periodEnd && periodStart == other.periodStart && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && accountId == other.accountId && amount == other.amount && accruedOnAccountId == other.accruedOnAccountId && periodEnd == other.periodEnd && periodStart == other.periodStart && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(accountId, amount, periodEnd, periodStart, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(accountId, amount, accruedOnAccountId, periodEnd, periodStart, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{accountId=$accountId, amount=$amount, periodEnd=$periodEnd, periodStart=$periodStart, additionalProperties=$additionalProperties}"
+            "Body{accountId=$accountId, amount=$amount, accruedOnAccountId=$accruedOnAccountId, periodEnd=$periodEnd, periodStart=$periodStart, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -276,10 +307,10 @@ private constructor(
             additionalQueryParams = interestPaymentCreateParams.additionalQueryParams.toBuilder()
         }
 
-        /** The identifier of the Account Number the Interest Payment is for. */
+        /** The identifier of the Account the Interest Payment should be paid to is for. */
         fun accountId(accountId: String) = apply { body.accountId(accountId) }
 
-        /** The identifier of the Account Number the Interest Payment is for. */
+        /** The identifier of the Account the Interest Payment should be paid to is for. */
         fun accountId(accountId: JsonField<String>) = apply { body.accountId(accountId) }
 
         /** The interest amount in cents. Must be positive. */
@@ -287,6 +318,16 @@ private constructor(
 
         /** The interest amount in cents. Must be positive. */
         fun amount(amount: JsonField<Long>) = apply { body.amount(amount) }
+
+        /** The identifier of the Account the Interest accrued on. Defaults to `account_id`. */
+        fun accruedOnAccountId(accruedOnAccountId: String) = apply {
+            body.accruedOnAccountId(accruedOnAccountId)
+        }
+
+        /** The identifier of the Account the Interest accrued on. Defaults to `account_id`. */
+        fun accruedOnAccountId(accruedOnAccountId: JsonField<String>) = apply {
+            body.accruedOnAccountId(accruedOnAccountId)
+        }
 
         /** The end of the interest period. If not provided, defaults to the current time. */
         fun periodEnd(periodEnd: OffsetDateTime) = apply { body.periodEnd(periodEnd) }
