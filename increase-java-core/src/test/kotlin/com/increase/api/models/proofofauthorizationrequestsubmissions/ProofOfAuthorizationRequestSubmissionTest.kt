@@ -13,6 +13,7 @@ class ProofOfAuthorizationRequestSubmissionTest {
         val proofOfAuthorizationRequestSubmission =
             ProofOfAuthorizationRequestSubmission.builder()
                 .id("proof_of_authorization_request_submission_uqhqroiley7n0097vizn")
+                .additionalEvidenceFileId(null)
                 .authorizationTerms("I agree to the terms.")
                 .authorizedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .authorizerCompany("National Phonograph Company")
@@ -38,6 +39,7 @@ class ProofOfAuthorizationRequestSubmissionTest {
         assertThat(proofOfAuthorizationRequestSubmission).isNotNull
         assertThat(proofOfAuthorizationRequestSubmission.id())
             .isEqualTo("proof_of_authorization_request_submission_uqhqroiley7n0097vizn")
+        assertThat(proofOfAuthorizationRequestSubmission.additionalEvidenceFileId()).isEmpty
         assertThat(proofOfAuthorizationRequestSubmission.authorizationTerms())
             .isEqualTo("I agree to the terms.")
         assertThat(proofOfAuthorizationRequestSubmission.authorizedAt())

@@ -32,6 +32,9 @@ class ProofOfAuthorizationRequestSubmission
 @JsonCreator
 private constructor(
     @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("additional_evidence_file_id")
+    @ExcludeMissing
+    private val additionalEvidenceFileId: JsonField<String> = JsonMissing.of(),
     @JsonProperty("authorization_terms")
     @ExcludeMissing
     private val authorizationTerms: JsonField<String> = JsonMissing.of(),
@@ -84,6 +87,10 @@ private constructor(
 
     /** The Proof of Authorization Request Submission identifier. */
     fun id(): String = id.getRequired("id")
+
+    /** File containing additional evidence. */
+    fun additionalEvidenceFileId(): Optional<String> =
+        Optional.ofNullable(additionalEvidenceFileId.getNullable("additional_evidence_file_id"))
 
     /** Terms of authorization. */
     fun authorizationTerms(): String = authorizationTerms.getRequired("authorization_terms")
@@ -164,6 +171,11 @@ private constructor(
 
     /** The Proof of Authorization Request Submission identifier. */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+
+    /** File containing additional evidence. */
+    @JsonProperty("additional_evidence_file_id")
+    @ExcludeMissing
+    fun _additionalEvidenceFileId(): JsonField<String> = additionalEvidenceFileId
 
     /** Terms of authorization. */
     @JsonProperty("authorization_terms")
@@ -263,6 +275,7 @@ private constructor(
         }
 
         id()
+        additionalEvidenceFileId()
         authorizationTerms()
         authorizedAt()
         authorizerCompany()
@@ -293,6 +306,7 @@ private constructor(
          * The following fields are required:
          * ```java
          * .id()
+         * .additionalEvidenceFileId()
          * .authorizationTerms()
          * .authorizedAt()
          * .authorizerCompany()
@@ -318,6 +332,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var id: JsonField<String>? = null
+        private var additionalEvidenceFileId: JsonField<String>? = null
         private var authorizationTerms: JsonField<String>? = null
         private var authorizedAt: JsonField<OffsetDateTime>? = null
         private var authorizerCompany: JsonField<String>? = null
@@ -341,6 +356,8 @@ private constructor(
             proofOfAuthorizationRequestSubmission: ProofOfAuthorizationRequestSubmission
         ) = apply {
             id = proofOfAuthorizationRequestSubmission.id
+            additionalEvidenceFileId =
+                proofOfAuthorizationRequestSubmission.additionalEvidenceFileId
             authorizationTerms = proofOfAuthorizationRequestSubmission.authorizationTerms
             authorizedAt = proofOfAuthorizationRequestSubmission.authorizedAt
             authorizerCompany = proofOfAuthorizationRequestSubmission.authorizerCompany
@@ -371,6 +388,19 @@ private constructor(
 
         /** The Proof of Authorization Request Submission identifier. */
         fun id(id: JsonField<String>) = apply { this.id = id }
+
+        /** File containing additional evidence. */
+        fun additionalEvidenceFileId(additionalEvidenceFileId: String?) =
+            additionalEvidenceFileId(JsonField.ofNullable(additionalEvidenceFileId))
+
+        /** File containing additional evidence. */
+        fun additionalEvidenceFileId(additionalEvidenceFileId: Optional<String>) =
+            additionalEvidenceFileId(additionalEvidenceFileId.getOrNull())
+
+        /** File containing additional evidence. */
+        fun additionalEvidenceFileId(additionalEvidenceFileId: JsonField<String>) = apply {
+            this.additionalEvidenceFileId = additionalEvidenceFileId
+        }
 
         /** Terms of authorization. */
         fun authorizationTerms(authorizationTerms: String) =
@@ -640,6 +670,7 @@ private constructor(
         fun build(): ProofOfAuthorizationRequestSubmission =
             ProofOfAuthorizationRequestSubmission(
                 checkRequired("id", id),
+                checkRequired("additionalEvidenceFileId", additionalEvidenceFileId),
                 checkRequired("authorizationTerms", authorizationTerms),
                 checkRequired("authorizedAt", authorizedAt),
                 checkRequired("authorizerCompany", authorizerCompany),
@@ -916,15 +947,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is ProofOfAuthorizationRequestSubmission && id == other.id && authorizationTerms == other.authorizationTerms && authorizedAt == other.authorizedAt && authorizerCompany == other.authorizerCompany && authorizerEmail == other.authorizerEmail && authorizerIpAddress == other.authorizerIpAddress && authorizerName == other.authorizerName && createdAt == other.createdAt && customerHasBeenOffboarded == other.customerHasBeenOffboarded && idempotencyKey == other.idempotencyKey && proofOfAuthorizationRequestId == other.proofOfAuthorizationRequestId && status == other.status && type == other.type && updatedAt == other.updatedAt && validatedAccountOwnershipViaCredential == other.validatedAccountOwnershipViaCredential && validatedAccountOwnershipWithAccountStatement == other.validatedAccountOwnershipWithAccountStatement && validatedAccountOwnershipWithMicrodeposit == other.validatedAccountOwnershipWithMicrodeposit && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is ProofOfAuthorizationRequestSubmission && id == other.id && additionalEvidenceFileId == other.additionalEvidenceFileId && authorizationTerms == other.authorizationTerms && authorizedAt == other.authorizedAt && authorizerCompany == other.authorizerCompany && authorizerEmail == other.authorizerEmail && authorizerIpAddress == other.authorizerIpAddress && authorizerName == other.authorizerName && createdAt == other.createdAt && customerHasBeenOffboarded == other.customerHasBeenOffboarded && idempotencyKey == other.idempotencyKey && proofOfAuthorizationRequestId == other.proofOfAuthorizationRequestId && status == other.status && type == other.type && updatedAt == other.updatedAt && validatedAccountOwnershipViaCredential == other.validatedAccountOwnershipViaCredential && validatedAccountOwnershipWithAccountStatement == other.validatedAccountOwnershipWithAccountStatement && validatedAccountOwnershipWithMicrodeposit == other.validatedAccountOwnershipWithMicrodeposit && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, authorizationTerms, authorizedAt, authorizerCompany, authorizerEmail, authorizerIpAddress, authorizerName, createdAt, customerHasBeenOffboarded, idempotencyKey, proofOfAuthorizationRequestId, status, type, updatedAt, validatedAccountOwnershipViaCredential, validatedAccountOwnershipWithAccountStatement, validatedAccountOwnershipWithMicrodeposit, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, additionalEvidenceFileId, authorizationTerms, authorizedAt, authorizerCompany, authorizerEmail, authorizerIpAddress, authorizerName, createdAt, customerHasBeenOffboarded, idempotencyKey, proofOfAuthorizationRequestId, status, type, updatedAt, validatedAccountOwnershipViaCredential, validatedAccountOwnershipWithAccountStatement, validatedAccountOwnershipWithMicrodeposit, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "ProofOfAuthorizationRequestSubmission{id=$id, authorizationTerms=$authorizationTerms, authorizedAt=$authorizedAt, authorizerCompany=$authorizerCompany, authorizerEmail=$authorizerEmail, authorizerIpAddress=$authorizerIpAddress, authorizerName=$authorizerName, createdAt=$createdAt, customerHasBeenOffboarded=$customerHasBeenOffboarded, idempotencyKey=$idempotencyKey, proofOfAuthorizationRequestId=$proofOfAuthorizationRequestId, status=$status, type=$type, updatedAt=$updatedAt, validatedAccountOwnershipViaCredential=$validatedAccountOwnershipViaCredential, validatedAccountOwnershipWithAccountStatement=$validatedAccountOwnershipWithAccountStatement, validatedAccountOwnershipWithMicrodeposit=$validatedAccountOwnershipWithMicrodeposit, additionalProperties=$additionalProperties}"
+        "ProofOfAuthorizationRequestSubmission{id=$id, additionalEvidenceFileId=$additionalEvidenceFileId, authorizationTerms=$authorizationTerms, authorizedAt=$authorizedAt, authorizerCompany=$authorizerCompany, authorizerEmail=$authorizerEmail, authorizerIpAddress=$authorizerIpAddress, authorizerName=$authorizerName, createdAt=$createdAt, customerHasBeenOffboarded=$customerHasBeenOffboarded, idempotencyKey=$idempotencyKey, proofOfAuthorizationRequestId=$proofOfAuthorizationRequestId, status=$status, type=$type, updatedAt=$updatedAt, validatedAccountOwnershipViaCredential=$validatedAccountOwnershipViaCredential, validatedAccountOwnershipWithAccountStatement=$validatedAccountOwnershipWithAccountStatement, validatedAccountOwnershipWithMicrodeposit=$validatedAccountOwnershipWithMicrodeposit, additionalProperties=$additionalProperties}"
 }

@@ -59,6 +59,9 @@ private constructor(
     fun validatedAccountOwnershipWithMicrodeposit(): Boolean =
         body.validatedAccountOwnershipWithMicrodeposit()
 
+    /** The File containing the check's front image. */
+    fun additionalEvidenceFileId(): Optional<String> = body.additionalEvidenceFileId()
+
     /** Company of the authorizer. */
     fun authorizerCompany(): Optional<String> = body.authorizerCompany()
 
@@ -94,6 +97,9 @@ private constructor(
     /** Whether the account ownership was validated with a microdeposit. */
     fun _validatedAccountOwnershipWithMicrodeposit(): JsonField<Boolean> =
         body._validatedAccountOwnershipWithMicrodeposit()
+
+    /** The File containing the check's front image. */
+    fun _additionalEvidenceFileId(): JsonField<String> = body._additionalEvidenceFileId()
 
     /** Company of the authorizer. */
     fun _authorizerCompany(): JsonField<String> = body._authorizerCompany()
@@ -146,6 +152,9 @@ private constructor(
         @ExcludeMissing
         private val validatedAccountOwnershipWithMicrodeposit: JsonField<Boolean> =
             JsonMissing.of(),
+        @JsonProperty("additional_evidence_file_id")
+        @ExcludeMissing
+        private val additionalEvidenceFileId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("authorizer_company")
         @ExcludeMissing
         private val authorizerCompany: JsonField<String> = JsonMissing.of(),
@@ -193,6 +202,10 @@ private constructor(
             validatedAccountOwnershipWithMicrodeposit.getRequired(
                 "validated_account_ownership_with_microdeposit"
             )
+
+        /** The File containing the check's front image. */
+        fun additionalEvidenceFileId(): Optional<String> =
+            Optional.ofNullable(additionalEvidenceFileId.getNullable("additional_evidence_file_id"))
 
         /** Company of the authorizer. */
         fun authorizerCompany(): Optional<String> =
@@ -250,6 +263,11 @@ private constructor(
         fun _validatedAccountOwnershipWithMicrodeposit(): JsonField<Boolean> =
             validatedAccountOwnershipWithMicrodeposit
 
+        /** The File containing the check's front image. */
+        @JsonProperty("additional_evidence_file_id")
+        @ExcludeMissing
+        fun _additionalEvidenceFileId(): JsonField<String> = additionalEvidenceFileId
+
         /** Company of the authorizer. */
         @JsonProperty("authorizer_company")
         @ExcludeMissing
@@ -280,6 +298,7 @@ private constructor(
             validatedAccountOwnershipViaCredential()
             validatedAccountOwnershipWithAccountStatement()
             validatedAccountOwnershipWithMicrodeposit()
+            additionalEvidenceFileId()
             authorizerCompany()
             authorizerIpAddress()
             validated = true
@@ -320,6 +339,7 @@ private constructor(
             private var validatedAccountOwnershipViaCredential: JsonField<Boolean>? = null
             private var validatedAccountOwnershipWithAccountStatement: JsonField<Boolean>? = null
             private var validatedAccountOwnershipWithMicrodeposit: JsonField<Boolean>? = null
+            private var additionalEvidenceFileId: JsonField<String> = JsonMissing.of()
             private var authorizerCompany: JsonField<String> = JsonMissing.of()
             private var authorizerIpAddress: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -337,6 +357,7 @@ private constructor(
                     body.validatedAccountOwnershipWithAccountStatement
                 validatedAccountOwnershipWithMicrodeposit =
                     body.validatedAccountOwnershipWithMicrodeposit
+                additionalEvidenceFileId = body.additionalEvidenceFileId
                 authorizerCompany = body.authorizerCompany
                 authorizerIpAddress = body.authorizerIpAddress
                 additionalProperties = body.additionalProperties.toMutableMap()
@@ -444,6 +465,15 @@ private constructor(
                     validatedAccountOwnershipWithMicrodeposit
             }
 
+            /** The File containing the check's front image. */
+            fun additionalEvidenceFileId(additionalEvidenceFileId: String) =
+                additionalEvidenceFileId(JsonField.of(additionalEvidenceFileId))
+
+            /** The File containing the check's front image. */
+            fun additionalEvidenceFileId(additionalEvidenceFileId: JsonField<String>) = apply {
+                this.additionalEvidenceFileId = additionalEvidenceFileId
+            }
+
             /** Company of the authorizer. */
             fun authorizerCompany(authorizerCompany: String) =
                 authorizerCompany(JsonField.of(authorizerCompany))
@@ -501,6 +531,7 @@ private constructor(
                         "validatedAccountOwnershipWithMicrodeposit",
                         validatedAccountOwnershipWithMicrodeposit,
                     ),
+                    additionalEvidenceFileId,
                     authorizerCompany,
                     authorizerIpAddress,
                     additionalProperties.toImmutable(),
@@ -512,17 +543,17 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Body && authorizationTerms == other.authorizationTerms && authorizedAt == other.authorizedAt && authorizerEmail == other.authorizerEmail && authorizerName == other.authorizerName && customerHasBeenOffboarded == other.customerHasBeenOffboarded && proofOfAuthorizationRequestId == other.proofOfAuthorizationRequestId && validatedAccountOwnershipViaCredential == other.validatedAccountOwnershipViaCredential && validatedAccountOwnershipWithAccountStatement == other.validatedAccountOwnershipWithAccountStatement && validatedAccountOwnershipWithMicrodeposit == other.validatedAccountOwnershipWithMicrodeposit && authorizerCompany == other.authorizerCompany && authorizerIpAddress == other.authorizerIpAddress && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && authorizationTerms == other.authorizationTerms && authorizedAt == other.authorizedAt && authorizerEmail == other.authorizerEmail && authorizerName == other.authorizerName && customerHasBeenOffboarded == other.customerHasBeenOffboarded && proofOfAuthorizationRequestId == other.proofOfAuthorizationRequestId && validatedAccountOwnershipViaCredential == other.validatedAccountOwnershipViaCredential && validatedAccountOwnershipWithAccountStatement == other.validatedAccountOwnershipWithAccountStatement && validatedAccountOwnershipWithMicrodeposit == other.validatedAccountOwnershipWithMicrodeposit && additionalEvidenceFileId == other.additionalEvidenceFileId && authorizerCompany == other.authorizerCompany && authorizerIpAddress == other.authorizerIpAddress && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(authorizationTerms, authorizedAt, authorizerEmail, authorizerName, customerHasBeenOffboarded, proofOfAuthorizationRequestId, validatedAccountOwnershipViaCredential, validatedAccountOwnershipWithAccountStatement, validatedAccountOwnershipWithMicrodeposit, authorizerCompany, authorizerIpAddress, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(authorizationTerms, authorizedAt, authorizerEmail, authorizerName, customerHasBeenOffboarded, proofOfAuthorizationRequestId, validatedAccountOwnershipViaCredential, validatedAccountOwnershipWithAccountStatement, validatedAccountOwnershipWithMicrodeposit, additionalEvidenceFileId, authorizerCompany, authorizerIpAddress, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{authorizationTerms=$authorizationTerms, authorizedAt=$authorizedAt, authorizerEmail=$authorizerEmail, authorizerName=$authorizerName, customerHasBeenOffboarded=$customerHasBeenOffboarded, proofOfAuthorizationRequestId=$proofOfAuthorizationRequestId, validatedAccountOwnershipViaCredential=$validatedAccountOwnershipViaCredential, validatedAccountOwnershipWithAccountStatement=$validatedAccountOwnershipWithAccountStatement, validatedAccountOwnershipWithMicrodeposit=$validatedAccountOwnershipWithMicrodeposit, authorizerCompany=$authorizerCompany, authorizerIpAddress=$authorizerIpAddress, additionalProperties=$additionalProperties}"
+            "Body{authorizationTerms=$authorizationTerms, authorizedAt=$authorizedAt, authorizerEmail=$authorizerEmail, authorizerName=$authorizerName, customerHasBeenOffboarded=$customerHasBeenOffboarded, proofOfAuthorizationRequestId=$proofOfAuthorizationRequestId, validatedAccountOwnershipViaCredential=$validatedAccountOwnershipViaCredential, validatedAccountOwnershipWithAccountStatement=$validatedAccountOwnershipWithAccountStatement, validatedAccountOwnershipWithMicrodeposit=$validatedAccountOwnershipWithMicrodeposit, additionalEvidenceFileId=$additionalEvidenceFileId, authorizerCompany=$authorizerCompany, authorizerIpAddress=$authorizerIpAddress, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -674,6 +705,16 @@ private constructor(
             body.validatedAccountOwnershipWithMicrodeposit(
                 validatedAccountOwnershipWithMicrodeposit
             )
+        }
+
+        /** The File containing the check's front image. */
+        fun additionalEvidenceFileId(additionalEvidenceFileId: String) = apply {
+            body.additionalEvidenceFileId(additionalEvidenceFileId)
+        }
+
+        /** The File containing the check's front image. */
+        fun additionalEvidenceFileId(additionalEvidenceFileId: JsonField<String>) = apply {
+            body.additionalEvidenceFileId(additionalEvidenceFileId)
         }
 
         /** Company of the authorizer. */
