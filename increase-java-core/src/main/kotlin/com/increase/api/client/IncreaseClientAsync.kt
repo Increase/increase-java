@@ -26,6 +26,7 @@ import com.increase.api.services.async.EventServiceAsync
 import com.increase.api.services.async.EventSubscriptionServiceAsync
 import com.increase.api.services.async.ExportServiceAsync
 import com.increase.api.services.async.ExternalAccountServiceAsync
+import com.increase.api.services.async.FileLinkServiceAsync
 import com.increase.api.services.async.FileServiceAsync
 import com.increase.api.services.async.GroupServiceAsync
 import com.increase.api.services.async.InboundAchTransferServiceAsync
@@ -159,6 +160,8 @@ interface IncreaseClientAsync {
 
     fun files(): FileServiceAsync
 
+    fun fileLinks(): FileLinkServiceAsync
+
     fun documents(): DocumentServiceAsync
 
     fun exports(): ExportServiceAsync
@@ -284,6 +287,8 @@ interface IncreaseClientAsync {
         fun accountStatements(): AccountStatementServiceAsync.WithRawResponse
 
         fun files(): FileServiceAsync.WithRawResponse
+
+        fun fileLinks(): FileLinkServiceAsync.WithRawResponse
 
         fun documents(): DocumentServiceAsync.WithRawResponse
 
