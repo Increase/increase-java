@@ -5,8 +5,6 @@ package com.increase.api.services.blocking
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.models.filelinks.FileLinkCreateParams
-import com.increase.api.models.filelinks.FileLinkListParams
-import com.increase.api.models.filelinks.FileLinkRetrieveParams
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -32,38 +30,5 @@ class FileLinkServiceTest {
             )
 
         fileLink.validate()
-    }
-
-    @Test
-    fun retrieve() {
-        val client =
-            IncreaseOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
-        val fileLinkService = client.fileLinks()
-
-        val fileLink =
-            fileLinkService.retrieve(
-                FileLinkRetrieveParams.builder()
-                    .fileLinkId("file_link_roapsuicj7kp1lzyus04")
-                    .build()
-            )
-
-        fileLink.validate()
-    }
-
-    @Test
-    fun list() {
-        val client =
-            IncreaseOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
-        val fileLinkService = client.fileLinks()
-
-        val page = fileLinkService.list(FileLinkListParams.builder().fileId("file_id").build())
-
-        page.response().validate()
     }
 }
