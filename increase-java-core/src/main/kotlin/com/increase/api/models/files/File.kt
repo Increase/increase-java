@@ -94,7 +94,8 @@ private constructor(
 
     /**
      * A URL from where the File can be downloaded at this point in time. The location of this URL
-     * may change over time.
+     * may change over time. This URL requires authentication with your Increase API key. If you
+     * need a URL that does not require authentication, create a File Link instead.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -352,7 +353,8 @@ private constructor(
 
         /**
          * A URL from where the File can be downloaded at this point in time. The location of this
-         * URL may change over time.
+         * URL may change over time. This URL requires authentication with your Increase API key. If
+         * you need a URL that does not require authentication, create a File Link instead.
          */
         fun downloadUrl(downloadUrl: String?) = downloadUrl(JsonField.ofNullable(downloadUrl))
 
