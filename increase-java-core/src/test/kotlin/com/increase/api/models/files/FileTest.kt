@@ -16,7 +16,6 @@ class FileTest {
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .description("2022-05 statement for checking account")
                 .direction(File.Direction.TO_INCREASE)
-                .downloadUrl("https://api.increase.com/files/file_makxrc67oh9l6sg7w9yc/download")
                 .filename("statement.pdf")
                 .idempotencyKey(null)
                 .mimeType("application/pdf")
@@ -28,8 +27,6 @@ class FileTest {
         assertThat(file.createdAt()).isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
         assertThat(file.description()).contains("2022-05 statement for checking account")
         assertThat(file.direction()).isEqualTo(File.Direction.TO_INCREASE)
-        assertThat(file.downloadUrl())
-            .contains("https://api.increase.com/files/file_makxrc67oh9l6sg7w9yc/download")
         assertThat(file.filename()).contains("statement.pdf")
         assertThat(file.idempotencyKey()).isEmpty
         assertThat(file.mimeType()).isEqualTo("application/pdf")
