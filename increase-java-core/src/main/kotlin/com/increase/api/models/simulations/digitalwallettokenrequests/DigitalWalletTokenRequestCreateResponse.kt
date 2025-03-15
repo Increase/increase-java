@@ -37,6 +37,9 @@ private constructor(
 
     /**
      * If the simulated tokenization attempt was declined, this field contains details as to why.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun declineReason(): Optional<DeclineReason> =
         Optional.ofNullable(declineReason.getNullable("decline_reason"))
@@ -44,6 +47,9 @@ private constructor(
     /**
      * If the simulated tokenization attempt was accepted, this field contains the id of the Digital
      * Wallet Token that was created.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun digitalWalletTokenId(): Optional<String> =
         Optional.ofNullable(digitalWalletTokenId.getNullable("digital_wallet_token_id"))
@@ -51,27 +57,35 @@ private constructor(
     /**
      * A constant representing the object's type. For this resource it will always be
      * `inbound_digital_wallet_token_request_simulation_result`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun type(): Type = type.getRequired("type")
 
     /**
-     * If the simulated tokenization attempt was declined, this field contains details as to why.
+     * Returns the raw JSON value of [declineReason].
+     *
+     * Unlike [declineReason], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("decline_reason")
     @ExcludeMissing
     fun _declineReason(): JsonField<DeclineReason> = declineReason
 
     /**
-     * If the simulated tokenization attempt was accepted, this field contains the id of the Digital
-     * Wallet Token that was created.
+     * Returns the raw JSON value of [digitalWalletTokenId].
+     *
+     * Unlike [digitalWalletTokenId], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
     @JsonProperty("digital_wallet_token_id")
     @ExcludeMissing
     fun _digitalWalletTokenId(): JsonField<String> = digitalWalletTokenId
 
     /**
-     * A constant representing the object's type. For this resource it will always be
-     * `inbound_digital_wallet_token_request_simulation_result`.
+     * Returns the raw JSON value of [type].
+     *
+     * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
@@ -136,16 +150,16 @@ private constructor(
         fun declineReason(declineReason: DeclineReason?) =
             declineReason(JsonField.ofNullable(declineReason))
 
-        /**
-         * If the simulated tokenization attempt was declined, this field contains details as to
-         * why.
-         */
+        /** Alias for calling [Builder.declineReason] with `declineReason.orElse(null)`. */
         fun declineReason(declineReason: Optional<DeclineReason>) =
             declineReason(declineReason.getOrNull())
 
         /**
-         * If the simulated tokenization attempt was declined, this field contains details as to
-         * why.
+         * Sets [Builder.declineReason] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.declineReason] with a well-typed [DeclineReason] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun declineReason(declineReason: JsonField<DeclineReason>) = apply {
             this.declineReason = declineReason
@@ -159,15 +173,18 @@ private constructor(
             digitalWalletTokenId(JsonField.ofNullable(digitalWalletTokenId))
 
         /**
-         * If the simulated tokenization attempt was accepted, this field contains the id of the
-         * Digital Wallet Token that was created.
+         * Alias for calling [Builder.digitalWalletTokenId] with
+         * `digitalWalletTokenId.orElse(null)`.
          */
         fun digitalWalletTokenId(digitalWalletTokenId: Optional<String>) =
             digitalWalletTokenId(digitalWalletTokenId.getOrNull())
 
         /**
-         * If the simulated tokenization attempt was accepted, this field contains the id of the
-         * Digital Wallet Token that was created.
+         * Sets [Builder.digitalWalletTokenId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.digitalWalletTokenId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun digitalWalletTokenId(digitalWalletTokenId: JsonField<String>) = apply {
             this.digitalWalletTokenId = digitalWalletTokenId
@@ -180,8 +197,10 @@ private constructor(
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
-         * A constant representing the object's type. For this resource it will always be
-         * `inbound_digital_wallet_token_request_simulation_result`.
+         * Sets [Builder.type] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.type] with a well-typed [Type] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun type(type: JsonField<Type>) = apply { this.type = type }
 

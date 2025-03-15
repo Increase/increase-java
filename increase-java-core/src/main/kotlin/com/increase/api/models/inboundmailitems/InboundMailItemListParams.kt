@@ -87,12 +87,13 @@ private constructor(
 
         fun createdAt(createdAt: CreatedAt?) = apply { this.createdAt = createdAt }
 
+        /** Alias for calling [Builder.createdAt] with `createdAt.orElse(null)`. */
         fun createdAt(createdAt: Optional<CreatedAt>) = createdAt(createdAt.getOrNull())
 
         /** Return the page of entries after this one. */
         fun cursor(cursor: String?) = apply { this.cursor = cursor }
 
-        /** Return the page of entries after this one. */
+        /** Alias for calling [Builder.cursor] with `cursor.orElse(null)`. */
         fun cursor(cursor: Optional<String>) = cursor(cursor.getOrNull())
 
         /**
@@ -101,19 +102,19 @@ private constructor(
         fun limit(limit: Long?) = apply { this.limit = limit }
 
         /**
-         * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
+         * Alias for [Builder.limit].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
          */
         fun limit(limit: Long) = limit(limit as Long?)
 
-        /**
-         * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
-         */
+        /** Alias for calling [Builder.limit] with `limit.orElse(null)`. */
         fun limit(limit: Optional<Long>) = limit(limit.getOrNull())
 
         /** Filter Inbound Mail Items to ones sent to the provided Lockbox. */
         fun lockboxId(lockboxId: String?) = apply { this.lockboxId = lockboxId }
 
-        /** Filter Inbound Mail Items to ones sent to the provided Lockbox. */
+        /** Alias for calling [Builder.lockboxId] with `lockboxId.orElse(null)`. */
         fun lockboxId(lockboxId: Optional<String>) = lockboxId(lockboxId.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -307,10 +308,7 @@ private constructor(
              */
             fun after(after: OffsetDateTime?) = apply { this.after = after }
 
-            /**
-             * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-             * timestamp.
-             */
+            /** Alias for calling [Builder.after] with `after.orElse(null)`. */
             fun after(after: Optional<OffsetDateTime>) = after(after.getOrNull())
 
             /**
@@ -319,10 +317,7 @@ private constructor(
              */
             fun before(before: OffsetDateTime?) = apply { this.before = before }
 
-            /**
-             * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-             * timestamp.
-             */
+            /** Alias for calling [Builder.before] with `before.orElse(null)`. */
             fun before(before: Optional<OffsetDateTime>) = before(before.getOrNull())
 
             /**
@@ -331,10 +326,7 @@ private constructor(
              */
             fun onOrAfter(onOrAfter: OffsetDateTime?) = apply { this.onOrAfter = onOrAfter }
 
-            /**
-             * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-             * timestamp.
-             */
+            /** Alias for calling [Builder.onOrAfter] with `onOrAfter.orElse(null)`. */
             fun onOrAfter(onOrAfter: Optional<OffsetDateTime>) = onOrAfter(onOrAfter.getOrNull())
 
             /**
@@ -343,10 +335,7 @@ private constructor(
              */
             fun onOrBefore(onOrBefore: OffsetDateTime?) = apply { this.onOrBefore = onOrBefore }
 
-            /**
-             * Return results on or before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-             * timestamp.
-             */
+            /** Alias for calling [Builder.onOrBefore] with `onOrBefore.orElse(null)`. */
             fun onOrBefore(onOrBefore: Optional<OffsetDateTime>) =
                 onOrBefore(onOrBefore.getOrNull())
 

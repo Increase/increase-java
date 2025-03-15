@@ -30,17 +30,35 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** The identifier for the account that will send the transfer. */
+    /**
+     * The identifier for the account that will send the transfer.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun accountId(): String = body.accountId()
 
-    /** The transfer amount in USD cents. */
+    /**
+     * The transfer amount in USD cents.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun amount(): Long = body.amount()
 
-    /** Whether Increase will print and mail the check or if you will do it yourself. */
+    /**
+     * Whether Increase will print and mail the check or if you will do it yourself.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun fulfillmentMethod(): FulfillmentMethod = body.fulfillmentMethod()
 
     /**
      * The identifier of the Account Number from which to send the transfer and print on the check.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun sourceAccountNumberId(): String = body.sourceAccountNumberId()
 
@@ -48,47 +66,78 @@ private constructor(
      * Details relating to the physical check that Increase will print and mail. This is required if
      * `fulfillment_method` is equal to `physical_check`. It must not be included if any other
      * `fulfillment_method` is provided.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun physicalCheck(): Optional<PhysicalCheck> = body.physicalCheck()
 
-    /** Whether the transfer requires explicit approval via the dashboard or API. */
+    /**
+     * Whether the transfer requires explicit approval via the dashboard or API.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun requireApproval(): Optional<Boolean> = body.requireApproval()
 
     /**
      * Details relating to the custom fulfillment you will perform. This is required if
      * `fulfillment_method` is equal to `third_party`. It must not be included if any other
      * `fulfillment_method` is provided.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun thirdParty(): Optional<ThirdParty> = body.thirdParty()
 
-    /** The identifier for the account that will send the transfer. */
+    /**
+     * Returns the raw JSON value of [accountId].
+     *
+     * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _accountId(): JsonField<String> = body._accountId()
 
-    /** The transfer amount in USD cents. */
+    /**
+     * Returns the raw JSON value of [amount].
+     *
+     * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _amount(): JsonField<Long> = body._amount()
 
-    /** Whether Increase will print and mail the check or if you will do it yourself. */
+    /**
+     * Returns the raw JSON value of [fulfillmentMethod].
+     *
+     * Unlike [fulfillmentMethod], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     fun _fulfillmentMethod(): JsonField<FulfillmentMethod> = body._fulfillmentMethod()
 
     /**
-     * The identifier of the Account Number from which to send the transfer and print on the check.
+     * Returns the raw JSON value of [sourceAccountNumberId].
+     *
+     * Unlike [sourceAccountNumberId], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
     fun _sourceAccountNumberId(): JsonField<String> = body._sourceAccountNumberId()
 
     /**
-     * Details relating to the physical check that Increase will print and mail. This is required if
-     * `fulfillment_method` is equal to `physical_check`. It must not be included if any other
-     * `fulfillment_method` is provided.
+     * Returns the raw JSON value of [physicalCheck].
+     *
+     * Unlike [physicalCheck], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _physicalCheck(): JsonField<PhysicalCheck> = body._physicalCheck()
 
-    /** Whether the transfer requires explicit approval via the dashboard or API. */
+    /**
+     * Returns the raw JSON value of [requireApproval].
+     *
+     * Unlike [requireApproval], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _requireApproval(): JsonField<Boolean> = body._requireApproval()
 
     /**
-     * Details relating to the custom fulfillment you will perform. This is required if
-     * `fulfillment_method` is equal to `third_party`. It must not be included if any other
-     * `fulfillment_method` is provided.
+     * Returns the raw JSON value of [thirdParty].
+     *
+     * Unlike [thirdParty], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _thirdParty(): JsonField<ThirdParty> = body._thirdParty()
 
@@ -133,19 +182,37 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The identifier for the account that will send the transfer. */
+        /**
+         * The identifier for the account that will send the transfer.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun accountId(): String = accountId.getRequired("account_id")
 
-        /** The transfer amount in USD cents. */
+        /**
+         * The transfer amount in USD cents.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun amount(): Long = amount.getRequired("amount")
 
-        /** Whether Increase will print and mail the check or if you will do it yourself. */
+        /**
+         * Whether Increase will print and mail the check or if you will do it yourself.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun fulfillmentMethod(): FulfillmentMethod =
             fulfillmentMethod.getRequired("fulfillment_method")
 
         /**
          * The identifier of the Account Number from which to send the transfer and print on the
          * check.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun sourceAccountNumberId(): String =
             sourceAccountNumberId.getRequired("source_account_number_id")
@@ -154,11 +221,19 @@ private constructor(
          * Details relating to the physical check that Increase will print and mail. This is
          * required if `fulfillment_method` is equal to `physical_check`. It must not be included if
          * any other `fulfillment_method` is provided.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun physicalCheck(): Optional<PhysicalCheck> =
             Optional.ofNullable(physicalCheck.getNullable("physical_check"))
 
-        /** Whether the transfer requires explicit approval via the dashboard or API. */
+        /**
+         * Whether the transfer requires explicit approval via the dashboard or API.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun requireApproval(): Optional<Boolean> =
             Optional.ofNullable(requireApproval.getNullable("require_approval"))
 
@@ -166,47 +241,71 @@ private constructor(
          * Details relating to the custom fulfillment you will perform. This is required if
          * `fulfillment_method` is equal to `third_party`. It must not be included if any other
          * `fulfillment_method` is provided.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun thirdParty(): Optional<ThirdParty> =
             Optional.ofNullable(thirdParty.getNullable("third_party"))
 
-        /** The identifier for the account that will send the transfer. */
+        /**
+         * Returns the raw JSON value of [accountId].
+         *
+         * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
 
-        /** The transfer amount in USD cents. */
+        /**
+         * Returns the raw JSON value of [amount].
+         *
+         * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
-        /** Whether Increase will print and mail the check or if you will do it yourself. */
+        /**
+         * Returns the raw JSON value of [fulfillmentMethod].
+         *
+         * Unlike [fulfillmentMethod], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("fulfillment_method")
         @ExcludeMissing
         fun _fulfillmentMethod(): JsonField<FulfillmentMethod> = fulfillmentMethod
 
         /**
-         * The identifier of the Account Number from which to send the transfer and print on the
-         * check.
+         * Returns the raw JSON value of [sourceAccountNumberId].
+         *
+         * Unlike [sourceAccountNumberId], this method doesn't throw if the JSON field has an
+         * unexpected type.
          */
         @JsonProperty("source_account_number_id")
         @ExcludeMissing
         fun _sourceAccountNumberId(): JsonField<String> = sourceAccountNumberId
 
         /**
-         * Details relating to the physical check that Increase will print and mail. This is
-         * required if `fulfillment_method` is equal to `physical_check`. It must not be included if
-         * any other `fulfillment_method` is provided.
+         * Returns the raw JSON value of [physicalCheck].
+         *
+         * Unlike [physicalCheck], this method doesn't throw if the JSON field has an unexpected
+         * type.
          */
         @JsonProperty("physical_check")
         @ExcludeMissing
         fun _physicalCheck(): JsonField<PhysicalCheck> = physicalCheck
 
-        /** Whether the transfer requires explicit approval via the dashboard or API. */
+        /**
+         * Returns the raw JSON value of [requireApproval].
+         *
+         * Unlike [requireApproval], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("require_approval")
         @ExcludeMissing
         fun _requireApproval(): JsonField<Boolean> = requireApproval
 
         /**
-         * Details relating to the custom fulfillment you will perform. This is required if
-         * `fulfillment_method` is equal to `third_party`. It must not be included if any other
-         * `fulfillment_method` is provided.
+         * Returns the raw JSON value of [thirdParty].
+         *
+         * Unlike [thirdParty], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("third_party")
         @ExcludeMissing
@@ -278,20 +377,38 @@ private constructor(
             /** The identifier for the account that will send the transfer. */
             fun accountId(accountId: String) = accountId(JsonField.of(accountId))
 
-            /** The identifier for the account that will send the transfer. */
+            /**
+             * Sets [Builder.accountId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.accountId] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
             /** The transfer amount in USD cents. */
             fun amount(amount: Long) = amount(JsonField.of(amount))
 
-            /** The transfer amount in USD cents. */
+            /**
+             * Sets [Builder.amount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
             fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
             /** Whether Increase will print and mail the check or if you will do it yourself. */
             fun fulfillmentMethod(fulfillmentMethod: FulfillmentMethod) =
                 fulfillmentMethod(JsonField.of(fulfillmentMethod))
 
-            /** Whether Increase will print and mail the check or if you will do it yourself. */
+            /**
+             * Sets [Builder.fulfillmentMethod] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.fulfillmentMethod] with a well-typed
+             * [FulfillmentMethod] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
             fun fulfillmentMethod(fulfillmentMethod: JsonField<FulfillmentMethod>) = apply {
                 this.fulfillmentMethod = fulfillmentMethod
             }
@@ -304,8 +421,11 @@ private constructor(
                 sourceAccountNumberId(JsonField.of(sourceAccountNumberId))
 
             /**
-             * The identifier of the Account Number from which to send the transfer and print on the
-             * check.
+             * Sets [Builder.sourceAccountNumberId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.sourceAccountNumberId] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
              */
             fun sourceAccountNumberId(sourceAccountNumberId: JsonField<String>) = apply {
                 this.sourceAccountNumberId = sourceAccountNumberId
@@ -320,9 +440,11 @@ private constructor(
                 physicalCheck(JsonField.of(physicalCheck))
 
             /**
-             * Details relating to the physical check that Increase will print and mail. This is
-             * required if `fulfillment_method` is equal to `physical_check`. It must not be
-             * included if any other `fulfillment_method` is provided.
+             * Sets [Builder.physicalCheck] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.physicalCheck] with a well-typed [PhysicalCheck]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
              */
             fun physicalCheck(physicalCheck: JsonField<PhysicalCheck>) = apply {
                 this.physicalCheck = physicalCheck
@@ -332,7 +454,13 @@ private constructor(
             fun requireApproval(requireApproval: Boolean) =
                 requireApproval(JsonField.of(requireApproval))
 
-            /** Whether the transfer requires explicit approval via the dashboard or API. */
+            /**
+             * Sets [Builder.requireApproval] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.requireApproval] with a well-typed [Boolean] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun requireApproval(requireApproval: JsonField<Boolean>) = apply {
                 this.requireApproval = requireApproval
             }
@@ -345,9 +473,11 @@ private constructor(
             fun thirdParty(thirdParty: ThirdParty) = thirdParty(JsonField.of(thirdParty))
 
             /**
-             * Details relating to the custom fulfillment you will perform. This is required if
-             * `fulfillment_method` is equal to `third_party`. It must not be included if any other
-             * `fulfillment_method` is provided.
+             * Sets [Builder.thirdParty] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.thirdParty] with a well-typed [ThirdParty] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun thirdParty(thirdParty: JsonField<ThirdParty>) = apply {
                 this.thirdParty = thirdParty
@@ -439,13 +569,24 @@ private constructor(
         /** The identifier for the account that will send the transfer. */
         fun accountId(accountId: String) = apply { body.accountId(accountId) }
 
-        /** The identifier for the account that will send the transfer. */
+        /**
+         * Sets [Builder.accountId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.accountId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun accountId(accountId: JsonField<String>) = apply { body.accountId(accountId) }
 
         /** The transfer amount in USD cents. */
         fun amount(amount: Long) = apply { body.amount(amount) }
 
-        /** The transfer amount in USD cents. */
+        /**
+         * Sets [Builder.amount] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun amount(amount: JsonField<Long>) = apply { body.amount(amount) }
 
         /** Whether Increase will print and mail the check or if you will do it yourself. */
@@ -453,7 +594,13 @@ private constructor(
             body.fulfillmentMethod(fulfillmentMethod)
         }
 
-        /** Whether Increase will print and mail the check or if you will do it yourself. */
+        /**
+         * Sets [Builder.fulfillmentMethod] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.fulfillmentMethod] with a well-typed [FulfillmentMethod]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
         fun fulfillmentMethod(fulfillmentMethod: JsonField<FulfillmentMethod>) = apply {
             body.fulfillmentMethod(fulfillmentMethod)
         }
@@ -467,8 +614,11 @@ private constructor(
         }
 
         /**
-         * The identifier of the Account Number from which to send the transfer and print on the
-         * check.
+         * Sets [Builder.sourceAccountNumberId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.sourceAccountNumberId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun sourceAccountNumberId(sourceAccountNumberId: JsonField<String>) = apply {
             body.sourceAccountNumberId(sourceAccountNumberId)
@@ -484,9 +634,11 @@ private constructor(
         }
 
         /**
-         * Details relating to the physical check that Increase will print and mail. This is
-         * required if `fulfillment_method` is equal to `physical_check`. It must not be included if
-         * any other `fulfillment_method` is provided.
+         * Sets [Builder.physicalCheck] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.physicalCheck] with a well-typed [PhysicalCheck] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun physicalCheck(physicalCheck: JsonField<PhysicalCheck>) = apply {
             body.physicalCheck(physicalCheck)
@@ -497,7 +649,13 @@ private constructor(
             body.requireApproval(requireApproval)
         }
 
-        /** Whether the transfer requires explicit approval via the dashboard or API. */
+        /**
+         * Sets [Builder.requireApproval] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.requireApproval] with a well-typed [Boolean] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun requireApproval(requireApproval: JsonField<Boolean>) = apply {
             body.requireApproval(requireApproval)
         }
@@ -510,9 +668,11 @@ private constructor(
         fun thirdParty(thirdParty: ThirdParty) = apply { body.thirdParty(thirdParty) }
 
         /**
-         * Details relating to the custom fulfillment you will perform. This is required if
-         * `fulfillment_method` is equal to `third_party`. It must not be included if any other
-         * `fulfillment_method` is provided.
+         * Sets [Builder.thirdParty] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.thirdParty] with a well-typed [ThirdParty] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun thirdParty(thirdParty: JsonField<ThirdParty>) = apply { body.thirdParty(thirdParty) }
 
@@ -795,29 +955,55 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** Details for where Increase will mail the check. */
+        /**
+         * Details for where Increase will mail the check.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun mailingAddress(): MailingAddress = mailingAddress.getRequired("mailing_address")
 
-        /** The descriptor that will be printed on the memo field on the check. */
+        /**
+         * The descriptor that will be printed on the memo field on the check.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun memo(): String = memo.getRequired("memo")
 
-        /** The name that will be printed on the check in the 'To:' field. */
+        /**
+         * The name that will be printed on the check in the 'To:' field.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun recipientName(): String = recipientName.getRequired("recipient_name")
 
         /**
          * The check number Increase should print on the check. This should not contain leading
          * zeroes and must be unique across the `source_account_number`. If this is omitted,
          * Increase will generate a check number for you.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun checkNumber(): Optional<String> =
             Optional.ofNullable(checkNumber.getNullable("check_number"))
 
-        /** The descriptor that will be printed on the letter included with the check. */
+        /**
+         * The descriptor that will be printed on the letter included with the check.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun note(): Optional<String> = Optional.ofNullable(note.getNullable("note"))
 
         /**
          * The return address to be printed on the check. If omitted this will default to an
          * Increase-owned address that will mark checks as delivery failed and shred them.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun returnAddress(): Optional<ReturnAddress> =
             Optional.ofNullable(returnAddress.getNullable("return_address"))
@@ -825,46 +1011,71 @@ private constructor(
         /**
          * The text that will appear as the signature on the check in cursive font. If not provided,
          * the check will be printed with 'No signature required'.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun signatureText(): Optional<String> =
             Optional.ofNullable(signatureText.getNullable("signature_text"))
 
-        /** Details for where Increase will mail the check. */
+        /**
+         * Returns the raw JSON value of [mailingAddress].
+         *
+         * Unlike [mailingAddress], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("mailing_address")
         @ExcludeMissing
         fun _mailingAddress(): JsonField<MailingAddress> = mailingAddress
 
-        /** The descriptor that will be printed on the memo field on the check. */
+        /**
+         * Returns the raw JSON value of [memo].
+         *
+         * Unlike [memo], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("memo") @ExcludeMissing fun _memo(): JsonField<String> = memo
 
-        /** The name that will be printed on the check in the 'To:' field. */
+        /**
+         * Returns the raw JSON value of [recipientName].
+         *
+         * Unlike [recipientName], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("recipient_name")
         @ExcludeMissing
         fun _recipientName(): JsonField<String> = recipientName
 
         /**
-         * The check number Increase should print on the check. This should not contain leading
-         * zeroes and must be unique across the `source_account_number`. If this is omitted,
-         * Increase will generate a check number for you.
+         * Returns the raw JSON value of [checkNumber].
+         *
+         * Unlike [checkNumber], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("check_number")
         @ExcludeMissing
         fun _checkNumber(): JsonField<String> = checkNumber
 
-        /** The descriptor that will be printed on the letter included with the check. */
+        /**
+         * Returns the raw JSON value of [note].
+         *
+         * Unlike [note], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("note") @ExcludeMissing fun _note(): JsonField<String> = note
 
         /**
-         * The return address to be printed on the check. If omitted this will default to an
-         * Increase-owned address that will mark checks as delivery failed and shred them.
+         * Returns the raw JSON value of [returnAddress].
+         *
+         * Unlike [returnAddress], this method doesn't throw if the JSON field has an unexpected
+         * type.
          */
         @JsonProperty("return_address")
         @ExcludeMissing
         fun _returnAddress(): JsonField<ReturnAddress> = returnAddress
 
         /**
-         * The text that will appear as the signature on the check in cursive font. If not provided,
-         * the check will be printed with 'No signature required'.
+         * Returns the raw JSON value of [signatureText].
+         *
+         * Unlike [signatureText], this method doesn't throw if the JSON field has an unexpected
+         * type.
          */
         @JsonProperty("signature_text")
         @ExcludeMissing
@@ -936,7 +1147,13 @@ private constructor(
             fun mailingAddress(mailingAddress: MailingAddress) =
                 mailingAddress(JsonField.of(mailingAddress))
 
-            /** Details for where Increase will mail the check. */
+            /**
+             * Sets [Builder.mailingAddress] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.mailingAddress] with a well-typed [MailingAddress]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
             fun mailingAddress(mailingAddress: JsonField<MailingAddress>) = apply {
                 this.mailingAddress = mailingAddress
             }
@@ -944,13 +1161,25 @@ private constructor(
             /** The descriptor that will be printed on the memo field on the check. */
             fun memo(memo: String) = memo(JsonField.of(memo))
 
-            /** The descriptor that will be printed on the memo field on the check. */
+            /**
+             * Sets [Builder.memo] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.memo] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
             fun memo(memo: JsonField<String>) = apply { this.memo = memo }
 
             /** The name that will be printed on the check in the 'To:' field. */
             fun recipientName(recipientName: String) = recipientName(JsonField.of(recipientName))
 
-            /** The name that will be printed on the check in the 'To:' field. */
+            /**
+             * Sets [Builder.recipientName] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.recipientName] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun recipientName(recipientName: JsonField<String>) = apply {
                 this.recipientName = recipientName
             }
@@ -963,9 +1192,11 @@ private constructor(
             fun checkNumber(checkNumber: String) = checkNumber(JsonField.of(checkNumber))
 
             /**
-             * The check number Increase should print on the check. This should not contain leading
-             * zeroes and must be unique across the `source_account_number`. If this is omitted,
-             * Increase will generate a check number for you.
+             * Sets [Builder.checkNumber] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.checkNumber] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun checkNumber(checkNumber: JsonField<String>) = apply {
                 this.checkNumber = checkNumber
@@ -974,7 +1205,13 @@ private constructor(
             /** The descriptor that will be printed on the letter included with the check. */
             fun note(note: String) = note(JsonField.of(note))
 
-            /** The descriptor that will be printed on the letter included with the check. */
+            /**
+             * Sets [Builder.note] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.note] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
             fun note(note: JsonField<String>) = apply { this.note = note }
 
             /**
@@ -985,8 +1222,11 @@ private constructor(
                 returnAddress(JsonField.of(returnAddress))
 
             /**
-             * The return address to be printed on the check. If omitted this will default to an
-             * Increase-owned address that will mark checks as delivery failed and shred them.
+             * Sets [Builder.returnAddress] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.returnAddress] with a well-typed [ReturnAddress]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
              */
             fun returnAddress(returnAddress: JsonField<ReturnAddress>) = apply {
                 this.returnAddress = returnAddress
@@ -999,8 +1239,11 @@ private constructor(
             fun signatureText(signatureText: String) = signatureText(JsonField.of(signatureText))
 
             /**
-             * The text that will appear as the signature on the check in cursive font. If not
-             * provided, the check will be printed with 'No signature required'.
+             * Sets [Builder.signatureText] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.signatureText] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun signatureText(signatureText: JsonField<String>) = apply {
                 this.signatureText = signatureText
@@ -1062,36 +1305,86 @@ private constructor(
             private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
-            /** The city component of the check's destination address. */
+            /**
+             * The city component of the check's destination address.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun city(): String = city.getRequired("city")
 
-            /** The first line of the address component of the check's destination address. */
+            /**
+             * The first line of the address component of the check's destination address.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun line1(): String = line1.getRequired("line1")
 
-            /** The postal code component of the check's destination address. */
+            /**
+             * The postal code component of the check's destination address.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun postalCode(): String = postalCode.getRequired("postal_code")
 
-            /** The US state component of the check's destination address. */
+            /**
+             * The US state component of the check's destination address.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun state(): String = state.getRequired("state")
 
-            /** The second line of the address component of the check's destination address. */
+            /**
+             * The second line of the address component of the check's destination address.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
             fun line2(): Optional<String> = Optional.ofNullable(line2.getNullable("line2"))
 
-            /** The city component of the check's destination address. */
+            /**
+             * Returns the raw JSON value of [city].
+             *
+             * Unlike [city], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("city") @ExcludeMissing fun _city(): JsonField<String> = city
 
-            /** The first line of the address component of the check's destination address. */
+            /**
+             * Returns the raw JSON value of [line1].
+             *
+             * Unlike [line1], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
 
-            /** The postal code component of the check's destination address. */
+            /**
+             * Returns the raw JSON value of [postalCode].
+             *
+             * Unlike [postalCode], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
             @JsonProperty("postal_code")
             @ExcludeMissing
             fun _postalCode(): JsonField<String> = postalCode
 
-            /** The US state component of the check's destination address. */
+            /**
+             * Returns the raw JSON value of [state].
+             *
+             * Unlike [state], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("state") @ExcludeMissing fun _state(): JsonField<String> = state
 
-            /** The second line of the address component of the check's destination address. */
+            /**
+             * Returns the raw JSON value of [line2].
+             *
+             * Unlike [line2], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
 
             @JsonAnyGetter
@@ -1154,19 +1447,37 @@ private constructor(
                 /** The city component of the check's destination address. */
                 fun city(city: String) = city(JsonField.of(city))
 
-                /** The city component of the check's destination address. */
+                /**
+                 * Sets [Builder.city] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.city] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
                 fun city(city: JsonField<String>) = apply { this.city = city }
 
                 /** The first line of the address component of the check's destination address. */
                 fun line1(line1: String) = line1(JsonField.of(line1))
 
-                /** The first line of the address component of the check's destination address. */
+                /**
+                 * Sets [Builder.line1] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.line1] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
                 fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
 
                 /** The postal code component of the check's destination address. */
                 fun postalCode(postalCode: String) = postalCode(JsonField.of(postalCode))
 
-                /** The postal code component of the check's destination address. */
+                /**
+                 * Sets [Builder.postalCode] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.postalCode] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
                 fun postalCode(postalCode: JsonField<String>) = apply {
                     this.postalCode = postalCode
                 }
@@ -1174,13 +1485,25 @@ private constructor(
                 /** The US state component of the check's destination address. */
                 fun state(state: String) = state(JsonField.of(state))
 
-                /** The US state component of the check's destination address. */
+                /**
+                 * Sets [Builder.state] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.state] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
                 fun state(state: JsonField<String>) = apply { this.state = state }
 
                 /** The second line of the address component of the check's destination address. */
                 fun line2(line2: String) = line2(JsonField.of(line2))
 
-                /** The second line of the address component of the check's destination address. */
+                /**
+                 * Sets [Builder.line2] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.line2] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
                 fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -1264,42 +1587,102 @@ private constructor(
             private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
-            /** The city of the return address. */
+            /**
+             * The city of the return address.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun city(): String = city.getRequired("city")
 
-            /** The first line of the return address. */
+            /**
+             * The first line of the return address.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun line1(): String = line1.getRequired("line1")
 
-            /** The name of the return address. */
+            /**
+             * The name of the return address.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun name(): String = name.getRequired("name")
 
-            /** The postal code of the return address. */
+            /**
+             * The postal code of the return address.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun postalCode(): String = postalCode.getRequired("postal_code")
 
-            /** The US state of the return address. */
+            /**
+             * The US state of the return address.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun state(): String = state.getRequired("state")
 
-            /** The second line of the return address. */
+            /**
+             * The second line of the return address.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
             fun line2(): Optional<String> = Optional.ofNullable(line2.getNullable("line2"))
 
-            /** The city of the return address. */
+            /**
+             * Returns the raw JSON value of [city].
+             *
+             * Unlike [city], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("city") @ExcludeMissing fun _city(): JsonField<String> = city
 
-            /** The first line of the return address. */
+            /**
+             * Returns the raw JSON value of [line1].
+             *
+             * Unlike [line1], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
 
-            /** The name of the return address. */
+            /**
+             * Returns the raw JSON value of [name].
+             *
+             * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
-            /** The postal code of the return address. */
+            /**
+             * Returns the raw JSON value of [postalCode].
+             *
+             * Unlike [postalCode], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
             @JsonProperty("postal_code")
             @ExcludeMissing
             fun _postalCode(): JsonField<String> = postalCode
 
-            /** The US state of the return address. */
+            /**
+             * Returns the raw JSON value of [state].
+             *
+             * Unlike [state], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("state") @ExcludeMissing fun _state(): JsonField<String> = state
 
-            /** The second line of the return address. */
+            /**
+             * Returns the raw JSON value of [line2].
+             *
+             * Unlike [line2], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
 
             @JsonAnyGetter
@@ -1366,25 +1749,49 @@ private constructor(
                 /** The city of the return address. */
                 fun city(city: String) = city(JsonField.of(city))
 
-                /** The city of the return address. */
+                /**
+                 * Sets [Builder.city] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.city] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
                 fun city(city: JsonField<String>) = apply { this.city = city }
 
                 /** The first line of the return address. */
                 fun line1(line1: String) = line1(JsonField.of(line1))
 
-                /** The first line of the return address. */
+                /**
+                 * Sets [Builder.line1] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.line1] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
                 fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
 
                 /** The name of the return address. */
                 fun name(name: String) = name(JsonField.of(name))
 
-                /** The name of the return address. */
+                /**
+                 * Sets [Builder.name] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.name] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
                 fun name(name: JsonField<String>) = apply { this.name = name }
 
                 /** The postal code of the return address. */
                 fun postalCode(postalCode: String) = postalCode(JsonField.of(postalCode))
 
-                /** The postal code of the return address. */
+                /**
+                 * Sets [Builder.postalCode] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.postalCode] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
                 fun postalCode(postalCode: JsonField<String>) = apply {
                     this.postalCode = postalCode
                 }
@@ -1392,13 +1799,25 @@ private constructor(
                 /** The US state of the return address. */
                 fun state(state: String) = state(JsonField.of(state))
 
-                /** The US state of the return address. */
+                /**
+                 * Sets [Builder.state] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.state] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
                 fun state(state: JsonField<String>) = apply { this.state = state }
 
                 /** The second line of the return address. */
                 fun line2(line2: String) = line2(JsonField.of(line2))
 
-                /** The second line of the return address. */
+                /**
+                 * Sets [Builder.line2] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.line2] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
                 fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -1491,14 +1910,17 @@ private constructor(
          * The check number you will print on the check. This should not contain leading zeroes. If
          * this is omitted, Increase will generate a check number for you; you should inspect the
          * response and use that check number.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun checkNumber(): Optional<String> =
             Optional.ofNullable(checkNumber.getNullable("check_number"))
 
         /**
-         * The check number you will print on the check. This should not contain leading zeroes. If
-         * this is omitted, Increase will generate a check number for you; you should inspect the
-         * response and use that check number.
+         * Returns the raw JSON value of [checkNumber].
+         *
+         * Unlike [checkNumber], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("check_number")
         @ExcludeMissing
@@ -1547,9 +1969,11 @@ private constructor(
             fun checkNumber(checkNumber: String) = checkNumber(JsonField.of(checkNumber))
 
             /**
-             * The check number you will print on the check. This should not contain leading zeroes.
-             * If this is omitted, Increase will generate a check number for you; you should inspect
-             * the response and use that check number.
+             * Sets [Builder.checkNumber] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.checkNumber] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun checkNumber(checkNumber: JsonField<String>) = apply {
                 this.checkNumber = checkNumber

@@ -34,22 +34,49 @@ private constructor(
     /** The identifier of the Lockbox. */
     fun lockboxId(): String = lockboxId
 
-    /** The description you choose for the Lockbox. */
+    /**
+     * The description you choose for the Lockbox.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun description(): Optional<String> = body.description()
 
-    /** The recipient name you choose for the Lockbox. */
+    /**
+     * The recipient name you choose for the Lockbox.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun recipientName(): Optional<String> = body.recipientName()
 
-    /** This indicates if checks can be sent to the Lockbox. */
+    /**
+     * This indicates if checks can be sent to the Lockbox.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun status(): Optional<Status> = body.status()
 
-    /** The description you choose for the Lockbox. */
+    /**
+     * Returns the raw JSON value of [description].
+     *
+     * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _description(): JsonField<String> = body._description()
 
-    /** The recipient name you choose for the Lockbox. */
+    /**
+     * Returns the raw JSON value of [recipientName].
+     *
+     * Unlike [recipientName], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _recipientName(): JsonField<String> = body._recipientName()
 
-    /** This indicates if checks can be sent to the Lockbox. */
+    /**
+     * Returns the raw JSON value of [status].
+     *
+     * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _status(): JsonField<Status> = body._status()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
@@ -88,28 +115,56 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The description you choose for the Lockbox. */
+        /**
+         * The description you choose for the Lockbox.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun description(): Optional<String> =
             Optional.ofNullable(description.getNullable("description"))
 
-        /** The recipient name you choose for the Lockbox. */
+        /**
+         * The recipient name you choose for the Lockbox.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun recipientName(): Optional<String> =
             Optional.ofNullable(recipientName.getNullable("recipient_name"))
 
-        /** This indicates if checks can be sent to the Lockbox. */
+        /**
+         * This indicates if checks can be sent to the Lockbox.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun status(): Optional<Status> = Optional.ofNullable(status.getNullable("status"))
 
-        /** The description you choose for the Lockbox. */
+        /**
+         * Returns the raw JSON value of [description].
+         *
+         * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("description")
         @ExcludeMissing
         fun _description(): JsonField<String> = description
 
-        /** The recipient name you choose for the Lockbox. */
+        /**
+         * Returns the raw JSON value of [recipientName].
+         *
+         * Unlike [recipientName], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("recipient_name")
         @ExcludeMissing
         fun _recipientName(): JsonField<String> = recipientName
 
-        /** This indicates if checks can be sent to the Lockbox. */
+        /**
+         * Returns the raw JSON value of [status].
+         *
+         * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
         @JsonAnyGetter
@@ -156,7 +211,13 @@ private constructor(
             /** The description you choose for the Lockbox. */
             fun description(description: String) = description(JsonField.of(description))
 
-            /** The description you choose for the Lockbox. */
+            /**
+             * Sets [Builder.description] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.description] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun description(description: JsonField<String>) = apply {
                 this.description = description
             }
@@ -164,7 +225,13 @@ private constructor(
             /** The recipient name you choose for the Lockbox. */
             fun recipientName(recipientName: String) = recipientName(JsonField.of(recipientName))
 
-            /** The recipient name you choose for the Lockbox. */
+            /**
+             * Sets [Builder.recipientName] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.recipientName] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun recipientName(recipientName: JsonField<String>) = apply {
                 this.recipientName = recipientName
             }
@@ -172,7 +239,13 @@ private constructor(
             /** This indicates if checks can be sent to the Lockbox. */
             fun status(status: Status) = status(JsonField.of(status))
 
-            /** This indicates if checks can be sent to the Lockbox. */
+            /**
+             * Sets [Builder.status] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.status] with a well-typed [Status] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun status(status: JsonField<Status>) = apply { this.status = status }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -254,13 +327,25 @@ private constructor(
         /** The description you choose for the Lockbox. */
         fun description(description: String) = apply { body.description(description) }
 
-        /** The description you choose for the Lockbox. */
+        /**
+         * Sets [Builder.description] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.description] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun description(description: JsonField<String>) = apply { body.description(description) }
 
         /** The recipient name you choose for the Lockbox. */
         fun recipientName(recipientName: String) = apply { body.recipientName(recipientName) }
 
-        /** The recipient name you choose for the Lockbox. */
+        /**
+         * Sets [Builder.recipientName] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.recipientName] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun recipientName(recipientName: JsonField<String>) = apply {
             body.recipientName(recipientName)
         }
@@ -268,7 +353,12 @@ private constructor(
         /** This indicates if checks can be sent to the Lockbox. */
         fun status(status: Status) = apply { body.status(status) }
 
-        /** This indicates if checks can be sent to the Lockbox. */
+        /**
+         * Sets [Builder.status] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.status] with a well-typed [Status] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun status(status: JsonField<Status>) = apply { body.status(status) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {

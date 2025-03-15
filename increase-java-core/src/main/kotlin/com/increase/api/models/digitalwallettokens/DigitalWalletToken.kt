@@ -48,62 +48,115 @@ private constructor(
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
-    /** The Digital Wallet Token identifier. */
+    /**
+     * The Digital Wallet Token identifier.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun id(): String = id.getRequired("id")
 
-    /** The identifier for the Card this Digital Wallet Token belongs to. */
+    /**
+     * The identifier for the Card this Digital Wallet Token belongs to.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun cardId(): String = cardId.getRequired("card_id")
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Digital
      * Wallet Token was created.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
-    /** This indicates if payments can be made with the Digital Wallet Token. */
+    /**
+     * This indicates if payments can be made with the Digital Wallet Token.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun status(): Status = status.getRequired("status")
 
-    /** The digital wallet app being used. */
+    /**
+     * The digital wallet app being used.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun tokenRequestor(): TokenRequestor = tokenRequestor.getRequired("token_requestor")
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `digital_wallet_token`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun type(): Type = type.getRequired("type")
 
-    /** Updates to the Digital Wallet Token. */
+    /**
+     * Updates to the Digital Wallet Token.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun updates(): List<Update> = updates.getRequired("updates")
 
-    /** The Digital Wallet Token identifier. */
+    /**
+     * Returns the raw JSON value of [id].
+     *
+     * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
-    /** The identifier for the Card this Digital Wallet Token belongs to. */
+    /**
+     * Returns the raw JSON value of [cardId].
+     *
+     * Unlike [cardId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("card_id") @ExcludeMissing fun _cardId(): JsonField<String> = cardId
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Digital
-     * Wallet Token was created.
+     * Returns the raw JSON value of [createdAt].
+     *
+     * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("created_at")
     @ExcludeMissing
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
-    /** This indicates if payments can be made with the Digital Wallet Token. */
+    /**
+     * Returns the raw JSON value of [status].
+     *
+     * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
-    /** The digital wallet app being used. */
+    /**
+     * Returns the raw JSON value of [tokenRequestor].
+     *
+     * Unlike [tokenRequestor], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("token_requestor")
     @ExcludeMissing
     fun _tokenRequestor(): JsonField<TokenRequestor> = tokenRequestor
 
     /**
-     * A constant representing the object's type. For this resource it will always be
-     * `digital_wallet_token`.
+     * Returns the raw JSON value of [type].
+     *
+     * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
-    /** Updates to the Digital Wallet Token. */
+    /**
+     * Returns the raw JSON value of [updates].
+     *
+     * Unlike [updates], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("updates") @ExcludeMissing fun _updates(): JsonField<List<Update>> = updates
 
     @JsonAnyGetter
@@ -175,13 +228,23 @@ private constructor(
         /** The Digital Wallet Token identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
-        /** The Digital Wallet Token identifier. */
+        /**
+         * Sets [Builder.id] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.id] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The identifier for the Card this Digital Wallet Token belongs to. */
         fun cardId(cardId: String) = cardId(JsonField.of(cardId))
 
-        /** The identifier for the Card this Digital Wallet Token belongs to. */
+        /**
+         * Sets [Builder.cardId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.cardId] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun cardId(cardId: JsonField<String>) = apply { this.cardId = cardId }
 
         /**
@@ -191,22 +254,36 @@ private constructor(
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Digital
-         * Wallet Token was created.
+         * Sets [Builder.createdAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** This indicates if payments can be made with the Digital Wallet Token. */
         fun status(status: Status) = status(JsonField.of(status))
 
-        /** This indicates if payments can be made with the Digital Wallet Token. */
+        /**
+         * Sets [Builder.status] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.status] with a well-typed [Status] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /** The digital wallet app being used. */
         fun tokenRequestor(tokenRequestor: TokenRequestor) =
             tokenRequestor(JsonField.of(tokenRequestor))
 
-        /** The digital wallet app being used. */
+        /**
+         * Sets [Builder.tokenRequestor] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.tokenRequestor] with a well-typed [TokenRequestor] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun tokenRequestor(tokenRequestor: JsonField<TokenRequestor>) = apply {
             this.tokenRequestor = tokenRequestor
         }
@@ -218,20 +295,32 @@ private constructor(
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
-         * A constant representing the object's type. For this resource it will always be
-         * `digital_wallet_token`.
+         * Sets [Builder.type] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.type] with a well-typed [Type] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
         /** Updates to the Digital Wallet Token. */
         fun updates(updates: List<Update>) = updates(JsonField.of(updates))
 
-        /** Updates to the Digital Wallet Token. */
+        /**
+         * Sets [Builder.updates] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.updates] with a well-typed `List<Update>` value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun updates(updates: JsonField<List<Update>>) = apply {
             this.updates = updates.map { it.toMutableList() }
         }
 
-        /** Updates to the Digital Wallet Token. */
+        /**
+         * Adds a single [Update] to [updates].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
         fun addUpdate(update: Update) = apply {
             updates =
                 (updates ?: JsonField.of(mutableListOf())).also {
@@ -646,21 +735,34 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The status the update changed this Digital Wallet Token to. */
+        /**
+         * The status the update changed this Digital Wallet Token to.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun status(): Status = status.getRequired("status")
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the update
          * happened.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun timestamp(): OffsetDateTime = timestamp.getRequired("timestamp")
 
-        /** The status the update changed this Digital Wallet Token to. */
+        /**
+         * Returns the raw JSON value of [status].
+         *
+         * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the update
-         * happened.
+         * Returns the raw JSON value of [timestamp].
+         *
+         * Unlike [timestamp], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("timestamp")
         @ExcludeMissing
@@ -715,7 +817,13 @@ private constructor(
             /** The status the update changed this Digital Wallet Token to. */
             fun status(status: Status) = status(JsonField.of(status))
 
-            /** The status the update changed this Digital Wallet Token to. */
+            /**
+             * Sets [Builder.status] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.status] with a well-typed [Status] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun status(status: JsonField<Status>) = apply { this.status = status }
 
             /**
@@ -725,8 +833,11 @@ private constructor(
             fun timestamp(timestamp: OffsetDateTime) = timestamp(JsonField.of(timestamp))
 
             /**
-             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-             * update happened.
+             * Sets [Builder.timestamp] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.timestamp] with a well-typed [OffsetDateTime] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun timestamp(timestamp: JsonField<OffsetDateTime>) = apply {
                 this.timestamp = timestamp

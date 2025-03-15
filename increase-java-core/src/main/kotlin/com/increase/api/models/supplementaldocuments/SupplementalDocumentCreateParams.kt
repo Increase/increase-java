@@ -17,6 +17,7 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
+import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 
 /** Create a supplemental document for an Entity */
@@ -27,16 +28,34 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** The identifier of the Entity to associate with the supplemental document. */
+    /**
+     * The identifier of the Entity to associate with the supplemental document.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun entityId(): String = body.entityId()
 
-    /** The identifier of the File containing the document. */
+    /**
+     * The identifier of the File containing the document.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun fileId(): String = body.fileId()
 
-    /** The identifier of the Entity to associate with the supplemental document. */
+    /**
+     * Returns the raw JSON value of [entityId].
+     *
+     * Unlike [entityId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _entityId(): JsonField<String> = body._entityId()
 
-    /** The identifier of the File containing the document. */
+    /**
+     * Returns the raw JSON value of [fileId].
+     *
+     * Unlike [fileId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _fileId(): JsonField<String> = body._fileId()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
@@ -65,16 +84,34 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The identifier of the Entity to associate with the supplemental document. */
+        /**
+         * The identifier of the Entity to associate with the supplemental document.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun entityId(): String = entityId.getRequired("entity_id")
 
-        /** The identifier of the File containing the document. */
+        /**
+         * The identifier of the File containing the document.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun fileId(): String = fileId.getRequired("file_id")
 
-        /** The identifier of the Entity to associate with the supplemental document. */
+        /**
+         * Returns the raw JSON value of [entityId].
+         *
+         * Unlike [entityId], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("entity_id") @ExcludeMissing fun _entityId(): JsonField<String> = entityId
 
-        /** The identifier of the File containing the document. */
+        /**
+         * Returns the raw JSON value of [fileId].
+         *
+         * Unlike [fileId], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("file_id") @ExcludeMissing fun _fileId(): JsonField<String> = fileId
 
         @JsonAnyGetter
@@ -126,13 +163,25 @@ private constructor(
             /** The identifier of the Entity to associate with the supplemental document. */
             fun entityId(entityId: String) = entityId(JsonField.of(entityId))
 
-            /** The identifier of the Entity to associate with the supplemental document. */
+            /**
+             * Sets [Builder.entityId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.entityId] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun entityId(entityId: JsonField<String>) = apply { this.entityId = entityId }
 
             /** The identifier of the File containing the document. */
             fun fileId(fileId: String) = fileId(JsonField.of(fileId))
 
-            /** The identifier of the File containing the document. */
+            /**
+             * Sets [Builder.fileId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.fileId] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun fileId(fileId: JsonField<String>) = apply { this.fileId = fileId }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -217,13 +266,23 @@ private constructor(
         /** The identifier of the Entity to associate with the supplemental document. */
         fun entityId(entityId: String) = apply { body.entityId(entityId) }
 
-        /** The identifier of the Entity to associate with the supplemental document. */
+        /**
+         * Sets [Builder.entityId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.entityId] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun entityId(entityId: JsonField<String>) = apply { body.entityId(entityId) }
 
         /** The identifier of the File containing the document. */
         fun fileId(fileId: String) = apply { body.fileId(fileId) }
 
-        /** The identifier of the File containing the document. */
+        /**
+         * Sets [Builder.fileId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.fileId] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun fileId(fileId: JsonField<String>) = apply { body.fileId(fileId) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {

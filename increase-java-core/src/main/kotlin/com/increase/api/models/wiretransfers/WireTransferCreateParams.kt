@@ -17,6 +17,7 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
+import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 import java.util.Optional
 
@@ -28,136 +29,259 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** The identifier for the account that will send the transfer. */
+    /**
+     * The identifier for the account that will send the transfer.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun accountId(): String = body.accountId()
 
-    /** The transfer amount in USD cents. */
+    /**
+     * The transfer amount in USD cents.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun amount(): Long = body.amount()
 
-    /** The beneficiary's name. */
+    /**
+     * The beneficiary's name.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun beneficiaryName(): String = body.beneficiaryName()
 
-    /** The message that will show on the recipient's bank statement. */
+    /**
+     * The message that will show on the recipient's bank statement.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun messageToRecipient(): String = body.messageToRecipient()
 
-    /** The account number for the destination account. */
+    /**
+     * The account number for the destination account.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun accountNumber(): Optional<String> = body.accountNumber()
 
-    /** The beneficiary's address line 1. */
+    /**
+     * The beneficiary's address line 1.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun beneficiaryAddressLine1(): Optional<String> = body.beneficiaryAddressLine1()
 
-    /** The beneficiary's address line 2. */
+    /**
+     * The beneficiary's address line 2.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun beneficiaryAddressLine2(): Optional<String> = body.beneficiaryAddressLine2()
 
-    /** The beneficiary's address line 3. */
+    /**
+     * The beneficiary's address line 3.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun beneficiaryAddressLine3(): Optional<String> = body.beneficiaryAddressLine3()
 
     /**
      * The ID of an External Account to initiate a transfer to. If this parameter is provided,
      * `account_number` and `routing_number` must be absent.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun externalAccountId(): Optional<String> = body.externalAccountId()
 
     /**
      * The originator's address line 1. This is only necessary if you're transferring from a
      * commingled account. Otherwise, we'll use the associated entity's details.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun originatorAddressLine1(): Optional<String> = body.originatorAddressLine1()
 
     /**
      * The originator's address line 2. This is only necessary if you're transferring from a
      * commingled account. Otherwise, we'll use the associated entity's details.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun originatorAddressLine2(): Optional<String> = body.originatorAddressLine2()
 
     /**
      * The originator's address line 3. This is only necessary if you're transferring from a
      * commingled account. Otherwise, we'll use the associated entity's details.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun originatorAddressLine3(): Optional<String> = body.originatorAddressLine3()
 
     /**
      * The originator's name. This is only necessary if you're transferring from a commingled
      * account. Otherwise, we'll use the associated entity's details.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun originatorName(): Optional<String> = body.originatorName()
 
-    /** Whether the transfer requires explicit approval via the dashboard or API. */
+    /**
+     * Whether the transfer requires explicit approval via the dashboard or API.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun requireApproval(): Optional<Boolean> = body.requireApproval()
 
     /**
      * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the destination
      * account.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun routingNumber(): Optional<String> = body.routingNumber()
 
-    /** The ID of an Account Number that will be passed to the wire's recipient */
+    /**
+     * The ID of an Account Number that will be passed to the wire's recipient
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun sourceAccountNumberId(): Optional<String> = body.sourceAccountNumberId()
 
-    /** The identifier for the account that will send the transfer. */
+    /**
+     * Returns the raw JSON value of [accountId].
+     *
+     * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _accountId(): JsonField<String> = body._accountId()
 
-    /** The transfer amount in USD cents. */
+    /**
+     * Returns the raw JSON value of [amount].
+     *
+     * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _amount(): JsonField<Long> = body._amount()
 
-    /** The beneficiary's name. */
+    /**
+     * Returns the raw JSON value of [beneficiaryName].
+     *
+     * Unlike [beneficiaryName], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _beneficiaryName(): JsonField<String> = body._beneficiaryName()
 
-    /** The message that will show on the recipient's bank statement. */
+    /**
+     * Returns the raw JSON value of [messageToRecipient].
+     *
+     * Unlike [messageToRecipient], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     fun _messageToRecipient(): JsonField<String> = body._messageToRecipient()
 
-    /** The account number for the destination account. */
+    /**
+     * Returns the raw JSON value of [accountNumber].
+     *
+     * Unlike [accountNumber], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _accountNumber(): JsonField<String> = body._accountNumber()
 
-    /** The beneficiary's address line 1. */
+    /**
+     * Returns the raw JSON value of [beneficiaryAddressLine1].
+     *
+     * Unlike [beneficiaryAddressLine1], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
     fun _beneficiaryAddressLine1(): JsonField<String> = body._beneficiaryAddressLine1()
 
-    /** The beneficiary's address line 2. */
+    /**
+     * Returns the raw JSON value of [beneficiaryAddressLine2].
+     *
+     * Unlike [beneficiaryAddressLine2], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
     fun _beneficiaryAddressLine2(): JsonField<String> = body._beneficiaryAddressLine2()
 
-    /** The beneficiary's address line 3. */
+    /**
+     * Returns the raw JSON value of [beneficiaryAddressLine3].
+     *
+     * Unlike [beneficiaryAddressLine3], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
     fun _beneficiaryAddressLine3(): JsonField<String> = body._beneficiaryAddressLine3()
 
     /**
-     * The ID of an External Account to initiate a transfer to. If this parameter is provided,
-     * `account_number` and `routing_number` must be absent.
+     * Returns the raw JSON value of [externalAccountId].
+     *
+     * Unlike [externalAccountId], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
     fun _externalAccountId(): JsonField<String> = body._externalAccountId()
 
     /**
-     * The originator's address line 1. This is only necessary if you're transferring from a
-     * commingled account. Otherwise, we'll use the associated entity's details.
+     * Returns the raw JSON value of [originatorAddressLine1].
+     *
+     * Unlike [originatorAddressLine1], this method doesn't throw if the JSON field has an
+     * unexpected type.
      */
     fun _originatorAddressLine1(): JsonField<String> = body._originatorAddressLine1()
 
     /**
-     * The originator's address line 2. This is only necessary if you're transferring from a
-     * commingled account. Otherwise, we'll use the associated entity's details.
+     * Returns the raw JSON value of [originatorAddressLine2].
+     *
+     * Unlike [originatorAddressLine2], this method doesn't throw if the JSON field has an
+     * unexpected type.
      */
     fun _originatorAddressLine2(): JsonField<String> = body._originatorAddressLine2()
 
     /**
-     * The originator's address line 3. This is only necessary if you're transferring from a
-     * commingled account. Otherwise, we'll use the associated entity's details.
+     * Returns the raw JSON value of [originatorAddressLine3].
+     *
+     * Unlike [originatorAddressLine3], this method doesn't throw if the JSON field has an
+     * unexpected type.
      */
     fun _originatorAddressLine3(): JsonField<String> = body._originatorAddressLine3()
 
     /**
-     * The originator's name. This is only necessary if you're transferring from a commingled
-     * account. Otherwise, we'll use the associated entity's details.
+     * Returns the raw JSON value of [originatorName].
+     *
+     * Unlike [originatorName], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _originatorName(): JsonField<String> = body._originatorName()
 
-    /** Whether the transfer requires explicit approval via the dashboard or API. */
+    /**
+     * Returns the raw JSON value of [requireApproval].
+     *
+     * Unlike [requireApproval], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _requireApproval(): JsonField<Boolean> = body._requireApproval()
 
     /**
-     * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the destination
-     * account.
+     * Returns the raw JSON value of [routingNumber].
+     *
+     * Unlike [routingNumber], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _routingNumber(): JsonField<String> = body._routingNumber()
 
-    /** The ID of an Account Number that will be passed to the wire's recipient */
+    /**
+     * Returns the raw JSON value of [sourceAccountNumberId].
+     *
+     * Unlike [sourceAccountNumberId], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     fun _sourceAccountNumberId(): JsonField<String> = body._sourceAccountNumberId()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
@@ -228,37 +352,80 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The identifier for the account that will send the transfer. */
+        /**
+         * The identifier for the account that will send the transfer.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun accountId(): String = accountId.getRequired("account_id")
 
-        /** The transfer amount in USD cents. */
+        /**
+         * The transfer amount in USD cents.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun amount(): Long = amount.getRequired("amount")
 
-        /** The beneficiary's name. */
+        /**
+         * The beneficiary's name.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun beneficiaryName(): String = beneficiaryName.getRequired("beneficiary_name")
 
-        /** The message that will show on the recipient's bank statement. */
+        /**
+         * The message that will show on the recipient's bank statement.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun messageToRecipient(): String = messageToRecipient.getRequired("message_to_recipient")
 
-        /** The account number for the destination account. */
+        /**
+         * The account number for the destination account.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun accountNumber(): Optional<String> =
             Optional.ofNullable(accountNumber.getNullable("account_number"))
 
-        /** The beneficiary's address line 1. */
+        /**
+         * The beneficiary's address line 1.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun beneficiaryAddressLine1(): Optional<String> =
             Optional.ofNullable(beneficiaryAddressLine1.getNullable("beneficiary_address_line1"))
 
-        /** The beneficiary's address line 2. */
+        /**
+         * The beneficiary's address line 2.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun beneficiaryAddressLine2(): Optional<String> =
             Optional.ofNullable(beneficiaryAddressLine2.getNullable("beneficiary_address_line2"))
 
-        /** The beneficiary's address line 3. */
+        /**
+         * The beneficiary's address line 3.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun beneficiaryAddressLine3(): Optional<String> =
             Optional.ofNullable(beneficiaryAddressLine3.getNullable("beneficiary_address_line3"))
 
         /**
          * The ID of an External Account to initiate a transfer to. If this parameter is provided,
          * `account_number` and `routing_number` must be absent.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun externalAccountId(): Optional<String> =
             Optional.ofNullable(externalAccountId.getNullable("external_account_id"))
@@ -266,6 +433,9 @@ private constructor(
         /**
          * The originator's address line 1. This is only necessary if you're transferring from a
          * commingled account. Otherwise, we'll use the associated entity's details.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun originatorAddressLine1(): Optional<String> =
             Optional.ofNullable(originatorAddressLine1.getNullable("originator_address_line1"))
@@ -273,6 +443,9 @@ private constructor(
         /**
          * The originator's address line 2. This is only necessary if you're transferring from a
          * commingled account. Otherwise, we'll use the associated entity's details.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun originatorAddressLine2(): Optional<String> =
             Optional.ofNullable(originatorAddressLine2.getNullable("originator_address_line2"))
@@ -280,6 +453,9 @@ private constructor(
         /**
          * The originator's address line 3. This is only necessary if you're transferring from a
          * commingled account. Otherwise, we'll use the associated entity's details.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun originatorAddressLine3(): Optional<String> =
             Optional.ofNullable(originatorAddressLine3.getNullable("originator_address_line3"))
@@ -287,115 +463,191 @@ private constructor(
         /**
          * The originator's name. This is only necessary if you're transferring from a commingled
          * account. Otherwise, we'll use the associated entity's details.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun originatorName(): Optional<String> =
             Optional.ofNullable(originatorName.getNullable("originator_name"))
 
-        /** Whether the transfer requires explicit approval via the dashboard or API. */
+        /**
+         * Whether the transfer requires explicit approval via the dashboard or API.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun requireApproval(): Optional<Boolean> =
             Optional.ofNullable(requireApproval.getNullable("require_approval"))
 
         /**
          * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the destination
          * account.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun routingNumber(): Optional<String> =
             Optional.ofNullable(routingNumber.getNullable("routing_number"))
 
-        /** The ID of an Account Number that will be passed to the wire's recipient */
+        /**
+         * The ID of an Account Number that will be passed to the wire's recipient
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun sourceAccountNumberId(): Optional<String> =
             Optional.ofNullable(sourceAccountNumberId.getNullable("source_account_number_id"))
 
-        /** The identifier for the account that will send the transfer. */
+        /**
+         * Returns the raw JSON value of [accountId].
+         *
+         * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
 
-        /** The transfer amount in USD cents. */
+        /**
+         * Returns the raw JSON value of [amount].
+         *
+         * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
-        /** The beneficiary's name. */
+        /**
+         * Returns the raw JSON value of [beneficiaryName].
+         *
+         * Unlike [beneficiaryName], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("beneficiary_name")
         @ExcludeMissing
         fun _beneficiaryName(): JsonField<String> = beneficiaryName
 
-        /** The message that will show on the recipient's bank statement. */
+        /**
+         * Returns the raw JSON value of [messageToRecipient].
+         *
+         * Unlike [messageToRecipient], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
         @JsonProperty("message_to_recipient")
         @ExcludeMissing
         fun _messageToRecipient(): JsonField<String> = messageToRecipient
 
-        /** The account number for the destination account. */
+        /**
+         * Returns the raw JSON value of [accountNumber].
+         *
+         * Unlike [accountNumber], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("account_number")
         @ExcludeMissing
         fun _accountNumber(): JsonField<String> = accountNumber
 
-        /** The beneficiary's address line 1. */
+        /**
+         * Returns the raw JSON value of [beneficiaryAddressLine1].
+         *
+         * Unlike [beneficiaryAddressLine1], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
         @JsonProperty("beneficiary_address_line1")
         @ExcludeMissing
         fun _beneficiaryAddressLine1(): JsonField<String> = beneficiaryAddressLine1
 
-        /** The beneficiary's address line 2. */
+        /**
+         * Returns the raw JSON value of [beneficiaryAddressLine2].
+         *
+         * Unlike [beneficiaryAddressLine2], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
         @JsonProperty("beneficiary_address_line2")
         @ExcludeMissing
         fun _beneficiaryAddressLine2(): JsonField<String> = beneficiaryAddressLine2
 
-        /** The beneficiary's address line 3. */
+        /**
+         * Returns the raw JSON value of [beneficiaryAddressLine3].
+         *
+         * Unlike [beneficiaryAddressLine3], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
         @JsonProperty("beneficiary_address_line3")
         @ExcludeMissing
         fun _beneficiaryAddressLine3(): JsonField<String> = beneficiaryAddressLine3
 
         /**
-         * The ID of an External Account to initiate a transfer to. If this parameter is provided,
-         * `account_number` and `routing_number` must be absent.
+         * Returns the raw JSON value of [externalAccountId].
+         *
+         * Unlike [externalAccountId], this method doesn't throw if the JSON field has an unexpected
+         * type.
          */
         @JsonProperty("external_account_id")
         @ExcludeMissing
         fun _externalAccountId(): JsonField<String> = externalAccountId
 
         /**
-         * The originator's address line 1. This is only necessary if you're transferring from a
-         * commingled account. Otherwise, we'll use the associated entity's details.
+         * Returns the raw JSON value of [originatorAddressLine1].
+         *
+         * Unlike [originatorAddressLine1], this method doesn't throw if the JSON field has an
+         * unexpected type.
          */
         @JsonProperty("originator_address_line1")
         @ExcludeMissing
         fun _originatorAddressLine1(): JsonField<String> = originatorAddressLine1
 
         /**
-         * The originator's address line 2. This is only necessary if you're transferring from a
-         * commingled account. Otherwise, we'll use the associated entity's details.
+         * Returns the raw JSON value of [originatorAddressLine2].
+         *
+         * Unlike [originatorAddressLine2], this method doesn't throw if the JSON field has an
+         * unexpected type.
          */
         @JsonProperty("originator_address_line2")
         @ExcludeMissing
         fun _originatorAddressLine2(): JsonField<String> = originatorAddressLine2
 
         /**
-         * The originator's address line 3. This is only necessary if you're transferring from a
-         * commingled account. Otherwise, we'll use the associated entity's details.
+         * Returns the raw JSON value of [originatorAddressLine3].
+         *
+         * Unlike [originatorAddressLine3], this method doesn't throw if the JSON field has an
+         * unexpected type.
          */
         @JsonProperty("originator_address_line3")
         @ExcludeMissing
         fun _originatorAddressLine3(): JsonField<String> = originatorAddressLine3
 
         /**
-         * The originator's name. This is only necessary if you're transferring from a commingled
-         * account. Otherwise, we'll use the associated entity's details.
+         * Returns the raw JSON value of [originatorName].
+         *
+         * Unlike [originatorName], this method doesn't throw if the JSON field has an unexpected
+         * type.
          */
         @JsonProperty("originator_name")
         @ExcludeMissing
         fun _originatorName(): JsonField<String> = originatorName
 
-        /** Whether the transfer requires explicit approval via the dashboard or API. */
+        /**
+         * Returns the raw JSON value of [requireApproval].
+         *
+         * Unlike [requireApproval], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("require_approval")
         @ExcludeMissing
         fun _requireApproval(): JsonField<Boolean> = requireApproval
 
         /**
-         * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the destination
-         * account.
+         * Returns the raw JSON value of [routingNumber].
+         *
+         * Unlike [routingNumber], this method doesn't throw if the JSON field has an unexpected
+         * type.
          */
         @JsonProperty("routing_number")
         @ExcludeMissing
         fun _routingNumber(): JsonField<String> = routingNumber
 
-        /** The ID of an Account Number that will be passed to the wire's recipient */
+        /**
+         * Returns the raw JSON value of [sourceAccountNumberId].
+         *
+         * Unlike [sourceAccountNumberId], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
         @JsonProperty("source_account_number_id")
         @ExcludeMissing
         fun _sourceAccountNumberId(): JsonField<String> = sourceAccountNumberId
@@ -493,20 +745,38 @@ private constructor(
             /** The identifier for the account that will send the transfer. */
             fun accountId(accountId: String) = accountId(JsonField.of(accountId))
 
-            /** The identifier for the account that will send the transfer. */
+            /**
+             * Sets [Builder.accountId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.accountId] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
             /** The transfer amount in USD cents. */
             fun amount(amount: Long) = amount(JsonField.of(amount))
 
-            /** The transfer amount in USD cents. */
+            /**
+             * Sets [Builder.amount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
             fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
             /** The beneficiary's name. */
             fun beneficiaryName(beneficiaryName: String) =
                 beneficiaryName(JsonField.of(beneficiaryName))
 
-            /** The beneficiary's name. */
+            /**
+             * Sets [Builder.beneficiaryName] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.beneficiaryName] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun beneficiaryName(beneficiaryName: JsonField<String>) = apply {
                 this.beneficiaryName = beneficiaryName
             }
@@ -515,7 +785,13 @@ private constructor(
             fun messageToRecipient(messageToRecipient: String) =
                 messageToRecipient(JsonField.of(messageToRecipient))
 
-            /** The message that will show on the recipient's bank statement. */
+            /**
+             * Sets [Builder.messageToRecipient] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.messageToRecipient] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun messageToRecipient(messageToRecipient: JsonField<String>) = apply {
                 this.messageToRecipient = messageToRecipient
             }
@@ -523,7 +799,13 @@ private constructor(
             /** The account number for the destination account. */
             fun accountNumber(accountNumber: String) = accountNumber(JsonField.of(accountNumber))
 
-            /** The account number for the destination account. */
+            /**
+             * Sets [Builder.accountNumber] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.accountNumber] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun accountNumber(accountNumber: JsonField<String>) = apply {
                 this.accountNumber = accountNumber
             }
@@ -532,7 +814,13 @@ private constructor(
             fun beneficiaryAddressLine1(beneficiaryAddressLine1: String) =
                 beneficiaryAddressLine1(JsonField.of(beneficiaryAddressLine1))
 
-            /** The beneficiary's address line 1. */
+            /**
+             * Sets [Builder.beneficiaryAddressLine1] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.beneficiaryAddressLine1] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
             fun beneficiaryAddressLine1(beneficiaryAddressLine1: JsonField<String>) = apply {
                 this.beneficiaryAddressLine1 = beneficiaryAddressLine1
             }
@@ -541,7 +829,13 @@ private constructor(
             fun beneficiaryAddressLine2(beneficiaryAddressLine2: String) =
                 beneficiaryAddressLine2(JsonField.of(beneficiaryAddressLine2))
 
-            /** The beneficiary's address line 2. */
+            /**
+             * Sets [Builder.beneficiaryAddressLine2] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.beneficiaryAddressLine2] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
             fun beneficiaryAddressLine2(beneficiaryAddressLine2: JsonField<String>) = apply {
                 this.beneficiaryAddressLine2 = beneficiaryAddressLine2
             }
@@ -550,7 +844,13 @@ private constructor(
             fun beneficiaryAddressLine3(beneficiaryAddressLine3: String) =
                 beneficiaryAddressLine3(JsonField.of(beneficiaryAddressLine3))
 
-            /** The beneficiary's address line 3. */
+            /**
+             * Sets [Builder.beneficiaryAddressLine3] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.beneficiaryAddressLine3] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
             fun beneficiaryAddressLine3(beneficiaryAddressLine3: JsonField<String>) = apply {
                 this.beneficiaryAddressLine3 = beneficiaryAddressLine3
             }
@@ -563,8 +863,11 @@ private constructor(
                 externalAccountId(JsonField.of(externalAccountId))
 
             /**
-             * The ID of an External Account to initiate a transfer to. If this parameter is
-             * provided, `account_number` and `routing_number` must be absent.
+             * Sets [Builder.externalAccountId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.externalAccountId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun externalAccountId(externalAccountId: JsonField<String>) = apply {
                 this.externalAccountId = externalAccountId
@@ -578,8 +881,11 @@ private constructor(
                 originatorAddressLine1(JsonField.of(originatorAddressLine1))
 
             /**
-             * The originator's address line 1. This is only necessary if you're transferring from a
-             * commingled account. Otherwise, we'll use the associated entity's details.
+             * Sets [Builder.originatorAddressLine1] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.originatorAddressLine1] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
              */
             fun originatorAddressLine1(originatorAddressLine1: JsonField<String>) = apply {
                 this.originatorAddressLine1 = originatorAddressLine1
@@ -593,8 +899,11 @@ private constructor(
                 originatorAddressLine2(JsonField.of(originatorAddressLine2))
 
             /**
-             * The originator's address line 2. This is only necessary if you're transferring from a
-             * commingled account. Otherwise, we'll use the associated entity's details.
+             * Sets [Builder.originatorAddressLine2] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.originatorAddressLine2] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
              */
             fun originatorAddressLine2(originatorAddressLine2: JsonField<String>) = apply {
                 this.originatorAddressLine2 = originatorAddressLine2
@@ -608,8 +917,11 @@ private constructor(
                 originatorAddressLine3(JsonField.of(originatorAddressLine3))
 
             /**
-             * The originator's address line 3. This is only necessary if you're transferring from a
-             * commingled account. Otherwise, we'll use the associated entity's details.
+             * Sets [Builder.originatorAddressLine3] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.originatorAddressLine3] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
              */
             fun originatorAddressLine3(originatorAddressLine3: JsonField<String>) = apply {
                 this.originatorAddressLine3 = originatorAddressLine3
@@ -623,8 +935,11 @@ private constructor(
                 originatorName(JsonField.of(originatorName))
 
             /**
-             * The originator's name. This is only necessary if you're transferring from a
-             * commingled account. Otherwise, we'll use the associated entity's details.
+             * Sets [Builder.originatorName] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.originatorName] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun originatorName(originatorName: JsonField<String>) = apply {
                 this.originatorName = originatorName
@@ -634,7 +949,13 @@ private constructor(
             fun requireApproval(requireApproval: Boolean) =
                 requireApproval(JsonField.of(requireApproval))
 
-            /** Whether the transfer requires explicit approval via the dashboard or API. */
+            /**
+             * Sets [Builder.requireApproval] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.requireApproval] with a well-typed [Boolean] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun requireApproval(requireApproval: JsonField<Boolean>) = apply {
                 this.requireApproval = requireApproval
             }
@@ -646,8 +967,11 @@ private constructor(
             fun routingNumber(routingNumber: String) = routingNumber(JsonField.of(routingNumber))
 
             /**
-             * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the
-             * destination account.
+             * Sets [Builder.routingNumber] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.routingNumber] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun routingNumber(routingNumber: JsonField<String>) = apply {
                 this.routingNumber = routingNumber
@@ -657,7 +981,13 @@ private constructor(
             fun sourceAccountNumberId(sourceAccountNumberId: String) =
                 sourceAccountNumberId(JsonField.of(sourceAccountNumberId))
 
-            /** The ID of an Account Number that will be passed to the wire's recipient */
+            /**
+             * Sets [Builder.sourceAccountNumberId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.sourceAccountNumberId] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
             fun sourceAccountNumberId(sourceAccountNumberId: JsonField<String>) = apply {
                 this.sourceAccountNumberId = sourceAccountNumberId
             }
@@ -757,13 +1087,24 @@ private constructor(
         /** The identifier for the account that will send the transfer. */
         fun accountId(accountId: String) = apply { body.accountId(accountId) }
 
-        /** The identifier for the account that will send the transfer. */
+        /**
+         * Sets [Builder.accountId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.accountId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun accountId(accountId: JsonField<String>) = apply { body.accountId(accountId) }
 
         /** The transfer amount in USD cents. */
         fun amount(amount: Long) = apply { body.amount(amount) }
 
-        /** The transfer amount in USD cents. */
+        /**
+         * Sets [Builder.amount] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun amount(amount: JsonField<Long>) = apply { body.amount(amount) }
 
         /** The beneficiary's name. */
@@ -771,7 +1112,13 @@ private constructor(
             body.beneficiaryName(beneficiaryName)
         }
 
-        /** The beneficiary's name. */
+        /**
+         * Sets [Builder.beneficiaryName] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.beneficiaryName] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun beneficiaryName(beneficiaryName: JsonField<String>) = apply {
             body.beneficiaryName(beneficiaryName)
         }
@@ -781,7 +1128,13 @@ private constructor(
             body.messageToRecipient(messageToRecipient)
         }
 
-        /** The message that will show on the recipient's bank statement. */
+        /**
+         * Sets [Builder.messageToRecipient] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.messageToRecipient] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun messageToRecipient(messageToRecipient: JsonField<String>) = apply {
             body.messageToRecipient(messageToRecipient)
         }
@@ -789,7 +1142,13 @@ private constructor(
         /** The account number for the destination account. */
         fun accountNumber(accountNumber: String) = apply { body.accountNumber(accountNumber) }
 
-        /** The account number for the destination account. */
+        /**
+         * Sets [Builder.accountNumber] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.accountNumber] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun accountNumber(accountNumber: JsonField<String>) = apply {
             body.accountNumber(accountNumber)
         }
@@ -799,7 +1158,13 @@ private constructor(
             body.beneficiaryAddressLine1(beneficiaryAddressLine1)
         }
 
-        /** The beneficiary's address line 1. */
+        /**
+         * Sets [Builder.beneficiaryAddressLine1] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.beneficiaryAddressLine1] with a well-typed [String]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
         fun beneficiaryAddressLine1(beneficiaryAddressLine1: JsonField<String>) = apply {
             body.beneficiaryAddressLine1(beneficiaryAddressLine1)
         }
@@ -809,7 +1174,13 @@ private constructor(
             body.beneficiaryAddressLine2(beneficiaryAddressLine2)
         }
 
-        /** The beneficiary's address line 2. */
+        /**
+         * Sets [Builder.beneficiaryAddressLine2] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.beneficiaryAddressLine2] with a well-typed [String]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
         fun beneficiaryAddressLine2(beneficiaryAddressLine2: JsonField<String>) = apply {
             body.beneficiaryAddressLine2(beneficiaryAddressLine2)
         }
@@ -819,7 +1190,13 @@ private constructor(
             body.beneficiaryAddressLine3(beneficiaryAddressLine3)
         }
 
-        /** The beneficiary's address line 3. */
+        /**
+         * Sets [Builder.beneficiaryAddressLine3] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.beneficiaryAddressLine3] with a well-typed [String]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
         fun beneficiaryAddressLine3(beneficiaryAddressLine3: JsonField<String>) = apply {
             body.beneficiaryAddressLine3(beneficiaryAddressLine3)
         }
@@ -833,8 +1210,11 @@ private constructor(
         }
 
         /**
-         * The ID of an External Account to initiate a transfer to. If this parameter is provided,
-         * `account_number` and `routing_number` must be absent.
+         * Sets [Builder.externalAccountId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.externalAccountId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun externalAccountId(externalAccountId: JsonField<String>) = apply {
             body.externalAccountId(externalAccountId)
@@ -849,8 +1229,11 @@ private constructor(
         }
 
         /**
-         * The originator's address line 1. This is only necessary if you're transferring from a
-         * commingled account. Otherwise, we'll use the associated entity's details.
+         * Sets [Builder.originatorAddressLine1] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.originatorAddressLine1] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun originatorAddressLine1(originatorAddressLine1: JsonField<String>) = apply {
             body.originatorAddressLine1(originatorAddressLine1)
@@ -865,8 +1248,11 @@ private constructor(
         }
 
         /**
-         * The originator's address line 2. This is only necessary if you're transferring from a
-         * commingled account. Otherwise, we'll use the associated entity's details.
+         * Sets [Builder.originatorAddressLine2] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.originatorAddressLine2] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun originatorAddressLine2(originatorAddressLine2: JsonField<String>) = apply {
             body.originatorAddressLine2(originatorAddressLine2)
@@ -881,8 +1267,11 @@ private constructor(
         }
 
         /**
-         * The originator's address line 3. This is only necessary if you're transferring from a
-         * commingled account. Otherwise, we'll use the associated entity's details.
+         * Sets [Builder.originatorAddressLine3] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.originatorAddressLine3] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun originatorAddressLine3(originatorAddressLine3: JsonField<String>) = apply {
             body.originatorAddressLine3(originatorAddressLine3)
@@ -895,8 +1284,11 @@ private constructor(
         fun originatorName(originatorName: String) = apply { body.originatorName(originatorName) }
 
         /**
-         * The originator's name. This is only necessary if you're transferring from a commingled
-         * account. Otherwise, we'll use the associated entity's details.
+         * Sets [Builder.originatorName] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.originatorName] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun originatorName(originatorName: JsonField<String>) = apply {
             body.originatorName(originatorName)
@@ -907,7 +1299,13 @@ private constructor(
             body.requireApproval(requireApproval)
         }
 
-        /** Whether the transfer requires explicit approval via the dashboard or API. */
+        /**
+         * Sets [Builder.requireApproval] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.requireApproval] with a well-typed [Boolean] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun requireApproval(requireApproval: JsonField<Boolean>) = apply {
             body.requireApproval(requireApproval)
         }
@@ -919,8 +1317,11 @@ private constructor(
         fun routingNumber(routingNumber: String) = apply { body.routingNumber(routingNumber) }
 
         /**
-         * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the destination
-         * account.
+         * Sets [Builder.routingNumber] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.routingNumber] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun routingNumber(routingNumber: JsonField<String>) = apply {
             body.routingNumber(routingNumber)
@@ -931,7 +1332,13 @@ private constructor(
             body.sourceAccountNumberId(sourceAccountNumberId)
         }
 
-        /** The ID of an Account Number that will be passed to the wire's recipient */
+        /**
+         * Sets [Builder.sourceAccountNumberId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.sourceAccountNumberId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun sourceAccountNumberId(sourceAccountNumberId: JsonField<String>) = apply {
             body.sourceAccountNumberId(sourceAccountNumberId)
         }

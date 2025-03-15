@@ -42,57 +42,103 @@ private constructor(
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
-    /** The identifier for the Card for which sensitive details have been returned. */
+    /**
+     * The identifier for the Card for which sensitive details have been returned.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun cardId(): String = cardId.getRequired("card_id")
 
-    /** The month the card expires in M format (e.g., August is 8). */
+    /**
+     * The month the card expires in M format (e.g., August is 8).
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun expirationMonth(): Long = expirationMonth.getRequired("expiration_month")
 
-    /** The year the card expires in YYYY format (e.g., 2025). */
+    /**
+     * The year the card expires in YYYY format (e.g., 2025).
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun expirationYear(): Long = expirationYear.getRequired("expiration_year")
 
-    /** The card number. */
+    /**
+     * The card number.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun primaryAccountNumber(): String = primaryAccountNumber.getRequired("primary_account_number")
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `card_details`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun type(): Type = type.getRequired("type")
 
     /**
      * The three-digit verification code for the card. It's also known as the Card Verification Code
      * (CVC), the Card Verification Value (CVV), or the Card Identification (CID).
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun verificationCode(): String = verificationCode.getRequired("verification_code")
 
-    /** The identifier for the Card for which sensitive details have been returned. */
+    /**
+     * Returns the raw JSON value of [cardId].
+     *
+     * Unlike [cardId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("card_id") @ExcludeMissing fun _cardId(): JsonField<String> = cardId
 
-    /** The month the card expires in M format (e.g., August is 8). */
+    /**
+     * Returns the raw JSON value of [expirationMonth].
+     *
+     * Unlike [expirationMonth], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("expiration_month")
     @ExcludeMissing
     fun _expirationMonth(): JsonField<Long> = expirationMonth
 
-    /** The year the card expires in YYYY format (e.g., 2025). */
+    /**
+     * Returns the raw JSON value of [expirationYear].
+     *
+     * Unlike [expirationYear], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("expiration_year")
     @ExcludeMissing
     fun _expirationYear(): JsonField<Long> = expirationYear
 
-    /** The card number. */
+    /**
+     * Returns the raw JSON value of [primaryAccountNumber].
+     *
+     * Unlike [primaryAccountNumber], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     @JsonProperty("primary_account_number")
     @ExcludeMissing
     fun _primaryAccountNumber(): JsonField<String> = primaryAccountNumber
 
     /**
-     * A constant representing the object's type. For this resource it will always be
-     * `card_details`.
+     * Returns the raw JSON value of [type].
+     *
+     * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
     /**
-     * The three-digit verification code for the card. It's also known as the Card Verification Code
-     * (CVC), the Card Verification Value (CVV), or the Card Identification (CID).
+     * Returns the raw JSON value of [verificationCode].
+     *
+     * Unlike [verificationCode], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
     @JsonProperty("verification_code")
     @ExcludeMissing
@@ -163,13 +209,24 @@ private constructor(
         /** The identifier for the Card for which sensitive details have been returned. */
         fun cardId(cardId: String) = cardId(JsonField.of(cardId))
 
-        /** The identifier for the Card for which sensitive details have been returned. */
+        /**
+         * Sets [Builder.cardId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.cardId] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun cardId(cardId: JsonField<String>) = apply { this.cardId = cardId }
 
         /** The month the card expires in M format (e.g., August is 8). */
         fun expirationMonth(expirationMonth: Long) = expirationMonth(JsonField.of(expirationMonth))
 
-        /** The month the card expires in M format (e.g., August is 8). */
+        /**
+         * Sets [Builder.expirationMonth] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.expirationMonth] with a well-typed [Long] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun expirationMonth(expirationMonth: JsonField<Long>) = apply {
             this.expirationMonth = expirationMonth
         }
@@ -177,7 +234,13 @@ private constructor(
         /** The year the card expires in YYYY format (e.g., 2025). */
         fun expirationYear(expirationYear: Long) = expirationYear(JsonField.of(expirationYear))
 
-        /** The year the card expires in YYYY format (e.g., 2025). */
+        /**
+         * Sets [Builder.expirationYear] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.expirationYear] with a well-typed [Long] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun expirationYear(expirationYear: JsonField<Long>) = apply {
             this.expirationYear = expirationYear
         }
@@ -186,7 +249,13 @@ private constructor(
         fun primaryAccountNumber(primaryAccountNumber: String) =
             primaryAccountNumber(JsonField.of(primaryAccountNumber))
 
-        /** The card number. */
+        /**
+         * Sets [Builder.primaryAccountNumber] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.primaryAccountNumber] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun primaryAccountNumber(primaryAccountNumber: JsonField<String>) = apply {
             this.primaryAccountNumber = primaryAccountNumber
         }
@@ -198,8 +267,10 @@ private constructor(
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
-         * A constant representing the object's type. For this resource it will always be
-         * `card_details`.
+         * Sets [Builder.type] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.type] with a well-typed [Type] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
@@ -211,8 +282,11 @@ private constructor(
             verificationCode(JsonField.of(verificationCode))
 
         /**
-         * The three-digit verification code for the card. It's also known as the Card Verification
-         * Code (CVC), the Card Verification Value (CVV), or the Card Identification (CID).
+         * Sets [Builder.verificationCode] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.verificationCode] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun verificationCode(verificationCode: JsonField<String>) = apply {
             this.verificationCode = verificationCode

@@ -49,70 +49,119 @@ private constructor(
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
-    /** The OAuth Connection's identifier. */
+    /**
+     * The OAuth Connection's identifier.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun id(): String = id.getRequired("id")
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp when the OAuth Connection
      * was created.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp when the OAuth Connection
      * was deleted.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun deletedAt(): Optional<OffsetDateTime> =
         Optional.ofNullable(deletedAt.getNullable("deleted_at"))
 
-    /** The identifier of the Group that has authorized your OAuth application. */
+    /**
+     * The identifier of the Group that has authorized your OAuth application.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun groupId(): String = groupId.getRequired("group_id")
 
-    /** The identifier of the OAuth application this connection is for. */
+    /**
+     * The identifier of the OAuth application this connection is for.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun oauthApplicationId(): String = oauthApplicationId.getRequired("oauth_application_id")
 
-    /** Whether the connection is active. */
+    /**
+     * Whether the connection is active.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun status(): Status = status.getRequired("status")
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `oauth_connection`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun type(): Type = type.getRequired("type")
 
-    /** The OAuth Connection's identifier. */
+    /**
+     * Returns the raw JSON value of [id].
+     *
+     * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp when the OAuth Connection
-     * was created.
+     * Returns the raw JSON value of [createdAt].
+     *
+     * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("created_at")
     @ExcludeMissing
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp when the OAuth Connection
-     * was deleted.
+     * Returns the raw JSON value of [deletedAt].
+     *
+     * Unlike [deletedAt], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("deleted_at")
     @ExcludeMissing
     fun _deletedAt(): JsonField<OffsetDateTime> = deletedAt
 
-    /** The identifier of the Group that has authorized your OAuth application. */
+    /**
+     * Returns the raw JSON value of [groupId].
+     *
+     * Unlike [groupId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("group_id") @ExcludeMissing fun _groupId(): JsonField<String> = groupId
 
-    /** The identifier of the OAuth application this connection is for. */
+    /**
+     * Returns the raw JSON value of [oauthApplicationId].
+     *
+     * Unlike [oauthApplicationId], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     @JsonProperty("oauth_application_id")
     @ExcludeMissing
     fun _oauthApplicationId(): JsonField<String> = oauthApplicationId
 
-    /** Whether the connection is active. */
+    /**
+     * Returns the raw JSON value of [status].
+     *
+     * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
     /**
-     * A constant representing the object's type. For this resource it will always be
-     * `oauth_connection`.
+     * Returns the raw JSON value of [type].
+     *
+     * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
@@ -185,7 +234,12 @@ private constructor(
         /** The OAuth Connection's identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
-        /** The OAuth Connection's identifier. */
+        /**
+         * Sets [Builder.id] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.id] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
@@ -195,8 +249,11 @@ private constructor(
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp when the OAuth
-         * Connection was created.
+         * Sets [Builder.createdAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
@@ -206,29 +263,40 @@ private constructor(
          */
         fun deletedAt(deletedAt: OffsetDateTime?) = deletedAt(JsonField.ofNullable(deletedAt))
 
-        /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp when the OAuth
-         * Connection was deleted.
-         */
+        /** Alias for calling [Builder.deletedAt] with `deletedAt.orElse(null)`. */
         fun deletedAt(deletedAt: Optional<OffsetDateTime>) = deletedAt(deletedAt.getOrNull())
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp when the OAuth
-         * Connection was deleted.
+         * Sets [Builder.deletedAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.deletedAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun deletedAt(deletedAt: JsonField<OffsetDateTime>) = apply { this.deletedAt = deletedAt }
 
         /** The identifier of the Group that has authorized your OAuth application. */
         fun groupId(groupId: String) = groupId(JsonField.of(groupId))
 
-        /** The identifier of the Group that has authorized your OAuth application. */
+        /**
+         * Sets [Builder.groupId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.groupId] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun groupId(groupId: JsonField<String>) = apply { this.groupId = groupId }
 
         /** The identifier of the OAuth application this connection is for. */
         fun oauthApplicationId(oauthApplicationId: String) =
             oauthApplicationId(JsonField.of(oauthApplicationId))
 
-        /** The identifier of the OAuth application this connection is for. */
+        /**
+         * Sets [Builder.oauthApplicationId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.oauthApplicationId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun oauthApplicationId(oauthApplicationId: JsonField<String>) = apply {
             this.oauthApplicationId = oauthApplicationId
         }
@@ -236,7 +304,12 @@ private constructor(
         /** Whether the connection is active. */
         fun status(status: Status) = status(JsonField.of(status))
 
-        /** Whether the connection is active. */
+        /**
+         * Sets [Builder.status] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.status] with a well-typed [Status] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /**
@@ -246,8 +319,10 @@ private constructor(
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
-         * A constant representing the object's type. For this resource it will always be
-         * `oauth_connection`.
+         * Sets [Builder.type] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.type] with a well-typed [Type] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun type(type: JsonField<Type>) = apply { this.type = type }
 

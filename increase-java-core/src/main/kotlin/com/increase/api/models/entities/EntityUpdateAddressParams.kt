@@ -17,6 +17,7 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
+import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 import java.util.Optional
 
@@ -35,12 +36,16 @@ private constructor(
     /**
      * The entity's physical address. Mail receiving locations like PO Boxes and PMB's are
      * disallowed.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun address(): Address = body.address()
 
     /**
-     * The entity's physical address. Mail receiving locations like PO Boxes and PMB's are
-     * disallowed.
+     * Returns the raw JSON value of [address].
+     *
+     * Unlike [address], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _address(): JsonField<Address> = body._address()
 
@@ -77,12 +82,16 @@ private constructor(
         /**
          * The entity's physical address. Mail receiving locations like PO Boxes and PMB's are
          * disallowed.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun address(): Address = address.getRequired("address")
 
         /**
-         * The entity's physical address. Mail receiving locations like PO Boxes and PMB's are
-         * disallowed.
+         * Returns the raw JSON value of [address].
+         *
+         * Unlike [address], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("address") @ExcludeMissing fun _address(): JsonField<Address> = address
 
@@ -135,8 +144,11 @@ private constructor(
             fun address(address: Address) = address(JsonField.of(address))
 
             /**
-             * The entity's physical address. Mail receiving locations like PO Boxes and PMB's are
-             * disallowed.
+             * Sets [Builder.address] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.address] with a well-typed [Address] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun address(address: JsonField<Address>) = apply { this.address = address }
 
@@ -224,8 +236,10 @@ private constructor(
         fun address(address: Address) = apply { body.address(address) }
 
         /**
-         * The entity's physical address. Mail receiving locations like PO Boxes and PMB's are
-         * disallowed.
+         * Sets [Builder.address] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.address] with a well-typed [Address] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun address(address: JsonField<Address>) = apply { body.address(address) }
 
@@ -380,40 +394,80 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The city of the address. */
+        /**
+         * The city of the address.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun city(): String = city.getRequired("city")
 
-        /** The first line of the address. This is usually the street number and street. */
+        /**
+         * The first line of the address. This is usually the street number and street.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun line1(): String = line1.getRequired("line1")
 
         /**
          * The two-letter United States Postal Service (USPS) abbreviation for the state of the
          * address.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun state(): String = state.getRequired("state")
 
-        /** The ZIP code of the address. */
+        /**
+         * The ZIP code of the address.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun zip(): String = zip.getRequired("zip")
 
-        /** The second line of the address. This might be the floor or room number. */
+        /**
+         * The second line of the address. This might be the floor or room number.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun line2(): Optional<String> = Optional.ofNullable(line2.getNullable("line2"))
 
-        /** The city of the address. */
+        /**
+         * Returns the raw JSON value of [city].
+         *
+         * Unlike [city], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("city") @ExcludeMissing fun _city(): JsonField<String> = city
 
-        /** The first line of the address. This is usually the street number and street. */
+        /**
+         * Returns the raw JSON value of [line1].
+         *
+         * Unlike [line1], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
 
         /**
-         * The two-letter United States Postal Service (USPS) abbreviation for the state of the
-         * address.
+         * Returns the raw JSON value of [state].
+         *
+         * Unlike [state], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("state") @ExcludeMissing fun _state(): JsonField<String> = state
 
-        /** The ZIP code of the address. */
+        /**
+         * Returns the raw JSON value of [zip].
+         *
+         * Unlike [zip], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("zip") @ExcludeMissing fun _zip(): JsonField<String> = zip
 
-        /** The second line of the address. This might be the floor or room number. */
+        /**
+         * Returns the raw JSON value of [line2].
+         *
+         * Unlike [line2], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
 
         @JsonAnyGetter
@@ -476,13 +530,25 @@ private constructor(
             /** The city of the address. */
             fun city(city: String) = city(JsonField.of(city))
 
-            /** The city of the address. */
+            /**
+             * Sets [Builder.city] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.city] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
             fun city(city: JsonField<String>) = apply { this.city = city }
 
             /** The first line of the address. This is usually the street number and street. */
             fun line1(line1: String) = line1(JsonField.of(line1))
 
-            /** The first line of the address. This is usually the street number and street. */
+            /**
+             * Sets [Builder.line1] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.line1] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
 
             /**
@@ -492,21 +558,36 @@ private constructor(
             fun state(state: String) = state(JsonField.of(state))
 
             /**
-             * The two-letter United States Postal Service (USPS) abbreviation for the state of the
-             * address.
+             * Sets [Builder.state] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.state] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun state(state: JsonField<String>) = apply { this.state = state }
 
             /** The ZIP code of the address. */
             fun zip(zip: String) = zip(JsonField.of(zip))
 
-            /** The ZIP code of the address. */
+            /**
+             * Sets [Builder.zip] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.zip] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
             fun zip(zip: JsonField<String>) = apply { this.zip = zip }
 
             /** The second line of the address. This might be the floor or room number. */
             fun line2(line2: String) = line2(JsonField.of(line2))
 
-            /** The second line of the address. This might be the floor or room number. */
+            /**
+             * Sets [Builder.line2] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.line2] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {

@@ -38,32 +38,50 @@ private constructor(
     /**
      * The Bookkeeping Account's current balance, representing the sum of all Bookkeeping Entries on
      * the Bookkeeping Account.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun balance(): Long = balance.getRequired("balance")
 
-    /** The identifier for the account for which the balance was queried. */
+    /**
+     * The identifier for the account for which the balance was queried.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun bookkeepingAccountId(): String = bookkeepingAccountId.getRequired("bookkeeping_account_id")
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `bookkeeping_balance_lookup`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun type(): Type = type.getRequired("type")
 
     /**
-     * The Bookkeeping Account's current balance, representing the sum of all Bookkeeping Entries on
-     * the Bookkeeping Account.
+     * Returns the raw JSON value of [balance].
+     *
+     * Unlike [balance], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("balance") @ExcludeMissing fun _balance(): JsonField<Long> = balance
 
-    /** The identifier for the account for which the balance was queried. */
+    /**
+     * Returns the raw JSON value of [bookkeepingAccountId].
+     *
+     * Unlike [bookkeepingAccountId], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     @JsonProperty("bookkeeping_account_id")
     @ExcludeMissing
     fun _bookkeepingAccountId(): JsonField<String> = bookkeepingAccountId
 
     /**
-     * A constant representing the object's type. For this resource it will always be
-     * `bookkeeping_balance_lookup`.
+     * Returns the raw JSON value of [type].
+     *
+     * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
@@ -124,8 +142,10 @@ private constructor(
         fun balance(balance: Long) = balance(JsonField.of(balance))
 
         /**
-         * The Bookkeeping Account's current balance, representing the sum of all Bookkeeping
-         * Entries on the Bookkeeping Account.
+         * Sets [Builder.balance] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.balance] with a well-typed [Long] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun balance(balance: JsonField<Long>) = apply { this.balance = balance }
 
@@ -133,7 +153,13 @@ private constructor(
         fun bookkeepingAccountId(bookkeepingAccountId: String) =
             bookkeepingAccountId(JsonField.of(bookkeepingAccountId))
 
-        /** The identifier for the account for which the balance was queried. */
+        /**
+         * Sets [Builder.bookkeepingAccountId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.bookkeepingAccountId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun bookkeepingAccountId(bookkeepingAccountId: JsonField<String>) = apply {
             this.bookkeepingAccountId = bookkeepingAccountId
         }
@@ -145,8 +171,10 @@ private constructor(
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
-         * A constant representing the object's type. For this resource it will always be
-         * `bookkeeping_balance_lookup`.
+         * Sets [Builder.type] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.type] with a well-typed [Type] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun type(type: JsonField<Type>) = apply { this.type = type }
 

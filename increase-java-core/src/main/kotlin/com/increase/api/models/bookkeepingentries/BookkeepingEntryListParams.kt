@@ -78,13 +78,13 @@ private constructor(
         /** The identifier for the Bookkeeping Account to filter by. */
         fun accountId(accountId: String?) = apply { this.accountId = accountId }
 
-        /** The identifier for the Bookkeeping Account to filter by. */
+        /** Alias for calling [Builder.accountId] with `accountId.orElse(null)`. */
         fun accountId(accountId: Optional<String>) = accountId(accountId.getOrNull())
 
         /** Return the page of entries after this one. */
         fun cursor(cursor: String?) = apply { this.cursor = cursor }
 
-        /** Return the page of entries after this one. */
+        /** Alias for calling [Builder.cursor] with `cursor.orElse(null)`. */
         fun cursor(cursor: Optional<String>) = cursor(cursor.getOrNull())
 
         /**
@@ -93,13 +93,13 @@ private constructor(
         fun limit(limit: Long?) = apply { this.limit = limit }
 
         /**
-         * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
+         * Alias for [Builder.limit].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
          */
         fun limit(limit: Long) = limit(limit as Long?)
 
-        /**
-         * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
-         */
+        /** Alias for calling [Builder.limit] with `limit.orElse(null)`. */
         fun limit(limit: Optional<Long>) = limit(limit.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {

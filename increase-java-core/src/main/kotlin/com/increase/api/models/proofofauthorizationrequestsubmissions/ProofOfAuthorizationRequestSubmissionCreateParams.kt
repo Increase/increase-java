@@ -17,6 +17,7 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
+import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Objects
 import java.util.Optional
@@ -29,82 +30,199 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** Terms of authorization. */
+    /**
+     * Terms of authorization.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun authorizationTerms(): String = body.authorizationTerms()
 
-    /** Time of authorization. */
+    /**
+     * Time of authorization.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun authorizedAt(): OffsetDateTime = body.authorizedAt()
 
-    /** Email of the authorizer. */
+    /**
+     * Email of the authorizer.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun authorizerEmail(): String = body.authorizerEmail()
 
-    /** Name of the authorizer. */
+    /**
+     * Name of the authorizer.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun authorizerName(): String = body.authorizerName()
 
-    /** Whether the customer has been offboarded or suspended. */
+    /**
+     * Whether the customer has been offboarded or suspended.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun customerHasBeenOffboarded(): Boolean = body.customerHasBeenOffboarded()
 
-    /** ID of the proof of authorization request. */
+    /**
+     * ID of the proof of authorization request.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun proofOfAuthorizationRequestId(): String = body.proofOfAuthorizationRequestId()
 
-    /** Whether the account ownership was validated via credential (e.g. Plaid). */
+    /**
+     * Whether the account ownership was validated via credential (e.g. Plaid).
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun validatedAccountOwnershipViaCredential(): Boolean =
         body.validatedAccountOwnershipViaCredential()
 
-    /** Whether the account ownership was validated with an account statement. */
+    /**
+     * Whether the account ownership was validated with an account statement.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun validatedAccountOwnershipWithAccountStatement(): Boolean =
         body.validatedAccountOwnershipWithAccountStatement()
 
-    /** Whether the account ownership was validated with a microdeposit. */
+    /**
+     * Whether the account ownership was validated with a microdeposit.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun validatedAccountOwnershipWithMicrodeposit(): Boolean =
         body.validatedAccountOwnershipWithMicrodeposit()
 
-    /** The File containing the check's front image. */
+    /**
+     * The File containing the check's front image.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun additionalEvidenceFileId(): Optional<String> = body.additionalEvidenceFileId()
 
-    /** Company of the authorizer. */
+    /**
+     * Company of the authorizer.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun authorizerCompany(): Optional<String> = body.authorizerCompany()
 
-    /** IP address of the authorizer. */
+    /**
+     * IP address of the authorizer.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun authorizerIpAddress(): Optional<String> = body.authorizerIpAddress()
 
-    /** Terms of authorization. */
+    /**
+     * Returns the raw JSON value of [authorizationTerms].
+     *
+     * Unlike [authorizationTerms], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     fun _authorizationTerms(): JsonField<String> = body._authorizationTerms()
 
-    /** Time of authorization. */
+    /**
+     * Returns the raw JSON value of [authorizedAt].
+     *
+     * Unlike [authorizedAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _authorizedAt(): JsonField<OffsetDateTime> = body._authorizedAt()
 
-    /** Email of the authorizer. */
+    /**
+     * Returns the raw JSON value of [authorizerEmail].
+     *
+     * Unlike [authorizerEmail], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _authorizerEmail(): JsonField<String> = body._authorizerEmail()
 
-    /** Name of the authorizer. */
+    /**
+     * Returns the raw JSON value of [authorizerName].
+     *
+     * Unlike [authorizerName], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _authorizerName(): JsonField<String> = body._authorizerName()
 
-    /** Whether the customer has been offboarded or suspended. */
+    /**
+     * Returns the raw JSON value of [customerHasBeenOffboarded].
+     *
+     * Unlike [customerHasBeenOffboarded], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
     fun _customerHasBeenOffboarded(): JsonField<Boolean> = body._customerHasBeenOffboarded()
 
-    /** ID of the proof of authorization request. */
+    /**
+     * Returns the raw JSON value of [proofOfAuthorizationRequestId].
+     *
+     * Unlike [proofOfAuthorizationRequestId], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
     fun _proofOfAuthorizationRequestId(): JsonField<String> = body._proofOfAuthorizationRequestId()
 
-    /** Whether the account ownership was validated via credential (e.g. Plaid). */
+    /**
+     * Returns the raw JSON value of [validatedAccountOwnershipViaCredential].
+     *
+     * Unlike [validatedAccountOwnershipViaCredential], this method doesn't throw if the JSON field
+     * has an unexpected type.
+     */
     fun _validatedAccountOwnershipViaCredential(): JsonField<Boolean> =
         body._validatedAccountOwnershipViaCredential()
 
-    /** Whether the account ownership was validated with an account statement. */
+    /**
+     * Returns the raw JSON value of [validatedAccountOwnershipWithAccountStatement].
+     *
+     * Unlike [validatedAccountOwnershipWithAccountStatement], this method doesn't throw if the JSON
+     * field has an unexpected type.
+     */
     fun _validatedAccountOwnershipWithAccountStatement(): JsonField<Boolean> =
         body._validatedAccountOwnershipWithAccountStatement()
 
-    /** Whether the account ownership was validated with a microdeposit. */
+    /**
+     * Returns the raw JSON value of [validatedAccountOwnershipWithMicrodeposit].
+     *
+     * Unlike [validatedAccountOwnershipWithMicrodeposit], this method doesn't throw if the JSON
+     * field has an unexpected type.
+     */
     fun _validatedAccountOwnershipWithMicrodeposit(): JsonField<Boolean> =
         body._validatedAccountOwnershipWithMicrodeposit()
 
-    /** The File containing the check's front image. */
+    /**
+     * Returns the raw JSON value of [additionalEvidenceFileId].
+     *
+     * Unlike [additionalEvidenceFileId], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
     fun _additionalEvidenceFileId(): JsonField<String> = body._additionalEvidenceFileId()
 
-    /** Company of the authorizer. */
+    /**
+     * Returns the raw JSON value of [authorizerCompany].
+     *
+     * Unlike [authorizerCompany], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     fun _authorizerCompany(): JsonField<String> = body._authorizerCompany()
 
-    /** IP address of the authorizer. */
+    /**
+     * Returns the raw JSON value of [authorizerIpAddress].
+     *
+     * Unlike [authorizerIpAddress], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     fun _authorizerIpAddress(): JsonField<String> = body._authorizerIpAddress()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
@@ -165,115 +283,235 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** Terms of authorization. */
+        /**
+         * Terms of authorization.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun authorizationTerms(): String = authorizationTerms.getRequired("authorization_terms")
 
-        /** Time of authorization. */
+        /**
+         * Time of authorization.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun authorizedAt(): OffsetDateTime = authorizedAt.getRequired("authorized_at")
 
-        /** Email of the authorizer. */
+        /**
+         * Email of the authorizer.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun authorizerEmail(): String = authorizerEmail.getRequired("authorizer_email")
 
-        /** Name of the authorizer. */
+        /**
+         * Name of the authorizer.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun authorizerName(): String = authorizerName.getRequired("authorizer_name")
 
-        /** Whether the customer has been offboarded or suspended. */
+        /**
+         * Whether the customer has been offboarded or suspended.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun customerHasBeenOffboarded(): Boolean =
             customerHasBeenOffboarded.getRequired("customer_has_been_offboarded")
 
-        /** ID of the proof of authorization request. */
+        /**
+         * ID of the proof of authorization request.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun proofOfAuthorizationRequestId(): String =
             proofOfAuthorizationRequestId.getRequired("proof_of_authorization_request_id")
 
-        /** Whether the account ownership was validated via credential (e.g. Plaid). */
+        /**
+         * Whether the account ownership was validated via credential (e.g. Plaid).
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun validatedAccountOwnershipViaCredential(): Boolean =
             validatedAccountOwnershipViaCredential.getRequired(
                 "validated_account_ownership_via_credential"
             )
 
-        /** Whether the account ownership was validated with an account statement. */
+        /**
+         * Whether the account ownership was validated with an account statement.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun validatedAccountOwnershipWithAccountStatement(): Boolean =
             validatedAccountOwnershipWithAccountStatement.getRequired(
                 "validated_account_ownership_with_account_statement"
             )
 
-        /** Whether the account ownership was validated with a microdeposit. */
+        /**
+         * Whether the account ownership was validated with a microdeposit.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun validatedAccountOwnershipWithMicrodeposit(): Boolean =
             validatedAccountOwnershipWithMicrodeposit.getRequired(
                 "validated_account_ownership_with_microdeposit"
             )
 
-        /** The File containing the check's front image. */
+        /**
+         * The File containing the check's front image.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun additionalEvidenceFileId(): Optional<String> =
             Optional.ofNullable(additionalEvidenceFileId.getNullable("additional_evidence_file_id"))
 
-        /** Company of the authorizer. */
+        /**
+         * Company of the authorizer.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun authorizerCompany(): Optional<String> =
             Optional.ofNullable(authorizerCompany.getNullable("authorizer_company"))
 
-        /** IP address of the authorizer. */
+        /**
+         * IP address of the authorizer.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun authorizerIpAddress(): Optional<String> =
             Optional.ofNullable(authorizerIpAddress.getNullable("authorizer_ip_address"))
 
-        /** Terms of authorization. */
+        /**
+         * Returns the raw JSON value of [authorizationTerms].
+         *
+         * Unlike [authorizationTerms], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
         @JsonProperty("authorization_terms")
         @ExcludeMissing
         fun _authorizationTerms(): JsonField<String> = authorizationTerms
 
-        /** Time of authorization. */
+        /**
+         * Returns the raw JSON value of [authorizedAt].
+         *
+         * Unlike [authorizedAt], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("authorized_at")
         @ExcludeMissing
         fun _authorizedAt(): JsonField<OffsetDateTime> = authorizedAt
 
-        /** Email of the authorizer. */
+        /**
+         * Returns the raw JSON value of [authorizerEmail].
+         *
+         * Unlike [authorizerEmail], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("authorizer_email")
         @ExcludeMissing
         fun _authorizerEmail(): JsonField<String> = authorizerEmail
 
-        /** Name of the authorizer. */
+        /**
+         * Returns the raw JSON value of [authorizerName].
+         *
+         * Unlike [authorizerName], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("authorizer_name")
         @ExcludeMissing
         fun _authorizerName(): JsonField<String> = authorizerName
 
-        /** Whether the customer has been offboarded or suspended. */
+        /**
+         * Returns the raw JSON value of [customerHasBeenOffboarded].
+         *
+         * Unlike [customerHasBeenOffboarded], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
         @JsonProperty("customer_has_been_offboarded")
         @ExcludeMissing
         fun _customerHasBeenOffboarded(): JsonField<Boolean> = customerHasBeenOffboarded
 
-        /** ID of the proof of authorization request. */
+        /**
+         * Returns the raw JSON value of [proofOfAuthorizationRequestId].
+         *
+         * Unlike [proofOfAuthorizationRequestId], this method doesn't throw if the JSON field has
+         * an unexpected type.
+         */
         @JsonProperty("proof_of_authorization_request_id")
         @ExcludeMissing
         fun _proofOfAuthorizationRequestId(): JsonField<String> = proofOfAuthorizationRequestId
 
-        /** Whether the account ownership was validated via credential (e.g. Plaid). */
+        /**
+         * Returns the raw JSON value of [validatedAccountOwnershipViaCredential].
+         *
+         * Unlike [validatedAccountOwnershipViaCredential], this method doesn't throw if the JSON
+         * field has an unexpected type.
+         */
         @JsonProperty("validated_account_ownership_via_credential")
         @ExcludeMissing
         fun _validatedAccountOwnershipViaCredential(): JsonField<Boolean> =
             validatedAccountOwnershipViaCredential
 
-        /** Whether the account ownership was validated with an account statement. */
+        /**
+         * Returns the raw JSON value of [validatedAccountOwnershipWithAccountStatement].
+         *
+         * Unlike [validatedAccountOwnershipWithAccountStatement], this method doesn't throw if the
+         * JSON field has an unexpected type.
+         */
         @JsonProperty("validated_account_ownership_with_account_statement")
         @ExcludeMissing
         fun _validatedAccountOwnershipWithAccountStatement(): JsonField<Boolean> =
             validatedAccountOwnershipWithAccountStatement
 
-        /** Whether the account ownership was validated with a microdeposit. */
+        /**
+         * Returns the raw JSON value of [validatedAccountOwnershipWithMicrodeposit].
+         *
+         * Unlike [validatedAccountOwnershipWithMicrodeposit], this method doesn't throw if the JSON
+         * field has an unexpected type.
+         */
         @JsonProperty("validated_account_ownership_with_microdeposit")
         @ExcludeMissing
         fun _validatedAccountOwnershipWithMicrodeposit(): JsonField<Boolean> =
             validatedAccountOwnershipWithMicrodeposit
 
-        /** The File containing the check's front image. */
+        /**
+         * Returns the raw JSON value of [additionalEvidenceFileId].
+         *
+         * Unlike [additionalEvidenceFileId], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
         @JsonProperty("additional_evidence_file_id")
         @ExcludeMissing
         fun _additionalEvidenceFileId(): JsonField<String> = additionalEvidenceFileId
 
-        /** Company of the authorizer. */
+        /**
+         * Returns the raw JSON value of [authorizerCompany].
+         *
+         * Unlike [authorizerCompany], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("authorizer_company")
         @ExcludeMissing
         fun _authorizerCompany(): JsonField<String> = authorizerCompany
 
-        /** IP address of the authorizer. */
+        /**
+         * Returns the raw JSON value of [authorizerIpAddress].
+         *
+         * Unlike [authorizerIpAddress], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
         @JsonProperty("authorizer_ip_address")
         @ExcludeMissing
         fun _authorizerIpAddress(): JsonField<String> = authorizerIpAddress
@@ -367,7 +605,13 @@ private constructor(
             fun authorizationTerms(authorizationTerms: String) =
                 authorizationTerms(JsonField.of(authorizationTerms))
 
-            /** Terms of authorization. */
+            /**
+             * Sets [Builder.authorizationTerms] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.authorizationTerms] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun authorizationTerms(authorizationTerms: JsonField<String>) = apply {
                 this.authorizationTerms = authorizationTerms
             }
@@ -376,7 +620,13 @@ private constructor(
             fun authorizedAt(authorizedAt: OffsetDateTime) =
                 authorizedAt(JsonField.of(authorizedAt))
 
-            /** Time of authorization. */
+            /**
+             * Sets [Builder.authorizedAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.authorizedAt] with a well-typed [OffsetDateTime]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
             fun authorizedAt(authorizedAt: JsonField<OffsetDateTime>) = apply {
                 this.authorizedAt = authorizedAt
             }
@@ -385,7 +635,13 @@ private constructor(
             fun authorizerEmail(authorizerEmail: String) =
                 authorizerEmail(JsonField.of(authorizerEmail))
 
-            /** Email of the authorizer. */
+            /**
+             * Sets [Builder.authorizerEmail] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.authorizerEmail] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun authorizerEmail(authorizerEmail: JsonField<String>) = apply {
                 this.authorizerEmail = authorizerEmail
             }
@@ -394,7 +650,13 @@ private constructor(
             fun authorizerName(authorizerName: String) =
                 authorizerName(JsonField.of(authorizerName))
 
-            /** Name of the authorizer. */
+            /**
+             * Sets [Builder.authorizerName] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.authorizerName] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun authorizerName(authorizerName: JsonField<String>) = apply {
                 this.authorizerName = authorizerName
             }
@@ -403,7 +665,13 @@ private constructor(
             fun customerHasBeenOffboarded(customerHasBeenOffboarded: Boolean) =
                 customerHasBeenOffboarded(JsonField.of(customerHasBeenOffboarded))
 
-            /** Whether the customer has been offboarded or suspended. */
+            /**
+             * Sets [Builder.customerHasBeenOffboarded] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.customerHasBeenOffboarded] with a well-typed
+             * [Boolean] value instead. This method is primarily for setting the field to an
+             * undocumented or not yet supported value.
+             */
             fun customerHasBeenOffboarded(customerHasBeenOffboarded: JsonField<Boolean>) = apply {
                 this.customerHasBeenOffboarded = customerHasBeenOffboarded
             }
@@ -412,7 +680,13 @@ private constructor(
             fun proofOfAuthorizationRequestId(proofOfAuthorizationRequestId: String) =
                 proofOfAuthorizationRequestId(JsonField.of(proofOfAuthorizationRequestId))
 
-            /** ID of the proof of authorization request. */
+            /**
+             * Sets [Builder.proofOfAuthorizationRequestId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.proofOfAuthorizationRequestId] with a well-typed
+             * [String] value instead. This method is primarily for setting the field to an
+             * undocumented or not yet supported value.
+             */
             fun proofOfAuthorizationRequestId(proofOfAuthorizationRequestId: JsonField<String>) =
                 apply {
                     this.proofOfAuthorizationRequestId = proofOfAuthorizationRequestId
@@ -426,7 +700,13 @@ private constructor(
                     JsonField.of(validatedAccountOwnershipViaCredential)
                 )
 
-            /** Whether the account ownership was validated via credential (e.g. Plaid). */
+            /**
+             * Sets [Builder.validatedAccountOwnershipViaCredential] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.validatedAccountOwnershipViaCredential] with a
+             * well-typed [Boolean] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
             fun validatedAccountOwnershipViaCredential(
                 validatedAccountOwnershipViaCredential: JsonField<Boolean>
             ) = apply {
@@ -441,7 +721,14 @@ private constructor(
                     JsonField.of(validatedAccountOwnershipWithAccountStatement)
                 )
 
-            /** Whether the account ownership was validated with an account statement. */
+            /**
+             * Sets [Builder.validatedAccountOwnershipWithAccountStatement] to an arbitrary JSON
+             * value.
+             *
+             * You should usually call [Builder.validatedAccountOwnershipWithAccountStatement] with
+             * a well-typed [Boolean] value instead. This method is primarily for setting the field
+             * to an undocumented or not yet supported value.
+             */
             fun validatedAccountOwnershipWithAccountStatement(
                 validatedAccountOwnershipWithAccountStatement: JsonField<Boolean>
             ) = apply {
@@ -457,7 +744,13 @@ private constructor(
                     JsonField.of(validatedAccountOwnershipWithMicrodeposit)
                 )
 
-            /** Whether the account ownership was validated with a microdeposit. */
+            /**
+             * Sets [Builder.validatedAccountOwnershipWithMicrodeposit] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.validatedAccountOwnershipWithMicrodeposit] with a
+             * well-typed [Boolean] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
             fun validatedAccountOwnershipWithMicrodeposit(
                 validatedAccountOwnershipWithMicrodeposit: JsonField<Boolean>
             ) = apply {
@@ -469,7 +762,13 @@ private constructor(
             fun additionalEvidenceFileId(additionalEvidenceFileId: String) =
                 additionalEvidenceFileId(JsonField.of(additionalEvidenceFileId))
 
-            /** The File containing the check's front image. */
+            /**
+             * Sets [Builder.additionalEvidenceFileId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.additionalEvidenceFileId] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
             fun additionalEvidenceFileId(additionalEvidenceFileId: JsonField<String>) = apply {
                 this.additionalEvidenceFileId = additionalEvidenceFileId
             }
@@ -478,7 +777,13 @@ private constructor(
             fun authorizerCompany(authorizerCompany: String) =
                 authorizerCompany(JsonField.of(authorizerCompany))
 
-            /** Company of the authorizer. */
+            /**
+             * Sets [Builder.authorizerCompany] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.authorizerCompany] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun authorizerCompany(authorizerCompany: JsonField<String>) = apply {
                 this.authorizerCompany = authorizerCompany
             }
@@ -487,7 +792,13 @@ private constructor(
             fun authorizerIpAddress(authorizerIpAddress: String) =
                 authorizerIpAddress(JsonField.of(authorizerIpAddress))
 
-            /** IP address of the authorizer. */
+            /**
+             * Sets [Builder.authorizerIpAddress] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.authorizerIpAddress] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
             fun authorizerIpAddress(authorizerIpAddress: JsonField<String>) = apply {
                 this.authorizerIpAddress = authorizerIpAddress
             }
@@ -605,7 +916,13 @@ private constructor(
             body.authorizationTerms(authorizationTerms)
         }
 
-        /** Terms of authorization. */
+        /**
+         * Sets [Builder.authorizationTerms] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.authorizationTerms] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun authorizationTerms(authorizationTerms: JsonField<String>) = apply {
             body.authorizationTerms(authorizationTerms)
         }
@@ -613,7 +930,13 @@ private constructor(
         /** Time of authorization. */
         fun authorizedAt(authorizedAt: OffsetDateTime) = apply { body.authorizedAt(authorizedAt) }
 
-        /** Time of authorization. */
+        /**
+         * Sets [Builder.authorizedAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.authorizedAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun authorizedAt(authorizedAt: JsonField<OffsetDateTime>) = apply {
             body.authorizedAt(authorizedAt)
         }
@@ -623,7 +946,13 @@ private constructor(
             body.authorizerEmail(authorizerEmail)
         }
 
-        /** Email of the authorizer. */
+        /**
+         * Sets [Builder.authorizerEmail] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.authorizerEmail] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun authorizerEmail(authorizerEmail: JsonField<String>) = apply {
             body.authorizerEmail(authorizerEmail)
         }
@@ -631,7 +960,13 @@ private constructor(
         /** Name of the authorizer. */
         fun authorizerName(authorizerName: String) = apply { body.authorizerName(authorizerName) }
 
-        /** Name of the authorizer. */
+        /**
+         * Sets [Builder.authorizerName] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.authorizerName] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun authorizerName(authorizerName: JsonField<String>) = apply {
             body.authorizerName(authorizerName)
         }
@@ -641,7 +976,13 @@ private constructor(
             body.customerHasBeenOffboarded(customerHasBeenOffboarded)
         }
 
-        /** Whether the customer has been offboarded or suspended. */
+        /**
+         * Sets [Builder.customerHasBeenOffboarded] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.customerHasBeenOffboarded] with a well-typed [Boolean]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
         fun customerHasBeenOffboarded(customerHasBeenOffboarded: JsonField<Boolean>) = apply {
             body.customerHasBeenOffboarded(customerHasBeenOffboarded)
         }
@@ -651,7 +992,13 @@ private constructor(
             body.proofOfAuthorizationRequestId(proofOfAuthorizationRequestId)
         }
 
-        /** ID of the proof of authorization request. */
+        /**
+         * Sets [Builder.proofOfAuthorizationRequestId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.proofOfAuthorizationRequestId] with a well-typed
+         * [String] value instead. This method is primarily for setting the field to an undocumented
+         * or not yet supported value.
+         */
         fun proofOfAuthorizationRequestId(proofOfAuthorizationRequestId: JsonField<String>) =
             apply {
                 body.proofOfAuthorizationRequestId(proofOfAuthorizationRequestId)
@@ -664,7 +1011,13 @@ private constructor(
             body.validatedAccountOwnershipViaCredential(validatedAccountOwnershipViaCredential)
         }
 
-        /** Whether the account ownership was validated via credential (e.g. Plaid). */
+        /**
+         * Sets [Builder.validatedAccountOwnershipViaCredential] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.validatedAccountOwnershipViaCredential] with a
+         * well-typed [Boolean] value instead. This method is primarily for setting the field to an
+         * undocumented or not yet supported value.
+         */
         fun validatedAccountOwnershipViaCredential(
             validatedAccountOwnershipViaCredential: JsonField<Boolean>
         ) = apply {
@@ -680,7 +1033,13 @@ private constructor(
             )
         }
 
-        /** Whether the account ownership was validated with an account statement. */
+        /**
+         * Sets [Builder.validatedAccountOwnershipWithAccountStatement] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.validatedAccountOwnershipWithAccountStatement] with a
+         * well-typed [Boolean] value instead. This method is primarily for setting the field to an
+         * undocumented or not yet supported value.
+         */
         fun validatedAccountOwnershipWithAccountStatement(
             validatedAccountOwnershipWithAccountStatement: JsonField<Boolean>
         ) = apply {
@@ -698,7 +1057,13 @@ private constructor(
             )
         }
 
-        /** Whether the account ownership was validated with a microdeposit. */
+        /**
+         * Sets [Builder.validatedAccountOwnershipWithMicrodeposit] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.validatedAccountOwnershipWithMicrodeposit] with a
+         * well-typed [Boolean] value instead. This method is primarily for setting the field to an
+         * undocumented or not yet supported value.
+         */
         fun validatedAccountOwnershipWithMicrodeposit(
             validatedAccountOwnershipWithMicrodeposit: JsonField<Boolean>
         ) = apply {
@@ -712,7 +1077,13 @@ private constructor(
             body.additionalEvidenceFileId(additionalEvidenceFileId)
         }
 
-        /** The File containing the check's front image. */
+        /**
+         * Sets [Builder.additionalEvidenceFileId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.additionalEvidenceFileId] with a well-typed [String]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
         fun additionalEvidenceFileId(additionalEvidenceFileId: JsonField<String>) = apply {
             body.additionalEvidenceFileId(additionalEvidenceFileId)
         }
@@ -722,7 +1093,13 @@ private constructor(
             body.authorizerCompany(authorizerCompany)
         }
 
-        /** Company of the authorizer. */
+        /**
+         * Sets [Builder.authorizerCompany] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.authorizerCompany] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun authorizerCompany(authorizerCompany: JsonField<String>) = apply {
             body.authorizerCompany(authorizerCompany)
         }
@@ -732,7 +1109,13 @@ private constructor(
             body.authorizerIpAddress(authorizerIpAddress)
         }
 
-        /** IP address of the authorizer. */
+        /**
+         * Sets [Builder.authorizerIpAddress] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.authorizerIpAddress] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun authorizerIpAddress(authorizerIpAddress: JsonField<String>) = apply {
             body.authorizerIpAddress(authorizerIpAddress)
         }

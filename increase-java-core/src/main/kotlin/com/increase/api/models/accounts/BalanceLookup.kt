@@ -36,49 +36,71 @@ private constructor(
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
-    /** The identifier for the account for which the balance was queried. */
+    /**
+     * The identifier for the account for which the balance was queried.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun accountId(): String = accountId.getRequired("account_id")
 
     /**
      * The Account's available balance, representing the current balance less any open Pending
      * Transactions on the Account.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun availableBalance(): Long = availableBalance.getRequired("available_balance")
 
     /**
      * The Account's current balance, representing the sum of all posted Transactions on the
      * Account.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun currentBalance(): Long = currentBalance.getRequired("current_balance")
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `balance_lookup`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun type(): Type = type.getRequired("type")
 
-    /** The identifier for the account for which the balance was queried. */
+    /**
+     * Returns the raw JSON value of [accountId].
+     *
+     * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
 
     /**
-     * The Account's available balance, representing the current balance less any open Pending
-     * Transactions on the Account.
+     * Returns the raw JSON value of [availableBalance].
+     *
+     * Unlike [availableBalance], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
     @JsonProperty("available_balance")
     @ExcludeMissing
     fun _availableBalance(): JsonField<Long> = availableBalance
 
     /**
-     * The Account's current balance, representing the sum of all posted Transactions on the
-     * Account.
+     * Returns the raw JSON value of [currentBalance].
+     *
+     * Unlike [currentBalance], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("current_balance")
     @ExcludeMissing
     fun _currentBalance(): JsonField<Long> = currentBalance
 
     /**
-     * A constant representing the object's type. For this resource it will always be
-     * `balance_lookup`.
+     * Returns the raw JSON value of [type].
+     *
+     * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
@@ -139,7 +161,13 @@ private constructor(
         /** The identifier for the account for which the balance was queried. */
         fun accountId(accountId: String) = accountId(JsonField.of(accountId))
 
-        /** The identifier for the account for which the balance was queried. */
+        /**
+         * Sets [Builder.accountId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.accountId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
         /**
@@ -150,8 +178,11 @@ private constructor(
             availableBalance(JsonField.of(availableBalance))
 
         /**
-         * The Account's available balance, representing the current balance less any open Pending
-         * Transactions on the Account.
+         * Sets [Builder.availableBalance] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.availableBalance] with a well-typed [Long] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun availableBalance(availableBalance: JsonField<Long>) = apply {
             this.availableBalance = availableBalance
@@ -164,8 +195,11 @@ private constructor(
         fun currentBalance(currentBalance: Long) = currentBalance(JsonField.of(currentBalance))
 
         /**
-         * The Account's current balance, representing the sum of all posted Transactions on the
-         * Account.
+         * Sets [Builder.currentBalance] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.currentBalance] with a well-typed [Long] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun currentBalance(currentBalance: JsonField<Long>) = apply {
             this.currentBalance = currentBalance
@@ -178,8 +212,10 @@ private constructor(
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
-         * A constant representing the object's type. For this resource it will always be
-         * `balance_lookup`.
+         * Sets [Builder.type] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.type] with a well-typed [Type] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun type(type: JsonField<Type>) = apply { this.type = type }
 

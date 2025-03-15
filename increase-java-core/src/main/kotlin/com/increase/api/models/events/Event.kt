@@ -45,52 +45,103 @@ private constructor(
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
-    /** The Event identifier. */
+    /**
+     * The Event identifier.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun id(): String = id.getRequired("id")
 
-    /** The identifier of the object that generated this Event. */
+    /**
+     * The identifier of the object that generated this Event.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun associatedObjectId(): String = associatedObjectId.getRequired("associated_object_id")
 
-    /** The type of the object that generated this Event. */
+    /**
+     * The type of the object that generated this Event.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun associatedObjectType(): String = associatedObjectType.getRequired("associated_object_type")
 
     /**
      * The category of the Event. We may add additional possible values for this enum over time;
      * your application should be able to handle such additions gracefully.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun category(): Category = category.getRequired("category")
 
-    /** The time the Event was created. */
+    /**
+     * The time the Event was created.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
-    /** A constant representing the object's type. For this resource it will always be `event`. */
+    /**
+     * A constant representing the object's type. For this resource it will always be `event`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun type(): Type = type.getRequired("type")
 
-    /** The Event identifier. */
+    /**
+     * Returns the raw JSON value of [id].
+     *
+     * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
-    /** The identifier of the object that generated this Event. */
+    /**
+     * Returns the raw JSON value of [associatedObjectId].
+     *
+     * Unlike [associatedObjectId], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     @JsonProperty("associated_object_id")
     @ExcludeMissing
     fun _associatedObjectId(): JsonField<String> = associatedObjectId
 
-    /** The type of the object that generated this Event. */
+    /**
+     * Returns the raw JSON value of [associatedObjectType].
+     *
+     * Unlike [associatedObjectType], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     @JsonProperty("associated_object_type")
     @ExcludeMissing
     fun _associatedObjectType(): JsonField<String> = associatedObjectType
 
     /**
-     * The category of the Event. We may add additional possible values for this enum over time;
-     * your application should be able to handle such additions gracefully.
+     * Returns the raw JSON value of [category].
+     *
+     * Unlike [category], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("category") @ExcludeMissing fun _category(): JsonField<Category> = category
 
-    /** The time the Event was created. */
+    /**
+     * Returns the raw JSON value of [createdAt].
+     *
+     * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("created_at")
     @ExcludeMissing
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
-    /** A constant representing the object's type. For this resource it will always be `event`. */
+    /**
+     * Returns the raw JSON value of [type].
+     *
+     * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
     @JsonAnyGetter
@@ -158,14 +209,25 @@ private constructor(
         /** The Event identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
-        /** The Event identifier. */
+        /**
+         * Sets [Builder.id] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.id] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The identifier of the object that generated this Event. */
         fun associatedObjectId(associatedObjectId: String) =
             associatedObjectId(JsonField.of(associatedObjectId))
 
-        /** The identifier of the object that generated this Event. */
+        /**
+         * Sets [Builder.associatedObjectId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.associatedObjectId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun associatedObjectId(associatedObjectId: JsonField<String>) = apply {
             this.associatedObjectId = associatedObjectId
         }
@@ -174,7 +236,13 @@ private constructor(
         fun associatedObjectType(associatedObjectType: String) =
             associatedObjectType(JsonField.of(associatedObjectType))
 
-        /** The type of the object that generated this Event. */
+        /**
+         * Sets [Builder.associatedObjectType] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.associatedObjectType] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun associatedObjectType(associatedObjectType: JsonField<String>) = apply {
             this.associatedObjectType = associatedObjectType
         }
@@ -186,15 +254,24 @@ private constructor(
         fun category(category: Category) = category(JsonField.of(category))
 
         /**
-         * The category of the Event. We may add additional possible values for this enum over time;
-         * your application should be able to handle such additions gracefully.
+         * Sets [Builder.category] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.category] with a well-typed [Category] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun category(category: JsonField<Category>) = apply { this.category = category }
 
         /** The time the Event was created. */
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
-        /** The time the Event was created. */
+        /**
+         * Sets [Builder.createdAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /**
@@ -203,7 +280,10 @@ private constructor(
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
-         * A constant representing the object's type. For this resource it will always be `event`.
+         * Sets [Builder.type] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.type] with a well-typed [Type] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun type(type: JsonField<Type>) = apply { this.type = type }
 

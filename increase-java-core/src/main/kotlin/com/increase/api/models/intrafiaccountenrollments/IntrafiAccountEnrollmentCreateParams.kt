@@ -17,6 +17,7 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
+import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 
 /** Enroll an account in the IntraFi deposit sweep network */
@@ -27,16 +28,34 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** The identifier for the account to be added to IntraFi. */
+    /**
+     * The identifier for the account to be added to IntraFi.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun accountId(): String = body.accountId()
 
-    /** The contact email for the account owner, to be shared with IntraFi. */
+    /**
+     * The contact email for the account owner, to be shared with IntraFi.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun emailAddress(): String = body.emailAddress()
 
-    /** The identifier for the account to be added to IntraFi. */
+    /**
+     * Returns the raw JSON value of [accountId].
+     *
+     * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _accountId(): JsonField<String> = body._accountId()
 
-    /** The contact email for the account owner, to be shared with IntraFi. */
+    /**
+     * Returns the raw JSON value of [emailAddress].
+     *
+     * Unlike [emailAddress], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _emailAddress(): JsonField<String> = body._emailAddress()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
@@ -65,16 +84,35 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The identifier for the account to be added to IntraFi. */
+        /**
+         * The identifier for the account to be added to IntraFi.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun accountId(): String = accountId.getRequired("account_id")
 
-        /** The contact email for the account owner, to be shared with IntraFi. */
+        /**
+         * The contact email for the account owner, to be shared with IntraFi.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun emailAddress(): String = emailAddress.getRequired("email_address")
 
-        /** The identifier for the account to be added to IntraFi. */
+        /**
+         * Returns the raw JSON value of [accountId].
+         *
+         * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
 
-        /** The contact email for the account owner, to be shared with IntraFi. */
+        /**
+         * Returns the raw JSON value of [emailAddress].
+         *
+         * Unlike [emailAddress], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("email_address")
         @ExcludeMissing
         fun _emailAddress(): JsonField<String> = emailAddress
@@ -128,13 +166,25 @@ private constructor(
             /** The identifier for the account to be added to IntraFi. */
             fun accountId(accountId: String) = accountId(JsonField.of(accountId))
 
-            /** The identifier for the account to be added to IntraFi. */
+            /**
+             * Sets [Builder.accountId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.accountId] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
             /** The contact email for the account owner, to be shared with IntraFi. */
             fun emailAddress(emailAddress: String) = emailAddress(JsonField.of(emailAddress))
 
-            /** The contact email for the account owner, to be shared with IntraFi. */
+            /**
+             * Sets [Builder.emailAddress] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.emailAddress] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun emailAddress(emailAddress: JsonField<String>) = apply {
                 this.emailAddress = emailAddress
             }
@@ -222,13 +272,25 @@ private constructor(
         /** The identifier for the account to be added to IntraFi. */
         fun accountId(accountId: String) = apply { body.accountId(accountId) }
 
-        /** The identifier for the account to be added to IntraFi. */
+        /**
+         * Sets [Builder.accountId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.accountId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun accountId(accountId: JsonField<String>) = apply { body.accountId(accountId) }
 
         /** The contact email for the account owner, to be shared with IntraFi. */
         fun emailAddress(emailAddress: String) = apply { body.emailAddress(emailAddress) }
 
-        /** The contact email for the account owner, to be shared with IntraFi. */
+        /**
+         * Sets [Builder.emailAddress] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.emailAddress] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun emailAddress(emailAddress: JsonField<String>) = apply {
             body.emailAddress(emailAddress)
         }

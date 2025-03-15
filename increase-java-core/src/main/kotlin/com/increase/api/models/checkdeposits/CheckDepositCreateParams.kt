@@ -17,6 +17,7 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
+import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 import java.util.Optional
 
@@ -28,34 +29,80 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** The identifier for the Account to deposit the check in. */
+    /**
+     * The identifier for the Account to deposit the check in.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun accountId(): String = body.accountId()
 
-    /** The deposit amount in USD cents. */
+    /**
+     * The deposit amount in USD cents.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun amount(): Long = body.amount()
 
-    /** The File containing the check's back image. */
+    /**
+     * The File containing the check's back image.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun backImageFileId(): String = body.backImageFileId()
 
-    /** The File containing the check's front image. */
+    /**
+     * The File containing the check's front image.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun frontImageFileId(): String = body.frontImageFileId()
 
-    /** The description you choose to give the Check Deposit, for display purposes only. */
+    /**
+     * The description you choose to give the Check Deposit, for display purposes only.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun description(): Optional<String> = body.description()
 
-    /** The identifier for the Account to deposit the check in. */
+    /**
+     * Returns the raw JSON value of [accountId].
+     *
+     * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _accountId(): JsonField<String> = body._accountId()
 
-    /** The deposit amount in USD cents. */
+    /**
+     * Returns the raw JSON value of [amount].
+     *
+     * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _amount(): JsonField<Long> = body._amount()
 
-    /** The File containing the check's back image. */
+    /**
+     * Returns the raw JSON value of [backImageFileId].
+     *
+     * Unlike [backImageFileId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _backImageFileId(): JsonField<String> = body._backImageFileId()
 
-    /** The File containing the check's front image. */
+    /**
+     * Returns the raw JSON value of [frontImageFileId].
+     *
+     * Unlike [frontImageFileId], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     fun _frontImageFileId(): JsonField<String> = body._frontImageFileId()
 
-    /** The description you choose to give the Check Deposit, for display purposes only. */
+    /**
+     * Returns the raw JSON value of [description].
+     *
+     * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _description(): JsonField<String> = body._description()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
@@ -93,39 +140,86 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The identifier for the Account to deposit the check in. */
+        /**
+         * The identifier for the Account to deposit the check in.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun accountId(): String = accountId.getRequired("account_id")
 
-        /** The deposit amount in USD cents. */
+        /**
+         * The deposit amount in USD cents.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun amount(): Long = amount.getRequired("amount")
 
-        /** The File containing the check's back image. */
+        /**
+         * The File containing the check's back image.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun backImageFileId(): String = backImageFileId.getRequired("back_image_file_id")
 
-        /** The File containing the check's front image. */
+        /**
+         * The File containing the check's front image.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun frontImageFileId(): String = frontImageFileId.getRequired("front_image_file_id")
 
-        /** The description you choose to give the Check Deposit, for display purposes only. */
+        /**
+         * The description you choose to give the Check Deposit, for display purposes only.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun description(): Optional<String> =
             Optional.ofNullable(description.getNullable("description"))
 
-        /** The identifier for the Account to deposit the check in. */
+        /**
+         * Returns the raw JSON value of [accountId].
+         *
+         * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
 
-        /** The deposit amount in USD cents. */
+        /**
+         * Returns the raw JSON value of [amount].
+         *
+         * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
-        /** The File containing the check's back image. */
+        /**
+         * Returns the raw JSON value of [backImageFileId].
+         *
+         * Unlike [backImageFileId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("back_image_file_id")
         @ExcludeMissing
         fun _backImageFileId(): JsonField<String> = backImageFileId
 
-        /** The File containing the check's front image. */
+        /**
+         * Returns the raw JSON value of [frontImageFileId].
+         *
+         * Unlike [frontImageFileId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("front_image_file_id")
         @ExcludeMissing
         fun _frontImageFileId(): JsonField<String> = frontImageFileId
 
-        /** The description you choose to give the Check Deposit, for display purposes only. */
+        /**
+         * Returns the raw JSON value of [description].
+         *
+         * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("description")
         @ExcludeMissing
         fun _description(): JsonField<String> = description
@@ -190,20 +284,38 @@ private constructor(
             /** The identifier for the Account to deposit the check in. */
             fun accountId(accountId: String) = accountId(JsonField.of(accountId))
 
-            /** The identifier for the Account to deposit the check in. */
+            /**
+             * Sets [Builder.accountId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.accountId] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
             /** The deposit amount in USD cents. */
             fun amount(amount: Long) = amount(JsonField.of(amount))
 
-            /** The deposit amount in USD cents. */
+            /**
+             * Sets [Builder.amount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
             fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
             /** The File containing the check's back image. */
             fun backImageFileId(backImageFileId: String) =
                 backImageFileId(JsonField.of(backImageFileId))
 
-            /** The File containing the check's back image. */
+            /**
+             * Sets [Builder.backImageFileId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.backImageFileId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun backImageFileId(backImageFileId: JsonField<String>) = apply {
                 this.backImageFileId = backImageFileId
             }
@@ -212,7 +324,13 @@ private constructor(
             fun frontImageFileId(frontImageFileId: String) =
                 frontImageFileId(JsonField.of(frontImageFileId))
 
-            /** The File containing the check's front image. */
+            /**
+             * Sets [Builder.frontImageFileId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.frontImageFileId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun frontImageFileId(frontImageFileId: JsonField<String>) = apply {
                 this.frontImageFileId = frontImageFileId
             }
@@ -220,7 +338,13 @@ private constructor(
             /** The description you choose to give the Check Deposit, for display purposes only. */
             fun description(description: String) = description(JsonField.of(description))
 
-            /** The description you choose to give the Check Deposit, for display purposes only. */
+            /**
+             * Sets [Builder.description] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.description] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun description(description: JsonField<String>) = apply {
                 this.description = description
             }
@@ -309,13 +433,24 @@ private constructor(
         /** The identifier for the Account to deposit the check in. */
         fun accountId(accountId: String) = apply { body.accountId(accountId) }
 
-        /** The identifier for the Account to deposit the check in. */
+        /**
+         * Sets [Builder.accountId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.accountId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun accountId(accountId: JsonField<String>) = apply { body.accountId(accountId) }
 
         /** The deposit amount in USD cents. */
         fun amount(amount: Long) = apply { body.amount(amount) }
 
-        /** The deposit amount in USD cents. */
+        /**
+         * Sets [Builder.amount] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun amount(amount: JsonField<Long>) = apply { body.amount(amount) }
 
         /** The File containing the check's back image. */
@@ -323,7 +458,13 @@ private constructor(
             body.backImageFileId(backImageFileId)
         }
 
-        /** The File containing the check's back image. */
+        /**
+         * Sets [Builder.backImageFileId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.backImageFileId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun backImageFileId(backImageFileId: JsonField<String>) = apply {
             body.backImageFileId(backImageFileId)
         }
@@ -333,7 +474,13 @@ private constructor(
             body.frontImageFileId(frontImageFileId)
         }
 
-        /** The File containing the check's front image. */
+        /**
+         * Sets [Builder.frontImageFileId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.frontImageFileId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun frontImageFileId(frontImageFileId: JsonField<String>) = apply {
             body.frontImageFileId(frontImageFileId)
         }
@@ -341,7 +488,13 @@ private constructor(
         /** The description you choose to give the Check Deposit, for display purposes only. */
         fun description(description: String) = apply { body.description(description) }
 
-        /** The description you choose to give the Check Deposit, for display purposes only. */
+        /**
+         * Sets [Builder.description] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.description] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun description(description: JsonField<String>) = apply { body.description(description) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {

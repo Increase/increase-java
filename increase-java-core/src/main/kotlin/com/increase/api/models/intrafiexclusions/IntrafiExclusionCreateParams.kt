@@ -17,6 +17,7 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
+import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 
 /** Create an IntraFi Exclusion */
@@ -27,16 +28,34 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** The name of the financial institution to be excluded. */
+    /**
+     * The name of the financial institution to be excluded.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun bankName(): String = body.bankName()
 
-    /** The identifier of the Entity whose deposits will be excluded. */
+    /**
+     * The identifier of the Entity whose deposits will be excluded.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun entityId(): String = body.entityId()
 
-    /** The name of the financial institution to be excluded. */
+    /**
+     * Returns the raw JSON value of [bankName].
+     *
+     * Unlike [bankName], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _bankName(): JsonField<String> = body._bankName()
 
-    /** The identifier of the Entity whose deposits will be excluded. */
+    /**
+     * Returns the raw JSON value of [entityId].
+     *
+     * Unlike [entityId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _entityId(): JsonField<String> = body._entityId()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
@@ -65,16 +84,34 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The name of the financial institution to be excluded. */
+        /**
+         * The name of the financial institution to be excluded.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun bankName(): String = bankName.getRequired("bank_name")
 
-        /** The identifier of the Entity whose deposits will be excluded. */
+        /**
+         * The identifier of the Entity whose deposits will be excluded.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun entityId(): String = entityId.getRequired("entity_id")
 
-        /** The name of the financial institution to be excluded. */
+        /**
+         * Returns the raw JSON value of [bankName].
+         *
+         * Unlike [bankName], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("bank_name") @ExcludeMissing fun _bankName(): JsonField<String> = bankName
 
-        /** The identifier of the Entity whose deposits will be excluded. */
+        /**
+         * Returns the raw JSON value of [entityId].
+         *
+         * Unlike [entityId], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("entity_id") @ExcludeMissing fun _entityId(): JsonField<String> = entityId
 
         @JsonAnyGetter
@@ -126,13 +163,25 @@ private constructor(
             /** The name of the financial institution to be excluded. */
             fun bankName(bankName: String) = bankName(JsonField.of(bankName))
 
-            /** The name of the financial institution to be excluded. */
+            /**
+             * Sets [Builder.bankName] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.bankName] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun bankName(bankName: JsonField<String>) = apply { this.bankName = bankName }
 
             /** The identifier of the Entity whose deposits will be excluded. */
             fun entityId(entityId: String) = entityId(JsonField.of(entityId))
 
-            /** The identifier of the Entity whose deposits will be excluded. */
+            /**
+             * Sets [Builder.entityId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.entityId] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun entityId(entityId: JsonField<String>) = apply { this.entityId = entityId }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -214,13 +263,23 @@ private constructor(
         /** The name of the financial institution to be excluded. */
         fun bankName(bankName: String) = apply { body.bankName(bankName) }
 
-        /** The name of the financial institution to be excluded. */
+        /**
+         * Sets [Builder.bankName] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.bankName] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun bankName(bankName: JsonField<String>) = apply { body.bankName(bankName) }
 
         /** The identifier of the Entity whose deposits will be excluded. */
         fun entityId(entityId: String) = apply { body.entityId(entityId) }
 
-        /** The identifier of the Entity whose deposits will be excluded. */
+        /**
+         * Sets [Builder.entityId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.entityId] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun entityId(entityId: JsonField<String>) = apply { body.entityId(entityId) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
