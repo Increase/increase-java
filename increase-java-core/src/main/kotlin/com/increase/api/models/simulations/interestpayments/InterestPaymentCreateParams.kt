@@ -17,6 +17,7 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
+import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Objects
 import java.util.Optional
@@ -32,34 +33,80 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** The identifier of the Account the Interest Payment should be paid to is for. */
+    /**
+     * The identifier of the Account the Interest Payment should be paid to is for.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun accountId(): String = body.accountId()
 
-    /** The interest amount in cents. Must be positive. */
+    /**
+     * The interest amount in cents. Must be positive.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun amount(): Long = body.amount()
 
-    /** The identifier of the Account the Interest accrued on. Defaults to `account_id`. */
+    /**
+     * The identifier of the Account the Interest accrued on. Defaults to `account_id`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun accruedOnAccountId(): Optional<String> = body.accruedOnAccountId()
 
-    /** The end of the interest period. If not provided, defaults to the current time. */
+    /**
+     * The end of the interest period. If not provided, defaults to the current time.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun periodEnd(): Optional<OffsetDateTime> = body.periodEnd()
 
-    /** The start of the interest period. If not provided, defaults to the current time. */
+    /**
+     * The start of the interest period. If not provided, defaults to the current time.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun periodStart(): Optional<OffsetDateTime> = body.periodStart()
 
-    /** The identifier of the Account the Interest Payment should be paid to is for. */
+    /**
+     * Returns the raw JSON value of [accountId].
+     *
+     * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _accountId(): JsonField<String> = body._accountId()
 
-    /** The interest amount in cents. Must be positive. */
+    /**
+     * Returns the raw JSON value of [amount].
+     *
+     * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _amount(): JsonField<Long> = body._amount()
 
-    /** The identifier of the Account the Interest accrued on. Defaults to `account_id`. */
+    /**
+     * Returns the raw JSON value of [accruedOnAccountId].
+     *
+     * Unlike [accruedOnAccountId], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     fun _accruedOnAccountId(): JsonField<String> = body._accruedOnAccountId()
 
-    /** The end of the interest period. If not provided, defaults to the current time. */
+    /**
+     * Returns the raw JSON value of [periodEnd].
+     *
+     * Unlike [periodEnd], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _periodEnd(): JsonField<OffsetDateTime> = body._periodEnd()
 
-    /** The start of the interest period. If not provided, defaults to the current time. */
+    /**
+     * Returns the raw JSON value of [periodStart].
+     *
+     * Unlike [periodStart], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _periodStart(): JsonField<OffsetDateTime> = body._periodStart()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
@@ -97,41 +144,87 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The identifier of the Account the Interest Payment should be paid to is for. */
+        /**
+         * The identifier of the Account the Interest Payment should be paid to is for.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun accountId(): String = accountId.getRequired("account_id")
 
-        /** The interest amount in cents. Must be positive. */
+        /**
+         * The interest amount in cents. Must be positive.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun amount(): Long = amount.getRequired("amount")
 
-        /** The identifier of the Account the Interest accrued on. Defaults to `account_id`. */
+        /**
+         * The identifier of the Account the Interest accrued on. Defaults to `account_id`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun accruedOnAccountId(): Optional<String> =
             Optional.ofNullable(accruedOnAccountId.getNullable("accrued_on_account_id"))
 
-        /** The end of the interest period. If not provided, defaults to the current time. */
+        /**
+         * The end of the interest period. If not provided, defaults to the current time.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun periodEnd(): Optional<OffsetDateTime> =
             Optional.ofNullable(periodEnd.getNullable("period_end"))
 
-        /** The start of the interest period. If not provided, defaults to the current time. */
+        /**
+         * The start of the interest period. If not provided, defaults to the current time.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun periodStart(): Optional<OffsetDateTime> =
             Optional.ofNullable(periodStart.getNullable("period_start"))
 
-        /** The identifier of the Account the Interest Payment should be paid to is for. */
+        /**
+         * Returns the raw JSON value of [accountId].
+         *
+         * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
 
-        /** The interest amount in cents. Must be positive. */
+        /**
+         * Returns the raw JSON value of [amount].
+         *
+         * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
-        /** The identifier of the Account the Interest accrued on. Defaults to `account_id`. */
+        /**
+         * Returns the raw JSON value of [accruedOnAccountId].
+         *
+         * Unlike [accruedOnAccountId], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
         @JsonProperty("accrued_on_account_id")
         @ExcludeMissing
         fun _accruedOnAccountId(): JsonField<String> = accruedOnAccountId
 
-        /** The end of the interest period. If not provided, defaults to the current time. */
+        /**
+         * Returns the raw JSON value of [periodEnd].
+         *
+         * Unlike [periodEnd], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("period_end")
         @ExcludeMissing
         fun _periodEnd(): JsonField<OffsetDateTime> = periodEnd
 
-        /** The start of the interest period. If not provided, defaults to the current time. */
+        /**
+         * Returns the raw JSON value of [periodStart].
+         *
+         * Unlike [periodStart], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("period_start")
         @ExcludeMissing
         fun _periodStart(): JsonField<OffsetDateTime> = periodStart
@@ -194,20 +287,38 @@ private constructor(
             /** The identifier of the Account the Interest Payment should be paid to is for. */
             fun accountId(accountId: String) = accountId(JsonField.of(accountId))
 
-            /** The identifier of the Account the Interest Payment should be paid to is for. */
+            /**
+             * Sets [Builder.accountId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.accountId] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
             /** The interest amount in cents. Must be positive. */
             fun amount(amount: Long) = amount(JsonField.of(amount))
 
-            /** The interest amount in cents. Must be positive. */
+            /**
+             * Sets [Builder.amount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
             fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
             /** The identifier of the Account the Interest accrued on. Defaults to `account_id`. */
             fun accruedOnAccountId(accruedOnAccountId: String) =
                 accruedOnAccountId(JsonField.of(accruedOnAccountId))
 
-            /** The identifier of the Account the Interest accrued on. Defaults to `account_id`. */
+            /**
+             * Sets [Builder.accruedOnAccountId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.accruedOnAccountId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun accruedOnAccountId(accruedOnAccountId: JsonField<String>) = apply {
                 this.accruedOnAccountId = accruedOnAccountId
             }
@@ -215,7 +326,13 @@ private constructor(
             /** The end of the interest period. If not provided, defaults to the current time. */
             fun periodEnd(periodEnd: OffsetDateTime) = periodEnd(JsonField.of(periodEnd))
 
-            /** The end of the interest period. If not provided, defaults to the current time. */
+            /**
+             * Sets [Builder.periodEnd] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.periodEnd] with a well-typed [OffsetDateTime] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun periodEnd(periodEnd: JsonField<OffsetDateTime>) = apply {
                 this.periodEnd = periodEnd
             }
@@ -223,7 +340,13 @@ private constructor(
             /** The start of the interest period. If not provided, defaults to the current time. */
             fun periodStart(periodStart: OffsetDateTime) = periodStart(JsonField.of(periodStart))
 
-            /** The start of the interest period. If not provided, defaults to the current time. */
+            /**
+             * Sets [Builder.periodStart] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.periodStart] with a well-typed [OffsetDateTime]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
             fun periodStart(periodStart: JsonField<OffsetDateTime>) = apply {
                 this.periodStart = periodStart
             }
@@ -310,13 +433,24 @@ private constructor(
         /** The identifier of the Account the Interest Payment should be paid to is for. */
         fun accountId(accountId: String) = apply { body.accountId(accountId) }
 
-        /** The identifier of the Account the Interest Payment should be paid to is for. */
+        /**
+         * Sets [Builder.accountId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.accountId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun accountId(accountId: JsonField<String>) = apply { body.accountId(accountId) }
 
         /** The interest amount in cents. Must be positive. */
         fun amount(amount: Long) = apply { body.amount(amount) }
 
-        /** The interest amount in cents. Must be positive. */
+        /**
+         * Sets [Builder.amount] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun amount(amount: JsonField<Long>) = apply { body.amount(amount) }
 
         /** The identifier of the Account the Interest accrued on. Defaults to `account_id`. */
@@ -324,7 +458,13 @@ private constructor(
             body.accruedOnAccountId(accruedOnAccountId)
         }
 
-        /** The identifier of the Account the Interest accrued on. Defaults to `account_id`. */
+        /**
+         * Sets [Builder.accruedOnAccountId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.accruedOnAccountId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun accruedOnAccountId(accruedOnAccountId: JsonField<String>) = apply {
             body.accruedOnAccountId(accruedOnAccountId)
         }
@@ -332,13 +472,25 @@ private constructor(
         /** The end of the interest period. If not provided, defaults to the current time. */
         fun periodEnd(periodEnd: OffsetDateTime) = apply { body.periodEnd(periodEnd) }
 
-        /** The end of the interest period. If not provided, defaults to the current time. */
+        /**
+         * Sets [Builder.periodEnd] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.periodEnd] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun periodEnd(periodEnd: JsonField<OffsetDateTime>) = apply { body.periodEnd(periodEnd) }
 
         /** The start of the interest period. If not provided, defaults to the current time. */
         fun periodStart(periodStart: OffsetDateTime) = apply { body.periodStart(periodStart) }
 
-        /** The start of the interest period. If not provided, defaults to the current time. */
+        /**
+         * Sets [Builder.periodStart] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.periodStart] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun periodStart(periodStart: JsonField<OffsetDateTime>) = apply {
             body.periodStart(periodStart)
         }

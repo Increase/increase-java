@@ -17,6 +17,7 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
+import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 import java.util.Optional
 
@@ -33,27 +34,50 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** The identifier of the Card to create a settlement on. */
+    /**
+     * The identifier of the Card to create a settlement on.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun cardId(): String = body.cardId()
 
-    /** The identifier of the Pending Transaction for the Card Authorization you wish to settle. */
+    /**
+     * The identifier of the Pending Transaction for the Card Authorization you wish to settle.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun pendingTransactionId(): String = body.pendingTransactionId()
 
     /**
      * The amount to be settled. This defaults to the amount of the Pending Transaction being
      * settled.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun amount(): Optional<Long> = body.amount()
 
-    /** The identifier of the Card to create a settlement on. */
+    /**
+     * Returns the raw JSON value of [cardId].
+     *
+     * Unlike [cardId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _cardId(): JsonField<String> = body._cardId()
 
-    /** The identifier of the Pending Transaction for the Card Authorization you wish to settle. */
+    /**
+     * Returns the raw JSON value of [pendingTransactionId].
+     *
+     * Unlike [pendingTransactionId], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     fun _pendingTransactionId(): JsonField<String> = body._pendingTransactionId()
 
     /**
-     * The amount to be settled. This defaults to the amount of the Pending Transaction being
-     * settled.
+     * Returns the raw JSON value of [amount].
+     *
+     * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _amount(): JsonField<Long> = body._amount()
 
@@ -86,11 +110,19 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The identifier of the Card to create a settlement on. */
+        /**
+         * The identifier of the Card to create a settlement on.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun cardId(): String = cardId.getRequired("card_id")
 
         /**
          * The identifier of the Pending Transaction for the Card Authorization you wish to settle.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun pendingTransactionId(): String =
             pendingTransactionId.getRequired("pending_transaction_id")
@@ -98,22 +130,33 @@ private constructor(
         /**
          * The amount to be settled. This defaults to the amount of the Pending Transaction being
          * settled.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun amount(): Optional<Long> = Optional.ofNullable(amount.getNullable("amount"))
 
-        /** The identifier of the Card to create a settlement on. */
+        /**
+         * Returns the raw JSON value of [cardId].
+         *
+         * Unlike [cardId], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("card_id") @ExcludeMissing fun _cardId(): JsonField<String> = cardId
 
         /**
-         * The identifier of the Pending Transaction for the Card Authorization you wish to settle.
+         * Returns the raw JSON value of [pendingTransactionId].
+         *
+         * Unlike [pendingTransactionId], this method doesn't throw if the JSON field has an
+         * unexpected type.
          */
         @JsonProperty("pending_transaction_id")
         @ExcludeMissing
         fun _pendingTransactionId(): JsonField<String> = pendingTransactionId
 
         /**
-         * The amount to be settled. This defaults to the amount of the Pending Transaction being
-         * settled.
+         * Returns the raw JSON value of [amount].
+         *
+         * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
@@ -169,7 +212,13 @@ private constructor(
             /** The identifier of the Card to create a settlement on. */
             fun cardId(cardId: String) = cardId(JsonField.of(cardId))
 
-            /** The identifier of the Card to create a settlement on. */
+            /**
+             * Sets [Builder.cardId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.cardId] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun cardId(cardId: JsonField<String>) = apply { this.cardId = cardId }
 
             /**
@@ -180,8 +229,11 @@ private constructor(
                 pendingTransactionId(JsonField.of(pendingTransactionId))
 
             /**
-             * The identifier of the Pending Transaction for the Card Authorization you wish to
-             * settle.
+             * Sets [Builder.pendingTransactionId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.pendingTransactionId] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
              */
             fun pendingTransactionId(pendingTransactionId: JsonField<String>) = apply {
                 this.pendingTransactionId = pendingTransactionId
@@ -194,8 +246,11 @@ private constructor(
             fun amount(amount: Long) = amount(JsonField.of(amount))
 
             /**
-             * The amount to be settled. This defaults to the amount of the Pending Transaction
-             * being settled.
+             * Sets [Builder.amount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
              */
             fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
@@ -279,7 +334,12 @@ private constructor(
         /** The identifier of the Card to create a settlement on. */
         fun cardId(cardId: String) = apply { body.cardId(cardId) }
 
-        /** The identifier of the Card to create a settlement on. */
+        /**
+         * Sets [Builder.cardId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.cardId] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun cardId(cardId: JsonField<String>) = apply { body.cardId(cardId) }
 
         /**
@@ -290,7 +350,11 @@ private constructor(
         }
 
         /**
-         * The identifier of the Pending Transaction for the Card Authorization you wish to settle.
+         * Sets [Builder.pendingTransactionId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.pendingTransactionId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun pendingTransactionId(pendingTransactionId: JsonField<String>) = apply {
             body.pendingTransactionId(pendingTransactionId)
@@ -303,8 +367,10 @@ private constructor(
         fun amount(amount: Long) = apply { body.amount(amount) }
 
         /**
-         * The amount to be settled. This defaults to the amount of the Pending Transaction being
-         * settled.
+         * Sets [Builder.amount] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun amount(amount: JsonField<Long>) = apply { body.amount(amount) }
 

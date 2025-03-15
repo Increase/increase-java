@@ -17,6 +17,7 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
+import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 import java.util.Optional
 
@@ -32,16 +33,36 @@ private constructor(
     /** The identifier of the Inbound ACH Transfer for which to create a notification of change. */
     fun inboundAchTransferId(): String = inboundAchTransferId
 
-    /** The updated account number to send in the notification of change. */
+    /**
+     * The updated account number to send in the notification of change.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun updatedAccountNumber(): Optional<String> = body.updatedAccountNumber()
 
-    /** The updated routing number to send in the notification of change. */
+    /**
+     * The updated routing number to send in the notification of change.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun updatedRoutingNumber(): Optional<String> = body.updatedRoutingNumber()
 
-    /** The updated account number to send in the notification of change. */
+    /**
+     * Returns the raw JSON value of [updatedAccountNumber].
+     *
+     * Unlike [updatedAccountNumber], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     fun _updatedAccountNumber(): JsonField<String> = body._updatedAccountNumber()
 
-    /** The updated routing number to send in the notification of change. */
+    /**
+     * Returns the raw JSON value of [updatedRoutingNumber].
+     *
+     * Unlike [updatedRoutingNumber], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     fun _updatedRoutingNumber(): JsonField<String> = body._updatedRoutingNumber()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
@@ -77,20 +98,40 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The updated account number to send in the notification of change. */
+        /**
+         * The updated account number to send in the notification of change.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun updatedAccountNumber(): Optional<String> =
             Optional.ofNullable(updatedAccountNumber.getNullable("updated_account_number"))
 
-        /** The updated routing number to send in the notification of change. */
+        /**
+         * The updated routing number to send in the notification of change.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun updatedRoutingNumber(): Optional<String> =
             Optional.ofNullable(updatedRoutingNumber.getNullable("updated_routing_number"))
 
-        /** The updated account number to send in the notification of change. */
+        /**
+         * Returns the raw JSON value of [updatedAccountNumber].
+         *
+         * Unlike [updatedAccountNumber], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
         @JsonProperty("updated_account_number")
         @ExcludeMissing
         fun _updatedAccountNumber(): JsonField<String> = updatedAccountNumber
 
-        /** The updated routing number to send in the notification of change. */
+        /**
+         * Returns the raw JSON value of [updatedRoutingNumber].
+         *
+         * Unlike [updatedRoutingNumber], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
         @JsonProperty("updated_routing_number")
         @ExcludeMissing
         fun _updatedRoutingNumber(): JsonField<String> = updatedRoutingNumber
@@ -137,7 +178,13 @@ private constructor(
             fun updatedAccountNumber(updatedAccountNumber: String) =
                 updatedAccountNumber(JsonField.of(updatedAccountNumber))
 
-            /** The updated account number to send in the notification of change. */
+            /**
+             * Sets [Builder.updatedAccountNumber] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.updatedAccountNumber] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
             fun updatedAccountNumber(updatedAccountNumber: JsonField<String>) = apply {
                 this.updatedAccountNumber = updatedAccountNumber
             }
@@ -146,7 +193,13 @@ private constructor(
             fun updatedRoutingNumber(updatedRoutingNumber: String) =
                 updatedRoutingNumber(JsonField.of(updatedRoutingNumber))
 
-            /** The updated routing number to send in the notification of change. */
+            /**
+             * Sets [Builder.updatedRoutingNumber] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.updatedRoutingNumber] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
             fun updatedRoutingNumber(updatedRoutingNumber: JsonField<String>) = apply {
                 this.updatedRoutingNumber = updatedRoutingNumber
             }
@@ -243,7 +296,13 @@ private constructor(
             body.updatedAccountNumber(updatedAccountNumber)
         }
 
-        /** The updated account number to send in the notification of change. */
+        /**
+         * Sets [Builder.updatedAccountNumber] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.updatedAccountNumber] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun updatedAccountNumber(updatedAccountNumber: JsonField<String>) = apply {
             body.updatedAccountNumber(updatedAccountNumber)
         }
@@ -253,7 +312,13 @@ private constructor(
             body.updatedRoutingNumber(updatedRoutingNumber)
         }
 
-        /** The updated routing number to send in the notification of change. */
+        /**
+         * Sets [Builder.updatedRoutingNumber] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.updatedRoutingNumber] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun updatedRoutingNumber(updatedRoutingNumber: JsonField<String>) = apply {
             body.updatedRoutingNumber(updatedRoutingNumber)
         }

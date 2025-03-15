@@ -17,6 +17,7 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
+import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 import java.util.Optional
 
@@ -28,106 +29,212 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** The Account Number to which the recipient should send funds. */
+    /**
+     * The Account Number to which the recipient should send funds.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun accountNumberId(): String = body.accountNumberId()
 
-    /** The amount requested from the recipient, in USD cents. */
+    /**
+     * The amount requested from the recipient, in USD cents.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun amount(): Long = body.amount()
 
-    /** A message the recipient will see as part of the request. */
+    /**
+     * A message the recipient will see as part of the request.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun messageToRecipient(): String = body.messageToRecipient()
 
-    /** The drawdown request's recipient's account number. */
+    /**
+     * The drawdown request's recipient's account number.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun recipientAccountNumber(): String = body.recipientAccountNumber()
 
-    /** The drawdown request's recipient's name. */
+    /**
+     * The drawdown request's recipient's name.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun recipientName(): String = body.recipientName()
 
-    /** The drawdown request's recipient's routing number. */
+    /**
+     * The drawdown request's recipient's routing number.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun recipientRoutingNumber(): String = body.recipientRoutingNumber()
 
     /**
      * The drawdown request originator's address line 1. This is only necessary if you're requesting
      * a payment to a commingled account. Otherwise, we'll use the associated entity's details.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun originatorAddressLine1(): Optional<String> = body.originatorAddressLine1()
 
     /**
      * The drawdown request originator's address line 2. This is only necessary if you're requesting
      * a payment to a commingled account. Otherwise, we'll use the associated entity's details.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun originatorAddressLine2(): Optional<String> = body.originatorAddressLine2()
 
     /**
      * The drawdown request originator's address line 3. This is only necessary if you're requesting
      * a payment to a commingled account. Otherwise, we'll use the associated entity's details.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun originatorAddressLine3(): Optional<String> = body.originatorAddressLine3()
 
     /**
      * The drawdown request originator's name. This is only necessary if you're requesting a payment
      * to a commingled account. Otherwise, we'll use the associated entity's details.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun originatorName(): Optional<String> = body.originatorName()
 
-    /** Line 1 of the drawdown request's recipient's address. */
+    /**
+     * Line 1 of the drawdown request's recipient's address.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun recipientAddressLine1(): Optional<String> = body.recipientAddressLine1()
 
-    /** Line 2 of the drawdown request's recipient's address. */
+    /**
+     * Line 2 of the drawdown request's recipient's address.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun recipientAddressLine2(): Optional<String> = body.recipientAddressLine2()
 
-    /** Line 3 of the drawdown request's recipient's address. */
+    /**
+     * Line 3 of the drawdown request's recipient's address.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun recipientAddressLine3(): Optional<String> = body.recipientAddressLine3()
 
-    /** The Account Number to which the recipient should send funds. */
+    /**
+     * Returns the raw JSON value of [accountNumberId].
+     *
+     * Unlike [accountNumberId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _accountNumberId(): JsonField<String> = body._accountNumberId()
 
-    /** The amount requested from the recipient, in USD cents. */
+    /**
+     * Returns the raw JSON value of [amount].
+     *
+     * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _amount(): JsonField<Long> = body._amount()
 
-    /** A message the recipient will see as part of the request. */
+    /**
+     * Returns the raw JSON value of [messageToRecipient].
+     *
+     * Unlike [messageToRecipient], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     fun _messageToRecipient(): JsonField<String> = body._messageToRecipient()
 
-    /** The drawdown request's recipient's account number. */
+    /**
+     * Returns the raw JSON value of [recipientAccountNumber].
+     *
+     * Unlike [recipientAccountNumber], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
     fun _recipientAccountNumber(): JsonField<String> = body._recipientAccountNumber()
 
-    /** The drawdown request's recipient's name. */
+    /**
+     * Returns the raw JSON value of [recipientName].
+     *
+     * Unlike [recipientName], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _recipientName(): JsonField<String> = body._recipientName()
 
-    /** The drawdown request's recipient's routing number. */
+    /**
+     * Returns the raw JSON value of [recipientRoutingNumber].
+     *
+     * Unlike [recipientRoutingNumber], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
     fun _recipientRoutingNumber(): JsonField<String> = body._recipientRoutingNumber()
 
     /**
-     * The drawdown request originator's address line 1. This is only necessary if you're requesting
-     * a payment to a commingled account. Otherwise, we'll use the associated entity's details.
+     * Returns the raw JSON value of [originatorAddressLine1].
+     *
+     * Unlike [originatorAddressLine1], this method doesn't throw if the JSON field has an
+     * unexpected type.
      */
     fun _originatorAddressLine1(): JsonField<String> = body._originatorAddressLine1()
 
     /**
-     * The drawdown request originator's address line 2. This is only necessary if you're requesting
-     * a payment to a commingled account. Otherwise, we'll use the associated entity's details.
+     * Returns the raw JSON value of [originatorAddressLine2].
+     *
+     * Unlike [originatorAddressLine2], this method doesn't throw if the JSON field has an
+     * unexpected type.
      */
     fun _originatorAddressLine2(): JsonField<String> = body._originatorAddressLine2()
 
     /**
-     * The drawdown request originator's address line 3. This is only necessary if you're requesting
-     * a payment to a commingled account. Otherwise, we'll use the associated entity's details.
+     * Returns the raw JSON value of [originatorAddressLine3].
+     *
+     * Unlike [originatorAddressLine3], this method doesn't throw if the JSON field has an
+     * unexpected type.
      */
     fun _originatorAddressLine3(): JsonField<String> = body._originatorAddressLine3()
 
     /**
-     * The drawdown request originator's name. This is only necessary if you're requesting a payment
-     * to a commingled account. Otherwise, we'll use the associated entity's details.
+     * Returns the raw JSON value of [originatorName].
+     *
+     * Unlike [originatorName], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _originatorName(): JsonField<String> = body._originatorName()
 
-    /** Line 1 of the drawdown request's recipient's address. */
+    /**
+     * Returns the raw JSON value of [recipientAddressLine1].
+     *
+     * Unlike [recipientAddressLine1], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     fun _recipientAddressLine1(): JsonField<String> = body._recipientAddressLine1()
 
-    /** Line 2 of the drawdown request's recipient's address. */
+    /**
+     * Returns the raw JSON value of [recipientAddressLine2].
+     *
+     * Unlike [recipientAddressLine2], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     fun _recipientAddressLine2(): JsonField<String> = body._recipientAddressLine2()
 
-    /** Line 3 of the drawdown request's recipient's address. */
+    /**
+     * Returns the raw JSON value of [recipientAddressLine3].
+     *
+     * Unlike [recipientAddressLine3], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     fun _recipientAddressLine3(): JsonField<String> = body._recipientAddressLine3()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
@@ -189,23 +296,53 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The Account Number to which the recipient should send funds. */
+        /**
+         * The Account Number to which the recipient should send funds.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun accountNumberId(): String = accountNumberId.getRequired("account_number_id")
 
-        /** The amount requested from the recipient, in USD cents. */
+        /**
+         * The amount requested from the recipient, in USD cents.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun amount(): Long = amount.getRequired("amount")
 
-        /** A message the recipient will see as part of the request. */
+        /**
+         * A message the recipient will see as part of the request.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun messageToRecipient(): String = messageToRecipient.getRequired("message_to_recipient")
 
-        /** The drawdown request's recipient's account number. */
+        /**
+         * The drawdown request's recipient's account number.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun recipientAccountNumber(): String =
             recipientAccountNumber.getRequired("recipient_account_number")
 
-        /** The drawdown request's recipient's name. */
+        /**
+         * The drawdown request's recipient's name.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun recipientName(): String = recipientName.getRequired("recipient_name")
 
-        /** The drawdown request's recipient's routing number. */
+        /**
+         * The drawdown request's recipient's routing number.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun recipientRoutingNumber(): String =
             recipientRoutingNumber.getRequired("recipient_routing_number")
 
@@ -213,6 +350,9 @@ private constructor(
          * The drawdown request originator's address line 1. This is only necessary if you're
          * requesting a payment to a commingled account. Otherwise, we'll use the associated
          * entity's details.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun originatorAddressLine1(): Optional<String> =
             Optional.ofNullable(originatorAddressLine1.getNullable("originator_address_line1"))
@@ -221,6 +361,9 @@ private constructor(
          * The drawdown request originator's address line 2. This is only necessary if you're
          * requesting a payment to a commingled account. Otherwise, we'll use the associated
          * entity's details.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun originatorAddressLine2(): Optional<String> =
             Optional.ofNullable(originatorAddressLine2.getNullable("originator_address_line2"))
@@ -229,6 +372,9 @@ private constructor(
          * The drawdown request originator's address line 3. This is only necessary if you're
          * requesting a payment to a commingled account. Otherwise, we'll use the associated
          * entity's details.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun originatorAddressLine3(): Optional<String> =
             Optional.ofNullable(originatorAddressLine3.getNullable("originator_address_line3"))
@@ -236,96 +382,163 @@ private constructor(
         /**
          * The drawdown request originator's name. This is only necessary if you're requesting a
          * payment to a commingled account. Otherwise, we'll use the associated entity's details.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun originatorName(): Optional<String> =
             Optional.ofNullable(originatorName.getNullable("originator_name"))
 
-        /** Line 1 of the drawdown request's recipient's address. */
+        /**
+         * Line 1 of the drawdown request's recipient's address.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun recipientAddressLine1(): Optional<String> =
             Optional.ofNullable(recipientAddressLine1.getNullable("recipient_address_line1"))
 
-        /** Line 2 of the drawdown request's recipient's address. */
+        /**
+         * Line 2 of the drawdown request's recipient's address.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun recipientAddressLine2(): Optional<String> =
             Optional.ofNullable(recipientAddressLine2.getNullable("recipient_address_line2"))
 
-        /** Line 3 of the drawdown request's recipient's address. */
+        /**
+         * Line 3 of the drawdown request's recipient's address.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun recipientAddressLine3(): Optional<String> =
             Optional.ofNullable(recipientAddressLine3.getNullable("recipient_address_line3"))
 
-        /** The Account Number to which the recipient should send funds. */
+        /**
+         * Returns the raw JSON value of [accountNumberId].
+         *
+         * Unlike [accountNumberId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("account_number_id")
         @ExcludeMissing
         fun _accountNumberId(): JsonField<String> = accountNumberId
 
-        /** The amount requested from the recipient, in USD cents. */
+        /**
+         * Returns the raw JSON value of [amount].
+         *
+         * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
-        /** A message the recipient will see as part of the request. */
+        /**
+         * Returns the raw JSON value of [messageToRecipient].
+         *
+         * Unlike [messageToRecipient], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
         @JsonProperty("message_to_recipient")
         @ExcludeMissing
         fun _messageToRecipient(): JsonField<String> = messageToRecipient
 
-        /** The drawdown request's recipient's account number. */
+        /**
+         * Returns the raw JSON value of [recipientAccountNumber].
+         *
+         * Unlike [recipientAccountNumber], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
         @JsonProperty("recipient_account_number")
         @ExcludeMissing
         fun _recipientAccountNumber(): JsonField<String> = recipientAccountNumber
 
-        /** The drawdown request's recipient's name. */
+        /**
+         * Returns the raw JSON value of [recipientName].
+         *
+         * Unlike [recipientName], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("recipient_name")
         @ExcludeMissing
         fun _recipientName(): JsonField<String> = recipientName
 
-        /** The drawdown request's recipient's routing number. */
+        /**
+         * Returns the raw JSON value of [recipientRoutingNumber].
+         *
+         * Unlike [recipientRoutingNumber], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
         @JsonProperty("recipient_routing_number")
         @ExcludeMissing
         fun _recipientRoutingNumber(): JsonField<String> = recipientRoutingNumber
 
         /**
-         * The drawdown request originator's address line 1. This is only necessary if you're
-         * requesting a payment to a commingled account. Otherwise, we'll use the associated
-         * entity's details.
+         * Returns the raw JSON value of [originatorAddressLine1].
+         *
+         * Unlike [originatorAddressLine1], this method doesn't throw if the JSON field has an
+         * unexpected type.
          */
         @JsonProperty("originator_address_line1")
         @ExcludeMissing
         fun _originatorAddressLine1(): JsonField<String> = originatorAddressLine1
 
         /**
-         * The drawdown request originator's address line 2. This is only necessary if you're
-         * requesting a payment to a commingled account. Otherwise, we'll use the associated
-         * entity's details.
+         * Returns the raw JSON value of [originatorAddressLine2].
+         *
+         * Unlike [originatorAddressLine2], this method doesn't throw if the JSON field has an
+         * unexpected type.
          */
         @JsonProperty("originator_address_line2")
         @ExcludeMissing
         fun _originatorAddressLine2(): JsonField<String> = originatorAddressLine2
 
         /**
-         * The drawdown request originator's address line 3. This is only necessary if you're
-         * requesting a payment to a commingled account. Otherwise, we'll use the associated
-         * entity's details.
+         * Returns the raw JSON value of [originatorAddressLine3].
+         *
+         * Unlike [originatorAddressLine3], this method doesn't throw if the JSON field has an
+         * unexpected type.
          */
         @JsonProperty("originator_address_line3")
         @ExcludeMissing
         fun _originatorAddressLine3(): JsonField<String> = originatorAddressLine3
 
         /**
-         * The drawdown request originator's name. This is only necessary if you're requesting a
-         * payment to a commingled account. Otherwise, we'll use the associated entity's details.
+         * Returns the raw JSON value of [originatorName].
+         *
+         * Unlike [originatorName], this method doesn't throw if the JSON field has an unexpected
+         * type.
          */
         @JsonProperty("originator_name")
         @ExcludeMissing
         fun _originatorName(): JsonField<String> = originatorName
 
-        /** Line 1 of the drawdown request's recipient's address. */
+        /**
+         * Returns the raw JSON value of [recipientAddressLine1].
+         *
+         * Unlike [recipientAddressLine1], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
         @JsonProperty("recipient_address_line1")
         @ExcludeMissing
         fun _recipientAddressLine1(): JsonField<String> = recipientAddressLine1
 
-        /** Line 2 of the drawdown request's recipient's address. */
+        /**
+         * Returns the raw JSON value of [recipientAddressLine2].
+         *
+         * Unlike [recipientAddressLine2], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
         @JsonProperty("recipient_address_line2")
         @ExcludeMissing
         fun _recipientAddressLine2(): JsonField<String> = recipientAddressLine2
 
-        /** Line 3 of the drawdown request's recipient's address. */
+        /**
+         * Returns the raw JSON value of [recipientAddressLine3].
+         *
+         * Unlike [recipientAddressLine3], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
         @JsonProperty("recipient_address_line3")
         @ExcludeMissing
         fun _recipientAddressLine3(): JsonField<String> = recipientAddressLine3
@@ -417,7 +630,13 @@ private constructor(
             fun accountNumberId(accountNumberId: String) =
                 accountNumberId(JsonField.of(accountNumberId))
 
-            /** The Account Number to which the recipient should send funds. */
+            /**
+             * Sets [Builder.accountNumberId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.accountNumberId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun accountNumberId(accountNumberId: JsonField<String>) = apply {
                 this.accountNumberId = accountNumberId
             }
@@ -425,14 +644,26 @@ private constructor(
             /** The amount requested from the recipient, in USD cents. */
             fun amount(amount: Long) = amount(JsonField.of(amount))
 
-            /** The amount requested from the recipient, in USD cents. */
+            /**
+             * Sets [Builder.amount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
             fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
             /** A message the recipient will see as part of the request. */
             fun messageToRecipient(messageToRecipient: String) =
                 messageToRecipient(JsonField.of(messageToRecipient))
 
-            /** A message the recipient will see as part of the request. */
+            /**
+             * Sets [Builder.messageToRecipient] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.messageToRecipient] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun messageToRecipient(messageToRecipient: JsonField<String>) = apply {
                 this.messageToRecipient = messageToRecipient
             }
@@ -441,7 +672,13 @@ private constructor(
             fun recipientAccountNumber(recipientAccountNumber: String) =
                 recipientAccountNumber(JsonField.of(recipientAccountNumber))
 
-            /** The drawdown request's recipient's account number. */
+            /**
+             * Sets [Builder.recipientAccountNumber] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.recipientAccountNumber] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
             fun recipientAccountNumber(recipientAccountNumber: JsonField<String>) = apply {
                 this.recipientAccountNumber = recipientAccountNumber
             }
@@ -449,7 +686,13 @@ private constructor(
             /** The drawdown request's recipient's name. */
             fun recipientName(recipientName: String) = recipientName(JsonField.of(recipientName))
 
-            /** The drawdown request's recipient's name. */
+            /**
+             * Sets [Builder.recipientName] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.recipientName] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun recipientName(recipientName: JsonField<String>) = apply {
                 this.recipientName = recipientName
             }
@@ -458,7 +701,13 @@ private constructor(
             fun recipientRoutingNumber(recipientRoutingNumber: String) =
                 recipientRoutingNumber(JsonField.of(recipientRoutingNumber))
 
-            /** The drawdown request's recipient's routing number. */
+            /**
+             * Sets [Builder.recipientRoutingNumber] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.recipientRoutingNumber] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
             fun recipientRoutingNumber(recipientRoutingNumber: JsonField<String>) = apply {
                 this.recipientRoutingNumber = recipientRoutingNumber
             }
@@ -472,9 +721,11 @@ private constructor(
                 originatorAddressLine1(JsonField.of(originatorAddressLine1))
 
             /**
-             * The drawdown request originator's address line 1. This is only necessary if you're
-             * requesting a payment to a commingled account. Otherwise, we'll use the associated
-             * entity's details.
+             * Sets [Builder.originatorAddressLine1] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.originatorAddressLine1] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
              */
             fun originatorAddressLine1(originatorAddressLine1: JsonField<String>) = apply {
                 this.originatorAddressLine1 = originatorAddressLine1
@@ -489,9 +740,11 @@ private constructor(
                 originatorAddressLine2(JsonField.of(originatorAddressLine2))
 
             /**
-             * The drawdown request originator's address line 2. This is only necessary if you're
-             * requesting a payment to a commingled account. Otherwise, we'll use the associated
-             * entity's details.
+             * Sets [Builder.originatorAddressLine2] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.originatorAddressLine2] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
              */
             fun originatorAddressLine2(originatorAddressLine2: JsonField<String>) = apply {
                 this.originatorAddressLine2 = originatorAddressLine2
@@ -506,9 +759,11 @@ private constructor(
                 originatorAddressLine3(JsonField.of(originatorAddressLine3))
 
             /**
-             * The drawdown request originator's address line 3. This is only necessary if you're
-             * requesting a payment to a commingled account. Otherwise, we'll use the associated
-             * entity's details.
+             * Sets [Builder.originatorAddressLine3] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.originatorAddressLine3] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
              */
             fun originatorAddressLine3(originatorAddressLine3: JsonField<String>) = apply {
                 this.originatorAddressLine3 = originatorAddressLine3
@@ -523,9 +778,11 @@ private constructor(
                 originatorName(JsonField.of(originatorName))
 
             /**
-             * The drawdown request originator's name. This is only necessary if you're requesting a
-             * payment to a commingled account. Otherwise, we'll use the associated entity's
-             * details.
+             * Sets [Builder.originatorName] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.originatorName] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun originatorName(originatorName: JsonField<String>) = apply {
                 this.originatorName = originatorName
@@ -535,7 +792,13 @@ private constructor(
             fun recipientAddressLine1(recipientAddressLine1: String) =
                 recipientAddressLine1(JsonField.of(recipientAddressLine1))
 
-            /** Line 1 of the drawdown request's recipient's address. */
+            /**
+             * Sets [Builder.recipientAddressLine1] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.recipientAddressLine1] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
             fun recipientAddressLine1(recipientAddressLine1: JsonField<String>) = apply {
                 this.recipientAddressLine1 = recipientAddressLine1
             }
@@ -544,7 +807,13 @@ private constructor(
             fun recipientAddressLine2(recipientAddressLine2: String) =
                 recipientAddressLine2(JsonField.of(recipientAddressLine2))
 
-            /** Line 2 of the drawdown request's recipient's address. */
+            /**
+             * Sets [Builder.recipientAddressLine2] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.recipientAddressLine2] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
             fun recipientAddressLine2(recipientAddressLine2: JsonField<String>) = apply {
                 this.recipientAddressLine2 = recipientAddressLine2
             }
@@ -553,7 +822,13 @@ private constructor(
             fun recipientAddressLine3(recipientAddressLine3: String) =
                 recipientAddressLine3(JsonField.of(recipientAddressLine3))
 
-            /** Line 3 of the drawdown request's recipient's address. */
+            /**
+             * Sets [Builder.recipientAddressLine3] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.recipientAddressLine3] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
             fun recipientAddressLine3(recipientAddressLine3: JsonField<String>) = apply {
                 this.recipientAddressLine3 = recipientAddressLine3
             }
@@ -657,7 +932,13 @@ private constructor(
             body.accountNumberId(accountNumberId)
         }
 
-        /** The Account Number to which the recipient should send funds. */
+        /**
+         * Sets [Builder.accountNumberId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.accountNumberId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun accountNumberId(accountNumberId: JsonField<String>) = apply {
             body.accountNumberId(accountNumberId)
         }
@@ -665,7 +946,12 @@ private constructor(
         /** The amount requested from the recipient, in USD cents. */
         fun amount(amount: Long) = apply { body.amount(amount) }
 
-        /** The amount requested from the recipient, in USD cents. */
+        /**
+         * Sets [Builder.amount] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun amount(amount: JsonField<Long>) = apply { body.amount(amount) }
 
         /** A message the recipient will see as part of the request. */
@@ -673,7 +959,13 @@ private constructor(
             body.messageToRecipient(messageToRecipient)
         }
 
-        /** A message the recipient will see as part of the request. */
+        /**
+         * Sets [Builder.messageToRecipient] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.messageToRecipient] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun messageToRecipient(messageToRecipient: JsonField<String>) = apply {
             body.messageToRecipient(messageToRecipient)
         }
@@ -683,7 +975,13 @@ private constructor(
             body.recipientAccountNumber(recipientAccountNumber)
         }
 
-        /** The drawdown request's recipient's account number. */
+        /**
+         * Sets [Builder.recipientAccountNumber] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.recipientAccountNumber] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun recipientAccountNumber(recipientAccountNumber: JsonField<String>) = apply {
             body.recipientAccountNumber(recipientAccountNumber)
         }
@@ -691,7 +989,13 @@ private constructor(
         /** The drawdown request's recipient's name. */
         fun recipientName(recipientName: String) = apply { body.recipientName(recipientName) }
 
-        /** The drawdown request's recipient's name. */
+        /**
+         * Sets [Builder.recipientName] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.recipientName] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun recipientName(recipientName: JsonField<String>) = apply {
             body.recipientName(recipientName)
         }
@@ -701,7 +1005,13 @@ private constructor(
             body.recipientRoutingNumber(recipientRoutingNumber)
         }
 
-        /** The drawdown request's recipient's routing number. */
+        /**
+         * Sets [Builder.recipientRoutingNumber] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.recipientRoutingNumber] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun recipientRoutingNumber(recipientRoutingNumber: JsonField<String>) = apply {
             body.recipientRoutingNumber(recipientRoutingNumber)
         }
@@ -716,9 +1026,11 @@ private constructor(
         }
 
         /**
-         * The drawdown request originator's address line 1. This is only necessary if you're
-         * requesting a payment to a commingled account. Otherwise, we'll use the associated
-         * entity's details.
+         * Sets [Builder.originatorAddressLine1] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.originatorAddressLine1] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun originatorAddressLine1(originatorAddressLine1: JsonField<String>) = apply {
             body.originatorAddressLine1(originatorAddressLine1)
@@ -734,9 +1046,11 @@ private constructor(
         }
 
         /**
-         * The drawdown request originator's address line 2. This is only necessary if you're
-         * requesting a payment to a commingled account. Otherwise, we'll use the associated
-         * entity's details.
+         * Sets [Builder.originatorAddressLine2] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.originatorAddressLine2] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun originatorAddressLine2(originatorAddressLine2: JsonField<String>) = apply {
             body.originatorAddressLine2(originatorAddressLine2)
@@ -752,9 +1066,11 @@ private constructor(
         }
 
         /**
-         * The drawdown request originator's address line 3. This is only necessary if you're
-         * requesting a payment to a commingled account. Otherwise, we'll use the associated
-         * entity's details.
+         * Sets [Builder.originatorAddressLine3] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.originatorAddressLine3] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun originatorAddressLine3(originatorAddressLine3: JsonField<String>) = apply {
             body.originatorAddressLine3(originatorAddressLine3)
@@ -767,8 +1083,11 @@ private constructor(
         fun originatorName(originatorName: String) = apply { body.originatorName(originatorName) }
 
         /**
-         * The drawdown request originator's name. This is only necessary if you're requesting a
-         * payment to a commingled account. Otherwise, we'll use the associated entity's details.
+         * Sets [Builder.originatorName] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.originatorName] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun originatorName(originatorName: JsonField<String>) = apply {
             body.originatorName(originatorName)
@@ -779,7 +1098,13 @@ private constructor(
             body.recipientAddressLine1(recipientAddressLine1)
         }
 
-        /** Line 1 of the drawdown request's recipient's address. */
+        /**
+         * Sets [Builder.recipientAddressLine1] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.recipientAddressLine1] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun recipientAddressLine1(recipientAddressLine1: JsonField<String>) = apply {
             body.recipientAddressLine1(recipientAddressLine1)
         }
@@ -789,7 +1114,13 @@ private constructor(
             body.recipientAddressLine2(recipientAddressLine2)
         }
 
-        /** Line 2 of the drawdown request's recipient's address. */
+        /**
+         * Sets [Builder.recipientAddressLine2] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.recipientAddressLine2] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun recipientAddressLine2(recipientAddressLine2: JsonField<String>) = apply {
             body.recipientAddressLine2(recipientAddressLine2)
         }
@@ -799,7 +1130,13 @@ private constructor(
             body.recipientAddressLine3(recipientAddressLine3)
         }
 
-        /** Line 3 of the drawdown request's recipient's address. */
+        /**
+         * Sets [Builder.recipientAddressLine3] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.recipientAddressLine3] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun recipientAddressLine3(recipientAddressLine3: JsonField<String>) = apply {
             body.recipientAddressLine3(recipientAddressLine3)
         }

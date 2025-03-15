@@ -17,6 +17,7 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
+import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 import java.util.Optional
 
@@ -28,93 +29,179 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** The transfer amount in USD cents. For Real-Time Payments transfers, must be positive. */
+    /**
+     * The transfer amount in USD cents. For Real-Time Payments transfers, must be positive.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun amount(): Long = body.amount()
 
-    /** The name of the transfer's recipient. */
+    /**
+     * The name of the transfer's recipient.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun creditorName(): String = body.creditorName()
 
-    /** Unstructured information that will show on the recipient's bank statement. */
+    /**
+     * Unstructured information that will show on the recipient's bank statement.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun remittanceInformation(): String = body.remittanceInformation()
 
-    /** The identifier of the Account Number from which to send the transfer. */
+    /**
+     * The identifier of the Account Number from which to send the transfer.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun sourceAccountNumberId(): String = body.sourceAccountNumberId()
 
     /**
      * The name of the transfer's sender. If not provided, defaults to the name of the account's
      * entity.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun debtorName(): Optional<String> = body.debtorName()
 
-    /** The destination account number. */
+    /**
+     * The destination account number.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun destinationAccountNumber(): Optional<String> = body.destinationAccountNumber()
 
-    /** The destination American Bankers' Association (ABA) Routing Transit Number (RTN). */
+    /**
+     * The destination American Bankers' Association (ABA) Routing Transit Number (RTN).
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun destinationRoutingNumber(): Optional<String> = body.destinationRoutingNumber()
 
     /**
      * The ID of an External Account to initiate a transfer to. If this parameter is provided,
      * `destination_account_number` and `destination_routing_number` must be absent.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun externalAccountId(): Optional<String> = body.externalAccountId()
 
-    /** Whether the transfer requires explicit approval via the dashboard or API. */
+    /**
+     * Whether the transfer requires explicit approval via the dashboard or API.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun requireApproval(): Optional<Boolean> = body.requireApproval()
 
     /**
      * The name of the ultimate recipient of the transfer. Set this if the creditor is an
      * intermediary receiving the payment for someone else.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun ultimateCreditorName(): Optional<String> = body.ultimateCreditorName()
 
     /**
      * The name of the ultimate sender of the transfer. Set this if the funds are being sent on
      * behalf of someone who is not the account holder at Increase.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun ultimateDebtorName(): Optional<String> = body.ultimateDebtorName()
 
-    /** The transfer amount in USD cents. For Real-Time Payments transfers, must be positive. */
+    /**
+     * Returns the raw JSON value of [amount].
+     *
+     * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _amount(): JsonField<Long> = body._amount()
 
-    /** The name of the transfer's recipient. */
+    /**
+     * Returns the raw JSON value of [creditorName].
+     *
+     * Unlike [creditorName], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _creditorName(): JsonField<String> = body._creditorName()
 
-    /** Unstructured information that will show on the recipient's bank statement. */
+    /**
+     * Returns the raw JSON value of [remittanceInformation].
+     *
+     * Unlike [remittanceInformation], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     fun _remittanceInformation(): JsonField<String> = body._remittanceInformation()
 
-    /** The identifier of the Account Number from which to send the transfer. */
+    /**
+     * Returns the raw JSON value of [sourceAccountNumberId].
+     *
+     * Unlike [sourceAccountNumberId], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     fun _sourceAccountNumberId(): JsonField<String> = body._sourceAccountNumberId()
 
     /**
-     * The name of the transfer's sender. If not provided, defaults to the name of the account's
-     * entity.
+     * Returns the raw JSON value of [debtorName].
+     *
+     * Unlike [debtorName], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _debtorName(): JsonField<String> = body._debtorName()
 
-    /** The destination account number. */
+    /**
+     * Returns the raw JSON value of [destinationAccountNumber].
+     *
+     * Unlike [destinationAccountNumber], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
     fun _destinationAccountNumber(): JsonField<String> = body._destinationAccountNumber()
 
-    /** The destination American Bankers' Association (ABA) Routing Transit Number (RTN). */
+    /**
+     * Returns the raw JSON value of [destinationRoutingNumber].
+     *
+     * Unlike [destinationRoutingNumber], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
     fun _destinationRoutingNumber(): JsonField<String> = body._destinationRoutingNumber()
 
     /**
-     * The ID of an External Account to initiate a transfer to. If this parameter is provided,
-     * `destination_account_number` and `destination_routing_number` must be absent.
+     * Returns the raw JSON value of [externalAccountId].
+     *
+     * Unlike [externalAccountId], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
     fun _externalAccountId(): JsonField<String> = body._externalAccountId()
 
-    /** Whether the transfer requires explicit approval via the dashboard or API. */
+    /**
+     * Returns the raw JSON value of [requireApproval].
+     *
+     * Unlike [requireApproval], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _requireApproval(): JsonField<Boolean> = body._requireApproval()
 
     /**
-     * The name of the ultimate recipient of the transfer. Set this if the creditor is an
-     * intermediary receiving the payment for someone else.
+     * Returns the raw JSON value of [ultimateCreditorName].
+     *
+     * Unlike [ultimateCreditorName], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
     fun _ultimateCreditorName(): JsonField<String> = body._ultimateCreditorName()
 
     /**
-     * The name of the ultimate sender of the transfer. Set this if the funds are being sent on
-     * behalf of someone who is not the account holder at Increase.
+     * Returns the raw JSON value of [ultimateDebtorName].
+     *
+     * Unlike [ultimateDebtorName], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
     fun _ultimateDebtorName(): JsonField<String> = body._ultimateDebtorName()
 
@@ -171,49 +258,93 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The transfer amount in USD cents. For Real-Time Payments transfers, must be positive. */
+        /**
+         * The transfer amount in USD cents. For Real-Time Payments transfers, must be positive.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun amount(): Long = amount.getRequired("amount")
 
-        /** The name of the transfer's recipient. */
+        /**
+         * The name of the transfer's recipient.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun creditorName(): String = creditorName.getRequired("creditor_name")
 
-        /** Unstructured information that will show on the recipient's bank statement. */
+        /**
+         * Unstructured information that will show on the recipient's bank statement.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun remittanceInformation(): String =
             remittanceInformation.getRequired("remittance_information")
 
-        /** The identifier of the Account Number from which to send the transfer. */
+        /**
+         * The identifier of the Account Number from which to send the transfer.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun sourceAccountNumberId(): String =
             sourceAccountNumberId.getRequired("source_account_number_id")
 
         /**
          * The name of the transfer's sender. If not provided, defaults to the name of the account's
          * entity.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun debtorName(): Optional<String> =
             Optional.ofNullable(debtorName.getNullable("debtor_name"))
 
-        /** The destination account number. */
+        /**
+         * The destination account number.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun destinationAccountNumber(): Optional<String> =
             Optional.ofNullable(destinationAccountNumber.getNullable("destination_account_number"))
 
-        /** The destination American Bankers' Association (ABA) Routing Transit Number (RTN). */
+        /**
+         * The destination American Bankers' Association (ABA) Routing Transit Number (RTN).
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun destinationRoutingNumber(): Optional<String> =
             Optional.ofNullable(destinationRoutingNumber.getNullable("destination_routing_number"))
 
         /**
          * The ID of an External Account to initiate a transfer to. If this parameter is provided,
          * `destination_account_number` and `destination_routing_number` must be absent.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun externalAccountId(): Optional<String> =
             Optional.ofNullable(externalAccountId.getNullable("external_account_id"))
 
-        /** Whether the transfer requires explicit approval via the dashboard or API. */
+        /**
+         * Whether the transfer requires explicit approval via the dashboard or API.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun requireApproval(): Optional<Boolean> =
             Optional.ofNullable(requireApproval.getNullable("require_approval"))
 
         /**
          * The name of the ultimate recipient of the transfer. Set this if the creditor is an
          * intermediary receiving the payment for someone else.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun ultimateCreditorName(): Optional<String> =
             Optional.ofNullable(ultimateCreditorName.getNullable("ultimate_creditor_name"))
@@ -221,70 +352,114 @@ private constructor(
         /**
          * The name of the ultimate sender of the transfer. Set this if the funds are being sent on
          * behalf of someone who is not the account holder at Increase.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun ultimateDebtorName(): Optional<String> =
             Optional.ofNullable(ultimateDebtorName.getNullable("ultimate_debtor_name"))
 
-        /** The transfer amount in USD cents. For Real-Time Payments transfers, must be positive. */
+        /**
+         * Returns the raw JSON value of [amount].
+         *
+         * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
-        /** The name of the transfer's recipient. */
+        /**
+         * Returns the raw JSON value of [creditorName].
+         *
+         * Unlike [creditorName], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("creditor_name")
         @ExcludeMissing
         fun _creditorName(): JsonField<String> = creditorName
 
-        /** Unstructured information that will show on the recipient's bank statement. */
+        /**
+         * Returns the raw JSON value of [remittanceInformation].
+         *
+         * Unlike [remittanceInformation], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
         @JsonProperty("remittance_information")
         @ExcludeMissing
         fun _remittanceInformation(): JsonField<String> = remittanceInformation
 
-        /** The identifier of the Account Number from which to send the transfer. */
+        /**
+         * Returns the raw JSON value of [sourceAccountNumberId].
+         *
+         * Unlike [sourceAccountNumberId], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
         @JsonProperty("source_account_number_id")
         @ExcludeMissing
         fun _sourceAccountNumberId(): JsonField<String> = sourceAccountNumberId
 
         /**
-         * The name of the transfer's sender. If not provided, defaults to the name of the account's
-         * entity.
+         * Returns the raw JSON value of [debtorName].
+         *
+         * Unlike [debtorName], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("debtor_name")
         @ExcludeMissing
         fun _debtorName(): JsonField<String> = debtorName
 
-        /** The destination account number. */
+        /**
+         * Returns the raw JSON value of [destinationAccountNumber].
+         *
+         * Unlike [destinationAccountNumber], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
         @JsonProperty("destination_account_number")
         @ExcludeMissing
         fun _destinationAccountNumber(): JsonField<String> = destinationAccountNumber
 
-        /** The destination American Bankers' Association (ABA) Routing Transit Number (RTN). */
+        /**
+         * Returns the raw JSON value of [destinationRoutingNumber].
+         *
+         * Unlike [destinationRoutingNumber], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
         @JsonProperty("destination_routing_number")
         @ExcludeMissing
         fun _destinationRoutingNumber(): JsonField<String> = destinationRoutingNumber
 
         /**
-         * The ID of an External Account to initiate a transfer to. If this parameter is provided,
-         * `destination_account_number` and `destination_routing_number` must be absent.
+         * Returns the raw JSON value of [externalAccountId].
+         *
+         * Unlike [externalAccountId], this method doesn't throw if the JSON field has an unexpected
+         * type.
          */
         @JsonProperty("external_account_id")
         @ExcludeMissing
         fun _externalAccountId(): JsonField<String> = externalAccountId
 
-        /** Whether the transfer requires explicit approval via the dashboard or API. */
+        /**
+         * Returns the raw JSON value of [requireApproval].
+         *
+         * Unlike [requireApproval], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("require_approval")
         @ExcludeMissing
         fun _requireApproval(): JsonField<Boolean> = requireApproval
 
         /**
-         * The name of the ultimate recipient of the transfer. Set this if the creditor is an
-         * intermediary receiving the payment for someone else.
+         * Returns the raw JSON value of [ultimateCreditorName].
+         *
+         * Unlike [ultimateCreditorName], this method doesn't throw if the JSON field has an
+         * unexpected type.
          */
         @JsonProperty("ultimate_creditor_name")
         @ExcludeMissing
         fun _ultimateCreditorName(): JsonField<String> = ultimateCreditorName
 
         /**
-         * The name of the ultimate sender of the transfer. Set this if the funds are being sent on
-         * behalf of someone who is not the account holder at Increase.
+         * Returns the raw JSON value of [ultimateDebtorName].
+         *
+         * Unlike [ultimateDebtorName], this method doesn't throw if the JSON field has an
+         * unexpected type.
          */
         @JsonProperty("ultimate_debtor_name")
         @ExcludeMissing
@@ -371,14 +546,24 @@ private constructor(
             fun amount(amount: Long) = amount(JsonField.of(amount))
 
             /**
-             * The transfer amount in USD cents. For Real-Time Payments transfers, must be positive.
+             * Sets [Builder.amount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
              */
             fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
             /** The name of the transfer's recipient. */
             fun creditorName(creditorName: String) = creditorName(JsonField.of(creditorName))
 
-            /** The name of the transfer's recipient. */
+            /**
+             * Sets [Builder.creditorName] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.creditorName] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun creditorName(creditorName: JsonField<String>) = apply {
                 this.creditorName = creditorName
             }
@@ -387,7 +572,13 @@ private constructor(
             fun remittanceInformation(remittanceInformation: String) =
                 remittanceInformation(JsonField.of(remittanceInformation))
 
-            /** Unstructured information that will show on the recipient's bank statement. */
+            /**
+             * Sets [Builder.remittanceInformation] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.remittanceInformation] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
             fun remittanceInformation(remittanceInformation: JsonField<String>) = apply {
                 this.remittanceInformation = remittanceInformation
             }
@@ -396,7 +587,13 @@ private constructor(
             fun sourceAccountNumberId(sourceAccountNumberId: String) =
                 sourceAccountNumberId(JsonField.of(sourceAccountNumberId))
 
-            /** The identifier of the Account Number from which to send the transfer. */
+            /**
+             * Sets [Builder.sourceAccountNumberId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.sourceAccountNumberId] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
             fun sourceAccountNumberId(sourceAccountNumberId: JsonField<String>) = apply {
                 this.sourceAccountNumberId = sourceAccountNumberId
             }
@@ -408,8 +605,11 @@ private constructor(
             fun debtorName(debtorName: String) = debtorName(JsonField.of(debtorName))
 
             /**
-             * The name of the transfer's sender. If not provided, defaults to the name of the
-             * account's entity.
+             * Sets [Builder.debtorName] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.debtorName] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun debtorName(debtorName: JsonField<String>) = apply { this.debtorName = debtorName }
 
@@ -417,7 +617,13 @@ private constructor(
             fun destinationAccountNumber(destinationAccountNumber: String) =
                 destinationAccountNumber(JsonField.of(destinationAccountNumber))
 
-            /** The destination account number. */
+            /**
+             * Sets [Builder.destinationAccountNumber] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.destinationAccountNumber] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
             fun destinationAccountNumber(destinationAccountNumber: JsonField<String>) = apply {
                 this.destinationAccountNumber = destinationAccountNumber
             }
@@ -426,7 +632,13 @@ private constructor(
             fun destinationRoutingNumber(destinationRoutingNumber: String) =
                 destinationRoutingNumber(JsonField.of(destinationRoutingNumber))
 
-            /** The destination American Bankers' Association (ABA) Routing Transit Number (RTN). */
+            /**
+             * Sets [Builder.destinationRoutingNumber] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.destinationRoutingNumber] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
             fun destinationRoutingNumber(destinationRoutingNumber: JsonField<String>) = apply {
                 this.destinationRoutingNumber = destinationRoutingNumber
             }
@@ -440,9 +652,11 @@ private constructor(
                 externalAccountId(JsonField.of(externalAccountId))
 
             /**
-             * The ID of an External Account to initiate a transfer to. If this parameter is
-             * provided, `destination_account_number` and `destination_routing_number` must be
-             * absent.
+             * Sets [Builder.externalAccountId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.externalAccountId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun externalAccountId(externalAccountId: JsonField<String>) = apply {
                 this.externalAccountId = externalAccountId
@@ -452,7 +666,13 @@ private constructor(
             fun requireApproval(requireApproval: Boolean) =
                 requireApproval(JsonField.of(requireApproval))
 
-            /** Whether the transfer requires explicit approval via the dashboard or API. */
+            /**
+             * Sets [Builder.requireApproval] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.requireApproval] with a well-typed [Boolean] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun requireApproval(requireApproval: JsonField<Boolean>) = apply {
                 this.requireApproval = requireApproval
             }
@@ -465,8 +685,11 @@ private constructor(
                 ultimateCreditorName(JsonField.of(ultimateCreditorName))
 
             /**
-             * The name of the ultimate recipient of the transfer. Set this if the creditor is an
-             * intermediary receiving the payment for someone else.
+             * Sets [Builder.ultimateCreditorName] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.ultimateCreditorName] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
              */
             fun ultimateCreditorName(ultimateCreditorName: JsonField<String>) = apply {
                 this.ultimateCreditorName = ultimateCreditorName
@@ -480,8 +703,11 @@ private constructor(
                 ultimateDebtorName(JsonField.of(ultimateDebtorName))
 
             /**
-             * The name of the ultimate sender of the transfer. Set this if the funds are being sent
-             * on behalf of someone who is not the account holder at Increase.
+             * Sets [Builder.ultimateDebtorName] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.ultimateDebtorName] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun ultimateDebtorName(ultimateDebtorName: JsonField<String>) = apply {
                 this.ultimateDebtorName = ultimateDebtorName
@@ -581,13 +807,24 @@ private constructor(
         /** The transfer amount in USD cents. For Real-Time Payments transfers, must be positive. */
         fun amount(amount: Long) = apply { body.amount(amount) }
 
-        /** The transfer amount in USD cents. For Real-Time Payments transfers, must be positive. */
+        /**
+         * Sets [Builder.amount] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun amount(amount: JsonField<Long>) = apply { body.amount(amount) }
 
         /** The name of the transfer's recipient. */
         fun creditorName(creditorName: String) = apply { body.creditorName(creditorName) }
 
-        /** The name of the transfer's recipient. */
+        /**
+         * Sets [Builder.creditorName] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.creditorName] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun creditorName(creditorName: JsonField<String>) = apply {
             body.creditorName(creditorName)
         }
@@ -597,7 +834,13 @@ private constructor(
             body.remittanceInformation(remittanceInformation)
         }
 
-        /** Unstructured information that will show on the recipient's bank statement. */
+        /**
+         * Sets [Builder.remittanceInformation] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.remittanceInformation] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun remittanceInformation(remittanceInformation: JsonField<String>) = apply {
             body.remittanceInformation(remittanceInformation)
         }
@@ -607,7 +850,13 @@ private constructor(
             body.sourceAccountNumberId(sourceAccountNumberId)
         }
 
-        /** The identifier of the Account Number from which to send the transfer. */
+        /**
+         * Sets [Builder.sourceAccountNumberId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.sourceAccountNumberId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun sourceAccountNumberId(sourceAccountNumberId: JsonField<String>) = apply {
             body.sourceAccountNumberId(sourceAccountNumberId)
         }
@@ -619,8 +868,11 @@ private constructor(
         fun debtorName(debtorName: String) = apply { body.debtorName(debtorName) }
 
         /**
-         * The name of the transfer's sender. If not provided, defaults to the name of the account's
-         * entity.
+         * Sets [Builder.debtorName] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.debtorName] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun debtorName(debtorName: JsonField<String>) = apply { body.debtorName(debtorName) }
 
@@ -629,7 +881,13 @@ private constructor(
             body.destinationAccountNumber(destinationAccountNumber)
         }
 
-        /** The destination account number. */
+        /**
+         * Sets [Builder.destinationAccountNumber] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.destinationAccountNumber] with a well-typed [String]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
         fun destinationAccountNumber(destinationAccountNumber: JsonField<String>) = apply {
             body.destinationAccountNumber(destinationAccountNumber)
         }
@@ -639,7 +897,13 @@ private constructor(
             body.destinationRoutingNumber(destinationRoutingNumber)
         }
 
-        /** The destination American Bankers' Association (ABA) Routing Transit Number (RTN). */
+        /**
+         * Sets [Builder.destinationRoutingNumber] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.destinationRoutingNumber] with a well-typed [String]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
         fun destinationRoutingNumber(destinationRoutingNumber: JsonField<String>) = apply {
             body.destinationRoutingNumber(destinationRoutingNumber)
         }
@@ -653,8 +917,11 @@ private constructor(
         }
 
         /**
-         * The ID of an External Account to initiate a transfer to. If this parameter is provided,
-         * `destination_account_number` and `destination_routing_number` must be absent.
+         * Sets [Builder.externalAccountId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.externalAccountId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun externalAccountId(externalAccountId: JsonField<String>) = apply {
             body.externalAccountId(externalAccountId)
@@ -665,7 +932,13 @@ private constructor(
             body.requireApproval(requireApproval)
         }
 
-        /** Whether the transfer requires explicit approval via the dashboard or API. */
+        /**
+         * Sets [Builder.requireApproval] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.requireApproval] with a well-typed [Boolean] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun requireApproval(requireApproval: JsonField<Boolean>) = apply {
             body.requireApproval(requireApproval)
         }
@@ -679,8 +952,11 @@ private constructor(
         }
 
         /**
-         * The name of the ultimate recipient of the transfer. Set this if the creditor is an
-         * intermediary receiving the payment for someone else.
+         * Sets [Builder.ultimateCreditorName] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.ultimateCreditorName] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun ultimateCreditorName(ultimateCreditorName: JsonField<String>) = apply {
             body.ultimateCreditorName(ultimateCreditorName)
@@ -695,8 +971,11 @@ private constructor(
         }
 
         /**
-         * The name of the ultimate sender of the transfer. Set this if the funds are being sent on
-         * behalf of someone who is not the account holder at Increase.
+         * Sets [Builder.ultimateDebtorName] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.ultimateDebtorName] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun ultimateDebtorName(ultimateDebtorName: JsonField<String>) = apply {
             body.ultimateDebtorName(ultimateDebtorName)

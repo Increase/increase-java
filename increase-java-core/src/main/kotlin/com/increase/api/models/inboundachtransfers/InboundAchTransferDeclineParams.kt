@@ -37,12 +37,16 @@ private constructor(
     /**
      * The reason why this transfer will be returned. If this parameter is unset, the return codes
      * will be `payment_stopped` for debits and `credit_entry_refused_by_receiver` for credits.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun reason(): Optional<Reason> = body.reason()
 
     /**
-     * The reason why this transfer will be returned. If this parameter is unset, the return codes
-     * will be `payment_stopped` for debits and `credit_entry_refused_by_receiver` for credits.
+     * Returns the raw JSON value of [reason].
+     *
+     * Unlike [reason], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _reason(): JsonField<Reason> = body._reason()
 
@@ -80,13 +84,16 @@ private constructor(
          * The reason why this transfer will be returned. If this parameter is unset, the return
          * codes will be `payment_stopped` for debits and `credit_entry_refused_by_receiver` for
          * credits.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun reason(): Optional<Reason> = Optional.ofNullable(reason.getNullable("reason"))
 
         /**
-         * The reason why this transfer will be returned. If this parameter is unset, the return
-         * codes will be `payment_stopped` for debits and `credit_entry_refused_by_receiver` for
-         * credits.
+         * Returns the raw JSON value of [reason].
+         *
+         * Unlike [reason], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("reason") @ExcludeMissing fun _reason(): JsonField<Reason> = reason
 
@@ -133,9 +140,11 @@ private constructor(
             fun reason(reason: Reason) = reason(JsonField.of(reason))
 
             /**
-             * The reason why this transfer will be returned. If this parameter is unset, the return
-             * codes will be `payment_stopped` for debits and `credit_entry_refused_by_receiver` for
-             * credits.
+             * Sets [Builder.reason] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.reason] with a well-typed [Reason] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun reason(reason: JsonField<Reason>) = apply { this.reason = reason }
 
@@ -226,9 +235,10 @@ private constructor(
         fun reason(reason: Reason) = apply { body.reason(reason) }
 
         /**
-         * The reason why this transfer will be returned. If this parameter is unset, the return
-         * codes will be `payment_stopped` for debits and `credit_entry_refused_by_receiver` for
-         * credits.
+         * Sets [Builder.reason] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.reason] with a well-typed [Reason] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun reason(reason: JsonField<Reason>) = apply { body.reason(reason) }
 

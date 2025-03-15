@@ -17,6 +17,7 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
+import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 
 /** Update the industry code for a corporate Entity */
@@ -38,14 +39,16 @@ private constructor(
      * line of business. This is a number, like `5132` for `Software Publishers`. A full list of
      * classification codes is available
      * [here](https://increase.com/documentation/data-dictionary#north-american-industry-classification-system-codes).
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun industryCode(): String = body.industryCode()
 
     /**
-     * The North American Industry Classification System (NAICS) code for the corporation's primary
-     * line of business. This is a number, like `5132` for `Software Publishers`. A full list of
-     * classification codes is available
-     * [here](https://increase.com/documentation/data-dictionary#north-american-industry-classification-system-codes).
+     * Returns the raw JSON value of [industryCode].
+     *
+     * Unlike [industryCode], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _industryCode(): JsonField<String> = body._industryCode()
 
@@ -84,14 +87,17 @@ private constructor(
          * primary line of business. This is a number, like `5132` for `Software Publishers`. A full
          * list of classification codes is available
          * [here](https://increase.com/documentation/data-dictionary#north-american-industry-classification-system-codes).
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun industryCode(): String = industryCode.getRequired("industry_code")
 
         /**
-         * The North American Industry Classification System (NAICS) code for the corporation's
-         * primary line of business. This is a number, like `5132` for `Software Publishers`. A full
-         * list of classification codes is available
-         * [here](https://increase.com/documentation/data-dictionary#north-american-industry-classification-system-codes).
+         * Returns the raw JSON value of [industryCode].
+         *
+         * Unlike [industryCode], this method doesn't throw if the JSON field has an unexpected
+         * type.
          */
         @JsonProperty("industry_code")
         @ExcludeMissing
@@ -148,10 +154,11 @@ private constructor(
             fun industryCode(industryCode: String) = industryCode(JsonField.of(industryCode))
 
             /**
-             * The North American Industry Classification System (NAICS) code for the corporation's
-             * primary line of business. This is a number, like `5132` for `Software Publishers`. A
-             * full list of classification codes is available
-             * [here](https://increase.com/documentation/data-dictionary#north-american-industry-classification-system-codes).
+             * Sets [Builder.industryCode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.industryCode] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun industryCode(industryCode: JsonField<String>) = apply {
                 this.industryCode = industryCode
@@ -250,10 +257,11 @@ private constructor(
         fun industryCode(industryCode: String) = apply { body.industryCode(industryCode) }
 
         /**
-         * The North American Industry Classification System (NAICS) code for the corporation's
-         * primary line of business. This is a number, like `5132` for `Software Publishers`. A full
-         * list of classification codes is available
-         * [here](https://increase.com/documentation/data-dictionary#north-american-industry-classification-system-codes).
+         * Sets [Builder.industryCode] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.industryCode] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun industryCode(industryCode: JsonField<String>) = apply {
             body.industryCode(industryCode)

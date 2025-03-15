@@ -34,28 +34,64 @@ private constructor(
     /** The external account identifier. */
     fun externalAccountId(): String = externalAccountId
 
-    /** The type of entity that owns the External Account. */
+    /**
+     * The type of entity that owns the External Account.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun accountHolder(): Optional<AccountHolder> = body.accountHolder()
 
-    /** The description you choose to give the external account. */
+    /**
+     * The description you choose to give the external account.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun description(): Optional<String> = body.description()
 
-    /** The funding type of the External Account. */
+    /**
+     * The funding type of the External Account.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun funding(): Optional<Funding> = body.funding()
 
-    /** The status of the External Account. */
+    /**
+     * The status of the External Account.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun status(): Optional<Status> = body.status()
 
-    /** The type of entity that owns the External Account. */
+    /**
+     * Returns the raw JSON value of [accountHolder].
+     *
+     * Unlike [accountHolder], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _accountHolder(): JsonField<AccountHolder> = body._accountHolder()
 
-    /** The description you choose to give the external account. */
+    /**
+     * Returns the raw JSON value of [description].
+     *
+     * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _description(): JsonField<String> = body._description()
 
-    /** The funding type of the External Account. */
+    /**
+     * Returns the raw JSON value of [funding].
+     *
+     * Unlike [funding], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _funding(): JsonField<Funding> = body._funding()
 
-    /** The status of the External Account. */
+    /**
+     * Returns the raw JSON value of [status].
+     *
+     * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _status(): JsonField<Status> = body._status()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
@@ -97,34 +133,71 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The type of entity that owns the External Account. */
+        /**
+         * The type of entity that owns the External Account.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun accountHolder(): Optional<AccountHolder> =
             Optional.ofNullable(accountHolder.getNullable("account_holder"))
 
-        /** The description you choose to give the external account. */
+        /**
+         * The description you choose to give the external account.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun description(): Optional<String> =
             Optional.ofNullable(description.getNullable("description"))
 
-        /** The funding type of the External Account. */
+        /**
+         * The funding type of the External Account.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun funding(): Optional<Funding> = Optional.ofNullable(funding.getNullable("funding"))
 
-        /** The status of the External Account. */
+        /**
+         * The status of the External Account.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun status(): Optional<Status> = Optional.ofNullable(status.getNullable("status"))
 
-        /** The type of entity that owns the External Account. */
+        /**
+         * Returns the raw JSON value of [accountHolder].
+         *
+         * Unlike [accountHolder], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("account_holder")
         @ExcludeMissing
         fun _accountHolder(): JsonField<AccountHolder> = accountHolder
 
-        /** The description you choose to give the external account. */
+        /**
+         * Returns the raw JSON value of [description].
+         *
+         * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("description")
         @ExcludeMissing
         fun _description(): JsonField<String> = description
 
-        /** The funding type of the External Account. */
+        /**
+         * Returns the raw JSON value of [funding].
+         *
+         * Unlike [funding], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("funding") @ExcludeMissing fun _funding(): JsonField<Funding> = funding
 
-        /** The status of the External Account. */
+        /**
+         * Returns the raw JSON value of [status].
+         *
+         * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
         @JsonAnyGetter
@@ -175,7 +248,13 @@ private constructor(
             fun accountHolder(accountHolder: AccountHolder) =
                 accountHolder(JsonField.of(accountHolder))
 
-            /** The type of entity that owns the External Account. */
+            /**
+             * Sets [Builder.accountHolder] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.accountHolder] with a well-typed [AccountHolder]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
             fun accountHolder(accountHolder: JsonField<AccountHolder>) = apply {
                 this.accountHolder = accountHolder
             }
@@ -183,7 +262,13 @@ private constructor(
             /** The description you choose to give the external account. */
             fun description(description: String) = description(JsonField.of(description))
 
-            /** The description you choose to give the external account. */
+            /**
+             * Sets [Builder.description] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.description] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun description(description: JsonField<String>) = apply {
                 this.description = description
             }
@@ -191,13 +276,25 @@ private constructor(
             /** The funding type of the External Account. */
             fun funding(funding: Funding) = funding(JsonField.of(funding))
 
-            /** The funding type of the External Account. */
+            /**
+             * Sets [Builder.funding] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.funding] with a well-typed [Funding] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun funding(funding: JsonField<Funding>) = apply { this.funding = funding }
 
             /** The status of the External Account. */
             fun status(status: Status) = status(JsonField.of(status))
 
-            /** The status of the External Account. */
+            /**
+             * Sets [Builder.status] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.status] with a well-typed [Status] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun status(status: JsonField<Status>) = apply { this.status = status }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -289,7 +386,13 @@ private constructor(
             body.accountHolder(accountHolder)
         }
 
-        /** The type of entity that owns the External Account. */
+        /**
+         * Sets [Builder.accountHolder] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.accountHolder] with a well-typed [AccountHolder] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun accountHolder(accountHolder: JsonField<AccountHolder>) = apply {
             body.accountHolder(accountHolder)
         }
@@ -297,19 +400,35 @@ private constructor(
         /** The description you choose to give the external account. */
         fun description(description: String) = apply { body.description(description) }
 
-        /** The description you choose to give the external account. */
+        /**
+         * Sets [Builder.description] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.description] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun description(description: JsonField<String>) = apply { body.description(description) }
 
         /** The funding type of the External Account. */
         fun funding(funding: Funding) = apply { body.funding(funding) }
 
-        /** The funding type of the External Account. */
+        /**
+         * Sets [Builder.funding] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.funding] with a well-typed [Funding] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun funding(funding: JsonField<Funding>) = apply { body.funding(funding) }
 
         /** The status of the External Account. */
         fun status(status: Status) = apply { body.status(status) }
 
-        /** The status of the External Account. */
+        /**
+         * Sets [Builder.status] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.status] with a well-typed [Status] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun status(status: JsonField<Status>) = apply { body.status(status) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {

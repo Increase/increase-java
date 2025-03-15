@@ -65,34 +65,72 @@ private constructor(
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
-    /** The Card Profile identifier. */
+    /**
+     * The Card Profile identifier.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun id(): String = id.getRequired("id")
 
-    /** The identifier of the File containing the physical card's back image. */
+    /**
+     * The identifier of the File containing the physical card's back image.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun backImageFileId(): Optional<String> =
         Optional.ofNullable(backImageFileId.getNullable("back_image_file_id"))
 
-    /** The identifier of the File containing the physical card's carrier image. */
+    /**
+     * The identifier of the File containing the physical card's carrier image.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun carrierImageFileId(): Optional<String> =
         Optional.ofNullable(carrierImageFileId.getNullable("carrier_image_file_id"))
 
-    /** A phone number the user can contact to receive support for their card. */
+    /**
+     * A phone number the user can contact to receive support for their card.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun contactPhone(): Optional<String> =
         Optional.ofNullable(contactPhone.getNullable("contact_phone"))
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
      * Dispute was created.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
-    /** The creator of this Physical Card Profile. */
+    /**
+     * The creator of this Physical Card Profile.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun creator(): Creator = creator.getRequired("creator")
 
-    /** A description you can use to identify the Physical Card Profile. */
+    /**
+     * A description you can use to identify the Physical Card Profile.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun description(): String = description.getRequired("description")
 
-    /** The identifier of the File containing the physical card's front image. */
+    /**
+     * The identifier of the File containing the physical card's front image.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun frontImageFileId(): Optional<String> =
         Optional.ofNullable(frontImageFileId.getNullable("front_image_file_id"))
 
@@ -100,77 +138,133 @@ private constructor(
      * The idempotency key you chose for this object. This value is unique across Increase and is
      * used to ensure that a request is only processed once. Learn more about
      * [idempotency](https://increase.com/documentation/idempotency-keys).
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun idempotencyKey(): Optional<String> =
         Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
 
-    /** Whether this Physical Card Profile is the default for all cards in its Increase group. */
+    /**
+     * Whether this Physical Card Profile is the default for all cards in its Increase group.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun isDefault(): Boolean = isDefault.getRequired("is_default")
 
-    /** The status of the Physical Card Profile. */
+    /**
+     * The status of the Physical Card Profile.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun status(): Status = status.getRequired("status")
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `physical_card_profile`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun type(): Type = type.getRequired("type")
 
-    /** The Card Profile identifier. */
+    /**
+     * Returns the raw JSON value of [id].
+     *
+     * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
-    /** The identifier of the File containing the physical card's back image. */
+    /**
+     * Returns the raw JSON value of [backImageFileId].
+     *
+     * Unlike [backImageFileId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("back_image_file_id")
     @ExcludeMissing
     fun _backImageFileId(): JsonField<String> = backImageFileId
 
-    /** The identifier of the File containing the physical card's carrier image. */
+    /**
+     * Returns the raw JSON value of [carrierImageFileId].
+     *
+     * Unlike [carrierImageFileId], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     @JsonProperty("carrier_image_file_id")
     @ExcludeMissing
     fun _carrierImageFileId(): JsonField<String> = carrierImageFileId
 
-    /** A phone number the user can contact to receive support for their card. */
+    /**
+     * Returns the raw JSON value of [contactPhone].
+     *
+     * Unlike [contactPhone], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("contact_phone")
     @ExcludeMissing
     fun _contactPhone(): JsonField<String> = contactPhone
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
-     * Dispute was created.
+     * Returns the raw JSON value of [createdAt].
+     *
+     * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("created_at")
     @ExcludeMissing
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
-    /** The creator of this Physical Card Profile. */
+    /**
+     * Returns the raw JSON value of [creator].
+     *
+     * Unlike [creator], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("creator") @ExcludeMissing fun _creator(): JsonField<Creator> = creator
 
-    /** A description you can use to identify the Physical Card Profile. */
+    /**
+     * Returns the raw JSON value of [description].
+     *
+     * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("description") @ExcludeMissing fun _description(): JsonField<String> = description
 
-    /** The identifier of the File containing the physical card's front image. */
+    /**
+     * Returns the raw JSON value of [frontImageFileId].
+     *
+     * Unlike [frontImageFileId], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     @JsonProperty("front_image_file_id")
     @ExcludeMissing
     fun _frontImageFileId(): JsonField<String> = frontImageFileId
 
     /**
-     * The idempotency key you chose for this object. This value is unique across Increase and is
-     * used to ensure that a request is only processed once. Learn more about
-     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     * Returns the raw JSON value of [idempotencyKey].
+     *
+     * Unlike [idempotencyKey], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("idempotency_key")
     @ExcludeMissing
     fun _idempotencyKey(): JsonField<String> = idempotencyKey
 
-    /** Whether this Physical Card Profile is the default for all cards in its Increase group. */
+    /**
+     * Returns the raw JSON value of [isDefault].
+     *
+     * Unlike [isDefault], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("is_default") @ExcludeMissing fun _isDefault(): JsonField<Boolean> = isDefault
 
-    /** The status of the Physical Card Profile. */
+    /**
+     * Returns the raw JSON value of [status].
+     *
+     * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
     /**
-     * A constant representing the object's type. For this resource it will always be
-     * `physical_card_profile`.
+     * Returns the raw JSON value of [type].
+     *
+     * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
@@ -263,18 +357,29 @@ private constructor(
         /** The Card Profile identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
-        /** The Card Profile identifier. */
+        /**
+         * Sets [Builder.id] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.id] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The identifier of the File containing the physical card's back image. */
         fun backImageFileId(backImageFileId: String?) =
             backImageFileId(JsonField.ofNullable(backImageFileId))
 
-        /** The identifier of the File containing the physical card's back image. */
+        /** Alias for calling [Builder.backImageFileId] with `backImageFileId.orElse(null)`. */
         fun backImageFileId(backImageFileId: Optional<String>) =
             backImageFileId(backImageFileId.getOrNull())
 
-        /** The identifier of the File containing the physical card's back image. */
+        /**
+         * Sets [Builder.backImageFileId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.backImageFileId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun backImageFileId(backImageFileId: JsonField<String>) = apply {
             this.backImageFileId = backImageFileId
         }
@@ -283,11 +388,19 @@ private constructor(
         fun carrierImageFileId(carrierImageFileId: String?) =
             carrierImageFileId(JsonField.ofNullable(carrierImageFileId))
 
-        /** The identifier of the File containing the physical card's carrier image. */
+        /**
+         * Alias for calling [Builder.carrierImageFileId] with `carrierImageFileId.orElse(null)`.
+         */
         fun carrierImageFileId(carrierImageFileId: Optional<String>) =
             carrierImageFileId(carrierImageFileId.getOrNull())
 
-        /** The identifier of the File containing the physical card's carrier image. */
+        /**
+         * Sets [Builder.carrierImageFileId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.carrierImageFileId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun carrierImageFileId(carrierImageFileId: JsonField<String>) = apply {
             this.carrierImageFileId = carrierImageFileId
         }
@@ -295,10 +408,16 @@ private constructor(
         /** A phone number the user can contact to receive support for their card. */
         fun contactPhone(contactPhone: String?) = contactPhone(JsonField.ofNullable(contactPhone))
 
-        /** A phone number the user can contact to receive support for their card. */
+        /** Alias for calling [Builder.contactPhone] with `contactPhone.orElse(null)`. */
         fun contactPhone(contactPhone: Optional<String>) = contactPhone(contactPhone.getOrNull())
 
-        /** A phone number the user can contact to receive support for their card. */
+        /**
+         * Sets [Builder.contactPhone] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.contactPhone] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun contactPhone(contactPhone: JsonField<String>) = apply {
             this.contactPhone = contactPhone
         }
@@ -310,32 +429,52 @@ private constructor(
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
-         * Dispute was created.
+         * Sets [Builder.createdAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** The creator of this Physical Card Profile. */
         fun creator(creator: Creator) = creator(JsonField.of(creator))
 
-        /** The creator of this Physical Card Profile. */
+        /**
+         * Sets [Builder.creator] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.creator] with a well-typed [Creator] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun creator(creator: JsonField<Creator>) = apply { this.creator = creator }
 
         /** A description you can use to identify the Physical Card Profile. */
         fun description(description: String) = description(JsonField.of(description))
 
-        /** A description you can use to identify the Physical Card Profile. */
+        /**
+         * Sets [Builder.description] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.description] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun description(description: JsonField<String>) = apply { this.description = description }
 
         /** The identifier of the File containing the physical card's front image. */
         fun frontImageFileId(frontImageFileId: String?) =
             frontImageFileId(JsonField.ofNullable(frontImageFileId))
 
-        /** The identifier of the File containing the physical card's front image. */
+        /** Alias for calling [Builder.frontImageFileId] with `frontImageFileId.orElse(null)`. */
         fun frontImageFileId(frontImageFileId: Optional<String>) =
             frontImageFileId(frontImageFileId.getOrNull())
 
-        /** The identifier of the File containing the physical card's front image. */
+        /**
+         * Sets [Builder.frontImageFileId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.frontImageFileId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun frontImageFileId(frontImageFileId: JsonField<String>) = apply {
             this.frontImageFileId = frontImageFileId
         }
@@ -348,18 +487,16 @@ private constructor(
         fun idempotencyKey(idempotencyKey: String?) =
             idempotencyKey(JsonField.ofNullable(idempotencyKey))
 
-        /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
-         */
+        /** Alias for calling [Builder.idempotencyKey] with `idempotencyKey.orElse(null)`. */
         fun idempotencyKey(idempotencyKey: Optional<String>) =
             idempotencyKey(idempotencyKey.getOrNull())
 
         /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         * Sets [Builder.idempotencyKey] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.idempotencyKey] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
             this.idempotencyKey = idempotencyKey
@@ -371,14 +508,23 @@ private constructor(
         fun isDefault(isDefault: Boolean) = isDefault(JsonField.of(isDefault))
 
         /**
-         * Whether this Physical Card Profile is the default for all cards in its Increase group.
+         * Sets [Builder.isDefault] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.isDefault] with a well-typed [Boolean] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun isDefault(isDefault: JsonField<Boolean>) = apply { this.isDefault = isDefault }
 
         /** The status of the Physical Card Profile. */
         fun status(status: Status) = status(JsonField.of(status))
 
-        /** The status of the Physical Card Profile. */
+        /**
+         * Sets [Builder.status] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.status] with a well-typed [Status] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /**
@@ -388,8 +534,10 @@ private constructor(
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
-         * A constant representing the object's type. For this resource it will always be
-         * `physical_card_profile`.
+         * Sets [Builder.type] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.type] with a well-typed [Type] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun type(type: JsonField<Type>) = apply { this.type = type }
 

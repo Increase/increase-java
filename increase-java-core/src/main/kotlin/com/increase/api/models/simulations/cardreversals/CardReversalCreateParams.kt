@@ -17,6 +17,7 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
+import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 import java.util.Optional
 
@@ -32,21 +33,34 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** The identifier of the Card Payment to create a reversal on. */
+    /**
+     * The identifier of the Card Payment to create a reversal on.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun cardPaymentId(): String = body.cardPaymentId()
 
     /**
      * The amount of the reversal in minor units in the card authorization's currency. This defaults
      * to the authorization amount.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun amount(): Optional<Long> = body.amount()
 
-    /** The identifier of the Card Payment to create a reversal on. */
+    /**
+     * Returns the raw JSON value of [cardPaymentId].
+     *
+     * Unlike [cardPaymentId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _cardPaymentId(): JsonField<String> = body._cardPaymentId()
 
     /**
-     * The amount of the reversal in minor units in the card authorization's currency. This defaults
-     * to the authorization amount.
+     * Returns the raw JSON value of [amount].
+     *
+     * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _amount(): JsonField<Long> = body._amount()
 
@@ -76,23 +90,37 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The identifier of the Card Payment to create a reversal on. */
+        /**
+         * The identifier of the Card Payment to create a reversal on.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun cardPaymentId(): String = cardPaymentId.getRequired("card_payment_id")
 
         /**
          * The amount of the reversal in minor units in the card authorization's currency. This
          * defaults to the authorization amount.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun amount(): Optional<Long> = Optional.ofNullable(amount.getNullable("amount"))
 
-        /** The identifier of the Card Payment to create a reversal on. */
+        /**
+         * Returns the raw JSON value of [cardPaymentId].
+         *
+         * Unlike [cardPaymentId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("card_payment_id")
         @ExcludeMissing
         fun _cardPaymentId(): JsonField<String> = cardPaymentId
 
         /**
-         * The amount of the reversal in minor units in the card authorization's currency. This
-         * defaults to the authorization amount.
+         * Returns the raw JSON value of [amount].
+         *
+         * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
@@ -144,7 +172,13 @@ private constructor(
             /** The identifier of the Card Payment to create a reversal on. */
             fun cardPaymentId(cardPaymentId: String) = cardPaymentId(JsonField.of(cardPaymentId))
 
-            /** The identifier of the Card Payment to create a reversal on. */
+            /**
+             * Sets [Builder.cardPaymentId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.cardPaymentId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun cardPaymentId(cardPaymentId: JsonField<String>) = apply {
                 this.cardPaymentId = cardPaymentId
             }
@@ -156,8 +190,11 @@ private constructor(
             fun amount(amount: Long) = amount(JsonField.of(amount))
 
             /**
-             * The amount of the reversal in minor units in the card authorization's currency. This
-             * defaults to the authorization amount.
+             * Sets [Builder.amount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
              */
             fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
@@ -239,7 +276,13 @@ private constructor(
         /** The identifier of the Card Payment to create a reversal on. */
         fun cardPaymentId(cardPaymentId: String) = apply { body.cardPaymentId(cardPaymentId) }
 
-        /** The identifier of the Card Payment to create a reversal on. */
+        /**
+         * Sets [Builder.cardPaymentId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.cardPaymentId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun cardPaymentId(cardPaymentId: JsonField<String>) = apply {
             body.cardPaymentId(cardPaymentId)
         }
@@ -251,8 +294,10 @@ private constructor(
         fun amount(amount: Long) = apply { body.amount(amount) }
 
         /**
-         * The amount of the reversal in minor units in the card authorization's currency. This
-         * defaults to the authorization amount.
+         * Sets [Builder.amount] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun amount(amount: JsonField<Long>) = apply { body.amount(amount) }
 

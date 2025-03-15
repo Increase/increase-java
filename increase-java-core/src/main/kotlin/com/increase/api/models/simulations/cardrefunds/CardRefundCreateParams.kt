@@ -17,6 +17,7 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
+import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 
 /**
@@ -33,12 +34,16 @@ private constructor(
     /**
      * The identifier for the Transaction to refund. The Transaction's source must have a category
      * of card_settlement.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun transactionId(): String = body.transactionId()
 
     /**
-     * The identifier for the Transaction to refund. The Transaction's source must have a category
-     * of card_settlement.
+     * Returns the raw JSON value of [transactionId].
+     *
+     * Unlike [transactionId], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _transactionId(): JsonField<String> = body._transactionId()
 
@@ -68,12 +73,17 @@ private constructor(
         /**
          * The identifier for the Transaction to refund. The Transaction's source must have a
          * category of card_settlement.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun transactionId(): String = transactionId.getRequired("transaction_id")
 
         /**
-         * The identifier for the Transaction to refund. The Transaction's source must have a
-         * category of card_settlement.
+         * Returns the raw JSON value of [transactionId].
+         *
+         * Unlike [transactionId], this method doesn't throw if the JSON field has an unexpected
+         * type.
          */
         @JsonProperty("transaction_id")
         @ExcludeMissing
@@ -128,8 +138,11 @@ private constructor(
             fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
 
             /**
-             * The identifier for the Transaction to refund. The Transaction's source must have a
-             * category of card_settlement.
+             * Sets [Builder.transactionId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.transactionId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun transactionId(transactionId: JsonField<String>) = apply {
                 this.transactionId = transactionId
@@ -216,8 +229,11 @@ private constructor(
         fun transactionId(transactionId: String) = apply { body.transactionId(transactionId) }
 
         /**
-         * The identifier for the Transaction to refund. The Transaction's source must have a
-         * category of card_settlement.
+         * Sets [Builder.transactionId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.transactionId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun transactionId(transactionId: JsonField<String>) = apply {
             body.transactionId(transactionId)

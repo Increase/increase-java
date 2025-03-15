@@ -38,10 +38,19 @@ private constructor(
     /** The identifier of the Real-Time Payments Transfer you wish to complete. */
     fun realTimePaymentsTransferId(): String = realTimePaymentsTransferId
 
-    /** If set, the simulation will reject the transfer. */
+    /**
+     * If set, the simulation will reject the transfer.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun rejection(): Optional<Rejection> = body.rejection()
 
-    /** If set, the simulation will reject the transfer. */
+    /**
+     * Returns the raw JSON value of [rejection].
+     *
+     * Unlike [rejection], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _rejection(): JsonField<Rejection> = body._rejection()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
@@ -74,11 +83,20 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** If set, the simulation will reject the transfer. */
+        /**
+         * If set, the simulation will reject the transfer.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun rejection(): Optional<Rejection> =
             Optional.ofNullable(rejection.getNullable("rejection"))
 
-        /** If set, the simulation will reject the transfer. */
+        /**
+         * Returns the raw JSON value of [rejection].
+         *
+         * Unlike [rejection], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("rejection")
         @ExcludeMissing
         fun _rejection(): JsonField<Rejection> = rejection
@@ -121,7 +139,13 @@ private constructor(
             /** If set, the simulation will reject the transfer. */
             fun rejection(rejection: Rejection) = rejection(JsonField.of(rejection))
 
-            /** If set, the simulation will reject the transfer. */
+            /**
+             * Sets [Builder.rejection] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.rejection] with a well-typed [Rejection] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun rejection(rejection: JsonField<Rejection>) = apply { this.rejection = rejection }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -209,7 +233,13 @@ private constructor(
         /** If set, the simulation will reject the transfer. */
         fun rejection(rejection: Rejection) = apply { body.rejection(rejection) }
 
-        /** If set, the simulation will reject the transfer. */
+        /**
+         * Sets [Builder.rejection] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.rejection] with a well-typed [Rejection] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun rejection(rejection: JsonField<Rejection>) = apply { body.rejection(rejection) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
@@ -350,11 +380,21 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The reason code that the simulated rejection will have. */
+        /**
+         * The reason code that the simulated rejection will have.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun rejectReasonCode(): RejectReasonCode =
             rejectReasonCode.getRequired("reject_reason_code")
 
-        /** The reason code that the simulated rejection will have. */
+        /**
+         * Returns the raw JSON value of [rejectReasonCode].
+         *
+         * Unlike [rejectReasonCode], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("reject_reason_code")
         @ExcludeMissing
         fun _rejectReasonCode(): JsonField<RejectReasonCode> = rejectReasonCode
@@ -405,7 +445,13 @@ private constructor(
             fun rejectReasonCode(rejectReasonCode: RejectReasonCode) =
                 rejectReasonCode(JsonField.of(rejectReasonCode))
 
-            /** The reason code that the simulated rejection will have. */
+            /**
+             * Sets [Builder.rejectReasonCode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.rejectReasonCode] with a well-typed
+             * [RejectReasonCode] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
             fun rejectReasonCode(rejectReasonCode: JsonField<RejectReasonCode>) = apply {
                 this.rejectReasonCode = rejectReasonCode
             }

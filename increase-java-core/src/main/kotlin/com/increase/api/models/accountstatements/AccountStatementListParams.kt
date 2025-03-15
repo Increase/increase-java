@@ -89,13 +89,13 @@ private constructor(
         /** Filter Account Statements to those belonging to the specified Account. */
         fun accountId(accountId: String?) = apply { this.accountId = accountId }
 
-        /** Filter Account Statements to those belonging to the specified Account. */
+        /** Alias for calling [Builder.accountId] with `accountId.orElse(null)`. */
         fun accountId(accountId: Optional<String>) = accountId(accountId.getOrNull())
 
         /** Return the page of entries after this one. */
         fun cursor(cursor: String?) = apply { this.cursor = cursor }
 
-        /** Return the page of entries after this one. */
+        /** Alias for calling [Builder.cursor] with `cursor.orElse(null)`. */
         fun cursor(cursor: Optional<String>) = cursor(cursor.getOrNull())
 
         /**
@@ -104,19 +104,23 @@ private constructor(
         fun limit(limit: Long?) = apply { this.limit = limit }
 
         /**
-         * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
+         * Alias for [Builder.limit].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
          */
         fun limit(limit: Long) = limit(limit as Long?)
 
-        /**
-         * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
-         */
+        /** Alias for calling [Builder.limit] with `limit.orElse(null)`. */
         fun limit(limit: Optional<Long>) = limit(limit.getOrNull())
 
         fun statementPeriodStart(statementPeriodStart: StatementPeriodStart?) = apply {
             this.statementPeriodStart = statementPeriodStart
         }
 
+        /**
+         * Alias for calling [Builder.statementPeriodStart] with
+         * `statementPeriodStart.orElse(null)`.
+         */
         fun statementPeriodStart(statementPeriodStart: Optional<StatementPeriodStart>) =
             statementPeriodStart(statementPeriodStart.getOrNull())
 
@@ -311,10 +315,7 @@ private constructor(
              */
             fun after(after: OffsetDateTime?) = apply { this.after = after }
 
-            /**
-             * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-             * timestamp.
-             */
+            /** Alias for calling [Builder.after] with `after.orElse(null)`. */
             fun after(after: Optional<OffsetDateTime>) = after(after.getOrNull())
 
             /**
@@ -323,10 +324,7 @@ private constructor(
              */
             fun before(before: OffsetDateTime?) = apply { this.before = before }
 
-            /**
-             * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-             * timestamp.
-             */
+            /** Alias for calling [Builder.before] with `before.orElse(null)`. */
             fun before(before: Optional<OffsetDateTime>) = before(before.getOrNull())
 
             /**
@@ -335,10 +333,7 @@ private constructor(
              */
             fun onOrAfter(onOrAfter: OffsetDateTime?) = apply { this.onOrAfter = onOrAfter }
 
-            /**
-             * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-             * timestamp.
-             */
+            /** Alias for calling [Builder.onOrAfter] with `onOrAfter.orElse(null)`. */
             fun onOrAfter(onOrAfter: Optional<OffsetDateTime>) = onOrAfter(onOrAfter.getOrNull())
 
             /**
@@ -347,10 +342,7 @@ private constructor(
              */
             fun onOrBefore(onOrBefore: OffsetDateTime?) = apply { this.onOrBefore = onOrBefore }
 
-            /**
-             * Return results on or before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-             * timestamp.
-             */
+            /** Alias for calling [Builder.onOrBefore] with `onOrBefore.orElse(null)`. */
             fun onOrBefore(onOrBefore: Optional<OffsetDateTime>) =
                 onOrBefore(onOrBefore.getOrNull())
 

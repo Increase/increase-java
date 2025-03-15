@@ -33,10 +33,19 @@ private constructor(
     /** The identifier of the Inbound Check Deposit to return. */
     fun inboundCheckDepositId(): String = inboundCheckDepositId
 
-    /** The reason to return the Inbound Check Deposit. */
+    /**
+     * The reason to return the Inbound Check Deposit.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun reason(): Reason = body.reason()
 
-    /** The reason to return the Inbound Check Deposit. */
+    /**
+     * Returns the raw JSON value of [reason].
+     *
+     * Unlike [reason], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _reason(): JsonField<Reason> = body._reason()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
@@ -69,10 +78,19 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The reason to return the Inbound Check Deposit. */
+        /**
+         * The reason to return the Inbound Check Deposit.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun reason(): Reason = reason.getRequired("reason")
 
-        /** The reason to return the Inbound Check Deposit. */
+        /**
+         * Returns the raw JSON value of [reason].
+         *
+         * Unlike [reason], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("reason") @ExcludeMissing fun _reason(): JsonField<Reason> = reason
 
         @JsonAnyGetter
@@ -120,7 +138,13 @@ private constructor(
             /** The reason to return the Inbound Check Deposit. */
             fun reason(reason: Reason) = reason(JsonField.of(reason))
 
-            /** The reason to return the Inbound Check Deposit. */
+            /**
+             * Sets [Builder.reason] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.reason] with a well-typed [Reason] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun reason(reason: JsonField<Reason>) = apply { this.reason = reason }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -207,7 +231,12 @@ private constructor(
         /** The reason to return the Inbound Check Deposit. */
         fun reason(reason: Reason) = apply { body.reason(reason) }
 
-        /** The reason to return the Inbound Check Deposit. */
+        /**
+         * Sets [Builder.reason] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.reason] with a well-typed [Reason] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun reason(reason: JsonField<Reason>) = apply { body.reason(reason) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {

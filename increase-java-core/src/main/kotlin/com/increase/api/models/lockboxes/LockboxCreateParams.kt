@@ -17,6 +17,7 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
+import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 import java.util.Optional
 
@@ -28,22 +29,49 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** The Account checks sent to this Lockbox should be deposited into. */
+    /**
+     * The Account checks sent to this Lockbox should be deposited into.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun accountId(): String = body.accountId()
 
-    /** The description you choose for the Lockbox, for display purposes. */
+    /**
+     * The description you choose for the Lockbox, for display purposes.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun description(): Optional<String> = body.description()
 
-    /** The name of the recipient that will receive mail at this location. */
+    /**
+     * The name of the recipient that will receive mail at this location.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun recipientName(): Optional<String> = body.recipientName()
 
-    /** The Account checks sent to this Lockbox should be deposited into. */
+    /**
+     * Returns the raw JSON value of [accountId].
+     *
+     * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _accountId(): JsonField<String> = body._accountId()
 
-    /** The description you choose for the Lockbox, for display purposes. */
+    /**
+     * Returns the raw JSON value of [description].
+     *
+     * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _description(): JsonField<String> = body._description()
 
-    /** The name of the recipient that will receive mail at this location. */
+    /**
+     * Returns the raw JSON value of [recipientName].
+     *
+     * Unlike [recipientName], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _recipientName(): JsonField<String> = body._recipientName()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
@@ -75,26 +103,54 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The Account checks sent to this Lockbox should be deposited into. */
+        /**
+         * The Account checks sent to this Lockbox should be deposited into.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun accountId(): String = accountId.getRequired("account_id")
 
-        /** The description you choose for the Lockbox, for display purposes. */
+        /**
+         * The description you choose for the Lockbox, for display purposes.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun description(): Optional<String> =
             Optional.ofNullable(description.getNullable("description"))
 
-        /** The name of the recipient that will receive mail at this location. */
+        /**
+         * The name of the recipient that will receive mail at this location.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun recipientName(): Optional<String> =
             Optional.ofNullable(recipientName.getNullable("recipient_name"))
 
-        /** The Account checks sent to this Lockbox should be deposited into. */
+        /**
+         * Returns the raw JSON value of [accountId].
+         *
+         * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
 
-        /** The description you choose for the Lockbox, for display purposes. */
+        /**
+         * Returns the raw JSON value of [description].
+         *
+         * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("description")
         @ExcludeMissing
         fun _description(): JsonField<String> = description
 
-        /** The name of the recipient that will receive mail at this location. */
+        /**
+         * Returns the raw JSON value of [recipientName].
+         *
+         * Unlike [recipientName], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("recipient_name")
         @ExcludeMissing
         fun _recipientName(): JsonField<String> = recipientName
@@ -150,13 +206,25 @@ private constructor(
             /** The Account checks sent to this Lockbox should be deposited into. */
             fun accountId(accountId: String) = accountId(JsonField.of(accountId))
 
-            /** The Account checks sent to this Lockbox should be deposited into. */
+            /**
+             * Sets [Builder.accountId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.accountId] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
             /** The description you choose for the Lockbox, for display purposes. */
             fun description(description: String) = description(JsonField.of(description))
 
-            /** The description you choose for the Lockbox, for display purposes. */
+            /**
+             * Sets [Builder.description] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.description] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun description(description: JsonField<String>) = apply {
                 this.description = description
             }
@@ -164,7 +232,13 @@ private constructor(
             /** The name of the recipient that will receive mail at this location. */
             fun recipientName(recipientName: String) = recipientName(JsonField.of(recipientName))
 
-            /** The name of the recipient that will receive mail at this location. */
+            /**
+             * Sets [Builder.recipientName] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.recipientName] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun recipientName(recipientName: JsonField<String>) = apply {
                 this.recipientName = recipientName
             }
@@ -248,19 +322,37 @@ private constructor(
         /** The Account checks sent to this Lockbox should be deposited into. */
         fun accountId(accountId: String) = apply { body.accountId(accountId) }
 
-        /** The Account checks sent to this Lockbox should be deposited into. */
+        /**
+         * Sets [Builder.accountId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.accountId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun accountId(accountId: JsonField<String>) = apply { body.accountId(accountId) }
 
         /** The description you choose for the Lockbox, for display purposes. */
         fun description(description: String) = apply { body.description(description) }
 
-        /** The description you choose for the Lockbox, for display purposes. */
+        /**
+         * Sets [Builder.description] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.description] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun description(description: JsonField<String>) = apply { body.description(description) }
 
         /** The name of the recipient that will receive mail at this location. */
         fun recipientName(recipientName: String) = apply { body.recipientName(recipientName) }
 
-        /** The name of the recipient that will receive mail at this location. */
+        /**
+         * Sets [Builder.recipientName] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.recipientName] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun recipientName(recipientName: JsonField<String>) = apply {
             body.recipientName(recipientName)
         }

@@ -49,77 +49,134 @@ private constructor(
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
-    /** The Inbound Mail Item identifier. */
+    /**
+     * The Inbound Mail Item identifier.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun id(): String = id.getRequired("id")
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Inbound Mail Item
      * was created.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
-    /** The identifier for the File containing the scanned contents of the mail item. */
+    /**
+     * The identifier for the File containing the scanned contents of the mail item.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun fileId(): String = fileId.getRequired("file_id")
 
     /**
      * The identifier for the Lockbox that received this mail item. For mail items that could not be
      * processed due to an invalid address, this will be null.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun lockboxId(): Optional<String> = Optional.ofNullable(lockboxId.getNullable("lockbox_id"))
 
-    /** The recipient name as written on the mail item. */
+    /**
+     * The recipient name as written on the mail item.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun recipientName(): Optional<String> =
         Optional.ofNullable(recipientName.getNullable("recipient_name"))
 
-    /** If the mail item has been rejected, why it was rejected. */
+    /**
+     * If the mail item has been rejected, why it was rejected.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun rejectionReason(): Optional<RejectionReason> =
         Optional.ofNullable(rejectionReason.getNullable("rejection_reason"))
 
-    /** If the mail item has been processed. */
+    /**
+     * If the mail item has been processed.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun status(): Status = status.getRequired("status")
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `inbound_mail_item`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun type(): Type = type.getRequired("type")
 
-    /** The Inbound Mail Item identifier. */
+    /**
+     * Returns the raw JSON value of [id].
+     *
+     * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Inbound Mail Item
-     * was created.
+     * Returns the raw JSON value of [createdAt].
+     *
+     * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("created_at")
     @ExcludeMissing
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
-    /** The identifier for the File containing the scanned contents of the mail item. */
+    /**
+     * Returns the raw JSON value of [fileId].
+     *
+     * Unlike [fileId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("file_id") @ExcludeMissing fun _fileId(): JsonField<String> = fileId
 
     /**
-     * The identifier for the Lockbox that received this mail item. For mail items that could not be
-     * processed due to an invalid address, this will be null.
+     * Returns the raw JSON value of [lockboxId].
+     *
+     * Unlike [lockboxId], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("lockbox_id") @ExcludeMissing fun _lockboxId(): JsonField<String> = lockboxId
 
-    /** The recipient name as written on the mail item. */
+    /**
+     * Returns the raw JSON value of [recipientName].
+     *
+     * Unlike [recipientName], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("recipient_name")
     @ExcludeMissing
     fun _recipientName(): JsonField<String> = recipientName
 
-    /** If the mail item has been rejected, why it was rejected. */
+    /**
+     * Returns the raw JSON value of [rejectionReason].
+     *
+     * Unlike [rejectionReason], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("rejection_reason")
     @ExcludeMissing
     fun _rejectionReason(): JsonField<RejectionReason> = rejectionReason
 
-    /** If the mail item has been processed. */
+    /**
+     * Returns the raw JSON value of [status].
+     *
+     * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
     /**
-     * A constant representing the object's type. For this resource it will always be
-     * `inbound_mail_item`.
+     * Returns the raw JSON value of [type].
+     *
+     * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
@@ -196,7 +253,12 @@ private constructor(
         /** The Inbound Mail Item identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
-        /** The Inbound Mail Item identifier. */
+        /**
+         * Sets [Builder.id] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.id] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
@@ -206,15 +268,23 @@ private constructor(
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Inbound Mail
-         * Item was created.
+         * Sets [Builder.createdAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** The identifier for the File containing the scanned contents of the mail item. */
         fun fileId(fileId: String) = fileId(JsonField.of(fileId))
 
-        /** The identifier for the File containing the scanned contents of the mail item. */
+        /**
+         * Sets [Builder.fileId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.fileId] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun fileId(fileId: JsonField<String>) = apply { this.fileId = fileId }
 
         /**
@@ -223,15 +293,15 @@ private constructor(
          */
         fun lockboxId(lockboxId: String?) = lockboxId(JsonField.ofNullable(lockboxId))
 
-        /**
-         * The identifier for the Lockbox that received this mail item. For mail items that could
-         * not be processed due to an invalid address, this will be null.
-         */
+        /** Alias for calling [Builder.lockboxId] with `lockboxId.orElse(null)`. */
         fun lockboxId(lockboxId: Optional<String>) = lockboxId(lockboxId.getOrNull())
 
         /**
-         * The identifier for the Lockbox that received this mail item. For mail items that could
-         * not be processed due to an invalid address, this will be null.
+         * Sets [Builder.lockboxId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.lockboxId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun lockboxId(lockboxId: JsonField<String>) = apply { this.lockboxId = lockboxId }
 
@@ -239,11 +309,17 @@ private constructor(
         fun recipientName(recipientName: String?) =
             recipientName(JsonField.ofNullable(recipientName))
 
-        /** The recipient name as written on the mail item. */
+        /** Alias for calling [Builder.recipientName] with `recipientName.orElse(null)`. */
         fun recipientName(recipientName: Optional<String>) =
             recipientName(recipientName.getOrNull())
 
-        /** The recipient name as written on the mail item. */
+        /**
+         * Sets [Builder.recipientName] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.recipientName] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun recipientName(recipientName: JsonField<String>) = apply {
             this.recipientName = recipientName
         }
@@ -252,11 +328,17 @@ private constructor(
         fun rejectionReason(rejectionReason: RejectionReason?) =
             rejectionReason(JsonField.ofNullable(rejectionReason))
 
-        /** If the mail item has been rejected, why it was rejected. */
+        /** Alias for calling [Builder.rejectionReason] with `rejectionReason.orElse(null)`. */
         fun rejectionReason(rejectionReason: Optional<RejectionReason>) =
             rejectionReason(rejectionReason.getOrNull())
 
-        /** If the mail item has been rejected, why it was rejected. */
+        /**
+         * Sets [Builder.rejectionReason] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.rejectionReason] with a well-typed [RejectionReason]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
         fun rejectionReason(rejectionReason: JsonField<RejectionReason>) = apply {
             this.rejectionReason = rejectionReason
         }
@@ -264,7 +346,12 @@ private constructor(
         /** If the mail item has been processed. */
         fun status(status: Status) = status(JsonField.of(status))
 
-        /** If the mail item has been processed. */
+        /**
+         * Sets [Builder.status] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.status] with a well-typed [Status] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /**
@@ -274,8 +361,10 @@ private constructor(
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
-         * A constant representing the object's type. For this resource it will always be
-         * `inbound_mail_item`.
+         * Sets [Builder.type] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.type] with a well-typed [Type] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun type(type: JsonField<Type>) = apply { this.type = type }
 

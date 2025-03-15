@@ -32,55 +32,102 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** The type of Export to create. */
+    /**
+     * The type of Export to create.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun category(): Category = body.category()
 
     /**
      * Options for the created export. Required if `category` is equal to `account_statement_ofx`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun accountStatementOfx(): Optional<AccountStatementOfx> = body.accountStatementOfx()
 
-    /** Options for the created export. Required if `category` is equal to `balance_csv`. */
+    /**
+     * Options for the created export. Required if `category` is equal to `balance_csv`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun balanceCsv(): Optional<BalanceCsv> = body.balanceCsv()
 
     /**
      * Options for the created export. Required if `category` is equal to
      * `bookkeeping_account_balance_csv`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun bookkeepingAccountBalanceCsv(): Optional<BookkeepingAccountBalanceCsv> =
         body.bookkeepingAccountBalanceCsv()
 
-    /** Options for the created export. Required if `category` is equal to `entity_csv`. */
+    /**
+     * Options for the created export. Required if `category` is equal to `entity_csv`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun entityCsv(): Optional<EntityCsv> = body.entityCsv()
 
-    /** Options for the created export. Required if `category` is equal to `transaction_csv`. */
+    /**
+     * Options for the created export. Required if `category` is equal to `transaction_csv`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun transactionCsv(): Optional<TransactionCsv> = body.transactionCsv()
 
     /** Options for the created export. Required if `category` is equal to `vendor_csv`. */
     fun _vendorCsv(): JsonValue = body._vendorCsv()
 
-    /** The type of Export to create. */
+    /**
+     * Returns the raw JSON value of [category].
+     *
+     * Unlike [category], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _category(): JsonField<Category> = body._category()
 
     /**
-     * Options for the created export. Required if `category` is equal to `account_statement_ofx`.
+     * Returns the raw JSON value of [accountStatementOfx].
+     *
+     * Unlike [accountStatementOfx], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
     fun _accountStatementOfx(): JsonField<AccountStatementOfx> = body._accountStatementOfx()
 
-    /** Options for the created export. Required if `category` is equal to `balance_csv`. */
+    /**
+     * Returns the raw JSON value of [balanceCsv].
+     *
+     * Unlike [balanceCsv], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _balanceCsv(): JsonField<BalanceCsv> = body._balanceCsv()
 
     /**
-     * Options for the created export. Required if `category` is equal to
-     * `bookkeeping_account_balance_csv`.
+     * Returns the raw JSON value of [bookkeepingAccountBalanceCsv].
+     *
+     * Unlike [bookkeepingAccountBalanceCsv], this method doesn't throw if the JSON field has an
+     * unexpected type.
      */
     fun _bookkeepingAccountBalanceCsv(): JsonField<BookkeepingAccountBalanceCsv> =
         body._bookkeepingAccountBalanceCsv()
 
-    /** Options for the created export. Required if `category` is equal to `entity_csv`. */
+    /**
+     * Returns the raw JSON value of [entityCsv].
+     *
+     * Unlike [entityCsv], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _entityCsv(): JsonField<EntityCsv> = body._entityCsv()
 
-    /** Options for the created export. Required if `category` is equal to `transaction_csv`. */
+    /**
+     * Returns the raw JSON value of [transactionCsv].
+     *
+     * Unlike [transactionCsv], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _transactionCsv(): JsonField<TransactionCsv> = body._transactionCsv()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
@@ -125,71 +172,118 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The type of Export to create. */
+        /**
+         * The type of Export to create.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun category(): Category = category.getRequired("category")
 
         /**
          * Options for the created export. Required if `category` is equal to
          * `account_statement_ofx`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun accountStatementOfx(): Optional<AccountStatementOfx> =
             Optional.ofNullable(accountStatementOfx.getNullable("account_statement_ofx"))
 
-        /** Options for the created export. Required if `category` is equal to `balance_csv`. */
+        /**
+         * Options for the created export. Required if `category` is equal to `balance_csv`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun balanceCsv(): Optional<BalanceCsv> =
             Optional.ofNullable(balanceCsv.getNullable("balance_csv"))
 
         /**
          * Options for the created export. Required if `category` is equal to
          * `bookkeeping_account_balance_csv`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun bookkeepingAccountBalanceCsv(): Optional<BookkeepingAccountBalanceCsv> =
             Optional.ofNullable(
                 bookkeepingAccountBalanceCsv.getNullable("bookkeeping_account_balance_csv")
             )
 
-        /** Options for the created export. Required if `category` is equal to `entity_csv`. */
+        /**
+         * Options for the created export. Required if `category` is equal to `entity_csv`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun entityCsv(): Optional<EntityCsv> =
             Optional.ofNullable(entityCsv.getNullable("entity_csv"))
 
-        /** Options for the created export. Required if `category` is equal to `transaction_csv`. */
+        /**
+         * Options for the created export. Required if `category` is equal to `transaction_csv`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun transactionCsv(): Optional<TransactionCsv> =
             Optional.ofNullable(transactionCsv.getNullable("transaction_csv"))
 
         /** Options for the created export. Required if `category` is equal to `vendor_csv`. */
         @JsonProperty("vendor_csv") @ExcludeMissing fun _vendorCsv(): JsonValue = vendorCsv
 
-        /** The type of Export to create. */
+        /**
+         * Returns the raw JSON value of [category].
+         *
+         * Unlike [category], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("category") @ExcludeMissing fun _category(): JsonField<Category> = category
 
         /**
-         * Options for the created export. Required if `category` is equal to
-         * `account_statement_ofx`.
+         * Returns the raw JSON value of [accountStatementOfx].
+         *
+         * Unlike [accountStatementOfx], this method doesn't throw if the JSON field has an
+         * unexpected type.
          */
         @JsonProperty("account_statement_ofx")
         @ExcludeMissing
         fun _accountStatementOfx(): JsonField<AccountStatementOfx> = accountStatementOfx
 
-        /** Options for the created export. Required if `category` is equal to `balance_csv`. */
+        /**
+         * Returns the raw JSON value of [balanceCsv].
+         *
+         * Unlike [balanceCsv], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("balance_csv")
         @ExcludeMissing
         fun _balanceCsv(): JsonField<BalanceCsv> = balanceCsv
 
         /**
-         * Options for the created export. Required if `category` is equal to
-         * `bookkeeping_account_balance_csv`.
+         * Returns the raw JSON value of [bookkeepingAccountBalanceCsv].
+         *
+         * Unlike [bookkeepingAccountBalanceCsv], this method doesn't throw if the JSON field has an
+         * unexpected type.
          */
         @JsonProperty("bookkeeping_account_balance_csv")
         @ExcludeMissing
         fun _bookkeepingAccountBalanceCsv(): JsonField<BookkeepingAccountBalanceCsv> =
             bookkeepingAccountBalanceCsv
 
-        /** Options for the created export. Required if `category` is equal to `entity_csv`. */
+        /**
+         * Returns the raw JSON value of [entityCsv].
+         *
+         * Unlike [entityCsv], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("entity_csv")
         @ExcludeMissing
         fun _entityCsv(): JsonField<EntityCsv> = entityCsv
 
-        /** Options for the created export. Required if `category` is equal to `transaction_csv`. */
+        /**
+         * Returns the raw JSON value of [transactionCsv].
+         *
+         * Unlike [transactionCsv], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("transaction_csv")
         @ExcludeMissing
         fun _transactionCsv(): JsonField<TransactionCsv> = transactionCsv
@@ -257,7 +351,13 @@ private constructor(
             /** The type of Export to create. */
             fun category(category: Category) = category(JsonField.of(category))
 
-            /** The type of Export to create. */
+            /**
+             * Sets [Builder.category] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.category] with a well-typed [Category] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun category(category: JsonField<Category>) = apply { this.category = category }
 
             /**
@@ -268,8 +368,11 @@ private constructor(
                 accountStatementOfx(JsonField.of(accountStatementOfx))
 
             /**
-             * Options for the created export. Required if `category` is equal to
-             * `account_statement_ofx`.
+             * Sets [Builder.accountStatementOfx] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.accountStatementOfx] with a well-typed
+             * [AccountStatementOfx] value instead. This method is primarily for setting the field
+             * to an undocumented or not yet supported value.
              */
             fun accountStatementOfx(accountStatementOfx: JsonField<AccountStatementOfx>) = apply {
                 this.accountStatementOfx = accountStatementOfx
@@ -278,7 +381,13 @@ private constructor(
             /** Options for the created export. Required if `category` is equal to `balance_csv`. */
             fun balanceCsv(balanceCsv: BalanceCsv) = balanceCsv(JsonField.of(balanceCsv))
 
-            /** Options for the created export. Required if `category` is equal to `balance_csv`. */
+            /**
+             * Sets [Builder.balanceCsv] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.balanceCsv] with a well-typed [BalanceCsv] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun balanceCsv(balanceCsv: JsonField<BalanceCsv>) = apply {
                 this.balanceCsv = balanceCsv
             }
@@ -292,8 +401,11 @@ private constructor(
             ) = bookkeepingAccountBalanceCsv(JsonField.of(bookkeepingAccountBalanceCsv))
 
             /**
-             * Options for the created export. Required if `category` is equal to
-             * `bookkeeping_account_balance_csv`.
+             * Sets [Builder.bookkeepingAccountBalanceCsv] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.bookkeepingAccountBalanceCsv] with a well-typed
+             * [BookkeepingAccountBalanceCsv] value instead. This method is primarily for setting
+             * the field to an undocumented or not yet supported value.
              */
             fun bookkeepingAccountBalanceCsv(
                 bookkeepingAccountBalanceCsv: JsonField<BookkeepingAccountBalanceCsv>
@@ -302,7 +414,13 @@ private constructor(
             /** Options for the created export. Required if `category` is equal to `entity_csv`. */
             fun entityCsv(entityCsv: EntityCsv) = entityCsv(JsonField.of(entityCsv))
 
-            /** Options for the created export. Required if `category` is equal to `entity_csv`. */
+            /**
+             * Sets [Builder.entityCsv] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.entityCsv] with a well-typed [EntityCsv] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun entityCsv(entityCsv: JsonField<EntityCsv>) = apply { this.entityCsv = entityCsv }
 
             /**
@@ -312,7 +430,11 @@ private constructor(
                 transactionCsv(JsonField.of(transactionCsv))
 
             /**
-             * Options for the created export. Required if `category` is equal to `transaction_csv`.
+             * Sets [Builder.transactionCsv] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.transactionCsv] with a well-typed [TransactionCsv]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
              */
             fun transactionCsv(transactionCsv: JsonField<TransactionCsv>) = apply {
                 this.transactionCsv = transactionCsv
@@ -404,7 +526,13 @@ private constructor(
         /** The type of Export to create. */
         fun category(category: Category) = apply { body.category(category) }
 
-        /** The type of Export to create. */
+        /**
+         * Sets [Builder.category] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.category] with a well-typed [Category] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun category(category: JsonField<Category>) = apply { body.category(category) }
 
         /**
@@ -416,8 +544,11 @@ private constructor(
         }
 
         /**
-         * Options for the created export. Required if `category` is equal to
-         * `account_statement_ofx`.
+         * Sets [Builder.accountStatementOfx] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.accountStatementOfx] with a well-typed
+         * [AccountStatementOfx] value instead. This method is primarily for setting the field to an
+         * undocumented or not yet supported value.
          */
         fun accountStatementOfx(accountStatementOfx: JsonField<AccountStatementOfx>) = apply {
             body.accountStatementOfx(accountStatementOfx)
@@ -426,7 +557,13 @@ private constructor(
         /** Options for the created export. Required if `category` is equal to `balance_csv`. */
         fun balanceCsv(balanceCsv: BalanceCsv) = apply { body.balanceCsv(balanceCsv) }
 
-        /** Options for the created export. Required if `category` is equal to `balance_csv`. */
+        /**
+         * Sets [Builder.balanceCsv] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.balanceCsv] with a well-typed [BalanceCsv] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun balanceCsv(balanceCsv: JsonField<BalanceCsv>) = apply { body.balanceCsv(balanceCsv) }
 
         /**
@@ -438,8 +575,11 @@ private constructor(
         ) = apply { body.bookkeepingAccountBalanceCsv(bookkeepingAccountBalanceCsv) }
 
         /**
-         * Options for the created export. Required if `category` is equal to
-         * `bookkeeping_account_balance_csv`.
+         * Sets [Builder.bookkeepingAccountBalanceCsv] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.bookkeepingAccountBalanceCsv] with a well-typed
+         * [BookkeepingAccountBalanceCsv] value instead. This method is primarily for setting the
+         * field to an undocumented or not yet supported value.
          */
         fun bookkeepingAccountBalanceCsv(
             bookkeepingAccountBalanceCsv: JsonField<BookkeepingAccountBalanceCsv>
@@ -448,7 +588,13 @@ private constructor(
         /** Options for the created export. Required if `category` is equal to `entity_csv`. */
         fun entityCsv(entityCsv: EntityCsv) = apply { body.entityCsv(entityCsv) }
 
-        /** Options for the created export. Required if `category` is equal to `entity_csv`. */
+        /**
+         * Sets [Builder.entityCsv] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.entityCsv] with a well-typed [EntityCsv] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun entityCsv(entityCsv: JsonField<EntityCsv>) = apply { body.entityCsv(entityCsv) }
 
         /** Options for the created export. Required if `category` is equal to `transaction_csv`. */
@@ -456,7 +602,13 @@ private constructor(
             body.transactionCsv(transactionCsv)
         }
 
-        /** Options for the created export. Required if `category` is equal to `transaction_csv`. */
+        /**
+         * Sets [Builder.transactionCsv] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.transactionCsv] with a well-typed [TransactionCsv] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun transactionCsv(transactionCsv: JsonField<TransactionCsv>) = apply {
             body.transactionCsv(transactionCsv)
         }
@@ -758,17 +910,35 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The Account to create a statement for. */
+        /**
+         * The Account to create a statement for.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun accountId(): String = accountId.getRequired("account_id")
 
-        /** Filter results by time range on the `created_at` attribute. */
+        /**
+         * Filter results by time range on the `created_at` attribute.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun createdAt(): Optional<CreatedAt> =
             Optional.ofNullable(createdAt.getNullable("created_at"))
 
-        /** The Account to create a statement for. */
+        /**
+         * Returns the raw JSON value of [accountId].
+         *
+         * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
 
-        /** Filter results by time range on the `created_at` attribute. */
+        /**
+         * Returns the raw JSON value of [createdAt].
+         *
+         * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("created_at")
         @ExcludeMissing
         fun _createdAt(): JsonField<CreatedAt> = createdAt
@@ -821,13 +991,25 @@ private constructor(
             /** The Account to create a statement for. */
             fun accountId(accountId: String) = accountId(JsonField.of(accountId))
 
-            /** The Account to create a statement for. */
+            /**
+             * Sets [Builder.accountId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.accountId] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
             /** Filter results by time range on the `created_at` attribute. */
             fun createdAt(createdAt: CreatedAt) = createdAt(JsonField.of(createdAt))
 
-            /** Filter results by time range on the `created_at` attribute. */
+            /**
+             * Sets [Builder.createdAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.createdAt] with a well-typed [CreatedAt] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun createdAt(createdAt: JsonField<CreatedAt>) = apply { this.createdAt = createdAt }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -881,12 +1063,18 @@ private constructor(
             /**
              * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
              */
             fun after(): Optional<OffsetDateTime> = Optional.ofNullable(after.getNullable("after"))
 
             /**
              * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
              */
             fun before(): Optional<OffsetDateTime> =
                 Optional.ofNullable(before.getNullable("before"))
@@ -894,6 +1082,9 @@ private constructor(
             /**
              * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
              */
             fun onOrAfter(): Optional<OffsetDateTime> =
                 Optional.ofNullable(onOrAfter.getNullable("on_or_after"))
@@ -901,35 +1092,44 @@ private constructor(
             /**
              * Return results on or before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
              */
             fun onOrBefore(): Optional<OffsetDateTime> =
                 Optional.ofNullable(onOrBefore.getNullable("on_or_before"))
 
             /**
-             * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-             * timestamp.
+             * Returns the raw JSON value of [after].
+             *
+             * Unlike [after], this method doesn't throw if the JSON field has an unexpected type.
              */
             @JsonProperty("after") @ExcludeMissing fun _after(): JsonField<OffsetDateTime> = after
 
             /**
-             * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-             * timestamp.
+             * Returns the raw JSON value of [before].
+             *
+             * Unlike [before], this method doesn't throw if the JSON field has an unexpected type.
              */
             @JsonProperty("before")
             @ExcludeMissing
             fun _before(): JsonField<OffsetDateTime> = before
 
             /**
-             * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-             * timestamp.
+             * Returns the raw JSON value of [onOrAfter].
+             *
+             * Unlike [onOrAfter], this method doesn't throw if the JSON field has an unexpected
+             * type.
              */
             @JsonProperty("on_or_after")
             @ExcludeMissing
             fun _onOrAfter(): JsonField<OffsetDateTime> = onOrAfter
 
             /**
-             * Return results on or before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-             * timestamp.
+             * Returns the raw JSON value of [onOrBefore].
+             *
+             * Unlike [onOrBefore], this method doesn't throw if the JSON field has an unexpected
+             * type.
              */
             @JsonProperty("on_or_before")
             @ExcludeMissing
@@ -986,8 +1186,11 @@ private constructor(
                 fun after(after: OffsetDateTime) = after(JsonField.of(after))
 
                 /**
-                 * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-                 * timestamp.
+                 * Sets [Builder.after] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.after] with a well-typed [OffsetDateTime] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
                  */
                 fun after(after: JsonField<OffsetDateTime>) = apply { this.after = after }
 
@@ -998,8 +1201,11 @@ private constructor(
                 fun before(before: OffsetDateTime) = before(JsonField.of(before))
 
                 /**
-                 * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-                 * timestamp.
+                 * Sets [Builder.before] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.before] with a well-typed [OffsetDateTime] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
                  */
                 fun before(before: JsonField<OffsetDateTime>) = apply { this.before = before }
 
@@ -1010,8 +1216,11 @@ private constructor(
                 fun onOrAfter(onOrAfter: OffsetDateTime) = onOrAfter(JsonField.of(onOrAfter))
 
                 /**
-                 * Return results on or after this
-                 * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
+                 * Sets [Builder.onOrAfter] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.onOrAfter] with a well-typed [OffsetDateTime]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
                  */
                 fun onOrAfter(onOrAfter: JsonField<OffsetDateTime>) = apply {
                     this.onOrAfter = onOrAfter
@@ -1024,8 +1233,11 @@ private constructor(
                 fun onOrBefore(onOrBefore: OffsetDateTime) = onOrBefore(JsonField.of(onOrBefore))
 
                 /**
-                 * Return results on or before this
-                 * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
+                 * Sets [Builder.onOrBefore] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.onOrBefore] with a well-typed [OffsetDateTime]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
                  */
                 fun onOrBefore(onOrBefore: JsonField<OffsetDateTime>) = apply {
                     this.onOrBefore = onOrBefore
@@ -1117,25 +1329,52 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** Filter exported Transactions to the specified Account. */
+        /**
+         * Filter exported Transactions to the specified Account.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun accountId(): Optional<String> = Optional.ofNullable(accountId.getNullable("account_id"))
 
-        /** Filter results by time range on the `created_at` attribute. */
+        /**
+         * Filter results by time range on the `created_at` attribute.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun createdAt(): Optional<CreatedAt> =
             Optional.ofNullable(createdAt.getNullable("created_at"))
 
-        /** Filter exported Transactions to the specified Program. */
+        /**
+         * Filter exported Transactions to the specified Program.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun programId(): Optional<String> = Optional.ofNullable(programId.getNullable("program_id"))
 
-        /** Filter exported Transactions to the specified Account. */
+        /**
+         * Returns the raw JSON value of [accountId].
+         *
+         * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
 
-        /** Filter results by time range on the `created_at` attribute. */
+        /**
+         * Returns the raw JSON value of [createdAt].
+         *
+         * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("created_at")
         @ExcludeMissing
         fun _createdAt(): JsonField<CreatedAt> = createdAt
 
-        /** Filter exported Transactions to the specified Program. */
+        /**
+         * Returns the raw JSON value of [programId].
+         *
+         * Unlike [programId], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("program_id") @ExcludeMissing fun _programId(): JsonField<String> = programId
 
         @JsonAnyGetter
@@ -1182,19 +1421,37 @@ private constructor(
             /** Filter exported Transactions to the specified Account. */
             fun accountId(accountId: String) = accountId(JsonField.of(accountId))
 
-            /** Filter exported Transactions to the specified Account. */
+            /**
+             * Sets [Builder.accountId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.accountId] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
             /** Filter results by time range on the `created_at` attribute. */
             fun createdAt(createdAt: CreatedAt) = createdAt(JsonField.of(createdAt))
 
-            /** Filter results by time range on the `created_at` attribute. */
+            /**
+             * Sets [Builder.createdAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.createdAt] with a well-typed [CreatedAt] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun createdAt(createdAt: JsonField<CreatedAt>) = apply { this.createdAt = createdAt }
 
             /** Filter exported Transactions to the specified Program. */
             fun programId(programId: String) = programId(JsonField.of(programId))
 
-            /** Filter exported Transactions to the specified Program. */
+            /**
+             * Sets [Builder.programId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.programId] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun programId(programId: JsonField<String>) = apply { this.programId = programId }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -1244,12 +1501,18 @@ private constructor(
             /**
              * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
              */
             fun after(): Optional<OffsetDateTime> = Optional.ofNullable(after.getNullable("after"))
 
             /**
              * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
              */
             fun before(): Optional<OffsetDateTime> =
                 Optional.ofNullable(before.getNullable("before"))
@@ -1257,6 +1520,9 @@ private constructor(
             /**
              * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
              */
             fun onOrAfter(): Optional<OffsetDateTime> =
                 Optional.ofNullable(onOrAfter.getNullable("on_or_after"))
@@ -1264,35 +1530,44 @@ private constructor(
             /**
              * Return results on or before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
              */
             fun onOrBefore(): Optional<OffsetDateTime> =
                 Optional.ofNullable(onOrBefore.getNullable("on_or_before"))
 
             /**
-             * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-             * timestamp.
+             * Returns the raw JSON value of [after].
+             *
+             * Unlike [after], this method doesn't throw if the JSON field has an unexpected type.
              */
             @JsonProperty("after") @ExcludeMissing fun _after(): JsonField<OffsetDateTime> = after
 
             /**
-             * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-             * timestamp.
+             * Returns the raw JSON value of [before].
+             *
+             * Unlike [before], this method doesn't throw if the JSON field has an unexpected type.
              */
             @JsonProperty("before")
             @ExcludeMissing
             fun _before(): JsonField<OffsetDateTime> = before
 
             /**
-             * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-             * timestamp.
+             * Returns the raw JSON value of [onOrAfter].
+             *
+             * Unlike [onOrAfter], this method doesn't throw if the JSON field has an unexpected
+             * type.
              */
             @JsonProperty("on_or_after")
             @ExcludeMissing
             fun _onOrAfter(): JsonField<OffsetDateTime> = onOrAfter
 
             /**
-             * Return results on or before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-             * timestamp.
+             * Returns the raw JSON value of [onOrBefore].
+             *
+             * Unlike [onOrBefore], this method doesn't throw if the JSON field has an unexpected
+             * type.
              */
             @JsonProperty("on_or_before")
             @ExcludeMissing
@@ -1349,8 +1624,11 @@ private constructor(
                 fun after(after: OffsetDateTime) = after(JsonField.of(after))
 
                 /**
-                 * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-                 * timestamp.
+                 * Sets [Builder.after] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.after] with a well-typed [OffsetDateTime] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
                  */
                 fun after(after: JsonField<OffsetDateTime>) = apply { this.after = after }
 
@@ -1361,8 +1639,11 @@ private constructor(
                 fun before(before: OffsetDateTime) = before(JsonField.of(before))
 
                 /**
-                 * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-                 * timestamp.
+                 * Sets [Builder.before] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.before] with a well-typed [OffsetDateTime] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
                  */
                 fun before(before: JsonField<OffsetDateTime>) = apply { this.before = before }
 
@@ -1373,8 +1654,11 @@ private constructor(
                 fun onOrAfter(onOrAfter: OffsetDateTime) = onOrAfter(JsonField.of(onOrAfter))
 
                 /**
-                 * Return results on or after this
-                 * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
+                 * Sets [Builder.onOrAfter] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.onOrAfter] with a well-typed [OffsetDateTime]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
                  */
                 fun onOrAfter(onOrAfter: JsonField<OffsetDateTime>) = apply {
                     this.onOrAfter = onOrAfter
@@ -1387,8 +1671,11 @@ private constructor(
                 fun onOrBefore(onOrBefore: OffsetDateTime) = onOrBefore(JsonField.of(onOrBefore))
 
                 /**
-                 * Return results on or before this
-                 * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
+                 * Sets [Builder.onOrBefore] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.onOrBefore] with a well-typed [OffsetDateTime]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
                  */
                 fun onOrBefore(onOrBefore: JsonField<OffsetDateTime>) = apply {
                     this.onOrBefore = onOrBefore
@@ -1480,20 +1767,39 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** Filter exported Transactions to the specified Bookkeeping Account. */
+        /**
+         * Filter exported Transactions to the specified Bookkeeping Account.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun bookkeepingAccountId(): Optional<String> =
             Optional.ofNullable(bookkeepingAccountId.getNullable("bookkeeping_account_id"))
 
-        /** Filter results by time range on the `created_at` attribute. */
+        /**
+         * Filter results by time range on the `created_at` attribute.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun createdAt(): Optional<CreatedAt> =
             Optional.ofNullable(createdAt.getNullable("created_at"))
 
-        /** Filter exported Transactions to the specified Bookkeeping Account. */
+        /**
+         * Returns the raw JSON value of [bookkeepingAccountId].
+         *
+         * Unlike [bookkeepingAccountId], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
         @JsonProperty("bookkeeping_account_id")
         @ExcludeMissing
         fun _bookkeepingAccountId(): JsonField<String> = bookkeepingAccountId
 
-        /** Filter results by time range on the `created_at` attribute. */
+        /**
+         * Returns the raw JSON value of [createdAt].
+         *
+         * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("created_at")
         @ExcludeMissing
         fun _createdAt(): JsonField<CreatedAt> = createdAt
@@ -1544,7 +1850,13 @@ private constructor(
             fun bookkeepingAccountId(bookkeepingAccountId: String) =
                 bookkeepingAccountId(JsonField.of(bookkeepingAccountId))
 
-            /** Filter exported Transactions to the specified Bookkeeping Account. */
+            /**
+             * Sets [Builder.bookkeepingAccountId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.bookkeepingAccountId] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
             fun bookkeepingAccountId(bookkeepingAccountId: JsonField<String>) = apply {
                 this.bookkeepingAccountId = bookkeepingAccountId
             }
@@ -1552,7 +1864,13 @@ private constructor(
             /** Filter results by time range on the `created_at` attribute. */
             fun createdAt(createdAt: CreatedAt) = createdAt(JsonField.of(createdAt))
 
-            /** Filter results by time range on the `created_at` attribute. */
+            /**
+             * Sets [Builder.createdAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.createdAt] with a well-typed [CreatedAt] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun createdAt(createdAt: JsonField<CreatedAt>) = apply { this.createdAt = createdAt }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -1606,12 +1924,18 @@ private constructor(
             /**
              * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
              */
             fun after(): Optional<OffsetDateTime> = Optional.ofNullable(after.getNullable("after"))
 
             /**
              * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
              */
             fun before(): Optional<OffsetDateTime> =
                 Optional.ofNullable(before.getNullable("before"))
@@ -1619,6 +1943,9 @@ private constructor(
             /**
              * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
              */
             fun onOrAfter(): Optional<OffsetDateTime> =
                 Optional.ofNullable(onOrAfter.getNullable("on_or_after"))
@@ -1626,35 +1953,44 @@ private constructor(
             /**
              * Return results on or before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
              */
             fun onOrBefore(): Optional<OffsetDateTime> =
                 Optional.ofNullable(onOrBefore.getNullable("on_or_before"))
 
             /**
-             * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-             * timestamp.
+             * Returns the raw JSON value of [after].
+             *
+             * Unlike [after], this method doesn't throw if the JSON field has an unexpected type.
              */
             @JsonProperty("after") @ExcludeMissing fun _after(): JsonField<OffsetDateTime> = after
 
             /**
-             * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-             * timestamp.
+             * Returns the raw JSON value of [before].
+             *
+             * Unlike [before], this method doesn't throw if the JSON field has an unexpected type.
              */
             @JsonProperty("before")
             @ExcludeMissing
             fun _before(): JsonField<OffsetDateTime> = before
 
             /**
-             * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-             * timestamp.
+             * Returns the raw JSON value of [onOrAfter].
+             *
+             * Unlike [onOrAfter], this method doesn't throw if the JSON field has an unexpected
+             * type.
              */
             @JsonProperty("on_or_after")
             @ExcludeMissing
             fun _onOrAfter(): JsonField<OffsetDateTime> = onOrAfter
 
             /**
-             * Return results on or before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-             * timestamp.
+             * Returns the raw JSON value of [onOrBefore].
+             *
+             * Unlike [onOrBefore], this method doesn't throw if the JSON field has an unexpected
+             * type.
              */
             @JsonProperty("on_or_before")
             @ExcludeMissing
@@ -1711,8 +2047,11 @@ private constructor(
                 fun after(after: OffsetDateTime) = after(JsonField.of(after))
 
                 /**
-                 * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-                 * timestamp.
+                 * Sets [Builder.after] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.after] with a well-typed [OffsetDateTime] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
                  */
                 fun after(after: JsonField<OffsetDateTime>) = apply { this.after = after }
 
@@ -1723,8 +2062,11 @@ private constructor(
                 fun before(before: OffsetDateTime) = before(JsonField.of(before))
 
                 /**
-                 * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-                 * timestamp.
+                 * Sets [Builder.before] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.before] with a well-typed [OffsetDateTime] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
                  */
                 fun before(before: JsonField<OffsetDateTime>) = apply { this.before = before }
 
@@ -1735,8 +2077,11 @@ private constructor(
                 fun onOrAfter(onOrAfter: OffsetDateTime) = onOrAfter(JsonField.of(onOrAfter))
 
                 /**
-                 * Return results on or after this
-                 * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
+                 * Sets [Builder.onOrAfter] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.onOrAfter] with a well-typed [OffsetDateTime]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
                  */
                 fun onOrAfter(onOrAfter: JsonField<OffsetDateTime>) = apply {
                     this.onOrAfter = onOrAfter
@@ -1749,8 +2094,11 @@ private constructor(
                 fun onOrBefore(onOrBefore: OffsetDateTime) = onOrBefore(JsonField.of(onOrBefore))
 
                 /**
-                 * Return results on or before this
-                 * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
+                 * Sets [Builder.onOrBefore] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.onOrBefore] with a well-typed [OffsetDateTime]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
                  */
                 fun onOrBefore(onOrBefore: JsonField<OffsetDateTime>) = apply {
                     this.onOrBefore = onOrBefore
@@ -1836,10 +2184,19 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** Entity statuses to filter by. */
+        /**
+         * Entity statuses to filter by.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun status(): Optional<Status> = Optional.ofNullable(status.getNullable("status"))
 
-        /** Entity statuses to filter by. */
+        /**
+         * Returns the raw JSON value of [status].
+         *
+         * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
         @JsonAnyGetter
@@ -1880,7 +2237,13 @@ private constructor(
             /** Entity statuses to filter by. */
             fun status(status: Status) = status(JsonField.of(status))
 
-            /** Entity statuses to filter by. */
+            /**
+             * Sets [Builder.status] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.status] with a well-typed [Status] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun status(status: JsonField<Status>) = apply { this.status = status }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -1920,12 +2283,17 @@ private constructor(
             /**
              * Entity statuses to filter by. For GET requests, this should be encoded as a
              * comma-delimited string, such as `?in=one,two,three`.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
              */
             fun in_(): List<In> = in_.getRequired("in")
 
             /**
-             * Entity statuses to filter by. For GET requests, this should be encoded as a
-             * comma-delimited string, such as `?in=one,two,three`.
+             * Returns the raw JSON value of [in_].
+             *
+             * Unlike [in_], this method doesn't throw if the JSON field has an unexpected type.
              */
             @JsonProperty("in") @ExcludeMissing fun _in_(): JsonField<List<In>> = in_
 
@@ -1978,16 +2346,20 @@ private constructor(
                 fun in_(in_: List<In>) = in_(JsonField.of(in_))
 
                 /**
-                 * Entity statuses to filter by. For GET requests, this should be encoded as a
-                 * comma-delimited string, such as `?in=one,two,three`.
+                 * Sets [Builder.in_] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.in_] with a well-typed `List<In>` value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
                  */
                 fun in_(in_: JsonField<List<In>>) = apply {
                     this.in_ = in_.map { it.toMutableList() }
                 }
 
                 /**
-                 * Entity statuses to filter by. For GET requests, this should be encoded as a
-                 * comma-delimited string, such as `?in=one,two,three`.
+                 * Adds a single [In] to [Builder.in_].
+                 *
+                 * @throws IllegalStateException if the field was previously set to a non-list.
                  */
                 fun addIn(in_: In) = apply {
                     this.in_ =
@@ -2201,25 +2573,52 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** Filter exported Transactions to the specified Account. */
+        /**
+         * Filter exported Transactions to the specified Account.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun accountId(): Optional<String> = Optional.ofNullable(accountId.getNullable("account_id"))
 
-        /** Filter results by time range on the `created_at` attribute. */
+        /**
+         * Filter results by time range on the `created_at` attribute.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun createdAt(): Optional<CreatedAt> =
             Optional.ofNullable(createdAt.getNullable("created_at"))
 
-        /** Filter exported Transactions to the specified Program. */
+        /**
+         * Filter exported Transactions to the specified Program.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun programId(): Optional<String> = Optional.ofNullable(programId.getNullable("program_id"))
 
-        /** Filter exported Transactions to the specified Account. */
+        /**
+         * Returns the raw JSON value of [accountId].
+         *
+         * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
 
-        /** Filter results by time range on the `created_at` attribute. */
+        /**
+         * Returns the raw JSON value of [createdAt].
+         *
+         * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("created_at")
         @ExcludeMissing
         fun _createdAt(): JsonField<CreatedAt> = createdAt
 
-        /** Filter exported Transactions to the specified Program. */
+        /**
+         * Returns the raw JSON value of [programId].
+         *
+         * Unlike [programId], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("program_id") @ExcludeMissing fun _programId(): JsonField<String> = programId
 
         @JsonAnyGetter
@@ -2266,19 +2665,37 @@ private constructor(
             /** Filter exported Transactions to the specified Account. */
             fun accountId(accountId: String) = accountId(JsonField.of(accountId))
 
-            /** Filter exported Transactions to the specified Account. */
+            /**
+             * Sets [Builder.accountId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.accountId] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
             /** Filter results by time range on the `created_at` attribute. */
             fun createdAt(createdAt: CreatedAt) = createdAt(JsonField.of(createdAt))
 
-            /** Filter results by time range on the `created_at` attribute. */
+            /**
+             * Sets [Builder.createdAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.createdAt] with a well-typed [CreatedAt] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun createdAt(createdAt: JsonField<CreatedAt>) = apply { this.createdAt = createdAt }
 
             /** Filter exported Transactions to the specified Program. */
             fun programId(programId: String) = programId(JsonField.of(programId))
 
-            /** Filter exported Transactions to the specified Program. */
+            /**
+             * Sets [Builder.programId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.programId] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun programId(programId: JsonField<String>) = apply { this.programId = programId }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -2328,12 +2745,18 @@ private constructor(
             /**
              * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
              */
             fun after(): Optional<OffsetDateTime> = Optional.ofNullable(after.getNullable("after"))
 
             /**
              * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
              */
             fun before(): Optional<OffsetDateTime> =
                 Optional.ofNullable(before.getNullable("before"))
@@ -2341,6 +2764,9 @@ private constructor(
             /**
              * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
              */
             fun onOrAfter(): Optional<OffsetDateTime> =
                 Optional.ofNullable(onOrAfter.getNullable("on_or_after"))
@@ -2348,35 +2774,44 @@ private constructor(
             /**
              * Return results on or before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
              */
             fun onOrBefore(): Optional<OffsetDateTime> =
                 Optional.ofNullable(onOrBefore.getNullable("on_or_before"))
 
             /**
-             * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-             * timestamp.
+             * Returns the raw JSON value of [after].
+             *
+             * Unlike [after], this method doesn't throw if the JSON field has an unexpected type.
              */
             @JsonProperty("after") @ExcludeMissing fun _after(): JsonField<OffsetDateTime> = after
 
             /**
-             * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-             * timestamp.
+             * Returns the raw JSON value of [before].
+             *
+             * Unlike [before], this method doesn't throw if the JSON field has an unexpected type.
              */
             @JsonProperty("before")
             @ExcludeMissing
             fun _before(): JsonField<OffsetDateTime> = before
 
             /**
-             * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-             * timestamp.
+             * Returns the raw JSON value of [onOrAfter].
+             *
+             * Unlike [onOrAfter], this method doesn't throw if the JSON field has an unexpected
+             * type.
              */
             @JsonProperty("on_or_after")
             @ExcludeMissing
             fun _onOrAfter(): JsonField<OffsetDateTime> = onOrAfter
 
             /**
-             * Return results on or before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-             * timestamp.
+             * Returns the raw JSON value of [onOrBefore].
+             *
+             * Unlike [onOrBefore], this method doesn't throw if the JSON field has an unexpected
+             * type.
              */
             @JsonProperty("on_or_before")
             @ExcludeMissing
@@ -2433,8 +2868,11 @@ private constructor(
                 fun after(after: OffsetDateTime) = after(JsonField.of(after))
 
                 /**
-                 * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-                 * timestamp.
+                 * Sets [Builder.after] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.after] with a well-typed [OffsetDateTime] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
                  */
                 fun after(after: JsonField<OffsetDateTime>) = apply { this.after = after }
 
@@ -2445,8 +2883,11 @@ private constructor(
                 fun before(before: OffsetDateTime) = before(JsonField.of(before))
 
                 /**
-                 * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-                 * timestamp.
+                 * Sets [Builder.before] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.before] with a well-typed [OffsetDateTime] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
                  */
                 fun before(before: JsonField<OffsetDateTime>) = apply { this.before = before }
 
@@ -2457,8 +2898,11 @@ private constructor(
                 fun onOrAfter(onOrAfter: OffsetDateTime) = onOrAfter(JsonField.of(onOrAfter))
 
                 /**
-                 * Return results on or after this
-                 * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
+                 * Sets [Builder.onOrAfter] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.onOrAfter] with a well-typed [OffsetDateTime]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
                  */
                 fun onOrAfter(onOrAfter: JsonField<OffsetDateTime>) = apply {
                     this.onOrAfter = onOrAfter
@@ -2471,8 +2915,11 @@ private constructor(
                 fun onOrBefore(onOrBefore: OffsetDateTime) = onOrBefore(JsonField.of(onOrBefore))
 
                 /**
-                 * Return results on or before this
-                 * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
+                 * Sets [Builder.onOrBefore] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.onOrBefore] with a well-typed [OffsetDateTime]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
                  */
                 fun onOrBefore(onOrBefore: JsonField<OffsetDateTime>) = apply {
                     this.onOrBefore = onOrBefore

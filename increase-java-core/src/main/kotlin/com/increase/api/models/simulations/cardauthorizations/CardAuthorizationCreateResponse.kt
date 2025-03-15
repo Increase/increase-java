@@ -41,6 +41,9 @@ private constructor(
      * If the authorization attempt fails, this will contain the resulting
      * [Declined Transaction](#declined-transactions) object. The Declined Transaction's `source`
      * will be of `category: card_decline`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun declinedTransaction(): Optional<DeclinedTransaction> =
         Optional.ofNullable(declinedTransaction.getNullable("declined_transaction"))
@@ -48,6 +51,9 @@ private constructor(
     /**
      * If the authorization attempt succeeds, this will contain the resulting Pending Transaction
      * object. The Pending Transaction's `source` will be of `category: card_authorization`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun pendingTransaction(): Optional<PendingTransaction> =
         Optional.ofNullable(pendingTransaction.getNullable("pending_transaction"))
@@ -55,29 +61,36 @@ private constructor(
     /**
      * A constant representing the object's type. For this resource it will always be
      * `inbound_card_authorization_simulation_result`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun type(): Type = type.getRequired("type")
 
     /**
-     * If the authorization attempt fails, this will contain the resulting
-     * [Declined Transaction](#declined-transactions) object. The Declined Transaction's `source`
-     * will be of `category: card_decline`.
+     * Returns the raw JSON value of [declinedTransaction].
+     *
+     * Unlike [declinedTransaction], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
     @JsonProperty("declined_transaction")
     @ExcludeMissing
     fun _declinedTransaction(): JsonField<DeclinedTransaction> = declinedTransaction
 
     /**
-     * If the authorization attempt succeeds, this will contain the resulting Pending Transaction
-     * object. The Pending Transaction's `source` will be of `category: card_authorization`.
+     * Returns the raw JSON value of [pendingTransaction].
+     *
+     * Unlike [pendingTransaction], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
     @JsonProperty("pending_transaction")
     @ExcludeMissing
     fun _pendingTransaction(): JsonField<PendingTransaction> = pendingTransaction
 
     /**
-     * A constant representing the object's type. For this resource it will always be
-     * `inbound_card_authorization_simulation_result`.
+     * Returns the raw JSON value of [type].
+     *
+     * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
@@ -143,17 +156,17 @@ private constructor(
             declinedTransaction(JsonField.ofNullable(declinedTransaction))
 
         /**
-         * If the authorization attempt fails, this will contain the resulting
-         * [Declined Transaction](#declined-transactions) object. The Declined Transaction's
-         * `source` will be of `category: card_decline`.
+         * Alias for calling [Builder.declinedTransaction] with `declinedTransaction.orElse(null)`.
          */
         fun declinedTransaction(declinedTransaction: Optional<DeclinedTransaction>) =
             declinedTransaction(declinedTransaction.getOrNull())
 
         /**
-         * If the authorization attempt fails, this will contain the resulting
-         * [Declined Transaction](#declined-transactions) object. The Declined Transaction's
-         * `source` will be of `category: card_decline`.
+         * Sets [Builder.declinedTransaction] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.declinedTransaction] with a well-typed
+         * [DeclinedTransaction] value instead. This method is primarily for setting the field to an
+         * undocumented or not yet supported value.
          */
         fun declinedTransaction(declinedTransaction: JsonField<DeclinedTransaction>) = apply {
             this.declinedTransaction = declinedTransaction
@@ -168,17 +181,17 @@ private constructor(
             pendingTransaction(JsonField.ofNullable(pendingTransaction))
 
         /**
-         * If the authorization attempt succeeds, this will contain the resulting Pending
-         * Transaction object. The Pending Transaction's `source` will be of `category:
-         * card_authorization`.
+         * Alias for calling [Builder.pendingTransaction] with `pendingTransaction.orElse(null)`.
          */
         fun pendingTransaction(pendingTransaction: Optional<PendingTransaction>) =
             pendingTransaction(pendingTransaction.getOrNull())
 
         /**
-         * If the authorization attempt succeeds, this will contain the resulting Pending
-         * Transaction object. The Pending Transaction's `source` will be of `category:
-         * card_authorization`.
+         * Sets [Builder.pendingTransaction] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.pendingTransaction] with a well-typed
+         * [PendingTransaction] value instead. This method is primarily for setting the field to an
+         * undocumented or not yet supported value.
          */
         fun pendingTransaction(pendingTransaction: JsonField<PendingTransaction>) = apply {
             this.pendingTransaction = pendingTransaction
@@ -191,8 +204,10 @@ private constructor(
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
-         * A constant representing the object's type. For this resource it will always be
-         * `inbound_card_authorization_simulation_result`.
+         * Sets [Builder.type] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.type] with a well-typed [Type] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun type(type: JsonField<Type>) = apply { this.type = type }
 

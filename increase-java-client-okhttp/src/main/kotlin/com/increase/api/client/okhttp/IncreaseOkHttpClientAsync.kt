@@ -154,6 +154,7 @@ class IncreaseOkHttpClientAsync private constructor() {
             clientOptions.webhookSecret(webhookSecret)
         }
 
+        /** Alias for calling [Builder.webhookSecret] with `webhookSecret.orElse(null)`. */
         fun webhookSecret(webhookSecret: Optional<String>) =
             webhookSecret(webhookSecret.getOrNull())
 

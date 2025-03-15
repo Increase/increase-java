@@ -17,6 +17,7 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
+import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 
 /** Create a Physical Card Profile */
@@ -27,28 +28,66 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** The identifier of the File containing the physical card's carrier image. */
+    /**
+     * The identifier of the File containing the physical card's carrier image.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun carrierImageFileId(): String = body.carrierImageFileId()
 
-    /** A phone number the user can contact to receive support for their card. */
+    /**
+     * A phone number the user can contact to receive support for their card.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun contactPhone(): String = body.contactPhone()
 
-    /** A description you can use to identify the Card Profile. */
+    /**
+     * A description you can use to identify the Card Profile.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun description(): String = body.description()
 
-    /** The identifier of the File containing the physical card's front image. */
+    /**
+     * The identifier of the File containing the physical card's front image.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun frontImageFileId(): String = body.frontImageFileId()
 
-    /** The identifier of the File containing the physical card's carrier image. */
+    /**
+     * Returns the raw JSON value of [carrierImageFileId].
+     *
+     * Unlike [carrierImageFileId], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     fun _carrierImageFileId(): JsonField<String> = body._carrierImageFileId()
 
-    /** A phone number the user can contact to receive support for their card. */
+    /**
+     * Returns the raw JSON value of [contactPhone].
+     *
+     * Unlike [contactPhone], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _contactPhone(): JsonField<String> = body._contactPhone()
 
-    /** A description you can use to identify the Card Profile. */
+    /**
+     * Returns the raw JSON value of [description].
+     *
+     * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _description(): JsonField<String> = body._description()
 
-    /** The identifier of the File containing the physical card's front image. */
+    /**
+     * Returns the raw JSON value of [frontImageFileId].
+     *
+     * Unlike [frontImageFileId], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     fun _frontImageFileId(): JsonField<String> = body._frontImageFileId()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
@@ -83,34 +122,73 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The identifier of the File containing the physical card's carrier image. */
+        /**
+         * The identifier of the File containing the physical card's carrier image.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun carrierImageFileId(): String = carrierImageFileId.getRequired("carrier_image_file_id")
 
-        /** A phone number the user can contact to receive support for their card. */
+        /**
+         * A phone number the user can contact to receive support for their card.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun contactPhone(): String = contactPhone.getRequired("contact_phone")
 
-        /** A description you can use to identify the Card Profile. */
+        /**
+         * A description you can use to identify the Card Profile.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun description(): String = description.getRequired("description")
 
-        /** The identifier of the File containing the physical card's front image. */
+        /**
+         * The identifier of the File containing the physical card's front image.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun frontImageFileId(): String = frontImageFileId.getRequired("front_image_file_id")
 
-        /** The identifier of the File containing the physical card's carrier image. */
+        /**
+         * Returns the raw JSON value of [carrierImageFileId].
+         *
+         * Unlike [carrierImageFileId], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
         @JsonProperty("carrier_image_file_id")
         @ExcludeMissing
         fun _carrierImageFileId(): JsonField<String> = carrierImageFileId
 
-        /** A phone number the user can contact to receive support for their card. */
+        /**
+         * Returns the raw JSON value of [contactPhone].
+         *
+         * Unlike [contactPhone], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("contact_phone")
         @ExcludeMissing
         fun _contactPhone(): JsonField<String> = contactPhone
 
-        /** A description you can use to identify the Card Profile. */
+        /**
+         * Returns the raw JSON value of [description].
+         *
+         * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("description")
         @ExcludeMissing
         fun _description(): JsonField<String> = description
 
-        /** The identifier of the File containing the physical card's front image. */
+        /**
+         * Returns the raw JSON value of [frontImageFileId].
+         *
+         * Unlike [frontImageFileId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("front_image_file_id")
         @ExcludeMissing
         fun _frontImageFileId(): JsonField<String> = frontImageFileId
@@ -173,7 +251,13 @@ private constructor(
             fun carrierImageFileId(carrierImageFileId: String) =
                 carrierImageFileId(JsonField.of(carrierImageFileId))
 
-            /** The identifier of the File containing the physical card's carrier image. */
+            /**
+             * Sets [Builder.carrierImageFileId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.carrierImageFileId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun carrierImageFileId(carrierImageFileId: JsonField<String>) = apply {
                 this.carrierImageFileId = carrierImageFileId
             }
@@ -181,7 +265,13 @@ private constructor(
             /** A phone number the user can contact to receive support for their card. */
             fun contactPhone(contactPhone: String) = contactPhone(JsonField.of(contactPhone))
 
-            /** A phone number the user can contact to receive support for their card. */
+            /**
+             * Sets [Builder.contactPhone] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.contactPhone] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun contactPhone(contactPhone: JsonField<String>) = apply {
                 this.contactPhone = contactPhone
             }
@@ -189,7 +279,13 @@ private constructor(
             /** A description you can use to identify the Card Profile. */
             fun description(description: String) = description(JsonField.of(description))
 
-            /** A description you can use to identify the Card Profile. */
+            /**
+             * Sets [Builder.description] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.description] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun description(description: JsonField<String>) = apply {
                 this.description = description
             }
@@ -198,7 +294,13 @@ private constructor(
             fun frontImageFileId(frontImageFileId: String) =
                 frontImageFileId(JsonField.of(frontImageFileId))
 
-            /** The identifier of the File containing the physical card's front image. */
+            /**
+             * Sets [Builder.frontImageFileId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.frontImageFileId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun frontImageFileId(frontImageFileId: JsonField<String>) = apply {
                 this.frontImageFileId = frontImageFileId
             }
@@ -291,7 +393,13 @@ private constructor(
             body.carrierImageFileId(carrierImageFileId)
         }
 
-        /** The identifier of the File containing the physical card's carrier image. */
+        /**
+         * Sets [Builder.carrierImageFileId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.carrierImageFileId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun carrierImageFileId(carrierImageFileId: JsonField<String>) = apply {
             body.carrierImageFileId(carrierImageFileId)
         }
@@ -299,7 +407,13 @@ private constructor(
         /** A phone number the user can contact to receive support for their card. */
         fun contactPhone(contactPhone: String) = apply { body.contactPhone(contactPhone) }
 
-        /** A phone number the user can contact to receive support for their card. */
+        /**
+         * Sets [Builder.contactPhone] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.contactPhone] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun contactPhone(contactPhone: JsonField<String>) = apply {
             body.contactPhone(contactPhone)
         }
@@ -307,7 +421,13 @@ private constructor(
         /** A description you can use to identify the Card Profile. */
         fun description(description: String) = apply { body.description(description) }
 
-        /** A description you can use to identify the Card Profile. */
+        /**
+         * Sets [Builder.description] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.description] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun description(description: JsonField<String>) = apply { body.description(description) }
 
         /** The identifier of the File containing the physical card's front image. */
@@ -315,7 +435,13 @@ private constructor(
             body.frontImageFileId(frontImageFileId)
         }
 
-        /** The identifier of the File containing the physical card's front image. */
+        /**
+         * Sets [Builder.frontImageFileId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.frontImageFileId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun frontImageFileId(frontImageFileId: JsonField<String>) = apply {
             body.frontImageFileId(frontImageFileId)
         }

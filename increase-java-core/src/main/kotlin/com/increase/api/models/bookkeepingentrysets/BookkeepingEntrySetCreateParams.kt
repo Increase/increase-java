@@ -18,6 +18,7 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
+import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Objects
 import java.util.Optional
@@ -30,28 +31,50 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** The bookkeeping entries. */
+    /**
+     * The bookkeeping entries.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun entries(): List<Entry> = body.entries()
 
     /**
      * The date of the transaction. Optional if `transaction_id` is provided, in which case we use
      * the `date` of that transaction. Required otherwise.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun date(): Optional<OffsetDateTime> = body.date()
 
-    /** The identifier of the Transaction related to this entry set, if any. */
+    /**
+     * The identifier of the Transaction related to this entry set, if any.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun transactionId(): Optional<String> = body.transactionId()
 
-    /** The bookkeeping entries. */
+    /**
+     * Returns the raw JSON value of [entries].
+     *
+     * Unlike [entries], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _entries(): JsonField<List<Entry>> = body._entries()
 
     /**
-     * The date of the transaction. Optional if `transaction_id` is provided, in which case we use
-     * the `date` of that transaction. Required otherwise.
+     * Returns the raw JSON value of [date].
+     *
+     * Unlike [date], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _date(): JsonField<OffsetDateTime> = body._date()
 
-    /** The identifier of the Transaction related to this entry set, if any. */
+    /**
+     * Returns the raw JSON value of [transactionId].
+     *
+     * Unlike [transactionId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _transactionId(): JsonField<String> = body._transactionId()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
@@ -83,29 +106,52 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The bookkeeping entries. */
+        /**
+         * The bookkeeping entries.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun entries(): List<Entry> = entries.getRequired("entries")
 
         /**
          * The date of the transaction. Optional if `transaction_id` is provided, in which case we
          * use the `date` of that transaction. Required otherwise.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun date(): Optional<OffsetDateTime> = Optional.ofNullable(date.getNullable("date"))
 
-        /** The identifier of the Transaction related to this entry set, if any. */
+        /**
+         * The identifier of the Transaction related to this entry set, if any.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun transactionId(): Optional<String> =
             Optional.ofNullable(transactionId.getNullable("transaction_id"))
 
-        /** The bookkeeping entries. */
+        /**
+         * Returns the raw JSON value of [entries].
+         *
+         * Unlike [entries], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("entries") @ExcludeMissing fun _entries(): JsonField<List<Entry>> = entries
 
         /**
-         * The date of the transaction. Optional if `transaction_id` is provided, in which case we
-         * use the `date` of that transaction. Required otherwise.
+         * Returns the raw JSON value of [date].
+         *
+         * Unlike [date], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("date") @ExcludeMissing fun _date(): JsonField<OffsetDateTime> = date
 
-        /** The identifier of the Transaction related to this entry set, if any. */
+        /**
+         * Returns the raw JSON value of [transactionId].
+         *
+         * Unlike [transactionId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("transaction_id")
         @ExcludeMissing
         fun _transactionId(): JsonField<String> = transactionId
@@ -161,12 +207,22 @@ private constructor(
             /** The bookkeeping entries. */
             fun entries(entries: List<Entry>) = entries(JsonField.of(entries))
 
-            /** The bookkeeping entries. */
+            /**
+             * Sets [Builder.entries] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.entries] with a well-typed `List<Entry>` value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun entries(entries: JsonField<List<Entry>>) = apply {
                 this.entries = entries.map { it.toMutableList() }
             }
 
-            /** The bookkeeping entries. */
+            /**
+             * Adds a single [Entry] to [entries].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
             fun addEntry(entry: Entry) = apply {
                 entries =
                     (entries ?: JsonField.of(mutableListOf())).also {
@@ -181,15 +237,24 @@ private constructor(
             fun date(date: OffsetDateTime) = date(JsonField.of(date))
 
             /**
-             * The date of the transaction. Optional if `transaction_id` is provided, in which case
-             * we use the `date` of that transaction. Required otherwise.
+             * Sets [Builder.date] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.date] with a well-typed [OffsetDateTime] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun date(date: JsonField<OffsetDateTime>) = apply { this.date = date }
 
             /** The identifier of the Transaction related to this entry set, if any. */
             fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
 
-            /** The identifier of the Transaction related to this entry set, if any. */
+            /**
+             * Sets [Builder.transactionId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.transactionId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun transactionId(transactionId: JsonField<String>) = apply {
                 this.transactionId = transactionId
             }
@@ -276,10 +341,20 @@ private constructor(
         /** The bookkeeping entries. */
         fun entries(entries: List<Entry>) = apply { body.entries(entries) }
 
-        /** The bookkeeping entries. */
+        /**
+         * Sets [Builder.entries] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.entries] with a well-typed `List<Entry>` value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun entries(entries: JsonField<List<Entry>>) = apply { body.entries(entries) }
 
-        /** The bookkeeping entries. */
+        /**
+         * Adds a single [Entry] to [entries].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
         fun addEntry(entry: Entry) = apply { body.addEntry(entry) }
 
         /**
@@ -289,15 +364,24 @@ private constructor(
         fun date(date: OffsetDateTime) = apply { body.date(date) }
 
         /**
-         * The date of the transaction. Optional if `transaction_id` is provided, in which case we
-         * use the `date` of that transaction. Required otherwise.
+         * Sets [Builder.date] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.date] with a well-typed [OffsetDateTime] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun date(date: JsonField<OffsetDateTime>) = apply { body.date(date) }
 
         /** The identifier of the Transaction related to this entry set, if any. */
         fun transactionId(transactionId: String) = apply { body.transactionId(transactionId) }
 
-        /** The identifier of the Transaction related to this entry set, if any. */
+        /**
+         * Sets [Builder.transactionId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.transactionId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun transactionId(transactionId: JsonField<String>) = apply {
             body.transactionId(transactionId)
         }
@@ -441,21 +525,34 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The identifier for the Bookkeeping Account impacted by this entry. */
+        /**
+         * The identifier for the Bookkeeping Account impacted by this entry.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun accountId(): String = accountId.getRequired("account_id")
 
         /**
          * The entry amount in the minor unit of the account currency. For dollars, for example,
          * this is cents. Debit entries have positive amounts; credit entries have negative amounts.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun amount(): Long = amount.getRequired("amount")
 
-        /** The identifier for the Bookkeeping Account impacted by this entry. */
+        /**
+         * Returns the raw JSON value of [accountId].
+         *
+         * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
 
         /**
-         * The entry amount in the minor unit of the account currency. For dollars, for example,
-         * this is cents. Debit entries have positive amounts; credit entries have negative amounts.
+         * Returns the raw JSON value of [amount].
+         *
+         * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
@@ -508,7 +605,13 @@ private constructor(
             /** The identifier for the Bookkeeping Account impacted by this entry. */
             fun accountId(accountId: String) = accountId(JsonField.of(accountId))
 
-            /** The identifier for the Bookkeeping Account impacted by this entry. */
+            /**
+             * Sets [Builder.accountId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.accountId] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
             /**
@@ -519,9 +622,11 @@ private constructor(
             fun amount(amount: Long) = amount(JsonField.of(amount))
 
             /**
-             * The entry amount in the minor unit of the account currency. For dollars, for example,
-             * this is cents. Debit entries have positive amounts; credit entries have negative
-             * amounts.
+             * Sets [Builder.amount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
              */
             fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 

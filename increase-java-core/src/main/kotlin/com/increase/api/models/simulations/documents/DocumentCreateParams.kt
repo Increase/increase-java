@@ -17,6 +17,7 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
+import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 
 /** Simulates an tax document being created for an account. */
@@ -27,10 +28,19 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** The identifier of the Account the tax document is for. */
+    /**
+     * The identifier of the Account the tax document is for.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun accountId(): String = body.accountId()
 
-    /** The identifier of the Account the tax document is for. */
+    /**
+     * Returns the raw JSON value of [accountId].
+     *
+     * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _accountId(): JsonField<String> = body._accountId()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
@@ -56,10 +66,19 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The identifier of the Account the tax document is for. */
+        /**
+         * The identifier of the Account the tax document is for.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun accountId(): String = accountId.getRequired("account_id")
 
-        /** The identifier of the Account the tax document is for. */
+        /**
+         * Returns the raw JSON value of [accountId].
+         *
+         * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
 
         @JsonAnyGetter
@@ -107,7 +126,13 @@ private constructor(
             /** The identifier of the Account the tax document is for. */
             fun accountId(accountId: String) = accountId(JsonField.of(accountId))
 
-            /** The identifier of the Account the tax document is for. */
+            /**
+             * Sets [Builder.accountId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.accountId] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -184,7 +209,13 @@ private constructor(
         /** The identifier of the Account the tax document is for. */
         fun accountId(accountId: String) = apply { body.accountId(accountId) }
 
-        /** The identifier of the Account the tax document is for. */
+        /**
+         * Sets [Builder.accountId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.accountId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun accountId(accountId: JsonField<String>) = apply { body.accountId(accountId) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {

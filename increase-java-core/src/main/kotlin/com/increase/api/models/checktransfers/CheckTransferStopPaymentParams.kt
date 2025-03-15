@@ -34,10 +34,19 @@ private constructor(
     /** The identifier of the Check Transfer. */
     fun checkTransferId(): String = checkTransferId
 
-    /** The reason why this transfer should be stopped. */
+    /**
+     * The reason why this transfer should be stopped.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun reason(): Optional<Reason> = body.reason()
 
-    /** The reason why this transfer should be stopped. */
+    /**
+     * Returns the raw JSON value of [reason].
+     *
+     * Unlike [reason], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _reason(): JsonField<Reason> = body._reason()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
@@ -70,10 +79,19 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The reason why this transfer should be stopped. */
+        /**
+         * The reason why this transfer should be stopped.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun reason(): Optional<Reason> = Optional.ofNullable(reason.getNullable("reason"))
 
-        /** The reason why this transfer should be stopped. */
+        /**
+         * Returns the raw JSON value of [reason].
+         *
+         * Unlike [reason], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("reason") @ExcludeMissing fun _reason(): JsonField<Reason> = reason
 
         @JsonAnyGetter
@@ -114,7 +132,13 @@ private constructor(
             /** The reason why this transfer should be stopped. */
             fun reason(reason: Reason) = reason(JsonField.of(reason))
 
-            /** The reason why this transfer should be stopped. */
+            /**
+             * Sets [Builder.reason] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.reason] with a well-typed [Reason] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun reason(reason: JsonField<Reason>) = apply { this.reason = reason }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -197,7 +221,12 @@ private constructor(
         /** The reason why this transfer should be stopped. */
         fun reason(reason: Reason) = apply { body.reason(reason) }
 
-        /** The reason why this transfer should be stopped. */
+        /**
+         * Sets [Builder.reason] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.reason] with a well-typed [Reason] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun reason(reason: JsonField<Reason>) = apply { body.reason(reason) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
