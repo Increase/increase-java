@@ -342,6 +342,24 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [OAuthApplication].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .clientId()
+         * .createdAt()
+         * .deletedAt()
+         * .name()
+         * .status()
+         * .type()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): OAuthApplication =
             OAuthApplication(
                 checkRequired("id", id),

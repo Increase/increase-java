@@ -590,6 +590,22 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Body].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .appIconFileId()
+             * .backgroundImageFileId()
+             * .cardDescription()
+             * .description()
+             * .issuerName()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Body =
                 Body(
                     checkRequired("appIconFileId", appIconFileId),
@@ -899,6 +915,22 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [DigitalCardProfileCreateParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .appIconFileId()
+         * .backgroundImageFileId()
+         * .cardDescription()
+         * .description()
+         * .issuerName()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): DigitalCardProfileCreateParams =
             DigitalCardProfileCreateParams(
                 body.build(),
@@ -1071,6 +1103,20 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [TextColor].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .blue()
+             * .green()
+             * .red()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): TextColor =
                 TextColor(
                     checkRequired("blue", blue),

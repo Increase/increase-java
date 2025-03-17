@@ -431,6 +431,26 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [PhysicalCard].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .cardId()
+         * .cardholder()
+         * .createdAt()
+         * .idempotencyKey()
+         * .physicalCardProfileId()
+         * .shipment()
+         * .status()
+         * .type()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): PhysicalCard =
             PhysicalCard(
                 checkRequired("id", id),
@@ -580,6 +600,19 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Cardholder].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .firstName()
+             * .lastName()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Cardholder =
                 Cardholder(
                     checkRequired("firstName", firstName),
@@ -811,6 +844,21 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Shipment].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .address()
+             * .method()
+             * .status()
+             * .tracking()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Shipment =
                 Shipment(
                     checkRequired("address", address),
@@ -1144,6 +1192,24 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [Address].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .city()
+                 * .line1()
+                 * .line2()
+                 * .line3()
+                 * .name()
+                 * .postalCode()
+                 * .state()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
                 fun build(): Address =
                     Address(
                         checkRequired("city", city),
@@ -1710,6 +1776,21 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [Tracking].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .number()
+                 * .returnNumber()
+                 * .returnReason()
+                 * .shippedAt()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
                 fun build(): Tracking =
                     Tracking(
                         checkRequired("number", number),

@@ -197,6 +197,20 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [BookkeepingBalanceLookup].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .balance()
+         * .bookkeepingAccountId()
+         * .type()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): BookkeepingBalanceLookup =
             BookkeepingBalanceLookup(
                 checkRequired("balance", balance),

@@ -60,6 +60,11 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [IncreaseError].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         */
         fun build(): IncreaseError = IncreaseError(additionalProperties.toImmutable())
     }
 

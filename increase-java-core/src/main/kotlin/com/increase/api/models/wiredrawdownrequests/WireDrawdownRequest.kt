@@ -984,6 +984,38 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [WireDrawdownRequest].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .accountNumberId()
+         * .amount()
+         * .createdAt()
+         * .currency()
+         * .fulfillmentInboundWireTransferId()
+         * .idempotencyKey()
+         * .messageToRecipient()
+         * .originatorAddressLine1()
+         * .originatorAddressLine2()
+         * .originatorAddressLine3()
+         * .originatorName()
+         * .recipientAccountNumber()
+         * .recipientAddressLine1()
+         * .recipientAddressLine2()
+         * .recipientAddressLine3()
+         * .recipientName()
+         * .recipientRoutingNumber()
+         * .status()
+         * .submission()
+         * .type()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): WireDrawdownRequest =
             WireDrawdownRequest(
                 checkRequired("id", id),
@@ -1250,6 +1282,18 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Submission].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .inputMessageAccountabilityData()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Submission =
                 Submission(
                     checkRequired("inputMessageAccountabilityData", inputMessageAccountabilityData),

@@ -171,6 +171,18 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [PhysicalCardProfileRetrieveParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .physicalCardProfileId()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): PhysicalCardProfileRetrieveParams =
             PhysicalCardProfileRetrieveParams(
                 checkRequired("physicalCardProfileId", physicalCardProfileId),

@@ -206,6 +206,18 @@ private constructor(
             keys.forEach(::removeAdditionalBodyProperty)
         }
 
+        /**
+         * Returns an immutable instance of [DigitalCardProfileArchiveParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .digitalCardProfileId()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): DigitalCardProfileArchiveParams =
             DigitalCardProfileArchiveParams(
                 checkRequired("digitalCardProfileId", digitalCardProfileId),

@@ -206,6 +206,11 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [ProofOfAuthorizationRequestListParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         */
         fun build(): ProofOfAuthorizationRequestListParams =
             ProofOfAuthorizationRequestListParams(
                 createdAt,
@@ -378,6 +383,11 @@ private constructor(
                 additionalProperties.removeAll(keys)
             }
 
+            /**
+             * Returns an immutable instance of [CreatedAt].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): CreatedAt =
                 CreatedAt(after, before, onOrAfter, onOrBefore, additionalProperties.build())
         }

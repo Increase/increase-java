@@ -305,6 +305,23 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [RoutingNumberListResponse].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .achTransfers()
+         * .name()
+         * .realTimePaymentsTransfers()
+         * .routingNumber()
+         * .type()
+         * .wireTransfers()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): RoutingNumberListResponse =
             RoutingNumberListResponse(
                 checkRequired("achTransfers", achTransfers),

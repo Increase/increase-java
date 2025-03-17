@@ -822,6 +822,26 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Body].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .authorizationTerms()
+             * .authorizedAt()
+             * .authorizerEmail()
+             * .authorizerName()
+             * .customerHasBeenOffboarded()
+             * .proofOfAuthorizationRequestId()
+             * .validatedAccountOwnershipViaCredential()
+             * .validatedAccountOwnershipWithAccountStatement()
+             * .validatedAccountOwnershipWithMicrodeposit()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Body =
                 Body(
                     checkRequired("authorizationTerms", authorizationTerms),
@@ -1237,6 +1257,26 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [ProofOfAuthorizationRequestSubmissionCreateParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .authorizationTerms()
+         * .authorizedAt()
+         * .authorizerEmail()
+         * .authorizerName()
+         * .customerHasBeenOffboarded()
+         * .proofOfAuthorizationRequestId()
+         * .validatedAccountOwnershipViaCredential()
+         * .validatedAccountOwnershipWithAccountStatement()
+         * .validatedAccountOwnershipWithMicrodeposit()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): ProofOfAuthorizationRequestSubmissionCreateParams =
             ProofOfAuthorizationRequestSubmissionCreateParams(
                 body.build(),

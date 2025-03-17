@@ -171,6 +171,18 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [DigitalCardProfileRetrieveParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .digitalCardProfileId()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): DigitalCardProfileRetrieveParams =
             DigitalCardProfileRetrieveParams(
                 checkRequired("digitalCardProfileId", digitalCardProfileId),

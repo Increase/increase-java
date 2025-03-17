@@ -201,6 +201,18 @@ private constructor(
             keys.forEach(::removeAdditionalBodyProperty)
         }
 
+        /**
+         * Returns an immutable instance of [WireTransferCancelParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .wireTransferId()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): WireTransferCancelParams =
             WireTransferCancelParams(
                 checkRequired("wireTransferId", wireTransferId),

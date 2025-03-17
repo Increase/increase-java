@@ -479,6 +479,27 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [InboundFundsHoldReleaseResponse].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .amount()
+         * .automaticallyReleasesAt()
+         * .createdAt()
+         * .currency()
+         * .heldTransactionId()
+         * .pendingTransactionId()
+         * .releasedAt()
+         * .status()
+         * .type()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): InboundFundsHoldReleaseResponse =
             InboundFundsHoldReleaseResponse(
                 checkRequired("id", id),

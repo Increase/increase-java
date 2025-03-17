@@ -549,6 +549,29 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [CardDispute].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .acceptance()
+         * .amount()
+         * .createdAt()
+         * .disputedTransactionId()
+         * .explanation()
+         * .idempotencyKey()
+         * .loss()
+         * .rejection()
+         * .status()
+         * .type()
+         * .win()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): CardDispute =
             CardDispute(
                 checkRequired("id", id),
@@ -760,6 +783,20 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Acceptance].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .acceptedAt()
+             * .cardDisputeId()
+             * .transactionId()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Acceptance =
                 Acceptance(
                     checkRequired("acceptedAt", acceptedAt),
@@ -1011,6 +1048,21 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Loss].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .cardDisputeId()
+             * .explanation()
+             * .lostAt()
+             * .transactionId()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Loss =
                 Loss(
                     checkRequired("cardDisputeId", cardDisputeId),
@@ -1227,6 +1279,20 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Rejection].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .cardDisputeId()
+             * .explanation()
+             * .rejectedAt()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Rejection =
                 Rejection(
                     checkRequired("cardDisputeId", cardDisputeId),
@@ -1656,6 +1722,19 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Win].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .cardDisputeId()
+             * .wonAt()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Win =
                 Win(
                     checkRequired("cardDisputeId", cardDisputeId),

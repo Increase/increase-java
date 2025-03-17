@@ -347,6 +347,24 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [DigitalWalletToken].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .cardId()
+         * .createdAt()
+         * .status()
+         * .tokenRequestor()
+         * .type()
+         * .updates()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): DigitalWalletToken =
             DigitalWalletToken(
                 checkRequired("id", id),
@@ -862,6 +880,19 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Update].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .status()
+             * .timestamp()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Update =
                 Update(
                     checkRequired("status", status),

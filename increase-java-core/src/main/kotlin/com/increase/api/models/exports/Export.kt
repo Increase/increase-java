@@ -400,6 +400,25 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [Export].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .category()
+         * .createdAt()
+         * .fileDownloadUrl()
+         * .fileId()
+         * .idempotencyKey()
+         * .status()
+         * .type()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): Export =
             Export(
                 checkRequired("id", id),

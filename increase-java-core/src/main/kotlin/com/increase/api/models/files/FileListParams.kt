@@ -239,6 +239,11 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [FileListParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         */
         fun build(): FileListParams =
             FileListParams(
                 createdAt,
@@ -413,6 +418,11 @@ private constructor(
                 additionalProperties.removeAll(keys)
             }
 
+            /**
+             * Returns an immutable instance of [CreatedAt].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): CreatedAt =
                 CreatedAt(after, before, onOrAfter, onOrBefore, additionalProperties.build())
         }
@@ -539,6 +549,11 @@ private constructor(
                 additionalProperties.removeAll(keys)
             }
 
+            /**
+             * Returns an immutable instance of [Purpose].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): Purpose = Purpose(in_?.toImmutable(), additionalProperties.build())
         }
 

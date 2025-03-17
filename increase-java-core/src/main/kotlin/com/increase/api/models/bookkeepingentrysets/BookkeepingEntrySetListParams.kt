@@ -225,6 +225,11 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [BookkeepingEntrySetListParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         */
         fun build(): BookkeepingEntrySetListParams =
             BookkeepingEntrySetListParams(
                 cursor,

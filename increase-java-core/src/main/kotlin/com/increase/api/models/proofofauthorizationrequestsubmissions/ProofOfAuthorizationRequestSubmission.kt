@@ -954,6 +954,35 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [ProofOfAuthorizationRequestSubmission].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .additionalEvidenceFileId()
+         * .authorizationTerms()
+         * .authorizedAt()
+         * .authorizerCompany()
+         * .authorizerEmail()
+         * .authorizerIpAddress()
+         * .authorizerName()
+         * .createdAt()
+         * .customerHasBeenOffboarded()
+         * .idempotencyKey()
+         * .proofOfAuthorizationRequestId()
+         * .status()
+         * .type()
+         * .updatedAt()
+         * .validatedAccountOwnershipViaCredential()
+         * .validatedAccountOwnershipWithAccountStatement()
+         * .validatedAccountOwnershipWithMicrodeposit()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): ProofOfAuthorizationRequestSubmission =
             ProofOfAuthorizationRequestSubmission(
                 checkRequired("id", id),

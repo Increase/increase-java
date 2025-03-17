@@ -1032,6 +1032,40 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [CheckTransfer].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .accountId()
+         * .accountNumber()
+         * .amount()
+         * .approval()
+         * .approvedInboundCheckDepositId()
+         * .cancellation()
+         * .checkNumber()
+         * .createdAt()
+         * .createdBy()
+         * .currency()
+         * .fulfillmentMethod()
+         * .idempotencyKey()
+         * .mailing()
+         * .pendingTransactionId()
+         * .physicalCheck()
+         * .routingNumber()
+         * .sourceAccountNumberId()
+         * .status()
+         * .stopPaymentRequest()
+         * .submission()
+         * .thirdParty()
+         * .type()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): CheckTransfer =
             CheckTransfer(
                 checkRequired("id", id),
@@ -1215,6 +1249,19 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Approval].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .approvedAt()
+             * .approvedBy()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Approval =
                 Approval(
                     checkRequired("approvedAt", approvedAt),
@@ -1395,6 +1442,19 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Cancellation].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .canceledAt()
+             * .canceledBy()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Cancellation =
                 Cancellation(
                     checkRequired("canceledAt", canceledAt),
@@ -1640,6 +1700,21 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [CreatedBy].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .apiKey()
+             * .category()
+             * .oauthApplication()
+             * .user()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): CreatedBy =
                 CreatedBy(
                     checkRequired("apiKey", apiKey),
@@ -1764,6 +1839,18 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [ApiKey].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .description()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
                 fun build(): ApiKey =
                     ApiKey(
                         checkRequired("description", description),
@@ -2021,6 +2108,18 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [OAuthApplication].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .name()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
                 fun build(): OAuthApplication =
                     OAuthApplication(
                         checkRequired("name", name),
@@ -2150,6 +2249,18 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [User].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .email()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
                 fun build(): User =
                     User(checkRequired("email", email), additionalProperties.toImmutable())
             }
@@ -2644,6 +2755,20 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Mailing].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .imageId()
+             * .mailedAt()
+             * .trackingNumber()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Mailing =
                 Mailing(
                     checkRequired("imageId", imageId),
@@ -3085,6 +3210,25 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [PhysicalCheck].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .mailingAddress()
+             * .memo()
+             * .note()
+             * .recipientName()
+             * .returnAddress()
+             * .shippingMethod()
+             * .signatureText()
+             * .trackingUpdates()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): PhysicalCheck =
                 PhysicalCheck(
                     checkRequired("mailingAddress", mailingAddress),
@@ -3396,6 +3540,23 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [MailingAddress].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .city()
+                 * .line1()
+                 * .line2()
+                 * .name()
+                 * .postalCode()
+                 * .state()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
                 fun build(): MailingAddress =
                     MailingAddress(
                         checkRequired("city", city),
@@ -3723,6 +3884,23 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [ReturnAddress].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .city()
+                 * .line1()
+                 * .line2()
+                 * .name()
+                 * .postalCode()
+                 * .state()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
                 fun build(): ReturnAddress =
                     ReturnAddress(
                         checkRequired("city", city),
@@ -4055,6 +4233,20 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [TrackingUpdate].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .category()
+                 * .createdAt()
+                 * .postalCode()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
                 fun build(): TrackingUpdate =
                     TrackingUpdate(
                         checkRequired("category", category),
@@ -4618,6 +4810,21 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [StopPaymentRequest].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .reason()
+             * .requestedAt()
+             * .transferId()
+             * .type()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): StopPaymentRequest =
                 StopPaymentRequest(
                     checkRequired("reason", reason),
@@ -4985,6 +5192,18 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Submission].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .submittedAt()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Submission =
                 Submission(
                     checkRequired("submittedAt", submittedAt),
@@ -5121,6 +5340,18 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [ThirdParty].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .checkNumber()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): ThirdParty =
                 ThirdParty(
                     checkRequired("checkNumber", checkNumber),

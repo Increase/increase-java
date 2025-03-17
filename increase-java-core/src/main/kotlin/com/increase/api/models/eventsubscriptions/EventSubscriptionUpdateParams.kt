@@ -160,6 +160,11 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Body].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): Body = Body(status, additionalProperties.toImmutable())
         }
 
@@ -346,6 +351,18 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [EventSubscriptionUpdateParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .eventSubscriptionId()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): EventSubscriptionUpdateParams =
             EventSubscriptionUpdateParams(
                 checkRequired("eventSubscriptionId", eventSubscriptionId),

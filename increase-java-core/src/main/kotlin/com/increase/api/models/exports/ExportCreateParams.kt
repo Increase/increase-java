@@ -462,6 +462,18 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Body].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .category()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Body =
                 Body(
                     checkRequired("category", category),
@@ -733,6 +745,18 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [ExportCreateParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .category()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): ExportCreateParams =
             ExportCreateParams(
                 body.build(),
@@ -1031,6 +1055,18 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [AccountStatementOfx].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .accountId()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): AccountStatementOfx =
                 AccountStatementOfx(
                     checkRequired("accountId", accountId),
@@ -1265,6 +1301,11 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [CreatedAt].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 */
                 fun build(): CreatedAt =
                     CreatedAt(
                         after,
@@ -1473,6 +1514,11 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [BalanceCsv].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): BalanceCsv =
                 BalanceCsv(accountId, createdAt, programId, additionalProperties.toImmutable())
         }
@@ -1703,6 +1749,11 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [CreatedAt].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 */
                 fun build(): CreatedAt =
                     CreatedAt(
                         after,
@@ -1892,6 +1943,11 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [BookkeepingAccountBalanceCsv].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): BookkeepingAccountBalanceCsv =
                 BookkeepingAccountBalanceCsv(
                     bookkeepingAccountId,
@@ -2126,6 +2182,11 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [CreatedAt].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 */
                 fun build(): CreatedAt =
                     CreatedAt(
                         after,
@@ -2265,6 +2326,11 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [EntityCsv].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): EntityCsv = EntityCsv(status, additionalProperties.toImmutable())
         }
 
@@ -2390,6 +2456,18 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [Status].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .in_()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
                 fun build(): Status =
                     Status(
                         checkRequired("in_", in_).map { it.toImmutable() },
@@ -2717,6 +2795,11 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [TransactionCsv].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): TransactionCsv =
                 TransactionCsv(accountId, createdAt, programId, additionalProperties.toImmutable())
         }
@@ -2947,6 +3030,11 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [CreatedAt].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 */
                 fun build(): CreatedAt =
                     CreatedAt(
                         after,

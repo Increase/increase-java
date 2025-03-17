@@ -318,6 +318,11 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Body].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): Body =
                 Body(inboundAch, inboundChecks, name, status, additionalProperties.toImmutable())
         }
@@ -544,6 +549,18 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [AccountNumberUpdateParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .accountNumberId()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): AccountNumberUpdateParams =
             AccountNumberUpdateParams(
                 checkRequired("accountNumberId", accountNumberId),
@@ -655,6 +672,11 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [InboundAch].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): InboundAch = InboundAch(debitStatus, additionalProperties.toImmutable())
         }
 
@@ -890,6 +912,18 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [InboundChecks].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .status()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): InboundChecks =
                 InboundChecks(checkRequired("status", status), additionalProperties.toImmutable())
         }

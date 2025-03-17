@@ -579,6 +579,30 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [Card].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .accountId()
+         * .billingAddress()
+         * .createdAt()
+         * .description()
+         * .digitalWallet()
+         * .entityId()
+         * .expirationMonth()
+         * .expirationYear()
+         * .idempotencyKey()
+         * .last4()
+         * .status()
+         * .type()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): Card =
             Card(
                 checkRequired("id", id),
@@ -852,6 +876,22 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [BillingAddress].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .city()
+             * .line1()
+             * .line2()
+             * .postalCode()
+             * .state()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): BillingAddress =
                 BillingAddress(
                     checkRequired("city", city),
@@ -1083,6 +1123,20 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [DigitalWallet].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .digitalCardProfileId()
+             * .email()
+             * .phone()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): DigitalWallet =
                 DigitalWallet(
                     checkRequired("digitalCardProfileId", digitalCardProfileId),

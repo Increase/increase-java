@@ -277,6 +277,22 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [EntitySupplementalDocument].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .createdAt()
+         * .entityId()
+         * .fileId()
+         * .idempotencyKey()
+         * .type()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): EntitySupplementalDocument =
             EntitySupplementalDocument(
                 checkRequired("createdAt", createdAt),

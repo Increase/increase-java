@@ -434,6 +434,26 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [Program].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .bank()
+         * .billingAccountId()
+         * .createdAt()
+         * .defaultDigitalCardProfileId()
+         * .interestRate()
+         * .name()
+         * .type()
+         * .updatedAt()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): Program =
             Program(
                 checkRequired("id", id),

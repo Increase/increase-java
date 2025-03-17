@@ -1250,6 +1250,42 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [InboundWireTransfer].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .accountId()
+         * .accountNumberId()
+         * .amount()
+         * .beneficiaryAddressLine1()
+         * .beneficiaryAddressLine2()
+         * .beneficiaryAddressLine3()
+         * .beneficiaryName()
+         * .beneficiaryReference()
+         * .createdAt()
+         * .description()
+         * .inputMessageAccountabilityData()
+         * .originatorAddressLine1()
+         * .originatorAddressLine2()
+         * .originatorAddressLine3()
+         * .originatorName()
+         * .originatorRoutingNumber()
+         * .originatorToBeneficiaryInformation()
+         * .originatorToBeneficiaryInformationLine1()
+         * .originatorToBeneficiaryInformationLine2()
+         * .originatorToBeneficiaryInformationLine3()
+         * .originatorToBeneficiaryInformationLine4()
+         * .senderReference()
+         * .status()
+         * .type()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): InboundWireTransfer =
             InboundWireTransfer(
                 checkRequired("id", id),
