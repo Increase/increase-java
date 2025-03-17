@@ -5,7 +5,7 @@ package com.increase.api.models.bookkeepingaccounts
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class BookkeepingAccountTest {
+internal class BookkeepingAccountTest {
 
     @Test
     fun createBookkeepingAccount() {

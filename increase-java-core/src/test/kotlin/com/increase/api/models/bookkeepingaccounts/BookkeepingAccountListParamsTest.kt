@@ -6,7 +6,7 @@ import com.increase.api.core.http.QueryParams
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class BookkeepingAccountListParamsTest {
+internal class BookkeepingAccountListParamsTest {
 
     @Test
     fun create() {

@@ -5,7 +5,7 @@ package com.increase.api.models.events
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class EventRetrieveParamsTest {
+internal class EventRetrieveParamsTest {
 
     @Test
     fun create() {

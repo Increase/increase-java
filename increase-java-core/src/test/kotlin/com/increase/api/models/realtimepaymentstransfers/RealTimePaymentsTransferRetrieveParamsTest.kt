@@ -5,7 +5,7 @@ package com.increase.api.models.realtimepaymentstransfers
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class RealTimePaymentsTransferRetrieveParamsTest {
+internal class RealTimePaymentsTransferRetrieveParamsTest {
 
     @Test
     fun create() {

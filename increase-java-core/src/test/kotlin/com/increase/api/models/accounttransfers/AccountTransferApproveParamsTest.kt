@@ -5,7 +5,7 @@ package com.increase.api.models.accounttransfers
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class AccountTransferApproveParamsTest {
+internal class AccountTransferApproveParamsTest {
 
     @Test
     fun create() {

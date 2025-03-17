@@ -5,7 +5,7 @@ package com.increase.api.models.proofofauthorizationrequestsubmissions
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class ProofOfAuthorizationRequestSubmissionRetrieveParamsTest {
+internal class ProofOfAuthorizationRequestSubmissionRetrieveParamsTest {
 
     @Test
     fun create() {

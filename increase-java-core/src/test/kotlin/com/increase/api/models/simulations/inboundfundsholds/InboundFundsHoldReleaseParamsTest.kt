@@ -5,7 +5,7 @@ package com.increase.api.models.simulations.inboundfundsholds
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class InboundFundsHoldReleaseParamsTest {
+internal class InboundFundsHoldReleaseParamsTest {
 
     @Test
     fun create() {

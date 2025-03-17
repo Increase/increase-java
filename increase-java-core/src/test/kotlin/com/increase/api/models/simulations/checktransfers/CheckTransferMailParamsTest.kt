@@ -5,7 +5,7 @@ package com.increase.api.models.simulations.checktransfers
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class CheckTransferMailParamsTest {
+internal class CheckTransferMailParamsTest {
 
     @Test
     fun create() {

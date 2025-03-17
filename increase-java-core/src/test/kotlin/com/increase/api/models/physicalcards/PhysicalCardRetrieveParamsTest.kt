@@ -5,7 +5,7 @@ package com.increase.api.models.physicalcards
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class PhysicalCardRetrieveParamsTest {
+internal class PhysicalCardRetrieveParamsTest {
 
     @Test
     fun create() {

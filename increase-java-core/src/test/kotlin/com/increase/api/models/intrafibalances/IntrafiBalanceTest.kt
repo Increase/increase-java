@@ -6,7 +6,7 @@ import java.time.LocalDate
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class IntrafiBalanceTest {
+internal class IntrafiBalanceTest {
 
     @Test
     fun createIntrafiBalance() {

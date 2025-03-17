@@ -5,7 +5,7 @@ package com.increase.api.models.wiretransfers
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class WireTransferCancelParamsTest {
+internal class WireTransferCancelParamsTest {
 
     @Test
     fun create() {

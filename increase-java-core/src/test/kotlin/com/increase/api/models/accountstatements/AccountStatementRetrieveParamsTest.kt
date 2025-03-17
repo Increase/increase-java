@@ -5,7 +5,7 @@ package com.increase.api.models.accountstatements
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class AccountStatementRetrieveParamsTest {
+internal class AccountStatementRetrieveParamsTest {
 
     @Test
     fun create() {

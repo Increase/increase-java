@@ -5,7 +5,7 @@ package com.increase.api.models.checkdeposits
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class CheckDepositRetrieveParamsTest {
+internal class CheckDepositRetrieveParamsTest {
 
     @Test
     fun create() {

@@ -6,7 +6,7 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class ProgramTest {
+internal class ProgramTest {
 
     @Test
     fun createProgram() {

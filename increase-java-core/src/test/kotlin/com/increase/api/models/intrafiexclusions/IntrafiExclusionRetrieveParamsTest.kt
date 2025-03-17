@@ -5,7 +5,7 @@ package com.increase.api.models.intrafiexclusions
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class IntrafiExclusionRetrieveParamsTest {
+internal class IntrafiExclusionRetrieveParamsTest {
 
     @Test
     fun create() {

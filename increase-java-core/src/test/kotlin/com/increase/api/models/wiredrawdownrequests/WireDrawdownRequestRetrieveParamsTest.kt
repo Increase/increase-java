@@ -5,7 +5,7 @@ package com.increase.api.models.wiredrawdownrequests
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class WireDrawdownRequestRetrieveParamsTest {
+internal class WireDrawdownRequestRetrieveParamsTest {
 
     @Test
     fun create() {

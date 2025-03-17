@@ -5,7 +5,7 @@ package com.increase.api.models.bookkeepingentries
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class BookkeepingEntryRetrieveParamsTest {
+internal class BookkeepingEntryRetrieveParamsTest {
 
     @Test
     fun create() {

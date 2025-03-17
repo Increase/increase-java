@@ -5,7 +5,7 @@ package com.increase.api.models.intrafibalances
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class IntrafiBalanceIntrafiBalanceParamsTest {
+internal class IntrafiBalanceIntrafiBalanceParamsTest {
 
     @Test
     fun create() {

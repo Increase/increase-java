@@ -5,7 +5,7 @@ package com.increase.api.models.inboundmailitems
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class InboundMailItemRetrieveParamsTest {
+internal class InboundMailItemRetrieveParamsTest {
 
     @Test
     fun create() {

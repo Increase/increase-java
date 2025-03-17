@@ -5,7 +5,7 @@ package com.increase.api.models.achprenotifications
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class AchPrenotificationRetrieveParamsTest {
+internal class AchPrenotificationRetrieveParamsTest {
 
     @Test
     fun create() {

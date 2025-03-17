@@ -5,7 +5,7 @@ package com.increase.api.models.cards
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class CardDetailsTest {
+internal class CardDetailsTest {
 
     @Test
     fun createCardDetails() {
