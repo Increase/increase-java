@@ -5,7 +5,7 @@ package com.increase.api.models.physicalcardprofiles
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class PhysicalCardProfileArchiveParamsTest {
+internal class PhysicalCardProfileArchiveParamsTest {
 
     @Test
     fun create() {

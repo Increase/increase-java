@@ -5,7 +5,7 @@ package com.increase.api.models.digitalwallettokens
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class DigitalWalletTokenRetrieveParamsTest {
+internal class DigitalWalletTokenRetrieveParamsTest {
 
     @Test
     fun create() {

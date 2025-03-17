@@ -5,7 +5,7 @@ package com.increase.api.models.declinedtransactions
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class DeclinedTransactionRetrieveParamsTest {
+internal class DeclinedTransactionRetrieveParamsTest {
 
     @Test
     fun create() {

@@ -5,7 +5,7 @@ package com.increase.api.models.files
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class FileRetrieveParamsTest {
+internal class FileRetrieveParamsTest {
 
     @Test
     fun create() {

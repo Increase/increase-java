@@ -5,7 +5,7 @@ package com.increase.api.models.exports
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class ExportRetrieveParamsTest {
+internal class ExportRetrieveParamsTest {
 
     @Test
     fun create() {

@@ -5,7 +5,7 @@ package com.increase.api.models.achtransfers
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class AchTransferRetrieveParamsTest {
+internal class AchTransferRetrieveParamsTest {
 
     @Test
     fun create() {

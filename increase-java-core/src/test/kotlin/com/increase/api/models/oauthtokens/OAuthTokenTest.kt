@@ -5,7 +5,7 @@ package com.increase.api.models.oauthtokens
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class OAuthTokenTest {
+internal class OAuthTokenTest {
 
     @Test
     fun createOAuthToken() {

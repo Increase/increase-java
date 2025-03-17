@@ -7,7 +7,7 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class PhysicalCardListParamsTest {
+internal class PhysicalCardListParamsTest {
 
     @Test
     fun create() {

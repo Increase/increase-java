@@ -5,7 +5,7 @@ package com.increase.api.models.entities
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class EntityRetrieveParamsTest {
+internal class EntityRetrieveParamsTest {
 
     @Test
     fun create() {

@@ -5,7 +5,7 @@ package com.increase.api.models.oauthconnections
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class OAuthConnectionRetrieveParamsTest {
+internal class OAuthConnectionRetrieveParamsTest {
 
     @Test
     fun create() {

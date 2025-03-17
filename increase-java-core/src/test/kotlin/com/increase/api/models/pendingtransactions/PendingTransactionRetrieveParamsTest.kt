@@ -5,7 +5,7 @@ package com.increase.api.models.pendingtransactions
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class PendingTransactionRetrieveParamsTest {
+internal class PendingTransactionRetrieveParamsTest {
 
     @Test
     fun create() {

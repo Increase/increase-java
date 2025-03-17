@@ -5,7 +5,7 @@ package com.increase.api.models.realtimedecisions
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class RealTimeDecisionRetrieveParamsTest {
+internal class RealTimeDecisionRetrieveParamsTest {
 
     @Test
     fun create() {

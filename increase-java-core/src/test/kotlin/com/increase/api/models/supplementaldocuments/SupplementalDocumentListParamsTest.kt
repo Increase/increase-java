@@ -6,7 +6,7 @@ import com.increase.api.core.http.QueryParams
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class SupplementalDocumentListParamsTest {
+internal class SupplementalDocumentListParamsTest {
 
     @Test
     fun create() {

@@ -5,7 +5,7 @@ package com.increase.api.models.lockboxes
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class LockboxRetrieveParamsTest {
+internal class LockboxRetrieveParamsTest {
 
     @Test
     fun create() {

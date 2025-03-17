@@ -5,7 +5,7 @@ package com.increase.api.models.cardpurchasesupplements
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class CardPurchaseSupplementRetrieveParamsTest {
+internal class CardPurchaseSupplementRetrieveParamsTest {
 
     @Test
     fun create() {

@@ -5,7 +5,7 @@ package com.increase.api.models.routingnumbers
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class RoutingNumberListResponseTest {
+internal class RoutingNumberListResponseTest {
 
     @Test
     fun createRoutingNumberListResponse() {
