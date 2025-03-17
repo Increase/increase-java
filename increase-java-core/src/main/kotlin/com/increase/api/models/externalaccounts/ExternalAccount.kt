@@ -500,6 +500,28 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [ExternalAccount].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .accountHolder()
+         * .accountNumber()
+         * .createdAt()
+         * .description()
+         * .funding()
+         * .idempotencyKey()
+         * .routingNumber()
+         * .status()
+         * .type()
+         * .verificationStatus()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): ExternalAccount =
             ExternalAccount(
                 checkRequired("id", id),

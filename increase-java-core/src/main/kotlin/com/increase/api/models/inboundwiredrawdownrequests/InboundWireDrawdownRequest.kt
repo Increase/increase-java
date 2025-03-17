@@ -1158,6 +1158,40 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [InboundWireDrawdownRequest].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .amount()
+         * .beneficiaryAccountNumber()
+         * .beneficiaryAddressLine1()
+         * .beneficiaryAddressLine2()
+         * .beneficiaryAddressLine3()
+         * .beneficiaryName()
+         * .beneficiaryRoutingNumber()
+         * .createdAt()
+         * .currency()
+         * .messageToRecipient()
+         * .originatorAccountNumber()
+         * .originatorAddressLine1()
+         * .originatorAddressLine2()
+         * .originatorAddressLine3()
+         * .originatorName()
+         * .originatorRoutingNumber()
+         * .originatorToBeneficiaryInformationLine1()
+         * .originatorToBeneficiaryInformationLine2()
+         * .originatorToBeneficiaryInformationLine3()
+         * .originatorToBeneficiaryInformationLine4()
+         * .recipientAccountNumberId()
+         * .type()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): InboundWireDrawdownRequest =
             InboundWireDrawdownRequest(
                 checkRequired("id", id),

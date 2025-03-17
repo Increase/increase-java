@@ -673,6 +673,32 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [Account].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .bank()
+         * .closedAt()
+         * .createdAt()
+         * .currency()
+         * .entityId()
+         * .idempotencyKey()
+         * .informationalEntityId()
+         * .interestAccrued()
+         * .interestAccruedAt()
+         * .interestRate()
+         * .name()
+         * .programId()
+         * .status()
+         * .type()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): Account =
             Account(
                 checkRequired("id", id),

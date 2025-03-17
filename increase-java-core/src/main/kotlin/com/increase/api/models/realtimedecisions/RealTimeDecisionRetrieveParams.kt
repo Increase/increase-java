@@ -169,6 +169,18 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [RealTimeDecisionRetrieveParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .realTimeDecisionId()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): RealTimeDecisionRetrieveParams =
             RealTimeDecisionRetrieveParams(
                 checkRequired("realTimeDecisionId", realTimeDecisionId),

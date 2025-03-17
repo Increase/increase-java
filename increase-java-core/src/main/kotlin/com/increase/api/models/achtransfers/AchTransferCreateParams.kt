@@ -1215,6 +1215,20 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Body].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .accountId()
+             * .amount()
+             * .statementDescriptor()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Body =
                 Body(
                     checkRequired("accountId", accountId),
@@ -1722,6 +1736,20 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [AchTransferCreateParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .accountId()
+         * .amount()
+         * .statementDescriptor()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): AchTransferCreateParams =
             AchTransferCreateParams(
                 body.build(),
@@ -1916,6 +1944,18 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Addenda].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .category()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Addenda =
                 Addenda(
                     checkRequired("category", category),
@@ -2170,6 +2210,18 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [Freeform].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .entries()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
                 fun build(): Freeform =
                     Freeform(
                         checkRequired("entries", entries).map { it.toImmutable() },
@@ -2288,6 +2340,18 @@ private constructor(
                         keys.forEach(::removeAdditionalProperty)
                     }
 
+                    /**
+                     * Returns an immutable instance of [Entry].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .paymentRelatedInformation()
+                     * ```
+                     *
+                     * @throws IllegalStateException if any required field is unset.
+                     */
                     fun build(): Entry =
                         Entry(
                             checkRequired("paymentRelatedInformation", paymentRelatedInformation),
@@ -2458,6 +2522,18 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [PaymentOrderRemittanceAdvice].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .invoices()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
                 fun build(): PaymentOrderRemittanceAdvice =
                     PaymentOrderRemittanceAdvice(
                         checkRequired("invoices", invoices).map { it.toImmutable() },
@@ -2621,6 +2697,19 @@ private constructor(
                         keys.forEach(::removeAdditionalProperty)
                     }
 
+                    /**
+                     * Returns an immutable instance of [Invoice].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .invoiceNumber()
+                     * .paidAmount()
+                     * ```
+                     *
+                     * @throws IllegalStateException if any required field is unset.
+                     */
                     fun build(): Invoice =
                         Invoice(
                             checkRequired("invoiceNumber", invoiceNumber),
@@ -3057,6 +3146,11 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [PreferredEffectiveDate].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): PreferredEffectiveDate =
                 PreferredEffectiveDate(date, settlementSchedule, additionalProperties.toImmutable())
         }

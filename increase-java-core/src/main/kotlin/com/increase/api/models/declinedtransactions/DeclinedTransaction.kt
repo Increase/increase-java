@@ -458,6 +458,27 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [DeclinedTransaction].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .accountId()
+         * .amount()
+         * .createdAt()
+         * .currency()
+         * .description()
+         * .routeId()
+         * .routeType()
+         * .source()
+         * .type()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): DeclinedTransaction =
             DeclinedTransaction(
                 checkRequired("id", id),
@@ -1186,6 +1207,25 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Source].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .achDecline()
+             * .cardDecline()
+             * .category()
+             * .checkDecline()
+             * .checkDepositRejection()
+             * .inboundRealTimePaymentsTransferDecline()
+             * .other()
+             * .wireDecline()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Source =
                 Source(
                     checkRequired("achDecline", achDecline),
@@ -1802,6 +1842,29 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [AchDecline].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .id()
+                 * .amount()
+                 * .inboundAchTransferId()
+                 * .originatorCompanyDescriptiveDate()
+                 * .originatorCompanyDiscretionaryData()
+                 * .originatorCompanyId()
+                 * .originatorCompanyName()
+                 * .reason()
+                 * .receiverIdNumber()
+                 * .receiverName()
+                 * .traceNumber()
+                 * .type()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
                 fun build(): AchDecline =
                     AchDecline(
                         checkRequired("id", id),
@@ -3501,6 +3564,44 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [CardDecline].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .id()
+                 * .actioner()
+                 * .amount()
+                 * .cardPaymentId()
+                 * .currency()
+                 * .declinedTransactionId()
+                 * .digitalWalletTokenId()
+                 * .direction()
+                 * .merchantAcceptorId()
+                 * .merchantCategoryCode()
+                 * .merchantCity()
+                 * .merchantCountry()
+                 * .merchantDescriptor()
+                 * .merchantPostalCode()
+                 * .merchantState()
+                 * .networkDetails()
+                 * .networkIdentifiers()
+                 * .networkRiskScore()
+                 * .physicalCardId()
+                 * .presentmentAmount()
+                 * .presentmentCurrency()
+                 * .processingCategory()
+                 * .realTimeDecisionId()
+                 * .realTimeDecisionReason()
+                 * .reason()
+                 * .terminalId()
+                 * .verification()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
                 fun build(): CardDecline =
                     CardDecline(
                         checkRequired("id", id),
@@ -4075,6 +4176,19 @@ private constructor(
                         keys.forEach(::removeAdditionalProperty)
                     }
 
+                    /**
+                     * Returns an immutable instance of [NetworkDetails].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .category()
+                     * .visa()
+                     * ```
+                     *
+                     * @throws IllegalStateException if any required field is unset.
+                     */
                     fun build(): NetworkDetails =
                         NetworkDetails(
                             checkRequired("category", category),
@@ -4446,6 +4560,20 @@ private constructor(
                             keys.forEach(::removeAdditionalProperty)
                         }
 
+                        /**
+                         * Returns an immutable instance of [Visa].
+                         *
+                         * Further updates to this [Builder] will not mutate the returned instance.
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .electronicCommerceIndicator()
+                         * .pointOfServiceEntryMode()
+                         * .standInProcessingReason()
+                         * ```
+                         *
+                         * @throws IllegalStateException if any required field is unset.
+                         */
                         fun build(): Visa =
                             Visa(
                                 checkRequired(
@@ -5452,6 +5580,20 @@ private constructor(
                         keys.forEach(::removeAdditionalProperty)
                     }
 
+                    /**
+                     * Returns an immutable instance of [NetworkIdentifiers].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .retrievalReferenceNumber()
+                     * .traceNumber()
+                     * .transactionId()
+                     * ```
+                     *
+                     * @throws IllegalStateException if any required field is unset.
+                     */
                     fun build(): NetworkIdentifiers =
                         NetworkIdentifiers(
                             checkRequired("retrievalReferenceNumber", retrievalReferenceNumber),
@@ -6322,6 +6464,19 @@ private constructor(
                         keys.forEach(::removeAdditionalProperty)
                     }
 
+                    /**
+                     * Returns an immutable instance of [Verification].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .cardVerificationCode()
+                     * .cardholderAddress()
+                     * ```
+                     *
+                     * @throws IllegalStateException if any required field is unset.
+                     */
                     fun build(): Verification =
                         Verification(
                             checkRequired("cardVerificationCode", cardVerificationCode),
@@ -6443,6 +6598,18 @@ private constructor(
                             keys.forEach(::removeAdditionalProperty)
                         }
 
+                        /**
+                         * Returns an immutable instance of [CardVerificationCode].
+                         *
+                         * Further updates to this [Builder] will not mutate the returned instance.
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .result()
+                         * ```
+                         *
+                         * @throws IllegalStateException if any required field is unset.
+                         */
                         fun build(): CardVerificationCode =
                             CardVerificationCode(
                                 checkRequired("result", result),
@@ -6908,6 +7075,22 @@ private constructor(
                             keys.forEach(::removeAdditionalProperty)
                         }
 
+                        /**
+                         * Returns an immutable instance of [CardholderAddress].
+                         *
+                         * Further updates to this [Builder] will not mutate the returned instance.
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .actualLine1()
+                         * .actualPostalCode()
+                         * .providedLine1()
+                         * .providedPostalCode()
+                         * .result()
+                         * ```
+                         *
+                         * @throws IllegalStateException if any required field is unset.
+                         */
                         fun build(): CardholderAddress =
                             CardholderAddress(
                                 checkRequired("actualLine1", actualLine1),
@@ -7709,6 +7892,24 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [CheckDecline].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .amount()
+                 * .auxiliaryOnUs()
+                 * .backImageFileId()
+                 * .checkTransferId()
+                 * .frontImageFileId()
+                 * .inboundCheckDepositId()
+                 * .reason()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
                 fun build(): CheckDecline =
                     CheckDecline(
                         checkRequired("amount", amount),
@@ -8310,6 +8511,23 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [CheckDepositRejection].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .amount()
+                 * .checkDepositId()
+                 * .currency()
+                 * .declinedTransactionId()
+                 * .reason()
+                 * .rejectedAt()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
                 fun build(): CheckDepositRejection =
                     CheckDepositRejection(
                         checkRequired("amount", amount),
@@ -9177,6 +9395,27 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [InboundRealTimePaymentsTransferDecline].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .amount()
+                 * .creditorName()
+                 * .currency()
+                 * .debtorAccountNumber()
+                 * .debtorName()
+                 * .debtorRoutingNumber()
+                 * .reason()
+                 * .remittanceInformation()
+                 * .transactionIdentification()
+                 * .transferId()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
                 fun build(): InboundRealTimePaymentsTransferDecline =
                     InboundRealTimePaymentsTransferDecline(
                         checkRequired("amount", amount),
@@ -9658,6 +9897,19 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [WireDecline].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .inboundWireTransferId()
+                 * .reason()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
                 fun build(): WireDecline =
                     WireDecline(
                         checkRequired("inboundWireTransferId", inboundWireTransferId),

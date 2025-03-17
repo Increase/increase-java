@@ -356,6 +356,24 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [BookkeepingAccount].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .accountId()
+         * .complianceCategory()
+         * .entityId()
+         * .idempotencyKey()
+         * .name()
+         * .type()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): BookkeepingAccount =
             BookkeepingAccount(
                 checkRequired("id", id),

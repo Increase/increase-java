@@ -328,6 +328,23 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [CardPurchaseSupplement].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .cardPaymentId()
+         * .invoice()
+         * .lineItems()
+         * .transactionId()
+         * .type()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): CardPurchaseSupplement =
             CardPurchaseSupplement(
                 checkRequired("id", id),
@@ -1193,6 +1210,33 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Invoice].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .discountAmount()
+             * .discountCurrency()
+             * .discountTreatmentCode()
+             * .dutyTaxAmount()
+             * .dutyTaxCurrency()
+             * .orderDate()
+             * .shippingAmount()
+             * .shippingCurrency()
+             * .shippingDestinationCountryCode()
+             * .shippingDestinationPostalCode()
+             * .shippingSourcePostalCode()
+             * .shippingTaxAmount()
+             * .shippingTaxCurrency()
+             * .shippingTaxRate()
+             * .taxTreatments()
+             * .uniqueValueAddedTaxInvoiceReference()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Invoice =
                 Invoice(
                     checkRequired("discountAmount", discountAmount),
@@ -2349,6 +2393,34 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [LineItem].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .id()
+             * .detailIndicator()
+             * .discountAmount()
+             * .discountCurrency()
+             * .discountTreatmentCode()
+             * .itemCommodityCode()
+             * .itemDescriptor()
+             * .itemQuantity()
+             * .productCode()
+             * .salesTaxAmount()
+             * .salesTaxCurrency()
+             * .salesTaxRate()
+             * .totalAmount()
+             * .totalAmountCurrency()
+             * .unitCost()
+             * .unitCostCurrency()
+             * .unitOfMeasureCode()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): LineItem =
                 LineItem(
                     checkRequired("id", id),
