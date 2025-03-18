@@ -37,22 +37,27 @@ internal class ExternalAccountListParamsTest {
                         .build()
                 )
                 .build()
-        val expected = QueryParams.builder()
-        expected.put("cursor", "cursor")
-        expected.put("idempotency_key", "x")
-        expected.put("limit", "1")
-        expected.put("routing_number", "xxxxxxxxx")
-        ExternalAccountListParams.Status.builder()
-            .addIn(ExternalAccountListParams.Status.In.ACTIVE)
-            .build()
-            .forEachQueryParam { key, values -> expected.put("status.$key", values) }
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams)
+            .isEqualTo(
+                QueryParams.builder()
+                    .put("cursor", "cursor")
+                    .put("idempotency_key", "x")
+                    .put("limit", "1")
+                    .put("routing_number", "xxxxxxxxx")
+                    .put("status.in", listOf("active").joinToString(","))
+                    .build()
+            )
     }
 
     @Test
     fun queryParamsWithoutOptionalFields() {
         val params = ExternalAccountListParams.builder().build()
-        val expected = QueryParams.builder()
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams).isEqualTo(QueryParams.builder().build())
     }
 }

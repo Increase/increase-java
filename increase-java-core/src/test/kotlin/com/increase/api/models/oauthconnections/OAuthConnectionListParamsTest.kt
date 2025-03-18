@@ -35,21 +35,26 @@ internal class OAuthConnectionListParamsTest {
                         .build()
                 )
                 .build()
-        val expected = QueryParams.builder()
-        expected.put("cursor", "cursor")
-        expected.put("limit", "1")
-        expected.put("oauth_application_id", "oauth_application_id")
-        OAuthConnectionListParams.Status.builder()
-            .addIn(OAuthConnectionListParams.Status.In.ACTIVE)
-            .build()
-            .forEachQueryParam { key, values -> expected.put("status.$key", values) }
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams)
+            .isEqualTo(
+                QueryParams.builder()
+                    .put("cursor", "cursor")
+                    .put("limit", "1")
+                    .put("oauth_application_id", "oauth_application_id")
+                    .put("status.in", listOf("active").joinToString(","))
+                    .build()
+            )
     }
 
     @Test
     fun queryParamsWithoutOptionalFields() {
         val params = OAuthConnectionListParams.builder().build()
-        val expected = QueryParams.builder()
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams).isEqualTo(QueryParams.builder().build())
     }
 }

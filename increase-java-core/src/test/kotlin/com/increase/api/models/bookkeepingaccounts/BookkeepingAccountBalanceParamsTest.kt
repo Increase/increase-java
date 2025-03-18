@@ -24,9 +24,11 @@ internal class BookkeepingAccountBalanceParamsTest {
                 .bookkeepingAccountId("bookkeeping_account_e37p1f1iuocw5intf35v")
                 .atTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
-        val expected = QueryParams.builder()
-        expected.put("at_time", "2019-12-27T18:11:19.117Z")
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams)
+            .isEqualTo(QueryParams.builder().put("at_time", "2019-12-27T18:11:19.117Z").build())
     }
 
     @Test
@@ -35,8 +37,10 @@ internal class BookkeepingAccountBalanceParamsTest {
             BookkeepingAccountBalanceParams.builder()
                 .bookkeepingAccountId("bookkeeping_account_e37p1f1iuocw5intf35v")
                 .build()
-        val expected = QueryParams.builder()
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams).isEqualTo(QueryParams.builder().build())
     }
 
     @Test

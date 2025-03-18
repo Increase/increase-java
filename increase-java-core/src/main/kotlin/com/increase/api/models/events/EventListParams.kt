@@ -48,20 +48,50 @@ private constructor(
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams {
-        val queryParams = QueryParams.builder()
-        this.associatedObjectId?.let {
-            queryParams.put("associated_object_id", listOf(it.toString()))
-        }
-        this.category?.forEachQueryParam { key, values -> queryParams.put("category.$key", values) }
-        this.createdAt?.forEachQueryParam { key, values ->
-            queryParams.put("created_at.$key", values)
-        }
-        this.cursor?.let { queryParams.put("cursor", listOf(it.toString())) }
-        this.limit?.let { queryParams.put("limit", listOf(it.toString())) }
-        queryParams.putAll(additionalQueryParams)
-        return queryParams.build()
-    }
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                associatedObjectId?.let { put("associated_object_id", it) }
+                category?.let {
+                    it.in_().ifPresent {
+                        put("category.in", it.joinToString(",") { it.asString() })
+                    }
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("category.$key", value)
+                        }
+                    }
+                }
+                createdAt?.let {
+                    it.after().ifPresent {
+                        put("created_at.after", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
+                    }
+                    it.before().ifPresent {
+                        put("created_at.before", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
+                    }
+                    it.onOrAfter().ifPresent {
+                        put(
+                            "created_at.on_or_after",
+                            DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it),
+                        )
+                    }
+                    it.onOrBefore().ifPresent {
+                        put(
+                            "created_at.on_or_before",
+                            DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it),
+                        )
+                    }
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("created_at.$key", value)
+                        }
+                    }
+                }
+                cursor?.let { put("cursor", it) }
+                limit?.let { put("limit", it.toString()) }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     fun toBuilder() = Builder().from(this)
 
@@ -263,12 +293,6 @@ private constructor(
         fun in_(): Optional<List<In>> = Optional.ofNullable(in_)
 
         fun _additionalProperties(): QueryParams = additionalProperties
-
-        @JvmSynthetic
-        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-            this.in_?.let { putParam("in", listOf(it.joinToString(separator = ","))) }
-            additionalProperties.keys().forEach { putParam(it, additionalProperties.values(it)) }
-        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -1410,23 +1434,6 @@ private constructor(
         fun onOrBefore(): Optional<OffsetDateTime> = Optional.ofNullable(onOrBefore)
 
         fun _additionalProperties(): QueryParams = additionalProperties
-
-        @JvmSynthetic
-        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-            this.after?.let {
-                putParam("after", listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)))
-            }
-            this.before?.let {
-                putParam("before", listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)))
-            }
-            this.onOrAfter?.let {
-                putParam("on_or_after", listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)))
-            }
-            this.onOrBefore?.let {
-                putParam("on_or_before", listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)))
-            }
-            additionalProperties.keys().forEach { putParam(it, additionalProperties.values(it)) }
-        }
 
         fun toBuilder() = Builder().from(this)
 

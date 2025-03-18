@@ -54,29 +54,31 @@ internal class DeclinedTransactionListParamsTest {
                 .limit(1L)
                 .routeId("route_id")
                 .build()
-        val expected = QueryParams.builder()
-        expected.put("account_id", "account_id")
-        DeclinedTransactionListParams.Category.builder()
-            .addIn(DeclinedTransactionListParams.Category.In.ACH_DECLINE)
-            .build()
-            .forEachQueryParam { key, values -> expected.put("category.$key", values) }
-        DeclinedTransactionListParams.CreatedAt.builder()
-            .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-            .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-            .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-            .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-            .build()
-            .forEachQueryParam { key, values -> expected.put("created_at.$key", values) }
-        expected.put("cursor", "cursor")
-        expected.put("limit", "1")
-        expected.put("route_id", "route_id")
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams)
+            .isEqualTo(
+                QueryParams.builder()
+                    .put("account_id", "account_id")
+                    .put("category.in", listOf("ach_decline").joinToString(","))
+                    .put("created_at.after", "2019-12-27T18:11:19.117Z")
+                    .put("created_at.before", "2019-12-27T18:11:19.117Z")
+                    .put("created_at.on_or_after", "2019-12-27T18:11:19.117Z")
+                    .put("created_at.on_or_before", "2019-12-27T18:11:19.117Z")
+                    .put("cursor", "cursor")
+                    .put("limit", "1")
+                    .put("route_id", "route_id")
+                    .build()
+            )
     }
 
     @Test
     fun queryParamsWithoutOptionalFields() {
         val params = DeclinedTransactionListParams.builder().build()
-        val expected = QueryParams.builder()
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams).isEqualTo(QueryParams.builder().build())
     }
 }

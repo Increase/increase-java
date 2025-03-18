@@ -25,17 +25,25 @@ internal class BookkeepingAccountListParamsTest {
                 .idempotencyKey("x")
                 .limit(1L)
                 .build()
-        val expected = QueryParams.builder()
-        expected.put("cursor", "cursor")
-        expected.put("idempotency_key", "x")
-        expected.put("limit", "1")
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams)
+            .isEqualTo(
+                QueryParams.builder()
+                    .put("cursor", "cursor")
+                    .put("idempotency_key", "x")
+                    .put("limit", "1")
+                    .build()
+            )
     }
 
     @Test
     fun queryParamsWithoutOptionalFields() {
         val params = BookkeepingAccountListParams.builder().build()
-        val expected = QueryParams.builder()
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams).isEqualTo(QueryParams.builder().build())
     }
 }

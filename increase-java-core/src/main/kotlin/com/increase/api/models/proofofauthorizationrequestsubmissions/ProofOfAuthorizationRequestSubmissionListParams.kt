@@ -44,17 +44,16 @@ private constructor(
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams {
-        val queryParams = QueryParams.builder()
-        this.cursor?.let { queryParams.put("cursor", listOf(it.toString())) }
-        this.idempotencyKey?.let { queryParams.put("idempotency_key", listOf(it.toString())) }
-        this.limit?.let { queryParams.put("limit", listOf(it.toString())) }
-        this.proofOfAuthorizationRequestId?.let {
-            queryParams.put("proof_of_authorization_request_id", listOf(it.toString()))
-        }
-        queryParams.putAll(additionalQueryParams)
-        return queryParams.build()
-    }
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                cursor?.let { put("cursor", it) }
+                idempotencyKey?.let { put("idempotency_key", it) }
+                limit?.let { put("limit", it.toString()) }
+                proofOfAuthorizationRequestId?.let { put("proof_of_authorization_request_id", it) }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     fun toBuilder() = Builder().from(this)
 

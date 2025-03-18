@@ -17,16 +17,19 @@ internal class InboundWireDrawdownRequestListParamsTest {
     fun queryParams() {
         val params =
             InboundWireDrawdownRequestListParams.builder().cursor("cursor").limit(1L).build()
-        val expected = QueryParams.builder()
-        expected.put("cursor", "cursor")
-        expected.put("limit", "1")
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams)
+            .isEqualTo(QueryParams.builder().put("cursor", "cursor").put("limit", "1").build())
     }
 
     @Test
     fun queryParamsWithoutOptionalFields() {
         val params = InboundWireDrawdownRequestListParams.builder().build()
-        val expected = QueryParams.builder()
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams).isEqualTo(QueryParams.builder().build())
     }
 }

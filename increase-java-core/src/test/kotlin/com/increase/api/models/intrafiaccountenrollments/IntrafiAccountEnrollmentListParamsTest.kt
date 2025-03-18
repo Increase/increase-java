@@ -37,22 +37,27 @@ internal class IntrafiAccountEnrollmentListParamsTest {
                         .build()
                 )
                 .build()
-        val expected = QueryParams.builder()
-        expected.put("account_id", "account_id")
-        expected.put("cursor", "cursor")
-        expected.put("idempotency_key", "x")
-        expected.put("limit", "1")
-        IntrafiAccountEnrollmentListParams.Status.builder()
-            .addIn(IntrafiAccountEnrollmentListParams.Status.In.PENDING_ENROLLING)
-            .build()
-            .forEachQueryParam { key, values -> expected.put("status.$key", values) }
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams)
+            .isEqualTo(
+                QueryParams.builder()
+                    .put("account_id", "account_id")
+                    .put("cursor", "cursor")
+                    .put("idempotency_key", "x")
+                    .put("limit", "1")
+                    .put("status.in", listOf("pending_enrolling").joinToString(","))
+                    .build()
+            )
     }
 
     @Test
     fun queryParamsWithoutOptionalFields() {
         val params = IntrafiAccountEnrollmentListParams.builder().build()
-        val expected = QueryParams.builder()
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams).isEqualTo(QueryParams.builder().build())
     }
 }

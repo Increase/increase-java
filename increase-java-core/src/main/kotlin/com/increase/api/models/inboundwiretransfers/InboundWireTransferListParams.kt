@@ -52,19 +52,49 @@ private constructor(
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams {
-        val queryParams = QueryParams.builder()
-        this.accountId?.let { queryParams.put("account_id", listOf(it.toString())) }
-        this.accountNumberId?.let { queryParams.put("account_number_id", listOf(it.toString())) }
-        this.createdAt?.forEachQueryParam { key, values ->
-            queryParams.put("created_at.$key", values)
-        }
-        this.cursor?.let { queryParams.put("cursor", listOf(it.toString())) }
-        this.limit?.let { queryParams.put("limit", listOf(it.toString())) }
-        this.status?.forEachQueryParam { key, values -> queryParams.put("status.$key", values) }
-        queryParams.putAll(additionalQueryParams)
-        return queryParams.build()
-    }
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                accountId?.let { put("account_id", it) }
+                accountNumberId?.let { put("account_number_id", it) }
+                createdAt?.let {
+                    it.after().ifPresent {
+                        put("created_at.after", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
+                    }
+                    it.before().ifPresent {
+                        put("created_at.before", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
+                    }
+                    it.onOrAfter().ifPresent {
+                        put(
+                            "created_at.on_or_after",
+                            DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it),
+                        )
+                    }
+                    it.onOrBefore().ifPresent {
+                        put(
+                            "created_at.on_or_before",
+                            DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it),
+                        )
+                    }
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("created_at.$key", value)
+                        }
+                    }
+                }
+                cursor?.let { put("cursor", it) }
+                limit?.let { put("limit", it.toString()) }
+                status?.let {
+                    it.in_().ifPresent { put("status.in", it.joinToString(",") { it.asString() }) }
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("status.$key", value)
+                        }
+                    }
+                }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     fun toBuilder() = Builder().from(this)
 
@@ -299,23 +329,6 @@ private constructor(
 
         fun _additionalProperties(): QueryParams = additionalProperties
 
-        @JvmSynthetic
-        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-            this.after?.let {
-                putParam("after", listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)))
-            }
-            this.before?.let {
-                putParam("before", listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)))
-            }
-            this.onOrAfter?.let {
-                putParam("on_or_after", listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)))
-            }
-            this.onOrBefore?.let {
-                putParam("on_or_before", listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)))
-            }
-            additionalProperties.keys().forEach { putParam(it, additionalProperties.values(it)) }
-        }
-
         fun toBuilder() = Builder().from(this)
 
         companion object {
@@ -465,12 +478,6 @@ private constructor(
         fun in_(): Optional<List<In>> = Optional.ofNullable(in_)
 
         fun _additionalProperties(): QueryParams = additionalProperties
-
-        @JvmSynthetic
-        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-            this.in_?.let { putParam("in", listOf(it.joinToString(separator = ","))) }
-            additionalProperties.keys().forEach { putParam(it, additionalProperties.values(it)) }
-        }
 
         fun toBuilder() = Builder().from(this)
 

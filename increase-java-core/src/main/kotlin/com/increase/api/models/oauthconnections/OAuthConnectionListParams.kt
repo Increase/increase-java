@@ -43,17 +43,23 @@ private constructor(
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams {
-        val queryParams = QueryParams.builder()
-        this.cursor?.let { queryParams.put("cursor", listOf(it.toString())) }
-        this.limit?.let { queryParams.put("limit", listOf(it.toString())) }
-        this.oauthApplicationId?.let {
-            queryParams.put("oauth_application_id", listOf(it.toString()))
-        }
-        this.status?.forEachQueryParam { key, values -> queryParams.put("status.$key", values) }
-        queryParams.putAll(additionalQueryParams)
-        return queryParams.build()
-    }
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                cursor?.let { put("cursor", it) }
+                limit?.let { put("limit", it.toString()) }
+                oauthApplicationId?.let { put("oauth_application_id", it) }
+                status?.let {
+                    it.in_().ifPresent { put("status.in", it.joinToString(",") { it.asString() }) }
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("status.$key", value)
+                        }
+                    }
+                }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     fun toBuilder() = Builder().from(this)
 
@@ -250,12 +256,6 @@ private constructor(
         fun in_(): Optional<List<In>> = Optional.ofNullable(in_)
 
         fun _additionalProperties(): QueryParams = additionalProperties
-
-        @JvmSynthetic
-        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-            this.in_?.let { putParam("in", listOf(it.joinToString(separator = ","))) }
-            additionalProperties.keys().forEach { putParam(it, additionalProperties.values(it)) }
-        }
 
         fun toBuilder() = Builder().from(this)
 
