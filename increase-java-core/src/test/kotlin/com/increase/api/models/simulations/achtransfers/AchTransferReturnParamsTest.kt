@@ -6,7 +6,7 @@ import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class AchTransferReturnParamsTest {
+internal class AchTransferReturnParamsTest {
 
     @Test
     fun create() {
@@ -14,6 +14,18 @@ class AchTransferReturnParamsTest {
             .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
             .reason(AchTransferReturnParams.Reason.INSUFFICIENT_FUND)
             .build()
+    }
+
+    @Test
+    fun pathParams() {
+        val params =
+            AchTransferReturnParams.builder()
+                .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
+                .build()
+
+        assertThat(params._pathParam(0)).isEqualTo("ach_transfer_uoxatyh3lt5evrsdvo7q")
+        // out-of-bound path param
+        assertThat(params._pathParam(1)).isEqualTo("")
     }
 
     @Test
@@ -40,18 +52,5 @@ class AchTransferReturnParamsTest {
         val body = params._body()
 
         assertNotNull(body)
-    }
-
-    @Test
-    fun getPathParam() {
-        val params =
-            AchTransferReturnParams.builder()
-                .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
-                .build()
-        assertThat(params).isNotNull
-        // path param "achTransferId"
-        assertThat(params.getPathParam(0)).isEqualTo("ach_transfer_uoxatyh3lt5evrsdvo7q")
-        // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
     }
 }

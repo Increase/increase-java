@@ -77,42 +77,90 @@ private constructor(
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
-    /** The ACH Prenotification's identifier. */
+    /**
+     * The ACH Prenotification's identifier.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun id(): String = id.getRequired("id")
 
-    /** The destination account number. */
+    /**
+     * The destination account number.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun accountNumber(): String = accountNumber.getRequired("account_number")
 
-    /** Additional information for the recipient. */
+    /**
+     * Additional information for the recipient.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun addendum(): Optional<String> = Optional.ofNullable(addendum.getNullable("addendum"))
 
-    /** The description of the date of the notification. */
+    /**
+     * The description of the date of the notification.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun companyDescriptiveDate(): Optional<String> =
         Optional.ofNullable(companyDescriptiveDate.getNullable("company_descriptive_date"))
 
-    /** Optional data associated with the notification. */
+    /**
+     * Optional data associated with the notification.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun companyDiscretionaryData(): Optional<String> =
         Optional.ofNullable(companyDiscretionaryData.getNullable("company_discretionary_data"))
 
-    /** The description of the notification. */
+    /**
+     * The description of the notification.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun companyEntryDescription(): Optional<String> =
         Optional.ofNullable(companyEntryDescription.getNullable("company_entry_description"))
 
-    /** The name by which you know the company. */
+    /**
+     * The name by which you know the company.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun companyName(): Optional<String> =
         Optional.ofNullable(companyName.getNullable("company_name"))
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
      * prenotification was created.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
-    /** If the notification is for a future credit or debit. */
+    /**
+     * If the notification is for a future credit or debit.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun creditDebitIndicator(): Optional<CreditDebitIndicator> =
         Optional.ofNullable(creditDebitIndicator.getNullable("credit_debit_indicator"))
 
-    /** The effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. */
+    /**
+     * The effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun effectiveDate(): Optional<OffsetDateTime> =
         Optional.ofNullable(effectiveDate.getNullable("effective_date"))
 
@@ -120,6 +168,9 @@ private constructor(
      * The idempotency key you chose for this object. This value is unique across Increase and is
      * used to ensure that a request is only processed once. Learn more about
      * [idempotency](https://increase.com/documentation/idempotency-keys).
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun idempotencyKey(): Optional<String> =
         Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
@@ -127,108 +178,186 @@ private constructor(
     /**
      * If the receiving bank notifies that future transfers should use different details, this will
      * contain those details.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun notificationsOfChange(): List<NotificationsOfChange> =
         notificationsOfChange.getRequired("notifications_of_change")
 
-    /** If your prenotification is returned, this will contain details of the return. */
+    /**
+     * If your prenotification is returned, this will contain details of the return.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun prenotificationReturn(): Optional<PrenotificationReturn> =
         Optional.ofNullable(prenotificationReturn.getNullable("prenotification_return"))
 
-    /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
+    /**
+     * The American Bankers' Association (ABA) Routing Transit Number (RTN).
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun routingNumber(): String = routingNumber.getRequired("routing_number")
 
-    /** The lifecycle status of the ACH Prenotification. */
+    /**
+     * The lifecycle status of the ACH Prenotification.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun status(): Status = status.getRequired("status")
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `ach_prenotification`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun type(): Type = type.getRequired("type")
 
-    /** The ACH Prenotification's identifier. */
+    /**
+     * Returns the raw JSON value of [id].
+     *
+     * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
-    /** The destination account number. */
+    /**
+     * Returns the raw JSON value of [accountNumber].
+     *
+     * Unlike [accountNumber], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("account_number")
     @ExcludeMissing
     fun _accountNumber(): JsonField<String> = accountNumber
 
-    /** Additional information for the recipient. */
+    /**
+     * Returns the raw JSON value of [addendum].
+     *
+     * Unlike [addendum], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("addendum") @ExcludeMissing fun _addendum(): JsonField<String> = addendum
 
-    /** The description of the date of the notification. */
+    /**
+     * Returns the raw JSON value of [companyDescriptiveDate].
+     *
+     * Unlike [companyDescriptiveDate], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
     @JsonProperty("company_descriptive_date")
     @ExcludeMissing
     fun _companyDescriptiveDate(): JsonField<String> = companyDescriptiveDate
 
-    /** Optional data associated with the notification. */
+    /**
+     * Returns the raw JSON value of [companyDiscretionaryData].
+     *
+     * Unlike [companyDiscretionaryData], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
     @JsonProperty("company_discretionary_data")
     @ExcludeMissing
     fun _companyDiscretionaryData(): JsonField<String> = companyDiscretionaryData
 
-    /** The description of the notification. */
+    /**
+     * Returns the raw JSON value of [companyEntryDescription].
+     *
+     * Unlike [companyEntryDescription], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
     @JsonProperty("company_entry_description")
     @ExcludeMissing
     fun _companyEntryDescription(): JsonField<String> = companyEntryDescription
 
-    /** The name by which you know the company. */
+    /**
+     * Returns the raw JSON value of [companyName].
+     *
+     * Unlike [companyName], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("company_name")
     @ExcludeMissing
     fun _companyName(): JsonField<String> = companyName
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-     * prenotification was created.
+     * Returns the raw JSON value of [createdAt].
+     *
+     * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("created_at")
     @ExcludeMissing
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
-    /** If the notification is for a future credit or debit. */
+    /**
+     * Returns the raw JSON value of [creditDebitIndicator].
+     *
+     * Unlike [creditDebitIndicator], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     @JsonProperty("credit_debit_indicator")
     @ExcludeMissing
     fun _creditDebitIndicator(): JsonField<CreditDebitIndicator> = creditDebitIndicator
 
-    /** The effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. */
+    /**
+     * Returns the raw JSON value of [effectiveDate].
+     *
+     * Unlike [effectiveDate], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("effective_date")
     @ExcludeMissing
     fun _effectiveDate(): JsonField<OffsetDateTime> = effectiveDate
 
     /**
-     * The idempotency key you chose for this object. This value is unique across Increase and is
-     * used to ensure that a request is only processed once. Learn more about
-     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     * Returns the raw JSON value of [idempotencyKey].
+     *
+     * Unlike [idempotencyKey], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("idempotency_key")
     @ExcludeMissing
     fun _idempotencyKey(): JsonField<String> = idempotencyKey
 
     /**
-     * If the receiving bank notifies that future transfers should use different details, this will
-     * contain those details.
+     * Returns the raw JSON value of [notificationsOfChange].
+     *
+     * Unlike [notificationsOfChange], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
     @JsonProperty("notifications_of_change")
     @ExcludeMissing
     fun _notificationsOfChange(): JsonField<List<NotificationsOfChange>> = notificationsOfChange
 
-    /** If your prenotification is returned, this will contain details of the return. */
+    /**
+     * Returns the raw JSON value of [prenotificationReturn].
+     *
+     * Unlike [prenotificationReturn], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     @JsonProperty("prenotification_return")
     @ExcludeMissing
     fun _prenotificationReturn(): JsonField<PrenotificationReturn> = prenotificationReturn
 
-    /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
+    /**
+     * Returns the raw JSON value of [routingNumber].
+     *
+     * Unlike [routingNumber], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("routing_number")
     @ExcludeMissing
     fun _routingNumber(): JsonField<String> = routingNumber
 
-    /** The lifecycle status of the ACH Prenotification. */
+    /**
+     * Returns the raw JSON value of [status].
+     *
+     * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
     /**
-     * A constant representing the object's type. For this resource it will always be
-     * `ach_prenotification`.
+     * Returns the raw JSON value of [type].
+     *
+     * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
@@ -338,13 +467,24 @@ private constructor(
         /** The ACH Prenotification's identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
-        /** The ACH Prenotification's identifier. */
+        /**
+         * Sets [Builder.id] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.id] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The destination account number. */
         fun accountNumber(accountNumber: String) = accountNumber(JsonField.of(accountNumber))
 
-        /** The destination account number. */
+        /**
+         * Sets [Builder.accountNumber] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.accountNumber] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun accountNumber(accountNumber: JsonField<String>) = apply {
             this.accountNumber = accountNumber
         }
@@ -352,21 +492,35 @@ private constructor(
         /** Additional information for the recipient. */
         fun addendum(addendum: String?) = addendum(JsonField.ofNullable(addendum))
 
-        /** Additional information for the recipient. */
+        /** Alias for calling [Builder.addendum] with `addendum.orElse(null)`. */
         fun addendum(addendum: Optional<String>) = addendum(addendum.getOrNull())
 
-        /** Additional information for the recipient. */
+        /**
+         * Sets [Builder.addendum] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.addendum] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun addendum(addendum: JsonField<String>) = apply { this.addendum = addendum }
 
         /** The description of the date of the notification. */
         fun companyDescriptiveDate(companyDescriptiveDate: String?) =
             companyDescriptiveDate(JsonField.ofNullable(companyDescriptiveDate))
 
-        /** The description of the date of the notification. */
+        /**
+         * Alias for calling [Builder.companyDescriptiveDate] with
+         * `companyDescriptiveDate.orElse(null)`.
+         */
         fun companyDescriptiveDate(companyDescriptiveDate: Optional<String>) =
             companyDescriptiveDate(companyDescriptiveDate.getOrNull())
 
-        /** The description of the date of the notification. */
+        /**
+         * Sets [Builder.companyDescriptiveDate] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.companyDescriptiveDate] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun companyDescriptiveDate(companyDescriptiveDate: JsonField<String>) = apply {
             this.companyDescriptiveDate = companyDescriptiveDate
         }
@@ -375,11 +529,20 @@ private constructor(
         fun companyDiscretionaryData(companyDiscretionaryData: String?) =
             companyDiscretionaryData(JsonField.ofNullable(companyDiscretionaryData))
 
-        /** Optional data associated with the notification. */
+        /**
+         * Alias for calling [Builder.companyDiscretionaryData] with
+         * `companyDiscretionaryData.orElse(null)`.
+         */
         fun companyDiscretionaryData(companyDiscretionaryData: Optional<String>) =
             companyDiscretionaryData(companyDiscretionaryData.getOrNull())
 
-        /** Optional data associated with the notification. */
+        /**
+         * Sets [Builder.companyDiscretionaryData] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.companyDiscretionaryData] with a well-typed [String]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
         fun companyDiscretionaryData(companyDiscretionaryData: JsonField<String>) = apply {
             this.companyDiscretionaryData = companyDiscretionaryData
         }
@@ -388,11 +551,20 @@ private constructor(
         fun companyEntryDescription(companyEntryDescription: String?) =
             companyEntryDescription(JsonField.ofNullable(companyEntryDescription))
 
-        /** The description of the notification. */
+        /**
+         * Alias for calling [Builder.companyEntryDescription] with
+         * `companyEntryDescription.orElse(null)`.
+         */
         fun companyEntryDescription(companyEntryDescription: Optional<String>) =
             companyEntryDescription(companyEntryDescription.getOrNull())
 
-        /** The description of the notification. */
+        /**
+         * Sets [Builder.companyEntryDescription] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.companyEntryDescription] with a well-typed [String]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
         fun companyEntryDescription(companyEntryDescription: JsonField<String>) = apply {
             this.companyEntryDescription = companyEntryDescription
         }
@@ -400,10 +572,16 @@ private constructor(
         /** The name by which you know the company. */
         fun companyName(companyName: String?) = companyName(JsonField.ofNullable(companyName))
 
-        /** The name by which you know the company. */
+        /** Alias for calling [Builder.companyName] with `companyName.orElse(null)`. */
         fun companyName(companyName: Optional<String>) = companyName(companyName.getOrNull())
 
-        /** The name by which you know the company. */
+        /**
+         * Sets [Builder.companyName] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.companyName] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun companyName(companyName: JsonField<String>) = apply { this.companyName = companyName }
 
         /**
@@ -413,8 +591,11 @@ private constructor(
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-         * prenotification was created.
+         * Sets [Builder.createdAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
@@ -422,11 +603,20 @@ private constructor(
         fun creditDebitIndicator(creditDebitIndicator: CreditDebitIndicator?) =
             creditDebitIndicator(JsonField.ofNullable(creditDebitIndicator))
 
-        /** If the notification is for a future credit or debit. */
+        /**
+         * Alias for calling [Builder.creditDebitIndicator] with
+         * `creditDebitIndicator.orElse(null)`.
+         */
         fun creditDebitIndicator(creditDebitIndicator: Optional<CreditDebitIndicator>) =
             creditDebitIndicator(creditDebitIndicator.getOrNull())
 
-        /** If the notification is for a future credit or debit. */
+        /**
+         * Sets [Builder.creditDebitIndicator] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.creditDebitIndicator] with a well-typed
+         * [CreditDebitIndicator] value instead. This method is primarily for setting the field to
+         * an undocumented or not yet supported value.
+         */
         fun creditDebitIndicator(creditDebitIndicator: JsonField<CreditDebitIndicator>) = apply {
             this.creditDebitIndicator = creditDebitIndicator
         }
@@ -435,11 +625,17 @@ private constructor(
         fun effectiveDate(effectiveDate: OffsetDateTime?) =
             effectiveDate(JsonField.ofNullable(effectiveDate))
 
-        /** The effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. */
+        /** Alias for calling [Builder.effectiveDate] with `effectiveDate.orElse(null)`. */
         fun effectiveDate(effectiveDate: Optional<OffsetDateTime>) =
             effectiveDate(effectiveDate.getOrNull())
 
-        /** The effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. */
+        /**
+         * Sets [Builder.effectiveDate] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.effectiveDate] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun effectiveDate(effectiveDate: JsonField<OffsetDateTime>) = apply {
             this.effectiveDate = effectiveDate
         }
@@ -452,18 +648,16 @@ private constructor(
         fun idempotencyKey(idempotencyKey: String?) =
             idempotencyKey(JsonField.ofNullable(idempotencyKey))
 
-        /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
-         */
+        /** Alias for calling [Builder.idempotencyKey] with `idempotencyKey.orElse(null)`. */
         fun idempotencyKey(idempotencyKey: Optional<String>) =
             idempotencyKey(idempotencyKey.getOrNull())
 
         /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         * Sets [Builder.idempotencyKey] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.idempotencyKey] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
             this.idempotencyKey = idempotencyKey
@@ -477,8 +671,11 @@ private constructor(
             notificationsOfChange(JsonField.of(notificationsOfChange))
 
         /**
-         * If the receiving bank notifies that future transfers should use different details, this
-         * will contain those details.
+         * Sets [Builder.notificationsOfChange] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.notificationsOfChange] with a well-typed
+         * `List<NotificationsOfChange>` value instead. This method is primarily for setting the
+         * field to an undocumented or not yet supported value.
          */
         fun notificationsOfChange(notificationsOfChange: JsonField<List<NotificationsOfChange>>) =
             apply {
@@ -486,8 +683,9 @@ private constructor(
             }
 
         /**
-         * If the receiving bank notifies that future transfers should use different details, this
-         * will contain those details.
+         * Adds a single [NotificationsOfChange] to [Builder.notificationsOfChange].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
          */
         fun addNotificationsOfChange(notificationsOfChange: NotificationsOfChange) = apply {
             this.notificationsOfChange =
@@ -500,11 +698,20 @@ private constructor(
         fun prenotificationReturn(prenotificationReturn: PrenotificationReturn?) =
             prenotificationReturn(JsonField.ofNullable(prenotificationReturn))
 
-        /** If your prenotification is returned, this will contain details of the return. */
+        /**
+         * Alias for calling [Builder.prenotificationReturn] with
+         * `prenotificationReturn.orElse(null)`.
+         */
         fun prenotificationReturn(prenotificationReturn: Optional<PrenotificationReturn>) =
             prenotificationReturn(prenotificationReturn.getOrNull())
 
-        /** If your prenotification is returned, this will contain details of the return. */
+        /**
+         * Sets [Builder.prenotificationReturn] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.prenotificationReturn] with a well-typed
+         * [PrenotificationReturn] value instead. This method is primarily for setting the field to
+         * an undocumented or not yet supported value.
+         */
         fun prenotificationReturn(prenotificationReturn: JsonField<PrenotificationReturn>) = apply {
             this.prenotificationReturn = prenotificationReturn
         }
@@ -512,7 +719,13 @@ private constructor(
         /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
         fun routingNumber(routingNumber: String) = routingNumber(JsonField.of(routingNumber))
 
-        /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
+        /**
+         * Sets [Builder.routingNumber] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.routingNumber] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun routingNumber(routingNumber: JsonField<String>) = apply {
             this.routingNumber = routingNumber
         }
@@ -520,7 +733,12 @@ private constructor(
         /** The lifecycle status of the ACH Prenotification. */
         fun status(status: Status) = status(JsonField.of(status))
 
-        /** The lifecycle status of the ACH Prenotification. */
+        /**
+         * Sets [Builder.status] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.status] with a well-typed [Status] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /**
@@ -530,8 +748,10 @@ private constructor(
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
-         * A constant representing the object's type. For this resource it will always be
-         * `ach_prenotification`.
+         * Sets [Builder.type] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.type] with a well-typed [Type] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
@@ -554,6 +774,33 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [AchPrenotification].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .accountNumber()
+         * .addendum()
+         * .companyDescriptiveDate()
+         * .companyDiscretionaryData()
+         * .companyEntryDescription()
+         * .companyName()
+         * .createdAt()
+         * .creditDebitIndicator()
+         * .effectiveDate()
+         * .idempotencyKey()
+         * .notificationsOfChange()
+         * .prenotificationReturn()
+         * .routingNumber()
+         * .status()
+         * .type()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): AchPrenotification =
             AchPrenotification(
                 checkRequired("id", id),
@@ -711,6 +958,9 @@ private constructor(
         /**
          * The required type of change that is being signaled by the receiving financial
          * institution.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun changeCode(): ChangeCode = changeCode.getRequired("change_code")
 
@@ -720,37 +970,44 @@ private constructor(
          * `incorrect_transaction_code`, this field contains an integer. Numbers starting with a 2
          * encourage changing the `funding` parameter to checking; numbers starting with a 3
          * encourage changing to savings.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun correctedData(): String = correctedData.getRequired("corrected_data")
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
          * notification occurred.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
         /**
-         * The required type of change that is being signaled by the receiving financial
-         * institution.
+         * Returns the raw JSON value of [changeCode].
+         *
+         * Unlike [changeCode], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("change_code")
         @ExcludeMissing
         fun _changeCode(): JsonField<ChangeCode> = changeCode
 
         /**
-         * The corrected data that should be used in future ACHs to this account. This may contain
-         * the suggested new account number or routing number. When the `change_code` is
-         * `incorrect_transaction_code`, this field contains an integer. Numbers starting with a 2
-         * encourage changing the `funding` parameter to checking; numbers starting with a 3
-         * encourage changing to savings.
+         * Returns the raw JSON value of [correctedData].
+         *
+         * Unlike [correctedData], this method doesn't throw if the JSON field has an unexpected
+         * type.
          */
         @JsonProperty("corrected_data")
         @ExcludeMissing
         fun _correctedData(): JsonField<String> = correctedData
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-         * notification occurred.
+         * Returns the raw JSON value of [createdAt].
+         *
+         * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("created_at")
         @ExcludeMissing
@@ -813,8 +1070,11 @@ private constructor(
             fun changeCode(changeCode: ChangeCode) = changeCode(JsonField.of(changeCode))
 
             /**
-             * The required type of change that is being signaled by the receiving financial
-             * institution.
+             * Sets [Builder.changeCode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.changeCode] with a well-typed [ChangeCode] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun changeCode(changeCode: JsonField<ChangeCode>) = apply {
                 this.changeCode = changeCode
@@ -830,11 +1090,11 @@ private constructor(
             fun correctedData(correctedData: String) = correctedData(JsonField.of(correctedData))
 
             /**
-             * The corrected data that should be used in future ACHs to this account. This may
-             * contain the suggested new account number or routing number. When the `change_code` is
-             * `incorrect_transaction_code`, this field contains an integer. Numbers starting with a
-             * 2 encourage changing the `funding` parameter to checking; numbers starting with a 3
-             * encourage changing to savings.
+             * Sets [Builder.correctedData] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.correctedData] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun correctedData(correctedData: JsonField<String>) = apply {
                 this.correctedData = correctedData
@@ -847,8 +1107,11 @@ private constructor(
             fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
             /**
-             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-             * notification occurred.
+             * Sets [Builder.createdAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
                 this.createdAt = createdAt
@@ -873,6 +1136,20 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [NotificationsOfChange].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .changeCode()
+             * .correctedData()
+             * .createdAt()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): NotificationsOfChange =
                 NotificationsOfChange(
                     checkRequired("changeCode", changeCode),
@@ -1273,22 +1550,36 @@ private constructor(
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
          * Prenotification was returned.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
-        /** Why the Prenotification was returned. */
+        /**
+         * Why the Prenotification was returned.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun returnReasonCode(): ReturnReasonCode =
             returnReasonCode.getRequired("return_reason_code")
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-         * Prenotification was returned.
+         * Returns the raw JSON value of [createdAt].
+         *
+         * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("created_at")
         @ExcludeMissing
         fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
-        /** Why the Prenotification was returned. */
+        /**
+         * Returns the raw JSON value of [returnReasonCode].
+         *
+         * Unlike [returnReasonCode], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("return_reason_code")
         @ExcludeMissing
         fun _returnReasonCode(): JsonField<ReturnReasonCode> = returnReasonCode
@@ -1346,8 +1637,11 @@ private constructor(
             fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
             /**
-             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-             * Prenotification was returned.
+             * Sets [Builder.createdAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
                 this.createdAt = createdAt
@@ -1357,7 +1651,13 @@ private constructor(
             fun returnReasonCode(returnReasonCode: ReturnReasonCode) =
                 returnReasonCode(JsonField.of(returnReasonCode))
 
-            /** Why the Prenotification was returned. */
+            /**
+             * Sets [Builder.returnReasonCode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.returnReasonCode] with a well-typed
+             * [ReturnReasonCode] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
             fun returnReasonCode(returnReasonCode: JsonField<ReturnReasonCode>) = apply {
                 this.returnReasonCode = returnReasonCode
             }
@@ -1381,6 +1681,19 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [PrenotificationReturn].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .createdAt()
+             * .returnReasonCode()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): PrenotificationReturn =
                 PrenotificationReturn(
                     checkRequired("createdAt", createdAt),

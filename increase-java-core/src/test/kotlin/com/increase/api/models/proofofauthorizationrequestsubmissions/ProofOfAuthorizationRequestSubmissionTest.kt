@@ -6,13 +6,14 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class ProofOfAuthorizationRequestSubmissionTest {
+internal class ProofOfAuthorizationRequestSubmissionTest {
 
     @Test
-    fun createProofOfAuthorizationRequestSubmission() {
+    fun create() {
         val proofOfAuthorizationRequestSubmission =
             ProofOfAuthorizationRequestSubmission.builder()
                 .id("proof_of_authorization_request_submission_uqhqroiley7n0097vizn")
+                .additionalEvidenceFileId(null)
                 .authorizationTerms("I agree to the terms.")
                 .authorizedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .authorizerCompany("National Phonograph Company")
@@ -35,9 +36,10 @@ class ProofOfAuthorizationRequestSubmissionTest {
                 .validatedAccountOwnershipWithAccountStatement(false)
                 .validatedAccountOwnershipWithMicrodeposit(true)
                 .build()
-        assertThat(proofOfAuthorizationRequestSubmission).isNotNull
+
         assertThat(proofOfAuthorizationRequestSubmission.id())
             .isEqualTo("proof_of_authorization_request_submission_uqhqroiley7n0097vizn")
+        assertThat(proofOfAuthorizationRequestSubmission.additionalEvidenceFileId()).isEmpty
         assertThat(proofOfAuthorizationRequestSubmission.authorizationTerms())
             .isEqualTo("I agree to the terms.")
         assertThat(proofOfAuthorizationRequestSubmission.authorizedAt())

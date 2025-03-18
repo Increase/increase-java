@@ -30,28 +30,64 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** The Account the Account Number should belong to. */
+    /**
+     * The Account the Account Number should belong to.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun accountId(): String = body.accountId()
 
-    /** The name you choose for the Account Number. */
+    /**
+     * The name you choose for the Account Number.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun name(): String = body.name()
 
-    /** Options related to how this Account Number should handle inbound ACH transfers. */
+    /**
+     * Options related to how this Account Number should handle inbound ACH transfers.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun inboundAch(): Optional<InboundAch> = body.inboundAch()
 
-    /** Options related to how this Account Number should handle inbound check withdrawals. */
+    /**
+     * Options related to how this Account Number should handle inbound check withdrawals.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun inboundChecks(): Optional<InboundChecks> = body.inboundChecks()
 
-    /** The Account the Account Number should belong to. */
+    /**
+     * Returns the raw JSON value of [accountId].
+     *
+     * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _accountId(): JsonField<String> = body._accountId()
 
-    /** The name you choose for the Account Number. */
+    /**
+     * Returns the raw JSON value of [name].
+     *
+     * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _name(): JsonField<String> = body._name()
 
-    /** Options related to how this Account Number should handle inbound ACH transfers. */
+    /**
+     * Returns the raw JSON value of [inboundAch].
+     *
+     * Unlike [inboundAch], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _inboundAch(): JsonField<InboundAch> = body._inboundAch()
 
-    /** Options related to how this Account Number should handle inbound check withdrawals. */
+    /**
+     * Returns the raw JSON value of [inboundChecks].
+     *
+     * Unlike [inboundChecks], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _inboundChecks(): JsonField<InboundChecks> = body._inboundChecks()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
@@ -86,32 +122,69 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The Account the Account Number should belong to. */
+        /**
+         * The Account the Account Number should belong to.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun accountId(): String = accountId.getRequired("account_id")
 
-        /** The name you choose for the Account Number. */
+        /**
+         * The name you choose for the Account Number.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun name(): String = name.getRequired("name")
 
-        /** Options related to how this Account Number should handle inbound ACH transfers. */
+        /**
+         * Options related to how this Account Number should handle inbound ACH transfers.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun inboundAch(): Optional<InboundAch> =
             Optional.ofNullable(inboundAch.getNullable("inbound_ach"))
 
-        /** Options related to how this Account Number should handle inbound check withdrawals. */
+        /**
+         * Options related to how this Account Number should handle inbound check withdrawals.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun inboundChecks(): Optional<InboundChecks> =
             Optional.ofNullable(inboundChecks.getNullable("inbound_checks"))
 
-        /** The Account the Account Number should belong to. */
+        /**
+         * Returns the raw JSON value of [accountId].
+         *
+         * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
 
-        /** The name you choose for the Account Number. */
+        /**
+         * Returns the raw JSON value of [name].
+         *
+         * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
-        /** Options related to how this Account Number should handle inbound ACH transfers. */
+        /**
+         * Returns the raw JSON value of [inboundAch].
+         *
+         * Unlike [inboundAch], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("inbound_ach")
         @ExcludeMissing
         fun _inboundAch(): JsonField<InboundAch> = inboundAch
 
-        /** Options related to how this Account Number should handle inbound check withdrawals. */
+        /**
+         * Returns the raw JSON value of [inboundChecks].
+         *
+         * Unlike [inboundChecks], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("inbound_checks")
         @ExcludeMissing
         fun _inboundChecks(): JsonField<InboundChecks> = inboundChecks
@@ -171,19 +244,37 @@ private constructor(
             /** The Account the Account Number should belong to. */
             fun accountId(accountId: String) = accountId(JsonField.of(accountId))
 
-            /** The Account the Account Number should belong to. */
+            /**
+             * Sets [Builder.accountId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.accountId] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
             /** The name you choose for the Account Number. */
             fun name(name: String) = name(JsonField.of(name))
 
-            /** The name you choose for the Account Number. */
+            /**
+             * Sets [Builder.name] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.name] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
             fun name(name: JsonField<String>) = apply { this.name = name }
 
             /** Options related to how this Account Number should handle inbound ACH transfers. */
             fun inboundAch(inboundAch: InboundAch) = inboundAch(JsonField.of(inboundAch))
 
-            /** Options related to how this Account Number should handle inbound ACH transfers. */
+            /**
+             * Sets [Builder.inboundAch] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.inboundAch] with a well-typed [InboundAch] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun inboundAch(inboundAch: JsonField<InboundAch>) = apply {
                 this.inboundAch = inboundAch
             }
@@ -195,7 +286,11 @@ private constructor(
                 inboundChecks(JsonField.of(inboundChecks))
 
             /**
-             * Options related to how this Account Number should handle inbound check withdrawals.
+             * Sets [Builder.inboundChecks] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.inboundChecks] with a well-typed [InboundChecks]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
              */
             fun inboundChecks(inboundChecks: JsonField<InboundChecks>) = apply {
                 this.inboundChecks = inboundChecks
@@ -220,6 +315,19 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Body].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .accountId()
+             * .name()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Body =
                 Body(
                     checkRequired("accountId", accountId),
@@ -282,19 +390,36 @@ private constructor(
         /** The Account the Account Number should belong to. */
         fun accountId(accountId: String) = apply { body.accountId(accountId) }
 
-        /** The Account the Account Number should belong to. */
+        /**
+         * Sets [Builder.accountId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.accountId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun accountId(accountId: JsonField<String>) = apply { body.accountId(accountId) }
 
         /** The name you choose for the Account Number. */
         fun name(name: String) = apply { body.name(name) }
 
-        /** The name you choose for the Account Number. */
+        /**
+         * Sets [Builder.name] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.name] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun name(name: JsonField<String>) = apply { body.name(name) }
 
         /** Options related to how this Account Number should handle inbound ACH transfers. */
         fun inboundAch(inboundAch: InboundAch) = apply { body.inboundAch(inboundAch) }
 
-        /** Options related to how this Account Number should handle inbound ACH transfers. */
+        /**
+         * Sets [Builder.inboundAch] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.inboundAch] with a well-typed [InboundAch] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun inboundAch(inboundAch: JsonField<InboundAch>) = apply { body.inboundAch(inboundAch) }
 
         /** Options related to how this Account Number should handle inbound check withdrawals. */
@@ -302,7 +427,13 @@ private constructor(
             body.inboundChecks(inboundChecks)
         }
 
-        /** Options related to how this Account Number should handle inbound check withdrawals. */
+        /**
+         * Sets [Builder.inboundChecks] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.inboundChecks] with a well-typed [InboundChecks] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun inboundChecks(inboundChecks: JsonField<InboundChecks>) = apply {
             body.inboundChecks(inboundChecks)
         }
@@ -424,6 +555,19 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [AccountNumberCreateParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .accountId()
+         * .name()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): AccountNumberCreateParams =
             AccountNumberCreateParams(
                 body.build(),
@@ -448,13 +592,16 @@ private constructor(
          * Whether ACH debits are allowed against this Account Number. Note that ACH debits will be
          * declined if this is `allowed` but the Account Number is not active. If you do not specify
          * this field, the default is `allowed`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun debitStatus(): DebitStatus = debitStatus.getRequired("debit_status")
 
         /**
-         * Whether ACH debits are allowed against this Account Number. Note that ACH debits will be
-         * declined if this is `allowed` but the Account Number is not active. If you do not specify
-         * this field, the default is `allowed`.
+         * Returns the raw JSON value of [debitStatus].
+         *
+         * Unlike [debitStatus], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("debit_status")
         @ExcludeMissing
@@ -510,9 +657,11 @@ private constructor(
             fun debitStatus(debitStatus: DebitStatus) = debitStatus(JsonField.of(debitStatus))
 
             /**
-             * Whether ACH debits are allowed against this Account Number. Note that ACH debits will
-             * be declined if this is `allowed` but the Account Number is not active. If you do not
-             * specify this field, the default is `allowed`.
+             * Sets [Builder.debitStatus] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.debitStatus] with a well-typed [DebitStatus] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun debitStatus(debitStatus: JsonField<DebitStatus>) = apply {
                 this.debitStatus = debitStatus
@@ -537,6 +686,18 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [InboundAch].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .debitStatus()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): InboundAch =
                 InboundAch(
                     checkRequired("debitStatus", debitStatus),
@@ -692,12 +853,16 @@ private constructor(
         /**
          * How Increase should process checks with this account number printed on them. If you do
          * not specify this field, the default is `check_transfers_only`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun status(): Status = status.getRequired("status")
 
         /**
-         * How Increase should process checks with this account number printed on them. If you do
-         * not specify this field, the default is `check_transfers_only`.
+         * Returns the raw JSON value of [status].
+         *
+         * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
@@ -750,8 +915,11 @@ private constructor(
             fun status(status: Status) = status(JsonField.of(status))
 
             /**
-             * How Increase should process checks with this account number printed on them. If you
-             * do not specify this field, the default is `check_transfers_only`.
+             * Sets [Builder.status] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.status] with a well-typed [Status] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun status(status: JsonField<Status>) = apply { this.status = status }
 
@@ -774,6 +942,18 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [InboundChecks].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .status()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): InboundChecks =
                 InboundChecks(checkRequired("status", status), additionalProperties.toImmutable())
         }

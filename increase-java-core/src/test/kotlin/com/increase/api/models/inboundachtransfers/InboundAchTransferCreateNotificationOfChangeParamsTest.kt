@@ -6,7 +6,7 @@ import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class InboundAchTransferCreateNotificationOfChangeParamsTest {
+internal class InboundAchTransferCreateNotificationOfChangeParamsTest {
 
     @Test
     fun create() {
@@ -15,6 +15,18 @@ class InboundAchTransferCreateNotificationOfChangeParamsTest {
             .updatedAccountNumber("987654321")
             .updatedRoutingNumber("101050001")
             .build()
+    }
+
+    @Test
+    fun pathParams() {
+        val params =
+            InboundAchTransferCreateNotificationOfChangeParams.builder()
+                .inboundAchTransferId("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
+                .build()
+
+        assertThat(params._pathParam(0)).isEqualTo("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
+        // out-of-bound path param
+        assertThat(params._pathParam(1)).isEqualTo("")
     }
 
     @Test
@@ -43,18 +55,5 @@ class InboundAchTransferCreateNotificationOfChangeParamsTest {
         val body = params._body()
 
         assertNotNull(body)
-    }
-
-    @Test
-    fun getPathParam() {
-        val params =
-            InboundAchTransferCreateNotificationOfChangeParams.builder()
-                .inboundAchTransferId("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
-                .build()
-        assertThat(params).isNotNull
-        // path param "inboundAchTransferId"
-        assertThat(params.getPathParam(0)).isEqualTo("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
-        // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
     }
 }

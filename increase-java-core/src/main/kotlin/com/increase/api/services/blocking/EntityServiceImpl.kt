@@ -134,7 +134,7 @@ class EntityServiceImpl internal constructor(private val clientOptions: ClientOp
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
-                    .addPathSegments("entities", params.getPathParam(0))
+                    .addPathSegments("entities", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -188,7 +188,7 @@ class EntityServiceImpl internal constructor(private val clientOptions: ClientOp
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
-                    .addPathSegments("entities", params.getPathParam(0), "archive")
+                    .addPathSegments("entities", params._pathParam(0), "archive")
                     .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
                     .prepare(clientOptions, params)
@@ -215,7 +215,7 @@ class EntityServiceImpl internal constructor(private val clientOptions: ClientOp
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
-                    .addPathSegments("entities", params.getPathParam(0), "archive_beneficial_owner")
+                    .addPathSegments("entities", params._pathParam(0), "archive_beneficial_owner")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepare(clientOptions, params)
@@ -242,7 +242,7 @@ class EntityServiceImpl internal constructor(private val clientOptions: ClientOp
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
-                    .addPathSegments("entities", params.getPathParam(0), "confirm")
+                    .addPathSegments("entities", params._pathParam(0), "confirm")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepare(clientOptions, params)
@@ -269,7 +269,7 @@ class EntityServiceImpl internal constructor(private val clientOptions: ClientOp
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
-                    .addPathSegments("entities", params.getPathParam(0), "create_beneficial_owner")
+                    .addPathSegments("entities", params._pathParam(0), "create_beneficial_owner")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepare(clientOptions, params)
@@ -296,7 +296,7 @@ class EntityServiceImpl internal constructor(private val clientOptions: ClientOp
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
-                    .addPathSegments("entities", params.getPathParam(0), "update_address")
+                    .addPathSegments("entities", params._pathParam(0), "update_address")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepare(clientOptions, params)
@@ -325,7 +325,7 @@ class EntityServiceImpl internal constructor(private val clientOptions: ClientOp
                     .method(HttpMethod.POST)
                     .addPathSegments(
                         "entities",
-                        params.getPathParam(0),
+                        params._pathParam(0),
                         "update_beneficial_owner_address",
                     )
                     .body(json(clientOptions.jsonMapper, params._body()))
@@ -354,7 +354,7 @@ class EntityServiceImpl internal constructor(private val clientOptions: ClientOp
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
-                    .addPathSegments("entities", params.getPathParam(0), "update_industry_code")
+                    .addPathSegments("entities", params._pathParam(0), "update_industry_code")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepare(clientOptions, params)

@@ -89,32 +89,54 @@ private constructor(
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
-    /** The Wire drawdown request identifier. */
+    /**
+     * The Wire drawdown request identifier.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun id(): String = id.getRequired("id")
 
     /**
      * The Account Number to which the recipient of this request is being requested to send funds.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun accountNumberId(): String = accountNumberId.getRequired("account_number_id")
 
-    /** The amount being requested in cents. */
+    /**
+     * The amount being requested in cents.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun amount(): Long = amount.getRequired("amount")
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the wire
      * drawdown request was created.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
     /**
      * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the amount being requested.
      * Will always be "USD".
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun currency(): String = currency.getRequired("currency")
 
     /**
      * If the recipient fulfills the drawdown request by sending funds, then this will be the
      * identifier of the corresponding Transaction.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun fulfillmentInboundWireTransferId(): Optional<String> =
         Optional.ofNullable(
@@ -125,58 +147,124 @@ private constructor(
      * The idempotency key you chose for this object. This value is unique across Increase and is
      * used to ensure that a request is only processed once. Learn more about
      * [idempotency](https://increase.com/documentation/idempotency-keys).
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun idempotencyKey(): Optional<String> =
         Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
 
-    /** The message the recipient will see as part of the drawdown request. */
+    /**
+     * The message the recipient will see as part of the drawdown request.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun messageToRecipient(): String = messageToRecipient.getRequired("message_to_recipient")
 
-    /** The originator's address line 1. */
+    /**
+     * The originator's address line 1.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun originatorAddressLine1(): Optional<String> =
         Optional.ofNullable(originatorAddressLine1.getNullable("originator_address_line1"))
 
-    /** The originator's address line 2. */
+    /**
+     * The originator's address line 2.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun originatorAddressLine2(): Optional<String> =
         Optional.ofNullable(originatorAddressLine2.getNullable("originator_address_line2"))
 
-    /** The originator's address line 3. */
+    /**
+     * The originator's address line 3.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun originatorAddressLine3(): Optional<String> =
         Optional.ofNullable(originatorAddressLine3.getNullable("originator_address_line3"))
 
-    /** The originator's name. */
+    /**
+     * The originator's name.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun originatorName(): Optional<String> =
         Optional.ofNullable(originatorName.getNullable("originator_name"))
 
-    /** The drawdown request's recipient's account number. */
+    /**
+     * The drawdown request's recipient's account number.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun recipientAccountNumber(): String =
         recipientAccountNumber.getRequired("recipient_account_number")
 
-    /** Line 1 of the drawdown request's recipient's address. */
+    /**
+     * Line 1 of the drawdown request's recipient's address.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun recipientAddressLine1(): Optional<String> =
         Optional.ofNullable(recipientAddressLine1.getNullable("recipient_address_line1"))
 
-    /** Line 2 of the drawdown request's recipient's address. */
+    /**
+     * Line 2 of the drawdown request's recipient's address.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun recipientAddressLine2(): Optional<String> =
         Optional.ofNullable(recipientAddressLine2.getNullable("recipient_address_line2"))
 
-    /** Line 3 of the drawdown request's recipient's address. */
+    /**
+     * Line 3 of the drawdown request's recipient's address.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun recipientAddressLine3(): Optional<String> =
         Optional.ofNullable(recipientAddressLine3.getNullable("recipient_address_line3"))
 
-    /** The drawdown request's recipient's name. */
+    /**
+     * The drawdown request's recipient's name.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun recipientName(): Optional<String> =
         Optional.ofNullable(recipientName.getNullable("recipient_name"))
 
-    /** The drawdown request's recipient's routing number. */
+    /**
+     * The drawdown request's recipient's routing number.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun recipientRoutingNumber(): String =
         recipientRoutingNumber.getRequired("recipient_routing_number")
 
-    /** The lifecycle status of the drawdown request. */
+    /**
+     * The lifecycle status of the drawdown request.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun status(): Status = status.getRequired("status")
 
     /**
      * After the drawdown request is submitted to Fedwire, this will contain supplemental details.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun submission(): Optional<Submission> =
         Optional.ofNullable(submission.getNullable("submission"))
@@ -184,121 +272,198 @@ private constructor(
     /**
      * A constant representing the object's type. For this resource it will always be
      * `wire_drawdown_request`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun type(): Type = type.getRequired("type")
 
-    /** The Wire drawdown request identifier. */
+    /**
+     * Returns the raw JSON value of [id].
+     *
+     * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /**
-     * The Account Number to which the recipient of this request is being requested to send funds.
+     * Returns the raw JSON value of [accountNumberId].
+     *
+     * Unlike [accountNumberId], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("account_number_id")
     @ExcludeMissing
     fun _accountNumberId(): JsonField<String> = accountNumberId
 
-    /** The amount being requested in cents. */
+    /**
+     * Returns the raw JSON value of [amount].
+     *
+     * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the wire
-     * drawdown request was created.
+     * Returns the raw JSON value of [createdAt].
+     *
+     * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("created_at")
     @ExcludeMissing
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /**
-     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the amount being requested.
-     * Will always be "USD".
+     * Returns the raw JSON value of [currency].
+     *
+     * Unlike [currency], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("currency") @ExcludeMissing fun _currency(): JsonField<String> = currency
 
     /**
-     * If the recipient fulfills the drawdown request by sending funds, then this will be the
-     * identifier of the corresponding Transaction.
+     * Returns the raw JSON value of [fulfillmentInboundWireTransferId].
+     *
+     * Unlike [fulfillmentInboundWireTransferId], this method doesn't throw if the JSON field has an
+     * unexpected type.
      */
     @JsonProperty("fulfillment_inbound_wire_transfer_id")
     @ExcludeMissing
     fun _fulfillmentInboundWireTransferId(): JsonField<String> = fulfillmentInboundWireTransferId
 
     /**
-     * The idempotency key you chose for this object. This value is unique across Increase and is
-     * used to ensure that a request is only processed once. Learn more about
-     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     * Returns the raw JSON value of [idempotencyKey].
+     *
+     * Unlike [idempotencyKey], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("idempotency_key")
     @ExcludeMissing
     fun _idempotencyKey(): JsonField<String> = idempotencyKey
 
-    /** The message the recipient will see as part of the drawdown request. */
+    /**
+     * Returns the raw JSON value of [messageToRecipient].
+     *
+     * Unlike [messageToRecipient], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     @JsonProperty("message_to_recipient")
     @ExcludeMissing
     fun _messageToRecipient(): JsonField<String> = messageToRecipient
 
-    /** The originator's address line 1. */
+    /**
+     * Returns the raw JSON value of [originatorAddressLine1].
+     *
+     * Unlike [originatorAddressLine1], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
     @JsonProperty("originator_address_line1")
     @ExcludeMissing
     fun _originatorAddressLine1(): JsonField<String> = originatorAddressLine1
 
-    /** The originator's address line 2. */
+    /**
+     * Returns the raw JSON value of [originatorAddressLine2].
+     *
+     * Unlike [originatorAddressLine2], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
     @JsonProperty("originator_address_line2")
     @ExcludeMissing
     fun _originatorAddressLine2(): JsonField<String> = originatorAddressLine2
 
-    /** The originator's address line 3. */
+    /**
+     * Returns the raw JSON value of [originatorAddressLine3].
+     *
+     * Unlike [originatorAddressLine3], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
     @JsonProperty("originator_address_line3")
     @ExcludeMissing
     fun _originatorAddressLine3(): JsonField<String> = originatorAddressLine3
 
-    /** The originator's name. */
+    /**
+     * Returns the raw JSON value of [originatorName].
+     *
+     * Unlike [originatorName], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("originator_name")
     @ExcludeMissing
     fun _originatorName(): JsonField<String> = originatorName
 
-    /** The drawdown request's recipient's account number. */
+    /**
+     * Returns the raw JSON value of [recipientAccountNumber].
+     *
+     * Unlike [recipientAccountNumber], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
     @JsonProperty("recipient_account_number")
     @ExcludeMissing
     fun _recipientAccountNumber(): JsonField<String> = recipientAccountNumber
 
-    /** Line 1 of the drawdown request's recipient's address. */
+    /**
+     * Returns the raw JSON value of [recipientAddressLine1].
+     *
+     * Unlike [recipientAddressLine1], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     @JsonProperty("recipient_address_line1")
     @ExcludeMissing
     fun _recipientAddressLine1(): JsonField<String> = recipientAddressLine1
 
-    /** Line 2 of the drawdown request's recipient's address. */
+    /**
+     * Returns the raw JSON value of [recipientAddressLine2].
+     *
+     * Unlike [recipientAddressLine2], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     @JsonProperty("recipient_address_line2")
     @ExcludeMissing
     fun _recipientAddressLine2(): JsonField<String> = recipientAddressLine2
 
-    /** Line 3 of the drawdown request's recipient's address. */
+    /**
+     * Returns the raw JSON value of [recipientAddressLine3].
+     *
+     * Unlike [recipientAddressLine3], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     @JsonProperty("recipient_address_line3")
     @ExcludeMissing
     fun _recipientAddressLine3(): JsonField<String> = recipientAddressLine3
 
-    /** The drawdown request's recipient's name. */
+    /**
+     * Returns the raw JSON value of [recipientName].
+     *
+     * Unlike [recipientName], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("recipient_name")
     @ExcludeMissing
     fun _recipientName(): JsonField<String> = recipientName
 
-    /** The drawdown request's recipient's routing number. */
+    /**
+     * Returns the raw JSON value of [recipientRoutingNumber].
+     *
+     * Unlike [recipientRoutingNumber], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
     @JsonProperty("recipient_routing_number")
     @ExcludeMissing
     fun _recipientRoutingNumber(): JsonField<String> = recipientRoutingNumber
 
-    /** The lifecycle status of the drawdown request. */
+    /**
+     * Returns the raw JSON value of [status].
+     *
+     * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
     /**
-     * After the drawdown request is submitted to Fedwire, this will contain supplemental details.
+     * Returns the raw JSON value of [submission].
+     *
+     * Unlike [submission], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("submission")
     @ExcludeMissing
     fun _submission(): JsonField<Submission> = submission
 
     /**
-     * A constant representing the object's type. For this resource it will always be
-     * `wire_drawdown_request`.
+     * Returns the raw JSON value of [type].
+     *
+     * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
@@ -427,7 +592,12 @@ private constructor(
         /** The Wire drawdown request identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
-        /** The Wire drawdown request identifier. */
+        /**
+         * Sets [Builder.id] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.id] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
@@ -438,8 +608,11 @@ private constructor(
             accountNumberId(JsonField.of(accountNumberId))
 
         /**
-         * The Account Number to which the recipient of this request is being requested to send
-         * funds.
+         * Sets [Builder.accountNumberId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.accountNumberId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun accountNumberId(accountNumberId: JsonField<String>) = apply {
             this.accountNumberId = accountNumberId
@@ -448,7 +621,12 @@ private constructor(
         /** The amount being requested in cents. */
         fun amount(amount: Long) = amount(JsonField.of(amount))
 
-        /** The amount being requested in cents. */
+        /**
+         * Sets [Builder.amount] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
         /**
@@ -458,8 +636,11 @@ private constructor(
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the wire
-         * drawdown request was created.
+         * Sets [Builder.createdAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
@@ -470,8 +651,10 @@ private constructor(
         fun currency(currency: String) = currency(JsonField.of(currency))
 
         /**
-         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the amount being
-         * requested. Will always be "USD".
+         * Sets [Builder.currency] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.currency] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun currency(currency: JsonField<String>) = apply { this.currency = currency }
 
@@ -483,15 +666,18 @@ private constructor(
             fulfillmentInboundWireTransferId(JsonField.ofNullable(fulfillmentInboundWireTransferId))
 
         /**
-         * If the recipient fulfills the drawdown request by sending funds, then this will be the
-         * identifier of the corresponding Transaction.
+         * Alias for calling [Builder.fulfillmentInboundWireTransferId] with
+         * `fulfillmentInboundWireTransferId.orElse(null)`.
          */
         fun fulfillmentInboundWireTransferId(fulfillmentInboundWireTransferId: Optional<String>) =
             fulfillmentInboundWireTransferId(fulfillmentInboundWireTransferId.getOrNull())
 
         /**
-         * If the recipient fulfills the drawdown request by sending funds, then this will be the
-         * identifier of the corresponding Transaction.
+         * Sets [Builder.fulfillmentInboundWireTransferId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.fulfillmentInboundWireTransferId] with a well-typed
+         * [String] value instead. This method is primarily for setting the field to an undocumented
+         * or not yet supported value.
          */
         fun fulfillmentInboundWireTransferId(fulfillmentInboundWireTransferId: JsonField<String>) =
             apply {
@@ -506,18 +692,16 @@ private constructor(
         fun idempotencyKey(idempotencyKey: String?) =
             idempotencyKey(JsonField.ofNullable(idempotencyKey))
 
-        /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
-         */
+        /** Alias for calling [Builder.idempotencyKey] with `idempotencyKey.orElse(null)`. */
         fun idempotencyKey(idempotencyKey: Optional<String>) =
             idempotencyKey(idempotencyKey.getOrNull())
 
         /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         * Sets [Builder.idempotencyKey] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.idempotencyKey] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
             this.idempotencyKey = idempotencyKey
@@ -527,7 +711,13 @@ private constructor(
         fun messageToRecipient(messageToRecipient: String) =
             messageToRecipient(JsonField.of(messageToRecipient))
 
-        /** The message the recipient will see as part of the drawdown request. */
+        /**
+         * Sets [Builder.messageToRecipient] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.messageToRecipient] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun messageToRecipient(messageToRecipient: JsonField<String>) = apply {
             this.messageToRecipient = messageToRecipient
         }
@@ -536,11 +726,20 @@ private constructor(
         fun originatorAddressLine1(originatorAddressLine1: String?) =
             originatorAddressLine1(JsonField.ofNullable(originatorAddressLine1))
 
-        /** The originator's address line 1. */
+        /**
+         * Alias for calling [Builder.originatorAddressLine1] with
+         * `originatorAddressLine1.orElse(null)`.
+         */
         fun originatorAddressLine1(originatorAddressLine1: Optional<String>) =
             originatorAddressLine1(originatorAddressLine1.getOrNull())
 
-        /** The originator's address line 1. */
+        /**
+         * Sets [Builder.originatorAddressLine1] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.originatorAddressLine1] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun originatorAddressLine1(originatorAddressLine1: JsonField<String>) = apply {
             this.originatorAddressLine1 = originatorAddressLine1
         }
@@ -549,11 +748,20 @@ private constructor(
         fun originatorAddressLine2(originatorAddressLine2: String?) =
             originatorAddressLine2(JsonField.ofNullable(originatorAddressLine2))
 
-        /** The originator's address line 2. */
+        /**
+         * Alias for calling [Builder.originatorAddressLine2] with
+         * `originatorAddressLine2.orElse(null)`.
+         */
         fun originatorAddressLine2(originatorAddressLine2: Optional<String>) =
             originatorAddressLine2(originatorAddressLine2.getOrNull())
 
-        /** The originator's address line 2. */
+        /**
+         * Sets [Builder.originatorAddressLine2] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.originatorAddressLine2] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun originatorAddressLine2(originatorAddressLine2: JsonField<String>) = apply {
             this.originatorAddressLine2 = originatorAddressLine2
         }
@@ -562,11 +770,20 @@ private constructor(
         fun originatorAddressLine3(originatorAddressLine3: String?) =
             originatorAddressLine3(JsonField.ofNullable(originatorAddressLine3))
 
-        /** The originator's address line 3. */
+        /**
+         * Alias for calling [Builder.originatorAddressLine3] with
+         * `originatorAddressLine3.orElse(null)`.
+         */
         fun originatorAddressLine3(originatorAddressLine3: Optional<String>) =
             originatorAddressLine3(originatorAddressLine3.getOrNull())
 
-        /** The originator's address line 3. */
+        /**
+         * Sets [Builder.originatorAddressLine3] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.originatorAddressLine3] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun originatorAddressLine3(originatorAddressLine3: JsonField<String>) = apply {
             this.originatorAddressLine3 = originatorAddressLine3
         }
@@ -575,11 +792,17 @@ private constructor(
         fun originatorName(originatorName: String?) =
             originatorName(JsonField.ofNullable(originatorName))
 
-        /** The originator's name. */
+        /** Alias for calling [Builder.originatorName] with `originatorName.orElse(null)`. */
         fun originatorName(originatorName: Optional<String>) =
             originatorName(originatorName.getOrNull())
 
-        /** The originator's name. */
+        /**
+         * Sets [Builder.originatorName] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.originatorName] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun originatorName(originatorName: JsonField<String>) = apply {
             this.originatorName = originatorName
         }
@@ -588,7 +811,13 @@ private constructor(
         fun recipientAccountNumber(recipientAccountNumber: String) =
             recipientAccountNumber(JsonField.of(recipientAccountNumber))
 
-        /** The drawdown request's recipient's account number. */
+        /**
+         * Sets [Builder.recipientAccountNumber] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.recipientAccountNumber] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun recipientAccountNumber(recipientAccountNumber: JsonField<String>) = apply {
             this.recipientAccountNumber = recipientAccountNumber
         }
@@ -597,11 +826,20 @@ private constructor(
         fun recipientAddressLine1(recipientAddressLine1: String?) =
             recipientAddressLine1(JsonField.ofNullable(recipientAddressLine1))
 
-        /** Line 1 of the drawdown request's recipient's address. */
+        /**
+         * Alias for calling [Builder.recipientAddressLine1] with
+         * `recipientAddressLine1.orElse(null)`.
+         */
         fun recipientAddressLine1(recipientAddressLine1: Optional<String>) =
             recipientAddressLine1(recipientAddressLine1.getOrNull())
 
-        /** Line 1 of the drawdown request's recipient's address. */
+        /**
+         * Sets [Builder.recipientAddressLine1] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.recipientAddressLine1] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun recipientAddressLine1(recipientAddressLine1: JsonField<String>) = apply {
             this.recipientAddressLine1 = recipientAddressLine1
         }
@@ -610,11 +848,20 @@ private constructor(
         fun recipientAddressLine2(recipientAddressLine2: String?) =
             recipientAddressLine2(JsonField.ofNullable(recipientAddressLine2))
 
-        /** Line 2 of the drawdown request's recipient's address. */
+        /**
+         * Alias for calling [Builder.recipientAddressLine2] with
+         * `recipientAddressLine2.orElse(null)`.
+         */
         fun recipientAddressLine2(recipientAddressLine2: Optional<String>) =
             recipientAddressLine2(recipientAddressLine2.getOrNull())
 
-        /** Line 2 of the drawdown request's recipient's address. */
+        /**
+         * Sets [Builder.recipientAddressLine2] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.recipientAddressLine2] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun recipientAddressLine2(recipientAddressLine2: JsonField<String>) = apply {
             this.recipientAddressLine2 = recipientAddressLine2
         }
@@ -623,11 +870,20 @@ private constructor(
         fun recipientAddressLine3(recipientAddressLine3: String?) =
             recipientAddressLine3(JsonField.ofNullable(recipientAddressLine3))
 
-        /** Line 3 of the drawdown request's recipient's address. */
+        /**
+         * Alias for calling [Builder.recipientAddressLine3] with
+         * `recipientAddressLine3.orElse(null)`.
+         */
         fun recipientAddressLine3(recipientAddressLine3: Optional<String>) =
             recipientAddressLine3(recipientAddressLine3.getOrNull())
 
-        /** Line 3 of the drawdown request's recipient's address. */
+        /**
+         * Sets [Builder.recipientAddressLine3] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.recipientAddressLine3] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun recipientAddressLine3(recipientAddressLine3: JsonField<String>) = apply {
             this.recipientAddressLine3 = recipientAddressLine3
         }
@@ -636,11 +892,17 @@ private constructor(
         fun recipientName(recipientName: String?) =
             recipientName(JsonField.ofNullable(recipientName))
 
-        /** The drawdown request's recipient's name. */
+        /** Alias for calling [Builder.recipientName] with `recipientName.orElse(null)`. */
         fun recipientName(recipientName: Optional<String>) =
             recipientName(recipientName.getOrNull())
 
-        /** The drawdown request's recipient's name. */
+        /**
+         * Sets [Builder.recipientName] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.recipientName] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun recipientName(recipientName: JsonField<String>) = apply {
             this.recipientName = recipientName
         }
@@ -649,7 +911,13 @@ private constructor(
         fun recipientRoutingNumber(recipientRoutingNumber: String) =
             recipientRoutingNumber(JsonField.of(recipientRoutingNumber))
 
-        /** The drawdown request's recipient's routing number. */
+        /**
+         * Sets [Builder.recipientRoutingNumber] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.recipientRoutingNumber] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun recipientRoutingNumber(recipientRoutingNumber: JsonField<String>) = apply {
             this.recipientRoutingNumber = recipientRoutingNumber
         }
@@ -657,7 +925,12 @@ private constructor(
         /** The lifecycle status of the drawdown request. */
         fun status(status: Status) = status(JsonField.of(status))
 
-        /** The lifecycle status of the drawdown request. */
+        /**
+         * Sets [Builder.status] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.status] with a well-typed [Status] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /**
@@ -666,15 +939,15 @@ private constructor(
          */
         fun submission(submission: Submission?) = submission(JsonField.ofNullable(submission))
 
-        /**
-         * After the drawdown request is submitted to Fedwire, this will contain supplemental
-         * details.
-         */
+        /** Alias for calling [Builder.submission] with `submission.orElse(null)`. */
         fun submission(submission: Optional<Submission>) = submission(submission.getOrNull())
 
         /**
-         * After the drawdown request is submitted to Fedwire, this will contain supplemental
-         * details.
+         * Sets [Builder.submission] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.submission] with a well-typed [Submission] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun submission(submission: JsonField<Submission>) = apply { this.submission = submission }
 
@@ -685,8 +958,10 @@ private constructor(
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
-         * A constant representing the object's type. For this resource it will always be
-         * `wire_drawdown_request`.
+         * Sets [Builder.type] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.type] with a well-typed [Type] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
@@ -709,6 +984,38 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [WireDrawdownRequest].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .accountNumberId()
+         * .amount()
+         * .createdAt()
+         * .currency()
+         * .fulfillmentInboundWireTransferId()
+         * .idempotencyKey()
+         * .messageToRecipient()
+         * .originatorAddressLine1()
+         * .originatorAddressLine2()
+         * .originatorAddressLine3()
+         * .originatorName()
+         * .recipientAccountNumber()
+         * .recipientAddressLine1()
+         * .recipientAddressLine2()
+         * .recipientAddressLine3()
+         * .recipientName()
+         * .recipientRoutingNumber()
+         * .status()
+         * .submission()
+         * .type()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): WireDrawdownRequest =
             WireDrawdownRequest(
                 checkRequired("id", id),
@@ -878,13 +1185,18 @@ private constructor(
         /**
          * The input message accountability data (IMAD) uniquely identifying the submission with
          * Fedwire.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun inputMessageAccountabilityData(): String =
             inputMessageAccountabilityData.getRequired("input_message_accountability_data")
 
         /**
-         * The input message accountability data (IMAD) uniquely identifying the submission with
-         * Fedwire.
+         * Returns the raw JSON value of [inputMessageAccountabilityData].
+         *
+         * Unlike [inputMessageAccountabilityData], this method doesn't throw if the JSON field has
+         * an unexpected type.
          */
         @JsonProperty("input_message_accountability_data")
         @ExcludeMissing
@@ -940,8 +1252,11 @@ private constructor(
                 inputMessageAccountabilityData(JsonField.of(inputMessageAccountabilityData))
 
             /**
-             * The input message accountability data (IMAD) uniquely identifying the submission with
-             * Fedwire.
+             * Sets [Builder.inputMessageAccountabilityData] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.inputMessageAccountabilityData] with a well-typed
+             * [String] value instead. This method is primarily for setting the field to an
+             * undocumented or not yet supported value.
              */
             fun inputMessageAccountabilityData(inputMessageAccountabilityData: JsonField<String>) =
                 apply {
@@ -967,6 +1282,18 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Submission].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .inputMessageAccountabilityData()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Submission =
                 Submission(
                     checkRequired("inputMessageAccountabilityData", inputMessageAccountabilityData),

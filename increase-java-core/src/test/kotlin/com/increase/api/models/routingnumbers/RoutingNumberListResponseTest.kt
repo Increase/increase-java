@@ -5,10 +5,10 @@ package com.increase.api.models.routingnumbers
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class RoutingNumberListResponseTest {
+internal class RoutingNumberListResponseTest {
 
     @Test
-    fun createRoutingNumberListResponse() {
+    fun create() {
         val routingNumberListResponse =
             RoutingNumberListResponse.builder()
                 .achTransfers(RoutingNumberListResponse.AchTransfers.SUPPORTED)
@@ -20,7 +20,7 @@ class RoutingNumberListResponseTest {
                 .type(RoutingNumberListResponse.Type.ROUTING_NUMBER)
                 .wireTransfers(RoutingNumberListResponse.WireTransfers.SUPPORTED)
                 .build()
-        assertThat(routingNumberListResponse).isNotNull
+
         assertThat(routingNumberListResponse.achTransfers())
             .isEqualTo(RoutingNumberListResponse.AchTransfers.SUPPORTED)
         assertThat(routingNumberListResponse.name()).isEqualTo("First Bank of the United States")

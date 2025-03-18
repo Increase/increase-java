@@ -5,7 +5,7 @@ package com.increase.api.models.oauthapplications
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class OAuthApplicationRetrieveParamsTest {
+internal class OAuthApplicationRetrieveParamsTest {
 
     @Test
     fun create() {
@@ -15,15 +15,14 @@ class OAuthApplicationRetrieveParamsTest {
     }
 
     @Test
-    fun getPathParam() {
+    fun pathParams() {
         val params =
             OAuthApplicationRetrieveParams.builder()
                 .oauthApplicationId("application_gj9ufmpgh5i56k4vyriy")
                 .build()
-        assertThat(params).isNotNull
-        // path param "oauthApplicationId"
-        assertThat(params.getPathParam(0)).isEqualTo("application_gj9ufmpgh5i56k4vyriy")
+
+        assertThat(params._pathParam(0)).isEqualTo("application_gj9ufmpgh5i56k4vyriy")
         // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
+        assertThat(params._pathParam(1)).isEqualTo("")
     }
 }

@@ -47,53 +47,102 @@ private constructor(
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
-    /** The Card Purchase Supplement identifier. */
+    /**
+     * The Card Purchase Supplement identifier.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun id(): String = id.getRequired("id")
 
-    /** The ID of the Card Payment this transaction belongs to. */
+    /**
+     * The ID of the Card Payment this transaction belongs to.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun cardPaymentId(): Optional<String> =
         Optional.ofNullable(cardPaymentId.getNullable("card_payment_id"))
 
-    /** Invoice-level information about the payment. */
+    /**
+     * Invoice-level information about the payment.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun invoice(): Optional<Invoice> = Optional.ofNullable(invoice.getNullable("invoice"))
 
-    /** Line item information, such as individual products purchased. */
+    /**
+     * Line item information, such as individual products purchased.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun lineItems(): Optional<List<LineItem>> =
         Optional.ofNullable(lineItems.getNullable("line_items"))
 
-    /** The ID of the transaction. */
+    /**
+     * The ID of the transaction.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun transactionId(): String = transactionId.getRequired("transaction_id")
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `card_purchase_supplement`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun type(): Type = type.getRequired("type")
 
-    /** The Card Purchase Supplement identifier. */
+    /**
+     * Returns the raw JSON value of [id].
+     *
+     * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
-    /** The ID of the Card Payment this transaction belongs to. */
+    /**
+     * Returns the raw JSON value of [cardPaymentId].
+     *
+     * Unlike [cardPaymentId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("card_payment_id")
     @ExcludeMissing
     fun _cardPaymentId(): JsonField<String> = cardPaymentId
 
-    /** Invoice-level information about the payment. */
+    /**
+     * Returns the raw JSON value of [invoice].
+     *
+     * Unlike [invoice], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("invoice") @ExcludeMissing fun _invoice(): JsonField<Invoice> = invoice
 
-    /** Line item information, such as individual products purchased. */
+    /**
+     * Returns the raw JSON value of [lineItems].
+     *
+     * Unlike [lineItems], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("line_items")
     @ExcludeMissing
     fun _lineItems(): JsonField<List<LineItem>> = lineItems
 
-    /** The ID of the transaction. */
+    /**
+     * Returns the raw JSON value of [transactionId].
+     *
+     * Unlike [transactionId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("transaction_id")
     @ExcludeMissing
     fun _transactionId(): JsonField<String> = transactionId
 
     /**
-     * A constant representing the object's type. For this resource it will always be
-     * `card_purchase_supplement`.
+     * Returns the raw JSON value of [type].
+     *
+     * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
@@ -162,18 +211,29 @@ private constructor(
         /** The Card Purchase Supplement identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
-        /** The Card Purchase Supplement identifier. */
+        /**
+         * Sets [Builder.id] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.id] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The ID of the Card Payment this transaction belongs to. */
         fun cardPaymentId(cardPaymentId: String?) =
             cardPaymentId(JsonField.ofNullable(cardPaymentId))
 
-        /** The ID of the Card Payment this transaction belongs to. */
+        /** Alias for calling [Builder.cardPaymentId] with `cardPaymentId.orElse(null)`. */
         fun cardPaymentId(cardPaymentId: Optional<String>) =
             cardPaymentId(cardPaymentId.getOrNull())
 
-        /** The ID of the Card Payment this transaction belongs to. */
+        /**
+         * Sets [Builder.cardPaymentId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.cardPaymentId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun cardPaymentId(cardPaymentId: JsonField<String>) = apply {
             this.cardPaymentId = cardPaymentId
         }
@@ -181,24 +241,39 @@ private constructor(
         /** Invoice-level information about the payment. */
         fun invoice(invoice: Invoice?) = invoice(JsonField.ofNullable(invoice))
 
-        /** Invoice-level information about the payment. */
+        /** Alias for calling [Builder.invoice] with `invoice.orElse(null)`. */
         fun invoice(invoice: Optional<Invoice>) = invoice(invoice.getOrNull())
 
-        /** Invoice-level information about the payment. */
+        /**
+         * Sets [Builder.invoice] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.invoice] with a well-typed [Invoice] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun invoice(invoice: JsonField<Invoice>) = apply { this.invoice = invoice }
 
         /** Line item information, such as individual products purchased. */
         fun lineItems(lineItems: List<LineItem>?) = lineItems(JsonField.ofNullable(lineItems))
 
-        /** Line item information, such as individual products purchased. */
+        /** Alias for calling [Builder.lineItems] with `lineItems.orElse(null)`. */
         fun lineItems(lineItems: Optional<List<LineItem>>) = lineItems(lineItems.getOrNull())
 
-        /** Line item information, such as individual products purchased. */
+        /**
+         * Sets [Builder.lineItems] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.lineItems] with a well-typed `List<LineItem>` value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun lineItems(lineItems: JsonField<List<LineItem>>) = apply {
             this.lineItems = lineItems.map { it.toMutableList() }
         }
 
-        /** Line item information, such as individual products purchased. */
+        /**
+         * Adds a single [LineItem] to [lineItems].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
         fun addLineItem(lineItem: LineItem) = apply {
             lineItems =
                 (lineItems ?: JsonField.of(mutableListOf())).also {
@@ -209,7 +284,13 @@ private constructor(
         /** The ID of the transaction. */
         fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
 
-        /** The ID of the transaction. */
+        /**
+         * Sets [Builder.transactionId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.transactionId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun transactionId(transactionId: JsonField<String>) = apply {
             this.transactionId = transactionId
         }
@@ -221,8 +302,10 @@ private constructor(
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
-         * A constant representing the object's type. For this resource it will always be
-         * `card_purchase_supplement`.
+         * Sets [Builder.type] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.type] with a well-typed [Type] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
@@ -245,6 +328,23 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [CardPurchaseSupplement].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .cardPaymentId()
+         * .invoice()
+         * .lineItems()
+         * .transactionId()
+         * .type()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): CardPurchaseSupplement =
             CardPurchaseSupplement(
                 checkRequired("id", id),
@@ -314,71 +414,151 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** Discount given to cardholder. */
+        /**
+         * Discount given to cardholder.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun discountAmount(): Optional<Long> =
             Optional.ofNullable(discountAmount.getNullable("discount_amount"))
 
-        /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the discount. */
+        /**
+         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the discount.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun discountCurrency(): Optional<String> =
             Optional.ofNullable(discountCurrency.getNullable("discount_currency"))
 
-        /** Indicates how the merchant applied the discount. */
+        /**
+         * Indicates how the merchant applied the discount.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun discountTreatmentCode(): Optional<DiscountTreatmentCode> =
             Optional.ofNullable(discountTreatmentCode.getNullable("discount_treatment_code"))
 
-        /** Amount of duty taxes. */
+        /**
+         * Amount of duty taxes.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun dutyTaxAmount(): Optional<Long> =
             Optional.ofNullable(dutyTaxAmount.getNullable("duty_tax_amount"))
 
-        /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the duty tax. */
+        /**
+         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the duty tax.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun dutyTaxCurrency(): Optional<String> =
             Optional.ofNullable(dutyTaxCurrency.getNullable("duty_tax_currency"))
 
-        /** Date the order was taken. */
+        /**
+         * Date the order was taken.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun orderDate(): Optional<LocalDate> =
             Optional.ofNullable(orderDate.getNullable("order_date"))
 
-        /** The shipping cost. */
+        /**
+         * The shipping cost.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun shippingAmount(): Optional<Long> =
             Optional.ofNullable(shippingAmount.getNullable("shipping_amount"))
 
-        /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the shipping cost. */
+        /**
+         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the shipping cost.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun shippingCurrency(): Optional<String> =
             Optional.ofNullable(shippingCurrency.getNullable("shipping_currency"))
 
-        /** Country code of the shipping destination. */
+        /**
+         * Country code of the shipping destination.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun shippingDestinationCountryCode(): Optional<String> =
             Optional.ofNullable(
                 shippingDestinationCountryCode.getNullable("shipping_destination_country_code")
             )
 
-        /** Postal code of the shipping destination. */
+        /**
+         * Postal code of the shipping destination.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun shippingDestinationPostalCode(): Optional<String> =
             Optional.ofNullable(
                 shippingDestinationPostalCode.getNullable("shipping_destination_postal_code")
             )
 
-        /** Postal code of the location being shipped from. */
+        /**
+         * Postal code of the location being shipped from.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun shippingSourcePostalCode(): Optional<String> =
             Optional.ofNullable(shippingSourcePostalCode.getNullable("shipping_source_postal_code"))
 
-        /** Taxes paid for freight and shipping. */
+        /**
+         * Taxes paid for freight and shipping.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun shippingTaxAmount(): Optional<Long> =
             Optional.ofNullable(shippingTaxAmount.getNullable("shipping_tax_amount"))
 
-        /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the shipping tax. */
+        /**
+         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the shipping tax.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun shippingTaxCurrency(): Optional<String> =
             Optional.ofNullable(shippingTaxCurrency.getNullable("shipping_tax_currency"))
 
-        /** Tax rate for freight and shipping. */
+        /**
+         * Tax rate for freight and shipping.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun shippingTaxRate(): Optional<String> =
             Optional.ofNullable(shippingTaxRate.getNullable("shipping_tax_rate"))
 
-        /** Indicates how the merchant applied taxes. */
+        /**
+         * Indicates how the merchant applied taxes.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun taxTreatments(): Optional<TaxTreatments> =
             Optional.ofNullable(taxTreatments.getNullable("tax_treatments"))
 
-        /** Value added tax invoice reference number. */
+        /**
+         * Value added tax invoice reference number.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun uniqueValueAddedTaxInvoiceReference(): Optional<String> =
             Optional.ofNullable(
                 uniqueValueAddedTaxInvoiceReference.getNullable(
@@ -386,82 +566,161 @@ private constructor(
                 )
             )
 
-        /** Discount given to cardholder. */
+        /**
+         * Returns the raw JSON value of [discountAmount].
+         *
+         * Unlike [discountAmount], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("discount_amount")
         @ExcludeMissing
         fun _discountAmount(): JsonField<Long> = discountAmount
 
-        /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the discount. */
+        /**
+         * Returns the raw JSON value of [discountCurrency].
+         *
+         * Unlike [discountCurrency], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("discount_currency")
         @ExcludeMissing
         fun _discountCurrency(): JsonField<String> = discountCurrency
 
-        /** Indicates how the merchant applied the discount. */
+        /**
+         * Returns the raw JSON value of [discountTreatmentCode].
+         *
+         * Unlike [discountTreatmentCode], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
         @JsonProperty("discount_treatment_code")
         @ExcludeMissing
         fun _discountTreatmentCode(): JsonField<DiscountTreatmentCode> = discountTreatmentCode
 
-        /** Amount of duty taxes. */
+        /**
+         * Returns the raw JSON value of [dutyTaxAmount].
+         *
+         * Unlike [dutyTaxAmount], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("duty_tax_amount")
         @ExcludeMissing
         fun _dutyTaxAmount(): JsonField<Long> = dutyTaxAmount
 
-        /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the duty tax. */
+        /**
+         * Returns the raw JSON value of [dutyTaxCurrency].
+         *
+         * Unlike [dutyTaxCurrency], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("duty_tax_currency")
         @ExcludeMissing
         fun _dutyTaxCurrency(): JsonField<String> = dutyTaxCurrency
 
-        /** Date the order was taken. */
+        /**
+         * Returns the raw JSON value of [orderDate].
+         *
+         * Unlike [orderDate], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("order_date")
         @ExcludeMissing
         fun _orderDate(): JsonField<LocalDate> = orderDate
 
-        /** The shipping cost. */
+        /**
+         * Returns the raw JSON value of [shippingAmount].
+         *
+         * Unlike [shippingAmount], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("shipping_amount")
         @ExcludeMissing
         fun _shippingAmount(): JsonField<Long> = shippingAmount
 
-        /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the shipping cost. */
+        /**
+         * Returns the raw JSON value of [shippingCurrency].
+         *
+         * Unlike [shippingCurrency], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("shipping_currency")
         @ExcludeMissing
         fun _shippingCurrency(): JsonField<String> = shippingCurrency
 
-        /** Country code of the shipping destination. */
+        /**
+         * Returns the raw JSON value of [shippingDestinationCountryCode].
+         *
+         * Unlike [shippingDestinationCountryCode], this method doesn't throw if the JSON field has
+         * an unexpected type.
+         */
         @JsonProperty("shipping_destination_country_code")
         @ExcludeMissing
         fun _shippingDestinationCountryCode(): JsonField<String> = shippingDestinationCountryCode
 
-        /** Postal code of the shipping destination. */
+        /**
+         * Returns the raw JSON value of [shippingDestinationPostalCode].
+         *
+         * Unlike [shippingDestinationPostalCode], this method doesn't throw if the JSON field has
+         * an unexpected type.
+         */
         @JsonProperty("shipping_destination_postal_code")
         @ExcludeMissing
         fun _shippingDestinationPostalCode(): JsonField<String> = shippingDestinationPostalCode
 
-        /** Postal code of the location being shipped from. */
+        /**
+         * Returns the raw JSON value of [shippingSourcePostalCode].
+         *
+         * Unlike [shippingSourcePostalCode], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
         @JsonProperty("shipping_source_postal_code")
         @ExcludeMissing
         fun _shippingSourcePostalCode(): JsonField<String> = shippingSourcePostalCode
 
-        /** Taxes paid for freight and shipping. */
+        /**
+         * Returns the raw JSON value of [shippingTaxAmount].
+         *
+         * Unlike [shippingTaxAmount], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("shipping_tax_amount")
         @ExcludeMissing
         fun _shippingTaxAmount(): JsonField<Long> = shippingTaxAmount
 
-        /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the shipping tax. */
+        /**
+         * Returns the raw JSON value of [shippingTaxCurrency].
+         *
+         * Unlike [shippingTaxCurrency], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
         @JsonProperty("shipping_tax_currency")
         @ExcludeMissing
         fun _shippingTaxCurrency(): JsonField<String> = shippingTaxCurrency
 
-        /** Tax rate for freight and shipping. */
+        /**
+         * Returns the raw JSON value of [shippingTaxRate].
+         *
+         * Unlike [shippingTaxRate], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("shipping_tax_rate")
         @ExcludeMissing
         fun _shippingTaxRate(): JsonField<String> = shippingTaxRate
 
-        /** Indicates how the merchant applied taxes. */
+        /**
+         * Returns the raw JSON value of [taxTreatments].
+         *
+         * Unlike [taxTreatments], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("tax_treatments")
         @ExcludeMissing
         fun _taxTreatments(): JsonField<TaxTreatments> = taxTreatments
 
-        /** Value added tax invoice reference number. */
+        /**
+         * Returns the raw JSON value of [uniqueValueAddedTaxInvoiceReference].
+         *
+         * Unlike [uniqueValueAddedTaxInvoiceReference], this method doesn't throw if the JSON field
+         * has an unexpected type.
+         */
         @JsonProperty("unique_value_added_tax_invoice_reference")
         @ExcludeMissing
         fun _uniqueValueAddedTaxInvoiceReference(): JsonField<String> =
@@ -573,14 +832,24 @@ private constructor(
             fun discountAmount(discountAmount: Long?) =
                 discountAmount(JsonField.ofNullable(discountAmount))
 
-            /** Discount given to cardholder. */
+            /**
+             * Alias for [Builder.discountAmount].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
             fun discountAmount(discountAmount: Long) = discountAmount(discountAmount as Long?)
 
-            /** Discount given to cardholder. */
+            /** Alias for calling [Builder.discountAmount] with `discountAmount.orElse(null)`. */
             fun discountAmount(discountAmount: Optional<Long>) =
                 discountAmount(discountAmount.getOrNull())
 
-            /** Discount given to cardholder. */
+            /**
+             * Sets [Builder.discountAmount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.discountAmount] with a well-typed [Long] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun discountAmount(discountAmount: JsonField<Long>) = apply {
                 this.discountAmount = discountAmount
             }
@@ -589,11 +858,19 @@ private constructor(
             fun discountCurrency(discountCurrency: String?) =
                 discountCurrency(JsonField.ofNullable(discountCurrency))
 
-            /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the discount. */
+            /**
+             * Alias for calling [Builder.discountCurrency] with `discountCurrency.orElse(null)`.
+             */
             fun discountCurrency(discountCurrency: Optional<String>) =
                 discountCurrency(discountCurrency.getOrNull())
 
-            /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the discount. */
+            /**
+             * Sets [Builder.discountCurrency] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.discountCurrency] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun discountCurrency(discountCurrency: JsonField<String>) = apply {
                 this.discountCurrency = discountCurrency
             }
@@ -602,11 +879,20 @@ private constructor(
             fun discountTreatmentCode(discountTreatmentCode: DiscountTreatmentCode?) =
                 discountTreatmentCode(JsonField.ofNullable(discountTreatmentCode))
 
-            /** Indicates how the merchant applied the discount. */
+            /**
+             * Alias for calling [Builder.discountTreatmentCode] with
+             * `discountTreatmentCode.orElse(null)`.
+             */
             fun discountTreatmentCode(discountTreatmentCode: Optional<DiscountTreatmentCode>) =
                 discountTreatmentCode(discountTreatmentCode.getOrNull())
 
-            /** Indicates how the merchant applied the discount. */
+            /**
+             * Sets [Builder.discountTreatmentCode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.discountTreatmentCode] with a well-typed
+             * [DiscountTreatmentCode] value instead. This method is primarily for setting the field
+             * to an undocumented or not yet supported value.
+             */
             fun discountTreatmentCode(discountTreatmentCode: JsonField<DiscountTreatmentCode>) =
                 apply {
                     this.discountTreatmentCode = discountTreatmentCode
@@ -616,14 +902,24 @@ private constructor(
             fun dutyTaxAmount(dutyTaxAmount: Long?) =
                 dutyTaxAmount(JsonField.ofNullable(dutyTaxAmount))
 
-            /** Amount of duty taxes. */
+            /**
+             * Alias for [Builder.dutyTaxAmount].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
             fun dutyTaxAmount(dutyTaxAmount: Long) = dutyTaxAmount(dutyTaxAmount as Long?)
 
-            /** Amount of duty taxes. */
+            /** Alias for calling [Builder.dutyTaxAmount] with `dutyTaxAmount.orElse(null)`. */
             fun dutyTaxAmount(dutyTaxAmount: Optional<Long>) =
                 dutyTaxAmount(dutyTaxAmount.getOrNull())
 
-            /** Amount of duty taxes. */
+            /**
+             * Sets [Builder.dutyTaxAmount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.dutyTaxAmount] with a well-typed [Long] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun dutyTaxAmount(dutyTaxAmount: JsonField<Long>) = apply {
                 this.dutyTaxAmount = dutyTaxAmount
             }
@@ -632,11 +928,17 @@ private constructor(
             fun dutyTaxCurrency(dutyTaxCurrency: String?) =
                 dutyTaxCurrency(JsonField.ofNullable(dutyTaxCurrency))
 
-            /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the duty tax. */
+            /** Alias for calling [Builder.dutyTaxCurrency] with `dutyTaxCurrency.orElse(null)`. */
             fun dutyTaxCurrency(dutyTaxCurrency: Optional<String>) =
                 dutyTaxCurrency(dutyTaxCurrency.getOrNull())
 
-            /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the duty tax. */
+            /**
+             * Sets [Builder.dutyTaxCurrency] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.dutyTaxCurrency] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun dutyTaxCurrency(dutyTaxCurrency: JsonField<String>) = apply {
                 this.dutyTaxCurrency = dutyTaxCurrency
             }
@@ -644,24 +946,40 @@ private constructor(
             /** Date the order was taken. */
             fun orderDate(orderDate: LocalDate?) = orderDate(JsonField.ofNullable(orderDate))
 
-            /** Date the order was taken. */
+            /** Alias for calling [Builder.orderDate] with `orderDate.orElse(null)`. */
             fun orderDate(orderDate: Optional<LocalDate>) = orderDate(orderDate.getOrNull())
 
-            /** Date the order was taken. */
+            /**
+             * Sets [Builder.orderDate] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.orderDate] with a well-typed [LocalDate] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun orderDate(orderDate: JsonField<LocalDate>) = apply { this.orderDate = orderDate }
 
             /** The shipping cost. */
             fun shippingAmount(shippingAmount: Long?) =
                 shippingAmount(JsonField.ofNullable(shippingAmount))
 
-            /** The shipping cost. */
+            /**
+             * Alias for [Builder.shippingAmount].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
             fun shippingAmount(shippingAmount: Long) = shippingAmount(shippingAmount as Long?)
 
-            /** The shipping cost. */
+            /** Alias for calling [Builder.shippingAmount] with `shippingAmount.orElse(null)`. */
             fun shippingAmount(shippingAmount: Optional<Long>) =
                 shippingAmount(shippingAmount.getOrNull())
 
-            /** The shipping cost. */
+            /**
+             * Sets [Builder.shippingAmount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.shippingAmount] with a well-typed [Long] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun shippingAmount(shippingAmount: JsonField<Long>) = apply {
                 this.shippingAmount = shippingAmount
             }
@@ -673,13 +991,17 @@ private constructor(
                 shippingCurrency(JsonField.ofNullable(shippingCurrency))
 
             /**
-             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the shipping cost.
+             * Alias for calling [Builder.shippingCurrency] with `shippingCurrency.orElse(null)`.
              */
             fun shippingCurrency(shippingCurrency: Optional<String>) =
                 shippingCurrency(shippingCurrency.getOrNull())
 
             /**
-             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the shipping cost.
+             * Sets [Builder.shippingCurrency] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.shippingCurrency] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun shippingCurrency(shippingCurrency: JsonField<String>) = apply {
                 this.shippingCurrency = shippingCurrency
@@ -689,11 +1011,20 @@ private constructor(
             fun shippingDestinationCountryCode(shippingDestinationCountryCode: String?) =
                 shippingDestinationCountryCode(JsonField.ofNullable(shippingDestinationCountryCode))
 
-            /** Country code of the shipping destination. */
+            /**
+             * Alias for calling [Builder.shippingDestinationCountryCode] with
+             * `shippingDestinationCountryCode.orElse(null)`.
+             */
             fun shippingDestinationCountryCode(shippingDestinationCountryCode: Optional<String>) =
                 shippingDestinationCountryCode(shippingDestinationCountryCode.getOrNull())
 
-            /** Country code of the shipping destination. */
+            /**
+             * Sets [Builder.shippingDestinationCountryCode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.shippingDestinationCountryCode] with a well-typed
+             * [String] value instead. This method is primarily for setting the field to an
+             * undocumented or not yet supported value.
+             */
             fun shippingDestinationCountryCode(shippingDestinationCountryCode: JsonField<String>) =
                 apply {
                     this.shippingDestinationCountryCode = shippingDestinationCountryCode
@@ -703,11 +1034,20 @@ private constructor(
             fun shippingDestinationPostalCode(shippingDestinationPostalCode: String?) =
                 shippingDestinationPostalCode(JsonField.ofNullable(shippingDestinationPostalCode))
 
-            /** Postal code of the shipping destination. */
+            /**
+             * Alias for calling [Builder.shippingDestinationPostalCode] with
+             * `shippingDestinationPostalCode.orElse(null)`.
+             */
             fun shippingDestinationPostalCode(shippingDestinationPostalCode: Optional<String>) =
                 shippingDestinationPostalCode(shippingDestinationPostalCode.getOrNull())
 
-            /** Postal code of the shipping destination. */
+            /**
+             * Sets [Builder.shippingDestinationPostalCode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.shippingDestinationPostalCode] with a well-typed
+             * [String] value instead. This method is primarily for setting the field to an
+             * undocumented or not yet supported value.
+             */
             fun shippingDestinationPostalCode(shippingDestinationPostalCode: JsonField<String>) =
                 apply {
                     this.shippingDestinationPostalCode = shippingDestinationPostalCode
@@ -717,11 +1057,20 @@ private constructor(
             fun shippingSourcePostalCode(shippingSourcePostalCode: String?) =
                 shippingSourcePostalCode(JsonField.ofNullable(shippingSourcePostalCode))
 
-            /** Postal code of the location being shipped from. */
+            /**
+             * Alias for calling [Builder.shippingSourcePostalCode] with
+             * `shippingSourcePostalCode.orElse(null)`.
+             */
             fun shippingSourcePostalCode(shippingSourcePostalCode: Optional<String>) =
                 shippingSourcePostalCode(shippingSourcePostalCode.getOrNull())
 
-            /** Postal code of the location being shipped from. */
+            /**
+             * Sets [Builder.shippingSourcePostalCode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.shippingSourcePostalCode] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
             fun shippingSourcePostalCode(shippingSourcePostalCode: JsonField<String>) = apply {
                 this.shippingSourcePostalCode = shippingSourcePostalCode
             }
@@ -730,15 +1079,27 @@ private constructor(
             fun shippingTaxAmount(shippingTaxAmount: Long?) =
                 shippingTaxAmount(JsonField.ofNullable(shippingTaxAmount))
 
-            /** Taxes paid for freight and shipping. */
+            /**
+             * Alias for [Builder.shippingTaxAmount].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
             fun shippingTaxAmount(shippingTaxAmount: Long) =
                 shippingTaxAmount(shippingTaxAmount as Long?)
 
-            /** Taxes paid for freight and shipping. */
+            /**
+             * Alias for calling [Builder.shippingTaxAmount] with `shippingTaxAmount.orElse(null)`.
+             */
             fun shippingTaxAmount(shippingTaxAmount: Optional<Long>) =
                 shippingTaxAmount(shippingTaxAmount.getOrNull())
 
-            /** Taxes paid for freight and shipping. */
+            /**
+             * Sets [Builder.shippingTaxAmount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.shippingTaxAmount] with a well-typed [Long] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun shippingTaxAmount(shippingTaxAmount: JsonField<Long>) = apply {
                 this.shippingTaxAmount = shippingTaxAmount
             }
@@ -747,11 +1108,20 @@ private constructor(
             fun shippingTaxCurrency(shippingTaxCurrency: String?) =
                 shippingTaxCurrency(JsonField.ofNullable(shippingTaxCurrency))
 
-            /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the shipping tax. */
+            /**
+             * Alias for calling [Builder.shippingTaxCurrency] with
+             * `shippingTaxCurrency.orElse(null)`.
+             */
             fun shippingTaxCurrency(shippingTaxCurrency: Optional<String>) =
                 shippingTaxCurrency(shippingTaxCurrency.getOrNull())
 
-            /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the shipping tax. */
+            /**
+             * Sets [Builder.shippingTaxCurrency] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.shippingTaxCurrency] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
             fun shippingTaxCurrency(shippingTaxCurrency: JsonField<String>) = apply {
                 this.shippingTaxCurrency = shippingTaxCurrency
             }
@@ -760,11 +1130,17 @@ private constructor(
             fun shippingTaxRate(shippingTaxRate: String?) =
                 shippingTaxRate(JsonField.ofNullable(shippingTaxRate))
 
-            /** Tax rate for freight and shipping. */
+            /** Alias for calling [Builder.shippingTaxRate] with `shippingTaxRate.orElse(null)`. */
             fun shippingTaxRate(shippingTaxRate: Optional<String>) =
                 shippingTaxRate(shippingTaxRate.getOrNull())
 
-            /** Tax rate for freight and shipping. */
+            /**
+             * Sets [Builder.shippingTaxRate] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.shippingTaxRate] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun shippingTaxRate(shippingTaxRate: JsonField<String>) = apply {
                 this.shippingTaxRate = shippingTaxRate
             }
@@ -773,11 +1149,17 @@ private constructor(
             fun taxTreatments(taxTreatments: TaxTreatments?) =
                 taxTreatments(JsonField.ofNullable(taxTreatments))
 
-            /** Indicates how the merchant applied taxes. */
+            /** Alias for calling [Builder.taxTreatments] with `taxTreatments.orElse(null)`. */
             fun taxTreatments(taxTreatments: Optional<TaxTreatments>) =
                 taxTreatments(taxTreatments.getOrNull())
 
-            /** Indicates how the merchant applied taxes. */
+            /**
+             * Sets [Builder.taxTreatments] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.taxTreatments] with a well-typed [TaxTreatments]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
             fun taxTreatments(taxTreatments: JsonField<TaxTreatments>) = apply {
                 this.taxTreatments = taxTreatments
             }
@@ -788,12 +1170,21 @@ private constructor(
                     JsonField.ofNullable(uniqueValueAddedTaxInvoiceReference)
                 )
 
-            /** Value added tax invoice reference number. */
+            /**
+             * Alias for calling [Builder.uniqueValueAddedTaxInvoiceReference] with
+             * `uniqueValueAddedTaxInvoiceReference.orElse(null)`.
+             */
             fun uniqueValueAddedTaxInvoiceReference(
                 uniqueValueAddedTaxInvoiceReference: Optional<String>
             ) = uniqueValueAddedTaxInvoiceReference(uniqueValueAddedTaxInvoiceReference.getOrNull())
 
-            /** Value added tax invoice reference number. */
+            /**
+             * Sets [Builder.uniqueValueAddedTaxInvoiceReference] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.uniqueValueAddedTaxInvoiceReference] with a
+             * well-typed [String] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
             fun uniqueValueAddedTaxInvoiceReference(
                 uniqueValueAddedTaxInvoiceReference: JsonField<String>
             ) = apply {
@@ -819,6 +1210,33 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Invoice].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .discountAmount()
+             * .discountCurrency()
+             * .discountTreatmentCode()
+             * .dutyTaxAmount()
+             * .dutyTaxCurrency()
+             * .orderDate()
+             * .shippingAmount()
+             * .shippingCurrency()
+             * .shippingDestinationCountryCode()
+             * .shippingDestinationPostalCode()
+             * .shippingSourcePostalCode()
+             * .shippingTaxAmount()
+             * .shippingTaxCurrency()
+             * .shippingTaxRate()
+             * .taxTreatments()
+             * .uniqueValueAddedTaxInvoiceReference()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Invoice =
                 Invoice(
                     checkRequired("discountAmount", discountAmount),
@@ -1190,153 +1608,315 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The Card Purchase Supplement Line Item identifier. */
+        /**
+         * The Card Purchase Supplement Line Item identifier.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun id(): String = id.getRequired("id")
 
-        /** Indicates the type of line item. */
+        /**
+         * Indicates the type of line item.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun detailIndicator(): Optional<DetailIndicator> =
             Optional.ofNullable(detailIndicator.getNullable("detail_indicator"))
 
-        /** Discount amount for this specific line item. */
+        /**
+         * Discount amount for this specific line item.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun discountAmount(): Optional<Long> =
             Optional.ofNullable(discountAmount.getNullable("discount_amount"))
 
-        /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the discount. */
+        /**
+         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the discount.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun discountCurrency(): Optional<String> =
             Optional.ofNullable(discountCurrency.getNullable("discount_currency"))
 
-        /** Indicates how the merchant applied the discount for this specific line item. */
+        /**
+         * Indicates how the merchant applied the discount for this specific line item.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun discountTreatmentCode(): Optional<DiscountTreatmentCode> =
             Optional.ofNullable(discountTreatmentCode.getNullable("discount_treatment_code"))
 
-        /** Code used to categorize the purchase item. */
+        /**
+         * Code used to categorize the purchase item.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun itemCommodityCode(): Optional<String> =
             Optional.ofNullable(itemCommodityCode.getNullable("item_commodity_code"))
 
-        /** Description of the purchase item. */
+        /**
+         * Description of the purchase item.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun itemDescriptor(): Optional<String> =
             Optional.ofNullable(itemDescriptor.getNullable("item_descriptor"))
 
-        /** The number of units of the product being purchased. */
+        /**
+         * The number of units of the product being purchased.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun itemQuantity(): Optional<String> =
             Optional.ofNullable(itemQuantity.getNullable("item_quantity"))
 
-        /** Code used to categorize the product being purchased. */
+        /**
+         * Code used to categorize the product being purchased.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun productCode(): Optional<String> =
             Optional.ofNullable(productCode.getNullable("product_code"))
 
-        /** Sales tax amount for this line item. */
+        /**
+         * Sales tax amount for this line item.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun salesTaxAmount(): Optional<Long> =
             Optional.ofNullable(salesTaxAmount.getNullable("sales_tax_amount"))
 
         /**
          * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the sales tax assessed.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun salesTaxCurrency(): Optional<String> =
             Optional.ofNullable(salesTaxCurrency.getNullable("sales_tax_currency"))
 
-        /** Sales tax rate for this line item. */
+        /**
+         * Sales tax rate for this line item.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun salesTaxRate(): Optional<String> =
             Optional.ofNullable(salesTaxRate.getNullable("sales_tax_rate"))
 
-        /** Total amount of all line items. */
+        /**
+         * Total amount of all line items.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun totalAmount(): Optional<Long> =
             Optional.ofNullable(totalAmount.getNullable("total_amount"))
 
-        /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the total amount. */
+        /**
+         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the total amount.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun totalAmountCurrency(): Optional<String> =
             Optional.ofNullable(totalAmountCurrency.getNullable("total_amount_currency"))
 
-        /** Cost of line item per unit of measure, in major units. */
+        /**
+         * Cost of line item per unit of measure, in major units.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun unitCost(): Optional<String> = Optional.ofNullable(unitCost.getNullable("unit_cost"))
 
-        /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the unit cost. */
+        /**
+         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the unit cost.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun unitCostCurrency(): Optional<String> =
             Optional.ofNullable(unitCostCurrency.getNullable("unit_cost_currency"))
 
-        /** Code indicating unit of measure (gallons, etc.). */
+        /**
+         * Code indicating unit of measure (gallons, etc.).
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun unitOfMeasureCode(): Optional<String> =
             Optional.ofNullable(unitOfMeasureCode.getNullable("unit_of_measure_code"))
 
-        /** The Card Purchase Supplement Line Item identifier. */
+        /**
+         * Returns the raw JSON value of [id].
+         *
+         * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
-        /** Indicates the type of line item. */
+        /**
+         * Returns the raw JSON value of [detailIndicator].
+         *
+         * Unlike [detailIndicator], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("detail_indicator")
         @ExcludeMissing
         fun _detailIndicator(): JsonField<DetailIndicator> = detailIndicator
 
-        /** Discount amount for this specific line item. */
+        /**
+         * Returns the raw JSON value of [discountAmount].
+         *
+         * Unlike [discountAmount], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("discount_amount")
         @ExcludeMissing
         fun _discountAmount(): JsonField<Long> = discountAmount
 
-        /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the discount. */
+        /**
+         * Returns the raw JSON value of [discountCurrency].
+         *
+         * Unlike [discountCurrency], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("discount_currency")
         @ExcludeMissing
         fun _discountCurrency(): JsonField<String> = discountCurrency
 
-        /** Indicates how the merchant applied the discount for this specific line item. */
+        /**
+         * Returns the raw JSON value of [discountTreatmentCode].
+         *
+         * Unlike [discountTreatmentCode], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
         @JsonProperty("discount_treatment_code")
         @ExcludeMissing
         fun _discountTreatmentCode(): JsonField<DiscountTreatmentCode> = discountTreatmentCode
 
-        /** Code used to categorize the purchase item. */
+        /**
+         * Returns the raw JSON value of [itemCommodityCode].
+         *
+         * Unlike [itemCommodityCode], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("item_commodity_code")
         @ExcludeMissing
         fun _itemCommodityCode(): JsonField<String> = itemCommodityCode
 
-        /** Description of the purchase item. */
+        /**
+         * Returns the raw JSON value of [itemDescriptor].
+         *
+         * Unlike [itemDescriptor], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("item_descriptor")
         @ExcludeMissing
         fun _itemDescriptor(): JsonField<String> = itemDescriptor
 
-        /** The number of units of the product being purchased. */
+        /**
+         * Returns the raw JSON value of [itemQuantity].
+         *
+         * Unlike [itemQuantity], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("item_quantity")
         @ExcludeMissing
         fun _itemQuantity(): JsonField<String> = itemQuantity
 
-        /** Code used to categorize the product being purchased. */
+        /**
+         * Returns the raw JSON value of [productCode].
+         *
+         * Unlike [productCode], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("product_code")
         @ExcludeMissing
         fun _productCode(): JsonField<String> = productCode
 
-        /** Sales tax amount for this line item. */
+        /**
+         * Returns the raw JSON value of [salesTaxAmount].
+         *
+         * Unlike [salesTaxAmount], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("sales_tax_amount")
         @ExcludeMissing
         fun _salesTaxAmount(): JsonField<Long> = salesTaxAmount
 
         /**
-         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the sales tax assessed.
+         * Returns the raw JSON value of [salesTaxCurrency].
+         *
+         * Unlike [salesTaxCurrency], this method doesn't throw if the JSON field has an unexpected
+         * type.
          */
         @JsonProperty("sales_tax_currency")
         @ExcludeMissing
         fun _salesTaxCurrency(): JsonField<String> = salesTaxCurrency
 
-        /** Sales tax rate for this line item. */
+        /**
+         * Returns the raw JSON value of [salesTaxRate].
+         *
+         * Unlike [salesTaxRate], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("sales_tax_rate")
         @ExcludeMissing
         fun _salesTaxRate(): JsonField<String> = salesTaxRate
 
-        /** Total amount of all line items. */
+        /**
+         * Returns the raw JSON value of [totalAmount].
+         *
+         * Unlike [totalAmount], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("total_amount")
         @ExcludeMissing
         fun _totalAmount(): JsonField<Long> = totalAmount
 
-        /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the total amount. */
+        /**
+         * Returns the raw JSON value of [totalAmountCurrency].
+         *
+         * Unlike [totalAmountCurrency], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
         @JsonProperty("total_amount_currency")
         @ExcludeMissing
         fun _totalAmountCurrency(): JsonField<String> = totalAmountCurrency
 
-        /** Cost of line item per unit of measure, in major units. */
+        /**
+         * Returns the raw JSON value of [unitCost].
+         *
+         * Unlike [unitCost], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("unit_cost") @ExcludeMissing fun _unitCost(): JsonField<String> = unitCost
 
-        /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the unit cost. */
+        /**
+         * Returns the raw JSON value of [unitCostCurrency].
+         *
+         * Unlike [unitCostCurrency], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("unit_cost_currency")
         @ExcludeMissing
         fun _unitCostCurrency(): JsonField<String> = unitCostCurrency
 
-        /** Code indicating unit of measure (gallons, etc.). */
+        /**
+         * Returns the raw JSON value of [unitOfMeasureCode].
+         *
+         * Unlike [unitOfMeasureCode], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("unit_of_measure_code")
         @ExcludeMissing
         fun _unitOfMeasureCode(): JsonField<String> = unitOfMeasureCode
@@ -1450,18 +2030,30 @@ private constructor(
             /** The Card Purchase Supplement Line Item identifier. */
             fun id(id: String) = id(JsonField.of(id))
 
-            /** The Card Purchase Supplement Line Item identifier. */
+            /**
+             * Sets [Builder.id] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.id] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
             fun id(id: JsonField<String>) = apply { this.id = id }
 
             /** Indicates the type of line item. */
             fun detailIndicator(detailIndicator: DetailIndicator?) =
                 detailIndicator(JsonField.ofNullable(detailIndicator))
 
-            /** Indicates the type of line item. */
+            /** Alias for calling [Builder.detailIndicator] with `detailIndicator.orElse(null)`. */
             fun detailIndicator(detailIndicator: Optional<DetailIndicator>) =
                 detailIndicator(detailIndicator.getOrNull())
 
-            /** Indicates the type of line item. */
+            /**
+             * Sets [Builder.detailIndicator] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.detailIndicator] with a well-typed [DetailIndicator]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
             fun detailIndicator(detailIndicator: JsonField<DetailIndicator>) = apply {
                 this.detailIndicator = detailIndicator
             }
@@ -1470,14 +2062,24 @@ private constructor(
             fun discountAmount(discountAmount: Long?) =
                 discountAmount(JsonField.ofNullable(discountAmount))
 
-            /** Discount amount for this specific line item. */
+            /**
+             * Alias for [Builder.discountAmount].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
             fun discountAmount(discountAmount: Long) = discountAmount(discountAmount as Long?)
 
-            /** Discount amount for this specific line item. */
+            /** Alias for calling [Builder.discountAmount] with `discountAmount.orElse(null)`. */
             fun discountAmount(discountAmount: Optional<Long>) =
                 discountAmount(discountAmount.getOrNull())
 
-            /** Discount amount for this specific line item. */
+            /**
+             * Sets [Builder.discountAmount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.discountAmount] with a well-typed [Long] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun discountAmount(discountAmount: JsonField<Long>) = apply {
                 this.discountAmount = discountAmount
             }
@@ -1486,11 +2088,19 @@ private constructor(
             fun discountCurrency(discountCurrency: String?) =
                 discountCurrency(JsonField.ofNullable(discountCurrency))
 
-            /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the discount. */
+            /**
+             * Alias for calling [Builder.discountCurrency] with `discountCurrency.orElse(null)`.
+             */
             fun discountCurrency(discountCurrency: Optional<String>) =
                 discountCurrency(discountCurrency.getOrNull())
 
-            /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the discount. */
+            /**
+             * Sets [Builder.discountCurrency] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.discountCurrency] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun discountCurrency(discountCurrency: JsonField<String>) = apply {
                 this.discountCurrency = discountCurrency
             }
@@ -1499,11 +2109,20 @@ private constructor(
             fun discountTreatmentCode(discountTreatmentCode: DiscountTreatmentCode?) =
                 discountTreatmentCode(JsonField.ofNullable(discountTreatmentCode))
 
-            /** Indicates how the merchant applied the discount for this specific line item. */
+            /**
+             * Alias for calling [Builder.discountTreatmentCode] with
+             * `discountTreatmentCode.orElse(null)`.
+             */
             fun discountTreatmentCode(discountTreatmentCode: Optional<DiscountTreatmentCode>) =
                 discountTreatmentCode(discountTreatmentCode.getOrNull())
 
-            /** Indicates how the merchant applied the discount for this specific line item. */
+            /**
+             * Sets [Builder.discountTreatmentCode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.discountTreatmentCode] with a well-typed
+             * [DiscountTreatmentCode] value instead. This method is primarily for setting the field
+             * to an undocumented or not yet supported value.
+             */
             fun discountTreatmentCode(discountTreatmentCode: JsonField<DiscountTreatmentCode>) =
                 apply {
                     this.discountTreatmentCode = discountTreatmentCode
@@ -1513,11 +2132,19 @@ private constructor(
             fun itemCommodityCode(itemCommodityCode: String?) =
                 itemCommodityCode(JsonField.ofNullable(itemCommodityCode))
 
-            /** Code used to categorize the purchase item. */
+            /**
+             * Alias for calling [Builder.itemCommodityCode] with `itemCommodityCode.orElse(null)`.
+             */
             fun itemCommodityCode(itemCommodityCode: Optional<String>) =
                 itemCommodityCode(itemCommodityCode.getOrNull())
 
-            /** Code used to categorize the purchase item. */
+            /**
+             * Sets [Builder.itemCommodityCode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.itemCommodityCode] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun itemCommodityCode(itemCommodityCode: JsonField<String>) = apply {
                 this.itemCommodityCode = itemCommodityCode
             }
@@ -1526,11 +2153,17 @@ private constructor(
             fun itemDescriptor(itemDescriptor: String?) =
                 itemDescriptor(JsonField.ofNullable(itemDescriptor))
 
-            /** Description of the purchase item. */
+            /** Alias for calling [Builder.itemDescriptor] with `itemDescriptor.orElse(null)`. */
             fun itemDescriptor(itemDescriptor: Optional<String>) =
                 itemDescriptor(itemDescriptor.getOrNull())
 
-            /** Description of the purchase item. */
+            /**
+             * Sets [Builder.itemDescriptor] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.itemDescriptor] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun itemDescriptor(itemDescriptor: JsonField<String>) = apply {
                 this.itemDescriptor = itemDescriptor
             }
@@ -1539,11 +2172,17 @@ private constructor(
             fun itemQuantity(itemQuantity: String?) =
                 itemQuantity(JsonField.ofNullable(itemQuantity))
 
-            /** The number of units of the product being purchased. */
+            /** Alias for calling [Builder.itemQuantity] with `itemQuantity.orElse(null)`. */
             fun itemQuantity(itemQuantity: Optional<String>) =
                 itemQuantity(itemQuantity.getOrNull())
 
-            /** The number of units of the product being purchased. */
+            /**
+             * Sets [Builder.itemQuantity] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.itemQuantity] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun itemQuantity(itemQuantity: JsonField<String>) = apply {
                 this.itemQuantity = itemQuantity
             }
@@ -1551,10 +2190,16 @@ private constructor(
             /** Code used to categorize the product being purchased. */
             fun productCode(productCode: String?) = productCode(JsonField.ofNullable(productCode))
 
-            /** Code used to categorize the product being purchased. */
+            /** Alias for calling [Builder.productCode] with `productCode.orElse(null)`. */
             fun productCode(productCode: Optional<String>) = productCode(productCode.getOrNull())
 
-            /** Code used to categorize the product being purchased. */
+            /**
+             * Sets [Builder.productCode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.productCode] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun productCode(productCode: JsonField<String>) = apply {
                 this.productCode = productCode
             }
@@ -1563,14 +2208,24 @@ private constructor(
             fun salesTaxAmount(salesTaxAmount: Long?) =
                 salesTaxAmount(JsonField.ofNullable(salesTaxAmount))
 
-            /** Sales tax amount for this line item. */
+            /**
+             * Alias for [Builder.salesTaxAmount].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
             fun salesTaxAmount(salesTaxAmount: Long) = salesTaxAmount(salesTaxAmount as Long?)
 
-            /** Sales tax amount for this line item. */
+            /** Alias for calling [Builder.salesTaxAmount] with `salesTaxAmount.orElse(null)`. */
             fun salesTaxAmount(salesTaxAmount: Optional<Long>) =
                 salesTaxAmount(salesTaxAmount.getOrNull())
 
-            /** Sales tax amount for this line item. */
+            /**
+             * Sets [Builder.salesTaxAmount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.salesTaxAmount] with a well-typed [Long] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun salesTaxAmount(salesTaxAmount: JsonField<Long>) = apply {
                 this.salesTaxAmount = salesTaxAmount
             }
@@ -1583,15 +2238,17 @@ private constructor(
                 salesTaxCurrency(JsonField.ofNullable(salesTaxCurrency))
 
             /**
-             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the sales tax
-             * assessed.
+             * Alias for calling [Builder.salesTaxCurrency] with `salesTaxCurrency.orElse(null)`.
              */
             fun salesTaxCurrency(salesTaxCurrency: Optional<String>) =
                 salesTaxCurrency(salesTaxCurrency.getOrNull())
 
             /**
-             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the sales tax
-             * assessed.
+             * Sets [Builder.salesTaxCurrency] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.salesTaxCurrency] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun salesTaxCurrency(salesTaxCurrency: JsonField<String>) = apply {
                 this.salesTaxCurrency = salesTaxCurrency
@@ -1601,11 +2258,17 @@ private constructor(
             fun salesTaxRate(salesTaxRate: String?) =
                 salesTaxRate(JsonField.ofNullable(salesTaxRate))
 
-            /** Sales tax rate for this line item. */
+            /** Alias for calling [Builder.salesTaxRate] with `salesTaxRate.orElse(null)`. */
             fun salesTaxRate(salesTaxRate: Optional<String>) =
                 salesTaxRate(salesTaxRate.getOrNull())
 
-            /** Sales tax rate for this line item. */
+            /**
+             * Sets [Builder.salesTaxRate] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.salesTaxRate] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun salesTaxRate(salesTaxRate: JsonField<String>) = apply {
                 this.salesTaxRate = salesTaxRate
             }
@@ -1613,24 +2276,43 @@ private constructor(
             /** Total amount of all line items. */
             fun totalAmount(totalAmount: Long?) = totalAmount(JsonField.ofNullable(totalAmount))
 
-            /** Total amount of all line items. */
+            /**
+             * Alias for [Builder.totalAmount].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
             fun totalAmount(totalAmount: Long) = totalAmount(totalAmount as Long?)
 
-            /** Total amount of all line items. */
+            /** Alias for calling [Builder.totalAmount] with `totalAmount.orElse(null)`. */
             fun totalAmount(totalAmount: Optional<Long>) = totalAmount(totalAmount.getOrNull())
 
-            /** Total amount of all line items. */
+            /**
+             * Sets [Builder.totalAmount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.totalAmount] with a well-typed [Long] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun totalAmount(totalAmount: JsonField<Long>) = apply { this.totalAmount = totalAmount }
 
             /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the total amount. */
             fun totalAmountCurrency(totalAmountCurrency: String?) =
                 totalAmountCurrency(JsonField.ofNullable(totalAmountCurrency))
 
-            /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the total amount. */
+            /**
+             * Alias for calling [Builder.totalAmountCurrency] with
+             * `totalAmountCurrency.orElse(null)`.
+             */
             fun totalAmountCurrency(totalAmountCurrency: Optional<String>) =
                 totalAmountCurrency(totalAmountCurrency.getOrNull())
 
-            /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the total amount. */
+            /**
+             * Sets [Builder.totalAmountCurrency] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.totalAmountCurrency] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
             fun totalAmountCurrency(totalAmountCurrency: JsonField<String>) = apply {
                 this.totalAmountCurrency = totalAmountCurrency
             }
@@ -1638,21 +2320,35 @@ private constructor(
             /** Cost of line item per unit of measure, in major units. */
             fun unitCost(unitCost: String?) = unitCost(JsonField.ofNullable(unitCost))
 
-            /** Cost of line item per unit of measure, in major units. */
+            /** Alias for calling [Builder.unitCost] with `unitCost.orElse(null)`. */
             fun unitCost(unitCost: Optional<String>) = unitCost(unitCost.getOrNull())
 
-            /** Cost of line item per unit of measure, in major units. */
+            /**
+             * Sets [Builder.unitCost] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.unitCost] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun unitCost(unitCost: JsonField<String>) = apply { this.unitCost = unitCost }
 
             /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the unit cost. */
             fun unitCostCurrency(unitCostCurrency: String?) =
                 unitCostCurrency(JsonField.ofNullable(unitCostCurrency))
 
-            /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the unit cost. */
+            /**
+             * Alias for calling [Builder.unitCostCurrency] with `unitCostCurrency.orElse(null)`.
+             */
             fun unitCostCurrency(unitCostCurrency: Optional<String>) =
                 unitCostCurrency(unitCostCurrency.getOrNull())
 
-            /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the unit cost. */
+            /**
+             * Sets [Builder.unitCostCurrency] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.unitCostCurrency] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun unitCostCurrency(unitCostCurrency: JsonField<String>) = apply {
                 this.unitCostCurrency = unitCostCurrency
             }
@@ -1661,11 +2357,19 @@ private constructor(
             fun unitOfMeasureCode(unitOfMeasureCode: String?) =
                 unitOfMeasureCode(JsonField.ofNullable(unitOfMeasureCode))
 
-            /** Code indicating unit of measure (gallons, etc.). */
+            /**
+             * Alias for calling [Builder.unitOfMeasureCode] with `unitOfMeasureCode.orElse(null)`.
+             */
             fun unitOfMeasureCode(unitOfMeasureCode: Optional<String>) =
                 unitOfMeasureCode(unitOfMeasureCode.getOrNull())
 
-            /** Code indicating unit of measure (gallons, etc.). */
+            /**
+             * Sets [Builder.unitOfMeasureCode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.unitOfMeasureCode] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun unitOfMeasureCode(unitOfMeasureCode: JsonField<String>) = apply {
                 this.unitOfMeasureCode = unitOfMeasureCode
             }
@@ -1689,6 +2393,34 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [LineItem].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .id()
+             * .detailIndicator()
+             * .discountAmount()
+             * .discountCurrency()
+             * .discountTreatmentCode()
+             * .itemCommodityCode()
+             * .itemDescriptor()
+             * .itemQuantity()
+             * .productCode()
+             * .salesTaxAmount()
+             * .salesTaxCurrency()
+             * .salesTaxRate()
+             * .totalAmount()
+             * .totalAmountCurrency()
+             * .unitCost()
+             * .unitCostCurrency()
+             * .unitOfMeasureCode()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): LineItem =
                 LineItem(
                     checkRequired("id", id),

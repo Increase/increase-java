@@ -30,33 +30,65 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** The underlying card representing this physical card. */
+    /**
+     * The underlying card representing this physical card.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun cardId(): String = body.cardId()
 
-    /** Details about the cardholder, as it will appear on the physical card. */
+    /**
+     * Details about the cardholder, as it will appear on the physical card.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun cardholder(): Cardholder = body.cardholder()
 
-    /** The details used to ship this physical card. */
+    /**
+     * The details used to ship this physical card.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun shipment(): Shipment = body.shipment()
 
     /**
      * The physical card profile to use for this physical card. The latest default physical card
      * profile will be used if not provided.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun physicalCardProfileId(): Optional<String> = body.physicalCardProfileId()
 
-    /** The underlying card representing this physical card. */
+    /**
+     * Returns the raw JSON value of [cardId].
+     *
+     * Unlike [cardId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _cardId(): JsonField<String> = body._cardId()
 
-    /** Details about the cardholder, as it will appear on the physical card. */
+    /**
+     * Returns the raw JSON value of [cardholder].
+     *
+     * Unlike [cardholder], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _cardholder(): JsonField<Cardholder> = body._cardholder()
 
-    /** The details used to ship this physical card. */
+    /**
+     * Returns the raw JSON value of [shipment].
+     *
+     * Unlike [shipment], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _shipment(): JsonField<Shipment> = body._shipment()
 
     /**
-     * The physical card profile to use for this physical card. The latest default physical card
-     * profile will be used if not provided.
+     * Returns the raw JSON value of [physicalCardProfileId].
+     *
+     * Unlike [physicalCardProfileId], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
     fun _physicalCardProfileId(): JsonField<String> = body._physicalCardProfileId()
 
@@ -92,36 +124,68 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The underlying card representing this physical card. */
+        /**
+         * The underlying card representing this physical card.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun cardId(): String = cardId.getRequired("card_id")
 
-        /** Details about the cardholder, as it will appear on the physical card. */
+        /**
+         * Details about the cardholder, as it will appear on the physical card.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun cardholder(): Cardholder = cardholder.getRequired("cardholder")
 
-        /** The details used to ship this physical card. */
+        /**
+         * The details used to ship this physical card.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun shipment(): Shipment = shipment.getRequired("shipment")
 
         /**
          * The physical card profile to use for this physical card. The latest default physical card
          * profile will be used if not provided.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun physicalCardProfileId(): Optional<String> =
             Optional.ofNullable(physicalCardProfileId.getNullable("physical_card_profile_id"))
 
-        /** The underlying card representing this physical card. */
+        /**
+         * Returns the raw JSON value of [cardId].
+         *
+         * Unlike [cardId], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("card_id") @ExcludeMissing fun _cardId(): JsonField<String> = cardId
 
-        /** Details about the cardholder, as it will appear on the physical card. */
+        /**
+         * Returns the raw JSON value of [cardholder].
+         *
+         * Unlike [cardholder], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("cardholder")
         @ExcludeMissing
         fun _cardholder(): JsonField<Cardholder> = cardholder
 
-        /** The details used to ship this physical card. */
+        /**
+         * Returns the raw JSON value of [shipment].
+         *
+         * Unlike [shipment], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("shipment") @ExcludeMissing fun _shipment(): JsonField<Shipment> = shipment
 
         /**
-         * The physical card profile to use for this physical card. The latest default physical card
-         * profile will be used if not provided.
+         * Returns the raw JSON value of [physicalCardProfileId].
+         *
+         * Unlike [physicalCardProfileId], this method doesn't throw if the JSON field has an
+         * unexpected type.
          */
         @JsonProperty("physical_card_profile_id")
         @ExcludeMissing
@@ -183,13 +247,25 @@ private constructor(
             /** The underlying card representing this physical card. */
             fun cardId(cardId: String) = cardId(JsonField.of(cardId))
 
-            /** The underlying card representing this physical card. */
+            /**
+             * Sets [Builder.cardId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.cardId] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun cardId(cardId: JsonField<String>) = apply { this.cardId = cardId }
 
             /** Details about the cardholder, as it will appear on the physical card. */
             fun cardholder(cardholder: Cardholder) = cardholder(JsonField.of(cardholder))
 
-            /** Details about the cardholder, as it will appear on the physical card. */
+            /**
+             * Sets [Builder.cardholder] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.cardholder] with a well-typed [Cardholder] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun cardholder(cardholder: JsonField<Cardholder>) = apply {
                 this.cardholder = cardholder
             }
@@ -197,7 +273,13 @@ private constructor(
             /** The details used to ship this physical card. */
             fun shipment(shipment: Shipment) = shipment(JsonField.of(shipment))
 
-            /** The details used to ship this physical card. */
+            /**
+             * Sets [Builder.shipment] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.shipment] with a well-typed [Shipment] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun shipment(shipment: JsonField<Shipment>) = apply { this.shipment = shipment }
 
             /**
@@ -208,8 +290,11 @@ private constructor(
                 physicalCardProfileId(JsonField.of(physicalCardProfileId))
 
             /**
-             * The physical card profile to use for this physical card. The latest default physical
-             * card profile will be used if not provided.
+             * Sets [Builder.physicalCardProfileId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.physicalCardProfileId] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
              */
             fun physicalCardProfileId(physicalCardProfileId: JsonField<String>) = apply {
                 this.physicalCardProfileId = physicalCardProfileId
@@ -234,6 +319,20 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Body].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .cardId()
+             * .cardholder()
+             * .shipment()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Body =
                 Body(
                     checkRequired("cardId", cardId),
@@ -297,19 +396,36 @@ private constructor(
         /** The underlying card representing this physical card. */
         fun cardId(cardId: String) = apply { body.cardId(cardId) }
 
-        /** The underlying card representing this physical card. */
+        /**
+         * Sets [Builder.cardId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.cardId] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun cardId(cardId: JsonField<String>) = apply { body.cardId(cardId) }
 
         /** Details about the cardholder, as it will appear on the physical card. */
         fun cardholder(cardholder: Cardholder) = apply { body.cardholder(cardholder) }
 
-        /** Details about the cardholder, as it will appear on the physical card. */
+        /**
+         * Sets [Builder.cardholder] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.cardholder] with a well-typed [Cardholder] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun cardholder(cardholder: JsonField<Cardholder>) = apply { body.cardholder(cardholder) }
 
         /** The details used to ship this physical card. */
         fun shipment(shipment: Shipment) = apply { body.shipment(shipment) }
 
-        /** The details used to ship this physical card. */
+        /**
+         * Sets [Builder.shipment] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.shipment] with a well-typed [Shipment] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun shipment(shipment: JsonField<Shipment>) = apply { body.shipment(shipment) }
 
         /**
@@ -321,8 +437,11 @@ private constructor(
         }
 
         /**
-         * The physical card profile to use for this physical card. The latest default physical card
-         * profile will be used if not provided.
+         * Sets [Builder.physicalCardProfileId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.physicalCardProfileId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun physicalCardProfileId(physicalCardProfileId: JsonField<String>) = apply {
             body.physicalCardProfileId(physicalCardProfileId)
@@ -445,6 +564,20 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [PhysicalCardCreateParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .cardId()
+         * .cardholder()
+         * .shipment()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): PhysicalCardCreateParams =
             PhysicalCardCreateParams(
                 body.build(),
@@ -468,16 +601,34 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The cardholder's first name. */
+        /**
+         * The cardholder's first name.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun firstName(): String = firstName.getRequired("first_name")
 
-        /** The cardholder's last name. */
+        /**
+         * The cardholder's last name.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun lastName(): String = lastName.getRequired("last_name")
 
-        /** The cardholder's first name. */
+        /**
+         * Returns the raw JSON value of [firstName].
+         *
+         * Unlike [firstName], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("first_name") @ExcludeMissing fun _firstName(): JsonField<String> = firstName
 
-        /** The cardholder's last name. */
+        /**
+         * Returns the raw JSON value of [lastName].
+         *
+         * Unlike [lastName], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("last_name") @ExcludeMissing fun _lastName(): JsonField<String> = lastName
 
         @JsonAnyGetter
@@ -529,13 +680,25 @@ private constructor(
             /** The cardholder's first name. */
             fun firstName(firstName: String) = firstName(JsonField.of(firstName))
 
-            /** The cardholder's first name. */
+            /**
+             * Sets [Builder.firstName] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.firstName] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun firstName(firstName: JsonField<String>) = apply { this.firstName = firstName }
 
             /** The cardholder's last name. */
             fun lastName(lastName: String) = lastName(JsonField.of(lastName))
 
-            /** The cardholder's last name. */
+            /**
+             * Sets [Builder.lastName] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.lastName] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun lastName(lastName: JsonField<String>) = apply { this.lastName = lastName }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -557,6 +720,19 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Cardholder].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .firstName()
+             * .lastName()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Cardholder =
                 Cardholder(
                     checkRequired("firstName", firstName),
@@ -598,16 +774,34 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The address to where the card should be shipped. */
+        /**
+         * The address to where the card should be shipped.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun address(): Address = address.getRequired("address")
 
-        /** The shipping method to use. */
+        /**
+         * The shipping method to use.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun method(): Method = method.getRequired("method")
 
-        /** The address to where the card should be shipped. */
+        /**
+         * Returns the raw JSON value of [address].
+         *
+         * Unlike [address], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("address") @ExcludeMissing fun _address(): JsonField<Address> = address
 
-        /** The shipping method to use. */
+        /**
+         * Returns the raw JSON value of [method].
+         *
+         * Unlike [method], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("method") @ExcludeMissing fun _method(): JsonField<Method> = method
 
         @JsonAnyGetter
@@ -659,13 +853,25 @@ private constructor(
             /** The address to where the card should be shipped. */
             fun address(address: Address) = address(JsonField.of(address))
 
-            /** The address to where the card should be shipped. */
+            /**
+             * Sets [Builder.address] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.address] with a well-typed [Address] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun address(address: JsonField<Address>) = apply { this.address = address }
 
             /** The shipping method to use. */
             fun method(method: Method) = method(JsonField.of(method))
 
-            /** The shipping method to use. */
+            /**
+             * Sets [Builder.method] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.method] with a well-typed [Method] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun method(method: JsonField<Method>) = apply { this.method = method }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -687,6 +893,19 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Shipment].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .address()
+             * .method()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Shipment =
                 Shipment(
                     checkRequired("address", address),
@@ -728,55 +947,134 @@ private constructor(
             private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
-            /** The city of the shipping address. */
+            /**
+             * The city of the shipping address.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun city(): String = city.getRequired("city")
 
-            /** The first line of the shipping address. */
+            /**
+             * The first line of the shipping address.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun line1(): String = line1.getRequired("line1")
 
-            /** The name of the recipient. */
+            /**
+             * The name of the recipient.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun name(): String = name.getRequired("name")
 
-            /** The postal code of the shipping address. */
+            /**
+             * The postal code of the shipping address.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun postalCode(): String = postalCode.getRequired("postal_code")
 
-            /** The US state of the shipping address. */
+            /**
+             * The US state of the shipping address.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun state(): String = state.getRequired("state")
 
-            /** The second line of the shipping address. */
+            /**
+             * The second line of the shipping address.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
             fun line2(): Optional<String> = Optional.ofNullable(line2.getNullable("line2"))
 
-            /** The third line of the shipping address. */
+            /**
+             * The third line of the shipping address.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
             fun line3(): Optional<String> = Optional.ofNullable(line3.getNullable("line3"))
 
-            /** The phone number of the recipient. */
+            /**
+             * The phone number of the recipient.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
             fun phoneNumber(): Optional<String> =
                 Optional.ofNullable(phoneNumber.getNullable("phone_number"))
 
-            /** The city of the shipping address. */
+            /**
+             * Returns the raw JSON value of [city].
+             *
+             * Unlike [city], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("city") @ExcludeMissing fun _city(): JsonField<String> = city
 
-            /** The first line of the shipping address. */
+            /**
+             * Returns the raw JSON value of [line1].
+             *
+             * Unlike [line1], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
 
-            /** The name of the recipient. */
+            /**
+             * Returns the raw JSON value of [name].
+             *
+             * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
-            /** The postal code of the shipping address. */
+            /**
+             * Returns the raw JSON value of [postalCode].
+             *
+             * Unlike [postalCode], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
             @JsonProperty("postal_code")
             @ExcludeMissing
             fun _postalCode(): JsonField<String> = postalCode
 
-            /** The US state of the shipping address. */
+            /**
+             * Returns the raw JSON value of [state].
+             *
+             * Unlike [state], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("state") @ExcludeMissing fun _state(): JsonField<String> = state
 
-            /** The second line of the shipping address. */
+            /**
+             * Returns the raw JSON value of [line2].
+             *
+             * Unlike [line2], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
 
-            /** The third line of the shipping address. */
+            /**
+             * Returns the raw JSON value of [line3].
+             *
+             * Unlike [line3], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("line3") @ExcludeMissing fun _line3(): JsonField<String> = line3
 
-            /** The phone number of the recipient. */
+            /**
+             * Returns the raw JSON value of [phoneNumber].
+             *
+             * Unlike [phoneNumber], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
             @JsonProperty("phone_number")
             @ExcludeMissing
             fun _phoneNumber(): JsonField<String> = phoneNumber
@@ -851,25 +1149,49 @@ private constructor(
                 /** The city of the shipping address. */
                 fun city(city: String) = city(JsonField.of(city))
 
-                /** The city of the shipping address. */
+                /**
+                 * Sets [Builder.city] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.city] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
                 fun city(city: JsonField<String>) = apply { this.city = city }
 
                 /** The first line of the shipping address. */
                 fun line1(line1: String) = line1(JsonField.of(line1))
 
-                /** The first line of the shipping address. */
+                /**
+                 * Sets [Builder.line1] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.line1] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
                 fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
 
                 /** The name of the recipient. */
                 fun name(name: String) = name(JsonField.of(name))
 
-                /** The name of the recipient. */
+                /**
+                 * Sets [Builder.name] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.name] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
                 fun name(name: JsonField<String>) = apply { this.name = name }
 
                 /** The postal code of the shipping address. */
                 fun postalCode(postalCode: String) = postalCode(JsonField.of(postalCode))
 
-                /** The postal code of the shipping address. */
+                /**
+                 * Sets [Builder.postalCode] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.postalCode] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
                 fun postalCode(postalCode: JsonField<String>) = apply {
                     this.postalCode = postalCode
                 }
@@ -877,25 +1199,49 @@ private constructor(
                 /** The US state of the shipping address. */
                 fun state(state: String) = state(JsonField.of(state))
 
-                /** The US state of the shipping address. */
+                /**
+                 * Sets [Builder.state] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.state] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
                 fun state(state: JsonField<String>) = apply { this.state = state }
 
                 /** The second line of the shipping address. */
                 fun line2(line2: String) = line2(JsonField.of(line2))
 
-                /** The second line of the shipping address. */
+                /**
+                 * Sets [Builder.line2] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.line2] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
                 fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
 
                 /** The third line of the shipping address. */
                 fun line3(line3: String) = line3(JsonField.of(line3))
 
-                /** The third line of the shipping address. */
+                /**
+                 * Sets [Builder.line3] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.line3] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
                 fun line3(line3: JsonField<String>) = apply { this.line3 = line3 }
 
                 /** The phone number of the recipient. */
                 fun phoneNumber(phoneNumber: String) = phoneNumber(JsonField.of(phoneNumber))
 
-                /** The phone number of the recipient. */
+                /**
+                 * Sets [Builder.phoneNumber] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.phoneNumber] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
                 fun phoneNumber(phoneNumber: JsonField<String>) = apply {
                     this.phoneNumber = phoneNumber
                 }
@@ -922,6 +1268,22 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [Address].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .city()
+                 * .line1()
+                 * .name()
+                 * .postalCode()
+                 * .state()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
                 fun build(): Address =
                     Address(
                         checkRequired("city", city),

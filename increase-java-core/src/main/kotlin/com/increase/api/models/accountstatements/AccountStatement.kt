@@ -53,30 +53,61 @@ private constructor(
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
-    /** The Account Statement identifier. */
+    /**
+     * The Account Statement identifier.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun id(): String = id.getRequired("id")
 
-    /** The identifier for the Account this Account Statement belongs to. */
+    /**
+     * The identifier for the Account this Account Statement belongs to.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun accountId(): String = accountId.getRequired("account_id")
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account Statement
      * was created.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
-    /** The Account's balance at the start of its statement period. */
+    /**
+     * The Account's balance at the start of its statement period.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun endingBalance(): Long = endingBalance.getRequired("ending_balance")
 
-    /** The identifier of the File containing a PDF of the statement. */
+    /**
+     * The identifier of the File containing a PDF of the statement.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun fileId(): String = fileId.getRequired("file_id")
 
-    /** The Account's balance at the start of its statement period. */
+    /**
+     * The Account's balance at the start of its statement period.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun startingBalance(): Long = startingBalance.getRequired("starting_balance")
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time representing the end of the
      * period the Account Statement covers.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun statementPeriodEnd(): OffsetDateTime =
         statementPeriodEnd.getRequired("statement_period_end")
@@ -84,6 +115,9 @@ private constructor(
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time representing the start of the
      * period the Account Statement covers.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun statementPeriodStart(): OffsetDateTime =
         statementPeriodStart.getRequired("statement_period_start")
@@ -91,55 +125,84 @@ private constructor(
     /**
      * A constant representing the object's type. For this resource it will always be
      * `account_statement`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun type(): Type = type.getRequired("type")
 
-    /** The Account Statement identifier. */
+    /**
+     * Returns the raw JSON value of [id].
+     *
+     * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
-    /** The identifier for the Account this Account Statement belongs to. */
+    /**
+     * Returns the raw JSON value of [accountId].
+     *
+     * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account Statement
-     * was created.
+     * Returns the raw JSON value of [createdAt].
+     *
+     * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("created_at")
     @ExcludeMissing
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
-    /** The Account's balance at the start of its statement period. */
+    /**
+     * Returns the raw JSON value of [endingBalance].
+     *
+     * Unlike [endingBalance], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("ending_balance")
     @ExcludeMissing
     fun _endingBalance(): JsonField<Long> = endingBalance
 
-    /** The identifier of the File containing a PDF of the statement. */
+    /**
+     * Returns the raw JSON value of [fileId].
+     *
+     * Unlike [fileId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("file_id") @ExcludeMissing fun _fileId(): JsonField<String> = fileId
 
-    /** The Account's balance at the start of its statement period. */
+    /**
+     * Returns the raw JSON value of [startingBalance].
+     *
+     * Unlike [startingBalance], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("starting_balance")
     @ExcludeMissing
     fun _startingBalance(): JsonField<Long> = startingBalance
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time representing the end of the
-     * period the Account Statement covers.
+     * Returns the raw JSON value of [statementPeriodEnd].
+     *
+     * Unlike [statementPeriodEnd], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
     @JsonProperty("statement_period_end")
     @ExcludeMissing
     fun _statementPeriodEnd(): JsonField<OffsetDateTime> = statementPeriodEnd
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time representing the start of the
-     * period the Account Statement covers.
+     * Returns the raw JSON value of [statementPeriodStart].
+     *
+     * Unlike [statementPeriodStart], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
     @JsonProperty("statement_period_start")
     @ExcludeMissing
     fun _statementPeriodStart(): JsonField<OffsetDateTime> = statementPeriodStart
 
     /**
-     * A constant representing the object's type. For this resource it will always be
-     * `account_statement`.
+     * Returns the raw JSON value of [type].
+     *
+     * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
@@ -220,13 +283,24 @@ private constructor(
         /** The Account Statement identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
-        /** The Account Statement identifier. */
+        /**
+         * Sets [Builder.id] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.id] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The identifier for the Account this Account Statement belongs to. */
         fun accountId(accountId: String) = accountId(JsonField.of(accountId))
 
-        /** The identifier for the Account this Account Statement belongs to. */
+        /**
+         * Sets [Builder.accountId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.accountId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
         /**
@@ -236,15 +310,24 @@ private constructor(
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account
-         * Statement was created.
+         * Sets [Builder.createdAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** The Account's balance at the start of its statement period. */
         fun endingBalance(endingBalance: Long) = endingBalance(JsonField.of(endingBalance))
 
-        /** The Account's balance at the start of its statement period. */
+        /**
+         * Sets [Builder.endingBalance] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.endingBalance] with a well-typed [Long] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun endingBalance(endingBalance: JsonField<Long>) = apply {
             this.endingBalance = endingBalance
         }
@@ -252,13 +335,24 @@ private constructor(
         /** The identifier of the File containing a PDF of the statement. */
         fun fileId(fileId: String) = fileId(JsonField.of(fileId))
 
-        /** The identifier of the File containing a PDF of the statement. */
+        /**
+         * Sets [Builder.fileId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.fileId] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun fileId(fileId: JsonField<String>) = apply { this.fileId = fileId }
 
         /** The Account's balance at the start of its statement period. */
         fun startingBalance(startingBalance: Long) = startingBalance(JsonField.of(startingBalance))
 
-        /** The Account's balance at the start of its statement period. */
+        /**
+         * Sets [Builder.startingBalance] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.startingBalance] with a well-typed [Long] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun startingBalance(startingBalance: JsonField<Long>) = apply {
             this.startingBalance = startingBalance
         }
@@ -271,8 +365,11 @@ private constructor(
             statementPeriodEnd(JsonField.of(statementPeriodEnd))
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time representing the end of the
-         * period the Account Statement covers.
+         * Sets [Builder.statementPeriodEnd] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.statementPeriodEnd] with a well-typed [OffsetDateTime]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
          */
         fun statementPeriodEnd(statementPeriodEnd: JsonField<OffsetDateTime>) = apply {
             this.statementPeriodEnd = statementPeriodEnd
@@ -286,8 +383,11 @@ private constructor(
             statementPeriodStart(JsonField.of(statementPeriodStart))
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time representing the start of the
-         * period the Account Statement covers.
+         * Sets [Builder.statementPeriodStart] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.statementPeriodStart] with a well-typed [OffsetDateTime]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
          */
         fun statementPeriodStart(statementPeriodStart: JsonField<OffsetDateTime>) = apply {
             this.statementPeriodStart = statementPeriodStart
@@ -300,8 +400,10 @@ private constructor(
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
-         * A constant representing the object's type. For this resource it will always be
-         * `account_statement`.
+         * Sets [Builder.type] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.type] with a well-typed [Type] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
@@ -324,6 +426,26 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [AccountStatement].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .accountId()
+         * .createdAt()
+         * .endingBalance()
+         * .fileId()
+         * .startingBalance()
+         * .statementPeriodEnd()
+         * .statementPeriodStart()
+         * .type()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): AccountStatement =
             AccountStatement(
                 checkRequired("id", id),

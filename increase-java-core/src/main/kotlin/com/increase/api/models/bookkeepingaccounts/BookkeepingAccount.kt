@@ -47,65 +47,118 @@ private constructor(
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
-    /** The account identifier. */
+    /**
+     * The account identifier.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun id(): String = id.getRequired("id")
 
-    /** The API Account associated with this bookkeeping account. */
+    /**
+     * The API Account associated with this bookkeeping account.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun accountId(): Optional<String> = Optional.ofNullable(accountId.getNullable("account_id"))
 
-    /** The compliance category of the account. */
+    /**
+     * The compliance category of the account.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun complianceCategory(): Optional<ComplianceCategory> =
         Optional.ofNullable(complianceCategory.getNullable("compliance_category"))
 
-    /** The Entity associated with this bookkeeping account. */
+    /**
+     * The Entity associated with this bookkeeping account.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun entityId(): Optional<String> = Optional.ofNullable(entityId.getNullable("entity_id"))
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
      * used to ensure that a request is only processed once. Learn more about
      * [idempotency](https://increase.com/documentation/idempotency-keys).
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun idempotencyKey(): Optional<String> =
         Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
 
-    /** The name you choose for the account. */
+    /**
+     * The name you choose for the account.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun name(): String = name.getRequired("name")
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `bookkeeping_account`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun type(): Type = type.getRequired("type")
 
-    /** The account identifier. */
+    /**
+     * Returns the raw JSON value of [id].
+     *
+     * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
-    /** The API Account associated with this bookkeeping account. */
+    /**
+     * Returns the raw JSON value of [accountId].
+     *
+     * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
 
-    /** The compliance category of the account. */
+    /**
+     * Returns the raw JSON value of [complianceCategory].
+     *
+     * Unlike [complianceCategory], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     @JsonProperty("compliance_category")
     @ExcludeMissing
     fun _complianceCategory(): JsonField<ComplianceCategory> = complianceCategory
 
-    /** The Entity associated with this bookkeeping account. */
+    /**
+     * Returns the raw JSON value of [entityId].
+     *
+     * Unlike [entityId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("entity_id") @ExcludeMissing fun _entityId(): JsonField<String> = entityId
 
     /**
-     * The idempotency key you chose for this object. This value is unique across Increase and is
-     * used to ensure that a request is only processed once. Learn more about
-     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     * Returns the raw JSON value of [idempotencyKey].
+     *
+     * Unlike [idempotencyKey], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("idempotency_key")
     @ExcludeMissing
     fun _idempotencyKey(): JsonField<String> = idempotencyKey
 
-    /** The name you choose for the account. */
+    /**
+     * Returns the raw JSON value of [name].
+     *
+     * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
     /**
-     * A constant representing the object's type. For this resource it will always be
-     * `bookkeeping_account`.
+     * Returns the raw JSON value of [type].
+     *
+     * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
@@ -178,27 +231,46 @@ private constructor(
         /** The account identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
-        /** The account identifier. */
+        /**
+         * Sets [Builder.id] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.id] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The API Account associated with this bookkeeping account. */
         fun accountId(accountId: String?) = accountId(JsonField.ofNullable(accountId))
 
-        /** The API Account associated with this bookkeeping account. */
+        /** Alias for calling [Builder.accountId] with `accountId.orElse(null)`. */
         fun accountId(accountId: Optional<String>) = accountId(accountId.getOrNull())
 
-        /** The API Account associated with this bookkeeping account. */
+        /**
+         * Sets [Builder.accountId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.accountId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
         /** The compliance category of the account. */
         fun complianceCategory(complianceCategory: ComplianceCategory?) =
             complianceCategory(JsonField.ofNullable(complianceCategory))
 
-        /** The compliance category of the account. */
+        /**
+         * Alias for calling [Builder.complianceCategory] with `complianceCategory.orElse(null)`.
+         */
         fun complianceCategory(complianceCategory: Optional<ComplianceCategory>) =
             complianceCategory(complianceCategory.getOrNull())
 
-        /** The compliance category of the account. */
+        /**
+         * Sets [Builder.complianceCategory] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.complianceCategory] with a well-typed
+         * [ComplianceCategory] value instead. This method is primarily for setting the field to an
+         * undocumented or not yet supported value.
+         */
         fun complianceCategory(complianceCategory: JsonField<ComplianceCategory>) = apply {
             this.complianceCategory = complianceCategory
         }
@@ -206,10 +278,15 @@ private constructor(
         /** The Entity associated with this bookkeeping account. */
         fun entityId(entityId: String?) = entityId(JsonField.ofNullable(entityId))
 
-        /** The Entity associated with this bookkeeping account. */
+        /** Alias for calling [Builder.entityId] with `entityId.orElse(null)`. */
         fun entityId(entityId: Optional<String>) = entityId(entityId.getOrNull())
 
-        /** The Entity associated with this bookkeeping account. */
+        /**
+         * Sets [Builder.entityId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.entityId] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun entityId(entityId: JsonField<String>) = apply { this.entityId = entityId }
 
         /**
@@ -220,18 +297,16 @@ private constructor(
         fun idempotencyKey(idempotencyKey: String?) =
             idempotencyKey(JsonField.ofNullable(idempotencyKey))
 
-        /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
-         */
+        /** Alias for calling [Builder.idempotencyKey] with `idempotencyKey.orElse(null)`. */
         fun idempotencyKey(idempotencyKey: Optional<String>) =
             idempotencyKey(idempotencyKey.getOrNull())
 
         /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         * Sets [Builder.idempotencyKey] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.idempotencyKey] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
             this.idempotencyKey = idempotencyKey
@@ -240,7 +315,12 @@ private constructor(
         /** The name you choose for the account. */
         fun name(name: String) = name(JsonField.of(name))
 
-        /** The name you choose for the account. */
+        /**
+         * Sets [Builder.name] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.name] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun name(name: JsonField<String>) = apply { this.name = name }
 
         /**
@@ -250,8 +330,10 @@ private constructor(
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
-         * A constant representing the object's type. For this resource it will always be
-         * `bookkeeping_account`.
+         * Sets [Builder.type] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.type] with a well-typed [Type] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
@@ -274,6 +356,24 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [BookkeepingAccount].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .accountId()
+         * .complianceCategory()
+         * .entityId()
+         * .idempotencyKey()
+         * .name()
+         * .type()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): BookkeepingAccount =
             BookkeepingAccount(
                 checkRequired("id", id),

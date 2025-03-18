@@ -7,7 +7,7 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class AccountBalanceParamsTest {
+internal class AccountBalanceParamsTest {
 
     @Test
     fun create() {
@@ -18,33 +18,36 @@ class AccountBalanceParamsTest {
     }
 
     @Test
+    fun pathParams() {
+        val params =
+            AccountBalanceParams.builder().accountId("account_in71c4amph0vgo2qllky").build()
+
+        assertThat(params._pathParam(0)).isEqualTo("account_in71c4amph0vgo2qllky")
+        // out-of-bound path param
+        assertThat(params._pathParam(1)).isEqualTo("")
+    }
+
+    @Test
     fun queryParams() {
         val params =
             AccountBalanceParams.builder()
                 .accountId("account_in71c4amph0vgo2qllky")
                 .atTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
-        val expected = QueryParams.builder()
-        expected.put("at_time", "2019-12-27T18:11:19.117Z")
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams)
+            .isEqualTo(QueryParams.builder().put("at_time", "2019-12-27T18:11:19.117Z").build())
     }
 
     @Test
     fun queryParamsWithoutOptionalFields() {
         val params =
             AccountBalanceParams.builder().accountId("account_in71c4amph0vgo2qllky").build()
-        val expected = QueryParams.builder()
-        assertThat(params._queryParams()).isEqualTo(expected.build())
-    }
 
-    @Test
-    fun getPathParam() {
-        val params =
-            AccountBalanceParams.builder().accountId("account_in71c4amph0vgo2qllky").build()
-        assertThat(params).isNotNull
-        // path param "accountId"
-        assertThat(params.getPathParam(0)).isEqualTo("account_in71c4amph0vgo2qllky")
-        // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams).isEqualTo(QueryParams.builder().build())
     }
 }

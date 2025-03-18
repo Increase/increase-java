@@ -6,10 +6,10 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class EntitySupplementalDocumentTest {
+internal class EntitySupplementalDocumentTest {
 
     @Test
-    fun createEntitySupplementalDocument() {
+    fun create() {
         val entitySupplementalDocument =
             EntitySupplementalDocument.builder()
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
@@ -18,7 +18,7 @@ class EntitySupplementalDocumentTest {
                 .idempotencyKey(null)
                 .type(EntitySupplementalDocument.Type.ENTITY_SUPPLEMENTAL_DOCUMENT)
                 .build()
-        assertThat(entitySupplementalDocument).isNotNull
+
         assertThat(entitySupplementalDocument.createdAt())
             .isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
         assertThat(entitySupplementalDocument.entityId()).isEqualTo("entity_n8y8tnk2p9339ti393yi")

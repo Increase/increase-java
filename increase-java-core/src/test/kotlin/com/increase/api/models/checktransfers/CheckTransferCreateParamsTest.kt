@@ -6,7 +6,7 @@ import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class CheckTransferCreateParamsTest {
+internal class CheckTransferCreateParamsTest {
 
     @Test
     fun create() {
@@ -28,6 +28,7 @@ class CheckTransferCreateParamsTest {
                     )
                     .memo("Check payment")
                     .recipientName("Ian Crease")
+                    .checkNumber("x")
                     .note("x")
                     .returnAddress(
                         CheckTransferCreateParams.PhysicalCheck.ReturnAddress.builder()
@@ -68,6 +69,7 @@ class CheckTransferCreateParamsTest {
                         )
                         .memo("Check payment")
                         .recipientName("Ian Crease")
+                        .checkNumber("x")
                         .note("x")
                         .returnAddress(
                             CheckTransferCreateParams.PhysicalCheck.ReturnAddress.builder()
@@ -108,6 +110,7 @@ class CheckTransferCreateParamsTest {
                     )
                     .memo("Check payment")
                     .recipientName("Ian Crease")
+                    .checkNumber("x")
                     .note("x")
                     .returnAddress(
                         CheckTransferCreateParams.PhysicalCheck.ReturnAddress.builder()

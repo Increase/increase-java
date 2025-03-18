@@ -105,7 +105,7 @@ internal constructor(private val clientOptions: ClientOptions) : IntrafiExclusio
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
-                    .addPathSegments("intrafi_exclusions", params.getPathParam(0))
+                    .addPathSegments("intrafi_exclusions", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -171,7 +171,7 @@ internal constructor(private val clientOptions: ClientOptions) : IntrafiExclusio
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
-                    .addPathSegments("intrafi_exclusions", params.getPathParam(0), "archive")
+                    .addPathSegments("intrafi_exclusions", params._pathParam(0), "archive")
                     .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
                     .prepareAsync(clientOptions, params)

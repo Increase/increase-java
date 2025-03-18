@@ -121,7 +121,7 @@ class CheckTransferServiceAsyncImpl internal constructor(private val clientOptio
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
-                    .addPathSegments("check_transfers", params.getPathParam(0))
+                    .addPathSegments("check_transfers", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -187,7 +187,7 @@ class CheckTransferServiceAsyncImpl internal constructor(private val clientOptio
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
-                    .addPathSegments("check_transfers", params.getPathParam(0), "approve")
+                    .addPathSegments("check_transfers", params._pathParam(0), "approve")
                     .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -217,7 +217,7 @@ class CheckTransferServiceAsyncImpl internal constructor(private val clientOptio
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
-                    .addPathSegments("check_transfers", params.getPathParam(0), "cancel")
+                    .addPathSegments("check_transfers", params._pathParam(0), "cancel")
                     .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -247,7 +247,7 @@ class CheckTransferServiceAsyncImpl internal constructor(private val clientOptio
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
-                    .addPathSegments("check_transfers", params.getPathParam(0), "stop_payment")
+                    .addPathSegments("check_transfers", params._pathParam(0), "stop_payment")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepareAsync(clientOptions, params)

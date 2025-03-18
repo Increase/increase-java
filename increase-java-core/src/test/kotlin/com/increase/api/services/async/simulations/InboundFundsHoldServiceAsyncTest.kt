@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(TestServerExtension::class)
-class InboundFundsHoldServiceAsyncTest {
+internal class InboundFundsHoldServiceAsyncTest {
 
     @Test
     fun release() {

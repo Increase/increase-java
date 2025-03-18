@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(TestServerExtension::class)
-class ProofOfAuthorizationRequestSubmissionServiceTest {
+internal class ProofOfAuthorizationRequestSubmissionServiceTest {
 
     @Test
     fun create() {
@@ -37,6 +37,7 @@ class ProofOfAuthorizationRequestSubmissionServiceTest {
                     .validatedAccountOwnershipViaCredential(true)
                     .validatedAccountOwnershipWithAccountStatement(true)
                     .validatedAccountOwnershipWithMicrodeposit(true)
+                    .additionalEvidenceFileId("file_makxrc67oh9l6sg7w9yc")
                     .authorizerCompany("National Phonograph Company")
                     .authorizerIpAddress("x")
                     .build()

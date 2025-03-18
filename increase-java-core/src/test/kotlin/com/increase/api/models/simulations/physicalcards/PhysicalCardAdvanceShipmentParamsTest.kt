@@ -6,7 +6,7 @@ import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class PhysicalCardAdvanceShipmentParamsTest {
+internal class PhysicalCardAdvanceShipmentParamsTest {
 
     @Test
     fun create() {
@@ -14,6 +14,19 @@ class PhysicalCardAdvanceShipmentParamsTest {
             .physicalCardId("physical_card_ode8duyq5v2ynhjoharl")
             .shipmentStatus(PhysicalCardAdvanceShipmentParams.ShipmentStatus.PENDING)
             .build()
+    }
+
+    @Test
+    fun pathParams() {
+        val params =
+            PhysicalCardAdvanceShipmentParams.builder()
+                .physicalCardId("physical_card_ode8duyq5v2ynhjoharl")
+                .shipmentStatus(PhysicalCardAdvanceShipmentParams.ShipmentStatus.PENDING)
+                .build()
+
+        assertThat(params._pathParam(0)).isEqualTo("physical_card_ode8duyq5v2ynhjoharl")
+        // out-of-bound path param
+        assertThat(params._pathParam(1)).isEqualTo("")
     }
 
     @Test
@@ -29,34 +42,5 @@ class PhysicalCardAdvanceShipmentParamsTest {
         assertNotNull(body)
         assertThat(body.shipmentStatus())
             .isEqualTo(PhysicalCardAdvanceShipmentParams.ShipmentStatus.PENDING)
-    }
-
-    @Test
-    fun bodyWithoutOptionalFields() {
-        val params =
-            PhysicalCardAdvanceShipmentParams.builder()
-                .physicalCardId("physical_card_ode8duyq5v2ynhjoharl")
-                .shipmentStatus(PhysicalCardAdvanceShipmentParams.ShipmentStatus.PENDING)
-                .build()
-
-        val body = params._body()
-
-        assertNotNull(body)
-        assertThat(body.shipmentStatus())
-            .isEqualTo(PhysicalCardAdvanceShipmentParams.ShipmentStatus.PENDING)
-    }
-
-    @Test
-    fun getPathParam() {
-        val params =
-            PhysicalCardAdvanceShipmentParams.builder()
-                .physicalCardId("physical_card_ode8duyq5v2ynhjoharl")
-                .shipmentStatus(PhysicalCardAdvanceShipmentParams.ShipmentStatus.PENDING)
-                .build()
-        assertThat(params).isNotNull
-        // path param "physicalCardId"
-        assertThat(params.getPathParam(0)).isEqualTo("physical_card_ode8duyq5v2ynhjoharl")
-        // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
     }
 }

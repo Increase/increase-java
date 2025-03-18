@@ -40,17 +40,40 @@ private constructor(
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams {
-        val queryParams = QueryParams.builder()
-        this.createdAt?.forEachQueryParam { key, values ->
-            queryParams.put("created_at.$key", values)
-        }
-        this.cursor?.let { queryParams.put("cursor", listOf(it.toString())) }
-        this.limit?.let { queryParams.put("limit", listOf(it.toString())) }
-        this.lockboxId?.let { queryParams.put("lockbox_id", listOf(it.toString())) }
-        queryParams.putAll(additionalQueryParams)
-        return queryParams.build()
-    }
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                createdAt?.let {
+                    it.after().ifPresent {
+                        put("created_at.after", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
+                    }
+                    it.before().ifPresent {
+                        put("created_at.before", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
+                    }
+                    it.onOrAfter().ifPresent {
+                        put(
+                            "created_at.on_or_after",
+                            DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it),
+                        )
+                    }
+                    it.onOrBefore().ifPresent {
+                        put(
+                            "created_at.on_or_before",
+                            DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it),
+                        )
+                    }
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("created_at.$key", value)
+                        }
+                    }
+                }
+                cursor?.let { put("cursor", it) }
+                limit?.let { put("limit", it.toString()) }
+                lockboxId?.let { put("lockbox_id", it) }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     fun toBuilder() = Builder().from(this)
 
@@ -87,12 +110,13 @@ private constructor(
 
         fun createdAt(createdAt: CreatedAt?) = apply { this.createdAt = createdAt }
 
+        /** Alias for calling [Builder.createdAt] with `createdAt.orElse(null)`. */
         fun createdAt(createdAt: Optional<CreatedAt>) = createdAt(createdAt.getOrNull())
 
         /** Return the page of entries after this one. */
         fun cursor(cursor: String?) = apply { this.cursor = cursor }
 
-        /** Return the page of entries after this one. */
+        /** Alias for calling [Builder.cursor] with `cursor.orElse(null)`. */
         fun cursor(cursor: Optional<String>) = cursor(cursor.getOrNull())
 
         /**
@@ -101,19 +125,19 @@ private constructor(
         fun limit(limit: Long?) = apply { this.limit = limit }
 
         /**
-         * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
+         * Alias for [Builder.limit].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
          */
         fun limit(limit: Long) = limit(limit as Long?)
 
-        /**
-         * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
-         */
+        /** Alias for calling [Builder.limit] with `limit.orElse(null)`. */
         fun limit(limit: Optional<Long>) = limit(limit.getOrNull())
 
         /** Filter Inbound Mail Items to ones sent to the provided Lockbox. */
         fun lockboxId(lockboxId: String?) = apply { this.lockboxId = lockboxId }
 
-        /** Filter Inbound Mail Items to ones sent to the provided Lockbox. */
+        /** Alias for calling [Builder.lockboxId] with `lockboxId.orElse(null)`. */
         fun lockboxId(lockboxId: Optional<String>) = lockboxId(lockboxId.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -214,6 +238,11 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [InboundMailItemListParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         */
         fun build(): InboundMailItemListParams =
             InboundMailItemListParams(
                 createdAt,
@@ -258,23 +287,6 @@ private constructor(
 
         fun _additionalProperties(): QueryParams = additionalProperties
 
-        @JvmSynthetic
-        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-            this.after?.let {
-                putParam("after", listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)))
-            }
-            this.before?.let {
-                putParam("before", listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)))
-            }
-            this.onOrAfter?.let {
-                putParam("on_or_after", listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)))
-            }
-            this.onOrBefore?.let {
-                putParam("on_or_before", listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)))
-            }
-            additionalProperties.keys().forEach { putParam(it, additionalProperties.values(it)) }
-        }
-
         fun toBuilder() = Builder().from(this)
 
         companion object {
@@ -307,10 +319,7 @@ private constructor(
              */
             fun after(after: OffsetDateTime?) = apply { this.after = after }
 
-            /**
-             * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-             * timestamp.
-             */
+            /** Alias for calling [Builder.after] with `after.orElse(null)`. */
             fun after(after: Optional<OffsetDateTime>) = after(after.getOrNull())
 
             /**
@@ -319,10 +328,7 @@ private constructor(
              */
             fun before(before: OffsetDateTime?) = apply { this.before = before }
 
-            /**
-             * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-             * timestamp.
-             */
+            /** Alias for calling [Builder.before] with `before.orElse(null)`. */
             fun before(before: Optional<OffsetDateTime>) = before(before.getOrNull())
 
             /**
@@ -331,10 +337,7 @@ private constructor(
              */
             fun onOrAfter(onOrAfter: OffsetDateTime?) = apply { this.onOrAfter = onOrAfter }
 
-            /**
-             * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-             * timestamp.
-             */
+            /** Alias for calling [Builder.onOrAfter] with `onOrAfter.orElse(null)`. */
             fun onOrAfter(onOrAfter: Optional<OffsetDateTime>) = onOrAfter(onOrAfter.getOrNull())
 
             /**
@@ -343,10 +346,7 @@ private constructor(
              */
             fun onOrBefore(onOrBefore: OffsetDateTime?) = apply { this.onOrBefore = onOrBefore }
 
-            /**
-             * Return results on or before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-             * timestamp.
-             */
+            /** Alias for calling [Builder.onOrBefore] with `onOrBefore.orElse(null)`. */
             fun onOrBefore(onOrBefore: Optional<OffsetDateTime>) =
                 onOrBefore(onOrBefore.getOrNull())
 
@@ -399,6 +399,11 @@ private constructor(
                 additionalProperties.removeAll(keys)
             }
 
+            /**
+             * Returns an immutable instance of [CreatedAt].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): CreatedAt =
                 CreatedAt(after, before, onOrAfter, onOrBefore, additionalProperties.build())
         }

@@ -6,10 +6,10 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class InboundWireDrawdownRequestTest {
+internal class InboundWireDrawdownRequestTest {
 
     @Test
-    fun createInboundWireDrawdownRequest() {
+    fun create() {
         val inboundWireDrawdownRequest =
             InboundWireDrawdownRequest.builder()
                 .id("inbound_wire_drawdown_request_u5a92ikqhz1ytphn799e")
@@ -36,7 +36,7 @@ class InboundWireDrawdownRequestTest {
                 .recipientAccountNumberId("account_number_v18nkfqm6afpsrvy82b2")
                 .type(InboundWireDrawdownRequest.Type.INBOUND_WIRE_DRAWDOWN_REQUEST)
                 .build()
-        assertThat(inboundWireDrawdownRequest).isNotNull
+
         assertThat(inboundWireDrawdownRequest.id())
             .isEqualTo("inbound_wire_drawdown_request_u5a92ikqhz1ytphn799e")
         assertThat(inboundWireDrawdownRequest.amount()).isEqualTo(10000L)

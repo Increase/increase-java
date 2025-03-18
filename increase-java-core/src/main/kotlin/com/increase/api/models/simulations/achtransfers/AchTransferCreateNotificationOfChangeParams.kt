@@ -33,16 +33,34 @@ private constructor(
     /** The identifier of the ACH Transfer you wish to create a notification of change for. */
     fun achTransferId(): String = achTransferId
 
-    /** The reason for the notification of change. */
+    /**
+     * The reason for the notification of change.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun changeCode(): ChangeCode = body.changeCode()
 
-    /** The corrected data for the notification of change (e.g., a new routing number). */
+    /**
+     * The corrected data for the notification of change (e.g., a new routing number).
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun correctedData(): String = body.correctedData()
 
-    /** The reason for the notification of change. */
+    /**
+     * Returns the raw JSON value of [changeCode].
+     *
+     * Unlike [changeCode], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _changeCode(): JsonField<ChangeCode> = body._changeCode()
 
-    /** The corrected data for the notification of change (e.g., a new routing number). */
+    /**
+     * Returns the raw JSON value of [correctedData].
+     *
+     * Unlike [correctedData], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _correctedData(): JsonField<String> = body._correctedData()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
@@ -53,16 +71,15 @@ private constructor(
 
     @JvmSynthetic internal fun _body(): Body = body
 
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams = additionalQueryParams
-
-    fun getPathParam(index: Int): String {
-        return when (index) {
+    fun _pathParam(index: Int): String =
+        when (index) {
             0 -> achTransferId
             else -> ""
         }
-    }
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
     class Body
@@ -78,18 +95,37 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The reason for the notification of change. */
+        /**
+         * The reason for the notification of change.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun changeCode(): ChangeCode = changeCode.getRequired("change_code")
 
-        /** The corrected data for the notification of change (e.g., a new routing number). */
+        /**
+         * The corrected data for the notification of change (e.g., a new routing number).
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun correctedData(): String = correctedData.getRequired("corrected_data")
 
-        /** The reason for the notification of change. */
+        /**
+         * Returns the raw JSON value of [changeCode].
+         *
+         * Unlike [changeCode], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("change_code")
         @ExcludeMissing
         fun _changeCode(): JsonField<ChangeCode> = changeCode
 
-        /** The corrected data for the notification of change (e.g., a new routing number). */
+        /**
+         * Returns the raw JSON value of [correctedData].
+         *
+         * Unlike [correctedData], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("corrected_data")
         @ExcludeMissing
         fun _correctedData(): JsonField<String> = correctedData
@@ -143,7 +179,13 @@ private constructor(
             /** The reason for the notification of change. */
             fun changeCode(changeCode: ChangeCode) = changeCode(JsonField.of(changeCode))
 
-            /** The reason for the notification of change. */
+            /**
+             * Sets [Builder.changeCode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.changeCode] with a well-typed [ChangeCode] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun changeCode(changeCode: JsonField<ChangeCode>) = apply {
                 this.changeCode = changeCode
             }
@@ -151,7 +193,13 @@ private constructor(
             /** The corrected data for the notification of change (e.g., a new routing number). */
             fun correctedData(correctedData: String) = correctedData(JsonField.of(correctedData))
 
-            /** The corrected data for the notification of change (e.g., a new routing number). */
+            /**
+             * Sets [Builder.correctedData] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.correctedData] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun correctedData(correctedData: JsonField<String>) = apply {
                 this.correctedData = correctedData
             }
@@ -175,6 +223,19 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Body].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .changeCode()
+             * .correctedData()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Body =
                 Body(
                     checkRequired("changeCode", changeCode),
@@ -246,13 +307,25 @@ private constructor(
         /** The reason for the notification of change. */
         fun changeCode(changeCode: ChangeCode) = apply { body.changeCode(changeCode) }
 
-        /** The reason for the notification of change. */
+        /**
+         * Sets [Builder.changeCode] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.changeCode] with a well-typed [ChangeCode] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun changeCode(changeCode: JsonField<ChangeCode>) = apply { body.changeCode(changeCode) }
 
         /** The corrected data for the notification of change (e.g., a new routing number). */
         fun correctedData(correctedData: String) = apply { body.correctedData(correctedData) }
 
-        /** The corrected data for the notification of change (e.g., a new routing number). */
+        /**
+         * Sets [Builder.correctedData] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.correctedData] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun correctedData(correctedData: JsonField<String>) = apply {
             body.correctedData(correctedData)
         }
@@ -374,6 +447,20 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [AchTransferCreateNotificationOfChangeParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .achTransferId()
+         * .changeCode()
+         * .correctedData()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): AchTransferCreateNotificationOfChangeParams =
             AchTransferCreateNotificationOfChangeParams(
                 checkRequired("achTransferId", achTransferId),

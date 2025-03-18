@@ -42,50 +42,99 @@ private constructor(
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
-    /** The Proof of Authorization Request identifier. */
+    /**
+     * The Proof of Authorization Request identifier.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun id(): String = id.getRequired("id")
 
-    /** The ACH Transfers associated with the request. */
+    /**
+     * The ACH Transfers associated with the request.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun achTransfers(): List<AchTransfer> = achTransfers.getRequired("ach_transfers")
 
-    /** The time the Proof of Authorization Request was created. */
+    /**
+     * The time the Proof of Authorization Request was created.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
-    /** The time the Proof of Authorization Request is due. */
+    /**
+     * The time the Proof of Authorization Request is due.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun dueOn(): OffsetDateTime = dueOn.getRequired("due_on")
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `proof_of_authorization_request`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun type(): Type = type.getRequired("type")
 
-    /** The time the Proof of Authorization Request was last updated. */
+    /**
+     * The time the Proof of Authorization Request was last updated.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
-    /** The Proof of Authorization Request identifier. */
+    /**
+     * Returns the raw JSON value of [id].
+     *
+     * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
-    /** The ACH Transfers associated with the request. */
+    /**
+     * Returns the raw JSON value of [achTransfers].
+     *
+     * Unlike [achTransfers], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("ach_transfers")
     @ExcludeMissing
     fun _achTransfers(): JsonField<List<AchTransfer>> = achTransfers
 
-    /** The time the Proof of Authorization Request was created. */
+    /**
+     * Returns the raw JSON value of [createdAt].
+     *
+     * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("created_at")
     @ExcludeMissing
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
-    /** The time the Proof of Authorization Request is due. */
+    /**
+     * Returns the raw JSON value of [dueOn].
+     *
+     * Unlike [dueOn], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("due_on") @ExcludeMissing fun _dueOn(): JsonField<OffsetDateTime> = dueOn
 
     /**
-     * A constant representing the object's type. For this resource it will always be
-     * `proof_of_authorization_request`.
+     * Returns the raw JSON value of [type].
+     *
+     * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
-    /** The time the Proof of Authorization Request was last updated. */
+    /**
+     * Returns the raw JSON value of [updatedAt].
+     *
+     * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("updated_at")
     @ExcludeMissing
     fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
@@ -155,18 +204,33 @@ private constructor(
         /** The Proof of Authorization Request identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
-        /** The Proof of Authorization Request identifier. */
+        /**
+         * Sets [Builder.id] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.id] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The ACH Transfers associated with the request. */
         fun achTransfers(achTransfers: List<AchTransfer>) = achTransfers(JsonField.of(achTransfers))
 
-        /** The ACH Transfers associated with the request. */
+        /**
+         * Sets [Builder.achTransfers] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.achTransfers] with a well-typed `List<AchTransfer>`
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
         fun achTransfers(achTransfers: JsonField<List<AchTransfer>>) = apply {
             this.achTransfers = achTransfers.map { it.toMutableList() }
         }
 
-        /** The ACH Transfers associated with the request. */
+        /**
+         * Adds a single [AchTransfer] to [achTransfers].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
         fun addAchTransfer(achTransfer: AchTransfer) = apply {
             achTransfers =
                 (achTransfers ?: JsonField.of(mutableListOf())).also {
@@ -177,13 +241,25 @@ private constructor(
         /** The time the Proof of Authorization Request was created. */
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
-        /** The time the Proof of Authorization Request was created. */
+        /**
+         * Sets [Builder.createdAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** The time the Proof of Authorization Request is due. */
         fun dueOn(dueOn: OffsetDateTime) = dueOn(JsonField.of(dueOn))
 
-        /** The time the Proof of Authorization Request is due. */
+        /**
+         * Sets [Builder.dueOn] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.dueOn] with a well-typed [OffsetDateTime] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun dueOn(dueOn: JsonField<OffsetDateTime>) = apply { this.dueOn = dueOn }
 
         /**
@@ -193,15 +269,23 @@ private constructor(
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
-         * A constant representing the object's type. For this resource it will always be
-         * `proof_of_authorization_request`.
+         * Sets [Builder.type] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.type] with a well-typed [Type] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
         /** The time the Proof of Authorization Request was last updated. */
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
-        /** The time the Proof of Authorization Request was last updated. */
+        /**
+         * Sets [Builder.updatedAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.updatedAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -223,6 +307,23 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [ProofOfAuthorizationRequest].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .achTransfers()
+         * .createdAt()
+         * .dueOn()
+         * .type()
+         * .updatedAt()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): ProofOfAuthorizationRequest =
             ProofOfAuthorizationRequest(
                 checkRequired("id", id),
@@ -244,10 +345,19 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The ACH Transfer identifier. */
+        /**
+         * The ACH Transfer identifier.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun id(): String = id.getRequired("id")
 
-        /** The ACH Transfer identifier. */
+        /**
+         * Returns the raw JSON value of [id].
+         *
+         * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
         @JsonAnyGetter
@@ -295,7 +405,13 @@ private constructor(
             /** The ACH Transfer identifier. */
             fun id(id: String) = id(JsonField.of(id))
 
-            /** The ACH Transfer identifier. */
+            /**
+             * Sets [Builder.id] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.id] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
             fun id(id: JsonField<String>) = apply { this.id = id }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -317,6 +433,18 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [AchTransfer].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .id()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): AchTransfer =
                 AchTransfer(checkRequired("id", id), additionalProperties.toImmutable())
         }

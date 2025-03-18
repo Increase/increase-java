@@ -7,7 +7,7 @@ import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class ProofOfAuthorizationRequestSubmissionCreateParamsTest {
+internal class ProofOfAuthorizationRequestSubmissionCreateParamsTest {
 
     @Test
     fun create() {
@@ -21,6 +21,7 @@ class ProofOfAuthorizationRequestSubmissionCreateParamsTest {
             .validatedAccountOwnershipViaCredential(true)
             .validatedAccountOwnershipWithAccountStatement(true)
             .validatedAccountOwnershipWithMicrodeposit(true)
+            .additionalEvidenceFileId("file_makxrc67oh9l6sg7w9yc")
             .authorizerCompany("National Phonograph Company")
             .authorizerIpAddress("x")
             .build()
@@ -41,6 +42,7 @@ class ProofOfAuthorizationRequestSubmissionCreateParamsTest {
                 .validatedAccountOwnershipViaCredential(true)
                 .validatedAccountOwnershipWithAccountStatement(true)
                 .validatedAccountOwnershipWithMicrodeposit(true)
+                .additionalEvidenceFileId("file_makxrc67oh9l6sg7w9yc")
                 .authorizerCompany("National Phonograph Company")
                 .authorizerIpAddress("x")
                 .build()
@@ -58,6 +60,7 @@ class ProofOfAuthorizationRequestSubmissionCreateParamsTest {
         assertThat(body.validatedAccountOwnershipViaCredential()).isEqualTo(true)
         assertThat(body.validatedAccountOwnershipWithAccountStatement()).isEqualTo(true)
         assertThat(body.validatedAccountOwnershipWithMicrodeposit()).isEqualTo(true)
+        assertThat(body.additionalEvidenceFileId()).contains("file_makxrc67oh9l6sg7w9yc")
         assertThat(body.authorizerCompany()).contains("National Phonograph Company")
         assertThat(body.authorizerIpAddress()).contains("x")
     }

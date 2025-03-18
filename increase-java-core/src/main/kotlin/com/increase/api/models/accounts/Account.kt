@@ -70,33 +70,62 @@ private constructor(
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
-    /** The Account identifier. */
+    /**
+     * The Account identifier.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun id(): String = id.getRequired("id")
 
-    /** The bank the Account is with. */
+    /**
+     * The bank the Account is with.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun bank(): Bank = bank.getRequired("bank")
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account was closed.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun closedAt(): Optional<OffsetDateTime> =
         Optional.ofNullable(closedAt.getNullable("closed_at"))
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account was created.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
-    /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the Account currency. */
+    /**
+     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the Account currency.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun currency(): Currency = currency.getRequired("currency")
 
-    /** The identifier for the Entity the Account belongs to. */
+    /**
+     * The identifier for the Entity the Account belongs to.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun entityId(): Optional<String> = Optional.ofNullable(entityId.getNullable("entity_id"))
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
      * used to ensure that a request is only processed once. Learn more about
      * [idempotency](https://increase.com/documentation/idempotency-keys).
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun idempotencyKey(): Optional<String> =
         Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
@@ -104,6 +133,9 @@ private constructor(
     /**
      * The identifier of an Entity that, while not owning the Account, is associated with its
      * activity.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun informationalEntityId(): Optional<String> =
         Optional.ofNullable(informationalEntityId.getNullable("informational_entity_id"))
@@ -111,12 +143,18 @@ private constructor(
     /**
      * The interest accrued but not yet paid, expressed as a string containing a floating-point
      * value.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun interestAccrued(): String = interestAccrued.getRequired("interest_accrued")
 
     /**
      * The latest [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date on which interest was
      * accrued.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun interestAccruedAt(): Optional<LocalDate> =
         Optional.ofNullable(interestAccruedAt.getNullable("interest_accrued_at"))
@@ -124,102 +162,162 @@ private constructor(
     /**
      * The Interest Rate currently being earned on the account, as a string containing a decimal
      * number. For example, a 1% interest rate would be represented as "0.01".
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun interestRate(): String = interestRate.getRequired("interest_rate")
 
-    /** The name you choose for the Account. */
+    /**
+     * The name you choose for the Account.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun name(): String = name.getRequired("name")
 
     /**
      * The identifier of the Program determining the compliance and commercial terms of this
      * Account.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun programId(): String = programId.getRequired("program_id")
 
-    /** The status of the Account. */
+    /**
+     * The status of the Account.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun status(): Status = status.getRequired("status")
 
-    /** A constant representing the object's type. For this resource it will always be `account`. */
+    /**
+     * A constant representing the object's type. For this resource it will always be `account`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun type(): Type = type.getRequired("type")
 
-    /** The Account identifier. */
+    /**
+     * Returns the raw JSON value of [id].
+     *
+     * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
-    /** The bank the Account is with. */
+    /**
+     * Returns the raw JSON value of [bank].
+     *
+     * Unlike [bank], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("bank") @ExcludeMissing fun _bank(): JsonField<Bank> = bank
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account was closed.
+     * Returns the raw JSON value of [closedAt].
+     *
+     * Unlike [closedAt], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("closed_at") @ExcludeMissing fun _closedAt(): JsonField<OffsetDateTime> = closedAt
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account was created.
+     * Returns the raw JSON value of [createdAt].
+     *
+     * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("created_at")
     @ExcludeMissing
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
-    /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the Account currency. */
+    /**
+     * Returns the raw JSON value of [currency].
+     *
+     * Unlike [currency], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("currency") @ExcludeMissing fun _currency(): JsonField<Currency> = currency
 
-    /** The identifier for the Entity the Account belongs to. */
+    /**
+     * Returns the raw JSON value of [entityId].
+     *
+     * Unlike [entityId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("entity_id") @ExcludeMissing fun _entityId(): JsonField<String> = entityId
 
     /**
-     * The idempotency key you chose for this object. This value is unique across Increase and is
-     * used to ensure that a request is only processed once. Learn more about
-     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     * Returns the raw JSON value of [idempotencyKey].
+     *
+     * Unlike [idempotencyKey], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("idempotency_key")
     @ExcludeMissing
     fun _idempotencyKey(): JsonField<String> = idempotencyKey
 
     /**
-     * The identifier of an Entity that, while not owning the Account, is associated with its
-     * activity.
+     * Returns the raw JSON value of [informationalEntityId].
+     *
+     * Unlike [informationalEntityId], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
     @JsonProperty("informational_entity_id")
     @ExcludeMissing
     fun _informationalEntityId(): JsonField<String> = informationalEntityId
 
     /**
-     * The interest accrued but not yet paid, expressed as a string containing a floating-point
-     * value.
+     * Returns the raw JSON value of [interestAccrued].
+     *
+     * Unlike [interestAccrued], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("interest_accrued")
     @ExcludeMissing
     fun _interestAccrued(): JsonField<String> = interestAccrued
 
     /**
-     * The latest [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date on which interest was
-     * accrued.
+     * Returns the raw JSON value of [interestAccruedAt].
+     *
+     * Unlike [interestAccruedAt], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
     @JsonProperty("interest_accrued_at")
     @ExcludeMissing
     fun _interestAccruedAt(): JsonField<LocalDate> = interestAccruedAt
 
     /**
-     * The Interest Rate currently being earned on the account, as a string containing a decimal
-     * number. For example, a 1% interest rate would be represented as "0.01".
+     * Returns the raw JSON value of [interestRate].
+     *
+     * Unlike [interestRate], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("interest_rate")
     @ExcludeMissing
     fun _interestRate(): JsonField<String> = interestRate
 
-    /** The name you choose for the Account. */
+    /**
+     * Returns the raw JSON value of [name].
+     *
+     * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
     /**
-     * The identifier of the Program determining the compliance and commercial terms of this
-     * Account.
+     * Returns the raw JSON value of [programId].
+     *
+     * Unlike [programId], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("program_id") @ExcludeMissing fun _programId(): JsonField<String> = programId
 
-    /** The status of the Account. */
+    /**
+     * Returns the raw JSON value of [status].
+     *
+     * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
-    /** A constant representing the object's type. For this resource it will always be `account`. */
+    /**
+     * Returns the raw JSON value of [type].
+     *
+     * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
     @JsonAnyGetter
@@ -323,13 +421,23 @@ private constructor(
         /** The Account identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
-        /** The Account identifier. */
+        /**
+         * Sets [Builder.id] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.id] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The bank the Account is with. */
         fun bank(bank: Bank) = bank(JsonField.of(bank))
 
-        /** The bank the Account is with. */
+        /**
+         * Sets [Builder.bank] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.bank] with a well-typed [Bank] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun bank(bank: JsonField<Bank>) = apply { this.bank = bank }
 
         /**
@@ -338,15 +446,15 @@ private constructor(
          */
         fun closedAt(closedAt: OffsetDateTime?) = closedAt(JsonField.ofNullable(closedAt))
 
-        /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account was
-         * closed.
-         */
+        /** Alias for calling [Builder.closedAt] with `closedAt.orElse(null)`. */
         fun closedAt(closedAt: Optional<OffsetDateTime>) = closedAt(closedAt.getOrNull())
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account was
-         * closed.
+         * Sets [Builder.closedAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.closedAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun closedAt(closedAt: JsonField<OffsetDateTime>) = apply { this.closedAt = closedAt }
 
@@ -357,24 +465,38 @@ private constructor(
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account was
-         * created.
+         * Sets [Builder.createdAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the Account currency. */
         fun currency(currency: Currency) = currency(JsonField.of(currency))
 
-        /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the Account currency. */
+        /**
+         * Sets [Builder.currency] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.currency] with a well-typed [Currency] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
 
         /** The identifier for the Entity the Account belongs to. */
         fun entityId(entityId: String?) = entityId(JsonField.ofNullable(entityId))
 
-        /** The identifier for the Entity the Account belongs to. */
+        /** Alias for calling [Builder.entityId] with `entityId.orElse(null)`. */
         fun entityId(entityId: Optional<String>) = entityId(entityId.getOrNull())
 
-        /** The identifier for the Entity the Account belongs to. */
+        /**
+         * Sets [Builder.entityId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.entityId] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun entityId(entityId: JsonField<String>) = apply { this.entityId = entityId }
 
         /**
@@ -385,18 +507,16 @@ private constructor(
         fun idempotencyKey(idempotencyKey: String?) =
             idempotencyKey(JsonField.ofNullable(idempotencyKey))
 
-        /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
-         */
+        /** Alias for calling [Builder.idempotencyKey] with `idempotencyKey.orElse(null)`. */
         fun idempotencyKey(idempotencyKey: Optional<String>) =
             idempotencyKey(idempotencyKey.getOrNull())
 
         /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         * Sets [Builder.idempotencyKey] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.idempotencyKey] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
             this.idempotencyKey = idempotencyKey
@@ -410,15 +530,18 @@ private constructor(
             informationalEntityId(JsonField.ofNullable(informationalEntityId))
 
         /**
-         * The identifier of an Entity that, while not owning the Account, is associated with its
-         * activity.
+         * Alias for calling [Builder.informationalEntityId] with
+         * `informationalEntityId.orElse(null)`.
          */
         fun informationalEntityId(informationalEntityId: Optional<String>) =
             informationalEntityId(informationalEntityId.getOrNull())
 
         /**
-         * The identifier of an Entity that, while not owning the Account, is associated with its
-         * activity.
+         * Sets [Builder.informationalEntityId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.informationalEntityId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun informationalEntityId(informationalEntityId: JsonField<String>) = apply {
             this.informationalEntityId = informationalEntityId
@@ -432,8 +555,11 @@ private constructor(
             interestAccrued(JsonField.of(interestAccrued))
 
         /**
-         * The interest accrued but not yet paid, expressed as a string containing a floating-point
-         * value.
+         * Sets [Builder.interestAccrued] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.interestAccrued] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun interestAccrued(interestAccrued: JsonField<String>) = apply {
             this.interestAccrued = interestAccrued
@@ -446,16 +572,16 @@ private constructor(
         fun interestAccruedAt(interestAccruedAt: LocalDate?) =
             interestAccruedAt(JsonField.ofNullable(interestAccruedAt))
 
-        /**
-         * The latest [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date on which interest was
-         * accrued.
-         */
+        /** Alias for calling [Builder.interestAccruedAt] with `interestAccruedAt.orElse(null)`. */
         fun interestAccruedAt(interestAccruedAt: Optional<LocalDate>) =
             interestAccruedAt(interestAccruedAt.getOrNull())
 
         /**
-         * The latest [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date on which interest was
-         * accrued.
+         * Sets [Builder.interestAccruedAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.interestAccruedAt] with a well-typed [LocalDate] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun interestAccruedAt(interestAccruedAt: JsonField<LocalDate>) = apply {
             this.interestAccruedAt = interestAccruedAt
@@ -468,8 +594,11 @@ private constructor(
         fun interestRate(interestRate: String) = interestRate(JsonField.of(interestRate))
 
         /**
-         * The Interest Rate currently being earned on the account, as a string containing a decimal
-         * number. For example, a 1% interest rate would be represented as "0.01".
+         * Sets [Builder.interestRate] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.interestRate] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun interestRate(interestRate: JsonField<String>) = apply {
             this.interestRate = interestRate
@@ -478,7 +607,12 @@ private constructor(
         /** The name you choose for the Account. */
         fun name(name: String) = name(JsonField.of(name))
 
-        /** The name you choose for the Account. */
+        /**
+         * Sets [Builder.name] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.name] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun name(name: JsonField<String>) = apply { this.name = name }
 
         /**
@@ -488,15 +622,23 @@ private constructor(
         fun programId(programId: String) = programId(JsonField.of(programId))
 
         /**
-         * The identifier of the Program determining the compliance and commercial terms of this
-         * Account.
+         * Sets [Builder.programId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.programId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun programId(programId: JsonField<String>) = apply { this.programId = programId }
 
         /** The status of the Account. */
         fun status(status: Status) = status(JsonField.of(status))
 
-        /** The status of the Account. */
+        /**
+         * Sets [Builder.status] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.status] with a well-typed [Status] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /**
@@ -505,7 +647,10 @@ private constructor(
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
-         * A constant representing the object's type. For this resource it will always be `account`.
+         * Sets [Builder.type] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.type] with a well-typed [Type] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
@@ -528,6 +673,32 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [Account].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .bank()
+         * .closedAt()
+         * .createdAt()
+         * .currency()
+         * .entityId()
+         * .idempotencyKey()
+         * .informationalEntityId()
+         * .interestAccrued()
+         * .interestAccruedAt()
+         * .interestRate()
+         * .name()
+         * .programId()
+         * .status()
+         * .type()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): Account =
             Account(
                 checkRequired("id", id),

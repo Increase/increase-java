@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(TestServerExtension::class)
-class CheckTransferServiceAsyncTest {
+internal class CheckTransferServiceAsyncTest {
 
     @Test
     fun create() {
@@ -44,6 +44,7 @@ class CheckTransferServiceAsyncTest {
                             )
                             .memo("Check payment")
                             .recipientName("Ian Crease")
+                            .checkNumber("x")
                             .note("x")
                             .returnAddress(
                                 CheckTransferCreateParams.PhysicalCheck.ReturnAddress.builder()

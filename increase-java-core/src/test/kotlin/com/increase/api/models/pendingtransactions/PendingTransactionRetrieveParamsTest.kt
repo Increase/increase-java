@@ -5,7 +5,7 @@ package com.increase.api.models.pendingtransactions
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class PendingTransactionRetrieveParamsTest {
+internal class PendingTransactionRetrieveParamsTest {
 
     @Test
     fun create() {
@@ -15,15 +15,14 @@ class PendingTransactionRetrieveParamsTest {
     }
 
     @Test
-    fun getPathParam() {
+    fun pathParams() {
         val params =
             PendingTransactionRetrieveParams.builder()
                 .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")
                 .build()
-        assertThat(params).isNotNull
-        // path param "pendingTransactionId"
-        assertThat(params.getPathParam(0)).isEqualTo("pending_transaction_k1sfetcau2qbvjbzgju4")
+
+        assertThat(params._pathParam(0)).isEqualTo("pending_transaction_k1sfetcau2qbvjbzgju4")
         // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
+        assertThat(params._pathParam(1)).isEqualTo("")
     }
 }

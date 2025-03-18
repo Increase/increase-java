@@ -52,6 +52,8 @@ import com.increase.api.services.async.ExportServiceAsync
 import com.increase.api.services.async.ExportServiceAsyncImpl
 import com.increase.api.services.async.ExternalAccountServiceAsync
 import com.increase.api.services.async.ExternalAccountServiceAsyncImpl
+import com.increase.api.services.async.FileLinkServiceAsync
+import com.increase.api.services.async.FileLinkServiceAsyncImpl
 import com.increase.api.services.async.FileServiceAsync
 import com.increase.api.services.async.FileServiceAsyncImpl
 import com.increase.api.services.async.GroupServiceAsync
@@ -276,6 +278,10 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
 
     private val files: FileServiceAsync by lazy { FileServiceAsyncImpl(clientOptionsWithUserAgent) }
 
+    private val fileLinks: FileLinkServiceAsync by lazy {
+        FileLinkServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
     private val documents: DocumentServiceAsync by lazy {
         DocumentServiceAsyncImpl(clientOptionsWithUserAgent)
     }
@@ -425,6 +431,8 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
     override fun accountStatements(): AccountStatementServiceAsync = accountStatements
 
     override fun files(): FileServiceAsync = files
+
+    override fun fileLinks(): FileLinkServiceAsync = fileLinks
 
     override fun documents(): DocumentServiceAsync = documents
 
@@ -621,6 +629,10 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
             FileServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val fileLinks: FileLinkServiceAsync.WithRawResponse by lazy {
+            FileLinkServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         private val documents: DocumentServiceAsync.WithRawResponse by lazy {
             DocumentServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
@@ -782,6 +794,8 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
             accountStatements
 
         override fun files(): FileServiceAsync.WithRawResponse = files
+
+        override fun fileLinks(): FileLinkServiceAsync.WithRawResponse = fileLinks
 
         override fun documents(): DocumentServiceAsync.WithRawResponse = documents
 

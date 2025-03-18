@@ -48,20 +48,50 @@ private constructor(
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams {
-        val queryParams = QueryParams.builder()
-        this.associatedObjectId?.let {
-            queryParams.put("associated_object_id", listOf(it.toString()))
-        }
-        this.category?.forEachQueryParam { key, values -> queryParams.put("category.$key", values) }
-        this.createdAt?.forEachQueryParam { key, values ->
-            queryParams.put("created_at.$key", values)
-        }
-        this.cursor?.let { queryParams.put("cursor", listOf(it.toString())) }
-        this.limit?.let { queryParams.put("limit", listOf(it.toString())) }
-        queryParams.putAll(additionalQueryParams)
-        return queryParams.build()
-    }
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                associatedObjectId?.let { put("associated_object_id", it) }
+                category?.let {
+                    it.in_().ifPresent {
+                        put("category.in", it.joinToString(",") { it.asString() })
+                    }
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("category.$key", value)
+                        }
+                    }
+                }
+                createdAt?.let {
+                    it.after().ifPresent {
+                        put("created_at.after", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
+                    }
+                    it.before().ifPresent {
+                        put("created_at.before", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
+                    }
+                    it.onOrAfter().ifPresent {
+                        put(
+                            "created_at.on_or_after",
+                            DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it),
+                        )
+                    }
+                    it.onOrBefore().ifPresent {
+                        put(
+                            "created_at.on_or_before",
+                            DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it),
+                        )
+                    }
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("created_at.$key", value)
+                        }
+                    }
+                }
+                cursor?.let { put("cursor", it) }
+                limit?.let { put("limit", it.toString()) }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     fun toBuilder() = Builder().from(this)
 
@@ -101,22 +131,26 @@ private constructor(
             this.associatedObjectId = associatedObjectId
         }
 
-        /** Filter Events to those belonging to the object with the provided identifier. */
+        /**
+         * Alias for calling [Builder.associatedObjectId] with `associatedObjectId.orElse(null)`.
+         */
         fun associatedObjectId(associatedObjectId: Optional<String>) =
             associatedObjectId(associatedObjectId.getOrNull())
 
         fun category(category: Category?) = apply { this.category = category }
 
+        /** Alias for calling [Builder.category] with `category.orElse(null)`. */
         fun category(category: Optional<Category>) = category(category.getOrNull())
 
         fun createdAt(createdAt: CreatedAt?) = apply { this.createdAt = createdAt }
 
+        /** Alias for calling [Builder.createdAt] with `createdAt.orElse(null)`. */
         fun createdAt(createdAt: Optional<CreatedAt>) = createdAt(createdAt.getOrNull())
 
         /** Return the page of entries after this one. */
         fun cursor(cursor: String?) = apply { this.cursor = cursor }
 
-        /** Return the page of entries after this one. */
+        /** Alias for calling [Builder.cursor] with `cursor.orElse(null)`. */
         fun cursor(cursor: Optional<String>) = cursor(cursor.getOrNull())
 
         /**
@@ -125,13 +159,13 @@ private constructor(
         fun limit(limit: Long?) = apply { this.limit = limit }
 
         /**
-         * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
+         * Alias for [Builder.limit].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
          */
         fun limit(limit: Long) = limit(limit as Long?)
 
-        /**
-         * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
-         */
+        /** Alias for calling [Builder.limit] with `limit.orElse(null)`. */
         fun limit(limit: Optional<Long>) = limit(limit.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -232,6 +266,11 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [EventListParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         */
         fun build(): EventListParams =
             EventListParams(
                 associatedObjectId,
@@ -254,12 +293,6 @@ private constructor(
         fun in_(): Optional<List<In>> = Optional.ofNullable(in_)
 
         fun _additionalProperties(): QueryParams = additionalProperties
-
-        @JvmSynthetic
-        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-            this.in_?.let { putParam("in", listOf(it.joinToString(separator = ","))) }
-            additionalProperties.keys().forEach { putParam(it, additionalProperties.values(it)) }
-        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -287,15 +320,13 @@ private constructor(
              */
             fun in_(in_: List<In>?) = apply { this.in_ = in_?.toMutableList() }
 
-            /**
-             * Filter Events for those with the specified category or categories. For GET requests,
-             * this should be encoded as a comma-delimited string, such as `?in=one,two,three`.
-             */
+            /** Alias for calling [Builder.in_] with `in_.orElse(null)`. */
             fun in_(in_: Optional<List<In>>) = in_(in_.getOrNull())
 
             /**
-             * Filter Events for those with the specified category or categories. For GET requests,
-             * this should be encoded as a comma-delimited string, such as `?in=one,two,three`.
+             * Adds a single [In] to [Builder.in_].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
              */
             fun addIn(in_: In) = apply {
                 this.in_ = (this.in_ ?: mutableListOf()).apply { add(in_) }
@@ -350,6 +381,11 @@ private constructor(
                 additionalProperties.removeAll(keys)
             }
 
+            /**
+             * Returns an immutable instance of [Category].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): Category = Category(in_?.toImmutable(), additionalProperties.build())
         }
 
@@ -1399,23 +1435,6 @@ private constructor(
 
         fun _additionalProperties(): QueryParams = additionalProperties
 
-        @JvmSynthetic
-        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-            this.after?.let {
-                putParam("after", listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)))
-            }
-            this.before?.let {
-                putParam("before", listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)))
-            }
-            this.onOrAfter?.let {
-                putParam("on_or_after", listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)))
-            }
-            this.onOrBefore?.let {
-                putParam("on_or_before", listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)))
-            }
-            additionalProperties.keys().forEach { putParam(it, additionalProperties.values(it)) }
-        }
-
         fun toBuilder() = Builder().from(this)
 
         companion object {
@@ -1448,10 +1467,7 @@ private constructor(
              */
             fun after(after: OffsetDateTime?) = apply { this.after = after }
 
-            /**
-             * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-             * timestamp.
-             */
+            /** Alias for calling [Builder.after] with `after.orElse(null)`. */
             fun after(after: Optional<OffsetDateTime>) = after(after.getOrNull())
 
             /**
@@ -1460,10 +1476,7 @@ private constructor(
              */
             fun before(before: OffsetDateTime?) = apply { this.before = before }
 
-            /**
-             * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-             * timestamp.
-             */
+            /** Alias for calling [Builder.before] with `before.orElse(null)`. */
             fun before(before: Optional<OffsetDateTime>) = before(before.getOrNull())
 
             /**
@@ -1472,10 +1485,7 @@ private constructor(
              */
             fun onOrAfter(onOrAfter: OffsetDateTime?) = apply { this.onOrAfter = onOrAfter }
 
-            /**
-             * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-             * timestamp.
-             */
+            /** Alias for calling [Builder.onOrAfter] with `onOrAfter.orElse(null)`. */
             fun onOrAfter(onOrAfter: Optional<OffsetDateTime>) = onOrAfter(onOrAfter.getOrNull())
 
             /**
@@ -1484,10 +1494,7 @@ private constructor(
              */
             fun onOrBefore(onOrBefore: OffsetDateTime?) = apply { this.onOrBefore = onOrBefore }
 
-            /**
-             * Return results on or before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-             * timestamp.
-             */
+            /** Alias for calling [Builder.onOrBefore] with `onOrBefore.orElse(null)`. */
             fun onOrBefore(onOrBefore: Optional<OffsetDateTime>) =
                 onOrBefore(onOrBefore.getOrNull())
 
@@ -1540,6 +1547,11 @@ private constructor(
                 additionalProperties.removeAll(keys)
             }
 
+            /**
+             * Returns an immutable instance of [CreatedAt].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): CreatedAt =
                 CreatedAt(after, before, onOrAfter, onOrBefore, additionalProperties.build())
         }

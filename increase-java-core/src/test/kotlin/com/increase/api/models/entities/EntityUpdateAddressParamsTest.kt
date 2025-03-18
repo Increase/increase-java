@@ -6,7 +6,7 @@ import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class EntityUpdateAddressParamsTest {
+internal class EntityUpdateAddressParamsTest {
 
     @Test
     fun create() {
@@ -22,6 +22,26 @@ class EntityUpdateAddressParamsTest {
                     .build()
             )
             .build()
+    }
+
+    @Test
+    fun pathParams() {
+        val params =
+            EntityUpdateAddressParams.builder()
+                .entityId("entity_n8y8tnk2p9339ti393yi")
+                .address(
+                    EntityUpdateAddressParams.Address.builder()
+                        .city("New York")
+                        .line1("33 Liberty Street")
+                        .state("NY")
+                        .zip("10045")
+                        .build()
+                )
+                .build()
+
+        assertThat(params._pathParam(0)).isEqualTo("entity_n8y8tnk2p9339ti393yi")
+        // out-of-bound path param
+        assertThat(params._pathParam(1)).isEqualTo("")
     }
 
     @Test
@@ -82,26 +102,5 @@ class EntityUpdateAddressParamsTest {
                     .zip("10045")
                     .build()
             )
-    }
-
-    @Test
-    fun getPathParam() {
-        val params =
-            EntityUpdateAddressParams.builder()
-                .entityId("entity_n8y8tnk2p9339ti393yi")
-                .address(
-                    EntityUpdateAddressParams.Address.builder()
-                        .city("New York")
-                        .line1("33 Liberty Street")
-                        .state("NY")
-                        .zip("10045")
-                        .build()
-                )
-                .build()
-        assertThat(params).isNotNull
-        // path param "entityId"
-        assertThat(params.getPathParam(0)).isEqualTo("entity_n8y8tnk2p9339ti393yi")
-        // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
     }
 }

@@ -5,7 +5,7 @@ package com.increase.api.models.realtimepaymentstransfers
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class RealTimePaymentsTransferRetrieveParamsTest {
+internal class RealTimePaymentsTransferRetrieveParamsTest {
 
     @Test
     fun create() {
@@ -15,16 +15,15 @@ class RealTimePaymentsTransferRetrieveParamsTest {
     }
 
     @Test
-    fun getPathParam() {
+    fun pathParams() {
         val params =
             RealTimePaymentsTransferRetrieveParams.builder()
                 .realTimePaymentsTransferId("real_time_payments_transfer_iyuhl5kdn7ssmup83mvq")
                 .build()
-        assertThat(params).isNotNull
-        // path param "realTimePaymentsTransferId"
-        assertThat(params.getPathParam(0))
+
+        assertThat(params._pathParam(0))
             .isEqualTo("real_time_payments_transfer_iyuhl5kdn7ssmup83mvq")
         // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
+        assertThat(params._pathParam(1)).isEqualTo("")
     }
 }

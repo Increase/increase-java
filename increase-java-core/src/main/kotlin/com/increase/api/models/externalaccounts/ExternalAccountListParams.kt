@@ -51,16 +51,24 @@ private constructor(
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams {
-        val queryParams = QueryParams.builder()
-        this.cursor?.let { queryParams.put("cursor", listOf(it.toString())) }
-        this.idempotencyKey?.let { queryParams.put("idempotency_key", listOf(it.toString())) }
-        this.limit?.let { queryParams.put("limit", listOf(it.toString())) }
-        this.routingNumber?.let { queryParams.put("routing_number", listOf(it.toString())) }
-        this.status?.forEachQueryParam { key, values -> queryParams.put("status.$key", values) }
-        queryParams.putAll(additionalQueryParams)
-        return queryParams.build()
-    }
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                cursor?.let { put("cursor", it) }
+                idempotencyKey?.let { put("idempotency_key", it) }
+                limit?.let { put("limit", it.toString()) }
+                routingNumber?.let { put("routing_number", it) }
+                status?.let {
+                    it.in_().ifPresent { put("status.in", it.joinToString(",") { it.asString() }) }
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("status.$key", value)
+                        }
+                    }
+                }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     fun toBuilder() = Builder().from(this)
 
@@ -100,7 +108,7 @@ private constructor(
         /** Return the page of entries after this one. */
         fun cursor(cursor: String?) = apply { this.cursor = cursor }
 
-        /** Return the page of entries after this one. */
+        /** Alias for calling [Builder.cursor] with `cursor.orElse(null)`. */
         fun cursor(cursor: Optional<String>) = cursor(cursor.getOrNull())
 
         /**
@@ -111,12 +119,7 @@ private constructor(
          */
         fun idempotencyKey(idempotencyKey: String?) = apply { this.idempotencyKey = idempotencyKey }
 
-        /**
-         * Filter records to the one with the specified `idempotency_key` you chose for that object.
-         * This value is unique across Increase and is used to ensure that a request is only
-         * processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
-         */
+        /** Alias for calling [Builder.idempotencyKey] with `idempotencyKey.orElse(null)`. */
         fun idempotencyKey(idempotencyKey: Optional<String>) =
             idempotencyKey(idempotencyKey.getOrNull())
 
@@ -126,24 +129,25 @@ private constructor(
         fun limit(limit: Long?) = apply { this.limit = limit }
 
         /**
-         * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
+         * Alias for [Builder.limit].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
          */
         fun limit(limit: Long) = limit(limit as Long?)
 
-        /**
-         * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
-         */
+        /** Alias for calling [Builder.limit] with `limit.orElse(null)`. */
         fun limit(limit: Optional<Long>) = limit(limit.getOrNull())
 
         /** Filter External Accounts to those with the specified Routing Number. */
         fun routingNumber(routingNumber: String?) = apply { this.routingNumber = routingNumber }
 
-        /** Filter External Accounts to those with the specified Routing Number. */
+        /** Alias for calling [Builder.routingNumber] with `routingNumber.orElse(null)`. */
         fun routingNumber(routingNumber: Optional<String>) =
             routingNumber(routingNumber.getOrNull())
 
         fun status(status: Status?) = apply { this.status = status }
 
+        /** Alias for calling [Builder.status] with `status.orElse(null)`. */
         fun status(status: Optional<Status>) = status(status.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -244,6 +248,11 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [ExternalAccountListParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         */
         fun build(): ExternalAccountListParams =
             ExternalAccountListParams(
                 cursor,
@@ -267,12 +276,6 @@ private constructor(
         fun in_(): Optional<List<In>> = Optional.ofNullable(in_)
 
         fun _additionalProperties(): QueryParams = additionalProperties
-
-        @JvmSynthetic
-        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-            this.in_?.let { putParam("in", listOf(it.joinToString(separator = ","))) }
-            additionalProperties.keys().forEach { putParam(it, additionalProperties.values(it)) }
-        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -301,17 +304,13 @@ private constructor(
              */
             fun in_(in_: List<In>?) = apply { this.in_ = in_?.toMutableList() }
 
-            /**
-             * Filter External Accounts for those with the specified status or statuses. For GET
-             * requests, this should be encoded as a comma-delimited string, such as
-             * `?in=one,two,three`.
-             */
+            /** Alias for calling [Builder.in_] with `in_.orElse(null)`. */
             fun in_(in_: Optional<List<In>>) = in_(in_.getOrNull())
 
             /**
-             * Filter External Accounts for those with the specified status or statuses. For GET
-             * requests, this should be encoded as a comma-delimited string, such as
-             * `?in=one,two,three`.
+             * Adds a single [In] to [Builder.in_].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
              */
             fun addIn(in_: In) = apply {
                 this.in_ = (this.in_ ?: mutableListOf()).apply { add(in_) }
@@ -366,6 +365,11 @@ private constructor(
                 additionalProperties.removeAll(keys)
             }
 
+            /**
+             * Returns an immutable instance of [Status].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): Status = Status(in_?.toImmutable(), additionalProperties.build())
         }
 

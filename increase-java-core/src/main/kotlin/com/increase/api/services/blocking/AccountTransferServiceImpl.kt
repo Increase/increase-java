@@ -109,7 +109,7 @@ class AccountTransferServiceImpl internal constructor(private val clientOptions:
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
-                    .addPathSegments("account_transfers", params.getPathParam(0))
+                    .addPathSegments("account_transfers", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -169,7 +169,7 @@ class AccountTransferServiceImpl internal constructor(private val clientOptions:
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
-                    .addPathSegments("account_transfers", params.getPathParam(0), "approve")
+                    .addPathSegments("account_transfers", params._pathParam(0), "approve")
                     .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
                     .prepare(clientOptions, params)
@@ -196,7 +196,7 @@ class AccountTransferServiceImpl internal constructor(private val clientOptions:
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
-                    .addPathSegments("account_transfers", params.getPathParam(0), "cancel")
+                    .addPathSegments("account_transfers", params._pathParam(0), "cancel")
                     .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
                     .prepare(clientOptions, params)

@@ -52,7 +52,7 @@ class AccountTransferServiceImpl internal constructor(private val clientOptions:
                     .addPathSegments(
                         "simulations",
                         "account_transfers",
-                        params.getPathParam(0),
+                        params._pathParam(0),
                         "complete",
                     )
                     .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }

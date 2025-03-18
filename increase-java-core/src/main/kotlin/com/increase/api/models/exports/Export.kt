@@ -54,21 +54,37 @@ private constructor(
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
-    /** The Export identifier. */
+    /**
+     * The Export identifier.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun id(): String = id.getRequired("id")
 
     /**
      * The category of the Export. We may add additional possible values for this enum over time;
      * your application should be able to handle that gracefully.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun category(): Category = category.getRequired("category")
 
-    /** The time the Export was created. */
+    /**
+     * The time the Export was created.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
     /**
      * A URL at which the Export's file can be downloaded. This will be present when the Export's
      * status transitions to `complete`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun fileDownloadUrl(): Optional<String> =
         Optional.ofNullable(fileDownloadUrl.getNullable("file_download_url"))
@@ -76,6 +92,9 @@ private constructor(
     /**
      * The File containing the contents of the Export. This will be present when the Export's status
      * transitions to `complete`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun fileId(): Optional<String> = Optional.ofNullable(fileId.getNullable("file_id"))
 
@@ -83,57 +102,89 @@ private constructor(
      * The idempotency key you chose for this object. This value is unique across Increase and is
      * used to ensure that a request is only processed once. Learn more about
      * [idempotency](https://increase.com/documentation/idempotency-keys).
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun idempotencyKey(): Optional<String> =
         Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
 
-    /** The status of the Export. */
+    /**
+     * The status of the Export.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun status(): Status = status.getRequired("status")
 
-    /** A constant representing the object's type. For this resource it will always be `export`. */
+    /**
+     * A constant representing the object's type. For this resource it will always be `export`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun type(): Type = type.getRequired("type")
 
-    /** The Export identifier. */
+    /**
+     * Returns the raw JSON value of [id].
+     *
+     * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /**
-     * The category of the Export. We may add additional possible values for this enum over time;
-     * your application should be able to handle that gracefully.
+     * Returns the raw JSON value of [category].
+     *
+     * Unlike [category], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("category") @ExcludeMissing fun _category(): JsonField<Category> = category
 
-    /** The time the Export was created. */
+    /**
+     * Returns the raw JSON value of [createdAt].
+     *
+     * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("created_at")
     @ExcludeMissing
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /**
-     * A URL at which the Export's file can be downloaded. This will be present when the Export's
-     * status transitions to `complete`.
+     * Returns the raw JSON value of [fileDownloadUrl].
+     *
+     * Unlike [fileDownloadUrl], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("file_download_url")
     @ExcludeMissing
     fun _fileDownloadUrl(): JsonField<String> = fileDownloadUrl
 
     /**
-     * The File containing the contents of the Export. This will be present when the Export's status
-     * transitions to `complete`.
+     * Returns the raw JSON value of [fileId].
+     *
+     * Unlike [fileId], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("file_id") @ExcludeMissing fun _fileId(): JsonField<String> = fileId
 
     /**
-     * The idempotency key you chose for this object. This value is unique across Increase and is
-     * used to ensure that a request is only processed once. Learn more about
-     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     * Returns the raw JSON value of [idempotencyKey].
+     *
+     * Unlike [idempotencyKey], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("idempotency_key")
     @ExcludeMissing
     fun _idempotencyKey(): JsonField<String> = idempotencyKey
 
-    /** The status of the Export. */
+    /**
+     * Returns the raw JSON value of [status].
+     *
+     * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
-    /** A constant representing the object's type. For this resource it will always be `export`. */
+    /**
+     * Returns the raw JSON value of [type].
+     *
+     * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
     @JsonAnyGetter
@@ -209,7 +260,12 @@ private constructor(
         /** The Export identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
-        /** The Export identifier. */
+        /**
+         * Sets [Builder.id] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.id] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
@@ -219,15 +275,24 @@ private constructor(
         fun category(category: Category) = category(JsonField.of(category))
 
         /**
-         * The category of the Export. We may add additional possible values for this enum over
-         * time; your application should be able to handle that gracefully.
+         * Sets [Builder.category] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.category] with a well-typed [Category] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun category(category: JsonField<Category>) = apply { this.category = category }
 
         /** The time the Export was created. */
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
-        /** The time the Export was created. */
+        /**
+         * Sets [Builder.createdAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /**
@@ -237,16 +302,16 @@ private constructor(
         fun fileDownloadUrl(fileDownloadUrl: String?) =
             fileDownloadUrl(JsonField.ofNullable(fileDownloadUrl))
 
-        /**
-         * A URL at which the Export's file can be downloaded. This will be present when the
-         * Export's status transitions to `complete`.
-         */
+        /** Alias for calling [Builder.fileDownloadUrl] with `fileDownloadUrl.orElse(null)`. */
         fun fileDownloadUrl(fileDownloadUrl: Optional<String>) =
             fileDownloadUrl(fileDownloadUrl.getOrNull())
 
         /**
-         * A URL at which the Export's file can be downloaded. This will be present when the
-         * Export's status transitions to `complete`.
+         * Sets [Builder.fileDownloadUrl] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.fileDownloadUrl] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun fileDownloadUrl(fileDownloadUrl: JsonField<String>) = apply {
             this.fileDownloadUrl = fileDownloadUrl
@@ -258,15 +323,14 @@ private constructor(
          */
         fun fileId(fileId: String?) = fileId(JsonField.ofNullable(fileId))
 
-        /**
-         * The File containing the contents of the Export. This will be present when the Export's
-         * status transitions to `complete`.
-         */
+        /** Alias for calling [Builder.fileId] with `fileId.orElse(null)`. */
         fun fileId(fileId: Optional<String>) = fileId(fileId.getOrNull())
 
         /**
-         * The File containing the contents of the Export. This will be present when the Export's
-         * status transitions to `complete`.
+         * Sets [Builder.fileId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.fileId] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun fileId(fileId: JsonField<String>) = apply { this.fileId = fileId }
 
@@ -278,18 +342,16 @@ private constructor(
         fun idempotencyKey(idempotencyKey: String?) =
             idempotencyKey(JsonField.ofNullable(idempotencyKey))
 
-        /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
-         */
+        /** Alias for calling [Builder.idempotencyKey] with `idempotencyKey.orElse(null)`. */
         fun idempotencyKey(idempotencyKey: Optional<String>) =
             idempotencyKey(idempotencyKey.getOrNull())
 
         /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         * Sets [Builder.idempotencyKey] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.idempotencyKey] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
             this.idempotencyKey = idempotencyKey
@@ -298,7 +360,12 @@ private constructor(
         /** The status of the Export. */
         fun status(status: Status) = status(JsonField.of(status))
 
-        /** The status of the Export. */
+        /**
+         * Sets [Builder.status] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.status] with a well-typed [Status] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /**
@@ -307,7 +374,10 @@ private constructor(
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
-         * A constant representing the object's type. For this resource it will always be `export`.
+         * Sets [Builder.type] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.type] with a well-typed [Type] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
@@ -330,6 +400,25 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [Export].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .category()
+         * .createdAt()
+         * .fileDownloadUrl()
+         * .fileId()
+         * .idempotencyKey()
+         * .status()
+         * .type()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): Export =
             Export(
                 checkRequired("id", id),
