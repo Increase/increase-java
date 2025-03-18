@@ -58,7 +58,7 @@ internal constructor(private val clientOptions: ClientOptions) : CardPurchaseSup
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
-                    .addPathSegments("card_purchase_supplements", params.getPathParam(0))
+                    .addPathSegments("card_purchase_supplements", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))

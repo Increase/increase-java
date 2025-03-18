@@ -6,10 +6,10 @@ import java.time.LocalDate
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class IntrafiBalanceTest {
+internal class IntrafiBalanceTest {
 
     @Test
-    fun createIntrafiBalance() {
+    fun create() {
         val intrafiBalance =
             IntrafiBalance.builder()
                 .id("intrafi_balance_8lgtn3pz0ktekaekw29t")
@@ -32,7 +32,7 @@ class IntrafiBalanceTest {
                 .totalBalance(1750L)
                 .type(IntrafiBalance.Type.INTRAFI_BALANCE)
                 .build()
-        assertThat(intrafiBalance).isNotNull
+
         assertThat(intrafiBalance.id()).isEqualTo("intrafi_balance_8lgtn3pz0ktekaekw29t")
         assertThat(intrafiBalance.balances())
             .containsExactly(

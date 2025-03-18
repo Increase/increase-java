@@ -53,22 +53,45 @@ private constructor(
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
-    /** The Program identifier. */
+    /**
+     * The Program identifier.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun id(): String = id.getRequired("id")
 
-    /** The Bank the Program is with. */
+    /**
+     * The Bank the Program is with.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun bank(): Bank = bank.getRequired("bank")
 
-    /** The Program billing account. */
+    /**
+     * The Program billing account.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun billingAccountId(): Optional<String> =
         Optional.ofNullable(billingAccountId.getNullable("billing_account_id"))
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Program was created.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
-    /** The default configuration for digital cards attached to this Program. */
+    /**
+     * The default configuration for digital cards attached to this Program.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun defaultDigitalCardProfileId(): Optional<String> =
         Optional.ofNullable(
             defaultDigitalCardProfileId.getNullable("default_digital_card_profile_id")
@@ -77,61 +100,107 @@ private constructor(
     /**
      * The Interest Rate currently being earned on the accounts in this program, as a string
      * containing a decimal number. For example, a 1% interest rate would be represented as "0.01".
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun interestRate(): String = interestRate.getRequired("interest_rate")
 
-    /** The name of the Program. */
+    /**
+     * The name of the Program.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun name(): String = name.getRequired("name")
 
-    /** A constant representing the object's type. For this resource it will always be `program`. */
+    /**
+     * A constant representing the object's type. For this resource it will always be `program`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun type(): Type = type.getRequired("type")
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Program was last
      * updated.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
 
-    /** The Program identifier. */
+    /**
+     * Returns the raw JSON value of [id].
+     *
+     * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
-    /** The Bank the Program is with. */
+    /**
+     * Returns the raw JSON value of [bank].
+     *
+     * Unlike [bank], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("bank") @ExcludeMissing fun _bank(): JsonField<Bank> = bank
 
-    /** The Program billing account. */
+    /**
+     * Returns the raw JSON value of [billingAccountId].
+     *
+     * Unlike [billingAccountId], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     @JsonProperty("billing_account_id")
     @ExcludeMissing
     fun _billingAccountId(): JsonField<String> = billingAccountId
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Program was created.
+     * Returns the raw JSON value of [createdAt].
+     *
+     * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("created_at")
     @ExcludeMissing
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
-    /** The default configuration for digital cards attached to this Program. */
+    /**
+     * Returns the raw JSON value of [defaultDigitalCardProfileId].
+     *
+     * Unlike [defaultDigitalCardProfileId], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
     @JsonProperty("default_digital_card_profile_id")
     @ExcludeMissing
     fun _defaultDigitalCardProfileId(): JsonField<String> = defaultDigitalCardProfileId
 
     /**
-     * The Interest Rate currently being earned on the accounts in this program, as a string
-     * containing a decimal number. For example, a 1% interest rate would be represented as "0.01".
+     * Returns the raw JSON value of [interestRate].
+     *
+     * Unlike [interestRate], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("interest_rate")
     @ExcludeMissing
     fun _interestRate(): JsonField<String> = interestRate
 
-    /** The name of the Program. */
+    /**
+     * Returns the raw JSON value of [name].
+     *
+     * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
-    /** A constant representing the object's type. For this resource it will always be `program`. */
+    /**
+     * Returns the raw JSON value of [type].
+     *
+     * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Program was last
-     * updated.
+     * Returns the raw JSON value of [updatedAt].
+     *
+     * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("updated_at")
     @ExcludeMissing
@@ -214,24 +283,40 @@ private constructor(
         /** The Program identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
-        /** The Program identifier. */
+        /**
+         * Sets [Builder.id] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.id] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The Bank the Program is with. */
         fun bank(bank: Bank) = bank(JsonField.of(bank))
 
-        /** The Bank the Program is with. */
+        /**
+         * Sets [Builder.bank] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.bank] with a well-typed [Bank] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun bank(bank: JsonField<Bank>) = apply { this.bank = bank }
 
         /** The Program billing account. */
         fun billingAccountId(billingAccountId: String?) =
             billingAccountId(JsonField.ofNullable(billingAccountId))
 
-        /** The Program billing account. */
+        /** Alias for calling [Builder.billingAccountId] with `billingAccountId.orElse(null)`. */
         fun billingAccountId(billingAccountId: Optional<String>) =
             billingAccountId(billingAccountId.getOrNull())
 
-        /** The Program billing account. */
+        /**
+         * Sets [Builder.billingAccountId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.billingAccountId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun billingAccountId(billingAccountId: JsonField<String>) = apply {
             this.billingAccountId = billingAccountId
         }
@@ -243,8 +328,11 @@ private constructor(
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Program was
-         * created.
+         * Sets [Builder.createdAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
@@ -252,11 +340,20 @@ private constructor(
         fun defaultDigitalCardProfileId(defaultDigitalCardProfileId: String?) =
             defaultDigitalCardProfileId(JsonField.ofNullable(defaultDigitalCardProfileId))
 
-        /** The default configuration for digital cards attached to this Program. */
+        /**
+         * Alias for calling [Builder.defaultDigitalCardProfileId] with
+         * `defaultDigitalCardProfileId.orElse(null)`.
+         */
         fun defaultDigitalCardProfileId(defaultDigitalCardProfileId: Optional<String>) =
             defaultDigitalCardProfileId(defaultDigitalCardProfileId.getOrNull())
 
-        /** The default configuration for digital cards attached to this Program. */
+        /**
+         * Sets [Builder.defaultDigitalCardProfileId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.defaultDigitalCardProfileId] with a well-typed [String]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
         fun defaultDigitalCardProfileId(defaultDigitalCardProfileId: JsonField<String>) = apply {
             this.defaultDigitalCardProfileId = defaultDigitalCardProfileId
         }
@@ -269,9 +366,11 @@ private constructor(
         fun interestRate(interestRate: String) = interestRate(JsonField.of(interestRate))
 
         /**
-         * The Interest Rate currently being earned on the accounts in this program, as a string
-         * containing a decimal number. For example, a 1% interest rate would be represented as
-         * "0.01".
+         * Sets [Builder.interestRate] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.interestRate] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun interestRate(interestRate: JsonField<String>) = apply {
             this.interestRate = interestRate
@@ -280,7 +379,12 @@ private constructor(
         /** The name of the Program. */
         fun name(name: String) = name(JsonField.of(name))
 
-        /** The name of the Program. */
+        /**
+         * Sets [Builder.name] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.name] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun name(name: JsonField<String>) = apply { this.name = name }
 
         /**
@@ -289,7 +393,10 @@ private constructor(
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
-         * A constant representing the object's type. For this resource it will always be `program`.
+         * Sets [Builder.type] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.type] with a well-typed [Type] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
@@ -300,8 +407,11 @@ private constructor(
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Program was last
-         * updated.
+         * Sets [Builder.updatedAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.updatedAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
 
@@ -324,6 +434,26 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [Program].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .bank()
+         * .billingAccountId()
+         * .createdAt()
+         * .defaultDigitalCardProfileId()
+         * .interestRate()
+         * .name()
+         * .type()
+         * .updatedAt()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): Program =
             Program(
                 checkRequired("id", id),

@@ -43,44 +43,86 @@ private constructor(
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
-    /** The Group identifier. */
+    /**
+     * The Group identifier.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun id(): String = id.getRequired("id")
 
-    /** If the Group is allowed to create ACH debits. */
+    /**
+     * If the Group is allowed to create ACH debits.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun achDebitStatus(): AchDebitStatus = achDebitStatus.getRequired("ach_debit_status")
 
-    /** If the Group is activated or not. */
+    /**
+     * If the Group is activated or not.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun activationStatus(): ActivationStatus = activationStatus.getRequired("activation_status")
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Group was created.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
-    /** A constant representing the object's type. For this resource it will always be `group`. */
+    /**
+     * A constant representing the object's type. For this resource it will always be `group`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun type(): Type = type.getRequired("type")
 
-    /** The Group identifier. */
+    /**
+     * Returns the raw JSON value of [id].
+     *
+     * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
-    /** If the Group is allowed to create ACH debits. */
+    /**
+     * Returns the raw JSON value of [achDebitStatus].
+     *
+     * Unlike [achDebitStatus], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("ach_debit_status")
     @ExcludeMissing
     fun _achDebitStatus(): JsonField<AchDebitStatus> = achDebitStatus
 
-    /** If the Group is activated or not. */
+    /**
+     * Returns the raw JSON value of [activationStatus].
+     *
+     * Unlike [activationStatus], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     @JsonProperty("activation_status")
     @ExcludeMissing
     fun _activationStatus(): JsonField<ActivationStatus> = activationStatus
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Group was created.
+     * Returns the raw JSON value of [createdAt].
+     *
+     * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("created_at")
     @ExcludeMissing
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
-    /** A constant representing the object's type. For this resource it will always be `group`. */
+    /**
+     * Returns the raw JSON value of [type].
+     *
+     * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
     @JsonAnyGetter
@@ -144,14 +186,25 @@ private constructor(
         /** The Group identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
-        /** The Group identifier. */
+        /**
+         * Sets [Builder.id] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.id] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** If the Group is allowed to create ACH debits. */
         fun achDebitStatus(achDebitStatus: AchDebitStatus) =
             achDebitStatus(JsonField.of(achDebitStatus))
 
-        /** If the Group is allowed to create ACH debits. */
+        /**
+         * Sets [Builder.achDebitStatus] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.achDebitStatus] with a well-typed [AchDebitStatus] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun achDebitStatus(achDebitStatus: JsonField<AchDebitStatus>) = apply {
             this.achDebitStatus = achDebitStatus
         }
@@ -160,7 +213,13 @@ private constructor(
         fun activationStatus(activationStatus: ActivationStatus) =
             activationStatus(JsonField.of(activationStatus))
 
-        /** If the Group is activated or not. */
+        /**
+         * Sets [Builder.activationStatus] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.activationStatus] with a well-typed [ActivationStatus]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
         fun activationStatus(activationStatus: JsonField<ActivationStatus>) = apply {
             this.activationStatus = activationStatus
         }
@@ -172,8 +231,11 @@ private constructor(
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Group was
-         * created.
+         * Sets [Builder.createdAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
@@ -183,7 +245,10 @@ private constructor(
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
-         * A constant representing the object's type. For this resource it will always be `group`.
+         * Sets [Builder.type] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.type] with a well-typed [Type] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
@@ -206,6 +271,22 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [Group].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .achDebitStatus()
+         * .activationStatus()
+         * .createdAt()
+         * .type()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): Group =
             Group(
                 checkRequired("id", id),

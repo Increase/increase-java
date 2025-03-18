@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(TestServerExtension::class)
-class WireDrawdownRequestServiceAsyncTest {
+internal class WireDrawdownRequestServiceAsyncTest {
 
     @Test
     fun create() {

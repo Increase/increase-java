@@ -17,6 +17,7 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
+import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Objects
 import java.util.Optional
@@ -40,12 +41,16 @@ private constructor(
     /**
      * When your user confirmed the Entity's details. If not provided, the current time will be
      * used.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun confirmedAt(): Optional<OffsetDateTime> = body.confirmedAt()
 
     /**
-     * When your user confirmed the Entity's details. If not provided, the current time will be
-     * used.
+     * Returns the raw JSON value of [confirmedAt].
+     *
+     * Unlike [confirmedAt], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _confirmedAt(): JsonField<OffsetDateTime> = body._confirmedAt()
 
@@ -57,16 +62,15 @@ private constructor(
 
     @JvmSynthetic internal fun _body(): Body = body
 
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams = additionalQueryParams
-
-    fun getPathParam(index: Int): String {
-        return when (index) {
+    fun _pathParam(index: Int): String =
+        when (index) {
             0 -> entityId
             else -> ""
         }
-    }
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
     class Body
@@ -82,13 +86,17 @@ private constructor(
         /**
          * When your user confirmed the Entity's details. If not provided, the current time will be
          * used.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun confirmedAt(): Optional<OffsetDateTime> =
             Optional.ofNullable(confirmedAt.getNullable("confirmed_at"))
 
         /**
-         * When your user confirmed the Entity's details. If not provided, the current time will be
-         * used.
+         * Returns the raw JSON value of [confirmedAt].
+         *
+         * Unlike [confirmedAt], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("confirmed_at")
         @ExcludeMissing
@@ -136,8 +144,11 @@ private constructor(
             fun confirmedAt(confirmedAt: OffsetDateTime) = confirmedAt(JsonField.of(confirmedAt))
 
             /**
-             * When your user confirmed the Entity's details. If not provided, the current time will
-             * be used.
+             * Sets [Builder.confirmedAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.confirmedAt] with a well-typed [OffsetDateTime]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
              */
             fun confirmedAt(confirmedAt: JsonField<OffsetDateTime>) = apply {
                 this.confirmedAt = confirmedAt
@@ -162,6 +173,11 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Body].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): Body = Body(confirmedAt, additionalProperties.toImmutable())
         }
 
@@ -225,8 +241,11 @@ private constructor(
         fun confirmedAt(confirmedAt: OffsetDateTime) = apply { body.confirmedAt(confirmedAt) }
 
         /**
-         * When your user confirmed the Entity's details. If not provided, the current time will be
-         * used.
+         * Sets [Builder.confirmedAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.confirmedAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun confirmedAt(confirmedAt: JsonField<OffsetDateTime>) = apply {
             body.confirmedAt(confirmedAt)
@@ -349,6 +368,18 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [EntityConfirmParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .entityId()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): EntityConfirmParams =
             EntityConfirmParams(
                 checkRequired("entityId", entityId),

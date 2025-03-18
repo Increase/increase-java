@@ -6,7 +6,7 @@ import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class RealTimeDecisionActionParamsTest {
+internal class RealTimeDecisionActionParamsTest {
 
     @Test
     fun create() {
@@ -58,6 +58,18 @@ class RealTimeDecisionActionParamsTest {
                     .build()
             )
             .build()
+    }
+
+    @Test
+    fun pathParams() {
+        val params =
+            RealTimeDecisionActionParams.builder()
+                .realTimeDecisionId("real_time_decision_j76n2e810ezcg3zh5qtn")
+                .build()
+
+        assertThat(params._pathParam(0)).isEqualTo("real_time_decision_j76n2e810ezcg3zh5qtn")
+        // out-of-bound path param
+        assertThat(params._pathParam(1)).isEqualTo("")
     }
 
     @Test
@@ -182,18 +194,5 @@ class RealTimeDecisionActionParamsTest {
         val body = params._body()
 
         assertNotNull(body)
-    }
-
-    @Test
-    fun getPathParam() {
-        val params =
-            RealTimeDecisionActionParams.builder()
-                .realTimeDecisionId("real_time_decision_j76n2e810ezcg3zh5qtn")
-                .build()
-        assertThat(params).isNotNull
-        // path param "realTimeDecisionId"
-        assertThat(params.getPathParam(0)).isEqualTo("real_time_decision_j76n2e810ezcg3zh5qtn")
-        // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
     }
 }

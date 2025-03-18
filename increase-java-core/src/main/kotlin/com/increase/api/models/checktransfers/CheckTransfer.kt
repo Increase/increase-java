@@ -93,27 +93,53 @@ private constructor(
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
-    /** The Check transfer's identifier. */
+    /**
+     * The Check transfer's identifier.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun id(): String = id.getRequired("id")
 
-    /** The identifier of the Account from which funds will be transferred. */
+    /**
+     * The identifier of the Account from which funds will be transferred.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun accountId(): String = accountId.getRequired("account_id")
 
-    /** The account number printed on the check. */
+    /**
+     * The account number printed on the check.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun accountNumber(): String = accountNumber.getRequired("account_number")
 
-    /** The transfer amount in USD cents. */
+    /**
+     * The transfer amount in USD cents.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun amount(): Long = amount.getRequired("amount")
 
     /**
      * If your account requires approvals for transfers and the transfer was approved, this will
      * contain details of the approval.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun approval(): Optional<Approval> = Optional.ofNullable(approval.getNullable("approval"))
 
     /**
      * If the Check Transfer was successfully deposited, this will contain the identifier of the
      * Inbound Check Deposit object with details of the deposit.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun approvedInboundCheckDepositId(): Optional<String> =
         Optional.ofNullable(
@@ -123,37 +149,71 @@ private constructor(
     /**
      * If your account requires approvals for transfers and the transfer was not approved, this will
      * contain details of the cancellation.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun cancellation(): Optional<Cancellation> =
         Optional.ofNullable(cancellation.getNullable("cancellation"))
 
-    /** The check number printed on the check. */
+    /**
+     * The check number printed on the check.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun checkNumber(): String = checkNumber.getRequired("check_number")
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the transfer
      * was created.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
-    /** What object created the transfer, either via the API or the dashboard. */
+    /**
+     * What object created the transfer, either via the API or the dashboard.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun createdBy(): Optional<CreatedBy> = Optional.ofNullable(createdBy.getNullable("created_by"))
 
-    /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the check's currency. */
+    /**
+     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the check's currency.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun currency(): Currency = currency.getRequired("currency")
 
-    /** Whether Increase will print and mail the check or if you will do it yourself. */
+    /**
+     * Whether Increase will print and mail the check or if you will do it yourself.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun fulfillmentMethod(): FulfillmentMethod = fulfillmentMethod.getRequired("fulfillment_method")
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
      * used to ensure that a request is only processed once. Learn more about
      * [idempotency](https://increase.com/documentation/idempotency-keys).
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun idempotencyKey(): Optional<String> =
         Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
 
-    /** If the check has been mailed by Increase, this will contain details of the shipment. */
+    /**
+     * If the check has been mailed by Increase, this will contain details of the shipment.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun mailing(): Optional<Mailing> = Optional.ofNullable(mailing.getNullable("mailing"))
 
     /**
@@ -161,6 +221,9 @@ private constructor(
      * created when the transfer
      * [requires approval](https://increase.com/documentation/transfer-approvals#transfer-approvals)
      * by someone else in your organization.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun pendingTransactionId(): Optional<String> =
         Optional.ofNullable(pendingTransactionId.getNullable("pending_transaction_id"))
@@ -168,33 +231,62 @@ private constructor(
     /**
      * Details relating to the physical check that Increase will print and mail. Will be present if
      * and only if `fulfillment_method` is equal to `physical_check`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun physicalCheck(): Optional<PhysicalCheck> =
         Optional.ofNullable(physicalCheck.getNullable("physical_check"))
 
-    /** The routing number printed on the check. */
+    /**
+     * The routing number printed on the check.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun routingNumber(): String = routingNumber.getRequired("routing_number")
 
     /**
      * The identifier of the Account Number from which to send the transfer and print on the check.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun sourceAccountNumberId(): Optional<String> =
         Optional.ofNullable(sourceAccountNumberId.getNullable("source_account_number_id"))
 
-    /** The lifecycle status of the transfer. */
+    /**
+     * The lifecycle status of the transfer.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun status(): Status = status.getRequired("status")
 
-    /** After a stop-payment is requested on the check, this will contain supplemental details. */
+    /**
+     * After a stop-payment is requested on the check, this will contain supplemental details.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun stopPaymentRequest(): Optional<StopPaymentRequest> =
         Optional.ofNullable(stopPaymentRequest.getNullable("stop_payment_request"))
 
-    /** After the transfer is submitted, this will contain supplemental details. */
+    /**
+     * After the transfer is submitted, this will contain supplemental details.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun submission(): Optional<Submission> =
         Optional.ofNullable(submission.getNullable("submission"))
 
     /**
      * Details relating to the custom fulfillment you will perform. Will be present if and only if
      * `fulfillment_method` is equal to `third_party`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun thirdParty(): Optional<ThirdParty> =
         Optional.ofNullable(thirdParty.getNullable("third_party"))
@@ -202,135 +294,203 @@ private constructor(
     /**
      * A constant representing the object's type. For this resource it will always be
      * `check_transfer`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun type(): Type = type.getRequired("type")
 
-    /** The Check transfer's identifier. */
+    /**
+     * Returns the raw JSON value of [id].
+     *
+     * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
-    /** The identifier of the Account from which funds will be transferred. */
+    /**
+     * Returns the raw JSON value of [accountId].
+     *
+     * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
 
-    /** The account number printed on the check. */
+    /**
+     * Returns the raw JSON value of [accountNumber].
+     *
+     * Unlike [accountNumber], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("account_number")
     @ExcludeMissing
     fun _accountNumber(): JsonField<String> = accountNumber
 
-    /** The transfer amount in USD cents. */
+    /**
+     * Returns the raw JSON value of [amount].
+     *
+     * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
     /**
-     * If your account requires approvals for transfers and the transfer was approved, this will
-     * contain details of the approval.
+     * Returns the raw JSON value of [approval].
+     *
+     * Unlike [approval], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("approval") @ExcludeMissing fun _approval(): JsonField<Approval> = approval
 
     /**
-     * If the Check Transfer was successfully deposited, this will contain the identifier of the
-     * Inbound Check Deposit object with details of the deposit.
+     * Returns the raw JSON value of [approvedInboundCheckDepositId].
+     *
+     * Unlike [approvedInboundCheckDepositId], this method doesn't throw if the JSON field has an
+     * unexpected type.
      */
     @JsonProperty("approved_inbound_check_deposit_id")
     @ExcludeMissing
     fun _approvedInboundCheckDepositId(): JsonField<String> = approvedInboundCheckDepositId
 
     /**
-     * If your account requires approvals for transfers and the transfer was not approved, this will
-     * contain details of the cancellation.
+     * Returns the raw JSON value of [cancellation].
+     *
+     * Unlike [cancellation], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("cancellation")
     @ExcludeMissing
     fun _cancellation(): JsonField<Cancellation> = cancellation
 
-    /** The check number printed on the check. */
+    /**
+     * Returns the raw JSON value of [checkNumber].
+     *
+     * Unlike [checkNumber], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("check_number")
     @ExcludeMissing
     fun _checkNumber(): JsonField<String> = checkNumber
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the transfer
-     * was created.
+     * Returns the raw JSON value of [createdAt].
+     *
+     * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("created_at")
     @ExcludeMissing
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
-    /** What object created the transfer, either via the API or the dashboard. */
+    /**
+     * Returns the raw JSON value of [createdBy].
+     *
+     * Unlike [createdBy], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("created_by") @ExcludeMissing fun _createdBy(): JsonField<CreatedBy> = createdBy
 
-    /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the check's currency. */
+    /**
+     * Returns the raw JSON value of [currency].
+     *
+     * Unlike [currency], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("currency") @ExcludeMissing fun _currency(): JsonField<Currency> = currency
 
-    /** Whether Increase will print and mail the check or if you will do it yourself. */
+    /**
+     * Returns the raw JSON value of [fulfillmentMethod].
+     *
+     * Unlike [fulfillmentMethod], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     @JsonProperty("fulfillment_method")
     @ExcludeMissing
     fun _fulfillmentMethod(): JsonField<FulfillmentMethod> = fulfillmentMethod
 
     /**
-     * The idempotency key you chose for this object. This value is unique across Increase and is
-     * used to ensure that a request is only processed once. Learn more about
-     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     * Returns the raw JSON value of [idempotencyKey].
+     *
+     * Unlike [idempotencyKey], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("idempotency_key")
     @ExcludeMissing
     fun _idempotencyKey(): JsonField<String> = idempotencyKey
 
-    /** If the check has been mailed by Increase, this will contain details of the shipment. */
+    /**
+     * Returns the raw JSON value of [mailing].
+     *
+     * Unlike [mailing], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("mailing") @ExcludeMissing fun _mailing(): JsonField<Mailing> = mailing
 
     /**
-     * The ID for the pending transaction representing the transfer. A pending transaction is
-     * created when the transfer
-     * [requires approval](https://increase.com/documentation/transfer-approvals#transfer-approvals)
-     * by someone else in your organization.
+     * Returns the raw JSON value of [pendingTransactionId].
+     *
+     * Unlike [pendingTransactionId], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
     @JsonProperty("pending_transaction_id")
     @ExcludeMissing
     fun _pendingTransactionId(): JsonField<String> = pendingTransactionId
 
     /**
-     * Details relating to the physical check that Increase will print and mail. Will be present if
-     * and only if `fulfillment_method` is equal to `physical_check`.
+     * Returns the raw JSON value of [physicalCheck].
+     *
+     * Unlike [physicalCheck], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("physical_check")
     @ExcludeMissing
     fun _physicalCheck(): JsonField<PhysicalCheck> = physicalCheck
 
-    /** The routing number printed on the check. */
+    /**
+     * Returns the raw JSON value of [routingNumber].
+     *
+     * Unlike [routingNumber], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("routing_number")
     @ExcludeMissing
     fun _routingNumber(): JsonField<String> = routingNumber
 
     /**
-     * The identifier of the Account Number from which to send the transfer and print on the check.
+     * Returns the raw JSON value of [sourceAccountNumberId].
+     *
+     * Unlike [sourceAccountNumberId], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
     @JsonProperty("source_account_number_id")
     @ExcludeMissing
     fun _sourceAccountNumberId(): JsonField<String> = sourceAccountNumberId
 
-    /** The lifecycle status of the transfer. */
+    /**
+     * Returns the raw JSON value of [status].
+     *
+     * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
-    /** After a stop-payment is requested on the check, this will contain supplemental details. */
+    /**
+     * Returns the raw JSON value of [stopPaymentRequest].
+     *
+     * Unlike [stopPaymentRequest], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     @JsonProperty("stop_payment_request")
     @ExcludeMissing
     fun _stopPaymentRequest(): JsonField<StopPaymentRequest> = stopPaymentRequest
 
-    /** After the transfer is submitted, this will contain supplemental details. */
+    /**
+     * Returns the raw JSON value of [submission].
+     *
+     * Unlike [submission], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("submission")
     @ExcludeMissing
     fun _submission(): JsonField<Submission> = submission
 
     /**
-     * Details relating to the custom fulfillment you will perform. Will be present if and only if
-     * `fulfillment_method` is equal to `third_party`.
+     * Returns the raw JSON value of [thirdParty].
+     *
+     * Unlike [thirdParty], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("third_party")
     @ExcludeMissing
     fun _thirdParty(): JsonField<ThirdParty> = thirdParty
 
     /**
-     * A constant representing the object's type. For this resource it will always be
-     * `check_transfer`.
+     * Returns the raw JSON value of [type].
+     *
+     * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
@@ -467,19 +627,36 @@ private constructor(
         /** The Check transfer's identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
-        /** The Check transfer's identifier. */
+        /**
+         * Sets [Builder.id] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.id] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The identifier of the Account from which funds will be transferred. */
         fun accountId(accountId: String) = accountId(JsonField.of(accountId))
 
-        /** The identifier of the Account from which funds will be transferred. */
+        /**
+         * Sets [Builder.accountId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.accountId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
         /** The account number printed on the check. */
         fun accountNumber(accountNumber: String) = accountNumber(JsonField.of(accountNumber))
 
-        /** The account number printed on the check. */
+        /**
+         * Sets [Builder.accountNumber] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.accountNumber] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun accountNumber(accountNumber: JsonField<String>) = apply {
             this.accountNumber = accountNumber
         }
@@ -487,7 +664,12 @@ private constructor(
         /** The transfer amount in USD cents. */
         fun amount(amount: Long) = amount(JsonField.of(amount))
 
-        /** The transfer amount in USD cents. */
+        /**
+         * Sets [Builder.amount] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
         /**
@@ -496,15 +678,15 @@ private constructor(
          */
         fun approval(approval: Approval?) = approval(JsonField.ofNullable(approval))
 
-        /**
-         * If your account requires approvals for transfers and the transfer was approved, this will
-         * contain details of the approval.
-         */
+        /** Alias for calling [Builder.approval] with `approval.orElse(null)`. */
         fun approval(approval: Optional<Approval>) = approval(approval.getOrNull())
 
         /**
-         * If your account requires approvals for transfers and the transfer was approved, this will
-         * contain details of the approval.
+         * Sets [Builder.approval] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.approval] with a well-typed [Approval] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun approval(approval: JsonField<Approval>) = apply { this.approval = approval }
 
@@ -516,15 +698,18 @@ private constructor(
             approvedInboundCheckDepositId(JsonField.ofNullable(approvedInboundCheckDepositId))
 
         /**
-         * If the Check Transfer was successfully deposited, this will contain the identifier of the
-         * Inbound Check Deposit object with details of the deposit.
+         * Alias for calling [Builder.approvedInboundCheckDepositId] with
+         * `approvedInboundCheckDepositId.orElse(null)`.
          */
         fun approvedInboundCheckDepositId(approvedInboundCheckDepositId: Optional<String>) =
             approvedInboundCheckDepositId(approvedInboundCheckDepositId.getOrNull())
 
         /**
-         * If the Check Transfer was successfully deposited, this will contain the identifier of the
-         * Inbound Check Deposit object with details of the deposit.
+         * Sets [Builder.approvedInboundCheckDepositId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.approvedInboundCheckDepositId] with a well-typed
+         * [String] value instead. This method is primarily for setting the field to an undocumented
+         * or not yet supported value.
          */
         fun approvedInboundCheckDepositId(approvedInboundCheckDepositId: JsonField<String>) =
             apply {
@@ -538,16 +723,16 @@ private constructor(
         fun cancellation(cancellation: Cancellation?) =
             cancellation(JsonField.ofNullable(cancellation))
 
-        /**
-         * If your account requires approvals for transfers and the transfer was not approved, this
-         * will contain details of the cancellation.
-         */
+        /** Alias for calling [Builder.cancellation] with `cancellation.orElse(null)`. */
         fun cancellation(cancellation: Optional<Cancellation>) =
             cancellation(cancellation.getOrNull())
 
         /**
-         * If your account requires approvals for transfers and the transfer was not approved, this
-         * will contain details of the cancellation.
+         * Sets [Builder.cancellation] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.cancellation] with a well-typed [Cancellation] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun cancellation(cancellation: JsonField<Cancellation>) = apply {
             this.cancellation = cancellation
@@ -556,7 +741,13 @@ private constructor(
         /** The check number printed on the check. */
         fun checkNumber(checkNumber: String) = checkNumber(JsonField.of(checkNumber))
 
-        /** The check number printed on the check. */
+        /**
+         * Sets [Builder.checkNumber] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.checkNumber] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun checkNumber(checkNumber: JsonField<String>) = apply { this.checkNumber = checkNumber }
 
         /**
@@ -566,31 +757,52 @@ private constructor(
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-         * transfer was created.
+         * Sets [Builder.createdAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** What object created the transfer, either via the API or the dashboard. */
         fun createdBy(createdBy: CreatedBy?) = createdBy(JsonField.ofNullable(createdBy))
 
-        /** What object created the transfer, either via the API or the dashboard. */
+        /** Alias for calling [Builder.createdBy] with `createdBy.orElse(null)`. */
         fun createdBy(createdBy: Optional<CreatedBy>) = createdBy(createdBy.getOrNull())
 
-        /** What object created the transfer, either via the API or the dashboard. */
+        /**
+         * Sets [Builder.createdBy] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.createdBy] with a well-typed [CreatedBy] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun createdBy(createdBy: JsonField<CreatedBy>) = apply { this.createdBy = createdBy }
 
         /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the check's currency. */
         fun currency(currency: Currency) = currency(JsonField.of(currency))
 
-        /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the check's currency. */
+        /**
+         * Sets [Builder.currency] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.currency] with a well-typed [Currency] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
 
         /** Whether Increase will print and mail the check or if you will do it yourself. */
         fun fulfillmentMethod(fulfillmentMethod: FulfillmentMethod) =
             fulfillmentMethod(JsonField.of(fulfillmentMethod))
 
-        /** Whether Increase will print and mail the check or if you will do it yourself. */
+        /**
+         * Sets [Builder.fulfillmentMethod] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.fulfillmentMethod] with a well-typed [FulfillmentMethod]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
         fun fulfillmentMethod(fulfillmentMethod: JsonField<FulfillmentMethod>) = apply {
             this.fulfillmentMethod = fulfillmentMethod
         }
@@ -603,18 +815,16 @@ private constructor(
         fun idempotencyKey(idempotencyKey: String?) =
             idempotencyKey(JsonField.ofNullable(idempotencyKey))
 
-        /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
-         */
+        /** Alias for calling [Builder.idempotencyKey] with `idempotencyKey.orElse(null)`. */
         fun idempotencyKey(idempotencyKey: Optional<String>) =
             idempotencyKey(idempotencyKey.getOrNull())
 
         /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         * Sets [Builder.idempotencyKey] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.idempotencyKey] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
             this.idempotencyKey = idempotencyKey
@@ -623,10 +833,15 @@ private constructor(
         /** If the check has been mailed by Increase, this will contain details of the shipment. */
         fun mailing(mailing: Mailing?) = mailing(JsonField.ofNullable(mailing))
 
-        /** If the check has been mailed by Increase, this will contain details of the shipment. */
+        /** Alias for calling [Builder.mailing] with `mailing.orElse(null)`. */
         fun mailing(mailing: Optional<Mailing>) = mailing(mailing.getOrNull())
 
-        /** If the check has been mailed by Increase, this will contain details of the shipment. */
+        /**
+         * Sets [Builder.mailing] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.mailing] with a well-typed [Mailing] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun mailing(mailing: JsonField<Mailing>) = apply { this.mailing = mailing }
 
         /**
@@ -639,19 +854,18 @@ private constructor(
             pendingTransactionId(JsonField.ofNullable(pendingTransactionId))
 
         /**
-         * The ID for the pending transaction representing the transfer. A pending transaction is
-         * created when the transfer
-         * [requires approval](https://increase.com/documentation/transfer-approvals#transfer-approvals)
-         * by someone else in your organization.
+         * Alias for calling [Builder.pendingTransactionId] with
+         * `pendingTransactionId.orElse(null)`.
          */
         fun pendingTransactionId(pendingTransactionId: Optional<String>) =
             pendingTransactionId(pendingTransactionId.getOrNull())
 
         /**
-         * The ID for the pending transaction representing the transfer. A pending transaction is
-         * created when the transfer
-         * [requires approval](https://increase.com/documentation/transfer-approvals#transfer-approvals)
-         * by someone else in your organization.
+         * Sets [Builder.pendingTransactionId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.pendingTransactionId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun pendingTransactionId(pendingTransactionId: JsonField<String>) = apply {
             this.pendingTransactionId = pendingTransactionId
@@ -664,16 +878,16 @@ private constructor(
         fun physicalCheck(physicalCheck: PhysicalCheck?) =
             physicalCheck(JsonField.ofNullable(physicalCheck))
 
-        /**
-         * Details relating to the physical check that Increase will print and mail. Will be present
-         * if and only if `fulfillment_method` is equal to `physical_check`.
-         */
+        /** Alias for calling [Builder.physicalCheck] with `physicalCheck.orElse(null)`. */
         fun physicalCheck(physicalCheck: Optional<PhysicalCheck>) =
             physicalCheck(physicalCheck.getOrNull())
 
         /**
-         * Details relating to the physical check that Increase will print and mail. Will be present
-         * if and only if `fulfillment_method` is equal to `physical_check`.
+         * Sets [Builder.physicalCheck] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.physicalCheck] with a well-typed [PhysicalCheck] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun physicalCheck(physicalCheck: JsonField<PhysicalCheck>) = apply {
             this.physicalCheck = physicalCheck
@@ -682,7 +896,13 @@ private constructor(
         /** The routing number printed on the check. */
         fun routingNumber(routingNumber: String) = routingNumber(JsonField.of(routingNumber))
 
-        /** The routing number printed on the check. */
+        /**
+         * Sets [Builder.routingNumber] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.routingNumber] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun routingNumber(routingNumber: JsonField<String>) = apply {
             this.routingNumber = routingNumber
         }
@@ -695,15 +915,18 @@ private constructor(
             sourceAccountNumberId(JsonField.ofNullable(sourceAccountNumberId))
 
         /**
-         * The identifier of the Account Number from which to send the transfer and print on the
-         * check.
+         * Alias for calling [Builder.sourceAccountNumberId] with
+         * `sourceAccountNumberId.orElse(null)`.
          */
         fun sourceAccountNumberId(sourceAccountNumberId: Optional<String>) =
             sourceAccountNumberId(sourceAccountNumberId.getOrNull())
 
         /**
-         * The identifier of the Account Number from which to send the transfer and print on the
-         * check.
+         * Sets [Builder.sourceAccountNumberId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.sourceAccountNumberId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun sourceAccountNumberId(sourceAccountNumberId: JsonField<String>) = apply {
             this.sourceAccountNumberId = sourceAccountNumberId
@@ -712,7 +935,12 @@ private constructor(
         /** The lifecycle status of the transfer. */
         fun status(status: Status) = status(JsonField.of(status))
 
-        /** The lifecycle status of the transfer. */
+        /**
+         * Sets [Builder.status] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.status] with a well-typed [Status] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /**
@@ -722,13 +950,17 @@ private constructor(
             stopPaymentRequest(JsonField.ofNullable(stopPaymentRequest))
 
         /**
-         * After a stop-payment is requested on the check, this will contain supplemental details.
+         * Alias for calling [Builder.stopPaymentRequest] with `stopPaymentRequest.orElse(null)`.
          */
         fun stopPaymentRequest(stopPaymentRequest: Optional<StopPaymentRequest>) =
             stopPaymentRequest(stopPaymentRequest.getOrNull())
 
         /**
-         * After a stop-payment is requested on the check, this will contain supplemental details.
+         * Sets [Builder.stopPaymentRequest] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.stopPaymentRequest] with a well-typed
+         * [StopPaymentRequest] value instead. This method is primarily for setting the field to an
+         * undocumented or not yet supported value.
          */
         fun stopPaymentRequest(stopPaymentRequest: JsonField<StopPaymentRequest>) = apply {
             this.stopPaymentRequest = stopPaymentRequest
@@ -737,10 +969,16 @@ private constructor(
         /** After the transfer is submitted, this will contain supplemental details. */
         fun submission(submission: Submission?) = submission(JsonField.ofNullable(submission))
 
-        /** After the transfer is submitted, this will contain supplemental details. */
+        /** Alias for calling [Builder.submission] with `submission.orElse(null)`. */
         fun submission(submission: Optional<Submission>) = submission(submission.getOrNull())
 
-        /** After the transfer is submitted, this will contain supplemental details. */
+        /**
+         * Sets [Builder.submission] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.submission] with a well-typed [Submission] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun submission(submission: JsonField<Submission>) = apply { this.submission = submission }
 
         /**
@@ -749,15 +987,15 @@ private constructor(
          */
         fun thirdParty(thirdParty: ThirdParty?) = thirdParty(JsonField.ofNullable(thirdParty))
 
-        /**
-         * Details relating to the custom fulfillment you will perform. Will be present if and only
-         * if `fulfillment_method` is equal to `third_party`.
-         */
+        /** Alias for calling [Builder.thirdParty] with `thirdParty.orElse(null)`. */
         fun thirdParty(thirdParty: Optional<ThirdParty>) = thirdParty(thirdParty.getOrNull())
 
         /**
-         * Details relating to the custom fulfillment you will perform. Will be present if and only
-         * if `fulfillment_method` is equal to `third_party`.
+         * Sets [Builder.thirdParty] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.thirdParty] with a well-typed [ThirdParty] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun thirdParty(thirdParty: JsonField<ThirdParty>) = apply { this.thirdParty = thirdParty }
 
@@ -768,8 +1006,10 @@ private constructor(
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
-         * A constant representing the object's type. For this resource it will always be
-         * `check_transfer`.
+         * Sets [Builder.type] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.type] with a well-typed [Type] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
@@ -792,6 +1032,40 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [CheckTransfer].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .accountId()
+         * .accountNumber()
+         * .amount()
+         * .approval()
+         * .approvedInboundCheckDepositId()
+         * .cancellation()
+         * .checkNumber()
+         * .createdAt()
+         * .createdBy()
+         * .currency()
+         * .fulfillmentMethod()
+         * .idempotencyKey()
+         * .mailing()
+         * .pendingTransactionId()
+         * .physicalCheck()
+         * .routingNumber()
+         * .sourceAccountNumberId()
+         * .status()
+         * .stopPaymentRequest()
+         * .submission()
+         * .thirdParty()
+         * .type()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): CheckTransfer =
             CheckTransfer(
                 checkRequired("id", id),
@@ -842,25 +1116,34 @@ private constructor(
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
          * transfer was approved.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun approvedAt(): OffsetDateTime = approvedAt.getRequired("approved_at")
 
         /**
          * If the Transfer was approved by a user in the dashboard, the email address of that user.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun approvedBy(): Optional<String> =
             Optional.ofNullable(approvedBy.getNullable("approved_by"))
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-         * transfer was approved.
+         * Returns the raw JSON value of [approvedAt].
+         *
+         * Unlike [approvedAt], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("approved_at")
         @ExcludeMissing
         fun _approvedAt(): JsonField<OffsetDateTime> = approvedAt
 
         /**
-         * If the Transfer was approved by a user in the dashboard, the email address of that user.
+         * Returns the raw JSON value of [approvedBy].
+         *
+         * Unlike [approvedBy], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("approved_by")
         @ExcludeMissing
@@ -919,8 +1202,11 @@ private constructor(
             fun approvedAt(approvedAt: OffsetDateTime) = approvedAt(JsonField.of(approvedAt))
 
             /**
-             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-             * transfer was approved.
+             * Sets [Builder.approvedAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.approvedAt] with a well-typed [OffsetDateTime] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun approvedAt(approvedAt: JsonField<OffsetDateTime>) = apply {
                 this.approvedAt = approvedAt
@@ -932,15 +1218,15 @@ private constructor(
              */
             fun approvedBy(approvedBy: String?) = approvedBy(JsonField.ofNullable(approvedBy))
 
-            /**
-             * If the Transfer was approved by a user in the dashboard, the email address of that
-             * user.
-             */
+            /** Alias for calling [Builder.approvedBy] with `approvedBy.orElse(null)`. */
             fun approvedBy(approvedBy: Optional<String>) = approvedBy(approvedBy.getOrNull())
 
             /**
-             * If the Transfer was approved by a user in the dashboard, the email address of that
-             * user.
+             * Sets [Builder.approvedBy] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.approvedBy] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun approvedBy(approvedBy: JsonField<String>) = apply { this.approvedBy = approvedBy }
 
@@ -963,6 +1249,19 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Approval].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .approvedAt()
+             * .approvedBy()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Approval =
                 Approval(
                     checkRequired("approvedAt", approvedAt),
@@ -1010,25 +1309,34 @@ private constructor(
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
          * Transfer was canceled.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun canceledAt(): OffsetDateTime = canceledAt.getRequired("canceled_at")
 
         /**
          * If the Transfer was canceled by a user in the dashboard, the email address of that user.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun canceledBy(): Optional<String> =
             Optional.ofNullable(canceledBy.getNullable("canceled_by"))
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-         * Transfer was canceled.
+         * Returns the raw JSON value of [canceledAt].
+         *
+         * Unlike [canceledAt], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("canceled_at")
         @ExcludeMissing
         fun _canceledAt(): JsonField<OffsetDateTime> = canceledAt
 
         /**
-         * If the Transfer was canceled by a user in the dashboard, the email address of that user.
+         * Returns the raw JSON value of [canceledBy].
+         *
+         * Unlike [canceledBy], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("canceled_by")
         @ExcludeMissing
@@ -1087,8 +1395,11 @@ private constructor(
             fun canceledAt(canceledAt: OffsetDateTime) = canceledAt(JsonField.of(canceledAt))
 
             /**
-             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-             * Transfer was canceled.
+             * Sets [Builder.canceledAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.canceledAt] with a well-typed [OffsetDateTime] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun canceledAt(canceledAt: JsonField<OffsetDateTime>) = apply {
                 this.canceledAt = canceledAt
@@ -1100,15 +1411,15 @@ private constructor(
              */
             fun canceledBy(canceledBy: String?) = canceledBy(JsonField.ofNullable(canceledBy))
 
-            /**
-             * If the Transfer was canceled by a user in the dashboard, the email address of that
-             * user.
-             */
+            /** Alias for calling [Builder.canceledBy] with `canceledBy.orElse(null)`. */
             fun canceledBy(canceledBy: Optional<String>) = canceledBy(canceledBy.getOrNull())
 
             /**
-             * If the Transfer was canceled by a user in the dashboard, the email address of that
-             * user.
+             * Sets [Builder.canceledBy] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.canceledBy] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun canceledBy(canceledBy: JsonField<String>) = apply { this.canceledBy = canceledBy }
 
@@ -1131,6 +1442,19 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Cancellation].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .canceledAt()
+             * .canceledBy()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Cancellation =
                 Cancellation(
                     checkRequired("canceledAt", canceledAt),
@@ -1176,31 +1500,68 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** If present, details about the API key that created the transfer. */
+        /**
+         * If present, details about the API key that created the transfer.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun apiKey(): Optional<ApiKey> = Optional.ofNullable(apiKey.getNullable("api_key"))
 
-        /** The type of object that created this transfer. */
+        /**
+         * The type of object that created this transfer.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun category(): Category = category.getRequired("category")
 
-        /** If present, details about the OAuth Application that created the transfer. */
+        /**
+         * If present, details about the OAuth Application that created the transfer.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun oauthApplication(): Optional<OAuthApplication> =
             Optional.ofNullable(oauthApplication.getNullable("oauth_application"))
 
-        /** If present, details about the User that created the transfer. */
+        /**
+         * If present, details about the User that created the transfer.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun user(): Optional<User> = Optional.ofNullable(user.getNullable("user"))
 
-        /** If present, details about the API key that created the transfer. */
+        /**
+         * Returns the raw JSON value of [apiKey].
+         *
+         * Unlike [apiKey], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("api_key") @ExcludeMissing fun _apiKey(): JsonField<ApiKey> = apiKey
 
-        /** The type of object that created this transfer. */
+        /**
+         * Returns the raw JSON value of [category].
+         *
+         * Unlike [category], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("category") @ExcludeMissing fun _category(): JsonField<Category> = category
 
-        /** If present, details about the OAuth Application that created the transfer. */
+        /**
+         * Returns the raw JSON value of [oauthApplication].
+         *
+         * Unlike [oauthApplication], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("oauth_application")
         @ExcludeMissing
         fun _oauthApplication(): JsonField<OAuthApplication> = oauthApplication
 
-        /** If present, details about the User that created the transfer. */
+        /**
+         * Returns the raw JSON value of [user].
+         *
+         * Unlike [user], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("user") @ExcludeMissing fun _user(): JsonField<User> = user
 
         @JsonAnyGetter
@@ -1260,27 +1621,47 @@ private constructor(
             /** If present, details about the API key that created the transfer. */
             fun apiKey(apiKey: ApiKey?) = apiKey(JsonField.ofNullable(apiKey))
 
-            /** If present, details about the API key that created the transfer. */
+            /** Alias for calling [Builder.apiKey] with `apiKey.orElse(null)`. */
             fun apiKey(apiKey: Optional<ApiKey>) = apiKey(apiKey.getOrNull())
 
-            /** If present, details about the API key that created the transfer. */
+            /**
+             * Sets [Builder.apiKey] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.apiKey] with a well-typed [ApiKey] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun apiKey(apiKey: JsonField<ApiKey>) = apply { this.apiKey = apiKey }
 
             /** The type of object that created this transfer. */
             fun category(category: Category) = category(JsonField.of(category))
 
-            /** The type of object that created this transfer. */
+            /**
+             * Sets [Builder.category] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.category] with a well-typed [Category] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun category(category: JsonField<Category>) = apply { this.category = category }
 
             /** If present, details about the OAuth Application that created the transfer. */
             fun oauthApplication(oauthApplication: OAuthApplication?) =
                 oauthApplication(JsonField.ofNullable(oauthApplication))
 
-            /** If present, details about the OAuth Application that created the transfer. */
+            /**
+             * Alias for calling [Builder.oauthApplication] with `oauthApplication.orElse(null)`.
+             */
             fun oauthApplication(oauthApplication: Optional<OAuthApplication>) =
                 oauthApplication(oauthApplication.getOrNull())
 
-            /** If present, details about the OAuth Application that created the transfer. */
+            /**
+             * Sets [Builder.oauthApplication] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.oauthApplication] with a well-typed
+             * [OAuthApplication] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
             fun oauthApplication(oauthApplication: JsonField<OAuthApplication>) = apply {
                 this.oauthApplication = oauthApplication
             }
@@ -1288,10 +1669,16 @@ private constructor(
             /** If present, details about the User that created the transfer. */
             fun user(user: User?) = user(JsonField.ofNullable(user))
 
-            /** If present, details about the User that created the transfer. */
+            /** Alias for calling [Builder.user] with `user.orElse(null)`. */
             fun user(user: Optional<User>) = user(user.getOrNull())
 
-            /** If present, details about the User that created the transfer. */
+            /**
+             * Sets [Builder.user] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.user] with a well-typed [User] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
             fun user(user: JsonField<User>) = apply { this.user = user }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -1313,6 +1700,21 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [CreatedBy].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .apiKey()
+             * .category()
+             * .oauthApplication()
+             * .user()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): CreatedBy =
                 CreatedBy(
                     checkRequired("apiKey", apiKey),
@@ -1335,11 +1737,21 @@ private constructor(
             private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
-            /** The description set for the API key when it was created. */
+            /**
+             * The description set for the API key when it was created.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
             fun description(): Optional<String> =
                 Optional.ofNullable(description.getNullable("description"))
 
-            /** The description set for the API key when it was created. */
+            /**
+             * Returns the raw JSON value of [description].
+             *
+             * Unlike [description], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
             @JsonProperty("description")
             @ExcludeMissing
             fun _description(): JsonField<String> = description
@@ -1390,11 +1802,17 @@ private constructor(
                 fun description(description: String?) =
                     description(JsonField.ofNullable(description))
 
-                /** The description set for the API key when it was created. */
+                /** Alias for calling [Builder.description] with `description.orElse(null)`. */
                 fun description(description: Optional<String>) =
                     description(description.getOrNull())
 
-                /** The description set for the API key when it was created. */
+                /**
+                 * Sets [Builder.description] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.description] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
                 fun description(description: JsonField<String>) = apply {
                     this.description = description
                 }
@@ -1421,6 +1839,18 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [ApiKey].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .description()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
                 fun build(): ApiKey =
                     ApiKey(
                         checkRequired("description", description),
@@ -1586,10 +2016,20 @@ private constructor(
             private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
-            /** The name of the OAuth Application. */
+            /**
+             * The name of the OAuth Application.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun name(): String = name.getRequired("name")
 
-            /** The name of the OAuth Application. */
+            /**
+             * Returns the raw JSON value of [name].
+             *
+             * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
             @JsonAnyGetter
@@ -1637,7 +2077,13 @@ private constructor(
                 /** The name of the OAuth Application. */
                 fun name(name: String) = name(JsonField.of(name))
 
-                /** The name of the OAuth Application. */
+                /**
+                 * Sets [Builder.name] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.name] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
                 fun name(name: JsonField<String>) = apply { this.name = name }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -1662,6 +2108,18 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [OAuthApplication].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .name()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
                 fun build(): OAuthApplication =
                     OAuthApplication(
                         checkRequired("name", name),
@@ -1699,10 +2157,20 @@ private constructor(
             private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
-            /** The email address of the User. */
+            /**
+             * The email address of the User.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun email(): String = email.getRequired("email")
 
-            /** The email address of the User. */
+            /**
+             * Returns the raw JSON value of [email].
+             *
+             * Unlike [email], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("email") @ExcludeMissing fun _email(): JsonField<String> = email
 
             @JsonAnyGetter
@@ -1750,7 +2218,13 @@ private constructor(
                 /** The email address of the User. */
                 fun email(email: String) = email(JsonField.of(email))
 
-                /** The email address of the User. */
+                /**
+                 * Sets [Builder.email] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.email] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
                 fun email(email: JsonField<String>) = apply { this.email = email }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -1775,6 +2249,18 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [User].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .email()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
                 fun build(): User =
                     User(checkRequired("email", email), additionalProperties.toImmutable())
             }
@@ -2098,33 +2584,52 @@ private constructor(
 
         /**
          * The ID of the file corresponding to an image of the check that was mailed, if available.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun imageId(): Optional<String> = Optional.ofNullable(imageId.getNullable("image_id"))
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the check
          * was mailed.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun mailedAt(): OffsetDateTime = mailedAt.getRequired("mailed_at")
 
-        /** The tracking number of the shipment, if available for the shipping method. */
+        /**
+         * The tracking number of the shipment, if available for the shipping method.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun trackingNumber(): Optional<String> =
             Optional.ofNullable(trackingNumber.getNullable("tracking_number"))
 
         /**
-         * The ID of the file corresponding to an image of the check that was mailed, if available.
+         * Returns the raw JSON value of [imageId].
+         *
+         * Unlike [imageId], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("image_id") @ExcludeMissing fun _imageId(): JsonField<String> = imageId
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the check
-         * was mailed.
+         * Returns the raw JSON value of [mailedAt].
+         *
+         * Unlike [mailedAt], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("mailed_at")
         @ExcludeMissing
         fun _mailedAt(): JsonField<OffsetDateTime> = mailedAt
 
-        /** The tracking number of the shipment, if available for the shipping method. */
+        /**
+         * Returns the raw JSON value of [trackingNumber].
+         *
+         * Unlike [trackingNumber], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("tracking_number")
         @ExcludeMissing
         fun _trackingNumber(): JsonField<String> = trackingNumber
@@ -2185,15 +2690,15 @@ private constructor(
              */
             fun imageId(imageId: String?) = imageId(JsonField.ofNullable(imageId))
 
-            /**
-             * The ID of the file corresponding to an image of the check that was mailed, if
-             * available.
-             */
+            /** Alias for calling [Builder.imageId] with `imageId.orElse(null)`. */
             fun imageId(imageId: Optional<String>) = imageId(imageId.getOrNull())
 
             /**
-             * The ID of the file corresponding to an image of the check that was mailed, if
-             * available.
+             * Sets [Builder.imageId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.imageId] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun imageId(imageId: JsonField<String>) = apply { this.imageId = imageId }
 
@@ -2204,8 +2709,11 @@ private constructor(
             fun mailedAt(mailedAt: OffsetDateTime) = mailedAt(JsonField.of(mailedAt))
 
             /**
-             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-             * check was mailed.
+             * Sets [Builder.mailedAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.mailedAt] with a well-typed [OffsetDateTime] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun mailedAt(mailedAt: JsonField<OffsetDateTime>) = apply { this.mailedAt = mailedAt }
 
@@ -2213,11 +2721,17 @@ private constructor(
             fun trackingNumber(trackingNumber: String?) =
                 trackingNumber(JsonField.ofNullable(trackingNumber))
 
-            /** The tracking number of the shipment, if available for the shipping method. */
+            /** Alias for calling [Builder.trackingNumber] with `trackingNumber.orElse(null)`. */
             fun trackingNumber(trackingNumber: Optional<String>) =
                 trackingNumber(trackingNumber.getOrNull())
 
-            /** The tracking number of the shipment, if available for the shipping method. */
+            /**
+             * Sets [Builder.trackingNumber] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.trackingNumber] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun trackingNumber(trackingNumber: JsonField<String>) = apply {
                 this.trackingNumber = trackingNumber
             }
@@ -2241,6 +2755,20 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Mailing].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .imageId()
+             * .mailedAt()
+             * .trackingNumber()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Mailing =
                 Mailing(
                     checkRequired("imageId", imageId),
@@ -2304,72 +2832,145 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** Details for where Increase will mail the check. */
+        /**
+         * Details for where Increase will mail the check.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun mailingAddress(): MailingAddress = mailingAddress.getRequired("mailing_address")
 
-        /** The descriptor that will be printed on the memo field on the check. */
+        /**
+         * The descriptor that will be printed on the memo field on the check.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun memo(): Optional<String> = Optional.ofNullable(memo.getNullable("memo"))
 
-        /** The descriptor that will be printed on the letter included with the check. */
+        /**
+         * The descriptor that will be printed on the letter included with the check.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun note(): Optional<String> = Optional.ofNullable(note.getNullable("note"))
 
-        /** The name that will be printed on the check. */
+        /**
+         * The name that will be printed on the check.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun recipientName(): String = recipientName.getRequired("recipient_name")
 
-        /** The return address to be printed on the check. */
+        /**
+         * The return address to be printed on the check.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun returnAddress(): Optional<ReturnAddress> =
             Optional.ofNullable(returnAddress.getNullable("return_address"))
 
-        /** The shipping method for the check. */
+        /**
+         * The shipping method for the check.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun shippingMethod(): Optional<ShippingMethod> =
             Optional.ofNullable(shippingMethod.getNullable("shipping_method"))
 
         /**
          * The text that will appear as the signature on the check in cursive font. If blank, the
          * check will be printed with 'No signature required'.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun signatureText(): Optional<String> =
             Optional.ofNullable(signatureText.getNullable("signature_text"))
 
-        /** Tracking updates relating to the physical check's delivery. */
+        /**
+         * Tracking updates relating to the physical check's delivery.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun trackingUpdates(): List<TrackingUpdate> =
             trackingUpdates.getRequired("tracking_updates")
 
-        /** Details for where Increase will mail the check. */
+        /**
+         * Returns the raw JSON value of [mailingAddress].
+         *
+         * Unlike [mailingAddress], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("mailing_address")
         @ExcludeMissing
         fun _mailingAddress(): JsonField<MailingAddress> = mailingAddress
 
-        /** The descriptor that will be printed on the memo field on the check. */
+        /**
+         * Returns the raw JSON value of [memo].
+         *
+         * Unlike [memo], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("memo") @ExcludeMissing fun _memo(): JsonField<String> = memo
 
-        /** The descriptor that will be printed on the letter included with the check. */
+        /**
+         * Returns the raw JSON value of [note].
+         *
+         * Unlike [note], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("note") @ExcludeMissing fun _note(): JsonField<String> = note
 
-        /** The name that will be printed on the check. */
+        /**
+         * Returns the raw JSON value of [recipientName].
+         *
+         * Unlike [recipientName], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("recipient_name")
         @ExcludeMissing
         fun _recipientName(): JsonField<String> = recipientName
 
-        /** The return address to be printed on the check. */
+        /**
+         * Returns the raw JSON value of [returnAddress].
+         *
+         * Unlike [returnAddress], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("return_address")
         @ExcludeMissing
         fun _returnAddress(): JsonField<ReturnAddress> = returnAddress
 
-        /** The shipping method for the check. */
+        /**
+         * Returns the raw JSON value of [shippingMethod].
+         *
+         * Unlike [shippingMethod], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("shipping_method")
         @ExcludeMissing
         fun _shippingMethod(): JsonField<ShippingMethod> = shippingMethod
 
         /**
-         * The text that will appear as the signature on the check in cursive font. If blank, the
-         * check will be printed with 'No signature required'.
+         * Returns the raw JSON value of [signatureText].
+         *
+         * Unlike [signatureText], this method doesn't throw if the JSON field has an unexpected
+         * type.
          */
         @JsonProperty("signature_text")
         @ExcludeMissing
         fun _signatureText(): JsonField<String> = signatureText
 
-        /** Tracking updates relating to the physical check's delivery. */
+        /**
+         * Returns the raw JSON value of [trackingUpdates].
+         *
+         * Unlike [trackingUpdates], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("tracking_updates")
         @ExcludeMissing
         fun _trackingUpdates(): JsonField<List<TrackingUpdate>> = trackingUpdates
@@ -2448,7 +3049,13 @@ private constructor(
             fun mailingAddress(mailingAddress: MailingAddress) =
                 mailingAddress(JsonField.of(mailingAddress))
 
-            /** Details for where Increase will mail the check. */
+            /**
+             * Sets [Builder.mailingAddress] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.mailingAddress] with a well-typed [MailingAddress]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
             fun mailingAddress(mailingAddress: JsonField<MailingAddress>) = apply {
                 this.mailingAddress = mailingAddress
             }
@@ -2456,25 +3063,43 @@ private constructor(
             /** The descriptor that will be printed on the memo field on the check. */
             fun memo(memo: String?) = memo(JsonField.ofNullable(memo))
 
-            /** The descriptor that will be printed on the memo field on the check. */
+            /** Alias for calling [Builder.memo] with `memo.orElse(null)`. */
             fun memo(memo: Optional<String>) = memo(memo.getOrNull())
 
-            /** The descriptor that will be printed on the memo field on the check. */
+            /**
+             * Sets [Builder.memo] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.memo] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
             fun memo(memo: JsonField<String>) = apply { this.memo = memo }
 
             /** The descriptor that will be printed on the letter included with the check. */
             fun note(note: String?) = note(JsonField.ofNullable(note))
 
-            /** The descriptor that will be printed on the letter included with the check. */
+            /** Alias for calling [Builder.note] with `note.orElse(null)`. */
             fun note(note: Optional<String>) = note(note.getOrNull())
 
-            /** The descriptor that will be printed on the letter included with the check. */
+            /**
+             * Sets [Builder.note] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.note] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
             fun note(note: JsonField<String>) = apply { this.note = note }
 
             /** The name that will be printed on the check. */
             fun recipientName(recipientName: String) = recipientName(JsonField.of(recipientName))
 
-            /** The name that will be printed on the check. */
+            /**
+             * Sets [Builder.recipientName] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.recipientName] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun recipientName(recipientName: JsonField<String>) = apply {
                 this.recipientName = recipientName
             }
@@ -2483,11 +3108,17 @@ private constructor(
             fun returnAddress(returnAddress: ReturnAddress?) =
                 returnAddress(JsonField.ofNullable(returnAddress))
 
-            /** The return address to be printed on the check. */
+            /** Alias for calling [Builder.returnAddress] with `returnAddress.orElse(null)`. */
             fun returnAddress(returnAddress: Optional<ReturnAddress>) =
                 returnAddress(returnAddress.getOrNull())
 
-            /** The return address to be printed on the check. */
+            /**
+             * Sets [Builder.returnAddress] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.returnAddress] with a well-typed [ReturnAddress]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
             fun returnAddress(returnAddress: JsonField<ReturnAddress>) = apply {
                 this.returnAddress = returnAddress
             }
@@ -2496,11 +3127,17 @@ private constructor(
             fun shippingMethod(shippingMethod: ShippingMethod?) =
                 shippingMethod(JsonField.ofNullable(shippingMethod))
 
-            /** The shipping method for the check. */
+            /** Alias for calling [Builder.shippingMethod] with `shippingMethod.orElse(null)`. */
             fun shippingMethod(shippingMethod: Optional<ShippingMethod>) =
                 shippingMethod(shippingMethod.getOrNull())
 
-            /** The shipping method for the check. */
+            /**
+             * Sets [Builder.shippingMethod] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.shippingMethod] with a well-typed [ShippingMethod]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
             fun shippingMethod(shippingMethod: JsonField<ShippingMethod>) = apply {
                 this.shippingMethod = shippingMethod
             }
@@ -2512,16 +3149,16 @@ private constructor(
             fun signatureText(signatureText: String?) =
                 signatureText(JsonField.ofNullable(signatureText))
 
-            /**
-             * The text that will appear as the signature on the check in cursive font. If blank,
-             * the check will be printed with 'No signature required'.
-             */
+            /** Alias for calling [Builder.signatureText] with `signatureText.orElse(null)`. */
             fun signatureText(signatureText: Optional<String>) =
                 signatureText(signatureText.getOrNull())
 
             /**
-             * The text that will appear as the signature on the check in cursive font. If blank,
-             * the check will be printed with 'No signature required'.
+             * Sets [Builder.signatureText] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.signatureText] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun signatureText(signatureText: JsonField<String>) = apply {
                 this.signatureText = signatureText
@@ -2531,12 +3168,22 @@ private constructor(
             fun trackingUpdates(trackingUpdates: List<TrackingUpdate>) =
                 trackingUpdates(JsonField.of(trackingUpdates))
 
-            /** Tracking updates relating to the physical check's delivery. */
+            /**
+             * Sets [Builder.trackingUpdates] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.trackingUpdates] with a well-typed
+             * `List<TrackingUpdate>` value instead. This method is primarily for setting the field
+             * to an undocumented or not yet supported value.
+             */
             fun trackingUpdates(trackingUpdates: JsonField<List<TrackingUpdate>>) = apply {
                 this.trackingUpdates = trackingUpdates.map { it.toMutableList() }
             }
 
-            /** Tracking updates relating to the physical check's delivery. */
+            /**
+             * Adds a single [TrackingUpdate] to [trackingUpdates].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
             fun addTrackingUpdate(trackingUpdate: TrackingUpdate) = apply {
                 trackingUpdates =
                     (trackingUpdates ?: JsonField.of(mutableListOf())).also {
@@ -2563,6 +3210,25 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [PhysicalCheck].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .mailingAddress()
+             * .memo()
+             * .note()
+             * .recipientName()
+             * .returnAddress()
+             * .shippingMethod()
+             * .signatureText()
+             * .trackingUpdates()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): PhysicalCheck =
                 PhysicalCheck(
                     checkRequired("mailingAddress", mailingAddress),
@@ -2604,43 +3270,98 @@ private constructor(
             private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
-            /** The city of the check's destination. */
+            /**
+             * The city of the check's destination.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
             fun city(): Optional<String> = Optional.ofNullable(city.getNullable("city"))
 
-            /** The street address of the check's destination. */
+            /**
+             * The street address of the check's destination.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
             fun line1(): Optional<String> = Optional.ofNullable(line1.getNullable("line1"))
 
-            /** The second line of the address of the check's destination. */
+            /**
+             * The second line of the address of the check's destination.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
             fun line2(): Optional<String> = Optional.ofNullable(line2.getNullable("line2"))
 
-            /** The name component of the check's mailing address. */
+            /**
+             * The name component of the check's mailing address.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
             fun name(): Optional<String> = Optional.ofNullable(name.getNullable("name"))
 
-            /** The postal code of the check's destination. */
+            /**
+             * The postal code of the check's destination.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
             fun postalCode(): Optional<String> =
                 Optional.ofNullable(postalCode.getNullable("postal_code"))
 
-            /** The state of the check's destination. */
+            /**
+             * The state of the check's destination.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
             fun state(): Optional<String> = Optional.ofNullable(state.getNullable("state"))
 
-            /** The city of the check's destination. */
+            /**
+             * Returns the raw JSON value of [city].
+             *
+             * Unlike [city], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("city") @ExcludeMissing fun _city(): JsonField<String> = city
 
-            /** The street address of the check's destination. */
+            /**
+             * Returns the raw JSON value of [line1].
+             *
+             * Unlike [line1], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
 
-            /** The second line of the address of the check's destination. */
+            /**
+             * Returns the raw JSON value of [line2].
+             *
+             * Unlike [line2], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
 
-            /** The name component of the check's mailing address. */
+            /**
+             * Returns the raw JSON value of [name].
+             *
+             * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
-            /** The postal code of the check's destination. */
+            /**
+             * Returns the raw JSON value of [postalCode].
+             *
+             * Unlike [postalCode], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
             @JsonProperty("postal_code")
             @ExcludeMissing
             fun _postalCode(): JsonField<String> = postalCode
 
-            /** The state of the check's destination. */
+            /**
+             * Returns the raw JSON value of [state].
+             *
+             * Unlike [state], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("state") @ExcludeMissing fun _state(): JsonField<String> = state
 
             @JsonAnyGetter
@@ -2708,46 +3429,76 @@ private constructor(
                 /** The city of the check's destination. */
                 fun city(city: String?) = city(JsonField.ofNullable(city))
 
-                /** The city of the check's destination. */
+                /** Alias for calling [Builder.city] with `city.orElse(null)`. */
                 fun city(city: Optional<String>) = city(city.getOrNull())
 
-                /** The city of the check's destination. */
+                /**
+                 * Sets [Builder.city] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.city] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
                 fun city(city: JsonField<String>) = apply { this.city = city }
 
                 /** The street address of the check's destination. */
                 fun line1(line1: String?) = line1(JsonField.ofNullable(line1))
 
-                /** The street address of the check's destination. */
+                /** Alias for calling [Builder.line1] with `line1.orElse(null)`. */
                 fun line1(line1: Optional<String>) = line1(line1.getOrNull())
 
-                /** The street address of the check's destination. */
+                /**
+                 * Sets [Builder.line1] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.line1] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
                 fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
 
                 /** The second line of the address of the check's destination. */
                 fun line2(line2: String?) = line2(JsonField.ofNullable(line2))
 
-                /** The second line of the address of the check's destination. */
+                /** Alias for calling [Builder.line2] with `line2.orElse(null)`. */
                 fun line2(line2: Optional<String>) = line2(line2.getOrNull())
 
-                /** The second line of the address of the check's destination. */
+                /**
+                 * Sets [Builder.line2] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.line2] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
                 fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
 
                 /** The name component of the check's mailing address. */
                 fun name(name: String?) = name(JsonField.ofNullable(name))
 
-                /** The name component of the check's mailing address. */
+                /** Alias for calling [Builder.name] with `name.orElse(null)`. */
                 fun name(name: Optional<String>) = name(name.getOrNull())
 
-                /** The name component of the check's mailing address. */
+                /**
+                 * Sets [Builder.name] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.name] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
                 fun name(name: JsonField<String>) = apply { this.name = name }
 
                 /** The postal code of the check's destination. */
                 fun postalCode(postalCode: String?) = postalCode(JsonField.ofNullable(postalCode))
 
-                /** The postal code of the check's destination. */
+                /** Alias for calling [Builder.postalCode] with `postalCode.orElse(null)`. */
                 fun postalCode(postalCode: Optional<String>) = postalCode(postalCode.getOrNull())
 
-                /** The postal code of the check's destination. */
+                /**
+                 * Sets [Builder.postalCode] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.postalCode] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
                 fun postalCode(postalCode: JsonField<String>) = apply {
                     this.postalCode = postalCode
                 }
@@ -2755,10 +3506,16 @@ private constructor(
                 /** The state of the check's destination. */
                 fun state(state: String?) = state(JsonField.ofNullable(state))
 
-                /** The state of the check's destination. */
+                /** Alias for calling [Builder.state] with `state.orElse(null)`. */
                 fun state(state: Optional<String>) = state(state.getOrNull())
 
-                /** The state of the check's destination. */
+                /**
+                 * Sets [Builder.state] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.state] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
                 fun state(state: JsonField<String>) = apply { this.state = state }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -2783,6 +3540,23 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [MailingAddress].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .city()
+                 * .line1()
+                 * .line2()
+                 * .name()
+                 * .postalCode()
+                 * .state()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
                 fun build(): MailingAddress =
                     MailingAddress(
                         checkRequired("city", city),
@@ -2840,43 +3614,98 @@ private constructor(
             private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
-            /** The city of the check's destination. */
+            /**
+             * The city of the check's destination.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
             fun city(): Optional<String> = Optional.ofNullable(city.getNullable("city"))
 
-            /** The street address of the check's destination. */
+            /**
+             * The street address of the check's destination.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
             fun line1(): Optional<String> = Optional.ofNullable(line1.getNullable("line1"))
 
-            /** The second line of the address of the check's destination. */
+            /**
+             * The second line of the address of the check's destination.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
             fun line2(): Optional<String> = Optional.ofNullable(line2.getNullable("line2"))
 
-            /** The name component of the check's return address. */
+            /**
+             * The name component of the check's return address.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
             fun name(): Optional<String> = Optional.ofNullable(name.getNullable("name"))
 
-            /** The postal code of the check's destination. */
+            /**
+             * The postal code of the check's destination.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
             fun postalCode(): Optional<String> =
                 Optional.ofNullable(postalCode.getNullable("postal_code"))
 
-            /** The state of the check's destination. */
+            /**
+             * The state of the check's destination.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
             fun state(): Optional<String> = Optional.ofNullable(state.getNullable("state"))
 
-            /** The city of the check's destination. */
+            /**
+             * Returns the raw JSON value of [city].
+             *
+             * Unlike [city], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("city") @ExcludeMissing fun _city(): JsonField<String> = city
 
-            /** The street address of the check's destination. */
+            /**
+             * Returns the raw JSON value of [line1].
+             *
+             * Unlike [line1], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
 
-            /** The second line of the address of the check's destination. */
+            /**
+             * Returns the raw JSON value of [line2].
+             *
+             * Unlike [line2], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
 
-            /** The name component of the check's return address. */
+            /**
+             * Returns the raw JSON value of [name].
+             *
+             * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
-            /** The postal code of the check's destination. */
+            /**
+             * Returns the raw JSON value of [postalCode].
+             *
+             * Unlike [postalCode], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
             @JsonProperty("postal_code")
             @ExcludeMissing
             fun _postalCode(): JsonField<String> = postalCode
 
-            /** The state of the check's destination. */
+            /**
+             * Returns the raw JSON value of [state].
+             *
+             * Unlike [state], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("state") @ExcludeMissing fun _state(): JsonField<String> = state
 
             @JsonAnyGetter
@@ -2944,46 +3773,76 @@ private constructor(
                 /** The city of the check's destination. */
                 fun city(city: String?) = city(JsonField.ofNullable(city))
 
-                /** The city of the check's destination. */
+                /** Alias for calling [Builder.city] with `city.orElse(null)`. */
                 fun city(city: Optional<String>) = city(city.getOrNull())
 
-                /** The city of the check's destination. */
+                /**
+                 * Sets [Builder.city] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.city] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
                 fun city(city: JsonField<String>) = apply { this.city = city }
 
                 /** The street address of the check's destination. */
                 fun line1(line1: String?) = line1(JsonField.ofNullable(line1))
 
-                /** The street address of the check's destination. */
+                /** Alias for calling [Builder.line1] with `line1.orElse(null)`. */
                 fun line1(line1: Optional<String>) = line1(line1.getOrNull())
 
-                /** The street address of the check's destination. */
+                /**
+                 * Sets [Builder.line1] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.line1] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
                 fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
 
                 /** The second line of the address of the check's destination. */
                 fun line2(line2: String?) = line2(JsonField.ofNullable(line2))
 
-                /** The second line of the address of the check's destination. */
+                /** Alias for calling [Builder.line2] with `line2.orElse(null)`. */
                 fun line2(line2: Optional<String>) = line2(line2.getOrNull())
 
-                /** The second line of the address of the check's destination. */
+                /**
+                 * Sets [Builder.line2] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.line2] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
                 fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
 
                 /** The name component of the check's return address. */
                 fun name(name: String?) = name(JsonField.ofNullable(name))
 
-                /** The name component of the check's return address. */
+                /** Alias for calling [Builder.name] with `name.orElse(null)`. */
                 fun name(name: Optional<String>) = name(name.getOrNull())
 
-                /** The name component of the check's return address. */
+                /**
+                 * Sets [Builder.name] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.name] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
                 fun name(name: JsonField<String>) = apply { this.name = name }
 
                 /** The postal code of the check's destination. */
                 fun postalCode(postalCode: String?) = postalCode(JsonField.ofNullable(postalCode))
 
-                /** The postal code of the check's destination. */
+                /** Alias for calling [Builder.postalCode] with `postalCode.orElse(null)`. */
                 fun postalCode(postalCode: Optional<String>) = postalCode(postalCode.getOrNull())
 
-                /** The postal code of the check's destination. */
+                /**
+                 * Sets [Builder.postalCode] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.postalCode] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
                 fun postalCode(postalCode: JsonField<String>) = apply {
                     this.postalCode = postalCode
                 }
@@ -2991,10 +3850,16 @@ private constructor(
                 /** The state of the check's destination. */
                 fun state(state: String?) = state(JsonField.ofNullable(state))
 
-                /** The state of the check's destination. */
+                /** Alias for calling [Builder.state] with `state.orElse(null)`. */
                 fun state(state: Optional<String>) = state(state.getOrNull())
 
-                /** The state of the check's destination. */
+                /**
+                 * Sets [Builder.state] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.state] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
                 fun state(state: JsonField<String>) = apply { this.state = state }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -3019,6 +3884,23 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [ReturnAddress].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .city()
+                 * .line1()
+                 * .line2()
+                 * .name()
+                 * .postalCode()
+                 * .state()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
                 fun build(): ReturnAddress =
                     ReturnAddress(
                         checkRequired("city", city),
@@ -3178,32 +4060,60 @@ private constructor(
             private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
-            /** The type of tracking event. */
+            /**
+             * The type of tracking event.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun category(): Category = category.getRequired("category")
 
             /**
              * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
              * tracking event took place.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
              */
             fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
-            /** The postal code where the event took place. */
+            /**
+             * The postal code where the event took place.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun postalCode(): String = postalCode.getRequired("postal_code")
 
-            /** The type of tracking event. */
+            /**
+             * Returns the raw JSON value of [category].
+             *
+             * Unlike [category], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
             @JsonProperty("category")
             @ExcludeMissing
             fun _category(): JsonField<Category> = category
 
             /**
-             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-             * tracking event took place.
+             * Returns the raw JSON value of [createdAt].
+             *
+             * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected
+             * type.
              */
             @JsonProperty("created_at")
             @ExcludeMissing
             fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
-            /** The postal code where the event took place. */
+            /**
+             * Returns the raw JSON value of [postalCode].
+             *
+             * Unlike [postalCode], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
             @JsonProperty("postal_code")
             @ExcludeMissing
             fun _postalCode(): JsonField<String> = postalCode
@@ -3261,7 +4171,13 @@ private constructor(
                 /** The type of tracking event. */
                 fun category(category: Category) = category(JsonField.of(category))
 
-                /** The type of tracking event. */
+                /**
+                 * Sets [Builder.category] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.category] with a well-typed [Category] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
                 fun category(category: JsonField<Category>) = apply { this.category = category }
 
                 /**
@@ -3271,8 +4187,11 @@ private constructor(
                 fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
                 /**
-                 * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-                 * tracking event took place.
+                 * Sets [Builder.createdAt] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
                  */
                 fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
                     this.createdAt = createdAt
@@ -3281,7 +4200,13 @@ private constructor(
                 /** The postal code where the event took place. */
                 fun postalCode(postalCode: String) = postalCode(JsonField.of(postalCode))
 
-                /** The postal code where the event took place. */
+                /**
+                 * Sets [Builder.postalCode] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.postalCode] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
                 fun postalCode(postalCode: JsonField<String>) = apply {
                     this.postalCode = postalCode
                 }
@@ -3308,6 +4233,20 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [TrackingUpdate].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .category()
+                 * .createdAt()
+                 * .postalCode()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
                 fun build(): TrackingUpdate =
                     TrackingUpdate(
                         checkRequired("category", category),
@@ -3680,37 +4619,68 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The reason why this transfer was stopped. */
+        /**
+         * The reason why this transfer was stopped.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun reason(): Reason = reason.getRequired("reason")
 
-        /** The time the stop-payment was requested. */
+        /**
+         * The time the stop-payment was requested.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun requestedAt(): OffsetDateTime = requestedAt.getRequired("requested_at")
 
-        /** The ID of the check transfer that was stopped. */
+        /**
+         * The ID of the check transfer that was stopped.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun transferId(): String = transferId.getRequired("transfer_id")
 
         /**
          * A constant representing the object's type. For this resource it will always be
          * `check_transfer_stop_payment_request`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun type(): Type = type.getRequired("type")
 
-        /** The reason why this transfer was stopped. */
+        /**
+         * Returns the raw JSON value of [reason].
+         *
+         * Unlike [reason], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("reason") @ExcludeMissing fun _reason(): JsonField<Reason> = reason
 
-        /** The time the stop-payment was requested. */
+        /**
+         * Returns the raw JSON value of [requestedAt].
+         *
+         * Unlike [requestedAt], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("requested_at")
         @ExcludeMissing
         fun _requestedAt(): JsonField<OffsetDateTime> = requestedAt
 
-        /** The ID of the check transfer that was stopped. */
+        /**
+         * Returns the raw JSON value of [transferId].
+         *
+         * Unlike [transferId], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("transfer_id")
         @ExcludeMissing
         fun _transferId(): JsonField<String> = transferId
 
         /**
-         * A constant representing the object's type. For this resource it will always be
-         * `check_transfer_stop_payment_request`.
+         * Returns the raw JSON value of [type].
+         *
+         * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
@@ -3771,13 +4741,25 @@ private constructor(
             /** The reason why this transfer was stopped. */
             fun reason(reason: Reason) = reason(JsonField.of(reason))
 
-            /** The reason why this transfer was stopped. */
+            /**
+             * Sets [Builder.reason] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.reason] with a well-typed [Reason] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun reason(reason: JsonField<Reason>) = apply { this.reason = reason }
 
             /** The time the stop-payment was requested. */
             fun requestedAt(requestedAt: OffsetDateTime) = requestedAt(JsonField.of(requestedAt))
 
-            /** The time the stop-payment was requested. */
+            /**
+             * Sets [Builder.requestedAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.requestedAt] with a well-typed [OffsetDateTime]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
             fun requestedAt(requestedAt: JsonField<OffsetDateTime>) = apply {
                 this.requestedAt = requestedAt
             }
@@ -3785,7 +4767,13 @@ private constructor(
             /** The ID of the check transfer that was stopped. */
             fun transferId(transferId: String) = transferId(JsonField.of(transferId))
 
-            /** The ID of the check transfer that was stopped. */
+            /**
+             * Sets [Builder.transferId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.transferId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun transferId(transferId: JsonField<String>) = apply { this.transferId = transferId }
 
             /**
@@ -3795,8 +4783,11 @@ private constructor(
             fun type(type: Type) = type(JsonField.of(type))
 
             /**
-             * A constant representing the object's type. For this resource it will always be
-             * `check_transfer_stop_payment_request`.
+             * Sets [Builder.type] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.type] with a well-typed [Type] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
              */
             fun type(type: JsonField<Type>) = apply { this.type = type }
 
@@ -3819,6 +4810,21 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [StopPaymentRequest].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .reason()
+             * .requestedAt()
+             * .transferId()
+             * .type()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): StopPaymentRequest =
                 StopPaymentRequest(
                     checkRequired("reason", reason),
@@ -4094,10 +5100,19 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** When this check transfer was submitted to our check printer. */
+        /**
+         * When this check transfer was submitted to our check printer.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun submittedAt(): OffsetDateTime = submittedAt.getRequired("submitted_at")
 
-        /** When this check transfer was submitted to our check printer. */
+        /**
+         * Returns the raw JSON value of [submittedAt].
+         *
+         * Unlike [submittedAt], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("submitted_at")
         @ExcludeMissing
         fun _submittedAt(): JsonField<OffsetDateTime> = submittedAt
@@ -4147,7 +5162,13 @@ private constructor(
             /** When this check transfer was submitted to our check printer. */
             fun submittedAt(submittedAt: OffsetDateTime) = submittedAt(JsonField.of(submittedAt))
 
-            /** When this check transfer was submitted to our check printer. */
+            /**
+             * Sets [Builder.submittedAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.submittedAt] with a well-typed [OffsetDateTime]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
             fun submittedAt(submittedAt: JsonField<OffsetDateTime>) = apply {
                 this.submittedAt = submittedAt
             }
@@ -4171,6 +5192,18 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Submission].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .submittedAt()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Submission =
                 Submission(
                     checkRequired("submittedAt", submittedAt),
@@ -4211,11 +5244,20 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The check number that will be printed on the check. */
+        /**
+         * The check number that will be printed on the check.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun checkNumber(): Optional<String> =
             Optional.ofNullable(checkNumber.getNullable("check_number"))
 
-        /** The check number that will be printed on the check. */
+        /**
+         * Returns the raw JSON value of [checkNumber].
+         *
+         * Unlike [checkNumber], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("check_number")
         @ExcludeMissing
         fun _checkNumber(): JsonField<String> = checkNumber
@@ -4265,10 +5307,16 @@ private constructor(
             /** The check number that will be printed on the check. */
             fun checkNumber(checkNumber: String?) = checkNumber(JsonField.ofNullable(checkNumber))
 
-            /** The check number that will be printed on the check. */
+            /** Alias for calling [Builder.checkNumber] with `checkNumber.orElse(null)`. */
             fun checkNumber(checkNumber: Optional<String>) = checkNumber(checkNumber.getOrNull())
 
-            /** The check number that will be printed on the check. */
+            /**
+             * Sets [Builder.checkNumber] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.checkNumber] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun checkNumber(checkNumber: JsonField<String>) = apply {
                 this.checkNumber = checkNumber
             }
@@ -4292,6 +5340,18 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [ThirdParty].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .checkNumber()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): ThirdParty =
                 ThirdParty(
                     checkRequired("checkNumber", checkNumber),

@@ -52,6 +52,8 @@ import com.increase.api.services.blocking.ExportService
 import com.increase.api.services.blocking.ExportServiceImpl
 import com.increase.api.services.blocking.ExternalAccountService
 import com.increase.api.services.blocking.ExternalAccountServiceImpl
+import com.increase.api.services.blocking.FileLinkService
+import com.increase.api.services.blocking.FileLinkServiceImpl
 import com.increase.api.services.blocking.FileService
 import com.increase.api.services.blocking.FileServiceImpl
 import com.increase.api.services.blocking.GroupService
@@ -267,6 +269,10 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
 
     private val files: FileService by lazy { FileServiceImpl(clientOptionsWithUserAgent) }
 
+    private val fileLinks: FileLinkService by lazy {
+        FileLinkServiceImpl(clientOptionsWithUserAgent)
+    }
+
     private val documents: DocumentService by lazy {
         DocumentServiceImpl(clientOptionsWithUserAgent)
     }
@@ -409,6 +415,8 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
     override fun accountStatements(): AccountStatementService = accountStatements
 
     override fun files(): FileService = files
+
+    override fun fileLinks(): FileLinkService = fileLinks
 
     override fun documents(): DocumentService = documents
 
@@ -603,6 +611,10 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
             FileServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val fileLinks: FileLinkService.WithRawResponse by lazy {
+            FileLinkServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         private val documents: DocumentService.WithRawResponse by lazy {
             DocumentServiceImpl.WithRawResponseImpl(clientOptions)
         }
@@ -761,6 +773,8 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
             accountStatements
 
         override fun files(): FileService.WithRawResponse = files
+
+        override fun fileLinks(): FileLinkService.WithRawResponse = fileLinks
 
         override fun documents(): DocumentService.WithRawResponse = documents
 

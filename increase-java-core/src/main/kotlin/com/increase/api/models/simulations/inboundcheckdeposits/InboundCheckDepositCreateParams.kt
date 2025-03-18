@@ -17,6 +17,7 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
+import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 
 /**
@@ -33,22 +34,49 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** The identifier of the Account Number the Inbound Check Deposit will be against. */
+    /**
+     * The identifier of the Account Number the Inbound Check Deposit will be against.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun accountNumberId(): String = body.accountNumberId()
 
-    /** The check amount in cents. */
+    /**
+     * The check amount in cents.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun amount(): Long = body.amount()
 
-    /** The check number on the check to be deposited. */
+    /**
+     * The check number on the check to be deposited.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun checkNumber(): String = body.checkNumber()
 
-    /** The identifier of the Account Number the Inbound Check Deposit will be against. */
+    /**
+     * Returns the raw JSON value of [accountNumberId].
+     *
+     * Unlike [accountNumberId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _accountNumberId(): JsonField<String> = body._accountNumberId()
 
-    /** The check amount in cents. */
+    /**
+     * Returns the raw JSON value of [amount].
+     *
+     * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _amount(): JsonField<Long> = body._amount()
 
-    /** The check number on the check to be deposited. */
+    /**
+     * Returns the raw JSON value of [checkNumber].
+     *
+     * Unlike [checkNumber], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _checkNumber(): JsonField<String> = body._checkNumber()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
@@ -80,24 +108,52 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The identifier of the Account Number the Inbound Check Deposit will be against. */
+        /**
+         * The identifier of the Account Number the Inbound Check Deposit will be against.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun accountNumberId(): String = accountNumberId.getRequired("account_number_id")
 
-        /** The check amount in cents. */
+        /**
+         * The check amount in cents.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun amount(): Long = amount.getRequired("amount")
 
-        /** The check number on the check to be deposited. */
+        /**
+         * The check number on the check to be deposited.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun checkNumber(): String = checkNumber.getRequired("check_number")
 
-        /** The identifier of the Account Number the Inbound Check Deposit will be against. */
+        /**
+         * Returns the raw JSON value of [accountNumberId].
+         *
+         * Unlike [accountNumberId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("account_number_id")
         @ExcludeMissing
         fun _accountNumberId(): JsonField<String> = accountNumberId
 
-        /** The check amount in cents. */
+        /**
+         * Returns the raw JSON value of [amount].
+         *
+         * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
-        /** The check number on the check to be deposited. */
+        /**
+         * Returns the raw JSON value of [checkNumber].
+         *
+         * Unlike [checkNumber], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("check_number")
         @ExcludeMissing
         fun _checkNumber(): JsonField<String> = checkNumber
@@ -156,7 +212,13 @@ private constructor(
             fun accountNumberId(accountNumberId: String) =
                 accountNumberId(JsonField.of(accountNumberId))
 
-            /** The identifier of the Account Number the Inbound Check Deposit will be against. */
+            /**
+             * Sets [Builder.accountNumberId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.accountNumberId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun accountNumberId(accountNumberId: JsonField<String>) = apply {
                 this.accountNumberId = accountNumberId
             }
@@ -164,13 +226,25 @@ private constructor(
             /** The check amount in cents. */
             fun amount(amount: Long) = amount(JsonField.of(amount))
 
-            /** The check amount in cents. */
+            /**
+             * Sets [Builder.amount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
             fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
             /** The check number on the check to be deposited. */
             fun checkNumber(checkNumber: String) = checkNumber(JsonField.of(checkNumber))
 
-            /** The check number on the check to be deposited. */
+            /**
+             * Sets [Builder.checkNumber] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.checkNumber] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun checkNumber(checkNumber: JsonField<String>) = apply {
                 this.checkNumber = checkNumber
             }
@@ -194,6 +268,20 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Body].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .accountNumberId()
+             * .amount()
+             * .checkNumber()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Body =
                 Body(
                     checkRequired("accountNumberId", accountNumberId),
@@ -261,7 +349,13 @@ private constructor(
             body.accountNumberId(accountNumberId)
         }
 
-        /** The identifier of the Account Number the Inbound Check Deposit will be against. */
+        /**
+         * Sets [Builder.accountNumberId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.accountNumberId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun accountNumberId(accountNumberId: JsonField<String>) = apply {
             body.accountNumberId(accountNumberId)
         }
@@ -269,13 +363,24 @@ private constructor(
         /** The check amount in cents. */
         fun amount(amount: Long) = apply { body.amount(amount) }
 
-        /** The check amount in cents. */
+        /**
+         * Sets [Builder.amount] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun amount(amount: JsonField<Long>) = apply { body.amount(amount) }
 
         /** The check number on the check to be deposited. */
         fun checkNumber(checkNumber: String) = apply { body.checkNumber(checkNumber) }
 
-        /** The check number on the check to be deposited. */
+        /**
+         * Sets [Builder.checkNumber] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.checkNumber] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun checkNumber(checkNumber: JsonField<String>) = apply { body.checkNumber(checkNumber) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
@@ -395,6 +500,20 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [InboundCheckDepositCreateParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .accountNumberId()
+         * .amount()
+         * .checkNumber()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): InboundCheckDepositCreateParams =
             InboundCheckDepositCreateParams(
                 body.build(),

@@ -95,7 +95,7 @@ internal constructor(private val clientOptions: ClientOptions) : BookkeepingEntr
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
-                    .addPathSegments("bookkeeping_entry_sets", params.getPathParam(0))
+                    .addPathSegments("bookkeeping_entry_sets", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))

@@ -17,6 +17,7 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
+import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 import java.util.Optional
 
@@ -31,10 +32,20 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** The amount of the increment in minor units in the card authorization's currency. */
+    /**
+     * The amount of the increment in minor units in the card authorization's currency.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun amount(): Long = body.amount()
 
-    /** The identifier of the Card Payment to create a increment on. */
+    /**
+     * The identifier of the Card Payment to create a increment on.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun cardPaymentId(): String = body.cardPaymentId()
 
     /**
@@ -42,20 +53,31 @@ private constructor(
      * time event subscription. Because you can only create one real time decision event
      * subscription, you can use this field to route events to any specified event subscription for
      * testing purposes.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun eventSubscriptionId(): Optional<String> = body.eventSubscriptionId()
 
-    /** The amount of the increment in minor units in the card authorization's currency. */
+    /**
+     * Returns the raw JSON value of [amount].
+     *
+     * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _amount(): JsonField<Long> = body._amount()
 
-    /** The identifier of the Card Payment to create a increment on. */
+    /**
+     * Returns the raw JSON value of [cardPaymentId].
+     *
+     * Unlike [cardPaymentId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _cardPaymentId(): JsonField<String> = body._cardPaymentId()
 
     /**
-     * The identifier of the Event Subscription to use. If provided, will override the default real
-     * time event subscription. Because you can only create one real time decision event
-     * subscription, you can use this field to route events to any specified event subscription for
-     * testing purposes.
+     * Returns the raw JSON value of [eventSubscriptionId].
+     *
+     * Unlike [eventSubscriptionId], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
     fun _eventSubscriptionId(): JsonField<String> = body._eventSubscriptionId()
 
@@ -88,10 +110,20 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The amount of the increment in minor units in the card authorization's currency. */
+        /**
+         * The amount of the increment in minor units in the card authorization's currency.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun amount(): Long = amount.getRequired("amount")
 
-        /** The identifier of the Card Payment to create a increment on. */
+        /**
+         * The identifier of the Card Payment to create a increment on.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun cardPaymentId(): String = cardPaymentId.getRequired("card_payment_id")
 
         /**
@@ -99,23 +131,35 @@ private constructor(
          * real time event subscription. Because you can only create one real time decision event
          * subscription, you can use this field to route events to any specified event subscription
          * for testing purposes.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun eventSubscriptionId(): Optional<String> =
             Optional.ofNullable(eventSubscriptionId.getNullable("event_subscription_id"))
 
-        /** The amount of the increment in minor units in the card authorization's currency. */
+        /**
+         * Returns the raw JSON value of [amount].
+         *
+         * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
-        /** The identifier of the Card Payment to create a increment on. */
+        /**
+         * Returns the raw JSON value of [cardPaymentId].
+         *
+         * Unlike [cardPaymentId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("card_payment_id")
         @ExcludeMissing
         fun _cardPaymentId(): JsonField<String> = cardPaymentId
 
         /**
-         * The identifier of the Event Subscription to use. If provided, will override the default
-         * real time event subscription. Because you can only create one real time decision event
-         * subscription, you can use this field to route events to any specified event subscription
-         * for testing purposes.
+         * Returns the raw JSON value of [eventSubscriptionId].
+         *
+         * Unlike [eventSubscriptionId], this method doesn't throw if the JSON field has an
+         * unexpected type.
          */
         @JsonProperty("event_subscription_id")
         @ExcludeMissing
@@ -173,13 +217,25 @@ private constructor(
             /** The amount of the increment in minor units in the card authorization's currency. */
             fun amount(amount: Long) = amount(JsonField.of(amount))
 
-            /** The amount of the increment in minor units in the card authorization's currency. */
+            /**
+             * Sets [Builder.amount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
             fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
             /** The identifier of the Card Payment to create a increment on. */
             fun cardPaymentId(cardPaymentId: String) = cardPaymentId(JsonField.of(cardPaymentId))
 
-            /** The identifier of the Card Payment to create a increment on. */
+            /**
+             * Sets [Builder.cardPaymentId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.cardPaymentId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun cardPaymentId(cardPaymentId: JsonField<String>) = apply {
                 this.cardPaymentId = cardPaymentId
             }
@@ -194,10 +250,11 @@ private constructor(
                 eventSubscriptionId(JsonField.of(eventSubscriptionId))
 
             /**
-             * The identifier of the Event Subscription to use. If provided, will override the
-             * default real time event subscription. Because you can only create one real time
-             * decision event subscription, you can use this field to route events to any specified
-             * event subscription for testing purposes.
+             * Sets [Builder.eventSubscriptionId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.eventSubscriptionId] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
              */
             fun eventSubscriptionId(eventSubscriptionId: JsonField<String>) = apply {
                 this.eventSubscriptionId = eventSubscriptionId
@@ -222,6 +279,19 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Body].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .amount()
+             * .cardPaymentId()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Body =
                 Body(
                     checkRequired("amount", amount),
@@ -283,13 +353,24 @@ private constructor(
         /** The amount of the increment in minor units in the card authorization's currency. */
         fun amount(amount: Long) = apply { body.amount(amount) }
 
-        /** The amount of the increment in minor units in the card authorization's currency. */
+        /**
+         * Sets [Builder.amount] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun amount(amount: JsonField<Long>) = apply { body.amount(amount) }
 
         /** The identifier of the Card Payment to create a increment on. */
         fun cardPaymentId(cardPaymentId: String) = apply { body.cardPaymentId(cardPaymentId) }
 
-        /** The identifier of the Card Payment to create a increment on. */
+        /**
+         * Sets [Builder.cardPaymentId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.cardPaymentId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun cardPaymentId(cardPaymentId: JsonField<String>) = apply {
             body.cardPaymentId(cardPaymentId)
         }
@@ -305,10 +386,11 @@ private constructor(
         }
 
         /**
-         * The identifier of the Event Subscription to use. If provided, will override the default
-         * real time event subscription. Because you can only create one real time decision event
-         * subscription, you can use this field to route events to any specified event subscription
-         * for testing purposes.
+         * Sets [Builder.eventSubscriptionId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.eventSubscriptionId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun eventSubscriptionId(eventSubscriptionId: JsonField<String>) = apply {
             body.eventSubscriptionId(eventSubscriptionId)
@@ -431,6 +513,19 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [CardIncrementCreateParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .amount()
+         * .cardPaymentId()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): CardIncrementCreateParams =
             CardIncrementCreateParams(
                 body.build(),

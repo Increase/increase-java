@@ -154,11 +154,17 @@ class IncreaseOkHttpClientAsync private constructor() {
             clientOptions.webhookSecret(webhookSecret)
         }
 
+        /** Alias for calling [Builder.webhookSecret] with `webhookSecret.orElse(null)`. */
         fun webhookSecret(webhookSecret: Optional<String>) =
             webhookSecret(webhookSecret.getOrNull())
 
         fun fromEnv() = apply { clientOptions.fromEnv() }
 
+        /**
+         * Returns an immutable instance of [IncreaseClientAsync].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         */
         fun build(): IncreaseClientAsync =
             IncreaseClientAsyncImpl(
                 clientOptions

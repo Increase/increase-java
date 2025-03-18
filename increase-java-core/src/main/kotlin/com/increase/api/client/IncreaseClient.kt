@@ -26,6 +26,7 @@ import com.increase.api.services.blocking.EventService
 import com.increase.api.services.blocking.EventSubscriptionService
 import com.increase.api.services.blocking.ExportService
 import com.increase.api.services.blocking.ExternalAccountService
+import com.increase.api.services.blocking.FileLinkService
 import com.increase.api.services.blocking.FileService
 import com.increase.api.services.blocking.GroupService
 import com.increase.api.services.blocking.InboundAchTransferService
@@ -160,6 +161,8 @@ interface IncreaseClient {
 
     fun files(): FileService
 
+    fun fileLinks(): FileLinkService
+
     fun documents(): DocumentService
 
     fun exports(): ExportService
@@ -285,6 +288,8 @@ interface IncreaseClient {
         fun accountStatements(): AccountStatementService.WithRawResponse
 
         fun files(): FileService.WithRawResponse
+
+        fun fileLinks(): FileLinkService.WithRawResponse
 
         fun documents(): DocumentService.WithRawResponse
 

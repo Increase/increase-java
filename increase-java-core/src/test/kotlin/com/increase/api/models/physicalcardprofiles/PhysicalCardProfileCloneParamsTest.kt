@@ -6,7 +6,7 @@ import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class PhysicalCardProfileCloneParamsTest {
+internal class PhysicalCardProfileCloneParamsTest {
 
     @Test
     fun create() {
@@ -20,6 +20,18 @@ class PhysicalCardProfileCloneParamsTest {
                 PhysicalCardProfileCloneParams.FrontText.builder().line1("x").line2("x").build()
             )
             .build()
+    }
+
+    @Test
+    fun pathParams() {
+        val params =
+            PhysicalCardProfileCloneParams.builder()
+                .physicalCardProfileId("physical_card_profile_m534d5rn9qyy9ufqxoec")
+                .build()
+
+        assertThat(params._pathParam(0)).isEqualTo("physical_card_profile_m534d5rn9qyy9ufqxoec")
+        // out-of-bound path param
+        assertThat(params._pathParam(1)).isEqualTo("")
     }
 
     @Test
@@ -59,18 +71,5 @@ class PhysicalCardProfileCloneParamsTest {
         val body = params._body()
 
         assertNotNull(body)
-    }
-
-    @Test
-    fun getPathParam() {
-        val params =
-            PhysicalCardProfileCloneParams.builder()
-                .physicalCardProfileId("physical_card_profile_m534d5rn9qyy9ufqxoec")
-                .build()
-        assertThat(params).isNotNull
-        // path param "physicalCardProfileId"
-        assertThat(params.getPathParam(0)).isEqualTo("physical_card_profile_m534d5rn9qyy9ufqxoec")
-        // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
     }
 }

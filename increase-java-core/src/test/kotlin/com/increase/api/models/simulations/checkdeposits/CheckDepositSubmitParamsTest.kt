@@ -5,7 +5,7 @@ package com.increase.api.models.simulations.checkdeposits
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class CheckDepositSubmitParamsTest {
+internal class CheckDepositSubmitParamsTest {
 
     @Test
     fun create() {
@@ -15,15 +15,14 @@ class CheckDepositSubmitParamsTest {
     }
 
     @Test
-    fun getPathParam() {
+    fun pathParams() {
         val params =
             CheckDepositSubmitParams.builder()
                 .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
                 .build()
-        assertThat(params).isNotNull
-        // path param "checkDepositId"
-        assertThat(params.getPathParam(0)).isEqualTo("check_deposit_f06n9gpg7sxn8t19lfc1")
+
+        assertThat(params._pathParam(0)).isEqualTo("check_deposit_f06n9gpg7sxn8t19lfc1")
         // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
+        assertThat(params._pathParam(1)).isEqualTo("")
     }
 }

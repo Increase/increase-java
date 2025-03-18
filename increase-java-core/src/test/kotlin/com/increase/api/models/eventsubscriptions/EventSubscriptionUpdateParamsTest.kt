@@ -6,7 +6,7 @@ import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class EventSubscriptionUpdateParamsTest {
+internal class EventSubscriptionUpdateParamsTest {
 
     @Test
     fun create() {
@@ -14,6 +14,18 @@ class EventSubscriptionUpdateParamsTest {
             .eventSubscriptionId("event_subscription_001dzz0r20rcdxgb013zqb8m04g")
             .status(EventSubscriptionUpdateParams.Status.ACTIVE)
             .build()
+    }
+
+    @Test
+    fun pathParams() {
+        val params =
+            EventSubscriptionUpdateParams.builder()
+                .eventSubscriptionId("event_subscription_001dzz0r20rcdxgb013zqb8m04g")
+                .build()
+
+        assertThat(params._pathParam(0)).isEqualTo("event_subscription_001dzz0r20rcdxgb013zqb8m04g")
+        // out-of-bound path param
+        assertThat(params._pathParam(1)).isEqualTo("")
     }
 
     @Test
@@ -40,19 +52,5 @@ class EventSubscriptionUpdateParamsTest {
         val body = params._body()
 
         assertNotNull(body)
-    }
-
-    @Test
-    fun getPathParam() {
-        val params =
-            EventSubscriptionUpdateParams.builder()
-                .eventSubscriptionId("event_subscription_001dzz0r20rcdxgb013zqb8m04g")
-                .build()
-        assertThat(params).isNotNull
-        // path param "eventSubscriptionId"
-        assertThat(params.getPathParam(0))
-            .isEqualTo("event_subscription_001dzz0r20rcdxgb013zqb8m04g")
-        // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
     }
 }

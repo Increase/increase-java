@@ -7,10 +7,10 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class AchTransferTest {
+internal class AchTransferTest {
 
     @Test
-    fun createAchTransfer() {
+    fun create() {
         val achTransfer =
             AchTransfer.builder()
                 .id("ach_transfer_uoxatyh3lt5evrsdvo7q")
@@ -155,7 +155,7 @@ class AchTransferTest {
                 .transactionId("transaction_uyrp7fld2ium70oa7oi")
                 .type(AchTransfer.Type.ACH_TRANSFER)
                 .build()
-        assertThat(achTransfer).isNotNull
+
         assertThat(achTransfer.id()).isEqualTo("ach_transfer_uoxatyh3lt5evrsdvo7q")
         assertThat(achTransfer.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(achTransfer.accountNumber()).isEqualTo("987654321")

@@ -8,10 +8,10 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class EntityTest {
+internal class EntityTest {
 
     @Test
-    fun createEntity() {
+    fun create() {
         val entity =
             Entity.builder()
                 .id("entity_n8y8tnk2p9339ti393yi")
@@ -242,7 +242,7 @@ class EntityTest {
                 )
                 .type(Entity.Type.ENTITY)
                 .build()
-        assertThat(entity).isNotNull
+
         assertThat(entity.id()).isEqualTo("entity_n8y8tnk2p9339ti393yi")
         assertThat(entity.corporation())
             .contains(

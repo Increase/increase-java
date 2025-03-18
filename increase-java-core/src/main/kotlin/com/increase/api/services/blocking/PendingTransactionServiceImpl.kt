@@ -57,7 +57,7 @@ class PendingTransactionServiceImpl internal constructor(private val clientOptio
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
-                    .addPathSegments("pending_transactions", params.getPathParam(0))
+                    .addPathSegments("pending_transactions", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))

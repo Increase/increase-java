@@ -17,6 +17,7 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
+import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 import java.util.Optional
 
@@ -28,40 +29,81 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** The identifier for the account that will send the transfer. */
+    /**
+     * The identifier for the account that will send the transfer.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun accountId(): String = body.accountId()
 
     /**
      * The transfer amount in the minor unit of the account currency. For dollars, for example, this
      * is cents.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun amount(): Long = body.amount()
 
-    /** The description you choose to give the transfer. */
+    /**
+     * The description you choose to give the transfer.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun description(): String = body.description()
 
-    /** The identifier for the account that will receive the transfer. */
+    /**
+     * The identifier for the account that will receive the transfer.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun destinationAccountId(): String = body.destinationAccountId()
 
-    /** Whether the transfer requires explicit approval via the dashboard or API. */
+    /**
+     * Whether the transfer requires explicit approval via the dashboard or API.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun requireApproval(): Optional<Boolean> = body.requireApproval()
 
-    /** The identifier for the account that will send the transfer. */
+    /**
+     * Returns the raw JSON value of [accountId].
+     *
+     * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _accountId(): JsonField<String> = body._accountId()
 
     /**
-     * The transfer amount in the minor unit of the account currency. For dollars, for example, this
-     * is cents.
+     * Returns the raw JSON value of [amount].
+     *
+     * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _amount(): JsonField<Long> = body._amount()
 
-    /** The description you choose to give the transfer. */
+    /**
+     * Returns the raw JSON value of [description].
+     *
+     * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _description(): JsonField<String> = body._description()
 
-    /** The identifier for the account that will receive the transfer. */
+    /**
+     * Returns the raw JSON value of [destinationAccountId].
+     *
+     * Unlike [destinationAccountId], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     fun _destinationAccountId(): JsonField<String> = body._destinationAccountId()
 
-    /** Whether the transfer requires explicit approval via the dashboard or API. */
+    /**
+     * Returns the raw JSON value of [requireApproval].
+     *
+     * Unlike [requireApproval], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _requireApproval(): JsonField<Boolean> = body._requireApproval()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
@@ -99,46 +141,88 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The identifier for the account that will send the transfer. */
+        /**
+         * The identifier for the account that will send the transfer.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun accountId(): String = accountId.getRequired("account_id")
 
         /**
          * The transfer amount in the minor unit of the account currency. For dollars, for example,
          * this is cents.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun amount(): Long = amount.getRequired("amount")
 
-        /** The description you choose to give the transfer. */
+        /**
+         * The description you choose to give the transfer.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun description(): String = description.getRequired("description")
 
-        /** The identifier for the account that will receive the transfer. */
+        /**
+         * The identifier for the account that will receive the transfer.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun destinationAccountId(): String =
             destinationAccountId.getRequired("destination_account_id")
 
-        /** Whether the transfer requires explicit approval via the dashboard or API. */
+        /**
+         * Whether the transfer requires explicit approval via the dashboard or API.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun requireApproval(): Optional<Boolean> =
             Optional.ofNullable(requireApproval.getNullable("require_approval"))
 
-        /** The identifier for the account that will send the transfer. */
+        /**
+         * Returns the raw JSON value of [accountId].
+         *
+         * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
 
         /**
-         * The transfer amount in the minor unit of the account currency. For dollars, for example,
-         * this is cents.
+         * Returns the raw JSON value of [amount].
+         *
+         * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
-        /** The description you choose to give the transfer. */
+        /**
+         * Returns the raw JSON value of [description].
+         *
+         * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("description")
         @ExcludeMissing
         fun _description(): JsonField<String> = description
 
-        /** The identifier for the account that will receive the transfer. */
+        /**
+         * Returns the raw JSON value of [destinationAccountId].
+         *
+         * Unlike [destinationAccountId], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
         @JsonProperty("destination_account_id")
         @ExcludeMissing
         fun _destinationAccountId(): JsonField<String> = destinationAccountId
 
-        /** Whether the transfer requires explicit approval via the dashboard or API. */
+        /**
+         * Returns the raw JSON value of [requireApproval].
+         *
+         * Unlike [requireApproval], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("require_approval")
         @ExcludeMissing
         fun _requireApproval(): JsonField<Boolean> = requireApproval
@@ -203,7 +287,13 @@ private constructor(
             /** The identifier for the account that will send the transfer. */
             fun accountId(accountId: String) = accountId(JsonField.of(accountId))
 
-            /** The identifier for the account that will send the transfer. */
+            /**
+             * Sets [Builder.accountId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.accountId] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
             /**
@@ -213,15 +303,24 @@ private constructor(
             fun amount(amount: Long) = amount(JsonField.of(amount))
 
             /**
-             * The transfer amount in the minor unit of the account currency. For dollars, for
-             * example, this is cents.
+             * Sets [Builder.amount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
              */
             fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
             /** The description you choose to give the transfer. */
             fun description(description: String) = description(JsonField.of(description))
 
-            /** The description you choose to give the transfer. */
+            /**
+             * Sets [Builder.description] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.description] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun description(description: JsonField<String>) = apply {
                 this.description = description
             }
@@ -230,7 +329,13 @@ private constructor(
             fun destinationAccountId(destinationAccountId: String) =
                 destinationAccountId(JsonField.of(destinationAccountId))
 
-            /** The identifier for the account that will receive the transfer. */
+            /**
+             * Sets [Builder.destinationAccountId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.destinationAccountId] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
             fun destinationAccountId(destinationAccountId: JsonField<String>) = apply {
                 this.destinationAccountId = destinationAccountId
             }
@@ -239,7 +344,13 @@ private constructor(
             fun requireApproval(requireApproval: Boolean) =
                 requireApproval(JsonField.of(requireApproval))
 
-            /** Whether the transfer requires explicit approval via the dashboard or API. */
+            /**
+             * Sets [Builder.requireApproval] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.requireApproval] with a well-typed [Boolean] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun requireApproval(requireApproval: JsonField<Boolean>) = apply {
                 this.requireApproval = requireApproval
             }
@@ -263,6 +374,21 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Body].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .accountId()
+             * .amount()
+             * .description()
+             * .destinationAccountId()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Body =
                 Body(
                     checkRequired("accountId", accountId),
@@ -328,7 +454,13 @@ private constructor(
         /** The identifier for the account that will send the transfer. */
         fun accountId(accountId: String) = apply { body.accountId(accountId) }
 
-        /** The identifier for the account that will send the transfer. */
+        /**
+         * Sets [Builder.accountId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.accountId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun accountId(accountId: JsonField<String>) = apply { body.accountId(accountId) }
 
         /**
@@ -338,15 +470,23 @@ private constructor(
         fun amount(amount: Long) = apply { body.amount(amount) }
 
         /**
-         * The transfer amount in the minor unit of the account currency. For dollars, for example,
-         * this is cents.
+         * Sets [Builder.amount] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun amount(amount: JsonField<Long>) = apply { body.amount(amount) }
 
         /** The description you choose to give the transfer. */
         fun description(description: String) = apply { body.description(description) }
 
-        /** The description you choose to give the transfer. */
+        /**
+         * Sets [Builder.description] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.description] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun description(description: JsonField<String>) = apply { body.description(description) }
 
         /** The identifier for the account that will receive the transfer. */
@@ -354,7 +494,13 @@ private constructor(
             body.destinationAccountId(destinationAccountId)
         }
 
-        /** The identifier for the account that will receive the transfer. */
+        /**
+         * Sets [Builder.destinationAccountId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.destinationAccountId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun destinationAccountId(destinationAccountId: JsonField<String>) = apply {
             body.destinationAccountId(destinationAccountId)
         }
@@ -364,7 +510,13 @@ private constructor(
             body.requireApproval(requireApproval)
         }
 
-        /** Whether the transfer requires explicit approval via the dashboard or API. */
+        /**
+         * Sets [Builder.requireApproval] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.requireApproval] with a well-typed [Boolean] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun requireApproval(requireApproval: JsonField<Boolean>) = apply {
             body.requireApproval(requireApproval)
         }
@@ -486,6 +638,21 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [AccountTransferCreateParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .accountId()
+         * .amount()
+         * .description()
+         * .destinationAccountId()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): AccountTransferCreateParams =
             AccountTransferCreateParams(
                 body.build(),

@@ -6,10 +6,10 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class AccountTransferTest {
+internal class AccountTransferTest {
 
     @Test
-    fun createAccountTransfer() {
+    fun create() {
         val accountTransfer =
             AccountTransfer.builder()
                 .id("account_transfer_7k9qe1ysdgqztnt63l7n")
@@ -59,7 +59,7 @@ class AccountTransferTest {
                 .transactionId("transaction_uyrp7fld2ium70oa7oi")
                 .type(AccountTransfer.Type.ACCOUNT_TRANSFER)
                 .build()
-        assertThat(accountTransfer).isNotNull
+
         assertThat(accountTransfer.id()).isEqualTo("account_transfer_7k9qe1ysdgqztnt63l7n")
         assertThat(accountTransfer.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(accountTransfer.amount()).isEqualTo(100L)

@@ -6,7 +6,7 @@ import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class AccountStatementCreateParamsTest {
+internal class AccountStatementCreateParamsTest {
 
     @Test
     fun create() {
@@ -15,17 +15,6 @@ class AccountStatementCreateParamsTest {
 
     @Test
     fun body() {
-        val params =
-            AccountStatementCreateParams.builder().accountId("account_in71c4amph0vgo2qllky").build()
-
-        val body = params._body()
-
-        assertNotNull(body)
-        assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
-    }
-
-    @Test
-    fun bodyWithoutOptionalFields() {
         val params =
             AccountStatementCreateParams.builder().accountId("account_in71c4amph0vgo2qllky").build()
 

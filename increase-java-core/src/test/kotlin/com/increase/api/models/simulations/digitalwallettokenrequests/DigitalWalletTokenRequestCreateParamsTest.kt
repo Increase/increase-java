@@ -6,7 +6,7 @@ import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class DigitalWalletTokenRequestCreateParamsTest {
+internal class DigitalWalletTokenRequestCreateParamsTest {
 
     @Test
     fun create() {
@@ -15,19 +15,6 @@ class DigitalWalletTokenRequestCreateParamsTest {
 
     @Test
     fun body() {
-        val params =
-            DigitalWalletTokenRequestCreateParams.builder()
-                .cardId("card_oubs0hwk5rn6knuecxg2")
-                .build()
-
-        val body = params._body()
-
-        assertNotNull(body)
-        assertThat(body.cardId()).isEqualTo("card_oubs0hwk5rn6knuecxg2")
-    }
-
-    @Test
-    fun bodyWithoutOptionalFields() {
         val params =
             DigitalWalletTokenRequestCreateParams.builder()
                 .cardId("card_oubs0hwk5rn6knuecxg2")

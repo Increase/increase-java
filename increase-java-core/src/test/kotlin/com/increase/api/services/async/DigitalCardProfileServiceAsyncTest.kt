@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(TestServerExtension::class)
-class DigitalCardProfileServiceAsyncTest {
+internal class DigitalCardProfileServiceAsyncTest {
 
     @Test
     fun create() {

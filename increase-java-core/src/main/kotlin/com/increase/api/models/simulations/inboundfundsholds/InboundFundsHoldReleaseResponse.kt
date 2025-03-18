@@ -56,99 +56,173 @@ private constructor(
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
-    /** The Inbound Funds Hold identifier. */
+    /**
+     * The Inbound Funds Hold identifier.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun id(): String = id.getRequired("id")
 
     /**
      * The held amount in the minor unit of the account's currency. For dollars, for example, this
      * is cents.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun amount(): Long = amount.getRequired("amount")
 
     /**
      * When the hold will be released automatically. Certain conditions may cause it to be released
      * before this time.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun automaticallyReleasesAt(): OffsetDateTime =
         automaticallyReleasesAt.getRequired("automatically_releases_at")
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the hold was created.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
-    /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the hold's currency. */
+    /**
+     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the hold's currency.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun currency(): Currency = currency.getRequired("currency")
 
-    /** The ID of the Transaction for which funds were held. */
+    /**
+     * The ID of the Transaction for which funds were held.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun heldTransactionId(): Optional<String> =
         Optional.ofNullable(heldTransactionId.getNullable("held_transaction_id"))
 
-    /** The ID of the Pending Transaction representing the held funds. */
+    /**
+     * The ID of the Pending Transaction representing the held funds.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun pendingTransactionId(): Optional<String> =
         Optional.ofNullable(pendingTransactionId.getNullable("pending_transaction_id"))
 
-    /** When the hold was released (if it has been released). */
+    /**
+     * When the hold was released (if it has been released).
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun releasedAt(): Optional<OffsetDateTime> =
         Optional.ofNullable(releasedAt.getNullable("released_at"))
 
-    /** The status of the hold. */
+    /**
+     * The status of the hold.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun status(): Status = status.getRequired("status")
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `inbound_funds_hold`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun type(): Type = type.getRequired("type")
 
-    /** The Inbound Funds Hold identifier. */
+    /**
+     * Returns the raw JSON value of [id].
+     *
+     * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /**
-     * The held amount in the minor unit of the account's currency. For dollars, for example, this
-     * is cents.
+     * Returns the raw JSON value of [amount].
+     *
+     * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
     /**
-     * When the hold will be released automatically. Certain conditions may cause it to be released
-     * before this time.
+     * Returns the raw JSON value of [automaticallyReleasesAt].
+     *
+     * Unlike [automaticallyReleasesAt], this method doesn't throw if the JSON field has an
+     * unexpected type.
      */
     @JsonProperty("automatically_releases_at")
     @ExcludeMissing
     fun _automaticallyReleasesAt(): JsonField<OffsetDateTime> = automaticallyReleasesAt
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the hold was created.
+     * Returns the raw JSON value of [createdAt].
+     *
+     * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("created_at")
     @ExcludeMissing
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
-    /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the hold's currency. */
+    /**
+     * Returns the raw JSON value of [currency].
+     *
+     * Unlike [currency], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("currency") @ExcludeMissing fun _currency(): JsonField<Currency> = currency
 
-    /** The ID of the Transaction for which funds were held. */
+    /**
+     * Returns the raw JSON value of [heldTransactionId].
+     *
+     * Unlike [heldTransactionId], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     @JsonProperty("held_transaction_id")
     @ExcludeMissing
     fun _heldTransactionId(): JsonField<String> = heldTransactionId
 
-    /** The ID of the Pending Transaction representing the held funds. */
+    /**
+     * Returns the raw JSON value of [pendingTransactionId].
+     *
+     * Unlike [pendingTransactionId], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     @JsonProperty("pending_transaction_id")
     @ExcludeMissing
     fun _pendingTransactionId(): JsonField<String> = pendingTransactionId
 
-    /** When the hold was released (if it has been released). */
+    /**
+     * Returns the raw JSON value of [releasedAt].
+     *
+     * Unlike [releasedAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("released_at")
     @ExcludeMissing
     fun _releasedAt(): JsonField<OffsetDateTime> = releasedAt
 
-    /** The status of the hold. */
+    /**
+     * Returns the raw JSON value of [status].
+     *
+     * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
     /**
-     * A constant representing the object's type. For this resource it will always be
-     * `inbound_funds_hold`.
+     * Returns the raw JSON value of [type].
+     *
+     * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
@@ -236,7 +310,12 @@ private constructor(
         /** The Inbound Funds Hold identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
-        /** The Inbound Funds Hold identifier. */
+        /**
+         * Sets [Builder.id] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.id] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
@@ -246,8 +325,10 @@ private constructor(
         fun amount(amount: Long) = amount(JsonField.of(amount))
 
         /**
-         * The held amount in the minor unit of the account's currency. For dollars, for example,
-         * this is cents.
+         * Sets [Builder.amount] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
@@ -259,8 +340,11 @@ private constructor(
             automaticallyReleasesAt(JsonField.of(automaticallyReleasesAt))
 
         /**
-         * When the hold will be released automatically. Certain conditions may cause it to be
-         * released before this time.
+         * Sets [Builder.automaticallyReleasesAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.automaticallyReleasesAt] with a well-typed
+         * [OffsetDateTime] value instead. This method is primarily for setting the field to an
+         * undocumented or not yet supported value.
          */
         fun automaticallyReleasesAt(automaticallyReleasesAt: JsonField<OffsetDateTime>) = apply {
             this.automaticallyReleasesAt = automaticallyReleasesAt
@@ -273,26 +357,41 @@ private constructor(
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the hold was
-         * created.
+         * Sets [Builder.createdAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the hold's currency. */
         fun currency(currency: Currency) = currency(JsonField.of(currency))
 
-        /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the hold's currency. */
+        /**
+         * Sets [Builder.currency] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.currency] with a well-typed [Currency] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
 
         /** The ID of the Transaction for which funds were held. */
         fun heldTransactionId(heldTransactionId: String?) =
             heldTransactionId(JsonField.ofNullable(heldTransactionId))
 
-        /** The ID of the Transaction for which funds were held. */
+        /** Alias for calling [Builder.heldTransactionId] with `heldTransactionId.orElse(null)`. */
         fun heldTransactionId(heldTransactionId: Optional<String>) =
             heldTransactionId(heldTransactionId.getOrNull())
 
-        /** The ID of the Transaction for which funds were held. */
+        /**
+         * Sets [Builder.heldTransactionId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.heldTransactionId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun heldTransactionId(heldTransactionId: JsonField<String>) = apply {
             this.heldTransactionId = heldTransactionId
         }
@@ -301,11 +400,20 @@ private constructor(
         fun pendingTransactionId(pendingTransactionId: String?) =
             pendingTransactionId(JsonField.ofNullable(pendingTransactionId))
 
-        /** The ID of the Pending Transaction representing the held funds. */
+        /**
+         * Alias for calling [Builder.pendingTransactionId] with
+         * `pendingTransactionId.orElse(null)`.
+         */
         fun pendingTransactionId(pendingTransactionId: Optional<String>) =
             pendingTransactionId(pendingTransactionId.getOrNull())
 
-        /** The ID of the Pending Transaction representing the held funds. */
+        /**
+         * Sets [Builder.pendingTransactionId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.pendingTransactionId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun pendingTransactionId(pendingTransactionId: JsonField<String>) = apply {
             this.pendingTransactionId = pendingTransactionId
         }
@@ -313,10 +421,16 @@ private constructor(
         /** When the hold was released (if it has been released). */
         fun releasedAt(releasedAt: OffsetDateTime?) = releasedAt(JsonField.ofNullable(releasedAt))
 
-        /** When the hold was released (if it has been released). */
+        /** Alias for calling [Builder.releasedAt] with `releasedAt.orElse(null)`. */
         fun releasedAt(releasedAt: Optional<OffsetDateTime>) = releasedAt(releasedAt.getOrNull())
 
-        /** When the hold was released (if it has been released). */
+        /**
+         * Sets [Builder.releasedAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.releasedAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun releasedAt(releasedAt: JsonField<OffsetDateTime>) = apply {
             this.releasedAt = releasedAt
         }
@@ -324,7 +438,12 @@ private constructor(
         /** The status of the hold. */
         fun status(status: Status) = status(JsonField.of(status))
 
-        /** The status of the hold. */
+        /**
+         * Sets [Builder.status] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.status] with a well-typed [Status] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /**
@@ -334,8 +453,10 @@ private constructor(
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
-         * A constant representing the object's type. For this resource it will always be
-         * `inbound_funds_hold`.
+         * Sets [Builder.type] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.type] with a well-typed [Type] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
@@ -358,6 +479,27 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [InboundFundsHoldReleaseResponse].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .amount()
+         * .automaticallyReleasesAt()
+         * .createdAt()
+         * .currency()
+         * .heldTransactionId()
+         * .pendingTransactionId()
+         * .releasedAt()
+         * .status()
+         * .type()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): InboundFundsHoldReleaseResponse =
             InboundFundsHoldReleaseResponse(
                 checkRequired("id", id),

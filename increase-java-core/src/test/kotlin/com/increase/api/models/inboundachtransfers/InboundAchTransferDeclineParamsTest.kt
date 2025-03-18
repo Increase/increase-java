@@ -6,7 +6,7 @@ import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class InboundAchTransferDeclineParamsTest {
+internal class InboundAchTransferDeclineParamsTest {
 
     @Test
     fun create() {
@@ -14,6 +14,18 @@ class InboundAchTransferDeclineParamsTest {
             .inboundAchTransferId("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
             .reason(InboundAchTransferDeclineParams.Reason.INSUFFICIENT_FUNDS)
             .build()
+    }
+
+    @Test
+    fun pathParams() {
+        val params =
+            InboundAchTransferDeclineParams.builder()
+                .inboundAchTransferId("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
+                .build()
+
+        assertThat(params._pathParam(0)).isEqualTo("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
+        // out-of-bound path param
+        assertThat(params._pathParam(1)).isEqualTo("")
     }
 
     @Test
@@ -41,18 +53,5 @@ class InboundAchTransferDeclineParamsTest {
         val body = params._body()
 
         assertNotNull(body)
-    }
-
-    @Test
-    fun getPathParam() {
-        val params =
-            InboundAchTransferDeclineParams.builder()
-                .inboundAchTransferId("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
-                .build()
-        assertThat(params).isNotNull
-        // path param "inboundAchTransferId"
-        assertThat(params.getPathParam(0)).isEqualTo("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
-        // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
     }
 }

@@ -102,6 +102,7 @@ private constructor(
 
         fun webhookSecret(webhookSecret: String?) = apply { this.webhookSecret = webhookSecret }
 
+        /** Alias for calling [Builder.webhookSecret] with `webhookSecret.orElse(null)`. */
         fun webhookSecret(webhookSecret: Optional<String>) =
             webhookSecret(webhookSecret.getOrNull())
 
@@ -190,6 +191,19 @@ private constructor(
             System.getenv("INCREASE_WEBHOOK_SECRET")?.let { webhookSecret(it) }
         }
 
+        /**
+         * Returns an immutable instance of [ClientOptions].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .httpClient()
+         * .apiKey()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): ClientOptions {
             val httpClient = checkRequired("httpClient", httpClient)
             val apiKey = checkRequired("apiKey", apiKey)

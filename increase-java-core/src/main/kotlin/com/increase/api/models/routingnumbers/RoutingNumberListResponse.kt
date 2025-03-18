@@ -40,54 +40,104 @@ private constructor(
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
-    /** This routing number's support for ACH Transfers. */
+    /**
+     * This routing number's support for ACH Transfers.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun achTransfers(): AchTransfers = achTransfers.getRequired("ach_transfers")
 
-    /** The name of the financial institution belonging to a routing number. */
+    /**
+     * The name of the financial institution belonging to a routing number.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun name(): String = name.getRequired("name")
 
-    /** This routing number's support for Real-Time Payments Transfers. */
+    /**
+     * This routing number's support for Real-Time Payments Transfers.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun realTimePaymentsTransfers(): RealTimePaymentsTransfers =
         realTimePaymentsTransfers.getRequired("real_time_payments_transfers")
 
-    /** The nine digit routing number identifier. */
+    /**
+     * The nine digit routing number identifier.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun routingNumber(): String = routingNumber.getRequired("routing_number")
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `routing_number`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun type(): Type = type.getRequired("type")
 
-    /** This routing number's support for Wire Transfers. */
+    /**
+     * This routing number's support for Wire Transfers.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun wireTransfers(): WireTransfers = wireTransfers.getRequired("wire_transfers")
 
-    /** This routing number's support for ACH Transfers. */
+    /**
+     * Returns the raw JSON value of [achTransfers].
+     *
+     * Unlike [achTransfers], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("ach_transfers")
     @ExcludeMissing
     fun _achTransfers(): JsonField<AchTransfers> = achTransfers
 
-    /** The name of the financial institution belonging to a routing number. */
+    /**
+     * Returns the raw JSON value of [name].
+     *
+     * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
-    /** This routing number's support for Real-Time Payments Transfers. */
+    /**
+     * Returns the raw JSON value of [realTimePaymentsTransfers].
+     *
+     * Unlike [realTimePaymentsTransfers], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
     @JsonProperty("real_time_payments_transfers")
     @ExcludeMissing
     fun _realTimePaymentsTransfers(): JsonField<RealTimePaymentsTransfers> =
         realTimePaymentsTransfers
 
-    /** The nine digit routing number identifier. */
+    /**
+     * Returns the raw JSON value of [routingNumber].
+     *
+     * Unlike [routingNumber], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("routing_number")
     @ExcludeMissing
     fun _routingNumber(): JsonField<String> = routingNumber
 
     /**
-     * A constant representing the object's type. For this resource it will always be
-     * `routing_number`.
+     * Returns the raw JSON value of [type].
+     *
+     * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
-    /** This routing number's support for Wire Transfers. */
+    /**
+     * Returns the raw JSON value of [wireTransfers].
+     *
+     * Unlike [wireTransfers], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("wire_transfers")
     @ExcludeMissing
     fun _wireTransfers(): JsonField<WireTransfers> = wireTransfers
@@ -157,7 +207,13 @@ private constructor(
         /** This routing number's support for ACH Transfers. */
         fun achTransfers(achTransfers: AchTransfers) = achTransfers(JsonField.of(achTransfers))
 
-        /** This routing number's support for ACH Transfers. */
+        /**
+         * Sets [Builder.achTransfers] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.achTransfers] with a well-typed [AchTransfers] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun achTransfers(achTransfers: JsonField<AchTransfers>) = apply {
             this.achTransfers = achTransfers
         }
@@ -165,14 +221,25 @@ private constructor(
         /** The name of the financial institution belonging to a routing number. */
         fun name(name: String) = name(JsonField.of(name))
 
-        /** The name of the financial institution belonging to a routing number. */
+        /**
+         * Sets [Builder.name] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.name] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun name(name: JsonField<String>) = apply { this.name = name }
 
         /** This routing number's support for Real-Time Payments Transfers. */
         fun realTimePaymentsTransfers(realTimePaymentsTransfers: RealTimePaymentsTransfers) =
             realTimePaymentsTransfers(JsonField.of(realTimePaymentsTransfers))
 
-        /** This routing number's support for Real-Time Payments Transfers. */
+        /**
+         * Sets [Builder.realTimePaymentsTransfers] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.realTimePaymentsTransfers] with a well-typed
+         * [RealTimePaymentsTransfers] value instead. This method is primarily for setting the field
+         * to an undocumented or not yet supported value.
+         */
         fun realTimePaymentsTransfers(
             realTimePaymentsTransfers: JsonField<RealTimePaymentsTransfers>
         ) = apply { this.realTimePaymentsTransfers = realTimePaymentsTransfers }
@@ -180,7 +247,13 @@ private constructor(
         /** The nine digit routing number identifier. */
         fun routingNumber(routingNumber: String) = routingNumber(JsonField.of(routingNumber))
 
-        /** The nine digit routing number identifier. */
+        /**
+         * Sets [Builder.routingNumber] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.routingNumber] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun routingNumber(routingNumber: JsonField<String>) = apply {
             this.routingNumber = routingNumber
         }
@@ -192,15 +265,23 @@ private constructor(
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
-         * A constant representing the object's type. For this resource it will always be
-         * `routing_number`.
+         * Sets [Builder.type] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.type] with a well-typed [Type] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
         /** This routing number's support for Wire Transfers. */
         fun wireTransfers(wireTransfers: WireTransfers) = wireTransfers(JsonField.of(wireTransfers))
 
-        /** This routing number's support for Wire Transfers. */
+        /**
+         * Sets [Builder.wireTransfers] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.wireTransfers] with a well-typed [WireTransfers] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun wireTransfers(wireTransfers: JsonField<WireTransfers>) = apply {
             this.wireTransfers = wireTransfers
         }
@@ -224,6 +305,23 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [RoutingNumberListResponse].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .achTransfers()
+         * .name()
+         * .realTimePaymentsTransfers()
+         * .routingNumber()
+         * .type()
+         * .wireTransfers()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): RoutingNumberListResponse =
             RoutingNumberListResponse(
                 checkRequired("achTransfers", achTransfers),

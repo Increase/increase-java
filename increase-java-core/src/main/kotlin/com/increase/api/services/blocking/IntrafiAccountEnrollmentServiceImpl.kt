@@ -104,7 +104,7 @@ internal constructor(private val clientOptions: ClientOptions) : IntrafiAccountE
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
-                    .addPathSegments("intrafi_account_enrollments", params.getPathParam(0))
+                    .addPathSegments("intrafi_account_enrollments", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -167,7 +167,7 @@ internal constructor(private val clientOptions: ClientOptions) : IntrafiAccountE
                     .method(HttpMethod.POST)
                     .addPathSegments(
                         "intrafi_account_enrollments",
-                        params.getPathParam(0),
+                        params._pathParam(0),
                         "unenroll",
                     )
                     .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }

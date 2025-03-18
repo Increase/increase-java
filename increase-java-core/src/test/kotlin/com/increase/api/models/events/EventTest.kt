@@ -6,10 +6,10 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class EventTest {
+internal class EventTest {
 
     @Test
-    fun createEvent() {
+    fun create() {
         val event =
             Event.builder()
                 .id("event_001dzz0r20rzr4zrhrr1364hy80")
@@ -19,7 +19,7 @@ class EventTest {
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .type(Event.Type.EVENT)
                 .build()
-        assertThat(event).isNotNull
+
         assertThat(event.id()).isEqualTo("event_001dzz0r20rzr4zrhrr1364hy80")
         assertThat(event.associatedObjectId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(event.associatedObjectType()).isEqualTo("account")

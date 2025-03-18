@@ -36,27 +36,50 @@ private constructor(
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
-    /** You may use this token in place of an API key to make OAuth requests on a user's behalf. */
+    /**
+     * You may use this token in place of an API key to make OAuth requests on a user's behalf.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun accessToken(): String = accessToken.getRequired("access_token")
 
-    /** The type of OAuth token. */
+    /**
+     * The type of OAuth token.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun tokenType(): TokenType = tokenType.getRequired("token_type")
 
     /**
      * A constant representing the object's type. For this resource it will always be `oauth_token`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun type(): Type = type.getRequired("type")
 
-    /** You may use this token in place of an API key to make OAuth requests on a user's behalf. */
+    /**
+     * Returns the raw JSON value of [accessToken].
+     *
+     * Unlike [accessToken], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("access_token")
     @ExcludeMissing
     fun _accessToken(): JsonField<String> = accessToken
 
-    /** The type of OAuth token. */
+    /**
+     * Returns the raw JSON value of [tokenType].
+     *
+     * Unlike [tokenType], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("token_type") @ExcludeMissing fun _tokenType(): JsonField<TokenType> = tokenType
 
     /**
-     * A constant representing the object's type. For this resource it will always be `oauth_token`.
+     * Returns the raw JSON value of [type].
+     *
+     * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
@@ -116,14 +139,24 @@ private constructor(
         fun accessToken(accessToken: String) = accessToken(JsonField.of(accessToken))
 
         /**
-         * You may use this token in place of an API key to make OAuth requests on a user's behalf.
+         * Sets [Builder.accessToken] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.accessToken] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun accessToken(accessToken: JsonField<String>) = apply { this.accessToken = accessToken }
 
         /** The type of OAuth token. */
         fun tokenType(tokenType: TokenType) = tokenType(JsonField.of(tokenType))
 
-        /** The type of OAuth token. */
+        /**
+         * Sets [Builder.tokenType] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.tokenType] with a well-typed [TokenType] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun tokenType(tokenType: JsonField<TokenType>) = apply { this.tokenType = tokenType }
 
         /**
@@ -133,8 +166,10 @@ private constructor(
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
-         * A constant representing the object's type. For this resource it will always be
-         * `oauth_token`.
+         * Sets [Builder.type] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.type] with a well-typed [Type] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
@@ -157,6 +192,20 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [OAuthToken].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .accessToken()
+         * .tokenType()
+         * .type()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): OAuthToken =
             OAuthToken(
                 checkRequired("accessToken", accessToken),

@@ -17,6 +17,7 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
+import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 import java.util.Optional
 
@@ -31,32 +32,49 @@ private constructor(
     /**
      * The Transaction you wish to dispute. This Transaction must have a `source_type` of
      * `card_settlement`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun disputedTransactionId(): String = body.disputedTransactionId()
 
-    /** Why you are disputing this Transaction. */
+    /**
+     * Why you are disputing this Transaction.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun explanation(): String = body.explanation()
 
     /**
      * The monetary amount of the part of the transaction that is being disputed. This is optional
      * and will default to the full amount of the transaction if not provided. If provided, the
      * amount must be less than or equal to the amount of the transaction.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun amount(): Optional<Long> = body.amount()
 
     /**
-     * The Transaction you wish to dispute. This Transaction must have a `source_type` of
-     * `card_settlement`.
+     * Returns the raw JSON value of [disputedTransactionId].
+     *
+     * Unlike [disputedTransactionId], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
     fun _disputedTransactionId(): JsonField<String> = body._disputedTransactionId()
 
-    /** Why you are disputing this Transaction. */
+    /**
+     * Returns the raw JSON value of [explanation].
+     *
+     * Unlike [explanation], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _explanation(): JsonField<String> = body._explanation()
 
     /**
-     * The monetary amount of the part of the transaction that is being disputed. This is optional
-     * and will default to the full amount of the transaction if not provided. If provided, the
-     * amount must be less than or equal to the amount of the transaction.
+     * Returns the raw JSON value of [amount].
+     *
+     * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _amount(): JsonField<Long> = body._amount()
 
@@ -92,37 +110,54 @@ private constructor(
         /**
          * The Transaction you wish to dispute. This Transaction must have a `source_type` of
          * `card_settlement`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun disputedTransactionId(): String =
             disputedTransactionId.getRequired("disputed_transaction_id")
 
-        /** Why you are disputing this Transaction. */
+        /**
+         * Why you are disputing this Transaction.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun explanation(): String = explanation.getRequired("explanation")
 
         /**
          * The monetary amount of the part of the transaction that is being disputed. This is
          * optional and will default to the full amount of the transaction if not provided. If
          * provided, the amount must be less than or equal to the amount of the transaction.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun amount(): Optional<Long> = Optional.ofNullable(amount.getNullable("amount"))
 
         /**
-         * The Transaction you wish to dispute. This Transaction must have a `source_type` of
-         * `card_settlement`.
+         * Returns the raw JSON value of [disputedTransactionId].
+         *
+         * Unlike [disputedTransactionId], this method doesn't throw if the JSON field has an
+         * unexpected type.
          */
         @JsonProperty("disputed_transaction_id")
         @ExcludeMissing
         fun _disputedTransactionId(): JsonField<String> = disputedTransactionId
 
-        /** Why you are disputing this Transaction. */
+        /**
+         * Returns the raw JSON value of [explanation].
+         *
+         * Unlike [explanation], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("explanation")
         @ExcludeMissing
         fun _explanation(): JsonField<String> = explanation
 
         /**
-         * The monetary amount of the part of the transaction that is being disputed. This is
-         * optional and will default to the full amount of the transaction if not provided. If
-         * provided, the amount must be less than or equal to the amount of the transaction.
+         * Returns the raw JSON value of [amount].
+         *
+         * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
@@ -183,8 +218,11 @@ private constructor(
                 disputedTransactionId(JsonField.of(disputedTransactionId))
 
             /**
-             * The Transaction you wish to dispute. This Transaction must have a `source_type` of
-             * `card_settlement`.
+             * Sets [Builder.disputedTransactionId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.disputedTransactionId] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
              */
             fun disputedTransactionId(disputedTransactionId: JsonField<String>) = apply {
                 this.disputedTransactionId = disputedTransactionId
@@ -193,7 +231,13 @@ private constructor(
             /** Why you are disputing this Transaction. */
             fun explanation(explanation: String) = explanation(JsonField.of(explanation))
 
-            /** Why you are disputing this Transaction. */
+            /**
+             * Sets [Builder.explanation] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.explanation] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun explanation(explanation: JsonField<String>) = apply {
                 this.explanation = explanation
             }
@@ -206,9 +250,11 @@ private constructor(
             fun amount(amount: Long) = amount(JsonField.of(amount))
 
             /**
-             * The monetary amount of the part of the transaction that is being disputed. This is
-             * optional and will default to the full amount of the transaction if not provided. If
-             * provided, the amount must be less than or equal to the amount of the transaction.
+             * Sets [Builder.amount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
              */
             fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
@@ -231,6 +277,19 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Body].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .disputedTransactionId()
+             * .explanation()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Body =
                 Body(
                     checkRequired("disputedTransactionId", disputedTransactionId),
@@ -298,8 +357,11 @@ private constructor(
         }
 
         /**
-         * The Transaction you wish to dispute. This Transaction must have a `source_type` of
-         * `card_settlement`.
+         * Sets [Builder.disputedTransactionId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.disputedTransactionId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun disputedTransactionId(disputedTransactionId: JsonField<String>) = apply {
             body.disputedTransactionId(disputedTransactionId)
@@ -308,7 +370,13 @@ private constructor(
         /** Why you are disputing this Transaction. */
         fun explanation(explanation: String) = apply { body.explanation(explanation) }
 
-        /** Why you are disputing this Transaction. */
+        /**
+         * Sets [Builder.explanation] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.explanation] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun explanation(explanation: JsonField<String>) = apply { body.explanation(explanation) }
 
         /**
@@ -319,9 +387,10 @@ private constructor(
         fun amount(amount: Long) = apply { body.amount(amount) }
 
         /**
-         * The monetary amount of the part of the transaction that is being disputed. This is
-         * optional and will default to the full amount of the transaction if not provided. If
-         * provided, the amount must be less than or equal to the amount of the transaction.
+         * Sets [Builder.amount] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun amount(amount: JsonField<Long>) = apply { body.amount(amount) }
 
@@ -442,6 +511,19 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [CardDisputeCreateParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .disputedTransactionId()
+         * .explanation()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): CardDisputeCreateParams =
             CardDisputeCreateParams(
                 body.build(),

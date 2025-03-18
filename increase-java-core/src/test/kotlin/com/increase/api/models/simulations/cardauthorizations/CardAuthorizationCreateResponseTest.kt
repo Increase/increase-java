@@ -9,10 +9,10 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class CardAuthorizationCreateResponseTest {
+internal class CardAuthorizationCreateResponseTest {
 
     @Test
-    fun createCardAuthorizationCreateResponse() {
+    fun create() {
         val cardAuthorizationCreateResponse =
             CardAuthorizationCreateResponse.builder()
                 .declinedTransaction(
@@ -519,7 +519,7 @@ class CardAuthorizationCreateResponseTest {
                         .INBOUND_CARD_AUTHORIZATION_SIMULATION_RESULT
                 )
                 .build()
-        assertThat(cardAuthorizationCreateResponse).isNotNull
+
         assertThat(cardAuthorizationCreateResponse.declinedTransaction())
             .contains(
                 DeclinedTransaction.builder()

@@ -5,7 +5,7 @@ package com.increase.api.models.files
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class FileRetrieveParamsTest {
+internal class FileRetrieveParamsTest {
 
     @Test
     fun create() {
@@ -13,12 +13,11 @@ class FileRetrieveParamsTest {
     }
 
     @Test
-    fun getPathParam() {
+    fun pathParams() {
         val params = FileRetrieveParams.builder().fileId("file_makxrc67oh9l6sg7w9yc").build()
-        assertThat(params).isNotNull
-        // path param "fileId"
-        assertThat(params.getPathParam(0)).isEqualTo("file_makxrc67oh9l6sg7w9yc")
+
+        assertThat(params._pathParam(0)).isEqualTo("file_makxrc67oh9l6sg7w9yc")
         // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
+        assertThat(params._pathParam(1)).isEqualTo("")
     }
 }

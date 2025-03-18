@@ -17,6 +17,7 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
+import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 import java.util.Optional
 
@@ -31,27 +32,49 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** The amount of the check to be simulated, in cents. */
+    /**
+     * The amount of the check to be simulated, in cents.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun amount(): Long = body.amount()
 
-    /** The identifier of the Lockbox to simulate inbound mail to. */
+    /**
+     * The identifier of the Lockbox to simulate inbound mail to.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun lockboxId(): String = body.lockboxId()
 
     /**
      * The file containing the PDF contents. If not present, a default check image file will be
      * used.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun contentsFileId(): Optional<String> = body.contentsFileId()
 
-    /** The amount of the check to be simulated, in cents. */
+    /**
+     * Returns the raw JSON value of [amount].
+     *
+     * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _amount(): JsonField<Long> = body._amount()
 
-    /** The identifier of the Lockbox to simulate inbound mail to. */
+    /**
+     * Returns the raw JSON value of [lockboxId].
+     *
+     * Unlike [lockboxId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _lockboxId(): JsonField<String> = body._lockboxId()
 
     /**
-     * The file containing the PDF contents. If not present, a default check image file will be
-     * used.
+     * Returns the raw JSON value of [contentsFileId].
+     *
+     * Unlike [contentsFileId], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _contentsFileId(): JsonField<String> = body._contentsFileId()
 
@@ -84,28 +107,51 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The amount of the check to be simulated, in cents. */
+        /**
+         * The amount of the check to be simulated, in cents.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun amount(): Long = amount.getRequired("amount")
 
-        /** The identifier of the Lockbox to simulate inbound mail to. */
+        /**
+         * The identifier of the Lockbox to simulate inbound mail to.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun lockboxId(): String = lockboxId.getRequired("lockbox_id")
 
         /**
          * The file containing the PDF contents. If not present, a default check image file will be
          * used.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun contentsFileId(): Optional<String> =
             Optional.ofNullable(contentsFileId.getNullable("contents_file_id"))
 
-        /** The amount of the check to be simulated, in cents. */
+        /**
+         * Returns the raw JSON value of [amount].
+         *
+         * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
-        /** The identifier of the Lockbox to simulate inbound mail to. */
+        /**
+         * Returns the raw JSON value of [lockboxId].
+         *
+         * Unlike [lockboxId], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("lockbox_id") @ExcludeMissing fun _lockboxId(): JsonField<String> = lockboxId
 
         /**
-         * The file containing the PDF contents. If not present, a default check image file will be
-         * used.
+         * Returns the raw JSON value of [contentsFileId].
+         *
+         * Unlike [contentsFileId], this method doesn't throw if the JSON field has an unexpected
+         * type.
          */
         @JsonProperty("contents_file_id")
         @ExcludeMissing
@@ -163,13 +209,25 @@ private constructor(
             /** The amount of the check to be simulated, in cents. */
             fun amount(amount: Long) = amount(JsonField.of(amount))
 
-            /** The amount of the check to be simulated, in cents. */
+            /**
+             * Sets [Builder.amount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
             fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
             /** The identifier of the Lockbox to simulate inbound mail to. */
             fun lockboxId(lockboxId: String) = lockboxId(JsonField.of(lockboxId))
 
-            /** The identifier of the Lockbox to simulate inbound mail to. */
+            /**
+             * Sets [Builder.lockboxId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.lockboxId] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun lockboxId(lockboxId: JsonField<String>) = apply { this.lockboxId = lockboxId }
 
             /**
@@ -180,8 +238,11 @@ private constructor(
                 contentsFileId(JsonField.of(contentsFileId))
 
             /**
-             * The file containing the PDF contents. If not present, a default check image file will
-             * be used.
+             * Sets [Builder.contentsFileId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.contentsFileId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun contentsFileId(contentsFileId: JsonField<String>) = apply {
                 this.contentsFileId = contentsFileId
@@ -206,6 +267,19 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Body].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .amount()
+             * .lockboxId()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Body =
                 Body(
                     checkRequired("amount", amount),
@@ -267,13 +341,24 @@ private constructor(
         /** The amount of the check to be simulated, in cents. */
         fun amount(amount: Long) = apply { body.amount(amount) }
 
-        /** The amount of the check to be simulated, in cents. */
+        /**
+         * Sets [Builder.amount] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun amount(amount: JsonField<Long>) = apply { body.amount(amount) }
 
         /** The identifier of the Lockbox to simulate inbound mail to. */
         fun lockboxId(lockboxId: String) = apply { body.lockboxId(lockboxId) }
 
-        /** The identifier of the Lockbox to simulate inbound mail to. */
+        /**
+         * Sets [Builder.lockboxId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.lockboxId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun lockboxId(lockboxId: JsonField<String>) = apply { body.lockboxId(lockboxId) }
 
         /**
@@ -283,8 +368,11 @@ private constructor(
         fun contentsFileId(contentsFileId: String) = apply { body.contentsFileId(contentsFileId) }
 
         /**
-         * The file containing the PDF contents. If not present, a default check image file will be
-         * used.
+         * Sets [Builder.contentsFileId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.contentsFileId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun contentsFileId(contentsFileId: JsonField<String>) = apply {
             body.contentsFileId(contentsFileId)
@@ -407,6 +495,19 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [InboundMailItemCreateParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .amount()
+         * .lockboxId()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): InboundMailItemCreateParams =
             InboundMailItemCreateParams(
                 body.build(),

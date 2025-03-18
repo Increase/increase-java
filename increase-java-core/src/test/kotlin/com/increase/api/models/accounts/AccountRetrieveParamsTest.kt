@@ -5,7 +5,7 @@ package com.increase.api.models.accounts
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class AccountRetrieveParamsTest {
+internal class AccountRetrieveParamsTest {
 
     @Test
     fun create() {
@@ -13,13 +13,12 @@ class AccountRetrieveParamsTest {
     }
 
     @Test
-    fun getPathParam() {
+    fun pathParams() {
         val params =
             AccountRetrieveParams.builder().accountId("account_in71c4amph0vgo2qllky").build()
-        assertThat(params).isNotNull
-        // path param "accountId"
-        assertThat(params.getPathParam(0)).isEqualTo("account_in71c4amph0vgo2qllky")
+
+        assertThat(params._pathParam(0)).isEqualTo("account_in71c4amph0vgo2qllky")
         // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
+        assertThat(params._pathParam(1)).isEqualTo("")
     }
 }

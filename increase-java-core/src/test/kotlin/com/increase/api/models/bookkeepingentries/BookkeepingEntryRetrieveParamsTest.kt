@@ -5,7 +5,7 @@ package com.increase.api.models.bookkeepingentries
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class BookkeepingEntryRetrieveParamsTest {
+internal class BookkeepingEntryRetrieveParamsTest {
 
     @Test
     fun create() {
@@ -15,15 +15,14 @@ class BookkeepingEntryRetrieveParamsTest {
     }
 
     @Test
-    fun getPathParam() {
+    fun pathParams() {
         val params =
             BookkeepingEntryRetrieveParams.builder()
                 .bookkeepingEntryId("bookkeeping_entry_ctjpajsj3ks2blx10375")
                 .build()
-        assertThat(params).isNotNull
-        // path param "bookkeepingEntryId"
-        assertThat(params.getPathParam(0)).isEqualTo("bookkeeping_entry_ctjpajsj3ks2blx10375")
+
+        assertThat(params._pathParam(0)).isEqualTo("bookkeeping_entry_ctjpajsj3ks2blx10375")
         // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
+        assertThat(params._pathParam(1)).isEqualTo("")
     }
 }
