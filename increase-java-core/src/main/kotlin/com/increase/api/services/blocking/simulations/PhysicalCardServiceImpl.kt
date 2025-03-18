@@ -52,7 +52,7 @@ class PhysicalCardServiceImpl internal constructor(private val clientOptions: Cl
                     .addPathSegments(
                         "simulations",
                         "physical_cards",
-                        params.getPathParam(0),
+                        params._pathParam(0),
                         "advance_shipment",
                     )
                     .body(json(clientOptions.jsonMapper, params._body()))

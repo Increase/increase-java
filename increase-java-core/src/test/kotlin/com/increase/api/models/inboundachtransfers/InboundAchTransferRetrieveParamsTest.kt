@@ -15,15 +15,14 @@ internal class InboundAchTransferRetrieveParamsTest {
     }
 
     @Test
-    fun getPathParam() {
+    fun pathParams() {
         val params =
             InboundAchTransferRetrieveParams.builder()
                 .inboundAchTransferId("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
                 .build()
-        assertThat(params).isNotNull
-        // path param "inboundAchTransferId"
-        assertThat(params.getPathParam(0)).isEqualTo("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
+
+        assertThat(params._pathParam(0)).isEqualTo("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
         // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
+        assertThat(params._pathParam(1)).isEqualTo("")
     }
 }

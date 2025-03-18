@@ -15,15 +15,14 @@ internal class InboundCheckDepositRetrieveParamsTest {
     }
 
     @Test
-    fun getPathParam() {
+    fun pathParams() {
         val params =
             InboundCheckDepositRetrieveParams.builder()
                 .inboundCheckDepositId("inbound_check_deposit_zoshvqybq0cjjm31mra")
                 .build()
-        assertThat(params).isNotNull
-        // path param "inboundCheckDepositId"
-        assertThat(params.getPathParam(0)).isEqualTo("inbound_check_deposit_zoshvqybq0cjjm31mra")
+
+        assertThat(params._pathParam(0)).isEqualTo("inbound_check_deposit_zoshvqybq0cjjm31mra")
         // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
+        assertThat(params._pathParam(1)).isEqualTo("")
     }
 }

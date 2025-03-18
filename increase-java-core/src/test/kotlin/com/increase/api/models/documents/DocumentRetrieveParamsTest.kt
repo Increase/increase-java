@@ -13,13 +13,12 @@ internal class DocumentRetrieveParamsTest {
     }
 
     @Test
-    fun getPathParam() {
+    fun pathParams() {
         val params =
             DocumentRetrieveParams.builder().documentId("document_qjtqc6s4c14ve2q89izm").build()
-        assertThat(params).isNotNull
-        // path param "documentId"
-        assertThat(params.getPathParam(0)).isEqualTo("document_qjtqc6s4c14ve2q89izm")
+
+        assertThat(params._pathParam(0)).isEqualTo("document_qjtqc6s4c14ve2q89izm")
         // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
+        assertThat(params._pathParam(1)).isEqualTo("")
     }
 }

@@ -102,7 +102,7 @@ class BookkeepingAccountServiceImpl internal constructor(private val clientOptio
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
-                    .addPathSegments("bookkeeping_accounts", params.getPathParam(0))
+                    .addPathSegments("bookkeeping_accounts", params._pathParam(0))
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepare(clientOptions, params)
@@ -164,7 +164,7 @@ class BookkeepingAccountServiceImpl internal constructor(private val clientOptio
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
-                    .addPathSegments("bookkeeping_accounts", params.getPathParam(0), "balance")
+                    .addPathSegments("bookkeeping_accounts", params._pathParam(0), "balance")
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))

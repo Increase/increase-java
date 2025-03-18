@@ -30,19 +30,4 @@ internal class IntrafiAccountEnrollmentCreateParamsTest {
         assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(body.emailAddress()).isEqualTo("user@example.com")
     }
-
-    @Test
-    fun bodyWithoutOptionalFields() {
-        val params =
-            IntrafiAccountEnrollmentCreateParams.builder()
-                .accountId("account_in71c4amph0vgo2qllky")
-                .emailAddress("user@example.com")
-                .build()
-
-        val body = params._body()
-
-        assertNotNull(body)
-        assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
-        assertThat(body.emailAddress()).isEqualTo("user@example.com")
-    }
 }

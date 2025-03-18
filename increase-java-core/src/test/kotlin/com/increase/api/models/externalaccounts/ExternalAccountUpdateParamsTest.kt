@@ -20,6 +20,18 @@ internal class ExternalAccountUpdateParamsTest {
     }
 
     @Test
+    fun pathParams() {
+        val params =
+            ExternalAccountUpdateParams.builder()
+                .externalAccountId("external_account_ukk55lr923a3ac0pp7iv")
+                .build()
+
+        assertThat(params._pathParam(0)).isEqualTo("external_account_ukk55lr923a3ac0pp7iv")
+        // out-of-bound path param
+        assertThat(params._pathParam(1)).isEqualTo("")
+    }
+
+    @Test
     fun body() {
         val params =
             ExternalAccountUpdateParams.builder()
@@ -50,18 +62,5 @@ internal class ExternalAccountUpdateParamsTest {
         val body = params._body()
 
         assertNotNull(body)
-    }
-
-    @Test
-    fun getPathParam() {
-        val params =
-            ExternalAccountUpdateParams.builder()
-                .externalAccountId("external_account_ukk55lr923a3ac0pp7iv")
-                .build()
-        assertThat(params).isNotNull
-        // path param "externalAccountId"
-        assertThat(params.getPathParam(0)).isEqualTo("external_account_ukk55lr923a3ac0pp7iv")
-        // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
     }
 }

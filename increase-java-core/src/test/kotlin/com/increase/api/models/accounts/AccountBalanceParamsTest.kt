@@ -18,6 +18,16 @@ internal class AccountBalanceParamsTest {
     }
 
     @Test
+    fun pathParams() {
+        val params =
+            AccountBalanceParams.builder().accountId("account_in71c4amph0vgo2qllky").build()
+
+        assertThat(params._pathParam(0)).isEqualTo("account_in71c4amph0vgo2qllky")
+        // out-of-bound path param
+        assertThat(params._pathParam(1)).isEqualTo("")
+    }
+
+    @Test
     fun queryParams() {
         val params =
             AccountBalanceParams.builder()
@@ -39,16 +49,5 @@ internal class AccountBalanceParamsTest {
         val queryParams = params._queryParams()
 
         assertThat(queryParams).isEqualTo(QueryParams.builder().build())
-    }
-
-    @Test
-    fun getPathParam() {
-        val params =
-            AccountBalanceParams.builder().accountId("account_in71c4amph0vgo2qllky").build()
-        assertThat(params).isNotNull
-        // path param "accountId"
-        assertThat(params.getPathParam(0)).isEqualTo("account_in71c4amph0vgo2qllky")
-        // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
     }
 }

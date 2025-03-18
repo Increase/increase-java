@@ -3,6 +3,7 @@
 package com.increase.api.models.entities
 
 import java.time.LocalDate
+import kotlin.jvm.optionals.getOrNull
 import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -1023,13 +1024,11 @@ internal class EntityCreateParamsTest {
                     .confirmedNoUsTaxId(true)
                     .build()
             )
-        assertThat(body.supplementalDocuments())
-            .contains(
-                listOf(
-                    EntityCreateParams.SupplementalDocument.builder()
-                        .fileId("file_makxrc67oh9l6sg7w9yc")
-                        .build()
-                )
+        assertThat(body.supplementalDocuments().getOrNull())
+            .containsExactly(
+                EntityCreateParams.SupplementalDocument.builder()
+                    .fileId("file_makxrc67oh9l6sg7w9yc")
+                    .build()
             )
         assertThat(body.thirdPartyVerification())
             .contains(

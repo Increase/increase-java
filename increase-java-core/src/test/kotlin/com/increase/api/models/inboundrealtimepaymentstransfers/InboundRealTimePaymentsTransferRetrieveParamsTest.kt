@@ -17,18 +17,17 @@ internal class InboundRealTimePaymentsTransferRetrieveParamsTest {
     }
 
     @Test
-    fun getPathParam() {
+    fun pathParams() {
         val params =
             InboundRealTimePaymentsTransferRetrieveParams.builder()
                 .inboundRealTimePaymentsTransferId(
                     "inbound_real_time_payments_transfer_63hlz498vcxg644hcrzr"
                 )
                 .build()
-        assertThat(params).isNotNull
-        // path param "inboundRealTimePaymentsTransferId"
-        assertThat(params.getPathParam(0))
+
+        assertThat(params._pathParam(0))
             .isEqualTo("inbound_real_time_payments_transfer_63hlz498vcxg644hcrzr")
         // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
+        assertThat(params._pathParam(1)).isEqualTo("")
     }
 }

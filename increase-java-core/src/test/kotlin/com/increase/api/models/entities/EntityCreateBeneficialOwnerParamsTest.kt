@@ -86,6 +86,53 @@ internal class EntityCreateBeneficialOwnerParamsTest {
     }
 
     @Test
+    fun pathParams() {
+        val params =
+            EntityCreateBeneficialOwnerParams.builder()
+                .entityId("entity_n8y8tnk2p9339ti393yi")
+                .beneficialOwner(
+                    EntityCreateBeneficialOwnerParams.BeneficialOwner.builder()
+                        .individual(
+                            EntityCreateBeneficialOwnerParams.BeneficialOwner.Individual.builder()
+                                .address(
+                                    EntityCreateBeneficialOwnerParams.BeneficialOwner.Individual
+                                        .Address
+                                        .builder()
+                                        .city("New York")
+                                        .line1("33 Liberty Street")
+                                        .state("NY")
+                                        .zip("10045")
+                                        .build()
+                                )
+                                .dateOfBirth(LocalDate.parse("1970-01-31"))
+                                .identification(
+                                    EntityCreateBeneficialOwnerParams.BeneficialOwner.Individual
+                                        .Identification
+                                        .builder()
+                                        .method(
+                                            EntityCreateBeneficialOwnerParams.BeneficialOwner
+                                                .Individual
+                                                .Identification
+                                                .Method
+                                                .SOCIAL_SECURITY_NUMBER
+                                        )
+                                        .number("078051120")
+                                        .build()
+                                )
+                                .name("Ian Crease")
+                                .build()
+                        )
+                        .addProng(EntityCreateBeneficialOwnerParams.BeneficialOwner.Prong.OWNERSHIP)
+                        .build()
+                )
+                .build()
+
+        assertThat(params._pathParam(0)).isEqualTo("entity_n8y8tnk2p9339ti393yi")
+        // out-of-bound path param
+        assertThat(params._pathParam(1)).isEqualTo("")
+    }
+
+    @Test
     fun body() {
         val params =
             EntityCreateBeneficialOwnerParams.builder()
@@ -320,53 +367,5 @@ internal class EntityCreateBeneficialOwnerParamsTest {
                     .addProng(EntityCreateBeneficialOwnerParams.BeneficialOwner.Prong.OWNERSHIP)
                     .build()
             )
-    }
-
-    @Test
-    fun getPathParam() {
-        val params =
-            EntityCreateBeneficialOwnerParams.builder()
-                .entityId("entity_n8y8tnk2p9339ti393yi")
-                .beneficialOwner(
-                    EntityCreateBeneficialOwnerParams.BeneficialOwner.builder()
-                        .individual(
-                            EntityCreateBeneficialOwnerParams.BeneficialOwner.Individual.builder()
-                                .address(
-                                    EntityCreateBeneficialOwnerParams.BeneficialOwner.Individual
-                                        .Address
-                                        .builder()
-                                        .city("New York")
-                                        .line1("33 Liberty Street")
-                                        .state("NY")
-                                        .zip("10045")
-                                        .build()
-                                )
-                                .dateOfBirth(LocalDate.parse("1970-01-31"))
-                                .identification(
-                                    EntityCreateBeneficialOwnerParams.BeneficialOwner.Individual
-                                        .Identification
-                                        .builder()
-                                        .method(
-                                            EntityCreateBeneficialOwnerParams.BeneficialOwner
-                                                .Individual
-                                                .Identification
-                                                .Method
-                                                .SOCIAL_SECURITY_NUMBER
-                                        )
-                                        .number("078051120")
-                                        .build()
-                                )
-                                .name("Ian Crease")
-                                .build()
-                        )
-                        .addProng(EntityCreateBeneficialOwnerParams.BeneficialOwner.Prong.OWNERSHIP)
-                        .build()
-                )
-                .build()
-        assertThat(params).isNotNull
-        // path param "entityId"
-        assertThat(params.getPathParam(0)).isEqualTo("entity_n8y8tnk2p9339ti393yi")
-        // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
     }
 }

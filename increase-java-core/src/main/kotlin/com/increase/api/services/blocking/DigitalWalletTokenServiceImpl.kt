@@ -57,7 +57,7 @@ class DigitalWalletTokenServiceImpl internal constructor(private val clientOptio
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
-                    .addPathSegments("digital_wallet_tokens", params.getPathParam(0))
+                    .addPathSegments("digital_wallet_tokens", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))

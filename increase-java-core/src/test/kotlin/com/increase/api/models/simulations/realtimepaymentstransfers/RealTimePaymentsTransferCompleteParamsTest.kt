@@ -24,6 +24,19 @@ internal class RealTimePaymentsTransferCompleteParamsTest {
     }
 
     @Test
+    fun pathParams() {
+        val params =
+            RealTimePaymentsTransferCompleteParams.builder()
+                .realTimePaymentsTransferId("real_time_payments_transfer_iyuhl5kdn7ssmup83mvq")
+                .build()
+
+        assertThat(params._pathParam(0))
+            .isEqualTo("real_time_payments_transfer_iyuhl5kdn7ssmup83mvq")
+        // out-of-bound path param
+        assertThat(params._pathParam(1)).isEqualTo("")
+    }
+
+    @Test
     fun body() {
         val params =
             RealTimePaymentsTransferCompleteParams.builder()
@@ -62,19 +75,5 @@ internal class RealTimePaymentsTransferCompleteParamsTest {
         val body = params._body()
 
         assertNotNull(body)
-    }
-
-    @Test
-    fun getPathParam() {
-        val params =
-            RealTimePaymentsTransferCompleteParams.builder()
-                .realTimePaymentsTransferId("real_time_payments_transfer_iyuhl5kdn7ssmup83mvq")
-                .build()
-        assertThat(params).isNotNull
-        // path param "realTimePaymentsTransferId"
-        assertThat(params.getPathParam(0))
-            .isEqualTo("real_time_payments_transfer_iyuhl5kdn7ssmup83mvq")
-        // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
     }
 }

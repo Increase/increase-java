@@ -35,6 +35,15 @@ internal class CardUpdateParamsTest {
     }
 
     @Test
+    fun pathParams() {
+        val params = CardUpdateParams.builder().cardId("card_oubs0hwk5rn6knuecxg2").build()
+
+        assertThat(params._pathParam(0)).isEqualTo("card_oubs0hwk5rn6knuecxg2")
+        // out-of-bound path param
+        assertThat(params._pathParam(1)).isEqualTo("")
+    }
+
+    @Test
     fun body() {
         val params =
             CardUpdateParams.builder()
@@ -93,15 +102,5 @@ internal class CardUpdateParamsTest {
         val body = params._body()
 
         assertNotNull(body)
-    }
-
-    @Test
-    fun getPathParam() {
-        val params = CardUpdateParams.builder().cardId("card_oubs0hwk5rn6knuecxg2").build()
-        assertThat(params).isNotNull
-        // path param "cardId"
-        assertThat(params.getPathParam(0)).isEqualTo("card_oubs0hwk5rn6knuecxg2")
-        // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
     }
 }

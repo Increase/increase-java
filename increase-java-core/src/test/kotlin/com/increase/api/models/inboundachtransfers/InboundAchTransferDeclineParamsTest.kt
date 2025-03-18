@@ -17,6 +17,18 @@ internal class InboundAchTransferDeclineParamsTest {
     }
 
     @Test
+    fun pathParams() {
+        val params =
+            InboundAchTransferDeclineParams.builder()
+                .inboundAchTransferId("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
+                .build()
+
+        assertThat(params._pathParam(0)).isEqualTo("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
+        // out-of-bound path param
+        assertThat(params._pathParam(1)).isEqualTo("")
+    }
+
+    @Test
     fun body() {
         val params =
             InboundAchTransferDeclineParams.builder()
@@ -41,18 +53,5 @@ internal class InboundAchTransferDeclineParamsTest {
         val body = params._body()
 
         assertNotNull(body)
-    }
-
-    @Test
-    fun getPathParam() {
-        val params =
-            InboundAchTransferDeclineParams.builder()
-                .inboundAchTransferId("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
-                .build()
-        assertThat(params).isNotNull
-        // path param "inboundAchTransferId"
-        assertThat(params.getPathParam(0)).isEqualTo("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
-        // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
     }
 }

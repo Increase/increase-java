@@ -109,7 +109,7 @@ class DigitalCardProfileServiceImpl internal constructor(private val clientOptio
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
-                    .addPathSegments("digital_card_profiles", params.getPathParam(0))
+                    .addPathSegments("digital_card_profiles", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -169,7 +169,7 @@ class DigitalCardProfileServiceImpl internal constructor(private val clientOptio
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
-                    .addPathSegments("digital_card_profiles", params.getPathParam(0), "archive")
+                    .addPathSegments("digital_card_profiles", params._pathParam(0), "archive")
                     .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
                     .prepare(clientOptions, params)
@@ -196,7 +196,7 @@ class DigitalCardProfileServiceImpl internal constructor(private val clientOptio
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
-                    .addPathSegments("digital_card_profiles", params.getPathParam(0), "clone")
+                    .addPathSegments("digital_card_profiles", params._pathParam(0), "clone")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepare(clientOptions, params)

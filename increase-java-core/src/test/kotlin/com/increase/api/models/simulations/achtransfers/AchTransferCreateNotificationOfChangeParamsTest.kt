@@ -20,6 +20,22 @@ internal class AchTransferCreateNotificationOfChangeParamsTest {
     }
 
     @Test
+    fun pathParams() {
+        val params =
+            AchTransferCreateNotificationOfChangeParams.builder()
+                .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
+                .changeCode(
+                    AchTransferCreateNotificationOfChangeParams.ChangeCode.INCORRECT_ACCOUNT_NUMBER
+                )
+                .correctedData("123456789")
+                .build()
+
+        assertThat(params._pathParam(0)).isEqualTo("ach_transfer_uoxatyh3lt5evrsdvo7q")
+        // out-of-bound path param
+        assertThat(params._pathParam(1)).isEqualTo("")
+    }
+
+    @Test
     fun body() {
         val params =
             AchTransferCreateNotificationOfChangeParams.builder()
@@ -38,43 +54,5 @@ internal class AchTransferCreateNotificationOfChangeParamsTest {
                 AchTransferCreateNotificationOfChangeParams.ChangeCode.INCORRECT_ACCOUNT_NUMBER
             )
         assertThat(body.correctedData()).isEqualTo("123456789")
-    }
-
-    @Test
-    fun bodyWithoutOptionalFields() {
-        val params =
-            AchTransferCreateNotificationOfChangeParams.builder()
-                .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
-                .changeCode(
-                    AchTransferCreateNotificationOfChangeParams.ChangeCode.INCORRECT_ACCOUNT_NUMBER
-                )
-                .correctedData("123456789")
-                .build()
-
-        val body = params._body()
-
-        assertNotNull(body)
-        assertThat(body.changeCode())
-            .isEqualTo(
-                AchTransferCreateNotificationOfChangeParams.ChangeCode.INCORRECT_ACCOUNT_NUMBER
-            )
-        assertThat(body.correctedData()).isEqualTo("123456789")
-    }
-
-    @Test
-    fun getPathParam() {
-        val params =
-            AchTransferCreateNotificationOfChangeParams.builder()
-                .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
-                .changeCode(
-                    AchTransferCreateNotificationOfChangeParams.ChangeCode.INCORRECT_ACCOUNT_NUMBER
-                )
-                .correctedData("123456789")
-                .build()
-        assertThat(params).isNotNull
-        // path param "achTransferId"
-        assertThat(params.getPathParam(0)).isEqualTo("ach_transfer_uoxatyh3lt5evrsdvo7q")
-        // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
     }
 }

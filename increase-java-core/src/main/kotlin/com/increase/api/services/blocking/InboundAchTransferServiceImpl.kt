@@ -82,7 +82,7 @@ class InboundAchTransferServiceImpl internal constructor(private val clientOptio
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
-                    .addPathSegments("inbound_ach_transfers", params.getPathParam(0))
+                    .addPathSegments("inbound_ach_transfers", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -144,7 +144,7 @@ class InboundAchTransferServiceImpl internal constructor(private val clientOptio
                     .method(HttpMethod.POST)
                     .addPathSegments(
                         "inbound_ach_transfers",
-                        params.getPathParam(0),
+                        params._pathParam(0),
                         "create_notification_of_change",
                     )
                     .body(json(clientOptions.jsonMapper, params._body()))
@@ -173,7 +173,7 @@ class InboundAchTransferServiceImpl internal constructor(private val clientOptio
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
-                    .addPathSegments("inbound_ach_transfers", params.getPathParam(0), "decline")
+                    .addPathSegments("inbound_ach_transfers", params._pathParam(0), "decline")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepare(clientOptions, params)
@@ -202,7 +202,7 @@ class InboundAchTransferServiceImpl internal constructor(private val clientOptio
                     .method(HttpMethod.POST)
                     .addPathSegments(
                         "inbound_ach_transfers",
-                        params.getPathParam(0),
+                        params._pathParam(0),
                         "transfer_return",
                     )
                     .body(json(clientOptions.jsonMapper, params._body()))

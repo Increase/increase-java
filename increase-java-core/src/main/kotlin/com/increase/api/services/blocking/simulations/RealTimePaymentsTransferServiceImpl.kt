@@ -54,7 +54,7 @@ internal constructor(private val clientOptions: ClientOptions) : RealTimePayment
                     .addPathSegments(
                         "simulations",
                         "real_time_payments_transfers",
-                        params.getPathParam(0),
+                        params._pathParam(0),
                         "complete",
                     )
                     .body(json(clientOptions.jsonMapper, params._body()))

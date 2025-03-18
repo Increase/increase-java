@@ -15,16 +15,15 @@ internal class InboundWireDrawdownRequestRetrieveParamsTest {
     }
 
     @Test
-    fun getPathParam() {
+    fun pathParams() {
         val params =
             InboundWireDrawdownRequestRetrieveParams.builder()
                 .inboundWireDrawdownRequestId("inbound_wire_drawdown_request_u5a92ikqhz1ytphn799e")
                 .build()
-        assertThat(params).isNotNull
-        // path param "inboundWireDrawdownRequestId"
-        assertThat(params.getPathParam(0))
+
+        assertThat(params._pathParam(0))
             .isEqualTo("inbound_wire_drawdown_request_u5a92ikqhz1ytphn799e")
         // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
+        assertThat(params._pathParam(1)).isEqualTo("")
     }
 }

@@ -15,18 +15,17 @@ internal class ProofOfAuthorizationRequestRetrieveParamsTest {
     }
 
     @Test
-    fun getPathParam() {
+    fun pathParams() {
         val params =
             ProofOfAuthorizationRequestRetrieveParams.builder()
                 .proofOfAuthorizationRequestId(
                     "proof_of_authorization_request_iwp8no25h3rjvil6ad3b"
                 )
                 .build()
-        assertThat(params).isNotNull
-        // path param "proofOfAuthorizationRequestId"
-        assertThat(params.getPathParam(0))
+
+        assertThat(params._pathParam(0))
             .isEqualTo("proof_of_authorization_request_iwp8no25h3rjvil6ad3b")
         // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
+        assertThat(params._pathParam(1)).isEqualTo("")
     }
 }

@@ -15,16 +15,14 @@ internal class CardPurchaseSupplementRetrieveParamsTest {
     }
 
     @Test
-    fun getPathParam() {
+    fun pathParams() {
         val params =
             CardPurchaseSupplementRetrieveParams.builder()
                 .cardPurchaseSupplementId("card_purchase_supplement_ijuc45iym4jchnh2sfk3")
                 .build()
-        assertThat(params).isNotNull
-        // path param "cardPurchaseSupplementId"
-        assertThat(params.getPathParam(0))
-            .isEqualTo("card_purchase_supplement_ijuc45iym4jchnh2sfk3")
+
+        assertThat(params._pathParam(0)).isEqualTo("card_purchase_supplement_ijuc45iym4jchnh2sfk3")
         // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
+        assertThat(params._pathParam(1)).isEqualTo("")
     }
 }
