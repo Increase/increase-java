@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test
 internal class EntityTest {
 
     @Test
-    fun createEntity() {
+    fun create() {
         val entity =
             Entity.builder()
                 .id("entity_n8y8tnk2p9339ti393yi")
@@ -242,7 +242,7 @@ internal class EntityTest {
                 )
                 .type(Entity.Type.ENTITY)
                 .build()
-        assertThat(entity).isNotNull
+
         assertThat(entity.id()).isEqualTo("entity_n8y8tnk2p9339ti393yi")
         assertThat(entity.corporation())
             .contains(

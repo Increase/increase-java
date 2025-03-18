@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 internal class FileTest {
 
     @Test
-    fun createFile() {
+    fun create() {
         val file =
             File.builder()
                 .id("file_makxrc67oh9l6sg7w9yc")
@@ -22,7 +22,7 @@ internal class FileTest {
                 .purpose(File.Purpose.CHECK_IMAGE_FRONT)
                 .type(File.Type.FILE)
                 .build()
-        assertThat(file).isNotNull
+
         assertThat(file.id()).isEqualTo("file_makxrc67oh9l6sg7w9yc")
         assertThat(file.createdAt()).isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
         assertThat(file.description()).contains("2022-05 statement for checking account")

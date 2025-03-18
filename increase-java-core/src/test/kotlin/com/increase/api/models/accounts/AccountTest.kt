@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 internal class AccountTest {
 
     @Test
-    fun createAccount() {
+    fun create() {
         val account =
             Account.builder()
                 .id("account_in71c4amph0vgo2qllky")
@@ -29,7 +29,7 @@ internal class AccountTest {
                 .status(Account.Status.CLOSED)
                 .type(Account.Type.ACCOUNT)
                 .build()
-        assertThat(account).isNotNull
+
         assertThat(account.id()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(account.bank()).isEqualTo(Account.Bank.CORE_BANK)
         assertThat(account.closedAt()).isEmpty

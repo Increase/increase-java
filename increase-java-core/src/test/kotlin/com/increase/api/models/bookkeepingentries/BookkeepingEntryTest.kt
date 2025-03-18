@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 internal class BookkeepingEntryTest {
 
     @Test
-    fun createBookkeepingEntry() {
+    fun create() {
         val bookkeepingEntry =
             BookkeepingEntry.builder()
                 .id("bookkeeping_entry_ctjpajsj3ks2blx10375")
@@ -19,7 +19,7 @@ internal class BookkeepingEntryTest {
                 .entrySetId("bookkeeping_entry_set_n80c6wr2p8gtc6p4ingf")
                 .type(BookkeepingEntry.Type.BOOKKEEPING_ENTRY)
                 .build()
-        assertThat(bookkeepingEntry).isNotNull
+
         assertThat(bookkeepingEntry.id()).isEqualTo("bookkeeping_entry_ctjpajsj3ks2blx10375")
         assertThat(bookkeepingEntry.accountId())
             .isEqualTo("bookkeeping_account_e37p1f1iuocw5intf35v")

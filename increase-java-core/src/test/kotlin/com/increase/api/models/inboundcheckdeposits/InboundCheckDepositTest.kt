@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 internal class InboundCheckDepositTest {
 
     @Test
-    fun createInboundCheckDeposit() {
+    fun create() {
         val inboundCheckDeposit =
             InboundCheckDeposit.builder()
                 .id("inbound_check_deposit_zoshvqybq0cjjm31mra")
@@ -46,7 +46,7 @@ internal class InboundCheckDepositTest {
                 .transactionId("transaction_uyrp7fld2ium70oa7oi")
                 .type(InboundCheckDeposit.Type.INBOUND_CHECK_DEPOSIT)
                 .build()
-        assertThat(inboundCheckDeposit).isNotNull
+
         assertThat(inboundCheckDeposit.id()).isEqualTo("inbound_check_deposit_zoshvqybq0cjjm31mra")
         assertThat(inboundCheckDeposit.acceptedAt())
             .contains(OffsetDateTime.parse("2020-01-31T23:59:59Z"))

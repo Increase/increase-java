@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 internal class BookkeepingEntrySetTest {
 
     @Test
-    fun createBookkeepingEntrySet() {
+    fun create() {
         val bookkeepingEntrySet =
             BookkeepingEntrySet.builder()
                 .id("bookkeeping_entry_set_n80c6wr2p8gtc6p4ingf")
@@ -33,7 +33,7 @@ internal class BookkeepingEntrySetTest {
                 .transactionId(null)
                 .type(BookkeepingEntrySet.Type.BOOKKEEPING_ENTRY_SET)
                 .build()
-        assertThat(bookkeepingEntrySet).isNotNull
+
         assertThat(bookkeepingEntrySet.id()).isEqualTo("bookkeeping_entry_set_n80c6wr2p8gtc6p4ingf")
         assertThat(bookkeepingEntrySet.createdAt())
             .isEqualTo(OffsetDateTime.parse("2023-02-11T02:11:59Z"))

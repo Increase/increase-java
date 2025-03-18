@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 internal class ProofOfAuthorizationRequestSubmissionTest {
 
     @Test
-    fun createProofOfAuthorizationRequestSubmission() {
+    fun create() {
         val proofOfAuthorizationRequestSubmission =
             ProofOfAuthorizationRequestSubmission.builder()
                 .id("proof_of_authorization_request_submission_uqhqroiley7n0097vizn")
@@ -36,7 +36,7 @@ internal class ProofOfAuthorizationRequestSubmissionTest {
                 .validatedAccountOwnershipWithAccountStatement(false)
                 .validatedAccountOwnershipWithMicrodeposit(true)
                 .build()
-        assertThat(proofOfAuthorizationRequestSubmission).isNotNull
+
         assertThat(proofOfAuthorizationRequestSubmission.id())
             .isEqualTo("proof_of_authorization_request_submission_uqhqroiley7n0097vizn")
         assertThat(proofOfAuthorizationRequestSubmission.additionalEvidenceFileId()).isEmpty

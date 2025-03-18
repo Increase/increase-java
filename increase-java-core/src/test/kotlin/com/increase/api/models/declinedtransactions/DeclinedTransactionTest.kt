@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 internal class DeclinedTransactionTest {
 
     @Test
-    fun createDeclinedTransaction() {
+    fun create() {
         val declinedTransaction =
             DeclinedTransaction.builder()
                 .id("declined_transaction_17jbn0yyhvkt4v4ooym8")
@@ -228,7 +228,7 @@ internal class DeclinedTransactionTest {
                 )
                 .type(DeclinedTransaction.Type.DECLINED_TRANSACTION)
                 .build()
-        assertThat(declinedTransaction).isNotNull
+
         assertThat(declinedTransaction.id()).isEqualTo("declined_transaction_17jbn0yyhvkt4v4ooym8")
         assertThat(declinedTransaction.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(declinedTransaction.amount()).isEqualTo(1750L)

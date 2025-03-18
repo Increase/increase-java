@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 internal class InboundAchTransferTest {
 
     @Test
-    fun createInboundAchTransfer() {
+    fun create() {
         val inboundAchTransfer =
             InboundAchTransfer.builder()
                 .id("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
@@ -144,7 +144,7 @@ internal class InboundAchTransferTest {
                 )
                 .type(InboundAchTransfer.Type.INBOUND_ACH_TRANSFER)
                 .build()
-        assertThat(inboundAchTransfer).isNotNull
+
         assertThat(inboundAchTransfer.id()).isEqualTo("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
         assertThat(inboundAchTransfer.acceptance())
             .contains(

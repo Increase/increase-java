@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 internal class RealTimePaymentsTransferTest {
 
     @Test
-    fun createRealTimePaymentsTransfer() {
+    fun create() {
         val realTimePaymentsTransfer =
             RealTimePaymentsTransfer.builder()
                 .id("real_time_payments_transfer_iyuhl5kdn7ssmup83mvq")
@@ -84,7 +84,7 @@ internal class RealTimePaymentsTransferTest {
                 .ultimateCreditorName(null)
                 .ultimateDebtorName(null)
                 .build()
-        assertThat(realTimePaymentsTransfer).isNotNull
+
         assertThat(realTimePaymentsTransfer.id())
             .isEqualTo("real_time_payments_transfer_iyuhl5kdn7ssmup83mvq")
         assertThat(realTimePaymentsTransfer.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")

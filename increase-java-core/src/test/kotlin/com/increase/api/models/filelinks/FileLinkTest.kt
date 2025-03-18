@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 internal class FileLinkTest {
 
     @Test
-    fun createFileLink() {
+    fun create() {
         val fileLink =
             FileLink.builder()
                 .id("file_link_roapsuicj7kp1lzyus04")
@@ -20,7 +20,7 @@ internal class FileLinkTest {
                 .type(FileLink.Type.FILE_LINK)
                 .unauthenticatedUrl("https://example.com/file.pdf")
                 .build()
-        assertThat(fileLink).isNotNull
+
         assertThat(fileLink.id()).isEqualTo("file_link_roapsuicj7kp1lzyus04")
         assertThat(fileLink.createdAt()).isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
         assertThat(fileLink.expiresAt()).isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))

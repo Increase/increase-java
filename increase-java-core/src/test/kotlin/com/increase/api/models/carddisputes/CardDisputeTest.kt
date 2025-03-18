@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 internal class CardDisputeTest {
 
     @Test
-    fun createCardDispute() {
+    fun create() {
         val cardDispute =
             CardDispute.builder()
                 .id("card_dispute_h9sc95nbl1cgltpp7men")
@@ -49,7 +49,7 @@ internal class CardDisputeTest {
                         .build()
                 )
                 .build()
-        assertThat(cardDispute).isNotNull
+
         assertThat(cardDispute.id()).isEqualTo("card_dispute_h9sc95nbl1cgltpp7men")
         assertThat(cardDispute.acceptance())
             .contains(

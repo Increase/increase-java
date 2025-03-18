@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 internal class PendingTransactionTest {
 
     @Test
-    fun createPendingTransaction() {
+    fun create() {
         val pendingTransaction =
             PendingTransaction.builder()
                 .id("pending_transaction_k1sfetcau2qbvjbzgju4")
@@ -224,7 +224,7 @@ internal class PendingTransactionTest {
                 .status(PendingTransaction.Status.PENDING)
                 .type(PendingTransaction.Type.PENDING_TRANSACTION)
                 .build()
-        assertThat(pendingTransaction).isNotNull
+
         assertThat(pendingTransaction.id()).isEqualTo("pending_transaction_k1sfetcau2qbvjbzgju4")
         assertThat(pendingTransaction.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(pendingTransaction.amount()).isEqualTo(100L)

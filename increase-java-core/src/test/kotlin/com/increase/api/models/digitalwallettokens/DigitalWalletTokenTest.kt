@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 internal class DigitalWalletTokenTest {
 
     @Test
-    fun createDigitalWalletToken() {
+    fun create() {
         val digitalWalletToken =
             DigitalWalletToken.builder()
                 .id("digital_wallet_token_izi62go3h51p369jrie0")
@@ -25,7 +25,7 @@ internal class DigitalWalletTokenTest {
                         .build()
                 )
                 .build()
-        assertThat(digitalWalletToken).isNotNull
+
         assertThat(digitalWalletToken.id()).isEqualTo("digital_wallet_token_izi62go3h51p369jrie0")
         assertThat(digitalWalletToken.cardId()).isEqualTo("card_oubs0hwk5rn6knuecxg2")
         assertThat(digitalWalletToken.createdAt())

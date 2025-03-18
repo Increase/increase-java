@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test
 internal class TransactionTest {
 
     @Test
-    fun createTransaction() {
+    fun create() {
         val transaction =
             Transaction.builder()
                 .id("transaction_uyrp7fld2ium70oa7oi")
@@ -803,7 +803,7 @@ internal class TransactionTest {
                 )
                 .type(Transaction.Type.TRANSACTION)
                 .build()
-        assertThat(transaction).isNotNull
+
         assertThat(transaction.id()).isEqualTo("transaction_uyrp7fld2ium70oa7oi")
         assertThat(transaction.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(transaction.amount()).isEqualTo(100L)

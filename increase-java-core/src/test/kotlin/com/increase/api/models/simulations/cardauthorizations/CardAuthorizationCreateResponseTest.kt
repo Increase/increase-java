@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test
 internal class CardAuthorizationCreateResponseTest {
 
     @Test
-    fun createCardAuthorizationCreateResponse() {
+    fun create() {
         val cardAuthorizationCreateResponse =
             CardAuthorizationCreateResponse.builder()
                 .declinedTransaction(
@@ -519,7 +519,7 @@ internal class CardAuthorizationCreateResponseTest {
                         .INBOUND_CARD_AUTHORIZATION_SIMULATION_RESULT
                 )
                 .build()
-        assertThat(cardAuthorizationCreateResponse).isNotNull
+
         assertThat(cardAuthorizationCreateResponse.declinedTransaction())
             .contains(
                 DeclinedTransaction.builder()

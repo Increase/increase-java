@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 internal class AccountNumberTest {
 
     @Test
-    fun createAccountNumber() {
+    fun create() {
         val accountNumber =
             AccountNumber.builder()
                 .id("account_number_v18nkfqm6afpsrvy82b2")
@@ -32,7 +32,7 @@ internal class AccountNumberTest {
                 .status(AccountNumber.Status.ACTIVE)
                 .type(AccountNumber.Type.ACCOUNT_NUMBER)
                 .build()
-        assertThat(accountNumber).isNotNull
+
         assertThat(accountNumber.id()).isEqualTo("account_number_v18nkfqm6afpsrvy82b2")
         assertThat(accountNumber.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(accountNumber.accountNumber()).isEqualTo("987654321")

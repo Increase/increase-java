@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 internal class CardDetailsTest {
 
     @Test
-    fun createCardDetails() {
+    fun create() {
         val cardDetails =
             CardDetails.builder()
                 .cardId("card_oubs0hwk5rn6knuecxg2")
@@ -18,7 +18,7 @@ internal class CardDetailsTest {
                 .type(CardDetails.Type.CARD_DETAILS)
                 .verificationCode("123")
                 .build()
-        assertThat(cardDetails).isNotNull
+
         assertThat(cardDetails.cardId()).isEqualTo("card_oubs0hwk5rn6knuecxg2")
         assertThat(cardDetails.expirationMonth()).isEqualTo(7L)
         assertThat(cardDetails.expirationYear()).isEqualTo(2025L)

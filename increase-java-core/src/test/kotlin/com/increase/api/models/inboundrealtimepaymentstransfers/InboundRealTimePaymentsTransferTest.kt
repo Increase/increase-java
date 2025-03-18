@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 internal class InboundRealTimePaymentsTransferTest {
 
     @Test
-    fun createInboundRealTimePaymentsTransfer() {
+    fun create() {
         val inboundRealTimePaymentsTransfer =
             InboundRealTimePaymentsTransfer.builder()
                 .id("inbound_real_time_payments_transfer_63hlz498vcxg644hcrzr")
@@ -42,7 +42,7 @@ internal class InboundRealTimePaymentsTransferTest {
                 .transactionIdentification("20220501234567891T1BSLZO01745013025")
                 .type(InboundRealTimePaymentsTransfer.Type.INBOUND_REAL_TIME_PAYMENTS_TRANSFER)
                 .build()
-        assertThat(inboundRealTimePaymentsTransfer).isNotNull
+
         assertThat(inboundRealTimePaymentsTransfer.id())
             .isEqualTo("inbound_real_time_payments_transfer_63hlz498vcxg644hcrzr")
         assertThat(inboundRealTimePaymentsTransfer.accountId())

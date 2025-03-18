@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 internal class BookkeepingAccountTest {
 
     @Test
-    fun createBookkeepingAccount() {
+    fun create() {
         val bookkeepingAccount =
             BookkeepingAccount.builder()
                 .id("bookkeeping_account_e37p1f1iuocw5intf35v")
@@ -19,7 +19,7 @@ internal class BookkeepingAccountTest {
                 .name("John Doe Balance")
                 .type(BookkeepingAccount.Type.BOOKKEEPING_ACCOUNT)
                 .build()
-        assertThat(bookkeepingAccount).isNotNull
+
         assertThat(bookkeepingAccount.id()).isEqualTo("bookkeeping_account_e37p1f1iuocw5intf35v")
         assertThat(bookkeepingAccount.accountId()).isEmpty
         assertThat(bookkeepingAccount.complianceCategory())

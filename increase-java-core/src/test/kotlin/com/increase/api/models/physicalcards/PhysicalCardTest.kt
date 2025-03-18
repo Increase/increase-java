@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 internal class PhysicalCardTest {
 
     @Test
-    fun createPhysicalCard() {
+    fun create() {
         val physicalCard =
             PhysicalCard.builder()
                 .id("physical_card_ode8duyq5v2ynhjoharl")
@@ -48,7 +48,7 @@ internal class PhysicalCardTest {
                 .status(PhysicalCard.Status.ACTIVE)
                 .type(PhysicalCard.Type.PHYSICAL_CARD)
                 .build()
-        assertThat(physicalCard).isNotNull
+
         assertThat(physicalCard.id()).isEqualTo("physical_card_ode8duyq5v2ynhjoharl")
         assertThat(physicalCard.cardId()).isEqualTo("card_oubs0hwk5rn6knuecxg2")
         assertThat(physicalCard.cardholder())

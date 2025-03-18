@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 internal class LockboxTest {
 
     @Test
-    fun createLockbox() {
+    fun create() {
         val lockbox =
             Lockbox.builder()
                 .id("lockbox_3xt21ok13q19advds4t5")
@@ -31,7 +31,7 @@ internal class LockboxTest {
                 .status(Lockbox.Status.ACTIVE)
                 .type(Lockbox.Type.LOCKBOX)
                 .build()
-        assertThat(lockbox).isNotNull
+
         assertThat(lockbox.id()).isEqualTo("lockbox_3xt21ok13q19advds4t5")
         assertThat(lockbox.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(lockbox.address())

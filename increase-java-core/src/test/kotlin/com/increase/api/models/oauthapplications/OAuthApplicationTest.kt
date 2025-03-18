@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 internal class OAuthApplicationTest {
 
     @Test
-    fun createOAuthApplication() {
+    fun create() {
         val oauthApplication =
             OAuthApplication.builder()
                 .id("application_gj9ufmpgh5i56k4vyriy")
@@ -20,7 +20,7 @@ internal class OAuthApplicationTest {
                 .status(OAuthApplication.Status.ACTIVE)
                 .type(OAuthApplication.Type.OAUTH_APPLICATION)
                 .build()
-        assertThat(oauthApplication).isNotNull
+
         assertThat(oauthApplication.id()).isEqualTo("application_gj9ufmpgh5i56k4vyriy")
         assertThat(oauthApplication.clientId()).isEqualTo("client_id_ec79nb1bukwwafdewe88")
         assertThat(oauthApplication.createdAt())

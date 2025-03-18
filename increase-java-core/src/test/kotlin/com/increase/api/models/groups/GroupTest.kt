@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 internal class GroupTest {
 
     @Test
-    fun createGroup() {
+    fun create() {
         val group =
             Group.builder()
                 .id("group_1g4mhziu6kvrs3vz35um")
@@ -18,7 +18,7 @@ internal class GroupTest {
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .type(Group.Type.GROUP)
                 .build()
-        assertThat(group).isNotNull
+
         assertThat(group.id()).isEqualTo("group_1g4mhziu6kvrs3vz35um")
         assertThat(group.achDebitStatus()).isEqualTo(Group.AchDebitStatus.DISABLED)
         assertThat(group.activationStatus()).isEqualTo(Group.ActivationStatus.UNACTIVATED)

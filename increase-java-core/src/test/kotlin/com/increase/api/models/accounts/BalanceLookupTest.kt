@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 internal class BalanceLookupTest {
 
     @Test
-    fun createBalanceLookup() {
+    fun create() {
         val balanceLookup =
             BalanceLookup.builder()
                 .accountId("account_in71c4amph0vgo2qllky")
@@ -16,7 +16,7 @@ internal class BalanceLookupTest {
                 .currentBalance(100L)
                 .type(BalanceLookup.Type.BALANCE_LOOKUP)
                 .build()
-        assertThat(balanceLookup).isNotNull
+
         assertThat(balanceLookup.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(balanceLookup.availableBalance()).isEqualTo(100L)
         assertThat(balanceLookup.currentBalance()).isEqualTo(100L)

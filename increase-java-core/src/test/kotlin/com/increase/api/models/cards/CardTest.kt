@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 internal class CardTest {
 
     @Test
-    fun createCard() {
+    fun create() {
         val card =
             Card.builder()
                 .id("card_oubs0hwk5rn6knuecxg2")
@@ -40,7 +40,7 @@ internal class CardTest {
                 .status(Card.Status.ACTIVE)
                 .type(Card.Type.CARD)
                 .build()
-        assertThat(card).isNotNull
+
         assertThat(card.id()).isEqualTo("card_oubs0hwk5rn6knuecxg2")
         assertThat(card.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(card.billingAddress())

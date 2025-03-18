@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 internal class InboundFundsHoldReleaseResponseTest {
 
     @Test
-    fun createInboundFundsHoldReleaseResponse() {
+    fun create() {
         val inboundFundsHoldReleaseResponse =
             InboundFundsHoldReleaseResponse.builder()
                 .id("inbound_funds_hold_9vuasmywdo7xb3zt4071")
@@ -23,7 +23,7 @@ internal class InboundFundsHoldReleaseResponseTest {
                 .status(InboundFundsHoldReleaseResponse.Status.HELD)
                 .type(InboundFundsHoldReleaseResponse.Type.INBOUND_FUNDS_HOLD)
                 .build()
-        assertThat(inboundFundsHoldReleaseResponse).isNotNull
+
         assertThat(inboundFundsHoldReleaseResponse.id())
             .isEqualTo("inbound_funds_hold_9vuasmywdo7xb3zt4071")
         assertThat(inboundFundsHoldReleaseResponse.amount()).isEqualTo(100L)

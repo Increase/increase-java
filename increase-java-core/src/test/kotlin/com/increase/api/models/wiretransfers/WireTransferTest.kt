@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 internal class WireTransferTest {
 
     @Test
-    fun createWireTransfer() {
+    fun create() {
         val wireTransfer =
             WireTransfer.builder()
                 .id("wire_transfer_5akynk7dqsq25qwk9q2u")
@@ -101,7 +101,7 @@ internal class WireTransferTest {
                 .transactionId("transaction_uyrp7fld2ium70oa7oi")
                 .type(WireTransfer.Type.WIRE_TRANSFER)
                 .build()
-        assertThat(wireTransfer).isNotNull
+
         assertThat(wireTransfer.id()).isEqualTo("wire_transfer_5akynk7dqsq25qwk9q2u")
         assertThat(wireTransfer.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(wireTransfer.accountNumber()).isEqualTo("987654321")

@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 internal class WireDrawdownRequestTest {
 
     @Test
-    fun createWireDrawdownRequest() {
+    fun create() {
         val wireDrawdownRequest =
             WireDrawdownRequest.builder()
                 .id("wire_drawdown_request_q6lmocus3glo0lr2bfv3")
@@ -38,7 +38,7 @@ internal class WireDrawdownRequestTest {
                 )
                 .type(WireDrawdownRequest.Type.WIRE_DRAWDOWN_REQUEST)
                 .build()
-        assertThat(wireDrawdownRequest).isNotNull
+
         assertThat(wireDrawdownRequest.id()).isEqualTo("wire_drawdown_request_q6lmocus3glo0lr2bfv3")
         assertThat(wireDrawdownRequest.accountNumberId())
             .isEqualTo("account_number_v18nkfqm6afpsrvy82b2")

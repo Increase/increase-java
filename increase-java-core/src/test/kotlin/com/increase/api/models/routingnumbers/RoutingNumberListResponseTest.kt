@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 internal class RoutingNumberListResponseTest {
 
     @Test
-    fun createRoutingNumberListResponse() {
+    fun create() {
         val routingNumberListResponse =
             RoutingNumberListResponse.builder()
                 .achTransfers(RoutingNumberListResponse.AchTransfers.SUPPORTED)
@@ -20,7 +20,7 @@ internal class RoutingNumberListResponseTest {
                 .type(RoutingNumberListResponse.Type.ROUTING_NUMBER)
                 .wireTransfers(RoutingNumberListResponse.WireTransfers.SUPPORTED)
                 .build()
-        assertThat(routingNumberListResponse).isNotNull
+
         assertThat(routingNumberListResponse.achTransfers())
             .isEqualTo(RoutingNumberListResponse.AchTransfers.SUPPORTED)
         assertThat(routingNumberListResponse.name()).isEqualTo("First Bank of the United States")

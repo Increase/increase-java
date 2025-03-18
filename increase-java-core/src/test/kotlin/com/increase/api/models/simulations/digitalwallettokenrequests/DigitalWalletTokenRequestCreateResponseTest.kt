@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 internal class DigitalWalletTokenRequestCreateResponseTest {
 
     @Test
-    fun createDigitalWalletTokenRequestCreateResponse() {
+    fun create() {
         val digitalWalletTokenRequestCreateResponse =
             DigitalWalletTokenRequestCreateResponse.builder()
                 .declineReason(
@@ -20,7 +20,7 @@ internal class DigitalWalletTokenRequestCreateResponseTest {
                         .INBOUND_DIGITAL_WALLET_TOKEN_REQUEST_SIMULATION_RESULT
                 )
                 .build()
-        assertThat(digitalWalletTokenRequestCreateResponse).isNotNull
+
         assertThat(digitalWalletTokenRequestCreateResponse.declineReason())
             .contains(DigitalWalletTokenRequestCreateResponse.DeclineReason.CARD_NOT_ACTIVE)
         assertThat(digitalWalletTokenRequestCreateResponse.digitalWalletTokenId())

@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 internal class IntrafiExclusionTest {
 
     @Test
-    fun createIntrafiExclusion() {
+    fun create() {
         val intrafiExclusion =
             IntrafiExclusion.builder()
                 .id("intrafi_exclusion_ygfqduuzpau3jqof6jyh")
@@ -23,7 +23,7 @@ internal class IntrafiExclusionTest {
                 .submittedAt(OffsetDateTime.parse("2020-02-01T00:59:59+00:00"))
                 .type(IntrafiExclusion.Type.INTRAFI_EXCLUSION)
                 .build()
-        assertThat(intrafiExclusion).isNotNull
+
         assertThat(intrafiExclusion.id()).isEqualTo("intrafi_exclusion_ygfqduuzpau3jqof6jyh")
         assertThat(intrafiExclusion.bankName()).isEqualTo("Example Bank")
         assertThat(intrafiExclusion.createdAt())

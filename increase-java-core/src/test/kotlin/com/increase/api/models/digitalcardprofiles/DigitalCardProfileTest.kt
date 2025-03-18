@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 internal class DigitalCardProfileTest {
 
     @Test
-    fun createDigitalCardProfile() {
+    fun create() {
         val digitalCardProfile =
             DigitalCardProfile.builder()
                 .id("digital_card_profile_s3puplu90f04xhcwkiga")
@@ -29,7 +29,7 @@ internal class DigitalCardProfileTest {
                 )
                 .type(DigitalCardProfile.Type.DIGITAL_CARD_PROFILE)
                 .build()
-        assertThat(digitalCardProfile).isNotNull
+
         assertThat(digitalCardProfile.id()).isEqualTo("digital_card_profile_s3puplu90f04xhcwkiga")
         assertThat(digitalCardProfile.appIconFileId()).isEqualTo("file_makxrc67oh9l6sg7w9yc")
         assertThat(digitalCardProfile.backgroundImageFileId())

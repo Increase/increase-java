@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 internal class PhysicalCardProfileTest {
 
     @Test
-    fun createPhysicalCardProfile() {
+    fun create() {
         val physicalCardProfile =
             PhysicalCardProfile.builder()
                 .id("physical_card_profile_m534d5rn9qyy9ufqxoec")
@@ -25,7 +25,7 @@ internal class PhysicalCardProfileTest {
                 .status(PhysicalCardProfile.Status.PENDING_CREATING)
                 .type(PhysicalCardProfile.Type.PHYSICAL_CARD_PROFILE)
                 .build()
-        assertThat(physicalCardProfile).isNotNull
+
         assertThat(physicalCardProfile.id()).isEqualTo("physical_card_profile_m534d5rn9qyy9ufqxoec")
         assertThat(physicalCardProfile.backImageFileId()).contains("file_makxrc67oh9l6sg7w9yc")
         assertThat(physicalCardProfile.carrierImageFileId()).contains("file_makxrc67oh9l6sg7w9yc")
