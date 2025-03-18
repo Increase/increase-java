@@ -99,7 +99,7 @@ private constructor(
                 limit?.let { put("limit", it.toString()) }
                 programId?.let { put("program_id", it) }
                 status?.let {
-                    it.in_().ifPresent { put("status.in", it.joinToString(",") { it.asString() }) }
+                    it.in_().ifPresent { put("status.in", it.joinToString(",") { it.toString() }) }
                     it._additionalProperties().keys().forEach { key ->
                         it._additionalProperties().values(key).forEach { value ->
                             put("status.$key", value)
