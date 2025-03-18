@@ -25,17 +25,25 @@ internal class BookkeepingEntryListParamsTest {
                 .cursor("cursor")
                 .limit(1L)
                 .build()
-        val expected = QueryParams.builder()
-        expected.put("account_id", "account_id")
-        expected.put("cursor", "cursor")
-        expected.put("limit", "1")
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams)
+            .isEqualTo(
+                QueryParams.builder()
+                    .put("account_id", "account_id")
+                    .put("cursor", "cursor")
+                    .put("limit", "1")
+                    .build()
+            )
     }
 
     @Test
     fun queryParamsWithoutOptionalFields() {
         val params = BookkeepingEntryListParams.builder().build()
-        val expected = QueryParams.builder()
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams).isEqualTo(QueryParams.builder().build())
     }
 }

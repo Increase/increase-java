@@ -52,28 +52,30 @@ internal class DocumentListParamsTest {
                 .entityId("entity_id")
                 .limit(1L)
                 .build()
-        val expected = QueryParams.builder()
-        DocumentListParams.Category.builder()
-            .addIn(DocumentListParams.Category.In.FORM_1099_INT)
-            .build()
-            .forEachQueryParam { key, values -> expected.put("category.$key", values) }
-        DocumentListParams.CreatedAt.builder()
-            .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-            .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-            .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-            .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-            .build()
-            .forEachQueryParam { key, values -> expected.put("created_at.$key", values) }
-        expected.put("cursor", "cursor")
-        expected.put("entity_id", "entity_id")
-        expected.put("limit", "1")
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams)
+            .isEqualTo(
+                QueryParams.builder()
+                    .put("category.in", listOf("form_1099_int").joinToString(","))
+                    .put("created_at.after", "2019-12-27T18:11:19.117Z")
+                    .put("created_at.before", "2019-12-27T18:11:19.117Z")
+                    .put("created_at.on_or_after", "2019-12-27T18:11:19.117Z")
+                    .put("created_at.on_or_before", "2019-12-27T18:11:19.117Z")
+                    .put("cursor", "cursor")
+                    .put("entity_id", "entity_id")
+                    .put("limit", "1")
+                    .build()
+            )
     }
 
     @Test
     fun queryParamsWithoutOptionalFields() {
         val params = DocumentListParams.builder().build()
-        val expected = QueryParams.builder()
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams).isEqualTo(QueryParams.builder().build())
     }
 }
