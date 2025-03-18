@@ -54,7 +54,7 @@ private constructor(
                 associatedObjectId?.let { put("associated_object_id", it) }
                 category?.let {
                     it.in_().ifPresent {
-                        put("category.in", it.joinToString(",") { it.asString() })
+                        put("category.in", it.joinToString(",") { it.toString() })
                     }
                     it._additionalProperties().keys().forEach { key ->
                         it._additionalProperties().values(key).forEach { value ->
