@@ -106,7 +106,7 @@ private constructor(
         body.validatedAccountOwnershipWithMicrodeposit()
 
     /**
-     * The File containing the check's front image.
+     * File containing additional evidence.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -367,7 +367,7 @@ private constructor(
             )
 
         /**
-         * The File containing the check's front image.
+         * File containing additional evidence.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -758,7 +758,7 @@ private constructor(
                     validatedAccountOwnershipWithMicrodeposit
             }
 
-            /** The File containing the check's front image. */
+            /** File containing additional evidence. */
             fun additionalEvidenceFileId(additionalEvidenceFileId: String) =
                 additionalEvidenceFileId(JsonField.of(additionalEvidenceFileId))
 
@@ -1092,7 +1092,7 @@ private constructor(
             )
         }
 
-        /** The File containing the check's front image. */
+        /** File containing additional evidence. */
         fun additionalEvidenceFileId(additionalEvidenceFileId: String) = apply {
             body.additionalEvidenceFileId(additionalEvidenceFileId)
         }
