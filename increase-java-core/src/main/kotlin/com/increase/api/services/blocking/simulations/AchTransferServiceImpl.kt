@@ -84,7 +84,7 @@ class AchTransferServiceImpl internal constructor(private val clientOptions: Cli
                     .addPathSegments(
                         "simulations",
                         "ach_transfers",
-                        params.getPathParam(0),
+                        params._pathParam(0),
                         "acknowledge",
                     )
                     .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
@@ -116,7 +116,7 @@ class AchTransferServiceImpl internal constructor(private val clientOptions: Cli
                     .addPathSegments(
                         "simulations",
                         "ach_transfers",
-                        params.getPathParam(0),
+                        params._pathParam(0),
                         "create_notification_of_change",
                     )
                     .body(json(clientOptions.jsonMapper, params._body()))
@@ -145,12 +145,7 @@ class AchTransferServiceImpl internal constructor(private val clientOptions: Cli
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
-                    .addPathSegments(
-                        "simulations",
-                        "ach_transfers",
-                        params.getPathParam(0),
-                        "return",
-                    )
+                    .addPathSegments("simulations", "ach_transfers", params._pathParam(0), "return")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepare(clientOptions, params)
@@ -177,12 +172,7 @@ class AchTransferServiceImpl internal constructor(private val clientOptions: Cli
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
-                    .addPathSegments(
-                        "simulations",
-                        "ach_transfers",
-                        params.getPathParam(0),
-                        "settle",
-                    )
+                    .addPathSegments("simulations", "ach_transfers", params._pathParam(0), "settle")
                     .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
                     .prepare(clientOptions, params)
@@ -209,12 +199,7 @@ class AchTransferServiceImpl internal constructor(private val clientOptions: Cli
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
-                    .addPathSegments(
-                        "simulations",
-                        "ach_transfers",
-                        params.getPathParam(0),
-                        "submit",
-                    )
+                    .addPathSegments("simulations", "ach_transfers", params._pathParam(0), "submit")
                     .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
                     .prepare(clientOptions, params)

@@ -49,12 +49,7 @@ class CheckTransferServiceImpl internal constructor(private val clientOptions: C
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
-                    .addPathSegments(
-                        "simulations",
-                        "check_transfers",
-                        params.getPathParam(0),
-                        "mail",
-                    )
+                    .addPathSegments("simulations", "check_transfers", params._pathParam(0), "mail")
                     .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
                     .prepare(clientOptions, params)

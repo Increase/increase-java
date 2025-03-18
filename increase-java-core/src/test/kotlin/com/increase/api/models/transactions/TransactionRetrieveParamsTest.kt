@@ -13,15 +13,14 @@ internal class TransactionRetrieveParamsTest {
     }
 
     @Test
-    fun getPathParam() {
+    fun pathParams() {
         val params =
             TransactionRetrieveParams.builder()
                 .transactionId("transaction_uyrp7fld2ium70oa7oi")
                 .build()
-        assertThat(params).isNotNull
-        // path param "transactionId"
-        assertThat(params.getPathParam(0)).isEqualTo("transaction_uyrp7fld2ium70oa7oi")
+
+        assertThat(params._pathParam(0)).isEqualTo("transaction_uyrp7fld2ium70oa7oi")
         // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
+        assertThat(params._pathParam(1)).isEqualTo("")
     }
 }

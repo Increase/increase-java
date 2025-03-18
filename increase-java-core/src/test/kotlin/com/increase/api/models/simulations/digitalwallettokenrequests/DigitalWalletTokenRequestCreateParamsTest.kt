@@ -25,17 +25,4 @@ internal class DigitalWalletTokenRequestCreateParamsTest {
         assertNotNull(body)
         assertThat(body.cardId()).isEqualTo("card_oubs0hwk5rn6knuecxg2")
     }
-
-    @Test
-    fun bodyWithoutOptionalFields() {
-        val params =
-            DigitalWalletTokenRequestCreateParams.builder()
-                .cardId("card_oubs0hwk5rn6knuecxg2")
-                .build()
-
-        val body = params._body()
-
-        assertNotNull(body)
-        assertThat(body.cardId()).isEqualTo("card_oubs0hwk5rn6knuecxg2")
-    }
 }

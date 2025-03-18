@@ -17,6 +17,18 @@ internal class EventSubscriptionUpdateParamsTest {
     }
 
     @Test
+    fun pathParams() {
+        val params =
+            EventSubscriptionUpdateParams.builder()
+                .eventSubscriptionId("event_subscription_001dzz0r20rcdxgb013zqb8m04g")
+                .build()
+
+        assertThat(params._pathParam(0)).isEqualTo("event_subscription_001dzz0r20rcdxgb013zqb8m04g")
+        // out-of-bound path param
+        assertThat(params._pathParam(1)).isEqualTo("")
+    }
+
+    @Test
     fun body() {
         val params =
             EventSubscriptionUpdateParams.builder()
@@ -40,19 +52,5 @@ internal class EventSubscriptionUpdateParamsTest {
         val body = params._body()
 
         assertNotNull(body)
-    }
-
-    @Test
-    fun getPathParam() {
-        val params =
-            EventSubscriptionUpdateParams.builder()
-                .eventSubscriptionId("event_subscription_001dzz0r20rcdxgb013zqb8m04g")
-                .build()
-        assertThat(params).isNotNull
-        // path param "eventSubscriptionId"
-        assertThat(params.getPathParam(0))
-            .isEqualTo("event_subscription_001dzz0r20rcdxgb013zqb8m04g")
-        // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
     }
 }

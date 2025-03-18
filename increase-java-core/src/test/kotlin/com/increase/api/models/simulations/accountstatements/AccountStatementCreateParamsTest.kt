@@ -23,15 +23,4 @@ internal class AccountStatementCreateParamsTest {
         assertNotNull(body)
         assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
     }
-
-    @Test
-    fun bodyWithoutOptionalFields() {
-        val params =
-            AccountStatementCreateParams.builder().accountId("account_in71c4amph0vgo2qllky").build()
-
-        val body = params._body()
-
-        assertNotNull(body)
-        assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
-    }
 }

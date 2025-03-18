@@ -28,6 +28,18 @@ internal class AccountNumberUpdateParamsTest {
     }
 
     @Test
+    fun pathParams() {
+        val params =
+            AccountNumberUpdateParams.builder()
+                .accountNumberId("account_number_v18nkfqm6afpsrvy82b2")
+                .build()
+
+        assertThat(params._pathParam(0)).isEqualTo("account_number_v18nkfqm6afpsrvy82b2")
+        // out-of-bound path param
+        assertThat(params._pathParam(1)).isEqualTo("")
+    }
+
+    @Test
     fun body() {
         val params =
             AccountNumberUpdateParams.builder()
@@ -75,18 +87,5 @@ internal class AccountNumberUpdateParamsTest {
         val body = params._body()
 
         assertNotNull(body)
-    }
-
-    @Test
-    fun getPathParam() {
-        val params =
-            AccountNumberUpdateParams.builder()
-                .accountNumberId("account_number_v18nkfqm6afpsrvy82b2")
-                .build()
-        assertThat(params).isNotNull
-        // path param "accountNumberId"
-        assertThat(params.getPathParam(0)).isEqualTo("account_number_v18nkfqm6afpsrvy82b2")
-        // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
     }
 }

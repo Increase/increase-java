@@ -58,7 +58,7 @@ internal constructor(private val clientOptions: ClientOptions) : InboundMailItem
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
-                    .addPathSegments("inbound_mail_items", params.getPathParam(0))
+                    .addPathSegments("inbound_mail_items", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))

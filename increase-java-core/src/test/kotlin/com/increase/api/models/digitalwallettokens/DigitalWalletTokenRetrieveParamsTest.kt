@@ -15,15 +15,14 @@ internal class DigitalWalletTokenRetrieveParamsTest {
     }
 
     @Test
-    fun getPathParam() {
+    fun pathParams() {
         val params =
             DigitalWalletTokenRetrieveParams.builder()
                 .digitalWalletTokenId("digital_wallet_token_izi62go3h51p369jrie0")
                 .build()
-        assertThat(params).isNotNull
-        // path param "digitalWalletTokenId"
-        assertThat(params.getPathParam(0)).isEqualTo("digital_wallet_token_izi62go3h51p369jrie0")
+
+        assertThat(params._pathParam(0)).isEqualTo("digital_wallet_token_izi62go3h51p369jrie0")
         // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
+        assertThat(params._pathParam(1)).isEqualTo("")
     }
 }

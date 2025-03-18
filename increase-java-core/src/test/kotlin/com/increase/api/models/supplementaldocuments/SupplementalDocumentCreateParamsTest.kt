@@ -30,19 +30,4 @@ internal class SupplementalDocumentCreateParamsTest {
         assertThat(body.entityId()).isEqualTo("entity_n8y8tnk2p9339ti393yi")
         assertThat(body.fileId()).isEqualTo("file_makxrc67oh9l6sg7w9yc")
     }
-
-    @Test
-    fun bodyWithoutOptionalFields() {
-        val params =
-            SupplementalDocumentCreateParams.builder()
-                .entityId("entity_n8y8tnk2p9339ti393yi")
-                .fileId("file_makxrc67oh9l6sg7w9yc")
-                .build()
-
-        val body = params._body()
-
-        assertNotNull(body)
-        assertThat(body.entityId()).isEqualTo("entity_n8y8tnk2p9339ti393yi")
-        assertThat(body.fileId()).isEqualTo("file_makxrc67oh9l6sg7w9yc")
-    }
 }

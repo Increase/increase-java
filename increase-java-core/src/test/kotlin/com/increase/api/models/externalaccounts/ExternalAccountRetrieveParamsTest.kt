@@ -15,15 +15,14 @@ internal class ExternalAccountRetrieveParamsTest {
     }
 
     @Test
-    fun getPathParam() {
+    fun pathParams() {
         val params =
             ExternalAccountRetrieveParams.builder()
                 .externalAccountId("external_account_ukk55lr923a3ac0pp7iv")
                 .build()
-        assertThat(params).isNotNull
-        // path param "externalAccountId"
-        assertThat(params.getPathParam(0)).isEqualTo("external_account_ukk55lr923a3ac0pp7iv")
+
+        assertThat(params._pathParam(0)).isEqualTo("external_account_ukk55lr923a3ac0pp7iv")
         // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
+        assertThat(params._pathParam(1)).isEqualTo("")
     }
 }

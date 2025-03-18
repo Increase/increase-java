@@ -27,6 +27,18 @@ internal class DigitalCardProfileCloneParamsTest {
     }
 
     @Test
+    fun pathParams() {
+        val params =
+            DigitalCardProfileCloneParams.builder()
+                .digitalCardProfileId("digital_card_profile_s3puplu90f04xhcwkiga")
+                .build()
+
+        assertThat(params._pathParam(0)).isEqualTo("digital_card_profile_s3puplu90f04xhcwkiga")
+        // out-of-bound path param
+        assertThat(params._pathParam(1)).isEqualTo("")
+    }
+
+    @Test
     fun body() {
         val params =
             DigitalCardProfileCloneParams.builder()
@@ -75,18 +87,5 @@ internal class DigitalCardProfileCloneParamsTest {
         val body = params._body()
 
         assertNotNull(body)
-    }
-
-    @Test
-    fun getPathParam() {
-        val params =
-            DigitalCardProfileCloneParams.builder()
-                .digitalCardProfileId("digital_card_profile_s3puplu90f04xhcwkiga")
-                .build()
-        assertThat(params).isNotNull
-        // path param "digitalCardProfileId"
-        assertThat(params.getPathParam(0)).isEqualTo("digital_card_profile_s3puplu90f04xhcwkiga")
-        // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
     }
 }

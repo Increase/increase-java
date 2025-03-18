@@ -17,6 +17,18 @@ internal class AchTransferReturnParamsTest {
     }
 
     @Test
+    fun pathParams() {
+        val params =
+            AchTransferReturnParams.builder()
+                .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
+                .build()
+
+        assertThat(params._pathParam(0)).isEqualTo("ach_transfer_uoxatyh3lt5evrsdvo7q")
+        // out-of-bound path param
+        assertThat(params._pathParam(1)).isEqualTo("")
+    }
+
+    @Test
     fun body() {
         val params =
             AchTransferReturnParams.builder()
@@ -40,18 +52,5 @@ internal class AchTransferReturnParamsTest {
         val body = params._body()
 
         assertNotNull(body)
-    }
-
-    @Test
-    fun getPathParam() {
-        val params =
-            AchTransferReturnParams.builder()
-                .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
-                .build()
-        assertThat(params).isNotNull
-        // path param "achTransferId"
-        assertThat(params.getPathParam(0)).isEqualTo("ach_transfer_uoxatyh3lt5evrsdvo7q")
-        // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
     }
 }

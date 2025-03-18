@@ -3,6 +3,7 @@
 package com.increase.api.models.cardpurchasesupplements
 
 import java.time.LocalDate
+import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -93,7 +94,7 @@ internal class CardPurchaseSupplementTest {
                     .uniqueValueAddedTaxInvoiceReference("12302")
                     .build()
             )
-        assertThat(cardPurchaseSupplement.lineItems().get())
+        assertThat(cardPurchaseSupplement.lineItems().getOrNull())
             .containsExactly(
                 CardPurchaseSupplement.LineItem.builder()
                     .id("card_purchase_supplement_invoice_line_item_nf9760lz0apqy5retmqh")

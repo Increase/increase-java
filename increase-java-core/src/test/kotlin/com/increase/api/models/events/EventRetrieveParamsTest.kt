@@ -13,13 +13,12 @@ internal class EventRetrieveParamsTest {
     }
 
     @Test
-    fun getPathParam() {
+    fun pathParams() {
         val params =
             EventRetrieveParams.builder().eventId("event_001dzz0r20rzr4zrhrr1364hy80").build()
-        assertThat(params).isNotNull
-        // path param "eventId"
-        assertThat(params.getPathParam(0)).isEqualTo("event_001dzz0r20rzr4zrhrr1364hy80")
+
+        assertThat(params._pathParam(0)).isEqualTo("event_001dzz0r20rzr4zrhrr1364hy80")
         // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
+        assertThat(params._pathParam(1)).isEqualTo("")
     }
 }

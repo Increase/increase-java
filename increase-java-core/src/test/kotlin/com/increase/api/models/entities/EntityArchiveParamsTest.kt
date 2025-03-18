@@ -13,12 +13,11 @@ internal class EntityArchiveParamsTest {
     }
 
     @Test
-    fun getPathParam() {
+    fun pathParams() {
         val params = EntityArchiveParams.builder().entityId("entity_n8y8tnk2p9339ti393yi").build()
-        assertThat(params).isNotNull
-        // path param "entityId"
-        assertThat(params.getPathParam(0)).isEqualTo("entity_n8y8tnk2p9339ti393yi")
+
+        assertThat(params._pathParam(0)).isEqualTo("entity_n8y8tnk2p9339ti393yi")
         // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
+        assertThat(params._pathParam(1)).isEqualTo("")
     }
 }
