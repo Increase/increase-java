@@ -6,10 +6,10 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class AchPrenotificationTest {
+internal class AchPrenotificationTest {
 
     @Test
-    fun createAchPrenotification() {
+    fun create() {
         val achPrenotification =
             AchPrenotification.builder()
                 .id("ach_prenotification_ubjf9qqsxl3obbcn1u34")
@@ -46,7 +46,7 @@ class AchPrenotificationTest {
                 .status(AchPrenotification.Status.PENDING_SUBMITTING)
                 .type(AchPrenotification.Type.ACH_PRENOTIFICATION)
                 .build()
-        assertThat(achPrenotification).isNotNull
+
         assertThat(achPrenotification.id()).isEqualTo("ach_prenotification_ubjf9qqsxl3obbcn1u34")
         assertThat(achPrenotification.accountNumber()).isEqualTo("987654321")
         assertThat(achPrenotification.addendum()).isEmpty

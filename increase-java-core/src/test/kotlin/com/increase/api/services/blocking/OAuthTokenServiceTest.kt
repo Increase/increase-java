@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(TestServerExtension::class)
-class OAuthTokenServiceTest {
+internal class OAuthTokenServiceTest {
 
     @Test
     fun create() {

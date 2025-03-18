@@ -6,7 +6,7 @@ import com.increase.api.core.http.QueryParams
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class IntrafiExclusionListParamsTest {
+internal class IntrafiExclusionListParamsTest {
 
     @Test
     fun create() {
@@ -27,18 +27,26 @@ class IntrafiExclusionListParamsTest {
                 .idempotencyKey("x")
                 .limit(1L)
                 .build()
-        val expected = QueryParams.builder()
-        expected.put("cursor", "cursor")
-        expected.put("entity_id", "entity_id")
-        expected.put("idempotency_key", "x")
-        expected.put("limit", "1")
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams)
+            .isEqualTo(
+                QueryParams.builder()
+                    .put("cursor", "cursor")
+                    .put("entity_id", "entity_id")
+                    .put("idempotency_key", "x")
+                    .put("limit", "1")
+                    .build()
+            )
     }
 
     @Test
     fun queryParamsWithoutOptionalFields() {
         val params = IntrafiExclusionListParams.builder().build()
-        val expected = QueryParams.builder()
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams).isEqualTo(QueryParams.builder().build())
     }
 }

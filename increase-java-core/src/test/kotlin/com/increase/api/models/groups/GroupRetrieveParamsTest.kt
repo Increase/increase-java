@@ -4,7 +4,7 @@ package com.increase.api.models.groups
 
 import org.junit.jupiter.api.Test
 
-class GroupRetrieveParamsTest {
+internal class GroupRetrieveParamsTest {
 
     @Test
     fun create() {

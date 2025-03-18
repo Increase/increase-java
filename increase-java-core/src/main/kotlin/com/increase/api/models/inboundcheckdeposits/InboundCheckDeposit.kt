@@ -87,33 +87,64 @@ private constructor(
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
-    /** The deposit's identifier. */
+    /**
+     * The deposit's identifier.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun id(): String = id.getRequired("id")
 
     /**
      * If the Inbound Check Deposit was accepted, the
      * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which this took place.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun acceptedAt(): Optional<OffsetDateTime> =
         Optional.ofNullable(acceptedAt.getNullable("accepted_at"))
 
-    /** The Account the check is being deposited against. */
+    /**
+     * The Account the check is being deposited against.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun accountId(): String = accountId.getRequired("account_id")
 
-    /** The Account Number the check is being deposited against. */
+    /**
+     * The Account Number the check is being deposited against.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun accountNumberId(): Optional<String> =
         Optional.ofNullable(accountNumberId.getNullable("account_number_id"))
 
     /**
      * If the deposit or the return was adjusted by the sending institution, this will contain
      * details of the adjustments.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun adjustments(): List<Adjustment> = adjustments.getRequired("adjustments")
 
-    /** The deposited amount in USD cents. */
+    /**
+     * The deposited amount in USD cents.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun amount(): Long = amount.getRequired("amount")
 
-    /** The ID for the File containing the image of the back of the check. */
+    /**
+     * The ID for the File containing the image of the back of the check.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun backImageFileId(): Optional<String> =
         Optional.ofNullable(backImageFileId.getNullable("back_image_file_id"))
 
@@ -121,32 +152,56 @@ private constructor(
      * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the bank depositing
      * this check. In some rare cases, this is not transmitted via Check21 and the value will be
      * null.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun bankOfFirstDepositRoutingNumber(): Optional<String> =
         Optional.ofNullable(
             bankOfFirstDepositRoutingNumber.getNullable("bank_of_first_deposit_routing_number")
         )
 
-    /** The check number printed on the check being deposited. */
+    /**
+     * The check number printed on the check being deposited.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun checkNumber(): Optional<String> =
         Optional.ofNullable(checkNumber.getNullable("check_number"))
 
-    /** If this deposit is for an existing Check Transfer, the identifier of that Check Transfer. */
+    /**
+     * If this deposit is for an existing Check Transfer, the identifier of that Check Transfer.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun checkTransferId(): Optional<String> =
         Optional.ofNullable(checkTransferId.getNullable("check_transfer_id"))
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the deposit was
      * attempted.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
-    /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the deposit. */
+    /**
+     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the deposit.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun currency(): Currency = currency.getRequired("currency")
 
     /**
      * If the Inbound Check Deposit was declined, the
      * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which this took place.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun declinedAt(): Optional<OffsetDateTime> =
         Optional.ofNullable(declinedAt.getNullable("declined_at"))
@@ -154,31 +209,55 @@ private constructor(
     /**
      * If the deposit attempt has been rejected, the identifier of the Declined Transaction object
      * created as a result of the failed deposit.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun declinedTransactionId(): Optional<String> =
         Optional.ofNullable(declinedTransactionId.getNullable("declined_transaction_id"))
 
-    /** If you requested a return of this deposit, this will contain details of the return. */
+    /**
+     * If you requested a return of this deposit, this will contain details of the return.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun depositReturn(): Optional<DepositReturn> =
         Optional.ofNullable(depositReturn.getNullable("deposit_return"))
 
-    /** The ID for the File containing the image of the front of the check. */
+    /**
+     * The ID for the File containing the image of the front of the check.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun frontImageFileId(): Optional<String> =
         Optional.ofNullable(frontImageFileId.getNullable("front_image_file_id"))
 
     /**
      * Whether the details on the check match the recipient name of the check transfer. This is an
      * optional feature, contact sales to enable.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun payeeNameAnalysis(): PayeeNameAnalysis =
         payeeNameAnalysis.getRequired("payee_name_analysis")
 
-    /** The status of the Inbound Check Deposit. */
+    /**
+     * The status of the Inbound Check Deposit.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun status(): Status = status.getRequired("status")
 
     /**
      * If the deposit attempt has been accepted, the identifier of the Transaction object created as
      * a result of the successful deposit.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun transactionId(): Optional<String> =
         Optional.ofNullable(transactionId.getNullable("transaction_id"))
@@ -186,122 +265,181 @@ private constructor(
     /**
      * A constant representing the object's type. For this resource it will always be
      * `inbound_check_deposit`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun type(): Type = type.getRequired("type")
 
-    /** The deposit's identifier. */
+    /**
+     * Returns the raw JSON value of [id].
+     *
+     * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /**
-     * If the Inbound Check Deposit was accepted, the
-     * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which this took place.
+     * Returns the raw JSON value of [acceptedAt].
+     *
+     * Unlike [acceptedAt], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("accepted_at")
     @ExcludeMissing
     fun _acceptedAt(): JsonField<OffsetDateTime> = acceptedAt
 
-    /** The Account the check is being deposited against. */
+    /**
+     * Returns the raw JSON value of [accountId].
+     *
+     * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
 
-    /** The Account Number the check is being deposited against. */
+    /**
+     * Returns the raw JSON value of [accountNumberId].
+     *
+     * Unlike [accountNumberId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("account_number_id")
     @ExcludeMissing
     fun _accountNumberId(): JsonField<String> = accountNumberId
 
     /**
-     * If the deposit or the return was adjusted by the sending institution, this will contain
-     * details of the adjustments.
+     * Returns the raw JSON value of [adjustments].
+     *
+     * Unlike [adjustments], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("adjustments")
     @ExcludeMissing
     fun _adjustments(): JsonField<List<Adjustment>> = adjustments
 
-    /** The deposited amount in USD cents. */
+    /**
+     * Returns the raw JSON value of [amount].
+     *
+     * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
-    /** The ID for the File containing the image of the back of the check. */
+    /**
+     * Returns the raw JSON value of [backImageFileId].
+     *
+     * Unlike [backImageFileId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("back_image_file_id")
     @ExcludeMissing
     fun _backImageFileId(): JsonField<String> = backImageFileId
 
     /**
-     * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the bank depositing
-     * this check. In some rare cases, this is not transmitted via Check21 and the value will be
-     * null.
+     * Returns the raw JSON value of [bankOfFirstDepositRoutingNumber].
+     *
+     * Unlike [bankOfFirstDepositRoutingNumber], this method doesn't throw if the JSON field has an
+     * unexpected type.
      */
     @JsonProperty("bank_of_first_deposit_routing_number")
     @ExcludeMissing
     fun _bankOfFirstDepositRoutingNumber(): JsonField<String> = bankOfFirstDepositRoutingNumber
 
-    /** The check number printed on the check being deposited. */
+    /**
+     * Returns the raw JSON value of [checkNumber].
+     *
+     * Unlike [checkNumber], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("check_number")
     @ExcludeMissing
     fun _checkNumber(): JsonField<String> = checkNumber
 
-    /** If this deposit is for an existing Check Transfer, the identifier of that Check Transfer. */
+    /**
+     * Returns the raw JSON value of [checkTransferId].
+     *
+     * Unlike [checkTransferId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("check_transfer_id")
     @ExcludeMissing
     fun _checkTransferId(): JsonField<String> = checkTransferId
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the deposit was
-     * attempted.
+     * Returns the raw JSON value of [createdAt].
+     *
+     * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("created_at")
     @ExcludeMissing
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
-    /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the deposit. */
+    /**
+     * Returns the raw JSON value of [currency].
+     *
+     * Unlike [currency], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("currency") @ExcludeMissing fun _currency(): JsonField<Currency> = currency
 
     /**
-     * If the Inbound Check Deposit was declined, the
-     * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which this took place.
+     * Returns the raw JSON value of [declinedAt].
+     *
+     * Unlike [declinedAt], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("declined_at")
     @ExcludeMissing
     fun _declinedAt(): JsonField<OffsetDateTime> = declinedAt
 
     /**
-     * If the deposit attempt has been rejected, the identifier of the Declined Transaction object
-     * created as a result of the failed deposit.
+     * Returns the raw JSON value of [declinedTransactionId].
+     *
+     * Unlike [declinedTransactionId], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
     @JsonProperty("declined_transaction_id")
     @ExcludeMissing
     fun _declinedTransactionId(): JsonField<String> = declinedTransactionId
 
-    /** If you requested a return of this deposit, this will contain details of the return. */
+    /**
+     * Returns the raw JSON value of [depositReturn].
+     *
+     * Unlike [depositReturn], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("deposit_return")
     @ExcludeMissing
     fun _depositReturn(): JsonField<DepositReturn> = depositReturn
 
-    /** The ID for the File containing the image of the front of the check. */
+    /**
+     * Returns the raw JSON value of [frontImageFileId].
+     *
+     * Unlike [frontImageFileId], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     @JsonProperty("front_image_file_id")
     @ExcludeMissing
     fun _frontImageFileId(): JsonField<String> = frontImageFileId
 
     /**
-     * Whether the details on the check match the recipient name of the check transfer. This is an
-     * optional feature, contact sales to enable.
+     * Returns the raw JSON value of [payeeNameAnalysis].
+     *
+     * Unlike [payeeNameAnalysis], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
     @JsonProperty("payee_name_analysis")
     @ExcludeMissing
     fun _payeeNameAnalysis(): JsonField<PayeeNameAnalysis> = payeeNameAnalysis
 
-    /** The status of the Inbound Check Deposit. */
+    /**
+     * Returns the raw JSON value of [status].
+     *
+     * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
     /**
-     * If the deposit attempt has been accepted, the identifier of the Transaction object created as
-     * a result of the successful deposit.
+     * Returns the raw JSON value of [transactionId].
+     *
+     * Unlike [transactionId], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("transaction_id")
     @ExcludeMissing
     fun _transactionId(): JsonField<String> = transactionId
 
     /**
-     * A constant representing the object's type. For this resource it will always be
-     * `inbound_check_deposit`.
+     * Returns the raw JSON value of [type].
+     *
+     * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
@@ -426,7 +564,12 @@ private constructor(
         /** The deposit's identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
-        /** The deposit's identifier. */
+        /**
+         * Sets [Builder.id] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.id] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
@@ -436,17 +579,15 @@ private constructor(
          */
         fun acceptedAt(acceptedAt: OffsetDateTime?) = acceptedAt(JsonField.ofNullable(acceptedAt))
 
-        /**
-         * If the Inbound Check Deposit was accepted, the
-         * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which this took
-         * place.
-         */
+        /** Alias for calling [Builder.acceptedAt] with `acceptedAt.orElse(null)`. */
         fun acceptedAt(acceptedAt: Optional<OffsetDateTime>) = acceptedAt(acceptedAt.getOrNull())
 
         /**
-         * If the Inbound Check Deposit was accepted, the
-         * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which this took
-         * place.
+         * Sets [Builder.acceptedAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.acceptedAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun acceptedAt(acceptedAt: JsonField<OffsetDateTime>) = apply {
             this.acceptedAt = acceptedAt
@@ -455,18 +596,30 @@ private constructor(
         /** The Account the check is being deposited against. */
         fun accountId(accountId: String) = accountId(JsonField.of(accountId))
 
-        /** The Account the check is being deposited against. */
+        /**
+         * Sets [Builder.accountId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.accountId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
         /** The Account Number the check is being deposited against. */
         fun accountNumberId(accountNumberId: String?) =
             accountNumberId(JsonField.ofNullable(accountNumberId))
 
-        /** The Account Number the check is being deposited against. */
+        /** Alias for calling [Builder.accountNumberId] with `accountNumberId.orElse(null)`. */
         fun accountNumberId(accountNumberId: Optional<String>) =
             accountNumberId(accountNumberId.getOrNull())
 
-        /** The Account Number the check is being deposited against. */
+        /**
+         * Sets [Builder.accountNumberId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.accountNumberId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun accountNumberId(accountNumberId: JsonField<String>) = apply {
             this.accountNumberId = accountNumberId
         }
@@ -478,16 +631,20 @@ private constructor(
         fun adjustments(adjustments: List<Adjustment>) = adjustments(JsonField.of(adjustments))
 
         /**
-         * If the deposit or the return was adjusted by the sending institution, this will contain
-         * details of the adjustments.
+         * Sets [Builder.adjustments] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.adjustments] with a well-typed `List<Adjustment>` value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun adjustments(adjustments: JsonField<List<Adjustment>>) = apply {
             this.adjustments = adjustments.map { it.toMutableList() }
         }
 
         /**
-         * If the deposit or the return was adjusted by the sending institution, this will contain
-         * details of the adjustments.
+         * Adds a single [Adjustment] to [adjustments].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
          */
         fun addAdjustment(adjustment: Adjustment) = apply {
             adjustments =
@@ -499,18 +656,29 @@ private constructor(
         /** The deposited amount in USD cents. */
         fun amount(amount: Long) = amount(JsonField.of(amount))
 
-        /** The deposited amount in USD cents. */
+        /**
+         * Sets [Builder.amount] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
         /** The ID for the File containing the image of the back of the check. */
         fun backImageFileId(backImageFileId: String?) =
             backImageFileId(JsonField.ofNullable(backImageFileId))
 
-        /** The ID for the File containing the image of the back of the check. */
+        /** Alias for calling [Builder.backImageFileId] with `backImageFileId.orElse(null)`. */
         fun backImageFileId(backImageFileId: Optional<String>) =
             backImageFileId(backImageFileId.getOrNull())
 
-        /** The ID for the File containing the image of the back of the check. */
+        /**
+         * Sets [Builder.backImageFileId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.backImageFileId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun backImageFileId(backImageFileId: JsonField<String>) = apply {
             this.backImageFileId = backImageFileId
         }
@@ -524,17 +692,18 @@ private constructor(
             bankOfFirstDepositRoutingNumber(JsonField.ofNullable(bankOfFirstDepositRoutingNumber))
 
         /**
-         * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the bank
-         * depositing this check. In some rare cases, this is not transmitted via Check21 and the
-         * value will be null.
+         * Alias for calling [Builder.bankOfFirstDepositRoutingNumber] with
+         * `bankOfFirstDepositRoutingNumber.orElse(null)`.
          */
         fun bankOfFirstDepositRoutingNumber(bankOfFirstDepositRoutingNumber: Optional<String>) =
             bankOfFirstDepositRoutingNumber(bankOfFirstDepositRoutingNumber.getOrNull())
 
         /**
-         * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the bank
-         * depositing this check. In some rare cases, this is not transmitted via Check21 and the
-         * value will be null.
+         * Sets [Builder.bankOfFirstDepositRoutingNumber] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.bankOfFirstDepositRoutingNumber] with a well-typed
+         * [String] value instead. This method is primarily for setting the field to an undocumented
+         * or not yet supported value.
          */
         fun bankOfFirstDepositRoutingNumber(bankOfFirstDepositRoutingNumber: JsonField<String>) =
             apply {
@@ -544,10 +713,16 @@ private constructor(
         /** The check number printed on the check being deposited. */
         fun checkNumber(checkNumber: String?) = checkNumber(JsonField.ofNullable(checkNumber))
 
-        /** The check number printed on the check being deposited. */
+        /** Alias for calling [Builder.checkNumber] with `checkNumber.orElse(null)`. */
         fun checkNumber(checkNumber: Optional<String>) = checkNumber(checkNumber.getOrNull())
 
-        /** The check number printed on the check being deposited. */
+        /**
+         * Sets [Builder.checkNumber] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.checkNumber] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun checkNumber(checkNumber: JsonField<String>) = apply { this.checkNumber = checkNumber }
 
         /**
@@ -556,14 +731,16 @@ private constructor(
         fun checkTransferId(checkTransferId: String?) =
             checkTransferId(JsonField.ofNullable(checkTransferId))
 
-        /**
-         * If this deposit is for an existing Check Transfer, the identifier of that Check Transfer.
-         */
+        /** Alias for calling [Builder.checkTransferId] with `checkTransferId.orElse(null)`. */
         fun checkTransferId(checkTransferId: Optional<String>) =
             checkTransferId(checkTransferId.getOrNull())
 
         /**
-         * If this deposit is for an existing Check Transfer, the identifier of that Check Transfer.
+         * Sets [Builder.checkTransferId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.checkTransferId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun checkTransferId(checkTransferId: JsonField<String>) = apply {
             this.checkTransferId = checkTransferId
@@ -576,15 +753,24 @@ private constructor(
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the deposit
-         * was attempted.
+         * Sets [Builder.createdAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the deposit. */
         fun currency(currency: Currency) = currency(JsonField.of(currency))
 
-        /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the deposit. */
+        /**
+         * Sets [Builder.currency] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.currency] with a well-typed [Currency] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
 
         /**
@@ -594,17 +780,15 @@ private constructor(
          */
         fun declinedAt(declinedAt: OffsetDateTime?) = declinedAt(JsonField.ofNullable(declinedAt))
 
-        /**
-         * If the Inbound Check Deposit was declined, the
-         * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which this took
-         * place.
-         */
+        /** Alias for calling [Builder.declinedAt] with `declinedAt.orElse(null)`. */
         fun declinedAt(declinedAt: Optional<OffsetDateTime>) = declinedAt(declinedAt.getOrNull())
 
         /**
-         * If the Inbound Check Deposit was declined, the
-         * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which this took
-         * place.
+         * Sets [Builder.declinedAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.declinedAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun declinedAt(declinedAt: JsonField<OffsetDateTime>) = apply {
             this.declinedAt = declinedAt
@@ -618,15 +802,18 @@ private constructor(
             declinedTransactionId(JsonField.ofNullable(declinedTransactionId))
 
         /**
-         * If the deposit attempt has been rejected, the identifier of the Declined Transaction
-         * object created as a result of the failed deposit.
+         * Alias for calling [Builder.declinedTransactionId] with
+         * `declinedTransactionId.orElse(null)`.
          */
         fun declinedTransactionId(declinedTransactionId: Optional<String>) =
             declinedTransactionId(declinedTransactionId.getOrNull())
 
         /**
-         * If the deposit attempt has been rejected, the identifier of the Declined Transaction
-         * object created as a result of the failed deposit.
+         * Sets [Builder.declinedTransactionId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.declinedTransactionId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun declinedTransactionId(declinedTransactionId: JsonField<String>) = apply {
             this.declinedTransactionId = declinedTransactionId
@@ -636,11 +823,17 @@ private constructor(
         fun depositReturn(depositReturn: DepositReturn?) =
             depositReturn(JsonField.ofNullable(depositReturn))
 
-        /** If you requested a return of this deposit, this will contain details of the return. */
+        /** Alias for calling [Builder.depositReturn] with `depositReturn.orElse(null)`. */
         fun depositReturn(depositReturn: Optional<DepositReturn>) =
             depositReturn(depositReturn.getOrNull())
 
-        /** If you requested a return of this deposit, this will contain details of the return. */
+        /**
+         * Sets [Builder.depositReturn] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.depositReturn] with a well-typed [DepositReturn] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun depositReturn(depositReturn: JsonField<DepositReturn>) = apply {
             this.depositReturn = depositReturn
         }
@@ -649,11 +842,17 @@ private constructor(
         fun frontImageFileId(frontImageFileId: String?) =
             frontImageFileId(JsonField.ofNullable(frontImageFileId))
 
-        /** The ID for the File containing the image of the front of the check. */
+        /** Alias for calling [Builder.frontImageFileId] with `frontImageFileId.orElse(null)`. */
         fun frontImageFileId(frontImageFileId: Optional<String>) =
             frontImageFileId(frontImageFileId.getOrNull())
 
-        /** The ID for the File containing the image of the front of the check. */
+        /**
+         * Sets [Builder.frontImageFileId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.frontImageFileId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun frontImageFileId(frontImageFileId: JsonField<String>) = apply {
             this.frontImageFileId = frontImageFileId
         }
@@ -666,8 +865,11 @@ private constructor(
             payeeNameAnalysis(JsonField.of(payeeNameAnalysis))
 
         /**
-         * Whether the details on the check match the recipient name of the check transfer. This is
-         * an optional feature, contact sales to enable.
+         * Sets [Builder.payeeNameAnalysis] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.payeeNameAnalysis] with a well-typed [PayeeNameAnalysis]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
          */
         fun payeeNameAnalysis(payeeNameAnalysis: JsonField<PayeeNameAnalysis>) = apply {
             this.payeeNameAnalysis = payeeNameAnalysis
@@ -676,7 +878,12 @@ private constructor(
         /** The status of the Inbound Check Deposit. */
         fun status(status: Status) = status(JsonField.of(status))
 
-        /** The status of the Inbound Check Deposit. */
+        /**
+         * Sets [Builder.status] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.status] with a well-typed [Status] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /**
@@ -686,16 +893,16 @@ private constructor(
         fun transactionId(transactionId: String?) =
             transactionId(JsonField.ofNullable(transactionId))
 
-        /**
-         * If the deposit attempt has been accepted, the identifier of the Transaction object
-         * created as a result of the successful deposit.
-         */
+        /** Alias for calling [Builder.transactionId] with `transactionId.orElse(null)`. */
         fun transactionId(transactionId: Optional<String>) =
             transactionId(transactionId.getOrNull())
 
         /**
-         * If the deposit attempt has been accepted, the identifier of the Transaction object
-         * created as a result of the successful deposit.
+         * Sets [Builder.transactionId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.transactionId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun transactionId(transactionId: JsonField<String>) = apply {
             this.transactionId = transactionId
@@ -708,8 +915,10 @@ private constructor(
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
-         * A constant representing the object's type. For this resource it will always be
-         * `inbound_check_deposit`.
+         * Sets [Builder.type] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.type] with a well-typed [Type] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
@@ -732,6 +941,37 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [InboundCheckDeposit].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .acceptedAt()
+         * .accountId()
+         * .accountNumberId()
+         * .adjustments()
+         * .amount()
+         * .backImageFileId()
+         * .bankOfFirstDepositRoutingNumber()
+         * .checkNumber()
+         * .checkTransferId()
+         * .createdAt()
+         * .currency()
+         * .declinedAt()
+         * .declinedTransactionId()
+         * .depositReturn()
+         * .frontImageFileId()
+         * .payeeNameAnalysis()
+         * .status()
+         * .transactionId()
+         * .type()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): InboundCheckDeposit =
             InboundCheckDeposit(
                 checkRequired("id", id),
@@ -778,30 +1018,67 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The time at which the return adjustment was received. */
+        /**
+         * The time at which the return adjustment was received.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun adjustedAt(): OffsetDateTime = adjustedAt.getRequired("adjusted_at")
 
-        /** The amount of the adjustment. */
+        /**
+         * The amount of the adjustment.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun amount(): Long = amount.getRequired("amount")
 
-        /** The reason for the adjustment. */
+        /**
+         * The reason for the adjustment.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun reason(): Reason = reason.getRequired("reason")
 
-        /** The id of the transaction for the adjustment. */
+        /**
+         * The id of the transaction for the adjustment.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun transactionId(): String = transactionId.getRequired("transaction_id")
 
-        /** The time at which the return adjustment was received. */
+        /**
+         * Returns the raw JSON value of [adjustedAt].
+         *
+         * Unlike [adjustedAt], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("adjusted_at")
         @ExcludeMissing
         fun _adjustedAt(): JsonField<OffsetDateTime> = adjustedAt
 
-        /** The amount of the adjustment. */
+        /**
+         * Returns the raw JSON value of [amount].
+         *
+         * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
-        /** The reason for the adjustment. */
+        /**
+         * Returns the raw JSON value of [reason].
+         *
+         * Unlike [reason], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("reason") @ExcludeMissing fun _reason(): JsonField<Reason> = reason
 
-        /** The id of the transaction for the adjustment. */
+        /**
+         * Returns the raw JSON value of [transactionId].
+         *
+         * Unlike [transactionId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("transaction_id")
         @ExcludeMissing
         fun _transactionId(): JsonField<String> = transactionId
@@ -863,7 +1140,13 @@ private constructor(
             /** The time at which the return adjustment was received. */
             fun adjustedAt(adjustedAt: OffsetDateTime) = adjustedAt(JsonField.of(adjustedAt))
 
-            /** The time at which the return adjustment was received. */
+            /**
+             * Sets [Builder.adjustedAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.adjustedAt] with a well-typed [OffsetDateTime] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun adjustedAt(adjustedAt: JsonField<OffsetDateTime>) = apply {
                 this.adjustedAt = adjustedAt
             }
@@ -871,19 +1154,37 @@ private constructor(
             /** The amount of the adjustment. */
             fun amount(amount: Long) = amount(JsonField.of(amount))
 
-            /** The amount of the adjustment. */
+            /**
+             * Sets [Builder.amount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
             fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
             /** The reason for the adjustment. */
             fun reason(reason: Reason) = reason(JsonField.of(reason))
 
-            /** The reason for the adjustment. */
+            /**
+             * Sets [Builder.reason] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.reason] with a well-typed [Reason] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun reason(reason: JsonField<Reason>) = apply { this.reason = reason }
 
             /** The id of the transaction for the adjustment. */
             fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
 
-            /** The id of the transaction for the adjustment. */
+            /**
+             * Sets [Builder.transactionId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.transactionId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun transactionId(transactionId: JsonField<String>) = apply {
                 this.transactionId = transactionId
             }
@@ -907,6 +1208,21 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Adjustment].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .adjustedAt()
+             * .amount()
+             * .reason()
+             * .transactionId()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Adjustment =
                 Adjustment(
                     checkRequired("adjustedAt", adjustedAt),
@@ -1259,24 +1575,52 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The reason the deposit was returned. */
+        /**
+         * The reason the deposit was returned.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun reason(): Reason = reason.getRequired("reason")
 
-        /** The time at which the deposit was returned. */
+        /**
+         * The time at which the deposit was returned.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun returnedAt(): OffsetDateTime = returnedAt.getRequired("returned_at")
 
-        /** The id of the transaction for the returned deposit. */
+        /**
+         * The id of the transaction for the returned deposit.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun transactionId(): String = transactionId.getRequired("transaction_id")
 
-        /** The reason the deposit was returned. */
+        /**
+         * Returns the raw JSON value of [reason].
+         *
+         * Unlike [reason], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("reason") @ExcludeMissing fun _reason(): JsonField<Reason> = reason
 
-        /** The time at which the deposit was returned. */
+        /**
+         * Returns the raw JSON value of [returnedAt].
+         *
+         * Unlike [returnedAt], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("returned_at")
         @ExcludeMissing
         fun _returnedAt(): JsonField<OffsetDateTime> = returnedAt
 
-        /** The id of the transaction for the returned deposit. */
+        /**
+         * Returns the raw JSON value of [transactionId].
+         *
+         * Unlike [transactionId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("transaction_id")
         @ExcludeMissing
         fun _transactionId(): JsonField<String> = transactionId
@@ -1334,13 +1678,25 @@ private constructor(
             /** The reason the deposit was returned. */
             fun reason(reason: Reason) = reason(JsonField.of(reason))
 
-            /** The reason the deposit was returned. */
+            /**
+             * Sets [Builder.reason] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.reason] with a well-typed [Reason] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun reason(reason: JsonField<Reason>) = apply { this.reason = reason }
 
             /** The time at which the deposit was returned. */
             fun returnedAt(returnedAt: OffsetDateTime) = returnedAt(JsonField.of(returnedAt))
 
-            /** The time at which the deposit was returned. */
+            /**
+             * Sets [Builder.returnedAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.returnedAt] with a well-typed [OffsetDateTime] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun returnedAt(returnedAt: JsonField<OffsetDateTime>) = apply {
                 this.returnedAt = returnedAt
             }
@@ -1348,7 +1704,13 @@ private constructor(
             /** The id of the transaction for the returned deposit. */
             fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
 
-            /** The id of the transaction for the returned deposit. */
+            /**
+             * Sets [Builder.transactionId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.transactionId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun transactionId(transactionId: JsonField<String>) = apply {
                 this.transactionId = transactionId
             }
@@ -1372,6 +1734,20 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [DepositReturn].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .reason()
+             * .returnedAt()
+             * .transactionId()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): DepositReturn =
                 DepositReturn(
                     checkRequired("reason", reason),

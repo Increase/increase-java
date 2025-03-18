@@ -7,7 +7,7 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class CheckTransferListParamsTest {
+internal class CheckTransferListParamsTest {
 
     @Test
     fun create() {
@@ -24,6 +24,11 @@ class CheckTransferListParamsTest {
             .cursor("cursor")
             .idempotencyKey("x")
             .limit(1L)
+            .status(
+                CheckTransferListParams.Status.builder()
+                    .addIn(CheckTransferListParams.Status.In.PENDING_APPROVAL)
+                    .build()
+            )
             .build()
     }
 
@@ -43,26 +48,37 @@ class CheckTransferListParamsTest {
                 .cursor("cursor")
                 .idempotencyKey("x")
                 .limit(1L)
+                .status(
+                    CheckTransferListParams.Status.builder()
+                        .addIn(CheckTransferListParams.Status.In.PENDING_APPROVAL)
+                        .build()
+                )
                 .build()
-        val expected = QueryParams.builder()
-        expected.put("account_id", "account_id")
-        CheckTransferListParams.CreatedAt.builder()
-            .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-            .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-            .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-            .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-            .build()
-            .forEachQueryParam { key, values -> expected.put("created_at.$key", values) }
-        expected.put("cursor", "cursor")
-        expected.put("idempotency_key", "x")
-        expected.put("limit", "1")
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams)
+            .isEqualTo(
+                QueryParams.builder()
+                    .put("account_id", "account_id")
+                    .put("created_at.after", "2019-12-27T18:11:19.117Z")
+                    .put("created_at.before", "2019-12-27T18:11:19.117Z")
+                    .put("created_at.on_or_after", "2019-12-27T18:11:19.117Z")
+                    .put("created_at.on_or_before", "2019-12-27T18:11:19.117Z")
+                    .put("cursor", "cursor")
+                    .put("idempotency_key", "x")
+                    .put("limit", "1")
+                    .put("status.in", listOf("pending_approval").joinToString(","))
+                    .build()
+            )
     }
 
     @Test
     fun queryParamsWithoutOptionalFields() {
         val params = CheckTransferListParams.builder().build()
-        val expected = QueryParams.builder()
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams).isEqualTo(QueryParams.builder().build())
     }
 }

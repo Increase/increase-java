@@ -6,7 +6,7 @@ import com.increase.api.core.http.QueryParams
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class BookkeepingEntrySetListParamsTest {
+internal class BookkeepingEntrySetListParamsTest {
 
     @Test
     fun create() {
@@ -27,18 +27,26 @@ class BookkeepingEntrySetListParamsTest {
                 .limit(1L)
                 .transactionId("transaction_id")
                 .build()
-        val expected = QueryParams.builder()
-        expected.put("cursor", "cursor")
-        expected.put("idempotency_key", "x")
-        expected.put("limit", "1")
-        expected.put("transaction_id", "transaction_id")
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams)
+            .isEqualTo(
+                QueryParams.builder()
+                    .put("cursor", "cursor")
+                    .put("idempotency_key", "x")
+                    .put("limit", "1")
+                    .put("transaction_id", "transaction_id")
+                    .build()
+            )
     }
 
     @Test
     fun queryParamsWithoutOptionalFields() {
         val params = BookkeepingEntrySetListParams.builder().build()
-        val expected = QueryParams.builder()
-        assertThat(params._queryParams()).isEqualTo(expected.build())
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams).isEqualTo(QueryParams.builder().build())
     }
 }

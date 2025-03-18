@@ -6,10 +6,10 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class ExportTest {
+internal class ExportTest {
 
     @Test
-    fun createExport() {
+    fun create() {
         val export =
             Export.builder()
                 .id("export_8s4m48qz3bclzje0zwh9")
@@ -21,7 +21,7 @@ class ExportTest {
                 .status(Export.Status.PENDING)
                 .type(Export.Type.EXPORT)
                 .build()
-        assertThat(export).isNotNull
+
         assertThat(export.id()).isEqualTo("export_8s4m48qz3bclzje0zwh9")
         assertThat(export.category()).isEqualTo(Export.Category.ACCOUNT_STATEMENT_OFX)
         assertThat(export.createdAt()).isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))

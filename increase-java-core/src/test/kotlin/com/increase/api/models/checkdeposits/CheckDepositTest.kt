@@ -6,10 +6,10 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class CheckDepositTest {
+internal class CheckDepositTest {
 
     @Test
-    fun createCheckDeposit() {
+    fun create() {
         val checkDeposit =
             CheckDeposit.builder()
                 .id("check_deposit_f06n9gpg7sxn8t19lfc1")
@@ -80,7 +80,7 @@ class CheckDepositTest {
                 .transactionId("transaction_uyrp7fld2ium70oa7oi")
                 .type(CheckDeposit.Type.CHECK_DEPOSIT)
                 .build()
-        assertThat(checkDeposit).isNotNull
+
         assertThat(checkDeposit.id()).isEqualTo("check_deposit_f06n9gpg7sxn8t19lfc1")
         assertThat(checkDeposit.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(checkDeposit.amount()).isEqualTo(1000L)

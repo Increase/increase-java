@@ -30,45 +30,68 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** The URL you'd like us to send webhooks to. */
+    /**
+     * The URL you'd like us to send webhooks to.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun url(): String = body.url()
 
     /**
      * If specified, this subscription will only receive webhooks for Events associated with the
      * specified OAuth Connection.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun oauthConnectionId(): Optional<String> = body.oauthConnectionId()
 
     /**
      * If specified, this subscription will only receive webhooks for Events with the specified
      * `category`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun selectedEventCategory(): Optional<SelectedEventCategory> = body.selectedEventCategory()
 
     /**
      * The key that will be used to sign webhooks. If no value is passed, a random string will be
      * used as default.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun sharedSecret(): Optional<String> = body.sharedSecret()
 
-    /** The URL you'd like us to send webhooks to. */
+    /**
+     * Returns the raw JSON value of [url].
+     *
+     * Unlike [url], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _url(): JsonField<String> = body._url()
 
     /**
-     * If specified, this subscription will only receive webhooks for Events associated with the
-     * specified OAuth Connection.
+     * Returns the raw JSON value of [oauthConnectionId].
+     *
+     * Unlike [oauthConnectionId], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
     fun _oauthConnectionId(): JsonField<String> = body._oauthConnectionId()
 
     /**
-     * If specified, this subscription will only receive webhooks for Events with the specified
-     * `category`.
+     * Returns the raw JSON value of [selectedEventCategory].
+     *
+     * Unlike [selectedEventCategory], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
     fun _selectedEventCategory(): JsonField<SelectedEventCategory> = body._selectedEventCategory()
 
     /**
-     * The key that will be used to sign webhooks. If no value is passed, a random string will be
-     * used as default.
+     * Returns the raw JSON value of [sharedSecret].
+     *
+     * Unlike [sharedSecret], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _sharedSecret(): JsonField<String> = body._sharedSecret()
 
@@ -102,12 +125,20 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The URL you'd like us to send webhooks to. */
+        /**
+         * The URL you'd like us to send webhooks to.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun url(): String = url.getRequired("url")
 
         /**
          * If specified, this subscription will only receive webhooks for Events associated with the
          * specified OAuth Connection.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun oauthConnectionId(): Optional<String> =
             Optional.ofNullable(oauthConnectionId.getNullable("oauth_connection_id"))
@@ -115,6 +146,9 @@ private constructor(
         /**
          * If specified, this subscription will only receive webhooks for Events with the specified
          * `category`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun selectedEventCategory(): Optional<SelectedEventCategory> =
             Optional.ofNullable(selectedEventCategory.getNullable("selected_event_category"))
@@ -122,32 +156,45 @@ private constructor(
         /**
          * The key that will be used to sign webhooks. If no value is passed, a random string will
          * be used as default.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun sharedSecret(): Optional<String> =
             Optional.ofNullable(sharedSecret.getNullable("shared_secret"))
 
-        /** The URL you'd like us to send webhooks to. */
+        /**
+         * Returns the raw JSON value of [url].
+         *
+         * Unlike [url], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("url") @ExcludeMissing fun _url(): JsonField<String> = url
 
         /**
-         * If specified, this subscription will only receive webhooks for Events associated with the
-         * specified OAuth Connection.
+         * Returns the raw JSON value of [oauthConnectionId].
+         *
+         * Unlike [oauthConnectionId], this method doesn't throw if the JSON field has an unexpected
+         * type.
          */
         @JsonProperty("oauth_connection_id")
         @ExcludeMissing
         fun _oauthConnectionId(): JsonField<String> = oauthConnectionId
 
         /**
-         * If specified, this subscription will only receive webhooks for Events with the specified
-         * `category`.
+         * Returns the raw JSON value of [selectedEventCategory].
+         *
+         * Unlike [selectedEventCategory], this method doesn't throw if the JSON field has an
+         * unexpected type.
          */
         @JsonProperty("selected_event_category")
         @ExcludeMissing
         fun _selectedEventCategory(): JsonField<SelectedEventCategory> = selectedEventCategory
 
         /**
-         * The key that will be used to sign webhooks. If no value is passed, a random string will
-         * be used as default.
+         * Returns the raw JSON value of [sharedSecret].
+         *
+         * Unlike [sharedSecret], this method doesn't throw if the JSON field has an unexpected
+         * type.
          */
         @JsonProperty("shared_secret")
         @ExcludeMissing
@@ -207,7 +254,13 @@ private constructor(
             /** The URL you'd like us to send webhooks to. */
             fun url(url: String) = url(JsonField.of(url))
 
-            /** The URL you'd like us to send webhooks to. */
+            /**
+             * Sets [Builder.url] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.url] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
             fun url(url: JsonField<String>) = apply { this.url = url }
 
             /**
@@ -218,8 +271,11 @@ private constructor(
                 oauthConnectionId(JsonField.of(oauthConnectionId))
 
             /**
-             * If specified, this subscription will only receive webhooks for Events associated with
-             * the specified OAuth Connection.
+             * Sets [Builder.oauthConnectionId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.oauthConnectionId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun oauthConnectionId(oauthConnectionId: JsonField<String>) = apply {
                 this.oauthConnectionId = oauthConnectionId
@@ -233,8 +289,11 @@ private constructor(
                 selectedEventCategory(JsonField.of(selectedEventCategory))
 
             /**
-             * If specified, this subscription will only receive webhooks for Events with the
-             * specified `category`.
+             * Sets [Builder.selectedEventCategory] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.selectedEventCategory] with a well-typed
+             * [SelectedEventCategory] value instead. This method is primarily for setting the field
+             * to an undocumented or not yet supported value.
              */
             fun selectedEventCategory(selectedEventCategory: JsonField<SelectedEventCategory>) =
                 apply {
@@ -248,8 +307,11 @@ private constructor(
             fun sharedSecret(sharedSecret: String) = sharedSecret(JsonField.of(sharedSecret))
 
             /**
-             * The key that will be used to sign webhooks. If no value is passed, a random string
-             * will be used as default.
+             * Sets [Builder.sharedSecret] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.sharedSecret] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun sharedSecret(sharedSecret: JsonField<String>) = apply {
                 this.sharedSecret = sharedSecret
@@ -274,6 +336,18 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Body].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .url()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Body =
                 Body(
                     checkRequired("url", url),
@@ -336,7 +410,12 @@ private constructor(
         /** The URL you'd like us to send webhooks to. */
         fun url(url: String) = apply { body.url(url) }
 
-        /** The URL you'd like us to send webhooks to. */
+        /**
+         * Sets [Builder.url] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.url] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun url(url: JsonField<String>) = apply { body.url(url) }
 
         /**
@@ -348,8 +427,11 @@ private constructor(
         }
 
         /**
-         * If specified, this subscription will only receive webhooks for Events associated with the
-         * specified OAuth Connection.
+         * Sets [Builder.oauthConnectionId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.oauthConnectionId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun oauthConnectionId(oauthConnectionId: JsonField<String>) = apply {
             body.oauthConnectionId(oauthConnectionId)
@@ -364,8 +446,11 @@ private constructor(
         }
 
         /**
-         * If specified, this subscription will only receive webhooks for Events with the specified
-         * `category`.
+         * Sets [Builder.selectedEventCategory] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.selectedEventCategory] with a well-typed
+         * [SelectedEventCategory] value instead. This method is primarily for setting the field to
+         * an undocumented or not yet supported value.
          */
         fun selectedEventCategory(selectedEventCategory: JsonField<SelectedEventCategory>) = apply {
             body.selectedEventCategory(selectedEventCategory)
@@ -378,8 +463,11 @@ private constructor(
         fun sharedSecret(sharedSecret: String) = apply { body.sharedSecret(sharedSecret) }
 
         /**
-         * The key that will be used to sign webhooks. If no value is passed, a random string will
-         * be used as default.
+         * Sets [Builder.sharedSecret] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.sharedSecret] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun sharedSecret(sharedSecret: JsonField<String>) = apply {
             body.sharedSecret(sharedSecret)
@@ -502,6 +590,18 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [EventSubscriptionCreateParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .url()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): EventSubscriptionCreateParams =
             EventSubscriptionCreateParams(
                 body.build(),

@@ -5,7 +5,7 @@ package com.increase.api.models.realtimedecisions
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class RealTimeDecisionRetrieveParamsTest {
+internal class RealTimeDecisionRetrieveParamsTest {
 
     @Test
     fun create() {
@@ -15,15 +15,14 @@ class RealTimeDecisionRetrieveParamsTest {
     }
 
     @Test
-    fun getPathParam() {
+    fun pathParams() {
         val params =
             RealTimeDecisionRetrieveParams.builder()
                 .realTimeDecisionId("real_time_decision_j76n2e810ezcg3zh5qtn")
                 .build()
-        assertThat(params).isNotNull
-        // path param "realTimeDecisionId"
-        assertThat(params.getPathParam(0)).isEqualTo("real_time_decision_j76n2e810ezcg3zh5qtn")
+
+        assertThat(params._pathParam(0)).isEqualTo("real_time_decision_j76n2e810ezcg3zh5qtn")
         // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
+        assertThat(params._pathParam(1)).isEqualTo("")
     }
 }

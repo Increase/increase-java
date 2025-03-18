@@ -6,10 +6,10 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class AccountStatementTest {
+internal class AccountStatementTest {
 
     @Test
-    fun createAccountStatement() {
+    fun create() {
         val accountStatement =
             AccountStatement.builder()
                 .id("account_statement_lkc03a4skm2k7f38vj15")
@@ -22,7 +22,7 @@ class AccountStatementTest {
                 .statementPeriodStart(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .type(AccountStatement.Type.ACCOUNT_STATEMENT)
                 .build()
-        assertThat(accountStatement).isNotNull
+
         assertThat(accountStatement.id()).isEqualTo("account_statement_lkc03a4skm2k7f38vj15")
         assertThat(accountStatement.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(accountStatement.createdAt())

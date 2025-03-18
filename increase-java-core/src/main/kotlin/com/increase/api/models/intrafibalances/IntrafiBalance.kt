@@ -47,61 +47,100 @@ private constructor(
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
-    /** The identifier of this balance. */
+    /**
+     * The identifier of this balance.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun id(): String = id.getRequired("id")
 
     /**
      * Each entry represents a balance held at a different bank. IntraFi separates the total balance
      * across many participating banks in the network.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun balances(): List<Balance> = balances.getRequired("balances")
 
-    /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the account currency. */
+    /**
+     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the account currency.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun currency(): Currency = currency.getRequired("currency")
 
-    /** The date this balance reflects. */
+    /**
+     * The date this balance reflects.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun effectiveDate(): LocalDate = effectiveDate.getRequired("effective_date")
 
     /**
      * The total balance, in minor units of `currency`. Increase reports this balance to IntraFi
      * daily.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun totalBalance(): Long = totalBalance.getRequired("total_balance")
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `intrafi_balance`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun type(): Type = type.getRequired("type")
 
-    /** The identifier of this balance. */
+    /**
+     * Returns the raw JSON value of [id].
+     *
+     * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /**
-     * Each entry represents a balance held at a different bank. IntraFi separates the total balance
-     * across many participating banks in the network.
+     * Returns the raw JSON value of [balances].
+     *
+     * Unlike [balances], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("balances") @ExcludeMissing fun _balances(): JsonField<List<Balance>> = balances
 
-    /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the account currency. */
+    /**
+     * Returns the raw JSON value of [currency].
+     *
+     * Unlike [currency], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("currency") @ExcludeMissing fun _currency(): JsonField<Currency> = currency
 
-    /** The date this balance reflects. */
+    /**
+     * Returns the raw JSON value of [effectiveDate].
+     *
+     * Unlike [effectiveDate], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("effective_date")
     @ExcludeMissing
     fun _effectiveDate(): JsonField<LocalDate> = effectiveDate
 
     /**
-     * The total balance, in minor units of `currency`. Increase reports this balance to IntraFi
-     * daily.
+     * Returns the raw JSON value of [totalBalance].
+     *
+     * Unlike [totalBalance], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("total_balance")
     @ExcludeMissing
     fun _totalBalance(): JsonField<Long> = totalBalance
 
     /**
-     * A constant representing the object's type. For this resource it will always be
-     * `intrafi_balance`.
+     * Returns the raw JSON value of [type].
+     *
+     * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
@@ -170,7 +209,12 @@ private constructor(
         /** The identifier of this balance. */
         fun id(id: String) = id(JsonField.of(id))
 
-        /** The identifier of this balance. */
+        /**
+         * Sets [Builder.id] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.id] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
@@ -180,16 +224,20 @@ private constructor(
         fun balances(balances: List<Balance>) = balances(JsonField.of(balances))
 
         /**
-         * Each entry represents a balance held at a different bank. IntraFi separates the total
-         * balance across many participating banks in the network.
+         * Sets [Builder.balances] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.balances] with a well-typed `List<Balance>` value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun balances(balances: JsonField<List<Balance>>) = apply {
             this.balances = balances.map { it.toMutableList() }
         }
 
         /**
-         * Each entry represents a balance held at a different bank. IntraFi separates the total
-         * balance across many participating banks in the network.
+         * Adds a single [Balance] to [balances].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
          */
         fun addBalance(balance: Balance) = apply {
             balances =
@@ -201,13 +249,25 @@ private constructor(
         /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the account currency. */
         fun currency(currency: Currency) = currency(JsonField.of(currency))
 
-        /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the account currency. */
+        /**
+         * Sets [Builder.currency] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.currency] with a well-typed [Currency] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
 
         /** The date this balance reflects. */
         fun effectiveDate(effectiveDate: LocalDate) = effectiveDate(JsonField.of(effectiveDate))
 
-        /** The date this balance reflects. */
+        /**
+         * Sets [Builder.effectiveDate] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.effectiveDate] with a well-typed [LocalDate] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun effectiveDate(effectiveDate: JsonField<LocalDate>) = apply {
             this.effectiveDate = effectiveDate
         }
@@ -219,8 +279,11 @@ private constructor(
         fun totalBalance(totalBalance: Long) = totalBalance(JsonField.of(totalBalance))
 
         /**
-         * The total balance, in minor units of `currency`. Increase reports this balance to IntraFi
-         * daily.
+         * Sets [Builder.totalBalance] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.totalBalance] with a well-typed [Long] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun totalBalance(totalBalance: JsonField<Long>) = apply { this.totalBalance = totalBalance }
 
@@ -231,8 +294,10 @@ private constructor(
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
-         * A constant representing the object's type. For this resource it will always be
-         * `intrafi_balance`.
+         * Sets [Builder.type] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.type] with a well-typed [Type] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
@@ -255,6 +320,23 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [IntrafiBalance].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .balances()
+         * .currency()
+         * .effectiveDate()
+         * .totalBalance()
+         * .type()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): IntrafiBalance =
             IntrafiBalance(
                 checkRequired("id", id),
@@ -288,16 +370,36 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The identifier of this balance. */
+        /**
+         * The identifier of this balance.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun id(): String = id.getRequired("id")
 
-        /** The balance, in minor units of `currency`, held with this bank. */
+        /**
+         * The balance, in minor units of `currency`, held with this bank.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun balance(): Long = balance.getRequired("balance")
 
-        /** The name of the bank holding these funds. */
+        /**
+         * The name of the bank holding these funds.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun bank(): String = bank.getRequired("bank")
 
-        /** The primary location of the bank. */
+        /**
+         * The primary location of the bank.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun bankLocation(): Optional<BankLocation> =
             Optional.ofNullable(bankLocation.getNullable("bank_location"))
 
@@ -305,28 +407,49 @@ private constructor(
          * The Federal Deposit Insurance Corporation (FDIC) certificate number of the bank. Because
          * many banks have the same or similar names, this can be used to uniquely identify the
          * institution.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun fdicCertificateNumber(): String =
             fdicCertificateNumber.getRequired("fdic_certificate_number")
 
-        /** The identifier of this balance. */
+        /**
+         * Returns the raw JSON value of [id].
+         *
+         * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
-        /** The balance, in minor units of `currency`, held with this bank. */
+        /**
+         * Returns the raw JSON value of [balance].
+         *
+         * Unlike [balance], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("balance") @ExcludeMissing fun _balance(): JsonField<Long> = balance
 
-        /** The name of the bank holding these funds. */
+        /**
+         * Returns the raw JSON value of [bank].
+         *
+         * Unlike [bank], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("bank") @ExcludeMissing fun _bank(): JsonField<String> = bank
 
-        /** The primary location of the bank. */
+        /**
+         * Returns the raw JSON value of [bankLocation].
+         *
+         * Unlike [bankLocation], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("bank_location")
         @ExcludeMissing
         fun _bankLocation(): JsonField<BankLocation> = bankLocation
 
         /**
-         * The Federal Deposit Insurance Corporation (FDIC) certificate number of the bank. Because
-         * many banks have the same or similar names, this can be used to uniquely identify the
-         * institution.
+         * Returns the raw JSON value of [fdicCertificateNumber].
+         *
+         * Unlike [fdicCertificateNumber], this method doesn't throw if the JSON field has an
+         * unexpected type.
          */
         @JsonProperty("fdic_certificate_number")
         @ExcludeMissing
@@ -393,30 +516,54 @@ private constructor(
             /** The identifier of this balance. */
             fun id(id: String) = id(JsonField.of(id))
 
-            /** The identifier of this balance. */
+            /**
+             * Sets [Builder.id] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.id] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
             fun id(id: JsonField<String>) = apply { this.id = id }
 
             /** The balance, in minor units of `currency`, held with this bank. */
             fun balance(balance: Long) = balance(JsonField.of(balance))
 
-            /** The balance, in minor units of `currency`, held with this bank. */
+            /**
+             * Sets [Builder.balance] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.balance] with a well-typed [Long] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun balance(balance: JsonField<Long>) = apply { this.balance = balance }
 
             /** The name of the bank holding these funds. */
             fun bank(bank: String) = bank(JsonField.of(bank))
 
-            /** The name of the bank holding these funds. */
+            /**
+             * Sets [Builder.bank] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.bank] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
             fun bank(bank: JsonField<String>) = apply { this.bank = bank }
 
             /** The primary location of the bank. */
             fun bankLocation(bankLocation: BankLocation?) =
                 bankLocation(JsonField.ofNullable(bankLocation))
 
-            /** The primary location of the bank. */
+            /** Alias for calling [Builder.bankLocation] with `bankLocation.orElse(null)`. */
             fun bankLocation(bankLocation: Optional<BankLocation>) =
                 bankLocation(bankLocation.getOrNull())
 
-            /** The primary location of the bank. */
+            /**
+             * Sets [Builder.bankLocation] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.bankLocation] with a well-typed [BankLocation] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun bankLocation(bankLocation: JsonField<BankLocation>) = apply {
                 this.bankLocation = bankLocation
             }
@@ -430,9 +577,11 @@ private constructor(
                 fdicCertificateNumber(JsonField.of(fdicCertificateNumber))
 
             /**
-             * The Federal Deposit Insurance Corporation (FDIC) certificate number of the bank.
-             * Because many banks have the same or similar names, this can be used to uniquely
-             * identify the institution.
+             * Sets [Builder.fdicCertificateNumber] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.fdicCertificateNumber] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
              */
             fun fdicCertificateNumber(fdicCertificateNumber: JsonField<String>) = apply {
                 this.fdicCertificateNumber = fdicCertificateNumber
@@ -457,6 +606,22 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Balance].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .id()
+             * .balance()
+             * .bank()
+             * .bankLocation()
+             * .fdicCertificateNumber()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Balance =
                 Balance(
                     checkRequired("id", id),
@@ -483,16 +648,36 @@ private constructor(
             private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
-            /** The bank's city. */
+            /**
+             * The bank's city.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun city(): String = city.getRequired("city")
 
-            /** The bank's state. */
+            /**
+             * The bank's state.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun state(): String = state.getRequired("state")
 
-            /** The bank's city. */
+            /**
+             * Returns the raw JSON value of [city].
+             *
+             * Unlike [city], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("city") @ExcludeMissing fun _city(): JsonField<String> = city
 
-            /** The bank's state. */
+            /**
+             * Returns the raw JSON value of [state].
+             *
+             * Unlike [state], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("state") @ExcludeMissing fun _state(): JsonField<String> = state
 
             @JsonAnyGetter
@@ -544,13 +729,25 @@ private constructor(
                 /** The bank's city. */
                 fun city(city: String) = city(JsonField.of(city))
 
-                /** The bank's city. */
+                /**
+                 * Sets [Builder.city] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.city] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
                 fun city(city: JsonField<String>) = apply { this.city = city }
 
                 /** The bank's state. */
                 fun state(state: String) = state(JsonField.of(state))
 
-                /** The bank's state. */
+                /**
+                 * Sets [Builder.state] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.state] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
                 fun state(state: JsonField<String>) = apply { this.state = state }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -575,6 +772,19 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [BankLocation].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .city()
+                 * .state()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
                 fun build(): BankLocation =
                     BankLocation(
                         checkRequired("city", city),

@@ -8,10 +8,10 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class CardPaymentTest {
+internal class CardPaymentTest {
 
     @Test
-    fun createCardPayment() {
+    fun create() {
         val cardPayment =
             CardPayment.builder()
                 .id("card_payment_nd3k2kacrqjli8482ave")
@@ -3935,7 +3935,7 @@ class CardPaymentTest {
                 )
                 .type(CardPayment.Type.CARD_PAYMENT)
                 .build()
-        assertThat(cardPayment).isNotNull
+
         assertThat(cardPayment.id()).isEqualTo("card_payment_nd3k2kacrqjli8482ave")
         assertThat(cardPayment.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(cardPayment.cardId()).isEqualTo("card_oubs0hwk5rn6knuecxg2")

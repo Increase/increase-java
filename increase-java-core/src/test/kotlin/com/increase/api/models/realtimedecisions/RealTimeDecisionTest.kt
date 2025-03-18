@@ -7,10 +7,10 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class RealTimeDecisionTest {
+internal class RealTimeDecisionTest {
 
     @Test
-    fun createRealTimeDecision() {
+    fun create() {
         val realTimeDecision =
             RealTimeDecision.builder()
                 .id("real_time_decision_j76n2e810ezcg3zh5qtn")
@@ -169,7 +169,7 @@ class RealTimeDecisionTest {
                 .timeoutAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .type(RealTimeDecision.Type.REAL_TIME_DECISION)
                 .build()
-        assertThat(realTimeDecision).isNotNull
+
         assertThat(realTimeDecision.id()).isEqualTo("real_time_decision_j76n2e810ezcg3zh5qtn")
         assertThat(realTimeDecision.cardAuthentication())
             .contains(

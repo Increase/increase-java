@@ -61,102 +61,186 @@ private constructor(
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
-    /** The External Account's identifier. */
+    /**
+     * The External Account's identifier.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun id(): String = id.getRequired("id")
 
-    /** The type of entity that owns the External Account. */
+    /**
+     * The type of entity that owns the External Account.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun accountHolder(): AccountHolder = accountHolder.getRequired("account_holder")
 
-    /** The destination account number. */
+    /**
+     * The destination account number.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun accountNumber(): String = accountNumber.getRequired("account_number")
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the External
      * Account was created.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
-    /** The External Account's description for display purposes. */
+    /**
+     * The External Account's description for display purposes.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun description(): String = description.getRequired("description")
 
-    /** The type of the account to which the transfer will be sent. */
+    /**
+     * The type of the account to which the transfer will be sent.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun funding(): Funding = funding.getRequired("funding")
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
      * used to ensure that a request is only processed once. Learn more about
      * [idempotency](https://increase.com/documentation/idempotency-keys).
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun idempotencyKey(): Optional<String> =
         Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
 
-    /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
+    /**
+     * The American Bankers' Association (ABA) Routing Transit Number (RTN).
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun routingNumber(): String = routingNumber.getRequired("routing_number")
 
-    /** The External Account's status. */
+    /**
+     * The External Account's status.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun status(): Status = status.getRequired("status")
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `external_account`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun type(): Type = type.getRequired("type")
 
-    /** If you have verified ownership of the External Account. */
+    /**
+     * If you have verified ownership of the External Account.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun verificationStatus(): VerificationStatus =
         verificationStatus.getRequired("verification_status")
 
-    /** The External Account's identifier. */
+    /**
+     * Returns the raw JSON value of [id].
+     *
+     * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
-    /** The type of entity that owns the External Account. */
+    /**
+     * Returns the raw JSON value of [accountHolder].
+     *
+     * Unlike [accountHolder], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("account_holder")
     @ExcludeMissing
     fun _accountHolder(): JsonField<AccountHolder> = accountHolder
 
-    /** The destination account number. */
+    /**
+     * Returns the raw JSON value of [accountNumber].
+     *
+     * Unlike [accountNumber], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("account_number")
     @ExcludeMissing
     fun _accountNumber(): JsonField<String> = accountNumber
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the External
-     * Account was created.
+     * Returns the raw JSON value of [createdAt].
+     *
+     * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("created_at")
     @ExcludeMissing
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
-    /** The External Account's description for display purposes. */
+    /**
+     * Returns the raw JSON value of [description].
+     *
+     * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("description") @ExcludeMissing fun _description(): JsonField<String> = description
 
-    /** The type of the account to which the transfer will be sent. */
+    /**
+     * Returns the raw JSON value of [funding].
+     *
+     * Unlike [funding], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("funding") @ExcludeMissing fun _funding(): JsonField<Funding> = funding
 
     /**
-     * The idempotency key you chose for this object. This value is unique across Increase and is
-     * used to ensure that a request is only processed once. Learn more about
-     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     * Returns the raw JSON value of [idempotencyKey].
+     *
+     * Unlike [idempotencyKey], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("idempotency_key")
     @ExcludeMissing
     fun _idempotencyKey(): JsonField<String> = idempotencyKey
 
-    /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
+    /**
+     * Returns the raw JSON value of [routingNumber].
+     *
+     * Unlike [routingNumber], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("routing_number")
     @ExcludeMissing
     fun _routingNumber(): JsonField<String> = routingNumber
 
-    /** The External Account's status. */
+    /**
+     * Returns the raw JSON value of [status].
+     *
+     * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
     /**
-     * A constant representing the object's type. For this resource it will always be
-     * `external_account`.
+     * Returns the raw JSON value of [type].
+     *
+     * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
-    /** If you have verified ownership of the External Account. */
+    /**
+     * Returns the raw JSON value of [verificationStatus].
+     *
+     * Unlike [verificationStatus], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     @JsonProperty("verification_status")
     @ExcludeMissing
     fun _verificationStatus(): JsonField<VerificationStatus> = verificationStatus
@@ -246,13 +330,24 @@ private constructor(
         /** The External Account's identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
-        /** The External Account's identifier. */
+        /**
+         * Sets [Builder.id] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.id] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The type of entity that owns the External Account. */
         fun accountHolder(accountHolder: AccountHolder) = accountHolder(JsonField.of(accountHolder))
 
-        /** The type of entity that owns the External Account. */
+        /**
+         * Sets [Builder.accountHolder] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.accountHolder] with a well-typed [AccountHolder] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun accountHolder(accountHolder: JsonField<AccountHolder>) = apply {
             this.accountHolder = accountHolder
         }
@@ -260,7 +355,13 @@ private constructor(
         /** The destination account number. */
         fun accountNumber(accountNumber: String) = accountNumber(JsonField.of(accountNumber))
 
-        /** The destination account number. */
+        /**
+         * Sets [Builder.accountNumber] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.accountNumber] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun accountNumber(accountNumber: JsonField<String>) = apply {
             this.accountNumber = accountNumber
         }
@@ -272,21 +373,35 @@ private constructor(
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-         * External Account was created.
+         * Sets [Builder.createdAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** The External Account's description for display purposes. */
         fun description(description: String) = description(JsonField.of(description))
 
-        /** The External Account's description for display purposes. */
+        /**
+         * Sets [Builder.description] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.description] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun description(description: JsonField<String>) = apply { this.description = description }
 
         /** The type of the account to which the transfer will be sent. */
         fun funding(funding: Funding) = funding(JsonField.of(funding))
 
-        /** The type of the account to which the transfer will be sent. */
+        /**
+         * Sets [Builder.funding] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.funding] with a well-typed [Funding] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun funding(funding: JsonField<Funding>) = apply { this.funding = funding }
 
         /**
@@ -297,18 +412,16 @@ private constructor(
         fun idempotencyKey(idempotencyKey: String?) =
             idempotencyKey(JsonField.ofNullable(idempotencyKey))
 
-        /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
-         */
+        /** Alias for calling [Builder.idempotencyKey] with `idempotencyKey.orElse(null)`. */
         fun idempotencyKey(idempotencyKey: Optional<String>) =
             idempotencyKey(idempotencyKey.getOrNull())
 
         /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         * Sets [Builder.idempotencyKey] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.idempotencyKey] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
             this.idempotencyKey = idempotencyKey
@@ -317,7 +430,13 @@ private constructor(
         /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
         fun routingNumber(routingNumber: String) = routingNumber(JsonField.of(routingNumber))
 
-        /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
+        /**
+         * Sets [Builder.routingNumber] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.routingNumber] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun routingNumber(routingNumber: JsonField<String>) = apply {
             this.routingNumber = routingNumber
         }
@@ -325,7 +444,12 @@ private constructor(
         /** The External Account's status. */
         fun status(status: Status) = status(JsonField.of(status))
 
-        /** The External Account's status. */
+        /**
+         * Sets [Builder.status] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.status] with a well-typed [Status] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /**
@@ -335,8 +459,10 @@ private constructor(
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
-         * A constant representing the object's type. For this resource it will always be
-         * `external_account`.
+         * Sets [Builder.type] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.type] with a well-typed [Type] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
@@ -344,7 +470,13 @@ private constructor(
         fun verificationStatus(verificationStatus: VerificationStatus) =
             verificationStatus(JsonField.of(verificationStatus))
 
-        /** If you have verified ownership of the External Account. */
+        /**
+         * Sets [Builder.verificationStatus] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.verificationStatus] with a well-typed
+         * [VerificationStatus] value instead. This method is primarily for setting the field to an
+         * undocumented or not yet supported value.
+         */
         fun verificationStatus(verificationStatus: JsonField<VerificationStatus>) = apply {
             this.verificationStatus = verificationStatus
         }
@@ -368,6 +500,28 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [ExternalAccount].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .accountHolder()
+         * .accountNumber()
+         * .createdAt()
+         * .description()
+         * .funding()
+         * .idempotencyKey()
+         * .routingNumber()
+         * .status()
+         * .type()
+         * .verificationStatus()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): ExternalAccount =
             ExternalAccount(
                 checkRequired("id", id),

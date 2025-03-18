@@ -17,6 +17,7 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
+import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 
 /** Archive a beneficial owner for a corporate Entity */
@@ -31,10 +32,20 @@ private constructor(
     /** The identifier of the Entity associated with the Beneficial Owner that is being archived. */
     fun entityId(): String = entityId
 
-    /** The identifying details of anyone controlling or owning 25% or more of the corporation. */
+    /**
+     * The identifying details of anyone controlling or owning 25% or more of the corporation.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun beneficialOwnerId(): String = body.beneficialOwnerId()
 
-    /** The identifying details of anyone controlling or owning 25% or more of the corporation. */
+    /**
+     * Returns the raw JSON value of [beneficialOwnerId].
+     *
+     * Unlike [beneficialOwnerId], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     fun _beneficialOwnerId(): JsonField<String> = body._beneficialOwnerId()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
@@ -45,16 +56,15 @@ private constructor(
 
     @JvmSynthetic internal fun _body(): Body = body
 
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams = additionalQueryParams
-
-    fun getPathParam(index: Int): String {
-        return when (index) {
+    fun _pathParam(index: Int): String =
+        when (index) {
             0 -> entityId
             else -> ""
         }
-    }
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
     class Body
@@ -69,11 +79,17 @@ private constructor(
 
         /**
          * The identifying details of anyone controlling or owning 25% or more of the corporation.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun beneficialOwnerId(): String = beneficialOwnerId.getRequired("beneficial_owner_id")
 
         /**
-         * The identifying details of anyone controlling or owning 25% or more of the corporation.
+         * Returns the raw JSON value of [beneficialOwnerId].
+         *
+         * Unlike [beneficialOwnerId], this method doesn't throw if the JSON field has an unexpected
+         * type.
          */
         @JsonProperty("beneficial_owner_id")
         @ExcludeMissing
@@ -129,8 +145,11 @@ private constructor(
                 beneficialOwnerId(JsonField.of(beneficialOwnerId))
 
             /**
-             * The identifying details of anyone controlling or owning 25% or more of the
-             * corporation.
+             * Sets [Builder.beneficialOwnerId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.beneficialOwnerId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun beneficialOwnerId(beneficialOwnerId: JsonField<String>) = apply {
                 this.beneficialOwnerId = beneficialOwnerId
@@ -155,6 +174,18 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Body].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .beneficialOwnerId()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Body =
                 Body(
                     checkRequired("beneficialOwnerId", beneficialOwnerId),
@@ -229,7 +260,11 @@ private constructor(
         }
 
         /**
-         * The identifying details of anyone controlling or owning 25% or more of the corporation.
+         * Sets [Builder.beneficialOwnerId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.beneficialOwnerId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun beneficialOwnerId(beneficialOwnerId: JsonField<String>) = apply {
             body.beneficialOwnerId(beneficialOwnerId)
@@ -352,6 +387,19 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [EntityArchiveBeneficialOwnerParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .entityId()
+         * .beneficialOwnerId()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): EntityArchiveBeneficialOwnerParams =
             EntityArchiveBeneficialOwnerParams(
                 checkRequired("entityId", entityId),

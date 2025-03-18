@@ -5,7 +5,7 @@ package com.increase.api.models.oauthconnections
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class OAuthConnectionRetrieveParamsTest {
+internal class OAuthConnectionRetrieveParamsTest {
 
     @Test
     fun create() {
@@ -15,15 +15,14 @@ class OAuthConnectionRetrieveParamsTest {
     }
 
     @Test
-    fun getPathParam() {
+    fun pathParams() {
         val params =
             OAuthConnectionRetrieveParams.builder()
                 .oauthConnectionId("connection_dauknoksyr4wilz4e6my")
                 .build()
-        assertThat(params).isNotNull
-        // path param "oauthConnectionId"
-        assertThat(params.getPathParam(0)).isEqualTo("connection_dauknoksyr4wilz4e6my")
+
+        assertThat(params._pathParam(0)).isEqualTo("connection_dauknoksyr4wilz4e6my")
         // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
+        assertThat(params._pathParam(1)).isEqualTo("")
     }
 }

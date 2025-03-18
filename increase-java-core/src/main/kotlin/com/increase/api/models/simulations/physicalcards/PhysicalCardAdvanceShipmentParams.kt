@@ -36,10 +36,19 @@ private constructor(
     /** The Physical Card you would like to action. */
     fun physicalCardId(): String = physicalCardId
 
-    /** The shipment status to move the Physical Card to. */
+    /**
+     * The shipment status to move the Physical Card to.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun shipmentStatus(): ShipmentStatus = body.shipmentStatus()
 
-    /** The shipment status to move the Physical Card to. */
+    /**
+     * Returns the raw JSON value of [shipmentStatus].
+     *
+     * Unlike [shipmentStatus], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _shipmentStatus(): JsonField<ShipmentStatus> = body._shipmentStatus()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
@@ -50,16 +59,15 @@ private constructor(
 
     @JvmSynthetic internal fun _body(): Body = body
 
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams = additionalQueryParams
-
-    fun getPathParam(index: Int): String {
-        return when (index) {
+    fun _pathParam(index: Int): String =
+        when (index) {
             0 -> physicalCardId
             else -> ""
         }
-    }
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
     class Body
@@ -72,10 +80,20 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The shipment status to move the Physical Card to. */
+        /**
+         * The shipment status to move the Physical Card to.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun shipmentStatus(): ShipmentStatus = shipmentStatus.getRequired("shipment_status")
 
-        /** The shipment status to move the Physical Card to. */
+        /**
+         * Returns the raw JSON value of [shipmentStatus].
+         *
+         * Unlike [shipmentStatus], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("shipment_status")
         @ExcludeMissing
         fun _shipmentStatus(): JsonField<ShipmentStatus> = shipmentStatus
@@ -126,7 +144,13 @@ private constructor(
             fun shipmentStatus(shipmentStatus: ShipmentStatus) =
                 shipmentStatus(JsonField.of(shipmentStatus))
 
-            /** The shipment status to move the Physical Card to. */
+            /**
+             * Sets [Builder.shipmentStatus] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.shipmentStatus] with a well-typed [ShipmentStatus]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
             fun shipmentStatus(shipmentStatus: JsonField<ShipmentStatus>) = apply {
                 this.shipmentStatus = shipmentStatus
             }
@@ -150,6 +174,18 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Body].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .shipmentStatus()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Body =
                 Body(
                     checkRequired("shipmentStatus", shipmentStatus),
@@ -219,7 +255,13 @@ private constructor(
             body.shipmentStatus(shipmentStatus)
         }
 
-        /** The shipment status to move the Physical Card to. */
+        /**
+         * Sets [Builder.shipmentStatus] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.shipmentStatus] with a well-typed [ShipmentStatus] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun shipmentStatus(shipmentStatus: JsonField<ShipmentStatus>) = apply {
             body.shipmentStatus(shipmentStatus)
         }
@@ -341,6 +383,19 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [PhysicalCardAdvanceShipmentParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .physicalCardId()
+         * .shipmentStatus()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): PhysicalCardAdvanceShipmentParams =
             PhysicalCardAdvanceShipmentParams(
                 checkRequired("physicalCardId", physicalCardId),

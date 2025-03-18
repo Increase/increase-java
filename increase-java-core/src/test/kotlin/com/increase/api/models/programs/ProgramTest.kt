@@ -6,10 +6,10 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class ProgramTest {
+internal class ProgramTest {
 
     @Test
-    fun createProgram() {
+    fun create() {
         val program =
             Program.builder()
                 .id("program_i2v2os4mwza1oetokh9i")
@@ -22,7 +22,7 @@ class ProgramTest {
                 .type(Program.Type.PROGRAM)
                 .updatedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .build()
-        assertThat(program).isNotNull
+
         assertThat(program.id()).isEqualTo("program_i2v2os4mwza1oetokh9i")
         assertThat(program.bank()).isEqualTo(Program.Bank.CORE_BANK)
         assertThat(program.billingAccountId()).isEmpty

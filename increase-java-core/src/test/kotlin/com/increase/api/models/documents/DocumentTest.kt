@@ -6,10 +6,10 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class DocumentTest {
+internal class DocumentTest {
 
     @Test
-    fun createDocument() {
+    fun create() {
         val document =
             Document.builder()
                 .id("document_qjtqc6s4c14ve2q89izm")
@@ -19,7 +19,7 @@ class DocumentTest {
                 .fileId("file_makxrc67oh9l6sg7w9yc")
                 .type(Document.Type.DOCUMENT)
                 .build()
-        assertThat(document).isNotNull
+
         assertThat(document.id()).isEqualTo("document_qjtqc6s4c14ve2q89izm")
         assertThat(document.category()).isEqualTo(Document.Category.FORM_1099_INT)
         assertThat(document.createdAt()).isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))

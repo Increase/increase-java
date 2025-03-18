@@ -6,7 +6,7 @@ import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class AccountNumberUpdateParamsTest {
+internal class AccountNumberUpdateParamsTest {
 
     @Test
     fun create() {
@@ -25,6 +25,18 @@ class AccountNumberUpdateParamsTest {
             .name("x")
             .status(AccountNumberUpdateParams.Status.ACTIVE)
             .build()
+    }
+
+    @Test
+    fun pathParams() {
+        val params =
+            AccountNumberUpdateParams.builder()
+                .accountNumberId("account_number_v18nkfqm6afpsrvy82b2")
+                .build()
+
+        assertThat(params._pathParam(0)).isEqualTo("account_number_v18nkfqm6afpsrvy82b2")
+        // out-of-bound path param
+        assertThat(params._pathParam(1)).isEqualTo("")
     }
 
     @Test
@@ -75,18 +87,5 @@ class AccountNumberUpdateParamsTest {
         val body = params._body()
 
         assertNotNull(body)
-    }
-
-    @Test
-    fun getPathParam() {
-        val params =
-            AccountNumberUpdateParams.builder()
-                .accountNumberId("account_number_v18nkfqm6afpsrvy82b2")
-                .build()
-        assertThat(params).isNotNull
-        // path param "accountNumberId"
-        assertThat(params.getPathParam(0)).isEqualTo("account_number_v18nkfqm6afpsrvy82b2")
-        // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
     }
 }

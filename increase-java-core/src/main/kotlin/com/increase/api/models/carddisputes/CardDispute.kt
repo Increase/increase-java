@@ -58,119 +58,202 @@ private constructor(
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
-    /** The Card Dispute identifier. */
+    /**
+     * The Card Dispute identifier.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun id(): String = id.getRequired("id")
 
     /**
      * If the Card Dispute's status is `accepted`, this will contain details of the successful
      * dispute.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun acceptance(): Optional<Acceptance> =
         Optional.ofNullable(acceptance.getNullable("acceptance"))
 
-    /** The amount of the dispute, if provided, or the transaction amount otherwise. */
+    /**
+     * The amount of the dispute, if provided, or the transaction amount otherwise.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun amount(): Optional<Long> = Optional.ofNullable(amount.getNullable("amount"))
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
      * Dispute was created.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
-    /** The identifier of the Transaction that was disputed. */
+    /**
+     * The identifier of the Transaction that was disputed.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun disputedTransactionId(): String =
         disputedTransactionId.getRequired("disputed_transaction_id")
 
-    /** Why you disputed the Transaction in question. */
+    /**
+     * Why you disputed the Transaction in question.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun explanation(): String = explanation.getRequired("explanation")
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
      * used to ensure that a request is only processed once. Learn more about
      * [idempotency](https://increase.com/documentation/idempotency-keys).
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun idempotencyKey(): Optional<String> =
         Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
 
-    /** If the Card Dispute's status is `lost`, this will contain details of the lost dispute. */
+    /**
+     * If the Card Dispute's status is `lost`, this will contain details of the lost dispute.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun loss(): Optional<Loss> = Optional.ofNullable(loss.getNullable("loss"))
 
     /**
      * If the Card Dispute's status is `rejected`, this will contain details of the unsuccessful
      * dispute.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun rejection(): Optional<Rejection> = Optional.ofNullable(rejection.getNullable("rejection"))
 
-    /** The results of the Dispute investigation. */
+    /**
+     * The results of the Dispute investigation.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun status(): Status = status.getRequired("status")
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `card_dispute`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun type(): Type = type.getRequired("type")
 
-    /** If the Card Dispute's status is `won`, this will contain details of the won dispute. */
+    /**
+     * If the Card Dispute's status is `won`, this will contain details of the won dispute.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun win(): Optional<Win> = Optional.ofNullable(win.getNullable("win"))
 
-    /** The Card Dispute identifier. */
+    /**
+     * Returns the raw JSON value of [id].
+     *
+     * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /**
-     * If the Card Dispute's status is `accepted`, this will contain details of the successful
-     * dispute.
+     * Returns the raw JSON value of [acceptance].
+     *
+     * Unlike [acceptance], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("acceptance")
     @ExcludeMissing
     fun _acceptance(): JsonField<Acceptance> = acceptance
 
-    /** The amount of the dispute, if provided, or the transaction amount otherwise. */
+    /**
+     * Returns the raw JSON value of [amount].
+     *
+     * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
-     * Dispute was created.
+     * Returns the raw JSON value of [createdAt].
+     *
+     * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("created_at")
     @ExcludeMissing
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
-    /** The identifier of the Transaction that was disputed. */
+    /**
+     * Returns the raw JSON value of [disputedTransactionId].
+     *
+     * Unlike [disputedTransactionId], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     @JsonProperty("disputed_transaction_id")
     @ExcludeMissing
     fun _disputedTransactionId(): JsonField<String> = disputedTransactionId
 
-    /** Why you disputed the Transaction in question. */
+    /**
+     * Returns the raw JSON value of [explanation].
+     *
+     * Unlike [explanation], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("explanation") @ExcludeMissing fun _explanation(): JsonField<String> = explanation
 
     /**
-     * The idempotency key you chose for this object. This value is unique across Increase and is
-     * used to ensure that a request is only processed once. Learn more about
-     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     * Returns the raw JSON value of [idempotencyKey].
+     *
+     * Unlike [idempotencyKey], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("idempotency_key")
     @ExcludeMissing
     fun _idempotencyKey(): JsonField<String> = idempotencyKey
 
-    /** If the Card Dispute's status is `lost`, this will contain details of the lost dispute. */
+    /**
+     * Returns the raw JSON value of [loss].
+     *
+     * Unlike [loss], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("loss") @ExcludeMissing fun _loss(): JsonField<Loss> = loss
 
     /**
-     * If the Card Dispute's status is `rejected`, this will contain details of the unsuccessful
-     * dispute.
+     * Returns the raw JSON value of [rejection].
+     *
+     * Unlike [rejection], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("rejection") @ExcludeMissing fun _rejection(): JsonField<Rejection> = rejection
 
-    /** The results of the Dispute investigation. */
+    /**
+     * Returns the raw JSON value of [status].
+     *
+     * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
     /**
-     * A constant representing the object's type. For this resource it will always be
-     * `card_dispute`.
+     * Returns the raw JSON value of [type].
+     *
+     * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
-    /** If the Card Dispute's status is `won`, this will contain details of the won dispute. */
+    /**
+     * Returns the raw JSON value of [win].
+     *
+     * Unlike [win], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("win") @ExcludeMissing fun _win(): JsonField<Win> = win
 
     @JsonAnyGetter
@@ -262,7 +345,12 @@ private constructor(
         /** The Card Dispute identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
-        /** The Card Dispute identifier. */
+        /**
+         * Sets [Builder.id] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.id] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
@@ -271,28 +359,37 @@ private constructor(
          */
         fun acceptance(acceptance: Acceptance?) = acceptance(JsonField.ofNullable(acceptance))
 
-        /**
-         * If the Card Dispute's status is `accepted`, this will contain details of the successful
-         * dispute.
-         */
+        /** Alias for calling [Builder.acceptance] with `acceptance.orElse(null)`. */
         fun acceptance(acceptance: Optional<Acceptance>) = acceptance(acceptance.getOrNull())
 
         /**
-         * If the Card Dispute's status is `accepted`, this will contain details of the successful
-         * dispute.
+         * Sets [Builder.acceptance] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.acceptance] with a well-typed [Acceptance] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun acceptance(acceptance: JsonField<Acceptance>) = apply { this.acceptance = acceptance }
 
         /** The amount of the dispute, if provided, or the transaction amount otherwise. */
         fun amount(amount: Long?) = amount(JsonField.ofNullable(amount))
 
-        /** The amount of the dispute, if provided, or the transaction amount otherwise. */
+        /**
+         * Alias for [Builder.amount].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
         fun amount(amount: Long) = amount(amount as Long?)
 
-        /** The amount of the dispute, if provided, or the transaction amount otherwise. */
+        /** Alias for calling [Builder.amount] with `amount.orElse(null)`. */
         fun amount(amount: Optional<Long>) = amount(amount.getOrNull())
 
-        /** The amount of the dispute, if provided, or the transaction amount otherwise. */
+        /**
+         * Sets [Builder.amount] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
         /**
@@ -302,8 +399,11 @@ private constructor(
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
-         * Dispute was created.
+         * Sets [Builder.createdAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
@@ -311,7 +411,13 @@ private constructor(
         fun disputedTransactionId(disputedTransactionId: String) =
             disputedTransactionId(JsonField.of(disputedTransactionId))
 
-        /** The identifier of the Transaction that was disputed. */
+        /**
+         * Sets [Builder.disputedTransactionId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.disputedTransactionId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun disputedTransactionId(disputedTransactionId: JsonField<String>) = apply {
             this.disputedTransactionId = disputedTransactionId
         }
@@ -319,7 +425,13 @@ private constructor(
         /** Why you disputed the Transaction in question. */
         fun explanation(explanation: String) = explanation(JsonField.of(explanation))
 
-        /** Why you disputed the Transaction in question. */
+        /**
+         * Sets [Builder.explanation] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.explanation] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun explanation(explanation: JsonField<String>) = apply { this.explanation = explanation }
 
         /**
@@ -330,18 +442,16 @@ private constructor(
         fun idempotencyKey(idempotencyKey: String?) =
             idempotencyKey(JsonField.ofNullable(idempotencyKey))
 
-        /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
-         */
+        /** Alias for calling [Builder.idempotencyKey] with `idempotencyKey.orElse(null)`. */
         fun idempotencyKey(idempotencyKey: Optional<String>) =
             idempotencyKey(idempotencyKey.getOrNull())
 
         /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         * Sets [Builder.idempotencyKey] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.idempotencyKey] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
             this.idempotencyKey = idempotencyKey
@@ -352,13 +462,14 @@ private constructor(
          */
         fun loss(loss: Loss?) = loss(JsonField.ofNullable(loss))
 
-        /**
-         * If the Card Dispute's status is `lost`, this will contain details of the lost dispute.
-         */
+        /** Alias for calling [Builder.loss] with `loss.orElse(null)`. */
         fun loss(loss: Optional<Loss>) = loss(loss.getOrNull())
 
         /**
-         * If the Card Dispute's status is `lost`, this will contain details of the lost dispute.
+         * Sets [Builder.loss] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.loss] with a well-typed [Loss] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun loss(loss: JsonField<Loss>) = apply { this.loss = loss }
 
@@ -368,22 +479,27 @@ private constructor(
          */
         fun rejection(rejection: Rejection?) = rejection(JsonField.ofNullable(rejection))
 
-        /**
-         * If the Card Dispute's status is `rejected`, this will contain details of the unsuccessful
-         * dispute.
-         */
+        /** Alias for calling [Builder.rejection] with `rejection.orElse(null)`. */
         fun rejection(rejection: Optional<Rejection>) = rejection(rejection.getOrNull())
 
         /**
-         * If the Card Dispute's status is `rejected`, this will contain details of the unsuccessful
-         * dispute.
+         * Sets [Builder.rejection] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.rejection] with a well-typed [Rejection] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun rejection(rejection: JsonField<Rejection>) = apply { this.rejection = rejection }
 
         /** The results of the Dispute investigation. */
         fun status(status: Status) = status(JsonField.of(status))
 
-        /** The results of the Dispute investigation. */
+        /**
+         * Sets [Builder.status] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.status] with a well-typed [Status] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /**
@@ -393,18 +509,25 @@ private constructor(
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
-         * A constant representing the object's type. For this resource it will always be
-         * `card_dispute`.
+         * Sets [Builder.type] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.type] with a well-typed [Type] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
         /** If the Card Dispute's status is `won`, this will contain details of the won dispute. */
         fun win(win: Win?) = win(JsonField.ofNullable(win))
 
-        /** If the Card Dispute's status is `won`, this will contain details of the won dispute. */
+        /** Alias for calling [Builder.win] with `win.orElse(null)`. */
         fun win(win: Optional<Win>) = win(win.getOrNull())
 
-        /** If the Card Dispute's status is `won`, this will contain details of the won dispute. */
+        /**
+         * Sets [Builder.win] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.win] with a well-typed [Win] value instead. This method
+         * is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun win(win: JsonField<Win>) = apply { this.win = win }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -426,6 +549,29 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [CardDispute].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .acceptance()
+         * .amount()
+         * .createdAt()
+         * .disputedTransactionId()
+         * .explanation()
+         * .idempotencyKey()
+         * .loss()
+         * .rejection()
+         * .status()
+         * .type()
+         * .win()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): CardDispute =
             CardDispute(
                 checkRequired("id", id),
@@ -468,34 +614,53 @@ private constructor(
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
          * Dispute was accepted.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun acceptedAt(): OffsetDateTime = acceptedAt.getRequired("accepted_at")
 
-        /** The identifier of the Card Dispute that was accepted. */
+        /**
+         * The identifier of the Card Dispute that was accepted.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun cardDisputeId(): String = cardDisputeId.getRequired("card_dispute_id")
 
         /**
          * The identifier of the Transaction that was created to return the disputed funds to your
          * account.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun transactionId(): String = transactionId.getRequired("transaction_id")
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
-         * Dispute was accepted.
+         * Returns the raw JSON value of [acceptedAt].
+         *
+         * Unlike [acceptedAt], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("accepted_at")
         @ExcludeMissing
         fun _acceptedAt(): JsonField<OffsetDateTime> = acceptedAt
 
-        /** The identifier of the Card Dispute that was accepted. */
+        /**
+         * Returns the raw JSON value of [cardDisputeId].
+         *
+         * Unlike [cardDisputeId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("card_dispute_id")
         @ExcludeMissing
         fun _cardDisputeId(): JsonField<String> = cardDisputeId
 
         /**
-         * The identifier of the Transaction that was created to return the disputed funds to your
-         * account.
+         * Returns the raw JSON value of [transactionId].
+         *
+         * Unlike [transactionId], this method doesn't throw if the JSON field has an unexpected
+         * type.
          */
         @JsonProperty("transaction_id")
         @ExcludeMissing
@@ -558,8 +723,11 @@ private constructor(
             fun acceptedAt(acceptedAt: OffsetDateTime) = acceptedAt(JsonField.of(acceptedAt))
 
             /**
-             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-             * Card Dispute was accepted.
+             * Sets [Builder.acceptedAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.acceptedAt] with a well-typed [OffsetDateTime] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun acceptedAt(acceptedAt: JsonField<OffsetDateTime>) = apply {
                 this.acceptedAt = acceptedAt
@@ -568,7 +736,13 @@ private constructor(
             /** The identifier of the Card Dispute that was accepted. */
             fun cardDisputeId(cardDisputeId: String) = cardDisputeId(JsonField.of(cardDisputeId))
 
-            /** The identifier of the Card Dispute that was accepted. */
+            /**
+             * Sets [Builder.cardDisputeId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.cardDisputeId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun cardDisputeId(cardDisputeId: JsonField<String>) = apply {
                 this.cardDisputeId = cardDisputeId
             }
@@ -580,8 +754,11 @@ private constructor(
             fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
 
             /**
-             * The identifier of the Transaction that was created to return the disputed funds to
-             * your account.
+             * Sets [Builder.transactionId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.transactionId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun transactionId(transactionId: JsonField<String>) = apply {
                 this.transactionId = transactionId
@@ -606,6 +783,20 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Acceptance].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .acceptedAt()
+             * .cardDisputeId()
+             * .transactionId()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Acceptance =
                 Acceptance(
                     checkRequired("acceptedAt", acceptedAt),
@@ -654,43 +845,71 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The identifier of the Card Dispute that was lost. */
+        /**
+         * The identifier of the Card Dispute that was lost.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun cardDisputeId(): String = cardDisputeId.getRequired("card_dispute_id")
 
-        /** Why the Card Dispute was lost. */
+        /**
+         * Why the Card Dispute was lost.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun explanation(): String = explanation.getRequired("explanation")
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
          * Dispute was lost.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun lostAt(): OffsetDateTime = lostAt.getRequired("lost_at")
 
         /**
          * The identifier of the Transaction that was created to debit the disputed funds from your
          * account.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun transactionId(): String = transactionId.getRequired("transaction_id")
 
-        /** The identifier of the Card Dispute that was lost. */
+        /**
+         * Returns the raw JSON value of [cardDisputeId].
+         *
+         * Unlike [cardDisputeId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("card_dispute_id")
         @ExcludeMissing
         fun _cardDisputeId(): JsonField<String> = cardDisputeId
 
-        /** Why the Card Dispute was lost. */
+        /**
+         * Returns the raw JSON value of [explanation].
+         *
+         * Unlike [explanation], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("explanation")
         @ExcludeMissing
         fun _explanation(): JsonField<String> = explanation
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
-         * Dispute was lost.
+         * Returns the raw JSON value of [lostAt].
+         *
+         * Unlike [lostAt], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("lost_at") @ExcludeMissing fun _lostAt(): JsonField<OffsetDateTime> = lostAt
 
         /**
-         * The identifier of the Transaction that was created to debit the disputed funds from your
-         * account.
+         * Returns the raw JSON value of [transactionId].
+         *
+         * Unlike [transactionId], this method doesn't throw if the JSON field has an unexpected
+         * type.
          */
         @JsonProperty("transaction_id")
         @ExcludeMissing
@@ -753,7 +972,13 @@ private constructor(
             /** The identifier of the Card Dispute that was lost. */
             fun cardDisputeId(cardDisputeId: String) = cardDisputeId(JsonField.of(cardDisputeId))
 
-            /** The identifier of the Card Dispute that was lost. */
+            /**
+             * Sets [Builder.cardDisputeId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.cardDisputeId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun cardDisputeId(cardDisputeId: JsonField<String>) = apply {
                 this.cardDisputeId = cardDisputeId
             }
@@ -761,7 +986,13 @@ private constructor(
             /** Why the Card Dispute was lost. */
             fun explanation(explanation: String) = explanation(JsonField.of(explanation))
 
-            /** Why the Card Dispute was lost. */
+            /**
+             * Sets [Builder.explanation] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.explanation] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun explanation(explanation: JsonField<String>) = apply {
                 this.explanation = explanation
             }
@@ -773,8 +1004,11 @@ private constructor(
             fun lostAt(lostAt: OffsetDateTime) = lostAt(JsonField.of(lostAt))
 
             /**
-             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-             * Card Dispute was lost.
+             * Sets [Builder.lostAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.lostAt] with a well-typed [OffsetDateTime] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun lostAt(lostAt: JsonField<OffsetDateTime>) = apply { this.lostAt = lostAt }
 
@@ -785,8 +1019,11 @@ private constructor(
             fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
 
             /**
-             * The identifier of the Transaction that was created to debit the disputed funds from
-             * your account.
+             * Sets [Builder.transactionId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.transactionId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun transactionId(transactionId: JsonField<String>) = apply {
                 this.transactionId = transactionId
@@ -811,6 +1048,21 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Loss].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .cardDisputeId()
+             * .explanation()
+             * .lostAt()
+             * .transactionId()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Loss =
                 Loss(
                     checkRequired("cardDisputeId", cardDisputeId),
@@ -860,31 +1112,54 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The identifier of the Card Dispute that was rejected. */
+        /**
+         * The identifier of the Card Dispute that was rejected.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun cardDisputeId(): String = cardDisputeId.getRequired("card_dispute_id")
 
-        /** Why the Card Dispute was rejected. */
+        /**
+         * Why the Card Dispute was rejected.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun explanation(): String = explanation.getRequired("explanation")
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
          * Dispute was rejected.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun rejectedAt(): OffsetDateTime = rejectedAt.getRequired("rejected_at")
 
-        /** The identifier of the Card Dispute that was rejected. */
+        /**
+         * Returns the raw JSON value of [cardDisputeId].
+         *
+         * Unlike [cardDisputeId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("card_dispute_id")
         @ExcludeMissing
         fun _cardDisputeId(): JsonField<String> = cardDisputeId
 
-        /** Why the Card Dispute was rejected. */
+        /**
+         * Returns the raw JSON value of [explanation].
+         *
+         * Unlike [explanation], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("explanation")
         @ExcludeMissing
         fun _explanation(): JsonField<String> = explanation
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
-         * Dispute was rejected.
+         * Returns the raw JSON value of [rejectedAt].
+         *
+         * Unlike [rejectedAt], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("rejected_at")
         @ExcludeMissing
@@ -943,7 +1218,13 @@ private constructor(
             /** The identifier of the Card Dispute that was rejected. */
             fun cardDisputeId(cardDisputeId: String) = cardDisputeId(JsonField.of(cardDisputeId))
 
-            /** The identifier of the Card Dispute that was rejected. */
+            /**
+             * Sets [Builder.cardDisputeId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.cardDisputeId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun cardDisputeId(cardDisputeId: JsonField<String>) = apply {
                 this.cardDisputeId = cardDisputeId
             }
@@ -951,7 +1232,13 @@ private constructor(
             /** Why the Card Dispute was rejected. */
             fun explanation(explanation: String) = explanation(JsonField.of(explanation))
 
-            /** Why the Card Dispute was rejected. */
+            /**
+             * Sets [Builder.explanation] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.explanation] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun explanation(explanation: JsonField<String>) = apply {
                 this.explanation = explanation
             }
@@ -963,8 +1250,11 @@ private constructor(
             fun rejectedAt(rejectedAt: OffsetDateTime) = rejectedAt(JsonField.of(rejectedAt))
 
             /**
-             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-             * Card Dispute was rejected.
+             * Sets [Builder.rejectedAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.rejectedAt] with a well-typed [OffsetDateTime] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun rejectedAt(rejectedAt: JsonField<OffsetDateTime>) = apply {
                 this.rejectedAt = rejectedAt
@@ -989,6 +1279,20 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Rejection].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .cardDisputeId()
+             * .explanation()
+             * .rejectedAt()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Rejection =
                 Rejection(
                     checkRequired("cardDisputeId", cardDisputeId),
@@ -1290,23 +1594,37 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The identifier of the Card Dispute that was won. */
+        /**
+         * The identifier of the Card Dispute that was won.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun cardDisputeId(): String = cardDisputeId.getRequired("card_dispute_id")
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
          * Dispute was won.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun wonAt(): OffsetDateTime = wonAt.getRequired("won_at")
 
-        /** The identifier of the Card Dispute that was won. */
+        /**
+         * Returns the raw JSON value of [cardDisputeId].
+         *
+         * Unlike [cardDisputeId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("card_dispute_id")
         @ExcludeMissing
         fun _cardDisputeId(): JsonField<String> = cardDisputeId
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
-         * Dispute was won.
+         * Returns the raw JSON value of [wonAt].
+         *
+         * Unlike [wonAt], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("won_at") @ExcludeMissing fun _wonAt(): JsonField<OffsetDateTime> = wonAt
 
@@ -1359,7 +1677,13 @@ private constructor(
             /** The identifier of the Card Dispute that was won. */
             fun cardDisputeId(cardDisputeId: String) = cardDisputeId(JsonField.of(cardDisputeId))
 
-            /** The identifier of the Card Dispute that was won. */
+            /**
+             * Sets [Builder.cardDisputeId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.cardDisputeId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun cardDisputeId(cardDisputeId: JsonField<String>) = apply {
                 this.cardDisputeId = cardDisputeId
             }
@@ -1371,8 +1695,11 @@ private constructor(
             fun wonAt(wonAt: OffsetDateTime) = wonAt(JsonField.of(wonAt))
 
             /**
-             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-             * Card Dispute was won.
+             * Sets [Builder.wonAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.wonAt] with a well-typed [OffsetDateTime] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun wonAt(wonAt: JsonField<OffsetDateTime>) = apply { this.wonAt = wonAt }
 
@@ -1395,6 +1722,19 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Win].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .cardDisputeId()
+             * .wonAt()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Win =
                 Win(
                     checkRequired("cardDisputeId", cardDisputeId),

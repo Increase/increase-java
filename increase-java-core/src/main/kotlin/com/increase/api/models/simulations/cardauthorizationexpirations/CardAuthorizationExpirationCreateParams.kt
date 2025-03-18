@@ -17,6 +17,7 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
+import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 
 /** Simulates expiring a Card Authorization immediately. */
@@ -27,10 +28,19 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** The identifier of the Card Payment to expire. */
+    /**
+     * The identifier of the Card Payment to expire.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun cardPaymentId(): String = body.cardPaymentId()
 
-    /** The identifier of the Card Payment to expire. */
+    /**
+     * Returns the raw JSON value of [cardPaymentId].
+     *
+     * Unlike [cardPaymentId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _cardPaymentId(): JsonField<String> = body._cardPaymentId()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
@@ -56,10 +66,20 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The identifier of the Card Payment to expire. */
+        /**
+         * The identifier of the Card Payment to expire.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun cardPaymentId(): String = cardPaymentId.getRequired("card_payment_id")
 
-        /** The identifier of the Card Payment to expire. */
+        /**
+         * Returns the raw JSON value of [cardPaymentId].
+         *
+         * Unlike [cardPaymentId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("card_payment_id")
         @ExcludeMissing
         fun _cardPaymentId(): JsonField<String> = cardPaymentId
@@ -109,7 +129,13 @@ private constructor(
             /** The identifier of the Card Payment to expire. */
             fun cardPaymentId(cardPaymentId: String) = cardPaymentId(JsonField.of(cardPaymentId))
 
-            /** The identifier of the Card Payment to expire. */
+            /**
+             * Sets [Builder.cardPaymentId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.cardPaymentId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun cardPaymentId(cardPaymentId: JsonField<String>) = apply {
                 this.cardPaymentId = cardPaymentId
             }
@@ -133,6 +159,18 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Body].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .cardPaymentId()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Body =
                 Body(
                     checkRequired("cardPaymentId", cardPaymentId),
@@ -196,7 +234,13 @@ private constructor(
         /** The identifier of the Card Payment to expire. */
         fun cardPaymentId(cardPaymentId: String) = apply { body.cardPaymentId(cardPaymentId) }
 
-        /** The identifier of the Card Payment to expire. */
+        /**
+         * Sets [Builder.cardPaymentId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.cardPaymentId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun cardPaymentId(cardPaymentId: JsonField<String>) = apply {
             body.cardPaymentId(cardPaymentId)
         }
@@ -318,6 +362,18 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [CardAuthorizationExpirationCreateParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .cardPaymentId()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): CardAuthorizationExpirationCreateParams =
             CardAuthorizationExpirationCreateParams(
                 body.build(),

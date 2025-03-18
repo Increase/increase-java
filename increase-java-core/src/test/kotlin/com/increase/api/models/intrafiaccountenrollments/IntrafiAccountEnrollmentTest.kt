@@ -6,10 +6,10 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class IntrafiAccountEnrollmentTest {
+internal class IntrafiAccountEnrollmentTest {
 
     @Test
-    fun createIntrafiAccountEnrollment() {
+    fun create() {
         val intrafiAccountEnrollment =
             IntrafiAccountEnrollment.builder()
                 .id("intrafi_account_enrollment_w8l97znzreopkwf2tg75")
@@ -20,7 +20,7 @@ class IntrafiAccountEnrollmentTest {
                 .status(IntrafiAccountEnrollment.Status.PENDING_ENROLLING)
                 .type(IntrafiAccountEnrollment.Type.INTRAFI_ACCOUNT_ENROLLMENT)
                 .build()
-        assertThat(intrafiAccountEnrollment).isNotNull
+
         assertThat(intrafiAccountEnrollment.id())
             .isEqualTo("intrafi_account_enrollment_w8l97znzreopkwf2tg75")
         assertThat(intrafiAccountEnrollment.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")

@@ -6,10 +6,10 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class InboundWireTransferTest {
+internal class InboundWireTransferTest {
 
     @Test
-    fun createInboundWireTransfer() {
+    fun create() {
         val inboundWireTransfer =
             InboundWireTransfer.builder()
                 .id("inbound_wire_transfer_f228m6bmhtcxjco9pwp0")
@@ -38,7 +38,7 @@ class InboundWireTransferTest {
                 .status(InboundWireTransfer.Status.PENDING)
                 .type(InboundWireTransfer.Type.INBOUND_WIRE_TRANSFER)
                 .build()
-        assertThat(inboundWireTransfer).isNotNull
+
         assertThat(inboundWireTransfer.id()).isEqualTo("inbound_wire_transfer_f228m6bmhtcxjco9pwp0")
         assertThat(inboundWireTransfer.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(inboundWireTransfer.accountNumberId())

@@ -6,10 +6,10 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class InboundMailItemTest {
+internal class InboundMailItemTest {
 
     @Test
-    fun createInboundMailItem() {
+    fun create() {
         val inboundMailItem =
             InboundMailItem.builder()
                 .id("inbound_mail_item_q6rrg7mmqpplx80zceev")
@@ -21,7 +21,7 @@ class InboundMailItemTest {
                 .status(InboundMailItem.Status.PENDING)
                 .type(InboundMailItem.Type.INBOUND_MAIL_ITEM)
                 .build()
-        assertThat(inboundMailItem).isNotNull
+
         assertThat(inboundMailItem.id()).isEqualTo("inbound_mail_item_q6rrg7mmqpplx80zceev")
         assertThat(inboundMailItem.createdAt())
             .isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))

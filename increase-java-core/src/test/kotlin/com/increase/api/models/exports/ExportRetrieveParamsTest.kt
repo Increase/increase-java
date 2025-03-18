@@ -5,7 +5,7 @@ package com.increase.api.models.exports
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class ExportRetrieveParamsTest {
+internal class ExportRetrieveParamsTest {
 
     @Test
     fun create() {
@@ -13,12 +13,11 @@ class ExportRetrieveParamsTest {
     }
 
     @Test
-    fun getPathParam() {
+    fun pathParams() {
         val params = ExportRetrieveParams.builder().exportId("export_8s4m48qz3bclzje0zwh9").build()
-        assertThat(params).isNotNull
-        // path param "exportId"
-        assertThat(params.getPathParam(0)).isEqualTo("export_8s4m48qz3bclzje0zwh9")
+
+        assertThat(params._pathParam(0)).isEqualTo("export_8s4m48qz3bclzje0zwh9")
         // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
+        assertThat(params._pathParam(1)).isEqualTo("")
     }
 }

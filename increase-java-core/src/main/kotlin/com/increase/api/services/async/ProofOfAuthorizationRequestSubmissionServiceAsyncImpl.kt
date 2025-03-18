@@ -105,7 +105,7 @@ internal constructor(private val clientOptions: ClientOptions) :
                     .method(HttpMethod.GET)
                     .addPathSegments(
                         "proof_of_authorization_request_submissions",
-                        params.getPathParam(0),
+                        params._pathParam(0),
                     )
                     .build()
                     .prepareAsync(clientOptions, params)

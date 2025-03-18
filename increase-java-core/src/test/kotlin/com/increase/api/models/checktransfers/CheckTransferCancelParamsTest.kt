@@ -5,7 +5,7 @@ package com.increase.api.models.checktransfers
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class CheckTransferCancelParamsTest {
+internal class CheckTransferCancelParamsTest {
 
     @Test
     fun create() {
@@ -15,15 +15,14 @@ class CheckTransferCancelParamsTest {
     }
 
     @Test
-    fun getPathParam() {
+    fun pathParams() {
         val params =
             CheckTransferCancelParams.builder()
                 .checkTransferId("check_transfer_30b43acfu9vw8fyc4f5")
                 .build()
-        assertThat(params).isNotNull
-        // path param "checkTransferId"
-        assertThat(params.getPathParam(0)).isEqualTo("check_transfer_30b43acfu9vw8fyc4f5")
+
+        assertThat(params._pathParam(0)).isEqualTo("check_transfer_30b43acfu9vw8fyc4f5")
         // out-of-bound path param
-        assertThat(params.getPathParam(1)).isEqualTo("")
+        assertThat(params._pathParam(1)).isEqualTo("")
     }
 }

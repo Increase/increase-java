@@ -6,10 +6,10 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class EventSubscriptionTest {
+internal class EventSubscriptionTest {
 
     @Test
-    fun createEventSubscription() {
+    fun create() {
         val eventSubscription =
             EventSubscription.builder()
                 .id("event_subscription_001dzz0r20rcdxgb013zqb8m04g")
@@ -21,7 +21,7 @@ class EventSubscriptionTest {
                 .type(EventSubscription.Type.EVENT_SUBSCRIPTION)
                 .url("https://website.com/webhooks")
                 .build()
-        assertThat(eventSubscription).isNotNull
+
         assertThat(eventSubscription.id())
             .isEqualTo("event_subscription_001dzz0r20rcdxgb013zqb8m04g")
         assertThat(eventSubscription.createdAt())

@@ -50,12 +50,7 @@ class CardDisputeServiceAsyncImpl internal constructor(private val clientOptions
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
-                    .addPathSegments(
-                        "simulations",
-                        "card_disputes",
-                        params.getPathParam(0),
-                        "action",
-                    )
+                    .addPathSegments("simulations", "card_disputes", params._pathParam(0), "action")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepareAsync(clientOptions, params)

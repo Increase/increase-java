@@ -17,6 +17,7 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
+import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 
 /** Simulates a user attempting add a [Card](#cards) to a digital wallet such as Apple Pay. */
@@ -27,10 +28,19 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** The identifier of the Card to be authorized. */
+    /**
+     * The identifier of the Card to be authorized.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun cardId(): String = body.cardId()
 
-    /** The identifier of the Card to be authorized. */
+    /**
+     * Returns the raw JSON value of [cardId].
+     *
+     * Unlike [cardId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _cardId(): JsonField<String> = body._cardId()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
@@ -56,10 +66,19 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The identifier of the Card to be authorized. */
+        /**
+         * The identifier of the Card to be authorized.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun cardId(): String = cardId.getRequired("card_id")
 
-        /** The identifier of the Card to be authorized. */
+        /**
+         * Returns the raw JSON value of [cardId].
+         *
+         * Unlike [cardId], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("card_id") @ExcludeMissing fun _cardId(): JsonField<String> = cardId
 
         @JsonAnyGetter
@@ -107,7 +126,13 @@ private constructor(
             /** The identifier of the Card to be authorized. */
             fun cardId(cardId: String) = cardId(JsonField.of(cardId))
 
-            /** The identifier of the Card to be authorized. */
+            /**
+             * Sets [Builder.cardId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.cardId] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun cardId(cardId: JsonField<String>) = apply { this.cardId = cardId }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -129,6 +154,18 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Body].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .cardId()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Body =
                 Body(checkRequired("cardId", cardId), additionalProperties.toImmutable())
         }
@@ -187,7 +224,12 @@ private constructor(
         /** The identifier of the Card to be authorized. */
         fun cardId(cardId: String) = apply { body.cardId(cardId) }
 
-        /** The identifier of the Card to be authorized. */
+        /**
+         * Sets [Builder.cardId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.cardId] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun cardId(cardId: JsonField<String>) = apply { body.cardId(cardId) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
@@ -307,6 +349,18 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [DigitalWalletTokenRequestCreateParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .cardId()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): DigitalWalletTokenRequestCreateParams =
             DigitalWalletTokenRequestCreateParams(
                 body.build(),
