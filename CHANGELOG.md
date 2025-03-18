@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.196.1 (2025-03-18)
+
+Full Changelog: [v0.196.0...v0.196.1](https://github.com/Increase/increase-java/compare/v0.196.0...v0.196.1)
+
+### Bug Fixes
+
+* **client:** support kotlin 1.8 runtime ([#880](https://github.com/Increase/increase-java/issues/880)) ([3aedf16](https://github.com/Increase/increase-java/commit/3aedf1690a18b67988da577ed8f56c131c100bca))
+
+
+### Chores
+
+* **internal:** refactor enum query param serialization ([#881](https://github.com/Increase/increase-java/issues/881)) ([751b8ab](https://github.com/Increase/increase-java/commit/751b8abc4c472ba959fa0f295a35fd328f30000e))
+* **internal:** version bump ([#878](https://github.com/Increase/increase-java/issues/878)) ([762de6e](https://github.com/Increase/increase-java/commit/762de6e49daa14183ba38d22a0c18fd45e9b52a9))
+
 ## 0.196.0 (2025-03-18)
 
 Full Changelog: [v0.195.1...v0.196.0](https://github.com/Increase/increase-java/compare/v0.195.1...v0.196.0)
