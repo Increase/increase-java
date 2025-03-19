@@ -3,6 +3,7 @@
 package com.increase.api.services.async.simulations
 
 import com.increase.api.core.ClientOptions
+import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
@@ -14,7 +15,6 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
-import com.increase.api.errors.IncreaseError
 import com.increase.api.models.checktransfers.CheckTransfer
 import com.increase.api.models.simulations.checktransfers.CheckTransferMailParams
 import java.util.concurrent.CompletableFuture
@@ -38,7 +38,7 @@ class CheckTransferServiceAsyncImpl internal constructor(private val clientOptio
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         CheckTransferServiceAsync.WithRawResponse {
 
-        private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
 
         private val mailHandler: Handler<CheckTransfer> =
             jsonHandler<CheckTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

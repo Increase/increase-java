@@ -3,6 +3,7 @@
 package com.increase.api.services.blocking
 
 import com.increase.api.core.ClientOptions
+import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
@@ -13,7 +14,6 @@ import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
-import com.increase.api.errors.IncreaseError
 import com.increase.api.models.events.Event
 import com.increase.api.models.events.EventListPage
 import com.increase.api.models.events.EventListParams
@@ -39,7 +39,7 @@ class EventServiceImpl internal constructor(private val clientOptions: ClientOpt
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         EventService.WithRawResponse {
 
-        private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
 
         private val retrieveHandler: Handler<Event> =
             jsonHandler<Event>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
