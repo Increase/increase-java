@@ -1,23 +1,17 @@
+// File generated from our OpenAPI spec by Stainless.
+
 package com.increase.api.errors
 
+import com.increase.api.core.JsonValue
 import com.increase.api.core.http.Headers
 
 abstract class IncreaseServiceException
-@JvmOverloads
-constructor(
-    private val statusCode: Int,
-    private val headers: Headers,
-    private val body: String,
-    private val error: IncreaseError,
-    message: String = "$statusCode: $error",
-    cause: Throwable? = null,
-) : IncreaseException(message, cause) {
+protected constructor(message: String, cause: Throwable? = null) :
+    IncreaseException(message, cause) {
 
-    fun statusCode(): Int = statusCode
+    abstract fun statusCode(): Int
 
-    fun headers(): Headers = headers
+    abstract fun headers(): Headers
 
-    fun body(): String = body
-
-    fun error(): IncreaseError = error
+    abstract fun body(): JsonValue
 }

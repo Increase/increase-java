@@ -3,6 +3,7 @@
 package com.increase.api.services.blocking
 
 import com.increase.api.core.ClientOptions
+import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
@@ -14,7 +15,6 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
-import com.increase.api.errors.IncreaseError
 import com.increase.api.models.intrafiexclusions.IntrafiExclusion
 import com.increase.api.models.intrafiexclusions.IntrafiExclusionArchiveParams
 import com.increase.api.models.intrafiexclusions.IntrafiExclusionCreateParams
@@ -62,7 +62,7 @@ class IntrafiExclusionServiceImpl internal constructor(private val clientOptions
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         IntrafiExclusionService.WithRawResponse {
 
-        private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
 
         private val createHandler: Handler<IntrafiExclusion> =
             jsonHandler<IntrafiExclusion>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
