@@ -3,6 +3,7 @@
 package com.increase.api.services.async
 
 import com.increase.api.core.ClientOptions
+import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
@@ -14,7 +15,6 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
-import com.increase.api.errors.IncreaseError
 import com.increase.api.models.eventsubscriptions.EventSubscription
 import com.increase.api.models.eventsubscriptions.EventSubscriptionCreateParams
 import com.increase.api.models.eventsubscriptions.EventSubscriptionListPageAsync
@@ -63,7 +63,7 @@ internal constructor(private val clientOptions: ClientOptions) : EventSubscripti
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         EventSubscriptionServiceAsync.WithRawResponse {
 
-        private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
 
         private val createHandler: Handler<EventSubscription> =
             jsonHandler<EventSubscription>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

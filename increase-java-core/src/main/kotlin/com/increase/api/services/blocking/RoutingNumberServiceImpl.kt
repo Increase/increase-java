@@ -3,6 +3,7 @@
 package com.increase.api.services.blocking
 
 import com.increase.api.core.ClientOptions
+import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
@@ -13,7 +14,6 @@ import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
-import com.increase.api.errors.IncreaseError
 import com.increase.api.models.routingnumbers.RoutingNumberListPage
 import com.increase.api.models.routingnumbers.RoutingNumberListParams
 
@@ -36,7 +36,7 @@ class RoutingNumberServiceImpl internal constructor(private val clientOptions: C
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         RoutingNumberService.WithRawResponse {
 
-        private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
 
         private val listHandler: Handler<RoutingNumberListPage.Response> =
             jsonHandler<RoutingNumberListPage.Response>(clientOptions.jsonMapper)
