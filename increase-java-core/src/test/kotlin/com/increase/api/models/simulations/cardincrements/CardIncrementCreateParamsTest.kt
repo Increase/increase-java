@@ -2,7 +2,6 @@
 
 package com.increase.api.models.simulations.cardincrements
 
-import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -28,7 +27,6 @@ internal class CardIncrementCreateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.amount()).isEqualTo(500L)
         assertThat(body.cardPaymentId()).isEqualTo("card_payment_nd3k2kacrqjli8482ave")
         assertThat(body.eventSubscriptionId()).contains("event_subscription_id")
@@ -44,7 +42,6 @@ internal class CardIncrementCreateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.amount()).isEqualTo(500L)
         assertThat(body.cardPaymentId()).isEqualTo("card_payment_nd3k2kacrqjli8482ave")
     }

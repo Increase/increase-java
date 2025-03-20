@@ -2,7 +2,6 @@
 
 package com.increase.api.models.simulations.cardsettlements
 
-import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -28,7 +27,6 @@ internal class CardSettlementCreateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.cardId()).isEqualTo("card_oubs0hwk5rn6knuecxg2")
         assertThat(body.pendingTransactionId())
             .isEqualTo("pending_transaction_k1sfetcau2qbvjbzgju4")
@@ -45,7 +43,6 @@ internal class CardSettlementCreateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.cardId()).isEqualTo("card_oubs0hwk5rn6knuecxg2")
         assertThat(body.pendingTransactionId())
             .isEqualTo("pending_transaction_k1sfetcau2qbvjbzgju4")

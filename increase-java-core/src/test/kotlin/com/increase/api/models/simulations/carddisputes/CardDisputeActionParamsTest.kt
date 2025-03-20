@@ -2,7 +2,6 @@
 
 package com.increase.api.models.simulations.carddisputes
 
-import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -41,7 +40,6 @@ internal class CardDisputeActionParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.status()).isEqualTo(CardDisputeActionParams.Status.PENDING_USER_INFORMATION)
         assertThat(body.explanation()).contains("This was a valid recurring transaction")
     }
@@ -56,7 +54,6 @@ internal class CardDisputeActionParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.status()).isEqualTo(CardDisputeActionParams.Status.PENDING_USER_INFORMATION)
     }
 }

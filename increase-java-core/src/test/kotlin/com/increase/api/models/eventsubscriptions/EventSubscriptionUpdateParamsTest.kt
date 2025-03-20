@@ -2,7 +2,6 @@
 
 package com.increase.api.models.eventsubscriptions
 
-import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -38,7 +37,6 @@ internal class EventSubscriptionUpdateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.status()).contains(EventSubscriptionUpdateParams.Status.ACTIVE)
     }
 
@@ -50,7 +48,5 @@ internal class EventSubscriptionUpdateParamsTest {
                 .build()
 
         val body = params._body()
-
-        assertNotNull(body)
     }
 }

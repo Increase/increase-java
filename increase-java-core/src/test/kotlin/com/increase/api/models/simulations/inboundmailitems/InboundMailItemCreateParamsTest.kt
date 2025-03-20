@@ -2,7 +2,6 @@
 
 package com.increase.api.models.simulations.inboundmailitems
 
-import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -28,7 +27,6 @@ internal class InboundMailItemCreateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.amount()).isEqualTo(1000L)
         assertThat(body.lockboxId()).isEqualTo("lockbox_3xt21ok13q19advds4t5")
         assertThat(body.contentsFileId()).contains("contents_file_id")
@@ -44,7 +42,6 @@ internal class InboundMailItemCreateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.amount()).isEqualTo(1000L)
         assertThat(body.lockboxId()).isEqualTo("lockbox_3xt21ok13q19advds4t5")
     }
