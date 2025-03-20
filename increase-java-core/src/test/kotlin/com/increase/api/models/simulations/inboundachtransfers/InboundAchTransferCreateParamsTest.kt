@@ -3,7 +3,6 @@
 package com.increase.api.models.simulations.inboundachtransfers
 
 import java.time.OffsetDateTime
-import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -49,7 +48,6 @@ internal class InboundAchTransferCreateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.accountNumberId()).isEqualTo("account_number_v18nkfqm6afpsrvy82b2")
         assertThat(body.amount()).isEqualTo(1000L)
         assertThat(body.companyDescriptiveDate()).contains("x")
@@ -76,7 +74,6 @@ internal class InboundAchTransferCreateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.accountNumberId()).isEqualTo("account_number_v18nkfqm6afpsrvy82b2")
         assertThat(body.amount()).isEqualTo(1000L)
     }

@@ -3,7 +3,6 @@
 package com.increase.api.models.entities
 
 import java.time.LocalDate
-import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -215,7 +214,6 @@ internal class EntityCreateBeneficialOwnerParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.beneficialOwner())
             .isEqualTo(
                 EntityCreateBeneficialOwnerParams.BeneficialOwner.builder()
@@ -332,7 +330,6 @@ internal class EntityCreateBeneficialOwnerParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.beneficialOwner())
             .isEqualTo(
                 EntityCreateBeneficialOwnerParams.BeneficialOwner.builder()

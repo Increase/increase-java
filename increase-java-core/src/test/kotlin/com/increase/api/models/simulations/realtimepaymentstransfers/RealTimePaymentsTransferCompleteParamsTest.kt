@@ -2,7 +2,6 @@
 
 package com.increase.api.models.simulations.realtimepaymentstransfers
 
-import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -53,7 +52,6 @@ internal class RealTimePaymentsTransferCompleteParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.rejection())
             .contains(
                 RealTimePaymentsTransferCompleteParams.Rejection.builder()
@@ -73,7 +71,5 @@ internal class RealTimePaymentsTransferCompleteParamsTest {
                 .build()
 
         val body = params._body()
-
-        assertNotNull(body)
     }
 }

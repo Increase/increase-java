@@ -2,7 +2,6 @@
 
 package com.increase.api.models.physicalcards
 
-import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -39,7 +38,6 @@ internal class PhysicalCardUpdateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.status()).isEqualTo(PhysicalCardUpdateParams.Status.ACTIVE)
     }
 }

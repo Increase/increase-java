@@ -2,7 +2,6 @@
 
 package com.increase.api.models.inboundcheckdeposits
 
-import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -39,7 +38,6 @@ internal class InboundCheckDepositReturnParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.reason())
             .isEqualTo(InboundCheckDepositReturnParams.Reason.ALTERED_OR_FICTITIOUS)
     }

@@ -2,7 +2,6 @@
 
 package com.increase.api.models.physicalcardprofiles
 
-import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -50,7 +49,6 @@ internal class PhysicalCardProfileCloneParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.carrierImageFileId()).contains("carrier_image_file_id")
         assertThat(body.contactPhone()).contains("x")
         assertThat(body.description()).contains("x")
@@ -69,7 +67,5 @@ internal class PhysicalCardProfileCloneParamsTest {
                 .build()
 
         val body = params._body()
-
-        assertNotNull(body)
     }
 }
