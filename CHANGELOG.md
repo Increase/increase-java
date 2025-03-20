@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.197.0 (2025-03-20)
+
+Full Changelog: [v0.196.1...v0.197.0](https://github.com/Increase/increase-java/compare/v0.196.1...v0.197.0)
+
+### ⚠ BREAKING CHANGES
+
+* **client:** refactor exception structure and methods ([#885](https://github.com/Increase/increase-java/issues/885))
+
+### Bug Fixes
+
+* compilation error ([7dc9133](https://github.com/Increase/increase-java/commit/7dc9133c70841963b8cd729d88de793231dadf1f))
+
+
+### Chores
+
+* **client:** refactor exception structure and methods ([#885](https://github.com/Increase/increase-java/issues/885)) ([a6a26f4](https://github.com/Increase/increase-java/commit/a6a26f460d13b04dffb3b14225e75922f1751d56))
+* **internal:** add missing release please block ([#884](https://github.com/Increase/increase-java/issues/884)) ([ee37922](https://github.com/Increase/increase-java/commit/ee37922f9015f932dcce99069d76ec875be23717))
+* **internal:** version bump ([#882](https://github.com/Increase/increase-java/issues/882)) ([d07cb07](https://github.com/Increase/increase-java/commit/d07cb07b559972ff8d92167de1f7d71ef5d61298))
+
 ## 0.196.1 (2025-03-18)
 
 Full Changelog: [v0.196.0...v0.196.1](https://github.com/Increase/increase-java/compare/v0.196.0...v0.196.1)
