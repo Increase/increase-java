@@ -2,7 +2,6 @@
 
 package com.increase.api.models.lockboxes
 
-import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -39,7 +38,6 @@ internal class LockboxUpdateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.description()).contains("x")
         assertThat(body.recipientName()).contains("x")
         assertThat(body.status()).contains(LockboxUpdateParams.Status.ACTIVE)
@@ -50,7 +48,5 @@ internal class LockboxUpdateParamsTest {
         val params = LockboxUpdateParams.builder().lockboxId("lockbox_3xt21ok13q19advds4t5").build()
 
         val body = params._body()
-
-        assertNotNull(body)
     }
 }

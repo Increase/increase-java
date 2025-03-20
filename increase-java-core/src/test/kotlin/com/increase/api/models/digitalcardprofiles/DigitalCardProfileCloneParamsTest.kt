@@ -2,7 +2,6 @@
 
 package com.increase.api.models.digitalcardprofiles
 
-import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -62,7 +61,6 @@ internal class DigitalCardProfileCloneParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.appIconFileId()).contains("app_icon_file_id")
         assertThat(body.backgroundImageFileId()).contains("file_1ai913suu1zfn1pdetru")
         assertThat(body.cardDescription()).contains("x")
@@ -85,7 +83,5 @@ internal class DigitalCardProfileCloneParamsTest {
                 .build()
 
         val body = params._body()
-
-        assertNotNull(body)
     }
 }

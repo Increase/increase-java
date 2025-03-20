@@ -2,7 +2,6 @@
 
 package com.increase.api.models.simulations.achtransfers
 
-import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -48,7 +47,6 @@ internal class AchTransferCreateNotificationOfChangeParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.changeCode())
             .isEqualTo(
                 AchTransferCreateNotificationOfChangeParams.ChangeCode.INCORRECT_ACCOUNT_NUMBER

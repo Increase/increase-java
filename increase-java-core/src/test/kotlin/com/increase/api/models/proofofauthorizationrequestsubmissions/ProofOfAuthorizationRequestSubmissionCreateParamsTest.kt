@@ -3,7 +3,6 @@
 package com.increase.api.models.proofofauthorizationrequestsubmissions
 
 import java.time.OffsetDateTime
-import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -49,7 +48,6 @@ internal class ProofOfAuthorizationRequestSubmissionCreateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.authorizationTerms()).isEqualTo("I agree to the terms of service.")
         assertThat(body.authorizedAt()).isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
         assertThat(body.authorizerEmail()).isEqualTo("user@example.com")
@@ -84,7 +82,6 @@ internal class ProofOfAuthorizationRequestSubmissionCreateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.authorizationTerms()).isEqualTo("I agree to the terms of service.")
         assertThat(body.authorizedAt()).isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
         assertThat(body.authorizerEmail()).isEqualTo("user@example.com")

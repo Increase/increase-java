@@ -2,7 +2,6 @@
 
 package com.increase.api.models.simulations.cardreversals
 
-import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -26,7 +25,6 @@ internal class CardReversalCreateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.cardPaymentId()).isEqualTo("card_payment_nd3k2kacrqjli8482ave")
         assertThat(body.amount()).contains(1L)
     }
@@ -40,7 +38,6 @@ internal class CardReversalCreateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.cardPaymentId()).isEqualTo("card_payment_nd3k2kacrqjli8482ave")
     }
 }

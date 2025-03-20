@@ -2,7 +2,6 @@
 
 package com.increase.api.models.simulations.cardauthorizations
 
-import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -78,7 +77,6 @@ internal class CardAuthorizationCreateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.amount()).isEqualTo(1000L)
         assertThat(body.authenticatedCardPaymentId()).contains("authenticated_card_payment_id")
         assertThat(body.cardId()).contains("card_oubs0hwk5rn6knuecxg2")
@@ -118,7 +116,6 @@ internal class CardAuthorizationCreateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.amount()).isEqualTo(1000L)
     }
 }

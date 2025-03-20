@@ -2,7 +2,6 @@
 
 package com.increase.api.models.checkdeposits
 
-import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -32,7 +31,6 @@ internal class CheckDepositCreateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(body.amount()).isEqualTo(1000L)
         assertThat(body.backImageFileId()).isEqualTo("file_26khfk98mzfz90a11oqx")
@@ -52,7 +50,6 @@ internal class CheckDepositCreateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(body.amount()).isEqualTo(1000L)
         assertThat(body.backImageFileId()).isEqualTo("file_26khfk98mzfz90a11oqx")

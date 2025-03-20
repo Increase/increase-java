@@ -2,7 +2,6 @@
 
 package com.increase.api.models.simulations.digitalwallettokenrequests
 
-import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -22,7 +21,6 @@ internal class DigitalWalletTokenRequestCreateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.cardId()).isEqualTo("card_oubs0hwk5rn6knuecxg2")
     }
 }

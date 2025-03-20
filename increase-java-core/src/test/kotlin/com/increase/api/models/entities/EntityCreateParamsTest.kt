@@ -4,7 +4,6 @@ package com.increase.api.models.entities
 
 import java.time.LocalDate
 import kotlin.jvm.optionals.getOrNull
-import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -793,7 +792,6 @@ internal class EntityCreateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.structure()).isEqualTo(EntityCreateParams.Structure.CORPORATION)
         assertThat(body.corporation())
             .contains(
@@ -1185,7 +1183,6 @@ internal class EntityCreateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.structure()).isEqualTo(EntityCreateParams.Structure.CORPORATION)
     }
 }
