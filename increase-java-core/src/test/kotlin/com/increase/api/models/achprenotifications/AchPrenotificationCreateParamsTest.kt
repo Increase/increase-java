@@ -3,7 +3,6 @@
 package com.increase.api.models.achprenotifications
 
 import java.time.LocalDate
-import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -53,7 +52,6 @@ internal class AchPrenotificationCreateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(body.accountNumber()).isEqualTo("987654321")
         assertThat(body.routingNumber()).isEqualTo("101050001")
@@ -84,7 +82,6 @@ internal class AchPrenotificationCreateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(body.accountNumber()).isEqualTo("987654321")
         assertThat(body.routingNumber()).isEqualTo("101050001")

@@ -2,7 +2,6 @@
 
 package com.increase.api.models.externalaccounts
 
-import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -44,7 +43,6 @@ internal class ExternalAccountUpdateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.accountHolder())
             .contains(ExternalAccountUpdateParams.AccountHolder.BUSINESS)
         assertThat(body.description()).contains("New description")
@@ -60,7 +58,5 @@ internal class ExternalAccountUpdateParamsTest {
                 .build()
 
         val body = params._body()
-
-        assertNotNull(body)
     }
 }

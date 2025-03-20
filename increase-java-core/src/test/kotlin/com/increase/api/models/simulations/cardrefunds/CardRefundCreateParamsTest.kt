@@ -2,7 +2,6 @@
 
 package com.increase.api.models.simulations.cardrefunds
 
-import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -22,7 +21,6 @@ internal class CardRefundCreateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.transactionId()).isEqualTo("transaction_uyrp7fld2ium70oa7oi")
     }
 }

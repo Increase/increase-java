@@ -2,7 +2,6 @@
 
 package com.increase.api.models.accountnumbers
 
-import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -46,7 +45,6 @@ internal class AccountNumberCreateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(body.name()).isEqualTo("Rent payments")
         assertThat(body.inboundAch())
@@ -73,7 +71,6 @@ internal class AccountNumberCreateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(body.name()).isEqualTo("Rent payments")
     }

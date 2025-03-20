@@ -3,7 +3,6 @@
 package com.increase.api.models.filelinks
 
 import java.time.OffsetDateTime
-import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -27,7 +26,6 @@ internal class FileLinkCreateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.fileId()).isEqualTo("file_makxrc67oh9l6sg7w9yc")
         assertThat(body.expiresAt()).contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
     }
@@ -38,7 +36,6 @@ internal class FileLinkCreateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.fileId()).isEqualTo("file_makxrc67oh9l6sg7w9yc")
     }
 }
