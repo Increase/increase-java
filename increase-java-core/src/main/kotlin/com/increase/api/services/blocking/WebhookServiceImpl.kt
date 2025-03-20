@@ -7,19 +7,14 @@ import com.google.common.io.BaseEncoding
 import com.increase.api.core.ClientOptions
 import com.increase.api.core.JsonValue
 import com.increase.api.core.getRequiredHeader
-import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.http.Headers
-import com.increase.api.core.http.HttpResponse.Handler
-import com.increase.api.errors.IncreaseError
 import com.increase.api.errors.IncreaseException
 import java.time.Instant
 import javax.crypto.Mac
 import javax.crypto.spec.SecretKeySpec
 import kotlin.jvm.optionals.getOrNull
 
-class WebhookServiceImpl constructor(private val clientOptions: ClientOptions) : WebhookService {
-
-    private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
+class WebhookServiceImpl(private val clientOptions: ClientOptions) : WebhookService {
 
     override fun unwrap(payload: String, headers: Headers, secret: String?): JsonValue {
         if (secret != null) {
