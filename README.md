@@ -7,7 +7,7 @@
 
 <!-- x-release-please-end -->
 
-The Increase Java SDK provides convenient access to the Increase REST API from applications written in Java.
+The Increase Java SDK provides convenient access to the [Increase REST API](https://increase.com/documentation) from applications written in Java.
 
 The Increase Java SDK is similar to the Increase Kotlin SDK but with minor differences that make it more ergonomic for use in Java, such as `Optional` instead of nullable values, `Stream` instead of `Sequence`, and `CompletableFuture` instead of suspend functions.
 
@@ -31,9 +31,9 @@ implementation("com.increase.api:increase-java:0.197.0")
 
 ```xml
 <dependency>
-    <groupId>com.increase.api</groupId>
-    <artifactId>increase-java</artifactId>
-    <version>0.197.0</version>
+  <groupId>com.increase.api</groupId>
+  <artifactId>increase-java</artifactId>
+  <version>0.197.0</version>
 </dependency>
 ```
 
