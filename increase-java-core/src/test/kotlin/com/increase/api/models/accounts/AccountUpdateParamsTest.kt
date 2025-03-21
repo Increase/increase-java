@@ -2,7 +2,6 @@
 
 package com.increase.api.models.accounts
 
-import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -35,7 +34,6 @@ internal class AccountUpdateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.name()).contains("My renamed account")
     }
 
@@ -44,7 +42,5 @@ internal class AccountUpdateParamsTest {
         val params = AccountUpdateParams.builder().accountId("account_in71c4amph0vgo2qllky").build()
 
         val body = params._body()
-
-        assertNotNull(body)
     }
 }

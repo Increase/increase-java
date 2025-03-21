@@ -3,7 +3,6 @@
 package com.increase.api.models.bookkeepingentrysets
 
 import java.time.OffsetDateTime
-import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -51,7 +50,6 @@ internal class BookkeepingEntrySetCreateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.entries())
             .containsExactly(
                 BookkeepingEntrySetCreateParams.Entry.builder()
@@ -87,7 +85,6 @@ internal class BookkeepingEntrySetCreateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.entries())
             .containsExactly(
                 BookkeepingEntrySetCreateParams.Entry.builder()

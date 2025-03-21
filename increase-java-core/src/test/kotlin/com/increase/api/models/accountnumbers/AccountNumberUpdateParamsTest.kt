@@ -2,7 +2,6 @@
 
 package com.increase.api.models.accountnumbers
 
-import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -60,7 +59,6 @@ internal class AccountNumberUpdateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.inboundAch())
             .contains(
                 AccountNumberUpdateParams.InboundAch.builder()
@@ -85,7 +83,5 @@ internal class AccountNumberUpdateParamsTest {
                 .build()
 
         val body = params._body()
-
-        assertNotNull(body)
     }
 }

@@ -13,7 +13,6 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
-import java.io.ByteArrayInputStream
 import java.io.InputStream
 import java.nio.file.Path
 import java.util.Objects
@@ -37,26 +36,48 @@ private constructor(
      * The file contents. This should follow the specifications of
      * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file transfers for
      * the multipart/form-data protocol.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun file(): InputStream = body.file()
 
-    /** What the File will be used for in Increase's systems. */
+    /**
+     * What the File will be used for in Increase's systems.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun purpose(): Purpose = body.purpose()
 
-    /** The description you choose to give the File. */
+    /**
+     * The description you choose to give the File.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun description(): Optional<String> = body.description()
 
     /**
-     * The file contents. This should follow the specifications of
-     * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file transfers for
-     * the multipart/form-data protocol.
+     * Returns the raw multipart value of [file].
+     *
+     * Unlike [file], this method doesn't throw if the multipart field has an unexpected type.
      */
     fun _file(): MultipartField<InputStream> = body._file()
 
-    /** What the File will be used for in Increase's systems. */
+    /**
+     * Returns the raw multipart value of [purpose].
+     *
+     * Unlike [purpose], this method doesn't throw if the multipart field has an unexpected type.
+     */
     fun _purpose(): MultipartField<Purpose> = body._purpose()
 
-    /** The description you choose to give the File. */
+    /**
+     * Returns the raw multipart value of [description].
+     *
+     * Unlike [description], this method doesn't throw if the multipart field has an unexpected
+     * type.
+     */
     fun _description(): MultipartField<String> = body._description()
 
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -85,27 +106,50 @@ private constructor(
          * The file contents. This should follow the specifications of
          * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file transfers
          * for the multipart/form-data protocol.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun file(): InputStream = file.value.getRequired("file")
 
-        /** What the File will be used for in Increase's systems. */
+        /**
+         * What the File will be used for in Increase's systems.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun purpose(): Purpose = purpose.value.getRequired("purpose")
 
-        /** The description you choose to give the File. */
+        /**
+         * The description you choose to give the File.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun description(): Optional<String> =
             Optional.ofNullable(description.value.getNullable("description"))
 
         /**
-         * The file contents. This should follow the specifications of
-         * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file transfers
-         * for the multipart/form-data protocol.
+         * Returns the raw multipart value of [file].
+         *
+         * Unlike [file], this method doesn't throw if the multipart field has an unexpected type.
          */
         fun _file(): MultipartField<InputStream> = file
 
-        /** What the File will be used for in Increase's systems. */
+        /**
+         * Returns the raw multipart value of [purpose].
+         *
+         * Unlike [purpose], this method doesn't throw if the multipart field has an unexpected
+         * type.
+         */
         fun _purpose(): MultipartField<Purpose> = purpose
 
-        /** The description you choose to give the File. */
+        /**
+         * Returns the raw multipart value of [description].
+         *
+         * Unlike [description], this method doesn't throw if the multipart field has an unexpected
+         * type.
+         */
         fun _description(): MultipartField<String> = description
 
         private var validated: Boolean = false
@@ -159,9 +203,11 @@ private constructor(
             fun file(file: InputStream) = file(MultipartField.of(file))
 
             /**
-             * The file contents. This should follow the specifications of
-             * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file
-             * transfers for the multipart/form-data protocol.
+             * Sets [Builder.file] to an arbitrary multipart value.
+             *
+             * You should usually call [Builder.file] with a well-typed [InputStream] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun file(file: MultipartField<InputStream>) = apply { this.file = file }
 
@@ -170,7 +216,7 @@ private constructor(
              * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file
              * transfers for the multipart/form-data protocol.
              */
-            fun file(file: ByteArray) = file(ByteArrayInputStream(file))
+            fun file(file: ByteArray) = file(file.inputStream())
 
             /**
              * The file contents. This should follow the specifications of
@@ -188,13 +234,25 @@ private constructor(
             /** What the File will be used for in Increase's systems. */
             fun purpose(purpose: Purpose) = purpose(MultipartField.of(purpose))
 
-            /** What the File will be used for in Increase's systems. */
+            /**
+             * Sets [Builder.purpose] to an arbitrary multipart value.
+             *
+             * You should usually call [Builder.purpose] with a well-typed [Purpose] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun purpose(purpose: MultipartField<Purpose>) = apply { this.purpose = purpose }
 
             /** The description you choose to give the File. */
             fun description(description: String) = description(MultipartField.of(description))
 
-            /** The description you choose to give the File. */
+            /**
+             * Sets [Builder.description] to an arbitrary multipart value.
+             *
+             * You should usually call [Builder.description] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun description(description: MultipartField<String>) = apply {
                 this.description = description
             }
@@ -272,9 +330,11 @@ private constructor(
         fun file(file: InputStream) = apply { body.file(file) }
 
         /**
-         * The file contents. This should follow the specifications of
-         * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file transfers
-         * for the multipart/form-data protocol.
+         * Sets [Builder.file] to an arbitrary multipart value.
+         *
+         * You should usually call [Builder.file] with a well-typed [InputStream] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun file(file: MultipartField<InputStream>) = apply { body.file(file) }
 
@@ -295,13 +355,24 @@ private constructor(
         /** What the File will be used for in Increase's systems. */
         fun purpose(purpose: Purpose) = apply { body.purpose(purpose) }
 
-        /** What the File will be used for in Increase's systems. */
+        /**
+         * Sets [Builder.purpose] to an arbitrary multipart value.
+         *
+         * You should usually call [Builder.purpose] with a well-typed [Purpose] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun purpose(purpose: MultipartField<Purpose>) = apply { body.purpose(purpose) }
 
         /** The description you choose to give the File. */
         fun description(description: String) = apply { body.description(description) }
 
-        /** The description you choose to give the File. */
+        /**
+         * Sets [Builder.description] to an arbitrary multipart value.
+         *
+         * You should usually call [Builder.description] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun description(description: MultipartField<String>) = apply {
             body.description(description)
         }

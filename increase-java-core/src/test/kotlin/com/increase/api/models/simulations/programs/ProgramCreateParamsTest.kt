@@ -2,7 +2,6 @@
 
 package com.increase.api.models.simulations.programs
 
-import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -19,7 +18,6 @@ internal class ProgramCreateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.name()).isEqualTo("For Benefit Of")
     }
 }

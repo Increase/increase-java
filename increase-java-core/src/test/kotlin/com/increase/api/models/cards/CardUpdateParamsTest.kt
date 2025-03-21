@@ -2,7 +2,6 @@
 
 package com.increase.api.models.cards
 
-import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -71,7 +70,6 @@ internal class CardUpdateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.billingAddress())
             .contains(
                 CardUpdateParams.BillingAddress.builder()
@@ -100,7 +98,5 @@ internal class CardUpdateParamsTest {
         val params = CardUpdateParams.builder().cardId("card_oubs0hwk5rn6knuecxg2").build()
 
         val body = params._body()
-
-        assertNotNull(body)
     }
 }

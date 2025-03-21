@@ -2,18 +2,18 @@
 
 <!-- x-release-please-start-version -->
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.increase.api/increase-java)](https://central.sonatype.com/artifact/com.increase.api/increase-java/0.197.0)
-[![javadoc](https://javadoc.io/badge2/com.increase.api/increase-java/0.197.0/javadoc.svg)](https://javadoc.io/doc/com.increase.api/increase-java/0.197.0)
+[![Maven Central](https://img.shields.io/maven-central/v/com.increase.api/increase-java)](https://central.sonatype.com/artifact/com.increase.api/increase-java/0.197.1)
+[![javadoc](https://javadoc.io/badge2/com.increase.api/increase-java/0.197.1/javadoc.svg)](https://javadoc.io/doc/com.increase.api/increase-java/0.197.1)
 
 <!-- x-release-please-end -->
 
-The Increase Java SDK provides convenient access to the Increase REST API from applications written in Java.
+The Increase Java SDK provides convenient access to the [Increase REST API](https://increase.com/documentation) from applications written in Java.
 
 The Increase Java SDK is similar to the Increase Kotlin SDK but with minor differences that make it more ergonomic for use in Java, such as `Optional` instead of nullable values, `Stream` instead of `Sequence`, and `CompletableFuture` instead of suspend functions.
 
 <!-- x-release-please-start-version -->
 
-The REST API documentation can be found on [increase.com](https://increase.com/documentation). Javadocs are also available on [javadoc.io](https://javadoc.io/doc/com.increase.api/increase-java/0.197.0).
+The REST API documentation can be found on [increase.com](https://increase.com/documentation). Javadocs are also available on [javadoc.io](https://javadoc.io/doc/com.increase.api/increase-java/0.197.1).
 
 <!-- x-release-please-end -->
 
@@ -24,16 +24,16 @@ The REST API documentation can be found on [increase.com](https://increase.com/d
 ### Gradle
 
 ```kotlin
-implementation("com.increase.api:increase-java:0.197.0")
+implementation("com.increase.api:increase-java:0.197.1")
 ```
 
 ### Maven
 
 ```xml
 <dependency>
-    <groupId>com.increase.api</groupId>
-    <artifactId>increase-java</artifactId>
-    <version>0.197.0</version>
+  <groupId>com.increase.api</groupId>
+  <artifactId>increase-java</artifactId>
+  <version>0.197.1</version>
 </dependency>
 ```
 
@@ -268,16 +268,16 @@ The SDK throws custom unchecked exception types:
 
 - [`IncreaseServiceException`](increase-java-core/src/main/kotlin/com/increase/api/errors/IncreaseServiceException.kt): Base class for HTTP errors. See this table for which exception subclass is thrown for each HTTP status code:
 
-  | Status | Exception                       |
-  | ------ | ------------------------------- |
-  | 400    | `BadRequestException`           |
-  | 401    | `AuthenticationException`       |
-  | 403    | `PermissionDeniedException`     |
-  | 404    | `NotFoundException`             |
-  | 422    | `UnprocessableEntityException`  |
-  | 429    | `RateLimitException`            |
-  | 5xx    | `InternalServerException`       |
-  | others | `UnexpectedStatusCodeException` |
+  | Status | Exception                                                                                                                      |
+  | ------ | ------------------------------------------------------------------------------------------------------------------------------ |
+  | 400    | [`BadRequestException`](increase-java-core/src/main/kotlin/com/increase/api/errors/BadRequestException.kt)                     |
+  | 401    | [`UnauthorizedException`](increase-java-core/src/main/kotlin/com/increase/api/errors/UnauthorizedException.kt)                 |
+  | 403    | [`PermissionDeniedException`](increase-java-core/src/main/kotlin/com/increase/api/errors/PermissionDeniedException.kt)         |
+  | 404    | [`NotFoundException`](increase-java-core/src/main/kotlin/com/increase/api/errors/NotFoundException.kt)                         |
+  | 422    | [`UnprocessableEntityException`](increase-java-core/src/main/kotlin/com/increase/api/errors/UnprocessableEntityException.kt)   |
+  | 429    | [`RateLimitException`](increase-java-core/src/main/kotlin/com/increase/api/errors/RateLimitException.kt)                       |
+  | 5xx    | [`InternalServerException`](increase-java-core/src/main/kotlin/com/increase/api/errors/InternalServerException.kt)             |
+  | others | [`UnexpectedStatusCodeException`](increase-java-core/src/main/kotlin/com/increase/api/errors/UnexpectedStatusCodeException.kt) |
 
 - [`IncreaseIoException`](increase-java-core/src/main/kotlin/com/increase/api/errors/IncreaseIoException.kt): I/O networking errors.
 

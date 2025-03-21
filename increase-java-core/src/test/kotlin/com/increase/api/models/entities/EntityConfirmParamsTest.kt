@@ -3,7 +3,6 @@
 package com.increase.api.models.entities
 
 import java.time.OffsetDateTime
-import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -36,7 +35,6 @@ internal class EntityConfirmParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.confirmedAt()).contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
     }
 
@@ -45,7 +43,5 @@ internal class EntityConfirmParamsTest {
         val params = EntityConfirmParams.builder().entityId("entity_n8y8tnk2p9339ti393yi").build()
 
         val body = params._body()
-
-        assertNotNull(body)
     }
 }

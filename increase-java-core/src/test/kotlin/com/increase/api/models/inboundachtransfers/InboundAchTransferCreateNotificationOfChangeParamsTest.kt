@@ -2,7 +2,6 @@
 
 package com.increase.api.models.inboundachtransfers
 
-import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -40,7 +39,6 @@ internal class InboundAchTransferCreateNotificationOfChangeParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.updatedAccountNumber()).contains("987654321")
         assertThat(body.updatedRoutingNumber()).contains("101050001")
     }
@@ -53,7 +51,5 @@ internal class InboundAchTransferCreateNotificationOfChangeParamsTest {
                 .build()
 
         val body = params._body()
-
-        assertNotNull(body)
     }
 }

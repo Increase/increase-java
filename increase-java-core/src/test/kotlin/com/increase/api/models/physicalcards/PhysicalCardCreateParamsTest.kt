@@ -2,7 +2,6 @@
 
 package com.increase.api.models.physicalcards
 
-import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -72,7 +71,6 @@ internal class PhysicalCardCreateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.cardId()).isEqualTo("card_oubs0hwk5rn6knuecxg2")
         assertThat(body.cardholder())
             .isEqualTo(
@@ -131,7 +129,6 @@ internal class PhysicalCardCreateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.cardId()).isEqualTo("card_oubs0hwk5rn6knuecxg2")
         assertThat(body.cardholder())
             .isEqualTo(

@@ -2,7 +2,6 @@
 
 package com.increase.api.models.simulations.achtransfers
 
-import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -38,7 +37,6 @@ internal class AchTransferReturnParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.reason()).contains(AchTransferReturnParams.Reason.INSUFFICIENT_FUND)
     }
 
@@ -50,7 +48,5 @@ internal class AchTransferReturnParamsTest {
                 .build()
 
         val body = params._body()
-
-        assertNotNull(body)
     }
 }

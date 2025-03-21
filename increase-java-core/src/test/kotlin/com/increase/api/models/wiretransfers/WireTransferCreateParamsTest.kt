@@ -2,7 +2,6 @@
 
 package com.increase.api.models.wiretransfers
 
-import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -54,7 +53,6 @@ internal class WireTransferCreateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(body.amount()).isEqualTo(100L)
         assertThat(body.beneficiaryName()).isEqualTo("Ian Crease")
@@ -85,7 +83,6 @@ internal class WireTransferCreateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(body.amount()).isEqualTo(100L)
         assertThat(body.beneficiaryName()).isEqualTo("Ian Crease")

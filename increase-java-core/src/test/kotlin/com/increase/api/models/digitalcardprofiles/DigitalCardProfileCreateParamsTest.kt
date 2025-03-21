@@ -2,7 +2,6 @@
 
 package com.increase.api.models.digitalcardprofiles
 
-import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -52,7 +51,6 @@ internal class DigitalCardProfileCreateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.appIconFileId()).isEqualTo("file_8zxqkwlh43wo144u8yec")
         assertThat(body.backgroundImageFileId()).isEqualTo("file_1ai913suu1zfn1pdetru")
         assertThat(body.cardDescription()).isEqualTo("MyBank Signature Card")
@@ -84,7 +82,6 @@ internal class DigitalCardProfileCreateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.appIconFileId()).isEqualTo("file_8zxqkwlh43wo144u8yec")
         assertThat(body.backgroundImageFileId()).isEqualTo("file_1ai913suu1zfn1pdetru")
         assertThat(body.cardDescription()).isEqualTo("MyBank Signature Card")

@@ -2,7 +2,6 @@
 
 package com.increase.api.models.wiredrawdownrequests
 
-import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -48,7 +47,6 @@ internal class WireDrawdownRequestCreateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.accountNumberId()).isEqualTo("account_number_v18nkfqm6afpsrvy82b2")
         assertThat(body.amount()).isEqualTo(10000L)
         assertThat(body.messageToRecipient()).isEqualTo("Invoice 29582")
@@ -78,7 +76,6 @@ internal class WireDrawdownRequestCreateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.accountNumberId()).isEqualTo("account_number_v18nkfqm6afpsrvy82b2")
         assertThat(body.amount()).isEqualTo(10000L)
         assertThat(body.messageToRecipient()).isEqualTo("Invoice 29582")

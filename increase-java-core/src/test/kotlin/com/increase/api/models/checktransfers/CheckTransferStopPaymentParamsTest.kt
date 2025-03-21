@@ -2,7 +2,6 @@
 
 package com.increase.api.models.checktransfers
 
-import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -38,7 +37,6 @@ internal class CheckTransferStopPaymentParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.reason())
             .contains(CheckTransferStopPaymentParams.Reason.MAIL_DELIVERY_FAILED)
     }
@@ -51,7 +49,5 @@ internal class CheckTransferStopPaymentParamsTest {
                 .build()
 
         val body = params._body()
-
-        assertNotNull(body)
     }
 }

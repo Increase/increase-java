@@ -2,7 +2,6 @@
 
 package com.increase.api.models.realtimepaymentstransfers
 
-import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -44,7 +43,6 @@ internal class RealTimePaymentsTransferCreateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.amount()).isEqualTo(100L)
         assertThat(body.creditorName()).isEqualTo("Ian Crease")
         assertThat(body.remittanceInformation()).isEqualTo("Invoice 29582")
@@ -70,7 +68,6 @@ internal class RealTimePaymentsTransferCreateParamsTest {
 
         val body = params._body()
 
-        assertNotNull(body)
         assertThat(body.amount()).isEqualTo(100L)
         assertThat(body.creditorName()).isEqualTo("Ian Crease")
         assertThat(body.remittanceInformation()).isEqualTo("Invoice 29582")
