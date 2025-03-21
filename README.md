@@ -268,16 +268,16 @@ The SDK throws custom unchecked exception types:
 
 - [`IncreaseServiceException`](increase-java-core/src/main/kotlin/com/increase/api/errors/IncreaseServiceException.kt): Base class for HTTP errors. See this table for which exception subclass is thrown for each HTTP status code:
 
-  | Status | Exception                       |
-  | ------ | ------------------------------- |
-  | 400    | `BadRequestException`           |
-  | 401    | `AuthenticationException`       |
-  | 403    | `PermissionDeniedException`     |
-  | 404    | `NotFoundException`             |
-  | 422    | `UnprocessableEntityException`  |
-  | 429    | `RateLimitException`            |
-  | 5xx    | `InternalServerException`       |
-  | others | `UnexpectedStatusCodeException` |
+  | Status | Exception                                                                                                                      |
+  | ------ | ------------------------------------------------------------------------------------------------------------------------------ |
+  | 400    | [`BadRequestException`](increase-java-core/src/main/kotlin/com/increase/api/errors/BadRequestException.kt)                     |
+  | 401    | [`UnauthorizedException`](increase-java-core/src/main/kotlin/com/increase/api/errors/UnauthorizedException.kt)                 |
+  | 403    | [`PermissionDeniedException`](increase-java-core/src/main/kotlin/com/increase/api/errors/PermissionDeniedException.kt)         |
+  | 404    | [`NotFoundException`](increase-java-core/src/main/kotlin/com/increase/api/errors/NotFoundException.kt)                         |
+  | 422    | [`UnprocessableEntityException`](increase-java-core/src/main/kotlin/com/increase/api/errors/UnprocessableEntityException.kt)   |
+  | 429    | [`RateLimitException`](increase-java-core/src/main/kotlin/com/increase/api/errors/RateLimitException.kt)                       |
+  | 5xx    | [`InternalServerException`](increase-java-core/src/main/kotlin/com/increase/api/errors/InternalServerException.kt)             |
+  | others | [`UnexpectedStatusCodeException`](increase-java-core/src/main/kotlin/com/increase/api/errors/UnexpectedStatusCodeException.kt) |
 
 - [`IncreaseIoException`](increase-java-core/src/main/kotlin/com/increase/api/errors/IncreaseIoException.kt): I/O networking errors.
 
