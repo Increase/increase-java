@@ -1,5 +1,28 @@
 # Changelog
 
+## 0.198.0 (2025-03-22)
+
+Full Changelog: [v0.197.0...v0.198.0](https://github.com/Increase/increase-java/compare/v0.197.0...v0.198.0)
+
+### Features
+
+* **api:** api update ([#893](https://github.com/Increase/increase-java/issues/893)) ([e4940f0](https://github.com/Increase/increase-java/commit/e4940f046fe867085cb8d790967500bf39f4f45c))
+
+
+### Chores
+
+* **internal:** fix example formatting ([#889](https://github.com/Increase/increase-java/issues/889)) ([0e3e428](https://github.com/Increase/increase-java/commit/0e3e4280d17c6dca1820a3f8e962debad3f36dde))
+* **internal:** make multipart assertions more robust ([9a5bd52](https://github.com/Increase/increase-java/commit/9a5bd52acfdde61c1d98ebad432a7fed8492a28b))
+* **internal:** remove unnecessary `assertNotNull` calls ([9a5bd52](https://github.com/Increase/increase-java/commit/9a5bd52acfdde61c1d98ebad432a7fed8492a28b))
+* **internal:** remove unnecessary import ([#890](https://github.com/Increase/increase-java/issues/890)) ([58eeabe](https://github.com/Increase/increase-java/commit/58eeabeff6905a55bdcb47f342e89bbaa2a27915))
+
+
+### Documentation
+
+* minor readme tweak ([#892](https://github.com/Increase/increase-java/issues/892)) ([6dbe539](https://github.com/Increase/increase-java/commit/6dbe5398bf11a4105c315c04df9fcaa6a2975a21))
+* refine comments on multipart params ([#887](https://github.com/Increase/increase-java/issues/887)) ([9a5bd52](https://github.com/Increase/increase-java/commit/9a5bd52acfdde61c1d98ebad432a7fed8492a28b))
+* update readme exception docs ([#891](https://github.com/Increase/increase-java/issues/891)) ([8a13850](https://github.com/Increase/increase-java/commit/8a13850eb288ccc7b62d0f4c6022e895dd916dd6))
+
 ## 0.197.0 (2025-03-20)
 
 Full Changelog: [v0.196.1...v0.197.0](https://github.com/Increase/increase-java/compare/v0.196.1...v0.197.0)
