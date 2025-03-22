@@ -523,10 +523,16 @@ private constructor(
             @JvmField val CHECK_VOUCHER_IMAGE = of("check_voucher_image")
 
             /**
-             * An image to be printed on an additional page and mailed with a check that you've
+             * A document to be printed on an additional page and mailed with a check that you've
              * requested Increase print.
              */
             @JvmField val CHECK_ATTACHMENT_IMAGE = of("check_attachment_image")
+
+            /**
+             * A document to be printed on an additional page and mailed with a check that you've
+             * requested Increase print.
+             */
+            @JvmField val CHECK_ATTACHMENT = of("check_attachment")
 
             /** IRS Form SS-4. */
             @JvmField val FORM_SS_4 = of("form_ss_4")
@@ -599,10 +605,15 @@ private constructor(
              */
             CHECK_VOUCHER_IMAGE,
             /**
-             * An image to be printed on an additional page and mailed with a check that you've
+             * A document to be printed on an additional page and mailed with a check that you've
              * requested Increase print.
              */
             CHECK_ATTACHMENT_IMAGE,
+            /**
+             * A document to be printed on an additional page and mailed with a check that you've
+             * requested Increase print.
+             */
+            CHECK_ATTACHMENT,
             /** IRS Form SS-4. */
             FORM_SS_4,
             /** An image of a government-issued ID. */
@@ -666,10 +677,15 @@ private constructor(
              */
             CHECK_VOUCHER_IMAGE,
             /**
-             * An image to be printed on an additional page and mailed with a check that you've
+             * A document to be printed on an additional page and mailed with a check that you've
              * requested Increase print.
              */
             CHECK_ATTACHMENT_IMAGE,
+            /**
+             * A document to be printed on an additional page and mailed with a check that you've
+             * requested Increase print.
+             */
+            CHECK_ATTACHMENT,
             /** IRS Form SS-4. */
             FORM_SS_4,
             /** An image of a government-issued ID. */
@@ -727,6 +743,7 @@ private constructor(
                 MAILED_CHECK_IMAGE -> Value.MAILED_CHECK_IMAGE
                 CHECK_VOUCHER_IMAGE -> Value.CHECK_VOUCHER_IMAGE
                 CHECK_ATTACHMENT_IMAGE -> Value.CHECK_ATTACHMENT_IMAGE
+                CHECK_ATTACHMENT -> Value.CHECK_ATTACHMENT
                 FORM_SS_4 -> Value.FORM_SS_4
                 IDENTITY_DOCUMENT -> Value.IDENTITY_DOCUMENT
                 OTHER -> Value.OTHER
@@ -759,6 +776,7 @@ private constructor(
                 MAILED_CHECK_IMAGE -> Known.MAILED_CHECK_IMAGE
                 CHECK_VOUCHER_IMAGE -> Known.CHECK_VOUCHER_IMAGE
                 CHECK_ATTACHMENT_IMAGE -> Known.CHECK_ATTACHMENT_IMAGE
+                CHECK_ATTACHMENT -> Known.CHECK_ATTACHMENT
                 FORM_SS_4 -> Known.FORM_SS_4
                 IDENTITY_DOCUMENT -> Known.IDENTITY_DOCUMENT
                 OTHER -> Known.OTHER
