@@ -603,18 +603,6 @@ private constructor(
             @JvmField val MAILED_CHECK_IMAGE = of("mailed_check_image")
 
             /**
-             * An image to be printed on the bottom or voucher of a check that you've requested
-             * Increase print.
-             */
-            @JvmField val CHECK_VOUCHER_IMAGE = of("check_voucher_image")
-
-            /**
-             * A document to be printed on an additional page and mailed with a check that you've
-             * requested Increase print.
-             */
-            @JvmField val CHECK_ATTACHMENT_IMAGE = of("check_attachment_image")
-
-            /**
              * A document to be printed on an additional page and mailed with a check that you've
              * requested Increase print.
              */
@@ -718,16 +706,6 @@ private constructor(
             /** An image of a check that was mailed to a recipient. */
             MAILED_CHECK_IMAGE,
             /**
-             * An image to be printed on the bottom or voucher of a check that you've requested
-             * Increase print.
-             */
-            CHECK_VOUCHER_IMAGE,
-            /**
-             * A document to be printed on an additional page and mailed with a check that you've
-             * requested Increase print.
-             */
-            CHECK_ATTACHMENT_IMAGE,
-            /**
              * A document to be printed on an additional page and mailed with a check that you've
              * requested Increase print.
              */
@@ -814,16 +792,6 @@ private constructor(
             /** An image of a check that was mailed to a recipient. */
             MAILED_CHECK_IMAGE,
             /**
-             * An image to be printed on the bottom or voucher of a check that you've requested
-             * Increase print.
-             */
-            CHECK_VOUCHER_IMAGE,
-            /**
-             * A document to be printed on an additional page and mailed with a check that you've
-             * requested Increase print.
-             */
-            CHECK_ATTACHMENT_IMAGE,
-            /**
              * A document to be printed on an additional page and mailed with a check that you've
              * requested Increase print.
              */
@@ -899,8 +867,6 @@ private constructor(
                 PROCESSED_CHECK_IMAGE_FRONT -> Value.PROCESSED_CHECK_IMAGE_FRONT
                 PROCESSED_CHECK_IMAGE_BACK -> Value.PROCESSED_CHECK_IMAGE_BACK
                 MAILED_CHECK_IMAGE -> Value.MAILED_CHECK_IMAGE
-                CHECK_VOUCHER_IMAGE -> Value.CHECK_VOUCHER_IMAGE
-                CHECK_ATTACHMENT_IMAGE -> Value.CHECK_ATTACHMENT_IMAGE
                 CHECK_ATTACHMENT -> Value.CHECK_ATTACHMENT
                 INBOUND_MAIL_ITEM -> Value.INBOUND_MAIL_ITEM
                 FORM_1099_INT -> Value.FORM_1099_INT
@@ -941,8 +907,6 @@ private constructor(
                 PROCESSED_CHECK_IMAGE_FRONT -> Known.PROCESSED_CHECK_IMAGE_FRONT
                 PROCESSED_CHECK_IMAGE_BACK -> Known.PROCESSED_CHECK_IMAGE_BACK
                 MAILED_CHECK_IMAGE -> Known.MAILED_CHECK_IMAGE
-                CHECK_VOUCHER_IMAGE -> Known.CHECK_VOUCHER_IMAGE
-                CHECK_ATTACHMENT_IMAGE -> Known.CHECK_ATTACHMENT_IMAGE
                 CHECK_ATTACHMENT -> Known.CHECK_ATTACHMENT
                 INBOUND_MAIL_ITEM -> Known.INBOUND_MAIL_ITEM
                 FORM_1099_INT -> Known.FORM_1099_INT
