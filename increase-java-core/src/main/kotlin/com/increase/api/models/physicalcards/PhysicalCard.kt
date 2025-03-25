@@ -11,12 +11,10 @@ import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.checkRequired
-import com.increase.api.core.immutableEmptyMap
-import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
+import java.util.Collections
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
@@ -27,35 +25,51 @@ import kotlin.jvm.optionals.getOrNull
  * multiple Physical Cards. Printing cards incurs a fee. Please contact
  * [support@increase.com](mailto:support@increase.com) for pricing!
  */
-@NoAutoDetect
 class PhysicalCard
-@JsonCreator
 private constructor(
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("card_id")
-    @ExcludeMissing
-    private val cardId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("cardholder")
-    @ExcludeMissing
-    private val cardholder: JsonField<Cardholder> = JsonMissing.of(),
-    @JsonProperty("created_at")
-    @ExcludeMissing
-    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("idempotency_key")
-    @ExcludeMissing
-    private val idempotencyKey: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("physical_card_profile_id")
-    @ExcludeMissing
-    private val physicalCardProfileId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("shipment")
-    @ExcludeMissing
-    private val shipment: JsonField<Shipment> = JsonMissing.of(),
-    @JsonProperty("status")
-    @ExcludeMissing
-    private val status: JsonField<Status> = JsonMissing.of(),
-    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
-    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+    private val id: JsonField<String>,
+    private val cardId: JsonField<String>,
+    private val cardholder: JsonField<Cardholder>,
+    private val createdAt: JsonField<OffsetDateTime>,
+    private val idempotencyKey: JsonField<String>,
+    private val physicalCardProfileId: JsonField<String>,
+    private val shipment: JsonField<Shipment>,
+    private val status: JsonField<Status>,
+    private val type: JsonField<Type>,
+    private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
+
+    @JsonCreator
+    private constructor(
+        @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("card_id") @ExcludeMissing cardId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("cardholder")
+        @ExcludeMissing
+        cardholder: JsonField<Cardholder> = JsonMissing.of(),
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("idempotency_key")
+        @ExcludeMissing
+        idempotencyKey: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("physical_card_profile_id")
+        @ExcludeMissing
+        physicalCardProfileId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("shipment") @ExcludeMissing shipment: JsonField<Shipment> = JsonMissing.of(),
+        @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
+        @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+    ) : this(
+        id,
+        cardId,
+        cardholder,
+        createdAt,
+        idempotencyKey,
+        physicalCardProfileId,
+        shipment,
+        status,
+        type,
+        mutableMapOf(),
+    )
 
     /**
      * The physical card identifier.
@@ -207,28 +221,15 @@ private constructor(
      */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
+    @JsonAnySetter
+    private fun putAdditionalProperty(key: String, value: JsonValue) {
+        additionalProperties.put(key, value)
+    }
+
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-    private var validated: Boolean = false
-
-    fun validate(): PhysicalCard = apply {
-        if (validated) {
-            return@apply
-        }
-
-        id()
-        cardId()
-        cardholder().validate()
-        createdAt()
-        idempotencyKey()
-        physicalCardProfileId()
-        shipment().validate()
-        status()
-        type()
-        validated = true
-    }
+    fun _additionalProperties(): Map<String, JsonValue> =
+        Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
@@ -462,24 +463,46 @@ private constructor(
                 checkRequired("shipment", shipment),
                 checkRequired("status", status),
                 checkRequired("type", type),
-                additionalProperties.toImmutable(),
+                additionalProperties.toMutableMap(),
             )
     }
 
+    private var validated: Boolean = false
+
+    fun validate(): PhysicalCard = apply {
+        if (validated) {
+            return@apply
+        }
+
+        id()
+        cardId()
+        cardholder().validate()
+        createdAt()
+        idempotencyKey()
+        physicalCardProfileId()
+        shipment().validate()
+        status()
+        type()
+        validated = true
+    }
+
     /** Details about the cardholder, as it appears on the printed card. */
-    @NoAutoDetect
     class Cardholder
-    @JsonCreator
     private constructor(
-        @JsonProperty("first_name")
-        @ExcludeMissing
-        private val firstName: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("last_name")
-        @ExcludeMissing
-        private val lastName: JsonField<String> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val firstName: JsonField<String>,
+        private val lastName: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("first_name")
+            @ExcludeMissing
+            firstName: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("last_name")
+            @ExcludeMissing
+            lastName: JsonField<String> = JsonMissing.of(),
+        ) : this(firstName, lastName, mutableMapOf())
 
         /**
          * The cardholder's first name.
@@ -511,21 +534,15 @@ private constructor(
          */
         @JsonProperty("last_name") @ExcludeMissing fun _lastName(): JsonField<String> = lastName
 
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): Cardholder = apply {
-            if (validated) {
-                return@apply
-            }
-
-            firstName()
-            lastName()
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -617,8 +634,20 @@ private constructor(
                 Cardholder(
                     checkRequired("firstName", firstName),
                     checkRequired("lastName", lastName),
-                    additionalProperties.toImmutable(),
+                    additionalProperties.toMutableMap(),
                 )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Cardholder = apply {
+            if (validated) {
+                return@apply
+            }
+
+            firstName()
+            lastName()
+            validated = true
         }
 
         override fun equals(other: Any?): Boolean {
@@ -640,25 +669,24 @@ private constructor(
     }
 
     /** The details used to ship this physical card. */
-    @NoAutoDetect
     class Shipment
-    @JsonCreator
     private constructor(
-        @JsonProperty("address")
-        @ExcludeMissing
-        private val address: JsonField<Address> = JsonMissing.of(),
-        @JsonProperty("method")
-        @ExcludeMissing
-        private val method: JsonField<Method> = JsonMissing.of(),
-        @JsonProperty("status")
-        @ExcludeMissing
-        private val status: JsonField<Status> = JsonMissing.of(),
-        @JsonProperty("tracking")
-        @ExcludeMissing
-        private val tracking: JsonField<Tracking> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val address: JsonField<Address>,
+        private val method: JsonField<Method>,
+        private val status: JsonField<Status>,
+        private val tracking: JsonField<Tracking>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("address") @ExcludeMissing address: JsonField<Address> = JsonMissing.of(),
+            @JsonProperty("method") @ExcludeMissing method: JsonField<Method> = JsonMissing.of(),
+            @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
+            @JsonProperty("tracking")
+            @ExcludeMissing
+            tracking: JsonField<Tracking> = JsonMissing.of(),
+        ) : this(address, method, status, tracking, mutableMapOf())
 
         /**
          * The location to where the card's packing label is addressed.
@@ -720,23 +748,15 @@ private constructor(
          */
         @JsonProperty("tracking") @ExcludeMissing fun _tracking(): JsonField<Tracking> = tracking
 
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): Shipment = apply {
-            if (validated) {
-                return@apply
-            }
-
-            address().validate()
-            method()
-            status()
-            tracking().ifPresent { it.validate() }
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -865,39 +885,49 @@ private constructor(
                     checkRequired("method", method),
                     checkRequired("status", status),
                     checkRequired("tracking", tracking),
-                    additionalProperties.toImmutable(),
+                    additionalProperties.toMutableMap(),
                 )
         }
 
+        private var validated: Boolean = false
+
+        fun validate(): Shipment = apply {
+            if (validated) {
+                return@apply
+            }
+
+            address().validate()
+            method()
+            status()
+            tracking().ifPresent { it.validate() }
+            validated = true
+        }
+
         /** The location to where the card's packing label is addressed. */
-        @NoAutoDetect
         class Address
-        @JsonCreator
         private constructor(
-            @JsonProperty("city")
-            @ExcludeMissing
-            private val city: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("line1")
-            @ExcludeMissing
-            private val line1: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("line2")
-            @ExcludeMissing
-            private val line2: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("line3")
-            @ExcludeMissing
-            private val line3: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("name")
-            @ExcludeMissing
-            private val name: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("postal_code")
-            @ExcludeMissing
-            private val postalCode: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("state")
-            @ExcludeMissing
-            private val state: JsonField<String> = JsonMissing.of(),
-            @JsonAnySetter
-            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+            private val city: JsonField<String>,
+            private val line1: JsonField<String>,
+            private val line2: JsonField<String>,
+            private val line3: JsonField<String>,
+            private val name: JsonField<String>,
+            private val postalCode: JsonField<String>,
+            private val state: JsonField<String>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("city") @ExcludeMissing city: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("line1") @ExcludeMissing line1: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("line2") @ExcludeMissing line2: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("line3") @ExcludeMissing line3: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("postal_code")
+                @ExcludeMissing
+                postalCode: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("state") @ExcludeMissing state: JsonField<String> = JsonMissing.of(),
+            ) : this(city, line1, line2, line3, name, postalCode, state, mutableMapOf())
 
             /**
              * The city of the shipping address.
@@ -1012,26 +1042,15 @@ private constructor(
              */
             @JsonProperty("state") @ExcludeMissing fun _state(): JsonField<String> = state
 
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
             @JsonAnyGetter
             @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-            private var validated: Boolean = false
-
-            fun validate(): Address = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                city()
-                line1()
-                line2()
-                line3()
-                name()
-                postalCode()
-                state()
-                validated = true
-            }
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
 
             fun toBuilder() = Builder().from(this)
 
@@ -1219,8 +1238,25 @@ private constructor(
                         checkRequired("name", name),
                         checkRequired("postalCode", postalCode),
                         checkRequired("state", state),
-                        additionalProperties.toImmutable(),
+                        additionalProperties.toMutableMap(),
                     )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): Address = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                city()
+                line1()
+                line2()
+                line3()
+                name()
+                postalCode()
+                state()
+                validated = true
             }
 
             override fun equals(other: Any?): Boolean {
@@ -1538,25 +1574,30 @@ private constructor(
         }
 
         /** Tracking details for the shipment. */
-        @NoAutoDetect
         class Tracking
-        @JsonCreator
         private constructor(
-            @JsonProperty("number")
-            @ExcludeMissing
-            private val number: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("return_number")
-            @ExcludeMissing
-            private val returnNumber: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("return_reason")
-            @ExcludeMissing
-            private val returnReason: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("shipped_at")
-            @ExcludeMissing
-            private val shippedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-            @JsonAnySetter
-            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+            private val number: JsonField<String>,
+            private val returnNumber: JsonField<String>,
+            private val returnReason: JsonField<String>,
+            private val shippedAt: JsonField<OffsetDateTime>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("number")
+                @ExcludeMissing
+                number: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("return_number")
+                @ExcludeMissing
+                returnNumber: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("return_reason")
+                @ExcludeMissing
+                returnReason: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("shipped_at")
+                @ExcludeMissing
+                shippedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+            ) : this(number, returnNumber, returnReason, shippedAt, mutableMapOf())
 
             /**
              * The tracking number.
@@ -1632,23 +1673,15 @@ private constructor(
             @ExcludeMissing
             fun _shippedAt(): JsonField<OffsetDateTime> = shippedAt
 
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
             @JsonAnyGetter
             @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-            private var validated: Boolean = false
-
-            fun validate(): Tracking = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                number()
-                returnNumber()
-                returnReason()
-                shippedAt()
-                validated = true
-            }
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
 
             fun toBuilder() = Builder().from(this)
 
@@ -1797,8 +1830,22 @@ private constructor(
                         checkRequired("returnNumber", returnNumber),
                         checkRequired("returnReason", returnReason),
                         checkRequired("shippedAt", shippedAt),
-                        additionalProperties.toImmutable(),
+                        additionalProperties.toMutableMap(),
                     )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): Tracking = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                number()
+                returnNumber()
+                returnReason()
+                shippedAt()
+                validated = true
             }
 
             override fun equals(other: Any?): Boolean {

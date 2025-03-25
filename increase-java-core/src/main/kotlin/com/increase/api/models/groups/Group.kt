@@ -11,12 +11,10 @@ import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.checkRequired
-import com.increase.api.core.immutableEmptyMap
-import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
+import java.util.Collections
 import java.util.Objects
 
 /**
@@ -25,23 +23,30 @@ import java.util.Objects
  * organizations that have granted them access. Learn more about OAuth
  * [here](https://increase.com/documentation/oauth).
  */
-@NoAutoDetect
 class Group
-@JsonCreator
 private constructor(
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("ach_debit_status")
-    @ExcludeMissing
-    private val achDebitStatus: JsonField<AchDebitStatus> = JsonMissing.of(),
-    @JsonProperty("activation_status")
-    @ExcludeMissing
-    private val activationStatus: JsonField<ActivationStatus> = JsonMissing.of(),
-    @JsonProperty("created_at")
-    @ExcludeMissing
-    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
-    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+    private val id: JsonField<String>,
+    private val achDebitStatus: JsonField<AchDebitStatus>,
+    private val activationStatus: JsonField<ActivationStatus>,
+    private val createdAt: JsonField<OffsetDateTime>,
+    private val type: JsonField<Type>,
+    private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
+
+    @JsonCreator
+    private constructor(
+        @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("ach_debit_status")
+        @ExcludeMissing
+        achDebitStatus: JsonField<AchDebitStatus> = JsonMissing.of(),
+        @JsonProperty("activation_status")
+        @ExcludeMissing
+        activationStatus: JsonField<ActivationStatus> = JsonMissing.of(),
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+    ) : this(id, achDebitStatus, activationStatus, createdAt, type, mutableMapOf())
 
     /**
      * The Group identifier.
@@ -125,24 +130,15 @@ private constructor(
      */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
+    @JsonAnySetter
+    private fun putAdditionalProperty(key: String, value: JsonValue) {
+        additionalProperties.put(key, value)
+    }
+
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-    private var validated: Boolean = false
-
-    fun validate(): Group = apply {
-        if (validated) {
-            return@apply
-        }
-
-        id()
-        achDebitStatus()
-        activationStatus()
-        createdAt()
-        type()
-        validated = true
-    }
+    fun _additionalProperties(): Map<String, JsonValue> =
+        Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
@@ -294,8 +290,23 @@ private constructor(
                 checkRequired("activationStatus", activationStatus),
                 checkRequired("createdAt", createdAt),
                 checkRequired("type", type),
-                additionalProperties.toImmutable(),
+                additionalProperties.toMutableMap(),
             )
+    }
+
+    private var validated: Boolean = false
+
+    fun validate(): Group = apply {
+        if (validated) {
+            return@apply
+        }
+
+        id()
+        achDebitStatus()
+        activationStatus()
+        createdAt()
+        type()
+        validated = true
     }
 
     /** If the Group is allowed to create ACH debits. */

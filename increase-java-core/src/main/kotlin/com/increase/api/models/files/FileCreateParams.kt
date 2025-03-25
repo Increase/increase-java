@@ -3,10 +3,11 @@
 package com.increase.api.models.files
 
 import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonProperty
 import com.increase.api.core.Enum
+import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.MultipartField
-import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.Params
 import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
@@ -84,213 +85,6 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    @JvmSynthetic
-    internal fun _body(): Map<String, MultipartField<*>> =
-        mapOf("file" to _file(), "purpose" to _purpose(), "description" to _description())
-            .toImmutable()
-
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams = additionalQueryParams
-
-    @NoAutoDetect
-    class Body
-    @JsonCreator
-    private constructor(
-        private val file: MultipartField<InputStream>,
-        private val purpose: MultipartField<Purpose>,
-        private val description: MultipartField<String>,
-    ) {
-
-        /**
-         * The file contents. This should follow the specifications of
-         * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file transfers
-         * for the multipart/form-data protocol.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun file(): InputStream = file.value.getRequired("file")
-
-        /**
-         * What the File will be used for in Increase's systems.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun purpose(): Purpose = purpose.value.getRequired("purpose")
-
-        /**
-         * The description you choose to give the File.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun description(): Optional<String> =
-            Optional.ofNullable(description.value.getNullable("description"))
-
-        /**
-         * Returns the raw multipart value of [file].
-         *
-         * Unlike [file], this method doesn't throw if the multipart field has an unexpected type.
-         */
-        fun _file(): MultipartField<InputStream> = file
-
-        /**
-         * Returns the raw multipart value of [purpose].
-         *
-         * Unlike [purpose], this method doesn't throw if the multipart field has an unexpected
-         * type.
-         */
-        fun _purpose(): MultipartField<Purpose> = purpose
-
-        /**
-         * Returns the raw multipart value of [description].
-         *
-         * Unlike [description], this method doesn't throw if the multipart field has an unexpected
-         * type.
-         */
-        fun _description(): MultipartField<String> = description
-
-        private var validated: Boolean = false
-
-        fun validate(): Body = apply {
-            if (validated) {
-                return@apply
-            }
-
-            file()
-            purpose()
-            description()
-            validated = true
-        }
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /**
-             * Returns a mutable builder for constructing an instance of [Body].
-             *
-             * The following fields are required:
-             * ```java
-             * .file()
-             * .purpose()
-             * ```
-             */
-            @JvmStatic fun builder() = Builder()
-        }
-
-        /** A builder for [Body]. */
-        class Builder internal constructor() {
-
-            private var file: MultipartField<InputStream>? = null
-            private var purpose: MultipartField<Purpose>? = null
-            private var description: MultipartField<String> = MultipartField.of(null)
-
-            @JvmSynthetic
-            internal fun from(body: Body) = apply {
-                file = body.file
-                purpose = body.purpose
-                description = body.description
-            }
-
-            /**
-             * The file contents. This should follow the specifications of
-             * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file
-             * transfers for the multipart/form-data protocol.
-             */
-            fun file(file: InputStream) = file(MultipartField.of(file))
-
-            /**
-             * Sets [Builder.file] to an arbitrary multipart value.
-             *
-             * You should usually call [Builder.file] with a well-typed [InputStream] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun file(file: MultipartField<InputStream>) = apply { this.file = file }
-
-            /**
-             * The file contents. This should follow the specifications of
-             * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file
-             * transfers for the multipart/form-data protocol.
-             */
-            fun file(file: ByteArray) = file(file.inputStream())
-
-            /**
-             * The file contents. This should follow the specifications of
-             * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file
-             * transfers for the multipart/form-data protocol.
-             */
-            fun file(file: Path) =
-                file(
-                    MultipartField.builder<InputStream>()
-                        .value(file.inputStream())
-                        .filename(file.name)
-                        .build()
-                )
-
-            /** What the File will be used for in Increase's systems. */
-            fun purpose(purpose: Purpose) = purpose(MultipartField.of(purpose))
-
-            /**
-             * Sets [Builder.purpose] to an arbitrary multipart value.
-             *
-             * You should usually call [Builder.purpose] with a well-typed [Purpose] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun purpose(purpose: MultipartField<Purpose>) = apply { this.purpose = purpose }
-
-            /** The description you choose to give the File. */
-            fun description(description: String) = description(MultipartField.of(description))
-
-            /**
-             * Sets [Builder.description] to an arbitrary multipart value.
-             *
-             * You should usually call [Builder.description] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun description(description: MultipartField<String>) = apply {
-                this.description = description
-            }
-
-            /**
-             * Returns an immutable instance of [Body].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             *
-             * The following fields are required:
-             * ```java
-             * .file()
-             * .purpose()
-             * ```
-             *
-             * @throws IllegalStateException if any required field is unset.
-             */
-            fun build(): Body =
-                Body(checkRequired("file", file), checkRequired("purpose", purpose), description)
-        }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return /* spotless:off */ other is Body && file == other.file && purpose == other.purpose && description == other.description /* spotless:on */
-        }
-
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(file, purpose, description) }
-        /* spotless:on */
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() = "Body{file=$file, purpose=$purpose, description=$description}"
-    }
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -308,7 +102,6 @@ private constructor(
     }
 
     /** A builder for [FileCreateParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var body: Body.Builder = Body.builder()
@@ -490,6 +283,213 @@ private constructor(
          */
         fun build(): FileCreateParams =
             FileCreateParams(body.build(), additionalHeaders.build(), additionalQueryParams.build())
+    }
+
+    @JvmSynthetic
+    internal fun _body(): Map<String, MultipartField<*>> =
+        mapOf("file" to _file(), "purpose" to _purpose(), "description" to _description())
+            .toImmutable()
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams = additionalQueryParams
+
+    class Body
+    private constructor(
+        private val file: MultipartField<InputStream>,
+        private val purpose: MultipartField<Purpose>,
+        private val description: MultipartField<String>,
+    ) {
+
+        /**
+         * The file contents. This should follow the specifications of
+         * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file transfers
+         * for the multipart/form-data protocol.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun file(): InputStream = file.value.getRequired("file")
+
+        /**
+         * What the File will be used for in Increase's systems.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun purpose(): Purpose = purpose.value.getRequired("purpose")
+
+        /**
+         * The description you choose to give the File.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun description(): Optional<String> =
+            Optional.ofNullable(description.value.getNullable("description"))
+
+        /**
+         * Returns the raw multipart value of [file].
+         *
+         * Unlike [file], this method doesn't throw if the multipart field has an unexpected type.
+         */
+        @JsonProperty("file") @ExcludeMissing fun _file(): MultipartField<InputStream> = file
+
+        /**
+         * Returns the raw multipart value of [purpose].
+         *
+         * Unlike [purpose], this method doesn't throw if the multipart field has an unexpected
+         * type.
+         */
+        @JsonProperty("purpose") @ExcludeMissing fun _purpose(): MultipartField<Purpose> = purpose
+
+        /**
+         * Returns the raw multipart value of [description].
+         *
+         * Unlike [description], this method doesn't throw if the multipart field has an unexpected
+         * type.
+         */
+        @JsonProperty("description")
+        @ExcludeMissing
+        fun _description(): MultipartField<String> = description
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [Body].
+             *
+             * The following fields are required:
+             * ```java
+             * .file()
+             * .purpose()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Body]. */
+        class Builder internal constructor() {
+
+            private var file: MultipartField<InputStream>? = null
+            private var purpose: MultipartField<Purpose>? = null
+            private var description: MultipartField<String> = MultipartField.of(null)
+
+            @JvmSynthetic
+            internal fun from(body: Body) = apply {
+                file = body.file
+                purpose = body.purpose
+                description = body.description
+            }
+
+            /**
+             * The file contents. This should follow the specifications of
+             * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file
+             * transfers for the multipart/form-data protocol.
+             */
+            fun file(file: InputStream) = file(MultipartField.of(file))
+
+            /**
+             * Sets [Builder.file] to an arbitrary multipart value.
+             *
+             * You should usually call [Builder.file] with a well-typed [InputStream] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun file(file: MultipartField<InputStream>) = apply { this.file = file }
+
+            /**
+             * The file contents. This should follow the specifications of
+             * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file
+             * transfers for the multipart/form-data protocol.
+             */
+            fun file(file: ByteArray) = file(file.inputStream())
+
+            /**
+             * The file contents. This should follow the specifications of
+             * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file
+             * transfers for the multipart/form-data protocol.
+             */
+            fun file(file: Path) =
+                file(
+                    MultipartField.builder<InputStream>()
+                        .value(file.inputStream())
+                        .filename(file.name)
+                        .build()
+                )
+
+            /** What the File will be used for in Increase's systems. */
+            fun purpose(purpose: Purpose) = purpose(MultipartField.of(purpose))
+
+            /**
+             * Sets [Builder.purpose] to an arbitrary multipart value.
+             *
+             * You should usually call [Builder.purpose] with a well-typed [Purpose] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun purpose(purpose: MultipartField<Purpose>) = apply { this.purpose = purpose }
+
+            /** The description you choose to give the File. */
+            fun description(description: String) = description(MultipartField.of(description))
+
+            /**
+             * Sets [Builder.description] to an arbitrary multipart value.
+             *
+             * You should usually call [Builder.description] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun description(description: MultipartField<String>) = apply {
+                this.description = description
+            }
+
+            /**
+             * Returns an immutable instance of [Body].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .file()
+             * .purpose()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): Body =
+                Body(checkRequired("file", file), checkRequired("purpose", purpose), description)
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Body = apply {
+            if (validated) {
+                return@apply
+            }
+
+            file()
+            purpose()
+            description()
+            validated = true
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is Body && file == other.file && purpose == other.purpose && description == other.description /* spotless:on */
+        }
+
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(file, purpose, description) }
+        /* spotless:on */
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() = "Body{file=$file, purpose=$purpose, description=$description}"
     }
 
     /** What the File will be used for in Increase's systems. */

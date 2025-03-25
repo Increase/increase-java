@@ -11,12 +11,10 @@ import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.checkRequired
-import com.increase.api.core.immutableEmptyMap
-import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
+import java.util.Collections
 import java.util.Objects
 
 /**
@@ -24,24 +22,30 @@ import java.util.Objects
  * annotating money movements using this API. Learn more in our
  * [guide to Bookkeeping](https://increase.com/documentation/bookkeeping#bookkeeping).
  */
-@NoAutoDetect
 class BookkeepingEntry
-@JsonCreator
 private constructor(
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("account_id")
-    @ExcludeMissing
-    private val accountId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("amount") @ExcludeMissing private val amount: JsonField<Long> = JsonMissing.of(),
-    @JsonProperty("created_at")
-    @ExcludeMissing
-    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("entry_set_id")
-    @ExcludeMissing
-    private val entrySetId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
-    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+    private val id: JsonField<String>,
+    private val accountId: JsonField<String>,
+    private val amount: JsonField<Long>,
+    private val createdAt: JsonField<OffsetDateTime>,
+    private val entrySetId: JsonField<String>,
+    private val type: JsonField<Type>,
+    private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
+
+    @JsonCreator
+    private constructor(
+        @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("account_id") @ExcludeMissing accountId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("entry_set_id")
+        @ExcludeMissing
+        entrySetId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+    ) : this(id, accountId, amount, createdAt, entrySetId, type, mutableMapOf())
 
     /**
      * The entry identifier.
@@ -136,25 +140,15 @@ private constructor(
      */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
+    @JsonAnySetter
+    private fun putAdditionalProperty(key: String, value: JsonValue) {
+        additionalProperties.put(key, value)
+    }
+
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-    private var validated: Boolean = false
-
-    fun validate(): BookkeepingEntry = apply {
-        if (validated) {
-            return@apply
-        }
-
-        id()
-        accountId()
-        amount()
-        createdAt()
-        entrySetId()
-        type()
-        validated = true
-    }
+    fun _additionalProperties(): Map<String, JsonValue> =
+        Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
@@ -317,8 +311,24 @@ private constructor(
                 checkRequired("createdAt", createdAt),
                 checkRequired("entrySetId", entrySetId),
                 checkRequired("type", type),
-                additionalProperties.toImmutable(),
+                additionalProperties.toMutableMap(),
             )
+    }
+
+    private var validated: Boolean = false
+
+    fun validate(): BookkeepingEntry = apply {
+        if (validated) {
+            return@apply
+        }
+
+        id()
+        accountId()
+        amount()
+        createdAt()
+        entrySetId()
+        type()
+        validated = true
     }
 
     /**

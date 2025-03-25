@@ -11,12 +11,10 @@ import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.checkRequired
-import com.increase.api.core.immutableEmptyMap
-import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
+import java.util.Collections
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
@@ -26,36 +24,52 @@ import kotlin.jvm.optionals.getOrNull
  * example, Declined Transactions are caused when your Account has an insufficient balance or your
  * Limits are triggered.
  */
-@NoAutoDetect
 class DeclinedTransaction
-@JsonCreator
 private constructor(
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("account_id")
-    @ExcludeMissing
-    private val accountId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("amount") @ExcludeMissing private val amount: JsonField<Long> = JsonMissing.of(),
-    @JsonProperty("created_at")
-    @ExcludeMissing
-    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("currency")
-    @ExcludeMissing
-    private val currency: JsonField<Currency> = JsonMissing.of(),
-    @JsonProperty("description")
-    @ExcludeMissing
-    private val description: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("route_id")
-    @ExcludeMissing
-    private val routeId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("route_type")
-    @ExcludeMissing
-    private val routeType: JsonField<RouteType> = JsonMissing.of(),
-    @JsonProperty("source")
-    @ExcludeMissing
-    private val source: JsonField<Source> = JsonMissing.of(),
-    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
-    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+    private val id: JsonField<String>,
+    private val accountId: JsonField<String>,
+    private val amount: JsonField<Long>,
+    private val createdAt: JsonField<OffsetDateTime>,
+    private val currency: JsonField<Currency>,
+    private val description: JsonField<String>,
+    private val routeId: JsonField<String>,
+    private val routeType: JsonField<RouteType>,
+    private val source: JsonField<Source>,
+    private val type: JsonField<Type>,
+    private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
+
+    @JsonCreator
+    private constructor(
+        @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("account_id") @ExcludeMissing accountId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("currency") @ExcludeMissing currency: JsonField<Currency> = JsonMissing.of(),
+        @JsonProperty("description")
+        @ExcludeMissing
+        description: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("route_id") @ExcludeMissing routeId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("route_type")
+        @ExcludeMissing
+        routeType: JsonField<RouteType> = JsonMissing.of(),
+        @JsonProperty("source") @ExcludeMissing source: JsonField<Source> = JsonMissing.of(),
+        @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+    ) : this(
+        id,
+        accountId,
+        amount,
+        createdAt,
+        currency,
+        description,
+        routeId,
+        routeType,
+        source,
+        type,
+        mutableMapOf(),
+    )
 
     /**
      * The Declined Transaction identifier.
@@ -218,29 +232,15 @@ private constructor(
      */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
+    @JsonAnySetter
+    private fun putAdditionalProperty(key: String, value: JsonValue) {
+        additionalProperties.put(key, value)
+    }
+
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-    private var validated: Boolean = false
-
-    fun validate(): DeclinedTransaction = apply {
-        if (validated) {
-            return@apply
-        }
-
-        id()
-        accountId()
-        amount()
-        createdAt()
-        currency()
-        description()
-        routeId()
-        routeType()
-        source().validate()
-        type()
-        validated = true
-    }
+    fun _additionalProperties(): Map<String, JsonValue> =
+        Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
@@ -491,8 +491,28 @@ private constructor(
                 checkRequired("routeType", routeType),
                 checkRequired("source", source),
                 checkRequired("type", type),
-                additionalProperties.toImmutable(),
+                additionalProperties.toMutableMap(),
             )
+    }
+
+    private var validated: Boolean = false
+
+    fun validate(): DeclinedTransaction = apply {
+        if (validated) {
+            return@apply
+        }
+
+        id()
+        accountId()
+        amount()
+        createdAt()
+        currency()
+        description()
+        routeId()
+        routeType()
+        source().validate()
+        type()
+        validated = true
     }
 
     /**
@@ -766,37 +786,57 @@ private constructor(
      * appear in this object. These should be treated as deprecated and will be removed in the
      * future.
      */
-    @NoAutoDetect
     class Source
-    @JsonCreator
     private constructor(
-        @JsonProperty("ach_decline")
-        @ExcludeMissing
-        private val achDecline: JsonField<AchDecline> = JsonMissing.of(),
-        @JsonProperty("card_decline")
-        @ExcludeMissing
-        private val cardDecline: JsonField<CardDecline> = JsonMissing.of(),
-        @JsonProperty("category")
-        @ExcludeMissing
-        private val category: JsonField<Category> = JsonMissing.of(),
-        @JsonProperty("check_decline")
-        @ExcludeMissing
-        private val checkDecline: JsonField<CheckDecline> = JsonMissing.of(),
-        @JsonProperty("check_deposit_rejection")
-        @ExcludeMissing
-        private val checkDepositRejection: JsonField<CheckDepositRejection> = JsonMissing.of(),
-        @JsonProperty("inbound_real_time_payments_transfer_decline")
-        @ExcludeMissing
+        private val achDecline: JsonField<AchDecline>,
+        private val cardDecline: JsonField<CardDecline>,
+        private val category: JsonField<Category>,
+        private val checkDecline: JsonField<CheckDecline>,
+        private val checkDepositRejection: JsonField<CheckDepositRejection>,
         private val inboundRealTimePaymentsTransferDecline:
-            JsonField<InboundRealTimePaymentsTransferDecline> =
-            JsonMissing.of(),
-        @JsonProperty("other") @ExcludeMissing private val other: JsonValue = JsonMissing.of(),
-        @JsonProperty("wire_decline")
-        @ExcludeMissing
-        private val wireDecline: JsonField<WireDecline> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+            JsonField<InboundRealTimePaymentsTransferDecline>,
+        private val other: JsonValue,
+        private val wireDecline: JsonField<WireDecline>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("ach_decline")
+            @ExcludeMissing
+            achDecline: JsonField<AchDecline> = JsonMissing.of(),
+            @JsonProperty("card_decline")
+            @ExcludeMissing
+            cardDecline: JsonField<CardDecline> = JsonMissing.of(),
+            @JsonProperty("category")
+            @ExcludeMissing
+            category: JsonField<Category> = JsonMissing.of(),
+            @JsonProperty("check_decline")
+            @ExcludeMissing
+            checkDecline: JsonField<CheckDecline> = JsonMissing.of(),
+            @JsonProperty("check_deposit_rejection")
+            @ExcludeMissing
+            checkDepositRejection: JsonField<CheckDepositRejection> = JsonMissing.of(),
+            @JsonProperty("inbound_real_time_payments_transfer_decline")
+            @ExcludeMissing
+            inboundRealTimePaymentsTransferDecline:
+                JsonField<InboundRealTimePaymentsTransferDecline> =
+                JsonMissing.of(),
+            @JsonProperty("other") @ExcludeMissing other: JsonValue = JsonMissing.of(),
+            @JsonProperty("wire_decline")
+            @ExcludeMissing
+            wireDecline: JsonField<WireDecline> = JsonMissing.of(),
+        ) : this(
+            achDecline,
+            cardDecline,
+            category,
+            checkDecline,
+            checkDepositRejection,
+            inboundRealTimePaymentsTransferDecline,
+            other,
+            wireDecline,
+            mutableMapOf(),
+        )
 
         /**
          * An ACH Decline object. This field will be present in the JSON response if and only if
@@ -945,26 +985,15 @@ private constructor(
         @ExcludeMissing
         fun _wireDecline(): JsonField<WireDecline> = wireDecline
 
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): Source = apply {
-            if (validated) {
-                return@apply
-            }
-
-            achDecline().ifPresent { it.validate() }
-            cardDecline().ifPresent { it.validate() }
-            category()
-            checkDecline().ifPresent { it.validate() }
-            checkDepositRejection().ifPresent { it.validate() }
-            inboundRealTimePaymentsTransferDecline().ifPresent { it.validate() }
-            wireDecline().ifPresent { it.validate() }
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -1239,57 +1268,95 @@ private constructor(
                     ),
                     checkRequired("other", other),
                     checkRequired("wireDecline", wireDecline),
-                    additionalProperties.toImmutable(),
+                    additionalProperties.toMutableMap(),
                 )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Source = apply {
+            if (validated) {
+                return@apply
+            }
+
+            achDecline().ifPresent { it.validate() }
+            cardDecline().ifPresent { it.validate() }
+            category()
+            checkDecline().ifPresent { it.validate() }
+            checkDepositRejection().ifPresent { it.validate() }
+            inboundRealTimePaymentsTransferDecline().ifPresent { it.validate() }
+            wireDecline().ifPresent { it.validate() }
+            validated = true
         }
 
         /**
          * An ACH Decline object. This field will be present in the JSON response if and only if
          * `category` is equal to `ach_decline`.
          */
-        @NoAutoDetect
         class AchDecline
-        @JsonCreator
         private constructor(
-            @JsonProperty("id")
-            @ExcludeMissing
-            private val id: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("amount")
-            @ExcludeMissing
-            private val amount: JsonField<Long> = JsonMissing.of(),
-            @JsonProperty("inbound_ach_transfer_id")
-            @ExcludeMissing
-            private val inboundAchTransferId: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("originator_company_descriptive_date")
-            @ExcludeMissing
-            private val originatorCompanyDescriptiveDate: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("originator_company_discretionary_data")
-            @ExcludeMissing
-            private val originatorCompanyDiscretionaryData: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("originator_company_id")
-            @ExcludeMissing
-            private val originatorCompanyId: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("originator_company_name")
-            @ExcludeMissing
-            private val originatorCompanyName: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("reason")
-            @ExcludeMissing
-            private val reason: JsonField<Reason> = JsonMissing.of(),
-            @JsonProperty("receiver_id_number")
-            @ExcludeMissing
-            private val receiverIdNumber: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("receiver_name")
-            @ExcludeMissing
-            private val receiverName: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("trace_number")
-            @ExcludeMissing
-            private val traceNumber: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("type")
-            @ExcludeMissing
-            private val type: JsonField<Type> = JsonMissing.of(),
-            @JsonAnySetter
-            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+            private val id: JsonField<String>,
+            private val amount: JsonField<Long>,
+            private val inboundAchTransferId: JsonField<String>,
+            private val originatorCompanyDescriptiveDate: JsonField<String>,
+            private val originatorCompanyDiscretionaryData: JsonField<String>,
+            private val originatorCompanyId: JsonField<String>,
+            private val originatorCompanyName: JsonField<String>,
+            private val reason: JsonField<Reason>,
+            private val receiverIdNumber: JsonField<String>,
+            private val receiverName: JsonField<String>,
+            private val traceNumber: JsonField<String>,
+            private val type: JsonField<Type>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
+                @JsonProperty("inbound_ach_transfer_id")
+                @ExcludeMissing
+                inboundAchTransferId: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("originator_company_descriptive_date")
+                @ExcludeMissing
+                originatorCompanyDescriptiveDate: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("originator_company_discretionary_data")
+                @ExcludeMissing
+                originatorCompanyDiscretionaryData: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("originator_company_id")
+                @ExcludeMissing
+                originatorCompanyId: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("originator_company_name")
+                @ExcludeMissing
+                originatorCompanyName: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("reason")
+                @ExcludeMissing
+                reason: JsonField<Reason> = JsonMissing.of(),
+                @JsonProperty("receiver_id_number")
+                @ExcludeMissing
+                receiverIdNumber: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("receiver_name")
+                @ExcludeMissing
+                receiverName: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("trace_number")
+                @ExcludeMissing
+                traceNumber: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+            ) : this(
+                id,
+                amount,
+                inboundAchTransferId,
+                originatorCompanyDescriptiveDate,
+                originatorCompanyDiscretionaryData,
+                originatorCompanyId,
+                originatorCompanyName,
+                reason,
+                receiverIdNumber,
+                receiverName,
+                traceNumber,
+                type,
+                mutableMapOf(),
+            )
 
             /**
              * The ACH Decline's identifier.
@@ -1521,31 +1588,15 @@ private constructor(
              */
             @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
             @JsonAnyGetter
             @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-            private var validated: Boolean = false
-
-            fun validate(): AchDecline = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                id()
-                amount()
-                inboundAchTransferId()
-                originatorCompanyDescriptiveDate()
-                originatorCompanyDiscretionaryData()
-                originatorCompanyId()
-                originatorCompanyName()
-                reason()
-                receiverIdNumber()
-                receiverName()
-                traceNumber()
-                type()
-                validated = true
-            }
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
 
             fun toBuilder() = Builder().from(this)
 
@@ -1885,8 +1936,30 @@ private constructor(
                         checkRequired("receiverName", receiverName),
                         checkRequired("traceNumber", traceNumber),
                         checkRequired("type", type),
-                        additionalProperties.toImmutable(),
+                        additionalProperties.toMutableMap(),
                     )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): AchDecline = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                id()
+                amount()
+                inboundAchTransferId()
+                originatorCompanyDescriptiveDate()
+                originatorCompanyDiscretionaryData()
+                originatorCompanyId()
+                originatorCompanyName()
+                reason()
+                receiverIdNumber()
+                receiverName()
+                traceNumber()
+                type()
+                validated = true
             }
 
             /** Why the ACH transfer was declined. */
@@ -2287,95 +2360,147 @@ private constructor(
          * A Card Decline object. This field will be present in the JSON response if and only if
          * `category` is equal to `card_decline`.
          */
-        @NoAutoDetect
         class CardDecline
-        @JsonCreator
         private constructor(
-            @JsonProperty("id")
-            @ExcludeMissing
-            private val id: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("actioner")
-            @ExcludeMissing
-            private val actioner: JsonField<Actioner> = JsonMissing.of(),
-            @JsonProperty("amount")
-            @ExcludeMissing
-            private val amount: JsonField<Long> = JsonMissing.of(),
-            @JsonProperty("card_payment_id")
-            @ExcludeMissing
-            private val cardPaymentId: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("currency")
-            @ExcludeMissing
-            private val currency: JsonField<Currency> = JsonMissing.of(),
-            @JsonProperty("declined_transaction_id")
-            @ExcludeMissing
-            private val declinedTransactionId: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("digital_wallet_token_id")
-            @ExcludeMissing
-            private val digitalWalletTokenId: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("direction")
-            @ExcludeMissing
-            private val direction: JsonField<Direction> = JsonMissing.of(),
-            @JsonProperty("merchant_acceptor_id")
-            @ExcludeMissing
-            private val merchantAcceptorId: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("merchant_category_code")
-            @ExcludeMissing
-            private val merchantCategoryCode: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("merchant_city")
-            @ExcludeMissing
-            private val merchantCity: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("merchant_country")
-            @ExcludeMissing
-            private val merchantCountry: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("merchant_descriptor")
-            @ExcludeMissing
-            private val merchantDescriptor: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("merchant_postal_code")
-            @ExcludeMissing
-            private val merchantPostalCode: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("merchant_state")
-            @ExcludeMissing
-            private val merchantState: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("network_details")
-            @ExcludeMissing
-            private val networkDetails: JsonField<NetworkDetails> = JsonMissing.of(),
-            @JsonProperty("network_identifiers")
-            @ExcludeMissing
-            private val networkIdentifiers: JsonField<NetworkIdentifiers> = JsonMissing.of(),
-            @JsonProperty("network_risk_score")
-            @ExcludeMissing
-            private val networkRiskScore: JsonField<Long> = JsonMissing.of(),
-            @JsonProperty("physical_card_id")
-            @ExcludeMissing
-            private val physicalCardId: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("presentment_amount")
-            @ExcludeMissing
-            private val presentmentAmount: JsonField<Long> = JsonMissing.of(),
-            @JsonProperty("presentment_currency")
-            @ExcludeMissing
-            private val presentmentCurrency: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("processing_category")
-            @ExcludeMissing
-            private val processingCategory: JsonField<ProcessingCategory> = JsonMissing.of(),
-            @JsonProperty("real_time_decision_id")
-            @ExcludeMissing
-            private val realTimeDecisionId: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("real_time_decision_reason")
-            @ExcludeMissing
-            private val realTimeDecisionReason: JsonField<RealTimeDecisionReason> =
-                JsonMissing.of(),
-            @JsonProperty("reason")
-            @ExcludeMissing
-            private val reason: JsonField<Reason> = JsonMissing.of(),
-            @JsonProperty("terminal_id")
-            @ExcludeMissing
-            private val terminalId: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("verification")
-            @ExcludeMissing
-            private val verification: JsonField<Verification> = JsonMissing.of(),
-            @JsonAnySetter
-            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+            private val id: JsonField<String>,
+            private val actioner: JsonField<Actioner>,
+            private val amount: JsonField<Long>,
+            private val cardPaymentId: JsonField<String>,
+            private val currency: JsonField<Currency>,
+            private val declinedTransactionId: JsonField<String>,
+            private val digitalWalletTokenId: JsonField<String>,
+            private val direction: JsonField<Direction>,
+            private val merchantAcceptorId: JsonField<String>,
+            private val merchantCategoryCode: JsonField<String>,
+            private val merchantCity: JsonField<String>,
+            private val merchantCountry: JsonField<String>,
+            private val merchantDescriptor: JsonField<String>,
+            private val merchantPostalCode: JsonField<String>,
+            private val merchantState: JsonField<String>,
+            private val networkDetails: JsonField<NetworkDetails>,
+            private val networkIdentifiers: JsonField<NetworkIdentifiers>,
+            private val networkRiskScore: JsonField<Long>,
+            private val physicalCardId: JsonField<String>,
+            private val presentmentAmount: JsonField<Long>,
+            private val presentmentCurrency: JsonField<String>,
+            private val processingCategory: JsonField<ProcessingCategory>,
+            private val realTimeDecisionId: JsonField<String>,
+            private val realTimeDecisionReason: JsonField<RealTimeDecisionReason>,
+            private val reason: JsonField<Reason>,
+            private val terminalId: JsonField<String>,
+            private val verification: JsonField<Verification>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("actioner")
+                @ExcludeMissing
+                actioner: JsonField<Actioner> = JsonMissing.of(),
+                @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
+                @JsonProperty("card_payment_id")
+                @ExcludeMissing
+                cardPaymentId: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("currency")
+                @ExcludeMissing
+                currency: JsonField<Currency> = JsonMissing.of(),
+                @JsonProperty("declined_transaction_id")
+                @ExcludeMissing
+                declinedTransactionId: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("digital_wallet_token_id")
+                @ExcludeMissing
+                digitalWalletTokenId: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("direction")
+                @ExcludeMissing
+                direction: JsonField<Direction> = JsonMissing.of(),
+                @JsonProperty("merchant_acceptor_id")
+                @ExcludeMissing
+                merchantAcceptorId: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("merchant_category_code")
+                @ExcludeMissing
+                merchantCategoryCode: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("merchant_city")
+                @ExcludeMissing
+                merchantCity: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("merchant_country")
+                @ExcludeMissing
+                merchantCountry: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("merchant_descriptor")
+                @ExcludeMissing
+                merchantDescriptor: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("merchant_postal_code")
+                @ExcludeMissing
+                merchantPostalCode: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("merchant_state")
+                @ExcludeMissing
+                merchantState: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("network_details")
+                @ExcludeMissing
+                networkDetails: JsonField<NetworkDetails> = JsonMissing.of(),
+                @JsonProperty("network_identifiers")
+                @ExcludeMissing
+                networkIdentifiers: JsonField<NetworkIdentifiers> = JsonMissing.of(),
+                @JsonProperty("network_risk_score")
+                @ExcludeMissing
+                networkRiskScore: JsonField<Long> = JsonMissing.of(),
+                @JsonProperty("physical_card_id")
+                @ExcludeMissing
+                physicalCardId: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("presentment_amount")
+                @ExcludeMissing
+                presentmentAmount: JsonField<Long> = JsonMissing.of(),
+                @JsonProperty("presentment_currency")
+                @ExcludeMissing
+                presentmentCurrency: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("processing_category")
+                @ExcludeMissing
+                processingCategory: JsonField<ProcessingCategory> = JsonMissing.of(),
+                @JsonProperty("real_time_decision_id")
+                @ExcludeMissing
+                realTimeDecisionId: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("real_time_decision_reason")
+                @ExcludeMissing
+                realTimeDecisionReason: JsonField<RealTimeDecisionReason> = JsonMissing.of(),
+                @JsonProperty("reason")
+                @ExcludeMissing
+                reason: JsonField<Reason> = JsonMissing.of(),
+                @JsonProperty("terminal_id")
+                @ExcludeMissing
+                terminalId: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("verification")
+                @ExcludeMissing
+                verification: JsonField<Verification> = JsonMissing.of(),
+            ) : this(
+                id,
+                actioner,
+                amount,
+                cardPaymentId,
+                currency,
+                declinedTransactionId,
+                digitalWalletTokenId,
+                direction,
+                merchantAcceptorId,
+                merchantCategoryCode,
+                merchantCity,
+                merchantCountry,
+                merchantDescriptor,
+                merchantPostalCode,
+                merchantState,
+                networkDetails,
+                networkIdentifiers,
+                networkRiskScore,
+                physicalCardId,
+                presentmentAmount,
+                presentmentCurrency,
+                processingCategory,
+                realTimeDecisionId,
+                realTimeDecisionReason,
+                reason,
+                terminalId,
+                verification,
+                mutableMapOf(),
+            )
 
             /**
              * The Card Decline identifier.
@@ -2901,46 +3026,15 @@ private constructor(
             @ExcludeMissing
             fun _verification(): JsonField<Verification> = verification
 
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
             @JsonAnyGetter
             @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-            private var validated: Boolean = false
-
-            fun validate(): CardDecline = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                id()
-                actioner()
-                amount()
-                cardPaymentId()
-                currency()
-                declinedTransactionId()
-                digitalWalletTokenId()
-                direction()
-                merchantAcceptorId()
-                merchantCategoryCode()
-                merchantCity()
-                merchantCountry()
-                merchantDescriptor()
-                merchantPostalCode()
-                merchantState()
-                networkDetails().validate()
-                networkIdentifiers().validate()
-                networkRiskScore()
-                physicalCardId()
-                presentmentAmount()
-                presentmentCurrency()
-                processingCategory()
-                realTimeDecisionId()
-                realTimeDecisionReason()
-                reason()
-                terminalId()
-                verification().validate()
-                validated = true
-            }
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
 
             fun toBuilder() = Builder().from(this)
 
@@ -3631,8 +3725,45 @@ private constructor(
                         checkRequired("reason", reason),
                         checkRequired("terminalId", terminalId),
                         checkRequired("verification", verification),
-                        additionalProperties.toImmutable(),
+                        additionalProperties.toMutableMap(),
                     )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): CardDecline = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                id()
+                actioner()
+                amount()
+                cardPaymentId()
+                currency()
+                declinedTransactionId()
+                digitalWalletTokenId()
+                direction()
+                merchantAcceptorId()
+                merchantCategoryCode()
+                merchantCity()
+                merchantCountry()
+                merchantDescriptor()
+                merchantPostalCode()
+                merchantState()
+                networkDetails().validate()
+                networkIdentifiers().validate()
+                networkRiskScore()
+                physicalCardId()
+                presentmentAmount()
+                presentmentCurrency()
+                processingCategory()
+                realTimeDecisionId()
+                realTimeDecisionReason()
+                reason()
+                terminalId()
+                verification().validate()
+                validated = true
             }
 
             /**
@@ -4032,19 +4163,20 @@ private constructor(
             }
 
             /** Fields specific to the `network`. */
-            @NoAutoDetect
             class NetworkDetails
-            @JsonCreator
             private constructor(
-                @JsonProperty("category")
-                @ExcludeMissing
-                private val category: JsonField<Category> = JsonMissing.of(),
-                @JsonProperty("visa")
-                @ExcludeMissing
-                private val visa: JsonField<Visa> = JsonMissing.of(),
-                @JsonAnySetter
-                private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+                private val category: JsonField<Category>,
+                private val visa: JsonField<Visa>,
+                private val additionalProperties: MutableMap<String, JsonValue>,
             ) {
+
+                @JsonCreator
+                private constructor(
+                    @JsonProperty("category")
+                    @ExcludeMissing
+                    category: JsonField<Category> = JsonMissing.of(),
+                    @JsonProperty("visa") @ExcludeMissing visa: JsonField<Visa> = JsonMissing.of(),
+                ) : this(category, visa, mutableMapOf())
 
                 /**
                  * The payment network used to process this card authorization.
@@ -4081,21 +4213,15 @@ private constructor(
                  */
                 @JsonProperty("visa") @ExcludeMissing fun _visa(): JsonField<Visa> = visa
 
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
                 @JsonAnyGetter
                 @ExcludeMissing
-                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-                private var validated: Boolean = false
-
-                fun validate(): NetworkDetails = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    category()
-                    visa().ifPresent { it.validate() }
-                    validated = true
-                }
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
 
                 fun toBuilder() = Builder().from(this)
 
@@ -4193,8 +4319,20 @@ private constructor(
                         NetworkDetails(
                             checkRequired("category", category),
                             checkRequired("visa", visa),
-                            additionalProperties.toImmutable(),
+                            additionalProperties.toMutableMap(),
                         )
+                }
+
+                private var validated: Boolean = false
+
+                fun validate(): NetworkDetails = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    category()
+                    visa().ifPresent { it.validate() }
+                    validated = true
                 }
 
                 /** The payment network used to process this card authorization. */
@@ -4303,26 +4441,34 @@ private constructor(
                 }
 
                 /** Fields specific to the `visa` network. */
-                @NoAutoDetect
                 class Visa
-                @JsonCreator
                 private constructor(
-                    @JsonProperty("electronic_commerce_indicator")
-                    @ExcludeMissing
-                    private val electronicCommerceIndicator:
-                        JsonField<ElectronicCommerceIndicator> =
-                        JsonMissing.of(),
-                    @JsonProperty("point_of_service_entry_mode")
-                    @ExcludeMissing
-                    private val pointOfServiceEntryMode: JsonField<PointOfServiceEntryMode> =
-                        JsonMissing.of(),
-                    @JsonProperty("stand_in_processing_reason")
-                    @ExcludeMissing
-                    private val standInProcessingReason: JsonField<StandInProcessingReason> =
-                        JsonMissing.of(),
-                    @JsonAnySetter
-                    private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+                    private val electronicCommerceIndicator: JsonField<ElectronicCommerceIndicator>,
+                    private val pointOfServiceEntryMode: JsonField<PointOfServiceEntryMode>,
+                    private val standInProcessingReason: JsonField<StandInProcessingReason>,
+                    private val additionalProperties: MutableMap<String, JsonValue>,
                 ) {
+
+                    @JsonCreator
+                    private constructor(
+                        @JsonProperty("electronic_commerce_indicator")
+                        @ExcludeMissing
+                        electronicCommerceIndicator: JsonField<ElectronicCommerceIndicator> =
+                            JsonMissing.of(),
+                        @JsonProperty("point_of_service_entry_mode")
+                        @ExcludeMissing
+                        pointOfServiceEntryMode: JsonField<PointOfServiceEntryMode> =
+                            JsonMissing.of(),
+                        @JsonProperty("stand_in_processing_reason")
+                        @ExcludeMissing
+                        standInProcessingReason: JsonField<StandInProcessingReason> =
+                            JsonMissing.of(),
+                    ) : this(
+                        electronicCommerceIndicator,
+                        pointOfServiceEntryMode,
+                        standInProcessingReason,
+                        mutableMapOf(),
+                    )
 
                     /**
                      * For electronic commerce transactions, this identifies the level of security
@@ -4394,22 +4540,15 @@ private constructor(
                     fun _standInProcessingReason(): JsonField<StandInProcessingReason> =
                         standInProcessingReason
 
+                    @JsonAnySetter
+                    private fun putAdditionalProperty(key: String, value: JsonValue) {
+                        additionalProperties.put(key, value)
+                    }
+
                     @JsonAnyGetter
                     @ExcludeMissing
-                    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-                    private var validated: Boolean = false
-
-                    fun validate(): Visa = apply {
-                        if (validated) {
-                            return@apply
-                        }
-
-                        electronicCommerceIndicator()
-                        pointOfServiceEntryMode()
-                        standInProcessingReason()
-                        validated = true
-                    }
+                    fun _additionalProperties(): Map<String, JsonValue> =
+                        Collections.unmodifiableMap(additionalProperties)
 
                     fun toBuilder() = Builder().from(this)
 
@@ -4582,8 +4721,21 @@ private constructor(
                                 ),
                                 checkRequired("pointOfServiceEntryMode", pointOfServiceEntryMode),
                                 checkRequired("standInProcessingReason", standInProcessingReason),
-                                additionalProperties.toImmutable(),
+                                additionalProperties.toMutableMap(),
                             )
+                    }
+
+                    private var validated: Boolean = false
+
+                    fun validate(): Visa = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        electronicCommerceIndicator()
+                        pointOfServiceEntryMode()
+                        standInProcessingReason()
+                        validated = true
                     }
 
                     /**
@@ -5353,22 +5505,26 @@ private constructor(
             }
 
             /** Network-specific identifiers for a specific request or transaction. */
-            @NoAutoDetect
             class NetworkIdentifiers
-            @JsonCreator
             private constructor(
-                @JsonProperty("retrieval_reference_number")
-                @ExcludeMissing
-                private val retrievalReferenceNumber: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("trace_number")
-                @ExcludeMissing
-                private val traceNumber: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("transaction_id")
-                @ExcludeMissing
-                private val transactionId: JsonField<String> = JsonMissing.of(),
-                @JsonAnySetter
-                private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+                private val retrievalReferenceNumber: JsonField<String>,
+                private val traceNumber: JsonField<String>,
+                private val transactionId: JsonField<String>,
+                private val additionalProperties: MutableMap<String, JsonValue>,
             ) {
+
+                @JsonCreator
+                private constructor(
+                    @JsonProperty("retrieval_reference_number")
+                    @ExcludeMissing
+                    retrievalReferenceNumber: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("trace_number")
+                    @ExcludeMissing
+                    traceNumber: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("transaction_id")
+                    @ExcludeMissing
+                    transactionId: JsonField<String> = JsonMissing.of(),
+                ) : this(retrievalReferenceNumber, traceNumber, transactionId, mutableMapOf())
 
                 /**
                  * A life-cycle identifier used across e.g., an authorization and a reversal.
@@ -5433,22 +5589,15 @@ private constructor(
                 @ExcludeMissing
                 fun _transactionId(): JsonField<String> = transactionId
 
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
                 @JsonAnyGetter
                 @ExcludeMissing
-                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-                private var validated: Boolean = false
-
-                fun validate(): NetworkIdentifiers = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    retrievalReferenceNumber()
-                    traceNumber()
-                    transactionId()
-                    validated = true
-                }
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
 
                 fun toBuilder() = Builder().from(this)
 
@@ -5599,8 +5748,21 @@ private constructor(
                             checkRequired("retrievalReferenceNumber", retrievalReferenceNumber),
                             checkRequired("traceNumber", traceNumber),
                             checkRequired("transactionId", transactionId),
-                            additionalProperties.toImmutable(),
+                            additionalProperties.toMutableMap(),
                         )
+                }
+
+                private var validated: Boolean = false
+
+                fun validate(): NetworkIdentifiers = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    retrievalReferenceNumber()
+                    traceNumber()
+                    transactionId()
+                    validated = true
                 }
 
                 override fun equals(other: Any?): Boolean {
@@ -6303,20 +6465,22 @@ private constructor(
             }
 
             /** Fields related to verification of cardholder-provided values. */
-            @NoAutoDetect
             class Verification
-            @JsonCreator
             private constructor(
-                @JsonProperty("card_verification_code")
-                @ExcludeMissing
-                private val cardVerificationCode: JsonField<CardVerificationCode> =
-                    JsonMissing.of(),
-                @JsonProperty("cardholder_address")
-                @ExcludeMissing
-                private val cardholderAddress: JsonField<CardholderAddress> = JsonMissing.of(),
-                @JsonAnySetter
-                private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+                private val cardVerificationCode: JsonField<CardVerificationCode>,
+                private val cardholderAddress: JsonField<CardholderAddress>,
+                private val additionalProperties: MutableMap<String, JsonValue>,
             ) {
+
+                @JsonCreator
+                private constructor(
+                    @JsonProperty("card_verification_code")
+                    @ExcludeMissing
+                    cardVerificationCode: JsonField<CardVerificationCode> = JsonMissing.of(),
+                    @JsonProperty("cardholder_address")
+                    @ExcludeMissing
+                    cardholderAddress: JsonField<CardholderAddress> = JsonMissing.of(),
+                ) : this(cardVerificationCode, cardholderAddress, mutableMapOf())
 
                 /**
                  * Fields related to verification of the Card Verification Code, a 3-digit code on
@@ -6360,21 +6524,15 @@ private constructor(
                 @ExcludeMissing
                 fun _cardholderAddress(): JsonField<CardholderAddress> = cardholderAddress
 
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
                 @JsonAnyGetter
                 @ExcludeMissing
-                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-                private var validated: Boolean = false
-
-                fun validate(): Verification = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    cardVerificationCode().validate()
-                    cardholderAddress().validate()
-                    validated = true
-                }
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
 
                 fun toBuilder() = Builder().from(this)
 
@@ -6481,24 +6639,38 @@ private constructor(
                         Verification(
                             checkRequired("cardVerificationCode", cardVerificationCode),
                             checkRequired("cardholderAddress", cardholderAddress),
-                            additionalProperties.toImmutable(),
+                            additionalProperties.toMutableMap(),
                         )
+                }
+
+                private var validated: Boolean = false
+
+                fun validate(): Verification = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    cardVerificationCode().validate()
+                    cardholderAddress().validate()
+                    validated = true
                 }
 
                 /**
                  * Fields related to verification of the Card Verification Code, a 3-digit code on
                  * the back of the card.
                  */
-                @NoAutoDetect
                 class CardVerificationCode
-                @JsonCreator
                 private constructor(
-                    @JsonProperty("result")
-                    @ExcludeMissing
-                    private val result: JsonField<Result> = JsonMissing.of(),
-                    @JsonAnySetter
-                    private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+                    private val result: JsonField<Result>,
+                    private val additionalProperties: MutableMap<String, JsonValue>,
                 ) {
+
+                    @JsonCreator
+                    private constructor(
+                        @JsonProperty("result")
+                        @ExcludeMissing
+                        result: JsonField<Result> = JsonMissing.of()
+                    ) : this(result, mutableMapOf())
 
                     /**
                      * The result of verifying the Card Verification Code.
@@ -6519,20 +6691,15 @@ private constructor(
                     @ExcludeMissing
                     fun _result(): JsonField<Result> = result
 
+                    @JsonAnySetter
+                    private fun putAdditionalProperty(key: String, value: JsonValue) {
+                        additionalProperties.put(key, value)
+                    }
+
                     @JsonAnyGetter
                     @ExcludeMissing
-                    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-                    private var validated: Boolean = false
-
-                    fun validate(): CardVerificationCode = apply {
-                        if (validated) {
-                            return@apply
-                        }
-
-                        result()
-                        validated = true
-                    }
+                    fun _additionalProperties(): Map<String, JsonValue> =
+                        Collections.unmodifiableMap(additionalProperties)
 
                     fun toBuilder() = Builder().from(this)
 
@@ -6613,8 +6780,19 @@ private constructor(
                         fun build(): CardVerificationCode =
                             CardVerificationCode(
                                 checkRequired("result", result),
-                                additionalProperties.toImmutable(),
+                                additionalProperties.toMutableMap(),
                             )
+                    }
+
+                    private var validated: Boolean = false
+
+                    fun validate(): CardVerificationCode = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        result()
+                        validated = true
                     }
 
                     /** The result of verifying the Card Verification Code. */
@@ -6769,28 +6947,41 @@ private constructor(
                  * Cardholder address provided in the authorization request and the address on file
                  * we verified it against.
                  */
-                @NoAutoDetect
                 class CardholderAddress
-                @JsonCreator
                 private constructor(
-                    @JsonProperty("actual_line1")
-                    @ExcludeMissing
-                    private val actualLine1: JsonField<String> = JsonMissing.of(),
-                    @JsonProperty("actual_postal_code")
-                    @ExcludeMissing
-                    private val actualPostalCode: JsonField<String> = JsonMissing.of(),
-                    @JsonProperty("provided_line1")
-                    @ExcludeMissing
-                    private val providedLine1: JsonField<String> = JsonMissing.of(),
-                    @JsonProperty("provided_postal_code")
-                    @ExcludeMissing
-                    private val providedPostalCode: JsonField<String> = JsonMissing.of(),
-                    @JsonProperty("result")
-                    @ExcludeMissing
-                    private val result: JsonField<Result> = JsonMissing.of(),
-                    @JsonAnySetter
-                    private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+                    private val actualLine1: JsonField<String>,
+                    private val actualPostalCode: JsonField<String>,
+                    private val providedLine1: JsonField<String>,
+                    private val providedPostalCode: JsonField<String>,
+                    private val result: JsonField<Result>,
+                    private val additionalProperties: MutableMap<String, JsonValue>,
                 ) {
+
+                    @JsonCreator
+                    private constructor(
+                        @JsonProperty("actual_line1")
+                        @ExcludeMissing
+                        actualLine1: JsonField<String> = JsonMissing.of(),
+                        @JsonProperty("actual_postal_code")
+                        @ExcludeMissing
+                        actualPostalCode: JsonField<String> = JsonMissing.of(),
+                        @JsonProperty("provided_line1")
+                        @ExcludeMissing
+                        providedLine1: JsonField<String> = JsonMissing.of(),
+                        @JsonProperty("provided_postal_code")
+                        @ExcludeMissing
+                        providedPostalCode: JsonField<String> = JsonMissing.of(),
+                        @JsonProperty("result")
+                        @ExcludeMissing
+                        result: JsonField<Result> = JsonMissing.of(),
+                    ) : this(
+                        actualLine1,
+                        actualPostalCode,
+                        providedLine1,
+                        providedPostalCode,
+                        result,
+                        mutableMapOf(),
+                    )
 
                     /**
                      * Line 1 of the address on file for the cardholder.
@@ -6888,24 +7079,15 @@ private constructor(
                     @ExcludeMissing
                     fun _result(): JsonField<Result> = result
 
+                    @JsonAnySetter
+                    private fun putAdditionalProperty(key: String, value: JsonValue) {
+                        additionalProperties.put(key, value)
+                    }
+
                     @JsonAnyGetter
                     @ExcludeMissing
-                    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-                    private var validated: Boolean = false
-
-                    fun validate(): CardholderAddress = apply {
-                        if (validated) {
-                            return@apply
-                        }
-
-                        actualLine1()
-                        actualPostalCode()
-                        providedLine1()
-                        providedPostalCode()
-                        result()
-                        validated = true
-                    }
+                    fun _additionalProperties(): Map<String, JsonValue> =
+                        Collections.unmodifiableMap(additionalProperties)
 
                     fun toBuilder() = Builder().from(this)
 
@@ -7098,8 +7280,23 @@ private constructor(
                                 checkRequired("providedLine1", providedLine1),
                                 checkRequired("providedPostalCode", providedPostalCode),
                                 checkRequired("result", result),
-                                additionalProperties.toImmutable(),
+                                additionalProperties.toMutableMap(),
                             )
+                    }
+
+                    private var validated: Boolean = false
+
+                    fun validate(): CardholderAddress = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        actualLine1()
+                        actualPostalCode()
+                        providedLine1()
+                        providedPostalCode()
+                        result()
+                        validated = true
                     }
 
                     /** The address verification result returned to the card network. */
@@ -7503,34 +7700,47 @@ private constructor(
          * A Check Decline object. This field will be present in the JSON response if and only if
          * `category` is equal to `check_decline`.
          */
-        @NoAutoDetect
         class CheckDecline
-        @JsonCreator
         private constructor(
-            @JsonProperty("amount")
-            @ExcludeMissing
-            private val amount: JsonField<Long> = JsonMissing.of(),
-            @JsonProperty("auxiliary_on_us")
-            @ExcludeMissing
-            private val auxiliaryOnUs: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("back_image_file_id")
-            @ExcludeMissing
-            private val backImageFileId: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("check_transfer_id")
-            @ExcludeMissing
-            private val checkTransferId: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("front_image_file_id")
-            @ExcludeMissing
-            private val frontImageFileId: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("inbound_check_deposit_id")
-            @ExcludeMissing
-            private val inboundCheckDepositId: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("reason")
-            @ExcludeMissing
-            private val reason: JsonField<Reason> = JsonMissing.of(),
-            @JsonAnySetter
-            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+            private val amount: JsonField<Long>,
+            private val auxiliaryOnUs: JsonField<String>,
+            private val backImageFileId: JsonField<String>,
+            private val checkTransferId: JsonField<String>,
+            private val frontImageFileId: JsonField<String>,
+            private val inboundCheckDepositId: JsonField<String>,
+            private val reason: JsonField<Reason>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
+                @JsonProperty("auxiliary_on_us")
+                @ExcludeMissing
+                auxiliaryOnUs: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("back_image_file_id")
+                @ExcludeMissing
+                backImageFileId: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("check_transfer_id")
+                @ExcludeMissing
+                checkTransferId: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("front_image_file_id")
+                @ExcludeMissing
+                frontImageFileId: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("inbound_check_deposit_id")
+                @ExcludeMissing
+                inboundCheckDepositId: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("reason") @ExcludeMissing reason: JsonField<Reason> = JsonMissing.of(),
+            ) : this(
+                amount,
+                auxiliaryOnUs,
+                backImageFileId,
+                checkTransferId,
+                frontImageFileId,
+                inboundCheckDepositId,
+                reason,
+                mutableMapOf(),
+            )
 
             /**
              * The declined amount in USD cents.
@@ -7663,26 +7873,15 @@ private constructor(
              */
             @JsonProperty("reason") @ExcludeMissing fun _reason(): JsonField<Reason> = reason
 
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
             @JsonAnyGetter
             @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-            private var validated: Boolean = false
-
-            fun validate(): CheckDecline = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                amount()
-                auxiliaryOnUs()
-                backImageFileId()
-                checkTransferId()
-                frontImageFileId()
-                inboundCheckDepositId()
-                reason()
-                validated = true
-            }
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
 
             fun toBuilder() = Builder().from(this)
 
@@ -7919,8 +8118,25 @@ private constructor(
                         checkRequired("frontImageFileId", frontImageFileId),
                         checkRequired("inboundCheckDepositId", inboundCheckDepositId),
                         checkRequired("reason", reason),
-                        additionalProperties.toImmutable(),
+                        additionalProperties.toMutableMap(),
                     )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): CheckDecline = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                amount()
+                auxiliaryOnUs()
+                backImageFileId()
+                checkTransferId()
+                frontImageFileId()
+                inboundCheckDepositId()
+                reason()
+                validated = true
             }
 
             /** Why the check was declined. */
@@ -8200,31 +8416,44 @@ private constructor(
          * A Check Deposit Rejection object. This field will be present in the JSON response if and
          * only if `category` is equal to `check_deposit_rejection`.
          */
-        @NoAutoDetect
         class CheckDepositRejection
-        @JsonCreator
         private constructor(
-            @JsonProperty("amount")
-            @ExcludeMissing
-            private val amount: JsonField<Long> = JsonMissing.of(),
-            @JsonProperty("check_deposit_id")
-            @ExcludeMissing
-            private val checkDepositId: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("currency")
-            @ExcludeMissing
-            private val currency: JsonField<Currency> = JsonMissing.of(),
-            @JsonProperty("declined_transaction_id")
-            @ExcludeMissing
-            private val declinedTransactionId: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("reason")
-            @ExcludeMissing
-            private val reason: JsonField<Reason> = JsonMissing.of(),
-            @JsonProperty("rejected_at")
-            @ExcludeMissing
-            private val rejectedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-            @JsonAnySetter
-            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+            private val amount: JsonField<Long>,
+            private val checkDepositId: JsonField<String>,
+            private val currency: JsonField<Currency>,
+            private val declinedTransactionId: JsonField<String>,
+            private val reason: JsonField<Reason>,
+            private val rejectedAt: JsonField<OffsetDateTime>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
+                @JsonProperty("check_deposit_id")
+                @ExcludeMissing
+                checkDepositId: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("currency")
+                @ExcludeMissing
+                currency: JsonField<Currency> = JsonMissing.of(),
+                @JsonProperty("declined_transaction_id")
+                @ExcludeMissing
+                declinedTransactionId: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("reason")
+                @ExcludeMissing
+                reason: JsonField<Reason> = JsonMissing.of(),
+                @JsonProperty("rejected_at")
+                @ExcludeMissing
+                rejectedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+            ) : this(
+                amount,
+                checkDepositId,
+                currency,
+                declinedTransactionId,
+                reason,
+                rejectedAt,
+                mutableMapOf(),
+            )
 
             /**
              * The rejected amount in the minor unit of check's currency. For dollars, for example,
@@ -8337,25 +8566,15 @@ private constructor(
             @ExcludeMissing
             fun _rejectedAt(): JsonField<OffsetDateTime> = rejectedAt
 
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
             @JsonAnyGetter
             @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-            private var validated: Boolean = false
-
-            fun validate(): CheckDepositRejection = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                amount()
-                checkDepositId()
-                currency()
-                declinedTransactionId()
-                reason()
-                rejectedAt()
-                validated = true
-            }
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
 
             fun toBuilder() = Builder().from(this)
 
@@ -8536,8 +8755,24 @@ private constructor(
                         checkRequired("declinedTransactionId", declinedTransactionId),
                         checkRequired("reason", reason),
                         checkRequired("rejectedAt", rejectedAt),
-                        additionalProperties.toImmutable(),
+                        additionalProperties.toMutableMap(),
                     )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): CheckDepositRejection = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                amount()
+                checkDepositId()
+                currency()
+                declinedTransactionId()
+                reason()
+                rejectedAt()
+                validated = true
             }
 
             /**
@@ -8906,43 +9141,64 @@ private constructor(
          * JSON response if and only if `category` is equal to
          * `inbound_real_time_payments_transfer_decline`.
          */
-        @NoAutoDetect
         class InboundRealTimePaymentsTransferDecline
-        @JsonCreator
         private constructor(
-            @JsonProperty("amount")
-            @ExcludeMissing
-            private val amount: JsonField<Long> = JsonMissing.of(),
-            @JsonProperty("creditor_name")
-            @ExcludeMissing
-            private val creditorName: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("currency")
-            @ExcludeMissing
-            private val currency: JsonField<Currency> = JsonMissing.of(),
-            @JsonProperty("debtor_account_number")
-            @ExcludeMissing
-            private val debtorAccountNumber: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("debtor_name")
-            @ExcludeMissing
-            private val debtorName: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("debtor_routing_number")
-            @ExcludeMissing
-            private val debtorRoutingNumber: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("reason")
-            @ExcludeMissing
-            private val reason: JsonField<Reason> = JsonMissing.of(),
-            @JsonProperty("remittance_information")
-            @ExcludeMissing
-            private val remittanceInformation: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("transaction_identification")
-            @ExcludeMissing
-            private val transactionIdentification: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("transfer_id")
-            @ExcludeMissing
-            private val transferId: JsonField<String> = JsonMissing.of(),
-            @JsonAnySetter
-            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+            private val amount: JsonField<Long>,
+            private val creditorName: JsonField<String>,
+            private val currency: JsonField<Currency>,
+            private val debtorAccountNumber: JsonField<String>,
+            private val debtorName: JsonField<String>,
+            private val debtorRoutingNumber: JsonField<String>,
+            private val reason: JsonField<Reason>,
+            private val remittanceInformation: JsonField<String>,
+            private val transactionIdentification: JsonField<String>,
+            private val transferId: JsonField<String>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
+                @JsonProperty("creditor_name")
+                @ExcludeMissing
+                creditorName: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("currency")
+                @ExcludeMissing
+                currency: JsonField<Currency> = JsonMissing.of(),
+                @JsonProperty("debtor_account_number")
+                @ExcludeMissing
+                debtorAccountNumber: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("debtor_name")
+                @ExcludeMissing
+                debtorName: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("debtor_routing_number")
+                @ExcludeMissing
+                debtorRoutingNumber: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("reason")
+                @ExcludeMissing
+                reason: JsonField<Reason> = JsonMissing.of(),
+                @JsonProperty("remittance_information")
+                @ExcludeMissing
+                remittanceInformation: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("transaction_identification")
+                @ExcludeMissing
+                transactionIdentification: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("transfer_id")
+                @ExcludeMissing
+                transferId: JsonField<String> = JsonMissing.of(),
+            ) : this(
+                amount,
+                creditorName,
+                currency,
+                debtorAccountNumber,
+                debtorName,
+                debtorRoutingNumber,
+                reason,
+                remittanceInformation,
+                transactionIdentification,
+                transferId,
+                mutableMapOf(),
+            )
 
             /**
              * The declined amount in the minor unit of the destination account currency. For
@@ -9133,29 +9389,15 @@ private constructor(
             @ExcludeMissing
             fun _transferId(): JsonField<String> = transferId
 
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
             @JsonAnyGetter
             @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-            private var validated: Boolean = false
-
-            fun validate(): InboundRealTimePaymentsTransferDecline = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                amount()
-                creditorName()
-                currency()
-                debtorAccountNumber()
-                debtorName()
-                debtorRoutingNumber()
-                reason()
-                remittanceInformation()
-                transactionIdentification()
-                transferId()
-                validated = true
-            }
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
 
             fun toBuilder() = Builder().from(this)
 
@@ -9428,8 +9670,28 @@ private constructor(
                         checkRequired("remittanceInformation", remittanceInformation),
                         checkRequired("transactionIdentification", transactionIdentification),
                         checkRequired("transferId", transferId),
-                        additionalProperties.toImmutable(),
+                        additionalProperties.toMutableMap(),
                     )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): InboundRealTimePaymentsTransferDecline = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                amount()
+                creditorName()
+                currency()
+                debtorAccountNumber()
+                debtorName()
+                debtorRoutingNumber()
+                reason()
+                remittanceInformation()
+                transactionIdentification()
+                transferId()
+                validated = true
             }
 
             /**
@@ -9752,19 +10014,20 @@ private constructor(
          * A Wire Decline object. This field will be present in the JSON response if and only if
          * `category` is equal to `wire_decline`.
          */
-        @NoAutoDetect
         class WireDecline
-        @JsonCreator
         private constructor(
-            @JsonProperty("inbound_wire_transfer_id")
-            @ExcludeMissing
-            private val inboundWireTransferId: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("reason")
-            @ExcludeMissing
-            private val reason: JsonField<Reason> = JsonMissing.of(),
-            @JsonAnySetter
-            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+            private val inboundWireTransferId: JsonField<String>,
+            private val reason: JsonField<Reason>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("inbound_wire_transfer_id")
+                @ExcludeMissing
+                inboundWireTransferId: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("reason") @ExcludeMissing reason: JsonField<Reason> = JsonMissing.of(),
+            ) : this(inboundWireTransferId, reason, mutableMapOf())
 
             /**
              * The identifier of the Inbound Wire Transfer that was declined.
@@ -9802,21 +10065,15 @@ private constructor(
              */
             @JsonProperty("reason") @ExcludeMissing fun _reason(): JsonField<Reason> = reason
 
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
             @JsonAnyGetter
             @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-            private var validated: Boolean = false
-
-            fun validate(): WireDecline = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                inboundWireTransferId()
-                reason()
-                validated = true
-            }
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
 
             fun toBuilder() = Builder().from(this)
 
@@ -9914,8 +10171,20 @@ private constructor(
                     WireDecline(
                         checkRequired("inboundWireTransferId", inboundWireTransferId),
                         checkRequired("reason", reason),
-                        additionalProperties.toImmutable(),
+                        additionalProperties.toMutableMap(),
                     )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): WireDecline = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                inboundWireTransferId()
+                reason()
+                validated = true
             }
 
             /** Why the wire transfer was declined. */

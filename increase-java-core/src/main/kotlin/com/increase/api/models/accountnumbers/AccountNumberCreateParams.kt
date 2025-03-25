@@ -11,14 +11,12 @@ import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.Params
 import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
-import com.increase.api.core.immutableEmptyMap
-import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
+import java.util.Collections
 import java.util.Objects
 import java.util.Optional
 
@@ -96,266 +94,6 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    @JvmSynthetic internal fun _body(): Body = body
-
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams = additionalQueryParams
-
-    @NoAutoDetect
-    class Body
-    @JsonCreator
-    private constructor(
-        @JsonProperty("account_id")
-        @ExcludeMissing
-        private val accountId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("name")
-        @ExcludeMissing
-        private val name: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("inbound_ach")
-        @ExcludeMissing
-        private val inboundAch: JsonField<InboundAch> = JsonMissing.of(),
-        @JsonProperty("inbound_checks")
-        @ExcludeMissing
-        private val inboundChecks: JsonField<InboundChecks> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-    ) {
-
-        /**
-         * The Account the Account Number should belong to.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun accountId(): String = accountId.getRequired("account_id")
-
-        /**
-         * The name you choose for the Account Number.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun name(): String = name.getRequired("name")
-
-        /**
-         * Options related to how this Account Number should handle inbound ACH transfers.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun inboundAch(): Optional<InboundAch> =
-            Optional.ofNullable(inboundAch.getNullable("inbound_ach"))
-
-        /**
-         * Options related to how this Account Number should handle inbound check withdrawals.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun inboundChecks(): Optional<InboundChecks> =
-            Optional.ofNullable(inboundChecks.getNullable("inbound_checks"))
-
-        /**
-         * Returns the raw JSON value of [accountId].
-         *
-         * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
-
-        /**
-         * Returns the raw JSON value of [name].
-         *
-         * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
-
-        /**
-         * Returns the raw JSON value of [inboundAch].
-         *
-         * Unlike [inboundAch], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("inbound_ach")
-        @ExcludeMissing
-        fun _inboundAch(): JsonField<InboundAch> = inboundAch
-
-        /**
-         * Returns the raw JSON value of [inboundChecks].
-         *
-         * Unlike [inboundChecks], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("inbound_checks")
-        @ExcludeMissing
-        fun _inboundChecks(): JsonField<InboundChecks> = inboundChecks
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): Body = apply {
-            if (validated) {
-                return@apply
-            }
-
-            accountId()
-            name()
-            inboundAch().ifPresent { it.validate() }
-            inboundChecks().ifPresent { it.validate() }
-            validated = true
-        }
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /**
-             * Returns a mutable builder for constructing an instance of [Body].
-             *
-             * The following fields are required:
-             * ```java
-             * .accountId()
-             * .name()
-             * ```
-             */
-            @JvmStatic fun builder() = Builder()
-        }
-
-        /** A builder for [Body]. */
-        class Builder internal constructor() {
-
-            private var accountId: JsonField<String>? = null
-            private var name: JsonField<String>? = null
-            private var inboundAch: JsonField<InboundAch> = JsonMissing.of()
-            private var inboundChecks: JsonField<InboundChecks> = JsonMissing.of()
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(body: Body) = apply {
-                accountId = body.accountId
-                name = body.name
-                inboundAch = body.inboundAch
-                inboundChecks = body.inboundChecks
-                additionalProperties = body.additionalProperties.toMutableMap()
-            }
-
-            /** The Account the Account Number should belong to. */
-            fun accountId(accountId: String) = accountId(JsonField.of(accountId))
-
-            /**
-             * Sets [Builder.accountId] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.accountId] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
-
-            /** The name you choose for the Account Number. */
-            fun name(name: String) = name(JsonField.of(name))
-
-            /**
-             * Sets [Builder.name] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.name] with a well-typed [String] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
-             */
-            fun name(name: JsonField<String>) = apply { this.name = name }
-
-            /** Options related to how this Account Number should handle inbound ACH transfers. */
-            fun inboundAch(inboundAch: InboundAch) = inboundAch(JsonField.of(inboundAch))
-
-            /**
-             * Sets [Builder.inboundAch] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.inboundAch] with a well-typed [InboundAch] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun inboundAch(inboundAch: JsonField<InboundAch>) = apply {
-                this.inboundAch = inboundAch
-            }
-
-            /**
-             * Options related to how this Account Number should handle inbound check withdrawals.
-             */
-            fun inboundChecks(inboundChecks: InboundChecks) =
-                inboundChecks(JsonField.of(inboundChecks))
-
-            /**
-             * Sets [Builder.inboundChecks] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.inboundChecks] with a well-typed [InboundChecks]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
-             */
-            fun inboundChecks(inboundChecks: JsonField<InboundChecks>) = apply {
-                this.inboundChecks = inboundChecks
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [Body].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             *
-             * The following fields are required:
-             * ```java
-             * .accountId()
-             * .name()
-             * ```
-             *
-             * @throws IllegalStateException if any required field is unset.
-             */
-            fun build(): Body =
-                Body(
-                    checkRequired("accountId", accountId),
-                    checkRequired("name", name),
-                    inboundAch,
-                    inboundChecks,
-                    additionalProperties.toImmutable(),
-                )
-        }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return /* spotless:off */ other is Body && accountId == other.accountId && name == other.name && inboundAch == other.inboundAch && inboundChecks == other.inboundChecks && additionalProperties == other.additionalProperties /* spotless:on */
-        }
-
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(accountId, name, inboundAch, inboundChecks, additionalProperties) }
-        /* spotless:on */
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "Body{accountId=$accountId, name=$name, inboundAch=$inboundAch, inboundChecks=$inboundChecks, additionalProperties=$additionalProperties}"
-    }
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -373,7 +111,6 @@ private constructor(
     }
 
     /** A builder for [AccountNumberCreateParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var body: Body.Builder = Body.builder()
@@ -576,17 +313,288 @@ private constructor(
             )
     }
 
-    /** Options related to how this Account Number should handle inbound ACH transfers. */
-    @NoAutoDetect
-    class InboundAch
-    @JsonCreator
+    @JvmSynthetic internal fun _body(): Body = body
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams = additionalQueryParams
+
+    class Body
     private constructor(
-        @JsonProperty("debit_status")
-        @ExcludeMissing
-        private val debitStatus: JsonField<DebitStatus> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val accountId: JsonField<String>,
+        private val name: JsonField<String>,
+        private val inboundAch: JsonField<InboundAch>,
+        private val inboundChecks: JsonField<InboundChecks>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("account_id")
+            @ExcludeMissing
+            accountId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("inbound_ach")
+            @ExcludeMissing
+            inboundAch: JsonField<InboundAch> = JsonMissing.of(),
+            @JsonProperty("inbound_checks")
+            @ExcludeMissing
+            inboundChecks: JsonField<InboundChecks> = JsonMissing.of(),
+        ) : this(accountId, name, inboundAch, inboundChecks, mutableMapOf())
+
+        /**
+         * The Account the Account Number should belong to.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun accountId(): String = accountId.getRequired("account_id")
+
+        /**
+         * The name you choose for the Account Number.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun name(): String = name.getRequired("name")
+
+        /**
+         * Options related to how this Account Number should handle inbound ACH transfers.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun inboundAch(): Optional<InboundAch> =
+            Optional.ofNullable(inboundAch.getNullable("inbound_ach"))
+
+        /**
+         * Options related to how this Account Number should handle inbound check withdrawals.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun inboundChecks(): Optional<InboundChecks> =
+            Optional.ofNullable(inboundChecks.getNullable("inbound_checks"))
+
+        /**
+         * Returns the raw JSON value of [accountId].
+         *
+         * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
+
+        /**
+         * Returns the raw JSON value of [name].
+         *
+         * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+
+        /**
+         * Returns the raw JSON value of [inboundAch].
+         *
+         * Unlike [inboundAch], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("inbound_ach")
+        @ExcludeMissing
+        fun _inboundAch(): JsonField<InboundAch> = inboundAch
+
+        /**
+         * Returns the raw JSON value of [inboundChecks].
+         *
+         * Unlike [inboundChecks], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("inbound_checks")
+        @ExcludeMissing
+        fun _inboundChecks(): JsonField<InboundChecks> = inboundChecks
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [Body].
+             *
+             * The following fields are required:
+             * ```java
+             * .accountId()
+             * .name()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Body]. */
+        class Builder internal constructor() {
+
+            private var accountId: JsonField<String>? = null
+            private var name: JsonField<String>? = null
+            private var inboundAch: JsonField<InboundAch> = JsonMissing.of()
+            private var inboundChecks: JsonField<InboundChecks> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(body: Body) = apply {
+                accountId = body.accountId
+                name = body.name
+                inboundAch = body.inboundAch
+                inboundChecks = body.inboundChecks
+                additionalProperties = body.additionalProperties.toMutableMap()
+            }
+
+            /** The Account the Account Number should belong to. */
+            fun accountId(accountId: String) = accountId(JsonField.of(accountId))
+
+            /**
+             * Sets [Builder.accountId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.accountId] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
+
+            /** The name you choose for the Account Number. */
+            fun name(name: String) = name(JsonField.of(name))
+
+            /**
+             * Sets [Builder.name] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.name] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun name(name: JsonField<String>) = apply { this.name = name }
+
+            /** Options related to how this Account Number should handle inbound ACH transfers. */
+            fun inboundAch(inboundAch: InboundAch) = inboundAch(JsonField.of(inboundAch))
+
+            /**
+             * Sets [Builder.inboundAch] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.inboundAch] with a well-typed [InboundAch] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun inboundAch(inboundAch: JsonField<InboundAch>) = apply {
+                this.inboundAch = inboundAch
+            }
+
+            /**
+             * Options related to how this Account Number should handle inbound check withdrawals.
+             */
+            fun inboundChecks(inboundChecks: InboundChecks) =
+                inboundChecks(JsonField.of(inboundChecks))
+
+            /**
+             * Sets [Builder.inboundChecks] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.inboundChecks] with a well-typed [InboundChecks]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun inboundChecks(inboundChecks: JsonField<InboundChecks>) = apply {
+                this.inboundChecks = inboundChecks
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Body].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .accountId()
+             * .name()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): Body =
+                Body(
+                    checkRequired("accountId", accountId),
+                    checkRequired("name", name),
+                    inboundAch,
+                    inboundChecks,
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Body = apply {
+            if (validated) {
+                return@apply
+            }
+
+            accountId()
+            name()
+            inboundAch().ifPresent { it.validate() }
+            inboundChecks().ifPresent { it.validate() }
+            validated = true
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is Body && accountId == other.accountId && name == other.name && inboundAch == other.inboundAch && inboundChecks == other.inboundChecks && additionalProperties == other.additionalProperties /* spotless:on */
+        }
+
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(accountId, name, inboundAch, inboundChecks, additionalProperties) }
+        /* spotless:on */
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Body{accountId=$accountId, name=$name, inboundAch=$inboundAch, inboundChecks=$inboundChecks, additionalProperties=$additionalProperties}"
+    }
+
+    /** Options related to how this Account Number should handle inbound ACH transfers. */
+    class InboundAch
+    private constructor(
+        private val debitStatus: JsonField<DebitStatus>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("debit_status")
+            @ExcludeMissing
+            debitStatus: JsonField<DebitStatus> = JsonMissing.of()
+        ) : this(debitStatus, mutableMapOf())
 
         /**
          * Whether ACH debits are allowed against this Account Number. Note that ACH debits will be
@@ -607,20 +615,15 @@ private constructor(
         @ExcludeMissing
         fun _debitStatus(): JsonField<DebitStatus> = debitStatus
 
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): InboundAch = apply {
-            if (validated) {
-                return@apply
-            }
-
-            debitStatus()
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -701,8 +704,19 @@ private constructor(
             fun build(): InboundAch =
                 InboundAch(
                     checkRequired("debitStatus", debitStatus),
-                    additionalProperties.toImmutable(),
+                    additionalProperties.toMutableMap(),
                 )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): InboundAch = apply {
+            if (validated) {
+                return@apply
+            }
+
+            debitStatus()
+            validated = true
         }
 
         /**
@@ -839,16 +853,16 @@ private constructor(
     }
 
     /** Options related to how this Account Number should handle inbound check withdrawals. */
-    @NoAutoDetect
     class InboundChecks
-    @JsonCreator
     private constructor(
-        @JsonProperty("status")
-        @ExcludeMissing
-        private val status: JsonField<Status> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val status: JsonField<Status>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of()
+        ) : this(status, mutableMapOf())
 
         /**
          * How Increase should process checks with this account number printed on them. If you do
@@ -866,20 +880,15 @@ private constructor(
          */
         @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): InboundChecks = apply {
-            if (validated) {
-                return@apply
-            }
-
-            status()
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -955,7 +964,18 @@ private constructor(
              * @throws IllegalStateException if any required field is unset.
              */
             fun build(): InboundChecks =
-                InboundChecks(checkRequired("status", status), additionalProperties.toImmutable())
+                InboundChecks(checkRequired("status", status), additionalProperties.toMutableMap())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): InboundChecks = apply {
+            if (validated) {
+                return@apply
+            }
+
+            status()
+            validated = true
         }
 
         /**

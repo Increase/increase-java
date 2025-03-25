@@ -2,7 +2,6 @@
 
 package com.increase.api.models.programs
 
-import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.Params
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
@@ -29,17 +28,6 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams =
-        QueryParams.builder()
-            .apply {
-                cursor?.let { put("cursor", it) }
-                limit?.let { put("limit", it.toString()) }
-                putAll(additionalQueryParams)
-            }
-            .build()
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -51,7 +39,6 @@ private constructor(
     }
 
     /** A builder for [ProgramListParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var cursor: String? = null
@@ -199,6 +186,17 @@ private constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                cursor?.let { put("cursor", it) }
+                limit?.let { put("limit", it.toString()) }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {

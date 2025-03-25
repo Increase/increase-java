@@ -2,7 +2,6 @@
 
 package com.increase.api.models.supplementaldocuments
 
-import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.Params
 import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
@@ -42,19 +41,6 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams =
-        QueryParams.builder()
-            .apply {
-                put("entity_id", entityId)
-                cursor?.let { put("cursor", it) }
-                idempotencyKey?.let { put("idempotency_key", it) }
-                limit?.let { put("limit", it.toString()) }
-                putAll(additionalQueryParams)
-            }
-            .build()
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -72,7 +58,6 @@ private constructor(
     }
 
     /** A builder for [SupplementalDocumentListParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var entityId: String? = null
@@ -248,6 +233,19 @@ private constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                put("entity_id", entityId)
+                cursor?.let { put("cursor", it) }
+                idempotencyKey?.let { put("idempotency_key", it) }
+                limit?.let { put("limit", it.toString()) }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {

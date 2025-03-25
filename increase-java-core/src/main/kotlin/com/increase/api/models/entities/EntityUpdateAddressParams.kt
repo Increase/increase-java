@@ -10,14 +10,12 @@ import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.Params
 import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
-import com.increase.api.core.immutableEmptyMap
-import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
+import java.util.Collections
 import java.util.Objects
 import java.util.Optional
 
@@ -55,155 +53,6 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    @JvmSynthetic internal fun _body(): Body = body
-
-    fun _pathParam(index: Int): String =
-        when (index) {
-            0 -> entityId
-            else -> ""
-        }
-
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams = additionalQueryParams
-
-    @NoAutoDetect
-    class Body
-    @JsonCreator
-    private constructor(
-        @JsonProperty("address")
-        @ExcludeMissing
-        private val address: JsonField<Address> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-    ) {
-
-        /**
-         * The entity's physical address. Mail receiving locations like PO Boxes and PMB's are
-         * disallowed.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun address(): Address = address.getRequired("address")
-
-        /**
-         * Returns the raw JSON value of [address].
-         *
-         * Unlike [address], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("address") @ExcludeMissing fun _address(): JsonField<Address> = address
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): Body = apply {
-            if (validated) {
-                return@apply
-            }
-
-            address().validate()
-            validated = true
-        }
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /**
-             * Returns a mutable builder for constructing an instance of [Body].
-             *
-             * The following fields are required:
-             * ```java
-             * .address()
-             * ```
-             */
-            @JvmStatic fun builder() = Builder()
-        }
-
-        /** A builder for [Body]. */
-        class Builder internal constructor() {
-
-            private var address: JsonField<Address>? = null
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(body: Body) = apply {
-                address = body.address
-                additionalProperties = body.additionalProperties.toMutableMap()
-            }
-
-            /**
-             * The entity's physical address. Mail receiving locations like PO Boxes and PMB's are
-             * disallowed.
-             */
-            fun address(address: Address) = address(JsonField.of(address))
-
-            /**
-             * Sets [Builder.address] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.address] with a well-typed [Address] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun address(address: JsonField<Address>) = apply { this.address = address }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [Body].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             *
-             * The following fields are required:
-             * ```java
-             * .address()
-             * ```
-             *
-             * @throws IllegalStateException if any required field is unset.
-             */
-            fun build(): Body =
-                Body(checkRequired("address", address), additionalProperties.toImmutable())
-        }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return /* spotless:off */ other is Body && address == other.address && additionalProperties == other.additionalProperties /* spotless:on */
-        }
-
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(address, additionalProperties) }
-        /* spotless:on */
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "Body{address=$address, additionalProperties=$additionalProperties}"
-    }
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -221,7 +70,6 @@ private constructor(
     }
 
     /** A builder for [EntityUpdateAddressParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var entityId: String? = null
@@ -393,30 +241,183 @@ private constructor(
             )
     }
 
+    @JvmSynthetic internal fun _body(): Body = body
+
+    fun _pathParam(index: Int): String =
+        when (index) {
+            0 -> entityId
+            else -> ""
+        }
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams = additionalQueryParams
+
+    class Body
+    private constructor(
+        private val address: JsonField<Address>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("address") @ExcludeMissing address: JsonField<Address> = JsonMissing.of()
+        ) : this(address, mutableMapOf())
+
+        /**
+         * The entity's physical address. Mail receiving locations like PO Boxes and PMB's are
+         * disallowed.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun address(): Address = address.getRequired("address")
+
+        /**
+         * Returns the raw JSON value of [address].
+         *
+         * Unlike [address], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("address") @ExcludeMissing fun _address(): JsonField<Address> = address
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [Body].
+             *
+             * The following fields are required:
+             * ```java
+             * .address()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Body]. */
+        class Builder internal constructor() {
+
+            private var address: JsonField<Address>? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(body: Body) = apply {
+                address = body.address
+                additionalProperties = body.additionalProperties.toMutableMap()
+            }
+
+            /**
+             * The entity's physical address. Mail receiving locations like PO Boxes and PMB's are
+             * disallowed.
+             */
+            fun address(address: Address) = address(JsonField.of(address))
+
+            /**
+             * Sets [Builder.address] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.address] with a well-typed [Address] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun address(address: JsonField<Address>) = apply { this.address = address }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Body].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .address()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): Body =
+                Body(checkRequired("address", address), additionalProperties.toMutableMap())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Body = apply {
+            if (validated) {
+                return@apply
+            }
+
+            address().validate()
+            validated = true
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is Body && address == other.address && additionalProperties == other.additionalProperties /* spotless:on */
+        }
+
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(address, additionalProperties) }
+        /* spotless:on */
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Body{address=$address, additionalProperties=$additionalProperties}"
+    }
+
     /**
      * The entity's physical address. Mail receiving locations like PO Boxes and PMB's are
      * disallowed.
      */
-    @NoAutoDetect
     class Address
-    @JsonCreator
     private constructor(
-        @JsonProperty("city")
-        @ExcludeMissing
-        private val city: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("line1")
-        @ExcludeMissing
-        private val line1: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("state")
-        @ExcludeMissing
-        private val state: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("zip") @ExcludeMissing private val zip: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("line2")
-        @ExcludeMissing
-        private val line2: JsonField<String> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val city: JsonField<String>,
+        private val line1: JsonField<String>,
+        private val state: JsonField<String>,
+        private val zip: JsonField<String>,
+        private val line2: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("city") @ExcludeMissing city: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("line1") @ExcludeMissing line1: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("state") @ExcludeMissing state: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("zip") @ExcludeMissing zip: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("line2") @ExcludeMissing line2: JsonField<String> = JsonMissing.of(),
+        ) : this(city, line1, state, zip, line2, mutableMapOf())
 
         /**
          * The city of the address.
@@ -494,24 +495,15 @@ private constructor(
          */
         @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
 
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): Address = apply {
-            if (validated) {
-                return@apply
-            }
-
-            city()
-            line1()
-            state()
-            zip()
-            line2()
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -655,8 +647,23 @@ private constructor(
                     checkRequired("state", state),
                     checkRequired("zip", zip),
                     line2,
-                    additionalProperties.toImmutable(),
+                    additionalProperties.toMutableMap(),
                 )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Address = apply {
+            if (validated) {
+                return@apply
+            }
+
+            city()
+            line1()
+            state()
+            zip()
+            line2()
+            validated = true
         }
 
         override fun equals(other: Any?): Boolean {

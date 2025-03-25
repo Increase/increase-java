@@ -11,12 +11,10 @@ import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.checkRequired
-import com.increase.api.core.immutableEmptyMap
-import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
+import java.util.Collections
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
@@ -26,44 +24,68 @@ import kotlin.jvm.optionals.getOrNull
  * information, see our guide on
  * [physical card artwork](https://increase.com/documentation/card-art-physical-cards).
  */
-@NoAutoDetect
 class PhysicalCardProfile
-@JsonCreator
 private constructor(
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("back_image_file_id")
-    @ExcludeMissing
-    private val backImageFileId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("carrier_image_file_id")
-    @ExcludeMissing
-    private val carrierImageFileId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("contact_phone")
-    @ExcludeMissing
-    private val contactPhone: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("created_at")
-    @ExcludeMissing
-    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("creator")
-    @ExcludeMissing
-    private val creator: JsonField<Creator> = JsonMissing.of(),
-    @JsonProperty("description")
-    @ExcludeMissing
-    private val description: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("front_image_file_id")
-    @ExcludeMissing
-    private val frontImageFileId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("idempotency_key")
-    @ExcludeMissing
-    private val idempotencyKey: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("is_default")
-    @ExcludeMissing
-    private val isDefault: JsonField<Boolean> = JsonMissing.of(),
-    @JsonProperty("status")
-    @ExcludeMissing
-    private val status: JsonField<Status> = JsonMissing.of(),
-    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
-    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+    private val id: JsonField<String>,
+    private val backImageFileId: JsonField<String>,
+    private val carrierImageFileId: JsonField<String>,
+    private val contactPhone: JsonField<String>,
+    private val createdAt: JsonField<OffsetDateTime>,
+    private val creator: JsonField<Creator>,
+    private val description: JsonField<String>,
+    private val frontImageFileId: JsonField<String>,
+    private val idempotencyKey: JsonField<String>,
+    private val isDefault: JsonField<Boolean>,
+    private val status: JsonField<Status>,
+    private val type: JsonField<Type>,
+    private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
+
+    @JsonCreator
+    private constructor(
+        @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("back_image_file_id")
+        @ExcludeMissing
+        backImageFileId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("carrier_image_file_id")
+        @ExcludeMissing
+        carrierImageFileId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("contact_phone")
+        @ExcludeMissing
+        contactPhone: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("creator") @ExcludeMissing creator: JsonField<Creator> = JsonMissing.of(),
+        @JsonProperty("description")
+        @ExcludeMissing
+        description: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("front_image_file_id")
+        @ExcludeMissing
+        frontImageFileId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("idempotency_key")
+        @ExcludeMissing
+        idempotencyKey: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("is_default")
+        @ExcludeMissing
+        isDefault: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
+        @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+    ) : this(
+        id,
+        backImageFileId,
+        carrierImageFileId,
+        contactPhone,
+        createdAt,
+        creator,
+        description,
+        frontImageFileId,
+        idempotencyKey,
+        isDefault,
+        status,
+        type,
+        mutableMapOf(),
+    )
 
     /**
      * The Card Profile identifier.
@@ -268,31 +290,15 @@ private constructor(
      */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
+    @JsonAnySetter
+    private fun putAdditionalProperty(key: String, value: JsonValue) {
+        additionalProperties.put(key, value)
+    }
+
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-    private var validated: Boolean = false
-
-    fun validate(): PhysicalCardProfile = apply {
-        if (validated) {
-            return@apply
-        }
-
-        id()
-        backImageFileId()
-        carrierImageFileId()
-        contactPhone()
-        createdAt()
-        creator()
-        description()
-        frontImageFileId()
-        idempotencyKey()
-        isDefault()
-        status()
-        type()
-        validated = true
-    }
+    fun _additionalProperties(): Map<String, JsonValue> =
+        Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
@@ -597,8 +603,30 @@ private constructor(
                 checkRequired("isDefault", isDefault),
                 checkRequired("status", status),
                 checkRequired("type", type),
-                additionalProperties.toImmutable(),
+                additionalProperties.toMutableMap(),
             )
+    }
+
+    private var validated: Boolean = false
+
+    fun validate(): PhysicalCardProfile = apply {
+        if (validated) {
+            return@apply
+        }
+
+        id()
+        backImageFileId()
+        carrierImageFileId()
+        contactPhone()
+        createdAt()
+        creator()
+        description()
+        frontImageFileId()
+        idempotencyKey()
+        isDefault()
+        status()
+        type()
+        validated = true
     }
 
     /** The creator of this Physical Card Profile. */

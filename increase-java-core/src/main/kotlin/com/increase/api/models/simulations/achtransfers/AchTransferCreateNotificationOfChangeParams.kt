@@ -11,14 +11,12 @@ import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.Params
 import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
-import com.increase.api.core.immutableEmptyMap
-import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
+import java.util.Collections
 import java.util.Objects
 
 /** Simulates receiving a Notification of Change for an [ACH Transfer](#ach-transfers). */
@@ -69,199 +67,6 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    @JvmSynthetic internal fun _body(): Body = body
-
-    fun _pathParam(index: Int): String =
-        when (index) {
-            0 -> achTransferId
-            else -> ""
-        }
-
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams = additionalQueryParams
-
-    @NoAutoDetect
-    class Body
-    @JsonCreator
-    private constructor(
-        @JsonProperty("change_code")
-        @ExcludeMissing
-        private val changeCode: JsonField<ChangeCode> = JsonMissing.of(),
-        @JsonProperty("corrected_data")
-        @ExcludeMissing
-        private val correctedData: JsonField<String> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-    ) {
-
-        /**
-         * The reason for the notification of change.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun changeCode(): ChangeCode = changeCode.getRequired("change_code")
-
-        /**
-         * The corrected data for the notification of change (e.g., a new routing number).
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun correctedData(): String = correctedData.getRequired("corrected_data")
-
-        /**
-         * Returns the raw JSON value of [changeCode].
-         *
-         * Unlike [changeCode], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("change_code")
-        @ExcludeMissing
-        fun _changeCode(): JsonField<ChangeCode> = changeCode
-
-        /**
-         * Returns the raw JSON value of [correctedData].
-         *
-         * Unlike [correctedData], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("corrected_data")
-        @ExcludeMissing
-        fun _correctedData(): JsonField<String> = correctedData
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): Body = apply {
-            if (validated) {
-                return@apply
-            }
-
-            changeCode()
-            correctedData()
-            validated = true
-        }
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /**
-             * Returns a mutable builder for constructing an instance of [Body].
-             *
-             * The following fields are required:
-             * ```java
-             * .changeCode()
-             * .correctedData()
-             * ```
-             */
-            @JvmStatic fun builder() = Builder()
-        }
-
-        /** A builder for [Body]. */
-        class Builder internal constructor() {
-
-            private var changeCode: JsonField<ChangeCode>? = null
-            private var correctedData: JsonField<String>? = null
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(body: Body) = apply {
-                changeCode = body.changeCode
-                correctedData = body.correctedData
-                additionalProperties = body.additionalProperties.toMutableMap()
-            }
-
-            /** The reason for the notification of change. */
-            fun changeCode(changeCode: ChangeCode) = changeCode(JsonField.of(changeCode))
-
-            /**
-             * Sets [Builder.changeCode] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.changeCode] with a well-typed [ChangeCode] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun changeCode(changeCode: JsonField<ChangeCode>) = apply {
-                this.changeCode = changeCode
-            }
-
-            /** The corrected data for the notification of change (e.g., a new routing number). */
-            fun correctedData(correctedData: String) = correctedData(JsonField.of(correctedData))
-
-            /**
-             * Sets [Builder.correctedData] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.correctedData] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun correctedData(correctedData: JsonField<String>) = apply {
-                this.correctedData = correctedData
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [Body].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             *
-             * The following fields are required:
-             * ```java
-             * .changeCode()
-             * .correctedData()
-             * ```
-             *
-             * @throws IllegalStateException if any required field is unset.
-             */
-            fun build(): Body =
-                Body(
-                    checkRequired("changeCode", changeCode),
-                    checkRequired("correctedData", correctedData),
-                    additionalProperties.toImmutable(),
-                )
-        }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return /* spotless:off */ other is Body && changeCode == other.changeCode && correctedData == other.correctedData && additionalProperties == other.additionalProperties /* spotless:on */
-        }
-
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(changeCode, correctedData, additionalProperties) }
-        /* spotless:on */
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "Body{changeCode=$changeCode, correctedData=$correctedData, additionalProperties=$additionalProperties}"
-    }
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -281,7 +86,6 @@ private constructor(
     }
 
     /** A builder for [AchTransferCreateNotificationOfChangeParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var achTransferId: String? = null
@@ -468,6 +272,208 @@ private constructor(
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
+    }
+
+    @JvmSynthetic internal fun _body(): Body = body
+
+    fun _pathParam(index: Int): String =
+        when (index) {
+            0 -> achTransferId
+            else -> ""
+        }
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams = additionalQueryParams
+
+    class Body
+    private constructor(
+        private val changeCode: JsonField<ChangeCode>,
+        private val correctedData: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("change_code")
+            @ExcludeMissing
+            changeCode: JsonField<ChangeCode> = JsonMissing.of(),
+            @JsonProperty("corrected_data")
+            @ExcludeMissing
+            correctedData: JsonField<String> = JsonMissing.of(),
+        ) : this(changeCode, correctedData, mutableMapOf())
+
+        /**
+         * The reason for the notification of change.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun changeCode(): ChangeCode = changeCode.getRequired("change_code")
+
+        /**
+         * The corrected data for the notification of change (e.g., a new routing number).
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun correctedData(): String = correctedData.getRequired("corrected_data")
+
+        /**
+         * Returns the raw JSON value of [changeCode].
+         *
+         * Unlike [changeCode], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("change_code")
+        @ExcludeMissing
+        fun _changeCode(): JsonField<ChangeCode> = changeCode
+
+        /**
+         * Returns the raw JSON value of [correctedData].
+         *
+         * Unlike [correctedData], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("corrected_data")
+        @ExcludeMissing
+        fun _correctedData(): JsonField<String> = correctedData
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [Body].
+             *
+             * The following fields are required:
+             * ```java
+             * .changeCode()
+             * .correctedData()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Body]. */
+        class Builder internal constructor() {
+
+            private var changeCode: JsonField<ChangeCode>? = null
+            private var correctedData: JsonField<String>? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(body: Body) = apply {
+                changeCode = body.changeCode
+                correctedData = body.correctedData
+                additionalProperties = body.additionalProperties.toMutableMap()
+            }
+
+            /** The reason for the notification of change. */
+            fun changeCode(changeCode: ChangeCode) = changeCode(JsonField.of(changeCode))
+
+            /**
+             * Sets [Builder.changeCode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.changeCode] with a well-typed [ChangeCode] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun changeCode(changeCode: JsonField<ChangeCode>) = apply {
+                this.changeCode = changeCode
+            }
+
+            /** The corrected data for the notification of change (e.g., a new routing number). */
+            fun correctedData(correctedData: String) = correctedData(JsonField.of(correctedData))
+
+            /**
+             * Sets [Builder.correctedData] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.correctedData] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun correctedData(correctedData: JsonField<String>) = apply {
+                this.correctedData = correctedData
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Body].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .changeCode()
+             * .correctedData()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): Body =
+                Body(
+                    checkRequired("changeCode", changeCode),
+                    checkRequired("correctedData", correctedData),
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Body = apply {
+            if (validated) {
+                return@apply
+            }
+
+            changeCode()
+            correctedData()
+            validated = true
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is Body && changeCode == other.changeCode && correctedData == other.correctedData && additionalProperties == other.additionalProperties /* spotless:on */
+        }
+
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(changeCode, correctedData, additionalProperties) }
+        /* spotless:on */
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Body{changeCode=$changeCode, correctedData=$correctedData, additionalProperties=$additionalProperties}"
     }
 
     /** The reason for the notification of change. */

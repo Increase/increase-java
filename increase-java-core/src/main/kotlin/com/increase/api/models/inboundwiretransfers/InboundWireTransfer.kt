@@ -11,92 +11,140 @@ import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.checkRequired
-import com.increase.api.core.immutableEmptyMap
-import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
+import java.util.Collections
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /** An Inbound Wire Transfer is a wire transfer initiated outside of Increase to your account. */
-@NoAutoDetect
 class InboundWireTransfer
-@JsonCreator
 private constructor(
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("account_id")
-    @ExcludeMissing
-    private val accountId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("account_number_id")
-    @ExcludeMissing
-    private val accountNumberId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("amount") @ExcludeMissing private val amount: JsonField<Long> = JsonMissing.of(),
-    @JsonProperty("beneficiary_address_line1")
-    @ExcludeMissing
-    private val beneficiaryAddressLine1: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("beneficiary_address_line2")
-    @ExcludeMissing
-    private val beneficiaryAddressLine2: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("beneficiary_address_line3")
-    @ExcludeMissing
-    private val beneficiaryAddressLine3: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("beneficiary_name")
-    @ExcludeMissing
-    private val beneficiaryName: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("beneficiary_reference")
-    @ExcludeMissing
-    private val beneficiaryReference: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("created_at")
-    @ExcludeMissing
-    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("description")
-    @ExcludeMissing
-    private val description: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("input_message_accountability_data")
-    @ExcludeMissing
-    private val inputMessageAccountabilityData: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("originator_address_line1")
-    @ExcludeMissing
-    private val originatorAddressLine1: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("originator_address_line2")
-    @ExcludeMissing
-    private val originatorAddressLine2: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("originator_address_line3")
-    @ExcludeMissing
-    private val originatorAddressLine3: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("originator_name")
-    @ExcludeMissing
-    private val originatorName: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("originator_routing_number")
-    @ExcludeMissing
-    private val originatorRoutingNumber: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("originator_to_beneficiary_information")
-    @ExcludeMissing
-    private val originatorToBeneficiaryInformation: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("originator_to_beneficiary_information_line1")
-    @ExcludeMissing
-    private val originatorToBeneficiaryInformationLine1: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("originator_to_beneficiary_information_line2")
-    @ExcludeMissing
-    private val originatorToBeneficiaryInformationLine2: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("originator_to_beneficiary_information_line3")
-    @ExcludeMissing
-    private val originatorToBeneficiaryInformationLine3: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("originator_to_beneficiary_information_line4")
-    @ExcludeMissing
-    private val originatorToBeneficiaryInformationLine4: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("sender_reference")
-    @ExcludeMissing
-    private val senderReference: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("status")
-    @ExcludeMissing
-    private val status: JsonField<Status> = JsonMissing.of(),
-    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
-    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+    private val id: JsonField<String>,
+    private val accountId: JsonField<String>,
+    private val accountNumberId: JsonField<String>,
+    private val amount: JsonField<Long>,
+    private val beneficiaryAddressLine1: JsonField<String>,
+    private val beneficiaryAddressLine2: JsonField<String>,
+    private val beneficiaryAddressLine3: JsonField<String>,
+    private val beneficiaryName: JsonField<String>,
+    private val beneficiaryReference: JsonField<String>,
+    private val createdAt: JsonField<OffsetDateTime>,
+    private val description: JsonField<String>,
+    private val inputMessageAccountabilityData: JsonField<String>,
+    private val originatorAddressLine1: JsonField<String>,
+    private val originatorAddressLine2: JsonField<String>,
+    private val originatorAddressLine3: JsonField<String>,
+    private val originatorName: JsonField<String>,
+    private val originatorRoutingNumber: JsonField<String>,
+    private val originatorToBeneficiaryInformation: JsonField<String>,
+    private val originatorToBeneficiaryInformationLine1: JsonField<String>,
+    private val originatorToBeneficiaryInformationLine2: JsonField<String>,
+    private val originatorToBeneficiaryInformationLine3: JsonField<String>,
+    private val originatorToBeneficiaryInformationLine4: JsonField<String>,
+    private val senderReference: JsonField<String>,
+    private val status: JsonField<Status>,
+    private val type: JsonField<Type>,
+    private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
+
+    @JsonCreator
+    private constructor(
+        @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("account_id") @ExcludeMissing accountId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("account_number_id")
+        @ExcludeMissing
+        accountNumberId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("beneficiary_address_line1")
+        @ExcludeMissing
+        beneficiaryAddressLine1: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("beneficiary_address_line2")
+        @ExcludeMissing
+        beneficiaryAddressLine2: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("beneficiary_address_line3")
+        @ExcludeMissing
+        beneficiaryAddressLine3: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("beneficiary_name")
+        @ExcludeMissing
+        beneficiaryName: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("beneficiary_reference")
+        @ExcludeMissing
+        beneficiaryReference: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("description")
+        @ExcludeMissing
+        description: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("input_message_accountability_data")
+        @ExcludeMissing
+        inputMessageAccountabilityData: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("originator_address_line1")
+        @ExcludeMissing
+        originatorAddressLine1: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("originator_address_line2")
+        @ExcludeMissing
+        originatorAddressLine2: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("originator_address_line3")
+        @ExcludeMissing
+        originatorAddressLine3: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("originator_name")
+        @ExcludeMissing
+        originatorName: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("originator_routing_number")
+        @ExcludeMissing
+        originatorRoutingNumber: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("originator_to_beneficiary_information")
+        @ExcludeMissing
+        originatorToBeneficiaryInformation: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("originator_to_beneficiary_information_line1")
+        @ExcludeMissing
+        originatorToBeneficiaryInformationLine1: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("originator_to_beneficiary_information_line2")
+        @ExcludeMissing
+        originatorToBeneficiaryInformationLine2: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("originator_to_beneficiary_information_line3")
+        @ExcludeMissing
+        originatorToBeneficiaryInformationLine3: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("originator_to_beneficiary_information_line4")
+        @ExcludeMissing
+        originatorToBeneficiaryInformationLine4: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("sender_reference")
+        @ExcludeMissing
+        senderReference: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
+        @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+    ) : this(
+        id,
+        accountId,
+        accountNumberId,
+        amount,
+        beneficiaryAddressLine1,
+        beneficiaryAddressLine2,
+        beneficiaryAddressLine3,
+        beneficiaryName,
+        beneficiaryReference,
+        createdAt,
+        description,
+        inputMessageAccountabilityData,
+        originatorAddressLine1,
+        originatorAddressLine2,
+        originatorAddressLine3,
+        originatorName,
+        originatorRoutingNumber,
+        originatorToBeneficiaryInformation,
+        originatorToBeneficiaryInformationLine1,
+        originatorToBeneficiaryInformationLine2,
+        originatorToBeneficiaryInformationLine3,
+        originatorToBeneficiaryInformationLine4,
+        senderReference,
+        status,
+        type,
+        mutableMapOf(),
+    )
 
     /**
      * The inbound wire transfer's identifier.
@@ -571,44 +619,15 @@ private constructor(
      */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
+    @JsonAnySetter
+    private fun putAdditionalProperty(key: String, value: JsonValue) {
+        additionalProperties.put(key, value)
+    }
+
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-    private var validated: Boolean = false
-
-    fun validate(): InboundWireTransfer = apply {
-        if (validated) {
-            return@apply
-        }
-
-        id()
-        accountId()
-        accountNumberId()
-        amount()
-        beneficiaryAddressLine1()
-        beneficiaryAddressLine2()
-        beneficiaryAddressLine3()
-        beneficiaryName()
-        beneficiaryReference()
-        createdAt()
-        description()
-        inputMessageAccountabilityData()
-        originatorAddressLine1()
-        originatorAddressLine2()
-        originatorAddressLine3()
-        originatorName()
-        originatorRoutingNumber()
-        originatorToBeneficiaryInformation()
-        originatorToBeneficiaryInformationLine1()
-        originatorToBeneficiaryInformationLine2()
-        originatorToBeneficiaryInformationLine3()
-        originatorToBeneficiaryInformationLine4()
-        senderReference()
-        status()
-        type()
-        validated = true
-    }
+    fun _additionalProperties(): Map<String, JsonValue> =
+        Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
@@ -1328,8 +1347,43 @@ private constructor(
                 checkRequired("senderReference", senderReference),
                 checkRequired("status", status),
                 checkRequired("type", type),
-                additionalProperties.toImmutable(),
+                additionalProperties.toMutableMap(),
             )
+    }
+
+    private var validated: Boolean = false
+
+    fun validate(): InboundWireTransfer = apply {
+        if (validated) {
+            return@apply
+        }
+
+        id()
+        accountId()
+        accountNumberId()
+        amount()
+        beneficiaryAddressLine1()
+        beneficiaryAddressLine2()
+        beneficiaryAddressLine3()
+        beneficiaryName()
+        beneficiaryReference()
+        createdAt()
+        description()
+        inputMessageAccountabilityData()
+        originatorAddressLine1()
+        originatorAddressLine2()
+        originatorAddressLine3()
+        originatorName()
+        originatorRoutingNumber()
+        originatorToBeneficiaryInformation()
+        originatorToBeneficiaryInformationLine1()
+        originatorToBeneficiaryInformationLine2()
+        originatorToBeneficiaryInformationLine3()
+        originatorToBeneficiaryInformationLine4()
+        senderReference()
+        status()
+        type()
+        validated = true
     }
 
     /** The status of the transfer. */

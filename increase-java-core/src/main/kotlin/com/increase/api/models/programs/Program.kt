@@ -11,12 +11,10 @@ import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.checkRequired
-import com.increase.api.core.immutableEmptyMap
-import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
+import java.util.Collections
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
@@ -27,31 +25,53 @@ import kotlin.jvm.optionals.getOrNull
  * behalf of your customers, or otherwise engaged in regulated activity, we will work together to
  * create additional Programs for you.
  */
-@NoAutoDetect
 class Program
-@JsonCreator
 private constructor(
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("bank") @ExcludeMissing private val bank: JsonField<Bank> = JsonMissing.of(),
-    @JsonProperty("billing_account_id")
-    @ExcludeMissing
-    private val billingAccountId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("created_at")
-    @ExcludeMissing
-    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("default_digital_card_profile_id")
-    @ExcludeMissing
-    private val defaultDigitalCardProfileId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("interest_rate")
-    @ExcludeMissing
-    private val interestRate: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("name") @ExcludeMissing private val name: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
-    @JsonProperty("updated_at")
-    @ExcludeMissing
-    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+    private val id: JsonField<String>,
+    private val bank: JsonField<Bank>,
+    private val billingAccountId: JsonField<String>,
+    private val createdAt: JsonField<OffsetDateTime>,
+    private val defaultDigitalCardProfileId: JsonField<String>,
+    private val interestRate: JsonField<String>,
+    private val name: JsonField<String>,
+    private val type: JsonField<Type>,
+    private val updatedAt: JsonField<OffsetDateTime>,
+    private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
+
+    @JsonCreator
+    private constructor(
+        @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("bank") @ExcludeMissing bank: JsonField<Bank> = JsonMissing.of(),
+        @JsonProperty("billing_account_id")
+        @ExcludeMissing
+        billingAccountId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("default_digital_card_profile_id")
+        @ExcludeMissing
+        defaultDigitalCardProfileId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("interest_rate")
+        @ExcludeMissing
+        interestRate: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+        @JsonProperty("updated_at")
+        @ExcludeMissing
+        updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    ) : this(
+        id,
+        bank,
+        billingAccountId,
+        createdAt,
+        defaultDigitalCardProfileId,
+        interestRate,
+        name,
+        type,
+        updatedAt,
+        mutableMapOf(),
+    )
 
     /**
      * The Program identifier.
@@ -206,28 +226,15 @@ private constructor(
     @ExcludeMissing
     fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
+    @JsonAnySetter
+    private fun putAdditionalProperty(key: String, value: JsonValue) {
+        additionalProperties.put(key, value)
+    }
+
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-    private var validated: Boolean = false
-
-    fun validate(): Program = apply {
-        if (validated) {
-            return@apply
-        }
-
-        id()
-        bank()
-        billingAccountId()
-        createdAt()
-        defaultDigitalCardProfileId()
-        interestRate()
-        name()
-        type()
-        updatedAt()
-        validated = true
-    }
+    fun _additionalProperties(): Map<String, JsonValue> =
+        Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
@@ -465,8 +472,27 @@ private constructor(
                 checkRequired("name", name),
                 checkRequired("type", type),
                 checkRequired("updatedAt", updatedAt),
-                additionalProperties.toImmutable(),
+                additionalProperties.toMutableMap(),
             )
+    }
+
+    private var validated: Boolean = false
+
+    fun validate(): Program = apply {
+        if (validated) {
+            return@apply
+        }
+
+        id()
+        bank()
+        billingAccountId()
+        createdAt()
+        defaultDigitalCardProfileId()
+        interestRate()
+        name()
+        type()
+        updatedAt()
+        validated = true
     }
 
     /** The Bank the Program is with. */

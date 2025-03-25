@@ -11,11 +11,9 @@ import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.checkRequired
-import com.increase.api.core.immutableEmptyMap
-import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
+import java.util.Collections
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
@@ -25,27 +23,41 @@ import kotlin.jvm.optionals.getOrNull
  * annotating money movements using this API. Learn more in our
  * [guide to Bookkeeping](https://increase.com/documentation/bookkeeping#bookkeeping).
  */
-@NoAutoDetect
 class BookkeepingAccount
-@JsonCreator
 private constructor(
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("account_id")
-    @ExcludeMissing
-    private val accountId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("compliance_category")
-    @ExcludeMissing
-    private val complianceCategory: JsonField<ComplianceCategory> = JsonMissing.of(),
-    @JsonProperty("entity_id")
-    @ExcludeMissing
-    private val entityId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("idempotency_key")
-    @ExcludeMissing
-    private val idempotencyKey: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("name") @ExcludeMissing private val name: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
-    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+    private val id: JsonField<String>,
+    private val accountId: JsonField<String>,
+    private val complianceCategory: JsonField<ComplianceCategory>,
+    private val entityId: JsonField<String>,
+    private val idempotencyKey: JsonField<String>,
+    private val name: JsonField<String>,
+    private val type: JsonField<Type>,
+    private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
+
+    @JsonCreator
+    private constructor(
+        @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("account_id") @ExcludeMissing accountId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("compliance_category")
+        @ExcludeMissing
+        complianceCategory: JsonField<ComplianceCategory> = JsonMissing.of(),
+        @JsonProperty("entity_id") @ExcludeMissing entityId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("idempotency_key")
+        @ExcludeMissing
+        idempotencyKey: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+    ) : this(
+        id,
+        accountId,
+        complianceCategory,
+        entityId,
+        idempotencyKey,
+        name,
+        type,
+        mutableMapOf(),
+    )
 
     /**
      * The account identifier.
@@ -162,26 +174,15 @@ private constructor(
      */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
+    @JsonAnySetter
+    private fun putAdditionalProperty(key: String, value: JsonValue) {
+        additionalProperties.put(key, value)
+    }
+
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-    private var validated: Boolean = false
-
-    fun validate(): BookkeepingAccount = apply {
-        if (validated) {
-            return@apply
-        }
-
-        id()
-        accountId()
-        complianceCategory()
-        entityId()
-        idempotencyKey()
-        name()
-        type()
-        validated = true
-    }
+    fun _additionalProperties(): Map<String, JsonValue> =
+        Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
@@ -383,8 +384,25 @@ private constructor(
                 checkRequired("idempotencyKey", idempotencyKey),
                 checkRequired("name", name),
                 checkRequired("type", type),
-                additionalProperties.toImmutable(),
+                additionalProperties.toMutableMap(),
             )
+    }
+
+    private var validated: Boolean = false
+
+    fun validate(): BookkeepingAccount = apply {
+        if (validated) {
+            return@apply
+        }
+
+        id()
+        accountId()
+        complianceCategory()
+        entityId()
+        idempotencyKey()
+        name()
+        type()
+        validated = true
     }
 
     /** The compliance category of the account. */

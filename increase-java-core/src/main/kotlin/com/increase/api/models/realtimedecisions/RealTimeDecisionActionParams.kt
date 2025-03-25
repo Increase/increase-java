@@ -11,14 +11,12 @@ import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.Params
 import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
-import com.increase.api.core.immutableEmptyMap
-import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
+import java.util.Collections
 import java.util.Objects
 import java.util.Optional
 
@@ -129,343 +127,6 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    @JvmSynthetic internal fun _body(): Body = body
-
-    fun _pathParam(index: Int): String =
-        when (index) {
-            0 -> realTimeDecisionId
-            else -> ""
-        }
-
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams = additionalQueryParams
-
-    @NoAutoDetect
-    class Body
-    @JsonCreator
-    private constructor(
-        @JsonProperty("card_authentication")
-        @ExcludeMissing
-        private val cardAuthentication: JsonField<CardAuthentication> = JsonMissing.of(),
-        @JsonProperty("card_authentication_challenge")
-        @ExcludeMissing
-        private val cardAuthenticationChallenge: JsonField<CardAuthenticationChallenge> =
-            JsonMissing.of(),
-        @JsonProperty("card_authorization")
-        @ExcludeMissing
-        private val cardAuthorization: JsonField<CardAuthorization> = JsonMissing.of(),
-        @JsonProperty("digital_wallet_authentication")
-        @ExcludeMissing
-        private val digitalWalletAuthentication: JsonField<DigitalWalletAuthentication> =
-            JsonMissing.of(),
-        @JsonProperty("digital_wallet_token")
-        @ExcludeMissing
-        private val digitalWalletToken: JsonField<DigitalWalletToken> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-    ) {
-
-        /**
-         * If the Real-Time Decision relates to a 3DS card authentication attempt, this object
-         * contains your response to the authentication.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun cardAuthentication(): Optional<CardAuthentication> =
-            Optional.ofNullable(cardAuthentication.getNullable("card_authentication"))
-
-        /**
-         * If the Real-Time Decision relates to 3DS card authentication challenge delivery, this
-         * object contains your response.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun cardAuthenticationChallenge(): Optional<CardAuthenticationChallenge> =
-            Optional.ofNullable(
-                cardAuthenticationChallenge.getNullable("card_authentication_challenge")
-            )
-
-        /**
-         * If the Real-Time Decision relates to a card authorization attempt, this object contains
-         * your response to the authorization.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun cardAuthorization(): Optional<CardAuthorization> =
-            Optional.ofNullable(cardAuthorization.getNullable("card_authorization"))
-
-        /**
-         * If the Real-Time Decision relates to a digital wallet authentication attempt, this object
-         * contains your response to the authentication.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun digitalWalletAuthentication(): Optional<DigitalWalletAuthentication> =
-            Optional.ofNullable(
-                digitalWalletAuthentication.getNullable("digital_wallet_authentication")
-            )
-
-        /**
-         * If the Real-Time Decision relates to a digital wallet token provisioning attempt, this
-         * object contains your response to the attempt.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun digitalWalletToken(): Optional<DigitalWalletToken> =
-            Optional.ofNullable(digitalWalletToken.getNullable("digital_wallet_token"))
-
-        /**
-         * Returns the raw JSON value of [cardAuthentication].
-         *
-         * Unlike [cardAuthentication], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("card_authentication")
-        @ExcludeMissing
-        fun _cardAuthentication(): JsonField<CardAuthentication> = cardAuthentication
-
-        /**
-         * Returns the raw JSON value of [cardAuthenticationChallenge].
-         *
-         * Unlike [cardAuthenticationChallenge], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("card_authentication_challenge")
-        @ExcludeMissing
-        fun _cardAuthenticationChallenge(): JsonField<CardAuthenticationChallenge> =
-            cardAuthenticationChallenge
-
-        /**
-         * Returns the raw JSON value of [cardAuthorization].
-         *
-         * Unlike [cardAuthorization], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("card_authorization")
-        @ExcludeMissing
-        fun _cardAuthorization(): JsonField<CardAuthorization> = cardAuthorization
-
-        /**
-         * Returns the raw JSON value of [digitalWalletAuthentication].
-         *
-         * Unlike [digitalWalletAuthentication], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("digital_wallet_authentication")
-        @ExcludeMissing
-        fun _digitalWalletAuthentication(): JsonField<DigitalWalletAuthentication> =
-            digitalWalletAuthentication
-
-        /**
-         * Returns the raw JSON value of [digitalWalletToken].
-         *
-         * Unlike [digitalWalletToken], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("digital_wallet_token")
-        @ExcludeMissing
-        fun _digitalWalletToken(): JsonField<DigitalWalletToken> = digitalWalletToken
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): Body = apply {
-            if (validated) {
-                return@apply
-            }
-
-            cardAuthentication().ifPresent { it.validate() }
-            cardAuthenticationChallenge().ifPresent { it.validate() }
-            cardAuthorization().ifPresent { it.validate() }
-            digitalWalletAuthentication().ifPresent { it.validate() }
-            digitalWalletToken().ifPresent { it.validate() }
-            validated = true
-        }
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /** Returns a mutable builder for constructing an instance of [Body]. */
-            @JvmStatic fun builder() = Builder()
-        }
-
-        /** A builder for [Body]. */
-        class Builder internal constructor() {
-
-            private var cardAuthentication: JsonField<CardAuthentication> = JsonMissing.of()
-            private var cardAuthenticationChallenge: JsonField<CardAuthenticationChallenge> =
-                JsonMissing.of()
-            private var cardAuthorization: JsonField<CardAuthorization> = JsonMissing.of()
-            private var digitalWalletAuthentication: JsonField<DigitalWalletAuthentication> =
-                JsonMissing.of()
-            private var digitalWalletToken: JsonField<DigitalWalletToken> = JsonMissing.of()
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(body: Body) = apply {
-                cardAuthentication = body.cardAuthentication
-                cardAuthenticationChallenge = body.cardAuthenticationChallenge
-                cardAuthorization = body.cardAuthorization
-                digitalWalletAuthentication = body.digitalWalletAuthentication
-                digitalWalletToken = body.digitalWalletToken
-                additionalProperties = body.additionalProperties.toMutableMap()
-            }
-
-            /**
-             * If the Real-Time Decision relates to a 3DS card authentication attempt, this object
-             * contains your response to the authentication.
-             */
-            fun cardAuthentication(cardAuthentication: CardAuthentication) =
-                cardAuthentication(JsonField.of(cardAuthentication))
-
-            /**
-             * Sets [Builder.cardAuthentication] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.cardAuthentication] with a well-typed
-             * [CardAuthentication] value instead. This method is primarily for setting the field to
-             * an undocumented or not yet supported value.
-             */
-            fun cardAuthentication(cardAuthentication: JsonField<CardAuthentication>) = apply {
-                this.cardAuthentication = cardAuthentication
-            }
-
-            /**
-             * If the Real-Time Decision relates to 3DS card authentication challenge delivery, this
-             * object contains your response.
-             */
-            fun cardAuthenticationChallenge(
-                cardAuthenticationChallenge: CardAuthenticationChallenge
-            ) = cardAuthenticationChallenge(JsonField.of(cardAuthenticationChallenge))
-
-            /**
-             * Sets [Builder.cardAuthenticationChallenge] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.cardAuthenticationChallenge] with a well-typed
-             * [CardAuthenticationChallenge] value instead. This method is primarily for setting the
-             * field to an undocumented or not yet supported value.
-             */
-            fun cardAuthenticationChallenge(
-                cardAuthenticationChallenge: JsonField<CardAuthenticationChallenge>
-            ) = apply { this.cardAuthenticationChallenge = cardAuthenticationChallenge }
-
-            /**
-             * If the Real-Time Decision relates to a card authorization attempt, this object
-             * contains your response to the authorization.
-             */
-            fun cardAuthorization(cardAuthorization: CardAuthorization) =
-                cardAuthorization(JsonField.of(cardAuthorization))
-
-            /**
-             * Sets [Builder.cardAuthorization] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.cardAuthorization] with a well-typed
-             * [CardAuthorization] value instead. This method is primarily for setting the field to
-             * an undocumented or not yet supported value.
-             */
-            fun cardAuthorization(cardAuthorization: JsonField<CardAuthorization>) = apply {
-                this.cardAuthorization = cardAuthorization
-            }
-
-            /**
-             * If the Real-Time Decision relates to a digital wallet authentication attempt, this
-             * object contains your response to the authentication.
-             */
-            fun digitalWalletAuthentication(
-                digitalWalletAuthentication: DigitalWalletAuthentication
-            ) = digitalWalletAuthentication(JsonField.of(digitalWalletAuthentication))
-
-            /**
-             * Sets [Builder.digitalWalletAuthentication] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.digitalWalletAuthentication] with a well-typed
-             * [DigitalWalletAuthentication] value instead. This method is primarily for setting the
-             * field to an undocumented or not yet supported value.
-             */
-            fun digitalWalletAuthentication(
-                digitalWalletAuthentication: JsonField<DigitalWalletAuthentication>
-            ) = apply { this.digitalWalletAuthentication = digitalWalletAuthentication }
-
-            /**
-             * If the Real-Time Decision relates to a digital wallet token provisioning attempt,
-             * this object contains your response to the attempt.
-             */
-            fun digitalWalletToken(digitalWalletToken: DigitalWalletToken) =
-                digitalWalletToken(JsonField.of(digitalWalletToken))
-
-            /**
-             * Sets [Builder.digitalWalletToken] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.digitalWalletToken] with a well-typed
-             * [DigitalWalletToken] value instead. This method is primarily for setting the field to
-             * an undocumented or not yet supported value.
-             */
-            fun digitalWalletToken(digitalWalletToken: JsonField<DigitalWalletToken>) = apply {
-                this.digitalWalletToken = digitalWalletToken
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [Body].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             */
-            fun build(): Body =
-                Body(
-                    cardAuthentication,
-                    cardAuthenticationChallenge,
-                    cardAuthorization,
-                    digitalWalletAuthentication,
-                    digitalWalletToken,
-                    additionalProperties.toImmutable(),
-                )
-        }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return /* spotless:off */ other is Body && cardAuthentication == other.cardAuthentication && cardAuthenticationChallenge == other.cardAuthenticationChallenge && cardAuthorization == other.cardAuthorization && digitalWalletAuthentication == other.digitalWalletAuthentication && digitalWalletToken == other.digitalWalletToken && additionalProperties == other.additionalProperties /* spotless:on */
-        }
-
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(cardAuthentication, cardAuthenticationChallenge, cardAuthorization, digitalWalletAuthentication, digitalWalletToken, additionalProperties) }
-        /* spotless:on */
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "Body{cardAuthentication=$cardAuthentication, cardAuthenticationChallenge=$cardAuthenticationChallenge, cardAuthorization=$cardAuthorization, digitalWalletAuthentication=$digitalWalletAuthentication, digitalWalletToken=$digitalWalletToken, additionalProperties=$additionalProperties}"
-    }
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -482,7 +143,6 @@ private constructor(
     }
 
     /** A builder for [RealTimeDecisionActionParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var realTimeDecisionId: String? = null
@@ -738,20 +398,376 @@ private constructor(
             )
     }
 
+    @JvmSynthetic internal fun _body(): Body = body
+
+    fun _pathParam(index: Int): String =
+        when (index) {
+            0 -> realTimeDecisionId
+            else -> ""
+        }
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams = additionalQueryParams
+
+    class Body
+    private constructor(
+        private val cardAuthentication: JsonField<CardAuthentication>,
+        private val cardAuthenticationChallenge: JsonField<CardAuthenticationChallenge>,
+        private val cardAuthorization: JsonField<CardAuthorization>,
+        private val digitalWalletAuthentication: JsonField<DigitalWalletAuthentication>,
+        private val digitalWalletToken: JsonField<DigitalWalletToken>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("card_authentication")
+            @ExcludeMissing
+            cardAuthentication: JsonField<CardAuthentication> = JsonMissing.of(),
+            @JsonProperty("card_authentication_challenge")
+            @ExcludeMissing
+            cardAuthenticationChallenge: JsonField<CardAuthenticationChallenge> = JsonMissing.of(),
+            @JsonProperty("card_authorization")
+            @ExcludeMissing
+            cardAuthorization: JsonField<CardAuthorization> = JsonMissing.of(),
+            @JsonProperty("digital_wallet_authentication")
+            @ExcludeMissing
+            digitalWalletAuthentication: JsonField<DigitalWalletAuthentication> = JsonMissing.of(),
+            @JsonProperty("digital_wallet_token")
+            @ExcludeMissing
+            digitalWalletToken: JsonField<DigitalWalletToken> = JsonMissing.of(),
+        ) : this(
+            cardAuthentication,
+            cardAuthenticationChallenge,
+            cardAuthorization,
+            digitalWalletAuthentication,
+            digitalWalletToken,
+            mutableMapOf(),
+        )
+
+        /**
+         * If the Real-Time Decision relates to a 3DS card authentication attempt, this object
+         * contains your response to the authentication.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun cardAuthentication(): Optional<CardAuthentication> =
+            Optional.ofNullable(cardAuthentication.getNullable("card_authentication"))
+
+        /**
+         * If the Real-Time Decision relates to 3DS card authentication challenge delivery, this
+         * object contains your response.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun cardAuthenticationChallenge(): Optional<CardAuthenticationChallenge> =
+            Optional.ofNullable(
+                cardAuthenticationChallenge.getNullable("card_authentication_challenge")
+            )
+
+        /**
+         * If the Real-Time Decision relates to a card authorization attempt, this object contains
+         * your response to the authorization.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun cardAuthorization(): Optional<CardAuthorization> =
+            Optional.ofNullable(cardAuthorization.getNullable("card_authorization"))
+
+        /**
+         * If the Real-Time Decision relates to a digital wallet authentication attempt, this object
+         * contains your response to the authentication.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun digitalWalletAuthentication(): Optional<DigitalWalletAuthentication> =
+            Optional.ofNullable(
+                digitalWalletAuthentication.getNullable("digital_wallet_authentication")
+            )
+
+        /**
+         * If the Real-Time Decision relates to a digital wallet token provisioning attempt, this
+         * object contains your response to the attempt.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun digitalWalletToken(): Optional<DigitalWalletToken> =
+            Optional.ofNullable(digitalWalletToken.getNullable("digital_wallet_token"))
+
+        /**
+         * Returns the raw JSON value of [cardAuthentication].
+         *
+         * Unlike [cardAuthentication], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("card_authentication")
+        @ExcludeMissing
+        fun _cardAuthentication(): JsonField<CardAuthentication> = cardAuthentication
+
+        /**
+         * Returns the raw JSON value of [cardAuthenticationChallenge].
+         *
+         * Unlike [cardAuthenticationChallenge], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("card_authentication_challenge")
+        @ExcludeMissing
+        fun _cardAuthenticationChallenge(): JsonField<CardAuthenticationChallenge> =
+            cardAuthenticationChallenge
+
+        /**
+         * Returns the raw JSON value of [cardAuthorization].
+         *
+         * Unlike [cardAuthorization], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("card_authorization")
+        @ExcludeMissing
+        fun _cardAuthorization(): JsonField<CardAuthorization> = cardAuthorization
+
+        /**
+         * Returns the raw JSON value of [digitalWalletAuthentication].
+         *
+         * Unlike [digitalWalletAuthentication], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("digital_wallet_authentication")
+        @ExcludeMissing
+        fun _digitalWalletAuthentication(): JsonField<DigitalWalletAuthentication> =
+            digitalWalletAuthentication
+
+        /**
+         * Returns the raw JSON value of [digitalWalletToken].
+         *
+         * Unlike [digitalWalletToken], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("digital_wallet_token")
+        @ExcludeMissing
+        fun _digitalWalletToken(): JsonField<DigitalWalletToken> = digitalWalletToken
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [Body]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Body]. */
+        class Builder internal constructor() {
+
+            private var cardAuthentication: JsonField<CardAuthentication> = JsonMissing.of()
+            private var cardAuthenticationChallenge: JsonField<CardAuthenticationChallenge> =
+                JsonMissing.of()
+            private var cardAuthorization: JsonField<CardAuthorization> = JsonMissing.of()
+            private var digitalWalletAuthentication: JsonField<DigitalWalletAuthentication> =
+                JsonMissing.of()
+            private var digitalWalletToken: JsonField<DigitalWalletToken> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(body: Body) = apply {
+                cardAuthentication = body.cardAuthentication
+                cardAuthenticationChallenge = body.cardAuthenticationChallenge
+                cardAuthorization = body.cardAuthorization
+                digitalWalletAuthentication = body.digitalWalletAuthentication
+                digitalWalletToken = body.digitalWalletToken
+                additionalProperties = body.additionalProperties.toMutableMap()
+            }
+
+            /**
+             * If the Real-Time Decision relates to a 3DS card authentication attempt, this object
+             * contains your response to the authentication.
+             */
+            fun cardAuthentication(cardAuthentication: CardAuthentication) =
+                cardAuthentication(JsonField.of(cardAuthentication))
+
+            /**
+             * Sets [Builder.cardAuthentication] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.cardAuthentication] with a well-typed
+             * [CardAuthentication] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun cardAuthentication(cardAuthentication: JsonField<CardAuthentication>) = apply {
+                this.cardAuthentication = cardAuthentication
+            }
+
+            /**
+             * If the Real-Time Decision relates to 3DS card authentication challenge delivery, this
+             * object contains your response.
+             */
+            fun cardAuthenticationChallenge(
+                cardAuthenticationChallenge: CardAuthenticationChallenge
+            ) = cardAuthenticationChallenge(JsonField.of(cardAuthenticationChallenge))
+
+            /**
+             * Sets [Builder.cardAuthenticationChallenge] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.cardAuthenticationChallenge] with a well-typed
+             * [CardAuthenticationChallenge] value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
+             */
+            fun cardAuthenticationChallenge(
+                cardAuthenticationChallenge: JsonField<CardAuthenticationChallenge>
+            ) = apply { this.cardAuthenticationChallenge = cardAuthenticationChallenge }
+
+            /**
+             * If the Real-Time Decision relates to a card authorization attempt, this object
+             * contains your response to the authorization.
+             */
+            fun cardAuthorization(cardAuthorization: CardAuthorization) =
+                cardAuthorization(JsonField.of(cardAuthorization))
+
+            /**
+             * Sets [Builder.cardAuthorization] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.cardAuthorization] with a well-typed
+             * [CardAuthorization] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun cardAuthorization(cardAuthorization: JsonField<CardAuthorization>) = apply {
+                this.cardAuthorization = cardAuthorization
+            }
+
+            /**
+             * If the Real-Time Decision relates to a digital wallet authentication attempt, this
+             * object contains your response to the authentication.
+             */
+            fun digitalWalletAuthentication(
+                digitalWalletAuthentication: DigitalWalletAuthentication
+            ) = digitalWalletAuthentication(JsonField.of(digitalWalletAuthentication))
+
+            /**
+             * Sets [Builder.digitalWalletAuthentication] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.digitalWalletAuthentication] with a well-typed
+             * [DigitalWalletAuthentication] value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
+             */
+            fun digitalWalletAuthentication(
+                digitalWalletAuthentication: JsonField<DigitalWalletAuthentication>
+            ) = apply { this.digitalWalletAuthentication = digitalWalletAuthentication }
+
+            /**
+             * If the Real-Time Decision relates to a digital wallet token provisioning attempt,
+             * this object contains your response to the attempt.
+             */
+            fun digitalWalletToken(digitalWalletToken: DigitalWalletToken) =
+                digitalWalletToken(JsonField.of(digitalWalletToken))
+
+            /**
+             * Sets [Builder.digitalWalletToken] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.digitalWalletToken] with a well-typed
+             * [DigitalWalletToken] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun digitalWalletToken(digitalWalletToken: JsonField<DigitalWalletToken>) = apply {
+                this.digitalWalletToken = digitalWalletToken
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Body].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): Body =
+                Body(
+                    cardAuthentication,
+                    cardAuthenticationChallenge,
+                    cardAuthorization,
+                    digitalWalletAuthentication,
+                    digitalWalletToken,
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Body = apply {
+            if (validated) {
+                return@apply
+            }
+
+            cardAuthentication().ifPresent { it.validate() }
+            cardAuthenticationChallenge().ifPresent { it.validate() }
+            cardAuthorization().ifPresent { it.validate() }
+            digitalWalletAuthentication().ifPresent { it.validate() }
+            digitalWalletToken().ifPresent { it.validate() }
+            validated = true
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is Body && cardAuthentication == other.cardAuthentication && cardAuthenticationChallenge == other.cardAuthenticationChallenge && cardAuthorization == other.cardAuthorization && digitalWalletAuthentication == other.digitalWalletAuthentication && digitalWalletToken == other.digitalWalletToken && additionalProperties == other.additionalProperties /* spotless:on */
+        }
+
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(cardAuthentication, cardAuthenticationChallenge, cardAuthorization, digitalWalletAuthentication, digitalWalletToken, additionalProperties) }
+        /* spotless:on */
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Body{cardAuthentication=$cardAuthentication, cardAuthenticationChallenge=$cardAuthenticationChallenge, cardAuthorization=$cardAuthorization, digitalWalletAuthentication=$digitalWalletAuthentication, digitalWalletToken=$digitalWalletToken, additionalProperties=$additionalProperties}"
+    }
+
     /**
      * If the Real-Time Decision relates to a 3DS card authentication attempt, this object contains
      * your response to the authentication.
      */
-    @NoAutoDetect
     class CardAuthentication
-    @JsonCreator
     private constructor(
-        @JsonProperty("decision")
-        @ExcludeMissing
-        private val decision: JsonField<Decision> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val decision: JsonField<Decision>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("decision")
+            @ExcludeMissing
+            decision: JsonField<Decision> = JsonMissing.of()
+        ) : this(decision, mutableMapOf())
 
         /**
          * Whether the card authentication attempt should be approved or declined.
@@ -768,20 +784,15 @@ private constructor(
          */
         @JsonProperty("decision") @ExcludeMissing fun _decision(): JsonField<Decision> = decision
 
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): CardAuthentication = apply {
-            if (validated) {
-                return@apply
-            }
-
-            decision()
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -856,8 +867,19 @@ private constructor(
             fun build(): CardAuthentication =
                 CardAuthentication(
                     checkRequired("decision", decision),
-                    additionalProperties.toImmutable(),
+                    additionalProperties.toMutableMap(),
                 )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): CardAuthentication = apply {
+            if (validated) {
+                return@apply
+            }
+
+            decision()
+            validated = true
         }
 
         /** Whether the card authentication attempt should be approved or declined. */
@@ -1001,16 +1023,16 @@ private constructor(
      * If the Real-Time Decision relates to 3DS card authentication challenge delivery, this object
      * contains your response.
      */
-    @NoAutoDetect
     class CardAuthenticationChallenge
-    @JsonCreator
     private constructor(
-        @JsonProperty("result")
-        @ExcludeMissing
-        private val result: JsonField<Result> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val result: JsonField<Result>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("result") @ExcludeMissing result: JsonField<Result> = JsonMissing.of()
+        ) : this(result, mutableMapOf())
 
         /**
          * Whether the card authentication challenge was successfully delivered to the cardholder.
@@ -1027,20 +1049,15 @@ private constructor(
          */
         @JsonProperty("result") @ExcludeMissing fun _result(): JsonField<Result> = result
 
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): CardAuthenticationChallenge = apply {
-            if (validated) {
-                return@apply
-            }
-
-            result()
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -1120,8 +1137,19 @@ private constructor(
             fun build(): CardAuthenticationChallenge =
                 CardAuthenticationChallenge(
                     checkRequired("result", result),
-                    additionalProperties.toImmutable(),
+                    additionalProperties.toMutableMap(),
                 )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): CardAuthenticationChallenge = apply {
+            if (validated) {
+                return@apply
+            }
+
+            result()
+            validated = true
         }
 
         /**
@@ -1257,19 +1285,22 @@ private constructor(
      * If the Real-Time Decision relates to a card authorization attempt, this object contains your
      * response to the authorization.
      */
-    @NoAutoDetect
     class CardAuthorization
-    @JsonCreator
     private constructor(
-        @JsonProperty("decision")
-        @ExcludeMissing
-        private val decision: JsonField<Decision> = JsonMissing.of(),
-        @JsonProperty("decline_reason")
-        @ExcludeMissing
-        private val declineReason: JsonField<DeclineReason> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val decision: JsonField<Decision>,
+        private val declineReason: JsonField<DeclineReason>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("decision")
+            @ExcludeMissing
+            decision: JsonField<Decision> = JsonMissing.of(),
+            @JsonProperty("decline_reason")
+            @ExcludeMissing
+            declineReason: JsonField<DeclineReason> = JsonMissing.of(),
+        ) : this(decision, declineReason, mutableMapOf())
 
         /**
          * Whether the card authorization should be approved or declined.
@@ -1306,21 +1337,15 @@ private constructor(
         @ExcludeMissing
         fun _declineReason(): JsonField<DeclineReason> = declineReason
 
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): CardAuthorization = apply {
-            if (validated) {
-                return@apply
-            }
-
-            decision()
-            declineReason()
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -1416,8 +1441,20 @@ private constructor(
                 CardAuthorization(
                     checkRequired("decision", decision),
                     declineReason,
-                    additionalProperties.toImmutable(),
+                    additionalProperties.toMutableMap(),
                 )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): CardAuthorization = apply {
+            if (validated) {
+                return@apply
+            }
+
+            decision()
+            declineReason()
+            validated = true
         }
 
         /** Whether the card authorization should be approved or declined. */
@@ -1756,19 +1793,18 @@ private constructor(
      * If the Real-Time Decision relates to a digital wallet authentication attempt, this object
      * contains your response to the authentication.
      */
-    @NoAutoDetect
     class DigitalWalletAuthentication
-    @JsonCreator
     private constructor(
-        @JsonProperty("result")
-        @ExcludeMissing
-        private val result: JsonField<Result> = JsonMissing.of(),
-        @JsonProperty("success")
-        @ExcludeMissing
-        private val success: JsonField<Success> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val result: JsonField<Result>,
+        private val success: JsonField<Success>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("result") @ExcludeMissing result: JsonField<Result> = JsonMissing.of(),
+            @JsonProperty("success") @ExcludeMissing success: JsonField<Success> = JsonMissing.of(),
+        ) : this(result, success, mutableMapOf())
 
         /**
          * Whether your application was able to deliver the one-time passcode.
@@ -1798,21 +1834,15 @@ private constructor(
          */
         @JsonProperty("success") @ExcludeMissing fun _success(): JsonField<Success> = success
 
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): DigitalWalletAuthentication = apply {
-            if (validated) {
-                return@apply
-            }
-
-            result()
-            success().ifPresent { it.validate() }
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -1903,8 +1933,20 @@ private constructor(
                 DigitalWalletAuthentication(
                     checkRequired("result", result),
                     success,
-                    additionalProperties.toImmutable(),
+                    additionalProperties.toMutableMap(),
                 )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): DigitalWalletAuthentication = apply {
+            if (validated) {
+                return@apply
+            }
+
+            result()
+            success().ifPresent { it.validate() }
+            validated = true
         }
 
         /** Whether your application was able to deliver the one-time passcode. */
@@ -2022,19 +2064,18 @@ private constructor(
             override fun toString() = value.toString()
         }
 
-        @NoAutoDetect
         class Success
-        @JsonCreator
         private constructor(
-            @JsonProperty("email")
-            @ExcludeMissing
-            private val email: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("phone")
-            @ExcludeMissing
-            private val phone: JsonField<String> = JsonMissing.of(),
-            @JsonAnySetter
-            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+            private val email: JsonField<String>,
+            private val phone: JsonField<String>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("email") @ExcludeMissing email: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("phone") @ExcludeMissing phone: JsonField<String> = JsonMissing.of(),
+            ) : this(email, phone, mutableMapOf())
 
             /**
              * The email address that was used to verify the cardholder via one-time passcode.
@@ -2067,21 +2108,15 @@ private constructor(
              */
             @JsonProperty("phone") @ExcludeMissing fun _phone(): JsonField<String> = phone
 
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
             @JsonAnyGetter
             @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-            private var validated: Boolean = false
-
-            fun validate(): Success = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                email()
-                phone()
-                validated = true
-            }
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
 
             fun toBuilder() = Builder().from(this)
 
@@ -2161,7 +2196,19 @@ private constructor(
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
-                fun build(): Success = Success(email, phone, additionalProperties.toImmutable())
+                fun build(): Success = Success(email, phone, additionalProperties.toMutableMap())
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): Success = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                email()
+                phone()
+                validated = true
             }
 
             override fun equals(other: Any?): Boolean {
@@ -2204,19 +2251,20 @@ private constructor(
      * If the Real-Time Decision relates to a digital wallet token provisioning attempt, this object
      * contains your response to the attempt.
      */
-    @NoAutoDetect
     class DigitalWalletToken
-    @JsonCreator
     private constructor(
-        @JsonProperty("approval")
-        @ExcludeMissing
-        private val approval: JsonField<Approval> = JsonMissing.of(),
-        @JsonProperty("decline")
-        @ExcludeMissing
-        private val decline: JsonField<Decline> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val approval: JsonField<Approval>,
+        private val decline: JsonField<Decline>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("approval")
+            @ExcludeMissing
+            approval: JsonField<Approval> = JsonMissing.of(),
+            @JsonProperty("decline") @ExcludeMissing decline: JsonField<Decline> = JsonMissing.of(),
+        ) : this(approval, decline, mutableMapOf())
 
         /**
          * If your application approves the provisioning attempt, this contains metadata about the
@@ -2250,21 +2298,15 @@ private constructor(
          */
         @JsonProperty("decline") @ExcludeMissing fun _decline(): JsonField<Decline> = decline
 
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): DigitalWalletToken = apply {
-            if (validated) {
-                return@apply
-            }
-
-            approval().ifPresent { it.validate() }
-            decline().ifPresent { it.validate() }
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -2343,26 +2385,37 @@ private constructor(
              * Further updates to this [Builder] will not mutate the returned instance.
              */
             fun build(): DigitalWalletToken =
-                DigitalWalletToken(approval, decline, additionalProperties.toImmutable())
+                DigitalWalletToken(approval, decline, additionalProperties.toMutableMap())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): DigitalWalletToken = apply {
+            if (validated) {
+                return@apply
+            }
+
+            approval().ifPresent { it.validate() }
+            decline().ifPresent { it.validate() }
+            validated = true
         }
 
         /**
          * If your application approves the provisioning attempt, this contains metadata about the
          * digital wallet token that will be generated.
          */
-        @NoAutoDetect
         class Approval
-        @JsonCreator
         private constructor(
-            @JsonProperty("email")
-            @ExcludeMissing
-            private val email: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("phone")
-            @ExcludeMissing
-            private val phone: JsonField<String> = JsonMissing.of(),
-            @JsonAnySetter
-            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+            private val email: JsonField<String>,
+            private val phone: JsonField<String>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("email") @ExcludeMissing email: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("phone") @ExcludeMissing phone: JsonField<String> = JsonMissing.of(),
+            ) : this(email, phone, mutableMapOf())
 
             /**
              * An email address that can be used to verify the cardholder via one-time passcode.
@@ -2395,21 +2448,15 @@ private constructor(
              */
             @JsonProperty("phone") @ExcludeMissing fun _phone(): JsonField<String> = phone
 
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
             @JsonAnyGetter
             @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-            private var validated: Boolean = false
-
-            fun validate(): Approval = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                email()
-                phone()
-                validated = true
-            }
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
 
             fun toBuilder() = Builder().from(this)
 
@@ -2489,7 +2536,19 @@ private constructor(
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
-                fun build(): Approval = Approval(email, phone, additionalProperties.toImmutable())
+                fun build(): Approval = Approval(email, phone, additionalProperties.toMutableMap())
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): Approval = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                email()
+                phone()
+                validated = true
             }
 
             override fun equals(other: Any?): Boolean {
@@ -2514,16 +2573,16 @@ private constructor(
          * If your application declines the provisioning attempt, this contains details about the
          * decline.
          */
-        @NoAutoDetect
         class Decline
-        @JsonCreator
         private constructor(
-            @JsonProperty("reason")
-            @ExcludeMissing
-            private val reason: JsonField<String> = JsonMissing.of(),
-            @JsonAnySetter
-            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+            private val reason: JsonField<String>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("reason") @ExcludeMissing reason: JsonField<String> = JsonMissing.of()
+            ) : this(reason, mutableMapOf())
 
             /**
              * Why the tokenization attempt was declined. This is for logging purposes only and is
@@ -2541,20 +2600,15 @@ private constructor(
              */
             @JsonProperty("reason") @ExcludeMissing fun _reason(): JsonField<String> = reason
 
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
             @JsonAnyGetter
             @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-            private var validated: Boolean = false
-
-            fun validate(): Decline = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                reason()
-                validated = true
-            }
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
 
             fun toBuilder() = Builder().from(this)
 
@@ -2618,7 +2672,18 @@ private constructor(
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
-                fun build(): Decline = Decline(reason, additionalProperties.toImmutable())
+                fun build(): Decline = Decline(reason, additionalProperties.toMutableMap())
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): Decline = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                reason()
+                validated = true
             }
 
             override fun equals(other: Any?): Boolean {
