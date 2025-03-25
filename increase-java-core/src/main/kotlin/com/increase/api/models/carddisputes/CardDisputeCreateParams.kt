@@ -10,14 +10,12 @@ import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.Params
 import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
-import com.increase.api.core.immutableEmptyMap
-import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
+import java.util.Collections
 import java.util.Objects
 import java.util.Optional
 
@@ -84,239 +82,6 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    @JvmSynthetic internal fun _body(): Body = body
-
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams = additionalQueryParams
-
-    @NoAutoDetect
-    class Body
-    @JsonCreator
-    private constructor(
-        @JsonProperty("disputed_transaction_id")
-        @ExcludeMissing
-        private val disputedTransactionId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("explanation")
-        @ExcludeMissing
-        private val explanation: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("amount")
-        @ExcludeMissing
-        private val amount: JsonField<Long> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-    ) {
-
-        /**
-         * The Transaction you wish to dispute. This Transaction must have a `source_type` of
-         * `card_settlement`.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun disputedTransactionId(): String =
-            disputedTransactionId.getRequired("disputed_transaction_id")
-
-        /**
-         * Why you are disputing this Transaction.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun explanation(): String = explanation.getRequired("explanation")
-
-        /**
-         * The monetary amount of the part of the transaction that is being disputed. This is
-         * optional and will default to the full amount of the transaction if not provided. If
-         * provided, the amount must be less than or equal to the amount of the transaction.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun amount(): Optional<Long> = Optional.ofNullable(amount.getNullable("amount"))
-
-        /**
-         * Returns the raw JSON value of [disputedTransactionId].
-         *
-         * Unlike [disputedTransactionId], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("disputed_transaction_id")
-        @ExcludeMissing
-        fun _disputedTransactionId(): JsonField<String> = disputedTransactionId
-
-        /**
-         * Returns the raw JSON value of [explanation].
-         *
-         * Unlike [explanation], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("explanation")
-        @ExcludeMissing
-        fun _explanation(): JsonField<String> = explanation
-
-        /**
-         * Returns the raw JSON value of [amount].
-         *
-         * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): Body = apply {
-            if (validated) {
-                return@apply
-            }
-
-            disputedTransactionId()
-            explanation()
-            amount()
-            validated = true
-        }
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /**
-             * Returns a mutable builder for constructing an instance of [Body].
-             *
-             * The following fields are required:
-             * ```java
-             * .disputedTransactionId()
-             * .explanation()
-             * ```
-             */
-            @JvmStatic fun builder() = Builder()
-        }
-
-        /** A builder for [Body]. */
-        class Builder internal constructor() {
-
-            private var disputedTransactionId: JsonField<String>? = null
-            private var explanation: JsonField<String>? = null
-            private var amount: JsonField<Long> = JsonMissing.of()
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(body: Body) = apply {
-                disputedTransactionId = body.disputedTransactionId
-                explanation = body.explanation
-                amount = body.amount
-                additionalProperties = body.additionalProperties.toMutableMap()
-            }
-
-            /**
-             * The Transaction you wish to dispute. This Transaction must have a `source_type` of
-             * `card_settlement`.
-             */
-            fun disputedTransactionId(disputedTransactionId: String) =
-                disputedTransactionId(JsonField.of(disputedTransactionId))
-
-            /**
-             * Sets [Builder.disputedTransactionId] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.disputedTransactionId] with a well-typed [String]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
-             */
-            fun disputedTransactionId(disputedTransactionId: JsonField<String>) = apply {
-                this.disputedTransactionId = disputedTransactionId
-            }
-
-            /** Why you are disputing this Transaction. */
-            fun explanation(explanation: String) = explanation(JsonField.of(explanation))
-
-            /**
-             * Sets [Builder.explanation] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.explanation] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun explanation(explanation: JsonField<String>) = apply {
-                this.explanation = explanation
-            }
-
-            /**
-             * The monetary amount of the part of the transaction that is being disputed. This is
-             * optional and will default to the full amount of the transaction if not provided. If
-             * provided, the amount must be less than or equal to the amount of the transaction.
-             */
-            fun amount(amount: Long) = amount(JsonField.of(amount))
-
-            /**
-             * Sets [Builder.amount] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
-             */
-            fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [Body].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             *
-             * The following fields are required:
-             * ```java
-             * .disputedTransactionId()
-             * .explanation()
-             * ```
-             *
-             * @throws IllegalStateException if any required field is unset.
-             */
-            fun build(): Body =
-                Body(
-                    checkRequired("disputedTransactionId", disputedTransactionId),
-                    checkRequired("explanation", explanation),
-                    amount,
-                    additionalProperties.toImmutable(),
-                )
-        }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return /* spotless:off */ other is Body && disputedTransactionId == other.disputedTransactionId && explanation == other.explanation && amount == other.amount && additionalProperties == other.additionalProperties /* spotless:on */
-        }
-
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(disputedTransactionId, explanation, amount, additionalProperties) }
-        /* spotless:on */
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "Body{disputedTransactionId=$disputedTransactionId, explanation=$explanation, amount=$amount, additionalProperties=$additionalProperties}"
-    }
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -334,7 +99,6 @@ private constructor(
     }
 
     /** A builder for [CardDisputeCreateParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var body: Body.Builder = Body.builder()
@@ -530,6 +294,247 @@ private constructor(
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
+    }
+
+    @JvmSynthetic internal fun _body(): Body = body
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams = additionalQueryParams
+
+    class Body
+    private constructor(
+        private val disputedTransactionId: JsonField<String>,
+        private val explanation: JsonField<String>,
+        private val amount: JsonField<Long>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("disputed_transaction_id")
+            @ExcludeMissing
+            disputedTransactionId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("explanation")
+            @ExcludeMissing
+            explanation: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
+        ) : this(disputedTransactionId, explanation, amount, mutableMapOf())
+
+        /**
+         * The Transaction you wish to dispute. This Transaction must have a `source_type` of
+         * `card_settlement`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun disputedTransactionId(): String =
+            disputedTransactionId.getRequired("disputed_transaction_id")
+
+        /**
+         * Why you are disputing this Transaction.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun explanation(): String = explanation.getRequired("explanation")
+
+        /**
+         * The monetary amount of the part of the transaction that is being disputed. This is
+         * optional and will default to the full amount of the transaction if not provided. If
+         * provided, the amount must be less than or equal to the amount of the transaction.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun amount(): Optional<Long> = Optional.ofNullable(amount.getNullable("amount"))
+
+        /**
+         * Returns the raw JSON value of [disputedTransactionId].
+         *
+         * Unlike [disputedTransactionId], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("disputed_transaction_id")
+        @ExcludeMissing
+        fun _disputedTransactionId(): JsonField<String> = disputedTransactionId
+
+        /**
+         * Returns the raw JSON value of [explanation].
+         *
+         * Unlike [explanation], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("explanation")
+        @ExcludeMissing
+        fun _explanation(): JsonField<String> = explanation
+
+        /**
+         * Returns the raw JSON value of [amount].
+         *
+         * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [Body].
+             *
+             * The following fields are required:
+             * ```java
+             * .disputedTransactionId()
+             * .explanation()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Body]. */
+        class Builder internal constructor() {
+
+            private var disputedTransactionId: JsonField<String>? = null
+            private var explanation: JsonField<String>? = null
+            private var amount: JsonField<Long> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(body: Body) = apply {
+                disputedTransactionId = body.disputedTransactionId
+                explanation = body.explanation
+                amount = body.amount
+                additionalProperties = body.additionalProperties.toMutableMap()
+            }
+
+            /**
+             * The Transaction you wish to dispute. This Transaction must have a `source_type` of
+             * `card_settlement`.
+             */
+            fun disputedTransactionId(disputedTransactionId: String) =
+                disputedTransactionId(JsonField.of(disputedTransactionId))
+
+            /**
+             * Sets [Builder.disputedTransactionId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.disputedTransactionId] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun disputedTransactionId(disputedTransactionId: JsonField<String>) = apply {
+                this.disputedTransactionId = disputedTransactionId
+            }
+
+            /** Why you are disputing this Transaction. */
+            fun explanation(explanation: String) = explanation(JsonField.of(explanation))
+
+            /**
+             * Sets [Builder.explanation] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.explanation] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun explanation(explanation: JsonField<String>) = apply {
+                this.explanation = explanation
+            }
+
+            /**
+             * The monetary amount of the part of the transaction that is being disputed. This is
+             * optional and will default to the full amount of the transaction if not provided. If
+             * provided, the amount must be less than or equal to the amount of the transaction.
+             */
+            fun amount(amount: Long) = amount(JsonField.of(amount))
+
+            /**
+             * Sets [Builder.amount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Body].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .disputedTransactionId()
+             * .explanation()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): Body =
+                Body(
+                    checkRequired("disputedTransactionId", disputedTransactionId),
+                    checkRequired("explanation", explanation),
+                    amount,
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Body = apply {
+            if (validated) {
+                return@apply
+            }
+
+            disputedTransactionId()
+            explanation()
+            amount()
+            validated = true
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is Body && disputedTransactionId == other.disputedTransactionId && explanation == other.explanation && amount == other.amount && additionalProperties == other.additionalProperties /* spotless:on */
+        }
+
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(disputedTransactionId, explanation, amount, additionalProperties) }
+        /* spotless:on */
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Body{disputedTransactionId=$disputedTransactionId, explanation=$explanation, amount=$amount, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

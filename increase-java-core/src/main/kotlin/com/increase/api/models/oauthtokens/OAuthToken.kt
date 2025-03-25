@@ -11,30 +11,33 @@ import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.checkRequired
-import com.increase.api.core.immutableEmptyMap
-import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
+import java.util.Collections
 import java.util.Objects
 
 /**
  * A token that is returned to your application when a user completes the OAuth flow and may be used
  * to authenticate requests. Learn more about OAuth [here](/documentation/oauth).
  */
-@NoAutoDetect
 class OAuthToken
-@JsonCreator
 private constructor(
-    @JsonProperty("access_token")
-    @ExcludeMissing
-    private val accessToken: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("token_type")
-    @ExcludeMissing
-    private val tokenType: JsonField<TokenType> = JsonMissing.of(),
-    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
-    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+    private val accessToken: JsonField<String>,
+    private val tokenType: JsonField<TokenType>,
+    private val type: JsonField<Type>,
+    private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
+
+    @JsonCreator
+    private constructor(
+        @JsonProperty("access_token")
+        @ExcludeMissing
+        accessToken: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("token_type")
+        @ExcludeMissing
+        tokenType: JsonField<TokenType> = JsonMissing.of(),
+        @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+    ) : this(accessToken, tokenType, type, mutableMapOf())
 
     /**
      * You may use this token in place of an API key to make OAuth requests on a user's behalf.
@@ -83,22 +86,15 @@ private constructor(
      */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
+    @JsonAnySetter
+    private fun putAdditionalProperty(key: String, value: JsonValue) {
+        additionalProperties.put(key, value)
+    }
+
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-    private var validated: Boolean = false
-
-    fun validate(): OAuthToken = apply {
-        if (validated) {
-            return@apply
-        }
-
-        accessToken()
-        tokenType()
-        type()
-        validated = true
-    }
+    fun _additionalProperties(): Map<String, JsonValue> =
+        Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
@@ -211,8 +207,21 @@ private constructor(
                 checkRequired("accessToken", accessToken),
                 checkRequired("tokenType", tokenType),
                 checkRequired("type", type),
-                additionalProperties.toImmutable(),
+                additionalProperties.toMutableMap(),
             )
+    }
+
+    private var validated: Boolean = false
+
+    fun validate(): OAuthToken = apply {
+        if (validated) {
+            return@apply
+        }
+
+        accessToken()
+        tokenType()
+        type()
+        validated = true
     }
 
     /** The type of OAuth token. */

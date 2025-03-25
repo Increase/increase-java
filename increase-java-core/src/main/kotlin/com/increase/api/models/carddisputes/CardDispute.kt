@@ -11,12 +11,10 @@ import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.checkRequired
-import com.increase.api.core.immutableEmptyMap
-import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
+import java.util.Collections
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
@@ -25,38 +23,64 @@ import kotlin.jvm.optionals.getOrNull
  * If unauthorized activity occurs on a card, you can create a Card Dispute and we'll return the
  * funds if appropriate.
  */
-@NoAutoDetect
 class CardDispute
-@JsonCreator
 private constructor(
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("acceptance")
-    @ExcludeMissing
-    private val acceptance: JsonField<Acceptance> = JsonMissing.of(),
-    @JsonProperty("amount") @ExcludeMissing private val amount: JsonField<Long> = JsonMissing.of(),
-    @JsonProperty("created_at")
-    @ExcludeMissing
-    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("disputed_transaction_id")
-    @ExcludeMissing
-    private val disputedTransactionId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("explanation")
-    @ExcludeMissing
-    private val explanation: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("idempotency_key")
-    @ExcludeMissing
-    private val idempotencyKey: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("loss") @ExcludeMissing private val loss: JsonField<Loss> = JsonMissing.of(),
-    @JsonProperty("rejection")
-    @ExcludeMissing
-    private val rejection: JsonField<Rejection> = JsonMissing.of(),
-    @JsonProperty("status")
-    @ExcludeMissing
-    private val status: JsonField<Status> = JsonMissing.of(),
-    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
-    @JsonProperty("win") @ExcludeMissing private val win: JsonField<Win> = JsonMissing.of(),
-    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+    private val id: JsonField<String>,
+    private val acceptance: JsonField<Acceptance>,
+    private val amount: JsonField<Long>,
+    private val createdAt: JsonField<OffsetDateTime>,
+    private val disputedTransactionId: JsonField<String>,
+    private val explanation: JsonField<String>,
+    private val idempotencyKey: JsonField<String>,
+    private val loss: JsonField<Loss>,
+    private val rejection: JsonField<Rejection>,
+    private val status: JsonField<Status>,
+    private val type: JsonField<Type>,
+    private val win: JsonField<Win>,
+    private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
+
+    @JsonCreator
+    private constructor(
+        @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("acceptance")
+        @ExcludeMissing
+        acceptance: JsonField<Acceptance> = JsonMissing.of(),
+        @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("disputed_transaction_id")
+        @ExcludeMissing
+        disputedTransactionId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("explanation")
+        @ExcludeMissing
+        explanation: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("idempotency_key")
+        @ExcludeMissing
+        idempotencyKey: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("loss") @ExcludeMissing loss: JsonField<Loss> = JsonMissing.of(),
+        @JsonProperty("rejection")
+        @ExcludeMissing
+        rejection: JsonField<Rejection> = JsonMissing.of(),
+        @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
+        @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+        @JsonProperty("win") @ExcludeMissing win: JsonField<Win> = JsonMissing.of(),
+    ) : this(
+        id,
+        acceptance,
+        amount,
+        createdAt,
+        disputedTransactionId,
+        explanation,
+        idempotencyKey,
+        loss,
+        rejection,
+        status,
+        type,
+        win,
+        mutableMapOf(),
+    )
 
     /**
      * The Card Dispute identifier.
@@ -256,31 +280,15 @@ private constructor(
      */
     @JsonProperty("win") @ExcludeMissing fun _win(): JsonField<Win> = win
 
+    @JsonAnySetter
+    private fun putAdditionalProperty(key: String, value: JsonValue) {
+        additionalProperties.put(key, value)
+    }
+
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-    private var validated: Boolean = false
-
-    fun validate(): CardDispute = apply {
-        if (validated) {
-            return@apply
-        }
-
-        id()
-        acceptance().ifPresent { it.validate() }
-        amount()
-        createdAt()
-        disputedTransactionId()
-        explanation()
-        idempotencyKey()
-        loss().ifPresent { it.validate() }
-        rejection().ifPresent { it.validate() }
-        status()
-        type()
-        win().ifPresent { it.validate() }
-        validated = true
-    }
+    fun _additionalProperties(): Map<String, JsonValue> =
+        Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
@@ -586,30 +594,56 @@ private constructor(
                 checkRequired("status", status),
                 checkRequired("type", type),
                 checkRequired("win", win),
-                additionalProperties.toImmutable(),
+                additionalProperties.toMutableMap(),
             )
+    }
+
+    private var validated: Boolean = false
+
+    fun validate(): CardDispute = apply {
+        if (validated) {
+            return@apply
+        }
+
+        id()
+        acceptance().ifPresent { it.validate() }
+        amount()
+        createdAt()
+        disputedTransactionId()
+        explanation()
+        idempotencyKey()
+        loss().ifPresent { it.validate() }
+        rejection().ifPresent { it.validate() }
+        status()
+        type()
+        win().ifPresent { it.validate() }
+        validated = true
     }
 
     /**
      * If the Card Dispute's status is `accepted`, this will contain details of the successful
      * dispute.
      */
-    @NoAutoDetect
     class Acceptance
-    @JsonCreator
     private constructor(
-        @JsonProperty("accepted_at")
-        @ExcludeMissing
-        private val acceptedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonProperty("card_dispute_id")
-        @ExcludeMissing
-        private val cardDisputeId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("transaction_id")
-        @ExcludeMissing
-        private val transactionId: JsonField<String> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val acceptedAt: JsonField<OffsetDateTime>,
+        private val cardDisputeId: JsonField<String>,
+        private val transactionId: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("accepted_at")
+            @ExcludeMissing
+            acceptedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+            @JsonProperty("card_dispute_id")
+            @ExcludeMissing
+            cardDisputeId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("transaction_id")
+            @ExcludeMissing
+            transactionId: JsonField<String> = JsonMissing.of(),
+        ) : this(acceptedAt, cardDisputeId, transactionId, mutableMapOf())
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
@@ -666,22 +700,15 @@ private constructor(
         @ExcludeMissing
         fun _transactionId(): JsonField<String> = transactionId
 
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): Acceptance = apply {
-            if (validated) {
-                return@apply
-            }
-
-            acceptedAt()
-            cardDisputeId()
-            transactionId()
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -802,8 +829,21 @@ private constructor(
                     checkRequired("acceptedAt", acceptedAt),
                     checkRequired("cardDisputeId", cardDisputeId),
                     checkRequired("transactionId", transactionId),
-                    additionalProperties.toImmutable(),
+                    additionalProperties.toMutableMap(),
                 )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Acceptance = apply {
+            if (validated) {
+                return@apply
+            }
+
+            acceptedAt()
+            cardDisputeId()
+            transactionId()
+            validated = true
         }
 
         override fun equals(other: Any?): Boolean {
@@ -825,25 +865,30 @@ private constructor(
     }
 
     /** If the Card Dispute's status is `lost`, this will contain details of the lost dispute. */
-    @NoAutoDetect
     class Loss
-    @JsonCreator
     private constructor(
-        @JsonProperty("card_dispute_id")
-        @ExcludeMissing
-        private val cardDisputeId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("explanation")
-        @ExcludeMissing
-        private val explanation: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("lost_at")
-        @ExcludeMissing
-        private val lostAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonProperty("transaction_id")
-        @ExcludeMissing
-        private val transactionId: JsonField<String> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val cardDisputeId: JsonField<String>,
+        private val explanation: JsonField<String>,
+        private val lostAt: JsonField<OffsetDateTime>,
+        private val transactionId: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("card_dispute_id")
+            @ExcludeMissing
+            cardDisputeId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("explanation")
+            @ExcludeMissing
+            explanation: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("lost_at")
+            @ExcludeMissing
+            lostAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+            @JsonProperty("transaction_id")
+            @ExcludeMissing
+            transactionId: JsonField<String> = JsonMissing.of(),
+        ) : this(cardDisputeId, explanation, lostAt, transactionId, mutableMapOf())
 
         /**
          * The identifier of the Card Dispute that was lost.
@@ -915,23 +960,15 @@ private constructor(
         @ExcludeMissing
         fun _transactionId(): JsonField<String> = transactionId
 
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): Loss = apply {
-            if (validated) {
-                return@apply
-            }
-
-            cardDisputeId()
-            explanation()
-            lostAt()
-            transactionId()
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -1069,8 +1106,22 @@ private constructor(
                     checkRequired("explanation", explanation),
                     checkRequired("lostAt", lostAt),
                     checkRequired("transactionId", transactionId),
-                    additionalProperties.toImmutable(),
+                    additionalProperties.toMutableMap(),
                 )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Loss = apply {
+            if (validated) {
+                return@apply
+            }
+
+            cardDisputeId()
+            explanation()
+            lostAt()
+            transactionId()
+            validated = true
         }
 
         override fun equals(other: Any?): Boolean {
@@ -1095,22 +1146,26 @@ private constructor(
      * If the Card Dispute's status is `rejected`, this will contain details of the unsuccessful
      * dispute.
      */
-    @NoAutoDetect
     class Rejection
-    @JsonCreator
     private constructor(
-        @JsonProperty("card_dispute_id")
-        @ExcludeMissing
-        private val cardDisputeId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("explanation")
-        @ExcludeMissing
-        private val explanation: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("rejected_at")
-        @ExcludeMissing
-        private val rejectedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val cardDisputeId: JsonField<String>,
+        private val explanation: JsonField<String>,
+        private val rejectedAt: JsonField<OffsetDateTime>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("card_dispute_id")
+            @ExcludeMissing
+            cardDisputeId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("explanation")
+            @ExcludeMissing
+            explanation: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("rejected_at")
+            @ExcludeMissing
+            rejectedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        ) : this(cardDisputeId, explanation, rejectedAt, mutableMapOf())
 
         /**
          * The identifier of the Card Dispute that was rejected.
@@ -1165,22 +1220,15 @@ private constructor(
         @ExcludeMissing
         fun _rejectedAt(): JsonField<OffsetDateTime> = rejectedAt
 
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): Rejection = apply {
-            if (validated) {
-                return@apply
-            }
-
-            cardDisputeId()
-            explanation()
-            rejectedAt()
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -1298,8 +1346,21 @@ private constructor(
                     checkRequired("cardDisputeId", cardDisputeId),
                     checkRequired("explanation", explanation),
                     checkRequired("rejectedAt", rejectedAt),
-                    additionalProperties.toImmutable(),
+                    additionalProperties.toMutableMap(),
                 )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Rejection = apply {
+            if (validated) {
+                return@apply
+            }
+
+            cardDisputeId()
+            explanation()
+            rejectedAt()
+            validated = true
         }
 
         override fun equals(other: Any?): Boolean {
@@ -1580,19 +1641,22 @@ private constructor(
     }
 
     /** If the Card Dispute's status is `won`, this will contain details of the won dispute. */
-    @NoAutoDetect
     class Win
-    @JsonCreator
     private constructor(
-        @JsonProperty("card_dispute_id")
-        @ExcludeMissing
-        private val cardDisputeId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("won_at")
-        @ExcludeMissing
-        private val wonAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val cardDisputeId: JsonField<String>,
+        private val wonAt: JsonField<OffsetDateTime>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("card_dispute_id")
+            @ExcludeMissing
+            cardDisputeId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("won_at")
+            @ExcludeMissing
+            wonAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        ) : this(cardDisputeId, wonAt, mutableMapOf())
 
         /**
          * The identifier of the Card Dispute that was won.
@@ -1628,21 +1692,15 @@ private constructor(
          */
         @JsonProperty("won_at") @ExcludeMissing fun _wonAt(): JsonField<OffsetDateTime> = wonAt
 
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): Win = apply {
-            if (validated) {
-                return@apply
-            }
-
-            cardDisputeId()
-            wonAt()
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -1739,8 +1797,20 @@ private constructor(
                 Win(
                     checkRequired("cardDisputeId", cardDisputeId),
                     checkRequired("wonAt", wonAt),
-                    additionalProperties.toImmutable(),
+                    additionalProperties.toMutableMap(),
                 )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Win = apply {
+            if (validated) {
+                return@apply
+            }
+
+            cardDisputeId()
+            wonAt()
+            validated = true
         }
 
         override fun equals(other: Any?): Boolean {

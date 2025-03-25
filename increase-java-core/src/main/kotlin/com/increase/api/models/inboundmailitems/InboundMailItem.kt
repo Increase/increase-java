@@ -11,43 +11,55 @@ import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.checkRequired
-import com.increase.api.core.immutableEmptyMap
-import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
+import java.util.Collections
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /** Inbound Mail Items represent pieces of physical mail delivered to a Lockbox. */
-@NoAutoDetect
 class InboundMailItem
-@JsonCreator
 private constructor(
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("created_at")
-    @ExcludeMissing
-    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("file_id")
-    @ExcludeMissing
-    private val fileId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("lockbox_id")
-    @ExcludeMissing
-    private val lockboxId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("recipient_name")
-    @ExcludeMissing
-    private val recipientName: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("rejection_reason")
-    @ExcludeMissing
-    private val rejectionReason: JsonField<RejectionReason> = JsonMissing.of(),
-    @JsonProperty("status")
-    @ExcludeMissing
-    private val status: JsonField<Status> = JsonMissing.of(),
-    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
-    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+    private val id: JsonField<String>,
+    private val createdAt: JsonField<OffsetDateTime>,
+    private val fileId: JsonField<String>,
+    private val lockboxId: JsonField<String>,
+    private val recipientName: JsonField<String>,
+    private val rejectionReason: JsonField<RejectionReason>,
+    private val status: JsonField<Status>,
+    private val type: JsonField<Type>,
+    private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
+
+    @JsonCreator
+    private constructor(
+        @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("file_id") @ExcludeMissing fileId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("lockbox_id") @ExcludeMissing lockboxId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("recipient_name")
+        @ExcludeMissing
+        recipientName: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("rejection_reason")
+        @ExcludeMissing
+        rejectionReason: JsonField<RejectionReason> = JsonMissing.of(),
+        @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
+        @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+    ) : this(
+        id,
+        createdAt,
+        fileId,
+        lockboxId,
+        recipientName,
+        rejectionReason,
+        status,
+        type,
+        mutableMapOf(),
+    )
 
     /**
      * The Inbound Mail Item identifier.
@@ -180,27 +192,15 @@ private constructor(
      */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
+    @JsonAnySetter
+    private fun putAdditionalProperty(key: String, value: JsonValue) {
+        additionalProperties.put(key, value)
+    }
+
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-    private var validated: Boolean = false
-
-    fun validate(): InboundMailItem = apply {
-        if (validated) {
-            return@apply
-        }
-
-        id()
-        createdAt()
-        fileId()
-        lockboxId()
-        recipientName()
-        rejectionReason()
-        status()
-        type()
-        validated = true
-    }
+    fun _additionalProperties(): Map<String, JsonValue> =
+        Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
@@ -416,8 +416,26 @@ private constructor(
                 checkRequired("rejectionReason", rejectionReason),
                 checkRequired("status", status),
                 checkRequired("type", type),
-                additionalProperties.toImmutable(),
+                additionalProperties.toMutableMap(),
             )
+    }
+
+    private var validated: Boolean = false
+
+    fun validate(): InboundMailItem = apply {
+        if (validated) {
+            return@apply
+        }
+
+        id()
+        createdAt()
+        fileId()
+        lockboxId()
+        recipientName()
+        rejectionReason()
+        status()
+        type()
+        validated = true
     }
 
     /** If the mail item has been rejected, why it was rejected. */

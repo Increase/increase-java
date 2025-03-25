@@ -10,14 +10,12 @@ import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.Params
 import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
-import com.increase.api.core.immutableEmptyMap
-import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
+import java.util.Collections
 import java.util.Objects
 import java.util.Optional
 
@@ -98,265 +96,6 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    @JvmSynthetic internal fun _body(): Body = body
-
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams = additionalQueryParams
-
-    @NoAutoDetect
-    class Body
-    @JsonCreator
-    private constructor(
-        @JsonProperty("name")
-        @ExcludeMissing
-        private val name: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("entity_id")
-        @ExcludeMissing
-        private val entityId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("informational_entity_id")
-        @ExcludeMissing
-        private val informationalEntityId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("program_id")
-        @ExcludeMissing
-        private val programId: JsonField<String> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-    ) {
-
-        /**
-         * The name you choose for the Account.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun name(): String = name.getRequired("name")
-
-        /**
-         * The identifier for the Entity that will own the Account.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun entityId(): Optional<String> = Optional.ofNullable(entityId.getNullable("entity_id"))
-
-        /**
-         * The identifier of an Entity that, while not owning the Account, is associated with its
-         * activity. Its relationship to your group must be `informational`.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun informationalEntityId(): Optional<String> =
-            Optional.ofNullable(informationalEntityId.getNullable("informational_entity_id"))
-
-        /**
-         * The identifier for the Program that this Account falls under. Required if you operate
-         * more than one Program.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun programId(): Optional<String> = Optional.ofNullable(programId.getNullable("program_id"))
-
-        /**
-         * Returns the raw JSON value of [name].
-         *
-         * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
-
-        /**
-         * Returns the raw JSON value of [entityId].
-         *
-         * Unlike [entityId], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("entity_id") @ExcludeMissing fun _entityId(): JsonField<String> = entityId
-
-        /**
-         * Returns the raw JSON value of [informationalEntityId].
-         *
-         * Unlike [informationalEntityId], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("informational_entity_id")
-        @ExcludeMissing
-        fun _informationalEntityId(): JsonField<String> = informationalEntityId
-
-        /**
-         * Returns the raw JSON value of [programId].
-         *
-         * Unlike [programId], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("program_id") @ExcludeMissing fun _programId(): JsonField<String> = programId
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): Body = apply {
-            if (validated) {
-                return@apply
-            }
-
-            name()
-            entityId()
-            informationalEntityId()
-            programId()
-            validated = true
-        }
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /**
-             * Returns a mutable builder for constructing an instance of [Body].
-             *
-             * The following fields are required:
-             * ```java
-             * .name()
-             * ```
-             */
-            @JvmStatic fun builder() = Builder()
-        }
-
-        /** A builder for [Body]. */
-        class Builder internal constructor() {
-
-            private var name: JsonField<String>? = null
-            private var entityId: JsonField<String> = JsonMissing.of()
-            private var informationalEntityId: JsonField<String> = JsonMissing.of()
-            private var programId: JsonField<String> = JsonMissing.of()
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(body: Body) = apply {
-                name = body.name
-                entityId = body.entityId
-                informationalEntityId = body.informationalEntityId
-                programId = body.programId
-                additionalProperties = body.additionalProperties.toMutableMap()
-            }
-
-            /** The name you choose for the Account. */
-            fun name(name: String) = name(JsonField.of(name))
-
-            /**
-             * Sets [Builder.name] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.name] with a well-typed [String] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
-             */
-            fun name(name: JsonField<String>) = apply { this.name = name }
-
-            /** The identifier for the Entity that will own the Account. */
-            fun entityId(entityId: String) = entityId(JsonField.of(entityId))
-
-            /**
-             * Sets [Builder.entityId] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.entityId] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun entityId(entityId: JsonField<String>) = apply { this.entityId = entityId }
-
-            /**
-             * The identifier of an Entity that, while not owning the Account, is associated with
-             * its activity. Its relationship to your group must be `informational`.
-             */
-            fun informationalEntityId(informationalEntityId: String) =
-                informationalEntityId(JsonField.of(informationalEntityId))
-
-            /**
-             * Sets [Builder.informationalEntityId] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.informationalEntityId] with a well-typed [String]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
-             */
-            fun informationalEntityId(informationalEntityId: JsonField<String>) = apply {
-                this.informationalEntityId = informationalEntityId
-            }
-
-            /**
-             * The identifier for the Program that this Account falls under. Required if you operate
-             * more than one Program.
-             */
-            fun programId(programId: String) = programId(JsonField.of(programId))
-
-            /**
-             * Sets [Builder.programId] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.programId] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun programId(programId: JsonField<String>) = apply { this.programId = programId }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [Body].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             *
-             * The following fields are required:
-             * ```java
-             * .name()
-             * ```
-             *
-             * @throws IllegalStateException if any required field is unset.
-             */
-            fun build(): Body =
-                Body(
-                    checkRequired("name", name),
-                    entityId,
-                    informationalEntityId,
-                    programId,
-                    additionalProperties.toImmutable(),
-                )
-        }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return /* spotless:off */ other is Body && name == other.name && entityId == other.entityId && informationalEntityId == other.informationalEntityId && programId == other.programId && additionalProperties == other.additionalProperties /* spotless:on */
-        }
-
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(name, entityId, informationalEntityId, programId, additionalProperties) }
-        /* spotless:on */
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "Body{name=$name, entityId=$entityId, informationalEntityId=$informationalEntityId, programId=$programId, additionalProperties=$additionalProperties}"
-    }
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -373,7 +112,6 @@ private constructor(
     }
 
     /** A builder for [AccountCreateParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var body: Body.Builder = Body.builder()
@@ -578,6 +316,274 @@ private constructor(
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
+    }
+
+    @JvmSynthetic internal fun _body(): Body = body
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams = additionalQueryParams
+
+    class Body
+    private constructor(
+        private val name: JsonField<String>,
+        private val entityId: JsonField<String>,
+        private val informationalEntityId: JsonField<String>,
+        private val programId: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("entity_id")
+            @ExcludeMissing
+            entityId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("informational_entity_id")
+            @ExcludeMissing
+            informationalEntityId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("program_id")
+            @ExcludeMissing
+            programId: JsonField<String> = JsonMissing.of(),
+        ) : this(name, entityId, informationalEntityId, programId, mutableMapOf())
+
+        /**
+         * The name you choose for the Account.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun name(): String = name.getRequired("name")
+
+        /**
+         * The identifier for the Entity that will own the Account.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun entityId(): Optional<String> = Optional.ofNullable(entityId.getNullable("entity_id"))
+
+        /**
+         * The identifier of an Entity that, while not owning the Account, is associated with its
+         * activity. Its relationship to your group must be `informational`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun informationalEntityId(): Optional<String> =
+            Optional.ofNullable(informationalEntityId.getNullable("informational_entity_id"))
+
+        /**
+         * The identifier for the Program that this Account falls under. Required if you operate
+         * more than one Program.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun programId(): Optional<String> = Optional.ofNullable(programId.getNullable("program_id"))
+
+        /**
+         * Returns the raw JSON value of [name].
+         *
+         * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+
+        /**
+         * Returns the raw JSON value of [entityId].
+         *
+         * Unlike [entityId], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("entity_id") @ExcludeMissing fun _entityId(): JsonField<String> = entityId
+
+        /**
+         * Returns the raw JSON value of [informationalEntityId].
+         *
+         * Unlike [informationalEntityId], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("informational_entity_id")
+        @ExcludeMissing
+        fun _informationalEntityId(): JsonField<String> = informationalEntityId
+
+        /**
+         * Returns the raw JSON value of [programId].
+         *
+         * Unlike [programId], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("program_id") @ExcludeMissing fun _programId(): JsonField<String> = programId
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [Body].
+             *
+             * The following fields are required:
+             * ```java
+             * .name()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Body]. */
+        class Builder internal constructor() {
+
+            private var name: JsonField<String>? = null
+            private var entityId: JsonField<String> = JsonMissing.of()
+            private var informationalEntityId: JsonField<String> = JsonMissing.of()
+            private var programId: JsonField<String> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(body: Body) = apply {
+                name = body.name
+                entityId = body.entityId
+                informationalEntityId = body.informationalEntityId
+                programId = body.programId
+                additionalProperties = body.additionalProperties.toMutableMap()
+            }
+
+            /** The name you choose for the Account. */
+            fun name(name: String) = name(JsonField.of(name))
+
+            /**
+             * Sets [Builder.name] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.name] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun name(name: JsonField<String>) = apply { this.name = name }
+
+            /** The identifier for the Entity that will own the Account. */
+            fun entityId(entityId: String) = entityId(JsonField.of(entityId))
+
+            /**
+             * Sets [Builder.entityId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.entityId] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun entityId(entityId: JsonField<String>) = apply { this.entityId = entityId }
+
+            /**
+             * The identifier of an Entity that, while not owning the Account, is associated with
+             * its activity. Its relationship to your group must be `informational`.
+             */
+            fun informationalEntityId(informationalEntityId: String) =
+                informationalEntityId(JsonField.of(informationalEntityId))
+
+            /**
+             * Sets [Builder.informationalEntityId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.informationalEntityId] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun informationalEntityId(informationalEntityId: JsonField<String>) = apply {
+                this.informationalEntityId = informationalEntityId
+            }
+
+            /**
+             * The identifier for the Program that this Account falls under. Required if you operate
+             * more than one Program.
+             */
+            fun programId(programId: String) = programId(JsonField.of(programId))
+
+            /**
+             * Sets [Builder.programId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.programId] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun programId(programId: JsonField<String>) = apply { this.programId = programId }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Body].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .name()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): Body =
+                Body(
+                    checkRequired("name", name),
+                    entityId,
+                    informationalEntityId,
+                    programId,
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Body = apply {
+            if (validated) {
+                return@apply
+            }
+
+            name()
+            entityId()
+            informationalEntityId()
+            programId()
+            validated = true
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is Body && name == other.name && entityId == other.entityId && informationalEntityId == other.informationalEntityId && programId == other.programId && additionalProperties == other.additionalProperties /* spotless:on */
+        }
+
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(name, entityId, informationalEntityId, programId, additionalProperties) }
+        /* spotless:on */
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Body{name=$name, entityId=$entityId, informationalEntityId=$informationalEntityId, programId=$programId, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

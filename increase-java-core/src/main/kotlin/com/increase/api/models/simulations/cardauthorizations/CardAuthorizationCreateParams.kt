@@ -11,14 +11,12 @@ import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.Params
 import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
-import com.increase.api.core.immutableEmptyMap
-import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
+import java.util.Collections
 import java.util.Objects
 import java.util.Optional
 
@@ -297,776 +295,6 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    @JvmSynthetic internal fun _body(): Body = body
-
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams = additionalQueryParams
-
-    @NoAutoDetect
-    class Body
-    @JsonCreator
-    private constructor(
-        @JsonProperty("amount")
-        @ExcludeMissing
-        private val amount: JsonField<Long> = JsonMissing.of(),
-        @JsonProperty("authenticated_card_payment_id")
-        @ExcludeMissing
-        private val authenticatedCardPaymentId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("card_id")
-        @ExcludeMissing
-        private val cardId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("decline_reason")
-        @ExcludeMissing
-        private val declineReason: JsonField<DeclineReason> = JsonMissing.of(),
-        @JsonProperty("digital_wallet_token_id")
-        @ExcludeMissing
-        private val digitalWalletTokenId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("direction")
-        @ExcludeMissing
-        private val direction: JsonField<Direction> = JsonMissing.of(),
-        @JsonProperty("event_subscription_id")
-        @ExcludeMissing
-        private val eventSubscriptionId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("merchant_acceptor_id")
-        @ExcludeMissing
-        private val merchantAcceptorId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("merchant_category_code")
-        @ExcludeMissing
-        private val merchantCategoryCode: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("merchant_city")
-        @ExcludeMissing
-        private val merchantCity: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("merchant_country")
-        @ExcludeMissing
-        private val merchantCountry: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("merchant_descriptor")
-        @ExcludeMissing
-        private val merchantDescriptor: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("merchant_state")
-        @ExcludeMissing
-        private val merchantState: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("network_details")
-        @ExcludeMissing
-        private val networkDetails: JsonField<NetworkDetails> = JsonMissing.of(),
-        @JsonProperty("physical_card_id")
-        @ExcludeMissing
-        private val physicalCardId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("terminal_id")
-        @ExcludeMissing
-        private val terminalId: JsonField<String> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-    ) {
-
-        /**
-         * The authorization amount in cents.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun amount(): Long = amount.getRequired("amount")
-
-        /**
-         * The identifier of a Card Payment with a `card_authentication` if you want to simulate an
-         * authenticated authorization.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun authenticatedCardPaymentId(): Optional<String> =
-            Optional.ofNullable(
-                authenticatedCardPaymentId.getNullable("authenticated_card_payment_id")
-            )
-
-        /**
-         * The identifier of the Card to be authorized.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun cardId(): Optional<String> = Optional.ofNullable(cardId.getNullable("card_id"))
-
-        /**
-         * Forces a card decline with a specific reason. No real time decision will be sent.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun declineReason(): Optional<DeclineReason> =
-            Optional.ofNullable(declineReason.getNullable("decline_reason"))
-
-        /**
-         * The identifier of the Digital Wallet Token to be authorized.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun digitalWalletTokenId(): Optional<String> =
-            Optional.ofNullable(digitalWalletTokenId.getNullable("digital_wallet_token_id"))
-
-        /**
-         * The direction describes the direction the funds will move, either from the cardholder to
-         * the merchant or from the merchant to the cardholder.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun direction(): Optional<Direction> =
-            Optional.ofNullable(direction.getNullable("direction"))
-
-        /**
-         * The identifier of the Event Subscription to use. If provided, will override the default
-         * real time event subscription. Because you can only create one real time decision event
-         * subscription, you can use this field to route events to any specified event subscription
-         * for testing purposes.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun eventSubscriptionId(): Optional<String> =
-            Optional.ofNullable(eventSubscriptionId.getNullable("event_subscription_id"))
-
-        /**
-         * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
-         * transacting with.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun merchantAcceptorId(): Optional<String> =
-            Optional.ofNullable(merchantAcceptorId.getNullable("merchant_acceptor_id"))
-
-        /**
-         * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the card is
-         * transacting with.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun merchantCategoryCode(): Optional<String> =
-            Optional.ofNullable(merchantCategoryCode.getNullable("merchant_category_code"))
-
-        /**
-         * The city the merchant resides in.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun merchantCity(): Optional<String> =
-            Optional.ofNullable(merchantCity.getNullable("merchant_city"))
-
-        /**
-         * The country the merchant resides in.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun merchantCountry(): Optional<String> =
-            Optional.ofNullable(merchantCountry.getNullable("merchant_country"))
-
-        /**
-         * The merchant descriptor of the merchant the card is transacting with.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun merchantDescriptor(): Optional<String> =
-            Optional.ofNullable(merchantDescriptor.getNullable("merchant_descriptor"))
-
-        /**
-         * The state the merchant resides in.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun merchantState(): Optional<String> =
-            Optional.ofNullable(merchantState.getNullable("merchant_state"))
-
-        /**
-         * Fields specific to a given card network.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun networkDetails(): Optional<NetworkDetails> =
-            Optional.ofNullable(networkDetails.getNullable("network_details"))
-
-        /**
-         * The identifier of the Physical Card to be authorized.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun physicalCardId(): Optional<String> =
-            Optional.ofNullable(physicalCardId.getNullable("physical_card_id"))
-
-        /**
-         * The terminal identifier (commonly abbreviated as TID) of the terminal the card is
-         * transacting with.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun terminalId(): Optional<String> =
-            Optional.ofNullable(terminalId.getNullable("terminal_id"))
-
-        /**
-         * Returns the raw JSON value of [amount].
-         *
-         * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
-
-        /**
-         * Returns the raw JSON value of [authenticatedCardPaymentId].
-         *
-         * Unlike [authenticatedCardPaymentId], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("authenticated_card_payment_id")
-        @ExcludeMissing
-        fun _authenticatedCardPaymentId(): JsonField<String> = authenticatedCardPaymentId
-
-        /**
-         * Returns the raw JSON value of [cardId].
-         *
-         * Unlike [cardId], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("card_id") @ExcludeMissing fun _cardId(): JsonField<String> = cardId
-
-        /**
-         * Returns the raw JSON value of [declineReason].
-         *
-         * Unlike [declineReason], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("decline_reason")
-        @ExcludeMissing
-        fun _declineReason(): JsonField<DeclineReason> = declineReason
-
-        /**
-         * Returns the raw JSON value of [digitalWalletTokenId].
-         *
-         * Unlike [digitalWalletTokenId], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("digital_wallet_token_id")
-        @ExcludeMissing
-        fun _digitalWalletTokenId(): JsonField<String> = digitalWalletTokenId
-
-        /**
-         * Returns the raw JSON value of [direction].
-         *
-         * Unlike [direction], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("direction")
-        @ExcludeMissing
-        fun _direction(): JsonField<Direction> = direction
-
-        /**
-         * Returns the raw JSON value of [eventSubscriptionId].
-         *
-         * Unlike [eventSubscriptionId], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("event_subscription_id")
-        @ExcludeMissing
-        fun _eventSubscriptionId(): JsonField<String> = eventSubscriptionId
-
-        /**
-         * Returns the raw JSON value of [merchantAcceptorId].
-         *
-         * Unlike [merchantAcceptorId], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("merchant_acceptor_id")
-        @ExcludeMissing
-        fun _merchantAcceptorId(): JsonField<String> = merchantAcceptorId
-
-        /**
-         * Returns the raw JSON value of [merchantCategoryCode].
-         *
-         * Unlike [merchantCategoryCode], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("merchant_category_code")
-        @ExcludeMissing
-        fun _merchantCategoryCode(): JsonField<String> = merchantCategoryCode
-
-        /**
-         * Returns the raw JSON value of [merchantCity].
-         *
-         * Unlike [merchantCity], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("merchant_city")
-        @ExcludeMissing
-        fun _merchantCity(): JsonField<String> = merchantCity
-
-        /**
-         * Returns the raw JSON value of [merchantCountry].
-         *
-         * Unlike [merchantCountry], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("merchant_country")
-        @ExcludeMissing
-        fun _merchantCountry(): JsonField<String> = merchantCountry
-
-        /**
-         * Returns the raw JSON value of [merchantDescriptor].
-         *
-         * Unlike [merchantDescriptor], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("merchant_descriptor")
-        @ExcludeMissing
-        fun _merchantDescriptor(): JsonField<String> = merchantDescriptor
-
-        /**
-         * Returns the raw JSON value of [merchantState].
-         *
-         * Unlike [merchantState], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("merchant_state")
-        @ExcludeMissing
-        fun _merchantState(): JsonField<String> = merchantState
-
-        /**
-         * Returns the raw JSON value of [networkDetails].
-         *
-         * Unlike [networkDetails], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("network_details")
-        @ExcludeMissing
-        fun _networkDetails(): JsonField<NetworkDetails> = networkDetails
-
-        /**
-         * Returns the raw JSON value of [physicalCardId].
-         *
-         * Unlike [physicalCardId], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("physical_card_id")
-        @ExcludeMissing
-        fun _physicalCardId(): JsonField<String> = physicalCardId
-
-        /**
-         * Returns the raw JSON value of [terminalId].
-         *
-         * Unlike [terminalId], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("terminal_id")
-        @ExcludeMissing
-        fun _terminalId(): JsonField<String> = terminalId
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): Body = apply {
-            if (validated) {
-                return@apply
-            }
-
-            amount()
-            authenticatedCardPaymentId()
-            cardId()
-            declineReason()
-            digitalWalletTokenId()
-            direction()
-            eventSubscriptionId()
-            merchantAcceptorId()
-            merchantCategoryCode()
-            merchantCity()
-            merchantCountry()
-            merchantDescriptor()
-            merchantState()
-            networkDetails().ifPresent { it.validate() }
-            physicalCardId()
-            terminalId()
-            validated = true
-        }
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /**
-             * Returns a mutable builder for constructing an instance of [Body].
-             *
-             * The following fields are required:
-             * ```java
-             * .amount()
-             * ```
-             */
-            @JvmStatic fun builder() = Builder()
-        }
-
-        /** A builder for [Body]. */
-        class Builder internal constructor() {
-
-            private var amount: JsonField<Long>? = null
-            private var authenticatedCardPaymentId: JsonField<String> = JsonMissing.of()
-            private var cardId: JsonField<String> = JsonMissing.of()
-            private var declineReason: JsonField<DeclineReason> = JsonMissing.of()
-            private var digitalWalletTokenId: JsonField<String> = JsonMissing.of()
-            private var direction: JsonField<Direction> = JsonMissing.of()
-            private var eventSubscriptionId: JsonField<String> = JsonMissing.of()
-            private var merchantAcceptorId: JsonField<String> = JsonMissing.of()
-            private var merchantCategoryCode: JsonField<String> = JsonMissing.of()
-            private var merchantCity: JsonField<String> = JsonMissing.of()
-            private var merchantCountry: JsonField<String> = JsonMissing.of()
-            private var merchantDescriptor: JsonField<String> = JsonMissing.of()
-            private var merchantState: JsonField<String> = JsonMissing.of()
-            private var networkDetails: JsonField<NetworkDetails> = JsonMissing.of()
-            private var physicalCardId: JsonField<String> = JsonMissing.of()
-            private var terminalId: JsonField<String> = JsonMissing.of()
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(body: Body) = apply {
-                amount = body.amount
-                authenticatedCardPaymentId = body.authenticatedCardPaymentId
-                cardId = body.cardId
-                declineReason = body.declineReason
-                digitalWalletTokenId = body.digitalWalletTokenId
-                direction = body.direction
-                eventSubscriptionId = body.eventSubscriptionId
-                merchantAcceptorId = body.merchantAcceptorId
-                merchantCategoryCode = body.merchantCategoryCode
-                merchantCity = body.merchantCity
-                merchantCountry = body.merchantCountry
-                merchantDescriptor = body.merchantDescriptor
-                merchantState = body.merchantState
-                networkDetails = body.networkDetails
-                physicalCardId = body.physicalCardId
-                terminalId = body.terminalId
-                additionalProperties = body.additionalProperties.toMutableMap()
-            }
-
-            /** The authorization amount in cents. */
-            fun amount(amount: Long) = amount(JsonField.of(amount))
-
-            /**
-             * Sets [Builder.amount] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
-             */
-            fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
-
-            /**
-             * The identifier of a Card Payment with a `card_authentication` if you want to simulate
-             * an authenticated authorization.
-             */
-            fun authenticatedCardPaymentId(authenticatedCardPaymentId: String) =
-                authenticatedCardPaymentId(JsonField.of(authenticatedCardPaymentId))
-
-            /**
-             * Sets [Builder.authenticatedCardPaymentId] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.authenticatedCardPaymentId] with a well-typed
-             * [String] value instead. This method is primarily for setting the field to an
-             * undocumented or not yet supported value.
-             */
-            fun authenticatedCardPaymentId(authenticatedCardPaymentId: JsonField<String>) = apply {
-                this.authenticatedCardPaymentId = authenticatedCardPaymentId
-            }
-
-            /** The identifier of the Card to be authorized. */
-            fun cardId(cardId: String) = cardId(JsonField.of(cardId))
-
-            /**
-             * Sets [Builder.cardId] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.cardId] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun cardId(cardId: JsonField<String>) = apply { this.cardId = cardId }
-
-            /** Forces a card decline with a specific reason. No real time decision will be sent. */
-            fun declineReason(declineReason: DeclineReason) =
-                declineReason(JsonField.of(declineReason))
-
-            /**
-             * Sets [Builder.declineReason] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.declineReason] with a well-typed [DeclineReason]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
-             */
-            fun declineReason(declineReason: JsonField<DeclineReason>) = apply {
-                this.declineReason = declineReason
-            }
-
-            /** The identifier of the Digital Wallet Token to be authorized. */
-            fun digitalWalletTokenId(digitalWalletTokenId: String) =
-                digitalWalletTokenId(JsonField.of(digitalWalletTokenId))
-
-            /**
-             * Sets [Builder.digitalWalletTokenId] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.digitalWalletTokenId] with a well-typed [String]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
-             */
-            fun digitalWalletTokenId(digitalWalletTokenId: JsonField<String>) = apply {
-                this.digitalWalletTokenId = digitalWalletTokenId
-            }
-
-            /**
-             * The direction describes the direction the funds will move, either from the cardholder
-             * to the merchant or from the merchant to the cardholder.
-             */
-            fun direction(direction: Direction) = direction(JsonField.of(direction))
-
-            /**
-             * Sets [Builder.direction] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.direction] with a well-typed [Direction] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun direction(direction: JsonField<Direction>) = apply { this.direction = direction }
-
-            /**
-             * The identifier of the Event Subscription to use. If provided, will override the
-             * default real time event subscription. Because you can only create one real time
-             * decision event subscription, you can use this field to route events to any specified
-             * event subscription for testing purposes.
-             */
-            fun eventSubscriptionId(eventSubscriptionId: String) =
-                eventSubscriptionId(JsonField.of(eventSubscriptionId))
-
-            /**
-             * Sets [Builder.eventSubscriptionId] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.eventSubscriptionId] with a well-typed [String]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
-             */
-            fun eventSubscriptionId(eventSubscriptionId: JsonField<String>) = apply {
-                this.eventSubscriptionId = eventSubscriptionId
-            }
-
-            /**
-             * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
-             * transacting with.
-             */
-            fun merchantAcceptorId(merchantAcceptorId: String) =
-                merchantAcceptorId(JsonField.of(merchantAcceptorId))
-
-            /**
-             * Sets [Builder.merchantAcceptorId] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.merchantAcceptorId] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun merchantAcceptorId(merchantAcceptorId: JsonField<String>) = apply {
-                this.merchantAcceptorId = merchantAcceptorId
-            }
-
-            /**
-             * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the card is
-             * transacting with.
-             */
-            fun merchantCategoryCode(merchantCategoryCode: String) =
-                merchantCategoryCode(JsonField.of(merchantCategoryCode))
-
-            /**
-             * Sets [Builder.merchantCategoryCode] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.merchantCategoryCode] with a well-typed [String]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
-             */
-            fun merchantCategoryCode(merchantCategoryCode: JsonField<String>) = apply {
-                this.merchantCategoryCode = merchantCategoryCode
-            }
-
-            /** The city the merchant resides in. */
-            fun merchantCity(merchantCity: String) = merchantCity(JsonField.of(merchantCity))
-
-            /**
-             * Sets [Builder.merchantCity] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.merchantCity] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun merchantCity(merchantCity: JsonField<String>) = apply {
-                this.merchantCity = merchantCity
-            }
-
-            /** The country the merchant resides in. */
-            fun merchantCountry(merchantCountry: String) =
-                merchantCountry(JsonField.of(merchantCountry))
-
-            /**
-             * Sets [Builder.merchantCountry] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.merchantCountry] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun merchantCountry(merchantCountry: JsonField<String>) = apply {
-                this.merchantCountry = merchantCountry
-            }
-
-            /** The merchant descriptor of the merchant the card is transacting with. */
-            fun merchantDescriptor(merchantDescriptor: String) =
-                merchantDescriptor(JsonField.of(merchantDescriptor))
-
-            /**
-             * Sets [Builder.merchantDescriptor] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.merchantDescriptor] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun merchantDescriptor(merchantDescriptor: JsonField<String>) = apply {
-                this.merchantDescriptor = merchantDescriptor
-            }
-
-            /** The state the merchant resides in. */
-            fun merchantState(merchantState: String) = merchantState(JsonField.of(merchantState))
-
-            /**
-             * Sets [Builder.merchantState] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.merchantState] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun merchantState(merchantState: JsonField<String>) = apply {
-                this.merchantState = merchantState
-            }
-
-            /** Fields specific to a given card network. */
-            fun networkDetails(networkDetails: NetworkDetails) =
-                networkDetails(JsonField.of(networkDetails))
-
-            /**
-             * Sets [Builder.networkDetails] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.networkDetails] with a well-typed [NetworkDetails]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
-             */
-            fun networkDetails(networkDetails: JsonField<NetworkDetails>) = apply {
-                this.networkDetails = networkDetails
-            }
-
-            /** The identifier of the Physical Card to be authorized. */
-            fun physicalCardId(physicalCardId: String) =
-                physicalCardId(JsonField.of(physicalCardId))
-
-            /**
-             * Sets [Builder.physicalCardId] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.physicalCardId] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun physicalCardId(physicalCardId: JsonField<String>) = apply {
-                this.physicalCardId = physicalCardId
-            }
-
-            /**
-             * The terminal identifier (commonly abbreviated as TID) of the terminal the card is
-             * transacting with.
-             */
-            fun terminalId(terminalId: String) = terminalId(JsonField.of(terminalId))
-
-            /**
-             * Sets [Builder.terminalId] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.terminalId] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun terminalId(terminalId: JsonField<String>) = apply { this.terminalId = terminalId }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [Body].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             *
-             * The following fields are required:
-             * ```java
-             * .amount()
-             * ```
-             *
-             * @throws IllegalStateException if any required field is unset.
-             */
-            fun build(): Body =
-                Body(
-                    checkRequired("amount", amount),
-                    authenticatedCardPaymentId,
-                    cardId,
-                    declineReason,
-                    digitalWalletTokenId,
-                    direction,
-                    eventSubscriptionId,
-                    merchantAcceptorId,
-                    merchantCategoryCode,
-                    merchantCity,
-                    merchantCountry,
-                    merchantDescriptor,
-                    merchantState,
-                    networkDetails,
-                    physicalCardId,
-                    terminalId,
-                    additionalProperties.toImmutable(),
-                )
-        }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return /* spotless:off */ other is Body && amount == other.amount && authenticatedCardPaymentId == other.authenticatedCardPaymentId && cardId == other.cardId && declineReason == other.declineReason && digitalWalletTokenId == other.digitalWalletTokenId && direction == other.direction && eventSubscriptionId == other.eventSubscriptionId && merchantAcceptorId == other.merchantAcceptorId && merchantCategoryCode == other.merchantCategoryCode && merchantCity == other.merchantCity && merchantCountry == other.merchantCountry && merchantDescriptor == other.merchantDescriptor && merchantState == other.merchantState && networkDetails == other.networkDetails && physicalCardId == other.physicalCardId && terminalId == other.terminalId && additionalProperties == other.additionalProperties /* spotless:on */
-        }
-
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(amount, authenticatedCardPaymentId, cardId, declineReason, digitalWalletTokenId, direction, eventSubscriptionId, merchantAcceptorId, merchantCategoryCode, merchantCity, merchantCountry, merchantDescriptor, merchantState, networkDetails, physicalCardId, terminalId, additionalProperties) }
-        /* spotless:on */
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "Body{amount=$amount, authenticatedCardPaymentId=$authenticatedCardPaymentId, cardId=$cardId, declineReason=$declineReason, digitalWalletTokenId=$digitalWalletTokenId, direction=$direction, eventSubscriptionId=$eventSubscriptionId, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantState=$merchantState, networkDetails=$networkDetails, physicalCardId=$physicalCardId, terminalId=$terminalId, additionalProperties=$additionalProperties}"
-    }
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -1084,7 +312,6 @@ private constructor(
     }
 
     /** A builder for [CardAuthorizationCreateParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var body: Body.Builder = Body.builder()
@@ -1487,6 +714,813 @@ private constructor(
             )
     }
 
+    @JvmSynthetic internal fun _body(): Body = body
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams = additionalQueryParams
+
+    class Body
+    private constructor(
+        private val amount: JsonField<Long>,
+        private val authenticatedCardPaymentId: JsonField<String>,
+        private val cardId: JsonField<String>,
+        private val declineReason: JsonField<DeclineReason>,
+        private val digitalWalletTokenId: JsonField<String>,
+        private val direction: JsonField<Direction>,
+        private val eventSubscriptionId: JsonField<String>,
+        private val merchantAcceptorId: JsonField<String>,
+        private val merchantCategoryCode: JsonField<String>,
+        private val merchantCity: JsonField<String>,
+        private val merchantCountry: JsonField<String>,
+        private val merchantDescriptor: JsonField<String>,
+        private val merchantState: JsonField<String>,
+        private val networkDetails: JsonField<NetworkDetails>,
+        private val physicalCardId: JsonField<String>,
+        private val terminalId: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("authenticated_card_payment_id")
+            @ExcludeMissing
+            authenticatedCardPaymentId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("card_id") @ExcludeMissing cardId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("decline_reason")
+            @ExcludeMissing
+            declineReason: JsonField<DeclineReason> = JsonMissing.of(),
+            @JsonProperty("digital_wallet_token_id")
+            @ExcludeMissing
+            digitalWalletTokenId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("direction")
+            @ExcludeMissing
+            direction: JsonField<Direction> = JsonMissing.of(),
+            @JsonProperty("event_subscription_id")
+            @ExcludeMissing
+            eventSubscriptionId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("merchant_acceptor_id")
+            @ExcludeMissing
+            merchantAcceptorId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("merchant_category_code")
+            @ExcludeMissing
+            merchantCategoryCode: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("merchant_city")
+            @ExcludeMissing
+            merchantCity: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("merchant_country")
+            @ExcludeMissing
+            merchantCountry: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("merchant_descriptor")
+            @ExcludeMissing
+            merchantDescriptor: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("merchant_state")
+            @ExcludeMissing
+            merchantState: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("network_details")
+            @ExcludeMissing
+            networkDetails: JsonField<NetworkDetails> = JsonMissing.of(),
+            @JsonProperty("physical_card_id")
+            @ExcludeMissing
+            physicalCardId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("terminal_id")
+            @ExcludeMissing
+            terminalId: JsonField<String> = JsonMissing.of(),
+        ) : this(
+            amount,
+            authenticatedCardPaymentId,
+            cardId,
+            declineReason,
+            digitalWalletTokenId,
+            direction,
+            eventSubscriptionId,
+            merchantAcceptorId,
+            merchantCategoryCode,
+            merchantCity,
+            merchantCountry,
+            merchantDescriptor,
+            merchantState,
+            networkDetails,
+            physicalCardId,
+            terminalId,
+            mutableMapOf(),
+        )
+
+        /**
+         * The authorization amount in cents.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun amount(): Long = amount.getRequired("amount")
+
+        /**
+         * The identifier of a Card Payment with a `card_authentication` if you want to simulate an
+         * authenticated authorization.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun authenticatedCardPaymentId(): Optional<String> =
+            Optional.ofNullable(
+                authenticatedCardPaymentId.getNullable("authenticated_card_payment_id")
+            )
+
+        /**
+         * The identifier of the Card to be authorized.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun cardId(): Optional<String> = Optional.ofNullable(cardId.getNullable("card_id"))
+
+        /**
+         * Forces a card decline with a specific reason. No real time decision will be sent.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun declineReason(): Optional<DeclineReason> =
+            Optional.ofNullable(declineReason.getNullable("decline_reason"))
+
+        /**
+         * The identifier of the Digital Wallet Token to be authorized.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun digitalWalletTokenId(): Optional<String> =
+            Optional.ofNullable(digitalWalletTokenId.getNullable("digital_wallet_token_id"))
+
+        /**
+         * The direction describes the direction the funds will move, either from the cardholder to
+         * the merchant or from the merchant to the cardholder.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun direction(): Optional<Direction> =
+            Optional.ofNullable(direction.getNullable("direction"))
+
+        /**
+         * The identifier of the Event Subscription to use. If provided, will override the default
+         * real time event subscription. Because you can only create one real time decision event
+         * subscription, you can use this field to route events to any specified event subscription
+         * for testing purposes.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun eventSubscriptionId(): Optional<String> =
+            Optional.ofNullable(eventSubscriptionId.getNullable("event_subscription_id"))
+
+        /**
+         * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
+         * transacting with.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun merchantAcceptorId(): Optional<String> =
+            Optional.ofNullable(merchantAcceptorId.getNullable("merchant_acceptor_id"))
+
+        /**
+         * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the card is
+         * transacting with.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun merchantCategoryCode(): Optional<String> =
+            Optional.ofNullable(merchantCategoryCode.getNullable("merchant_category_code"))
+
+        /**
+         * The city the merchant resides in.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun merchantCity(): Optional<String> =
+            Optional.ofNullable(merchantCity.getNullable("merchant_city"))
+
+        /**
+         * The country the merchant resides in.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun merchantCountry(): Optional<String> =
+            Optional.ofNullable(merchantCountry.getNullable("merchant_country"))
+
+        /**
+         * The merchant descriptor of the merchant the card is transacting with.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun merchantDescriptor(): Optional<String> =
+            Optional.ofNullable(merchantDescriptor.getNullable("merchant_descriptor"))
+
+        /**
+         * The state the merchant resides in.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun merchantState(): Optional<String> =
+            Optional.ofNullable(merchantState.getNullable("merchant_state"))
+
+        /**
+         * Fields specific to a given card network.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun networkDetails(): Optional<NetworkDetails> =
+            Optional.ofNullable(networkDetails.getNullable("network_details"))
+
+        /**
+         * The identifier of the Physical Card to be authorized.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun physicalCardId(): Optional<String> =
+            Optional.ofNullable(physicalCardId.getNullable("physical_card_id"))
+
+        /**
+         * The terminal identifier (commonly abbreviated as TID) of the terminal the card is
+         * transacting with.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun terminalId(): Optional<String> =
+            Optional.ofNullable(terminalId.getNullable("terminal_id"))
+
+        /**
+         * Returns the raw JSON value of [amount].
+         *
+         * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
+
+        /**
+         * Returns the raw JSON value of [authenticatedCardPaymentId].
+         *
+         * Unlike [authenticatedCardPaymentId], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("authenticated_card_payment_id")
+        @ExcludeMissing
+        fun _authenticatedCardPaymentId(): JsonField<String> = authenticatedCardPaymentId
+
+        /**
+         * Returns the raw JSON value of [cardId].
+         *
+         * Unlike [cardId], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("card_id") @ExcludeMissing fun _cardId(): JsonField<String> = cardId
+
+        /**
+         * Returns the raw JSON value of [declineReason].
+         *
+         * Unlike [declineReason], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("decline_reason")
+        @ExcludeMissing
+        fun _declineReason(): JsonField<DeclineReason> = declineReason
+
+        /**
+         * Returns the raw JSON value of [digitalWalletTokenId].
+         *
+         * Unlike [digitalWalletTokenId], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("digital_wallet_token_id")
+        @ExcludeMissing
+        fun _digitalWalletTokenId(): JsonField<String> = digitalWalletTokenId
+
+        /**
+         * Returns the raw JSON value of [direction].
+         *
+         * Unlike [direction], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("direction")
+        @ExcludeMissing
+        fun _direction(): JsonField<Direction> = direction
+
+        /**
+         * Returns the raw JSON value of [eventSubscriptionId].
+         *
+         * Unlike [eventSubscriptionId], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("event_subscription_id")
+        @ExcludeMissing
+        fun _eventSubscriptionId(): JsonField<String> = eventSubscriptionId
+
+        /**
+         * Returns the raw JSON value of [merchantAcceptorId].
+         *
+         * Unlike [merchantAcceptorId], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("merchant_acceptor_id")
+        @ExcludeMissing
+        fun _merchantAcceptorId(): JsonField<String> = merchantAcceptorId
+
+        /**
+         * Returns the raw JSON value of [merchantCategoryCode].
+         *
+         * Unlike [merchantCategoryCode], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("merchant_category_code")
+        @ExcludeMissing
+        fun _merchantCategoryCode(): JsonField<String> = merchantCategoryCode
+
+        /**
+         * Returns the raw JSON value of [merchantCity].
+         *
+         * Unlike [merchantCity], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("merchant_city")
+        @ExcludeMissing
+        fun _merchantCity(): JsonField<String> = merchantCity
+
+        /**
+         * Returns the raw JSON value of [merchantCountry].
+         *
+         * Unlike [merchantCountry], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("merchant_country")
+        @ExcludeMissing
+        fun _merchantCountry(): JsonField<String> = merchantCountry
+
+        /**
+         * Returns the raw JSON value of [merchantDescriptor].
+         *
+         * Unlike [merchantDescriptor], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("merchant_descriptor")
+        @ExcludeMissing
+        fun _merchantDescriptor(): JsonField<String> = merchantDescriptor
+
+        /**
+         * Returns the raw JSON value of [merchantState].
+         *
+         * Unlike [merchantState], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("merchant_state")
+        @ExcludeMissing
+        fun _merchantState(): JsonField<String> = merchantState
+
+        /**
+         * Returns the raw JSON value of [networkDetails].
+         *
+         * Unlike [networkDetails], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("network_details")
+        @ExcludeMissing
+        fun _networkDetails(): JsonField<NetworkDetails> = networkDetails
+
+        /**
+         * Returns the raw JSON value of [physicalCardId].
+         *
+         * Unlike [physicalCardId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("physical_card_id")
+        @ExcludeMissing
+        fun _physicalCardId(): JsonField<String> = physicalCardId
+
+        /**
+         * Returns the raw JSON value of [terminalId].
+         *
+         * Unlike [terminalId], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("terminal_id")
+        @ExcludeMissing
+        fun _terminalId(): JsonField<String> = terminalId
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [Body].
+             *
+             * The following fields are required:
+             * ```java
+             * .amount()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Body]. */
+        class Builder internal constructor() {
+
+            private var amount: JsonField<Long>? = null
+            private var authenticatedCardPaymentId: JsonField<String> = JsonMissing.of()
+            private var cardId: JsonField<String> = JsonMissing.of()
+            private var declineReason: JsonField<DeclineReason> = JsonMissing.of()
+            private var digitalWalletTokenId: JsonField<String> = JsonMissing.of()
+            private var direction: JsonField<Direction> = JsonMissing.of()
+            private var eventSubscriptionId: JsonField<String> = JsonMissing.of()
+            private var merchantAcceptorId: JsonField<String> = JsonMissing.of()
+            private var merchantCategoryCode: JsonField<String> = JsonMissing.of()
+            private var merchantCity: JsonField<String> = JsonMissing.of()
+            private var merchantCountry: JsonField<String> = JsonMissing.of()
+            private var merchantDescriptor: JsonField<String> = JsonMissing.of()
+            private var merchantState: JsonField<String> = JsonMissing.of()
+            private var networkDetails: JsonField<NetworkDetails> = JsonMissing.of()
+            private var physicalCardId: JsonField<String> = JsonMissing.of()
+            private var terminalId: JsonField<String> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(body: Body) = apply {
+                amount = body.amount
+                authenticatedCardPaymentId = body.authenticatedCardPaymentId
+                cardId = body.cardId
+                declineReason = body.declineReason
+                digitalWalletTokenId = body.digitalWalletTokenId
+                direction = body.direction
+                eventSubscriptionId = body.eventSubscriptionId
+                merchantAcceptorId = body.merchantAcceptorId
+                merchantCategoryCode = body.merchantCategoryCode
+                merchantCity = body.merchantCity
+                merchantCountry = body.merchantCountry
+                merchantDescriptor = body.merchantDescriptor
+                merchantState = body.merchantState
+                networkDetails = body.networkDetails
+                physicalCardId = body.physicalCardId
+                terminalId = body.terminalId
+                additionalProperties = body.additionalProperties.toMutableMap()
+            }
+
+            /** The authorization amount in cents. */
+            fun amount(amount: Long) = amount(JsonField.of(amount))
+
+            /**
+             * Sets [Builder.amount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+
+            /**
+             * The identifier of a Card Payment with a `card_authentication` if you want to simulate
+             * an authenticated authorization.
+             */
+            fun authenticatedCardPaymentId(authenticatedCardPaymentId: String) =
+                authenticatedCardPaymentId(JsonField.of(authenticatedCardPaymentId))
+
+            /**
+             * Sets [Builder.authenticatedCardPaymentId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.authenticatedCardPaymentId] with a well-typed
+             * [String] value instead. This method is primarily for setting the field to an
+             * undocumented or not yet supported value.
+             */
+            fun authenticatedCardPaymentId(authenticatedCardPaymentId: JsonField<String>) = apply {
+                this.authenticatedCardPaymentId = authenticatedCardPaymentId
+            }
+
+            /** The identifier of the Card to be authorized. */
+            fun cardId(cardId: String) = cardId(JsonField.of(cardId))
+
+            /**
+             * Sets [Builder.cardId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.cardId] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun cardId(cardId: JsonField<String>) = apply { this.cardId = cardId }
+
+            /** Forces a card decline with a specific reason. No real time decision will be sent. */
+            fun declineReason(declineReason: DeclineReason) =
+                declineReason(JsonField.of(declineReason))
+
+            /**
+             * Sets [Builder.declineReason] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.declineReason] with a well-typed [DeclineReason]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun declineReason(declineReason: JsonField<DeclineReason>) = apply {
+                this.declineReason = declineReason
+            }
+
+            /** The identifier of the Digital Wallet Token to be authorized. */
+            fun digitalWalletTokenId(digitalWalletTokenId: String) =
+                digitalWalletTokenId(JsonField.of(digitalWalletTokenId))
+
+            /**
+             * Sets [Builder.digitalWalletTokenId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.digitalWalletTokenId] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun digitalWalletTokenId(digitalWalletTokenId: JsonField<String>) = apply {
+                this.digitalWalletTokenId = digitalWalletTokenId
+            }
+
+            /**
+             * The direction describes the direction the funds will move, either from the cardholder
+             * to the merchant or from the merchant to the cardholder.
+             */
+            fun direction(direction: Direction) = direction(JsonField.of(direction))
+
+            /**
+             * Sets [Builder.direction] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.direction] with a well-typed [Direction] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun direction(direction: JsonField<Direction>) = apply { this.direction = direction }
+
+            /**
+             * The identifier of the Event Subscription to use. If provided, will override the
+             * default real time event subscription. Because you can only create one real time
+             * decision event subscription, you can use this field to route events to any specified
+             * event subscription for testing purposes.
+             */
+            fun eventSubscriptionId(eventSubscriptionId: String) =
+                eventSubscriptionId(JsonField.of(eventSubscriptionId))
+
+            /**
+             * Sets [Builder.eventSubscriptionId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.eventSubscriptionId] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun eventSubscriptionId(eventSubscriptionId: JsonField<String>) = apply {
+                this.eventSubscriptionId = eventSubscriptionId
+            }
+
+            /**
+             * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
+             * transacting with.
+             */
+            fun merchantAcceptorId(merchantAcceptorId: String) =
+                merchantAcceptorId(JsonField.of(merchantAcceptorId))
+
+            /**
+             * Sets [Builder.merchantAcceptorId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.merchantAcceptorId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun merchantAcceptorId(merchantAcceptorId: JsonField<String>) = apply {
+                this.merchantAcceptorId = merchantAcceptorId
+            }
+
+            /**
+             * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the card is
+             * transacting with.
+             */
+            fun merchantCategoryCode(merchantCategoryCode: String) =
+                merchantCategoryCode(JsonField.of(merchantCategoryCode))
+
+            /**
+             * Sets [Builder.merchantCategoryCode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.merchantCategoryCode] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun merchantCategoryCode(merchantCategoryCode: JsonField<String>) = apply {
+                this.merchantCategoryCode = merchantCategoryCode
+            }
+
+            /** The city the merchant resides in. */
+            fun merchantCity(merchantCity: String) = merchantCity(JsonField.of(merchantCity))
+
+            /**
+             * Sets [Builder.merchantCity] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.merchantCity] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun merchantCity(merchantCity: JsonField<String>) = apply {
+                this.merchantCity = merchantCity
+            }
+
+            /** The country the merchant resides in. */
+            fun merchantCountry(merchantCountry: String) =
+                merchantCountry(JsonField.of(merchantCountry))
+
+            /**
+             * Sets [Builder.merchantCountry] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.merchantCountry] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun merchantCountry(merchantCountry: JsonField<String>) = apply {
+                this.merchantCountry = merchantCountry
+            }
+
+            /** The merchant descriptor of the merchant the card is transacting with. */
+            fun merchantDescriptor(merchantDescriptor: String) =
+                merchantDescriptor(JsonField.of(merchantDescriptor))
+
+            /**
+             * Sets [Builder.merchantDescriptor] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.merchantDescriptor] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun merchantDescriptor(merchantDescriptor: JsonField<String>) = apply {
+                this.merchantDescriptor = merchantDescriptor
+            }
+
+            /** The state the merchant resides in. */
+            fun merchantState(merchantState: String) = merchantState(JsonField.of(merchantState))
+
+            /**
+             * Sets [Builder.merchantState] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.merchantState] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun merchantState(merchantState: JsonField<String>) = apply {
+                this.merchantState = merchantState
+            }
+
+            /** Fields specific to a given card network. */
+            fun networkDetails(networkDetails: NetworkDetails) =
+                networkDetails(JsonField.of(networkDetails))
+
+            /**
+             * Sets [Builder.networkDetails] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.networkDetails] with a well-typed [NetworkDetails]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun networkDetails(networkDetails: JsonField<NetworkDetails>) = apply {
+                this.networkDetails = networkDetails
+            }
+
+            /** The identifier of the Physical Card to be authorized. */
+            fun physicalCardId(physicalCardId: String) =
+                physicalCardId(JsonField.of(physicalCardId))
+
+            /**
+             * Sets [Builder.physicalCardId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.physicalCardId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun physicalCardId(physicalCardId: JsonField<String>) = apply {
+                this.physicalCardId = physicalCardId
+            }
+
+            /**
+             * The terminal identifier (commonly abbreviated as TID) of the terminal the card is
+             * transacting with.
+             */
+            fun terminalId(terminalId: String) = terminalId(JsonField.of(terminalId))
+
+            /**
+             * Sets [Builder.terminalId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.terminalId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun terminalId(terminalId: JsonField<String>) = apply { this.terminalId = terminalId }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Body].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .amount()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): Body =
+                Body(
+                    checkRequired("amount", amount),
+                    authenticatedCardPaymentId,
+                    cardId,
+                    declineReason,
+                    digitalWalletTokenId,
+                    direction,
+                    eventSubscriptionId,
+                    merchantAcceptorId,
+                    merchantCategoryCode,
+                    merchantCity,
+                    merchantCountry,
+                    merchantDescriptor,
+                    merchantState,
+                    networkDetails,
+                    physicalCardId,
+                    terminalId,
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Body = apply {
+            if (validated) {
+                return@apply
+            }
+
+            amount()
+            authenticatedCardPaymentId()
+            cardId()
+            declineReason()
+            digitalWalletTokenId()
+            direction()
+            eventSubscriptionId()
+            merchantAcceptorId()
+            merchantCategoryCode()
+            merchantCity()
+            merchantCountry()
+            merchantDescriptor()
+            merchantState()
+            networkDetails().ifPresent { it.validate() }
+            physicalCardId()
+            terminalId()
+            validated = true
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is Body && amount == other.amount && authenticatedCardPaymentId == other.authenticatedCardPaymentId && cardId == other.cardId && declineReason == other.declineReason && digitalWalletTokenId == other.digitalWalletTokenId && direction == other.direction && eventSubscriptionId == other.eventSubscriptionId && merchantAcceptorId == other.merchantAcceptorId && merchantCategoryCode == other.merchantCategoryCode && merchantCity == other.merchantCity && merchantCountry == other.merchantCountry && merchantDescriptor == other.merchantDescriptor && merchantState == other.merchantState && networkDetails == other.networkDetails && physicalCardId == other.physicalCardId && terminalId == other.terminalId && additionalProperties == other.additionalProperties /* spotless:on */
+        }
+
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(amount, authenticatedCardPaymentId, cardId, declineReason, digitalWalletTokenId, direction, eventSubscriptionId, merchantAcceptorId, merchantCategoryCode, merchantCity, merchantCountry, merchantDescriptor, merchantState, networkDetails, physicalCardId, terminalId, additionalProperties) }
+        /* spotless:on */
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Body{amount=$amount, authenticatedCardPaymentId=$authenticatedCardPaymentId, cardId=$cardId, declineReason=$declineReason, digitalWalletTokenId=$digitalWalletTokenId, direction=$direction, eventSubscriptionId=$eventSubscriptionId, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantState=$merchantState, networkDetails=$networkDetails, physicalCardId=$physicalCardId, terminalId=$terminalId, additionalProperties=$additionalProperties}"
+    }
+
     /** Forces a card decline with a specific reason. No real time decision will be sent. */
     class DeclineReason @JsonCreator private constructor(private val value: JsonField<String>) :
         Enum {
@@ -1879,14 +1913,16 @@ private constructor(
     }
 
     /** Fields specific to a given card network. */
-    @NoAutoDetect
     class NetworkDetails
-    @JsonCreator
     private constructor(
-        @JsonProperty("visa") @ExcludeMissing private val visa: JsonField<Visa> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val visa: JsonField<Visa>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("visa") @ExcludeMissing visa: JsonField<Visa> = JsonMissing.of()
+        ) : this(visa, mutableMapOf())
 
         /**
          * Fields specific to the Visa network.
@@ -1903,20 +1939,15 @@ private constructor(
          */
         @JsonProperty("visa") @ExcludeMissing fun _visa(): JsonField<Visa> = visa
 
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): NetworkDetails = apply {
-            if (validated) {
-                return@apply
-            }
-
-            visa().validate()
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -1989,21 +2020,33 @@ private constructor(
              * @throws IllegalStateException if any required field is unset.
              */
             fun build(): NetworkDetails =
-                NetworkDetails(checkRequired("visa", visa), additionalProperties.toImmutable())
+                NetworkDetails(checkRequired("visa", visa), additionalProperties.toMutableMap())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): NetworkDetails = apply {
+            if (validated) {
+                return@apply
+            }
+
+            visa().validate()
+            validated = true
         }
 
         /** Fields specific to the Visa network. */
-        @NoAutoDetect
         class Visa
-        @JsonCreator
         private constructor(
-            @JsonProperty("stand_in_processing_reason")
-            @ExcludeMissing
-            private val standInProcessingReason: JsonField<StandInProcessingReason> =
-                JsonMissing.of(),
-            @JsonAnySetter
-            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+            private val standInProcessingReason: JsonField<StandInProcessingReason>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("stand_in_processing_reason")
+                @ExcludeMissing
+                standInProcessingReason: JsonField<StandInProcessingReason> = JsonMissing.of()
+            ) : this(standInProcessingReason, mutableMapOf())
 
             /**
              * The reason code for the stand-in processing.
@@ -2027,20 +2070,15 @@ private constructor(
             fun _standInProcessingReason(): JsonField<StandInProcessingReason> =
                 standInProcessingReason
 
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
             @JsonAnyGetter
             @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-            private var validated: Boolean = false
-
-            fun validate(): Visa = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                standInProcessingReason()
-                validated = true
-            }
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
 
             fun toBuilder() = Builder().from(this)
 
@@ -2106,7 +2144,18 @@ private constructor(
                  * Further updates to this [Builder] will not mutate the returned instance.
                  */
                 fun build(): Visa =
-                    Visa(standInProcessingReason, additionalProperties.toImmutable())
+                    Visa(standInProcessingReason, additionalProperties.toMutableMap())
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): Visa = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                standInProcessingReason()
+                validated = true
             }
 
             /** The reason code for the stand-in processing. */

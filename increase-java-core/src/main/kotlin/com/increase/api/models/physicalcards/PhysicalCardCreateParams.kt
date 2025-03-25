@@ -11,14 +11,12 @@ import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.Params
 import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
-import com.increase.api.core.immutableEmptyMap
-import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
+import java.util.Collections
 import java.util.Objects
 import java.util.Optional
 
@@ -98,269 +96,6 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    @JvmSynthetic internal fun _body(): Body = body
-
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams = additionalQueryParams
-
-    @NoAutoDetect
-    class Body
-    @JsonCreator
-    private constructor(
-        @JsonProperty("card_id")
-        @ExcludeMissing
-        private val cardId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("cardholder")
-        @ExcludeMissing
-        private val cardholder: JsonField<Cardholder> = JsonMissing.of(),
-        @JsonProperty("shipment")
-        @ExcludeMissing
-        private val shipment: JsonField<Shipment> = JsonMissing.of(),
-        @JsonProperty("physical_card_profile_id")
-        @ExcludeMissing
-        private val physicalCardProfileId: JsonField<String> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-    ) {
-
-        /**
-         * The underlying card representing this physical card.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun cardId(): String = cardId.getRequired("card_id")
-
-        /**
-         * Details about the cardholder, as it will appear on the physical card.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun cardholder(): Cardholder = cardholder.getRequired("cardholder")
-
-        /**
-         * The details used to ship this physical card.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun shipment(): Shipment = shipment.getRequired("shipment")
-
-        /**
-         * The physical card profile to use for this physical card. The latest default physical card
-         * profile will be used if not provided.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun physicalCardProfileId(): Optional<String> =
-            Optional.ofNullable(physicalCardProfileId.getNullable("physical_card_profile_id"))
-
-        /**
-         * Returns the raw JSON value of [cardId].
-         *
-         * Unlike [cardId], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("card_id") @ExcludeMissing fun _cardId(): JsonField<String> = cardId
-
-        /**
-         * Returns the raw JSON value of [cardholder].
-         *
-         * Unlike [cardholder], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("cardholder")
-        @ExcludeMissing
-        fun _cardholder(): JsonField<Cardholder> = cardholder
-
-        /**
-         * Returns the raw JSON value of [shipment].
-         *
-         * Unlike [shipment], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("shipment") @ExcludeMissing fun _shipment(): JsonField<Shipment> = shipment
-
-        /**
-         * Returns the raw JSON value of [physicalCardProfileId].
-         *
-         * Unlike [physicalCardProfileId], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("physical_card_profile_id")
-        @ExcludeMissing
-        fun _physicalCardProfileId(): JsonField<String> = physicalCardProfileId
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): Body = apply {
-            if (validated) {
-                return@apply
-            }
-
-            cardId()
-            cardholder().validate()
-            shipment().validate()
-            physicalCardProfileId()
-            validated = true
-        }
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /**
-             * Returns a mutable builder for constructing an instance of [Body].
-             *
-             * The following fields are required:
-             * ```java
-             * .cardId()
-             * .cardholder()
-             * .shipment()
-             * ```
-             */
-            @JvmStatic fun builder() = Builder()
-        }
-
-        /** A builder for [Body]. */
-        class Builder internal constructor() {
-
-            private var cardId: JsonField<String>? = null
-            private var cardholder: JsonField<Cardholder>? = null
-            private var shipment: JsonField<Shipment>? = null
-            private var physicalCardProfileId: JsonField<String> = JsonMissing.of()
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(body: Body) = apply {
-                cardId = body.cardId
-                cardholder = body.cardholder
-                shipment = body.shipment
-                physicalCardProfileId = body.physicalCardProfileId
-                additionalProperties = body.additionalProperties.toMutableMap()
-            }
-
-            /** The underlying card representing this physical card. */
-            fun cardId(cardId: String) = cardId(JsonField.of(cardId))
-
-            /**
-             * Sets [Builder.cardId] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.cardId] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun cardId(cardId: JsonField<String>) = apply { this.cardId = cardId }
-
-            /** Details about the cardholder, as it will appear on the physical card. */
-            fun cardholder(cardholder: Cardholder) = cardholder(JsonField.of(cardholder))
-
-            /**
-             * Sets [Builder.cardholder] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.cardholder] with a well-typed [Cardholder] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun cardholder(cardholder: JsonField<Cardholder>) = apply {
-                this.cardholder = cardholder
-            }
-
-            /** The details used to ship this physical card. */
-            fun shipment(shipment: Shipment) = shipment(JsonField.of(shipment))
-
-            /**
-             * Sets [Builder.shipment] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.shipment] with a well-typed [Shipment] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun shipment(shipment: JsonField<Shipment>) = apply { this.shipment = shipment }
-
-            /**
-             * The physical card profile to use for this physical card. The latest default physical
-             * card profile will be used if not provided.
-             */
-            fun physicalCardProfileId(physicalCardProfileId: String) =
-                physicalCardProfileId(JsonField.of(physicalCardProfileId))
-
-            /**
-             * Sets [Builder.physicalCardProfileId] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.physicalCardProfileId] with a well-typed [String]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
-             */
-            fun physicalCardProfileId(physicalCardProfileId: JsonField<String>) = apply {
-                this.physicalCardProfileId = physicalCardProfileId
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [Body].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             *
-             * The following fields are required:
-             * ```java
-             * .cardId()
-             * .cardholder()
-             * .shipment()
-             * ```
-             *
-             * @throws IllegalStateException if any required field is unset.
-             */
-            fun build(): Body =
-                Body(
-                    checkRequired("cardId", cardId),
-                    checkRequired("cardholder", cardholder),
-                    checkRequired("shipment", shipment),
-                    physicalCardProfileId,
-                    additionalProperties.toImmutable(),
-                )
-        }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return /* spotless:off */ other is Body && cardId == other.cardId && cardholder == other.cardholder && shipment == other.shipment && physicalCardProfileId == other.physicalCardProfileId && additionalProperties == other.additionalProperties /* spotless:on */
-        }
-
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(cardId, cardholder, shipment, physicalCardProfileId, additionalProperties) }
-        /* spotless:on */
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "Body{cardId=$cardId, cardholder=$cardholder, shipment=$shipment, physicalCardProfileId=$physicalCardProfileId, additionalProperties=$additionalProperties}"
-    }
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -379,7 +114,6 @@ private constructor(
     }
 
     /** A builder for [PhysicalCardCreateParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var body: Body.Builder = Body.builder()
@@ -586,20 +320,295 @@ private constructor(
             )
     }
 
-    /** Details about the cardholder, as it will appear on the physical card. */
-    @NoAutoDetect
-    class Cardholder
-    @JsonCreator
+    @JvmSynthetic internal fun _body(): Body = body
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams = additionalQueryParams
+
+    class Body
     private constructor(
-        @JsonProperty("first_name")
-        @ExcludeMissing
-        private val firstName: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("last_name")
-        @ExcludeMissing
-        private val lastName: JsonField<String> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val cardId: JsonField<String>,
+        private val cardholder: JsonField<Cardholder>,
+        private val shipment: JsonField<Shipment>,
+        private val physicalCardProfileId: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("card_id") @ExcludeMissing cardId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("cardholder")
+            @ExcludeMissing
+            cardholder: JsonField<Cardholder> = JsonMissing.of(),
+            @JsonProperty("shipment")
+            @ExcludeMissing
+            shipment: JsonField<Shipment> = JsonMissing.of(),
+            @JsonProperty("physical_card_profile_id")
+            @ExcludeMissing
+            physicalCardProfileId: JsonField<String> = JsonMissing.of(),
+        ) : this(cardId, cardholder, shipment, physicalCardProfileId, mutableMapOf())
+
+        /**
+         * The underlying card representing this physical card.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun cardId(): String = cardId.getRequired("card_id")
+
+        /**
+         * Details about the cardholder, as it will appear on the physical card.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun cardholder(): Cardholder = cardholder.getRequired("cardholder")
+
+        /**
+         * The details used to ship this physical card.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun shipment(): Shipment = shipment.getRequired("shipment")
+
+        /**
+         * The physical card profile to use for this physical card. The latest default physical card
+         * profile will be used if not provided.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun physicalCardProfileId(): Optional<String> =
+            Optional.ofNullable(physicalCardProfileId.getNullable("physical_card_profile_id"))
+
+        /**
+         * Returns the raw JSON value of [cardId].
+         *
+         * Unlike [cardId], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("card_id") @ExcludeMissing fun _cardId(): JsonField<String> = cardId
+
+        /**
+         * Returns the raw JSON value of [cardholder].
+         *
+         * Unlike [cardholder], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("cardholder")
+        @ExcludeMissing
+        fun _cardholder(): JsonField<Cardholder> = cardholder
+
+        /**
+         * Returns the raw JSON value of [shipment].
+         *
+         * Unlike [shipment], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("shipment") @ExcludeMissing fun _shipment(): JsonField<Shipment> = shipment
+
+        /**
+         * Returns the raw JSON value of [physicalCardProfileId].
+         *
+         * Unlike [physicalCardProfileId], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("physical_card_profile_id")
+        @ExcludeMissing
+        fun _physicalCardProfileId(): JsonField<String> = physicalCardProfileId
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [Body].
+             *
+             * The following fields are required:
+             * ```java
+             * .cardId()
+             * .cardholder()
+             * .shipment()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Body]. */
+        class Builder internal constructor() {
+
+            private var cardId: JsonField<String>? = null
+            private var cardholder: JsonField<Cardholder>? = null
+            private var shipment: JsonField<Shipment>? = null
+            private var physicalCardProfileId: JsonField<String> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(body: Body) = apply {
+                cardId = body.cardId
+                cardholder = body.cardholder
+                shipment = body.shipment
+                physicalCardProfileId = body.physicalCardProfileId
+                additionalProperties = body.additionalProperties.toMutableMap()
+            }
+
+            /** The underlying card representing this physical card. */
+            fun cardId(cardId: String) = cardId(JsonField.of(cardId))
+
+            /**
+             * Sets [Builder.cardId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.cardId] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun cardId(cardId: JsonField<String>) = apply { this.cardId = cardId }
+
+            /** Details about the cardholder, as it will appear on the physical card. */
+            fun cardholder(cardholder: Cardholder) = cardholder(JsonField.of(cardholder))
+
+            /**
+             * Sets [Builder.cardholder] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.cardholder] with a well-typed [Cardholder] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun cardholder(cardholder: JsonField<Cardholder>) = apply {
+                this.cardholder = cardholder
+            }
+
+            /** The details used to ship this physical card. */
+            fun shipment(shipment: Shipment) = shipment(JsonField.of(shipment))
+
+            /**
+             * Sets [Builder.shipment] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.shipment] with a well-typed [Shipment] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun shipment(shipment: JsonField<Shipment>) = apply { this.shipment = shipment }
+
+            /**
+             * The physical card profile to use for this physical card. The latest default physical
+             * card profile will be used if not provided.
+             */
+            fun physicalCardProfileId(physicalCardProfileId: String) =
+                physicalCardProfileId(JsonField.of(physicalCardProfileId))
+
+            /**
+             * Sets [Builder.physicalCardProfileId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.physicalCardProfileId] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun physicalCardProfileId(physicalCardProfileId: JsonField<String>) = apply {
+                this.physicalCardProfileId = physicalCardProfileId
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Body].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .cardId()
+             * .cardholder()
+             * .shipment()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): Body =
+                Body(
+                    checkRequired("cardId", cardId),
+                    checkRequired("cardholder", cardholder),
+                    checkRequired("shipment", shipment),
+                    physicalCardProfileId,
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Body = apply {
+            if (validated) {
+                return@apply
+            }
+
+            cardId()
+            cardholder().validate()
+            shipment().validate()
+            physicalCardProfileId()
+            validated = true
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is Body && cardId == other.cardId && cardholder == other.cardholder && shipment == other.shipment && physicalCardProfileId == other.physicalCardProfileId && additionalProperties == other.additionalProperties /* spotless:on */
+        }
+
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(cardId, cardholder, shipment, physicalCardProfileId, additionalProperties) }
+        /* spotless:on */
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Body{cardId=$cardId, cardholder=$cardholder, shipment=$shipment, physicalCardProfileId=$physicalCardProfileId, additionalProperties=$additionalProperties}"
+    }
+
+    /** Details about the cardholder, as it will appear on the physical card. */
+    class Cardholder
+    private constructor(
+        private val firstName: JsonField<String>,
+        private val lastName: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("first_name")
+            @ExcludeMissing
+            firstName: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("last_name")
+            @ExcludeMissing
+            lastName: JsonField<String> = JsonMissing.of(),
+        ) : this(firstName, lastName, mutableMapOf())
 
         /**
          * The cardholder's first name.
@@ -631,21 +640,15 @@ private constructor(
          */
         @JsonProperty("last_name") @ExcludeMissing fun _lastName(): JsonField<String> = lastName
 
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): Cardholder = apply {
-            if (validated) {
-                return@apply
-            }
-
-            firstName()
-            lastName()
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -737,8 +740,20 @@ private constructor(
                 Cardholder(
                     checkRequired("firstName", firstName),
                     checkRequired("lastName", lastName),
-                    additionalProperties.toImmutable(),
+                    additionalProperties.toMutableMap(),
                 )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Cardholder = apply {
+            if (validated) {
+                return@apply
+            }
+
+            firstName()
+            lastName()
+            validated = true
         }
 
         override fun equals(other: Any?): Boolean {
@@ -760,19 +775,18 @@ private constructor(
     }
 
     /** The details used to ship this physical card. */
-    @NoAutoDetect
     class Shipment
-    @JsonCreator
     private constructor(
-        @JsonProperty("address")
-        @ExcludeMissing
-        private val address: JsonField<Address> = JsonMissing.of(),
-        @JsonProperty("method")
-        @ExcludeMissing
-        private val method: JsonField<Method> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val address: JsonField<Address>,
+        private val method: JsonField<Method>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("address") @ExcludeMissing address: JsonField<Address> = JsonMissing.of(),
+            @JsonProperty("method") @ExcludeMissing method: JsonField<Method> = JsonMissing.of(),
+        ) : this(address, method, mutableMapOf())
 
         /**
          * The address to where the card should be shipped.
@@ -804,21 +818,15 @@ private constructor(
          */
         @JsonProperty("method") @ExcludeMissing fun _method(): JsonField<Method> = method
 
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): Shipment = apply {
-            if (validated) {
-                return@apply
-            }
-
-            address().validate()
-            method()
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -910,42 +918,61 @@ private constructor(
                 Shipment(
                     checkRequired("address", address),
                     checkRequired("method", method),
-                    additionalProperties.toImmutable(),
+                    additionalProperties.toMutableMap(),
                 )
         }
 
+        private var validated: Boolean = false
+
+        fun validate(): Shipment = apply {
+            if (validated) {
+                return@apply
+            }
+
+            address().validate()
+            method()
+            validated = true
+        }
+
         /** The address to where the card should be shipped. */
-        @NoAutoDetect
         class Address
-        @JsonCreator
         private constructor(
-            @JsonProperty("city")
-            @ExcludeMissing
-            private val city: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("line1")
-            @ExcludeMissing
-            private val line1: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("name")
-            @ExcludeMissing
-            private val name: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("postal_code")
-            @ExcludeMissing
-            private val postalCode: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("state")
-            @ExcludeMissing
-            private val state: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("line2")
-            @ExcludeMissing
-            private val line2: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("line3")
-            @ExcludeMissing
-            private val line3: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("phone_number")
-            @ExcludeMissing
-            private val phoneNumber: JsonField<String> = JsonMissing.of(),
-            @JsonAnySetter
-            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+            private val city: JsonField<String>,
+            private val line1: JsonField<String>,
+            private val name: JsonField<String>,
+            private val postalCode: JsonField<String>,
+            private val state: JsonField<String>,
+            private val line2: JsonField<String>,
+            private val line3: JsonField<String>,
+            private val phoneNumber: JsonField<String>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("city") @ExcludeMissing city: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("line1") @ExcludeMissing line1: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("postal_code")
+                @ExcludeMissing
+                postalCode: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("state") @ExcludeMissing state: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("line2") @ExcludeMissing line2: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("line3") @ExcludeMissing line3: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("phone_number")
+                @ExcludeMissing
+                phoneNumber: JsonField<String> = JsonMissing.of(),
+            ) : this(
+                city,
+                line1,
+                name,
+                postalCode,
+                state,
+                line2,
+                line3,
+                phoneNumber,
+                mutableMapOf(),
+            )
 
             /**
              * The city of the shipping address.
@@ -1079,27 +1106,15 @@ private constructor(
             @ExcludeMissing
             fun _phoneNumber(): JsonField<String> = phoneNumber
 
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
             @JsonAnyGetter
             @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-            private var validated: Boolean = false
-
-            fun validate(): Address = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                city()
-                line1()
-                name()
-                postalCode()
-                state()
-                line2()
-                line3()
-                phoneNumber()
-                validated = true
-            }
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
 
             fun toBuilder() = Builder().from(this)
 
@@ -1294,8 +1309,26 @@ private constructor(
                         line2,
                         line3,
                         phoneNumber,
-                        additionalProperties.toImmutable(),
+                        additionalProperties.toMutableMap(),
                     )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): Address = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                city()
+                line1()
+                name()
+                postalCode()
+                state()
+                line2()
+                line3()
+                phoneNumber()
+                validated = true
             }
 
             override fun equals(other: Any?): Boolean {
