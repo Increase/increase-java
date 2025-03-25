@@ -11,12 +11,10 @@ import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.checkRequired
-import com.increase.api.core.immutableEmptyMap
-import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
+import java.util.Collections
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
@@ -25,41 +23,63 @@ import kotlin.jvm.optionals.getOrNull
  * External Accounts represent accounts at financial institutions other than Increase. You can use
  * this API to store their details for reuse.
  */
-@NoAutoDetect
 class ExternalAccount
-@JsonCreator
 private constructor(
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("account_holder")
-    @ExcludeMissing
-    private val accountHolder: JsonField<AccountHolder> = JsonMissing.of(),
-    @JsonProperty("account_number")
-    @ExcludeMissing
-    private val accountNumber: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("created_at")
-    @ExcludeMissing
-    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("description")
-    @ExcludeMissing
-    private val description: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("funding")
-    @ExcludeMissing
-    private val funding: JsonField<Funding> = JsonMissing.of(),
-    @JsonProperty("idempotency_key")
-    @ExcludeMissing
-    private val idempotencyKey: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("routing_number")
-    @ExcludeMissing
-    private val routingNumber: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("status")
-    @ExcludeMissing
-    private val status: JsonField<Status> = JsonMissing.of(),
-    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
-    @JsonProperty("verification_status")
-    @ExcludeMissing
-    private val verificationStatus: JsonField<VerificationStatus> = JsonMissing.of(),
-    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+    private val id: JsonField<String>,
+    private val accountHolder: JsonField<AccountHolder>,
+    private val accountNumber: JsonField<String>,
+    private val createdAt: JsonField<OffsetDateTime>,
+    private val description: JsonField<String>,
+    private val funding: JsonField<Funding>,
+    private val idempotencyKey: JsonField<String>,
+    private val routingNumber: JsonField<String>,
+    private val status: JsonField<Status>,
+    private val type: JsonField<Type>,
+    private val verificationStatus: JsonField<VerificationStatus>,
+    private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
+
+    @JsonCreator
+    private constructor(
+        @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("account_holder")
+        @ExcludeMissing
+        accountHolder: JsonField<AccountHolder> = JsonMissing.of(),
+        @JsonProperty("account_number")
+        @ExcludeMissing
+        accountNumber: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("description")
+        @ExcludeMissing
+        description: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("funding") @ExcludeMissing funding: JsonField<Funding> = JsonMissing.of(),
+        @JsonProperty("idempotency_key")
+        @ExcludeMissing
+        idempotencyKey: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("routing_number")
+        @ExcludeMissing
+        routingNumber: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
+        @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+        @JsonProperty("verification_status")
+        @ExcludeMissing
+        verificationStatus: JsonField<VerificationStatus> = JsonMissing.of(),
+    ) : this(
+        id,
+        accountHolder,
+        accountNumber,
+        createdAt,
+        description,
+        funding,
+        idempotencyKey,
+        routingNumber,
+        status,
+        type,
+        verificationStatus,
+        mutableMapOf(),
+    )
 
     /**
      * The External Account's identifier.
@@ -245,30 +265,15 @@ private constructor(
     @ExcludeMissing
     fun _verificationStatus(): JsonField<VerificationStatus> = verificationStatus
 
+    @JsonAnySetter
+    private fun putAdditionalProperty(key: String, value: JsonValue) {
+        additionalProperties.put(key, value)
+    }
+
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-    private var validated: Boolean = false
-
-    fun validate(): ExternalAccount = apply {
-        if (validated) {
-            return@apply
-        }
-
-        id()
-        accountHolder()
-        accountNumber()
-        createdAt()
-        description()
-        funding()
-        idempotencyKey()
-        routingNumber()
-        status()
-        type()
-        verificationStatus()
-        validated = true
-    }
+    fun _additionalProperties(): Map<String, JsonValue> =
+        Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
@@ -535,8 +540,29 @@ private constructor(
                 checkRequired("status", status),
                 checkRequired("type", type),
                 checkRequired("verificationStatus", verificationStatus),
-                additionalProperties.toImmutable(),
+                additionalProperties.toMutableMap(),
             )
+    }
+
+    private var validated: Boolean = false
+
+    fun validate(): ExternalAccount = apply {
+        if (validated) {
+            return@apply
+        }
+
+        id()
+        accountHolder()
+        accountNumber()
+        createdAt()
+        description()
+        funding()
+        idempotencyKey()
+        routingNumber()
+        status()
+        type()
+        verificationStatus()
+        validated = true
     }
 
     /** The type of entity that owns the External Account. */

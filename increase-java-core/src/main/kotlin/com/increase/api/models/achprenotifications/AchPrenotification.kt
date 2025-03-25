@@ -11,13 +11,12 @@ import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.checkKnown
 import com.increase.api.core.checkRequired
-import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
+import java.util.Collections
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
@@ -26,56 +25,88 @@ import kotlin.jvm.optionals.getOrNull
  * ACH Prenotifications are one way you can verify account and routing numbers by Automated Clearing
  * House (ACH).
  */
-@NoAutoDetect
 class AchPrenotification
-@JsonCreator
 private constructor(
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("account_number")
-    @ExcludeMissing
-    private val accountNumber: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("addendum")
-    @ExcludeMissing
-    private val addendum: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("company_descriptive_date")
-    @ExcludeMissing
-    private val companyDescriptiveDate: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("company_discretionary_data")
-    @ExcludeMissing
-    private val companyDiscretionaryData: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("company_entry_description")
-    @ExcludeMissing
-    private val companyEntryDescription: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("company_name")
-    @ExcludeMissing
-    private val companyName: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("created_at")
-    @ExcludeMissing
-    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("credit_debit_indicator")
-    @ExcludeMissing
-    private val creditDebitIndicator: JsonField<CreditDebitIndicator> = JsonMissing.of(),
-    @JsonProperty("effective_date")
-    @ExcludeMissing
-    private val effectiveDate: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("idempotency_key")
-    @ExcludeMissing
-    private val idempotencyKey: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("notifications_of_change")
-    @ExcludeMissing
-    private val notificationsOfChange: JsonField<List<NotificationsOfChange>> = JsonMissing.of(),
-    @JsonProperty("prenotification_return")
-    @ExcludeMissing
-    private val prenotificationReturn: JsonField<PrenotificationReturn> = JsonMissing.of(),
-    @JsonProperty("routing_number")
-    @ExcludeMissing
-    private val routingNumber: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("status")
-    @ExcludeMissing
-    private val status: JsonField<Status> = JsonMissing.of(),
-    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
-    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+    private val id: JsonField<String>,
+    private val accountNumber: JsonField<String>,
+    private val addendum: JsonField<String>,
+    private val companyDescriptiveDate: JsonField<String>,
+    private val companyDiscretionaryData: JsonField<String>,
+    private val companyEntryDescription: JsonField<String>,
+    private val companyName: JsonField<String>,
+    private val createdAt: JsonField<OffsetDateTime>,
+    private val creditDebitIndicator: JsonField<CreditDebitIndicator>,
+    private val effectiveDate: JsonField<OffsetDateTime>,
+    private val idempotencyKey: JsonField<String>,
+    private val notificationsOfChange: JsonField<List<NotificationsOfChange>>,
+    private val prenotificationReturn: JsonField<PrenotificationReturn>,
+    private val routingNumber: JsonField<String>,
+    private val status: JsonField<Status>,
+    private val type: JsonField<Type>,
+    private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
+
+    @JsonCreator
+    private constructor(
+        @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("account_number")
+        @ExcludeMissing
+        accountNumber: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("addendum") @ExcludeMissing addendum: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("company_descriptive_date")
+        @ExcludeMissing
+        companyDescriptiveDate: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("company_discretionary_data")
+        @ExcludeMissing
+        companyDiscretionaryData: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("company_entry_description")
+        @ExcludeMissing
+        companyEntryDescription: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("company_name")
+        @ExcludeMissing
+        companyName: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("credit_debit_indicator")
+        @ExcludeMissing
+        creditDebitIndicator: JsonField<CreditDebitIndicator> = JsonMissing.of(),
+        @JsonProperty("effective_date")
+        @ExcludeMissing
+        effectiveDate: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("idempotency_key")
+        @ExcludeMissing
+        idempotencyKey: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("notifications_of_change")
+        @ExcludeMissing
+        notificationsOfChange: JsonField<List<NotificationsOfChange>> = JsonMissing.of(),
+        @JsonProperty("prenotification_return")
+        @ExcludeMissing
+        prenotificationReturn: JsonField<PrenotificationReturn> = JsonMissing.of(),
+        @JsonProperty("routing_number")
+        @ExcludeMissing
+        routingNumber: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
+        @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+    ) : this(
+        id,
+        accountNumber,
+        addendum,
+        companyDescriptiveDate,
+        companyDiscretionaryData,
+        companyEntryDescription,
+        companyName,
+        createdAt,
+        creditDebitIndicator,
+        effectiveDate,
+        idempotencyKey,
+        notificationsOfChange,
+        prenotificationReturn,
+        routingNumber,
+        status,
+        type,
+        mutableMapOf(),
+    )
 
     /**
      * The ACH Prenotification's identifier.
@@ -361,35 +392,15 @@ private constructor(
      */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
+    @JsonAnySetter
+    private fun putAdditionalProperty(key: String, value: JsonValue) {
+        additionalProperties.put(key, value)
+    }
+
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-    private var validated: Boolean = false
-
-    fun validate(): AchPrenotification = apply {
-        if (validated) {
-            return@apply
-        }
-
-        id()
-        accountNumber()
-        addendum()
-        companyDescriptiveDate()
-        companyDiscretionaryData()
-        companyEntryDescription()
-        companyName()
-        createdAt()
-        creditDebitIndicator()
-        effectiveDate()
-        idempotencyKey()
-        notificationsOfChange().forEach { it.validate() }
-        prenotificationReturn().ifPresent { it.validate() }
-        routingNumber()
-        status()
-        type()
-        validated = true
-    }
+    fun _additionalProperties(): Map<String, JsonValue> =
+        Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
@@ -821,8 +832,34 @@ private constructor(
                 checkRequired("routingNumber", routingNumber),
                 checkRequired("status", status),
                 checkRequired("type", type),
-                additionalProperties.toImmutable(),
+                additionalProperties.toMutableMap(),
             )
+    }
+
+    private var validated: Boolean = false
+
+    fun validate(): AchPrenotification = apply {
+        if (validated) {
+            return@apply
+        }
+
+        id()
+        accountNumber()
+        addendum()
+        companyDescriptiveDate()
+        companyDiscretionaryData()
+        companyEntryDescription()
+        companyName()
+        createdAt()
+        creditDebitIndicator()
+        effectiveDate()
+        idempotencyKey()
+        notificationsOfChange().forEach { it.validate() }
+        prenotificationReturn().ifPresent { it.validate() }
+        routingNumber()
+        status()
+        type()
+        validated = true
     }
 
     /** If the notification is for a future credit or debit. */
@@ -938,22 +975,26 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    @NoAutoDetect
     class NotificationsOfChange
-    @JsonCreator
     private constructor(
-        @JsonProperty("change_code")
-        @ExcludeMissing
-        private val changeCode: JsonField<ChangeCode> = JsonMissing.of(),
-        @JsonProperty("corrected_data")
-        @ExcludeMissing
-        private val correctedData: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("created_at")
-        @ExcludeMissing
-        private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val changeCode: JsonField<ChangeCode>,
+        private val correctedData: JsonField<String>,
+        private val createdAt: JsonField<OffsetDateTime>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("change_code")
+            @ExcludeMissing
+            changeCode: JsonField<ChangeCode> = JsonMissing.of(),
+            @JsonProperty("corrected_data")
+            @ExcludeMissing
+            correctedData: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("created_at")
+            @ExcludeMissing
+            createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        ) : this(changeCode, correctedData, createdAt, mutableMapOf())
 
         /**
          * The required type of change that is being signaled by the receiving financial
@@ -1013,22 +1054,15 @@ private constructor(
         @ExcludeMissing
         fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): NotificationsOfChange = apply {
-            if (validated) {
-                return@apply
-            }
-
-            changeCode()
-            correctedData()
-            createdAt()
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -1155,8 +1189,21 @@ private constructor(
                     checkRequired("changeCode", changeCode),
                     checkRequired("correctedData", correctedData),
                     checkRequired("createdAt", createdAt),
-                    additionalProperties.toImmutable(),
+                    additionalProperties.toMutableMap(),
                 )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): NotificationsOfChange = apply {
+            if (validated) {
+                return@apply
+            }
+
+            changeCode()
+            correctedData()
+            createdAt()
+            validated = true
         }
 
         /**
@@ -1533,19 +1580,22 @@ private constructor(
     }
 
     /** If your prenotification is returned, this will contain details of the return. */
-    @NoAutoDetect
     class PrenotificationReturn
-    @JsonCreator
     private constructor(
-        @JsonProperty("created_at")
-        @ExcludeMissing
-        private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonProperty("return_reason_code")
-        @ExcludeMissing
-        private val returnReasonCode: JsonField<ReturnReasonCode> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val createdAt: JsonField<OffsetDateTime>,
+        private val returnReasonCode: JsonField<ReturnReasonCode>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("created_at")
+            @ExcludeMissing
+            createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+            @JsonProperty("return_reason_code")
+            @ExcludeMissing
+            returnReasonCode: JsonField<ReturnReasonCode> = JsonMissing.of(),
+        ) : this(createdAt, returnReasonCode, mutableMapOf())
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
@@ -1584,21 +1634,15 @@ private constructor(
         @ExcludeMissing
         fun _returnReasonCode(): JsonField<ReturnReasonCode> = returnReasonCode
 
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): PrenotificationReturn = apply {
-            if (validated) {
-                return@apply
-            }
-
-            createdAt()
-            returnReasonCode()
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -1698,8 +1742,20 @@ private constructor(
                 PrenotificationReturn(
                     checkRequired("createdAt", createdAt),
                     checkRequired("returnReasonCode", returnReasonCode),
-                    additionalProperties.toImmutable(),
+                    additionalProperties.toMutableMap(),
                 )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): PrenotificationReturn = apply {
+            if (validated) {
+                return@apply
+            }
+
+            createdAt()
+            returnReasonCode()
+            validated = true
         }
 
         /** Why the Prenotification was returned. */

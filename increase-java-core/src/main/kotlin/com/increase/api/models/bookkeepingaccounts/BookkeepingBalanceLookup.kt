@@ -11,29 +11,30 @@ import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.checkRequired
-import com.increase.api.core.immutableEmptyMap
-import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
+import java.util.Collections
 import java.util.Objects
 
 /**
  * Represents a request to lookup the balance of an Bookkeeping Account at a given point in time.
  */
-@NoAutoDetect
 class BookkeepingBalanceLookup
-@JsonCreator
 private constructor(
-    @JsonProperty("balance")
-    @ExcludeMissing
-    private val balance: JsonField<Long> = JsonMissing.of(),
-    @JsonProperty("bookkeeping_account_id")
-    @ExcludeMissing
-    private val bookkeepingAccountId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
-    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+    private val balance: JsonField<Long>,
+    private val bookkeepingAccountId: JsonField<String>,
+    private val type: JsonField<Type>,
+    private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
+
+    @JsonCreator
+    private constructor(
+        @JsonProperty("balance") @ExcludeMissing balance: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("bookkeeping_account_id")
+        @ExcludeMissing
+        bookkeepingAccountId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+    ) : this(balance, bookkeepingAccountId, type, mutableMapOf())
 
     /**
      * The Bookkeeping Account's current balance, representing the sum of all Bookkeeping Entries on
@@ -85,22 +86,15 @@ private constructor(
      */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
+    @JsonAnySetter
+    private fun putAdditionalProperty(key: String, value: JsonValue) {
+        additionalProperties.put(key, value)
+    }
+
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-    private var validated: Boolean = false
-
-    fun validate(): BookkeepingBalanceLookup = apply {
-        if (validated) {
-            return@apply
-        }
-
-        balance()
-        bookkeepingAccountId()
-        type()
-        validated = true
-    }
+    fun _additionalProperties(): Map<String, JsonValue> =
+        Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
@@ -216,8 +210,21 @@ private constructor(
                 checkRequired("balance", balance),
                 checkRequired("bookkeepingAccountId", bookkeepingAccountId),
                 checkRequired("type", type),
-                additionalProperties.toImmutable(),
+                additionalProperties.toMutableMap(),
             )
+    }
+
+    private var validated: Boolean = false
+
+    fun validate(): BookkeepingBalanceLookup = apply {
+        if (validated) {
+            return@apply
+        }
+
+        balance()
+        bookkeepingAccountId()
+        type()
+        validated = true
     }
 
     /**

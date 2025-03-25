@@ -10,15 +10,13 @@ import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.Params
 import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
-import com.increase.api.core.immutableEmptyMap
-import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
+import java.util.Collections
 import java.util.Objects
 import java.util.Optional
 
@@ -67,187 +65,6 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    @JvmSynthetic internal fun _body(): Body = body
-
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams = additionalQueryParams
-
-    @NoAutoDetect
-    class Body
-    @JsonCreator
-    private constructor(
-        @JsonProperty("file_id")
-        @ExcludeMissing
-        private val fileId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("expires_at")
-        @ExcludeMissing
-        private val expiresAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-    ) {
-
-        /**
-         * The File to create a File Link for.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun fileId(): String = fileId.getRequired("file_id")
-
-        /**
-         * The time at which the File Link will expire. The default is 1 hour from the time of the
-         * request. The maxiumum is 1 day from the time of the request.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun expiresAt(): Optional<OffsetDateTime> =
-            Optional.ofNullable(expiresAt.getNullable("expires_at"))
-
-        /**
-         * Returns the raw JSON value of [fileId].
-         *
-         * Unlike [fileId], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("file_id") @ExcludeMissing fun _fileId(): JsonField<String> = fileId
-
-        /**
-         * Returns the raw JSON value of [expiresAt].
-         *
-         * Unlike [expiresAt], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("expires_at")
-        @ExcludeMissing
-        fun _expiresAt(): JsonField<OffsetDateTime> = expiresAt
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): Body = apply {
-            if (validated) {
-                return@apply
-            }
-
-            fileId()
-            expiresAt()
-            validated = true
-        }
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /**
-             * Returns a mutable builder for constructing an instance of [Body].
-             *
-             * The following fields are required:
-             * ```java
-             * .fileId()
-             * ```
-             */
-            @JvmStatic fun builder() = Builder()
-        }
-
-        /** A builder for [Body]. */
-        class Builder internal constructor() {
-
-            private var fileId: JsonField<String>? = null
-            private var expiresAt: JsonField<OffsetDateTime> = JsonMissing.of()
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(body: Body) = apply {
-                fileId = body.fileId
-                expiresAt = body.expiresAt
-                additionalProperties = body.additionalProperties.toMutableMap()
-            }
-
-            /** The File to create a File Link for. */
-            fun fileId(fileId: String) = fileId(JsonField.of(fileId))
-
-            /**
-             * Sets [Builder.fileId] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.fileId] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun fileId(fileId: JsonField<String>) = apply { this.fileId = fileId }
-
-            /**
-             * The time at which the File Link will expire. The default is 1 hour from the time of
-             * the request. The maxiumum is 1 day from the time of the request.
-             */
-            fun expiresAt(expiresAt: OffsetDateTime) = expiresAt(JsonField.of(expiresAt))
-
-            /**
-             * Sets [Builder.expiresAt] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.expiresAt] with a well-typed [OffsetDateTime] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun expiresAt(expiresAt: JsonField<OffsetDateTime>) = apply {
-                this.expiresAt = expiresAt
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [Body].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             *
-             * The following fields are required:
-             * ```java
-             * .fileId()
-             * ```
-             *
-             * @throws IllegalStateException if any required field is unset.
-             */
-            fun build(): Body =
-                Body(checkRequired("fileId", fileId), expiresAt, additionalProperties.toImmutable())
-        }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return /* spotless:off */ other is Body && fileId == other.fileId && expiresAt == other.expiresAt && additionalProperties == other.additionalProperties /* spotless:on */
-        }
-
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(fileId, expiresAt, additionalProperties) }
-        /* spotless:on */
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "Body{fileId=$fileId, expiresAt=$expiresAt, additionalProperties=$additionalProperties}"
-    }
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -264,7 +81,6 @@ private constructor(
     }
 
     /** A builder for [FileLinkCreateParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var body: Body.Builder = Body.builder()
@@ -439,6 +255,198 @@ private constructor(
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
+    }
+
+    @JvmSynthetic internal fun _body(): Body = body
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams = additionalQueryParams
+
+    class Body
+    private constructor(
+        private val fileId: JsonField<String>,
+        private val expiresAt: JsonField<OffsetDateTime>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("file_id") @ExcludeMissing fileId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("expires_at")
+            @ExcludeMissing
+            expiresAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        ) : this(fileId, expiresAt, mutableMapOf())
+
+        /**
+         * The File to create a File Link for.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun fileId(): String = fileId.getRequired("file_id")
+
+        /**
+         * The time at which the File Link will expire. The default is 1 hour from the time of the
+         * request. The maxiumum is 1 day from the time of the request.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun expiresAt(): Optional<OffsetDateTime> =
+            Optional.ofNullable(expiresAt.getNullable("expires_at"))
+
+        /**
+         * Returns the raw JSON value of [fileId].
+         *
+         * Unlike [fileId], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("file_id") @ExcludeMissing fun _fileId(): JsonField<String> = fileId
+
+        /**
+         * Returns the raw JSON value of [expiresAt].
+         *
+         * Unlike [expiresAt], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("expires_at")
+        @ExcludeMissing
+        fun _expiresAt(): JsonField<OffsetDateTime> = expiresAt
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [Body].
+             *
+             * The following fields are required:
+             * ```java
+             * .fileId()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Body]. */
+        class Builder internal constructor() {
+
+            private var fileId: JsonField<String>? = null
+            private var expiresAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(body: Body) = apply {
+                fileId = body.fileId
+                expiresAt = body.expiresAt
+                additionalProperties = body.additionalProperties.toMutableMap()
+            }
+
+            /** The File to create a File Link for. */
+            fun fileId(fileId: String) = fileId(JsonField.of(fileId))
+
+            /**
+             * Sets [Builder.fileId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.fileId] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun fileId(fileId: JsonField<String>) = apply { this.fileId = fileId }
+
+            /**
+             * The time at which the File Link will expire. The default is 1 hour from the time of
+             * the request. The maxiumum is 1 day from the time of the request.
+             */
+            fun expiresAt(expiresAt: OffsetDateTime) = expiresAt(JsonField.of(expiresAt))
+
+            /**
+             * Sets [Builder.expiresAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.expiresAt] with a well-typed [OffsetDateTime] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun expiresAt(expiresAt: JsonField<OffsetDateTime>) = apply {
+                this.expiresAt = expiresAt
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Body].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .fileId()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): Body =
+                Body(
+                    checkRequired("fileId", fileId),
+                    expiresAt,
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Body = apply {
+            if (validated) {
+                return@apply
+            }
+
+            fileId()
+            expiresAt()
+            validated = true
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is Body && fileId == other.fileId && expiresAt == other.expiresAt && additionalProperties == other.additionalProperties /* spotless:on */
+        }
+
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(fileId, expiresAt, additionalProperties) }
+        /* spotless:on */
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Body{fileId=$fileId, expiresAt=$expiresAt, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

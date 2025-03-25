@@ -11,15 +11,13 @@ import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.Params
 import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
-import com.increase.api.core.immutableEmptyMap
-import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.LocalDate
+import java.util.Collections
 import java.util.Objects
 import java.util.Optional
 
@@ -240,642 +238,6 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    @JvmSynthetic internal fun _body(): Body = body
-
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams = additionalQueryParams
-
-    @NoAutoDetect
-    class Body
-    @JsonCreator
-    private constructor(
-        @JsonProperty("account_id")
-        @ExcludeMissing
-        private val accountId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("account_number")
-        @ExcludeMissing
-        private val accountNumber: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("routing_number")
-        @ExcludeMissing
-        private val routingNumber: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("addendum")
-        @ExcludeMissing
-        private val addendum: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("company_descriptive_date")
-        @ExcludeMissing
-        private val companyDescriptiveDate: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("company_discretionary_data")
-        @ExcludeMissing
-        private val companyDiscretionaryData: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("company_entry_description")
-        @ExcludeMissing
-        private val companyEntryDescription: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("company_name")
-        @ExcludeMissing
-        private val companyName: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("credit_debit_indicator")
-        @ExcludeMissing
-        private val creditDebitIndicator: JsonField<CreditDebitIndicator> = JsonMissing.of(),
-        @JsonProperty("effective_date")
-        @ExcludeMissing
-        private val effectiveDate: JsonField<LocalDate> = JsonMissing.of(),
-        @JsonProperty("individual_id")
-        @ExcludeMissing
-        private val individualId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("individual_name")
-        @ExcludeMissing
-        private val individualName: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("standard_entry_class_code")
-        @ExcludeMissing
-        private val standardEntryClassCode: JsonField<StandardEntryClassCode> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-    ) {
-
-        /**
-         * The Increase identifier for the account that will send the transfer.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun accountId(): String = accountId.getRequired("account_id")
-
-        /**
-         * The account number for the destination account.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun accountNumber(): String = accountNumber.getRequired("account_number")
-
-        /**
-         * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the destination
-         * account.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun routingNumber(): String = routingNumber.getRequired("routing_number")
-
-        /**
-         * Additional information that will be sent to the recipient.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun addendum(): Optional<String> = Optional.ofNullable(addendum.getNullable("addendum"))
-
-        /**
-         * The description of the date of the transfer.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun companyDescriptiveDate(): Optional<String> =
-            Optional.ofNullable(companyDescriptiveDate.getNullable("company_descriptive_date"))
-
-        /**
-         * The data you choose to associate with the transfer.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun companyDiscretionaryData(): Optional<String> =
-            Optional.ofNullable(companyDiscretionaryData.getNullable("company_discretionary_data"))
-
-        /**
-         * The description of the transfer you wish to be shown to the recipient.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun companyEntryDescription(): Optional<String> =
-            Optional.ofNullable(companyEntryDescription.getNullable("company_entry_description"))
-
-        /**
-         * The name by which the recipient knows you.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun companyName(): Optional<String> =
-            Optional.ofNullable(companyName.getNullable("company_name"))
-
-        /**
-         * Whether the Prenotification is for a future debit or credit.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun creditDebitIndicator(): Optional<CreditDebitIndicator> =
-            Optional.ofNullable(creditDebitIndicator.getNullable("credit_debit_indicator"))
-
-        /**
-         * The transfer effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun effectiveDate(): Optional<LocalDate> =
-            Optional.ofNullable(effectiveDate.getNullable("effective_date"))
-
-        /**
-         * Your identifier for the transfer recipient.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun individualId(): Optional<String> =
-            Optional.ofNullable(individualId.getNullable("individual_id"))
-
-        /**
-         * The name of the transfer recipient. This value is information and not verified by the
-         * recipient's bank.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun individualName(): Optional<String> =
-            Optional.ofNullable(individualName.getNullable("individual_name"))
-
-        /**
-         * The Standard Entry Class (SEC) code to use for the ACH Prenotification.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun standardEntryClassCode(): Optional<StandardEntryClassCode> =
-            Optional.ofNullable(standardEntryClassCode.getNullable("standard_entry_class_code"))
-
-        /**
-         * Returns the raw JSON value of [accountId].
-         *
-         * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
-
-        /**
-         * Returns the raw JSON value of [accountNumber].
-         *
-         * Unlike [accountNumber], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("account_number")
-        @ExcludeMissing
-        fun _accountNumber(): JsonField<String> = accountNumber
-
-        /**
-         * Returns the raw JSON value of [routingNumber].
-         *
-         * Unlike [routingNumber], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("routing_number")
-        @ExcludeMissing
-        fun _routingNumber(): JsonField<String> = routingNumber
-
-        /**
-         * Returns the raw JSON value of [addendum].
-         *
-         * Unlike [addendum], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("addendum") @ExcludeMissing fun _addendum(): JsonField<String> = addendum
-
-        /**
-         * Returns the raw JSON value of [companyDescriptiveDate].
-         *
-         * Unlike [companyDescriptiveDate], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("company_descriptive_date")
-        @ExcludeMissing
-        fun _companyDescriptiveDate(): JsonField<String> = companyDescriptiveDate
-
-        /**
-         * Returns the raw JSON value of [companyDiscretionaryData].
-         *
-         * Unlike [companyDiscretionaryData], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("company_discretionary_data")
-        @ExcludeMissing
-        fun _companyDiscretionaryData(): JsonField<String> = companyDiscretionaryData
-
-        /**
-         * Returns the raw JSON value of [companyEntryDescription].
-         *
-         * Unlike [companyEntryDescription], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("company_entry_description")
-        @ExcludeMissing
-        fun _companyEntryDescription(): JsonField<String> = companyEntryDescription
-
-        /**
-         * Returns the raw JSON value of [companyName].
-         *
-         * Unlike [companyName], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("company_name")
-        @ExcludeMissing
-        fun _companyName(): JsonField<String> = companyName
-
-        /**
-         * Returns the raw JSON value of [creditDebitIndicator].
-         *
-         * Unlike [creditDebitIndicator], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("credit_debit_indicator")
-        @ExcludeMissing
-        fun _creditDebitIndicator(): JsonField<CreditDebitIndicator> = creditDebitIndicator
-
-        /**
-         * Returns the raw JSON value of [effectiveDate].
-         *
-         * Unlike [effectiveDate], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("effective_date")
-        @ExcludeMissing
-        fun _effectiveDate(): JsonField<LocalDate> = effectiveDate
-
-        /**
-         * Returns the raw JSON value of [individualId].
-         *
-         * Unlike [individualId], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("individual_id")
-        @ExcludeMissing
-        fun _individualId(): JsonField<String> = individualId
-
-        /**
-         * Returns the raw JSON value of [individualName].
-         *
-         * Unlike [individualName], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("individual_name")
-        @ExcludeMissing
-        fun _individualName(): JsonField<String> = individualName
-
-        /**
-         * Returns the raw JSON value of [standardEntryClassCode].
-         *
-         * Unlike [standardEntryClassCode], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("standard_entry_class_code")
-        @ExcludeMissing
-        fun _standardEntryClassCode(): JsonField<StandardEntryClassCode> = standardEntryClassCode
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): Body = apply {
-            if (validated) {
-                return@apply
-            }
-
-            accountId()
-            accountNumber()
-            routingNumber()
-            addendum()
-            companyDescriptiveDate()
-            companyDiscretionaryData()
-            companyEntryDescription()
-            companyName()
-            creditDebitIndicator()
-            effectiveDate()
-            individualId()
-            individualName()
-            standardEntryClassCode()
-            validated = true
-        }
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /**
-             * Returns a mutable builder for constructing an instance of [Body].
-             *
-             * The following fields are required:
-             * ```java
-             * .accountId()
-             * .accountNumber()
-             * .routingNumber()
-             * ```
-             */
-            @JvmStatic fun builder() = Builder()
-        }
-
-        /** A builder for [Body]. */
-        class Builder internal constructor() {
-
-            private var accountId: JsonField<String>? = null
-            private var accountNumber: JsonField<String>? = null
-            private var routingNumber: JsonField<String>? = null
-            private var addendum: JsonField<String> = JsonMissing.of()
-            private var companyDescriptiveDate: JsonField<String> = JsonMissing.of()
-            private var companyDiscretionaryData: JsonField<String> = JsonMissing.of()
-            private var companyEntryDescription: JsonField<String> = JsonMissing.of()
-            private var companyName: JsonField<String> = JsonMissing.of()
-            private var creditDebitIndicator: JsonField<CreditDebitIndicator> = JsonMissing.of()
-            private var effectiveDate: JsonField<LocalDate> = JsonMissing.of()
-            private var individualId: JsonField<String> = JsonMissing.of()
-            private var individualName: JsonField<String> = JsonMissing.of()
-            private var standardEntryClassCode: JsonField<StandardEntryClassCode> = JsonMissing.of()
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(body: Body) = apply {
-                accountId = body.accountId
-                accountNumber = body.accountNumber
-                routingNumber = body.routingNumber
-                addendum = body.addendum
-                companyDescriptiveDate = body.companyDescriptiveDate
-                companyDiscretionaryData = body.companyDiscretionaryData
-                companyEntryDescription = body.companyEntryDescription
-                companyName = body.companyName
-                creditDebitIndicator = body.creditDebitIndicator
-                effectiveDate = body.effectiveDate
-                individualId = body.individualId
-                individualName = body.individualName
-                standardEntryClassCode = body.standardEntryClassCode
-                additionalProperties = body.additionalProperties.toMutableMap()
-            }
-
-            /** The Increase identifier for the account that will send the transfer. */
-            fun accountId(accountId: String) = accountId(JsonField.of(accountId))
-
-            /**
-             * Sets [Builder.accountId] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.accountId] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
-
-            /** The account number for the destination account. */
-            fun accountNumber(accountNumber: String) = accountNumber(JsonField.of(accountNumber))
-
-            /**
-             * Sets [Builder.accountNumber] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.accountNumber] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun accountNumber(accountNumber: JsonField<String>) = apply {
-                this.accountNumber = accountNumber
-            }
-
-            /**
-             * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the
-             * destination account.
-             */
-            fun routingNumber(routingNumber: String) = routingNumber(JsonField.of(routingNumber))
-
-            /**
-             * Sets [Builder.routingNumber] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.routingNumber] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun routingNumber(routingNumber: JsonField<String>) = apply {
-                this.routingNumber = routingNumber
-            }
-
-            /** Additional information that will be sent to the recipient. */
-            fun addendum(addendum: String) = addendum(JsonField.of(addendum))
-
-            /**
-             * Sets [Builder.addendum] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.addendum] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun addendum(addendum: JsonField<String>) = apply { this.addendum = addendum }
-
-            /** The description of the date of the transfer. */
-            fun companyDescriptiveDate(companyDescriptiveDate: String) =
-                companyDescriptiveDate(JsonField.of(companyDescriptiveDate))
-
-            /**
-             * Sets [Builder.companyDescriptiveDate] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.companyDescriptiveDate] with a well-typed [String]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
-             */
-            fun companyDescriptiveDate(companyDescriptiveDate: JsonField<String>) = apply {
-                this.companyDescriptiveDate = companyDescriptiveDate
-            }
-
-            /** The data you choose to associate with the transfer. */
-            fun companyDiscretionaryData(companyDiscretionaryData: String) =
-                companyDiscretionaryData(JsonField.of(companyDiscretionaryData))
-
-            /**
-             * Sets [Builder.companyDiscretionaryData] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.companyDiscretionaryData] with a well-typed [String]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
-             */
-            fun companyDiscretionaryData(companyDiscretionaryData: JsonField<String>) = apply {
-                this.companyDiscretionaryData = companyDiscretionaryData
-            }
-
-            /** The description of the transfer you wish to be shown to the recipient. */
-            fun companyEntryDescription(companyEntryDescription: String) =
-                companyEntryDescription(JsonField.of(companyEntryDescription))
-
-            /**
-             * Sets [Builder.companyEntryDescription] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.companyEntryDescription] with a well-typed [String]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
-             */
-            fun companyEntryDescription(companyEntryDescription: JsonField<String>) = apply {
-                this.companyEntryDescription = companyEntryDescription
-            }
-
-            /** The name by which the recipient knows you. */
-            fun companyName(companyName: String) = companyName(JsonField.of(companyName))
-
-            /**
-             * Sets [Builder.companyName] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.companyName] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun companyName(companyName: JsonField<String>) = apply {
-                this.companyName = companyName
-            }
-
-            /** Whether the Prenotification is for a future debit or credit. */
-            fun creditDebitIndicator(creditDebitIndicator: CreditDebitIndicator) =
-                creditDebitIndicator(JsonField.of(creditDebitIndicator))
-
-            /**
-             * Sets [Builder.creditDebitIndicator] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.creditDebitIndicator] with a well-typed
-             * [CreditDebitIndicator] value instead. This method is primarily for setting the field
-             * to an undocumented or not yet supported value.
-             */
-            fun creditDebitIndicator(creditDebitIndicator: JsonField<CreditDebitIndicator>) =
-                apply {
-                    this.creditDebitIndicator = creditDebitIndicator
-                }
-
-            /**
-             * The transfer effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-             * format.
-             */
-            fun effectiveDate(effectiveDate: LocalDate) = effectiveDate(JsonField.of(effectiveDate))
-
-            /**
-             * Sets [Builder.effectiveDate] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.effectiveDate] with a well-typed [LocalDate] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun effectiveDate(effectiveDate: JsonField<LocalDate>) = apply {
-                this.effectiveDate = effectiveDate
-            }
-
-            /** Your identifier for the transfer recipient. */
-            fun individualId(individualId: String) = individualId(JsonField.of(individualId))
-
-            /**
-             * Sets [Builder.individualId] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.individualId] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun individualId(individualId: JsonField<String>) = apply {
-                this.individualId = individualId
-            }
-
-            /**
-             * The name of the transfer recipient. This value is information and not verified by the
-             * recipient's bank.
-             */
-            fun individualName(individualName: String) =
-                individualName(JsonField.of(individualName))
-
-            /**
-             * Sets [Builder.individualName] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.individualName] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun individualName(individualName: JsonField<String>) = apply {
-                this.individualName = individualName
-            }
-
-            /** The Standard Entry Class (SEC) code to use for the ACH Prenotification. */
-            fun standardEntryClassCode(standardEntryClassCode: StandardEntryClassCode) =
-                standardEntryClassCode(JsonField.of(standardEntryClassCode))
-
-            /**
-             * Sets [Builder.standardEntryClassCode] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.standardEntryClassCode] with a well-typed
-             * [StandardEntryClassCode] value instead. This method is primarily for setting the
-             * field to an undocumented or not yet supported value.
-             */
-            fun standardEntryClassCode(standardEntryClassCode: JsonField<StandardEntryClassCode>) =
-                apply {
-                    this.standardEntryClassCode = standardEntryClassCode
-                }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [Body].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             *
-             * The following fields are required:
-             * ```java
-             * .accountId()
-             * .accountNumber()
-             * .routingNumber()
-             * ```
-             *
-             * @throws IllegalStateException if any required field is unset.
-             */
-            fun build(): Body =
-                Body(
-                    checkRequired("accountId", accountId),
-                    checkRequired("accountNumber", accountNumber),
-                    checkRequired("routingNumber", routingNumber),
-                    addendum,
-                    companyDescriptiveDate,
-                    companyDiscretionaryData,
-                    companyEntryDescription,
-                    companyName,
-                    creditDebitIndicator,
-                    effectiveDate,
-                    individualId,
-                    individualName,
-                    standardEntryClassCode,
-                    additionalProperties.toImmutable(),
-                )
-        }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return /* spotless:off */ other is Body && accountId == other.accountId && accountNumber == other.accountNumber && routingNumber == other.routingNumber && addendum == other.addendum && companyDescriptiveDate == other.companyDescriptiveDate && companyDiscretionaryData == other.companyDiscretionaryData && companyEntryDescription == other.companyEntryDescription && companyName == other.companyName && creditDebitIndicator == other.creditDebitIndicator && effectiveDate == other.effectiveDate && individualId == other.individualId && individualName == other.individualName && standardEntryClassCode == other.standardEntryClassCode && additionalProperties == other.additionalProperties /* spotless:on */
-        }
-
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(accountId, accountNumber, routingNumber, addendum, companyDescriptiveDate, companyDiscretionaryData, companyEntryDescription, companyName, creditDebitIndicator, effectiveDate, individualId, individualName, standardEntryClassCode, additionalProperties) }
-        /* spotless:on */
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "Body{accountId=$accountId, accountNumber=$accountNumber, routingNumber=$routingNumber, addendum=$addendum, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, creditDebitIndicator=$creditDebitIndicator, effectiveDate=$effectiveDate, individualId=$individualId, individualName=$individualName, standardEntryClassCode=$standardEntryClassCode, additionalProperties=$additionalProperties}"
-    }
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -895,7 +257,6 @@ private constructor(
     }
 
     /** A builder for [AchPrenotificationCreateParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var body: Body.Builder = Body.builder()
@@ -1240,6 +601,677 @@ private constructor(
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
+    }
+
+    @JvmSynthetic internal fun _body(): Body = body
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams = additionalQueryParams
+
+    class Body
+    private constructor(
+        private val accountId: JsonField<String>,
+        private val accountNumber: JsonField<String>,
+        private val routingNumber: JsonField<String>,
+        private val addendum: JsonField<String>,
+        private val companyDescriptiveDate: JsonField<String>,
+        private val companyDiscretionaryData: JsonField<String>,
+        private val companyEntryDescription: JsonField<String>,
+        private val companyName: JsonField<String>,
+        private val creditDebitIndicator: JsonField<CreditDebitIndicator>,
+        private val effectiveDate: JsonField<LocalDate>,
+        private val individualId: JsonField<String>,
+        private val individualName: JsonField<String>,
+        private val standardEntryClassCode: JsonField<StandardEntryClassCode>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("account_id")
+            @ExcludeMissing
+            accountId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("account_number")
+            @ExcludeMissing
+            accountNumber: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("routing_number")
+            @ExcludeMissing
+            routingNumber: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("addendum")
+            @ExcludeMissing
+            addendum: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("company_descriptive_date")
+            @ExcludeMissing
+            companyDescriptiveDate: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("company_discretionary_data")
+            @ExcludeMissing
+            companyDiscretionaryData: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("company_entry_description")
+            @ExcludeMissing
+            companyEntryDescription: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("company_name")
+            @ExcludeMissing
+            companyName: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("credit_debit_indicator")
+            @ExcludeMissing
+            creditDebitIndicator: JsonField<CreditDebitIndicator> = JsonMissing.of(),
+            @JsonProperty("effective_date")
+            @ExcludeMissing
+            effectiveDate: JsonField<LocalDate> = JsonMissing.of(),
+            @JsonProperty("individual_id")
+            @ExcludeMissing
+            individualId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("individual_name")
+            @ExcludeMissing
+            individualName: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("standard_entry_class_code")
+            @ExcludeMissing
+            standardEntryClassCode: JsonField<StandardEntryClassCode> = JsonMissing.of(),
+        ) : this(
+            accountId,
+            accountNumber,
+            routingNumber,
+            addendum,
+            companyDescriptiveDate,
+            companyDiscretionaryData,
+            companyEntryDescription,
+            companyName,
+            creditDebitIndicator,
+            effectiveDate,
+            individualId,
+            individualName,
+            standardEntryClassCode,
+            mutableMapOf(),
+        )
+
+        /**
+         * The Increase identifier for the account that will send the transfer.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun accountId(): String = accountId.getRequired("account_id")
+
+        /**
+         * The account number for the destination account.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun accountNumber(): String = accountNumber.getRequired("account_number")
+
+        /**
+         * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the destination
+         * account.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun routingNumber(): String = routingNumber.getRequired("routing_number")
+
+        /**
+         * Additional information that will be sent to the recipient.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun addendum(): Optional<String> = Optional.ofNullable(addendum.getNullable("addendum"))
+
+        /**
+         * The description of the date of the transfer.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun companyDescriptiveDate(): Optional<String> =
+            Optional.ofNullable(companyDescriptiveDate.getNullable("company_descriptive_date"))
+
+        /**
+         * The data you choose to associate with the transfer.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun companyDiscretionaryData(): Optional<String> =
+            Optional.ofNullable(companyDiscretionaryData.getNullable("company_discretionary_data"))
+
+        /**
+         * The description of the transfer you wish to be shown to the recipient.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun companyEntryDescription(): Optional<String> =
+            Optional.ofNullable(companyEntryDescription.getNullable("company_entry_description"))
+
+        /**
+         * The name by which the recipient knows you.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun companyName(): Optional<String> =
+            Optional.ofNullable(companyName.getNullable("company_name"))
+
+        /**
+         * Whether the Prenotification is for a future debit or credit.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun creditDebitIndicator(): Optional<CreditDebitIndicator> =
+            Optional.ofNullable(creditDebitIndicator.getNullable("credit_debit_indicator"))
+
+        /**
+         * The transfer effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun effectiveDate(): Optional<LocalDate> =
+            Optional.ofNullable(effectiveDate.getNullable("effective_date"))
+
+        /**
+         * Your identifier for the transfer recipient.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun individualId(): Optional<String> =
+            Optional.ofNullable(individualId.getNullable("individual_id"))
+
+        /**
+         * The name of the transfer recipient. This value is information and not verified by the
+         * recipient's bank.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun individualName(): Optional<String> =
+            Optional.ofNullable(individualName.getNullable("individual_name"))
+
+        /**
+         * The Standard Entry Class (SEC) code to use for the ACH Prenotification.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun standardEntryClassCode(): Optional<StandardEntryClassCode> =
+            Optional.ofNullable(standardEntryClassCode.getNullable("standard_entry_class_code"))
+
+        /**
+         * Returns the raw JSON value of [accountId].
+         *
+         * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
+
+        /**
+         * Returns the raw JSON value of [accountNumber].
+         *
+         * Unlike [accountNumber], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("account_number")
+        @ExcludeMissing
+        fun _accountNumber(): JsonField<String> = accountNumber
+
+        /**
+         * Returns the raw JSON value of [routingNumber].
+         *
+         * Unlike [routingNumber], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("routing_number")
+        @ExcludeMissing
+        fun _routingNumber(): JsonField<String> = routingNumber
+
+        /**
+         * Returns the raw JSON value of [addendum].
+         *
+         * Unlike [addendum], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("addendum") @ExcludeMissing fun _addendum(): JsonField<String> = addendum
+
+        /**
+         * Returns the raw JSON value of [companyDescriptiveDate].
+         *
+         * Unlike [companyDescriptiveDate], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("company_descriptive_date")
+        @ExcludeMissing
+        fun _companyDescriptiveDate(): JsonField<String> = companyDescriptiveDate
+
+        /**
+         * Returns the raw JSON value of [companyDiscretionaryData].
+         *
+         * Unlike [companyDiscretionaryData], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("company_discretionary_data")
+        @ExcludeMissing
+        fun _companyDiscretionaryData(): JsonField<String> = companyDiscretionaryData
+
+        /**
+         * Returns the raw JSON value of [companyEntryDescription].
+         *
+         * Unlike [companyEntryDescription], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("company_entry_description")
+        @ExcludeMissing
+        fun _companyEntryDescription(): JsonField<String> = companyEntryDescription
+
+        /**
+         * Returns the raw JSON value of [companyName].
+         *
+         * Unlike [companyName], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("company_name")
+        @ExcludeMissing
+        fun _companyName(): JsonField<String> = companyName
+
+        /**
+         * Returns the raw JSON value of [creditDebitIndicator].
+         *
+         * Unlike [creditDebitIndicator], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("credit_debit_indicator")
+        @ExcludeMissing
+        fun _creditDebitIndicator(): JsonField<CreditDebitIndicator> = creditDebitIndicator
+
+        /**
+         * Returns the raw JSON value of [effectiveDate].
+         *
+         * Unlike [effectiveDate], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("effective_date")
+        @ExcludeMissing
+        fun _effectiveDate(): JsonField<LocalDate> = effectiveDate
+
+        /**
+         * Returns the raw JSON value of [individualId].
+         *
+         * Unlike [individualId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("individual_id")
+        @ExcludeMissing
+        fun _individualId(): JsonField<String> = individualId
+
+        /**
+         * Returns the raw JSON value of [individualName].
+         *
+         * Unlike [individualName], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("individual_name")
+        @ExcludeMissing
+        fun _individualName(): JsonField<String> = individualName
+
+        /**
+         * Returns the raw JSON value of [standardEntryClassCode].
+         *
+         * Unlike [standardEntryClassCode], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("standard_entry_class_code")
+        @ExcludeMissing
+        fun _standardEntryClassCode(): JsonField<StandardEntryClassCode> = standardEntryClassCode
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [Body].
+             *
+             * The following fields are required:
+             * ```java
+             * .accountId()
+             * .accountNumber()
+             * .routingNumber()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Body]. */
+        class Builder internal constructor() {
+
+            private var accountId: JsonField<String>? = null
+            private var accountNumber: JsonField<String>? = null
+            private var routingNumber: JsonField<String>? = null
+            private var addendum: JsonField<String> = JsonMissing.of()
+            private var companyDescriptiveDate: JsonField<String> = JsonMissing.of()
+            private var companyDiscretionaryData: JsonField<String> = JsonMissing.of()
+            private var companyEntryDescription: JsonField<String> = JsonMissing.of()
+            private var companyName: JsonField<String> = JsonMissing.of()
+            private var creditDebitIndicator: JsonField<CreditDebitIndicator> = JsonMissing.of()
+            private var effectiveDate: JsonField<LocalDate> = JsonMissing.of()
+            private var individualId: JsonField<String> = JsonMissing.of()
+            private var individualName: JsonField<String> = JsonMissing.of()
+            private var standardEntryClassCode: JsonField<StandardEntryClassCode> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(body: Body) = apply {
+                accountId = body.accountId
+                accountNumber = body.accountNumber
+                routingNumber = body.routingNumber
+                addendum = body.addendum
+                companyDescriptiveDate = body.companyDescriptiveDate
+                companyDiscretionaryData = body.companyDiscretionaryData
+                companyEntryDescription = body.companyEntryDescription
+                companyName = body.companyName
+                creditDebitIndicator = body.creditDebitIndicator
+                effectiveDate = body.effectiveDate
+                individualId = body.individualId
+                individualName = body.individualName
+                standardEntryClassCode = body.standardEntryClassCode
+                additionalProperties = body.additionalProperties.toMutableMap()
+            }
+
+            /** The Increase identifier for the account that will send the transfer. */
+            fun accountId(accountId: String) = accountId(JsonField.of(accountId))
+
+            /**
+             * Sets [Builder.accountId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.accountId] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
+
+            /** The account number for the destination account. */
+            fun accountNumber(accountNumber: String) = accountNumber(JsonField.of(accountNumber))
+
+            /**
+             * Sets [Builder.accountNumber] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.accountNumber] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun accountNumber(accountNumber: JsonField<String>) = apply {
+                this.accountNumber = accountNumber
+            }
+
+            /**
+             * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the
+             * destination account.
+             */
+            fun routingNumber(routingNumber: String) = routingNumber(JsonField.of(routingNumber))
+
+            /**
+             * Sets [Builder.routingNumber] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.routingNumber] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun routingNumber(routingNumber: JsonField<String>) = apply {
+                this.routingNumber = routingNumber
+            }
+
+            /** Additional information that will be sent to the recipient. */
+            fun addendum(addendum: String) = addendum(JsonField.of(addendum))
+
+            /**
+             * Sets [Builder.addendum] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.addendum] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun addendum(addendum: JsonField<String>) = apply { this.addendum = addendum }
+
+            /** The description of the date of the transfer. */
+            fun companyDescriptiveDate(companyDescriptiveDate: String) =
+                companyDescriptiveDate(JsonField.of(companyDescriptiveDate))
+
+            /**
+             * Sets [Builder.companyDescriptiveDate] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.companyDescriptiveDate] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun companyDescriptiveDate(companyDescriptiveDate: JsonField<String>) = apply {
+                this.companyDescriptiveDate = companyDescriptiveDate
+            }
+
+            /** The data you choose to associate with the transfer. */
+            fun companyDiscretionaryData(companyDiscretionaryData: String) =
+                companyDiscretionaryData(JsonField.of(companyDiscretionaryData))
+
+            /**
+             * Sets [Builder.companyDiscretionaryData] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.companyDiscretionaryData] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun companyDiscretionaryData(companyDiscretionaryData: JsonField<String>) = apply {
+                this.companyDiscretionaryData = companyDiscretionaryData
+            }
+
+            /** The description of the transfer you wish to be shown to the recipient. */
+            fun companyEntryDescription(companyEntryDescription: String) =
+                companyEntryDescription(JsonField.of(companyEntryDescription))
+
+            /**
+             * Sets [Builder.companyEntryDescription] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.companyEntryDescription] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun companyEntryDescription(companyEntryDescription: JsonField<String>) = apply {
+                this.companyEntryDescription = companyEntryDescription
+            }
+
+            /** The name by which the recipient knows you. */
+            fun companyName(companyName: String) = companyName(JsonField.of(companyName))
+
+            /**
+             * Sets [Builder.companyName] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.companyName] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun companyName(companyName: JsonField<String>) = apply {
+                this.companyName = companyName
+            }
+
+            /** Whether the Prenotification is for a future debit or credit. */
+            fun creditDebitIndicator(creditDebitIndicator: CreditDebitIndicator) =
+                creditDebitIndicator(JsonField.of(creditDebitIndicator))
+
+            /**
+             * Sets [Builder.creditDebitIndicator] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.creditDebitIndicator] with a well-typed
+             * [CreditDebitIndicator] value instead. This method is primarily for setting the field
+             * to an undocumented or not yet supported value.
+             */
+            fun creditDebitIndicator(creditDebitIndicator: JsonField<CreditDebitIndicator>) =
+                apply {
+                    this.creditDebitIndicator = creditDebitIndicator
+                }
+
+            /**
+             * The transfer effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+             * format.
+             */
+            fun effectiveDate(effectiveDate: LocalDate) = effectiveDate(JsonField.of(effectiveDate))
+
+            /**
+             * Sets [Builder.effectiveDate] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.effectiveDate] with a well-typed [LocalDate] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun effectiveDate(effectiveDate: JsonField<LocalDate>) = apply {
+                this.effectiveDate = effectiveDate
+            }
+
+            /** Your identifier for the transfer recipient. */
+            fun individualId(individualId: String) = individualId(JsonField.of(individualId))
+
+            /**
+             * Sets [Builder.individualId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.individualId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun individualId(individualId: JsonField<String>) = apply {
+                this.individualId = individualId
+            }
+
+            /**
+             * The name of the transfer recipient. This value is information and not verified by the
+             * recipient's bank.
+             */
+            fun individualName(individualName: String) =
+                individualName(JsonField.of(individualName))
+
+            /**
+             * Sets [Builder.individualName] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.individualName] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun individualName(individualName: JsonField<String>) = apply {
+                this.individualName = individualName
+            }
+
+            /** The Standard Entry Class (SEC) code to use for the ACH Prenotification. */
+            fun standardEntryClassCode(standardEntryClassCode: StandardEntryClassCode) =
+                standardEntryClassCode(JsonField.of(standardEntryClassCode))
+
+            /**
+             * Sets [Builder.standardEntryClassCode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.standardEntryClassCode] with a well-typed
+             * [StandardEntryClassCode] value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
+             */
+            fun standardEntryClassCode(standardEntryClassCode: JsonField<StandardEntryClassCode>) =
+                apply {
+                    this.standardEntryClassCode = standardEntryClassCode
+                }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Body].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .accountId()
+             * .accountNumber()
+             * .routingNumber()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): Body =
+                Body(
+                    checkRequired("accountId", accountId),
+                    checkRequired("accountNumber", accountNumber),
+                    checkRequired("routingNumber", routingNumber),
+                    addendum,
+                    companyDescriptiveDate,
+                    companyDiscretionaryData,
+                    companyEntryDescription,
+                    companyName,
+                    creditDebitIndicator,
+                    effectiveDate,
+                    individualId,
+                    individualName,
+                    standardEntryClassCode,
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Body = apply {
+            if (validated) {
+                return@apply
+            }
+
+            accountId()
+            accountNumber()
+            routingNumber()
+            addendum()
+            companyDescriptiveDate()
+            companyDiscretionaryData()
+            companyEntryDescription()
+            companyName()
+            creditDebitIndicator()
+            effectiveDate()
+            individualId()
+            individualName()
+            standardEntryClassCode()
+            validated = true
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is Body && accountId == other.accountId && accountNumber == other.accountNumber && routingNumber == other.routingNumber && addendum == other.addendum && companyDescriptiveDate == other.companyDescriptiveDate && companyDiscretionaryData == other.companyDiscretionaryData && companyEntryDescription == other.companyEntryDescription && companyName == other.companyName && creditDebitIndicator == other.creditDebitIndicator && effectiveDate == other.effectiveDate && individualId == other.individualId && individualName == other.individualName && standardEntryClassCode == other.standardEntryClassCode && additionalProperties == other.additionalProperties /* spotless:on */
+        }
+
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(accountId, accountNumber, routingNumber, addendum, companyDescriptiveDate, companyDiscretionaryData, companyEntryDescription, companyName, creditDebitIndicator, effectiveDate, individualId, individualName, standardEntryClassCode, additionalProperties) }
+        /* spotless:on */
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Body{accountId=$accountId, accountNumber=$accountNumber, routingNumber=$routingNumber, addendum=$addendum, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, creditDebitIndicator=$creditDebitIndicator, effectiveDate=$effectiveDate, individualId=$individualId, individualName=$individualName, standardEntryClassCode=$standardEntryClassCode, additionalProperties=$additionalProperties}"
     }
 
     /** Whether the Prenotification is for a future debit or credit. */

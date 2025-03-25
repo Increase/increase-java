@@ -10,14 +10,12 @@ import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.Params
 import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
-import com.increase.api.core.immutableEmptyMap
-import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
+import java.util.Collections
 import java.util.Objects
 import java.util.Optional
 
@@ -71,184 +69,6 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    @JvmSynthetic internal fun _body(): Body = body
-
-    fun _pathParam(index: Int): String =
-        when (index) {
-            0 -> inboundAchTransferId
-            else -> ""
-        }
-
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams = additionalQueryParams
-
-    @NoAutoDetect
-    class Body
-    @JsonCreator
-    private constructor(
-        @JsonProperty("updated_account_number")
-        @ExcludeMissing
-        private val updatedAccountNumber: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("updated_routing_number")
-        @ExcludeMissing
-        private val updatedRoutingNumber: JsonField<String> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-    ) {
-
-        /**
-         * The updated account number to send in the notification of change.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun updatedAccountNumber(): Optional<String> =
-            Optional.ofNullable(updatedAccountNumber.getNullable("updated_account_number"))
-
-        /**
-         * The updated routing number to send in the notification of change.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun updatedRoutingNumber(): Optional<String> =
-            Optional.ofNullable(updatedRoutingNumber.getNullable("updated_routing_number"))
-
-        /**
-         * Returns the raw JSON value of [updatedAccountNumber].
-         *
-         * Unlike [updatedAccountNumber], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("updated_account_number")
-        @ExcludeMissing
-        fun _updatedAccountNumber(): JsonField<String> = updatedAccountNumber
-
-        /**
-         * Returns the raw JSON value of [updatedRoutingNumber].
-         *
-         * Unlike [updatedRoutingNumber], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("updated_routing_number")
-        @ExcludeMissing
-        fun _updatedRoutingNumber(): JsonField<String> = updatedRoutingNumber
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): Body = apply {
-            if (validated) {
-                return@apply
-            }
-
-            updatedAccountNumber()
-            updatedRoutingNumber()
-            validated = true
-        }
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /** Returns a mutable builder for constructing an instance of [Body]. */
-            @JvmStatic fun builder() = Builder()
-        }
-
-        /** A builder for [Body]. */
-        class Builder internal constructor() {
-
-            private var updatedAccountNumber: JsonField<String> = JsonMissing.of()
-            private var updatedRoutingNumber: JsonField<String> = JsonMissing.of()
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(body: Body) = apply {
-                updatedAccountNumber = body.updatedAccountNumber
-                updatedRoutingNumber = body.updatedRoutingNumber
-                additionalProperties = body.additionalProperties.toMutableMap()
-            }
-
-            /** The updated account number to send in the notification of change. */
-            fun updatedAccountNumber(updatedAccountNumber: String) =
-                updatedAccountNumber(JsonField.of(updatedAccountNumber))
-
-            /**
-             * Sets [Builder.updatedAccountNumber] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.updatedAccountNumber] with a well-typed [String]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
-             */
-            fun updatedAccountNumber(updatedAccountNumber: JsonField<String>) = apply {
-                this.updatedAccountNumber = updatedAccountNumber
-            }
-
-            /** The updated routing number to send in the notification of change. */
-            fun updatedRoutingNumber(updatedRoutingNumber: String) =
-                updatedRoutingNumber(JsonField.of(updatedRoutingNumber))
-
-            /**
-             * Sets [Builder.updatedRoutingNumber] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.updatedRoutingNumber] with a well-typed [String]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
-             */
-            fun updatedRoutingNumber(updatedRoutingNumber: JsonField<String>) = apply {
-                this.updatedRoutingNumber = updatedRoutingNumber
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [Body].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             */
-            fun build(): Body =
-                Body(updatedAccountNumber, updatedRoutingNumber, additionalProperties.toImmutable())
-        }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return /* spotless:off */ other is Body && updatedAccountNumber == other.updatedAccountNumber && updatedRoutingNumber == other.updatedRoutingNumber && additionalProperties == other.additionalProperties /* spotless:on */
-        }
-
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(updatedAccountNumber, updatedRoutingNumber, additionalProperties) }
-        /* spotless:on */
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "Body{updatedAccountNumber=$updatedAccountNumber, updatedRoutingNumber=$updatedRoutingNumber, additionalProperties=$additionalProperties}"
-    }
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -266,7 +86,6 @@ private constructor(
     }
 
     /** A builder for [InboundAchTransferCreateNotificationOfChangeParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var inboundAchTransferId: String? = null
@@ -463,6 +282,197 @@ private constructor(
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
+    }
+
+    @JvmSynthetic internal fun _body(): Body = body
+
+    fun _pathParam(index: Int): String =
+        when (index) {
+            0 -> inboundAchTransferId
+            else -> ""
+        }
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams = additionalQueryParams
+
+    class Body
+    private constructor(
+        private val updatedAccountNumber: JsonField<String>,
+        private val updatedRoutingNumber: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("updated_account_number")
+            @ExcludeMissing
+            updatedAccountNumber: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("updated_routing_number")
+            @ExcludeMissing
+            updatedRoutingNumber: JsonField<String> = JsonMissing.of(),
+        ) : this(updatedAccountNumber, updatedRoutingNumber, mutableMapOf())
+
+        /**
+         * The updated account number to send in the notification of change.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun updatedAccountNumber(): Optional<String> =
+            Optional.ofNullable(updatedAccountNumber.getNullable("updated_account_number"))
+
+        /**
+         * The updated routing number to send in the notification of change.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun updatedRoutingNumber(): Optional<String> =
+            Optional.ofNullable(updatedRoutingNumber.getNullable("updated_routing_number"))
+
+        /**
+         * Returns the raw JSON value of [updatedAccountNumber].
+         *
+         * Unlike [updatedAccountNumber], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("updated_account_number")
+        @ExcludeMissing
+        fun _updatedAccountNumber(): JsonField<String> = updatedAccountNumber
+
+        /**
+         * Returns the raw JSON value of [updatedRoutingNumber].
+         *
+         * Unlike [updatedRoutingNumber], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("updated_routing_number")
+        @ExcludeMissing
+        fun _updatedRoutingNumber(): JsonField<String> = updatedRoutingNumber
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [Body]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Body]. */
+        class Builder internal constructor() {
+
+            private var updatedAccountNumber: JsonField<String> = JsonMissing.of()
+            private var updatedRoutingNumber: JsonField<String> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(body: Body) = apply {
+                updatedAccountNumber = body.updatedAccountNumber
+                updatedRoutingNumber = body.updatedRoutingNumber
+                additionalProperties = body.additionalProperties.toMutableMap()
+            }
+
+            /** The updated account number to send in the notification of change. */
+            fun updatedAccountNumber(updatedAccountNumber: String) =
+                updatedAccountNumber(JsonField.of(updatedAccountNumber))
+
+            /**
+             * Sets [Builder.updatedAccountNumber] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.updatedAccountNumber] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun updatedAccountNumber(updatedAccountNumber: JsonField<String>) = apply {
+                this.updatedAccountNumber = updatedAccountNumber
+            }
+
+            /** The updated routing number to send in the notification of change. */
+            fun updatedRoutingNumber(updatedRoutingNumber: String) =
+                updatedRoutingNumber(JsonField.of(updatedRoutingNumber))
+
+            /**
+             * Sets [Builder.updatedRoutingNumber] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.updatedRoutingNumber] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun updatedRoutingNumber(updatedRoutingNumber: JsonField<String>) = apply {
+                this.updatedRoutingNumber = updatedRoutingNumber
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Body].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): Body =
+                Body(
+                    updatedAccountNumber,
+                    updatedRoutingNumber,
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Body = apply {
+            if (validated) {
+                return@apply
+            }
+
+            updatedAccountNumber()
+            updatedRoutingNumber()
+            validated = true
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is Body && updatedAccountNumber == other.updatedAccountNumber && updatedRoutingNumber == other.updatedRoutingNumber && additionalProperties == other.additionalProperties /* spotless:on */
+        }
+
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(updatedAccountNumber, updatedRoutingNumber, additionalProperties) }
+        /* spotless:on */
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Body{updatedAccountNumber=$updatedAccountNumber, updatedRoutingNumber=$updatedRoutingNumber, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

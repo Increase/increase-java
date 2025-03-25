@@ -11,42 +11,44 @@ import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.checkKnown
 import com.increase.api.core.checkRequired
-import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
+import java.util.Collections
 import java.util.Objects
 
 /**
  * A Digital Wallet Token is created when a user adds a Card to their Apple Pay or Google Pay app.
  * The Digital Wallet Token can be used for purchases just like a Card.
  */
-@NoAutoDetect
 class DigitalWalletToken
-@JsonCreator
 private constructor(
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("card_id")
-    @ExcludeMissing
-    private val cardId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("created_at")
-    @ExcludeMissing
-    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("status")
-    @ExcludeMissing
-    private val status: JsonField<Status> = JsonMissing.of(),
-    @JsonProperty("token_requestor")
-    @ExcludeMissing
-    private val tokenRequestor: JsonField<TokenRequestor> = JsonMissing.of(),
-    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
-    @JsonProperty("updates")
-    @ExcludeMissing
-    private val updates: JsonField<List<Update>> = JsonMissing.of(),
-    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+    private val id: JsonField<String>,
+    private val cardId: JsonField<String>,
+    private val createdAt: JsonField<OffsetDateTime>,
+    private val status: JsonField<Status>,
+    private val tokenRequestor: JsonField<TokenRequestor>,
+    private val type: JsonField<Type>,
+    private val updates: JsonField<List<Update>>,
+    private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
+
+    @JsonCreator
+    private constructor(
+        @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("card_id") @ExcludeMissing cardId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
+        @JsonProperty("token_requestor")
+        @ExcludeMissing
+        tokenRequestor: JsonField<TokenRequestor> = JsonMissing.of(),
+        @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+        @JsonProperty("updates") @ExcludeMissing updates: JsonField<List<Update>> = JsonMissing.of(),
+    ) : this(id, cardId, createdAt, status, tokenRequestor, type, updates, mutableMapOf())
 
     /**
      * The Digital Wallet Token identifier.
@@ -159,26 +161,15 @@ private constructor(
      */
     @JsonProperty("updates") @ExcludeMissing fun _updates(): JsonField<List<Update>> = updates
 
+    @JsonAnySetter
+    private fun putAdditionalProperty(key: String, value: JsonValue) {
+        additionalProperties.put(key, value)
+    }
+
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-    private var validated: Boolean = false
-
-    fun validate(): DigitalWalletToken = apply {
-        if (validated) {
-            return@apply
-        }
-
-        id()
-        cardId()
-        createdAt()
-        status()
-        tokenRequestor()
-        type()
-        updates().forEach { it.validate() }
-        validated = true
-    }
+    fun _additionalProperties(): Map<String, JsonValue> =
+        Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
@@ -374,8 +365,25 @@ private constructor(
                 checkRequired("tokenRequestor", tokenRequestor),
                 checkRequired("type", type),
                 checkRequired("updates", updates).map { it.toImmutable() },
-                additionalProperties.toImmutable(),
+                additionalProperties.toMutableMap(),
             )
+    }
+
+    private var validated: Boolean = false
+
+    fun validate(): DigitalWalletToken = apply {
+        if (validated) {
+            return@apply
+        }
+
+        id()
+        cardId()
+        createdAt()
+        status()
+        tokenRequestor()
+        type()
+        updates().forEach { it.validate() }
+        validated = true
     }
 
     /** This indicates if payments can be made with the Digital Wallet Token. */
@@ -739,19 +747,20 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    @NoAutoDetect
     class Update
-    @JsonCreator
     private constructor(
-        @JsonProperty("status")
-        @ExcludeMissing
-        private val status: JsonField<Status> = JsonMissing.of(),
-        @JsonProperty("timestamp")
-        @ExcludeMissing
-        private val timestamp: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val status: JsonField<Status>,
+        private val timestamp: JsonField<OffsetDateTime>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
+            @JsonProperty("timestamp")
+            @ExcludeMissing
+            timestamp: JsonField<OffsetDateTime> = JsonMissing.of(),
+        ) : this(status, timestamp, mutableMapOf())
 
         /**
          * The status the update changed this Digital Wallet Token to.
@@ -786,21 +795,15 @@ private constructor(
         @ExcludeMissing
         fun _timestamp(): JsonField<OffsetDateTime> = timestamp
 
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): Update = apply {
-            if (validated) {
-                return@apply
-            }
-
-            status()
-            timestamp()
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -897,8 +900,20 @@ private constructor(
                 Update(
                     checkRequired("status", status),
                     checkRequired("timestamp", timestamp),
-                    additionalProperties.toImmutable(),
+                    additionalProperties.toMutableMap(),
                 )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Update = apply {
+            if (validated) {
+                return@apply
+            }
+
+            status()
+            timestamp()
+            validated = true
         }
 
         /** The status the update changed this Digital Wallet Token to. */

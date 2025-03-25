@@ -2,7 +2,6 @@
 
 package com.increase.api.models.inboundwiredrawdownrequests
 
-import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.Params
 import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
@@ -24,16 +23,6 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _pathParam(index: Int): String =
-        when (index) {
-            0 -> inboundWireDrawdownRequestId
-            else -> ""
-        }
-
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams = additionalQueryParams
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -51,7 +40,6 @@ private constructor(
     }
 
     /** A builder for [InboundWireDrawdownRequestRetrieveParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var inboundWireDrawdownRequestId: String? = null
@@ -192,6 +180,16 @@ private constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    fun _pathParam(index: Int): String =
+        when (index) {
+            0 -> inboundWireDrawdownRequestId
+            else -> ""
+        }
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams = additionalQueryParams
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {

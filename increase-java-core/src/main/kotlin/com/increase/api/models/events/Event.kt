@@ -11,12 +11,10 @@ import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.checkRequired
-import com.increase.api.core.immutableEmptyMap
-import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
+import java.util.Collections
 import java.util.Objects
 
 /**
@@ -24,26 +22,40 @@ import java.util.Objects
  * List Events endpoint and can be delivered to your application via webhooks. For more information,
  * see our [webhooks guide](https://increase.com/documentation/webhooks).
  */
-@NoAutoDetect
 class Event
-@JsonCreator
 private constructor(
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("associated_object_id")
-    @ExcludeMissing
-    private val associatedObjectId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("associated_object_type")
-    @ExcludeMissing
-    private val associatedObjectType: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("category")
-    @ExcludeMissing
-    private val category: JsonField<Category> = JsonMissing.of(),
-    @JsonProperty("created_at")
-    @ExcludeMissing
-    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
-    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+    private val id: JsonField<String>,
+    private val associatedObjectId: JsonField<String>,
+    private val associatedObjectType: JsonField<String>,
+    private val category: JsonField<Category>,
+    private val createdAt: JsonField<OffsetDateTime>,
+    private val type: JsonField<Type>,
+    private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
+
+    @JsonCreator
+    private constructor(
+        @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("associated_object_id")
+        @ExcludeMissing
+        associatedObjectId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("associated_object_type")
+        @ExcludeMissing
+        associatedObjectType: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("category") @ExcludeMissing category: JsonField<Category> = JsonMissing.of(),
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+    ) : this(
+        id,
+        associatedObjectId,
+        associatedObjectType,
+        category,
+        createdAt,
+        type,
+        mutableMapOf(),
+    )
 
     /**
      * The Event identifier.
@@ -144,25 +156,15 @@ private constructor(
      */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
+    @JsonAnySetter
+    private fun putAdditionalProperty(key: String, value: JsonValue) {
+        additionalProperties.put(key, value)
+    }
+
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-    private var validated: Boolean = false
-
-    fun validate(): Event = apply {
-        if (validated) {
-            return@apply
-        }
-
-        id()
-        associatedObjectId()
-        associatedObjectType()
-        category()
-        createdAt()
-        type()
-        validated = true
-    }
+    fun _additionalProperties(): Map<String, JsonValue> =
+        Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
@@ -331,8 +333,24 @@ private constructor(
                 checkRequired("category", category),
                 checkRequired("createdAt", createdAt),
                 checkRequired("type", type),
-                additionalProperties.toImmutable(),
+                additionalProperties.toMutableMap(),
             )
+    }
+
+    private var validated: Boolean = false
+
+    fun validate(): Event = apply {
+        if (validated) {
+            return@apply
+        }
+
+        id()
+        associatedObjectId()
+        associatedObjectType()
+        category()
+        createdAt()
+        type()
+        validated = true
     }
 
     /**

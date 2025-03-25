@@ -11,12 +11,10 @@ import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.checkRequired
-import com.increase.api.core.immutableEmptyMap
-import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
+import java.util.Collections
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
@@ -25,35 +23,51 @@ import kotlin.jvm.optionals.getOrNull
  * Lockboxes are physical locations that can receive mail containing paper checks. Increase will
  * automatically create a Check Deposit for checks received this way.
  */
-@NoAutoDetect
 class Lockbox
-@JsonCreator
 private constructor(
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("account_id")
-    @ExcludeMissing
-    private val accountId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("address")
-    @ExcludeMissing
-    private val address: JsonField<Address> = JsonMissing.of(),
-    @JsonProperty("created_at")
-    @ExcludeMissing
-    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("description")
-    @ExcludeMissing
-    private val description: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("idempotency_key")
-    @ExcludeMissing
-    private val idempotencyKey: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("recipient_name")
-    @ExcludeMissing
-    private val recipientName: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("status")
-    @ExcludeMissing
-    private val status: JsonField<Status> = JsonMissing.of(),
-    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
-    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+    private val id: JsonField<String>,
+    private val accountId: JsonField<String>,
+    private val address: JsonField<Address>,
+    private val createdAt: JsonField<OffsetDateTime>,
+    private val description: JsonField<String>,
+    private val idempotencyKey: JsonField<String>,
+    private val recipientName: JsonField<String>,
+    private val status: JsonField<Status>,
+    private val type: JsonField<Type>,
+    private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
+
+    @JsonCreator
+    private constructor(
+        @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("account_id") @ExcludeMissing accountId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("address") @ExcludeMissing address: JsonField<Address> = JsonMissing.of(),
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("description")
+        @ExcludeMissing
+        description: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("idempotency_key")
+        @ExcludeMissing
+        idempotencyKey: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("recipient_name")
+        @ExcludeMissing
+        recipientName: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
+        @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+    ) : this(
+        id,
+        accountId,
+        address,
+        createdAt,
+        description,
+        idempotencyKey,
+        recipientName,
+        status,
+        type,
+        mutableMapOf(),
+    )
 
     /**
      * The Lockbox identifier.
@@ -201,28 +215,15 @@ private constructor(
      */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
+    @JsonAnySetter
+    private fun putAdditionalProperty(key: String, value: JsonValue) {
+        additionalProperties.put(key, value)
+    }
+
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-    private var validated: Boolean = false
-
-    fun validate(): Lockbox = apply {
-        if (validated) {
-            return@apply
-        }
-
-        id()
-        accountId()
-        address().validate()
-        createdAt()
-        description()
-        idempotencyKey()
-        recipientName()
-        status()
-        type()
-        validated = true
-    }
+    fun _additionalProperties(): Map<String, JsonValue> =
+        Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
@@ -455,36 +456,54 @@ private constructor(
                 checkRequired("recipientName", recipientName),
                 checkRequired("status", status),
                 checkRequired("type", type),
-                additionalProperties.toImmutable(),
+                additionalProperties.toMutableMap(),
             )
     }
 
+    private var validated: Boolean = false
+
+    fun validate(): Lockbox = apply {
+        if (validated) {
+            return@apply
+        }
+
+        id()
+        accountId()
+        address().validate()
+        createdAt()
+        description()
+        idempotencyKey()
+        recipientName()
+        status()
+        type()
+        validated = true
+    }
+
     /** The mailing address for the Lockbox. */
-    @NoAutoDetect
     class Address
-    @JsonCreator
     private constructor(
-        @JsonProperty("city")
-        @ExcludeMissing
-        private val city: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("line1")
-        @ExcludeMissing
-        private val line1: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("line2")
-        @ExcludeMissing
-        private val line2: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("postal_code")
-        @ExcludeMissing
-        private val postalCode: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("recipient")
-        @ExcludeMissing
-        private val recipient: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("state")
-        @ExcludeMissing
-        private val state: JsonField<String> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val city: JsonField<String>,
+        private val line1: JsonField<String>,
+        private val line2: JsonField<String>,
+        private val postalCode: JsonField<String>,
+        private val recipient: JsonField<String>,
+        private val state: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("city") @ExcludeMissing city: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("line1") @ExcludeMissing line1: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("line2") @ExcludeMissing line2: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("postal_code")
+            @ExcludeMissing
+            postalCode: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("recipient")
+            @ExcludeMissing
+            recipient: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("state") @ExcludeMissing state: JsonField<String> = JsonMissing.of(),
+        ) : this(city, line1, line2, postalCode, recipient, state, mutableMapOf())
 
         /**
          * The city of the address.
@@ -581,25 +600,15 @@ private constructor(
          */
         @JsonProperty("state") @ExcludeMissing fun _state(): JsonField<String> = state
 
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): Address = apply {
-            if (validated) {
-                return@apply
-            }
-
-            city()
-            line1()
-            line2()
-            postalCode()
-            recipient()
-            state()
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -769,8 +778,24 @@ private constructor(
                     checkRequired("postalCode", postalCode),
                     checkRequired("recipient", recipient),
                     checkRequired("state", state),
-                    additionalProperties.toImmutable(),
+                    additionalProperties.toMutableMap(),
                 )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Address = apply {
+            if (validated) {
+                return@apply
+            }
+
+            city()
+            line1()
+            line2()
+            postalCode()
+            recipient()
+            state()
+            validated = true
         }
 
         override fun equals(other: Any?): Boolean {

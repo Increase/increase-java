@@ -11,12 +11,10 @@ import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.checkRequired
-import com.increase.api.core.immutableEmptyMap
-import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
+import java.util.Collections
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
@@ -26,38 +24,56 @@ import kotlin.jvm.optionals.getOrNull
  * This is useful when an Entity already has deposits at a particular bank, and does not want to
  * sweep additional funds to it. It may take 5 business days for an exclusion to be processed.
  */
-@NoAutoDetect
 class IntrafiExclusion
-@JsonCreator
 private constructor(
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("bank_name")
-    @ExcludeMissing
-    private val bankName: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("created_at")
-    @ExcludeMissing
-    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("entity_id")
-    @ExcludeMissing
-    private val entityId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("excluded_at")
-    @ExcludeMissing
-    private val excludedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("fdic_certificate_number")
-    @ExcludeMissing
-    private val fdicCertificateNumber: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("idempotency_key")
-    @ExcludeMissing
-    private val idempotencyKey: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("status")
-    @ExcludeMissing
-    private val status: JsonField<Status> = JsonMissing.of(),
-    @JsonProperty("submitted_at")
-    @ExcludeMissing
-    private val submittedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
-    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+    private val id: JsonField<String>,
+    private val bankName: JsonField<String>,
+    private val createdAt: JsonField<OffsetDateTime>,
+    private val entityId: JsonField<String>,
+    private val excludedAt: JsonField<OffsetDateTime>,
+    private val fdicCertificateNumber: JsonField<String>,
+    private val idempotencyKey: JsonField<String>,
+    private val status: JsonField<Status>,
+    private val submittedAt: JsonField<OffsetDateTime>,
+    private val type: JsonField<Type>,
+    private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
+
+    @JsonCreator
+    private constructor(
+        @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("bank_name") @ExcludeMissing bankName: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("entity_id") @ExcludeMissing entityId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("excluded_at")
+        @ExcludeMissing
+        excludedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("fdic_certificate_number")
+        @ExcludeMissing
+        fdicCertificateNumber: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("idempotency_key")
+        @ExcludeMissing
+        idempotencyKey: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
+        @JsonProperty("submitted_at")
+        @ExcludeMissing
+        submittedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+    ) : this(
+        id,
+        bankName,
+        createdAt,
+        entityId,
+        excludedAt,
+        fdicCertificateNumber,
+        idempotencyKey,
+        status,
+        submittedAt,
+        type,
+        mutableMapOf(),
+    )
 
     /**
      * The identifier of this exclusion request.
@@ -228,29 +244,15 @@ private constructor(
      */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
+    @JsonAnySetter
+    private fun putAdditionalProperty(key: String, value: JsonValue) {
+        additionalProperties.put(key, value)
+    }
+
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-    private var validated: Boolean = false
-
-    fun validate(): IntrafiExclusion = apply {
-        if (validated) {
-            return@apply
-        }
-
-        id()
-        bankName()
-        createdAt()
-        entityId()
-        excludedAt()
-        fdicCertificateNumber()
-        idempotencyKey()
-        status()
-        submittedAt()
-        type()
-        validated = true
-    }
+    fun _additionalProperties(): Map<String, JsonValue> =
+        Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
@@ -512,8 +514,28 @@ private constructor(
                 checkRequired("status", status),
                 checkRequired("submittedAt", submittedAt),
                 checkRequired("type", type),
-                additionalProperties.toImmutable(),
+                additionalProperties.toMutableMap(),
             )
+    }
+
+    private var validated: Boolean = false
+
+    fun validate(): IntrafiExclusion = apply {
+        if (validated) {
+            return@apply
+        }
+
+        id()
+        bankName()
+        createdAt()
+        entityId()
+        excludedAt()
+        fdicCertificateNumber()
+        idempotencyKey()
+        status()
+        submittedAt()
+        type()
+        validated = true
     }
 
     /** The status of the exclusion request. */

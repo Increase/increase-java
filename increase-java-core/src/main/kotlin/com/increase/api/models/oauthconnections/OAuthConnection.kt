@@ -11,12 +11,10 @@ import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.checkRequired
-import com.increase.api.core.immutableEmptyMap
-import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
+import java.util.Collections
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
@@ -25,29 +23,34 @@ import kotlin.jvm.optionals.getOrNull
  * When a user authorizes your OAuth application, an OAuth Connection object is created. Learn more
  * about OAuth [here](https://increase.com/documentation/oauth).
  */
-@NoAutoDetect
 class OAuthConnection
-@JsonCreator
 private constructor(
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("created_at")
-    @ExcludeMissing
-    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("deleted_at")
-    @ExcludeMissing
-    private val deletedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("group_id")
-    @ExcludeMissing
-    private val groupId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("oauth_application_id")
-    @ExcludeMissing
-    private val oauthApplicationId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("status")
-    @ExcludeMissing
-    private val status: JsonField<Status> = JsonMissing.of(),
-    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
-    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+    private val id: JsonField<String>,
+    private val createdAt: JsonField<OffsetDateTime>,
+    private val deletedAt: JsonField<OffsetDateTime>,
+    private val groupId: JsonField<String>,
+    private val oauthApplicationId: JsonField<String>,
+    private val status: JsonField<Status>,
+    private val type: JsonField<Type>,
+    private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
+
+    @JsonCreator
+    private constructor(
+        @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("deleted_at")
+        @ExcludeMissing
+        deletedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("group_id") @ExcludeMissing groupId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("oauth_application_id")
+        @ExcludeMissing
+        oauthApplicationId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
+        @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+    ) : this(id, createdAt, deletedAt, groupId, oauthApplicationId, status, type, mutableMapOf())
 
     /**
      * The OAuth Connection's identifier.
@@ -165,26 +168,15 @@ private constructor(
      */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
+    @JsonAnySetter
+    private fun putAdditionalProperty(key: String, value: JsonValue) {
+        additionalProperties.put(key, value)
+    }
+
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-    private var validated: Boolean = false
-
-    fun validate(): OAuthConnection = apply {
-        if (validated) {
-            return@apply
-        }
-
-        id()
-        createdAt()
-        deletedAt()
-        groupId()
-        oauthApplicationId()
-        status()
-        type()
-        validated = true
-    }
+    fun _additionalProperties(): Map<String, JsonValue> =
+        Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
@@ -372,8 +364,25 @@ private constructor(
                 checkRequired("oauthApplicationId", oauthApplicationId),
                 checkRequired("status", status),
                 checkRequired("type", type),
-                additionalProperties.toImmutable(),
+                additionalProperties.toMutableMap(),
             )
+    }
+
+    private var validated: Boolean = false
+
+    fun validate(): OAuthConnection = apply {
+        if (validated) {
+            return@apply
+        }
+
+        id()
+        createdAt()
+        deletedAt()
+        groupId()
+        oauthApplicationId()
+        status()
+        type()
+        validated = true
     }
 
     /** Whether the connection is active. */

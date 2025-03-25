@@ -10,14 +10,12 @@ import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.Params
 import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
-import com.increase.api.core.immutableEmptyMap
-import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
+import java.util.Collections
 import java.util.Objects
 
 /**
@@ -85,230 +83,6 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    @JvmSynthetic internal fun _body(): Body = body
-
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams = additionalQueryParams
-
-    @NoAutoDetect
-    class Body
-    @JsonCreator
-    private constructor(
-        @JsonProperty("account_number_id")
-        @ExcludeMissing
-        private val accountNumberId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("amount")
-        @ExcludeMissing
-        private val amount: JsonField<Long> = JsonMissing.of(),
-        @JsonProperty("check_number")
-        @ExcludeMissing
-        private val checkNumber: JsonField<String> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-    ) {
-
-        /**
-         * The identifier of the Account Number the Inbound Check Deposit will be against.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun accountNumberId(): String = accountNumberId.getRequired("account_number_id")
-
-        /**
-         * The check amount in cents.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun amount(): Long = amount.getRequired("amount")
-
-        /**
-         * The check number on the check to be deposited.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun checkNumber(): String = checkNumber.getRequired("check_number")
-
-        /**
-         * Returns the raw JSON value of [accountNumberId].
-         *
-         * Unlike [accountNumberId], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("account_number_id")
-        @ExcludeMissing
-        fun _accountNumberId(): JsonField<String> = accountNumberId
-
-        /**
-         * Returns the raw JSON value of [amount].
-         *
-         * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
-
-        /**
-         * Returns the raw JSON value of [checkNumber].
-         *
-         * Unlike [checkNumber], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("check_number")
-        @ExcludeMissing
-        fun _checkNumber(): JsonField<String> = checkNumber
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): Body = apply {
-            if (validated) {
-                return@apply
-            }
-
-            accountNumberId()
-            amount()
-            checkNumber()
-            validated = true
-        }
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /**
-             * Returns a mutable builder for constructing an instance of [Body].
-             *
-             * The following fields are required:
-             * ```java
-             * .accountNumberId()
-             * .amount()
-             * .checkNumber()
-             * ```
-             */
-            @JvmStatic fun builder() = Builder()
-        }
-
-        /** A builder for [Body]. */
-        class Builder internal constructor() {
-
-            private var accountNumberId: JsonField<String>? = null
-            private var amount: JsonField<Long>? = null
-            private var checkNumber: JsonField<String>? = null
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(body: Body) = apply {
-                accountNumberId = body.accountNumberId
-                amount = body.amount
-                checkNumber = body.checkNumber
-                additionalProperties = body.additionalProperties.toMutableMap()
-            }
-
-            /** The identifier of the Account Number the Inbound Check Deposit will be against. */
-            fun accountNumberId(accountNumberId: String) =
-                accountNumberId(JsonField.of(accountNumberId))
-
-            /**
-             * Sets [Builder.accountNumberId] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.accountNumberId] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun accountNumberId(accountNumberId: JsonField<String>) = apply {
-                this.accountNumberId = accountNumberId
-            }
-
-            /** The check amount in cents. */
-            fun amount(amount: Long) = amount(JsonField.of(amount))
-
-            /**
-             * Sets [Builder.amount] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
-             */
-            fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
-
-            /** The check number on the check to be deposited. */
-            fun checkNumber(checkNumber: String) = checkNumber(JsonField.of(checkNumber))
-
-            /**
-             * Sets [Builder.checkNumber] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.checkNumber] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun checkNumber(checkNumber: JsonField<String>) = apply {
-                this.checkNumber = checkNumber
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [Body].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             *
-             * The following fields are required:
-             * ```java
-             * .accountNumberId()
-             * .amount()
-             * .checkNumber()
-             * ```
-             *
-             * @throws IllegalStateException if any required field is unset.
-             */
-            fun build(): Body =
-                Body(
-                    checkRequired("accountNumberId", accountNumberId),
-                    checkRequired("amount", amount),
-                    checkRequired("checkNumber", checkNumber),
-                    additionalProperties.toImmutable(),
-                )
-        }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return /* spotless:off */ other is Body && accountNumberId == other.accountNumberId && amount == other.amount && checkNumber == other.checkNumber && additionalProperties == other.additionalProperties /* spotless:on */
-        }
-
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(accountNumberId, amount, checkNumber, additionalProperties) }
-        /* spotless:on */
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "Body{accountNumberId=$accountNumberId, amount=$amount, checkNumber=$checkNumber, additionalProperties=$additionalProperties}"
-    }
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -328,7 +102,6 @@ private constructor(
     }
 
     /** A builder for [InboundCheckDepositCreateParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var body: Body.Builder = Body.builder()
@@ -520,6 +293,238 @@ private constructor(
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
+    }
+
+    @JvmSynthetic internal fun _body(): Body = body
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams = additionalQueryParams
+
+    class Body
+    private constructor(
+        private val accountNumberId: JsonField<String>,
+        private val amount: JsonField<Long>,
+        private val checkNumber: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("account_number_id")
+            @ExcludeMissing
+            accountNumberId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("check_number")
+            @ExcludeMissing
+            checkNumber: JsonField<String> = JsonMissing.of(),
+        ) : this(accountNumberId, amount, checkNumber, mutableMapOf())
+
+        /**
+         * The identifier of the Account Number the Inbound Check Deposit will be against.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun accountNumberId(): String = accountNumberId.getRequired("account_number_id")
+
+        /**
+         * The check amount in cents.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun amount(): Long = amount.getRequired("amount")
+
+        /**
+         * The check number on the check to be deposited.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun checkNumber(): String = checkNumber.getRequired("check_number")
+
+        /**
+         * Returns the raw JSON value of [accountNumberId].
+         *
+         * Unlike [accountNumberId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("account_number_id")
+        @ExcludeMissing
+        fun _accountNumberId(): JsonField<String> = accountNumberId
+
+        /**
+         * Returns the raw JSON value of [amount].
+         *
+         * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
+
+        /**
+         * Returns the raw JSON value of [checkNumber].
+         *
+         * Unlike [checkNumber], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("check_number")
+        @ExcludeMissing
+        fun _checkNumber(): JsonField<String> = checkNumber
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [Body].
+             *
+             * The following fields are required:
+             * ```java
+             * .accountNumberId()
+             * .amount()
+             * .checkNumber()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Body]. */
+        class Builder internal constructor() {
+
+            private var accountNumberId: JsonField<String>? = null
+            private var amount: JsonField<Long>? = null
+            private var checkNumber: JsonField<String>? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(body: Body) = apply {
+                accountNumberId = body.accountNumberId
+                amount = body.amount
+                checkNumber = body.checkNumber
+                additionalProperties = body.additionalProperties.toMutableMap()
+            }
+
+            /** The identifier of the Account Number the Inbound Check Deposit will be against. */
+            fun accountNumberId(accountNumberId: String) =
+                accountNumberId(JsonField.of(accountNumberId))
+
+            /**
+             * Sets [Builder.accountNumberId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.accountNumberId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun accountNumberId(accountNumberId: JsonField<String>) = apply {
+                this.accountNumberId = accountNumberId
+            }
+
+            /** The check amount in cents. */
+            fun amount(amount: Long) = amount(JsonField.of(amount))
+
+            /**
+             * Sets [Builder.amount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+
+            /** The check number on the check to be deposited. */
+            fun checkNumber(checkNumber: String) = checkNumber(JsonField.of(checkNumber))
+
+            /**
+             * Sets [Builder.checkNumber] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.checkNumber] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun checkNumber(checkNumber: JsonField<String>) = apply {
+                this.checkNumber = checkNumber
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Body].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .accountNumberId()
+             * .amount()
+             * .checkNumber()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): Body =
+                Body(
+                    checkRequired("accountNumberId", accountNumberId),
+                    checkRequired("amount", amount),
+                    checkRequired("checkNumber", checkNumber),
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Body = apply {
+            if (validated) {
+                return@apply
+            }
+
+            accountNumberId()
+            amount()
+            checkNumber()
+            validated = true
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is Body && accountNumberId == other.accountNumberId && amount == other.amount && checkNumber == other.checkNumber && additionalProperties == other.additionalProperties /* spotless:on */
+        }
+
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(accountNumberId, amount, checkNumber, additionalProperties) }
+        /* spotless:on */
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Body{accountNumberId=$accountNumberId, amount=$amount, checkNumber=$checkNumber, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

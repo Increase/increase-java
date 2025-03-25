@@ -2,7 +2,6 @@
 
 package com.increase.api.models.bookkeepingaccounts
 
-import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.Params
 import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
@@ -32,22 +31,6 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _pathParam(index: Int): String =
-        when (index) {
-            0 -> bookkeepingAccountId
-            else -> ""
-        }
-
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams =
-        QueryParams.builder()
-            .apply {
-                atTime?.let { put("at_time", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)) }
-                putAll(additionalQueryParams)
-            }
-            .build()
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -65,7 +48,6 @@ private constructor(
     }
 
     /** A builder for [BookkeepingAccountBalanceParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var bookkeepingAccountId: String? = null
@@ -212,6 +194,22 @@ private constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    fun _pathParam(index: Int): String =
+        when (index) {
+            0 -> bookkeepingAccountId
+            else -> ""
+        }
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                atTime?.let { put("at_time", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)) }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {

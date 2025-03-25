@@ -11,34 +11,48 @@ import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.checkRequired
-import com.increase.api.core.immutableEmptyMap
-import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
+import java.util.Collections
 import java.util.Objects
 
 /** Routing numbers are used to identify your bank in a financial transaction. */
-@NoAutoDetect
 class RoutingNumberListResponse
-@JsonCreator
 private constructor(
-    @JsonProperty("ach_transfers")
-    @ExcludeMissing
-    private val achTransfers: JsonField<AchTransfers> = JsonMissing.of(),
-    @JsonProperty("name") @ExcludeMissing private val name: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("real_time_payments_transfers")
-    @ExcludeMissing
-    private val realTimePaymentsTransfers: JsonField<RealTimePaymentsTransfers> = JsonMissing.of(),
-    @JsonProperty("routing_number")
-    @ExcludeMissing
-    private val routingNumber: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
-    @JsonProperty("wire_transfers")
-    @ExcludeMissing
-    private val wireTransfers: JsonField<WireTransfers> = JsonMissing.of(),
-    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+    private val achTransfers: JsonField<AchTransfers>,
+    private val name: JsonField<String>,
+    private val realTimePaymentsTransfers: JsonField<RealTimePaymentsTransfers>,
+    private val routingNumber: JsonField<String>,
+    private val type: JsonField<Type>,
+    private val wireTransfers: JsonField<WireTransfers>,
+    private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
+
+    @JsonCreator
+    private constructor(
+        @JsonProperty("ach_transfers")
+        @ExcludeMissing
+        achTransfers: JsonField<AchTransfers> = JsonMissing.of(),
+        @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("real_time_payments_transfers")
+        @ExcludeMissing
+        realTimePaymentsTransfers: JsonField<RealTimePaymentsTransfers> = JsonMissing.of(),
+        @JsonProperty("routing_number")
+        @ExcludeMissing
+        routingNumber: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+        @JsonProperty("wire_transfers")
+        @ExcludeMissing
+        wireTransfers: JsonField<WireTransfers> = JsonMissing.of(),
+    ) : this(
+        achTransfers,
+        name,
+        realTimePaymentsTransfers,
+        routingNumber,
+        type,
+        wireTransfers,
+        mutableMapOf(),
+    )
 
     /**
      * This routing number's support for ACH Transfers.
@@ -142,25 +156,15 @@ private constructor(
     @ExcludeMissing
     fun _wireTransfers(): JsonField<WireTransfers> = wireTransfers
 
+    @JsonAnySetter
+    private fun putAdditionalProperty(key: String, value: JsonValue) {
+        additionalProperties.put(key, value)
+    }
+
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-    private var validated: Boolean = false
-
-    fun validate(): RoutingNumberListResponse = apply {
-        if (validated) {
-            return@apply
-        }
-
-        achTransfers()
-        name()
-        realTimePaymentsTransfers()
-        routingNumber()
-        type()
-        wireTransfers()
-        validated = true
-    }
+    fun _additionalProperties(): Map<String, JsonValue> =
+        Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
@@ -330,8 +334,24 @@ private constructor(
                 checkRequired("routingNumber", routingNumber),
                 checkRequired("type", type),
                 checkRequired("wireTransfers", wireTransfers),
-                additionalProperties.toImmutable(),
+                additionalProperties.toMutableMap(),
             )
+    }
+
+    private var validated: Boolean = false
+
+    fun validate(): RoutingNumberListResponse = apply {
+        if (validated) {
+            return@apply
+        }
+
+        achTransfers()
+        name()
+        realTimePaymentsTransfers()
+        routingNumber()
+        type()
+        wireTransfers()
+        validated = true
     }
 
     /** This routing number's support for ACH Transfers. */
