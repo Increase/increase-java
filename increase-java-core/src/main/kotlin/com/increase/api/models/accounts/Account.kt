@@ -11,13 +11,11 @@ import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.checkRequired
-import com.increase.api.core.immutableEmptyMap
-import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.LocalDate
 import java.time.OffsetDateTime
+import java.util.Collections
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
@@ -26,49 +24,75 @@ import kotlin.jvm.optionals.getOrNull
  * Accounts are your bank accounts with Increase. They store money, receive transfers, and send
  * payments. They earn interest and have depository insurance.
  */
-@NoAutoDetect
 class Account
-@JsonCreator
 private constructor(
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("bank") @ExcludeMissing private val bank: JsonField<Bank> = JsonMissing.of(),
-    @JsonProperty("closed_at")
-    @ExcludeMissing
-    private val closedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("created_at")
-    @ExcludeMissing
-    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("currency")
-    @ExcludeMissing
-    private val currency: JsonField<Currency> = JsonMissing.of(),
-    @JsonProperty("entity_id")
-    @ExcludeMissing
-    private val entityId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("idempotency_key")
-    @ExcludeMissing
-    private val idempotencyKey: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("informational_entity_id")
-    @ExcludeMissing
-    private val informationalEntityId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("interest_accrued")
-    @ExcludeMissing
-    private val interestAccrued: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("interest_accrued_at")
-    @ExcludeMissing
-    private val interestAccruedAt: JsonField<LocalDate> = JsonMissing.of(),
-    @JsonProperty("interest_rate")
-    @ExcludeMissing
-    private val interestRate: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("name") @ExcludeMissing private val name: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("program_id")
-    @ExcludeMissing
-    private val programId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("status")
-    @ExcludeMissing
-    private val status: JsonField<Status> = JsonMissing.of(),
-    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
-    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+    private val id: JsonField<String>,
+    private val bank: JsonField<Bank>,
+    private val closedAt: JsonField<OffsetDateTime>,
+    private val createdAt: JsonField<OffsetDateTime>,
+    private val currency: JsonField<Currency>,
+    private val entityId: JsonField<String>,
+    private val idempotencyKey: JsonField<String>,
+    private val informationalEntityId: JsonField<String>,
+    private val interestAccrued: JsonField<String>,
+    private val interestAccruedAt: JsonField<LocalDate>,
+    private val interestRate: JsonField<String>,
+    private val name: JsonField<String>,
+    private val programId: JsonField<String>,
+    private val status: JsonField<Status>,
+    private val type: JsonField<Type>,
+    private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
+
+    @JsonCreator
+    private constructor(
+        @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("bank") @ExcludeMissing bank: JsonField<Bank> = JsonMissing.of(),
+        @JsonProperty("closed_at")
+        @ExcludeMissing
+        closedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("currency") @ExcludeMissing currency: JsonField<Currency> = JsonMissing.of(),
+        @JsonProperty("entity_id") @ExcludeMissing entityId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("idempotency_key")
+        @ExcludeMissing
+        idempotencyKey: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("informational_entity_id")
+        @ExcludeMissing
+        informationalEntityId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("interest_accrued")
+        @ExcludeMissing
+        interestAccrued: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("interest_accrued_at")
+        @ExcludeMissing
+        interestAccruedAt: JsonField<LocalDate> = JsonMissing.of(),
+        @JsonProperty("interest_rate")
+        @ExcludeMissing
+        interestRate: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("program_id") @ExcludeMissing programId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
+        @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+    ) : this(
+        id,
+        bank,
+        closedAt,
+        createdAt,
+        currency,
+        entityId,
+        idempotencyKey,
+        informationalEntityId,
+        interestAccrued,
+        interestAccruedAt,
+        interestRate,
+        name,
+        programId,
+        status,
+        type,
+        mutableMapOf(),
+    )
 
     /**
      * The Account identifier.
@@ -320,34 +344,15 @@ private constructor(
      */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
+    @JsonAnySetter
+    private fun putAdditionalProperty(key: String, value: JsonValue) {
+        additionalProperties.put(key, value)
+    }
+
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-    private var validated: Boolean = false
-
-    fun validate(): Account = apply {
-        if (validated) {
-            return@apply
-        }
-
-        id()
-        bank()
-        closedAt()
-        createdAt()
-        currency()
-        entityId()
-        idempotencyKey()
-        informationalEntityId()
-        interestAccrued()
-        interestAccruedAt()
-        interestRate()
-        name()
-        programId()
-        status()
-        type()
-        validated = true
-    }
+    fun _additionalProperties(): Map<String, JsonValue> =
+        Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
@@ -716,8 +721,33 @@ private constructor(
                 checkRequired("programId", programId),
                 checkRequired("status", status),
                 checkRequired("type", type),
-                additionalProperties.toImmutable(),
+                additionalProperties.toMutableMap(),
             )
+    }
+
+    private var validated: Boolean = false
+
+    fun validate(): Account = apply {
+        if (validated) {
+            return@apply
+        }
+
+        id()
+        bank()
+        closedAt()
+        createdAt()
+        currency()
+        entityId()
+        idempotencyKey()
+        informationalEntityId()
+        interestAccrued()
+        interestAccruedAt()
+        interestRate()
+        name()
+        programId()
+        status()
+        type()
+        validated = true
     }
 
     /** The bank the Account is with. */

@@ -11,36 +11,48 @@ import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.checkRequired
-import com.increase.api.core.immutableEmptyMap
-import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
+import java.util.Collections
 import java.util.Objects
 
 /** An object containing the sensitive details (card number, cvc, etc) for a Card. */
-@NoAutoDetect
 class CardDetails
-@JsonCreator
 private constructor(
-    @JsonProperty("card_id")
-    @ExcludeMissing
-    private val cardId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("expiration_month")
-    @ExcludeMissing
-    private val expirationMonth: JsonField<Long> = JsonMissing.of(),
-    @JsonProperty("expiration_year")
-    @ExcludeMissing
-    private val expirationYear: JsonField<Long> = JsonMissing.of(),
-    @JsonProperty("primary_account_number")
-    @ExcludeMissing
-    private val primaryAccountNumber: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
-    @JsonProperty("verification_code")
-    @ExcludeMissing
-    private val verificationCode: JsonField<String> = JsonMissing.of(),
-    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+    private val cardId: JsonField<String>,
+    private val expirationMonth: JsonField<Long>,
+    private val expirationYear: JsonField<Long>,
+    private val primaryAccountNumber: JsonField<String>,
+    private val type: JsonField<Type>,
+    private val verificationCode: JsonField<String>,
+    private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
+
+    @JsonCreator
+    private constructor(
+        @JsonProperty("card_id") @ExcludeMissing cardId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("expiration_month")
+        @ExcludeMissing
+        expirationMonth: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("expiration_year")
+        @ExcludeMissing
+        expirationYear: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("primary_account_number")
+        @ExcludeMissing
+        primaryAccountNumber: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+        @JsonProperty("verification_code")
+        @ExcludeMissing
+        verificationCode: JsonField<String> = JsonMissing.of(),
+    ) : this(
+        cardId,
+        expirationMonth,
+        expirationYear,
+        primaryAccountNumber,
+        type,
+        verificationCode,
+        mutableMapOf(),
+    )
 
     /**
      * The identifier for the Card for which sensitive details have been returned.
@@ -144,25 +156,15 @@ private constructor(
     @ExcludeMissing
     fun _verificationCode(): JsonField<String> = verificationCode
 
+    @JsonAnySetter
+    private fun putAdditionalProperty(key: String, value: JsonValue) {
+        additionalProperties.put(key, value)
+    }
+
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-    private var validated: Boolean = false
-
-    fun validate(): CardDetails = apply {
-        if (validated) {
-            return@apply
-        }
-
-        cardId()
-        expirationMonth()
-        expirationYear()
-        primaryAccountNumber()
-        type()
-        verificationCode()
-        validated = true
-    }
+    fun _additionalProperties(): Map<String, JsonValue> =
+        Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
@@ -336,8 +338,24 @@ private constructor(
                 checkRequired("primaryAccountNumber", primaryAccountNumber),
                 checkRequired("type", type),
                 checkRequired("verificationCode", verificationCode),
-                additionalProperties.toImmutable(),
+                additionalProperties.toMutableMap(),
             )
+    }
+
+    private var validated: Boolean = false
+
+    fun validate(): CardDetails = apply {
+        if (validated) {
+            return@apply
+        }
+
+        cardId()
+        expirationMonth()
+        expirationYear()
+        primaryAccountNumber()
+        type()
+        verificationCode()
+        validated = true
     }
 
     /**

@@ -10,14 +10,12 @@ import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.Params
 import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
-import com.increase.api.core.immutableEmptyMap
-import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
+import java.util.Collections
 import java.util.Objects
 import java.util.Optional
 
@@ -147,393 +145,6 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    @JvmSynthetic internal fun _body(): Body = body
-
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams = additionalQueryParams
-
-    @NoAutoDetect
-    class Body
-    @JsonCreator
-    private constructor(
-        @JsonProperty("account_number_id")
-        @ExcludeMissing
-        private val accountNumberId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("amount")
-        @ExcludeMissing
-        private val amount: JsonField<Long> = JsonMissing.of(),
-        @JsonProperty("debtor_account_number")
-        @ExcludeMissing
-        private val debtorAccountNumber: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("debtor_name")
-        @ExcludeMissing
-        private val debtorName: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("debtor_routing_number")
-        @ExcludeMissing
-        private val debtorRoutingNumber: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("remittance_information")
-        @ExcludeMissing
-        private val remittanceInformation: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("request_for_payment_id")
-        @ExcludeMissing
-        private val requestForPaymentId: JsonField<String> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-    ) {
-
-        /**
-         * The identifier of the Account Number the inbound Real-Time Payments Transfer is for.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun accountNumberId(): String = accountNumberId.getRequired("account_number_id")
-
-        /**
-         * The transfer amount in USD cents. Must be positive.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun amount(): Long = amount.getRequired("amount")
-
-        /**
-         * The account number of the account that sent the transfer.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun debtorAccountNumber(): Optional<String> =
-            Optional.ofNullable(debtorAccountNumber.getNullable("debtor_account_number"))
-
-        /**
-         * The name provided by the sender of the transfer.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun debtorName(): Optional<String> =
-            Optional.ofNullable(debtorName.getNullable("debtor_name"))
-
-        /**
-         * The routing number of the account that sent the transfer.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun debtorRoutingNumber(): Optional<String> =
-            Optional.ofNullable(debtorRoutingNumber.getNullable("debtor_routing_number"))
-
-        /**
-         * Additional information included with the transfer.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun remittanceInformation(): Optional<String> =
-            Optional.ofNullable(remittanceInformation.getNullable("remittance_information"))
-
-        /**
-         * The identifier of a pending Request for Payment that this transfer will fulfill.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun requestForPaymentId(): Optional<String> =
-            Optional.ofNullable(requestForPaymentId.getNullable("request_for_payment_id"))
-
-        /**
-         * Returns the raw JSON value of [accountNumberId].
-         *
-         * Unlike [accountNumberId], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("account_number_id")
-        @ExcludeMissing
-        fun _accountNumberId(): JsonField<String> = accountNumberId
-
-        /**
-         * Returns the raw JSON value of [amount].
-         *
-         * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
-
-        /**
-         * Returns the raw JSON value of [debtorAccountNumber].
-         *
-         * Unlike [debtorAccountNumber], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("debtor_account_number")
-        @ExcludeMissing
-        fun _debtorAccountNumber(): JsonField<String> = debtorAccountNumber
-
-        /**
-         * Returns the raw JSON value of [debtorName].
-         *
-         * Unlike [debtorName], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("debtor_name")
-        @ExcludeMissing
-        fun _debtorName(): JsonField<String> = debtorName
-
-        /**
-         * Returns the raw JSON value of [debtorRoutingNumber].
-         *
-         * Unlike [debtorRoutingNumber], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("debtor_routing_number")
-        @ExcludeMissing
-        fun _debtorRoutingNumber(): JsonField<String> = debtorRoutingNumber
-
-        /**
-         * Returns the raw JSON value of [remittanceInformation].
-         *
-         * Unlike [remittanceInformation], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("remittance_information")
-        @ExcludeMissing
-        fun _remittanceInformation(): JsonField<String> = remittanceInformation
-
-        /**
-         * Returns the raw JSON value of [requestForPaymentId].
-         *
-         * Unlike [requestForPaymentId], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("request_for_payment_id")
-        @ExcludeMissing
-        fun _requestForPaymentId(): JsonField<String> = requestForPaymentId
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): Body = apply {
-            if (validated) {
-                return@apply
-            }
-
-            accountNumberId()
-            amount()
-            debtorAccountNumber()
-            debtorName()
-            debtorRoutingNumber()
-            remittanceInformation()
-            requestForPaymentId()
-            validated = true
-        }
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /**
-             * Returns a mutable builder for constructing an instance of [Body].
-             *
-             * The following fields are required:
-             * ```java
-             * .accountNumberId()
-             * .amount()
-             * ```
-             */
-            @JvmStatic fun builder() = Builder()
-        }
-
-        /** A builder for [Body]. */
-        class Builder internal constructor() {
-
-            private var accountNumberId: JsonField<String>? = null
-            private var amount: JsonField<Long>? = null
-            private var debtorAccountNumber: JsonField<String> = JsonMissing.of()
-            private var debtorName: JsonField<String> = JsonMissing.of()
-            private var debtorRoutingNumber: JsonField<String> = JsonMissing.of()
-            private var remittanceInformation: JsonField<String> = JsonMissing.of()
-            private var requestForPaymentId: JsonField<String> = JsonMissing.of()
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(body: Body) = apply {
-                accountNumberId = body.accountNumberId
-                amount = body.amount
-                debtorAccountNumber = body.debtorAccountNumber
-                debtorName = body.debtorName
-                debtorRoutingNumber = body.debtorRoutingNumber
-                remittanceInformation = body.remittanceInformation
-                requestForPaymentId = body.requestForPaymentId
-                additionalProperties = body.additionalProperties.toMutableMap()
-            }
-
-            /**
-             * The identifier of the Account Number the inbound Real-Time Payments Transfer is for.
-             */
-            fun accountNumberId(accountNumberId: String) =
-                accountNumberId(JsonField.of(accountNumberId))
-
-            /**
-             * Sets [Builder.accountNumberId] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.accountNumberId] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun accountNumberId(accountNumberId: JsonField<String>) = apply {
-                this.accountNumberId = accountNumberId
-            }
-
-            /** The transfer amount in USD cents. Must be positive. */
-            fun amount(amount: Long) = amount(JsonField.of(amount))
-
-            /**
-             * Sets [Builder.amount] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
-             */
-            fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
-
-            /** The account number of the account that sent the transfer. */
-            fun debtorAccountNumber(debtorAccountNumber: String) =
-                debtorAccountNumber(JsonField.of(debtorAccountNumber))
-
-            /**
-             * Sets [Builder.debtorAccountNumber] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.debtorAccountNumber] with a well-typed [String]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
-             */
-            fun debtorAccountNumber(debtorAccountNumber: JsonField<String>) = apply {
-                this.debtorAccountNumber = debtorAccountNumber
-            }
-
-            /** The name provided by the sender of the transfer. */
-            fun debtorName(debtorName: String) = debtorName(JsonField.of(debtorName))
-
-            /**
-             * Sets [Builder.debtorName] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.debtorName] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun debtorName(debtorName: JsonField<String>) = apply { this.debtorName = debtorName }
-
-            /** The routing number of the account that sent the transfer. */
-            fun debtorRoutingNumber(debtorRoutingNumber: String) =
-                debtorRoutingNumber(JsonField.of(debtorRoutingNumber))
-
-            /**
-             * Sets [Builder.debtorRoutingNumber] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.debtorRoutingNumber] with a well-typed [String]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
-             */
-            fun debtorRoutingNumber(debtorRoutingNumber: JsonField<String>) = apply {
-                this.debtorRoutingNumber = debtorRoutingNumber
-            }
-
-            /** Additional information included with the transfer. */
-            fun remittanceInformation(remittanceInformation: String) =
-                remittanceInformation(JsonField.of(remittanceInformation))
-
-            /**
-             * Sets [Builder.remittanceInformation] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.remittanceInformation] with a well-typed [String]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
-             */
-            fun remittanceInformation(remittanceInformation: JsonField<String>) = apply {
-                this.remittanceInformation = remittanceInformation
-            }
-
-            /** The identifier of a pending Request for Payment that this transfer will fulfill. */
-            fun requestForPaymentId(requestForPaymentId: String) =
-                requestForPaymentId(JsonField.of(requestForPaymentId))
-
-            /**
-             * Sets [Builder.requestForPaymentId] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.requestForPaymentId] with a well-typed [String]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
-             */
-            fun requestForPaymentId(requestForPaymentId: JsonField<String>) = apply {
-                this.requestForPaymentId = requestForPaymentId
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [Body].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             *
-             * The following fields are required:
-             * ```java
-             * .accountNumberId()
-             * .amount()
-             * ```
-             *
-             * @throws IllegalStateException if any required field is unset.
-             */
-            fun build(): Body =
-                Body(
-                    checkRequired("accountNumberId", accountNumberId),
-                    checkRequired("amount", amount),
-                    debtorAccountNumber,
-                    debtorName,
-                    debtorRoutingNumber,
-                    remittanceInformation,
-                    requestForPaymentId,
-                    additionalProperties.toImmutable(),
-                )
-        }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return /* spotless:off */ other is Body && accountNumberId == other.accountNumberId && amount == other.amount && debtorAccountNumber == other.debtorAccountNumber && debtorName == other.debtorName && debtorRoutingNumber == other.debtorRoutingNumber && remittanceInformation == other.remittanceInformation && requestForPaymentId == other.requestForPaymentId && additionalProperties == other.additionalProperties /* spotless:on */
-        }
-
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(accountNumberId, amount, debtorAccountNumber, debtorName, debtorRoutingNumber, remittanceInformation, requestForPaymentId, additionalProperties) }
-        /* spotless:on */
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "Body{accountNumberId=$accountNumberId, amount=$amount, debtorAccountNumber=$debtorAccountNumber, debtorName=$debtorName, debtorRoutingNumber=$debtorRoutingNumber, remittanceInformation=$remittanceInformation, requestForPaymentId=$requestForPaymentId, additionalProperties=$additionalProperties}"
-    }
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -552,7 +163,6 @@ private constructor(
     }
 
     /** A builder for [InboundRealTimePaymentsTransferCreateParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var body: Body.Builder = Body.builder()
@@ -809,6 +419,414 @@ private constructor(
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
+    }
+
+    @JvmSynthetic internal fun _body(): Body = body
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams = additionalQueryParams
+
+    class Body
+    private constructor(
+        private val accountNumberId: JsonField<String>,
+        private val amount: JsonField<Long>,
+        private val debtorAccountNumber: JsonField<String>,
+        private val debtorName: JsonField<String>,
+        private val debtorRoutingNumber: JsonField<String>,
+        private val remittanceInformation: JsonField<String>,
+        private val requestForPaymentId: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("account_number_id")
+            @ExcludeMissing
+            accountNumberId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("debtor_account_number")
+            @ExcludeMissing
+            debtorAccountNumber: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("debtor_name")
+            @ExcludeMissing
+            debtorName: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("debtor_routing_number")
+            @ExcludeMissing
+            debtorRoutingNumber: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("remittance_information")
+            @ExcludeMissing
+            remittanceInformation: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("request_for_payment_id")
+            @ExcludeMissing
+            requestForPaymentId: JsonField<String> = JsonMissing.of(),
+        ) : this(
+            accountNumberId,
+            amount,
+            debtorAccountNumber,
+            debtorName,
+            debtorRoutingNumber,
+            remittanceInformation,
+            requestForPaymentId,
+            mutableMapOf(),
+        )
+
+        /**
+         * The identifier of the Account Number the inbound Real-Time Payments Transfer is for.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun accountNumberId(): String = accountNumberId.getRequired("account_number_id")
+
+        /**
+         * The transfer amount in USD cents. Must be positive.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun amount(): Long = amount.getRequired("amount")
+
+        /**
+         * The account number of the account that sent the transfer.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun debtorAccountNumber(): Optional<String> =
+            Optional.ofNullable(debtorAccountNumber.getNullable("debtor_account_number"))
+
+        /**
+         * The name provided by the sender of the transfer.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun debtorName(): Optional<String> =
+            Optional.ofNullable(debtorName.getNullable("debtor_name"))
+
+        /**
+         * The routing number of the account that sent the transfer.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun debtorRoutingNumber(): Optional<String> =
+            Optional.ofNullable(debtorRoutingNumber.getNullable("debtor_routing_number"))
+
+        /**
+         * Additional information included with the transfer.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun remittanceInformation(): Optional<String> =
+            Optional.ofNullable(remittanceInformation.getNullable("remittance_information"))
+
+        /**
+         * The identifier of a pending Request for Payment that this transfer will fulfill.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun requestForPaymentId(): Optional<String> =
+            Optional.ofNullable(requestForPaymentId.getNullable("request_for_payment_id"))
+
+        /**
+         * Returns the raw JSON value of [accountNumberId].
+         *
+         * Unlike [accountNumberId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("account_number_id")
+        @ExcludeMissing
+        fun _accountNumberId(): JsonField<String> = accountNumberId
+
+        /**
+         * Returns the raw JSON value of [amount].
+         *
+         * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
+
+        /**
+         * Returns the raw JSON value of [debtorAccountNumber].
+         *
+         * Unlike [debtorAccountNumber], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("debtor_account_number")
+        @ExcludeMissing
+        fun _debtorAccountNumber(): JsonField<String> = debtorAccountNumber
+
+        /**
+         * Returns the raw JSON value of [debtorName].
+         *
+         * Unlike [debtorName], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("debtor_name")
+        @ExcludeMissing
+        fun _debtorName(): JsonField<String> = debtorName
+
+        /**
+         * Returns the raw JSON value of [debtorRoutingNumber].
+         *
+         * Unlike [debtorRoutingNumber], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("debtor_routing_number")
+        @ExcludeMissing
+        fun _debtorRoutingNumber(): JsonField<String> = debtorRoutingNumber
+
+        /**
+         * Returns the raw JSON value of [remittanceInformation].
+         *
+         * Unlike [remittanceInformation], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("remittance_information")
+        @ExcludeMissing
+        fun _remittanceInformation(): JsonField<String> = remittanceInformation
+
+        /**
+         * Returns the raw JSON value of [requestForPaymentId].
+         *
+         * Unlike [requestForPaymentId], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("request_for_payment_id")
+        @ExcludeMissing
+        fun _requestForPaymentId(): JsonField<String> = requestForPaymentId
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [Body].
+             *
+             * The following fields are required:
+             * ```java
+             * .accountNumberId()
+             * .amount()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Body]. */
+        class Builder internal constructor() {
+
+            private var accountNumberId: JsonField<String>? = null
+            private var amount: JsonField<Long>? = null
+            private var debtorAccountNumber: JsonField<String> = JsonMissing.of()
+            private var debtorName: JsonField<String> = JsonMissing.of()
+            private var debtorRoutingNumber: JsonField<String> = JsonMissing.of()
+            private var remittanceInformation: JsonField<String> = JsonMissing.of()
+            private var requestForPaymentId: JsonField<String> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(body: Body) = apply {
+                accountNumberId = body.accountNumberId
+                amount = body.amount
+                debtorAccountNumber = body.debtorAccountNumber
+                debtorName = body.debtorName
+                debtorRoutingNumber = body.debtorRoutingNumber
+                remittanceInformation = body.remittanceInformation
+                requestForPaymentId = body.requestForPaymentId
+                additionalProperties = body.additionalProperties.toMutableMap()
+            }
+
+            /**
+             * The identifier of the Account Number the inbound Real-Time Payments Transfer is for.
+             */
+            fun accountNumberId(accountNumberId: String) =
+                accountNumberId(JsonField.of(accountNumberId))
+
+            /**
+             * Sets [Builder.accountNumberId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.accountNumberId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun accountNumberId(accountNumberId: JsonField<String>) = apply {
+                this.accountNumberId = accountNumberId
+            }
+
+            /** The transfer amount in USD cents. Must be positive. */
+            fun amount(amount: Long) = amount(JsonField.of(amount))
+
+            /**
+             * Sets [Builder.amount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+
+            /** The account number of the account that sent the transfer. */
+            fun debtorAccountNumber(debtorAccountNumber: String) =
+                debtorAccountNumber(JsonField.of(debtorAccountNumber))
+
+            /**
+             * Sets [Builder.debtorAccountNumber] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.debtorAccountNumber] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun debtorAccountNumber(debtorAccountNumber: JsonField<String>) = apply {
+                this.debtorAccountNumber = debtorAccountNumber
+            }
+
+            /** The name provided by the sender of the transfer. */
+            fun debtorName(debtorName: String) = debtorName(JsonField.of(debtorName))
+
+            /**
+             * Sets [Builder.debtorName] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.debtorName] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun debtorName(debtorName: JsonField<String>) = apply { this.debtorName = debtorName }
+
+            /** The routing number of the account that sent the transfer. */
+            fun debtorRoutingNumber(debtorRoutingNumber: String) =
+                debtorRoutingNumber(JsonField.of(debtorRoutingNumber))
+
+            /**
+             * Sets [Builder.debtorRoutingNumber] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.debtorRoutingNumber] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun debtorRoutingNumber(debtorRoutingNumber: JsonField<String>) = apply {
+                this.debtorRoutingNumber = debtorRoutingNumber
+            }
+
+            /** Additional information included with the transfer. */
+            fun remittanceInformation(remittanceInformation: String) =
+                remittanceInformation(JsonField.of(remittanceInformation))
+
+            /**
+             * Sets [Builder.remittanceInformation] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.remittanceInformation] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun remittanceInformation(remittanceInformation: JsonField<String>) = apply {
+                this.remittanceInformation = remittanceInformation
+            }
+
+            /** The identifier of a pending Request for Payment that this transfer will fulfill. */
+            fun requestForPaymentId(requestForPaymentId: String) =
+                requestForPaymentId(JsonField.of(requestForPaymentId))
+
+            /**
+             * Sets [Builder.requestForPaymentId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.requestForPaymentId] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun requestForPaymentId(requestForPaymentId: JsonField<String>) = apply {
+                this.requestForPaymentId = requestForPaymentId
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Body].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .accountNumberId()
+             * .amount()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): Body =
+                Body(
+                    checkRequired("accountNumberId", accountNumberId),
+                    checkRequired("amount", amount),
+                    debtorAccountNumber,
+                    debtorName,
+                    debtorRoutingNumber,
+                    remittanceInformation,
+                    requestForPaymentId,
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Body = apply {
+            if (validated) {
+                return@apply
+            }
+
+            accountNumberId()
+            amount()
+            debtorAccountNumber()
+            debtorName()
+            debtorRoutingNumber()
+            remittanceInformation()
+            requestForPaymentId()
+            validated = true
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is Body && accountNumberId == other.accountNumberId && amount == other.amount && debtorAccountNumber == other.debtorAccountNumber && debtorName == other.debtorName && debtorRoutingNumber == other.debtorRoutingNumber && remittanceInformation == other.remittanceInformation && requestForPaymentId == other.requestForPaymentId && additionalProperties == other.additionalProperties /* spotless:on */
+        }
+
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(accountNumberId, amount, debtorAccountNumber, debtorName, debtorRoutingNumber, remittanceInformation, requestForPaymentId, additionalProperties) }
+        /* spotless:on */
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Body{accountNumberId=$accountNumberId, amount=$amount, debtorAccountNumber=$debtorAccountNumber, debtorName=$debtorName, debtorRoutingNumber=$debtorRoutingNumber, remittanceInformation=$remittanceInformation, requestForPaymentId=$requestForPaymentId, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

@@ -2,7 +2,6 @@
 
 package com.increase.api.models.accountstatements
 
-import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.Params
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
@@ -39,49 +38,6 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams =
-        QueryParams.builder()
-            .apply {
-                accountId?.let { put("account_id", it) }
-                cursor?.let { put("cursor", it) }
-                limit?.let { put("limit", it.toString()) }
-                statementPeriodStart?.let {
-                    it.after().ifPresent {
-                        put(
-                            "statement_period_start.after",
-                            DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it),
-                        )
-                    }
-                    it.before().ifPresent {
-                        put(
-                            "statement_period_start.before",
-                            DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it),
-                        )
-                    }
-                    it.onOrAfter().ifPresent {
-                        put(
-                            "statement_period_start.on_or_after",
-                            DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it),
-                        )
-                    }
-                    it.onOrBefore().ifPresent {
-                        put(
-                            "statement_period_start.on_or_before",
-                            DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it),
-                        )
-                    }
-                    it._additionalProperties().keys().forEach { key ->
-                        it._additionalProperties().values(key).forEach { value ->
-                            put("statement_period_start.$key", value)
-                        }
-                    }
-                }
-                putAll(additionalQueryParams)
-            }
-            .build()
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -95,7 +51,6 @@ private constructor(
     }
 
     /** A builder for [AccountStatementListParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var accountId: String? = null
@@ -266,6 +221,49 @@ private constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                accountId?.let { put("account_id", it) }
+                cursor?.let { put("cursor", it) }
+                limit?.let { put("limit", it.toString()) }
+                statementPeriodStart?.let {
+                    it.after().ifPresent {
+                        put(
+                            "statement_period_start.after",
+                            DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it),
+                        )
+                    }
+                    it.before().ifPresent {
+                        put(
+                            "statement_period_start.before",
+                            DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it),
+                        )
+                    }
+                    it.onOrAfter().ifPresent {
+                        put(
+                            "statement_period_start.on_or_after",
+                            DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it),
+                        )
+                    }
+                    it.onOrBefore().ifPresent {
+                        put(
+                            "statement_period_start.on_or_before",
+                            DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it),
+                        )
+                    }
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("statement_period_start.$key", value)
+                        }
+                    }
+                }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     class StatementPeriodStart
     private constructor(

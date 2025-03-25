@@ -11,14 +11,12 @@ import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.Params
 import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
-import com.increase.api.core.immutableEmptyMap
-import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
+import java.util.Collections
 import java.util.Objects
 import java.util.Optional
 
@@ -100,254 +98,6 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    @JvmSynthetic internal fun _body(): Body = body
-
-    fun _pathParam(index: Int): String =
-        when (index) {
-            0 -> externalAccountId
-            else -> ""
-        }
-
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams = additionalQueryParams
-
-    @NoAutoDetect
-    class Body
-    @JsonCreator
-    private constructor(
-        @JsonProperty("account_holder")
-        @ExcludeMissing
-        private val accountHolder: JsonField<AccountHolder> = JsonMissing.of(),
-        @JsonProperty("description")
-        @ExcludeMissing
-        private val description: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("funding")
-        @ExcludeMissing
-        private val funding: JsonField<Funding> = JsonMissing.of(),
-        @JsonProperty("status")
-        @ExcludeMissing
-        private val status: JsonField<Status> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-    ) {
-
-        /**
-         * The type of entity that owns the External Account.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun accountHolder(): Optional<AccountHolder> =
-            Optional.ofNullable(accountHolder.getNullable("account_holder"))
-
-        /**
-         * The description you choose to give the external account.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun description(): Optional<String> =
-            Optional.ofNullable(description.getNullable("description"))
-
-        /**
-         * The funding type of the External Account.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun funding(): Optional<Funding> = Optional.ofNullable(funding.getNullable("funding"))
-
-        /**
-         * The status of the External Account.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun status(): Optional<Status> = Optional.ofNullable(status.getNullable("status"))
-
-        /**
-         * Returns the raw JSON value of [accountHolder].
-         *
-         * Unlike [accountHolder], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("account_holder")
-        @ExcludeMissing
-        fun _accountHolder(): JsonField<AccountHolder> = accountHolder
-
-        /**
-         * Returns the raw JSON value of [description].
-         *
-         * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("description")
-        @ExcludeMissing
-        fun _description(): JsonField<String> = description
-
-        /**
-         * Returns the raw JSON value of [funding].
-         *
-         * Unlike [funding], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("funding") @ExcludeMissing fun _funding(): JsonField<Funding> = funding
-
-        /**
-         * Returns the raw JSON value of [status].
-         *
-         * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): Body = apply {
-            if (validated) {
-                return@apply
-            }
-
-            accountHolder()
-            description()
-            funding()
-            status()
-            validated = true
-        }
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /** Returns a mutable builder for constructing an instance of [Body]. */
-            @JvmStatic fun builder() = Builder()
-        }
-
-        /** A builder for [Body]. */
-        class Builder internal constructor() {
-
-            private var accountHolder: JsonField<AccountHolder> = JsonMissing.of()
-            private var description: JsonField<String> = JsonMissing.of()
-            private var funding: JsonField<Funding> = JsonMissing.of()
-            private var status: JsonField<Status> = JsonMissing.of()
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(body: Body) = apply {
-                accountHolder = body.accountHolder
-                description = body.description
-                funding = body.funding
-                status = body.status
-                additionalProperties = body.additionalProperties.toMutableMap()
-            }
-
-            /** The type of entity that owns the External Account. */
-            fun accountHolder(accountHolder: AccountHolder) =
-                accountHolder(JsonField.of(accountHolder))
-
-            /**
-             * Sets [Builder.accountHolder] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.accountHolder] with a well-typed [AccountHolder]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
-             */
-            fun accountHolder(accountHolder: JsonField<AccountHolder>) = apply {
-                this.accountHolder = accountHolder
-            }
-
-            /** The description you choose to give the external account. */
-            fun description(description: String) = description(JsonField.of(description))
-
-            /**
-             * Sets [Builder.description] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.description] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun description(description: JsonField<String>) = apply {
-                this.description = description
-            }
-
-            /** The funding type of the External Account. */
-            fun funding(funding: Funding) = funding(JsonField.of(funding))
-
-            /**
-             * Sets [Builder.funding] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.funding] with a well-typed [Funding] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun funding(funding: JsonField<Funding>) = apply { this.funding = funding }
-
-            /** The status of the External Account. */
-            fun status(status: Status) = status(JsonField.of(status))
-
-            /**
-             * Sets [Builder.status] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.status] with a well-typed [Status] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun status(status: JsonField<Status>) = apply { this.status = status }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [Body].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             */
-            fun build(): Body =
-                Body(
-                    accountHolder,
-                    description,
-                    funding,
-                    status,
-                    additionalProperties.toImmutable(),
-                )
-        }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return /* spotless:off */ other is Body && accountHolder == other.accountHolder && description == other.description && funding == other.funding && status == other.status && additionalProperties == other.additionalProperties /* spotless:on */
-        }
-
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(accountHolder, description, funding, status, additionalProperties) }
-        /* spotless:on */
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "Body{accountHolder=$accountHolder, description=$description, funding=$funding, status=$status, additionalProperties=$additionalProperties}"
-    }
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -364,7 +114,6 @@ private constructor(
     }
 
     /** A builder for [ExternalAccountUpdateParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var externalAccountId: String? = null
@@ -571,6 +320,261 @@ private constructor(
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
+    }
+
+    @JvmSynthetic internal fun _body(): Body = body
+
+    fun _pathParam(index: Int): String =
+        when (index) {
+            0 -> externalAccountId
+            else -> ""
+        }
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams = additionalQueryParams
+
+    class Body
+    private constructor(
+        private val accountHolder: JsonField<AccountHolder>,
+        private val description: JsonField<String>,
+        private val funding: JsonField<Funding>,
+        private val status: JsonField<Status>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("account_holder")
+            @ExcludeMissing
+            accountHolder: JsonField<AccountHolder> = JsonMissing.of(),
+            @JsonProperty("description")
+            @ExcludeMissing
+            description: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("funding") @ExcludeMissing funding: JsonField<Funding> = JsonMissing.of(),
+            @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
+        ) : this(accountHolder, description, funding, status, mutableMapOf())
+
+        /**
+         * The type of entity that owns the External Account.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun accountHolder(): Optional<AccountHolder> =
+            Optional.ofNullable(accountHolder.getNullable("account_holder"))
+
+        /**
+         * The description you choose to give the external account.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun description(): Optional<String> =
+            Optional.ofNullable(description.getNullable("description"))
+
+        /**
+         * The funding type of the External Account.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun funding(): Optional<Funding> = Optional.ofNullable(funding.getNullable("funding"))
+
+        /**
+         * The status of the External Account.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun status(): Optional<Status> = Optional.ofNullable(status.getNullable("status"))
+
+        /**
+         * Returns the raw JSON value of [accountHolder].
+         *
+         * Unlike [accountHolder], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("account_holder")
+        @ExcludeMissing
+        fun _accountHolder(): JsonField<AccountHolder> = accountHolder
+
+        /**
+         * Returns the raw JSON value of [description].
+         *
+         * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("description")
+        @ExcludeMissing
+        fun _description(): JsonField<String> = description
+
+        /**
+         * Returns the raw JSON value of [funding].
+         *
+         * Unlike [funding], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("funding") @ExcludeMissing fun _funding(): JsonField<Funding> = funding
+
+        /**
+         * Returns the raw JSON value of [status].
+         *
+         * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [Body]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Body]. */
+        class Builder internal constructor() {
+
+            private var accountHolder: JsonField<AccountHolder> = JsonMissing.of()
+            private var description: JsonField<String> = JsonMissing.of()
+            private var funding: JsonField<Funding> = JsonMissing.of()
+            private var status: JsonField<Status> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(body: Body) = apply {
+                accountHolder = body.accountHolder
+                description = body.description
+                funding = body.funding
+                status = body.status
+                additionalProperties = body.additionalProperties.toMutableMap()
+            }
+
+            /** The type of entity that owns the External Account. */
+            fun accountHolder(accountHolder: AccountHolder) =
+                accountHolder(JsonField.of(accountHolder))
+
+            /**
+             * Sets [Builder.accountHolder] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.accountHolder] with a well-typed [AccountHolder]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun accountHolder(accountHolder: JsonField<AccountHolder>) = apply {
+                this.accountHolder = accountHolder
+            }
+
+            /** The description you choose to give the external account. */
+            fun description(description: String) = description(JsonField.of(description))
+
+            /**
+             * Sets [Builder.description] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.description] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun description(description: JsonField<String>) = apply {
+                this.description = description
+            }
+
+            /** The funding type of the External Account. */
+            fun funding(funding: Funding) = funding(JsonField.of(funding))
+
+            /**
+             * Sets [Builder.funding] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.funding] with a well-typed [Funding] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun funding(funding: JsonField<Funding>) = apply { this.funding = funding }
+
+            /** The status of the External Account. */
+            fun status(status: Status) = status(JsonField.of(status))
+
+            /**
+             * Sets [Builder.status] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.status] with a well-typed [Status] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun status(status: JsonField<Status>) = apply { this.status = status }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Body].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): Body =
+                Body(
+                    accountHolder,
+                    description,
+                    funding,
+                    status,
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Body = apply {
+            if (validated) {
+                return@apply
+            }
+
+            accountHolder()
+            description()
+            funding()
+            status()
+            validated = true
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is Body && accountHolder == other.accountHolder && description == other.description && funding == other.funding && status == other.status && additionalProperties == other.additionalProperties /* spotless:on */
+        }
+
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(accountHolder, description, funding, status, additionalProperties) }
+        /* spotless:on */
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Body{accountHolder=$accountHolder, description=$description, funding=$funding, status=$status, additionalProperties=$additionalProperties}"
     }
 
     /** The type of entity that owns the External Account. */

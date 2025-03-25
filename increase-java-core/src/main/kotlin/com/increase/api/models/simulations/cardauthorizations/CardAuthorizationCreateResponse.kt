@@ -11,31 +11,34 @@ import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.checkRequired
-import com.increase.api.core.immutableEmptyMap
-import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import com.increase.api.models.declinedtransactions.DeclinedTransaction
 import com.increase.api.models.pendingtransactions.PendingTransaction
+import java.util.Collections
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /** The results of a Card Authorization simulation. */
-@NoAutoDetect
 class CardAuthorizationCreateResponse
-@JsonCreator
 private constructor(
-    @JsonProperty("declined_transaction")
-    @ExcludeMissing
-    private val declinedTransaction: JsonField<DeclinedTransaction> = JsonMissing.of(),
-    @JsonProperty("pending_transaction")
-    @ExcludeMissing
-    private val pendingTransaction: JsonField<PendingTransaction> = JsonMissing.of(),
-    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
-    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+    private val declinedTransaction: JsonField<DeclinedTransaction>,
+    private val pendingTransaction: JsonField<PendingTransaction>,
+    private val type: JsonField<Type>,
+    private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
+
+    @JsonCreator
+    private constructor(
+        @JsonProperty("declined_transaction")
+        @ExcludeMissing
+        declinedTransaction: JsonField<DeclinedTransaction> = JsonMissing.of(),
+        @JsonProperty("pending_transaction")
+        @ExcludeMissing
+        pendingTransaction: JsonField<PendingTransaction> = JsonMissing.of(),
+        @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+    ) : this(declinedTransaction, pendingTransaction, type, mutableMapOf())
 
     /**
      * If the authorization attempt fails, this will contain the resulting
@@ -94,22 +97,15 @@ private constructor(
      */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
+    @JsonAnySetter
+    private fun putAdditionalProperty(key: String, value: JsonValue) {
+        additionalProperties.put(key, value)
+    }
+
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-    private var validated: Boolean = false
-
-    fun validate(): CardAuthorizationCreateResponse = apply {
-        if (validated) {
-            return@apply
-        }
-
-        declinedTransaction().ifPresent { it.validate() }
-        pendingTransaction().ifPresent { it.validate() }
-        type()
-        validated = true
-    }
+    fun _additionalProperties(): Map<String, JsonValue> =
+        Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
@@ -249,8 +245,21 @@ private constructor(
                 checkRequired("declinedTransaction", declinedTransaction),
                 checkRequired("pendingTransaction", pendingTransaction),
                 checkRequired("type", type),
-                additionalProperties.toImmutable(),
+                additionalProperties.toMutableMap(),
             )
+    }
+
+    private var validated: Boolean = false
+
+    fun validate(): CardAuthorizationCreateResponse = apply {
+        if (validated) {
+            return@apply
+        }
+
+        declinedTransaction().ifPresent { it.validate() }
+        pendingTransaction().ifPresent { it.validate() }
+        type()
+        validated = true
     }
 
     /**

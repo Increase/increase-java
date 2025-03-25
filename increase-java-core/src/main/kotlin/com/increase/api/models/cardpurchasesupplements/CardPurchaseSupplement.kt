@@ -11,13 +11,12 @@ import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.checkKnown
 import com.increase.api.core.checkRequired
-import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.LocalDate
+import java.util.Collections
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
@@ -26,26 +25,32 @@ import kotlin.jvm.optionals.getOrNull
  * Additional information about a card purchase (e.g., settlement or refund), such as level 3 line
  * item data.
  */
-@NoAutoDetect
 class CardPurchaseSupplement
-@JsonCreator
 private constructor(
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("card_payment_id")
-    @ExcludeMissing
-    private val cardPaymentId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("invoice")
-    @ExcludeMissing
-    private val invoice: JsonField<Invoice> = JsonMissing.of(),
-    @JsonProperty("line_items")
-    @ExcludeMissing
-    private val lineItems: JsonField<List<LineItem>> = JsonMissing.of(),
-    @JsonProperty("transaction_id")
-    @ExcludeMissing
-    private val transactionId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
-    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+    private val id: JsonField<String>,
+    private val cardPaymentId: JsonField<String>,
+    private val invoice: JsonField<Invoice>,
+    private val lineItems: JsonField<List<LineItem>>,
+    private val transactionId: JsonField<String>,
+    private val type: JsonField<Type>,
+    private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
+
+    @JsonCreator
+    private constructor(
+        @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("card_payment_id")
+        @ExcludeMissing
+        cardPaymentId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("invoice") @ExcludeMissing invoice: JsonField<Invoice> = JsonMissing.of(),
+        @JsonProperty("line_items")
+        @ExcludeMissing
+        lineItems: JsonField<List<LineItem>> = JsonMissing.of(),
+        @JsonProperty("transaction_id")
+        @ExcludeMissing
+        transactionId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+    ) : this(id, cardPaymentId, invoice, lineItems, transactionId, type, mutableMapOf())
 
     /**
      * The Card Purchase Supplement identifier.
@@ -146,25 +151,15 @@ private constructor(
      */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
+    @JsonAnySetter
+    private fun putAdditionalProperty(key: String, value: JsonValue) {
+        additionalProperties.put(key, value)
+    }
+
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-    private var validated: Boolean = false
-
-    fun validate(): CardPurchaseSupplement = apply {
-        if (validated) {
-            return@apply
-        }
-
-        id()
-        cardPaymentId()
-        invoice().ifPresent { it.validate() }
-        lineItems().ifPresent { it.forEach { it.validate() } }
-        transactionId()
-        type()
-        validated = true
-    }
+    fun _additionalProperties(): Map<String, JsonValue> =
+        Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
@@ -353,66 +348,117 @@ private constructor(
                 checkRequired("lineItems", lineItems).map { it.toImmutable() },
                 checkRequired("transactionId", transactionId),
                 checkRequired("type", type),
-                additionalProperties.toImmutable(),
+                additionalProperties.toMutableMap(),
             )
     }
 
+    private var validated: Boolean = false
+
+    fun validate(): CardPurchaseSupplement = apply {
+        if (validated) {
+            return@apply
+        }
+
+        id()
+        cardPaymentId()
+        invoice().ifPresent { it.validate() }
+        lineItems().ifPresent { it.forEach { it.validate() } }
+        transactionId()
+        type()
+        validated = true
+    }
+
     /** Invoice-level information about the payment. */
-    @NoAutoDetect
     class Invoice
-    @JsonCreator
     private constructor(
-        @JsonProperty("discount_amount")
-        @ExcludeMissing
-        private val discountAmount: JsonField<Long> = JsonMissing.of(),
-        @JsonProperty("discount_currency")
-        @ExcludeMissing
-        private val discountCurrency: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("discount_treatment_code")
-        @ExcludeMissing
-        private val discountTreatmentCode: JsonField<DiscountTreatmentCode> = JsonMissing.of(),
-        @JsonProperty("duty_tax_amount")
-        @ExcludeMissing
-        private val dutyTaxAmount: JsonField<Long> = JsonMissing.of(),
-        @JsonProperty("duty_tax_currency")
-        @ExcludeMissing
-        private val dutyTaxCurrency: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("order_date")
-        @ExcludeMissing
-        private val orderDate: JsonField<LocalDate> = JsonMissing.of(),
-        @JsonProperty("shipping_amount")
-        @ExcludeMissing
-        private val shippingAmount: JsonField<Long> = JsonMissing.of(),
-        @JsonProperty("shipping_currency")
-        @ExcludeMissing
-        private val shippingCurrency: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("shipping_destination_country_code")
-        @ExcludeMissing
-        private val shippingDestinationCountryCode: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("shipping_destination_postal_code")
-        @ExcludeMissing
-        private val shippingDestinationPostalCode: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("shipping_source_postal_code")
-        @ExcludeMissing
-        private val shippingSourcePostalCode: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("shipping_tax_amount")
-        @ExcludeMissing
-        private val shippingTaxAmount: JsonField<Long> = JsonMissing.of(),
-        @JsonProperty("shipping_tax_currency")
-        @ExcludeMissing
-        private val shippingTaxCurrency: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("shipping_tax_rate")
-        @ExcludeMissing
-        private val shippingTaxRate: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("tax_treatments")
-        @ExcludeMissing
-        private val taxTreatments: JsonField<TaxTreatments> = JsonMissing.of(),
-        @JsonProperty("unique_value_added_tax_invoice_reference")
-        @ExcludeMissing
-        private val uniqueValueAddedTaxInvoiceReference: JsonField<String> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val discountAmount: JsonField<Long>,
+        private val discountCurrency: JsonField<String>,
+        private val discountTreatmentCode: JsonField<DiscountTreatmentCode>,
+        private val dutyTaxAmount: JsonField<Long>,
+        private val dutyTaxCurrency: JsonField<String>,
+        private val orderDate: JsonField<LocalDate>,
+        private val shippingAmount: JsonField<Long>,
+        private val shippingCurrency: JsonField<String>,
+        private val shippingDestinationCountryCode: JsonField<String>,
+        private val shippingDestinationPostalCode: JsonField<String>,
+        private val shippingSourcePostalCode: JsonField<String>,
+        private val shippingTaxAmount: JsonField<Long>,
+        private val shippingTaxCurrency: JsonField<String>,
+        private val shippingTaxRate: JsonField<String>,
+        private val taxTreatments: JsonField<TaxTreatments>,
+        private val uniqueValueAddedTaxInvoiceReference: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("discount_amount")
+            @ExcludeMissing
+            discountAmount: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("discount_currency")
+            @ExcludeMissing
+            discountCurrency: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("discount_treatment_code")
+            @ExcludeMissing
+            discountTreatmentCode: JsonField<DiscountTreatmentCode> = JsonMissing.of(),
+            @JsonProperty("duty_tax_amount")
+            @ExcludeMissing
+            dutyTaxAmount: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("duty_tax_currency")
+            @ExcludeMissing
+            dutyTaxCurrency: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("order_date")
+            @ExcludeMissing
+            orderDate: JsonField<LocalDate> = JsonMissing.of(),
+            @JsonProperty("shipping_amount")
+            @ExcludeMissing
+            shippingAmount: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("shipping_currency")
+            @ExcludeMissing
+            shippingCurrency: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("shipping_destination_country_code")
+            @ExcludeMissing
+            shippingDestinationCountryCode: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("shipping_destination_postal_code")
+            @ExcludeMissing
+            shippingDestinationPostalCode: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("shipping_source_postal_code")
+            @ExcludeMissing
+            shippingSourcePostalCode: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("shipping_tax_amount")
+            @ExcludeMissing
+            shippingTaxAmount: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("shipping_tax_currency")
+            @ExcludeMissing
+            shippingTaxCurrency: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("shipping_tax_rate")
+            @ExcludeMissing
+            shippingTaxRate: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("tax_treatments")
+            @ExcludeMissing
+            taxTreatments: JsonField<TaxTreatments> = JsonMissing.of(),
+            @JsonProperty("unique_value_added_tax_invoice_reference")
+            @ExcludeMissing
+            uniqueValueAddedTaxInvoiceReference: JsonField<String> = JsonMissing.of(),
+        ) : this(
+            discountAmount,
+            discountCurrency,
+            discountTreatmentCode,
+            dutyTaxAmount,
+            dutyTaxCurrency,
+            orderDate,
+            shippingAmount,
+            shippingCurrency,
+            shippingDestinationCountryCode,
+            shippingDestinationPostalCode,
+            shippingSourcePostalCode,
+            shippingTaxAmount,
+            shippingTaxCurrency,
+            shippingTaxRate,
+            taxTreatments,
+            uniqueValueAddedTaxInvoiceReference,
+            mutableMapOf(),
+        )
 
         /**
          * Discount given to cardholder.
@@ -726,35 +772,15 @@ private constructor(
         fun _uniqueValueAddedTaxInvoiceReference(): JsonField<String> =
             uniqueValueAddedTaxInvoiceReference
 
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): Invoice = apply {
-            if (validated) {
-                return@apply
-            }
-
-            discountAmount()
-            discountCurrency()
-            discountTreatmentCode()
-            dutyTaxAmount()
-            dutyTaxCurrency()
-            orderDate()
-            shippingAmount()
-            shippingCurrency()
-            shippingDestinationCountryCode()
-            shippingDestinationPostalCode()
-            shippingSourcePostalCode()
-            shippingTaxAmount()
-            shippingTaxCurrency()
-            shippingTaxRate()
-            taxTreatments()
-            uniqueValueAddedTaxInvoiceReference()
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -1258,8 +1284,34 @@ private constructor(
                         "uniqueValueAddedTaxInvoiceReference",
                         uniqueValueAddedTaxInvoiceReference,
                     ),
-                    additionalProperties.toImmutable(),
+                    additionalProperties.toMutableMap(),
                 )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Invoice = apply {
+            if (validated) {
+                return@apply
+            }
+
+            discountAmount()
+            discountCurrency()
+            discountTreatmentCode()
+            dutyTaxAmount()
+            dutyTaxCurrency()
+            orderDate()
+            shippingAmount()
+            shippingCurrency()
+            shippingDestinationCountryCode()
+            shippingDestinationPostalCode()
+            shippingSourcePostalCode()
+            shippingTaxAmount()
+            shippingTaxCurrency()
+            shippingTaxRate()
+            taxTreatments()
+            uniqueValueAddedTaxInvoiceReference()
+            validated = true
         }
 
         /** Indicates how the merchant applied the discount. */
@@ -1551,62 +1603,99 @@ private constructor(
             "Invoice{discountAmount=$discountAmount, discountCurrency=$discountCurrency, discountTreatmentCode=$discountTreatmentCode, dutyTaxAmount=$dutyTaxAmount, dutyTaxCurrency=$dutyTaxCurrency, orderDate=$orderDate, shippingAmount=$shippingAmount, shippingCurrency=$shippingCurrency, shippingDestinationCountryCode=$shippingDestinationCountryCode, shippingDestinationPostalCode=$shippingDestinationPostalCode, shippingSourcePostalCode=$shippingSourcePostalCode, shippingTaxAmount=$shippingTaxAmount, shippingTaxCurrency=$shippingTaxCurrency, shippingTaxRate=$shippingTaxRate, taxTreatments=$taxTreatments, uniqueValueAddedTaxInvoiceReference=$uniqueValueAddedTaxInvoiceReference, additionalProperties=$additionalProperties}"
     }
 
-    @NoAutoDetect
     class LineItem
-    @JsonCreator
     private constructor(
-        @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("detail_indicator")
-        @ExcludeMissing
-        private val detailIndicator: JsonField<DetailIndicator> = JsonMissing.of(),
-        @JsonProperty("discount_amount")
-        @ExcludeMissing
-        private val discountAmount: JsonField<Long> = JsonMissing.of(),
-        @JsonProperty("discount_currency")
-        @ExcludeMissing
-        private val discountCurrency: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("discount_treatment_code")
-        @ExcludeMissing
-        private val discountTreatmentCode: JsonField<DiscountTreatmentCode> = JsonMissing.of(),
-        @JsonProperty("item_commodity_code")
-        @ExcludeMissing
-        private val itemCommodityCode: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("item_descriptor")
-        @ExcludeMissing
-        private val itemDescriptor: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("item_quantity")
-        @ExcludeMissing
-        private val itemQuantity: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("product_code")
-        @ExcludeMissing
-        private val productCode: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("sales_tax_amount")
-        @ExcludeMissing
-        private val salesTaxAmount: JsonField<Long> = JsonMissing.of(),
-        @JsonProperty("sales_tax_currency")
-        @ExcludeMissing
-        private val salesTaxCurrency: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("sales_tax_rate")
-        @ExcludeMissing
-        private val salesTaxRate: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("total_amount")
-        @ExcludeMissing
-        private val totalAmount: JsonField<Long> = JsonMissing.of(),
-        @JsonProperty("total_amount_currency")
-        @ExcludeMissing
-        private val totalAmountCurrency: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("unit_cost")
-        @ExcludeMissing
-        private val unitCost: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("unit_cost_currency")
-        @ExcludeMissing
-        private val unitCostCurrency: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("unit_of_measure_code")
-        @ExcludeMissing
-        private val unitOfMeasureCode: JsonField<String> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val id: JsonField<String>,
+        private val detailIndicator: JsonField<DetailIndicator>,
+        private val discountAmount: JsonField<Long>,
+        private val discountCurrency: JsonField<String>,
+        private val discountTreatmentCode: JsonField<DiscountTreatmentCode>,
+        private val itemCommodityCode: JsonField<String>,
+        private val itemDescriptor: JsonField<String>,
+        private val itemQuantity: JsonField<String>,
+        private val productCode: JsonField<String>,
+        private val salesTaxAmount: JsonField<Long>,
+        private val salesTaxCurrency: JsonField<String>,
+        private val salesTaxRate: JsonField<String>,
+        private val totalAmount: JsonField<Long>,
+        private val totalAmountCurrency: JsonField<String>,
+        private val unitCost: JsonField<String>,
+        private val unitCostCurrency: JsonField<String>,
+        private val unitOfMeasureCode: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("detail_indicator")
+            @ExcludeMissing
+            detailIndicator: JsonField<DetailIndicator> = JsonMissing.of(),
+            @JsonProperty("discount_amount")
+            @ExcludeMissing
+            discountAmount: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("discount_currency")
+            @ExcludeMissing
+            discountCurrency: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("discount_treatment_code")
+            @ExcludeMissing
+            discountTreatmentCode: JsonField<DiscountTreatmentCode> = JsonMissing.of(),
+            @JsonProperty("item_commodity_code")
+            @ExcludeMissing
+            itemCommodityCode: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("item_descriptor")
+            @ExcludeMissing
+            itemDescriptor: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("item_quantity")
+            @ExcludeMissing
+            itemQuantity: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("product_code")
+            @ExcludeMissing
+            productCode: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("sales_tax_amount")
+            @ExcludeMissing
+            salesTaxAmount: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("sales_tax_currency")
+            @ExcludeMissing
+            salesTaxCurrency: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("sales_tax_rate")
+            @ExcludeMissing
+            salesTaxRate: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("total_amount")
+            @ExcludeMissing
+            totalAmount: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("total_amount_currency")
+            @ExcludeMissing
+            totalAmountCurrency: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("unit_cost")
+            @ExcludeMissing
+            unitCost: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("unit_cost_currency")
+            @ExcludeMissing
+            unitCostCurrency: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("unit_of_measure_code")
+            @ExcludeMissing
+            unitOfMeasureCode: JsonField<String> = JsonMissing.of(),
+        ) : this(
+            id,
+            detailIndicator,
+            discountAmount,
+            discountCurrency,
+            discountTreatmentCode,
+            itemCommodityCode,
+            itemDescriptor,
+            itemQuantity,
+            productCode,
+            salesTaxAmount,
+            salesTaxCurrency,
+            salesTaxRate,
+            totalAmount,
+            totalAmountCurrency,
+            unitCost,
+            unitCostCurrency,
+            unitOfMeasureCode,
+            mutableMapOf(),
+        )
 
         /**
          * The Card Purchase Supplement Line Item identifier.
@@ -1921,36 +2010,15 @@ private constructor(
         @ExcludeMissing
         fun _unitOfMeasureCode(): JsonField<String> = unitOfMeasureCode
 
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): LineItem = apply {
-            if (validated) {
-                return@apply
-            }
-
-            id()
-            detailIndicator()
-            discountAmount()
-            discountCurrency()
-            discountTreatmentCode()
-            itemCommodityCode()
-            itemDescriptor()
-            itemQuantity()
-            productCode()
-            salesTaxAmount()
-            salesTaxCurrency()
-            salesTaxRate()
-            totalAmount()
-            totalAmountCurrency()
-            unitCost()
-            unitCostCurrency()
-            unitOfMeasureCode()
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -2440,8 +2508,35 @@ private constructor(
                     checkRequired("unitCost", unitCost),
                     checkRequired("unitCostCurrency", unitCostCurrency),
                     checkRequired("unitOfMeasureCode", unitOfMeasureCode),
-                    additionalProperties.toImmutable(),
+                    additionalProperties.toMutableMap(),
                 )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): LineItem = apply {
+            if (validated) {
+                return@apply
+            }
+
+            id()
+            detailIndicator()
+            discountAmount()
+            discountCurrency()
+            discountTreatmentCode()
+            itemCommodityCode()
+            itemDescriptor()
+            itemQuantity()
+            productCode()
+            salesTaxAmount()
+            salesTaxCurrency()
+            salesTaxRate()
+            totalAmount()
+            totalAmountCurrency()
+            unitCost()
+            unitCostCurrency()
+            unitOfMeasureCode()
+            validated = true
         }
 
         /** Indicates the type of line item. */

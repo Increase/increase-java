@@ -11,12 +11,10 @@ import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.checkRequired
-import com.increase.api.core.immutableEmptyMap
-import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
+import java.util.Collections
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
@@ -27,30 +25,48 @@ import kotlin.jvm.optionals.getOrNull
  * through your [developer dashboard](https://dashboard.increase.com/developers/webhooks) or the
  * API. For more information, see our [webhooks guide](https://increase.com/documentation/webhooks).
  */
-@NoAutoDetect
 class EventSubscription
-@JsonCreator
 private constructor(
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("created_at")
-    @ExcludeMissing
-    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("idempotency_key")
-    @ExcludeMissing
-    private val idempotencyKey: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("oauth_connection_id")
-    @ExcludeMissing
-    private val oauthConnectionId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("selected_event_category")
-    @ExcludeMissing
-    private val selectedEventCategory: JsonField<SelectedEventCategory> = JsonMissing.of(),
-    @JsonProperty("status")
-    @ExcludeMissing
-    private val status: JsonField<Status> = JsonMissing.of(),
-    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
-    @JsonProperty("url") @ExcludeMissing private val url: JsonField<String> = JsonMissing.of(),
-    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+    private val id: JsonField<String>,
+    private val createdAt: JsonField<OffsetDateTime>,
+    private val idempotencyKey: JsonField<String>,
+    private val oauthConnectionId: JsonField<String>,
+    private val selectedEventCategory: JsonField<SelectedEventCategory>,
+    private val status: JsonField<Status>,
+    private val type: JsonField<Type>,
+    private val url: JsonField<String>,
+    private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
+
+    @JsonCreator
+    private constructor(
+        @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("idempotency_key")
+        @ExcludeMissing
+        idempotencyKey: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("oauth_connection_id")
+        @ExcludeMissing
+        oauthConnectionId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("selected_event_category")
+        @ExcludeMissing
+        selectedEventCategory: JsonField<SelectedEventCategory> = JsonMissing.of(),
+        @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
+        @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+        @JsonProperty("url") @ExcludeMissing url: JsonField<String> = JsonMissing.of(),
+    ) : this(
+        id,
+        createdAt,
+        idempotencyKey,
+        oauthConnectionId,
+        selectedEventCategory,
+        status,
+        type,
+        url,
+        mutableMapOf(),
+    )
 
     /**
      * The event subscription identifier.
@@ -190,27 +206,15 @@ private constructor(
      */
     @JsonProperty("url") @ExcludeMissing fun _url(): JsonField<String> = url
 
+    @JsonAnySetter
+    private fun putAdditionalProperty(key: String, value: JsonValue) {
+        additionalProperties.put(key, value)
+    }
+
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-    private var validated: Boolean = false
-
-    fun validate(): EventSubscription = apply {
-        if (validated) {
-            return@apply
-        }
-
-        id()
-        createdAt()
-        idempotencyKey()
-        oauthConnectionId()
-        selectedEventCategory()
-        status()
-        type()
-        url()
-        validated = true
-    }
+    fun _additionalProperties(): Map<String, JsonValue> =
+        Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
@@ -437,8 +441,26 @@ private constructor(
                 checkRequired("status", status),
                 checkRequired("type", type),
                 checkRequired("url", url),
-                additionalProperties.toImmutable(),
+                additionalProperties.toMutableMap(),
             )
+    }
+
+    private var validated: Boolean = false
+
+    fun validate(): EventSubscription = apply {
+        if (validated) {
+            return@apply
+        }
+
+        id()
+        createdAt()
+        idempotencyKey()
+        oauthConnectionId()
+        selectedEventCategory()
+        status()
+        type()
+        url()
+        validated = true
     }
 
     /**

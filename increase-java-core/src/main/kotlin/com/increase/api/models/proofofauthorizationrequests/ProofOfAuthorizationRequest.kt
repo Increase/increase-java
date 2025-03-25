@@ -11,36 +11,41 @@ import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.checkKnown
 import com.increase.api.core.checkRequired
-import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
+import java.util.Collections
 import java.util.Objects
 
 /** A request for proof of authorization for one or more ACH debit transfers. */
-@NoAutoDetect
 class ProofOfAuthorizationRequest
-@JsonCreator
 private constructor(
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("ach_transfers")
-    @ExcludeMissing
-    private val achTransfers: JsonField<List<AchTransfer>> = JsonMissing.of(),
-    @JsonProperty("created_at")
-    @ExcludeMissing
-    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("due_on")
-    @ExcludeMissing
-    private val dueOn: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
-    @JsonProperty("updated_at")
-    @ExcludeMissing
-    private val updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+    private val id: JsonField<String>,
+    private val achTransfers: JsonField<List<AchTransfer>>,
+    private val createdAt: JsonField<OffsetDateTime>,
+    private val dueOn: JsonField<OffsetDateTime>,
+    private val type: JsonField<Type>,
+    private val updatedAt: JsonField<OffsetDateTime>,
+    private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
+
+    @JsonCreator
+    private constructor(
+        @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("ach_transfers")
+        @ExcludeMissing
+        achTransfers: JsonField<List<AchTransfer>> = JsonMissing.of(),
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("due_on") @ExcludeMissing dueOn: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+        @JsonProperty("updated_at")
+        @ExcludeMissing
+        updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    ) : this(id, achTransfers, createdAt, dueOn, type, updatedAt, mutableMapOf())
 
     /**
      * The Proof of Authorization Request identifier.
@@ -139,25 +144,15 @@ private constructor(
     @ExcludeMissing
     fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
+    @JsonAnySetter
+    private fun putAdditionalProperty(key: String, value: JsonValue) {
+        additionalProperties.put(key, value)
+    }
+
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-    private var validated: Boolean = false
-
-    fun validate(): ProofOfAuthorizationRequest = apply {
-        if (validated) {
-            return@apply
-        }
-
-        id()
-        achTransfers().forEach { it.validate() }
-        createdAt()
-        dueOn()
-        type()
-        updatedAt()
-        validated = true
-    }
+    fun _additionalProperties(): Map<String, JsonValue> =
+        Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
@@ -332,18 +327,36 @@ private constructor(
                 checkRequired("dueOn", dueOn),
                 checkRequired("type", type),
                 checkRequired("updatedAt", updatedAt),
-                additionalProperties.toImmutable(),
+                additionalProperties.toMutableMap(),
             )
     }
 
-    @NoAutoDetect
+    private var validated: Boolean = false
+
+    fun validate(): ProofOfAuthorizationRequest = apply {
+        if (validated) {
+            return@apply
+        }
+
+        id()
+        achTransfers().forEach { it.validate() }
+        createdAt()
+        dueOn()
+        type()
+        updatedAt()
+        validated = true
+    }
+
     class AchTransfer
-    @JsonCreator
     private constructor(
-        @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val id: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of()
+        ) : this(id, mutableMapOf())
 
         /**
          * The ACH Transfer identifier.
@@ -360,20 +373,15 @@ private constructor(
          */
         @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): AchTransfer = apply {
-            if (validated) {
-                return@apply
-            }
-
-            id()
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -446,7 +454,18 @@ private constructor(
              * @throws IllegalStateException if any required field is unset.
              */
             fun build(): AchTransfer =
-                AchTransfer(checkRequired("id", id), additionalProperties.toImmutable())
+                AchTransfer(checkRequired("id", id), additionalProperties.toMutableMap())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): AchTransfer = apply {
+            if (validated) {
+                return@apply
+            }
+
+            id()
+            validated = true
         }
 
         override fun equals(other: Any?): Boolean {

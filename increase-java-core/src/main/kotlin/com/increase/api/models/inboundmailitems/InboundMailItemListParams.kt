@@ -2,7 +2,6 @@
 
 package com.increase.api.models.inboundmailitems
 
-import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.Params
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
@@ -38,43 +37,6 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams =
-        QueryParams.builder()
-            .apply {
-                createdAt?.let {
-                    it.after().ifPresent {
-                        put("created_at.after", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
-                    }
-                    it.before().ifPresent {
-                        put("created_at.before", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
-                    }
-                    it.onOrAfter().ifPresent {
-                        put(
-                            "created_at.on_or_after",
-                            DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it),
-                        )
-                    }
-                    it.onOrBefore().ifPresent {
-                        put(
-                            "created_at.on_or_before",
-                            DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it),
-                        )
-                    }
-                    it._additionalProperties().keys().forEach { key ->
-                        it._additionalProperties().values(key).forEach { value ->
-                            put("created_at.$key", value)
-                        }
-                    }
-                }
-                cursor?.let { put("cursor", it) }
-                limit?.let { put("limit", it.toString()) }
-                lockboxId?.let { put("lockbox_id", it) }
-                putAll(additionalQueryParams)
-            }
-            .build()
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -88,7 +50,6 @@ private constructor(
     }
 
     /** A builder for [InboundMailItemListParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var createdAt: CreatedAt? = null
@@ -253,6 +214,43 @@ private constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                createdAt?.let {
+                    it.after().ifPresent {
+                        put("created_at.after", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
+                    }
+                    it.before().ifPresent {
+                        put("created_at.before", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
+                    }
+                    it.onOrAfter().ifPresent {
+                        put(
+                            "created_at.on_or_after",
+                            DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it),
+                        )
+                    }
+                    it.onOrBefore().ifPresent {
+                        put(
+                            "created_at.on_or_before",
+                            DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it),
+                        )
+                    }
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("created_at.$key", value)
+                        }
+                    }
+                }
+                cursor?.let { put("cursor", it) }
+                limit?.let { put("limit", it.toString()) }
+                lockboxId?.let { put("lockbox_id", it) }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     class CreatedAt
     private constructor(

@@ -11,14 +11,12 @@ import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.Params
 import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
-import com.increase.api.core.immutableEmptyMap
-import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
+import java.util.Collections
 import java.util.Objects
 import java.util.Optional
 
@@ -117,303 +115,6 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    @JvmSynthetic internal fun _body(): Body = body
-
-    fun _pathParam(index: Int): String =
-        when (index) {
-            0 -> cardId
-            else -> ""
-        }
-
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams = additionalQueryParams
-
-    @NoAutoDetect
-    class Body
-    @JsonCreator
-    private constructor(
-        @JsonProperty("billing_address")
-        @ExcludeMissing
-        private val billingAddress: JsonField<BillingAddress> = JsonMissing.of(),
-        @JsonProperty("description")
-        @ExcludeMissing
-        private val description: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("digital_wallet")
-        @ExcludeMissing
-        private val digitalWallet: JsonField<DigitalWallet> = JsonMissing.of(),
-        @JsonProperty("entity_id")
-        @ExcludeMissing
-        private val entityId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("status")
-        @ExcludeMissing
-        private val status: JsonField<Status> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-    ) {
-
-        /**
-         * The card's updated billing address.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun billingAddress(): Optional<BillingAddress> =
-            Optional.ofNullable(billingAddress.getNullable("billing_address"))
-
-        /**
-         * The description you choose to give the card.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun description(): Optional<String> =
-            Optional.ofNullable(description.getNullable("description"))
-
-        /**
-         * The contact information used in the two-factor steps for digital wallet card creation. At
-         * least one field must be present to complete the digital wallet steps.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun digitalWallet(): Optional<DigitalWallet> =
-            Optional.ofNullable(digitalWallet.getNullable("digital_wallet"))
-
-        /**
-         * The Entity the card belongs to. You only need to supply this in rare situations when the
-         * card is not for the Account holder.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun entityId(): Optional<String> = Optional.ofNullable(entityId.getNullable("entity_id"))
-
-        /**
-         * The status to update the Card with.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun status(): Optional<Status> = Optional.ofNullable(status.getNullable("status"))
-
-        /**
-         * Returns the raw JSON value of [billingAddress].
-         *
-         * Unlike [billingAddress], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("billing_address")
-        @ExcludeMissing
-        fun _billingAddress(): JsonField<BillingAddress> = billingAddress
-
-        /**
-         * Returns the raw JSON value of [description].
-         *
-         * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("description")
-        @ExcludeMissing
-        fun _description(): JsonField<String> = description
-
-        /**
-         * Returns the raw JSON value of [digitalWallet].
-         *
-         * Unlike [digitalWallet], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("digital_wallet")
-        @ExcludeMissing
-        fun _digitalWallet(): JsonField<DigitalWallet> = digitalWallet
-
-        /**
-         * Returns the raw JSON value of [entityId].
-         *
-         * Unlike [entityId], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("entity_id") @ExcludeMissing fun _entityId(): JsonField<String> = entityId
-
-        /**
-         * Returns the raw JSON value of [status].
-         *
-         * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): Body = apply {
-            if (validated) {
-                return@apply
-            }
-
-            billingAddress().ifPresent { it.validate() }
-            description()
-            digitalWallet().ifPresent { it.validate() }
-            entityId()
-            status()
-            validated = true
-        }
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /** Returns a mutable builder for constructing an instance of [Body]. */
-            @JvmStatic fun builder() = Builder()
-        }
-
-        /** A builder for [Body]. */
-        class Builder internal constructor() {
-
-            private var billingAddress: JsonField<BillingAddress> = JsonMissing.of()
-            private var description: JsonField<String> = JsonMissing.of()
-            private var digitalWallet: JsonField<DigitalWallet> = JsonMissing.of()
-            private var entityId: JsonField<String> = JsonMissing.of()
-            private var status: JsonField<Status> = JsonMissing.of()
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(body: Body) = apply {
-                billingAddress = body.billingAddress
-                description = body.description
-                digitalWallet = body.digitalWallet
-                entityId = body.entityId
-                status = body.status
-                additionalProperties = body.additionalProperties.toMutableMap()
-            }
-
-            /** The card's updated billing address. */
-            fun billingAddress(billingAddress: BillingAddress) =
-                billingAddress(JsonField.of(billingAddress))
-
-            /**
-             * Sets [Builder.billingAddress] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.billingAddress] with a well-typed [BillingAddress]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
-             */
-            fun billingAddress(billingAddress: JsonField<BillingAddress>) = apply {
-                this.billingAddress = billingAddress
-            }
-
-            /** The description you choose to give the card. */
-            fun description(description: String) = description(JsonField.of(description))
-
-            /**
-             * Sets [Builder.description] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.description] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun description(description: JsonField<String>) = apply {
-                this.description = description
-            }
-
-            /**
-             * The contact information used in the two-factor steps for digital wallet card
-             * creation. At least one field must be present to complete the digital wallet steps.
-             */
-            fun digitalWallet(digitalWallet: DigitalWallet) =
-                digitalWallet(JsonField.of(digitalWallet))
-
-            /**
-             * Sets [Builder.digitalWallet] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.digitalWallet] with a well-typed [DigitalWallet]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
-             */
-            fun digitalWallet(digitalWallet: JsonField<DigitalWallet>) = apply {
-                this.digitalWallet = digitalWallet
-            }
-
-            /**
-             * The Entity the card belongs to. You only need to supply this in rare situations when
-             * the card is not for the Account holder.
-             */
-            fun entityId(entityId: String) = entityId(JsonField.of(entityId))
-
-            /**
-             * Sets [Builder.entityId] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.entityId] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun entityId(entityId: JsonField<String>) = apply { this.entityId = entityId }
-
-            /** The status to update the Card with. */
-            fun status(status: Status) = status(JsonField.of(status))
-
-            /**
-             * Sets [Builder.status] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.status] with a well-typed [Status] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun status(status: JsonField<Status>) = apply { this.status = status }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [Body].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             */
-            fun build(): Body =
-                Body(
-                    billingAddress,
-                    description,
-                    digitalWallet,
-                    entityId,
-                    status,
-                    additionalProperties.toImmutable(),
-                )
-        }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return /* spotless:off */ other is Body && billingAddress == other.billingAddress && description == other.description && digitalWallet == other.digitalWallet && entityId == other.entityId && status == other.status && additionalProperties == other.additionalProperties /* spotless:on */
-        }
-
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(billingAddress, description, digitalWallet, entityId, status, additionalProperties) }
-        /* spotless:on */
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "Body{billingAddress=$billingAddress, description=$description, digitalWallet=$digitalWallet, entityId=$entityId, status=$status, additionalProperties=$additionalProperties}"
-    }
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -430,7 +131,6 @@ private constructor(
     }
 
     /** A builder for [CardUpdateParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var cardId: String? = null
@@ -659,29 +359,334 @@ private constructor(
             )
     }
 
-    /** The card's updated billing address. */
-    @NoAutoDetect
-    class BillingAddress
-    @JsonCreator
+    @JvmSynthetic internal fun _body(): Body = body
+
+    fun _pathParam(index: Int): String =
+        when (index) {
+            0 -> cardId
+            else -> ""
+        }
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams = additionalQueryParams
+
+    class Body
     private constructor(
-        @JsonProperty("city")
-        @ExcludeMissing
-        private val city: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("line1")
-        @ExcludeMissing
-        private val line1: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("postal_code")
-        @ExcludeMissing
-        private val postalCode: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("state")
-        @ExcludeMissing
-        private val state: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("line2")
-        @ExcludeMissing
-        private val line2: JsonField<String> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val billingAddress: JsonField<BillingAddress>,
+        private val description: JsonField<String>,
+        private val digitalWallet: JsonField<DigitalWallet>,
+        private val entityId: JsonField<String>,
+        private val status: JsonField<Status>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("billing_address")
+            @ExcludeMissing
+            billingAddress: JsonField<BillingAddress> = JsonMissing.of(),
+            @JsonProperty("description")
+            @ExcludeMissing
+            description: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("digital_wallet")
+            @ExcludeMissing
+            digitalWallet: JsonField<DigitalWallet> = JsonMissing.of(),
+            @JsonProperty("entity_id")
+            @ExcludeMissing
+            entityId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
+        ) : this(billingAddress, description, digitalWallet, entityId, status, mutableMapOf())
+
+        /**
+         * The card's updated billing address.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun billingAddress(): Optional<BillingAddress> =
+            Optional.ofNullable(billingAddress.getNullable("billing_address"))
+
+        /**
+         * The description you choose to give the card.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun description(): Optional<String> =
+            Optional.ofNullable(description.getNullable("description"))
+
+        /**
+         * The contact information used in the two-factor steps for digital wallet card creation. At
+         * least one field must be present to complete the digital wallet steps.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun digitalWallet(): Optional<DigitalWallet> =
+            Optional.ofNullable(digitalWallet.getNullable("digital_wallet"))
+
+        /**
+         * The Entity the card belongs to. You only need to supply this in rare situations when the
+         * card is not for the Account holder.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun entityId(): Optional<String> = Optional.ofNullable(entityId.getNullable("entity_id"))
+
+        /**
+         * The status to update the Card with.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun status(): Optional<Status> = Optional.ofNullable(status.getNullable("status"))
+
+        /**
+         * Returns the raw JSON value of [billingAddress].
+         *
+         * Unlike [billingAddress], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("billing_address")
+        @ExcludeMissing
+        fun _billingAddress(): JsonField<BillingAddress> = billingAddress
+
+        /**
+         * Returns the raw JSON value of [description].
+         *
+         * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("description")
+        @ExcludeMissing
+        fun _description(): JsonField<String> = description
+
+        /**
+         * Returns the raw JSON value of [digitalWallet].
+         *
+         * Unlike [digitalWallet], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("digital_wallet")
+        @ExcludeMissing
+        fun _digitalWallet(): JsonField<DigitalWallet> = digitalWallet
+
+        /**
+         * Returns the raw JSON value of [entityId].
+         *
+         * Unlike [entityId], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("entity_id") @ExcludeMissing fun _entityId(): JsonField<String> = entityId
+
+        /**
+         * Returns the raw JSON value of [status].
+         *
+         * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [Body]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Body]. */
+        class Builder internal constructor() {
+
+            private var billingAddress: JsonField<BillingAddress> = JsonMissing.of()
+            private var description: JsonField<String> = JsonMissing.of()
+            private var digitalWallet: JsonField<DigitalWallet> = JsonMissing.of()
+            private var entityId: JsonField<String> = JsonMissing.of()
+            private var status: JsonField<Status> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(body: Body) = apply {
+                billingAddress = body.billingAddress
+                description = body.description
+                digitalWallet = body.digitalWallet
+                entityId = body.entityId
+                status = body.status
+                additionalProperties = body.additionalProperties.toMutableMap()
+            }
+
+            /** The card's updated billing address. */
+            fun billingAddress(billingAddress: BillingAddress) =
+                billingAddress(JsonField.of(billingAddress))
+
+            /**
+             * Sets [Builder.billingAddress] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.billingAddress] with a well-typed [BillingAddress]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun billingAddress(billingAddress: JsonField<BillingAddress>) = apply {
+                this.billingAddress = billingAddress
+            }
+
+            /** The description you choose to give the card. */
+            fun description(description: String) = description(JsonField.of(description))
+
+            /**
+             * Sets [Builder.description] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.description] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun description(description: JsonField<String>) = apply {
+                this.description = description
+            }
+
+            /**
+             * The contact information used in the two-factor steps for digital wallet card
+             * creation. At least one field must be present to complete the digital wallet steps.
+             */
+            fun digitalWallet(digitalWallet: DigitalWallet) =
+                digitalWallet(JsonField.of(digitalWallet))
+
+            /**
+             * Sets [Builder.digitalWallet] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.digitalWallet] with a well-typed [DigitalWallet]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun digitalWallet(digitalWallet: JsonField<DigitalWallet>) = apply {
+                this.digitalWallet = digitalWallet
+            }
+
+            /**
+             * The Entity the card belongs to. You only need to supply this in rare situations when
+             * the card is not for the Account holder.
+             */
+            fun entityId(entityId: String) = entityId(JsonField.of(entityId))
+
+            /**
+             * Sets [Builder.entityId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.entityId] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun entityId(entityId: JsonField<String>) = apply { this.entityId = entityId }
+
+            /** The status to update the Card with. */
+            fun status(status: Status) = status(JsonField.of(status))
+
+            /**
+             * Sets [Builder.status] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.status] with a well-typed [Status] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun status(status: JsonField<Status>) = apply { this.status = status }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Body].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): Body =
+                Body(
+                    billingAddress,
+                    description,
+                    digitalWallet,
+                    entityId,
+                    status,
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Body = apply {
+            if (validated) {
+                return@apply
+            }
+
+            billingAddress().ifPresent { it.validate() }
+            description()
+            digitalWallet().ifPresent { it.validate() }
+            entityId()
+            status()
+            validated = true
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is Body && billingAddress == other.billingAddress && description == other.description && digitalWallet == other.digitalWallet && entityId == other.entityId && status == other.status && additionalProperties == other.additionalProperties /* spotless:on */
+        }
+
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(billingAddress, description, digitalWallet, entityId, status, additionalProperties) }
+        /* spotless:on */
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Body{billingAddress=$billingAddress, description=$description, digitalWallet=$digitalWallet, entityId=$entityId, status=$status, additionalProperties=$additionalProperties}"
+    }
+
+    /** The card's updated billing address. */
+    class BillingAddress
+    private constructor(
+        private val city: JsonField<String>,
+        private val line1: JsonField<String>,
+        private val postalCode: JsonField<String>,
+        private val state: JsonField<String>,
+        private val line2: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("city") @ExcludeMissing city: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("line1") @ExcludeMissing line1: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("postal_code")
+            @ExcludeMissing
+            postalCode: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("state") @ExcludeMissing state: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("line2") @ExcludeMissing line2: JsonField<String> = JsonMissing.of(),
+        ) : this(city, line1, postalCode, state, line2, mutableMapOf())
 
         /**
          * The city of the billing address.
@@ -760,24 +765,15 @@ private constructor(
          */
         @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
 
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): BillingAddress = apply {
-            if (validated) {
-                return@apply
-            }
-
-            city()
-            line1()
-            postalCode()
-            state()
-            line2()
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -918,8 +914,23 @@ private constructor(
                     checkRequired("postalCode", postalCode),
                     checkRequired("state", state),
                     line2,
-                    additionalProperties.toImmutable(),
+                    additionalProperties.toMutableMap(),
                 )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): BillingAddress = apply {
+            if (validated) {
+                return@apply
+            }
+
+            city()
+            line1()
+            postalCode()
+            state()
+            line2()
+            validated = true
         }
 
         override fun equals(other: Any?): Boolean {
@@ -944,22 +955,22 @@ private constructor(
      * The contact information used in the two-factor steps for digital wallet card creation. At
      * least one field must be present to complete the digital wallet steps.
      */
-    @NoAutoDetect
     class DigitalWallet
-    @JsonCreator
     private constructor(
-        @JsonProperty("digital_card_profile_id")
-        @ExcludeMissing
-        private val digitalCardProfileId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("email")
-        @ExcludeMissing
-        private val email: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("phone")
-        @ExcludeMissing
-        private val phone: JsonField<String> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val digitalCardProfileId: JsonField<String>,
+        private val email: JsonField<String>,
+        private val phone: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("digital_card_profile_id")
+            @ExcludeMissing
+            digitalCardProfileId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("email") @ExcludeMissing email: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("phone") @ExcludeMissing phone: JsonField<String> = JsonMissing.of(),
+        ) : this(digitalCardProfileId, email, phone, mutableMapOf())
 
         /**
          * The digital card profile assigned to this digital card.
@@ -1011,22 +1022,15 @@ private constructor(
          */
         @JsonProperty("phone") @ExcludeMissing fun _phone(): JsonField<String> = phone
 
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): DigitalWallet = apply {
-            if (validated) {
-                return@apply
-            }
-
-            digitalCardProfileId()
-            email()
-            phone()
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -1126,8 +1130,21 @@ private constructor(
                     digitalCardProfileId,
                     email,
                     phone,
-                    additionalProperties.toImmutable(),
+                    additionalProperties.toMutableMap(),
                 )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): DigitalWallet = apply {
+            if (validated) {
+                return@apply
+            }
+
+            digitalCardProfileId()
+            email()
+            phone()
+            validated = true
         }
 
         override fun equals(other: Any?): Boolean {

@@ -11,12 +11,10 @@ import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.checkRequired
-import com.increase.api.core.immutableEmptyMap
-import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
+import java.util.Collections
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
@@ -26,50 +24,80 @@ import kotlin.jvm.optionals.getOrNull
  * Apple Pay and Google Pay. For more information, see our guide on
  * [digital card artwork](https://increase.com/documentation/card-art).
  */
-@NoAutoDetect
 class DigitalCardProfile
-@JsonCreator
 private constructor(
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("app_icon_file_id")
-    @ExcludeMissing
-    private val appIconFileId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("background_image_file_id")
-    @ExcludeMissing
-    private val backgroundImageFileId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("card_description")
-    @ExcludeMissing
-    private val cardDescription: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("contact_email")
-    @ExcludeMissing
-    private val contactEmail: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("contact_phone")
-    @ExcludeMissing
-    private val contactPhone: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("contact_website")
-    @ExcludeMissing
-    private val contactWebsite: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("created_at")
-    @ExcludeMissing
-    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("description")
-    @ExcludeMissing
-    private val description: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("idempotency_key")
-    @ExcludeMissing
-    private val idempotencyKey: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("issuer_name")
-    @ExcludeMissing
-    private val issuerName: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("status")
-    @ExcludeMissing
-    private val status: JsonField<Status> = JsonMissing.of(),
-    @JsonProperty("text_color")
-    @ExcludeMissing
-    private val textColor: JsonField<TextColor> = JsonMissing.of(),
-    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
-    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+    private val id: JsonField<String>,
+    private val appIconFileId: JsonField<String>,
+    private val backgroundImageFileId: JsonField<String>,
+    private val cardDescription: JsonField<String>,
+    private val contactEmail: JsonField<String>,
+    private val contactPhone: JsonField<String>,
+    private val contactWebsite: JsonField<String>,
+    private val createdAt: JsonField<OffsetDateTime>,
+    private val description: JsonField<String>,
+    private val idempotencyKey: JsonField<String>,
+    private val issuerName: JsonField<String>,
+    private val status: JsonField<Status>,
+    private val textColor: JsonField<TextColor>,
+    private val type: JsonField<Type>,
+    private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
+
+    @JsonCreator
+    private constructor(
+        @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("app_icon_file_id")
+        @ExcludeMissing
+        appIconFileId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("background_image_file_id")
+        @ExcludeMissing
+        backgroundImageFileId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("card_description")
+        @ExcludeMissing
+        cardDescription: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("contact_email")
+        @ExcludeMissing
+        contactEmail: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("contact_phone")
+        @ExcludeMissing
+        contactPhone: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("contact_website")
+        @ExcludeMissing
+        contactWebsite: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("description")
+        @ExcludeMissing
+        description: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("idempotency_key")
+        @ExcludeMissing
+        idempotencyKey: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("issuer_name")
+        @ExcludeMissing
+        issuerName: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
+        @JsonProperty("text_color")
+        @ExcludeMissing
+        textColor: JsonField<TextColor> = JsonMissing.of(),
+        @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+    ) : this(
+        id,
+        appIconFileId,
+        backgroundImageFileId,
+        cardDescription,
+        contactEmail,
+        contactPhone,
+        contactWebsite,
+        createdAt,
+        description,
+        idempotencyKey,
+        issuerName,
+        status,
+        textColor,
+        type,
+        mutableMapOf(),
+    )
 
     /**
      * The Card Profile identifier.
@@ -307,33 +335,15 @@ private constructor(
      */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
+    @JsonAnySetter
+    private fun putAdditionalProperty(key: String, value: JsonValue) {
+        additionalProperties.put(key, value)
+    }
+
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-    private var validated: Boolean = false
-
-    fun validate(): DigitalCardProfile = apply {
-        if (validated) {
-            return@apply
-        }
-
-        id()
-        appIconFileId()
-        backgroundImageFileId()
-        cardDescription()
-        contactEmail()
-        contactPhone()
-        contactWebsite()
-        createdAt()
-        description()
-        idempotencyKey()
-        issuerName()
-        status()
-        textColor().validate()
-        type()
-        validated = true
-    }
+    fun _additionalProperties(): Map<String, JsonValue> =
+        Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
@@ -668,8 +678,32 @@ private constructor(
                 checkRequired("status", status),
                 checkRequired("textColor", textColor),
                 checkRequired("type", type),
-                additionalProperties.toImmutable(),
+                additionalProperties.toMutableMap(),
             )
+    }
+
+    private var validated: Boolean = false
+
+    fun validate(): DigitalCardProfile = apply {
+        if (validated) {
+            return@apply
+        }
+
+        id()
+        appIconFileId()
+        backgroundImageFileId()
+        cardDescription()
+        contactEmail()
+        contactPhone()
+        contactWebsite()
+        createdAt()
+        description()
+        idempotencyKey()
+        issuerName()
+        status()
+        textColor().validate()
+        type()
+        validated = true
     }
 
     /** The status of the Card Profile. */
@@ -804,18 +838,20 @@ private constructor(
     }
 
     /** The Card's text color, specified as an RGB triple. */
-    @NoAutoDetect
     class TextColor
-    @JsonCreator
     private constructor(
-        @JsonProperty("blue") @ExcludeMissing private val blue: JsonField<Long> = JsonMissing.of(),
-        @JsonProperty("green")
-        @ExcludeMissing
-        private val green: JsonField<Long> = JsonMissing.of(),
-        @JsonProperty("red") @ExcludeMissing private val red: JsonField<Long> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val blue: JsonField<Long>,
+        private val green: JsonField<Long>,
+        private val red: JsonField<Long>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("blue") @ExcludeMissing blue: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("green") @ExcludeMissing green: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("red") @ExcludeMissing red: JsonField<Long> = JsonMissing.of(),
+        ) : this(blue, green, red, mutableMapOf())
 
         /**
          * The value of the blue channel in the RGB color.
@@ -862,22 +898,15 @@ private constructor(
          */
         @JsonProperty("red") @ExcludeMissing fun _red(): JsonField<Long> = red
 
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): TextColor = apply {
-            if (validated) {
-                return@apply
-            }
-
-            blue()
-            green()
-            red()
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -986,8 +1015,21 @@ private constructor(
                     checkRequired("blue", blue),
                     checkRequired("green", green),
                     checkRequired("red", red),
-                    additionalProperties.toImmutable(),
+                    additionalProperties.toMutableMap(),
                 )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): TextColor = apply {
+            if (validated) {
+                return@apply
+            }
+
+            blue()
+            green()
+            red()
+            validated = true
         }
 
         override fun equals(other: Any?): Boolean {

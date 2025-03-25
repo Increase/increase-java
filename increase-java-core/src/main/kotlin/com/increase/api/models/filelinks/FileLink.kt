@@ -11,40 +11,54 @@ import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.checkRequired
-import com.increase.api.core.immutableEmptyMap
-import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
+import java.util.Collections
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /** File Links let you generate a URL that can be used to download a File. */
-@NoAutoDetect
 class FileLink
-@JsonCreator
 private constructor(
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("created_at")
-    @ExcludeMissing
-    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("expires_at")
-    @ExcludeMissing
-    private val expiresAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("file_id")
-    @ExcludeMissing
-    private val fileId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("idempotency_key")
-    @ExcludeMissing
-    private val idempotencyKey: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
-    @JsonProperty("unauthenticated_url")
-    @ExcludeMissing
-    private val unauthenticatedUrl: JsonField<String> = JsonMissing.of(),
-    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+    private val id: JsonField<String>,
+    private val createdAt: JsonField<OffsetDateTime>,
+    private val expiresAt: JsonField<OffsetDateTime>,
+    private val fileId: JsonField<String>,
+    private val idempotencyKey: JsonField<String>,
+    private val type: JsonField<Type>,
+    private val unauthenticatedUrl: JsonField<String>,
+    private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
+
+    @JsonCreator
+    private constructor(
+        @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("expires_at")
+        @ExcludeMissing
+        expiresAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("file_id") @ExcludeMissing fileId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("idempotency_key")
+        @ExcludeMissing
+        idempotencyKey: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+        @JsonProperty("unauthenticated_url")
+        @ExcludeMissing
+        unauthenticatedUrl: JsonField<String> = JsonMissing.of(),
+    ) : this(
+        id,
+        createdAt,
+        expiresAt,
+        fileId,
+        idempotencyKey,
+        type,
+        unauthenticatedUrl,
+        mutableMapOf(),
+    )
 
     /**
      * The File Link identifier.
@@ -166,26 +180,15 @@ private constructor(
     @ExcludeMissing
     fun _unauthenticatedUrl(): JsonField<String> = unauthenticatedUrl
 
+    @JsonAnySetter
+    private fun putAdditionalProperty(key: String, value: JsonValue) {
+        additionalProperties.put(key, value)
+    }
+
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-    private var validated: Boolean = false
-
-    fun validate(): FileLink = apply {
-        if (validated) {
-            return@apply
-        }
-
-        id()
-        createdAt()
-        expiresAt()
-        fileId()
-        idempotencyKey()
-        type()
-        unauthenticatedUrl()
-        validated = true
-    }
+    fun _additionalProperties(): Map<String, JsonValue> =
+        Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
@@ -386,8 +389,25 @@ private constructor(
                 checkRequired("idempotencyKey", idempotencyKey),
                 checkRequired("type", type),
                 checkRequired("unauthenticatedUrl", unauthenticatedUrl),
-                additionalProperties.toImmutable(),
+                additionalProperties.toMutableMap(),
             )
+    }
+
+    private var validated: Boolean = false
+
+    fun validate(): FileLink = apply {
+        if (validated) {
+            return@apply
+        }
+
+        id()
+        createdAt()
+        expiresAt()
+        fileId()
+        idempotencyKey()
+        type()
+        unauthenticatedUrl()
+        validated = true
     }
 
     /**

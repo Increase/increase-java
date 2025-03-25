@@ -11,13 +11,12 @@ import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.checkKnown
 import com.increase.api.core.checkRequired
-import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.LocalDate
+import java.util.Collections
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
@@ -26,26 +25,32 @@ import kotlin.jvm.optionals.getOrNull
  * When using IntraFi, each account's balance over the standard FDIC insurance amount are swept to
  * various other institutions. Funds are rebalanced across banks as needed once per business day.
  */
-@NoAutoDetect
 class IntrafiBalance
-@JsonCreator
 private constructor(
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("balances")
-    @ExcludeMissing
-    private val balances: JsonField<List<Balance>> = JsonMissing.of(),
-    @JsonProperty("currency")
-    @ExcludeMissing
-    private val currency: JsonField<Currency> = JsonMissing.of(),
-    @JsonProperty("effective_date")
-    @ExcludeMissing
-    private val effectiveDate: JsonField<LocalDate> = JsonMissing.of(),
-    @JsonProperty("total_balance")
-    @ExcludeMissing
-    private val totalBalance: JsonField<Long> = JsonMissing.of(),
-    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
-    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+    private val id: JsonField<String>,
+    private val balances: JsonField<List<Balance>>,
+    private val currency: JsonField<Currency>,
+    private val effectiveDate: JsonField<LocalDate>,
+    private val totalBalance: JsonField<Long>,
+    private val type: JsonField<Type>,
+    private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
+
+    @JsonCreator
+    private constructor(
+        @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("balances")
+        @ExcludeMissing
+        balances: JsonField<List<Balance>> = JsonMissing.of(),
+        @JsonProperty("currency") @ExcludeMissing currency: JsonField<Currency> = JsonMissing.of(),
+        @JsonProperty("effective_date")
+        @ExcludeMissing
+        effectiveDate: JsonField<LocalDate> = JsonMissing.of(),
+        @JsonProperty("total_balance")
+        @ExcludeMissing
+        totalBalance: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+    ) : this(id, balances, currency, effectiveDate, totalBalance, type, mutableMapOf())
 
     /**
      * The identifier of this balance.
@@ -144,25 +149,15 @@ private constructor(
      */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
+    @JsonAnySetter
+    private fun putAdditionalProperty(key: String, value: JsonValue) {
+        additionalProperties.put(key, value)
+    }
+
     @JsonAnyGetter
     @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-    private var validated: Boolean = false
-
-    fun validate(): IntrafiBalance = apply {
-        if (validated) {
-            return@apply
-        }
-
-        id()
-        balances().forEach { it.validate() }
-        currency()
-        effectiveDate()
-        totalBalance()
-        type()
-        validated = true
-    }
+    fun _additionalProperties(): Map<String, JsonValue> =
+        Collections.unmodifiableMap(additionalProperties)
 
     fun toBuilder() = Builder().from(this)
 
@@ -345,30 +340,48 @@ private constructor(
                 checkRequired("effectiveDate", effectiveDate),
                 checkRequired("totalBalance", totalBalance),
                 checkRequired("type", type),
-                additionalProperties.toImmutable(),
+                additionalProperties.toMutableMap(),
             )
     }
 
-    @NoAutoDetect
+    private var validated: Boolean = false
+
+    fun validate(): IntrafiBalance = apply {
+        if (validated) {
+            return@apply
+        }
+
+        id()
+        balances().forEach { it.validate() }
+        currency()
+        effectiveDate()
+        totalBalance()
+        type()
+        validated = true
+    }
+
     class Balance
-    @JsonCreator
     private constructor(
-        @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("balance")
-        @ExcludeMissing
-        private val balance: JsonField<Long> = JsonMissing.of(),
-        @JsonProperty("bank")
-        @ExcludeMissing
-        private val bank: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("bank_location")
-        @ExcludeMissing
-        private val bankLocation: JsonField<BankLocation> = JsonMissing.of(),
-        @JsonProperty("fdic_certificate_number")
-        @ExcludeMissing
-        private val fdicCertificateNumber: JsonField<String> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        private val id: JsonField<String>,
+        private val balance: JsonField<Long>,
+        private val bank: JsonField<String>,
+        private val bankLocation: JsonField<BankLocation>,
+        private val fdicCertificateNumber: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("balance") @ExcludeMissing balance: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("bank") @ExcludeMissing bank: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("bank_location")
+            @ExcludeMissing
+            bankLocation: JsonField<BankLocation> = JsonMissing.of(),
+            @JsonProperty("fdic_certificate_number")
+            @ExcludeMissing
+            fdicCertificateNumber: JsonField<String> = JsonMissing.of(),
+        ) : this(id, balance, bank, bankLocation, fdicCertificateNumber, mutableMapOf())
 
         /**
          * The identifier of this balance.
@@ -455,24 +468,15 @@ private constructor(
         @ExcludeMissing
         fun _fdicCertificateNumber(): JsonField<String> = fdicCertificateNumber
 
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        private var validated: Boolean = false
-
-        fun validate(): Balance = apply {
-            if (validated) {
-                return@apply
-            }
-
-            id()
-            balance()
-            bank()
-            bankLocation().ifPresent { it.validate() }
-            fdicCertificateNumber()
-            validated = true
-        }
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         fun toBuilder() = Builder().from(this)
 
@@ -629,24 +633,38 @@ private constructor(
                     checkRequired("bank", bank),
                     checkRequired("bankLocation", bankLocation),
                     checkRequired("fdicCertificateNumber", fdicCertificateNumber),
-                    additionalProperties.toImmutable(),
+                    additionalProperties.toMutableMap(),
                 )
         }
 
+        private var validated: Boolean = false
+
+        fun validate(): Balance = apply {
+            if (validated) {
+                return@apply
+            }
+
+            id()
+            balance()
+            bank()
+            bankLocation().ifPresent { it.validate() }
+            fdicCertificateNumber()
+            validated = true
+        }
+
         /** The primary location of the bank. */
-        @NoAutoDetect
         class BankLocation
-        @JsonCreator
         private constructor(
-            @JsonProperty("city")
-            @ExcludeMissing
-            private val city: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("state")
-            @ExcludeMissing
-            private val state: JsonField<String> = JsonMissing.of(),
-            @JsonAnySetter
-            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+            private val city: JsonField<String>,
+            private val state: JsonField<String>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("city") @ExcludeMissing city: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("state") @ExcludeMissing state: JsonField<String> = JsonMissing.of(),
+            ) : this(city, state, mutableMapOf())
 
             /**
              * The bank's city.
@@ -680,21 +698,15 @@ private constructor(
              */
             @JsonProperty("state") @ExcludeMissing fun _state(): JsonField<String> = state
 
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
             @JsonAnyGetter
             @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-            private var validated: Boolean = false
-
-            fun validate(): BankLocation = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                city()
-                state()
-                validated = true
-            }
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
 
             fun toBuilder() = Builder().from(this)
 
@@ -789,8 +801,20 @@ private constructor(
                     BankLocation(
                         checkRequired("city", city),
                         checkRequired("state", state),
-                        additionalProperties.toImmutable(),
+                        additionalProperties.toMutableMap(),
                     )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): BankLocation = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                city()
+                state()
+                validated = true
             }
 
             override fun equals(other: Any?): Boolean {

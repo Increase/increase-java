@@ -5,7 +5,6 @@ package com.increase.api.models.pendingtransactions
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.increase.api.core.Enum
 import com.increase.api.core.JsonField
-import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.Params
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
@@ -53,62 +52,6 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams =
-        QueryParams.builder()
-            .apply {
-                accountId?.let { put("account_id", it) }
-                category?.let {
-                    it.in_().ifPresent {
-                        put("category.in", it.joinToString(",") { it.toString() })
-                    }
-                    it._additionalProperties().keys().forEach { key ->
-                        it._additionalProperties().values(key).forEach { value ->
-                            put("category.$key", value)
-                        }
-                    }
-                }
-                createdAt?.let {
-                    it.after().ifPresent {
-                        put("created_at.after", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
-                    }
-                    it.before().ifPresent {
-                        put("created_at.before", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
-                    }
-                    it.onOrAfter().ifPresent {
-                        put(
-                            "created_at.on_or_after",
-                            DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it),
-                        )
-                    }
-                    it.onOrBefore().ifPresent {
-                        put(
-                            "created_at.on_or_before",
-                            DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it),
-                        )
-                    }
-                    it._additionalProperties().keys().forEach { key ->
-                        it._additionalProperties().values(key).forEach { value ->
-                            put("created_at.$key", value)
-                        }
-                    }
-                }
-                cursor?.let { put("cursor", it) }
-                limit?.let { put("limit", it.toString()) }
-                routeId?.let { put("route_id", it) }
-                status?.let {
-                    it.in_().ifPresent { put("status.in", it.joinToString(",") { it.toString() }) }
-                    it._additionalProperties().keys().forEach { key ->
-                        it._additionalProperties().values(key).forEach { value ->
-                            put("status.$key", value)
-                        }
-                    }
-                }
-                putAll(additionalQueryParams)
-            }
-            .build()
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -122,7 +65,6 @@ private constructor(
     }
 
     /** A builder for [PendingTransactionListParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var accountId: String? = null
@@ -312,6 +254,62 @@ private constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                accountId?.let { put("account_id", it) }
+                category?.let {
+                    it.in_().ifPresent {
+                        put("category.in", it.joinToString(",") { it.toString() })
+                    }
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("category.$key", value)
+                        }
+                    }
+                }
+                createdAt?.let {
+                    it.after().ifPresent {
+                        put("created_at.after", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
+                    }
+                    it.before().ifPresent {
+                        put("created_at.before", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
+                    }
+                    it.onOrAfter().ifPresent {
+                        put(
+                            "created_at.on_or_after",
+                            DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it),
+                        )
+                    }
+                    it.onOrBefore().ifPresent {
+                        put(
+                            "created_at.on_or_before",
+                            DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it),
+                        )
+                    }
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("created_at.$key", value)
+                        }
+                    }
+                }
+                cursor?.let { put("cursor", it) }
+                limit?.let { put("limit", it.toString()) }
+                routeId?.let { put("route_id", it) }
+                status?.let {
+                    it.in_().ifPresent { put("status.in", it.joinToString(",") { it.toString() }) }
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("status.$key", value)
+                        }
+                    }
+                }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     class Category
     private constructor(private val in_: List<In>?, private val additionalProperties: QueryParams) {
