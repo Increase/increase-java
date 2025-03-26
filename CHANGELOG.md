@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.200.1 (2025-03-26)
+
+Full Changelog: [v0.200.0...v0.200.1](https://github.com/Increase/increase-java/compare/v0.200.0...v0.200.1)
+
+### Bug Fixes
+
+* **client:** map deserialization bug ([f23b999](https://github.com/Increase/increase-java/commit/f23b999baaccc833cb32349a271ee95e5e059fba))
+
+
+### Chores
+
+* **internal:** delete unused methods and annotations ([#902](https://github.com/Increase/increase-java/issues/902)) ([f23b999](https://github.com/Increase/increase-java/commit/f23b999baaccc833cb32349a271ee95e5e059fba))
+
 ## 0.200.0 (2025-03-26)
 
 Full Changelog: [v0.199.0...v0.200.0](https://github.com/Increase/increase-java/compare/v0.199.0...v0.200.0)
