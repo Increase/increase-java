@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.200.0 (2025-03-26)
+
+Full Changelog: [v0.199.0...v0.200.0](https://github.com/Increase/increase-java/compare/v0.199.0...v0.200.0)
+
+### Features
+
+* **api:** api update ([#900](https://github.com/Increase/increase-java/issues/900)) ([9218720](https://github.com/Increase/increase-java/commit/9218720115abd60b7b451fe9c595d540167aee4a))
+* **client:** support a lower jackson version ([#898](https://github.com/Increase/increase-java/issues/898)) ([72dcee9](https://github.com/Increase/increase-java/commit/72dcee9ef4f79e28e9b28cdc03e05db029374cb0))
+* **client:** throw on incompatible jackson version ([72dcee9](https://github.com/Increase/increase-java/commit/72dcee9ef4f79e28e9b28cdc03e05db029374cb0))
+
 ## 0.199.0 (2025-03-22)
 
 Full Changelog: [v0.198.0...v0.199.0](https://github.com/Increase/increase-java/compare/v0.198.0...v0.199.0)
