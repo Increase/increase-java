@@ -43,7 +43,12 @@ internal class CheckTransferCreateParamsTest {
                     .build()
             )
             .requireApproval(true)
-            .thirdParty(CheckTransferCreateParams.ThirdParty.builder().checkNumber("x").build())
+            .thirdParty(
+                CheckTransferCreateParams.ThirdParty.builder()
+                    .checkNumber("x")
+                    .recipientName("x")
+                    .build()
+            )
             .build()
     }
 
@@ -84,7 +89,12 @@ internal class CheckTransferCreateParamsTest {
                         .build()
                 )
                 .requireApproval(true)
-                .thirdParty(CheckTransferCreateParams.ThirdParty.builder().checkNumber("x").build())
+                .thirdParty(
+                    CheckTransferCreateParams.ThirdParty.builder()
+                        .checkNumber("x")
+                        .recipientName("x")
+                        .build()
+                )
                 .build()
 
         val body = params._body()
@@ -125,7 +135,12 @@ internal class CheckTransferCreateParamsTest {
             )
         assertThat(body.requireApproval()).contains(true)
         assertThat(body.thirdParty())
-            .contains(CheckTransferCreateParams.ThirdParty.builder().checkNumber("x").build())
+            .contains(
+                CheckTransferCreateParams.ThirdParty.builder()
+                    .checkNumber("x")
+                    .recipientName("x")
+                    .build()
+            )
     }
 
     @Test
