@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.200.2 (2025-03-28)
+
+Full Changelog: [v0.200.1...v0.200.2](https://github.com/Increase/increase-java/compare/v0.200.1...v0.200.2)
+
+### Bug Fixes
+
+* **client:** don't call `validate()` during deserialization if we don't have to ([#905](https://github.com/Increase/increase-java/issues/905)) ([8116b49](https://github.com/Increase/increase-java/commit/8116b49d6358aa57ba172b9b2ea468619ed82d31))
+
 ## 0.200.1 (2025-03-26)
 
 Full Changelog: [v0.200.0...v0.200.1](https://github.com/Increase/increase-java/compare/v0.200.0...v0.200.1)
