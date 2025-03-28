@@ -61,7 +61,10 @@ internal class CheckTransferServiceTest {
                     )
                     .requireApproval(true)
                     .thirdParty(
-                        CheckTransferCreateParams.ThirdParty.builder().checkNumber("x").build()
+                        CheckTransferCreateParams.ThirdParty.builder()
+                            .checkNumber("x")
+                            .recipientName("x")
+                            .build()
                     )
                     .build()
             )
