@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.202.0 (2025-03-28)
+
+Full Changelog: [v0.201.0...v0.202.0](https://github.com/Increase/increase-java/compare/v0.201.0...v0.202.0)
+
+### Features
+
+* **api:** api update ([#911](https://github.com/Increase/increase-java/issues/911)) ([dab404a](https://github.com/Increase/increase-java/commit/dab404afc64ff3781ca4a712d4813c8778f58821))
+
 ## 0.201.0 (2025-03-28)
 
 Full Changelog: [v0.200.2...v0.201.0](https://github.com/Increase/increase-java/compare/v0.200.2...v0.201.0)
