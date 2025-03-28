@@ -63,8 +63,10 @@ interface AchTransferServiceAsync {
 
     /**
      * Simulates the settlement of an [ACH Transfer](#ach-transfers) by the Federal Reserve. This
-     * transfer must first have a `status` of `submitted`. Without this simulation the transfer will
-     * eventually settle on its own following the same Federal Reserve timeline as in production.
+     * transfer must first have a `status` of `pending_submission` or `submitted`. For convenience,
+     * if the transfer is in `status`: `pending_submission`, the simulation will also submit the
+     * transfer. Without this simulation the transfer will eventually settle on its own following
+     * the same Federal Reserve timeline as in production.
      */
     fun settle(params: AchTransferSettleParams): CompletableFuture<AchTransfer> =
         settle(params, RequestOptions.none())
