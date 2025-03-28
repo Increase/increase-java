@@ -2017,6 +2017,7 @@ private constructor(
     class ThirdParty
     private constructor(
         private val checkNumber: JsonField<String>,
+        private val recipientName: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -2024,8 +2025,11 @@ private constructor(
         private constructor(
             @JsonProperty("check_number")
             @ExcludeMissing
-            checkNumber: JsonField<String> = JsonMissing.of()
-        ) : this(checkNumber, mutableMapOf())
+            checkNumber: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("recipient_name")
+            @ExcludeMissing
+            recipientName: JsonField<String> = JsonMissing.of(),
+        ) : this(checkNumber, recipientName, mutableMapOf())
 
         /**
          * The check number you will print on the check. This should not contain leading zeroes. If
@@ -2039,6 +2043,17 @@ private constructor(
             Optional.ofNullable(checkNumber.getNullable("check_number"))
 
         /**
+         * The pay-to name you will print on the check. If provided, this is used for
+         * [Positive Pay](/documentation/positive-pay). If this is omitted, Increase will be unable
+         * to validate the payee name when the check is deposited.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun recipientName(): Optional<String> =
+            Optional.ofNullable(recipientName.getNullable("recipient_name"))
+
+        /**
          * Returns the raw JSON value of [checkNumber].
          *
          * Unlike [checkNumber], this method doesn't throw if the JSON field has an unexpected type.
@@ -2046,6 +2061,16 @@ private constructor(
         @JsonProperty("check_number")
         @ExcludeMissing
         fun _checkNumber(): JsonField<String> = checkNumber
+
+        /**
+         * Returns the raw JSON value of [recipientName].
+         *
+         * Unlike [recipientName], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("recipient_name")
+        @ExcludeMissing
+        fun _recipientName(): JsonField<String> = recipientName
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -2069,11 +2094,13 @@ private constructor(
         class Builder internal constructor() {
 
             private var checkNumber: JsonField<String> = JsonMissing.of()
+            private var recipientName: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(thirdParty: ThirdParty) = apply {
                 checkNumber = thirdParty.checkNumber
+                recipientName = thirdParty.recipientName
                 additionalProperties = thirdParty.additionalProperties.toMutableMap()
             }
 
@@ -2093,6 +2120,24 @@ private constructor(
              */
             fun checkNumber(checkNumber: JsonField<String>) = apply {
                 this.checkNumber = checkNumber
+            }
+
+            /**
+             * The pay-to name you will print on the check. If provided, this is used for
+             * [Positive Pay](/documentation/positive-pay). If this is omitted, Increase will be
+             * unable to validate the payee name when the check is deposited.
+             */
+            fun recipientName(recipientName: String) = recipientName(JsonField.of(recipientName))
+
+            /**
+             * Sets [Builder.recipientName] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.recipientName] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun recipientName(recipientName: JsonField<String>) = apply {
+                this.recipientName = recipientName
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -2119,7 +2164,8 @@ private constructor(
              *
              * Further updates to this [Builder] will not mutate the returned instance.
              */
-            fun build(): ThirdParty = ThirdParty(checkNumber, additionalProperties.toMutableMap())
+            fun build(): ThirdParty =
+                ThirdParty(checkNumber, recipientName, additionalProperties.toMutableMap())
         }
 
         private var validated: Boolean = false
@@ -2130,6 +2176,7 @@ private constructor(
             }
 
             checkNumber()
+            recipientName()
             validated = true
         }
 
@@ -2138,17 +2185,17 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ThirdParty && checkNumber == other.checkNumber && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is ThirdParty && checkNumber == other.checkNumber && recipientName == other.recipientName && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(checkNumber, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(checkNumber, recipientName, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "ThirdParty{checkNumber=$checkNumber, additionalProperties=$additionalProperties}"
+            "ThirdParty{checkNumber=$checkNumber, recipientName=$recipientName, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
