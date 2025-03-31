@@ -115,7 +115,12 @@ internal class CheckTransferTest {
                         .submittedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                         .build()
                 )
-                .thirdParty(CheckTransfer.ThirdParty.builder().checkNumber("check_number").build())
+                .thirdParty(
+                    CheckTransfer.ThirdParty.builder()
+                        .checkNumber("check_number")
+                        .recipientName("recipient_name")
+                        .build()
+                )
                 .type(CheckTransfer.Type.CHECK_TRANSFER)
                 .build()
 
@@ -228,7 +233,12 @@ internal class CheckTransferTest {
                     .build()
             )
         assertThat(checkTransfer.thirdParty())
-            .contains(CheckTransfer.ThirdParty.builder().checkNumber("check_number").build())
+            .contains(
+                CheckTransfer.ThirdParty.builder()
+                    .checkNumber("check_number")
+                    .recipientName("recipient_name")
+                    .build()
+            )
         assertThat(checkTransfer.type()).isEqualTo(CheckTransfer.Type.CHECK_TRANSFER)
     }
 }
