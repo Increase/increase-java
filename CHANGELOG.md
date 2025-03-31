@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.203.1 (2025-03-31)
+
+Full Changelog: [v0.203.0...v0.203.1](https://github.com/Increase/increase-java/compare/v0.203.0...v0.203.1)
+
+### Bug Fixes
+
+* **client:** limit json deserialization coercion ([#917](https://github.com/Increase/increase-java/issues/917)) ([8e030fc](https://github.com/Increase/increase-java/commit/8e030fc409fc28107ab0fb0f27cc76dc541a93c1))
+
 ## 0.203.0 (2025-03-31)
 
 Full Changelog: [v0.202.0...v0.203.0](https://github.com/Increase/increase-java/compare/v0.202.0...v0.203.0)
