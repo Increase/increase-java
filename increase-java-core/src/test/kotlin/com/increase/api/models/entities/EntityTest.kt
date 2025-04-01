@@ -38,6 +38,7 @@ internal class EntityTest {
                                             Entity.Corporation.BeneficialOwner.Individual.Address
                                                 .builder()
                                                 .city("New York")
+                                                .country("US")
                                                 .line1("33 Liberty Street")
                                                 .line2(null)
                                                 .state("NY")
@@ -268,6 +269,7 @@ internal class EntityTest {
                                         Entity.Corporation.BeneficialOwner.Individual.Address
                                             .builder()
                                             .city("New York")
+                                            .country("US")
                                             .line1("33 Liberty Street")
                                             .line2(null)
                                             .state("NY")
