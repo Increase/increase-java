@@ -1913,6 +1913,43 @@ private constructor(
             validated = true
         }
 
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (amount.asKnown().isPresent) 1 else 0) +
+                (if (beneficiaryAccountNumber.asKnown().isPresent) 1 else 0) +
+                (if (beneficiaryRoutingNumber.asKnown().isPresent) 1 else 0) +
+                (if (currency.asKnown().isPresent) 1 else 0) +
+                (if (messageToRecipient.asKnown().isPresent) 1 else 0) +
+                (if (originatorAccountNumber.asKnown().isPresent) 1 else 0) +
+                (if (originatorRoutingNumber.asKnown().isPresent) 1 else 0) +
+                (if (recipientAccountNumberId.asKnown().isPresent) 1 else 0) +
+                (if (beneficiaryAddressLine1.asKnown().isPresent) 1 else 0) +
+                (if (beneficiaryAddressLine2.asKnown().isPresent) 1 else 0) +
+                (if (beneficiaryAddressLine3.asKnown().isPresent) 1 else 0) +
+                (if (beneficiaryName.asKnown().isPresent) 1 else 0) +
+                (if (originatorAddressLine1.asKnown().isPresent) 1 else 0) +
+                (if (originatorAddressLine2.asKnown().isPresent) 1 else 0) +
+                (if (originatorAddressLine3.asKnown().isPresent) 1 else 0) +
+                (if (originatorName.asKnown().isPresent) 1 else 0) +
+                (if (originatorToBeneficiaryInformationLine1.asKnown().isPresent) 1 else 0) +
+                (if (originatorToBeneficiaryInformationLine2.asKnown().isPresent) 1 else 0) +
+                (if (originatorToBeneficiaryInformationLine3.asKnown().isPresent) 1 else 0) +
+                (if (originatorToBeneficiaryInformationLine4.asKnown().isPresent) 1 else 0)
+
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true

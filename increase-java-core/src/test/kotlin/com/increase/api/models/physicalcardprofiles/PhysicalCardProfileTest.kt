@@ -2,6 +2,8 @@
 
 package com.increase.api.models.physicalcardprofiles
 
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.increase.api.core.jsonMapper
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -41,5 +43,33 @@ internal class PhysicalCardProfileTest {
             .isEqualTo(PhysicalCardProfile.Status.PENDING_CREATING)
         assertThat(physicalCardProfile.type())
             .isEqualTo(PhysicalCardProfile.Type.PHYSICAL_CARD_PROFILE)
+    }
+
+    @Test
+    fun roundtrip() {
+        val jsonMapper = jsonMapper()
+        val physicalCardProfile =
+            PhysicalCardProfile.builder()
+                .id("physical_card_profile_m534d5rn9qyy9ufqxoec")
+                .backImageFileId("file_makxrc67oh9l6sg7w9yc")
+                .carrierImageFileId("file_makxrc67oh9l6sg7w9yc")
+                .contactPhone("+16505046304")
+                .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                .creator(PhysicalCardProfile.Creator.INCREASE)
+                .description("Corporate logo card")
+                .frontImageFileId("file_makxrc67oh9l6sg7w9yc")
+                .idempotencyKey(null)
+                .isDefault(false)
+                .status(PhysicalCardProfile.Status.PENDING_CREATING)
+                .type(PhysicalCardProfile.Type.PHYSICAL_CARD_PROFILE)
+                .build()
+
+        val roundtrippedPhysicalCardProfile =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(physicalCardProfile),
+                jacksonTypeRef<PhysicalCardProfile>(),
+            )
+
+        assertThat(roundtrippedPhysicalCardProfile).isEqualTo(physicalCardProfile)
     }
 }

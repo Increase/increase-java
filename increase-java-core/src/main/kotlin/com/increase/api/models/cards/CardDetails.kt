@@ -15,6 +15,7 @@ import com.increase.api.core.checkRequired
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Collections
 import java.util.Objects
+import kotlin.jvm.optionals.getOrNull
 
 /** An object containing the sensitive details (card number, cvc, etc) for a Card. */
 class CardDetails
@@ -353,10 +354,32 @@ private constructor(
         expirationMonth()
         expirationYear()
         primaryAccountNumber()
-        type()
+        type().validate()
         verificationCode()
         validated = true
     }
+
+    fun isValid(): Boolean =
+        try {
+            validate()
+            true
+        } catch (e: IncreaseInvalidDataException) {
+            false
+        }
+
+    /**
+     * Returns a score indicating how many valid values are contained in this object recursively.
+     *
+     * Used for best match union deserialization.
+     */
+    @JvmSynthetic
+    internal fun validity(): Int =
+        (if (cardId.asKnown().isPresent) 1 else 0) +
+            (if (expirationMonth.asKnown().isPresent) 1 else 0) +
+            (if (expirationYear.asKnown().isPresent) 1 else 0) +
+            (if (primaryAccountNumber.asKnown().isPresent) 1 else 0) +
+            (type.asKnown().getOrNull()?.validity() ?: 0) +
+            (if (verificationCode.asKnown().isPresent) 1 else 0)
 
     /**
      * A constant representing the object's type. For this resource it will always be
@@ -442,6 +465,33 @@ private constructor(
             _value().asString().orElseThrow {
                 IncreaseInvalidDataException("Value is not a String")
             }
+
+        private var validated: Boolean = false
+
+        fun validate(): Type = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {

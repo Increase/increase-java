@@ -2,6 +2,8 @@
 
 package com.increase.api.models.carddisputes
 
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.increase.api.core.jsonMapper
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -90,5 +92,57 @@ internal class CardDisputeTest {
                     .wonAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
+    }
+
+    @Test
+    fun roundtrip() {
+        val jsonMapper = jsonMapper()
+        val cardDispute =
+            CardDispute.builder()
+                .id("card_dispute_h9sc95nbl1cgltpp7men")
+                .acceptance(
+                    CardDispute.Acceptance.builder()
+                        .acceptedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .cardDisputeId("card_dispute_id")
+                        .transactionId("transaction_id")
+                        .build()
+                )
+                .amount(null)
+                .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                .disputedTransactionId("transaction_uyrp7fld2ium70oa7oi")
+                .explanation("Unauthorized recurring purchase")
+                .idempotencyKey(null)
+                .loss(
+                    CardDispute.Loss.builder()
+                        .cardDisputeId("card_dispute_id")
+                        .explanation("explanation")
+                        .lostAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .transactionId("transaction_id")
+                        .build()
+                )
+                .rejection(
+                    CardDispute.Rejection.builder()
+                        .cardDisputeId("card_dispute_id")
+                        .explanation("explanation")
+                        .rejectedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .build()
+                )
+                .status(CardDispute.Status.PENDING_REVIEWING)
+                .type(CardDispute.Type.CARD_DISPUTE)
+                .win(
+                    CardDispute.Win.builder()
+                        .cardDisputeId("card_dispute_id")
+                        .wonAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .build()
+                )
+                .build()
+
+        val roundtrippedCardDispute =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(cardDispute),
+                jacksonTypeRef<CardDispute>(),
+            )
+
+        assertThat(roundtrippedCardDispute).isEqualTo(cardDispute)
     }
 }

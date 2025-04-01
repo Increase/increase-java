@@ -10,6 +10,7 @@ import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
+import com.increase.api.errors.IncreaseInvalidDataException
 import com.increase.api.services.async.RealTimePaymentsTransferServiceAsync
 import java.util.Collections
 import java.util.Objects
@@ -134,6 +135,14 @@ private constructor(
             nextCursor()
             validated = true
         }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
 
         fun toBuilder() = Builder().from(this)
 
