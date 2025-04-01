@@ -49,6 +49,7 @@ internal class CardAuthorizationServiceAsyncTest {
                             )
                             .build()
                     )
+                    .networkRiskScore(0L)
                     .physicalCardId("physical_card_id")
                     .terminalId("x")
                     .build()
