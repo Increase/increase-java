@@ -2,6 +2,8 @@
 
 package com.increase.api.models.digitalwallettokens
 
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.increase.api.core.jsonMapper
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -42,5 +44,33 @@ internal class DigitalWalletTokenTest {
                     .timestamp(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                     .build()
             )
+    }
+
+    @Test
+    fun roundtrip() {
+        val jsonMapper = jsonMapper()
+        val digitalWalletToken =
+            DigitalWalletToken.builder()
+                .id("digital_wallet_token_izi62go3h51p369jrie0")
+                .cardId("card_oubs0hwk5rn6knuecxg2")
+                .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                .status(DigitalWalletToken.Status.ACTIVE)
+                .tokenRequestor(DigitalWalletToken.TokenRequestor.APPLE_PAY)
+                .type(DigitalWalletToken.Type.DIGITAL_WALLET_TOKEN)
+                .addUpdate(
+                    DigitalWalletToken.Update.builder()
+                        .status(DigitalWalletToken.Update.Status.ACTIVE)
+                        .timestamp(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .build()
+                )
+                .build()
+
+        val roundtrippedDigitalWalletToken =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(digitalWalletToken),
+                jacksonTypeRef<DigitalWalletToken>(),
+            )
+
+        assertThat(roundtrippedDigitalWalletToken).isEqualTo(digitalWalletToken)
     }
 }

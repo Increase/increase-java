@@ -2,6 +2,8 @@
 
 package com.increase.api.models.achprenotifications
 
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.increase.api.core.jsonMapper
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -83,5 +85,54 @@ internal class AchPrenotificationTest {
         assertThat(achPrenotification.status())
             .isEqualTo(AchPrenotification.Status.PENDING_SUBMITTING)
         assertThat(achPrenotification.type()).isEqualTo(AchPrenotification.Type.ACH_PRENOTIFICATION)
+    }
+
+    @Test
+    fun roundtrip() {
+        val jsonMapper = jsonMapper()
+        val achPrenotification =
+            AchPrenotification.builder()
+                .id("ach_prenotification_ubjf9qqsxl3obbcn1u34")
+                .accountNumber("987654321")
+                .addendum(null)
+                .companyDescriptiveDate(null)
+                .companyDiscretionaryData(null)
+                .companyEntryDescription(null)
+                .companyName(null)
+                .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                .creditDebitIndicator(AchPrenotification.CreditDebitIndicator.CREDIT)
+                .effectiveDate(null)
+                .idempotencyKey(null)
+                .addNotificationsOfChange(
+                    AchPrenotification.NotificationsOfChange.builder()
+                        .changeCode(
+                            AchPrenotification.NotificationsOfChange.ChangeCode
+                                .INCORRECT_ACCOUNT_NUMBER
+                        )
+                        .correctedData("32")
+                        .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .build()
+                )
+                .prenotificationReturn(
+                    AchPrenotification.PrenotificationReturn.builder()
+                        .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .returnReasonCode(
+                            AchPrenotification.PrenotificationReturn.ReturnReasonCode
+                                .INSUFFICIENT_FUND
+                        )
+                        .build()
+                )
+                .routingNumber("101050001")
+                .status(AchPrenotification.Status.PENDING_SUBMITTING)
+                .type(AchPrenotification.Type.ACH_PRENOTIFICATION)
+                .build()
+
+        val roundtrippedAchPrenotification =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(achPrenotification),
+                jacksonTypeRef<AchPrenotification>(),
+            )
+
+        assertThat(roundtrippedAchPrenotification).isEqualTo(achPrenotification)
     }
 }

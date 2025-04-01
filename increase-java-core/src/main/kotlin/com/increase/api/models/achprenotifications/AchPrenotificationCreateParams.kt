@@ -20,6 +20,7 @@ import java.time.LocalDate
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /** Create an ACH Prenotification */
 class AchPrenotificationCreateParams
@@ -1248,13 +1249,43 @@ private constructor(
             companyDiscretionaryData()
             companyEntryDescription()
             companyName()
-            creditDebitIndicator()
+            creditDebitIndicator().ifPresent { it.validate() }
             effectiveDate()
             individualId()
             individualName()
-            standardEntryClassCode()
+            standardEntryClassCode().ifPresent { it.validate() }
             validated = true
         }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (accountId.asKnown().isPresent) 1 else 0) +
+                (if (accountNumber.asKnown().isPresent) 1 else 0) +
+                (if (routingNumber.asKnown().isPresent) 1 else 0) +
+                (if (addendum.asKnown().isPresent) 1 else 0) +
+                (if (companyDescriptiveDate.asKnown().isPresent) 1 else 0) +
+                (if (companyDiscretionaryData.asKnown().isPresent) 1 else 0) +
+                (if (companyEntryDescription.asKnown().isPresent) 1 else 0) +
+                (if (companyName.asKnown().isPresent) 1 else 0) +
+                (creditDebitIndicator.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (effectiveDate.asKnown().isPresent) 1 else 0) +
+                (if (individualId.asKnown().isPresent) 1 else 0) +
+                (if (individualName.asKnown().isPresent) 1 else 0) +
+                (standardEntryClassCode.asKnown().getOrNull()?.validity() ?: 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -1373,6 +1404,33 @@ private constructor(
             _value().asString().orElseThrow {
                 IncreaseInvalidDataException("Value is not a String")
             }
+
+        private var validated: Boolean = false
+
+        fun validate(): CreditDebitIndicator = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -1505,6 +1563,33 @@ private constructor(
             _value().asString().orElseThrow {
                 IncreaseInvalidDataException("Value is not a String")
             }
+
+        private var validated: Boolean = false
+
+        fun validate(): StandardEntryClassCode = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
