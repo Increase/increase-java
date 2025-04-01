@@ -2058,6 +2058,7 @@ private constructor(
                 class Address
                 private constructor(
                     private val city: JsonField<String>,
+                    private val country: JsonField<String>,
                     private val line1: JsonField<String>,
                     private val line2: JsonField<String>,
                     private val state: JsonField<String>,
@@ -2070,6 +2071,9 @@ private constructor(
                         @JsonProperty("city")
                         @ExcludeMissing
                         city: JsonField<String> = JsonMissing.of(),
+                        @JsonProperty("country")
+                        @ExcludeMissing
+                        country: JsonField<String> = JsonMissing.of(),
                         @JsonProperty("line1")
                         @ExcludeMissing
                         line1: JsonField<String> = JsonMissing.of(),
@@ -2082,16 +2086,24 @@ private constructor(
                         @JsonProperty("zip")
                         @ExcludeMissing
                         zip: JsonField<String> = JsonMissing.of(),
-                    ) : this(city, line1, line2, state, zip, mutableMapOf())
+                    ) : this(city, country, line1, line2, state, zip, mutableMapOf())
 
                     /**
-                     * The city of the address.
+                     * The city, district, town, or village of the address.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun city(): Optional<String> = Optional.ofNullable(city.getNullable("city"))
+
+                    /**
+                     * The two-letter ISO 3166-1 alpha-2 code for the country of the address.
                      *
                      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                      *   or is unexpectedly missing or null (e.g. if the server responded with an
                      *   unexpected value).
                      */
-                    fun city(): String = city.getRequired("city")
+                    fun country(): String = country.getRequired("country")
 
                     /**
                      * The first line of the address.
@@ -2111,23 +2123,21 @@ private constructor(
                     fun line2(): Optional<String> = Optional.ofNullable(line2.getNullable("line2"))
 
                     /**
-                     * The two-letter United States Postal Service (USPS) abbreviation for the state
-                     * of the address.
+                     * The two-letter United States Postal Service (USPS) abbreviation for the US
+                     * state, province, or region of the address.
                      *
                      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
-                     *   or is unexpectedly missing or null (e.g. if the server responded with an
-                     *   unexpected value).
+                     *   (e.g. if the server responded with an unexpected value).
                      */
-                    fun state(): String = state.getRequired("state")
+                    fun state(): Optional<String> = Optional.ofNullable(state.getNullable("state"))
 
                     /**
-                     * The ZIP code of the address.
+                     * The ZIP or postal code of the address.
                      *
                      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
-                     *   or is unexpectedly missing or null (e.g. if the server responded with an
-                     *   unexpected value).
+                     *   (e.g. if the server responded with an unexpected value).
                      */
-                    fun zip(): String = zip.getRequired("zip")
+                    fun zip(): Optional<String> = Optional.ofNullable(zip.getNullable("zip"))
 
                     /**
                      * Returns the raw JSON value of [city].
@@ -2136,6 +2146,16 @@ private constructor(
                      * type.
                      */
                     @JsonProperty("city") @ExcludeMissing fun _city(): JsonField<String> = city
+
+                    /**
+                     * Returns the raw JSON value of [country].
+                     *
+                     * Unlike [country], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
+                    @JsonProperty("country")
+                    @ExcludeMissing
+                    fun _country(): JsonField<String> = country
 
                     /**
                      * Returns the raw JSON value of [line1].
@@ -2189,6 +2209,7 @@ private constructor(
                          * The following fields are required:
                          * ```java
                          * .city()
+                         * .country()
                          * .line1()
                          * .line2()
                          * .state()
@@ -2202,6 +2223,7 @@ private constructor(
                     class Builder internal constructor() {
 
                         private var city: JsonField<String>? = null
+                        private var country: JsonField<String>? = null
                         private var line1: JsonField<String>? = null
                         private var line2: JsonField<String>? = null
                         private var state: JsonField<String>? = null
@@ -2212,6 +2234,7 @@ private constructor(
                         @JvmSynthetic
                         internal fun from(address: Address) = apply {
                             city = address.city
+                            country = address.country
                             line1 = address.line1
                             line2 = address.line2
                             state = address.state
@@ -2219,8 +2242,11 @@ private constructor(
                             additionalProperties = address.additionalProperties.toMutableMap()
                         }
 
-                        /** The city of the address. */
-                        fun city(city: String) = city(JsonField.of(city))
+                        /** The city, district, town, or village of the address. */
+                        fun city(city: String?) = city(JsonField.ofNullable(city))
+
+                        /** Alias for calling [Builder.city] with `city.orElse(null)`. */
+                        fun city(city: Optional<String>) = city(city.getOrNull())
 
                         /**
                          * Sets [Builder.city] to an arbitrary JSON value.
@@ -2230,6 +2256,20 @@ private constructor(
                          * undocumented or not yet supported value.
                          */
                         fun city(city: JsonField<String>) = apply { this.city = city }
+
+                        /**
+                         * The two-letter ISO 3166-1 alpha-2 code for the country of the address.
+                         */
+                        fun country(country: String) = country(JsonField.of(country))
+
+                        /**
+                         * Sets [Builder.country] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.country] with a well-typed [String]
+                         * value instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
+                        fun country(country: JsonField<String>) = apply { this.country = country }
 
                         /** The first line of the address. */
                         fun line1(line1: String) = line1(JsonField.of(line1))
@@ -2260,9 +2300,12 @@ private constructor(
 
                         /**
                          * The two-letter United States Postal Service (USPS) abbreviation for the
-                         * state of the address.
+                         * US state, province, or region of the address.
                          */
-                        fun state(state: String) = state(JsonField.of(state))
+                        fun state(state: String?) = state(JsonField.ofNullable(state))
+
+                        /** Alias for calling [Builder.state] with `state.orElse(null)`. */
+                        fun state(state: Optional<String>) = state(state.getOrNull())
 
                         /**
                          * Sets [Builder.state] to an arbitrary JSON value.
@@ -2273,8 +2316,11 @@ private constructor(
                          */
                         fun state(state: JsonField<String>) = apply { this.state = state }
 
-                        /** The ZIP code of the address. */
-                        fun zip(zip: String) = zip(JsonField.of(zip))
+                        /** The ZIP or postal code of the address. */
+                        fun zip(zip: String?) = zip(JsonField.ofNullable(zip))
+
+                        /** Alias for calling [Builder.zip] with `zip.orElse(null)`. */
+                        fun zip(zip: Optional<String>) = zip(zip.getOrNull())
 
                         /**
                          * Sets [Builder.zip] to an arbitrary JSON value.
@@ -2315,6 +2361,7 @@ private constructor(
                          * The following fields are required:
                          * ```java
                          * .city()
+                         * .country()
                          * .line1()
                          * .line2()
                          * .state()
@@ -2326,6 +2373,7 @@ private constructor(
                         fun build(): Address =
                             Address(
                                 checkRequired("city", city),
+                                checkRequired("country", country),
                                 checkRequired("line1", line1),
                                 checkRequired("line2", line2),
                                 checkRequired("state", state),
@@ -2342,6 +2390,7 @@ private constructor(
                         }
 
                         city()
+                        country()
                         line1()
                         line2()
                         state()
@@ -2354,17 +2403,17 @@ private constructor(
                             return true
                         }
 
-                        return /* spotless:off */ other is Address && city == other.city && line1 == other.line1 && line2 == other.line2 && state == other.state && zip == other.zip && additionalProperties == other.additionalProperties /* spotless:on */
+                        return /* spotless:off */ other is Address && city == other.city && country == other.country && line1 == other.line1 && line2 == other.line2 && state == other.state && zip == other.zip && additionalProperties == other.additionalProperties /* spotless:on */
                     }
 
                     /* spotless:off */
-                    private val hashCode: Int by lazy { Objects.hash(city, line1, line2, state, zip, additionalProperties) }
+                    private val hashCode: Int by lazy { Objects.hash(city, country, line1, line2, state, zip, additionalProperties) }
                     /* spotless:on */
 
                     override fun hashCode(): Int = hashCode
 
                     override fun toString() =
-                        "Address{city=$city, line1=$line1, line2=$line2, state=$state, zip=$zip, additionalProperties=$additionalProperties}"
+                        "Address{city=$city, country=$country, line1=$line1, line2=$line2, state=$state, zip=$zip, additionalProperties=$additionalProperties}"
                 }
 
                 /** A means of verifying the person's identity. */
