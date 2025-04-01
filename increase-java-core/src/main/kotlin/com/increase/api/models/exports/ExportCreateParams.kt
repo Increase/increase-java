@@ -22,6 +22,7 @@ import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /** Create an Export */
 class ExportCreateParams
@@ -757,7 +758,7 @@ private constructor(
                 return@apply
             }
 
-            category()
+            category().validate()
             accountStatementOfx().ifPresent { it.validate() }
             balanceCsv().ifPresent { it.validate() }
             bookkeepingAccountBalanceCsv().ifPresent { it.validate() }
@@ -765,6 +766,29 @@ private constructor(
             transactionCsv().ifPresent { it.validate() }
             validated = true
         }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (category.asKnown().getOrNull()?.validity() ?: 0) +
+                (accountStatementOfx.asKnown().getOrNull()?.validity() ?: 0) +
+                (balanceCsv.asKnown().getOrNull()?.validity() ?: 0) +
+                (bookkeepingAccountBalanceCsv.asKnown().getOrNull()?.validity() ?: 0) +
+                (entityCsv.asKnown().getOrNull()?.validity() ?: 0) +
+                (transactionCsv.asKnown().getOrNull()?.validity() ?: 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -922,6 +946,33 @@ private constructor(
             _value().asString().orElseThrow {
                 IncreaseInvalidDataException("Value is not a String")
             }
+
+        private var validated: Boolean = false
+
+        fun validate(): Category = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -1102,6 +1153,25 @@ private constructor(
             createdAt().ifPresent { it.validate() }
             validated = true
         }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (accountId.asKnown().isPresent) 1 else 0) +
+                (createdAt.asKnown().getOrNull()?.validity() ?: 0)
 
         /** Filter results by time range on the `created_at` attribute. */
         class CreatedAt
@@ -1354,6 +1424,27 @@ private constructor(
                 onOrBefore()
                 validated = true
             }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                (if (after.asKnown().isPresent) 1 else 0) +
+                    (if (before.asKnown().isPresent) 1 else 0) +
+                    (if (onOrAfter.asKnown().isPresent) 1 else 0) +
+                    (if (onOrBefore.asKnown().isPresent) 1 else 0)
 
             override fun equals(other: Any?): Boolean {
                 if (this === other) {
@@ -1572,6 +1663,26 @@ private constructor(
             validated = true
         }
 
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (accountId.asKnown().isPresent) 1 else 0) +
+                (createdAt.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (programId.asKnown().isPresent) 1 else 0)
+
         /** Filter results by time range on the `created_at` attribute. */
         class CreatedAt
         private constructor(
@@ -1823,6 +1934,27 @@ private constructor(
                 onOrBefore()
                 validated = true
             }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                (if (after.asKnown().isPresent) 1 else 0) +
+                    (if (before.asKnown().isPresent) 1 else 0) +
+                    (if (onOrAfter.asKnown().isPresent) 1 else 0) +
+                    (if (onOrBefore.asKnown().isPresent) 1 else 0)
 
             override fun equals(other: Any?): Boolean {
                 if (this === other) {
@@ -2025,6 +2157,25 @@ private constructor(
             validated = true
         }
 
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (bookkeepingAccountId.asKnown().isPresent) 1 else 0) +
+                (createdAt.asKnown().getOrNull()?.validity() ?: 0)
+
         /** Filter results by time range on the `created_at` attribute. */
         class CreatedAt
         private constructor(
@@ -2277,6 +2428,27 @@ private constructor(
                 validated = true
             }
 
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                (if (after.asKnown().isPresent) 1 else 0) +
+                    (if (before.asKnown().isPresent) 1 else 0) +
+                    (if (onOrAfter.asKnown().isPresent) 1 else 0) +
+                    (if (onOrBefore.asKnown().isPresent) 1 else 0)
+
             override fun equals(other: Any?): Boolean {
                 if (this === other) {
                     return true
@@ -2419,6 +2591,22 @@ private constructor(
             status().ifPresent { it.validate() }
             validated = true
         }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = (status.asKnown().getOrNull()?.validity() ?: 0)
 
         /** Entity statuses to filter by. */
         class Status
@@ -2563,9 +2751,27 @@ private constructor(
                     return@apply
                 }
 
-                in_()
+                in_().forEach { it.validate() }
                 validated = true
             }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                (in_.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0)
 
             class In @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
@@ -2676,6 +2882,33 @@ private constructor(
                     _value().asString().orElseThrow {
                         IncreaseInvalidDataException("Value is not a String")
                     }
+
+                private var validated: Boolean = false
+
+                fun validate(): In = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                 override fun equals(other: Any?): Boolean {
                     if (this === other) {
@@ -2906,6 +3139,26 @@ private constructor(
             validated = true
         }
 
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (accountId.asKnown().isPresent) 1 else 0) +
+                (createdAt.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (programId.asKnown().isPresent) 1 else 0)
+
         /** Filter results by time range on the `created_at` attribute. */
         class CreatedAt
         private constructor(
@@ -3157,6 +3410,27 @@ private constructor(
                 onOrBefore()
                 validated = true
             }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                (if (after.asKnown().isPresent) 1 else 0) +
+                    (if (before.asKnown().isPresent) 1 else 0) +
+                    (if (onOrAfter.asKnown().isPresent) 1 else 0) +
+                    (if (onOrBefore.asKnown().isPresent) 1 else 0)
 
             override fun equals(other: Any?): Boolean {
                 if (this === other) {

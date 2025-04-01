@@ -2,6 +2,8 @@
 
 package com.increase.api.models.simulations.inboundfundsholds
 
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.increase.api.core.jsonMapper
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -42,5 +44,32 @@ internal class InboundFundsHoldReleaseResponseTest {
             .isEqualTo(InboundFundsHoldReleaseResponse.Status.HELD)
         assertThat(inboundFundsHoldReleaseResponse.type())
             .isEqualTo(InboundFundsHoldReleaseResponse.Type.INBOUND_FUNDS_HOLD)
+    }
+
+    @Test
+    fun roundtrip() {
+        val jsonMapper = jsonMapper()
+        val inboundFundsHoldReleaseResponse =
+            InboundFundsHoldReleaseResponse.builder()
+                .id("inbound_funds_hold_9vuasmywdo7xb3zt4071")
+                .amount(100L)
+                .automaticallyReleasesAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                .currency(InboundFundsHoldReleaseResponse.Currency.CAD)
+                .heldTransactionId("transaction_uyrp7fld2ium70oa7oi")
+                .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")
+                .releasedAt(null)
+                .status(InboundFundsHoldReleaseResponse.Status.HELD)
+                .type(InboundFundsHoldReleaseResponse.Type.INBOUND_FUNDS_HOLD)
+                .build()
+
+        val roundtrippedInboundFundsHoldReleaseResponse =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(inboundFundsHoldReleaseResponse),
+                jacksonTypeRef<InboundFundsHoldReleaseResponse>(),
+            )
+
+        assertThat(roundtrippedInboundFundsHoldReleaseResponse)
+            .isEqualTo(inboundFundsHoldReleaseResponse)
     }
 }

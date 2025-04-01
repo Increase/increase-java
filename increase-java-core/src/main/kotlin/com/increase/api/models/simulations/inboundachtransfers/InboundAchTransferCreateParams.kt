@@ -20,6 +20,7 @@ import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /**
  * Simulates an inbound ACH transfer to your account. This imitates initiating a transfer to an
@@ -1110,9 +1111,37 @@ private constructor(
             receiverIdNumber()
             receiverName()
             resolveAt()
-            standardEntryClassCode()
+            standardEntryClassCode().ifPresent { it.validate() }
             validated = true
         }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (accountNumberId.asKnown().isPresent) 1 else 0) +
+                (if (amount.asKnown().isPresent) 1 else 0) +
+                (if (companyDescriptiveDate.asKnown().isPresent) 1 else 0) +
+                (if (companyDiscretionaryData.asKnown().isPresent) 1 else 0) +
+                (if (companyEntryDescription.asKnown().isPresent) 1 else 0) +
+                (if (companyId.asKnown().isPresent) 1 else 0) +
+                (if (companyName.asKnown().isPresent) 1 else 0) +
+                (if (receiverIdNumber.asKnown().isPresent) 1 else 0) +
+                (if (receiverName.asKnown().isPresent) 1 else 0) +
+                (if (resolveAt.asKnown().isPresent) 1 else 0) +
+                (standardEntryClassCode.asKnown().getOrNull()?.validity() ?: 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -1358,6 +1387,33 @@ private constructor(
             _value().asString().orElseThrow {
                 IncreaseInvalidDataException("Value is not a String")
             }
+
+        private var validated: Boolean = false
+
+        fun validate(): StandardEntryClassCode = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {

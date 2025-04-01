@@ -1295,6 +1295,35 @@ private constructor(
             validated = true
         }
 
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (authorizationTerms.asKnown().isPresent) 1 else 0) +
+                (if (authorizedAt.asKnown().isPresent) 1 else 0) +
+                (if (authorizerEmail.asKnown().isPresent) 1 else 0) +
+                (if (authorizerName.asKnown().isPresent) 1 else 0) +
+                (if (customerHasBeenOffboarded.asKnown().isPresent) 1 else 0) +
+                (if (proofOfAuthorizationRequestId.asKnown().isPresent) 1 else 0) +
+                (if (validatedAccountOwnershipViaCredential.asKnown().isPresent) 1 else 0) +
+                (if (validatedAccountOwnershipWithAccountStatement.asKnown().isPresent) 1 else 0) +
+                (if (validatedAccountOwnershipWithMicrodeposit.asKnown().isPresent) 1 else 0) +
+                (if (additionalEvidenceFileId.asKnown().isPresent) 1 else 0) +
+                (if (authorizerCompany.asKnown().isPresent) 1 else 0) +
+                (if (authorizerIpAddress.asKnown().isPresent) 1 else 0)
+
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
