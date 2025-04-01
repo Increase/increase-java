@@ -32,11 +32,12 @@ internal class EntityCreateParamsTest {
                                         EntityCreateParams.Corporation.BeneficialOwner.Individual
                                             .Address
                                             .builder()
-                                            .city("New York")
+                                            .country("x")
                                             .line1("33 Liberty Street")
+                                            .city("New York")
+                                            .line2("x")
                                             .state("NY")
                                             .zip("10045")
-                                            .line2("x")
                                             .build()
                                     )
                                     .dateOfBirth(LocalDate.parse("1970-01-31"))
@@ -416,11 +417,12 @@ internal class EntityCreateParamsTest {
                                                 .Individual
                                                 .Address
                                                 .builder()
-                                                .city("New York")
+                                                .country("x")
                                                 .line1("33 Liberty Street")
+                                                .city("New York")
+                                                .line2("x")
                                                 .state("NY")
                                                 .zip("10045")
-                                                .line2("x")
                                                 .build()
                                         )
                                         .dateOfBirth(LocalDate.parse("1970-01-31"))
@@ -813,11 +815,12 @@ internal class EntityCreateParamsTest {
                                         EntityCreateParams.Corporation.BeneficialOwner.Individual
                                             .Address
                                             .builder()
-                                            .city("New York")
+                                            .country("x")
                                             .line1("33 Liberty Street")
+                                            .city("New York")
+                                            .line2("x")
                                             .state("NY")
                                             .zip("10045")
-                                            .line2("x")
                                             .build()
                                     )
                                     .dateOfBirth(LocalDate.parse("1970-01-31"))
