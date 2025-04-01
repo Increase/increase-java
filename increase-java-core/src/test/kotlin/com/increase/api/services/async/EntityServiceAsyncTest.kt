@@ -55,11 +55,12 @@ internal class EntityServiceAsyncTest {
                                                     .Individual
                                                     .Address
                                                     .builder()
-                                                    .city("New York")
+                                                    .country("x")
                                                     .line1("33 Liberty Street")
+                                                    .city("New York")
+                                                    .line2("x")
                                                     .state("NY")
                                                     .zip("10045")
-                                                    .line2("x")
                                                     .build()
                                             )
                                             .dateOfBirth(LocalDate.parse("1970-01-31"))
@@ -564,11 +565,12 @@ internal class EntityServiceAsyncTest {
                                         EntityCreateBeneficialOwnerParams.BeneficialOwner.Individual
                                             .Address
                                             .builder()
-                                            .city("New York")
+                                            .country("US")
                                             .line1("33 Liberty Street")
+                                            .city("New York")
+                                            .line2("x")
                                             .state("NY")
                                             .zip("10045")
-                                            .line2("x")
                                             .build()
                                     )
                                     .dateOfBirth(LocalDate.parse("1970-01-31"))
@@ -683,11 +685,12 @@ internal class EntityServiceAsyncTest {
                     .entityId("entity_n8y8tnk2p9339ti393yi")
                     .address(
                         EntityUpdateBeneficialOwnerAddressParams.Address.builder()
-                            .city("New York")
+                            .country("US")
                             .line1("33 Liberty Street")
+                            .city("New York")
+                            .line2("Unit 2")
                             .state("NY")
                             .zip("10045")
-                            .line2("Unit 2")
                             .build()
                     )
                     .beneficialOwnerId(
