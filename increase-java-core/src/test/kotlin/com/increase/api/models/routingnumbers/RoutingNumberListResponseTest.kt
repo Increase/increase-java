@@ -2,6 +2,8 @@
 
 package com.increase.api.models.routingnumbers
 
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.increase.api.core.jsonMapper
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -31,5 +33,29 @@ internal class RoutingNumberListResponseTest {
             .isEqualTo(RoutingNumberListResponse.Type.ROUTING_NUMBER)
         assertThat(routingNumberListResponse.wireTransfers())
             .isEqualTo(RoutingNumberListResponse.WireTransfers.SUPPORTED)
+    }
+
+    @Test
+    fun roundtrip() {
+        val jsonMapper = jsonMapper()
+        val routingNumberListResponse =
+            RoutingNumberListResponse.builder()
+                .achTransfers(RoutingNumberListResponse.AchTransfers.SUPPORTED)
+                .name("First Bank of the United States")
+                .realTimePaymentsTransfers(
+                    RoutingNumberListResponse.RealTimePaymentsTransfers.SUPPORTED
+                )
+                .routingNumber("021000021")
+                .type(RoutingNumberListResponse.Type.ROUTING_NUMBER)
+                .wireTransfers(RoutingNumberListResponse.WireTransfers.SUPPORTED)
+                .build()
+
+        val roundtrippedRoutingNumberListResponse =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(routingNumberListResponse),
+                jacksonTypeRef<RoutingNumberListResponse>(),
+            )
+
+        assertThat(roundtrippedRoutingNumberListResponse).isEqualTo(routingNumberListResponse)
     }
 }

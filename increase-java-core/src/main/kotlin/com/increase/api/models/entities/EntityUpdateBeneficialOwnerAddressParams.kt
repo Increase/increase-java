@@ -18,6 +18,7 @@ import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /** Update the address for a beneficial owner belonging to a corporate Entity */
 class EntityUpdateBeneficialOwnerAddressParams
@@ -474,6 +475,25 @@ private constructor(
             validated = true
         }
 
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (address.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (beneficialOwnerId.asKnown().isPresent) 1 else 0)
+
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
@@ -792,6 +812,29 @@ private constructor(
             zip()
             validated = true
         }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (country.asKnown().isPresent) 1 else 0) +
+                (if (line1.asKnown().isPresent) 1 else 0) +
+                (if (city.asKnown().isPresent) 1 else 0) +
+                (if (line2.asKnown().isPresent) 1 else 0) +
+                (if (state.asKnown().isPresent) 1 else 0) +
+                (if (zip.asKnown().isPresent) 1 else 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
