@@ -36,6 +36,7 @@ internal class CardAuthorizationCreateParamsTest {
                     )
                     .build()
             )
+            .networkRiskScore(0L)
             .physicalCardId("physical_card_id")
             .terminalId("x")
             .build()
@@ -71,6 +72,7 @@ internal class CardAuthorizationCreateParamsTest {
                         )
                         .build()
                 )
+                .networkRiskScore(0L)
                 .physicalCardId("physical_card_id")
                 .terminalId("x")
                 .build()
@@ -106,6 +108,7 @@ internal class CardAuthorizationCreateParamsTest {
                     )
                     .build()
             )
+        assertThat(body.networkRiskScore()).contains(0L)
         assertThat(body.physicalCardId()).contains("physical_card_id")
         assertThat(body.terminalId()).contains("x")
     }
