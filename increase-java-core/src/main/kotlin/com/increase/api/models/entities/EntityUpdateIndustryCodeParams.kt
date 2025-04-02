@@ -96,6 +96,15 @@ private constructor(
         fun entityId(entityId: String) = apply { this.entityId = entityId }
 
         /**
+         * Sets the entire request body.
+         *
+         * This is generally only useful if you are already constructing the body separately.
+         * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [industryCode]
+         */
+        fun body(body: Body) = apply { this.body = body.toBuilder() }
+
+        /**
          * The North American Industry Classification System (NAICS) code for the corporation's
          * primary line of business. This is a number, like `5132` for `Software Publishers`. A full
          * list of classification codes is available
@@ -253,7 +262,7 @@ private constructor(
             )
     }
 
-    @JvmSynthetic internal fun _body(): Body = body
+    fun _body(): Body = body
 
     fun _pathParam(index: Int): String =
         when (index) {
