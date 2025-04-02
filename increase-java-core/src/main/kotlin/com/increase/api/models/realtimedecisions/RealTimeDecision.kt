@@ -7917,6 +7917,7 @@ private constructor(
         private val cardId: JsonField<String>,
         private val cardProfileId: JsonField<String>,
         private val decision: JsonField<Decision>,
+        private val device: JsonField<Device>,
         private val digitalWallet: JsonField<DigitalWallet>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -7930,10 +7931,11 @@ private constructor(
             @JsonProperty("decision")
             @ExcludeMissing
             decision: JsonField<Decision> = JsonMissing.of(),
+            @JsonProperty("device") @ExcludeMissing device: JsonField<Device> = JsonMissing.of(),
             @JsonProperty("digital_wallet")
             @ExcludeMissing
             digitalWallet: JsonField<DigitalWallet> = JsonMissing.of(),
-        ) : this(cardId, cardProfileId, decision, digitalWallet, mutableMapOf())
+        ) : this(cardId, cardProfileId, decision, device, digitalWallet, mutableMapOf())
 
         /**
          * The identifier of the Card that is being tokenized.
@@ -7962,6 +7964,14 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun decision(): Optional<Decision> = Optional.ofNullable(decision.getNullable("decision"))
+
+        /**
+         * Device that is being used to provision the digital wallet token.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun device(): Device = device.getRequired("device")
 
         /**
          * The digital wallet app being used.
@@ -7996,6 +8006,13 @@ private constructor(
         @JsonProperty("decision") @ExcludeMissing fun _decision(): JsonField<Decision> = decision
 
         /**
+         * Returns the raw JSON value of [device].
+         *
+         * Unlike [device], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("device") @ExcludeMissing fun _device(): JsonField<Device> = device
+
+        /**
          * Returns the raw JSON value of [digitalWallet].
          *
          * Unlike [digitalWallet], this method doesn't throw if the JSON field has an unexpected
@@ -8027,6 +8044,7 @@ private constructor(
              * .cardId()
              * .cardProfileId()
              * .decision()
+             * .device()
              * .digitalWallet()
              * ```
              */
@@ -8039,6 +8057,7 @@ private constructor(
             private var cardId: JsonField<String>? = null
             private var cardProfileId: JsonField<String>? = null
             private var decision: JsonField<Decision>? = null
+            private var device: JsonField<Device>? = null
             private var digitalWallet: JsonField<DigitalWallet>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -8047,6 +8066,7 @@ private constructor(
                 cardId = digitalWalletToken.cardId
                 cardProfileId = digitalWalletToken.cardProfileId
                 decision = digitalWalletToken.decision
+                device = digitalWalletToken.device
                 digitalWallet = digitalWalletToken.digitalWallet
                 additionalProperties = digitalWalletToken.additionalProperties.toMutableMap()
             }
@@ -8104,6 +8124,18 @@ private constructor(
              */
             fun decision(decision: JsonField<Decision>) = apply { this.decision = decision }
 
+            /** Device that is being used to provision the digital wallet token. */
+            fun device(device: Device) = device(JsonField.of(device))
+
+            /**
+             * Sets [Builder.device] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.device] with a well-typed [Device] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun device(device: JsonField<Device>) = apply { this.device = device }
+
             /** The digital wallet app being used. */
             fun digitalWallet(digitalWallet: DigitalWallet) =
                 digitalWallet(JsonField.of(digitalWallet))
@@ -8148,6 +8180,7 @@ private constructor(
              * .cardId()
              * .cardProfileId()
              * .decision()
+             * .device()
              * .digitalWallet()
              * ```
              *
@@ -8158,6 +8191,7 @@ private constructor(
                     checkRequired("cardId", cardId),
                     checkRequired("cardProfileId", cardProfileId),
                     checkRequired("decision", decision),
+                    checkRequired("device", device),
                     checkRequired("digitalWallet", digitalWallet),
                     additionalProperties.toMutableMap(),
                 )
@@ -8173,6 +8207,7 @@ private constructor(
             cardId()
             cardProfileId()
             decision().ifPresent { it.validate() }
+            device().validate()
             digitalWallet().validate()
             validated = true
         }
@@ -8196,6 +8231,7 @@ private constructor(
             (if (cardId.asKnown().isPresent) 1 else 0) +
                 (if (cardProfileId.asKnown().isPresent) 1 else 0) +
                 (decision.asKnown().getOrNull()?.validity() ?: 0) +
+                (device.asKnown().getOrNull()?.validity() ?: 0) +
                 (digitalWallet.asKnown().getOrNull()?.validity() ?: 0)
 
         /**
@@ -8336,6 +8372,180 @@ private constructor(
             override fun hashCode() = value.hashCode()
 
             override fun toString() = value.toString()
+        }
+
+        /** Device that is being used to provision the digital wallet token. */
+        class Device
+        private constructor(
+            private val identifier: JsonField<String>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("identifier")
+                @ExcludeMissing
+                identifier: JsonField<String> = JsonMissing.of()
+            ) : this(identifier, mutableMapOf())
+
+            /**
+             * ID assigned to the device by the digital wallet provider.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun identifier(): Optional<String> =
+                Optional.ofNullable(identifier.getNullable("identifier"))
+
+            /**
+             * Returns the raw JSON value of [identifier].
+             *
+             * Unlike [identifier], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("identifier")
+            @ExcludeMissing
+            fun _identifier(): JsonField<String> = identifier
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of [Device].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .identifier()
+                 * ```
+                 */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [Device]. */
+            class Builder internal constructor() {
+
+                private var identifier: JsonField<String>? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(device: Device) = apply {
+                    identifier = device.identifier
+                    additionalProperties = device.additionalProperties.toMutableMap()
+                }
+
+                /** ID assigned to the device by the digital wallet provider. */
+                fun identifier(identifier: String?) = identifier(JsonField.ofNullable(identifier))
+
+                /** Alias for calling [Builder.identifier] with `identifier.orElse(null)`. */
+                fun identifier(identifier: Optional<String>) = identifier(identifier.getOrNull())
+
+                /**
+                 * Sets [Builder.identifier] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.identifier] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun identifier(identifier: JsonField<String>) = apply {
+                    this.identifier = identifier
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [Device].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .identifier()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
+                fun build(): Device =
+                    Device(
+                        checkRequired("identifier", identifier),
+                        additionalProperties.toMutableMap(),
+                    )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): Device = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                identifier()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int = (if (identifier.asKnown().isPresent) 1 else 0)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return /* spotless:off */ other is Device && identifier == other.identifier && additionalProperties == other.additionalProperties /* spotless:on */
+            }
+
+            /* spotless:off */
+            private val hashCode: Int by lazy { Objects.hash(identifier, additionalProperties) }
+            /* spotless:on */
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "Device{identifier=$identifier, additionalProperties=$additionalProperties}"
         }
 
         /** The digital wallet app being used. */
@@ -8499,17 +8709,17 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is DigitalWalletToken && cardId == other.cardId && cardProfileId == other.cardProfileId && decision == other.decision && digitalWallet == other.digitalWallet && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is DigitalWalletToken && cardId == other.cardId && cardProfileId == other.cardProfileId && decision == other.decision && device == other.device && digitalWallet == other.digitalWallet && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(cardId, cardProfileId, decision, digitalWallet, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(cardId, cardProfileId, decision, device, digitalWallet, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "DigitalWalletToken{cardId=$cardId, cardProfileId=$cardProfileId, decision=$decision, digitalWallet=$digitalWallet, additionalProperties=$additionalProperties}"
+            "DigitalWalletToken{cardId=$cardId, cardProfileId=$cardProfileId, decision=$decision, device=$device, digitalWallet=$digitalWallet, additionalProperties=$additionalProperties}"
     }
 
     /** The status of the Real-Time Decision. */
