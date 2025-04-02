@@ -109,6 +109,16 @@ private constructor(
         /** The dispute you would like to action. */
         fun cardDisputeId(cardDisputeId: String) = apply { this.cardDisputeId = cardDisputeId }
 
+        /**
+         * Sets the entire request body.
+         *
+         * This is generally only useful if you are already constructing the body separately.
+         * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [status]
+         * - [explanation]
+         */
+        fun body(body: Body) = apply { this.body = body.toBuilder() }
+
         /** The status to move the dispute to. */
         fun status(status: Status) = apply { body.status(status) }
 
@@ -271,7 +281,7 @@ private constructor(
             )
     }
 
-    @JvmSynthetic internal fun _body(): Body = body
+    fun _body(): Body = body
 
     fun _pathParam(index: Int): String =
         when (index) {

@@ -115,6 +115,17 @@ private constructor(
                     bookkeepingEntrySetCreateParams.additionalQueryParams.toBuilder()
             }
 
+        /**
+         * Sets the entire request body.
+         *
+         * This is generally only useful if you are already constructing the body separately.
+         * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [entries]
+         * - [date]
+         * - [transactionId]
+         */
+        fun body(body: Body) = apply { this.body = body.toBuilder() }
+
         /** The bookkeeping entries. */
         fun entries(entries: List<Entry>) = apply { body.entries(entries) }
 
@@ -300,7 +311,7 @@ private constructor(
             )
     }
 
-    @JvmSynthetic internal fun _body(): Body = body
+    fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 

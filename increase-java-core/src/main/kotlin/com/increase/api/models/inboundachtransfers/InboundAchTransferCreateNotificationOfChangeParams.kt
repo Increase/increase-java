@@ -114,6 +114,16 @@ private constructor(
             this.inboundAchTransferId = inboundAchTransferId
         }
 
+        /**
+         * Sets the entire request body.
+         *
+         * This is generally only useful if you are already constructing the body separately.
+         * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [updatedAccountNumber]
+         * - [updatedRoutingNumber]
+         */
+        fun body(body: Body) = apply { this.body = body.toBuilder() }
+
         /** The updated account number to send in the notification of change. */
         fun updatedAccountNumber(updatedAccountNumber: String) = apply {
             body.updatedAccountNumber(updatedAccountNumber)
@@ -284,7 +294,7 @@ private constructor(
             )
     }
 
-    @JvmSynthetic internal fun _body(): Body = body
+    fun _body(): Body = body
 
     fun _pathParam(index: Int): String =
         when (index) {
