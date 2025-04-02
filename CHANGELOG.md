@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.207.0 (2025-04-02)
+
+Full Changelog: [v0.206.0...v0.207.0](https://github.com/Increase/increase-java/compare/v0.206.0...v0.207.0)
+
+### Features
+
+* **api:** api update ([#933](https://github.com/Increase/increase-java/issues/933)) ([e82124b](https://github.com/Increase/increase-java/commit/e82124b7a7cb26757f800356360aa3d96c454c0c))
+* **client:** expose request body setter and getter ([#932](https://github.com/Increase/increase-java/issues/932)) ([bf9e1e6](https://github.com/Increase/increase-java/commit/bf9e1e69006fb2928beffb3800647b9112a64d0c))
+
+
+### Chores
+
+* **internal:** codegen related update ([#929](https://github.com/Increase/increase-java/issues/929)) ([e879db7](https://github.com/Increase/increase-java/commit/e879db74a3bc649094352376f57a8b69e92e04fe))
+* **internal:** codegen related update ([#931](https://github.com/Increase/increase-java/issues/931)) ([4685970](https://github.com/Increase/increase-java/commit/46859708380460bf704adf0f0d3382aeec497281))
+
 ## 0.206.0 (2025-04-01)
 
 Full Changelog: [v0.205.0...v0.206.0](https://github.com/Increase/increase-java/compare/v0.205.0...v0.206.0)
