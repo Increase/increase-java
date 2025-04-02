@@ -135,6 +135,18 @@ private constructor(
             this.accountNumberId = accountNumberId
         }
 
+        /**
+         * Sets the entire request body.
+         *
+         * This is generally only useful if you are already constructing the body separately.
+         * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [inboundAch]
+         * - [inboundChecks]
+         * - [name]
+         * - [status]
+         */
+        fun body(body: Body) = apply { this.body = body.toBuilder() }
+
         /** Options related to how this Account Number handles inbound ACH transfers. */
         fun inboundAch(inboundAch: InboundAch) = apply { body.inboundAch(inboundAch) }
 
@@ -323,7 +335,7 @@ private constructor(
             )
     }
 
-    @JvmSynthetic internal fun _body(): Body = body
+    fun _body(): Body = body
 
     fun _pathParam(index: Int): String =
         when (index) {

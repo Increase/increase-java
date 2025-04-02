@@ -115,6 +115,17 @@ private constructor(
             additionalQueryParams = cardSettlementCreateParams.additionalQueryParams.toBuilder()
         }
 
+        /**
+         * Sets the entire request body.
+         *
+         * This is generally only useful if you are already constructing the body separately.
+         * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [cardId]
+         * - [pendingTransactionId]
+         * - [amount]
+         */
+        fun body(body: Body) = apply { this.body = body.toBuilder() }
+
         /** The identifier of the Card to create a settlement on. */
         fun cardId(cardId: String) = apply { body.cardId(cardId) }
 
@@ -296,7 +307,7 @@ private constructor(
             )
     }
 
-    @JvmSynthetic internal fun _body(): Body = body
+    fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 

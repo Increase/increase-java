@@ -141,6 +141,20 @@ private constructor(
             additionalQueryParams = checkDepositCreateParams.additionalQueryParams.toBuilder()
         }
 
+        /**
+         * Sets the entire request body.
+         *
+         * This is generally only useful if you are already constructing the body separately.
+         * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [accountId]
+         * - [amount]
+         * - [backImageFileId]
+         * - [frontImageFileId]
+         * - [description]
+         * - etc.
+         */
+        fun body(body: Body) = apply { this.body = body.toBuilder() }
+
         /** The identifier for the Account to deposit the check in. */
         fun accountId(accountId: String) = apply { body.accountId(accountId) }
 
@@ -348,7 +362,7 @@ private constructor(
             )
     }
 
-    @JvmSynthetic internal fun _body(): Body = body
+    fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 

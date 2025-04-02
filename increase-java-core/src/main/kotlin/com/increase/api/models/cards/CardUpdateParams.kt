@@ -150,6 +150,20 @@ private constructor(
         /** The card identifier. */
         fun cardId(cardId: String) = apply { this.cardId = cardId }
 
+        /**
+         * Sets the entire request body.
+         *
+         * This is generally only useful if you are already constructing the body separately.
+         * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [billingAddress]
+         * - [description]
+         * - [digitalWallet]
+         * - [entityId]
+         * - [status]
+         * - etc.
+         */
+        fun body(body: Body) = apply { this.body = body.toBuilder() }
+
         /** The card's updated billing address. */
         fun billingAddress(billingAddress: BillingAddress) = apply {
             body.billingAddress(billingAddress)
@@ -360,7 +374,7 @@ private constructor(
             )
     }
 
-    @JvmSynthetic internal fun _body(): Body = body
+    fun _body(): Body = body
 
     fun _pathParam(index: Int): String =
         when (index) {

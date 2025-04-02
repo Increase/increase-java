@@ -165,6 +165,20 @@ private constructor(
         }
 
         /**
+         * Sets the entire request body.
+         *
+         * This is generally only useful if you are already constructing the body separately.
+         * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [cardAuthentication]
+         * - [cardAuthenticationChallenge]
+         * - [cardAuthorization]
+         * - [digitalWalletAuthentication]
+         * - [digitalWalletToken]
+         * - etc.
+         */
+        fun body(body: Body) = apply { this.body = body.toBuilder() }
+
+        /**
          * If the Real-Time Decision relates to a 3DS card authentication attempt, this object
          * contains your response to the authentication.
          */
@@ -399,7 +413,7 @@ private constructor(
             )
     }
 
-    @JvmSynthetic internal fun _body(): Body = body
+    fun _body(): Body = body
 
     fun _pathParam(index: Int): String =
         when (index) {

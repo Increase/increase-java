@@ -204,6 +204,20 @@ private constructor(
             additionalQueryParams = digitalCardProfileCreateParams.additionalQueryParams.toBuilder()
         }
 
+        /**
+         * Sets the entire request body.
+         *
+         * This is generally only useful if you are already constructing the body separately.
+         * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [appIconFileId]
+         * - [backgroundImageFileId]
+         * - [cardDescription]
+         * - [description]
+         * - [issuerName]
+         * - etc.
+         */
+        fun body(body: Body) = apply { this.body = body.toBuilder() }
+
         /** The identifier of the File containing the card's icon image. */
         fun appIconFileId(appIconFileId: String) = apply { body.appIconFileId(appIconFileId) }
 
@@ -469,7 +483,7 @@ private constructor(
             )
     }
 
-    @JvmSynthetic internal fun _body(): Body = body
+    fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 
