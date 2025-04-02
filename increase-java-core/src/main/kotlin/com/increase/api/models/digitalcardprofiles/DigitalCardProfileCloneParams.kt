@@ -211,6 +211,20 @@ private constructor(
             this.digitalCardProfileId = digitalCardProfileId
         }
 
+        /**
+         * Sets the entire request body.
+         *
+         * This is generally only useful if you are already constructing the body separately.
+         * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [appIconFileId]
+         * - [backgroundImageFileId]
+         * - [cardDescription]
+         * - [contactEmail]
+         * - [contactPhone]
+         * - etc.
+         */
+        fun body(body: Body) = apply { this.body = body.toBuilder() }
+
         /** The identifier of the File containing the card's icon image. */
         fun appIconFileId(appIconFileId: String) = apply { body.appIconFileId(appIconFileId) }
 
@@ -473,7 +487,7 @@ private constructor(
             )
     }
 
-    @JvmSynthetic internal fun _body(): Body = body
+    fun _body(): Body = body
 
     fun _pathParam(index: Int): String =
         when (index) {

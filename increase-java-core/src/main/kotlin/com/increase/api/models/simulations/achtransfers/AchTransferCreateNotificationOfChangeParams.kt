@@ -109,6 +109,16 @@ private constructor(
         /** The identifier of the ACH Transfer you wish to create a notification of change for. */
         fun achTransferId(achTransferId: String) = apply { this.achTransferId = achTransferId }
 
+        /**
+         * Sets the entire request body.
+         *
+         * This is generally only useful if you are already constructing the body separately.
+         * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [changeCode]
+         * - [correctedData]
+         */
+        fun body(body: Body) = apply { this.body = body.toBuilder() }
+
         /** The reason for the notification of change. */
         fun changeCode(changeCode: ChangeCode) = apply { body.changeCode(changeCode) }
 
@@ -275,7 +285,7 @@ private constructor(
             )
     }
 
-    @JvmSynthetic internal fun _body(): Body = body
+    fun _body(): Body = body
 
     fun _pathParam(index: Int): String =
         when (index) {

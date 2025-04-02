@@ -205,8 +205,7 @@ private constructor(
             )
     }
 
-    @JvmSynthetic
-    internal fun _body(): Optional<Map<String, JsonValue>> =
+    fun _body(): Optional<Map<String, JsonValue>> =
         Optional.ofNullable(additionalBodyProperties.ifEmpty { null })
 
     fun _pathParam(index: Int): String =

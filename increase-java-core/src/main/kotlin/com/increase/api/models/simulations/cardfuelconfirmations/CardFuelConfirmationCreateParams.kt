@@ -100,6 +100,16 @@ private constructor(
             }
 
         /**
+         * Sets the entire request body.
+         *
+         * This is generally only useful if you are already constructing the body separately.
+         * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [amount]
+         * - [cardPaymentId]
+         */
+        fun body(body: Body) = apply { this.body = body.toBuilder() }
+
+        /**
          * The amount of the fuel_confirmation in minor units in the card authorization's currency.
          */
         fun amount(amount: Long) = apply { body.amount(amount) }
@@ -264,7 +274,7 @@ private constructor(
             )
     }
 
-    @JvmSynthetic internal fun _body(): Body = body
+    fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 

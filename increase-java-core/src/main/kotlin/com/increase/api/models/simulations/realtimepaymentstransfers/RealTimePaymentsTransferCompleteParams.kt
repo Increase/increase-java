@@ -99,6 +99,15 @@ private constructor(
             this.realTimePaymentsTransferId = realTimePaymentsTransferId
         }
 
+        /**
+         * Sets the entire request body.
+         *
+         * This is generally only useful if you are already constructing the body separately.
+         * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [rejection]
+         */
+        fun body(body: Body) = apply { this.body = body.toBuilder() }
+
         /** If set, the simulation will reject the transfer. */
         fun rejection(rejection: Rejection) = apply { body.rejection(rejection) }
 
@@ -249,7 +258,7 @@ private constructor(
             )
     }
 
-    @JvmSynthetic internal fun _body(): Body = body
+    fun _body(): Body = body
 
     fun _pathParam(index: Int): String =
         when (index) {

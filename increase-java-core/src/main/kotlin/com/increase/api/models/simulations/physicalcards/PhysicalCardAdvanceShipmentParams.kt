@@ -94,6 +94,15 @@ private constructor(
         /** The Physical Card you would like to action. */
         fun physicalCardId(physicalCardId: String) = apply { this.physicalCardId = physicalCardId }
 
+        /**
+         * Sets the entire request body.
+         *
+         * This is generally only useful if you are already constructing the body separately.
+         * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [shipmentStatus]
+         */
+        fun body(body: Body) = apply { this.body = body.toBuilder() }
+
         /** The shipment status to move the Physical Card to. */
         fun shipmentStatus(shipmentStatus: ShipmentStatus) = apply {
             body.shipmentStatus(shipmentStatus)
@@ -249,7 +258,7 @@ private constructor(
             )
     }
 
-    @JvmSynthetic internal fun _body(): Body = body
+    fun _body(): Body = body
 
     fun _pathParam(index: Int): String =
         when (index) {

@@ -118,6 +118,16 @@ private constructor(
         fun entityId(entityId: String) = apply { this.entityId = entityId }
 
         /**
+         * Sets the entire request body.
+         *
+         * This is generally only useful if you are already constructing the body separately.
+         * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [address]
+         * - [beneficialOwnerId]
+         */
+        fun body(body: Body) = apply { this.body = body.toBuilder() }
+
+        /**
          * The individual's physical address. Mail receiving locations like PO Boxes and PMB's are
          * disallowed.
          */
@@ -289,7 +299,7 @@ private constructor(
             )
     }
 
-    @JvmSynthetic internal fun _body(): Body = body
+    fun _body(): Body = body
 
     fun _pathParam(index: Int): String =
         when (index) {
