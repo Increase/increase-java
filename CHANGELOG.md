@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.208.1 (2025-04-04)
+
+Full Changelog: [v0.208.0...v0.208.1](https://github.com/Increase/increase-java/compare/v0.208.0...v0.208.1)
+
+### Bug Fixes
+
+* **client:** return `Optional&lt;T&gt;` instead of `Optional<? extends T>` ([#941](https://github.com/Increase/increase-java/issues/941)) ([1fcc007](https://github.com/Increase/increase-java/commit/1fcc00769014e07c97a29272f8b525ecea668148))
+
+
+### Chores
+
+* **internal:** swap from `getNullable` to `getOptional` ([#939](https://github.com/Increase/increase-java/issues/939)) ([1bdc884](https://github.com/Increase/increase-java/commit/1bdc884cc46a29c8e710595db0da0170a0ec8c28))
+
+
+### Documentation
+
+* add comments to `JsonField` classes ([1fcc007](https://github.com/Increase/increase-java/commit/1fcc00769014e07c97a29272f8b525ecea668148))
+
 ## 0.208.0 (2025-04-04)
 
 Full Changelog: [v0.207.0...v0.208.0](https://github.com/Increase/increase-java/compare/v0.207.0...v0.208.0)
