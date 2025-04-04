@@ -2,8 +2,8 @@
 
 <!-- x-release-please-start-version -->
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.increase.api/increase-java)](https://central.sonatype.com/artifact/com.increase.api/increase-java/0.208.1)
-[![javadoc](https://javadoc.io/badge2/com.increase.api/increase-java/0.208.1/javadoc.svg)](https://javadoc.io/doc/com.increase.api/increase-java/0.208.1)
+[![Maven Central](https://img.shields.io/maven-central/v/com.increase.api/increase-java)](https://central.sonatype.com/artifact/com.increase.api/increase-java/0.208.2)
+[![javadoc](https://javadoc.io/badge2/com.increase.api/increase-java/0.208.2/javadoc.svg)](https://javadoc.io/doc/com.increase.api/increase-java/0.208.2)
 
 <!-- x-release-please-end -->
 
@@ -13,7 +13,7 @@ The Increase Java SDK is similar to the Increase Kotlin SDK but with minor diffe
 
 <!-- x-release-please-start-version -->
 
-The REST API documentation can be found on [increase.com](https://increase.com/documentation). Javadocs are also available on [javadoc.io](https://javadoc.io/doc/com.increase.api/increase-java/0.208.1).
+The REST API documentation can be found on [increase.com](https://increase.com/documentation). Javadocs are also available on [javadoc.io](https://javadoc.io/doc/com.increase.api/increase-java/0.208.2).
 
 <!-- x-release-please-end -->
 
@@ -24,7 +24,7 @@ The REST API documentation can be found on [increase.com](https://increase.com/d
 ### Gradle
 
 ```kotlin
-implementation("com.increase.api:increase-java:0.208.1")
+implementation("com.increase.api:increase-java:0.208.2")
 ```
 
 ### Maven
@@ -33,7 +33,7 @@ implementation("com.increase.api:increase-java:0.208.1")
 <dependency>
   <groupId>com.increase.api</groupId>
   <artifactId>increase-java</artifactId>
-  <version>0.208.1</version>
+  <version>0.208.2</version>
 </dependency>
 ```
 
@@ -524,6 +524,19 @@ JsonValue complexValue = JsonValue.from(Map.of(
     3, 4
   )
 ));
+```
+
+Normally a `Builder` class's `build` method will throw [`IllegalStateException`](https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalStateException.html) if any required parameter or property is unset.
+
+To forcibly omit a required parameter or property, pass [`JsonMissing`](increase-java-core/src/main/kotlin/com/increase/api/core/Values.kt):
+
+```java
+import com.increase.api.core.JsonMissing;
+import com.increase.api.models.accounts.AccountCreateParams;
+
+AccountCreateParams params = AccountCreateParams.builder()
+    .name(JsonMissing.of())
+    .build();
 ```
 
 ### Response properties
