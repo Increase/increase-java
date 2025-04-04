@@ -44,8 +44,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun declineReason(): Optional<DeclineReason> =
-        Optional.ofNullable(declineReason.getNullable("decline_reason"))
+    fun declineReason(): Optional<DeclineReason> = declineReason.getOptional("decline_reason")
 
     /**
      * If the simulated tokenization attempt was accepted, this field contains the id of the Digital
@@ -55,7 +54,7 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun digitalWalletTokenId(): Optional<String> =
-        Optional.ofNullable(digitalWalletTokenId.getNullable("digital_wallet_token_id"))
+        digitalWalletTokenId.getOptional("digital_wallet_token_id")
 
     /**
      * A constant representing the object's type. For this resource it will always be

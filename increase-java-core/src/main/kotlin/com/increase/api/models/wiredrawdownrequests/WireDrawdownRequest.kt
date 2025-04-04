@@ -179,9 +179,7 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun fulfillmentInboundWireTransferId(): Optional<String> =
-        Optional.ofNullable(
-            fulfillmentInboundWireTransferId.getNullable("fulfillment_inbound_wire_transfer_id")
-        )
+        fulfillmentInboundWireTransferId.getOptional("fulfillment_inbound_wire_transfer_id")
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -191,8 +189,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun idempotencyKey(): Optional<String> =
-        Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
+    fun idempotencyKey(): Optional<String> = idempotencyKey.getOptional("idempotency_key")
 
     /**
      * The message the recipient will see as part of the drawdown request.
@@ -209,7 +206,7 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun originatorAddressLine1(): Optional<String> =
-        Optional.ofNullable(originatorAddressLine1.getNullable("originator_address_line1"))
+        originatorAddressLine1.getOptional("originator_address_line1")
 
     /**
      * The originator's address line 2.
@@ -218,7 +215,7 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun originatorAddressLine2(): Optional<String> =
-        Optional.ofNullable(originatorAddressLine2.getNullable("originator_address_line2"))
+        originatorAddressLine2.getOptional("originator_address_line2")
 
     /**
      * The originator's address line 3.
@@ -227,7 +224,7 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun originatorAddressLine3(): Optional<String> =
-        Optional.ofNullable(originatorAddressLine3.getNullable("originator_address_line3"))
+        originatorAddressLine3.getOptional("originator_address_line3")
 
     /**
      * The originator's name.
@@ -235,8 +232,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun originatorName(): Optional<String> =
-        Optional.ofNullable(originatorName.getNullable("originator_name"))
+    fun originatorName(): Optional<String> = originatorName.getOptional("originator_name")
 
     /**
      * The drawdown request's recipient's account number.
@@ -254,7 +250,7 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun recipientAddressLine1(): Optional<String> =
-        Optional.ofNullable(recipientAddressLine1.getNullable("recipient_address_line1"))
+        recipientAddressLine1.getOptional("recipient_address_line1")
 
     /**
      * Line 2 of the drawdown request's recipient's address.
@@ -263,7 +259,7 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun recipientAddressLine2(): Optional<String> =
-        Optional.ofNullable(recipientAddressLine2.getNullable("recipient_address_line2"))
+        recipientAddressLine2.getOptional("recipient_address_line2")
 
     /**
      * Line 3 of the drawdown request's recipient's address.
@@ -272,7 +268,7 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun recipientAddressLine3(): Optional<String> =
-        Optional.ofNullable(recipientAddressLine3.getNullable("recipient_address_line3"))
+        recipientAddressLine3.getOptional("recipient_address_line3")
 
     /**
      * The drawdown request's recipient's name.
@@ -280,8 +276,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun recipientName(): Optional<String> =
-        Optional.ofNullable(recipientName.getNullable("recipient_name"))
+    fun recipientName(): Optional<String> = recipientName.getOptional("recipient_name")
 
     /**
      * The drawdown request's recipient's routing number.
@@ -306,8 +301,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun submission(): Optional<Submission> =
-        Optional.ofNullable(submission.getNullable("submission"))
+    fun submission(): Optional<Submission> = submission.getOptional("submission")
 
     /**
      * A constant representing the object's type. For this resource it will always be

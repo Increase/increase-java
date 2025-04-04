@@ -138,8 +138,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun confirmation(): Optional<Confirmation> =
-        Optional.ofNullable(confirmation.getNullable("confirmation"))
+    fun confirmation(): Optional<Confirmation> = confirmation.getOptional("confirmation")
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the transfer
@@ -197,7 +196,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun decline(): Optional<Decline> = Optional.ofNullable(decline.getNullable("decline"))
+    fun decline(): Optional<Decline> = decline.getOptional("decline")
 
     /**
      * Additional information included with the transfer.
@@ -206,7 +205,7 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun remittanceInformation(): Optional<String> =
-        Optional.ofNullable(remittanceInformation.getNullable("remittance_information"))
+        remittanceInformation.getOptional("remittance_information")
 
     /**
      * The lifecycle status of the transfer.

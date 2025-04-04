@@ -335,8 +335,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun description(): Optional<String> =
-            Optional.ofNullable(description.value.getNullable("description"))
+        fun description(): Optional<String> = description.value.getOptional("description")
 
         /**
          * Returns the raw multipart value of [file].

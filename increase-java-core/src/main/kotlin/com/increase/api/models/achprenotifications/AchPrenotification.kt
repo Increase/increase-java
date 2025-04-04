@@ -130,7 +130,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun addendum(): Optional<String> = Optional.ofNullable(addendum.getNullable("addendum"))
+    fun addendum(): Optional<String> = addendum.getOptional("addendum")
 
     /**
      * The description of the date of the notification.
@@ -139,7 +139,7 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun companyDescriptiveDate(): Optional<String> =
-        Optional.ofNullable(companyDescriptiveDate.getNullable("company_descriptive_date"))
+        companyDescriptiveDate.getOptional("company_descriptive_date")
 
     /**
      * Optional data associated with the notification.
@@ -148,7 +148,7 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun companyDiscretionaryData(): Optional<String> =
-        Optional.ofNullable(companyDiscretionaryData.getNullable("company_discretionary_data"))
+        companyDiscretionaryData.getOptional("company_discretionary_data")
 
     /**
      * The description of the notification.
@@ -157,7 +157,7 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun companyEntryDescription(): Optional<String> =
-        Optional.ofNullable(companyEntryDescription.getNullable("company_entry_description"))
+        companyEntryDescription.getOptional("company_entry_description")
 
     /**
      * The name by which you know the company.
@@ -165,8 +165,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun companyName(): Optional<String> =
-        Optional.ofNullable(companyName.getNullable("company_name"))
+    fun companyName(): Optional<String> = companyName.getOptional("company_name")
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
@@ -184,7 +183,7 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun creditDebitIndicator(): Optional<CreditDebitIndicator> =
-        Optional.ofNullable(creditDebitIndicator.getNullable("credit_debit_indicator"))
+        creditDebitIndicator.getOptional("credit_debit_indicator")
 
     /**
      * The effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
@@ -192,8 +191,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun effectiveDate(): Optional<OffsetDateTime> =
-        Optional.ofNullable(effectiveDate.getNullable("effective_date"))
+    fun effectiveDate(): Optional<OffsetDateTime> = effectiveDate.getOptional("effective_date")
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -203,8 +201,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun idempotencyKey(): Optional<String> =
-        Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
+    fun idempotencyKey(): Optional<String> = idempotencyKey.getOptional("idempotency_key")
 
     /**
      * If the receiving bank notifies that future transfers should use different details, this will
@@ -223,7 +220,7 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun prenotificationReturn(): Optional<PrenotificationReturn> =
-        Optional.ofNullable(prenotificationReturn.getNullable("prenotification_return"))
+        prenotificationReturn.getOptional("prenotification_return")
 
     /**
      * The American Bankers' Association (ABA) Routing Transit Number (RTN).

@@ -138,8 +138,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun contactEmail(): Optional<String> =
-        Optional.ofNullable(contactEmail.getNullable("contact_email"))
+    fun contactEmail(): Optional<String> = contactEmail.getOptional("contact_email")
 
     /**
      * A phone number the user can contact to receive support for their card.
@@ -147,8 +146,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun contactPhone(): Optional<String> =
-        Optional.ofNullable(contactPhone.getNullable("contact_phone"))
+    fun contactPhone(): Optional<String> = contactPhone.getOptional("contact_phone")
 
     /**
      * A website the user can visit to view and receive support for their card.
@@ -156,8 +154,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun contactWebsite(): Optional<String> =
-        Optional.ofNullable(contactWebsite.getNullable("contact_website"))
+    fun contactWebsite(): Optional<String> = contactWebsite.getOptional("contact_website")
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
@@ -184,8 +181,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun idempotencyKey(): Optional<String> =
-        Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
+    fun idempotencyKey(): Optional<String> = idempotencyKey.getOptional("idempotency_key")
 
     /**
      * A user-facing description for whoever is issuing the card.

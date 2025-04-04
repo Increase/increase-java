@@ -123,8 +123,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun heldTransactionId(): Optional<String> =
-        Optional.ofNullable(heldTransactionId.getNullable("held_transaction_id"))
+    fun heldTransactionId(): Optional<String> = heldTransactionId.getOptional("held_transaction_id")
 
     /**
      * The ID of the Pending Transaction representing the held funds.
@@ -133,7 +132,7 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun pendingTransactionId(): Optional<String> =
-        Optional.ofNullable(pendingTransactionId.getNullable("pending_transaction_id"))
+        pendingTransactionId.getOptional("pending_transaction_id")
 
     /**
      * When the hold was released (if it has been released).
@@ -141,8 +140,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun releasedAt(): Optional<OffsetDateTime> =
-        Optional.ofNullable(releasedAt.getNullable("released_at"))
+    fun releasedAt(): Optional<OffsetDateTime> = releasedAt.getOptional("released_at")
 
     /**
      * The status of the hold.

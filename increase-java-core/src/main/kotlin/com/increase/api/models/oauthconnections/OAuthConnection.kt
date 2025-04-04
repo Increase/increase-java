@@ -76,8 +76,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun deletedAt(): Optional<OffsetDateTime> =
-        Optional.ofNullable(deletedAt.getNullable("deleted_at"))
+    fun deletedAt(): Optional<OffsetDateTime> = deletedAt.getOptional("deleted_at")
 
     /**
      * The identifier of the Group that has authorized your OAuth application.

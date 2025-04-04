@@ -135,7 +135,7 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun additionalEvidenceFileId(): Optional<String> =
-        Optional.ofNullable(additionalEvidenceFileId.getNullable("additional_evidence_file_id"))
+        additionalEvidenceFileId.getOptional("additional_evidence_file_id")
 
     /**
      * Terms of authorization.
@@ -159,8 +159,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun authorizerCompany(): Optional<String> =
-        Optional.ofNullable(authorizerCompany.getNullable("authorizer_company"))
+    fun authorizerCompany(): Optional<String> = authorizerCompany.getOptional("authorizer_company")
 
     /**
      * Email of the authorizer.
@@ -168,8 +167,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun authorizerEmail(): Optional<String> =
-        Optional.ofNullable(authorizerEmail.getNullable("authorizer_email"))
+    fun authorizerEmail(): Optional<String> = authorizerEmail.getOptional("authorizer_email")
 
     /**
      * IP address of the authorizer.
@@ -178,7 +176,7 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun authorizerIpAddress(): Optional<String> =
-        Optional.ofNullable(authorizerIpAddress.getNullable("authorizer_ip_address"))
+        authorizerIpAddress.getOptional("authorizer_ip_address")
 
     /**
      * Name of the authorizer.
@@ -186,8 +184,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun authorizerName(): Optional<String> =
-        Optional.ofNullable(authorizerName.getNullable("authorizer_name"))
+    fun authorizerName(): Optional<String> = authorizerName.getOptional("authorizer_name")
 
     /**
      * The time the Proof of Authorization Request Submission was created.
@@ -204,7 +201,7 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun customerHasBeenOffboarded(): Optional<Boolean> =
-        Optional.ofNullable(customerHasBeenOffboarded.getNullable("customer_has_been_offboarded"))
+        customerHasBeenOffboarded.getOptional("customer_has_been_offboarded")
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -214,8 +211,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun idempotencyKey(): Optional<String> =
-        Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
+    fun idempotencyKey(): Optional<String> = idempotencyKey.getOptional("idempotency_key")
 
     /**
      * ID of the proof of authorization request.
@@ -258,10 +254,8 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun validatedAccountOwnershipViaCredential(): Optional<Boolean> =
-        Optional.ofNullable(
-            validatedAccountOwnershipViaCredential.getNullable(
-                "validated_account_ownership_via_credential"
-            )
+        validatedAccountOwnershipViaCredential.getOptional(
+            "validated_account_ownership_via_credential"
         )
 
     /**
@@ -271,10 +265,8 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun validatedAccountOwnershipWithAccountStatement(): Optional<Boolean> =
-        Optional.ofNullable(
-            validatedAccountOwnershipWithAccountStatement.getNullable(
-                "validated_account_ownership_with_account_statement"
-            )
+        validatedAccountOwnershipWithAccountStatement.getOptional(
+            "validated_account_ownership_with_account_statement"
         )
 
     /**
@@ -284,10 +276,8 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun validatedAccountOwnershipWithMicrodeposit(): Optional<Boolean> =
-        Optional.ofNullable(
-            validatedAccountOwnershipWithMicrodeposit.getNullable(
-                "validated_account_ownership_with_microdeposit"
-            )
+        validatedAccountOwnershipWithMicrodeposit.getOptional(
+            "validated_account_ownership_with_microdeposit"
         )
 
     /**

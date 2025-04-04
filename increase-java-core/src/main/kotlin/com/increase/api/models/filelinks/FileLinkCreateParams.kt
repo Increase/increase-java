@@ -303,8 +303,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun expiresAt(): Optional<OffsetDateTime> =
-            Optional.ofNullable(expiresAt.getNullable("expires_at"))
+        fun expiresAt(): Optional<OffsetDateTime> = expiresAt.getOptional("expires_at")
 
         /**
          * Returns the raw JSON value of [fileId].

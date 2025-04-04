@@ -322,8 +322,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun explanation(): Optional<String> =
-            Optional.ofNullable(explanation.getNullable("explanation"))
+        fun explanation(): Optional<String> = explanation.getOptional("explanation")
 
         /**
          * Returns the raw JSON value of [status].

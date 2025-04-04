@@ -954,7 +954,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun beneficiaryAddressLine1(): Optional<String> =
-            Optional.ofNullable(beneficiaryAddressLine1.getNullable("beneficiary_address_line1"))
+            beneficiaryAddressLine1.getOptional("beneficiary_address_line1")
 
         /**
          * The sending bank will set beneficiary_address_line2 in production. You can simulate any
@@ -964,7 +964,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun beneficiaryAddressLine2(): Optional<String> =
-            Optional.ofNullable(beneficiaryAddressLine2.getNullable("beneficiary_address_line2"))
+            beneficiaryAddressLine2.getOptional("beneficiary_address_line2")
 
         /**
          * The sending bank will set beneficiary_address_line3 in production. You can simulate any
@@ -974,7 +974,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun beneficiaryAddressLine3(): Optional<String> =
-            Optional.ofNullable(beneficiaryAddressLine3.getNullable("beneficiary_address_line3"))
+            beneficiaryAddressLine3.getOptional("beneficiary_address_line3")
 
         /**
          * The sending bank will set beneficiary_name in production. You can simulate any value
@@ -983,8 +983,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun beneficiaryName(): Optional<String> =
-            Optional.ofNullable(beneficiaryName.getNullable("beneficiary_name"))
+        fun beneficiaryName(): Optional<String> = beneficiaryName.getOptional("beneficiary_name")
 
         /**
          * The sending bank will set beneficiary_reference in production. You can simulate any value
@@ -994,7 +993,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun beneficiaryReference(): Optional<String> =
-            Optional.ofNullable(beneficiaryReference.getNullable("beneficiary_reference"))
+            beneficiaryReference.getOptional("beneficiary_reference")
 
         /**
          * The sending bank will set originator_address_line1 in production. You can simulate any
@@ -1004,7 +1003,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun originatorAddressLine1(): Optional<String> =
-            Optional.ofNullable(originatorAddressLine1.getNullable("originator_address_line1"))
+            originatorAddressLine1.getOptional("originator_address_line1")
 
         /**
          * The sending bank will set originator_address_line2 in production. You can simulate any
@@ -1014,7 +1013,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun originatorAddressLine2(): Optional<String> =
-            Optional.ofNullable(originatorAddressLine2.getNullable("originator_address_line2"))
+            originatorAddressLine2.getOptional("originator_address_line2")
 
         /**
          * The sending bank will set originator_address_line3 in production. You can simulate any
@@ -1024,7 +1023,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun originatorAddressLine3(): Optional<String> =
-            Optional.ofNullable(originatorAddressLine3.getNullable("originator_address_line3"))
+            originatorAddressLine3.getOptional("originator_address_line3")
 
         /**
          * The sending bank will set originator_name in production. You can simulate any value here.
@@ -1032,8 +1031,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun originatorName(): Optional<String> =
-            Optional.ofNullable(originatorName.getNullable("originator_name"))
+        fun originatorName(): Optional<String> = originatorName.getOptional("originator_name")
 
         /**
          * The sending bank will set originator_routing_number in production. You can simulate any
@@ -1043,7 +1041,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun originatorRoutingNumber(): Optional<String> =
-            Optional.ofNullable(originatorRoutingNumber.getNullable("originator_routing_number"))
+            originatorRoutingNumber.getOptional("originator_routing_number")
 
         /**
          * The sending bank will set originator_to_beneficiary_information_line1 in production. You
@@ -1053,10 +1051,8 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun originatorToBeneficiaryInformationLine1(): Optional<String> =
-            Optional.ofNullable(
-                originatorToBeneficiaryInformationLine1.getNullable(
-                    "originator_to_beneficiary_information_line1"
-                )
+            originatorToBeneficiaryInformationLine1.getOptional(
+                "originator_to_beneficiary_information_line1"
             )
 
         /**
@@ -1067,10 +1063,8 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun originatorToBeneficiaryInformationLine2(): Optional<String> =
-            Optional.ofNullable(
-                originatorToBeneficiaryInformationLine2.getNullable(
-                    "originator_to_beneficiary_information_line2"
-                )
+            originatorToBeneficiaryInformationLine2.getOptional(
+                "originator_to_beneficiary_information_line2"
             )
 
         /**
@@ -1081,10 +1075,8 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun originatorToBeneficiaryInformationLine3(): Optional<String> =
-            Optional.ofNullable(
-                originatorToBeneficiaryInformationLine3.getNullable(
-                    "originator_to_beneficiary_information_line3"
-                )
+            originatorToBeneficiaryInformationLine3.getOptional(
+                "originator_to_beneficiary_information_line3"
             )
 
         /**
@@ -1095,10 +1087,8 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun originatorToBeneficiaryInformationLine4(): Optional<String> =
-            Optional.ofNullable(
-                originatorToBeneficiaryInformationLine4.getNullable(
-                    "originator_to_beneficiary_information_line4"
-                )
+            originatorToBeneficiaryInformationLine4.getOptional(
+                "originator_to_beneficiary_information_line4"
             )
 
         /**
@@ -1108,8 +1098,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun senderReference(): Optional<String> =
-            Optional.ofNullable(senderReference.getNullable("sender_reference"))
+        fun senderReference(): Optional<String> = senderReference.getOptional("sender_reference")
 
         /**
          * Returns the raw JSON value of [accountNumberId].

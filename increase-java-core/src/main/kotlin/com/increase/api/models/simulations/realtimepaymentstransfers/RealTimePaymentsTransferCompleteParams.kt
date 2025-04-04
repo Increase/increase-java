@@ -289,8 +289,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun rejection(): Optional<Rejection> =
-            Optional.ofNullable(rejection.getNullable("rejection"))
+        fun rejection(): Optional<Rejection> = rejection.getOptional("rejection")
 
         /**
          * Returns the raw JSON value of [rejection].
