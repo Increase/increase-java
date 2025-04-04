@@ -515,7 +515,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun name(): Optional<String> = Optional.ofNullable(name.getNullable("name"))
+        fun name(): Optional<String> = name.getOptional("name")
 
         /**
          * Returns the raw JSON value of [name].
@@ -686,8 +686,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun deviceType(): Optional<DeviceType> =
-            Optional.ofNullable(deviceType.getNullable("device_type"))
+        fun deviceType(): Optional<DeviceType> = deviceType.getOptional("device_type")
 
         /**
          * ID assigned to the device by the digital wallet provider.
@@ -695,8 +694,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun identifier(): Optional<String> =
-            Optional.ofNullable(identifier.getNullable("identifier"))
+        fun identifier(): Optional<String> = identifier.getOptional("identifier")
 
         /**
          * IP address of the device.
@@ -704,7 +702,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun ipAddress(): Optional<String> = Optional.ofNullable(ipAddress.getNullable("ip_address"))
+        fun ipAddress(): Optional<String> = ipAddress.getOptional("ip_address")
 
         /**
          * Name of the device, for example "My Work Phone".
@@ -712,7 +710,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun name(): Optional<String> = Optional.ofNullable(name.getNullable("name"))
+        fun name(): Optional<String> = name.getOptional("name")
 
         /**
          * Returns the raw JSON value of [deviceType].

@@ -334,8 +334,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun description(): Optional<String> =
-            Optional.ofNullable(description.getNullable("description"))
+        fun description(): Optional<String> = description.getOptional("description")
 
         /**
          * The name of the recipient that will receive mail at this location.
@@ -343,8 +342,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun recipientName(): Optional<String> =
-            Optional.ofNullable(recipientName.getNullable("recipient_name"))
+        fun recipientName(): Optional<String> = recipientName.getOptional("recipient_name")
 
         /**
          * Returns the raw JSON value of [accountId].

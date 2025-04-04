@@ -97,8 +97,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun acceptance(): Optional<Acceptance> =
-        Optional.ofNullable(acceptance.getNullable("acceptance"))
+    fun acceptance(): Optional<Acceptance> = acceptance.getOptional("acceptance")
 
     /**
      * The amount of the dispute, if provided, or the transaction amount otherwise.
@@ -106,7 +105,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun amount(): Optional<Long> = Optional.ofNullable(amount.getNullable("amount"))
+    fun amount(): Optional<Long> = amount.getOptional("amount")
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
@@ -142,8 +141,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun idempotencyKey(): Optional<String> =
-        Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
+    fun idempotencyKey(): Optional<String> = idempotencyKey.getOptional("idempotency_key")
 
     /**
      * If the Card Dispute's status is `lost`, this will contain details of the lost dispute.
@@ -151,7 +149,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun loss(): Optional<Loss> = Optional.ofNullable(loss.getNullable("loss"))
+    fun loss(): Optional<Loss> = loss.getOptional("loss")
 
     /**
      * If the Card Dispute's status is `rejected`, this will contain details of the unsuccessful
@@ -160,7 +158,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun rejection(): Optional<Rejection> = Optional.ofNullable(rejection.getNullable("rejection"))
+    fun rejection(): Optional<Rejection> = rejection.getOptional("rejection")
 
     /**
      * The results of the Dispute investigation.
@@ -185,7 +183,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun win(): Optional<Win> = Optional.ofNullable(win.getNullable("win"))
+    fun win(): Optional<Win> = win.getOptional("win")
 
     /**
      * Returns the raw JSON value of [id].

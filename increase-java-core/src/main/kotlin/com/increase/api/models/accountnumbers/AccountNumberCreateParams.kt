@@ -377,8 +377,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun inboundAch(): Optional<InboundAch> =
-            Optional.ofNullable(inboundAch.getNullable("inbound_ach"))
+        fun inboundAch(): Optional<InboundAch> = inboundAch.getOptional("inbound_ach")
 
         /**
          * Options related to how this Account Number should handle inbound check withdrawals.
@@ -386,8 +385,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun inboundChecks(): Optional<InboundChecks> =
-            Optional.ofNullable(inboundChecks.getNullable("inbound_checks"))
+        fun inboundChecks(): Optional<InboundChecks> = inboundChecks.getOptional("inbound_checks")
 
         /**
          * Returns the raw JSON value of [accountId].

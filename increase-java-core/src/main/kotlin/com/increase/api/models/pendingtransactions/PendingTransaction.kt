@@ -109,8 +109,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun completedAt(): Optional<OffsetDateTime> =
-        Optional.ofNullable(completedAt.getNullable("completed_at"))
+    fun completedAt(): Optional<OffsetDateTime> = completedAt.getOptional("completed_at")
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date on which the Pending Transaction
@@ -146,7 +145,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun routeId(): Optional<String> = Optional.ofNullable(routeId.getNullable("route_id"))
+    fun routeId(): Optional<String> = routeId.getOptional("route_id")
 
     /**
      * The type of the route this Pending Transaction came through.
@@ -154,7 +153,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun routeType(): Optional<RouteType> = Optional.ofNullable(routeType.getNullable("route_type"))
+    fun routeType(): Optional<RouteType> = routeType.getOptional("route_type")
 
     /**
      * This is an object giving more details on the network-level event that caused the Pending
@@ -1024,9 +1023,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun accountTransferInstruction(): Optional<AccountTransferInstruction> =
-            Optional.ofNullable(
-                accountTransferInstruction.getNullable("account_transfer_instruction")
-            )
+            accountTransferInstruction.getOptional("account_transfer_instruction")
 
         /**
          * An ACH Transfer Instruction object. This field will be present in the JSON response if
@@ -1036,7 +1033,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun achTransferInstruction(): Optional<AchTransferInstruction> =
-            Optional.ofNullable(achTransferInstruction.getNullable("ach_transfer_instruction"))
+            achTransferInstruction.getOptional("ach_transfer_instruction")
 
         /**
          * A Card Authorization object. This field will be present in the JSON response if and only
@@ -1047,7 +1044,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun cardAuthorization(): Optional<CardAuthorization> =
-            Optional.ofNullable(cardAuthorization.getNullable("card_authorization"))
+            cardAuthorization.getOptional("card_authorization")
 
         /**
          * The type of the resource. We may add additional possible values for this enum over time;
@@ -1066,7 +1063,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun checkDepositInstruction(): Optional<CheckDepositInstruction> =
-            Optional.ofNullable(checkDepositInstruction.getNullable("check_deposit_instruction"))
+            checkDepositInstruction.getOptional("check_deposit_instruction")
 
         /**
          * A Check Transfer Instruction object. This field will be present in the JSON response if
@@ -1076,7 +1073,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun checkTransferInstruction(): Optional<CheckTransferInstruction> =
-            Optional.ofNullable(checkTransferInstruction.getNullable("check_transfer_instruction"))
+            checkTransferInstruction.getOptional("check_transfer_instruction")
 
         /**
          * An Inbound Funds Hold object. This field will be present in the JSON response if and only
@@ -1088,7 +1085,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun inboundFundsHold(): Optional<InboundFundsHold> =
-            Optional.ofNullable(inboundFundsHold.getNullable("inbound_funds_hold"))
+            inboundFundsHold.getOptional("inbound_funds_hold")
 
         /**
          * An Inbound Wire Transfer Reversal object. This field will be present in the JSON response
@@ -1100,9 +1097,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun inboundWireTransferReversal(): Optional<InboundWireTransferReversal> =
-            Optional.ofNullable(
-                inboundWireTransferReversal.getNullable("inbound_wire_transfer_reversal")
-            )
+            inboundWireTransferReversal.getOptional("inbound_wire_transfer_reversal")
 
         /**
          * If the category of this Transaction source is equal to `other`, this field will contain
@@ -1118,10 +1113,8 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun realTimePaymentsTransferInstruction(): Optional<RealTimePaymentsTransferInstruction> =
-            Optional.ofNullable(
-                realTimePaymentsTransferInstruction.getNullable(
-                    "real_time_payments_transfer_instruction"
-                )
+            realTimePaymentsTransferInstruction.getOptional(
+                "real_time_payments_transfer_instruction"
             )
 
         /**
@@ -1132,7 +1125,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun wireTransferInstruction(): Optional<WireTransferInstruction> =
-            Optional.ofNullable(wireTransferInstruction.getNullable("wire_transfer_instruction"))
+            wireTransferInstruction.getOptional("wire_transfer_instruction")
 
         /**
          * Returns the raw JSON value of [accountTransferInstruction].
@@ -2534,7 +2527,7 @@ private constructor(
              *   if the server responded with an unexpected value).
              */
             fun digitalWalletTokenId(): Optional<String> =
-                Optional.ofNullable(digitalWalletTokenId.getNullable("digital_wallet_token_id"))
+                digitalWalletTokenId.getOptional("digital_wallet_token_id")
 
             /**
              * The direction describes the direction the funds will move, either from the cardholder
@@ -2584,8 +2577,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun merchantCity(): Optional<String> =
-                Optional.ofNullable(merchantCity.getNullable("merchant_city"))
+            fun merchantCity(): Optional<String> = merchantCity.getOptional("merchant_city")
 
             /**
              * The country the merchant resides in.
@@ -2613,7 +2605,7 @@ private constructor(
              *   if the server responded with an unexpected value).
              */
             fun merchantPostalCode(): Optional<String> =
-                Optional.ofNullable(merchantPostalCode.getNullable("merchant_postal_code"))
+                merchantPostalCode.getOptional("merchant_postal_code")
 
             /**
              * The state the merchant resides in.
@@ -2621,8 +2613,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun merchantState(): Optional<String> =
-                Optional.ofNullable(merchantState.getNullable("merchant_state"))
+            fun merchantState(): Optional<String> = merchantState.getOptional("merchant_state")
 
             /**
              * Fields specific to the `network`.
@@ -2651,7 +2642,7 @@ private constructor(
              *   if the server responded with an unexpected value).
              */
             fun networkRiskScore(): Optional<Long> =
-                Optional.ofNullable(networkRiskScore.getNullable("network_risk_score"))
+                networkRiskScore.getOptional("network_risk_score")
 
             /**
              * The identifier of the Pending Transaction associated with this Transaction.
@@ -2660,7 +2651,7 @@ private constructor(
              *   if the server responded with an unexpected value).
              */
             fun pendingTransactionId(): Optional<String> =
-                Optional.ofNullable(pendingTransactionId.getNullable("pending_transaction_id"))
+                pendingTransactionId.getOptional("pending_transaction_id")
 
             /**
              * If the authorization was made in-person with a physical card, the Physical Card that
@@ -2669,8 +2660,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun physicalCardId(): Optional<String> =
-                Optional.ofNullable(physicalCardId.getNullable("physical_card_id"))
+            fun physicalCardId(): Optional<String> = physicalCardId.getOptional("physical_card_id")
 
             /**
              * The pending amount in the minor unit of the transaction's presentment currency.
@@ -2710,7 +2700,7 @@ private constructor(
              *   if the server responded with an unexpected value).
              */
             fun realTimeDecisionId(): Optional<String> =
-                Optional.ofNullable(realTimeDecisionId.getNullable("real_time_decision_id"))
+                realTimeDecisionId.getOptional("real_time_decision_id")
 
             /**
              * The terminal identifier (commonly abbreviated as TID) of the terminal the card is
@@ -2719,8 +2709,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun terminalId(): Optional<String> =
-                Optional.ofNullable(terminalId.getNullable("terminal_id"))
+            fun terminalId(): Optional<String> = terminalId.getOptional("terminal_id")
 
             /**
              * A constant representing the object's type. For this resource it will always be
@@ -4296,7 +4285,7 @@ private constructor(
                  * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                  *   (e.g. if the server responded with an unexpected value).
                  */
-                fun visa(): Optional<Visa> = Optional.ofNullable(visa.getNullable("visa"))
+                fun visa(): Optional<Visa> = visa.getOptional("visa")
 
                 /**
                  * Returns the raw JSON value of [category].
@@ -4629,9 +4618,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun electronicCommerceIndicator(): Optional<ElectronicCommerceIndicator> =
-                        Optional.ofNullable(
-                            electronicCommerceIndicator.getNullable("electronic_commerce_indicator")
-                        )
+                        electronicCommerceIndicator.getOptional("electronic_commerce_indicator")
 
                     /**
                      * The method used to enter the cardholder's primary account number and card
@@ -4641,9 +4628,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun pointOfServiceEntryMode(): Optional<PointOfServiceEntryMode> =
-                        Optional.ofNullable(
-                            pointOfServiceEntryMode.getNullable("point_of_service_entry_mode")
-                        )
+                        pointOfServiceEntryMode.getOptional("point_of_service_entry_mode")
 
                     /**
                      * Only present when `actioner: network`. Describes why a card authorization was
@@ -4653,9 +4638,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun standInProcessingReason(): Optional<StandInProcessingReason> =
-                        Optional.ofNullable(
-                            standInProcessingReason.getNullable("stand_in_processing_reason")
-                        )
+                        standInProcessingReason.getOptional("stand_in_processing_reason")
 
                     /**
                      * Returns the raw JSON value of [electronicCommerceIndicator].
@@ -5789,9 +5772,7 @@ private constructor(
                  *   (e.g. if the server responded with an unexpected value).
                  */
                 fun retrievalReferenceNumber(): Optional<String> =
-                    Optional.ofNullable(
-                        retrievalReferenceNumber.getNullable("retrieval_reference_number")
-                    )
+                    retrievalReferenceNumber.getOptional("retrieval_reference_number")
 
                 /**
                  * A counter used to verify an individual authorization. Expected to be unique per
@@ -5800,8 +5781,7 @@ private constructor(
                  * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                  *   (e.g. if the server responded with an unexpected value).
                  */
-                fun traceNumber(): Optional<String> =
-                    Optional.ofNullable(traceNumber.getNullable("trace_number"))
+                fun traceNumber(): Optional<String> = traceNumber.getOptional("trace_number")
 
                 /**
                  * A globally unique transaction identifier provided by the card network, used
@@ -5810,8 +5790,7 @@ private constructor(
                  * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                  *   (e.g. if the server responded with an unexpected value).
                  */
-                fun transactionId(): Optional<String> =
-                    Optional.ofNullable(transactionId.getNullable("transaction_id"))
+                fun transactionId(): Optional<String> = transactionId.getOptional("transaction_id")
 
                 /**
                  * Returns the raw JSON value of [retrievalReferenceNumber].
@@ -6994,8 +6973,7 @@ private constructor(
                      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                      *   (e.g. if the server responded with an unexpected value).
                      */
-                    fun actualLine1(): Optional<String> =
-                        Optional.ofNullable(actualLine1.getNullable("actual_line1"))
+                    fun actualLine1(): Optional<String> = actualLine1.getOptional("actual_line1")
 
                     /**
                      * The postal code of the address on file for the cardholder.
@@ -7004,7 +6982,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun actualPostalCode(): Optional<String> =
-                        Optional.ofNullable(actualPostalCode.getNullable("actual_postal_code"))
+                        actualPostalCode.getOptional("actual_postal_code")
 
                     /**
                      * The cardholder address line 1 provided for verification in the authorization
@@ -7014,7 +6992,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun providedLine1(): Optional<String> =
-                        Optional.ofNullable(providedLine1.getNullable("provided_line1"))
+                        providedLine1.getOptional("provided_line1")
 
                     /**
                      * The postal code provided for verification in the authorization request.
@@ -7023,7 +7001,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun providedPostalCode(): Optional<String> =
-                        Optional.ofNullable(providedPostalCode.getNullable("provided_postal_code"))
+                        providedPostalCode.getOptional("provided_postal_code")
 
                     /**
                      * The address verification result returned to the card network.
@@ -7905,7 +7883,7 @@ private constructor(
              *   if the server responded with an unexpected value).
              */
             fun backImageFileId(): Optional<String> =
-                Optional.ofNullable(backImageFileId.getNullable("back_image_file_id"))
+                backImageFileId.getOptional("back_image_file_id")
 
             /**
              * The identifier of the Check Deposit.
@@ -7913,8 +7891,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun checkDepositId(): Optional<String> =
-                Optional.ofNullable(checkDepositId.getNullable("check_deposit_id"))
+            fun checkDepositId(): Optional<String> = checkDepositId.getOptional("check_deposit_id")
 
             /**
              * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
@@ -8957,7 +8934,7 @@ private constructor(
              *   if the server responded with an unexpected value).
              */
             fun heldTransactionId(): Optional<String> =
-                Optional.ofNullable(heldTransactionId.getNullable("held_transaction_id"))
+                heldTransactionId.getOptional("held_transaction_id")
 
             /**
              * The ID of the Pending Transaction representing the held funds.
@@ -8966,7 +8943,7 @@ private constructor(
              *   if the server responded with an unexpected value).
              */
             fun pendingTransactionId(): Optional<String> =
-                Optional.ofNullable(pendingTransactionId.getNullable("pending_transaction_id"))
+                pendingTransactionId.getOptional("pending_transaction_id")
 
             /**
              * When the hold was released (if it has been released).
@@ -8974,8 +8951,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun releasedAt(): Optional<OffsetDateTime> =
-                Optional.ofNullable(releasedAt.getNullable("released_at"))
+            fun releasedAt(): Optional<OffsetDateTime> = releasedAt.getOptional("released_at")
 
             /**
              * The status of the hold.

@@ -92,10 +92,9 @@ private constructor(
             @JsonProperty("next_cursor") nextCursor: JsonField<String> = JsonMissing.of(),
         ) : this(data, nextCursor, mutableMapOf())
 
-        fun data(): List<Export> = data.getNullable("data") ?: listOf()
+        fun data(): List<Export> = data.getOptional("data").getOrNull() ?: listOf()
 
-        fun nextCursor(): Optional<String> =
-            Optional.ofNullable(nextCursor.getNullable("next_cursor"))
+        fun nextCursor(): Optional<String> = nextCursor.getOptional("next_cursor")
 
         @JsonProperty("data")
         fun _data(): Optional<JsonField<List<Export>>> = Optional.ofNullable(data)

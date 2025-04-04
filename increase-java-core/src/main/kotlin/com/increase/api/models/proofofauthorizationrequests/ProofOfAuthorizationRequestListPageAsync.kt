@@ -18,6 +18,7 @@ import java.util.Optional
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executor
 import java.util.function.Predicate
+import kotlin.jvm.optionals.getOrNull
 
 /** List Proof of Authorization Requests */
 class ProofOfAuthorizationRequestListPageAsync
@@ -103,10 +104,10 @@ private constructor(
             @JsonProperty("next_cursor") nextCursor: JsonField<String> = JsonMissing.of(),
         ) : this(data, nextCursor, mutableMapOf())
 
-        fun data(): List<ProofOfAuthorizationRequest> = data.getNullable("data") ?: listOf()
+        fun data(): List<ProofOfAuthorizationRequest> =
+            data.getOptional("data").getOrNull() ?: listOf()
 
-        fun nextCursor(): Optional<String> =
-            Optional.ofNullable(nextCursor.getNullable("next_cursor"))
+        fun nextCursor(): Optional<String> = nextCursor.getOptional("next_cursor")
 
         @JsonProperty("data")
         fun _data(): Optional<JsonField<List<ProofOfAuthorizationRequest>>> =

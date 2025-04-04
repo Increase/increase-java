@@ -77,7 +77,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun entityId(): Optional<String> = Optional.ofNullable(entityId.getNullable("entity_id"))
+    fun entityId(): Optional<String> = entityId.getOptional("entity_id")
 
     /**
      * The identifier of the File containing the Document's contents.

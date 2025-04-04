@@ -807,7 +807,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun additionalEvidenceFileId(): Optional<String> =
-            Optional.ofNullable(additionalEvidenceFileId.getNullable("additional_evidence_file_id"))
+            additionalEvidenceFileId.getOptional("additional_evidence_file_id")
 
         /**
          * Company of the authorizer.
@@ -816,7 +816,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun authorizerCompany(): Optional<String> =
-            Optional.ofNullable(authorizerCompany.getNullable("authorizer_company"))
+            authorizerCompany.getOptional("authorizer_company")
 
         /**
          * IP address of the authorizer.
@@ -825,7 +825,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun authorizerIpAddress(): Optional<String> =
-            Optional.ofNullable(authorizerIpAddress.getNullable("authorizer_ip_address"))
+            authorizerIpAddress.getOptional("authorizer_ip_address")
 
         /**
          * Returns the raw JSON value of [authorizationTerms].

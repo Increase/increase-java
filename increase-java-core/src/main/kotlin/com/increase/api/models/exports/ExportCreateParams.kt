@@ -476,7 +476,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun accountStatementOfx(): Optional<AccountStatementOfx> =
-            Optional.ofNullable(accountStatementOfx.getNullable("account_statement_ofx"))
+            accountStatementOfx.getOptional("account_statement_ofx")
 
         /**
          * Options for the created export. Required if `category` is equal to `balance_csv`.
@@ -484,8 +484,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun balanceCsv(): Optional<BalanceCsv> =
-            Optional.ofNullable(balanceCsv.getNullable("balance_csv"))
+        fun balanceCsv(): Optional<BalanceCsv> = balanceCsv.getOptional("balance_csv")
 
         /**
          * Options for the created export. Required if `category` is equal to
@@ -495,9 +494,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun bookkeepingAccountBalanceCsv(): Optional<BookkeepingAccountBalanceCsv> =
-            Optional.ofNullable(
-                bookkeepingAccountBalanceCsv.getNullable("bookkeeping_account_balance_csv")
-            )
+            bookkeepingAccountBalanceCsv.getOptional("bookkeeping_account_balance_csv")
 
         /**
          * Options for the created export. Required if `category` is equal to `entity_csv`.
@@ -505,8 +502,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun entityCsv(): Optional<EntityCsv> =
-            Optional.ofNullable(entityCsv.getNullable("entity_csv"))
+        fun entityCsv(): Optional<EntityCsv> = entityCsv.getOptional("entity_csv")
 
         /**
          * Options for the created export. Required if `category` is equal to `transaction_csv`.
@@ -515,7 +511,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun transactionCsv(): Optional<TransactionCsv> =
-            Optional.ofNullable(transactionCsv.getNullable("transaction_csv"))
+            transactionCsv.getOptional("transaction_csv")
 
         /** Options for the created export. Required if `category` is equal to `vendor_csv`. */
         @JsonProperty("vendor_csv") @ExcludeMissing fun _vendorCsv(): JsonValue = vendorCsv
@@ -1035,8 +1031,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun createdAt(): Optional<CreatedAt> =
-            Optional.ofNullable(createdAt.getNullable("created_at"))
+        fun createdAt(): Optional<CreatedAt> = createdAt.getOptional("created_at")
 
         /**
          * Returns the raw JSON value of [accountId].
@@ -1220,7 +1215,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun after(): Optional<OffsetDateTime> = Optional.ofNullable(after.getNullable("after"))
+            fun after(): Optional<OffsetDateTime> = after.getOptional("after")
 
             /**
              * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
@@ -1229,8 +1224,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun before(): Optional<OffsetDateTime> =
-                Optional.ofNullable(before.getNullable("before"))
+            fun before(): Optional<OffsetDateTime> = before.getOptional("before")
 
             /**
              * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
@@ -1239,8 +1233,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun onOrAfter(): Optional<OffsetDateTime> =
-                Optional.ofNullable(onOrAfter.getNullable("on_or_after"))
+            fun onOrAfter(): Optional<OffsetDateTime> = onOrAfter.getOptional("on_or_after")
 
             /**
              * Return results on or before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
@@ -1249,8 +1242,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun onOrBefore(): Optional<OffsetDateTime> =
-                Optional.ofNullable(onOrBefore.getNullable("on_or_before"))
+            fun onOrBefore(): Optional<OffsetDateTime> = onOrBefore.getOptional("on_or_before")
 
             /**
              * Returns the raw JSON value of [after].
@@ -1524,7 +1516,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun accountId(): Optional<String> = Optional.ofNullable(accountId.getNullable("account_id"))
+        fun accountId(): Optional<String> = accountId.getOptional("account_id")
 
         /**
          * Filter results by time range on the `created_at` attribute.
@@ -1532,8 +1524,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun createdAt(): Optional<CreatedAt> =
-            Optional.ofNullable(createdAt.getNullable("created_at"))
+        fun createdAt(): Optional<CreatedAt> = createdAt.getOptional("created_at")
 
         /**
          * Filter exported Transactions to the specified Program.
@@ -1541,7 +1532,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun programId(): Optional<String> = Optional.ofNullable(programId.getNullable("program_id"))
+        fun programId(): Optional<String> = programId.getOptional("program_id")
 
         /**
          * Returns the raw JSON value of [accountId].
@@ -1730,7 +1721,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun after(): Optional<OffsetDateTime> = Optional.ofNullable(after.getNullable("after"))
+            fun after(): Optional<OffsetDateTime> = after.getOptional("after")
 
             /**
              * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
@@ -1739,8 +1730,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun before(): Optional<OffsetDateTime> =
-                Optional.ofNullable(before.getNullable("before"))
+            fun before(): Optional<OffsetDateTime> = before.getOptional("before")
 
             /**
              * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
@@ -1749,8 +1739,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun onOrAfter(): Optional<OffsetDateTime> =
-                Optional.ofNullable(onOrAfter.getNullable("on_or_after"))
+            fun onOrAfter(): Optional<OffsetDateTime> = onOrAfter.getOptional("on_or_after")
 
             /**
              * Return results on or before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
@@ -1759,8 +1748,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun onOrBefore(): Optional<OffsetDateTime> =
-                Optional.ofNullable(onOrBefore.getNullable("on_or_before"))
+            fun onOrBefore(): Optional<OffsetDateTime> = onOrBefore.getOptional("on_or_before")
 
             /**
              * Returns the raw JSON value of [after].
@@ -2034,7 +2022,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun bookkeepingAccountId(): Optional<String> =
-            Optional.ofNullable(bookkeepingAccountId.getNullable("bookkeeping_account_id"))
+            bookkeepingAccountId.getOptional("bookkeeping_account_id")
 
         /**
          * Filter results by time range on the `created_at` attribute.
@@ -2042,8 +2030,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun createdAt(): Optional<CreatedAt> =
-            Optional.ofNullable(createdAt.getNullable("created_at"))
+        fun createdAt(): Optional<CreatedAt> = createdAt.getOptional("created_at")
 
         /**
          * Returns the raw JSON value of [bookkeepingAccountId].
@@ -2223,7 +2210,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun after(): Optional<OffsetDateTime> = Optional.ofNullable(after.getNullable("after"))
+            fun after(): Optional<OffsetDateTime> = after.getOptional("after")
 
             /**
              * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
@@ -2232,8 +2219,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun before(): Optional<OffsetDateTime> =
-                Optional.ofNullable(before.getNullable("before"))
+            fun before(): Optional<OffsetDateTime> = before.getOptional("before")
 
             /**
              * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
@@ -2242,8 +2228,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun onOrAfter(): Optional<OffsetDateTime> =
-                Optional.ofNullable(onOrAfter.getNullable("on_or_after"))
+            fun onOrAfter(): Optional<OffsetDateTime> = onOrAfter.getOptional("on_or_after")
 
             /**
              * Return results on or before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
@@ -2252,8 +2237,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun onOrBefore(): Optional<OffsetDateTime> =
-                Optional.ofNullable(onOrBefore.getNullable("on_or_before"))
+            fun onOrBefore(): Optional<OffsetDateTime> = onOrBefore.getOptional("on_or_before")
 
             /**
              * Returns the raw JSON value of [after].
@@ -2517,7 +2501,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun status(): Optional<Status> = Optional.ofNullable(status.getNullable("status"))
+        fun status(): Optional<Status> = status.getOptional("status")
 
         /**
          * Returns the raw JSON value of [status].
@@ -3000,7 +2984,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun accountId(): Optional<String> = Optional.ofNullable(accountId.getNullable("account_id"))
+        fun accountId(): Optional<String> = accountId.getOptional("account_id")
 
         /**
          * Filter results by time range on the `created_at` attribute.
@@ -3008,8 +2992,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun createdAt(): Optional<CreatedAt> =
-            Optional.ofNullable(createdAt.getNullable("created_at"))
+        fun createdAt(): Optional<CreatedAt> = createdAt.getOptional("created_at")
 
         /**
          * Filter exported Transactions to the specified Program.
@@ -3017,7 +3000,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun programId(): Optional<String> = Optional.ofNullable(programId.getNullable("program_id"))
+        fun programId(): Optional<String> = programId.getOptional("program_id")
 
         /**
          * Returns the raw JSON value of [accountId].
@@ -3206,7 +3189,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun after(): Optional<OffsetDateTime> = Optional.ofNullable(after.getNullable("after"))
+            fun after(): Optional<OffsetDateTime> = after.getOptional("after")
 
             /**
              * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
@@ -3215,8 +3198,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun before(): Optional<OffsetDateTime> =
-                Optional.ofNullable(before.getNullable("before"))
+            fun before(): Optional<OffsetDateTime> = before.getOptional("before")
 
             /**
              * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
@@ -3225,8 +3207,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun onOrAfter(): Optional<OffsetDateTime> =
-                Optional.ofNullable(onOrAfter.getNullable("on_or_after"))
+            fun onOrAfter(): Optional<OffsetDateTime> = onOrAfter.getOptional("on_or_after")
 
             /**
              * Return results on or before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
@@ -3235,8 +3216,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun onOrBefore(): Optional<OffsetDateTime> =
-                Optional.ofNullable(onOrBefore.getNullable("on_or_before"))
+            fun onOrBefore(): Optional<OffsetDateTime> = onOrBefore.getOptional("on_or_before")
 
             /**
              * Returns the raw JSON value of [after].

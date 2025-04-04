@@ -95,8 +95,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun billingAccountId(): Optional<String> =
-        Optional.ofNullable(billingAccountId.getNullable("billing_account_id"))
+    fun billingAccountId(): Optional<String> = billingAccountId.getOptional("billing_account_id")
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Program was created.
@@ -113,9 +112,7 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun defaultDigitalCardProfileId(): Optional<String> =
-        Optional.ofNullable(
-            defaultDigitalCardProfileId.getNullable("default_digital_card_profile_id")
-        )
+        defaultDigitalCardProfileId.getOptional("default_digital_card_profile_id")
 
     /**
      * The Interest Rate currently being earned on the accounts in this program, as a string

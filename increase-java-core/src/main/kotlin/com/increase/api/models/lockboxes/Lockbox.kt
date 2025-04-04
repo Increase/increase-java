@@ -107,8 +107,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun description(): Optional<String> =
-        Optional.ofNullable(description.getNullable("description"))
+    fun description(): Optional<String> = description.getOptional("description")
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -118,8 +117,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun idempotencyKey(): Optional<String> =
-        Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
+    fun idempotencyKey(): Optional<String> = idempotencyKey.getOptional("idempotency_key")
 
     /**
      * The recipient name you choose for the Lockbox.
@@ -127,8 +125,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun recipientName(): Optional<String> =
-        Optional.ofNullable(recipientName.getNullable("recipient_name"))
+    fun recipientName(): Optional<String> = recipientName.getOptional("recipient_name")
 
     /**
      * This indicates if mail can be sent to this address.
@@ -570,7 +567,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun recipient(): Optional<String> = Optional.ofNullable(recipient.getNullable("recipient"))
+        fun recipient(): Optional<String> = recipient.getOptional("recipient")
 
         /**
          * The two-letter United States Postal Service (USPS) abbreviation for the state of the

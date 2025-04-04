@@ -535,8 +535,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun physicalCheck(): Optional<PhysicalCheck> =
-            Optional.ofNullable(physicalCheck.getNullable("physical_check"))
+        fun physicalCheck(): Optional<PhysicalCheck> = physicalCheck.getOptional("physical_check")
 
         /**
          * Whether the transfer requires explicit approval via the dashboard or API.
@@ -544,8 +543,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun requireApproval(): Optional<Boolean> =
-            Optional.ofNullable(requireApproval.getNullable("require_approval"))
+        fun requireApproval(): Optional<Boolean> = requireApproval.getOptional("require_approval")
 
         /**
          * Details relating to the custom fulfillment you will perform. This is required if
@@ -555,8 +553,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun thirdParty(): Optional<ThirdParty> =
-            Optional.ofNullable(thirdParty.getNullable("third_party"))
+        fun thirdParty(): Optional<ThirdParty> = thirdParty.getOptional("third_party")
 
         /**
          * Returns the raw JSON value of [accountId].
@@ -1114,8 +1111,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun checkNumber(): Optional<String> =
-            Optional.ofNullable(checkNumber.getNullable("check_number"))
+        fun checkNumber(): Optional<String> = checkNumber.getOptional("check_number")
 
         /**
          * The descriptor that will be printed on the letter included with the check.
@@ -1123,7 +1119,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun note(): Optional<String> = Optional.ofNullable(note.getNullable("note"))
+        fun note(): Optional<String> = note.getOptional("note")
 
         /**
          * The return address to be printed on the check. If omitted this will default to an
@@ -1132,8 +1128,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun returnAddress(): Optional<ReturnAddress> =
-            Optional.ofNullable(returnAddress.getNullable("return_address"))
+        fun returnAddress(): Optional<ReturnAddress> = returnAddress.getOptional("return_address")
 
         /**
          * The text that will appear as the signature on the check in cursive font. If not provided,
@@ -1142,8 +1137,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun signatureText(): Optional<String> =
-            Optional.ofNullable(signatureText.getNullable("signature_text"))
+        fun signatureText(): Optional<String> = signatureText.getOptional("signature_text")
 
         /**
          * Returns the raw JSON value of [mailingAddress].
@@ -1516,7 +1510,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun line2(): Optional<String> = Optional.ofNullable(line2.getNullable("line2"))
+            fun line2(): Optional<String> = line2.getOptional("line2")
 
             /**
              * Returns the raw JSON value of [city].
@@ -1847,7 +1841,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun line2(): Optional<String> = Optional.ofNullable(line2.getNullable("line2"))
+            fun line2(): Optional<String> = line2.getOptional("line2")
 
             /**
              * Returns the raw JSON value of [city].
@@ -2174,8 +2168,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun checkNumber(): Optional<String> =
-            Optional.ofNullable(checkNumber.getNullable("check_number"))
+        fun checkNumber(): Optional<String> = checkNumber.getOptional("check_number")
 
         /**
          * The pay-to name you will print on the check. If provided, this is used for
@@ -2185,8 +2178,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun recipientName(): Optional<String> =
-            Optional.ofNullable(recipientName.getNullable("recipient_name"))
+        fun recipientName(): Optional<String> = recipientName.getOptional("recipient_name")
 
         /**
          * Returns the raw JSON value of [checkNumber].

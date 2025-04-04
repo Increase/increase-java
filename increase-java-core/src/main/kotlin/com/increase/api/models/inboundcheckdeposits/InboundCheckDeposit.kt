@@ -139,8 +139,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun acceptedAt(): Optional<OffsetDateTime> =
-        Optional.ofNullable(acceptedAt.getNullable("accepted_at"))
+    fun acceptedAt(): Optional<OffsetDateTime> = acceptedAt.getOptional("accepted_at")
 
     /**
      * The Account the check is being deposited against.
@@ -156,8 +155,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun accountNumberId(): Optional<String> =
-        Optional.ofNullable(accountNumberId.getNullable("account_number_id"))
+    fun accountNumberId(): Optional<String> = accountNumberId.getOptional("account_number_id")
 
     /**
      * If the deposit or the return was adjusted by the sending institution, this will contain
@@ -182,8 +180,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun backImageFileId(): Optional<String> =
-        Optional.ofNullable(backImageFileId.getNullable("back_image_file_id"))
+    fun backImageFileId(): Optional<String> = backImageFileId.getOptional("back_image_file_id")
 
     /**
      * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the bank depositing
@@ -194,9 +191,7 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun bankOfFirstDepositRoutingNumber(): Optional<String> =
-        Optional.ofNullable(
-            bankOfFirstDepositRoutingNumber.getNullable("bank_of_first_deposit_routing_number")
-        )
+        bankOfFirstDepositRoutingNumber.getOptional("bank_of_first_deposit_routing_number")
 
     /**
      * The check number printed on the check being deposited.
@@ -204,8 +199,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun checkNumber(): Optional<String> =
-        Optional.ofNullable(checkNumber.getNullable("check_number"))
+    fun checkNumber(): Optional<String> = checkNumber.getOptional("check_number")
 
     /**
      * If this deposit is for an existing Check Transfer, the identifier of that Check Transfer.
@@ -213,8 +207,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun checkTransferId(): Optional<String> =
-        Optional.ofNullable(checkTransferId.getNullable("check_transfer_id"))
+    fun checkTransferId(): Optional<String> = checkTransferId.getOptional("check_transfer_id")
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the deposit was
@@ -240,8 +233,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun declinedAt(): Optional<OffsetDateTime> =
-        Optional.ofNullable(declinedAt.getNullable("declined_at"))
+    fun declinedAt(): Optional<OffsetDateTime> = declinedAt.getOptional("declined_at")
 
     /**
      * If the deposit attempt has been rejected, the identifier of the Declined Transaction object
@@ -251,7 +243,7 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun declinedTransactionId(): Optional<String> =
-        Optional.ofNullable(declinedTransactionId.getNullable("declined_transaction_id"))
+        declinedTransactionId.getOptional("declined_transaction_id")
 
     /**
      * If you requested a return of this deposit, this will contain details of the return.
@@ -259,8 +251,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun depositReturn(): Optional<DepositReturn> =
-        Optional.ofNullable(depositReturn.getNullable("deposit_return"))
+    fun depositReturn(): Optional<DepositReturn> = depositReturn.getOptional("deposit_return")
 
     /**
      * The ID for the File containing the image of the front of the check.
@@ -268,8 +259,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun frontImageFileId(): Optional<String> =
-        Optional.ofNullable(frontImageFileId.getNullable("front_image_file_id"))
+    fun frontImageFileId(): Optional<String> = frontImageFileId.getOptional("front_image_file_id")
 
     /**
      * Whether the details on the check match the recipient name of the check transfer. This is an
@@ -296,8 +286,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun transactionId(): Optional<String> =
-        Optional.ofNullable(transactionId.getNullable("transaction_id"))
+    fun transactionId(): Optional<String> = transactionId.getOptional("transaction_id")
 
     /**
      * A constant representing the object's type. For this resource it will always be

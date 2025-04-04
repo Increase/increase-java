@@ -330,7 +330,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun updatedAccountNumber(): Optional<String> =
-            Optional.ofNullable(updatedAccountNumber.getNullable("updated_account_number"))
+            updatedAccountNumber.getOptional("updated_account_number")
 
         /**
          * The updated routing number to send in the notification of change.
@@ -339,7 +339,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun updatedRoutingNumber(): Optional<String> =
-            Optional.ofNullable(updatedRoutingNumber.getNullable("updated_routing_number"))
+            updatedRoutingNumber.getOptional("updated_routing_number")
 
         /**
          * Returns the raw JSON value of [updatedAccountNumber].

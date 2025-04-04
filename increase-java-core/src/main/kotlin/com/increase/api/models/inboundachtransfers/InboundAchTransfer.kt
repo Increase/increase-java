@@ -169,8 +169,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun acceptance(): Optional<Acceptance> =
-        Optional.ofNullable(acceptance.getNullable("acceptance"))
+    fun acceptance(): Optional<Acceptance> = acceptance.getOptional("acceptance")
 
     /**
      * The Account to which the transfer belongs.
@@ -194,7 +193,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun addenda(): Optional<Addenda> = Optional.ofNullable(addenda.getNullable("addenda"))
+    fun addenda(): Optional<Addenda> = addenda.getOptional("addenda")
 
     /**
      * The transfer amount in USD cents.
@@ -228,7 +227,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun decline(): Optional<Decline> = Optional.ofNullable(decline.getNullable("decline"))
+    fun decline(): Optional<Decline> = decline.getOptional("decline")
 
     /**
      * The direction of the transfer.
@@ -264,7 +263,7 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun internationalAddenda(): Optional<InternationalAddenda> =
-        Optional.ofNullable(internationalAddenda.getNullable("international_addenda"))
+        internationalAddenda.getOptional("international_addenda")
 
     /**
      * If you initiate a notification of change in response to the transfer, this will contain its
@@ -274,7 +273,7 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun notificationOfChange(): Optional<NotificationOfChange> =
-        Optional.ofNullable(notificationOfChange.getNullable("notification_of_change"))
+        notificationOfChange.getOptional("notification_of_change")
 
     /**
      * The descriptive date of the transfer.
@@ -283,9 +282,7 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun originatorCompanyDescriptiveDate(): Optional<String> =
-        Optional.ofNullable(
-            originatorCompanyDescriptiveDate.getNullable("originator_company_descriptive_date")
-        )
+        originatorCompanyDescriptiveDate.getOptional("originator_company_descriptive_date")
 
     /**
      * The additional information included with the transfer.
@@ -294,9 +291,7 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun originatorCompanyDiscretionaryData(): Optional<String> =
-        Optional.ofNullable(
-            originatorCompanyDiscretionaryData.getNullable("originator_company_discretionary_data")
-        )
+        originatorCompanyDiscretionaryData.getOptional("originator_company_discretionary_data")
 
     /**
      * The description of the transfer.
@@ -339,8 +334,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun receiverIdNumber(): Optional<String> =
-        Optional.ofNullable(receiverIdNumber.getNullable("receiver_id_number"))
+    fun receiverIdNumber(): Optional<String> = receiverIdNumber.getOptional("receiver_id_number")
 
     /**
      * The name of the receiver of the transfer.
@@ -348,8 +342,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun receiverName(): Optional<String> =
-        Optional.ofNullable(receiverName.getNullable("receiver_name"))
+    fun receiverName(): Optional<String> = receiverName.getOptional("receiver_name")
 
     /**
      * The Standard Entry Class (SEC) code of the transfer.
@@ -385,8 +378,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun transferReturn(): Optional<TransferReturn> =
-        Optional.ofNullable(transferReturn.getNullable("transfer_return"))
+    fun transferReturn(): Optional<TransferReturn> = transferReturn.getOptional("transfer_return")
 
     /**
      * A constant representing the object's type. For this resource it will always be
@@ -1612,7 +1604,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun freeform(): Optional<Freeform> = Optional.ofNullable(freeform.getNullable("freeform"))
+        fun freeform(): Optional<Freeform> = freeform.getOptional("freeform")
 
         /**
          * Returns the raw JSON value of [category].
@@ -3319,7 +3311,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun foreignExchangeReference(): Optional<String> =
-            Optional.ofNullable(foreignExchangeReference.getNullable("foreign_exchange_reference"))
+            foreignExchangeReference.getOptional("foreign_exchange_reference")
 
         /**
          * An instruction of how to interpret the `foreign_exchange_reference` field for this
@@ -3348,7 +3340,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun foreignTraceNumber(): Optional<String> =
-            Optional.ofNullable(foreignTraceNumber.getNullable("foreign_trace_number"))
+            foreignTraceNumber.getOptional("foreign_trace_number")
 
         /**
          * The type of transfer. Set by the originator.
@@ -3462,7 +3454,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun originatorPostalCode(): Optional<String> =
-            Optional.ofNullable(originatorPostalCode.getNullable("originator_postal_code"))
+            originatorPostalCode.getOptional("originator_postal_code")
 
         /**
          * A portion of the originator address. This may be incomplete.
@@ -3471,9 +3463,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun originatorStateOrProvince(): Optional<String> =
-            Optional.ofNullable(
-                originatorStateOrProvince.getNullable("originator_state_or_province")
-            )
+            originatorStateOrProvince.getOptional("originator_state_or_province")
 
         /**
          * A portion of the originator address. This may be incomplete.
@@ -3491,9 +3481,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun paymentRelatedInformation(): Optional<String> =
-            Optional.ofNullable(
-                paymentRelatedInformation.getNullable("payment_related_information")
-            )
+            paymentRelatedInformation.getOptional("payment_related_information")
 
         /**
          * A description field set by the originator.
@@ -3502,9 +3490,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun paymentRelatedInformation2(): Optional<String> =
-            Optional.ofNullable(
-                paymentRelatedInformation2.getNullable("payment_related_information2")
-            )
+            paymentRelatedInformation2.getOptional("payment_related_information2")
 
         /**
          * A portion of the receiver address. This may be incomplete.
@@ -3531,9 +3517,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun receiverIdentificationNumber(): Optional<String> =
-            Optional.ofNullable(
-                receiverIdentificationNumber.getNullable("receiver_identification_number")
-            )
+            receiverIdentificationNumber.getOptional("receiver_identification_number")
 
         /**
          * A portion of the receiver address. This may be incomplete.
@@ -3542,7 +3526,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun receiverPostalCode(): Optional<String> =
-            Optional.ofNullable(receiverPostalCode.getNullable("receiver_postal_code"))
+            receiverPostalCode.getOptional("receiver_postal_code")
 
         /**
          * A portion of the receiver address. This may be incomplete.
@@ -3551,7 +3535,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun receiverStateOrProvince(): Optional<String> =
-            Optional.ofNullable(receiverStateOrProvince.getNullable("receiver_state_or_province"))
+            receiverStateOrProvince.getOptional("receiver_state_or_province")
 
         /**
          * A portion of the receiver address. This may be incomplete.
@@ -6078,7 +6062,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun updatedAccountNumber(): Optional<String> =
-            Optional.ofNullable(updatedAccountNumber.getNullable("updated_account_number"))
+            updatedAccountNumber.getOptional("updated_account_number")
 
         /**
          * The new account number provided in the notification of change.
@@ -6087,7 +6071,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun updatedRoutingNumber(): Optional<String> =
-            Optional.ofNullable(updatedRoutingNumber.getNullable("updated_routing_number"))
+            updatedRoutingNumber.getOptional("updated_routing_number")
 
         /**
          * Returns the raw JSON value of [updatedAccountNumber].

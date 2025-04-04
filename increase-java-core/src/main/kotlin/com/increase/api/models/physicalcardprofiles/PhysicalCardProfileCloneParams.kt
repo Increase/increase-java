@@ -433,7 +433,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun carrierImageFileId(): Optional<String> =
-            Optional.ofNullable(carrierImageFileId.getNullable("carrier_image_file_id"))
+            carrierImageFileId.getOptional("carrier_image_file_id")
 
         /**
          * A phone number the user can contact to receive support for their card.
@@ -441,8 +441,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun contactPhone(): Optional<String> =
-            Optional.ofNullable(contactPhone.getNullable("contact_phone"))
+        fun contactPhone(): Optional<String> = contactPhone.getOptional("contact_phone")
 
         /**
          * A description you can use to identify the Card Profile.
@@ -450,8 +449,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun description(): Optional<String> =
-            Optional.ofNullable(description.getNullable("description"))
+        fun description(): Optional<String> = description.getOptional("description")
 
         /**
          * The identifier of the File containing the physical card's front image.
@@ -460,7 +458,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun frontImageFileId(): Optional<String> =
-            Optional.ofNullable(frontImageFileId.getNullable("front_image_file_id"))
+            frontImageFileId.getOptional("front_image_file_id")
 
         /**
          * Text printed on the front of the card. Reach out to
@@ -469,8 +467,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun frontText(): Optional<FrontText> =
-            Optional.ofNullable(frontText.getNullable("front_text"))
+        fun frontText(): Optional<FrontText> = frontText.getOptional("front_text")
 
         /**
          * Returns the raw JSON value of [carrierImageFileId].
@@ -754,7 +751,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun line2(): Optional<String> = Optional.ofNullable(line2.getNullable("line2"))
+        fun line2(): Optional<String> = line2.getOptional("line2")
 
         /**
          * Returns the raw JSON value of [line1].

@@ -787,7 +787,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun originatorAddressLine1(): Optional<String> =
-            Optional.ofNullable(originatorAddressLine1.getNullable("originator_address_line1"))
+            originatorAddressLine1.getOptional("originator_address_line1")
 
         /**
          * The drawdown request originator's address line 2. This is only necessary if you're
@@ -798,7 +798,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun originatorAddressLine2(): Optional<String> =
-            Optional.ofNullable(originatorAddressLine2.getNullable("originator_address_line2"))
+            originatorAddressLine2.getOptional("originator_address_line2")
 
         /**
          * The drawdown request originator's address line 3. This is only necessary if you're
@@ -809,7 +809,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun originatorAddressLine3(): Optional<String> =
-            Optional.ofNullable(originatorAddressLine3.getNullable("originator_address_line3"))
+            originatorAddressLine3.getOptional("originator_address_line3")
 
         /**
          * The drawdown request originator's name. This is only necessary if you're requesting a
@@ -818,8 +818,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun originatorName(): Optional<String> =
-            Optional.ofNullable(originatorName.getNullable("originator_name"))
+        fun originatorName(): Optional<String> = originatorName.getOptional("originator_name")
 
         /**
          * Line 1 of the drawdown request's recipient's address.
@@ -828,7 +827,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun recipientAddressLine1(): Optional<String> =
-            Optional.ofNullable(recipientAddressLine1.getNullable("recipient_address_line1"))
+            recipientAddressLine1.getOptional("recipient_address_line1")
 
         /**
          * Line 2 of the drawdown request's recipient's address.
@@ -837,7 +836,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun recipientAddressLine2(): Optional<String> =
-            Optional.ofNullable(recipientAddressLine2.getNullable("recipient_address_line2"))
+            recipientAddressLine2.getOptional("recipient_address_line2")
 
         /**
          * Line 3 of the drawdown request's recipient's address.
@@ -846,7 +845,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun recipientAddressLine3(): Optional<String> =
-            Optional.ofNullable(recipientAddressLine3.getNullable("recipient_address_line3"))
+            recipientAddressLine3.getOptional("recipient_address_line3")
 
         /**
          * Returns the raw JSON value of [accountNumberId].

@@ -394,7 +394,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun physicalCardProfileId(): Optional<String> =
-            Optional.ofNullable(physicalCardProfileId.getNullable("physical_card_profile_id"))
+            physicalCardProfileId.getOptional("physical_card_profile_id")
 
         /**
          * Returns the raw JSON value of [cardId].
@@ -1097,7 +1097,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun line2(): Optional<String> = Optional.ofNullable(line2.getNullable("line2"))
+            fun line2(): Optional<String> = line2.getOptional("line2")
 
             /**
              * The third line of the shipping address.
@@ -1105,7 +1105,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun line3(): Optional<String> = Optional.ofNullable(line3.getNullable("line3"))
+            fun line3(): Optional<String> = line3.getOptional("line3")
 
             /**
              * The phone number of the recipient.
@@ -1113,8 +1113,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun phoneNumber(): Optional<String> =
-                Optional.ofNullable(phoneNumber.getNullable("phone_number"))
+            fun phoneNumber(): Optional<String> = phoneNumber.getOptional("phone_number")
 
             /**
              * Returns the raw JSON value of [city].

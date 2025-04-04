@@ -288,8 +288,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun confirmedAt(): Optional<OffsetDateTime> =
-            Optional.ofNullable(confirmedAt.getNullable("confirmed_at"))
+        fun confirmedAt(): Optional<OffsetDateTime> = confirmedAt.getOptional("confirmed_at")
 
         /**
          * Returns the raw JSON value of [confirmedAt].
