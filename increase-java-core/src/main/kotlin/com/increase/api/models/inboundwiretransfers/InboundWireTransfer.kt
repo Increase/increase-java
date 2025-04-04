@@ -185,7 +185,7 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun beneficiaryAddressLine1(): Optional<String> =
-        Optional.ofNullable(beneficiaryAddressLine1.getNullable("beneficiary_address_line1"))
+        beneficiaryAddressLine1.getOptional("beneficiary_address_line1")
 
     /**
      * A free-form address field set by the sender.
@@ -194,7 +194,7 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun beneficiaryAddressLine2(): Optional<String> =
-        Optional.ofNullable(beneficiaryAddressLine2.getNullable("beneficiary_address_line2"))
+        beneficiaryAddressLine2.getOptional("beneficiary_address_line2")
 
     /**
      * A free-form address field set by the sender.
@@ -203,7 +203,7 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun beneficiaryAddressLine3(): Optional<String> =
-        Optional.ofNullable(beneficiaryAddressLine3.getNullable("beneficiary_address_line3"))
+        beneficiaryAddressLine3.getOptional("beneficiary_address_line3")
 
     /**
      * A name set by the sender.
@@ -211,8 +211,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun beneficiaryName(): Optional<String> =
-        Optional.ofNullable(beneficiaryName.getNullable("beneficiary_name"))
+    fun beneficiaryName(): Optional<String> = beneficiaryName.getOptional("beneficiary_name")
 
     /**
      * A free-form reference string set by the sender, to help identify the transfer.
@@ -221,7 +220,7 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun beneficiaryReference(): Optional<String> =
-        Optional.ofNullable(beneficiaryReference.getNullable("beneficiary_reference"))
+        beneficiaryReference.getOptional("beneficiary_reference")
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the inbound
@@ -249,9 +248,7 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun inputMessageAccountabilityData(): Optional<String> =
-        Optional.ofNullable(
-            inputMessageAccountabilityData.getNullable("input_message_accountability_data")
-        )
+        inputMessageAccountabilityData.getOptional("input_message_accountability_data")
 
     /**
      * The address of the wire originator, set by the sending bank.
@@ -260,7 +257,7 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun originatorAddressLine1(): Optional<String> =
-        Optional.ofNullable(originatorAddressLine1.getNullable("originator_address_line1"))
+        originatorAddressLine1.getOptional("originator_address_line1")
 
     /**
      * The address of the wire originator, set by the sending bank.
@@ -269,7 +266,7 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun originatorAddressLine2(): Optional<String> =
-        Optional.ofNullable(originatorAddressLine2.getNullable("originator_address_line2"))
+        originatorAddressLine2.getOptional("originator_address_line2")
 
     /**
      * The address of the wire originator, set by the sending bank.
@@ -278,7 +275,7 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun originatorAddressLine3(): Optional<String> =
-        Optional.ofNullable(originatorAddressLine3.getNullable("originator_address_line3"))
+        originatorAddressLine3.getOptional("originator_address_line3")
 
     /**
      * The originator of the wire, set by the sending bank.
@@ -286,8 +283,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun originatorName(): Optional<String> =
-        Optional.ofNullable(originatorName.getNullable("originator_name"))
+    fun originatorName(): Optional<String> = originatorName.getOptional("originator_name")
 
     /**
      * The American Banking Association (ABA) routing number of the bank originating the transfer.
@@ -296,7 +292,7 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun originatorRoutingNumber(): Optional<String> =
-        Optional.ofNullable(originatorRoutingNumber.getNullable("originator_routing_number"))
+        originatorRoutingNumber.getOptional("originator_routing_number")
 
     /**
      * An Increase-created concatenation of the Originator-to-Beneficiary lines.
@@ -305,9 +301,7 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun originatorToBeneficiaryInformation(): Optional<String> =
-        Optional.ofNullable(
-            originatorToBeneficiaryInformation.getNullable("originator_to_beneficiary_information")
-        )
+        originatorToBeneficiaryInformation.getOptional("originator_to_beneficiary_information")
 
     /**
      * A free-form message set by the wire originator.
@@ -316,10 +310,8 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun originatorToBeneficiaryInformationLine1(): Optional<String> =
-        Optional.ofNullable(
-            originatorToBeneficiaryInformationLine1.getNullable(
-                "originator_to_beneficiary_information_line1"
-            )
+        originatorToBeneficiaryInformationLine1.getOptional(
+            "originator_to_beneficiary_information_line1"
         )
 
     /**
@@ -329,10 +321,8 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun originatorToBeneficiaryInformationLine2(): Optional<String> =
-        Optional.ofNullable(
-            originatorToBeneficiaryInformationLine2.getNullable(
-                "originator_to_beneficiary_information_line2"
-            )
+        originatorToBeneficiaryInformationLine2.getOptional(
+            "originator_to_beneficiary_information_line2"
         )
 
     /**
@@ -342,10 +332,8 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun originatorToBeneficiaryInformationLine3(): Optional<String> =
-        Optional.ofNullable(
-            originatorToBeneficiaryInformationLine3.getNullable(
-                "originator_to_beneficiary_information_line3"
-            )
+        originatorToBeneficiaryInformationLine3.getOptional(
+            "originator_to_beneficiary_information_line3"
         )
 
     /**
@@ -355,10 +343,8 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun originatorToBeneficiaryInformationLine4(): Optional<String> =
-        Optional.ofNullable(
-            originatorToBeneficiaryInformationLine4.getNullable(
-                "originator_to_beneficiary_information_line4"
-            )
+        originatorToBeneficiaryInformationLine4.getOptional(
+            "originator_to_beneficiary_information_line4"
         )
 
     /**
@@ -367,8 +353,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun senderReference(): Optional<String> =
-        Optional.ofNullable(senderReference.getNullable("sender_reference"))
+    fun senderReference(): Optional<String> = senderReference.getOptional("sender_reference")
 
     /**
      * The status of the transfer.

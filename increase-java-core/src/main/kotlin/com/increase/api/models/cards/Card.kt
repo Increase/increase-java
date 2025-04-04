@@ -127,8 +127,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun description(): Optional<String> =
-        Optional.ofNullable(description.getNullable("description"))
+    fun description(): Optional<String> = description.getOptional("description")
 
     /**
      * The contact information used in the two-factor steps for digital wallet card creation. At
@@ -137,8 +136,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun digitalWallet(): Optional<DigitalWallet> =
-        Optional.ofNullable(digitalWallet.getNullable("digital_wallet"))
+    fun digitalWallet(): Optional<DigitalWallet> = digitalWallet.getOptional("digital_wallet")
 
     /**
      * The identifier for the entity associated with this card.
@@ -146,7 +144,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun entityId(): Optional<String> = Optional.ofNullable(entityId.getNullable("entity_id"))
+    fun entityId(): Optional<String> = entityId.getOptional("entity_id")
 
     /**
      * The month the card expires in M format (e.g., August is 8).
@@ -172,8 +170,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun idempotencyKey(): Optional<String> =
-        Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
+    fun idempotencyKey(): Optional<String> = idempotencyKey.getOptional("idempotency_key")
 
     /**
      * The last 4 digits of the Card's Primary Account Number.
@@ -707,7 +704,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun city(): Optional<String> = Optional.ofNullable(city.getNullable("city"))
+        fun city(): Optional<String> = city.getOptional("city")
 
         /**
          * The first line of the billing address.
@@ -715,7 +712,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun line1(): Optional<String> = Optional.ofNullable(line1.getNullable("line1"))
+        fun line1(): Optional<String> = line1.getOptional("line1")
 
         /**
          * The second line of the billing address.
@@ -723,7 +720,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun line2(): Optional<String> = Optional.ofNullable(line2.getNullable("line2"))
+        fun line2(): Optional<String> = line2.getOptional("line2")
 
         /**
          * The postal code of the billing address.
@@ -731,8 +728,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun postalCode(): Optional<String> =
-            Optional.ofNullable(postalCode.getNullable("postal_code"))
+        fun postalCode(): Optional<String> = postalCode.getOptional("postal_code")
 
         /**
          * The US state of the billing address.
@@ -740,7 +736,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun state(): Optional<String> = Optional.ofNullable(state.getNullable("state"))
+        fun state(): Optional<String> = state.getOptional("state")
 
         /**
          * Returns the raw JSON value of [city].
@@ -1033,7 +1029,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun digitalCardProfileId(): Optional<String> =
-            Optional.ofNullable(digitalCardProfileId.getNullable("digital_card_profile_id"))
+            digitalCardProfileId.getOptional("digital_card_profile_id")
 
         /**
          * An email address that can be used to verify the cardholder via one-time passcode over
@@ -1042,7 +1038,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun email(): Optional<String> = Optional.ofNullable(email.getNullable("email"))
+        fun email(): Optional<String> = email.getOptional("email")
 
         /**
          * A phone number that can be used to verify the cardholder via one-time passcode over SMS.
@@ -1050,7 +1046,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun phone(): Optional<String> = Optional.ofNullable(phone.getNullable("phone"))
+        fun phone(): Optional<String> = phone.getOptional("phone")
 
         /**
          * Returns the raw JSON value of [digitalCardProfileId].

@@ -98,8 +98,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun fileDownloadUrl(): Optional<String> =
-        Optional.ofNullable(fileDownloadUrl.getNullable("file_download_url"))
+    fun fileDownloadUrl(): Optional<String> = fileDownloadUrl.getOptional("file_download_url")
 
     /**
      * The File containing the contents of the Export. This will be present when the Export's status
@@ -108,7 +107,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun fileId(): Optional<String> = Optional.ofNullable(fileId.getNullable("file_id"))
+    fun fileId(): Optional<String> = fileId.getOptional("file_id")
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -118,8 +117,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun idempotencyKey(): Optional<String> =
-        Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
+    fun idempotencyKey(): Optional<String> = idempotencyKey.getOptional("idempotency_key")
 
     /**
      * The status of the Export.

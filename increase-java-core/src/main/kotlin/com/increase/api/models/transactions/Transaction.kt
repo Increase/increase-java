@@ -132,7 +132,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun routeId(): Optional<String> = Optional.ofNullable(routeId.getNullable("route_id"))
+    fun routeId(): Optional<String> = routeId.getOptional("route_id")
 
     /**
      * The type of the route this Transaction came through.
@@ -140,7 +140,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun routeType(): Optional<RouteType> = Optional.ofNullable(routeType.getNullable("route_type"))
+    fun routeType(): Optional<RouteType> = routeType.getOptional("route_type")
 
     /**
      * This is an object giving more details on the network-level event that caused the Transaction.
@@ -1046,7 +1046,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun accountTransferIntention(): Optional<AccountTransferIntention> =
-            Optional.ofNullable(accountTransferIntention.getNullable("account_transfer_intention"))
+            accountTransferIntention.getOptional("account_transfer_intention")
 
         /**
          * An ACH Transfer Intention object. This field will be present in the JSON response if and
@@ -1058,7 +1058,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun achTransferIntention(): Optional<AchTransferIntention> =
-            Optional.ofNullable(achTransferIntention.getNullable("ach_transfer_intention"))
+            achTransferIntention.getOptional("ach_transfer_intention")
 
         /**
          * An ACH Transfer Rejection object. This field will be present in the JSON response if and
@@ -1070,7 +1070,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun achTransferRejection(): Optional<AchTransferRejection> =
-            Optional.ofNullable(achTransferRejection.getNullable("ach_transfer_rejection"))
+            achTransferRejection.getOptional("ach_transfer_rejection")
 
         /**
          * An ACH Transfer Return object. This field will be present in the JSON response if and
@@ -1083,7 +1083,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun achTransferReturn(): Optional<AchTransferReturn> =
-            Optional.ofNullable(achTransferReturn.getNullable("ach_transfer_return"))
+            achTransferReturn.getOptional("ach_transfer_return")
 
         /**
          * A Card Dispute Acceptance object. This field will be present in the JSON response if and
@@ -1094,7 +1094,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun cardDisputeAcceptance(): Optional<CardDisputeAcceptance> =
-            Optional.ofNullable(cardDisputeAcceptance.getNullable("card_dispute_acceptance"))
+            cardDisputeAcceptance.getOptional("card_dispute_acceptance")
 
         /**
          * A Card Dispute Loss object. This field will be present in the JSON response if and only
@@ -1105,7 +1105,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun cardDisputeLoss(): Optional<CardDisputeLoss> =
-            Optional.ofNullable(cardDisputeLoss.getNullable("card_dispute_loss"))
+            cardDisputeLoss.getOptional("card_dispute_loss")
 
         /**
          * A Card Refund object. This field will be present in the JSON response if and only if
@@ -1116,8 +1116,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun cardRefund(): Optional<CardRefund> =
-            Optional.ofNullable(cardRefund.getNullable("card_refund"))
+        fun cardRefund(): Optional<CardRefund> = cardRefund.getOptional("card_refund")
 
         /**
          * A Card Revenue Payment object. This field will be present in the JSON response if and
@@ -1128,7 +1127,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun cardRevenuePayment(): Optional<CardRevenuePayment> =
-            Optional.ofNullable(cardRevenuePayment.getNullable("card_revenue_payment"))
+            cardRevenuePayment.getOptional("card_revenue_payment")
 
         /**
          * A Card Settlement object. This field will be present in the JSON response if and only if
@@ -1140,7 +1139,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun cardSettlement(): Optional<CardSettlement> =
-            Optional.ofNullable(cardSettlement.getNullable("card_settlement"))
+            cardSettlement.getOptional("card_settlement")
 
         /**
          * A Cashback Payment object. This field will be present in the JSON response if and only if
@@ -1152,7 +1151,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun cashbackPayment(): Optional<CashbackPayment> =
-            Optional.ofNullable(cashbackPayment.getNullable("cashback_payment"))
+            cashbackPayment.getOptional("cashback_payment")
 
         /**
          * The type of the resource. We may add additional possible values for this enum over time;
@@ -1173,7 +1172,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun checkDepositAcceptance(): Optional<CheckDepositAcceptance> =
-            Optional.ofNullable(checkDepositAcceptance.getNullable("check_deposit_acceptance"))
+            checkDepositAcceptance.getOptional("check_deposit_acceptance")
 
         /**
          * A Check Deposit Return object. This field will be present in the JSON response if and
@@ -1187,7 +1186,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun checkDepositReturn(): Optional<CheckDepositReturn> =
-            Optional.ofNullable(checkDepositReturn.getNullable("check_deposit_return"))
+            checkDepositReturn.getOptional("check_deposit_return")
 
         /**
          * A Check Transfer Deposit object. This field will be present in the JSON response if and
@@ -1199,7 +1198,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun checkTransferDeposit(): Optional<CheckTransferDeposit> =
-            Optional.ofNullable(checkTransferDeposit.getNullable("check_transfer_deposit"))
+            checkTransferDeposit.getOptional("check_transfer_deposit")
 
         /**
          * A Fee Payment object. This field will be present in the JSON response if and only if
@@ -1209,8 +1208,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun feePayment(): Optional<FeePayment> =
-            Optional.ofNullable(feePayment.getNullable("fee_payment"))
+        fun feePayment(): Optional<FeePayment> = feePayment.getOptional("fee_payment")
 
         /**
          * An Inbound ACH Transfer Intention object. This field will be present in the JSON response
@@ -1222,7 +1220,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun inboundAchTransfer(): Optional<InboundAchTransfer> =
-            Optional.ofNullable(inboundAchTransfer.getNullable("inbound_ach_transfer"))
+            inboundAchTransfer.getOptional("inbound_ach_transfer")
 
         /**
          * An Inbound ACH Transfer Return Intention object. This field will be present in the JSON
@@ -1234,11 +1232,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun inboundAchTransferReturnIntention(): Optional<InboundAchTransferReturnIntention> =
-            Optional.ofNullable(
-                inboundAchTransferReturnIntention.getNullable(
-                    "inbound_ach_transfer_return_intention"
-                )
-            )
+            inboundAchTransferReturnIntention.getOptional("inbound_ach_transfer_return_intention")
 
         /**
          * An Inbound Check Adjustment object. This field will be present in the JSON response if
@@ -1250,7 +1244,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun inboundCheckAdjustment(): Optional<InboundCheckAdjustment> =
-            Optional.ofNullable(inboundCheckAdjustment.getNullable("inbound_check_adjustment"))
+            inboundCheckAdjustment.getOptional("inbound_check_adjustment")
 
         /**
          * An Inbound Check Deposit Return Intention object. This field will be present in the JSON
@@ -1262,11 +1256,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun inboundCheckDepositReturnIntention(): Optional<InboundCheckDepositReturnIntention> =
-            Optional.ofNullable(
-                inboundCheckDepositReturnIntention.getNullable(
-                    "inbound_check_deposit_return_intention"
-                )
-            )
+            inboundCheckDepositReturnIntention.getOptional("inbound_check_deposit_return_intention")
 
         /**
          * An Inbound Real-Time Payments Transfer Confirmation object. This field will be present in
@@ -1280,10 +1270,8 @@ private constructor(
          */
         fun inboundRealTimePaymentsTransferConfirmation():
             Optional<InboundRealTimePaymentsTransferConfirmation> =
-            Optional.ofNullable(
-                inboundRealTimePaymentsTransferConfirmation.getNullable(
-                    "inbound_real_time_payments_transfer_confirmation"
-                )
+            inboundRealTimePaymentsTransferConfirmation.getOptional(
+                "inbound_real_time_payments_transfer_confirmation"
             )
 
         /**
@@ -1296,10 +1284,8 @@ private constructor(
          */
         fun inboundRealTimePaymentsTransferDecline():
             Optional<InboundRealTimePaymentsTransferDecline> =
-            Optional.ofNullable(
-                inboundRealTimePaymentsTransferDecline.getNullable(
-                    "inbound_real_time_payments_transfer_decline"
-                )
+            inboundRealTimePaymentsTransferDecline.getOptional(
+                "inbound_real_time_payments_transfer_decline"
             )
 
         /**
@@ -1313,7 +1299,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun inboundWireReversal(): Optional<InboundWireReversal> =
-            Optional.ofNullable(inboundWireReversal.getNullable("inbound_wire_reversal"))
+            inboundWireReversal.getOptional("inbound_wire_reversal")
 
         /**
          * An Inbound Wire Transfer Intention object. This field will be present in the JSON
@@ -1325,7 +1311,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun inboundWireTransfer(): Optional<InboundWireTransfer> =
-            Optional.ofNullable(inboundWireTransfer.getNullable("inbound_wire_transfer"))
+            inboundWireTransfer.getOptional("inbound_wire_transfer")
 
         /**
          * An Inbound Wire Transfer Reversal Intention object. This field will be present in the
@@ -1337,9 +1323,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun inboundWireTransferReversal(): Optional<InboundWireTransferReversal> =
-            Optional.ofNullable(
-                inboundWireTransferReversal.getNullable("inbound_wire_transfer_reversal")
-            )
+            inboundWireTransferReversal.getOptional("inbound_wire_transfer_reversal")
 
         /**
          * An Interest Payment object. This field will be present in the JSON response if and only
@@ -1350,7 +1334,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun interestPayment(): Optional<InterestPayment> =
-            Optional.ofNullable(interestPayment.getNullable("interest_payment"))
+            interestPayment.getOptional("interest_payment")
 
         /**
          * An Internal Source object. This field will be present in the JSON response if and only if
@@ -1361,7 +1345,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun internalSource(): Optional<InternalSource> =
-            Optional.ofNullable(internalSource.getNullable("internal_source"))
+            internalSource.getOptional("internal_source")
 
         /**
          * If the category of this Transaction source is equal to `other`, this field will contain
@@ -1381,10 +1365,8 @@ private constructor(
          */
         fun realTimePaymentsTransferAcknowledgement():
             Optional<RealTimePaymentsTransferAcknowledgement> =
-            Optional.ofNullable(
-                realTimePaymentsTransferAcknowledgement.getNullable(
-                    "real_time_payments_transfer_acknowledgement"
-                )
+            realTimePaymentsTransferAcknowledgement.getOptional(
+                "real_time_payments_transfer_acknowledgement"
             )
 
         /**
@@ -1394,8 +1376,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun sampleFunds(): Optional<SampleFunds> =
-            Optional.ofNullable(sampleFunds.getNullable("sample_funds"))
+        fun sampleFunds(): Optional<SampleFunds> = sampleFunds.getOptional("sample_funds")
 
         /**
          * A Wire Transfer Intention object. This field will be present in the JSON response if and
@@ -1406,7 +1387,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun wireTransferIntention(): Optional<WireTransferIntention> =
-            Optional.ofNullable(wireTransferIntention.getNullable("wire_transfer_intention"))
+            wireTransferIntention.getOptional("wire_transfer_intention")
 
         /**
          * Returns the raw JSON value of [accountTransferIntention].
@@ -6427,8 +6408,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun cashback(): Optional<Cashback> =
-                Optional.ofNullable(cashback.getNullable("cashback"))
+            fun cashback(): Optional<Cashback> = cashback.getOptional("cashback")
 
             /**
              * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
@@ -6446,8 +6426,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun interchange(): Optional<Interchange> =
-                Optional.ofNullable(interchange.getNullable("interchange"))
+            fun interchange(): Optional<Interchange> = interchange.getOptional("interchange")
 
             /**
              * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
@@ -6504,7 +6483,7 @@ private constructor(
              *   if the server responded with an unexpected value).
              */
             fun merchantPostalCode(): Optional<String> =
-                Optional.ofNullable(merchantPostalCode.getNullable("merchant_postal_code"))
+                merchantPostalCode.getOptional("merchant_postal_code")
 
             /**
              * The state the merchant resides in.
@@ -6512,8 +6491,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun merchantState(): Optional<String> =
-                Optional.ofNullable(merchantState.getNullable("merchant_state"))
+            fun merchantState(): Optional<String> = merchantState.getOptional("merchant_state")
 
             /**
              * Network-specific identifiers for this refund.
@@ -6552,7 +6530,7 @@ private constructor(
              *   if the server responded with an unexpected value).
              */
             fun purchaseDetails(): Optional<PurchaseDetails> =
-                Optional.ofNullable(purchaseDetails.getNullable("purchase_details"))
+                purchaseDetails.getOptional("purchase_details")
 
             /**
              * The identifier of the Transaction associated with this Transaction.
@@ -7917,7 +7895,7 @@ private constructor(
                  * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                  *   (e.g. if the server responded with an unexpected value).
                  */
-                fun code(): Optional<String> = Optional.ofNullable(code.getNullable("code"))
+                fun code(): Optional<String> = code.getOptional("code")
 
                 /**
                  * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the interchange
@@ -8371,8 +8349,7 @@ private constructor(
                  * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                  *   (e.g. if the server responded with an unexpected value).
                  */
-                fun transactionId(): Optional<String> =
-                    Optional.ofNullable(transactionId.getNullable("transaction_id"))
+                fun transactionId(): Optional<String> = transactionId.getOptional("transaction_id")
 
                 /**
                  * Returns the raw JSON value of [acquirerBusinessId].
@@ -8674,8 +8651,7 @@ private constructor(
                  * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                  *   (e.g. if the server responded with an unexpected value).
                  */
-                fun carRental(): Optional<CarRental> =
-                    Optional.ofNullable(carRental.getNullable("car_rental"))
+                fun carRental(): Optional<CarRental> = carRental.getOptional("car_rental")
 
                 /**
                  * An identifier from the merchant for the customer or consumer.
@@ -8684,9 +8660,7 @@ private constructor(
                  *   (e.g. if the server responded with an unexpected value).
                  */
                 fun customerReferenceIdentifier(): Optional<String> =
-                    Optional.ofNullable(
-                        customerReferenceIdentifier.getNullable("customer_reference_identifier")
-                    )
+                    customerReferenceIdentifier.getOptional("customer_reference_identifier")
 
                 /**
                  * The state or provincial tax amount in minor units.
@@ -8695,7 +8669,7 @@ private constructor(
                  *   (e.g. if the server responded with an unexpected value).
                  */
                 fun localTaxAmount(): Optional<Long> =
-                    Optional.ofNullable(localTaxAmount.getNullable("local_tax_amount"))
+                    localTaxAmount.getOptional("local_tax_amount")
 
                 /**
                  * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the local tax
@@ -8705,7 +8679,7 @@ private constructor(
                  *   (e.g. if the server responded with an unexpected value).
                  */
                 fun localTaxCurrency(): Optional<String> =
-                    Optional.ofNullable(localTaxCurrency.getNullable("local_tax_currency"))
+                    localTaxCurrency.getOptional("local_tax_currency")
 
                 /**
                  * Fields specific to lodging.
@@ -8713,8 +8687,7 @@ private constructor(
                  * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                  *   (e.g. if the server responded with an unexpected value).
                  */
-                fun lodging(): Optional<Lodging> =
-                    Optional.ofNullable(lodging.getNullable("lodging"))
+                fun lodging(): Optional<Lodging> = lodging.getOptional("lodging")
 
                 /**
                  * The national tax amount in minor units.
@@ -8723,7 +8696,7 @@ private constructor(
                  *   (e.g. if the server responded with an unexpected value).
                  */
                 fun nationalTaxAmount(): Optional<Long> =
-                    Optional.ofNullable(nationalTaxAmount.getNullable("national_tax_amount"))
+                    nationalTaxAmount.getOptional("national_tax_amount")
 
                 /**
                  * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the local tax
@@ -8733,7 +8706,7 @@ private constructor(
                  *   (e.g. if the server responded with an unexpected value).
                  */
                 fun nationalTaxCurrency(): Optional<String> =
-                    Optional.ofNullable(nationalTaxCurrency.getNullable("national_tax_currency"))
+                    nationalTaxCurrency.getOptional("national_tax_currency")
 
                 /**
                  * An identifier from the merchant for the purchase to the issuer and cardholder.
@@ -8742,7 +8715,7 @@ private constructor(
                  *   (e.g. if the server responded with an unexpected value).
                  */
                 fun purchaseIdentifier(): Optional<String> =
-                    Optional.ofNullable(purchaseIdentifier.getNullable("purchase_identifier"))
+                    purchaseIdentifier.getOptional("purchase_identifier")
 
                 /**
                  * The format of the purchase identifier.
@@ -8751,9 +8724,7 @@ private constructor(
                  *   (e.g. if the server responded with an unexpected value).
                  */
                 fun purchaseIdentifierFormat(): Optional<PurchaseIdentifierFormat> =
-                    Optional.ofNullable(
-                        purchaseIdentifierFormat.getNullable("purchase_identifier_format")
-                    )
+                    purchaseIdentifierFormat.getOptional("purchase_identifier_format")
 
                 /**
                  * Fields specific to travel.
@@ -8761,7 +8732,7 @@ private constructor(
                  * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                  *   (e.g. if the server responded with an unexpected value).
                  */
-                fun travel(): Optional<Travel> = Optional.ofNullable(travel.getNullable("travel"))
+                fun travel(): Optional<Travel> = travel.getOptional("travel")
 
                 /**
                  * Returns the raw JSON value of [carRental].
@@ -9366,7 +9337,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun carClassCode(): Optional<String> =
-                        Optional.ofNullable(carClassCode.getNullable("car_class_code"))
+                        carClassCode.getOptional("car_class_code")
 
                     /**
                      * Date the customer picked up the car or, in the case of a no-show or pre-pay
@@ -9376,7 +9347,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun checkoutDate(): Optional<LocalDate> =
-                        Optional.ofNullable(checkoutDate.getNullable("checkout_date"))
+                        checkoutDate.getOptional("checkout_date")
 
                     /**
                      * Daily rate being charged for the vehicle.
@@ -9385,9 +9356,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun dailyRentalRateAmount(): Optional<Long> =
-                        Optional.ofNullable(
-                            dailyRentalRateAmount.getNullable("daily_rental_rate_amount")
-                        )
+                        dailyRentalRateAmount.getOptional("daily_rental_rate_amount")
 
                     /**
                      * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the daily
@@ -9397,9 +9366,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun dailyRentalRateCurrency(): Optional<String> =
-                        Optional.ofNullable(
-                            dailyRentalRateCurrency.getNullable("daily_rental_rate_currency")
-                        )
+                        dailyRentalRateCurrency.getOptional("daily_rental_rate_currency")
 
                     /**
                      * Number of days the vehicle was rented.
@@ -9407,8 +9374,7 @@ private constructor(
                      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                      *   (e.g. if the server responded with an unexpected value).
                      */
-                    fun daysRented(): Optional<Long> =
-                        Optional.ofNullable(daysRented.getNullable("days_rented"))
+                    fun daysRented(): Optional<Long> = daysRented.getOptional("days_rented")
 
                     /**
                      * Additional charges (gas, late fee, etc.) being billed.
@@ -9417,7 +9383,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun extraCharges(): Optional<ExtraCharges> =
-                        Optional.ofNullable(extraCharges.getNullable("extra_charges"))
+                        extraCharges.getOptional("extra_charges")
 
                     /**
                      * Fuel charges for the vehicle.
@@ -9426,7 +9392,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun fuelChargesAmount(): Optional<Long> =
-                        Optional.ofNullable(fuelChargesAmount.getNullable("fuel_charges_amount"))
+                        fuelChargesAmount.getOptional("fuel_charges_amount")
 
                     /**
                      * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the fuel
@@ -9436,9 +9402,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun fuelChargesCurrency(): Optional<String> =
-                        Optional.ofNullable(
-                            fuelChargesCurrency.getNullable("fuel_charges_currency")
-                        )
+                        fuelChargesCurrency.getOptional("fuel_charges_currency")
 
                     /**
                      * Any insurance being charged for the vehicle.
@@ -9447,9 +9411,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun insuranceChargesAmount(): Optional<Long> =
-                        Optional.ofNullable(
-                            insuranceChargesAmount.getNullable("insurance_charges_amount")
-                        )
+                        insuranceChargesAmount.getOptional("insurance_charges_amount")
 
                     /**
                      * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the insurance
@@ -9459,9 +9421,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun insuranceChargesCurrency(): Optional<String> =
-                        Optional.ofNullable(
-                            insuranceChargesCurrency.getNullable("insurance_charges_currency")
-                        )
+                        insuranceChargesCurrency.getOptional("insurance_charges_currency")
 
                     /**
                      * An indicator that the cardholder is being billed for a reserved vehicle that
@@ -9471,7 +9431,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun noShowIndicator(): Optional<NoShowIndicator> =
-                        Optional.ofNullable(noShowIndicator.getNullable("no_show_indicator"))
+                        noShowIndicator.getOptional("no_show_indicator")
 
                     /**
                      * Charges for returning the vehicle at a different location than where it was
@@ -9481,11 +9441,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun oneWayDropOffChargesAmount(): Optional<Long> =
-                        Optional.ofNullable(
-                            oneWayDropOffChargesAmount.getNullable(
-                                "one_way_drop_off_charges_amount"
-                            )
-                        )
+                        oneWayDropOffChargesAmount.getOptional("one_way_drop_off_charges_amount")
 
                     /**
                      * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the one-way
@@ -9495,10 +9451,8 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun oneWayDropOffChargesCurrency(): Optional<String> =
-                        Optional.ofNullable(
-                            oneWayDropOffChargesCurrency.getNullable(
-                                "one_way_drop_off_charges_currency"
-                            )
+                        oneWayDropOffChargesCurrency.getOptional(
+                            "one_way_drop_off_charges_currency"
                         )
 
                     /**
@@ -9507,8 +9461,7 @@ private constructor(
                      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                      *   (e.g. if the server responded with an unexpected value).
                      */
-                    fun renterName(): Optional<String> =
-                        Optional.ofNullable(renterName.getNullable("renter_name"))
+                    fun renterName(): Optional<String> = renterName.getOptional("renter_name")
 
                     /**
                      * Weekly rate being charged for the vehicle.
@@ -9517,9 +9470,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun weeklyRentalRateAmount(): Optional<Long> =
-                        Optional.ofNullable(
-                            weeklyRentalRateAmount.getNullable("weekly_rental_rate_amount")
-                        )
+                        weeklyRentalRateAmount.getOptional("weekly_rental_rate_amount")
 
                     /**
                      * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the weekly
@@ -9529,9 +9480,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun weeklyRentalRateCurrency(): Optional<String> =
-                        Optional.ofNullable(
-                            weeklyRentalRateCurrency.getNullable("weekly_rental_rate_currency")
-                        )
+                        weeklyRentalRateCurrency.getOptional("weekly_rental_rate_currency")
 
                     /**
                      * Returns the raw JSON value of [carClassCode].
@@ -10798,7 +10747,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun checkInDate(): Optional<LocalDate> =
-                        Optional.ofNullable(checkInDate.getNullable("check_in_date"))
+                        checkInDate.getOptional("check_in_date")
 
                     /**
                      * Daily rate being charged for the room.
@@ -10807,9 +10756,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun dailyRoomRateAmount(): Optional<Long> =
-                        Optional.ofNullable(
-                            dailyRoomRateAmount.getNullable("daily_room_rate_amount")
-                        )
+                        dailyRoomRateAmount.getOptional("daily_room_rate_amount")
 
                     /**
                      * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the daily
@@ -10819,9 +10766,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun dailyRoomRateCurrency(): Optional<String> =
-                        Optional.ofNullable(
-                            dailyRoomRateCurrency.getNullable("daily_room_rate_currency")
-                        )
+                        dailyRoomRateCurrency.getOptional("daily_room_rate_currency")
 
                     /**
                      * Additional charges (phone, late check-out, etc.) being billed.
@@ -10830,7 +10775,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun extraCharges(): Optional<ExtraCharges> =
-                        Optional.ofNullable(extraCharges.getNullable("extra_charges"))
+                        extraCharges.getOptional("extra_charges")
 
                     /**
                      * Folio cash advances for the room.
@@ -10839,9 +10784,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun folioCashAdvancesAmount(): Optional<Long> =
-                        Optional.ofNullable(
-                            folioCashAdvancesAmount.getNullable("folio_cash_advances_amount")
-                        )
+                        folioCashAdvancesAmount.getOptional("folio_cash_advances_amount")
 
                     /**
                      * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the folio
@@ -10851,9 +10794,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun folioCashAdvancesCurrency(): Optional<String> =
-                        Optional.ofNullable(
-                            folioCashAdvancesCurrency.getNullable("folio_cash_advances_currency")
-                        )
+                        folioCashAdvancesCurrency.getOptional("folio_cash_advances_currency")
 
                     /**
                      * Food and beverage charges for the room.
@@ -10862,9 +10803,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun foodBeverageChargesAmount(): Optional<Long> =
-                        Optional.ofNullable(
-                            foodBeverageChargesAmount.getNullable("food_beverage_charges_amount")
-                        )
+                        foodBeverageChargesAmount.getOptional("food_beverage_charges_amount")
 
                     /**
                      * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the food and
@@ -10874,11 +10813,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun foodBeverageChargesCurrency(): Optional<String> =
-                        Optional.ofNullable(
-                            foodBeverageChargesCurrency.getNullable(
-                                "food_beverage_charges_currency"
-                            )
-                        )
+                        foodBeverageChargesCurrency.getOptional("food_beverage_charges_currency")
 
                     /**
                      * Indicator that the cardholder is being billed for a reserved room that was
@@ -10888,7 +10823,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun noShowIndicator(): Optional<NoShowIndicator> =
-                        Optional.ofNullable(noShowIndicator.getNullable("no_show_indicator"))
+                        noShowIndicator.getOptional("no_show_indicator")
 
                     /**
                      * Prepaid expenses being charged for the room.
@@ -10897,9 +10832,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun prepaidExpensesAmount(): Optional<Long> =
-                        Optional.ofNullable(
-                            prepaidExpensesAmount.getNullable("prepaid_expenses_amount")
-                        )
+                        prepaidExpensesAmount.getOptional("prepaid_expenses_amount")
 
                     /**
                      * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the prepaid
@@ -10909,9 +10842,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun prepaidExpensesCurrency(): Optional<String> =
-                        Optional.ofNullable(
-                            prepaidExpensesCurrency.getNullable("prepaid_expenses_currency")
-                        )
+                        prepaidExpensesCurrency.getOptional("prepaid_expenses_currency")
 
                     /**
                      * Number of nights the room was rented.
@@ -10919,8 +10850,7 @@ private constructor(
                      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                      *   (e.g. if the server responded with an unexpected value).
                      */
-                    fun roomNights(): Optional<Long> =
-                        Optional.ofNullable(roomNights.getNullable("room_nights"))
+                    fun roomNights(): Optional<Long> = roomNights.getOptional("room_nights")
 
                     /**
                      * Total room tax being charged.
@@ -10929,7 +10859,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun totalRoomTaxAmount(): Optional<Long> =
-                        Optional.ofNullable(totalRoomTaxAmount.getNullable("total_room_tax_amount"))
+                        totalRoomTaxAmount.getOptional("total_room_tax_amount")
 
                     /**
                      * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the total
@@ -10939,9 +10869,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun totalRoomTaxCurrency(): Optional<String> =
-                        Optional.ofNullable(
-                            totalRoomTaxCurrency.getNullable("total_room_tax_currency")
-                        )
+                        totalRoomTaxCurrency.getOptional("total_room_tax_currency")
 
                     /**
                      * Total tax being charged for the room.
@@ -10950,7 +10878,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun totalTaxAmount(): Optional<Long> =
-                        Optional.ofNullable(totalTaxAmount.getNullable("total_tax_amount"))
+                        totalTaxAmount.getOptional("total_tax_amount")
 
                     /**
                      * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the total tax
@@ -10960,7 +10888,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun totalTaxCurrency(): Optional<String> =
-                        Optional.ofNullable(totalTaxCurrency.getNullable("total_tax_currency"))
+                        totalTaxCurrency.getOptional("total_tax_currency")
 
                     /**
                      * Returns the raw JSON value of [checkInDate].
@@ -12393,8 +12321,7 @@ private constructor(
                      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                      *   (e.g. if the server responded with an unexpected value).
                      */
-                    fun ancillary(): Optional<Ancillary> =
-                        Optional.ofNullable(ancillary.getNullable("ancillary"))
+                    fun ancillary(): Optional<Ancillary> = ancillary.getOptional("ancillary")
 
                     /**
                      * Indicates the computerized reservation system used to book the ticket.
@@ -12403,11 +12330,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun computerizedReservationSystem(): Optional<String> =
-                        Optional.ofNullable(
-                            computerizedReservationSystem.getNullable(
-                                "computerized_reservation_system"
-                            )
-                        )
+                        computerizedReservationSystem.getOptional("computerized_reservation_system")
 
                     /**
                      * Indicates the reason for a credit to the cardholder.
@@ -12416,9 +12339,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun creditReasonIndicator(): Optional<CreditReasonIndicator> =
-                        Optional.ofNullable(
-                            creditReasonIndicator.getNullable("credit_reason_indicator")
-                        )
+                        creditReasonIndicator.getOptional("credit_reason_indicator")
 
                     /**
                      * Date of departure.
@@ -12427,7 +12348,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun departureDate(): Optional<LocalDate> =
-                        Optional.ofNullable(departureDate.getNullable("departure_date"))
+                        departureDate.getOptional("departure_date")
 
                     /**
                      * Code for the originating city or airport.
@@ -12436,9 +12357,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun originationCityAirportCode(): Optional<String> =
-                        Optional.ofNullable(
-                            originationCityAirportCode.getNullable("origination_city_airport_code")
-                        )
+                        originationCityAirportCode.getOptional("origination_city_airport_code")
 
                     /**
                      * Name of the passenger.
@@ -12447,7 +12366,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun passengerName(): Optional<String> =
-                        Optional.ofNullable(passengerName.getNullable("passenger_name"))
+                        passengerName.getOptional("passenger_name")
 
                     /**
                      * Indicates whether this ticket is non-refundable.
@@ -12456,9 +12375,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun restrictedTicketIndicator(): Optional<RestrictedTicketIndicator> =
-                        Optional.ofNullable(
-                            restrictedTicketIndicator.getNullable("restricted_ticket_indicator")
-                        )
+                        restrictedTicketIndicator.getOptional("restricted_ticket_indicator")
 
                     /**
                      * Indicates why a ticket was changed.
@@ -12467,9 +12384,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun ticketChangeIndicator(): Optional<TicketChangeIndicator> =
-                        Optional.ofNullable(
-                            ticketChangeIndicator.getNullable("ticket_change_indicator")
-                        )
+                        ticketChangeIndicator.getOptional("ticket_change_indicator")
 
                     /**
                      * Ticket number.
@@ -12477,8 +12392,7 @@ private constructor(
                      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                      *   (e.g. if the server responded with an unexpected value).
                      */
-                    fun ticketNumber(): Optional<String> =
-                        Optional.ofNullable(ticketNumber.getNullable("ticket_number"))
+                    fun ticketNumber(): Optional<String> = ticketNumber.getOptional("ticket_number")
 
                     /**
                      * Code for the travel agency if the ticket was issued by a travel agency.
@@ -12487,7 +12401,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun travelAgencyCode(): Optional<String> =
-                        Optional.ofNullable(travelAgencyCode.getNullable("travel_agency_code"))
+                        travelAgencyCode.getOptional("travel_agency_code")
 
                     /**
                      * Name of the travel agency if the ticket was issued by a travel agency.
@@ -12496,7 +12410,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun travelAgencyName(): Optional<String> =
-                        Optional.ofNullable(travelAgencyName.getNullable("travel_agency_name"))
+                        travelAgencyName.getOptional("travel_agency_name")
 
                     /**
                      * Fields specific to each leg of the journey.
@@ -12504,8 +12418,7 @@ private constructor(
                      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                      *   (e.g. if the server responded with an unexpected value).
                      */
-                    fun tripLegs(): Optional<List<TripLeg>> =
-                        Optional.ofNullable(tripLegs.getNullable("trip_legs"))
+                    fun tripLegs(): Optional<List<TripLeg>> = tripLegs.getOptional("trip_legs")
 
                     /**
                      * Returns the raw JSON value of [ancillary].
@@ -13168,10 +13081,8 @@ private constructor(
                          *   type (e.g. if the server responded with an unexpected value).
                          */
                         fun connectedTicketDocumentNumber(): Optional<String> =
-                            Optional.ofNullable(
-                                connectedTicketDocumentNumber.getNullable(
-                                    "connected_ticket_document_number"
-                                )
+                            connectedTicketDocumentNumber.getOptional(
+                                "connected_ticket_document_number"
                             )
 
                         /**
@@ -13181,9 +13092,7 @@ private constructor(
                          *   type (e.g. if the server responded with an unexpected value).
                          */
                         fun creditReasonIndicator(): Optional<CreditReasonIndicator> =
-                            Optional.ofNullable(
-                                creditReasonIndicator.getNullable("credit_reason_indicator")
-                            )
+                            creditReasonIndicator.getOptional("credit_reason_indicator")
 
                         /**
                          * Name of the passenger or description of the ancillary purchase.
@@ -13192,11 +13101,7 @@ private constructor(
                          *   type (e.g. if the server responded with an unexpected value).
                          */
                         fun passengerNameOrDescription(): Optional<String> =
-                            Optional.ofNullable(
-                                passengerNameOrDescription.getNullable(
-                                    "passenger_name_or_description"
-                                )
-                            )
+                            passengerNameOrDescription.getOptional("passenger_name_or_description")
 
                         /**
                          * Additional travel charges, such as baggage fees.
@@ -13214,9 +13119,7 @@ private constructor(
                          *   type (e.g. if the server responded with an unexpected value).
                          */
                         fun ticketDocumentNumber(): Optional<String> =
-                            Optional.ofNullable(
-                                ticketDocumentNumber.getNullable("ticket_document_number")
-                            )
+                            ticketDocumentNumber.getOptional("ticket_document_number")
 
                         /**
                          * Returns the raw JSON value of [connectedTicketDocumentNumber].
@@ -13769,8 +13672,7 @@ private constructor(
                              *   unexpected type (e.g. if the server responded with an unexpected
                              *   value).
                              */
-                            fun category(): Optional<Category> =
-                                Optional.ofNullable(category.getNullable("category"))
+                            fun category(): Optional<Category> = category.getOptional("category")
 
                             /**
                              * Sub-category of the ancillary service, free-form.
@@ -13780,7 +13682,7 @@ private constructor(
                              *   value).
                              */
                             fun subCategory(): Optional<String> =
-                                Optional.ofNullable(subCategory.getNullable("sub_category"))
+                                subCategory.getOptional("sub_category")
 
                             /**
                              * Returns the raw JSON value of [category].
@@ -14917,7 +14819,7 @@ private constructor(
                          *   type (e.g. if the server responded with an unexpected value).
                          */
                         fun carrierCode(): Optional<String> =
-                            Optional.ofNullable(carrierCode.getNullable("carrier_code"))
+                            carrierCode.getOptional("carrier_code")
 
                         /**
                          * Code for the destination city or airport.
@@ -14926,11 +14828,7 @@ private constructor(
                          *   type (e.g. if the server responded with an unexpected value).
                          */
                         fun destinationCityAirportCode(): Optional<String> =
-                            Optional.ofNullable(
-                                destinationCityAirportCode.getNullable(
-                                    "destination_city_airport_code"
-                                )
-                            )
+                            destinationCityAirportCode.getOptional("destination_city_airport_code")
 
                         /**
                          * Fare basis code.
@@ -14939,7 +14837,7 @@ private constructor(
                          *   type (e.g. if the server responded with an unexpected value).
                          */
                         fun fareBasisCode(): Optional<String> =
-                            Optional.ofNullable(fareBasisCode.getNullable("fare_basis_code"))
+                            fareBasisCode.getOptional("fare_basis_code")
 
                         /**
                          * Flight number.
@@ -14948,7 +14846,7 @@ private constructor(
                          *   type (e.g. if the server responded with an unexpected value).
                          */
                         fun flightNumber(): Optional<String> =
-                            Optional.ofNullable(flightNumber.getNullable("flight_number"))
+                            flightNumber.getOptional("flight_number")
 
                         /**
                          * Service class (e.g., first class, business class, etc.).
@@ -14957,7 +14855,7 @@ private constructor(
                          *   type (e.g. if the server responded with an unexpected value).
                          */
                         fun serviceClass(): Optional<String> =
-                            Optional.ofNullable(serviceClass.getNullable("service_class"))
+                            serviceClass.getOptional("service_class")
 
                         /**
                          * Indicates whether a stopover is allowed on this ticket.
@@ -14966,7 +14864,7 @@ private constructor(
                          *   type (e.g. if the server responded with an unexpected value).
                          */
                         fun stopOverCode(): Optional<StopOverCode> =
-                            Optional.ofNullable(stopOverCode.getNullable("stop_over_code"))
+                            stopOverCode.getOptional("stop_over_code")
 
                         /**
                          * Returns the raw JSON value of [carrierCode].
@@ -15753,7 +15651,7 @@ private constructor(
              *   if the server responded with an unexpected value).
              */
             fun transactedOnAccountId(): Optional<String> =
-                Optional.ofNullable(transactedOnAccountId.getNullable("transacted_on_account_id"))
+                transactedOnAccountId.getOptional("transacted_on_account_id")
 
             /**
              * Returns the raw JSON value of [amount].
@@ -16355,7 +16253,7 @@ private constructor(
              *   if the server responded with an unexpected value).
              */
             fun cardAuthorization(): Optional<String> =
-                Optional.ofNullable(cardAuthorization.getNullable("card_authorization"))
+                cardAuthorization.getOptional("card_authorization")
 
             /**
              * The ID of the Card Payment this transaction belongs to.
@@ -16373,8 +16271,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun cashback(): Optional<Cashback> =
-                Optional.ofNullable(cashback.getNullable("cashback"))
+            fun cashback(): Optional<Cashback> = cashback.getOptional("cashback")
 
             /**
              * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
@@ -16392,8 +16289,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun interchange(): Optional<Interchange> =
-                Optional.ofNullable(interchange.getNullable("interchange"))
+            fun interchange(): Optional<Interchange> = interchange.getOptional("interchange")
 
             /**
              * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
@@ -16450,7 +16346,7 @@ private constructor(
              *   if the server responded with an unexpected value).
              */
             fun merchantPostalCode(): Optional<String> =
-                Optional.ofNullable(merchantPostalCode.getNullable("merchant_postal_code"))
+                merchantPostalCode.getOptional("merchant_postal_code")
 
             /**
              * The state the merchant resides in.
@@ -16458,8 +16354,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun merchantState(): Optional<String> =
-                Optional.ofNullable(merchantState.getNullable("merchant_state"))
+            fun merchantState(): Optional<String> = merchantState.getOptional("merchant_state")
 
             /**
              * Network-specific identifiers for this refund.
@@ -16478,7 +16373,7 @@ private constructor(
              *   if the server responded with an unexpected value).
              */
             fun pendingTransactionId(): Optional<String> =
-                Optional.ofNullable(pendingTransactionId.getNullable("pending_transaction_id"))
+                pendingTransactionId.getOptional("pending_transaction_id")
 
             /**
              * The amount in the minor unit of the transaction's presentment currency.
@@ -16507,7 +16402,7 @@ private constructor(
              *   if the server responded with an unexpected value).
              */
             fun purchaseDetails(): Optional<PurchaseDetails> =
-                Optional.ofNullable(purchaseDetails.getNullable("purchase_details"))
+                purchaseDetails.getOptional("purchase_details")
 
             /**
              * The identifier of the Transaction associated with this Transaction.
@@ -17953,7 +17848,7 @@ private constructor(
                  * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                  *   (e.g. if the server responded with an unexpected value).
                  */
-                fun code(): Optional<String> = Optional.ofNullable(code.getNullable("code"))
+                fun code(): Optional<String> = code.getOptional("code")
 
                 /**
                  * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the interchange
@@ -18407,8 +18302,7 @@ private constructor(
                  * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                  *   (e.g. if the server responded with an unexpected value).
                  */
-                fun transactionId(): Optional<String> =
-                    Optional.ofNullable(transactionId.getNullable("transaction_id"))
+                fun transactionId(): Optional<String> = transactionId.getOptional("transaction_id")
 
                 /**
                  * Returns the raw JSON value of [acquirerBusinessId].
@@ -18710,8 +18604,7 @@ private constructor(
                  * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                  *   (e.g. if the server responded with an unexpected value).
                  */
-                fun carRental(): Optional<CarRental> =
-                    Optional.ofNullable(carRental.getNullable("car_rental"))
+                fun carRental(): Optional<CarRental> = carRental.getOptional("car_rental")
 
                 /**
                  * An identifier from the merchant for the customer or consumer.
@@ -18720,9 +18613,7 @@ private constructor(
                  *   (e.g. if the server responded with an unexpected value).
                  */
                 fun customerReferenceIdentifier(): Optional<String> =
-                    Optional.ofNullable(
-                        customerReferenceIdentifier.getNullable("customer_reference_identifier")
-                    )
+                    customerReferenceIdentifier.getOptional("customer_reference_identifier")
 
                 /**
                  * The state or provincial tax amount in minor units.
@@ -18731,7 +18622,7 @@ private constructor(
                  *   (e.g. if the server responded with an unexpected value).
                  */
                 fun localTaxAmount(): Optional<Long> =
-                    Optional.ofNullable(localTaxAmount.getNullable("local_tax_amount"))
+                    localTaxAmount.getOptional("local_tax_amount")
 
                 /**
                  * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the local tax
@@ -18741,7 +18632,7 @@ private constructor(
                  *   (e.g. if the server responded with an unexpected value).
                  */
                 fun localTaxCurrency(): Optional<String> =
-                    Optional.ofNullable(localTaxCurrency.getNullable("local_tax_currency"))
+                    localTaxCurrency.getOptional("local_tax_currency")
 
                 /**
                  * Fields specific to lodging.
@@ -18749,8 +18640,7 @@ private constructor(
                  * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                  *   (e.g. if the server responded with an unexpected value).
                  */
-                fun lodging(): Optional<Lodging> =
-                    Optional.ofNullable(lodging.getNullable("lodging"))
+                fun lodging(): Optional<Lodging> = lodging.getOptional("lodging")
 
                 /**
                  * The national tax amount in minor units.
@@ -18759,7 +18649,7 @@ private constructor(
                  *   (e.g. if the server responded with an unexpected value).
                  */
                 fun nationalTaxAmount(): Optional<Long> =
-                    Optional.ofNullable(nationalTaxAmount.getNullable("national_tax_amount"))
+                    nationalTaxAmount.getOptional("national_tax_amount")
 
                 /**
                  * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the local tax
@@ -18769,7 +18659,7 @@ private constructor(
                  *   (e.g. if the server responded with an unexpected value).
                  */
                 fun nationalTaxCurrency(): Optional<String> =
-                    Optional.ofNullable(nationalTaxCurrency.getNullable("national_tax_currency"))
+                    nationalTaxCurrency.getOptional("national_tax_currency")
 
                 /**
                  * An identifier from the merchant for the purchase to the issuer and cardholder.
@@ -18778,7 +18668,7 @@ private constructor(
                  *   (e.g. if the server responded with an unexpected value).
                  */
                 fun purchaseIdentifier(): Optional<String> =
-                    Optional.ofNullable(purchaseIdentifier.getNullable("purchase_identifier"))
+                    purchaseIdentifier.getOptional("purchase_identifier")
 
                 /**
                  * The format of the purchase identifier.
@@ -18787,9 +18677,7 @@ private constructor(
                  *   (e.g. if the server responded with an unexpected value).
                  */
                 fun purchaseIdentifierFormat(): Optional<PurchaseIdentifierFormat> =
-                    Optional.ofNullable(
-                        purchaseIdentifierFormat.getNullable("purchase_identifier_format")
-                    )
+                    purchaseIdentifierFormat.getOptional("purchase_identifier_format")
 
                 /**
                  * Fields specific to travel.
@@ -18797,7 +18685,7 @@ private constructor(
                  * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                  *   (e.g. if the server responded with an unexpected value).
                  */
-                fun travel(): Optional<Travel> = Optional.ofNullable(travel.getNullable("travel"))
+                fun travel(): Optional<Travel> = travel.getOptional("travel")
 
                 /**
                  * Returns the raw JSON value of [carRental].
@@ -19402,7 +19290,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun carClassCode(): Optional<String> =
-                        Optional.ofNullable(carClassCode.getNullable("car_class_code"))
+                        carClassCode.getOptional("car_class_code")
 
                     /**
                      * Date the customer picked up the car or, in the case of a no-show or pre-pay
@@ -19412,7 +19300,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun checkoutDate(): Optional<LocalDate> =
-                        Optional.ofNullable(checkoutDate.getNullable("checkout_date"))
+                        checkoutDate.getOptional("checkout_date")
 
                     /**
                      * Daily rate being charged for the vehicle.
@@ -19421,9 +19309,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun dailyRentalRateAmount(): Optional<Long> =
-                        Optional.ofNullable(
-                            dailyRentalRateAmount.getNullable("daily_rental_rate_amount")
-                        )
+                        dailyRentalRateAmount.getOptional("daily_rental_rate_amount")
 
                     /**
                      * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the daily
@@ -19433,9 +19319,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun dailyRentalRateCurrency(): Optional<String> =
-                        Optional.ofNullable(
-                            dailyRentalRateCurrency.getNullable("daily_rental_rate_currency")
-                        )
+                        dailyRentalRateCurrency.getOptional("daily_rental_rate_currency")
 
                     /**
                      * Number of days the vehicle was rented.
@@ -19443,8 +19327,7 @@ private constructor(
                      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                      *   (e.g. if the server responded with an unexpected value).
                      */
-                    fun daysRented(): Optional<Long> =
-                        Optional.ofNullable(daysRented.getNullable("days_rented"))
+                    fun daysRented(): Optional<Long> = daysRented.getOptional("days_rented")
 
                     /**
                      * Additional charges (gas, late fee, etc.) being billed.
@@ -19453,7 +19336,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun extraCharges(): Optional<ExtraCharges> =
-                        Optional.ofNullable(extraCharges.getNullable("extra_charges"))
+                        extraCharges.getOptional("extra_charges")
 
                     /**
                      * Fuel charges for the vehicle.
@@ -19462,7 +19345,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun fuelChargesAmount(): Optional<Long> =
-                        Optional.ofNullable(fuelChargesAmount.getNullable("fuel_charges_amount"))
+                        fuelChargesAmount.getOptional("fuel_charges_amount")
 
                     /**
                      * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the fuel
@@ -19472,9 +19355,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun fuelChargesCurrency(): Optional<String> =
-                        Optional.ofNullable(
-                            fuelChargesCurrency.getNullable("fuel_charges_currency")
-                        )
+                        fuelChargesCurrency.getOptional("fuel_charges_currency")
 
                     /**
                      * Any insurance being charged for the vehicle.
@@ -19483,9 +19364,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun insuranceChargesAmount(): Optional<Long> =
-                        Optional.ofNullable(
-                            insuranceChargesAmount.getNullable("insurance_charges_amount")
-                        )
+                        insuranceChargesAmount.getOptional("insurance_charges_amount")
 
                     /**
                      * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the insurance
@@ -19495,9 +19374,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun insuranceChargesCurrency(): Optional<String> =
-                        Optional.ofNullable(
-                            insuranceChargesCurrency.getNullable("insurance_charges_currency")
-                        )
+                        insuranceChargesCurrency.getOptional("insurance_charges_currency")
 
                     /**
                      * An indicator that the cardholder is being billed for a reserved vehicle that
@@ -19507,7 +19384,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun noShowIndicator(): Optional<NoShowIndicator> =
-                        Optional.ofNullable(noShowIndicator.getNullable("no_show_indicator"))
+                        noShowIndicator.getOptional("no_show_indicator")
 
                     /**
                      * Charges for returning the vehicle at a different location than where it was
@@ -19517,11 +19394,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun oneWayDropOffChargesAmount(): Optional<Long> =
-                        Optional.ofNullable(
-                            oneWayDropOffChargesAmount.getNullable(
-                                "one_way_drop_off_charges_amount"
-                            )
-                        )
+                        oneWayDropOffChargesAmount.getOptional("one_way_drop_off_charges_amount")
 
                     /**
                      * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the one-way
@@ -19531,10 +19404,8 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun oneWayDropOffChargesCurrency(): Optional<String> =
-                        Optional.ofNullable(
-                            oneWayDropOffChargesCurrency.getNullable(
-                                "one_way_drop_off_charges_currency"
-                            )
+                        oneWayDropOffChargesCurrency.getOptional(
+                            "one_way_drop_off_charges_currency"
                         )
 
                     /**
@@ -19543,8 +19414,7 @@ private constructor(
                      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                      *   (e.g. if the server responded with an unexpected value).
                      */
-                    fun renterName(): Optional<String> =
-                        Optional.ofNullable(renterName.getNullable("renter_name"))
+                    fun renterName(): Optional<String> = renterName.getOptional("renter_name")
 
                     /**
                      * Weekly rate being charged for the vehicle.
@@ -19553,9 +19423,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun weeklyRentalRateAmount(): Optional<Long> =
-                        Optional.ofNullable(
-                            weeklyRentalRateAmount.getNullable("weekly_rental_rate_amount")
-                        )
+                        weeklyRentalRateAmount.getOptional("weekly_rental_rate_amount")
 
                     /**
                      * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the weekly
@@ -19565,9 +19433,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun weeklyRentalRateCurrency(): Optional<String> =
-                        Optional.ofNullable(
-                            weeklyRentalRateCurrency.getNullable("weekly_rental_rate_currency")
-                        )
+                        weeklyRentalRateCurrency.getOptional("weekly_rental_rate_currency")
 
                     /**
                      * Returns the raw JSON value of [carClassCode].
@@ -20834,7 +20700,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun checkInDate(): Optional<LocalDate> =
-                        Optional.ofNullable(checkInDate.getNullable("check_in_date"))
+                        checkInDate.getOptional("check_in_date")
 
                     /**
                      * Daily rate being charged for the room.
@@ -20843,9 +20709,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun dailyRoomRateAmount(): Optional<Long> =
-                        Optional.ofNullable(
-                            dailyRoomRateAmount.getNullable("daily_room_rate_amount")
-                        )
+                        dailyRoomRateAmount.getOptional("daily_room_rate_amount")
 
                     /**
                      * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the daily
@@ -20855,9 +20719,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun dailyRoomRateCurrency(): Optional<String> =
-                        Optional.ofNullable(
-                            dailyRoomRateCurrency.getNullable("daily_room_rate_currency")
-                        )
+                        dailyRoomRateCurrency.getOptional("daily_room_rate_currency")
 
                     /**
                      * Additional charges (phone, late check-out, etc.) being billed.
@@ -20866,7 +20728,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun extraCharges(): Optional<ExtraCharges> =
-                        Optional.ofNullable(extraCharges.getNullable("extra_charges"))
+                        extraCharges.getOptional("extra_charges")
 
                     /**
                      * Folio cash advances for the room.
@@ -20875,9 +20737,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun folioCashAdvancesAmount(): Optional<Long> =
-                        Optional.ofNullable(
-                            folioCashAdvancesAmount.getNullable("folio_cash_advances_amount")
-                        )
+                        folioCashAdvancesAmount.getOptional("folio_cash_advances_amount")
 
                     /**
                      * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the folio
@@ -20887,9 +20747,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun folioCashAdvancesCurrency(): Optional<String> =
-                        Optional.ofNullable(
-                            folioCashAdvancesCurrency.getNullable("folio_cash_advances_currency")
-                        )
+                        folioCashAdvancesCurrency.getOptional("folio_cash_advances_currency")
 
                     /**
                      * Food and beverage charges for the room.
@@ -20898,9 +20756,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun foodBeverageChargesAmount(): Optional<Long> =
-                        Optional.ofNullable(
-                            foodBeverageChargesAmount.getNullable("food_beverage_charges_amount")
-                        )
+                        foodBeverageChargesAmount.getOptional("food_beverage_charges_amount")
 
                     /**
                      * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the food and
@@ -20910,11 +20766,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun foodBeverageChargesCurrency(): Optional<String> =
-                        Optional.ofNullable(
-                            foodBeverageChargesCurrency.getNullable(
-                                "food_beverage_charges_currency"
-                            )
-                        )
+                        foodBeverageChargesCurrency.getOptional("food_beverage_charges_currency")
 
                     /**
                      * Indicator that the cardholder is being billed for a reserved room that was
@@ -20924,7 +20776,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun noShowIndicator(): Optional<NoShowIndicator> =
-                        Optional.ofNullable(noShowIndicator.getNullable("no_show_indicator"))
+                        noShowIndicator.getOptional("no_show_indicator")
 
                     /**
                      * Prepaid expenses being charged for the room.
@@ -20933,9 +20785,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun prepaidExpensesAmount(): Optional<Long> =
-                        Optional.ofNullable(
-                            prepaidExpensesAmount.getNullable("prepaid_expenses_amount")
-                        )
+                        prepaidExpensesAmount.getOptional("prepaid_expenses_amount")
 
                     /**
                      * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the prepaid
@@ -20945,9 +20795,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun prepaidExpensesCurrency(): Optional<String> =
-                        Optional.ofNullable(
-                            prepaidExpensesCurrency.getNullable("prepaid_expenses_currency")
-                        )
+                        prepaidExpensesCurrency.getOptional("prepaid_expenses_currency")
 
                     /**
                      * Number of nights the room was rented.
@@ -20955,8 +20803,7 @@ private constructor(
                      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                      *   (e.g. if the server responded with an unexpected value).
                      */
-                    fun roomNights(): Optional<Long> =
-                        Optional.ofNullable(roomNights.getNullable("room_nights"))
+                    fun roomNights(): Optional<Long> = roomNights.getOptional("room_nights")
 
                     /**
                      * Total room tax being charged.
@@ -20965,7 +20812,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun totalRoomTaxAmount(): Optional<Long> =
-                        Optional.ofNullable(totalRoomTaxAmount.getNullable("total_room_tax_amount"))
+                        totalRoomTaxAmount.getOptional("total_room_tax_amount")
 
                     /**
                      * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the total
@@ -20975,9 +20822,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun totalRoomTaxCurrency(): Optional<String> =
-                        Optional.ofNullable(
-                            totalRoomTaxCurrency.getNullable("total_room_tax_currency")
-                        )
+                        totalRoomTaxCurrency.getOptional("total_room_tax_currency")
 
                     /**
                      * Total tax being charged for the room.
@@ -20986,7 +20831,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun totalTaxAmount(): Optional<Long> =
-                        Optional.ofNullable(totalTaxAmount.getNullable("total_tax_amount"))
+                        totalTaxAmount.getOptional("total_tax_amount")
 
                     /**
                      * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the total tax
@@ -20996,7 +20841,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun totalTaxCurrency(): Optional<String> =
-                        Optional.ofNullable(totalTaxCurrency.getNullable("total_tax_currency"))
+                        totalTaxCurrency.getOptional("total_tax_currency")
 
                     /**
                      * Returns the raw JSON value of [checkInDate].
@@ -22429,8 +22274,7 @@ private constructor(
                      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                      *   (e.g. if the server responded with an unexpected value).
                      */
-                    fun ancillary(): Optional<Ancillary> =
-                        Optional.ofNullable(ancillary.getNullable("ancillary"))
+                    fun ancillary(): Optional<Ancillary> = ancillary.getOptional("ancillary")
 
                     /**
                      * Indicates the computerized reservation system used to book the ticket.
@@ -22439,11 +22283,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun computerizedReservationSystem(): Optional<String> =
-                        Optional.ofNullable(
-                            computerizedReservationSystem.getNullable(
-                                "computerized_reservation_system"
-                            )
-                        )
+                        computerizedReservationSystem.getOptional("computerized_reservation_system")
 
                     /**
                      * Indicates the reason for a credit to the cardholder.
@@ -22452,9 +22292,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun creditReasonIndicator(): Optional<CreditReasonIndicator> =
-                        Optional.ofNullable(
-                            creditReasonIndicator.getNullable("credit_reason_indicator")
-                        )
+                        creditReasonIndicator.getOptional("credit_reason_indicator")
 
                     /**
                      * Date of departure.
@@ -22463,7 +22301,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun departureDate(): Optional<LocalDate> =
-                        Optional.ofNullable(departureDate.getNullable("departure_date"))
+                        departureDate.getOptional("departure_date")
 
                     /**
                      * Code for the originating city or airport.
@@ -22472,9 +22310,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun originationCityAirportCode(): Optional<String> =
-                        Optional.ofNullable(
-                            originationCityAirportCode.getNullable("origination_city_airport_code")
-                        )
+                        originationCityAirportCode.getOptional("origination_city_airport_code")
 
                     /**
                      * Name of the passenger.
@@ -22483,7 +22319,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun passengerName(): Optional<String> =
-                        Optional.ofNullable(passengerName.getNullable("passenger_name"))
+                        passengerName.getOptional("passenger_name")
 
                     /**
                      * Indicates whether this ticket is non-refundable.
@@ -22492,9 +22328,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun restrictedTicketIndicator(): Optional<RestrictedTicketIndicator> =
-                        Optional.ofNullable(
-                            restrictedTicketIndicator.getNullable("restricted_ticket_indicator")
-                        )
+                        restrictedTicketIndicator.getOptional("restricted_ticket_indicator")
 
                     /**
                      * Indicates why a ticket was changed.
@@ -22503,9 +22337,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun ticketChangeIndicator(): Optional<TicketChangeIndicator> =
-                        Optional.ofNullable(
-                            ticketChangeIndicator.getNullable("ticket_change_indicator")
-                        )
+                        ticketChangeIndicator.getOptional("ticket_change_indicator")
 
                     /**
                      * Ticket number.
@@ -22513,8 +22345,7 @@ private constructor(
                      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                      *   (e.g. if the server responded with an unexpected value).
                      */
-                    fun ticketNumber(): Optional<String> =
-                        Optional.ofNullable(ticketNumber.getNullable("ticket_number"))
+                    fun ticketNumber(): Optional<String> = ticketNumber.getOptional("ticket_number")
 
                     /**
                      * Code for the travel agency if the ticket was issued by a travel agency.
@@ -22523,7 +22354,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun travelAgencyCode(): Optional<String> =
-                        Optional.ofNullable(travelAgencyCode.getNullable("travel_agency_code"))
+                        travelAgencyCode.getOptional("travel_agency_code")
 
                     /**
                      * Name of the travel agency if the ticket was issued by a travel agency.
@@ -22532,7 +22363,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun travelAgencyName(): Optional<String> =
-                        Optional.ofNullable(travelAgencyName.getNullable("travel_agency_name"))
+                        travelAgencyName.getOptional("travel_agency_name")
 
                     /**
                      * Fields specific to each leg of the journey.
@@ -22540,8 +22371,7 @@ private constructor(
                      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                      *   (e.g. if the server responded with an unexpected value).
                      */
-                    fun tripLegs(): Optional<List<TripLeg>> =
-                        Optional.ofNullable(tripLegs.getNullable("trip_legs"))
+                    fun tripLegs(): Optional<List<TripLeg>> = tripLegs.getOptional("trip_legs")
 
                     /**
                      * Returns the raw JSON value of [ancillary].
@@ -23204,10 +23034,8 @@ private constructor(
                          *   type (e.g. if the server responded with an unexpected value).
                          */
                         fun connectedTicketDocumentNumber(): Optional<String> =
-                            Optional.ofNullable(
-                                connectedTicketDocumentNumber.getNullable(
-                                    "connected_ticket_document_number"
-                                )
+                            connectedTicketDocumentNumber.getOptional(
+                                "connected_ticket_document_number"
                             )
 
                         /**
@@ -23217,9 +23045,7 @@ private constructor(
                          *   type (e.g. if the server responded with an unexpected value).
                          */
                         fun creditReasonIndicator(): Optional<CreditReasonIndicator> =
-                            Optional.ofNullable(
-                                creditReasonIndicator.getNullable("credit_reason_indicator")
-                            )
+                            creditReasonIndicator.getOptional("credit_reason_indicator")
 
                         /**
                          * Name of the passenger or description of the ancillary purchase.
@@ -23228,11 +23054,7 @@ private constructor(
                          *   type (e.g. if the server responded with an unexpected value).
                          */
                         fun passengerNameOrDescription(): Optional<String> =
-                            Optional.ofNullable(
-                                passengerNameOrDescription.getNullable(
-                                    "passenger_name_or_description"
-                                )
-                            )
+                            passengerNameOrDescription.getOptional("passenger_name_or_description")
 
                         /**
                          * Additional travel charges, such as baggage fees.
@@ -23250,9 +23072,7 @@ private constructor(
                          *   type (e.g. if the server responded with an unexpected value).
                          */
                         fun ticketDocumentNumber(): Optional<String> =
-                            Optional.ofNullable(
-                                ticketDocumentNumber.getNullable("ticket_document_number")
-                            )
+                            ticketDocumentNumber.getOptional("ticket_document_number")
 
                         /**
                          * Returns the raw JSON value of [connectedTicketDocumentNumber].
@@ -23805,8 +23625,7 @@ private constructor(
                              *   unexpected type (e.g. if the server responded with an unexpected
                              *   value).
                              */
-                            fun category(): Optional<Category> =
-                                Optional.ofNullable(category.getNullable("category"))
+                            fun category(): Optional<Category> = category.getOptional("category")
 
                             /**
                              * Sub-category of the ancillary service, free-form.
@@ -23816,7 +23635,7 @@ private constructor(
                              *   value).
                              */
                             fun subCategory(): Optional<String> =
-                                Optional.ofNullable(subCategory.getNullable("sub_category"))
+                                subCategory.getOptional("sub_category")
 
                             /**
                              * Returns the raw JSON value of [category].
@@ -24953,7 +24772,7 @@ private constructor(
                          *   type (e.g. if the server responded with an unexpected value).
                          */
                         fun carrierCode(): Optional<String> =
-                            Optional.ofNullable(carrierCode.getNullable("carrier_code"))
+                            carrierCode.getOptional("carrier_code")
 
                         /**
                          * Code for the destination city or airport.
@@ -24962,11 +24781,7 @@ private constructor(
                          *   type (e.g. if the server responded with an unexpected value).
                          */
                         fun destinationCityAirportCode(): Optional<String> =
-                            Optional.ofNullable(
-                                destinationCityAirportCode.getNullable(
-                                    "destination_city_airport_code"
-                                )
-                            )
+                            destinationCityAirportCode.getOptional("destination_city_airport_code")
 
                         /**
                          * Fare basis code.
@@ -24975,7 +24790,7 @@ private constructor(
                          *   type (e.g. if the server responded with an unexpected value).
                          */
                         fun fareBasisCode(): Optional<String> =
-                            Optional.ofNullable(fareBasisCode.getNullable("fare_basis_code"))
+                            fareBasisCode.getOptional("fare_basis_code")
 
                         /**
                          * Flight number.
@@ -24984,7 +24799,7 @@ private constructor(
                          *   type (e.g. if the server responded with an unexpected value).
                          */
                         fun flightNumber(): Optional<String> =
-                            Optional.ofNullable(flightNumber.getNullable("flight_number"))
+                            flightNumber.getOptional("flight_number")
 
                         /**
                          * Service class (e.g., first class, business class, etc.).
@@ -24993,7 +24808,7 @@ private constructor(
                          *   type (e.g. if the server responded with an unexpected value).
                          */
                         fun serviceClass(): Optional<String> =
-                            Optional.ofNullable(serviceClass.getNullable("service_class"))
+                            serviceClass.getOptional("service_class")
 
                         /**
                          * Indicates whether a stopover is allowed on this ticket.
@@ -25002,7 +24817,7 @@ private constructor(
                          *   type (e.g. if the server responded with an unexpected value).
                          */
                         fun stopOverCode(): Optional<StopOverCode> =
-                            Optional.ofNullable(stopOverCode.getNullable("stop_over_code"))
+                            stopOverCode.getOptional("stop_over_code")
 
                         /**
                          * Returns the raw JSON value of [carrierCode].
@@ -25745,7 +25560,7 @@ private constructor(
              *   if the server responded with an unexpected value).
              */
             fun accruedOnCardId(): Optional<String> =
-                Optional.ofNullable(accruedOnCardId.getNullable("accrued_on_card_id"))
+                accruedOnCardId.getOptional("accrued_on_card_id")
 
             /**
              * The amount in the minor unit of the transaction's currency. For dollars, for example,
@@ -26883,8 +26698,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun auxiliaryOnUs(): Optional<String> =
-                Optional.ofNullable(auxiliaryOnUs.getNullable("auxiliary_on_us"))
+            fun auxiliaryOnUs(): Optional<String> = auxiliaryOnUs.getOptional("auxiliary_on_us")
 
             /**
              * The ID of the Check Deposit that was accepted.
@@ -26921,8 +26735,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun serialNumber(): Optional<String> =
-                Optional.ofNullable(serialNumber.getNullable("serial_number"))
+            fun serialNumber(): Optional<String> = serialNumber.getOptional("serial_number")
 
             /**
              * Returns the raw JSON value of [accountNumber].
@@ -28467,7 +28280,7 @@ private constructor(
              *   if the server responded with an unexpected value).
              */
             fun backImageFileId(): Optional<String> =
-                Optional.ofNullable(backImageFileId.getNullable("back_image_file_id"))
+                backImageFileId.getOptional("back_image_file_id")
 
             /**
              * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the bank
@@ -28478,11 +28291,7 @@ private constructor(
              *   if the server responded with an unexpected value).
              */
             fun bankOfFirstDepositRoutingNumber(): Optional<String> =
-                Optional.ofNullable(
-                    bankOfFirstDepositRoutingNumber.getNullable(
-                        "bank_of_first_deposit_routing_number"
-                    )
-                )
+                bankOfFirstDepositRoutingNumber.getOptional("bank_of_first_deposit_routing_number")
 
             /**
              * When the check was deposited.
@@ -28501,7 +28310,7 @@ private constructor(
              *   if the server responded with an unexpected value).
              */
             fun frontImageFileId(): Optional<String> =
-                Optional.ofNullable(frontImageFileId.getNullable("front_image_file_id"))
+                frontImageFileId.getOptional("front_image_file_id")
 
             /**
              * The identifier of the Inbound Check Deposit object associated with this transaction.
@@ -28510,7 +28319,7 @@ private constructor(
              *   if the server responded with an unexpected value).
              */
             fun inboundCheckDepositId(): Optional<String> =
-                Optional.ofNullable(inboundCheckDepositId.getNullable("inbound_check_deposit_id"))
+                inboundCheckDepositId.getOptional("inbound_check_deposit_id")
 
             /**
              * The identifier of the Transaction object created when the check was deposited.
@@ -28518,8 +28327,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun transactionId(): Optional<String> =
-                Optional.ofNullable(transactionId.getNullable("transaction_id"))
+            fun transactionId(): Optional<String> = transactionId.getOptional("transaction_id")
 
             /**
              * The identifier of the Check Transfer object that was deposited.
@@ -28527,8 +28335,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun transferId(): Optional<String> =
-                Optional.ofNullable(transferId.getNullable("transfer_id"))
+            fun transferId(): Optional<String> = transferId.getOptional("transfer_id")
 
             /**
              * A constant representing the object's type. For this resource it will always be
@@ -29158,8 +28965,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun programId(): Optional<String> =
-                Optional.ofNullable(programId.getNullable("program_id"))
+            fun programId(): Optional<String> = programId.getOptional("program_id")
 
             /**
              * Returns the raw JSON value of [amount].
@@ -29657,7 +29463,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun addenda(): Optional<Addenda> = Optional.ofNullable(addenda.getNullable("addenda"))
+            fun addenda(): Optional<Addenda> = addenda.getOptional("addenda")
 
             /**
              * The transfer amount in USD cents.
@@ -29675,11 +29481,7 @@ private constructor(
              *   if the server responded with an unexpected value).
              */
             fun originatorCompanyDescriptiveDate(): Optional<String> =
-                Optional.ofNullable(
-                    originatorCompanyDescriptiveDate.getNullable(
-                        "originator_company_descriptive_date"
-                    )
-                )
+                originatorCompanyDescriptiveDate.getOptional("originator_company_descriptive_date")
 
             /**
              * Data set by the originator.
@@ -29688,10 +29490,8 @@ private constructor(
              *   if the server responded with an unexpected value).
              */
             fun originatorCompanyDiscretionaryData(): Optional<String> =
-                Optional.ofNullable(
-                    originatorCompanyDiscretionaryData.getNullable(
-                        "originator_company_discretionary_data"
-                    )
+                originatorCompanyDiscretionaryData.getOptional(
+                    "originator_company_discretionary_data"
                 )
 
             /**
@@ -29734,7 +29534,7 @@ private constructor(
              *   if the server responded with an unexpected value).
              */
             fun receiverIdNumber(): Optional<String> =
-                Optional.ofNullable(receiverIdNumber.getNullable("receiver_id_number"))
+                receiverIdNumber.getOptional("receiver_id_number")
 
             /**
              * The name of the transfer recipient. This value is informational and not verified by
@@ -29743,8 +29543,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun receiverName(): Optional<String> =
-                Optional.ofNullable(receiverName.getNullable("receiver_name"))
+            fun receiverName(): Optional<String> = receiverName.getOptional("receiver_name")
 
             /**
              * A 15 digit number recorded in the Nacha file and available to both the originating
@@ -30313,8 +30112,7 @@ private constructor(
                  * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                  *   (e.g. if the server responded with an unexpected value).
                  */
-                fun freeform(): Optional<Freeform> =
-                    Optional.ofNullable(freeform.getNullable("freeform"))
+                fun freeform(): Optional<Freeform> = freeform.getOptional("freeform")
 
                 /**
                  * Returns the raw JSON value of [category].
@@ -31681,8 +31479,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun transferId(): Optional<String> =
-                Optional.ofNullable(transferId.getNullable("transfer_id"))
+            fun transferId(): Optional<String> = transferId.getOptional("transfer_id")
 
             /**
              * Returns the raw JSON value of [inboundCheckDepositId].
@@ -31998,7 +31795,7 @@ private constructor(
              *   if the server responded with an unexpected value).
              */
             fun remittanceInformation(): Optional<String> =
-                Optional.ofNullable(remittanceInformation.getNullable("remittance_information"))
+                remittanceInformation.getOptional("remittance_information")
 
             /**
              * The Real-Time Payments network identification of the transfer.
@@ -32756,7 +32553,7 @@ private constructor(
              *   if the server responded with an unexpected value).
              */
             fun remittanceInformation(): Optional<String> =
-                Optional.ofNullable(remittanceInformation.getNullable("remittance_information"))
+                remittanceInformation.getOptional("remittance_information")
 
             /**
              * The Real-Time Payments network identification of the declined transfer.
@@ -33710,10 +33507,8 @@ private constructor(
              *   if the server responded with an unexpected value).
              */
             fun financialInstitutionToFinancialInstitutionInformation(): Optional<String> =
-                Optional.ofNullable(
-                    financialInstitutionToFinancialInstitutionInformation.getNullable(
-                        "financial_institution_to_financial_institution_information"
-                    )
+                financialInstitutionToFinancialInstitutionInformation.getOptional(
+                    "financial_institution_to_financial_institution_information"
                 )
 
             /**
@@ -33763,9 +33558,7 @@ private constructor(
              *   if the server responded with an unexpected value).
              */
             fun originatorRoutingNumber(): Optional<String> =
-                Optional.ofNullable(
-                    originatorRoutingNumber.getNullable("originator_routing_number")
-                )
+                originatorRoutingNumber.getOptional("originator_routing_number")
 
             /**
              * The Fedwire cycle date for the wire transfer that is being reversed by this message.
@@ -33818,10 +33611,8 @@ private constructor(
              *   if the server responded with an unexpected value).
              */
             fun receiverFinancialInstitutionInformation(): Optional<String> =
-                Optional.ofNullable(
-                    receiverFinancialInstitutionInformation.getNullable(
-                        "receiver_financial_institution_information"
-                    )
+                receiverFinancialInstitutionInformation.getOptional(
+                    "receiver_financial_institution_information"
                 )
 
             /**
@@ -33831,7 +33622,7 @@ private constructor(
              *   if the server responded with an unexpected value).
              */
             fun senderReference(): Optional<String> =
-                Optional.ofNullable(senderReference.getNullable("sender_reference"))
+                senderReference.getOptional("sender_reference")
 
             /**
              * The ID for the Transaction associated with the transfer reversal.
@@ -34748,9 +34539,7 @@ private constructor(
              *   if the server responded with an unexpected value).
              */
             fun beneficiaryAddressLine1(): Optional<String> =
-                Optional.ofNullable(
-                    beneficiaryAddressLine1.getNullable("beneficiary_address_line1")
-                )
+                beneficiaryAddressLine1.getOptional("beneficiary_address_line1")
 
             /**
              * A free-form address field set by the sender.
@@ -34759,9 +34548,7 @@ private constructor(
              *   if the server responded with an unexpected value).
              */
             fun beneficiaryAddressLine2(): Optional<String> =
-                Optional.ofNullable(
-                    beneficiaryAddressLine2.getNullable("beneficiary_address_line2")
-                )
+                beneficiaryAddressLine2.getOptional("beneficiary_address_line2")
 
             /**
              * A free-form address field set by the sender.
@@ -34770,9 +34557,7 @@ private constructor(
              *   if the server responded with an unexpected value).
              */
             fun beneficiaryAddressLine3(): Optional<String> =
-                Optional.ofNullable(
-                    beneficiaryAddressLine3.getNullable("beneficiary_address_line3")
-                )
+                beneficiaryAddressLine3.getOptional("beneficiary_address_line3")
 
             /**
              * A name set by the sender.
@@ -34781,7 +34566,7 @@ private constructor(
              *   if the server responded with an unexpected value).
              */
             fun beneficiaryName(): Optional<String> =
-                Optional.ofNullable(beneficiaryName.getNullable("beneficiary_name"))
+                beneficiaryName.getOptional("beneficiary_name")
 
             /**
              * A free-form reference string set by the sender, to help identify the transfer.
@@ -34790,7 +34575,7 @@ private constructor(
              *   if the server responded with an unexpected value).
              */
             fun beneficiaryReference(): Optional<String> =
-                Optional.ofNullable(beneficiaryReference.getNullable("beneficiary_reference"))
+                beneficiaryReference.getOptional("beneficiary_reference")
 
             /**
              * An Increase-constructed description of the transfer.
@@ -34810,9 +34595,7 @@ private constructor(
              *   if the server responded with an unexpected value).
              */
             fun inputMessageAccountabilityData(): Optional<String> =
-                Optional.ofNullable(
-                    inputMessageAccountabilityData.getNullable("input_message_accountability_data")
-                )
+                inputMessageAccountabilityData.getOptional("input_message_accountability_data")
 
             /**
              * The address of the wire originator, set by the sending bank.
@@ -34821,7 +34604,7 @@ private constructor(
              *   if the server responded with an unexpected value).
              */
             fun originatorAddressLine1(): Optional<String> =
-                Optional.ofNullable(originatorAddressLine1.getNullable("originator_address_line1"))
+                originatorAddressLine1.getOptional("originator_address_line1")
 
             /**
              * The address of the wire originator, set by the sending bank.
@@ -34830,7 +34613,7 @@ private constructor(
              *   if the server responded with an unexpected value).
              */
             fun originatorAddressLine2(): Optional<String> =
-                Optional.ofNullable(originatorAddressLine2.getNullable("originator_address_line2"))
+                originatorAddressLine2.getOptional("originator_address_line2")
 
             /**
              * The address of the wire originator, set by the sending bank.
@@ -34839,7 +34622,7 @@ private constructor(
              *   if the server responded with an unexpected value).
              */
             fun originatorAddressLine3(): Optional<String> =
-                Optional.ofNullable(originatorAddressLine3.getNullable("originator_address_line3"))
+                originatorAddressLine3.getOptional("originator_address_line3")
 
             /**
              * The originator of the wire, set by the sending bank.
@@ -34847,8 +34630,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun originatorName(): Optional<String> =
-                Optional.ofNullable(originatorName.getNullable("originator_name"))
+            fun originatorName(): Optional<String> = originatorName.getOptional("originator_name")
 
             /**
              * The American Banking Association (ABA) routing number of the bank originating the
@@ -34858,9 +34640,7 @@ private constructor(
              *   if the server responded with an unexpected value).
              */
             fun originatorRoutingNumber(): Optional<String> =
-                Optional.ofNullable(
-                    originatorRoutingNumber.getNullable("originator_routing_number")
-                )
+                originatorRoutingNumber.getOptional("originator_routing_number")
 
             /**
              * An Increase-created concatenation of the Originator-to-Beneficiary lines.
@@ -34869,10 +34649,8 @@ private constructor(
              *   if the server responded with an unexpected value).
              */
             fun originatorToBeneficiaryInformation(): Optional<String> =
-                Optional.ofNullable(
-                    originatorToBeneficiaryInformation.getNullable(
-                        "originator_to_beneficiary_information"
-                    )
+                originatorToBeneficiaryInformation.getOptional(
+                    "originator_to_beneficiary_information"
                 )
 
             /**
@@ -34882,10 +34660,8 @@ private constructor(
              *   if the server responded with an unexpected value).
              */
             fun originatorToBeneficiaryInformationLine1(): Optional<String> =
-                Optional.ofNullable(
-                    originatorToBeneficiaryInformationLine1.getNullable(
-                        "originator_to_beneficiary_information_line1"
-                    )
+                originatorToBeneficiaryInformationLine1.getOptional(
+                    "originator_to_beneficiary_information_line1"
                 )
 
             /**
@@ -34895,10 +34671,8 @@ private constructor(
              *   if the server responded with an unexpected value).
              */
             fun originatorToBeneficiaryInformationLine2(): Optional<String> =
-                Optional.ofNullable(
-                    originatorToBeneficiaryInformationLine2.getNullable(
-                        "originator_to_beneficiary_information_line2"
-                    )
+                originatorToBeneficiaryInformationLine2.getOptional(
+                    "originator_to_beneficiary_information_line2"
                 )
 
             /**
@@ -34908,10 +34682,8 @@ private constructor(
              *   if the server responded with an unexpected value).
              */
             fun originatorToBeneficiaryInformationLine3(): Optional<String> =
-                Optional.ofNullable(
-                    originatorToBeneficiaryInformationLine3.getNullable(
-                        "originator_to_beneficiary_information_line3"
-                    )
+                originatorToBeneficiaryInformationLine3.getOptional(
+                    "originator_to_beneficiary_information_line3"
                 )
 
             /**
@@ -34921,10 +34693,8 @@ private constructor(
              *   if the server responded with an unexpected value).
              */
             fun originatorToBeneficiaryInformationLine4(): Optional<String> =
-                Optional.ofNullable(
-                    originatorToBeneficiaryInformationLine4.getNullable(
-                        "originator_to_beneficiary_information_line4"
-                    )
+                originatorToBeneficiaryInformationLine4.getOptional(
+                    "originator_to_beneficiary_information_line4"
                 )
 
             /**

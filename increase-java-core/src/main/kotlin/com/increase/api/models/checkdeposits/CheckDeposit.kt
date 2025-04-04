@@ -139,8 +139,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun backImageFileId(): Optional<String> =
-        Optional.ofNullable(backImageFileId.getNullable("back_image_file_id"))
+    fun backImageFileId(): Optional<String> = backImageFileId.getOptional("back_image_file_id")
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the transfer
@@ -159,7 +158,7 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun depositAcceptance(): Optional<DepositAcceptance> =
-        Optional.ofNullable(depositAcceptance.getNullable("deposit_acceptance"))
+        depositAcceptance.getOptional("deposit_acceptance")
 
     /**
      * If your deposit is rejected by Increase, this will contain details as to why it was rejected.
@@ -168,7 +167,7 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun depositRejection(): Optional<DepositRejection> =
-        Optional.ofNullable(depositRejection.getNullable("deposit_rejection"))
+        depositRejection.getOptional("deposit_rejection")
 
     /**
      * If your deposit is returned, this will contain details as to why it was returned.
@@ -176,8 +175,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun depositReturn(): Optional<DepositReturn> =
-        Optional.ofNullable(depositReturn.getNullable("deposit_return"))
+    fun depositReturn(): Optional<DepositReturn> = depositReturn.getOptional("deposit_return")
 
     /**
      * After the check is parsed, it is submitted to the Check21 network for processing. This will
@@ -187,7 +185,7 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun depositSubmission(): Optional<DepositSubmission> =
-        Optional.ofNullable(depositSubmission.getNullable("deposit_submission"))
+        depositSubmission.getOptional("deposit_submission")
 
     /**
      * The description of the Check Deposit, for display purposes only.
@@ -195,8 +193,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun description(): Optional<String> =
-        Optional.ofNullable(description.getNullable("description"))
+    fun description(): Optional<String> = description.getOptional("description")
 
     /**
      * The ID for the File containing the image of the front of the check.
@@ -214,8 +211,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun idempotencyKey(): Optional<String> =
-        Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
+    fun idempotencyKey(): Optional<String> = idempotencyKey.getOptional("idempotency_key")
 
     /**
      * Increase will sometimes hold the funds for Check Deposits. If funds are held, this sub-object
@@ -225,7 +221,7 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun inboundFundsHold(): Optional<InboundFundsHold> =
-        Optional.ofNullable(inboundFundsHold.getNullable("inbound_funds_hold"))
+        inboundFundsHold.getOptional("inbound_funds_hold")
 
     /**
      * If the Check Deposit was the result of an Inbound Mail Item, this will contain the identifier
@@ -235,7 +231,7 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun inboundMailItemId(): Optional<String> =
-        Optional.ofNullable(inboundMailItemId.getNullable("inbound_mail_item_id"))
+        inboundMailItemId.getOptional("inbound_mail_item_id")
 
     /**
      * If the Check Deposit was the result of an Inbound Mail Item, this will contain the identifier
@@ -244,7 +240,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun lockboxId(): Optional<String> = Optional.ofNullable(lockboxId.getNullable("lockbox_id"))
+    fun lockboxId(): Optional<String> = lockboxId.getOptional("lockbox_id")
 
     /**
      * The status of the Check Deposit.
@@ -260,8 +256,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun transactionId(): Optional<String> =
-        Optional.ofNullable(transactionId.getNullable("transaction_id"))
+    fun transactionId(): Optional<String> = transactionId.getOptional("transaction_id")
 
     /**
      * A constant representing the object's type. For this resource it will always be
@@ -1032,8 +1027,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun auxiliaryOnUs(): Optional<String> =
-            Optional.ofNullable(auxiliaryOnUs.getNullable("auxiliary_on_us"))
+        fun auxiliaryOnUs(): Optional<String> = auxiliaryOnUs.getOptional("auxiliary_on_us")
 
         /**
          * The ID of the Check Deposit that was accepted.
@@ -1067,8 +1061,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun serialNumber(): Optional<String> =
-            Optional.ofNullable(serialNumber.getNullable("serial_number"))
+        fun serialNumber(): Optional<String> = serialNumber.getOptional("serial_number")
 
         /**
          * Returns the raw JSON value of [accountNumber].
@@ -3661,7 +3654,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun heldTransactionId(): Optional<String> =
-            Optional.ofNullable(heldTransactionId.getNullable("held_transaction_id"))
+            heldTransactionId.getOptional("held_transaction_id")
 
         /**
          * The ID of the Pending Transaction representing the held funds.
@@ -3670,7 +3663,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun pendingTransactionId(): Optional<String> =
-            Optional.ofNullable(pendingTransactionId.getNullable("pending_transaction_id"))
+            pendingTransactionId.getOptional("pending_transaction_id")
 
         /**
          * When the hold was released (if it has been released).
@@ -3678,8 +3671,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun releasedAt(): Optional<OffsetDateTime> =
-            Optional.ofNullable(releasedAt.getNullable("released_at"))
+        fun releasedAt(): Optional<OffsetDateTime> = releasedAt.getOptional("released_at")
 
         /**
          * The status of the hold.

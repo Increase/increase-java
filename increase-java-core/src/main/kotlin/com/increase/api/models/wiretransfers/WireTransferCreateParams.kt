@@ -866,8 +866,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun accountNumber(): Optional<String> =
-            Optional.ofNullable(accountNumber.getNullable("account_number"))
+        fun accountNumber(): Optional<String> = accountNumber.getOptional("account_number")
 
         /**
          * The beneficiary's address line 1.
@@ -876,7 +875,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun beneficiaryAddressLine1(): Optional<String> =
-            Optional.ofNullable(beneficiaryAddressLine1.getNullable("beneficiary_address_line1"))
+            beneficiaryAddressLine1.getOptional("beneficiary_address_line1")
 
         /**
          * The beneficiary's address line 2.
@@ -885,7 +884,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun beneficiaryAddressLine2(): Optional<String> =
-            Optional.ofNullable(beneficiaryAddressLine2.getNullable("beneficiary_address_line2"))
+            beneficiaryAddressLine2.getOptional("beneficiary_address_line2")
 
         /**
          * The beneficiary's address line 3.
@@ -894,7 +893,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun beneficiaryAddressLine3(): Optional<String> =
-            Optional.ofNullable(beneficiaryAddressLine3.getNullable("beneficiary_address_line3"))
+            beneficiaryAddressLine3.getOptional("beneficiary_address_line3")
 
         /**
          * The ID of an External Account to initiate a transfer to. If this parameter is provided,
@@ -904,7 +903,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun externalAccountId(): Optional<String> =
-            Optional.ofNullable(externalAccountId.getNullable("external_account_id"))
+            externalAccountId.getOptional("external_account_id")
 
         /**
          * The originator's address line 1. This is only necessary if you're transferring from a
@@ -914,7 +913,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun originatorAddressLine1(): Optional<String> =
-            Optional.ofNullable(originatorAddressLine1.getNullable("originator_address_line1"))
+            originatorAddressLine1.getOptional("originator_address_line1")
 
         /**
          * The originator's address line 2. This is only necessary if you're transferring from a
@@ -924,7 +923,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun originatorAddressLine2(): Optional<String> =
-            Optional.ofNullable(originatorAddressLine2.getNullable("originator_address_line2"))
+            originatorAddressLine2.getOptional("originator_address_line2")
 
         /**
          * The originator's address line 3. This is only necessary if you're transferring from a
@@ -934,7 +933,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun originatorAddressLine3(): Optional<String> =
-            Optional.ofNullable(originatorAddressLine3.getNullable("originator_address_line3"))
+            originatorAddressLine3.getOptional("originator_address_line3")
 
         /**
          * The originator's name. This is only necessary if you're transferring from a commingled
@@ -943,8 +942,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun originatorName(): Optional<String> =
-            Optional.ofNullable(originatorName.getNullable("originator_name"))
+        fun originatorName(): Optional<String> = originatorName.getOptional("originator_name")
 
         /**
          * Whether the transfer requires explicit approval via the dashboard or API.
@@ -952,8 +950,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun requireApproval(): Optional<Boolean> =
-            Optional.ofNullable(requireApproval.getNullable("require_approval"))
+        fun requireApproval(): Optional<Boolean> = requireApproval.getOptional("require_approval")
 
         /**
          * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the destination
@@ -962,8 +959,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun routingNumber(): Optional<String> =
-            Optional.ofNullable(routingNumber.getNullable("routing_number"))
+        fun routingNumber(): Optional<String> = routingNumber.getOptional("routing_number")
 
         /**
          * The ID of an Account Number that will be passed to the wire's recipient
@@ -972,7 +968,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun sourceAccountNumberId(): Optional<String> =
-            Optional.ofNullable(sourceAccountNumberId.getNullable("source_account_number_id"))
+            sourceAccountNumberId.getOptional("source_account_number_id")
 
         /**
          * Returns the raw JSON value of [accountId].

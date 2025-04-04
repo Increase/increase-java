@@ -435,8 +435,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun bankLocation(): Optional<BankLocation> =
-            Optional.ofNullable(bankLocation.getNullable("bank_location"))
+        fun bankLocation(): Optional<BankLocation> = bankLocation.getOptional("bank_location")
 
         /**
          * The Federal Deposit Insurance Corporation (FDIC) certificate number of the bank. Because

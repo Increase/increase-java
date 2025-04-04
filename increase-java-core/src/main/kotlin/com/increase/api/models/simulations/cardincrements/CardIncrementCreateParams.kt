@@ -361,7 +361,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun eventSubscriptionId(): Optional<String> =
-            Optional.ofNullable(eventSubscriptionId.getNullable("event_subscription_id"))
+            eventSubscriptionId.getOptional("event_subscription_id")
 
         /**
          * Returns the raw JSON value of [amount].

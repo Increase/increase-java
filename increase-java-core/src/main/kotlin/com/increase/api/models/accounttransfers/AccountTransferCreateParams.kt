@@ -446,8 +446,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun requireApproval(): Optional<Boolean> =
-            Optional.ofNullable(requireApproval.getNullable("require_approval"))
+        fun requireApproval(): Optional<Boolean> = requireApproval.getOptional("require_approval")
 
         /**
          * Returns the raw JSON value of [accountId].

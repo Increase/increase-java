@@ -994,8 +994,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun accountNumber(): Optional<String> =
-            Optional.ofNullable(accountNumber.getNullable("account_number"))
+        fun accountNumber(): Optional<String> = accountNumber.getOptional("account_number")
 
         /**
          * Additional information that will be sent to the recipient. This is included in the
@@ -1004,7 +1003,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun addenda(): Optional<Addenda> = Optional.ofNullable(addenda.getNullable("addenda"))
+        fun addenda(): Optional<Addenda> = addenda.getOptional("addenda")
 
         /**
          * The description of the date of the transfer, usually in the format `YYMMDD`. This is
@@ -1014,7 +1013,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun companyDescriptiveDate(): Optional<String> =
-            Optional.ofNullable(companyDescriptiveDate.getNullable("company_descriptive_date"))
+            companyDescriptiveDate.getOptional("company_descriptive_date")
 
         /**
          * The data you choose to associate with the transfer. This is included in the transfer data
@@ -1024,7 +1023,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun companyDiscretionaryData(): Optional<String> =
-            Optional.ofNullable(companyDiscretionaryData.getNullable("company_discretionary_data"))
+            companyDiscretionaryData.getOptional("company_discretionary_data")
 
         /**
          * A description of the transfer. This is included in the transfer data sent to the
@@ -1034,7 +1033,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun companyEntryDescription(): Optional<String> =
-            Optional.ofNullable(companyEntryDescription.getNullable("company_entry_description"))
+            companyEntryDescription.getOptional("company_entry_description")
 
         /**
          * The name by which the recipient knows you. This is included in the transfer data sent to
@@ -1043,8 +1042,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun companyName(): Optional<String> =
-            Optional.ofNullable(companyName.getNullable("company_name"))
+        fun companyName(): Optional<String> = companyName.getOptional("company_name")
 
         /**
          * The type of entity that owns the account to which the ACH Transfer is being sent.
@@ -1053,7 +1051,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun destinationAccountHolder(): Optional<DestinationAccountHolder> =
-            Optional.ofNullable(destinationAccountHolder.getNullable("destination_account_holder"))
+            destinationAccountHolder.getOptional("destination_account_holder")
 
         /**
          * The ID of an External Account to initiate a transfer to. If this parameter is provided,
@@ -1063,7 +1061,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun externalAccountId(): Optional<String> =
-            Optional.ofNullable(externalAccountId.getNullable("external_account_id"))
+            externalAccountId.getOptional("external_account_id")
 
         /**
          * The type of the account to which the transfer will be sent.
@@ -1071,7 +1069,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun funding(): Optional<Funding> = Optional.ofNullable(funding.getNullable("funding"))
+        fun funding(): Optional<Funding> = funding.getOptional("funding")
 
         /**
          * Your identifier for the transfer recipient.
@@ -1079,8 +1077,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun individualId(): Optional<String> =
-            Optional.ofNullable(individualId.getNullable("individual_id"))
+        fun individualId(): Optional<String> = individualId.getOptional("individual_id")
 
         /**
          * The name of the transfer recipient. This value is informational and not verified by the
@@ -1089,8 +1086,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun individualName(): Optional<String> =
-            Optional.ofNullable(individualName.getNullable("individual_name"))
+        fun individualName(): Optional<String> = individualName.getOptional("individual_name")
 
         /**
          * Configuration for how the effective date of the transfer will be set. This determines
@@ -1102,7 +1098,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun preferredEffectiveDate(): Optional<PreferredEffectiveDate> =
-            Optional.ofNullable(preferredEffectiveDate.getNullable("preferred_effective_date"))
+            preferredEffectiveDate.getOptional("preferred_effective_date")
 
         /**
          * Whether the transfer requires explicit approval via the dashboard or API.
@@ -1110,8 +1106,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun requireApproval(): Optional<Boolean> =
-            Optional.ofNullable(requireApproval.getNullable("require_approval"))
+        fun requireApproval(): Optional<Boolean> = requireApproval.getOptional("require_approval")
 
         /**
          * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the destination
@@ -1120,8 +1115,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun routingNumber(): Optional<String> =
-            Optional.ofNullable(routingNumber.getNullable("routing_number"))
+        fun routingNumber(): Optional<String> = routingNumber.getOptional("routing_number")
 
         /**
          * The Standard Entry Class (SEC) code to use for the transfer.
@@ -1130,7 +1124,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun standardEntryClassCode(): Optional<StandardEntryClassCode> =
-            Optional.ofNullable(standardEntryClassCode.getNullable("standard_entry_class_code"))
+            standardEntryClassCode.getOptional("standard_entry_class_code")
 
         /**
          * The timing of the transaction.
@@ -1139,7 +1133,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun transactionTiming(): Optional<TransactionTiming> =
-            Optional.ofNullable(transactionTiming.getNullable("transaction_timing"))
+            transactionTiming.getOptional("transaction_timing")
 
         /**
          * Returns the raw JSON value of [accountId].
@@ -1886,7 +1880,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun freeform(): Optional<Freeform> = Optional.ofNullable(freeform.getNullable("freeform"))
+        fun freeform(): Optional<Freeform> = freeform.getOptional("freeform")
 
         /**
          * Structured ASC X12 820 remittance advice records. Please reach out to
@@ -1896,9 +1890,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun paymentOrderRemittanceAdvice(): Optional<PaymentOrderRemittanceAdvice> =
-            Optional.ofNullable(
-                paymentOrderRemittanceAdvice.getNullable("payment_order_remittance_advice")
-            )
+            paymentOrderRemittanceAdvice.getOptional("payment_order_remittance_advice")
 
         /**
          * Returns the raw JSON value of [category].
@@ -3335,7 +3327,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun date(): Optional<LocalDate> = Optional.ofNullable(date.getNullable("date"))
+        fun date(): Optional<LocalDate> = date.getOptional("date")
 
         /**
          * A schedule by which Increase will choose an effective date for the transfer.
@@ -3344,7 +3336,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun settlementSchedule(): Optional<SettlementSchedule> =
-            Optional.ofNullable(settlementSchedule.getNullable("settlement_schedule"))
+            settlementSchedule.getOptional("settlement_schedule")
 
         /**
          * Returns the raw JSON value of [date].

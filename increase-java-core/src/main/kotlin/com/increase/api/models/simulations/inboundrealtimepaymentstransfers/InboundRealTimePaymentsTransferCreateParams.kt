@@ -508,7 +508,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun debtorAccountNumber(): Optional<String> =
-            Optional.ofNullable(debtorAccountNumber.getNullable("debtor_account_number"))
+            debtorAccountNumber.getOptional("debtor_account_number")
 
         /**
          * The name provided by the sender of the transfer.
@@ -516,8 +516,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun debtorName(): Optional<String> =
-            Optional.ofNullable(debtorName.getNullable("debtor_name"))
+        fun debtorName(): Optional<String> = debtorName.getOptional("debtor_name")
 
         /**
          * The routing number of the account that sent the transfer.
@@ -526,7 +525,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun debtorRoutingNumber(): Optional<String> =
-            Optional.ofNullable(debtorRoutingNumber.getNullable("debtor_routing_number"))
+            debtorRoutingNumber.getOptional("debtor_routing_number")
 
         /**
          * Additional information included with the transfer.
@@ -535,7 +534,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun remittanceInformation(): Optional<String> =
-            Optional.ofNullable(remittanceInformation.getNullable("remittance_information"))
+            remittanceInformation.getOptional("remittance_information")
 
         /**
          * The identifier of a pending Request for Payment that this transfer will fulfill.
@@ -544,7 +543,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun requestForPaymentId(): Optional<String> =
-            Optional.ofNullable(requestForPaymentId.getNullable("request_for_payment_id"))
+            requestForPaymentId.getOptional("request_for_payment_id")
 
         /**
          * Returns the raw JSON value of [accountNumberId].

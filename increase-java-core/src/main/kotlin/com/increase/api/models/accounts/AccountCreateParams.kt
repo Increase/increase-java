@@ -373,7 +373,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun entityId(): Optional<String> = Optional.ofNullable(entityId.getNullable("entity_id"))
+        fun entityId(): Optional<String> = entityId.getOptional("entity_id")
 
         /**
          * The identifier of an Entity that, while not owning the Account, is associated with its
@@ -383,7 +383,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun informationalEntityId(): Optional<String> =
-            Optional.ofNullable(informationalEntityId.getNullable("informational_entity_id"))
+            informationalEntityId.getOptional("informational_entity_id")
 
         /**
          * The identifier for the Program that this Account falls under. Required if you operate
@@ -392,7 +392,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun programId(): Optional<String> = Optional.ofNullable(programId.getNullable("program_id"))
+        fun programId(): Optional<String> = programId.getOptional("program_id")
 
         /**
          * Returns the raw JSON value of [name].

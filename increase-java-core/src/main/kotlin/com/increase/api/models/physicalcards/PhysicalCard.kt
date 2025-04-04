@@ -112,8 +112,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun idempotencyKey(): Optional<String> =
-        Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
+    fun idempotencyKey(): Optional<String> = idempotencyKey.getOptional("idempotency_key")
 
     /**
      * The Physical Card Profile used for this Physical Card.
@@ -122,7 +121,7 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun physicalCardProfileId(): Optional<String> =
-        Optional.ofNullable(physicalCardProfileId.getNullable("physical_card_profile_id"))
+        physicalCardProfileId.getOptional("physical_card_profile_id")
 
     /**
      * The details used to ship this physical card.
@@ -762,7 +761,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun tracking(): Optional<Tracking> = Optional.ofNullable(tracking.getNullable("tracking"))
+        fun tracking(): Optional<Tracking> = tracking.getOptional("tracking")
 
         /**
          * Returns the raw JSON value of [address].
@@ -1018,7 +1017,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun line2(): Optional<String> = Optional.ofNullable(line2.getNullable("line2"))
+            fun line2(): Optional<String> = line2.getOptional("line2")
 
             /**
              * The third line of the shipping address.
@@ -1026,7 +1025,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun line3(): Optional<String> = Optional.ofNullable(line3.getNullable("line3"))
+            fun line3(): Optional<String> = line3.getOptional("line3")
 
             /**
              * The name of the recipient.
@@ -1757,8 +1756,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun returnNumber(): Optional<String> =
-                Optional.ofNullable(returnNumber.getNullable("return_number"))
+            fun returnNumber(): Optional<String> = returnNumber.getOptional("return_number")
 
             /**
              * For returned shipments, this describes why the package was returned.
@@ -1766,8 +1764,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun returnReason(): Optional<String> =
-                Optional.ofNullable(returnReason.getNullable("return_reason"))
+            fun returnReason(): Optional<String> = returnReason.getOptional("return_reason")
 
             /**
              * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the

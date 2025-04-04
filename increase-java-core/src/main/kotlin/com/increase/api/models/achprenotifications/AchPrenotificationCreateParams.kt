@@ -731,7 +731,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun addendum(): Optional<String> = Optional.ofNullable(addendum.getNullable("addendum"))
+        fun addendum(): Optional<String> = addendum.getOptional("addendum")
 
         /**
          * The description of the date of the transfer.
@@ -740,7 +740,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun companyDescriptiveDate(): Optional<String> =
-            Optional.ofNullable(companyDescriptiveDate.getNullable("company_descriptive_date"))
+            companyDescriptiveDate.getOptional("company_descriptive_date")
 
         /**
          * The data you choose to associate with the transfer.
@@ -749,7 +749,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun companyDiscretionaryData(): Optional<String> =
-            Optional.ofNullable(companyDiscretionaryData.getNullable("company_discretionary_data"))
+            companyDiscretionaryData.getOptional("company_discretionary_data")
 
         /**
          * The description of the transfer you wish to be shown to the recipient.
@@ -758,7 +758,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun companyEntryDescription(): Optional<String> =
-            Optional.ofNullable(companyEntryDescription.getNullable("company_entry_description"))
+            companyEntryDescription.getOptional("company_entry_description")
 
         /**
          * The name by which the recipient knows you.
@@ -766,8 +766,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun companyName(): Optional<String> =
-            Optional.ofNullable(companyName.getNullable("company_name"))
+        fun companyName(): Optional<String> = companyName.getOptional("company_name")
 
         /**
          * Whether the Prenotification is for a future debit or credit.
@@ -776,7 +775,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun creditDebitIndicator(): Optional<CreditDebitIndicator> =
-            Optional.ofNullable(creditDebitIndicator.getNullable("credit_debit_indicator"))
+            creditDebitIndicator.getOptional("credit_debit_indicator")
 
         /**
          * The transfer effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
@@ -784,8 +783,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun effectiveDate(): Optional<LocalDate> =
-            Optional.ofNullable(effectiveDate.getNullable("effective_date"))
+        fun effectiveDate(): Optional<LocalDate> = effectiveDate.getOptional("effective_date")
 
         /**
          * Your identifier for the transfer recipient.
@@ -793,8 +791,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun individualId(): Optional<String> =
-            Optional.ofNullable(individualId.getNullable("individual_id"))
+        fun individualId(): Optional<String> = individualId.getOptional("individual_id")
 
         /**
          * The name of the transfer recipient. This value is information and not verified by the
@@ -803,8 +800,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun individualName(): Optional<String> =
-            Optional.ofNullable(individualName.getNullable("individual_name"))
+        fun individualName(): Optional<String> = individualName.getOptional("individual_name")
 
         /**
          * The Standard Entry Class (SEC) code to use for the ACH Prenotification.
@@ -813,7 +809,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun standardEntryClassCode(): Optional<StandardEntryClassCode> =
-            Optional.ofNullable(standardEntryClassCode.getNullable("standard_entry_class_code"))
+            standardEntryClassCode.getOptional("standard_entry_class_code")
 
         /**
          * Returns the raw JSON value of [accountId].

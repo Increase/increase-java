@@ -353,7 +353,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun date(): Optional<OffsetDateTime> = Optional.ofNullable(date.getNullable("date"))
+        fun date(): Optional<OffsetDateTime> = date.getOptional("date")
 
         /**
          * The identifier of the Transaction related to this entry set, if any.
@@ -361,8 +361,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun transactionId(): Optional<String> =
-            Optional.ofNullable(transactionId.getNullable("transaction_id"))
+        fun transactionId(): Optional<String> = transactionId.getOptional("transaction_id")
 
         /**
          * Returns the raw JSON value of [entries].

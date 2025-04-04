@@ -92,8 +92,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun idempotencyKey(): Optional<String> =
-        Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
+    fun idempotencyKey(): Optional<String> = idempotencyKey.getOptional("idempotency_key")
 
     /**
      * If specified, this subscription will only receive webhooks for Events associated with this
@@ -102,8 +101,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun oauthConnectionId(): Optional<String> =
-        Optional.ofNullable(oauthConnectionId.getNullable("oauth_connection_id"))
+    fun oauthConnectionId(): Optional<String> = oauthConnectionId.getOptional("oauth_connection_id")
 
     /**
      * If specified, this subscription will only receive webhooks for Events with the specified
@@ -113,7 +111,7 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun selectedEventCategory(): Optional<SelectedEventCategory> =
-        Optional.ofNullable(selectedEventCategory.getNullable("selected_event_category"))
+        selectedEventCategory.getOptional("selected_event_category")
 
     /**
      * This indicates if we'll send notifications to this subscription.

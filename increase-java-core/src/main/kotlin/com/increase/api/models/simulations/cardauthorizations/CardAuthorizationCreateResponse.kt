@@ -49,7 +49,7 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun declinedTransaction(): Optional<DeclinedTransaction> =
-        Optional.ofNullable(declinedTransaction.getNullable("declined_transaction"))
+        declinedTransaction.getOptional("declined_transaction")
 
     /**
      * If the authorization attempt succeeds, this will contain the resulting Pending Transaction
@@ -59,7 +59,7 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun pendingTransaction(): Optional<PendingTransaction> =
-        Optional.ofNullable(pendingTransaction.getNullable("pending_transaction"))
+        pendingTransaction.getOptional("pending_transaction")
 
     /**
      * A constant representing the object's type. For this resource it will always be

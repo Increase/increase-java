@@ -114,8 +114,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun excludedAt(): Optional<OffsetDateTime> =
-        Optional.ofNullable(excludedAt.getNullable("excluded_at"))
+    fun excludedAt(): Optional<OffsetDateTime> = excludedAt.getOptional("excluded_at")
 
     /**
      * The Federal Deposit Insurance Corporation's certificate number for the institution.
@@ -124,7 +123,7 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun fdicCertificateNumber(): Optional<String> =
-        Optional.ofNullable(fdicCertificateNumber.getNullable("fdic_certificate_number"))
+        fdicCertificateNumber.getOptional("fdic_certificate_number")
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -134,8 +133,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun idempotencyKey(): Optional<String> =
-        Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
+    fun idempotencyKey(): Optional<String> = idempotencyKey.getOptional("idempotency_key")
 
     /**
      * The status of the exclusion request.
@@ -151,8 +149,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun submittedAt(): Optional<OffsetDateTime> =
-        Optional.ofNullable(submittedAt.getNullable("submitted_at"))
+    fun submittedAt(): Optional<OffsetDateTime> = submittedAt.getOptional("submitted_at")
 
     /**
      * A constant representing the object's type. For this resource it will always be

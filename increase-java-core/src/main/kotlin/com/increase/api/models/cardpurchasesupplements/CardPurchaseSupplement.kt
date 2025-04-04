@@ -66,8 +66,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun cardPaymentId(): Optional<String> =
-        Optional.ofNullable(cardPaymentId.getNullable("card_payment_id"))
+    fun cardPaymentId(): Optional<String> = cardPaymentId.getOptional("card_payment_id")
 
     /**
      * Invoice-level information about the payment.
@@ -75,7 +74,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun invoice(): Optional<Invoice> = Optional.ofNullable(invoice.getNullable("invoice"))
+    fun invoice(): Optional<Invoice> = invoice.getOptional("invoice")
 
     /**
      * Line item information, such as individual products purchased.
@@ -83,8 +82,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun lineItems(): Optional<List<LineItem>> =
-        Optional.ofNullable(lineItems.getNullable("line_items"))
+    fun lineItems(): Optional<List<LineItem>> = lineItems.getOptional("line_items")
 
     /**
      * The ID of the transaction.
@@ -488,8 +486,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun discountAmount(): Optional<Long> =
-            Optional.ofNullable(discountAmount.getNullable("discount_amount"))
+        fun discountAmount(): Optional<Long> = discountAmount.getOptional("discount_amount")
 
         /**
          * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the discount.
@@ -497,8 +494,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun discountCurrency(): Optional<String> =
-            Optional.ofNullable(discountCurrency.getNullable("discount_currency"))
+        fun discountCurrency(): Optional<String> = discountCurrency.getOptional("discount_currency")
 
         /**
          * Indicates how the merchant applied the discount.
@@ -507,7 +503,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun discountTreatmentCode(): Optional<DiscountTreatmentCode> =
-            Optional.ofNullable(discountTreatmentCode.getNullable("discount_treatment_code"))
+            discountTreatmentCode.getOptional("discount_treatment_code")
 
         /**
          * Amount of duty taxes.
@@ -515,8 +511,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun dutyTaxAmount(): Optional<Long> =
-            Optional.ofNullable(dutyTaxAmount.getNullable("duty_tax_amount"))
+        fun dutyTaxAmount(): Optional<Long> = dutyTaxAmount.getOptional("duty_tax_amount")
 
         /**
          * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the duty tax.
@@ -524,8 +519,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun dutyTaxCurrency(): Optional<String> =
-            Optional.ofNullable(dutyTaxCurrency.getNullable("duty_tax_currency"))
+        fun dutyTaxCurrency(): Optional<String> = dutyTaxCurrency.getOptional("duty_tax_currency")
 
         /**
          * Date the order was taken.
@@ -533,8 +527,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun orderDate(): Optional<LocalDate> =
-            Optional.ofNullable(orderDate.getNullable("order_date"))
+        fun orderDate(): Optional<LocalDate> = orderDate.getOptional("order_date")
 
         /**
          * The shipping cost.
@@ -542,8 +535,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun shippingAmount(): Optional<Long> =
-            Optional.ofNullable(shippingAmount.getNullable("shipping_amount"))
+        fun shippingAmount(): Optional<Long> = shippingAmount.getOptional("shipping_amount")
 
         /**
          * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the shipping cost.
@@ -551,8 +543,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun shippingCurrency(): Optional<String> =
-            Optional.ofNullable(shippingCurrency.getNullable("shipping_currency"))
+        fun shippingCurrency(): Optional<String> = shippingCurrency.getOptional("shipping_currency")
 
         /**
          * Country code of the shipping destination.
@@ -561,9 +552,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun shippingDestinationCountryCode(): Optional<String> =
-            Optional.ofNullable(
-                shippingDestinationCountryCode.getNullable("shipping_destination_country_code")
-            )
+            shippingDestinationCountryCode.getOptional("shipping_destination_country_code")
 
         /**
          * Postal code of the shipping destination.
@@ -572,9 +561,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun shippingDestinationPostalCode(): Optional<String> =
-            Optional.ofNullable(
-                shippingDestinationPostalCode.getNullable("shipping_destination_postal_code")
-            )
+            shippingDestinationPostalCode.getOptional("shipping_destination_postal_code")
 
         /**
          * Postal code of the location being shipped from.
@@ -583,7 +570,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun shippingSourcePostalCode(): Optional<String> =
-            Optional.ofNullable(shippingSourcePostalCode.getNullable("shipping_source_postal_code"))
+            shippingSourcePostalCode.getOptional("shipping_source_postal_code")
 
         /**
          * Taxes paid for freight and shipping.
@@ -592,7 +579,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun shippingTaxAmount(): Optional<Long> =
-            Optional.ofNullable(shippingTaxAmount.getNullable("shipping_tax_amount"))
+            shippingTaxAmount.getOptional("shipping_tax_amount")
 
         /**
          * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the shipping tax.
@@ -601,7 +588,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun shippingTaxCurrency(): Optional<String> =
-            Optional.ofNullable(shippingTaxCurrency.getNullable("shipping_tax_currency"))
+            shippingTaxCurrency.getOptional("shipping_tax_currency")
 
         /**
          * Tax rate for freight and shipping.
@@ -609,8 +596,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun shippingTaxRate(): Optional<String> =
-            Optional.ofNullable(shippingTaxRate.getNullable("shipping_tax_rate"))
+        fun shippingTaxRate(): Optional<String> = shippingTaxRate.getOptional("shipping_tax_rate")
 
         /**
          * Indicates how the merchant applied taxes.
@@ -618,8 +604,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun taxTreatments(): Optional<TaxTreatments> =
-            Optional.ofNullable(taxTreatments.getNullable("tax_treatments"))
+        fun taxTreatments(): Optional<TaxTreatments> = taxTreatments.getOptional("tax_treatments")
 
         /**
          * Value added tax invoice reference number.
@@ -628,10 +613,8 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun uniqueValueAddedTaxInvoiceReference(): Optional<String> =
-            Optional.ofNullable(
-                uniqueValueAddedTaxInvoiceReference.getNullable(
-                    "unique_value_added_tax_invoice_reference"
-                )
+            uniqueValueAddedTaxInvoiceReference.getOptional(
+                "unique_value_added_tax_invoice_reference"
             )
 
         /**
@@ -1821,7 +1804,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun detailIndicator(): Optional<DetailIndicator> =
-            Optional.ofNullable(detailIndicator.getNullable("detail_indicator"))
+            detailIndicator.getOptional("detail_indicator")
 
         /**
          * Discount amount for this specific line item.
@@ -1829,8 +1812,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun discountAmount(): Optional<Long> =
-            Optional.ofNullable(discountAmount.getNullable("discount_amount"))
+        fun discountAmount(): Optional<Long> = discountAmount.getOptional("discount_amount")
 
         /**
          * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the discount.
@@ -1838,8 +1820,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun discountCurrency(): Optional<String> =
-            Optional.ofNullable(discountCurrency.getNullable("discount_currency"))
+        fun discountCurrency(): Optional<String> = discountCurrency.getOptional("discount_currency")
 
         /**
          * Indicates how the merchant applied the discount for this specific line item.
@@ -1848,7 +1829,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun discountTreatmentCode(): Optional<DiscountTreatmentCode> =
-            Optional.ofNullable(discountTreatmentCode.getNullable("discount_treatment_code"))
+            discountTreatmentCode.getOptional("discount_treatment_code")
 
         /**
          * Code used to categorize the purchase item.
@@ -1857,7 +1838,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun itemCommodityCode(): Optional<String> =
-            Optional.ofNullable(itemCommodityCode.getNullable("item_commodity_code"))
+            itemCommodityCode.getOptional("item_commodity_code")
 
         /**
          * Description of the purchase item.
@@ -1865,8 +1846,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun itemDescriptor(): Optional<String> =
-            Optional.ofNullable(itemDescriptor.getNullable("item_descriptor"))
+        fun itemDescriptor(): Optional<String> = itemDescriptor.getOptional("item_descriptor")
 
         /**
          * The number of units of the product being purchased.
@@ -1874,8 +1854,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun itemQuantity(): Optional<String> =
-            Optional.ofNullable(itemQuantity.getNullable("item_quantity"))
+        fun itemQuantity(): Optional<String> = itemQuantity.getOptional("item_quantity")
 
         /**
          * Code used to categorize the product being purchased.
@@ -1883,8 +1862,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun productCode(): Optional<String> =
-            Optional.ofNullable(productCode.getNullable("product_code"))
+        fun productCode(): Optional<String> = productCode.getOptional("product_code")
 
         /**
          * Sales tax amount for this line item.
@@ -1892,8 +1870,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun salesTaxAmount(): Optional<Long> =
-            Optional.ofNullable(salesTaxAmount.getNullable("sales_tax_amount"))
+        fun salesTaxAmount(): Optional<Long> = salesTaxAmount.getOptional("sales_tax_amount")
 
         /**
          * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the sales tax assessed.
@@ -1902,7 +1879,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun salesTaxCurrency(): Optional<String> =
-            Optional.ofNullable(salesTaxCurrency.getNullable("sales_tax_currency"))
+            salesTaxCurrency.getOptional("sales_tax_currency")
 
         /**
          * Sales tax rate for this line item.
@@ -1910,8 +1887,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun salesTaxRate(): Optional<String> =
-            Optional.ofNullable(salesTaxRate.getNullable("sales_tax_rate"))
+        fun salesTaxRate(): Optional<String> = salesTaxRate.getOptional("sales_tax_rate")
 
         /**
          * Total amount of all line items.
@@ -1919,8 +1895,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun totalAmount(): Optional<Long> =
-            Optional.ofNullable(totalAmount.getNullable("total_amount"))
+        fun totalAmount(): Optional<Long> = totalAmount.getOptional("total_amount")
 
         /**
          * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the total amount.
@@ -1929,7 +1904,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun totalAmountCurrency(): Optional<String> =
-            Optional.ofNullable(totalAmountCurrency.getNullable("total_amount_currency"))
+            totalAmountCurrency.getOptional("total_amount_currency")
 
         /**
          * Cost of line item per unit of measure, in major units.
@@ -1937,7 +1912,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun unitCost(): Optional<String> = Optional.ofNullable(unitCost.getNullable("unit_cost"))
+        fun unitCost(): Optional<String> = unitCost.getOptional("unit_cost")
 
         /**
          * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the unit cost.
@@ -1946,7 +1921,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun unitCostCurrency(): Optional<String> =
-            Optional.ofNullable(unitCostCurrency.getNullable("unit_cost_currency"))
+            unitCostCurrency.getOptional("unit_cost_currency")
 
         /**
          * Code indicating unit of measure (gallons, etc.).
@@ -1955,7 +1930,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun unitOfMeasureCode(): Optional<String> =
-            Optional.ofNullable(unitOfMeasureCode.getNullable("unit_of_measure_code"))
+            unitOfMeasureCode.getOptional("unit_of_measure_code")
 
         /**
          * Returns the raw JSON value of [id].

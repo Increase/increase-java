@@ -592,8 +592,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun contactEmail(): Optional<String> =
-            Optional.ofNullable(contactEmail.getNullable("contact_email"))
+        fun contactEmail(): Optional<String> = contactEmail.getOptional("contact_email")
 
         /**
          * A phone number the user can contact to receive support for their card.
@@ -601,8 +600,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun contactPhone(): Optional<String> =
-            Optional.ofNullable(contactPhone.getNullable("contact_phone"))
+        fun contactPhone(): Optional<String> = contactPhone.getOptional("contact_phone")
 
         /**
          * A website the user can visit to view and receive support for their card.
@@ -610,8 +608,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun contactWebsite(): Optional<String> =
-            Optional.ofNullable(contactWebsite.getNullable("contact_website"))
+        fun contactWebsite(): Optional<String> = contactWebsite.getOptional("contact_website")
 
         /**
          * The Card's text color, specified as an RGB triple. The default is white.
@@ -619,8 +616,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun textColor(): Optional<TextColor> =
-            Optional.ofNullable(textColor.getNullable("text_color"))
+        fun textColor(): Optional<TextColor> = textColor.getOptional("text_color")
 
         /**
          * Returns the raw JSON value of [appIconFileId].

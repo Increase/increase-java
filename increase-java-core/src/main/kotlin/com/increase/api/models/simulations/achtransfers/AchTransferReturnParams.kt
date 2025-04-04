@@ -284,7 +284,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun reason(): Optional<Reason> = Optional.ofNullable(reason.getNullable("reason"))
+        fun reason(): Optional<Reason> = reason.getOptional("reason")
 
         /**
          * Returns the raw JSON value of [reason].
