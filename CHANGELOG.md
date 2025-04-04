@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.208.0 (2025-04-04)
+
+Full Changelog: [v0.207.0...v0.208.0](https://github.com/Increase/increase-java/compare/v0.207.0...v0.208.0)
+
+### Features
+
+* **api:** api update ([#937](https://github.com/Increase/increase-java/issues/937)) ([f07b92f](https://github.com/Increase/increase-java/commit/f07b92f2ecfe00276da5fc793abd050838e00140))
+
+
+### Performance Improvements
+
+* **client:** cached parsed type in `HttpResponseFor` ([#935](https://github.com/Increase/increase-java/issues/935)) ([b217bfd](https://github.com/Increase/increase-java/commit/b217bfd8694a3e4dec769edcce0abb605a6161ca))
+
 ## 0.207.0 (2025-04-02)
 
 Full Changelog: [v0.206.0...v0.207.0](https://github.com/Increase/increase-java/compare/v0.206.0...v0.207.0)
