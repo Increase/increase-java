@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.208.2 (2025-04-04)
+
+Full Changelog: [v0.208.1...v0.208.2](https://github.com/Increase/increase-java/compare/v0.208.1...v0.208.2)
+
+### Documentation
+
+* document how to forcibly omit required field ([189c894](https://github.com/Increase/increase-java/commit/189c8948a894e3290dab8ebc465ab0fb75399011))
+* swap examples used in readme ([#944](https://github.com/Increase/increase-java/issues/944)) ([189c894](https://github.com/Increase/increase-java/commit/189c8948a894e3290dab8ebc465ab0fb75399011))
+
 ## 0.208.1 (2025-04-04)
 
 Full Changelog: [v0.208.0...v0.208.1](https://github.com/Increase/increase-java/compare/v0.208.0...v0.208.1)
