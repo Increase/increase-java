@@ -489,8 +489,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun companyTitle(): Optional<String> =
-            Optional.ofNullable(companyTitle.getNullable("company_title"))
+        fun companyTitle(): Optional<String> = companyTitle.getOptional("company_title")
 
         /**
          * Returns the raw JSON value of [individual].
@@ -766,7 +765,7 @@ private constructor(
              *   if the server responded with an unexpected value).
              */
             fun confirmedNoUsTaxId(): Optional<Boolean> =
-                Optional.ofNullable(confirmedNoUsTaxId.getNullable("confirmed_no_us_tax_id"))
+                confirmedNoUsTaxId.getOptional("confirmed_no_us_tax_id")
 
             /**
              * Returns the raw JSON value of [address].
@@ -1081,7 +1080,7 @@ private constructor(
                  * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                  *   (e.g. if the server responded with an unexpected value).
                  */
-                fun city(): Optional<String> = Optional.ofNullable(city.getNullable("city"))
+                fun city(): Optional<String> = city.getOptional("city")
 
                 /**
                  * The second line of the address. This might be the floor or room number.
@@ -1089,7 +1088,7 @@ private constructor(
                  * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                  *   (e.g. if the server responded with an unexpected value).
                  */
-                fun line2(): Optional<String> = Optional.ofNullable(line2.getNullable("line2"))
+                fun line2(): Optional<String> = line2.getOptional("line2")
 
                 /**
                  * The two-letter United States Postal Service (USPS) abbreviation for the US state,
@@ -1098,7 +1097,7 @@ private constructor(
                  * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                  *   (e.g. if the server responded with an unexpected value).
                  */
-                fun state(): Optional<String> = Optional.ofNullable(state.getNullable("state"))
+                fun state(): Optional<String> = state.getOptional("state")
 
                 /**
                  * The ZIP or postal code of the address. Required in certain countries.
@@ -1106,7 +1105,7 @@ private constructor(
                  * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                  *   (e.g. if the server responded with an unexpected value).
                  */
-                fun zip(): Optional<String> = Optional.ofNullable(zip.getNullable("zip"))
+                fun zip(): Optional<String> = zip.getOptional("zip")
 
                 /**
                  * Returns the raw JSON value of [country].
@@ -1444,7 +1443,7 @@ private constructor(
                  *   (e.g. if the server responded with an unexpected value).
                  */
                 fun driversLicense(): Optional<DriversLicense> =
-                    Optional.ofNullable(driversLicense.getNullable("drivers_license"))
+                    driversLicense.getOptional("drivers_license")
 
                 /**
                  * Information about the identification document provided. Required if `method` is
@@ -1453,7 +1452,7 @@ private constructor(
                  * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                  *   (e.g. if the server responded with an unexpected value).
                  */
-                fun other(): Optional<Other> = Optional.ofNullable(other.getNullable("other"))
+                fun other(): Optional<Other> = other.getOptional("other")
 
                 /**
                  * Information about the passport used for identification. Required if `method` is
@@ -1462,8 +1461,7 @@ private constructor(
                  * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                  *   (e.g. if the server responded with an unexpected value).
                  */
-                fun passport(): Optional<Passport> =
-                    Optional.ofNullable(passport.getNullable("passport"))
+                fun passport(): Optional<Passport> = passport.getOptional("passport")
 
                 /**
                  * Returns the raw JSON value of [method].
@@ -1947,8 +1945,7 @@ private constructor(
                      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                      *   (e.g. if the server responded with an unexpected value).
                      */
-                    fun backFileId(): Optional<String> =
-                        Optional.ofNullable(backFileId.getNullable("back_file_id"))
+                    fun backFileId(): Optional<String> = backFileId.getOptional("back_file_id")
 
                     /**
                      * Returns the raw JSON value of [expirationDate].
@@ -2267,8 +2264,7 @@ private constructor(
                      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                      *   (e.g. if the server responded with an unexpected value).
                      */
-                    fun backFileId(): Optional<String> =
-                        Optional.ofNullable(backFileId.getNullable("back_file_id"))
+                    fun backFileId(): Optional<String> = backFileId.getOptional("back_file_id")
 
                     /**
                      * The document's expiration date in YYYY-MM-DD format.
@@ -2277,7 +2273,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun expirationDate(): Optional<LocalDate> =
-                        Optional.ofNullable(expirationDate.getNullable("expiration_date"))
+                        expirationDate.getOptional("expiration_date")
 
                     /**
                      * Returns the raw JSON value of [country].

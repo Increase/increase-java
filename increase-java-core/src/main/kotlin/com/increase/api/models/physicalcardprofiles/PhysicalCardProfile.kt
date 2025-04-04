@@ -101,8 +101,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun backImageFileId(): Optional<String> =
-        Optional.ofNullable(backImageFileId.getNullable("back_image_file_id"))
+    fun backImageFileId(): Optional<String> = backImageFileId.getOptional("back_image_file_id")
 
     /**
      * The identifier of the File containing the physical card's carrier image.
@@ -111,7 +110,7 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun carrierImageFileId(): Optional<String> =
-        Optional.ofNullable(carrierImageFileId.getNullable("carrier_image_file_id"))
+        carrierImageFileId.getOptional("carrier_image_file_id")
 
     /**
      * A phone number the user can contact to receive support for their card.
@@ -119,8 +118,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun contactPhone(): Optional<String> =
-        Optional.ofNullable(contactPhone.getNullable("contact_phone"))
+    fun contactPhone(): Optional<String> = contactPhone.getOptional("contact_phone")
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
@@ -153,8 +151,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun frontImageFileId(): Optional<String> =
-        Optional.ofNullable(frontImageFileId.getNullable("front_image_file_id"))
+    fun frontImageFileId(): Optional<String> = frontImageFileId.getOptional("front_image_file_id")
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -164,8 +161,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun idempotencyKey(): Optional<String> =
-        Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
+    fun idempotencyKey(): Optional<String> = idempotencyKey.getOptional("idempotency_key")
 
     /**
      * Whether this Physical Card Profile is the default for all cards in its Increase group.

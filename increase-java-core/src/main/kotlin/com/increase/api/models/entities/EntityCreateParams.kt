@@ -585,8 +585,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun corporation(): Optional<Corporation> =
-            Optional.ofNullable(corporation.getNullable("corporation"))
+        fun corporation(): Optional<Corporation> = corporation.getOptional("corporation")
 
         /**
          * The description you choose to give the entity.
@@ -594,8 +593,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun description(): Optional<String> =
-            Optional.ofNullable(description.getNullable("description"))
+        fun description(): Optional<String> = description.getOptional("description")
 
         /**
          * Details of the Government Authority entity to create. Required if `structure` is equal to
@@ -605,7 +603,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun governmentAuthority(): Optional<GovernmentAuthority> =
-            Optional.ofNullable(governmentAuthority.getNullable("government_authority"))
+            governmentAuthority.getOptional("government_authority")
 
         /**
          * Details of the joint entity to create. Required if `structure` is equal to `joint`.
@@ -613,7 +611,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun joint(): Optional<Joint> = Optional.ofNullable(joint.getNullable("joint"))
+        fun joint(): Optional<Joint> = joint.getOptional("joint")
 
         /**
          * Details of the natural person entity to create. Required if `structure` is equal to
@@ -624,8 +622,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun naturalPerson(): Optional<NaturalPerson> =
-            Optional.ofNullable(naturalPerson.getNullable("natural_person"))
+        fun naturalPerson(): Optional<NaturalPerson> = naturalPerson.getOptional("natural_person")
 
         /**
          * Additional documentation associated with the entity.
@@ -634,7 +631,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun supplementalDocuments(): Optional<List<SupplementalDocument>> =
-            Optional.ofNullable(supplementalDocuments.getNullable("supplemental_documents"))
+            supplementalDocuments.getOptional("supplemental_documents")
 
         /**
          * A reference to data stored in a third-party verification service. Your integration may or
@@ -644,7 +641,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun thirdPartyVerification(): Optional<ThirdPartyVerification> =
-            Optional.ofNullable(thirdPartyVerification.getNullable("third_party_verification"))
+            thirdPartyVerification.getOptional("third_party_verification")
 
         /**
          * Details of the trust entity to create. Required if `structure` is equal to `trust`.
@@ -652,7 +649,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun trust(): Optional<Trust> = Optional.ofNullable(trust.getNullable("trust"))
+        fun trust(): Optional<Trust> = trust.getOptional("trust")
 
         /**
          * Returns the raw JSON value of [structure].
@@ -1304,7 +1301,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun incorporationState(): Optional<String> =
-            Optional.ofNullable(incorporationState.getNullable("incorporation_state"))
+            incorporationState.getOptional("incorporation_state")
 
         /**
          * The North American Industry Classification System (NAICS) code for the corporation's
@@ -1315,8 +1312,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun industryCode(): Optional<String> =
-            Optional.ofNullable(industryCode.getNullable("industry_code"))
+        fun industryCode(): Optional<String> = industryCode.getOptional("industry_code")
 
         /**
          * The website of the corporation.
@@ -1324,7 +1320,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun website(): Optional<String> = Optional.ofNullable(website.getNullable("website"))
+        fun website(): Optional<String> = website.getOptional("website")
 
         /**
          * Returns the raw JSON value of [address].
@@ -1713,7 +1709,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun line2(): Optional<String> = Optional.ofNullable(line2.getNullable("line2"))
+            fun line2(): Optional<String> = line2.getOptional("line2")
 
             /**
              * Returns the raw JSON value of [city].
@@ -2011,8 +2007,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun companyTitle(): Optional<String> =
-                Optional.ofNullable(companyTitle.getNullable("company_title"))
+            fun companyTitle(): Optional<String> = companyTitle.getOptional("company_title")
 
             /**
              * Returns the raw JSON value of [individual].
@@ -2302,7 +2297,7 @@ private constructor(
                  *   (e.g. if the server responded with an unexpected value).
                  */
                 fun confirmedNoUsTaxId(): Optional<Boolean> =
-                    Optional.ofNullable(confirmedNoUsTaxId.getNullable("confirmed_no_us_tax_id"))
+                    confirmedNoUsTaxId.getOptional("confirmed_no_us_tax_id")
 
                 /**
                  * Returns the raw JSON value of [address].
@@ -2623,7 +2618,7 @@ private constructor(
                      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                      *   (e.g. if the server responded with an unexpected value).
                      */
-                    fun city(): Optional<String> = Optional.ofNullable(city.getNullable("city"))
+                    fun city(): Optional<String> = city.getOptional("city")
 
                     /**
                      * The second line of the address. This might be the floor or room number.
@@ -2631,7 +2626,7 @@ private constructor(
                      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                      *   (e.g. if the server responded with an unexpected value).
                      */
-                    fun line2(): Optional<String> = Optional.ofNullable(line2.getNullable("line2"))
+                    fun line2(): Optional<String> = line2.getOptional("line2")
 
                     /**
                      * The two-letter United States Postal Service (USPS) abbreviation for the US
@@ -2640,7 +2635,7 @@ private constructor(
                      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                      *   (e.g. if the server responded with an unexpected value).
                      */
-                    fun state(): Optional<String> = Optional.ofNullable(state.getNullable("state"))
+                    fun state(): Optional<String> = state.getOptional("state")
 
                     /**
                      * The ZIP or postal code of the address. Required in certain countries.
@@ -2648,7 +2643,7 @@ private constructor(
                      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                      *   (e.g. if the server responded with an unexpected value).
                      */
-                    fun zip(): Optional<String> = Optional.ofNullable(zip.getNullable("zip"))
+                    fun zip(): Optional<String> = zip.getOptional("zip")
 
                     /**
                      * Returns the raw JSON value of [country].
@@ -2996,7 +2991,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun driversLicense(): Optional<DriversLicense> =
-                        Optional.ofNullable(driversLicense.getNullable("drivers_license"))
+                        driversLicense.getOptional("drivers_license")
 
                     /**
                      * Information about the identification document provided. Required if `method`
@@ -3005,7 +3000,7 @@ private constructor(
                      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                      *   (e.g. if the server responded with an unexpected value).
                      */
-                    fun other(): Optional<Other> = Optional.ofNullable(other.getNullable("other"))
+                    fun other(): Optional<Other> = other.getOptional("other")
 
                     /**
                      * Information about the passport used for identification. Required if `method`
@@ -3014,8 +3009,7 @@ private constructor(
                      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                      *   (e.g. if the server responded with an unexpected value).
                      */
-                    fun passport(): Optional<Passport> =
-                        Optional.ofNullable(passport.getNullable("passport"))
+                    fun passport(): Optional<Passport> = passport.getOptional("passport")
 
                     /**
                      * Returns the raw JSON value of [method].
@@ -3511,8 +3505,7 @@ private constructor(
                          * @throws IncreaseInvalidDataException if the JSON field has an unexpected
                          *   type (e.g. if the server responded with an unexpected value).
                          */
-                        fun backFileId(): Optional<String> =
-                            Optional.ofNullable(backFileId.getNullable("back_file_id"))
+                        fun backFileId(): Optional<String> = backFileId.getOptional("back_file_id")
 
                         /**
                          * Returns the raw JSON value of [expirationDate].
@@ -3837,8 +3830,7 @@ private constructor(
                          * @throws IncreaseInvalidDataException if the JSON field has an unexpected
                          *   type (e.g. if the server responded with an unexpected value).
                          */
-                        fun backFileId(): Optional<String> =
-                            Optional.ofNullable(backFileId.getNullable("back_file_id"))
+                        fun backFileId(): Optional<String> = backFileId.getOptional("back_file_id")
 
                         /**
                          * The document's expiration date in YYYY-MM-DD format.
@@ -3847,7 +3839,7 @@ private constructor(
                          *   type (e.g. if the server responded with an unexpected value).
                          */
                         fun expirationDate(): Optional<LocalDate> =
-                            Optional.ofNullable(expirationDate.getNullable("expiration_date"))
+                            expirationDate.getOptional("expiration_date")
 
                         /**
                          * Returns the raw JSON value of [country].
@@ -4680,7 +4672,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun website(): Optional<String> = Optional.ofNullable(website.getNullable("website"))
+        fun website(): Optional<String> = website.getOptional("website")
 
         /**
          * Returns the raw JSON value of [address].
@@ -5025,7 +5017,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun line2(): Optional<String> = Optional.ofNullable(line2.getNullable("line2"))
+            fun line2(): Optional<String> = line2.getOptional("line2")
 
             /**
              * Returns the raw JSON value of [city].
@@ -5614,7 +5606,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun name(): Optional<String> = Optional.ofNullable(name.getNullable("name"))
+        fun name(): Optional<String> = name.getOptional("name")
 
         /**
          * Returns the raw JSON value of [individuals].
@@ -5852,7 +5844,7 @@ private constructor(
              *   if the server responded with an unexpected value).
              */
             fun confirmedNoUsTaxId(): Optional<Boolean> =
-                Optional.ofNullable(confirmedNoUsTaxId.getNullable("confirmed_no_us_tax_id"))
+                confirmedNoUsTaxId.getOptional("confirmed_no_us_tax_id")
 
             /**
              * Returns the raw JSON value of [address].
@@ -6181,7 +6173,7 @@ private constructor(
                  * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                  *   (e.g. if the server responded with an unexpected value).
                  */
-                fun line2(): Optional<String> = Optional.ofNullable(line2.getNullable("line2"))
+                fun line2(): Optional<String> = line2.getOptional("line2")
 
                 /**
                  * Returns the raw JSON value of [city].
@@ -6495,7 +6487,7 @@ private constructor(
                  *   (e.g. if the server responded with an unexpected value).
                  */
                 fun driversLicense(): Optional<DriversLicense> =
-                    Optional.ofNullable(driversLicense.getNullable("drivers_license"))
+                    driversLicense.getOptional("drivers_license")
 
                 /**
                  * Information about the identification document provided. Required if `method` is
@@ -6504,7 +6496,7 @@ private constructor(
                  * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                  *   (e.g. if the server responded with an unexpected value).
                  */
-                fun other(): Optional<Other> = Optional.ofNullable(other.getNullable("other"))
+                fun other(): Optional<Other> = other.getOptional("other")
 
                 /**
                  * Information about the passport used for identification. Required if `method` is
@@ -6513,8 +6505,7 @@ private constructor(
                  * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                  *   (e.g. if the server responded with an unexpected value).
                  */
-                fun passport(): Optional<Passport> =
-                    Optional.ofNullable(passport.getNullable("passport"))
+                fun passport(): Optional<Passport> = passport.getOptional("passport")
 
                 /**
                  * Returns the raw JSON value of [method].
@@ -6998,8 +6989,7 @@ private constructor(
                      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                      *   (e.g. if the server responded with an unexpected value).
                      */
-                    fun backFileId(): Optional<String> =
-                        Optional.ofNullable(backFileId.getNullable("back_file_id"))
+                    fun backFileId(): Optional<String> = backFileId.getOptional("back_file_id")
 
                     /**
                      * Returns the raw JSON value of [expirationDate].
@@ -7318,8 +7308,7 @@ private constructor(
                      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                      *   (e.g. if the server responded with an unexpected value).
                      */
-                    fun backFileId(): Optional<String> =
-                        Optional.ofNullable(backFileId.getNullable("back_file_id"))
+                    fun backFileId(): Optional<String> = backFileId.getOptional("back_file_id")
 
                     /**
                      * The document's expiration date in YYYY-MM-DD format.
@@ -7328,7 +7317,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun expirationDate(): Optional<LocalDate> =
-                        Optional.ofNullable(expirationDate.getNullable("expiration_date"))
+                        expirationDate.getOptional("expiration_date")
 
                     /**
                      * Returns the raw JSON value of [country].
@@ -7991,7 +7980,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun confirmedNoUsTaxId(): Optional<Boolean> =
-            Optional.ofNullable(confirmedNoUsTaxId.getNullable("confirmed_no_us_tax_id"))
+            confirmedNoUsTaxId.getOptional("confirmed_no_us_tax_id")
 
         /**
          * Returns the raw JSON value of [address].
@@ -8307,7 +8296,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun line2(): Optional<String> = Optional.ofNullable(line2.getNullable("line2"))
+            fun line2(): Optional<String> = line2.getOptional("line2")
 
             /**
              * Returns the raw JSON value of [city].
@@ -8613,7 +8602,7 @@ private constructor(
              *   if the server responded with an unexpected value).
              */
             fun driversLicense(): Optional<DriversLicense> =
-                Optional.ofNullable(driversLicense.getNullable("drivers_license"))
+                driversLicense.getOptional("drivers_license")
 
             /**
              * Information about the identification document provided. Required if `method` is equal
@@ -8622,7 +8611,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun other(): Optional<Other> = Optional.ofNullable(other.getNullable("other"))
+            fun other(): Optional<Other> = other.getOptional("other")
 
             /**
              * Information about the passport used for identification. Required if `method` is equal
@@ -8631,8 +8620,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun passport(): Optional<Passport> =
-                Optional.ofNullable(passport.getNullable("passport"))
+            fun passport(): Optional<Passport> = passport.getOptional("passport")
 
             /**
              * Returns the raw JSON value of [method].
@@ -9110,8 +9098,7 @@ private constructor(
                  * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                  *   (e.g. if the server responded with an unexpected value).
                  */
-                fun backFileId(): Optional<String> =
-                    Optional.ofNullable(backFileId.getNullable("back_file_id"))
+                fun backFileId(): Optional<String> = backFileId.getOptional("back_file_id")
 
                 /**
                  * Returns the raw JSON value of [expirationDate].
@@ -9414,8 +9401,7 @@ private constructor(
                  * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                  *   (e.g. if the server responded with an unexpected value).
                  */
-                fun backFileId(): Optional<String> =
-                    Optional.ofNullable(backFileId.getNullable("back_file_id"))
+                fun backFileId(): Optional<String> = backFileId.getOptional("back_file_id")
 
                 /**
                  * The document's expiration date in YYYY-MM-DD format.
@@ -9424,7 +9410,7 @@ private constructor(
                  *   (e.g. if the server responded with an unexpected value).
                  */
                 fun expirationDate(): Optional<LocalDate> =
-                    Optional.ofNullable(expirationDate.getNullable("expiration_date"))
+                    expirationDate.getOptional("expiration_date")
 
                 /**
                  * Returns the raw JSON value of [country].
@@ -10570,7 +10556,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun formationDocumentFileId(): Optional<String> =
-            Optional.ofNullable(formationDocumentFileId.getNullable("formation_document_file_id"))
+            formationDocumentFileId.getOptional("formation_document_file_id")
 
         /**
          * The two-letter United States Postal Service (USPS) abbreviation for the state in which
@@ -10579,8 +10565,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun formationState(): Optional<String> =
-            Optional.ofNullable(formationState.getNullable("formation_state"))
+        fun formationState(): Optional<String> = formationState.getOptional("formation_state")
 
         /**
          * The grantor of the trust. Required if `category` is equal to `revocable`.
@@ -10588,7 +10573,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun grantor(): Optional<Grantor> = Optional.ofNullable(grantor.getNullable("grantor"))
+        fun grantor(): Optional<Grantor> = grantor.getOptional("grantor")
 
         /**
          * The Employer Identification Number (EIN) for the trust. Required if `category` is equal
@@ -10597,8 +10582,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun taxIdentifier(): Optional<String> =
-            Optional.ofNullable(taxIdentifier.getNullable("tax_identifier"))
+        fun taxIdentifier(): Optional<String> = taxIdentifier.getOptional("tax_identifier")
 
         /**
          * Returns the raw JSON value of [address].
@@ -11009,7 +10993,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun line2(): Optional<String> = Optional.ofNullable(line2.getNullable("line2"))
+            fun line2(): Optional<String> = line2.getOptional("line2")
 
             /**
              * Returns the raw JSON value of [city].
@@ -11434,8 +11418,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun individual(): Optional<Individual> =
-                Optional.ofNullable(individual.getNullable("individual"))
+            fun individual(): Optional<Individual> = individual.getOptional("individual")
 
             /**
              * Returns the raw JSON value of [structure].
@@ -11816,7 +11799,7 @@ private constructor(
                  *   (e.g. if the server responded with an unexpected value).
                  */
                 fun confirmedNoUsTaxId(): Optional<Boolean> =
-                    Optional.ofNullable(confirmedNoUsTaxId.getNullable("confirmed_no_us_tax_id"))
+                    confirmedNoUsTaxId.getOptional("confirmed_no_us_tax_id")
 
                 /**
                  * Returns the raw JSON value of [address].
@@ -12151,7 +12134,7 @@ private constructor(
                      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                      *   (e.g. if the server responded with an unexpected value).
                      */
-                    fun line2(): Optional<String> = Optional.ofNullable(line2.getNullable("line2"))
+                    fun line2(): Optional<String> = line2.getOptional("line2")
 
                     /**
                      * Returns the raw JSON value of [city].
@@ -12470,7 +12453,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun driversLicense(): Optional<DriversLicense> =
-                        Optional.ofNullable(driversLicense.getNullable("drivers_license"))
+                        driversLicense.getOptional("drivers_license")
 
                     /**
                      * Information about the identification document provided. Required if `method`
@@ -12479,7 +12462,7 @@ private constructor(
                      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                      *   (e.g. if the server responded with an unexpected value).
                      */
-                    fun other(): Optional<Other> = Optional.ofNullable(other.getNullable("other"))
+                    fun other(): Optional<Other> = other.getOptional("other")
 
                     /**
                      * Information about the passport used for identification. Required if `method`
@@ -12488,8 +12471,7 @@ private constructor(
                      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                      *   (e.g. if the server responded with an unexpected value).
                      */
-                    fun passport(): Optional<Passport> =
-                        Optional.ofNullable(passport.getNullable("passport"))
+                    fun passport(): Optional<Passport> = passport.getOptional("passport")
 
                     /**
                      * Returns the raw JSON value of [method].
@@ -12985,8 +12967,7 @@ private constructor(
                          * @throws IncreaseInvalidDataException if the JSON field has an unexpected
                          *   type (e.g. if the server responded with an unexpected value).
                          */
-                        fun backFileId(): Optional<String> =
-                            Optional.ofNullable(backFileId.getNullable("back_file_id"))
+                        fun backFileId(): Optional<String> = backFileId.getOptional("back_file_id")
 
                         /**
                          * Returns the raw JSON value of [expirationDate].
@@ -13311,8 +13292,7 @@ private constructor(
                          * @throws IncreaseInvalidDataException if the JSON field has an unexpected
                          *   type (e.g. if the server responded with an unexpected value).
                          */
-                        fun backFileId(): Optional<String> =
-                            Optional.ofNullable(backFileId.getNullable("back_file_id"))
+                        fun backFileId(): Optional<String> = backFileId.getOptional("back_file_id")
 
                         /**
                          * The document's expiration date in YYYY-MM-DD format.
@@ -13321,7 +13301,7 @@ private constructor(
                          *   type (e.g. if the server responded with an unexpected value).
                          */
                         fun expirationDate(): Optional<LocalDate> =
-                            Optional.ofNullable(expirationDate.getNullable("expiration_date"))
+                            expirationDate.getOptional("expiration_date")
 
                         /**
                          * Returns the raw JSON value of [country].
@@ -13994,7 +13974,7 @@ private constructor(
              *   if the server responded with an unexpected value).
              */
             fun confirmedNoUsTaxId(): Optional<Boolean> =
-                Optional.ofNullable(confirmedNoUsTaxId.getNullable("confirmed_no_us_tax_id"))
+                confirmedNoUsTaxId.getOptional("confirmed_no_us_tax_id")
 
             /**
              * Returns the raw JSON value of [address].
@@ -14323,7 +14303,7 @@ private constructor(
                  * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                  *   (e.g. if the server responded with an unexpected value).
                  */
-                fun line2(): Optional<String> = Optional.ofNullable(line2.getNullable("line2"))
+                fun line2(): Optional<String> = line2.getOptional("line2")
 
                 /**
                  * Returns the raw JSON value of [city].
@@ -14637,7 +14617,7 @@ private constructor(
                  *   (e.g. if the server responded with an unexpected value).
                  */
                 fun driversLicense(): Optional<DriversLicense> =
-                    Optional.ofNullable(driversLicense.getNullable("drivers_license"))
+                    driversLicense.getOptional("drivers_license")
 
                 /**
                  * Information about the identification document provided. Required if `method` is
@@ -14646,7 +14626,7 @@ private constructor(
                  * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                  *   (e.g. if the server responded with an unexpected value).
                  */
-                fun other(): Optional<Other> = Optional.ofNullable(other.getNullable("other"))
+                fun other(): Optional<Other> = other.getOptional("other")
 
                 /**
                  * Information about the passport used for identification. Required if `method` is
@@ -14655,8 +14635,7 @@ private constructor(
                  * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                  *   (e.g. if the server responded with an unexpected value).
                  */
-                fun passport(): Optional<Passport> =
-                    Optional.ofNullable(passport.getNullable("passport"))
+                fun passport(): Optional<Passport> = passport.getOptional("passport")
 
                 /**
                  * Returns the raw JSON value of [method].
@@ -15140,8 +15119,7 @@ private constructor(
                      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                      *   (e.g. if the server responded with an unexpected value).
                      */
-                    fun backFileId(): Optional<String> =
-                        Optional.ofNullable(backFileId.getNullable("back_file_id"))
+                    fun backFileId(): Optional<String> = backFileId.getOptional("back_file_id")
 
                     /**
                      * Returns the raw JSON value of [expirationDate].
@@ -15460,8 +15438,7 @@ private constructor(
                      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                      *   (e.g. if the server responded with an unexpected value).
                      */
-                    fun backFileId(): Optional<String> =
-                        Optional.ofNullable(backFileId.getNullable("back_file_id"))
+                    fun backFileId(): Optional<String> = backFileId.getOptional("back_file_id")
 
                     /**
                      * The document's expiration date in YYYY-MM-DD format.
@@ -15470,7 +15447,7 @@ private constructor(
                      *   (e.g. if the server responded with an unexpected value).
                      */
                     fun expirationDate(): Optional<LocalDate> =
-                        Optional.ofNullable(expirationDate.getNullable("expiration_date"))
+                        expirationDate.getOptional("expiration_date")
 
                     /**
                      * Returns the raw JSON value of [country].

@@ -390,7 +390,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun oauthConnectionId(): Optional<String> =
-            Optional.ofNullable(oauthConnectionId.getNullable("oauth_connection_id"))
+            oauthConnectionId.getOptional("oauth_connection_id")
 
         /**
          * If specified, this subscription will only receive webhooks for Events with the specified
@@ -400,7 +400,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun selectedEventCategory(): Optional<SelectedEventCategory> =
-            Optional.ofNullable(selectedEventCategory.getNullable("selected_event_category"))
+            selectedEventCategory.getOptional("selected_event_category")
 
         /**
          * The key that will be used to sign webhooks. If no value is passed, a random string will
@@ -409,8 +409,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun sharedSecret(): Optional<String> =
-            Optional.ofNullable(sharedSecret.getNullable("shared_secret"))
+        fun sharedSecret(): Optional<String> = sharedSecret.getOptional("shared_secret")
 
         /**
          * Returns the raw JSON value of [url].

@@ -429,8 +429,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun accountHolder(): Optional<AccountHolder> =
-            Optional.ofNullable(accountHolder.getNullable("account_holder"))
+        fun accountHolder(): Optional<AccountHolder> = accountHolder.getOptional("account_holder")
 
         /**
          * The type of the destination account. Defaults to `checking`.
@@ -438,7 +437,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun funding(): Optional<Funding> = Optional.ofNullable(funding.getNullable("funding"))
+        fun funding(): Optional<Funding> = funding.getOptional("funding")
 
         /**
          * Returns the raw JSON value of [accountNumber].

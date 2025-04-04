@@ -416,7 +416,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun accruedOnAccountId(): Optional<String> =
-            Optional.ofNullable(accruedOnAccountId.getNullable("accrued_on_account_id"))
+            accruedOnAccountId.getOptional("accrued_on_account_id")
 
         /**
          * The end of the interest period. If not provided, defaults to the current time.
@@ -424,8 +424,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun periodEnd(): Optional<OffsetDateTime> =
-            Optional.ofNullable(periodEnd.getNullable("period_end"))
+        fun periodEnd(): Optional<OffsetDateTime> = periodEnd.getOptional("period_end")
 
         /**
          * The start of the interest period. If not provided, defaults to the current time.
@@ -433,8 +432,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun periodStart(): Optional<OffsetDateTime> =
-            Optional.ofNullable(periodStart.getNullable("period_start"))
+        fun periodStart(): Optional<OffsetDateTime> = periodStart.getOptional("period_start")
 
         /**
          * Returns the raw JSON value of [accountId].

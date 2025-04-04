@@ -132,7 +132,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun approval(): Optional<Approval> = Optional.ofNullable(approval.getNullable("approval"))
+    fun approval(): Optional<Approval> = approval.getOptional("approval")
 
     /**
      * If your account requires approvals for transfers and the transfer was not approved, this will
@@ -141,8 +141,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun cancellation(): Optional<Cancellation> =
-        Optional.ofNullable(cancellation.getNullable("cancellation"))
+    fun cancellation(): Optional<Cancellation> = cancellation.getOptional("cancellation")
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the transfer
@@ -159,7 +158,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun createdBy(): Optional<CreatedBy> = Optional.ofNullable(createdBy.getNullable("created_by"))
+    fun createdBy(): Optional<CreatedBy> = createdBy.getOptional("created_by")
 
     /**
      * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the destination account
@@ -193,7 +192,7 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun destinationTransactionId(): Optional<String> =
-        Optional.ofNullable(destinationTransactionId.getNullable("destination_transaction_id"))
+        destinationTransactionId.getOptional("destination_transaction_id")
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -203,8 +202,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun idempotencyKey(): Optional<String> =
-        Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
+    fun idempotencyKey(): Optional<String> = idempotencyKey.getOptional("idempotency_key")
 
     /**
      * The transfer's network.
@@ -224,7 +222,7 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun pendingTransactionId(): Optional<String> =
-        Optional.ofNullable(pendingTransactionId.getNullable("pending_transaction_id"))
+        pendingTransactionId.getOptional("pending_transaction_id")
 
     /**
      * The lifecycle status of the transfer.
@@ -240,8 +238,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun transactionId(): Optional<String> =
-        Optional.ofNullable(transactionId.getNullable("transaction_id"))
+    fun transactionId(): Optional<String> = transactionId.getOptional("transaction_id")
 
     /**
      * A constant representing the object's type. For this resource it will always be
@@ -915,8 +912,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun approvedBy(): Optional<String> =
-            Optional.ofNullable(approvedBy.getNullable("approved_by"))
+        fun approvedBy(): Optional<String> = approvedBy.getOptional("approved_by")
 
         /**
          * Returns the raw JSON value of [approvedAt].
@@ -1136,8 +1132,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun canceledBy(): Optional<String> =
-            Optional.ofNullable(canceledBy.getNullable("canceled_by"))
+        fun canceledBy(): Optional<String> = canceledBy.getOptional("canceled_by")
 
         /**
          * Returns the raw JSON value of [canceledAt].
@@ -1349,7 +1344,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun apiKey(): Optional<ApiKey> = Optional.ofNullable(apiKey.getNullable("api_key"))
+        fun apiKey(): Optional<ApiKey> = apiKey.getOptional("api_key")
 
         /**
          * The type of object that created this transfer.
@@ -1366,7 +1361,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun oauthApplication(): Optional<OAuthApplication> =
-            Optional.ofNullable(oauthApplication.getNullable("oauth_application"))
+            oauthApplication.getOptional("oauth_application")
 
         /**
          * If present, details about the User that created the transfer.
@@ -1374,7 +1369,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun user(): Optional<User> = Optional.ofNullable(user.getNullable("user"))
+        fun user(): Optional<User> = user.getOptional("user")
 
         /**
          * Returns the raw JSON value of [apiKey].
@@ -1615,8 +1610,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun description(): Optional<String> =
-                Optional.ofNullable(description.getNullable("description"))
+            fun description(): Optional<String> = description.getOptional("description")
 
             /**
              * Returns the raw JSON value of [description].

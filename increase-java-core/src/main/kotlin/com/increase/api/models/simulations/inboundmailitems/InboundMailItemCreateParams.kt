@@ -349,8 +349,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun contentsFileId(): Optional<String> =
-            Optional.ofNullable(contentsFileId.getNullable("contents_file_id"))
+        fun contentsFileId(): Optional<String> = contentsFileId.getOptional("contents_file_id")
 
         /**
          * Returns the raw JSON value of [amount].

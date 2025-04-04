@@ -368,7 +368,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun accountId(): Optional<String> = Optional.ofNullable(accountId.getNullable("account_id"))
+        fun accountId(): Optional<String> = accountId.getOptional("account_id")
 
         /**
          * The account compliance category.
@@ -377,7 +377,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun complianceCategory(): Optional<ComplianceCategory> =
-            Optional.ofNullable(complianceCategory.getNullable("compliance_category"))
+            complianceCategory.getOptional("compliance_category")
 
         /**
          * The entity, if `compliance_category` is `customer_balance`.
@@ -385,7 +385,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun entityId(): Optional<String> = Optional.ofNullable(entityId.getNullable("entity_id"))
+        fun entityId(): Optional<String> = entityId.getOptional("entity_id")
 
         /**
          * Returns the raw JSON value of [name].

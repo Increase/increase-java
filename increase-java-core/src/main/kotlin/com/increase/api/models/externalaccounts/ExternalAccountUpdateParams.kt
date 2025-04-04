@@ -374,8 +374,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun accountHolder(): Optional<AccountHolder> =
-            Optional.ofNullable(accountHolder.getNullable("account_holder"))
+        fun accountHolder(): Optional<AccountHolder> = accountHolder.getOptional("account_holder")
 
         /**
          * The description you choose to give the external account.
@@ -383,8 +382,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun description(): Optional<String> =
-            Optional.ofNullable(description.getNullable("description"))
+        fun description(): Optional<String> = description.getOptional("description")
 
         /**
          * The funding type of the External Account.
@@ -392,7 +390,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun funding(): Optional<Funding> = Optional.ofNullable(funding.getNullable("funding"))
+        fun funding(): Optional<Funding> = funding.getOptional("funding")
 
         /**
          * The status of the External Account.
@@ -400,7 +398,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun status(): Optional<Status> = Optional.ofNullable(status.getNullable("status"))
+        fun status(): Optional<Status> = status.getOptional("status")
 
         /**
          * Returns the raw JSON value of [accountHolder].

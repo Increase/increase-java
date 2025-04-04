@@ -374,8 +374,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun inboundAch(): Optional<InboundAch> =
-            Optional.ofNullable(inboundAch.getNullable("inbound_ach"))
+        fun inboundAch(): Optional<InboundAch> = inboundAch.getOptional("inbound_ach")
 
         /**
          * Options related to how this Account Number should handle inbound check withdrawals.
@@ -383,8 +382,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun inboundChecks(): Optional<InboundChecks> =
-            Optional.ofNullable(inboundChecks.getNullable("inbound_checks"))
+        fun inboundChecks(): Optional<InboundChecks> = inboundChecks.getOptional("inbound_checks")
 
         /**
          * The name you choose for the Account Number.
@@ -392,7 +390,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun name(): Optional<String> = Optional.ofNullable(name.getNullable("name"))
+        fun name(): Optional<String> = name.getOptional("name")
 
         /**
          * This indicates if transfers can be made to the Account Number.
@@ -400,7 +398,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun status(): Optional<Status> = Optional.ofNullable(status.getNullable("status"))
+        fun status(): Optional<Status> = status.getOptional("status")
 
         /**
          * Returns the raw JSON value of [inboundAch].
@@ -628,8 +626,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun debitStatus(): Optional<DebitStatus> =
-            Optional.ofNullable(debitStatus.getNullable("debit_status"))
+        fun debitStatus(): Optional<DebitStatus> = debitStatus.getOptional("debit_status")
 
         /**
          * Returns the raw JSON value of [debitStatus].

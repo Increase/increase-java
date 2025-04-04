@@ -169,7 +169,7 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun acknowledgement(): Optional<Acknowledgement> =
-        Optional.ofNullable(acknowledgement.getNullable("acknowledgement"))
+        acknowledgement.getOptional("acknowledgement")
 
     /**
      * The transfer amount in USD cents.
@@ -186,7 +186,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun approval(): Optional<Approval> = Optional.ofNullable(approval.getNullable("approval"))
+    fun approval(): Optional<Approval> = approval.getOptional("approval")
 
     /**
      * If your account requires approvals for transfers and the transfer was not approved, this will
@@ -195,8 +195,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun cancellation(): Optional<Cancellation> =
-        Optional.ofNullable(cancellation.getNullable("cancellation"))
+    fun cancellation(): Optional<Cancellation> = cancellation.getOptional("cancellation")
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the transfer
@@ -213,7 +212,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun createdBy(): Optional<CreatedBy> = Optional.ofNullable(createdBy.getNullable("created_by"))
+    fun createdBy(): Optional<CreatedBy> = createdBy.getOptional("created_by")
 
     /**
      * The name of the transfer's recipient. This is set by the sender when creating the transfer.
@@ -239,7 +238,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun debtorName(): Optional<String> = Optional.ofNullable(debtorName.getNullable("debtor_name"))
+    fun debtorName(): Optional<String> = debtorName.getOptional("debtor_name")
 
     /**
      * The destination account number.
@@ -265,8 +264,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun externalAccountId(): Optional<String> =
-        Optional.ofNullable(externalAccountId.getNullable("external_account_id"))
+    fun externalAccountId(): Optional<String> = externalAccountId.getOptional("external_account_id")
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -276,8 +274,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun idempotencyKey(): Optional<String> =
-        Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
+    fun idempotencyKey(): Optional<String> = idempotencyKey.getOptional("idempotency_key")
 
     /**
      * The ID for the pending transaction representing the transfer. A pending transaction is
@@ -289,7 +286,7 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun pendingTransactionId(): Optional<String> =
-        Optional.ofNullable(pendingTransactionId.getNullable("pending_transaction_id"))
+        pendingTransactionId.getOptional("pending_transaction_id")
 
     /**
      * If the transfer is rejected by Real-Time Payments or the destination financial institution,
@@ -298,7 +295,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun rejection(): Optional<Rejection> = Optional.ofNullable(rejection.getNullable("rejection"))
+    fun rejection(): Optional<Rejection> = rejection.getOptional("rejection")
 
     /**
      * Unstructured information that will show on the recipient's bank statement.
@@ -333,8 +330,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun submission(): Optional<Submission> =
-        Optional.ofNullable(submission.getNullable("submission"))
+    fun submission(): Optional<Submission> = submission.getOptional("submission")
 
     /**
      * The Transaction funding the transfer once it is complete.
@@ -342,8 +338,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun transactionId(): Optional<String> =
-        Optional.ofNullable(transactionId.getNullable("transaction_id"))
+    fun transactionId(): Optional<String> = transactionId.getOptional("transaction_id")
 
     /**
      * A constant representing the object's type. For this resource it will always be
@@ -362,7 +357,7 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun ultimateCreditorName(): Optional<String> =
-        Optional.ofNullable(ultimateCreditorName.getNullable("ultimate_creditor_name"))
+        ultimateCreditorName.getOptional("ultimate_creditor_name")
 
     /**
      * The name of the ultimate sender of the transfer. Set this if the funds are being sent on
@@ -372,7 +367,7 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun ultimateDebtorName(): Optional<String> =
-        Optional.ofNullable(ultimateDebtorName.getNullable("ultimate_debtor_name"))
+        ultimateDebtorName.getOptional("ultimate_debtor_name")
 
     /**
      * Returns the raw JSON value of [id].
@@ -1499,8 +1494,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun approvedBy(): Optional<String> =
-            Optional.ofNullable(approvedBy.getNullable("approved_by"))
+        fun approvedBy(): Optional<String> = approvedBy.getOptional("approved_by")
 
         /**
          * Returns the raw JSON value of [approvedAt].
@@ -1720,8 +1714,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun canceledBy(): Optional<String> =
-            Optional.ofNullable(canceledBy.getNullable("canceled_by"))
+        fun canceledBy(): Optional<String> = canceledBy.getOptional("canceled_by")
 
         /**
          * Returns the raw JSON value of [canceledAt].
@@ -1933,7 +1926,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun apiKey(): Optional<ApiKey> = Optional.ofNullable(apiKey.getNullable("api_key"))
+        fun apiKey(): Optional<ApiKey> = apiKey.getOptional("api_key")
 
         /**
          * The type of object that created this transfer.
@@ -1950,7 +1943,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun oauthApplication(): Optional<OAuthApplication> =
-            Optional.ofNullable(oauthApplication.getNullable("oauth_application"))
+            oauthApplication.getOptional("oauth_application")
 
         /**
          * If present, details about the User that created the transfer.
@@ -1958,7 +1951,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun user(): Optional<User> = Optional.ofNullable(user.getNullable("user"))
+        fun user(): Optional<User> = user.getOptional("user")
 
         /**
          * Returns the raw JSON value of [apiKey].
@@ -2199,8 +2192,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun description(): Optional<String> =
-                Optional.ofNullable(description.getNullable("description"))
+            fun description(): Optional<String> = description.getOptional("description")
 
             /**
              * Returns the raw JSON value of [description].
@@ -3057,11 +3049,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun rejectReasonAdditionalInformation(): Optional<String> =
-            Optional.ofNullable(
-                rejectReasonAdditionalInformation.getNullable(
-                    "reject_reason_additional_information"
-                )
-            )
+            rejectReasonAdditionalInformation.getOptional("reject_reason_additional_information")
 
         /**
          * The reason the transfer was rejected as provided by the recipient bank or the Real-Time
@@ -3080,8 +3068,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun rejectedAt(): Optional<OffsetDateTime> =
-            Optional.ofNullable(rejectedAt.getNullable("rejected_at"))
+        fun rejectedAt(): Optional<OffsetDateTime> = rejectedAt.getOptional("rejected_at")
 
         /**
          * Returns the raw JSON value of [rejectReasonAdditionalInformation].
@@ -4043,8 +4030,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun submittedAt(): Optional<OffsetDateTime> =
-            Optional.ofNullable(submittedAt.getNullable("submitted_at"))
+        fun submittedAt(): Optional<OffsetDateTime> = submittedAt.getOptional("submitted_at")
 
         /**
          * The Real-Time Payments network identification of the transfer.

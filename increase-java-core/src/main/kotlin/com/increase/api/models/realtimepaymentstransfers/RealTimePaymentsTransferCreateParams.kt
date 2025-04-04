@@ -687,8 +687,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun debtorName(): Optional<String> =
-            Optional.ofNullable(debtorName.getNullable("debtor_name"))
+        fun debtorName(): Optional<String> = debtorName.getOptional("debtor_name")
 
         /**
          * The destination account number.
@@ -697,7 +696,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun destinationAccountNumber(): Optional<String> =
-            Optional.ofNullable(destinationAccountNumber.getNullable("destination_account_number"))
+            destinationAccountNumber.getOptional("destination_account_number")
 
         /**
          * The destination American Bankers' Association (ABA) Routing Transit Number (RTN).
@@ -706,7 +705,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun destinationRoutingNumber(): Optional<String> =
-            Optional.ofNullable(destinationRoutingNumber.getNullable("destination_routing_number"))
+            destinationRoutingNumber.getOptional("destination_routing_number")
 
         /**
          * The ID of an External Account to initiate a transfer to. If this parameter is provided,
@@ -716,7 +715,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun externalAccountId(): Optional<String> =
-            Optional.ofNullable(externalAccountId.getNullable("external_account_id"))
+            externalAccountId.getOptional("external_account_id")
 
         /**
          * Whether the transfer requires explicit approval via the dashboard or API.
@@ -724,8 +723,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun requireApproval(): Optional<Boolean> =
-            Optional.ofNullable(requireApproval.getNullable("require_approval"))
+        fun requireApproval(): Optional<Boolean> = requireApproval.getOptional("require_approval")
 
         /**
          * The name of the ultimate recipient of the transfer. Set this if the creditor is an
@@ -735,7 +733,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun ultimateCreditorName(): Optional<String> =
-            Optional.ofNullable(ultimateCreditorName.getNullable("ultimate_creditor_name"))
+            ultimateCreditorName.getOptional("ultimate_creditor_name")
 
         /**
          * The name of the ultimate sender of the transfer. Set this if the funds are being sent on
@@ -745,7 +743,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun ultimateDebtorName(): Optional<String> =
-            Optional.ofNullable(ultimateDebtorName.getNullable("ultimate_debtor_name"))
+            ultimateDebtorName.getOptional("ultimate_debtor_name")
 
         /**
          * Returns the raw JSON value of [amount].

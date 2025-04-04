@@ -116,8 +116,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun closedAt(): Optional<OffsetDateTime> =
-        Optional.ofNullable(closedAt.getNullable("closed_at"))
+    fun closedAt(): Optional<OffsetDateTime> = closedAt.getOptional("closed_at")
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account was created.
@@ -141,7 +140,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun entityId(): Optional<String> = Optional.ofNullable(entityId.getNullable("entity_id"))
+    fun entityId(): Optional<String> = entityId.getOptional("entity_id")
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -151,8 +150,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun idempotencyKey(): Optional<String> =
-        Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
+    fun idempotencyKey(): Optional<String> = idempotencyKey.getOptional("idempotency_key")
 
     /**
      * The identifier of an Entity that, while not owning the Account, is associated with its
@@ -162,7 +160,7 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun informationalEntityId(): Optional<String> =
-        Optional.ofNullable(informationalEntityId.getNullable("informational_entity_id"))
+        informationalEntityId.getOptional("informational_entity_id")
 
     /**
      * The interest accrued but not yet paid, expressed as a string containing a floating-point
@@ -181,7 +179,7 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun interestAccruedAt(): Optional<LocalDate> =
-        Optional.ofNullable(interestAccruedAt.getNullable("interest_accrued_at"))
+        interestAccruedAt.getOptional("interest_accrued_at")
 
     /**
      * The Interest Rate currently being earned on the account, as a string containing a decimal

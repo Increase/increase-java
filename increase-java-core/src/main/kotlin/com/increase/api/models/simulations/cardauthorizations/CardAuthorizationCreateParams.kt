@@ -879,9 +879,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun authenticatedCardPaymentId(): Optional<String> =
-            Optional.ofNullable(
-                authenticatedCardPaymentId.getNullable("authenticated_card_payment_id")
-            )
+            authenticatedCardPaymentId.getOptional("authenticated_card_payment_id")
 
         /**
          * The identifier of the Card to be authorized.
@@ -889,7 +887,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun cardId(): Optional<String> = Optional.ofNullable(cardId.getNullable("card_id"))
+        fun cardId(): Optional<String> = cardId.getOptional("card_id")
 
         /**
          * Forces a card decline with a specific reason. No real time decision will be sent.
@@ -897,8 +895,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun declineReason(): Optional<DeclineReason> =
-            Optional.ofNullable(declineReason.getNullable("decline_reason"))
+        fun declineReason(): Optional<DeclineReason> = declineReason.getOptional("decline_reason")
 
         /**
          * The identifier of the Digital Wallet Token to be authorized.
@@ -907,7 +904,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun digitalWalletTokenId(): Optional<String> =
-            Optional.ofNullable(digitalWalletTokenId.getNullable("digital_wallet_token_id"))
+            digitalWalletTokenId.getOptional("digital_wallet_token_id")
 
         /**
          * The direction describes the direction the funds will move, either from the cardholder to
@@ -916,8 +913,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun direction(): Optional<Direction> =
-            Optional.ofNullable(direction.getNullable("direction"))
+        fun direction(): Optional<Direction> = direction.getOptional("direction")
 
         /**
          * The identifier of the Event Subscription to use. If provided, will override the default
@@ -929,7 +925,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun eventSubscriptionId(): Optional<String> =
-            Optional.ofNullable(eventSubscriptionId.getNullable("event_subscription_id"))
+            eventSubscriptionId.getOptional("event_subscription_id")
 
         /**
          * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
@@ -939,7 +935,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun merchantAcceptorId(): Optional<String> =
-            Optional.ofNullable(merchantAcceptorId.getNullable("merchant_acceptor_id"))
+            merchantAcceptorId.getOptional("merchant_acceptor_id")
 
         /**
          * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the card is
@@ -949,7 +945,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun merchantCategoryCode(): Optional<String> =
-            Optional.ofNullable(merchantCategoryCode.getNullable("merchant_category_code"))
+            merchantCategoryCode.getOptional("merchant_category_code")
 
         /**
          * The city the merchant resides in.
@@ -957,8 +953,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun merchantCity(): Optional<String> =
-            Optional.ofNullable(merchantCity.getNullable("merchant_city"))
+        fun merchantCity(): Optional<String> = merchantCity.getOptional("merchant_city")
 
         /**
          * The country the merchant resides in.
@@ -966,8 +961,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun merchantCountry(): Optional<String> =
-            Optional.ofNullable(merchantCountry.getNullable("merchant_country"))
+        fun merchantCountry(): Optional<String> = merchantCountry.getOptional("merchant_country")
 
         /**
          * The merchant descriptor of the merchant the card is transacting with.
@@ -976,7 +970,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun merchantDescriptor(): Optional<String> =
-            Optional.ofNullable(merchantDescriptor.getNullable("merchant_descriptor"))
+            merchantDescriptor.getOptional("merchant_descriptor")
 
         /**
          * The state the merchant resides in.
@@ -984,8 +978,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun merchantState(): Optional<String> =
-            Optional.ofNullable(merchantState.getNullable("merchant_state"))
+        fun merchantState(): Optional<String> = merchantState.getOptional("merchant_state")
 
         /**
          * Fields specific to a given card network.
@@ -994,7 +987,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun networkDetails(): Optional<NetworkDetails> =
-            Optional.ofNullable(networkDetails.getNullable("network_details"))
+            networkDetails.getOptional("network_details")
 
         /**
          * The risk score generated by the card network. For Visa this is the Visa Advanced
@@ -1003,8 +996,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun networkRiskScore(): Optional<Long> =
-            Optional.ofNullable(networkRiskScore.getNullable("network_risk_score"))
+        fun networkRiskScore(): Optional<Long> = networkRiskScore.getOptional("network_risk_score")
 
         /**
          * The identifier of the Physical Card to be authorized.
@@ -1012,8 +1004,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun physicalCardId(): Optional<String> =
-            Optional.ofNullable(physicalCardId.getNullable("physical_card_id"))
+        fun physicalCardId(): Optional<String> = physicalCardId.getOptional("physical_card_id")
 
         /**
          * The terminal identifier (commonly abbreviated as TID) of the terminal the card is
@@ -1022,8 +1013,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun terminalId(): Optional<String> =
-            Optional.ofNullable(terminalId.getNullable("terminal_id"))
+        fun terminalId(): Optional<String> = terminalId.getOptional("terminal_id")
 
         /**
          * Returns the raw JSON value of [amount].
@@ -2257,9 +2247,7 @@ private constructor(
              *   if the server responded with an unexpected value).
              */
             fun standInProcessingReason(): Optional<StandInProcessingReason> =
-                Optional.ofNullable(
-                    standInProcessingReason.getNullable("stand_in_processing_reason")
-                )
+                standInProcessingReason.getOptional("stand_in_processing_reason")
 
             /**
              * Returns the raw JSON value of [standInProcessingReason].

@@ -117,8 +117,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun corporation(): Optional<Corporation> =
-        Optional.ofNullable(corporation.getNullable("corporation"))
+    fun corporation(): Optional<Corporation> = corporation.getOptional("corporation")
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Entity was created.
@@ -134,8 +133,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun description(): Optional<String> =
-        Optional.ofNullable(description.getNullable("description"))
+    fun description(): Optional<String> = description.getOptional("description")
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Entity's details
@@ -145,7 +143,7 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun detailsConfirmedAt(): Optional<OffsetDateTime> =
-        Optional.ofNullable(detailsConfirmedAt.getNullable("details_confirmed_at"))
+        detailsConfirmedAt.getOptional("details_confirmed_at")
 
     /**
      * Details of the government authority entity. Will be present if `structure` is equal to
@@ -155,7 +153,7 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun governmentAuthority(): Optional<GovernmentAuthority> =
-        Optional.ofNullable(governmentAuthority.getNullable("government_authority"))
+        governmentAuthority.getOptional("government_authority")
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -165,8 +163,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun idempotencyKey(): Optional<String> =
-        Optional.ofNullable(idempotencyKey.getNullable("idempotency_key"))
+    fun idempotencyKey(): Optional<String> = idempotencyKey.getOptional("idempotency_key")
 
     /**
      * Details of the joint entity. Will be present if `structure` is equal to `joint`.
@@ -174,7 +171,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun joint(): Optional<Joint> = Optional.ofNullable(joint.getNullable("joint"))
+    fun joint(): Optional<Joint> = joint.getOptional("joint")
 
     /**
      * Details of the natural person entity. Will be present if `structure` is equal to
@@ -183,8 +180,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun naturalPerson(): Optional<NaturalPerson> =
-        Optional.ofNullable(naturalPerson.getNullable("natural_person"))
+    fun naturalPerson(): Optional<NaturalPerson> = naturalPerson.getOptional("natural_person")
 
     /**
      * The status of the entity.
@@ -221,7 +217,7 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun thirdPartyVerification(): Optional<ThirdPartyVerification> =
-        Optional.ofNullable(thirdPartyVerification.getNullable("third_party_verification"))
+        thirdPartyVerification.getOptional("third_party_verification")
 
     /**
      * Details of the trust entity. Will be present if `structure` is equal to `trust`.
@@ -229,7 +225,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun trust(): Optional<Trust> = Optional.ofNullable(trust.getNullable("trust"))
+    fun trust(): Optional<Trust> = trust.getOptional("trust")
 
     /**
      * A constant representing the object's type. For this resource it will always be `entity`.
@@ -912,7 +908,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun incorporationState(): Optional<String> =
-            Optional.ofNullable(incorporationState.getNullable("incorporation_state"))
+            incorporationState.getOptional("incorporation_state")
 
         /**
          * The numeric North American Industry Classification System (NAICS) code submitted for the
@@ -921,8 +917,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun industryCode(): Optional<String> =
-            Optional.ofNullable(industryCode.getNullable("industry_code"))
+        fun industryCode(): Optional<String> = industryCode.getOptional("industry_code")
 
         /**
          * The legal name of the corporation.
@@ -938,8 +933,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun taxIdentifier(): Optional<String> =
-            Optional.ofNullable(taxIdentifier.getNullable("tax_identifier"))
+        fun taxIdentifier(): Optional<String> = taxIdentifier.getOptional("tax_identifier")
 
         /**
          * The website of the corporation.
@@ -947,7 +941,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun website(): Optional<String> = Optional.ofNullable(website.getNullable("website"))
+        fun website(): Optional<String> = website.getOptional("website")
 
         /**
          * Returns the raw JSON value of [address].
@@ -1335,7 +1329,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun line2(): Optional<String> = Optional.ofNullable(line2.getNullable("line2"))
+            fun line2(): Optional<String> = line2.getOptional("line2")
 
             /**
              * The two-letter United States Postal Service (USPS) abbreviation for the state of the
@@ -1648,8 +1642,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun companyTitle(): Optional<String> =
-                Optional.ofNullable(companyTitle.getNullable("company_title"))
+            fun companyTitle(): Optional<String> = companyTitle.getOptional("company_title")
 
             /**
              * Personal details for the beneficial owner.
@@ -2213,7 +2206,7 @@ private constructor(
                      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                      *   (e.g. if the server responded with an unexpected value).
                      */
-                    fun city(): Optional<String> = Optional.ofNullable(city.getNullable("city"))
+                    fun city(): Optional<String> = city.getOptional("city")
 
                     /**
                      * The two-letter ISO 3166-1 alpha-2 code for the country of the address.
@@ -2239,7 +2232,7 @@ private constructor(
                      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                      *   (e.g. if the server responded with an unexpected value).
                      */
-                    fun line2(): Optional<String> = Optional.ofNullable(line2.getNullable("line2"))
+                    fun line2(): Optional<String> = line2.getOptional("line2")
 
                     /**
                      * The two-letter United States Postal Service (USPS) abbreviation for the US
@@ -2248,7 +2241,7 @@ private constructor(
                      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                      *   (e.g. if the server responded with an unexpected value).
                      */
-                    fun state(): Optional<String> = Optional.ofNullable(state.getNullable("state"))
+                    fun state(): Optional<String> = state.getOptional("state")
 
                     /**
                      * The ZIP or postal code of the address.
@@ -2256,7 +2249,7 @@ private constructor(
                      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                      *   (e.g. if the server responded with an unexpected value).
                      */
-                    fun zip(): Optional<String> = Optional.ofNullable(zip.getNullable("zip"))
+                    fun zip(): Optional<String> = zip.getOptional("zip")
 
                     /**
                      * Returns the raw JSON value of [city].
@@ -3216,8 +3209,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun taxIdentifier(): Optional<String> =
-            Optional.ofNullable(taxIdentifier.getNullable("tax_identifier"))
+        fun taxIdentifier(): Optional<String> = taxIdentifier.getOptional("tax_identifier")
 
         /**
          * The government authority's website.
@@ -3225,7 +3217,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun website(): Optional<String> = Optional.ofNullable(website.getNullable("website"))
+        fun website(): Optional<String> = website.getOptional("website")
 
         /**
          * Returns the raw JSON value of [address].
@@ -3555,7 +3547,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun line2(): Optional<String> = Optional.ofNullable(line2.getNullable("line2"))
+            fun line2(): Optional<String> = line2.getOptional("line2")
 
             /**
              * The two-letter United States Postal Service (USPS) abbreviation for the state of the
@@ -4709,7 +4701,7 @@ private constructor(
                  * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                  *   (e.g. if the server responded with an unexpected value).
                  */
-                fun line2(): Optional<String> = Optional.ofNullable(line2.getNullable("line2"))
+                fun line2(): Optional<String> = line2.getOptional("line2")
 
                 /**
                  * The two-letter United States Postal Service (USPS) abbreviation for the state of
@@ -5724,7 +5716,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun line2(): Optional<String> = Optional.ofNullable(line2.getNullable("line2"))
+            fun line2(): Optional<String> = line2.getOptional("line2")
 
             /**
              * The two-letter United States Postal Service (USPS) abbreviation for the state of the
@@ -7114,7 +7106,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun formationDocumentFileId(): Optional<String> =
-            Optional.ofNullable(formationDocumentFileId.getNullable("formation_document_file_id"))
+            formationDocumentFileId.getOptional("formation_document_file_id")
 
         /**
          * The two-letter United States Postal Service (USPS) abbreviation for the state in which
@@ -7123,8 +7115,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun formationState(): Optional<String> =
-            Optional.ofNullable(formationState.getNullable("formation_state"))
+        fun formationState(): Optional<String> = formationState.getOptional("formation_state")
 
         /**
          * The grantor of the trust. Will be present if the `category` is `revocable`.
@@ -7132,7 +7123,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun grantor(): Optional<Grantor> = Optional.ofNullable(grantor.getNullable("grantor"))
+        fun grantor(): Optional<Grantor> = grantor.getOptional("grantor")
 
         /**
          * The trust's name.
@@ -7148,8 +7139,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun taxIdentifier(): Optional<String> =
-            Optional.ofNullable(taxIdentifier.getNullable("tax_identifier"))
+        fun taxIdentifier(): Optional<String> = taxIdentifier.getOptional("tax_identifier")
 
         /**
          * The trustees of the trust.
@@ -7563,7 +7553,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun line2(): Optional<String> = Optional.ofNullable(line2.getNullable("line2"))
+            fun line2(): Optional<String> = line2.getOptional("line2")
 
             /**
              * The two-letter United States Postal Service (USPS) abbreviation for the state of the
@@ -8302,7 +8292,7 @@ private constructor(
                  * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                  *   (e.g. if the server responded with an unexpected value).
                  */
-                fun line2(): Optional<String> = Optional.ofNullable(line2.getNullable("line2"))
+                fun line2(): Optional<String> = line2.getOptional("line2")
 
                 /**
                  * The two-letter United States Postal Service (USPS) abbreviation for the state of
@@ -9011,8 +9001,7 @@ private constructor(
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun individual(): Optional<Individual> =
-                Optional.ofNullable(individual.getNullable("individual"))
+            fun individual(): Optional<Individual> = individual.getOptional("individual")
 
             /**
              * The structure of the trustee. Will always be equal to `individual`.
@@ -9529,7 +9518,7 @@ private constructor(
                      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                      *   (e.g. if the server responded with an unexpected value).
                      */
-                    fun line2(): Optional<String> = Optional.ofNullable(line2.getNullable("line2"))
+                    fun line2(): Optional<String> = line2.getOptional("line2")
 
                     /**
                      * The two-letter United States Postal Service (USPS) abbreviation for the state

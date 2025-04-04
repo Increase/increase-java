@@ -661,7 +661,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun companyDescriptiveDate(): Optional<String> =
-            Optional.ofNullable(companyDescriptiveDate.getNullable("company_descriptive_date"))
+            companyDescriptiveDate.getOptional("company_descriptive_date")
 
         /**
          * Data associated with the transfer set by the sender.
@@ -670,7 +670,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun companyDiscretionaryData(): Optional<String> =
-            Optional.ofNullable(companyDiscretionaryData.getNullable("company_discretionary_data"))
+            companyDiscretionaryData.getOptional("company_discretionary_data")
 
         /**
          * The description of the transfer set by the sender.
@@ -679,7 +679,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun companyEntryDescription(): Optional<String> =
-            Optional.ofNullable(companyEntryDescription.getNullable("company_entry_description"))
+            companyEntryDescription.getOptional("company_entry_description")
 
         /**
          * The sender's company ID.
@@ -687,7 +687,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun companyId(): Optional<String> = Optional.ofNullable(companyId.getNullable("company_id"))
+        fun companyId(): Optional<String> = companyId.getOptional("company_id")
 
         /**
          * The name of the sender.
@@ -695,8 +695,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun companyName(): Optional<String> =
-            Optional.ofNullable(companyName.getNullable("company_name"))
+        fun companyName(): Optional<String> = companyName.getOptional("company_name")
 
         /**
          * The ID of the receiver of the transfer.
@@ -705,7 +704,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun receiverIdNumber(): Optional<String> =
-            Optional.ofNullable(receiverIdNumber.getNullable("receiver_id_number"))
+            receiverIdNumber.getOptional("receiver_id_number")
 
         /**
          * The name of the receiver of the transfer.
@@ -713,8 +712,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun receiverName(): Optional<String> =
-            Optional.ofNullable(receiverName.getNullable("receiver_name"))
+        fun receiverName(): Optional<String> = receiverName.getOptional("receiver_name")
 
         /**
          * The time at which the transfer should be resolved. If not provided will resolve
@@ -723,8 +721,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun resolveAt(): Optional<OffsetDateTime> =
-            Optional.ofNullable(resolveAt.getNullable("resolve_at"))
+        fun resolveAt(): Optional<OffsetDateTime> = resolveAt.getOptional("resolve_at")
 
         /**
          * The standard entry class code for the transfer.
@@ -733,7 +730,7 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun standardEntryClassCode(): Optional<StandardEntryClassCode> =
-            Optional.ofNullable(standardEntryClassCode.getNullable("standard_entry_class_code"))
+            standardEntryClassCode.getOptional("standard_entry_class_code")
 
         /**
          * Returns the raw JSON value of [accountNumberId].

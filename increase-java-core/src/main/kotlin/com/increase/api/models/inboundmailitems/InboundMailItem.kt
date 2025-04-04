@@ -93,7 +93,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun lockboxId(): Optional<String> = Optional.ofNullable(lockboxId.getNullable("lockbox_id"))
+    fun lockboxId(): Optional<String> = lockboxId.getOptional("lockbox_id")
 
     /**
      * The recipient name as written on the mail item.
@@ -101,8 +101,7 @@ private constructor(
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun recipientName(): Optional<String> =
-        Optional.ofNullable(recipientName.getNullable("recipient_name"))
+    fun recipientName(): Optional<String> = recipientName.getOptional("recipient_name")
 
     /**
      * If the mail item has been rejected, why it was rejected.
@@ -111,7 +110,7 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun rejectionReason(): Optional<RejectionReason> =
-        Optional.ofNullable(rejectionReason.getNullable("rejection_reason"))
+        rejectionReason.getOptional("rejection_reason")
 
     /**
      * If the mail item has been processed.
