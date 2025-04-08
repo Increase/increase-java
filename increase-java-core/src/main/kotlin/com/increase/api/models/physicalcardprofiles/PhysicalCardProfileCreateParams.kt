@@ -59,6 +59,14 @@ private constructor(
     fun frontImageFileId(): String = body.frontImageFileId()
 
     /**
+     * The identifier for the Program that this Physical Card Profile falls under.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun programId(): String = body.programId()
+
+    /**
      * Returns the raw JSON value of [carrierImageFileId].
      *
      * Unlike [carrierImageFileId], this method doesn't throw if the JSON field has an unexpected
@@ -88,6 +96,13 @@ private constructor(
      */
     fun _frontImageFileId(): JsonField<String> = body._frontImageFileId()
 
+    /**
+     * Returns the raw JSON value of [programId].
+     *
+     * Unlike [programId], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _programId(): JsonField<String> = body._programId()
+
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -108,6 +123,7 @@ private constructor(
          * .contactPhone()
          * .description()
          * .frontImageFileId()
+         * .programId()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -138,6 +154,8 @@ private constructor(
          * - [contactPhone]
          * - [description]
          * - [frontImageFileId]
+         * - [programId]
+         * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
@@ -198,6 +216,18 @@ private constructor(
         fun frontImageFileId(frontImageFileId: JsonField<String>) = apply {
             body.frontImageFileId(frontImageFileId)
         }
+
+        /** The identifier for the Program that this Physical Card Profile falls under. */
+        fun programId(programId: String) = apply { body.programId(programId) }
+
+        /**
+         * Sets [Builder.programId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.programId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun programId(programId: JsonField<String>) = apply { body.programId(programId) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -327,6 +357,7 @@ private constructor(
          * .contactPhone()
          * .description()
          * .frontImageFileId()
+         * .programId()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -351,6 +382,7 @@ private constructor(
         private val contactPhone: JsonField<String>,
         private val description: JsonField<String>,
         private val frontImageFileId: JsonField<String>,
+        private val programId: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -368,7 +400,17 @@ private constructor(
             @JsonProperty("front_image_file_id")
             @ExcludeMissing
             frontImageFileId: JsonField<String> = JsonMissing.of(),
-        ) : this(carrierImageFileId, contactPhone, description, frontImageFileId, mutableMapOf())
+            @JsonProperty("program_id")
+            @ExcludeMissing
+            programId: JsonField<String> = JsonMissing.of(),
+        ) : this(
+            carrierImageFileId,
+            contactPhone,
+            description,
+            frontImageFileId,
+            programId,
+            mutableMapOf(),
+        )
 
         /**
          * The identifier of the File containing the physical card's carrier image.
@@ -401,6 +443,14 @@ private constructor(
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun frontImageFileId(): String = frontImageFileId.getRequired("front_image_file_id")
+
+        /**
+         * The identifier for the Program that this Physical Card Profile falls under.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun programId(): String = programId.getRequired("program_id")
 
         /**
          * Returns the raw JSON value of [carrierImageFileId].
@@ -441,6 +491,13 @@ private constructor(
         @ExcludeMissing
         fun _frontImageFileId(): JsonField<String> = frontImageFileId
 
+        /**
+         * Returns the raw JSON value of [programId].
+         *
+         * Unlike [programId], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("program_id") @ExcludeMissing fun _programId(): JsonField<String> = programId
+
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
             additionalProperties.put(key, value)
@@ -464,6 +521,7 @@ private constructor(
              * .contactPhone()
              * .description()
              * .frontImageFileId()
+             * .programId()
              * ```
              */
             @JvmStatic fun builder() = Builder()
@@ -476,6 +534,7 @@ private constructor(
             private var contactPhone: JsonField<String>? = null
             private var description: JsonField<String>? = null
             private var frontImageFileId: JsonField<String>? = null
+            private var programId: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -484,6 +543,7 @@ private constructor(
                 contactPhone = body.contactPhone
                 description = body.description
                 frontImageFileId = body.frontImageFileId
+                programId = body.programId
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
@@ -545,6 +605,18 @@ private constructor(
                 this.frontImageFileId = frontImageFileId
             }
 
+            /** The identifier for the Program that this Physical Card Profile falls under. */
+            fun programId(programId: String) = programId(JsonField.of(programId))
+
+            /**
+             * Sets [Builder.programId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.programId] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun programId(programId: JsonField<String>) = apply { this.programId = programId }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
@@ -575,6 +647,7 @@ private constructor(
              * .contactPhone()
              * .description()
              * .frontImageFileId()
+             * .programId()
              * ```
              *
              * @throws IllegalStateException if any required field is unset.
@@ -585,6 +658,7 @@ private constructor(
                     checkRequired("contactPhone", contactPhone),
                     checkRequired("description", description),
                     checkRequired("frontImageFileId", frontImageFileId),
+                    checkRequired("programId", programId),
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -600,6 +674,7 @@ private constructor(
             contactPhone()
             description()
             frontImageFileId()
+            programId()
             validated = true
         }
 
@@ -622,24 +697,25 @@ private constructor(
             (if (carrierImageFileId.asKnown().isPresent) 1 else 0) +
                 (if (contactPhone.asKnown().isPresent) 1 else 0) +
                 (if (description.asKnown().isPresent) 1 else 0) +
-                (if (frontImageFileId.asKnown().isPresent) 1 else 0)
+                (if (frontImageFileId.asKnown().isPresent) 1 else 0) +
+                (if (programId.asKnown().isPresent) 1 else 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
             }
 
-            return /* spotless:off */ other is Body && carrierImageFileId == other.carrierImageFileId && contactPhone == other.contactPhone && description == other.description && frontImageFileId == other.frontImageFileId && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && carrierImageFileId == other.carrierImageFileId && contactPhone == other.contactPhone && description == other.description && frontImageFileId == other.frontImageFileId && programId == other.programId && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(carrierImageFileId, contactPhone, description, frontImageFileId, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(carrierImageFileId, contactPhone, description, frontImageFileId, programId, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{carrierImageFileId=$carrierImageFileId, contactPhone=$contactPhone, description=$description, frontImageFileId=$frontImageFileId, additionalProperties=$additionalProperties}"
+            "Body{carrierImageFileId=$carrierImageFileId, contactPhone=$contactPhone, description=$description, frontImageFileId=$frontImageFileId, programId=$programId, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
