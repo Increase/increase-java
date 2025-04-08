@@ -21,10 +21,7 @@ internal class CardPurchaseSupplementTest {
                     CardPurchaseSupplement.Invoice.builder()
                         .discountAmount(100L)
                         .discountCurrency("USD")
-                        .discountTreatmentCode(
-                            CardPurchaseSupplement.Invoice.DiscountTreatmentCode
-                                .NO_INVOICE_LEVEL_DISCOUNT_PROVIDED
-                        )
+                        .discountTreatmentCode(null)
                         .dutyTaxAmount(200L)
                         .dutyTaxCurrency("USD")
                         .orderDate(LocalDate.parse("2023-07-20"))
@@ -36,7 +33,7 @@ internal class CardPurchaseSupplementTest {
                         .shippingTaxAmount(400L)
                         .shippingTaxCurrency("USD")
                         .shippingTaxRate("0.2")
-                        .taxTreatments(CardPurchaseSupplement.Invoice.TaxTreatments.NO_TAX_APPLIES)
+                        .taxTreatments(null)
                         .uniqueValueAddedTaxInvoiceReference("12302")
                         .build()
                 )
@@ -46,10 +43,7 @@ internal class CardPurchaseSupplementTest {
                         .detailIndicator(CardPurchaseSupplement.LineItem.DetailIndicator.NORMAL)
                         .discountAmount(null)
                         .discountCurrency(null)
-                        .discountTreatmentCode(
-                            CardPurchaseSupplement.LineItem.DiscountTreatmentCode
-                                .NO_LINE_ITEM_LEVEL_DISCOUNT_PROVIDED
-                        )
+                        .discountTreatmentCode(null)
                         .itemCommodityCode("001")
                         .itemDescriptor("Coffee")
                         .itemQuantity("1.0")
@@ -77,10 +71,7 @@ internal class CardPurchaseSupplementTest {
                 CardPurchaseSupplement.Invoice.builder()
                     .discountAmount(100L)
                     .discountCurrency("USD")
-                    .discountTreatmentCode(
-                        CardPurchaseSupplement.Invoice.DiscountTreatmentCode
-                            .NO_INVOICE_LEVEL_DISCOUNT_PROVIDED
-                    )
+                    .discountTreatmentCode(null)
                     .dutyTaxAmount(200L)
                     .dutyTaxCurrency("USD")
                     .orderDate(LocalDate.parse("2023-07-20"))
@@ -92,7 +83,7 @@ internal class CardPurchaseSupplementTest {
                     .shippingTaxAmount(400L)
                     .shippingTaxCurrency("USD")
                     .shippingTaxRate("0.2")
-                    .taxTreatments(CardPurchaseSupplement.Invoice.TaxTreatments.NO_TAX_APPLIES)
+                    .taxTreatments(null)
                     .uniqueValueAddedTaxInvoiceReference("12302")
                     .build()
             )
@@ -103,10 +94,7 @@ internal class CardPurchaseSupplementTest {
                     .detailIndicator(CardPurchaseSupplement.LineItem.DetailIndicator.NORMAL)
                     .discountAmount(null)
                     .discountCurrency(null)
-                    .discountTreatmentCode(
-                        CardPurchaseSupplement.LineItem.DiscountTreatmentCode
-                            .NO_LINE_ITEM_LEVEL_DISCOUNT_PROVIDED
-                    )
+                    .discountTreatmentCode(null)
                     .itemCommodityCode("001")
                     .itemDescriptor("Coffee")
                     .itemQuantity("1.0")
@@ -138,10 +126,7 @@ internal class CardPurchaseSupplementTest {
                     CardPurchaseSupplement.Invoice.builder()
                         .discountAmount(100L)
                         .discountCurrency("USD")
-                        .discountTreatmentCode(
-                            CardPurchaseSupplement.Invoice.DiscountTreatmentCode
-                                .NO_INVOICE_LEVEL_DISCOUNT_PROVIDED
-                        )
+                        .discountTreatmentCode(null)
                         .dutyTaxAmount(200L)
                         .dutyTaxCurrency("USD")
                         .orderDate(LocalDate.parse("2023-07-20"))
@@ -153,7 +138,7 @@ internal class CardPurchaseSupplementTest {
                         .shippingTaxAmount(400L)
                         .shippingTaxCurrency("USD")
                         .shippingTaxRate("0.2")
-                        .taxTreatments(CardPurchaseSupplement.Invoice.TaxTreatments.NO_TAX_APPLIES)
+                        .taxTreatments(null)
                         .uniqueValueAddedTaxInvoiceReference("12302")
                         .build()
                 )
@@ -163,10 +148,7 @@ internal class CardPurchaseSupplementTest {
                         .detailIndicator(CardPurchaseSupplement.LineItem.DetailIndicator.NORMAL)
                         .discountAmount(null)
                         .discountCurrency(null)
-                        .discountTreatmentCode(
-                            CardPurchaseSupplement.LineItem.DiscountTreatmentCode
-                                .NO_LINE_ITEM_LEVEL_DISCOUNT_PROVIDED
-                        )
+                        .discountTreatmentCode(null)
                         .itemCommodityCode("001")
                         .itemDescriptor("Coffee")
                         .itemQuantity("1.0")

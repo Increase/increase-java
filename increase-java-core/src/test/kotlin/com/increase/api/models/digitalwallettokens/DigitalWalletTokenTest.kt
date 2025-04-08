@@ -20,7 +20,7 @@ internal class DigitalWalletTokenTest {
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .device(
                     DigitalWalletToken.Device.builder()
-                        .deviceType(DigitalWalletToken.Device.DeviceType.UNKNOWN)
+                        .deviceType(DigitalWalletToken.Device.DeviceType.MOBILE_PHONE)
                         .identifier("04393EADF4149002225811273840459271E36516DA4875FF")
                         .ipAddress("1.2.3.4")
                         .name("My Work Phone")
@@ -31,7 +31,7 @@ internal class DigitalWalletTokenTest {
                 .type(DigitalWalletToken.Type.DIGITAL_WALLET_TOKEN)
                 .addUpdate(
                     DigitalWalletToken.Update.builder()
-                        .status(DigitalWalletToken.Update.Status.ACTIVE)
+                        .status(DigitalWalletToken.Update.Status.INACTIVE)
                         .timestamp(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                         .build()
                 )
@@ -46,7 +46,7 @@ internal class DigitalWalletTokenTest {
         assertThat(digitalWalletToken.device())
             .isEqualTo(
                 DigitalWalletToken.Device.builder()
-                    .deviceType(DigitalWalletToken.Device.DeviceType.UNKNOWN)
+                    .deviceType(DigitalWalletToken.Device.DeviceType.MOBILE_PHONE)
                     .identifier("04393EADF4149002225811273840459271E36516DA4875FF")
                     .ipAddress("1.2.3.4")
                     .name("My Work Phone")
@@ -60,7 +60,7 @@ internal class DigitalWalletTokenTest {
         assertThat(digitalWalletToken.updates())
             .containsExactly(
                 DigitalWalletToken.Update.builder()
-                    .status(DigitalWalletToken.Update.Status.ACTIVE)
+                    .status(DigitalWalletToken.Update.Status.INACTIVE)
                     .timestamp(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                     .build()
             )
@@ -77,7 +77,7 @@ internal class DigitalWalletTokenTest {
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .device(
                     DigitalWalletToken.Device.builder()
-                        .deviceType(DigitalWalletToken.Device.DeviceType.UNKNOWN)
+                        .deviceType(DigitalWalletToken.Device.DeviceType.MOBILE_PHONE)
                         .identifier("04393EADF4149002225811273840459271E36516DA4875FF")
                         .ipAddress("1.2.3.4")
                         .name("My Work Phone")
@@ -88,7 +88,7 @@ internal class DigitalWalletTokenTest {
                 .type(DigitalWalletToken.Type.DIGITAL_WALLET_TOKEN)
                 .addUpdate(
                     DigitalWalletToken.Update.builder()
-                        .status(DigitalWalletToken.Update.Status.ACTIVE)
+                        .status(DigitalWalletToken.Update.Status.INACTIVE)
                         .timestamp(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                         .build()
                 )

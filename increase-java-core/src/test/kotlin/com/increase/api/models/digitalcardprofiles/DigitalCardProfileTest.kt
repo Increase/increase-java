@@ -25,7 +25,7 @@ internal class DigitalCardProfileTest {
                 .description("Corporate logo Apple Pay Card")
                 .idempotencyKey(null)
                 .issuerName("National Phonograph Company")
-                .status(DigitalCardProfile.Status.PENDING)
+                .status(DigitalCardProfile.Status.ACTIVE)
                 .textColor(
                     DigitalCardProfile.TextColor.builder().blue(230L).green(255L).red(189L).build()
                 )
@@ -45,7 +45,7 @@ internal class DigitalCardProfileTest {
         assertThat(digitalCardProfile.description()).isEqualTo("Corporate logo Apple Pay Card")
         assertThat(digitalCardProfile.idempotencyKey()).isEmpty
         assertThat(digitalCardProfile.issuerName()).isEqualTo("National Phonograph Company")
-        assertThat(digitalCardProfile.status()).isEqualTo(DigitalCardProfile.Status.PENDING)
+        assertThat(digitalCardProfile.status()).isEqualTo(DigitalCardProfile.Status.ACTIVE)
         assertThat(digitalCardProfile.textColor())
             .isEqualTo(
                 DigitalCardProfile.TextColor.builder().blue(230L).green(255L).red(189L).build()
@@ -70,7 +70,7 @@ internal class DigitalCardProfileTest {
                 .description("Corporate logo Apple Pay Card")
                 .idempotencyKey(null)
                 .issuerName("National Phonograph Company")
-                .status(DigitalCardProfile.Status.PENDING)
+                .status(DigitalCardProfile.Status.ACTIVE)
                 .textColor(
                     DigitalCardProfile.TextColor.builder().blue(230L).green(255L).red(189L).build()
                 )

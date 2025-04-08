@@ -84,7 +84,7 @@ internal class InboundAchTransferServiceAsyncTest {
             inboundAchTransferServiceAsync.decline(
                 InboundAchTransferDeclineParams.builder()
                     .inboundAchTransferId("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
-                    .reason(InboundAchTransferDeclineParams.Reason.INSUFFICIENT_FUNDS)
+                    .reason(InboundAchTransferDeclineParams.Reason.PAYMENT_STOPPED)
                     .build()
             )
 
@@ -105,7 +105,7 @@ internal class InboundAchTransferServiceAsyncTest {
             inboundAchTransferServiceAsync.transferReturn(
                 InboundAchTransferTransferReturnParams.builder()
                     .inboundAchTransferId("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
-                    .reason(InboundAchTransferTransferReturnParams.Reason.INSUFFICIENT_FUNDS)
+                    .reason(InboundAchTransferTransferReturnParams.Reason.PAYMENT_STOPPED)
                     .build()
             )
 

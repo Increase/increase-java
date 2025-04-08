@@ -42,7 +42,7 @@ internal class CardAuthorizationCreateResponseTest {
                                         .originatorCompanyName("BIG BANK")
                                         .reason(
                                             DeclinedTransaction.Source.AchDecline.Reason
-                                                .ACH_ROUTE_CANCELED
+                                                .INSUFFICIENT_FUNDS
                                         )
                                         .receiverIdNumber("12345678900")
                                         .receiverName("IAN CREASE")
@@ -56,12 +56,12 @@ internal class CardAuthorizationCreateResponseTest {
                                     DeclinedTransaction.Source.CardDecline.builder()
                                         .id("card_decline_bx3o8zd7glq8yvtwg25v")
                                         .actioner(
-                                            DeclinedTransaction.Source.CardDecline.Actioner.USER
+                                            DeclinedTransaction.Source.CardDecline.Actioner.INCREASE
                                         )
                                         .amount(-1000L)
                                         .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                                         .currency(
-                                            DeclinedTransaction.Source.CardDecline.Currency.CAD
+                                            DeclinedTransaction.Source.CardDecline.Currency.USD
                                         )
                                         .declinedTransactionId(
                                             "declined_transaction_17jbn0yyhvkt4v4ooym8"
@@ -97,22 +97,16 @@ internal class CardAuthorizationCreateResponseTest {
                                                                 .NetworkDetails
                                                                 .Visa
                                                                 .ElectronicCommerceIndicator
-                                                                .MAIL_PHONE_ORDER
+                                                                .SECURE_ELECTRONIC_COMMERCE
                                                         )
                                                         .pointOfServiceEntryMode(
                                                             DeclinedTransaction.Source.CardDecline
                                                                 .NetworkDetails
                                                                 .Visa
                                                                 .PointOfServiceEntryMode
-                                                                .UNKNOWN
+                                                                .MANUAL
                                                         )
-                                                        .standInProcessingReason(
-                                                            DeclinedTransaction.Source.CardDecline
-                                                                .NetworkDetails
-                                                                .Visa
-                                                                .StandInProcessingReason
-                                                                .ISSUER_ERROR
-                                                        )
+                                                        .standInProcessingReason(null)
                                                         .build()
                                                 )
                                                 .build()
@@ -133,17 +127,13 @@ internal class CardAuthorizationCreateResponseTest {
                                         .processingCategory(
                                             DeclinedTransaction.Source.CardDecline
                                                 .ProcessingCategory
-                                                .ACCOUNT_FUNDING
+                                                .PURCHASE
                                         )
                                         .realTimeDecisionId(null)
-                                        .realTimeDecisionReason(
-                                            DeclinedTransaction.Source.CardDecline
-                                                .RealTimeDecisionReason
-                                                .INSUFFICIENT_FUNDS
-                                        )
+                                        .realTimeDecisionReason(null)
                                         .reason(
                                             DeclinedTransaction.Source.CardDecline.Reason
-                                                .ACCOUNT_CLOSED
+                                                .INSUFFICIENT_FUNDS
                                         )
                                         .terminalId("RCN5VNXS")
                                         .verification(
@@ -159,7 +149,7 @@ internal class CardAuthorizationCreateResponseTest {
                                                                 .Verification
                                                                 .CardVerificationCode
                                                                 .Result
-                                                                .NOT_CHECKED
+                                                                .MATCH
                                                         )
                                                         .build()
                                                 )
@@ -177,7 +167,7 @@ internal class CardAuthorizationCreateResponseTest {
                                                                 .Verification
                                                                 .CardholderAddress
                                                                 .Result
-                                                                .NOT_CHECKED
+                                                                .POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
                                                         )
                                                         .build()
                                                 )
@@ -198,7 +188,7 @@ internal class CardAuthorizationCreateResponseTest {
                                         )
                                         .reason(
                                             DeclinedTransaction.Source.CheckDecline.Reason
-                                                .ACH_ROUTE_DISABLED
+                                                .INSUFFICIENT_FUNDS
                                         )
                                         .build()
                                 )
@@ -209,7 +199,7 @@ internal class CardAuthorizationCreateResponseTest {
                                         .currency(
                                             DeclinedTransaction.Source.CheckDepositRejection
                                                 .Currency
-                                                .CAD
+                                                .USD
                                         )
                                         .declinedTransactionId(
                                             "declined_transaction_17jbn0yyhvkt4v4ooym8"
@@ -231,7 +221,7 @@ internal class CardAuthorizationCreateResponseTest {
                                             DeclinedTransaction.Source
                                                 .InboundRealTimePaymentsTransferDecline
                                                 .Currency
-                                                .CAD
+                                                .USD
                                         )
                                         .debtorAccountNumber("987654321")
                                         .debtorName("National Phonograph Company")
@@ -240,7 +230,7 @@ internal class CardAuthorizationCreateResponseTest {
                                             DeclinedTransaction.Source
                                                 .InboundRealTimePaymentsTransferDecline
                                                 .Reason
-                                                .ACCOUNT_NUMBER_CANCELED
+                                                .ACCOUNT_NUMBER_DISABLED
                                         )
                                         .remittanceInformation("Invoice 29582")
                                         .transactionIdentification(
@@ -259,7 +249,7 @@ internal class CardAuthorizationCreateResponseTest {
                                         )
                                         .reason(
                                             DeclinedTransaction.Source.WireDecline.Reason
-                                                .ACCOUNT_NUMBER_CANCELED
+                                                .ACCOUNT_NUMBER_DISABLED
                                         )
                                         .build()
                                 )
@@ -275,10 +265,10 @@ internal class CardAuthorizationCreateResponseTest {
                         .amount(100L)
                         .completedAt(null)
                         .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                        .currency(PendingTransaction.Currency.CAD)
+                        .currency(PendingTransaction.Currency.USD)
                         .description("INVOICE 2468")
                         .routeId("card_oubs0hwk5rn6knuecxg2")
-                        .routeType(PendingTransaction.RouteType.ACCOUNT_NUMBER)
+                        .routeType(PendingTransaction.RouteType.CARD)
                         .source(
                             PendingTransaction.Source.builder()
                                 .accountTransferInstruction(
@@ -287,7 +277,7 @@ internal class CardAuthorizationCreateResponseTest {
                                         .currency(
                                             PendingTransaction.Source.AccountTransferInstruction
                                                 .Currency
-                                                .CAD
+                                                .USD
                                         )
                                         .transferId("account_transfer_7k9qe1ysdgqztnt63l7n")
                                         .build()
@@ -303,12 +293,12 @@ internal class CardAuthorizationCreateResponseTest {
                                         .id("card_authorization_6iqxap6ivd0fo5eu3i8x")
                                         .actioner(
                                             PendingTransaction.Source.CardAuthorization.Actioner
-                                                .USER
+                                                .INCREASE
                                         )
                                         .amount(100L)
                                         .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                                         .currency(
-                                            PendingTransaction.Source.CardAuthorization.Currency.CAD
+                                            PendingTransaction.Source.CardAuthorization.Currency.USD
                                         )
                                         .digitalWalletTokenId(null)
                                         .direction(
@@ -344,7 +334,7 @@ internal class CardAuthorizationCreateResponseTest {
                                                                 .NetworkDetails
                                                                 .Visa
                                                                 .ElectronicCommerceIndicator
-                                                                .MAIL_PHONE_ORDER
+                                                                .SECURE_ELECTRONIC_COMMERCE
                                                         )
                                                         .pointOfServiceEntryMode(
                                                             PendingTransaction.Source
@@ -352,16 +342,9 @@ internal class CardAuthorizationCreateResponseTest {
                                                                 .NetworkDetails
                                                                 .Visa
                                                                 .PointOfServiceEntryMode
-                                                                .UNKNOWN
+                                                                .MANUAL
                                                         )
-                                                        .standInProcessingReason(
-                                                            PendingTransaction.Source
-                                                                .CardAuthorization
-                                                                .NetworkDetails
-                                                                .Visa
-                                                                .StandInProcessingReason
-                                                                .ISSUER_ERROR
-                                                        )
+                                                        .standInProcessingReason(null)
                                                         .build()
                                                 )
                                                 .build()
@@ -383,7 +366,7 @@ internal class CardAuthorizationCreateResponseTest {
                                         .processingCategory(
                                             PendingTransaction.Source.CardAuthorization
                                                 .ProcessingCategory
-                                                .ACCOUNT_FUNDING
+                                                .PURCHASE
                                         )
                                         .realTimeDecisionId(null)
                                         .terminalId("RCN5VNXS")
@@ -405,7 +388,7 @@ internal class CardAuthorizationCreateResponseTest {
                                                                 .Verification
                                                                 .CardVerificationCode
                                                                 .Result
-                                                                .NOT_CHECKED
+                                                                .MATCH
                                                         )
                                                         .build()
                                                 )
@@ -424,7 +407,7 @@ internal class CardAuthorizationCreateResponseTest {
                                                                 .Verification
                                                                 .CardholderAddress
                                                                 .Result
-                                                                .NOT_CHECKED
+                                                                .POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
                                                         )
                                                         .build()
                                                 )
@@ -432,9 +415,7 @@ internal class CardAuthorizationCreateResponseTest {
                                         )
                                         .build()
                                 )
-                                .category(
-                                    PendingTransaction.Source.Category.ACCOUNT_TRANSFER_INSTRUCTION
-                                )
+                                .category(PendingTransaction.Source.Category.CARD_AUTHORIZATION)
                                 .checkDepositInstruction(
                                     PendingTransaction.Source.CheckDepositInstruction.builder()
                                         .amount(100L)
@@ -443,7 +424,7 @@ internal class CardAuthorizationCreateResponseTest {
                                         .currency(
                                             PendingTransaction.Source.CheckDepositInstruction
                                                 .Currency
-                                                .CAD
+                                                .USD
                                         )
                                         .frontImageFileId("file_makxrc67oh9l6sg7w9yc")
                                         .build()
@@ -454,7 +435,7 @@ internal class CardAuthorizationCreateResponseTest {
                                         .currency(
                                             PendingTransaction.Source.CheckTransferInstruction
                                                 .Currency
-                                                .CAD
+                                                .USD
                                         )
                                         .transferId("check_transfer_30b43acfu9vw8fyc4f5")
                                         .build()
@@ -468,7 +449,7 @@ internal class CardAuthorizationCreateResponseTest {
                                         )
                                         .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                                         .currency(
-                                            PendingTransaction.Source.InboundFundsHold.Currency.CAD
+                                            PendingTransaction.Source.InboundFundsHold.Currency.USD
                                         )
                                         .heldTransactionId("transaction_uyrp7fld2ium70oa7oi")
                                         .pendingTransactionId(
@@ -548,7 +529,7 @@ internal class CardAuthorizationCreateResponseTest {
                                     .originatorCompanyName("BIG BANK")
                                     .reason(
                                         DeclinedTransaction.Source.AchDecline.Reason
-                                            .ACH_ROUTE_CANCELED
+                                            .INSUFFICIENT_FUNDS
                                     )
                                     .receiverIdNumber("12345678900")
                                     .receiverName("IAN CREASE")
@@ -559,10 +540,12 @@ internal class CardAuthorizationCreateResponseTest {
                             .cardDecline(
                                 DeclinedTransaction.Source.CardDecline.builder()
                                     .id("card_decline_bx3o8zd7glq8yvtwg25v")
-                                    .actioner(DeclinedTransaction.Source.CardDecline.Actioner.USER)
+                                    .actioner(
+                                        DeclinedTransaction.Source.CardDecline.Actioner.INCREASE
+                                    )
                                     .amount(-1000L)
                                     .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
-                                    .currency(DeclinedTransaction.Source.CardDecline.Currency.CAD)
+                                    .currency(DeclinedTransaction.Source.CardDecline.Currency.USD)
                                     .declinedTransactionId(
                                         "declined_transaction_17jbn0yyhvkt4v4ooym8"
                                     )
@@ -596,22 +579,16 @@ internal class CardAuthorizationCreateResponseTest {
                                                             .NetworkDetails
                                                             .Visa
                                                             .ElectronicCommerceIndicator
-                                                            .MAIL_PHONE_ORDER
+                                                            .SECURE_ELECTRONIC_COMMERCE
                                                     )
                                                     .pointOfServiceEntryMode(
                                                         DeclinedTransaction.Source.CardDecline
                                                             .NetworkDetails
                                                             .Visa
                                                             .PointOfServiceEntryMode
-                                                            .UNKNOWN
+                                                            .MANUAL
                                                     )
-                                                    .standInProcessingReason(
-                                                        DeclinedTransaction.Source.CardDecline
-                                                            .NetworkDetails
-                                                            .Visa
-                                                            .StandInProcessingReason
-                                                            .ISSUER_ERROR
-                                                    )
+                                                    .standInProcessingReason(null)
                                                     .build()
                                             )
                                             .build()
@@ -630,16 +607,13 @@ internal class CardAuthorizationCreateResponseTest {
                                     .presentmentCurrency("USD")
                                     .processingCategory(
                                         DeclinedTransaction.Source.CardDecline.ProcessingCategory
-                                            .ACCOUNT_FUNDING
+                                            .PURCHASE
                                     )
                                     .realTimeDecisionId(null)
-                                    .realTimeDecisionReason(
-                                        DeclinedTransaction.Source.CardDecline
-                                            .RealTimeDecisionReason
-                                            .INSUFFICIENT_FUNDS
-                                    )
+                                    .realTimeDecisionReason(null)
                                     .reason(
-                                        DeclinedTransaction.Source.CardDecline.Reason.ACCOUNT_CLOSED
+                                        DeclinedTransaction.Source.CardDecline.Reason
+                                            .INSUFFICIENT_FUNDS
                                     )
                                     .terminalId("RCN5VNXS")
                                     .verification(
@@ -654,7 +628,7 @@ internal class CardAuthorizationCreateResponseTest {
                                                             .Verification
                                                             .CardVerificationCode
                                                             .Result
-                                                            .NOT_CHECKED
+                                                            .MATCH
                                                     )
                                                     .build()
                                             )
@@ -671,7 +645,7 @@ internal class CardAuthorizationCreateResponseTest {
                                                             .Verification
                                                             .CardholderAddress
                                                             .Result
-                                                            .NOT_CHECKED
+                                                            .POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
                                                     )
                                                     .build()
                                             )
@@ -692,7 +666,7 @@ internal class CardAuthorizationCreateResponseTest {
                                     )
                                     .reason(
                                         DeclinedTransaction.Source.CheckDecline.Reason
-                                            .ACH_ROUTE_DISABLED
+                                            .INSUFFICIENT_FUNDS
                                     )
                                     .build()
                             )
@@ -702,7 +676,7 @@ internal class CardAuthorizationCreateResponseTest {
                                     .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
                                     .currency(
                                         DeclinedTransaction.Source.CheckDepositRejection.Currency
-                                            .CAD
+                                            .USD
                                     )
                                     .declinedTransactionId(
                                         "declined_transaction_17jbn0yyhvkt4v4ooym8"
@@ -723,7 +697,7 @@ internal class CardAuthorizationCreateResponseTest {
                                         DeclinedTransaction.Source
                                             .InboundRealTimePaymentsTransferDecline
                                             .Currency
-                                            .CAD
+                                            .USD
                                     )
                                     .debtorAccountNumber("987654321")
                                     .debtorName("National Phonograph Company")
@@ -732,7 +706,7 @@ internal class CardAuthorizationCreateResponseTest {
                                         DeclinedTransaction.Source
                                             .InboundRealTimePaymentsTransferDecline
                                             .Reason
-                                            .ACCOUNT_NUMBER_CANCELED
+                                            .ACCOUNT_NUMBER_DISABLED
                                     )
                                     .remittanceInformation("Invoice 29582")
                                     .transactionIdentification(
@@ -751,7 +725,7 @@ internal class CardAuthorizationCreateResponseTest {
                                     )
                                     .reason(
                                         DeclinedTransaction.Source.WireDecline.Reason
-                                            .ACCOUNT_NUMBER_CANCELED
+                                            .ACCOUNT_NUMBER_DISABLED
                                     )
                                     .build()
                             )
@@ -768,10 +742,10 @@ internal class CardAuthorizationCreateResponseTest {
                     .amount(100L)
                     .completedAt(null)
                     .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                    .currency(PendingTransaction.Currency.CAD)
+                    .currency(PendingTransaction.Currency.USD)
                     .description("INVOICE 2468")
                     .routeId("card_oubs0hwk5rn6knuecxg2")
-                    .routeType(PendingTransaction.RouteType.ACCOUNT_NUMBER)
+                    .routeType(PendingTransaction.RouteType.CARD)
                     .source(
                         PendingTransaction.Source.builder()
                             .accountTransferInstruction(
@@ -780,7 +754,7 @@ internal class CardAuthorizationCreateResponseTest {
                                     .currency(
                                         PendingTransaction.Source.AccountTransferInstruction
                                             .Currency
-                                            .CAD
+                                            .USD
                                     )
                                     .transferId("account_transfer_7k9qe1ysdgqztnt63l7n")
                                     .build()
@@ -795,12 +769,13 @@ internal class CardAuthorizationCreateResponseTest {
                                 PendingTransaction.Source.CardAuthorization.builder()
                                     .id("card_authorization_6iqxap6ivd0fo5eu3i8x")
                                     .actioner(
-                                        PendingTransaction.Source.CardAuthorization.Actioner.USER
+                                        PendingTransaction.Source.CardAuthorization.Actioner
+                                            .INCREASE
                                     )
                                     .amount(100L)
                                     .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                                     .currency(
-                                        PendingTransaction.Source.CardAuthorization.Currency.CAD
+                                        PendingTransaction.Source.CardAuthorization.Currency.USD
                                     )
                                     .digitalWalletTokenId(null)
                                     .direction(
@@ -834,22 +809,16 @@ internal class CardAuthorizationCreateResponseTest {
                                                             .NetworkDetails
                                                             .Visa
                                                             .ElectronicCommerceIndicator
-                                                            .MAIL_PHONE_ORDER
+                                                            .SECURE_ELECTRONIC_COMMERCE
                                                     )
                                                     .pointOfServiceEntryMode(
                                                         PendingTransaction.Source.CardAuthorization
                                                             .NetworkDetails
                                                             .Visa
                                                             .PointOfServiceEntryMode
-                                                            .UNKNOWN
+                                                            .MANUAL
                                                     )
-                                                    .standInProcessingReason(
-                                                        PendingTransaction.Source.CardAuthorization
-                                                            .NetworkDetails
-                                                            .Visa
-                                                            .StandInProcessingReason
-                                                            .ISSUER_ERROR
-                                                    )
+                                                    .standInProcessingReason(null)
                                                     .build()
                                             )
                                             .build()
@@ -871,7 +840,7 @@ internal class CardAuthorizationCreateResponseTest {
                                     .processingCategory(
                                         PendingTransaction.Source.CardAuthorization
                                             .ProcessingCategory
-                                            .ACCOUNT_FUNDING
+                                            .PURCHASE
                                     )
                                     .realTimeDecisionId(null)
                                     .terminalId("RCN5VNXS")
@@ -892,7 +861,7 @@ internal class CardAuthorizationCreateResponseTest {
                                                             .Verification
                                                             .CardVerificationCode
                                                             .Result
-                                                            .NOT_CHECKED
+                                                            .MATCH
                                                     )
                                                     .build()
                                             )
@@ -910,7 +879,7 @@ internal class CardAuthorizationCreateResponseTest {
                                                             .Verification
                                                             .CardholderAddress
                                                             .Result
-                                                            .NOT_CHECKED
+                                                            .POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
                                                     )
                                                     .build()
                                             )
@@ -918,9 +887,7 @@ internal class CardAuthorizationCreateResponseTest {
                                     )
                                     .build()
                             )
-                            .category(
-                                PendingTransaction.Source.Category.ACCOUNT_TRANSFER_INSTRUCTION
-                            )
+                            .category(PendingTransaction.Source.Category.CARD_AUTHORIZATION)
                             .checkDepositInstruction(
                                 PendingTransaction.Source.CheckDepositInstruction.builder()
                                     .amount(100L)
@@ -928,7 +895,7 @@ internal class CardAuthorizationCreateResponseTest {
                                     .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
                                     .currency(
                                         PendingTransaction.Source.CheckDepositInstruction.Currency
-                                            .CAD
+                                            .USD
                                     )
                                     .frontImageFileId("file_makxrc67oh9l6sg7w9yc")
                                     .build()
@@ -938,7 +905,7 @@ internal class CardAuthorizationCreateResponseTest {
                                     .amount(100L)
                                     .currency(
                                         PendingTransaction.Source.CheckTransferInstruction.Currency
-                                            .CAD
+                                            .USD
                                     )
                                     .transferId("check_transfer_30b43acfu9vw8fyc4f5")
                                     .build()
@@ -952,7 +919,7 @@ internal class CardAuthorizationCreateResponseTest {
                                     )
                                     .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                                     .currency(
-                                        PendingTransaction.Source.InboundFundsHold.Currency.CAD
+                                        PendingTransaction.Source.InboundFundsHold.Currency.USD
                                     )
                                     .heldTransactionId("transaction_uyrp7fld2ium70oa7oi")
                                     .pendingTransactionId(
@@ -1032,7 +999,7 @@ internal class CardAuthorizationCreateResponseTest {
                                         .originatorCompanyName("BIG BANK")
                                         .reason(
                                             DeclinedTransaction.Source.AchDecline.Reason
-                                                .ACH_ROUTE_CANCELED
+                                                .INSUFFICIENT_FUNDS
                                         )
                                         .receiverIdNumber("12345678900")
                                         .receiverName("IAN CREASE")
@@ -1046,12 +1013,12 @@ internal class CardAuthorizationCreateResponseTest {
                                     DeclinedTransaction.Source.CardDecline.builder()
                                         .id("card_decline_bx3o8zd7glq8yvtwg25v")
                                         .actioner(
-                                            DeclinedTransaction.Source.CardDecline.Actioner.USER
+                                            DeclinedTransaction.Source.CardDecline.Actioner.INCREASE
                                         )
                                         .amount(-1000L)
                                         .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                                         .currency(
-                                            DeclinedTransaction.Source.CardDecline.Currency.CAD
+                                            DeclinedTransaction.Source.CardDecline.Currency.USD
                                         )
                                         .declinedTransactionId(
                                             "declined_transaction_17jbn0yyhvkt4v4ooym8"
@@ -1087,22 +1054,16 @@ internal class CardAuthorizationCreateResponseTest {
                                                                 .NetworkDetails
                                                                 .Visa
                                                                 .ElectronicCommerceIndicator
-                                                                .MAIL_PHONE_ORDER
+                                                                .SECURE_ELECTRONIC_COMMERCE
                                                         )
                                                         .pointOfServiceEntryMode(
                                                             DeclinedTransaction.Source.CardDecline
                                                                 .NetworkDetails
                                                                 .Visa
                                                                 .PointOfServiceEntryMode
-                                                                .UNKNOWN
+                                                                .MANUAL
                                                         )
-                                                        .standInProcessingReason(
-                                                            DeclinedTransaction.Source.CardDecline
-                                                                .NetworkDetails
-                                                                .Visa
-                                                                .StandInProcessingReason
-                                                                .ISSUER_ERROR
-                                                        )
+                                                        .standInProcessingReason(null)
                                                         .build()
                                                 )
                                                 .build()
@@ -1123,17 +1084,13 @@ internal class CardAuthorizationCreateResponseTest {
                                         .processingCategory(
                                             DeclinedTransaction.Source.CardDecline
                                                 .ProcessingCategory
-                                                .ACCOUNT_FUNDING
+                                                .PURCHASE
                                         )
                                         .realTimeDecisionId(null)
-                                        .realTimeDecisionReason(
-                                            DeclinedTransaction.Source.CardDecline
-                                                .RealTimeDecisionReason
-                                                .INSUFFICIENT_FUNDS
-                                        )
+                                        .realTimeDecisionReason(null)
                                         .reason(
                                             DeclinedTransaction.Source.CardDecline.Reason
-                                                .ACCOUNT_CLOSED
+                                                .INSUFFICIENT_FUNDS
                                         )
                                         .terminalId("RCN5VNXS")
                                         .verification(
@@ -1149,7 +1106,7 @@ internal class CardAuthorizationCreateResponseTest {
                                                                 .Verification
                                                                 .CardVerificationCode
                                                                 .Result
-                                                                .NOT_CHECKED
+                                                                .MATCH
                                                         )
                                                         .build()
                                                 )
@@ -1167,7 +1124,7 @@ internal class CardAuthorizationCreateResponseTest {
                                                                 .Verification
                                                                 .CardholderAddress
                                                                 .Result
-                                                                .NOT_CHECKED
+                                                                .POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
                                                         )
                                                         .build()
                                                 )
@@ -1188,7 +1145,7 @@ internal class CardAuthorizationCreateResponseTest {
                                         )
                                         .reason(
                                             DeclinedTransaction.Source.CheckDecline.Reason
-                                                .ACH_ROUTE_DISABLED
+                                                .INSUFFICIENT_FUNDS
                                         )
                                         .build()
                                 )
@@ -1199,7 +1156,7 @@ internal class CardAuthorizationCreateResponseTest {
                                         .currency(
                                             DeclinedTransaction.Source.CheckDepositRejection
                                                 .Currency
-                                                .CAD
+                                                .USD
                                         )
                                         .declinedTransactionId(
                                             "declined_transaction_17jbn0yyhvkt4v4ooym8"
@@ -1221,7 +1178,7 @@ internal class CardAuthorizationCreateResponseTest {
                                             DeclinedTransaction.Source
                                                 .InboundRealTimePaymentsTransferDecline
                                                 .Currency
-                                                .CAD
+                                                .USD
                                         )
                                         .debtorAccountNumber("987654321")
                                         .debtorName("National Phonograph Company")
@@ -1230,7 +1187,7 @@ internal class CardAuthorizationCreateResponseTest {
                                             DeclinedTransaction.Source
                                                 .InboundRealTimePaymentsTransferDecline
                                                 .Reason
-                                                .ACCOUNT_NUMBER_CANCELED
+                                                .ACCOUNT_NUMBER_DISABLED
                                         )
                                         .remittanceInformation("Invoice 29582")
                                         .transactionIdentification(
@@ -1249,7 +1206,7 @@ internal class CardAuthorizationCreateResponseTest {
                                         )
                                         .reason(
                                             DeclinedTransaction.Source.WireDecline.Reason
-                                                .ACCOUNT_NUMBER_CANCELED
+                                                .ACCOUNT_NUMBER_DISABLED
                                         )
                                         .build()
                                 )
@@ -1265,10 +1222,10 @@ internal class CardAuthorizationCreateResponseTest {
                         .amount(100L)
                         .completedAt(null)
                         .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                        .currency(PendingTransaction.Currency.CAD)
+                        .currency(PendingTransaction.Currency.USD)
                         .description("INVOICE 2468")
                         .routeId("card_oubs0hwk5rn6knuecxg2")
-                        .routeType(PendingTransaction.RouteType.ACCOUNT_NUMBER)
+                        .routeType(PendingTransaction.RouteType.CARD)
                         .source(
                             PendingTransaction.Source.builder()
                                 .accountTransferInstruction(
@@ -1277,7 +1234,7 @@ internal class CardAuthorizationCreateResponseTest {
                                         .currency(
                                             PendingTransaction.Source.AccountTransferInstruction
                                                 .Currency
-                                                .CAD
+                                                .USD
                                         )
                                         .transferId("account_transfer_7k9qe1ysdgqztnt63l7n")
                                         .build()
@@ -1293,12 +1250,12 @@ internal class CardAuthorizationCreateResponseTest {
                                         .id("card_authorization_6iqxap6ivd0fo5eu3i8x")
                                         .actioner(
                                             PendingTransaction.Source.CardAuthorization.Actioner
-                                                .USER
+                                                .INCREASE
                                         )
                                         .amount(100L)
                                         .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                                         .currency(
-                                            PendingTransaction.Source.CardAuthorization.Currency.CAD
+                                            PendingTransaction.Source.CardAuthorization.Currency.USD
                                         )
                                         .digitalWalletTokenId(null)
                                         .direction(
@@ -1334,7 +1291,7 @@ internal class CardAuthorizationCreateResponseTest {
                                                                 .NetworkDetails
                                                                 .Visa
                                                                 .ElectronicCommerceIndicator
-                                                                .MAIL_PHONE_ORDER
+                                                                .SECURE_ELECTRONIC_COMMERCE
                                                         )
                                                         .pointOfServiceEntryMode(
                                                             PendingTransaction.Source
@@ -1342,16 +1299,9 @@ internal class CardAuthorizationCreateResponseTest {
                                                                 .NetworkDetails
                                                                 .Visa
                                                                 .PointOfServiceEntryMode
-                                                                .UNKNOWN
+                                                                .MANUAL
                                                         )
-                                                        .standInProcessingReason(
-                                                            PendingTransaction.Source
-                                                                .CardAuthorization
-                                                                .NetworkDetails
-                                                                .Visa
-                                                                .StandInProcessingReason
-                                                                .ISSUER_ERROR
-                                                        )
+                                                        .standInProcessingReason(null)
                                                         .build()
                                                 )
                                                 .build()
@@ -1373,7 +1323,7 @@ internal class CardAuthorizationCreateResponseTest {
                                         .processingCategory(
                                             PendingTransaction.Source.CardAuthorization
                                                 .ProcessingCategory
-                                                .ACCOUNT_FUNDING
+                                                .PURCHASE
                                         )
                                         .realTimeDecisionId(null)
                                         .terminalId("RCN5VNXS")
@@ -1395,7 +1345,7 @@ internal class CardAuthorizationCreateResponseTest {
                                                                 .Verification
                                                                 .CardVerificationCode
                                                                 .Result
-                                                                .NOT_CHECKED
+                                                                .MATCH
                                                         )
                                                         .build()
                                                 )
@@ -1414,7 +1364,7 @@ internal class CardAuthorizationCreateResponseTest {
                                                                 .Verification
                                                                 .CardholderAddress
                                                                 .Result
-                                                                .NOT_CHECKED
+                                                                .POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
                                                         )
                                                         .build()
                                                 )
@@ -1422,9 +1372,7 @@ internal class CardAuthorizationCreateResponseTest {
                                         )
                                         .build()
                                 )
-                                .category(
-                                    PendingTransaction.Source.Category.ACCOUNT_TRANSFER_INSTRUCTION
-                                )
+                                .category(PendingTransaction.Source.Category.CARD_AUTHORIZATION)
                                 .checkDepositInstruction(
                                     PendingTransaction.Source.CheckDepositInstruction.builder()
                                         .amount(100L)
@@ -1433,7 +1381,7 @@ internal class CardAuthorizationCreateResponseTest {
                                         .currency(
                                             PendingTransaction.Source.CheckDepositInstruction
                                                 .Currency
-                                                .CAD
+                                                .USD
                                         )
                                         .frontImageFileId("file_makxrc67oh9l6sg7w9yc")
                                         .build()
@@ -1444,7 +1392,7 @@ internal class CardAuthorizationCreateResponseTest {
                                         .currency(
                                             PendingTransaction.Source.CheckTransferInstruction
                                                 .Currency
-                                                .CAD
+                                                .USD
                                         )
                                         .transferId("check_transfer_30b43acfu9vw8fyc4f5")
                                         .build()
@@ -1458,7 +1406,7 @@ internal class CardAuthorizationCreateResponseTest {
                                         )
                                         .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                                         .currency(
-                                            PendingTransaction.Source.InboundFundsHold.Currency.CAD
+                                            PendingTransaction.Source.InboundFundsHold.Currency.USD
                                         )
                                         .heldTransactionId("transaction_uyrp7fld2ium70oa7oi")
                                         .pendingTransactionId(

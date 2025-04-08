@@ -37,7 +37,7 @@ internal class InboundWireTransferTest {
                 .originatorToBeneficiaryInformationLine3(null)
                 .originatorToBeneficiaryInformationLine4(null)
                 .senderReference(null)
-                .status(InboundWireTransfer.Status.PENDING)
+                .status(InboundWireTransfer.Status.ACCEPTED)
                 .type(InboundWireTransfer.Type.INBOUND_WIRE_TRANSFER)
                 .build()
 
@@ -66,7 +66,7 @@ internal class InboundWireTransferTest {
         assertThat(inboundWireTransfer.originatorToBeneficiaryInformationLine3()).isEmpty
         assertThat(inboundWireTransfer.originatorToBeneficiaryInformationLine4()).isEmpty
         assertThat(inboundWireTransfer.senderReference()).isEmpty
-        assertThat(inboundWireTransfer.status()).isEqualTo(InboundWireTransfer.Status.PENDING)
+        assertThat(inboundWireTransfer.status()).isEqualTo(InboundWireTransfer.Status.ACCEPTED)
         assertThat(inboundWireTransfer.type())
             .isEqualTo(InboundWireTransfer.Type.INBOUND_WIRE_TRANSFER)
     }
@@ -99,7 +99,7 @@ internal class InboundWireTransferTest {
                 .originatorToBeneficiaryInformationLine3(null)
                 .originatorToBeneficiaryInformationLine4(null)
                 .senderReference(null)
-                .status(InboundWireTransfer.Status.PENDING)
+                .status(InboundWireTransfer.Status.ACCEPTED)
                 .type(InboundWireTransfer.Type.INBOUND_WIRE_TRANSFER)
                 .build()
 

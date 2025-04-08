@@ -11,7 +11,7 @@ internal class PhysicalCardAdvanceShipmentParamsTest {
     fun create() {
         PhysicalCardAdvanceShipmentParams.builder()
             .physicalCardId("physical_card_ode8duyq5v2ynhjoharl")
-            .shipmentStatus(PhysicalCardAdvanceShipmentParams.ShipmentStatus.PENDING)
+            .shipmentStatus(PhysicalCardAdvanceShipmentParams.ShipmentStatus.SHIPPED)
             .build()
     }
 
@@ -20,7 +20,7 @@ internal class PhysicalCardAdvanceShipmentParamsTest {
         val params =
             PhysicalCardAdvanceShipmentParams.builder()
                 .physicalCardId("physical_card_ode8duyq5v2ynhjoharl")
-                .shipmentStatus(PhysicalCardAdvanceShipmentParams.ShipmentStatus.PENDING)
+                .shipmentStatus(PhysicalCardAdvanceShipmentParams.ShipmentStatus.SHIPPED)
                 .build()
 
         assertThat(params._pathParam(0)).isEqualTo("physical_card_ode8duyq5v2ynhjoharl")
@@ -33,12 +33,12 @@ internal class PhysicalCardAdvanceShipmentParamsTest {
         val params =
             PhysicalCardAdvanceShipmentParams.builder()
                 .physicalCardId("physical_card_ode8duyq5v2ynhjoharl")
-                .shipmentStatus(PhysicalCardAdvanceShipmentParams.ShipmentStatus.PENDING)
+                .shipmentStatus(PhysicalCardAdvanceShipmentParams.ShipmentStatus.SHIPPED)
                 .build()
 
         val body = params._body()
 
         assertThat(body.shipmentStatus())
-            .isEqualTo(PhysicalCardAdvanceShipmentParams.ShipmentStatus.PENDING)
+            .isEqualTo(PhysicalCardAdvanceShipmentParams.ShipmentStatus.SHIPPED)
     }
 }

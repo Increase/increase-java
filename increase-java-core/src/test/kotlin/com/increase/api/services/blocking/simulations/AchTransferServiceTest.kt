@@ -49,7 +49,7 @@ internal class AchTransferServiceTest {
                     .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
                     .changeCode(
                         AchTransferCreateNotificationOfChangeParams.ChangeCode
-                            .INCORRECT_ACCOUNT_NUMBER
+                            .INCORRECT_ROUTING_NUMBER
                     )
                     .correctedData("123456789")
                     .build()

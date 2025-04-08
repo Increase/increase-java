@@ -20,10 +20,10 @@ internal class PendingTransactionTest {
                 .amount(100L)
                 .completedAt(null)
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                .currency(PendingTransaction.Currency.CAD)
+                .currency(PendingTransaction.Currency.USD)
                 .description("INVOICE 2468")
                 .routeId("card_oubs0hwk5rn6knuecxg2")
-                .routeType(PendingTransaction.RouteType.ACCOUNT_NUMBER)
+                .routeType(PendingTransaction.RouteType.CARD)
                 .source(
                     PendingTransaction.Source.builder()
                         .accountTransferInstruction(
@@ -31,7 +31,7 @@ internal class PendingTransactionTest {
                                 .amount(100L)
                                 .currency(
                                     PendingTransaction.Source.AccountTransferInstruction.Currency
-                                        .CAD
+                                        .USD
                                 )
                                 .transferId("account_transfer_7k9qe1ysdgqztnt63l7n")
                                 .build()
@@ -45,10 +45,12 @@ internal class PendingTransactionTest {
                         .cardAuthorization(
                             PendingTransaction.Source.CardAuthorization.builder()
                                 .id("card_authorization_6iqxap6ivd0fo5eu3i8x")
-                                .actioner(PendingTransaction.Source.CardAuthorization.Actioner.USER)
+                                .actioner(
+                                    PendingTransaction.Source.CardAuthorization.Actioner.INCREASE
+                                )
                                 .amount(100L)
                                 .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
-                                .currency(PendingTransaction.Source.CardAuthorization.Currency.CAD)
+                                .currency(PendingTransaction.Source.CardAuthorization.Currency.USD)
                                 .digitalWalletTokenId(null)
                                 .direction(
                                     PendingTransaction.Source.CardAuthorization.Direction.SETTLEMENT
@@ -80,22 +82,16 @@ internal class PendingTransactionTest {
                                                         .NetworkDetails
                                                         .Visa
                                                         .ElectronicCommerceIndicator
-                                                        .MAIL_PHONE_ORDER
+                                                        .SECURE_ELECTRONIC_COMMERCE
                                                 )
                                                 .pointOfServiceEntryMode(
                                                     PendingTransaction.Source.CardAuthorization
                                                         .NetworkDetails
                                                         .Visa
                                                         .PointOfServiceEntryMode
-                                                        .UNKNOWN
+                                                        .MANUAL
                                                 )
-                                                .standInProcessingReason(
-                                                    PendingTransaction.Source.CardAuthorization
-                                                        .NetworkDetails
-                                                        .Visa
-                                                        .StandInProcessingReason
-                                                        .ISSUER_ERROR
-                                                )
+                                                .standInProcessingReason(null)
                                                 .build()
                                         )
                                         .build()
@@ -115,7 +111,7 @@ internal class PendingTransactionTest {
                                 .presentmentCurrency("USD")
                                 .processingCategory(
                                     PendingTransaction.Source.CardAuthorization.ProcessingCategory
-                                        .ACCOUNT_FUNDING
+                                        .PURCHASE
                                 )
                                 .realTimeDecisionId(null)
                                 .terminalId("RCN5VNXS")
@@ -135,7 +131,7 @@ internal class PendingTransactionTest {
                                                         .Verification
                                                         .CardVerificationCode
                                                         .Result
-                                                        .NOT_CHECKED
+                                                        .MATCH
                                                 )
                                                 .build()
                                         )
@@ -152,7 +148,7 @@ internal class PendingTransactionTest {
                                                         .Verification
                                                         .CardholderAddress
                                                         .Result
-                                                        .NOT_CHECKED
+                                                        .POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
                                                 )
                                                 .build()
                                         )
@@ -160,14 +156,14 @@ internal class PendingTransactionTest {
                                 )
                                 .build()
                         )
-                        .category(PendingTransaction.Source.Category.ACCOUNT_TRANSFER_INSTRUCTION)
+                        .category(PendingTransaction.Source.Category.ACH_TRANSFER_INSTRUCTION)
                         .checkDepositInstruction(
                             PendingTransaction.Source.CheckDepositInstruction.builder()
                                 .amount(100L)
                                 .backImageFileId("file_26khfk98mzfz90a11oqx")
                                 .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
                                 .currency(
-                                    PendingTransaction.Source.CheckDepositInstruction.Currency.CAD
+                                    PendingTransaction.Source.CheckDepositInstruction.Currency.USD
                                 )
                                 .frontImageFileId("file_makxrc67oh9l6sg7w9yc")
                                 .build()
@@ -176,7 +172,7 @@ internal class PendingTransactionTest {
                             PendingTransaction.Source.CheckTransferInstruction.builder()
                                 .amount(100L)
                                 .currency(
-                                    PendingTransaction.Source.CheckTransferInstruction.Currency.CAD
+                                    PendingTransaction.Source.CheckTransferInstruction.Currency.USD
                                 )
                                 .transferId("check_transfer_30b43acfu9vw8fyc4f5")
                                 .build()
@@ -189,7 +185,7 @@ internal class PendingTransactionTest {
                                     OffsetDateTime.parse("2020-01-31T23:59:59Z")
                                 )
                                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                                .currency(PendingTransaction.Source.InboundFundsHold.Currency.CAD)
+                                .currency(PendingTransaction.Source.InboundFundsHold.Currency.USD)
                                 .heldTransactionId("transaction_uyrp7fld2ium70oa7oi")
                                 .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")
                                 .releasedAt(null)
@@ -233,11 +229,10 @@ internal class PendingTransactionTest {
         assertThat(pendingTransaction.completedAt()).isEmpty
         assertThat(pendingTransaction.createdAt())
             .isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-        assertThat(pendingTransaction.currency()).isEqualTo(PendingTransaction.Currency.CAD)
+        assertThat(pendingTransaction.currency()).isEqualTo(PendingTransaction.Currency.USD)
         assertThat(pendingTransaction.description()).isEqualTo("INVOICE 2468")
         assertThat(pendingTransaction.routeId()).contains("card_oubs0hwk5rn6knuecxg2")
-        assertThat(pendingTransaction.routeType())
-            .contains(PendingTransaction.RouteType.ACCOUNT_NUMBER)
+        assertThat(pendingTransaction.routeType()).contains(PendingTransaction.RouteType.CARD)
         assertThat(pendingTransaction.source())
             .isEqualTo(
                 PendingTransaction.Source.builder()
@@ -245,7 +240,7 @@ internal class PendingTransactionTest {
                         PendingTransaction.Source.AccountTransferInstruction.builder()
                             .amount(100L)
                             .currency(
-                                PendingTransaction.Source.AccountTransferInstruction.Currency.CAD
+                                PendingTransaction.Source.AccountTransferInstruction.Currency.USD
                             )
                             .transferId("account_transfer_7k9qe1ysdgqztnt63l7n")
                             .build()
@@ -259,10 +254,10 @@ internal class PendingTransactionTest {
                     .cardAuthorization(
                         PendingTransaction.Source.CardAuthorization.builder()
                             .id("card_authorization_6iqxap6ivd0fo5eu3i8x")
-                            .actioner(PendingTransaction.Source.CardAuthorization.Actioner.USER)
+                            .actioner(PendingTransaction.Source.CardAuthorization.Actioner.INCREASE)
                             .amount(100L)
                             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
-                            .currency(PendingTransaction.Source.CardAuthorization.Currency.CAD)
+                            .currency(PendingTransaction.Source.CardAuthorization.Currency.USD)
                             .digitalWalletTokenId(null)
                             .direction(
                                 PendingTransaction.Source.CardAuthorization.Direction.SETTLEMENT
@@ -291,22 +286,16 @@ internal class PendingTransactionTest {
                                                     .NetworkDetails
                                                     .Visa
                                                     .ElectronicCommerceIndicator
-                                                    .MAIL_PHONE_ORDER
+                                                    .SECURE_ELECTRONIC_COMMERCE
                                             )
                                             .pointOfServiceEntryMode(
                                                 PendingTransaction.Source.CardAuthorization
                                                     .NetworkDetails
                                                     .Visa
                                                     .PointOfServiceEntryMode
-                                                    .UNKNOWN
+                                                    .MANUAL
                                             )
-                                            .standInProcessingReason(
-                                                PendingTransaction.Source.CardAuthorization
-                                                    .NetworkDetails
-                                                    .Visa
-                                                    .StandInProcessingReason
-                                                    .ISSUER_ERROR
-                                            )
+                                            .standInProcessingReason(null)
                                             .build()
                                     )
                                     .build()
@@ -326,7 +315,7 @@ internal class PendingTransactionTest {
                             .presentmentCurrency("USD")
                             .processingCategory(
                                 PendingTransaction.Source.CardAuthorization.ProcessingCategory
-                                    .ACCOUNT_FUNDING
+                                    .PURCHASE
                             )
                             .realTimeDecisionId(null)
                             .terminalId("RCN5VNXS")
@@ -344,7 +333,7 @@ internal class PendingTransactionTest {
                                                     .Verification
                                                     .CardVerificationCode
                                                     .Result
-                                                    .NOT_CHECKED
+                                                    .MATCH
                                             )
                                             .build()
                                     )
@@ -361,7 +350,7 @@ internal class PendingTransactionTest {
                                                     .Verification
                                                     .CardholderAddress
                                                     .Result
-                                                    .NOT_CHECKED
+                                                    .POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
                                             )
                                             .build()
                                     )
@@ -369,14 +358,14 @@ internal class PendingTransactionTest {
                             )
                             .build()
                     )
-                    .category(PendingTransaction.Source.Category.ACCOUNT_TRANSFER_INSTRUCTION)
+                    .category(PendingTransaction.Source.Category.ACH_TRANSFER_INSTRUCTION)
                     .checkDepositInstruction(
                         PendingTransaction.Source.CheckDepositInstruction.builder()
                             .amount(100L)
                             .backImageFileId("file_26khfk98mzfz90a11oqx")
                             .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
                             .currency(
-                                PendingTransaction.Source.CheckDepositInstruction.Currency.CAD
+                                PendingTransaction.Source.CheckDepositInstruction.Currency.USD
                             )
                             .frontImageFileId("file_makxrc67oh9l6sg7w9yc")
                             .build()
@@ -385,7 +374,7 @@ internal class PendingTransactionTest {
                         PendingTransaction.Source.CheckTransferInstruction.builder()
                             .amount(100L)
                             .currency(
-                                PendingTransaction.Source.CheckTransferInstruction.Currency.CAD
+                                PendingTransaction.Source.CheckTransferInstruction.Currency.USD
                             )
                             .transferId("check_transfer_30b43acfu9vw8fyc4f5")
                             .build()
@@ -396,7 +385,7 @@ internal class PendingTransactionTest {
                             .amount(100L)
                             .automaticallyReleasesAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                             .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                            .currency(PendingTransaction.Source.InboundFundsHold.Currency.CAD)
+                            .currency(PendingTransaction.Source.InboundFundsHold.Currency.USD)
                             .heldTransactionId("transaction_uyrp7fld2ium70oa7oi")
                             .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")
                             .releasedAt(null)
@@ -443,10 +432,10 @@ internal class PendingTransactionTest {
                 .amount(100L)
                 .completedAt(null)
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                .currency(PendingTransaction.Currency.CAD)
+                .currency(PendingTransaction.Currency.USD)
                 .description("INVOICE 2468")
                 .routeId("card_oubs0hwk5rn6knuecxg2")
-                .routeType(PendingTransaction.RouteType.ACCOUNT_NUMBER)
+                .routeType(PendingTransaction.RouteType.CARD)
                 .source(
                     PendingTransaction.Source.builder()
                         .accountTransferInstruction(
@@ -454,7 +443,7 @@ internal class PendingTransactionTest {
                                 .amount(100L)
                                 .currency(
                                     PendingTransaction.Source.AccountTransferInstruction.Currency
-                                        .CAD
+                                        .USD
                                 )
                                 .transferId("account_transfer_7k9qe1ysdgqztnt63l7n")
                                 .build()
@@ -468,10 +457,12 @@ internal class PendingTransactionTest {
                         .cardAuthorization(
                             PendingTransaction.Source.CardAuthorization.builder()
                                 .id("card_authorization_6iqxap6ivd0fo5eu3i8x")
-                                .actioner(PendingTransaction.Source.CardAuthorization.Actioner.USER)
+                                .actioner(
+                                    PendingTransaction.Source.CardAuthorization.Actioner.INCREASE
+                                )
                                 .amount(100L)
                                 .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
-                                .currency(PendingTransaction.Source.CardAuthorization.Currency.CAD)
+                                .currency(PendingTransaction.Source.CardAuthorization.Currency.USD)
                                 .digitalWalletTokenId(null)
                                 .direction(
                                     PendingTransaction.Source.CardAuthorization.Direction.SETTLEMENT
@@ -503,22 +494,16 @@ internal class PendingTransactionTest {
                                                         .NetworkDetails
                                                         .Visa
                                                         .ElectronicCommerceIndicator
-                                                        .MAIL_PHONE_ORDER
+                                                        .SECURE_ELECTRONIC_COMMERCE
                                                 )
                                                 .pointOfServiceEntryMode(
                                                     PendingTransaction.Source.CardAuthorization
                                                         .NetworkDetails
                                                         .Visa
                                                         .PointOfServiceEntryMode
-                                                        .UNKNOWN
+                                                        .MANUAL
                                                 )
-                                                .standInProcessingReason(
-                                                    PendingTransaction.Source.CardAuthorization
-                                                        .NetworkDetails
-                                                        .Visa
-                                                        .StandInProcessingReason
-                                                        .ISSUER_ERROR
-                                                )
+                                                .standInProcessingReason(null)
                                                 .build()
                                         )
                                         .build()
@@ -538,7 +523,7 @@ internal class PendingTransactionTest {
                                 .presentmentCurrency("USD")
                                 .processingCategory(
                                     PendingTransaction.Source.CardAuthorization.ProcessingCategory
-                                        .ACCOUNT_FUNDING
+                                        .PURCHASE
                                 )
                                 .realTimeDecisionId(null)
                                 .terminalId("RCN5VNXS")
@@ -558,7 +543,7 @@ internal class PendingTransactionTest {
                                                         .Verification
                                                         .CardVerificationCode
                                                         .Result
-                                                        .NOT_CHECKED
+                                                        .MATCH
                                                 )
                                                 .build()
                                         )
@@ -575,7 +560,7 @@ internal class PendingTransactionTest {
                                                         .Verification
                                                         .CardholderAddress
                                                         .Result
-                                                        .NOT_CHECKED
+                                                        .POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
                                                 )
                                                 .build()
                                         )
@@ -583,14 +568,14 @@ internal class PendingTransactionTest {
                                 )
                                 .build()
                         )
-                        .category(PendingTransaction.Source.Category.ACCOUNT_TRANSFER_INSTRUCTION)
+                        .category(PendingTransaction.Source.Category.ACH_TRANSFER_INSTRUCTION)
                         .checkDepositInstruction(
                             PendingTransaction.Source.CheckDepositInstruction.builder()
                                 .amount(100L)
                                 .backImageFileId("file_26khfk98mzfz90a11oqx")
                                 .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
                                 .currency(
-                                    PendingTransaction.Source.CheckDepositInstruction.Currency.CAD
+                                    PendingTransaction.Source.CheckDepositInstruction.Currency.USD
                                 )
                                 .frontImageFileId("file_makxrc67oh9l6sg7w9yc")
                                 .build()
@@ -599,7 +584,7 @@ internal class PendingTransactionTest {
                             PendingTransaction.Source.CheckTransferInstruction.builder()
                                 .amount(100L)
                                 .currency(
-                                    PendingTransaction.Source.CheckTransferInstruction.Currency.CAD
+                                    PendingTransaction.Source.CheckTransferInstruction.Currency.USD
                                 )
                                 .transferId("check_transfer_30b43acfu9vw8fyc4f5")
                                 .build()
@@ -612,7 +597,7 @@ internal class PendingTransactionTest {
                                     OffsetDateTime.parse("2020-01-31T23:59:59Z")
                                 )
                                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                                .currency(PendingTransaction.Source.InboundFundsHold.Currency.CAD)
+                                .currency(PendingTransaction.Source.InboundFundsHold.Currency.USD)
                                 .heldTransactionId("transaction_uyrp7fld2ium70oa7oi")
                                 .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")
                                 .releasedAt(null)
