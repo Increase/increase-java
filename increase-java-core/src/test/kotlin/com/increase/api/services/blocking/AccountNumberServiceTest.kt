@@ -77,7 +77,7 @@ internal class AccountNumberServiceTest {
                     .accountNumberId("account_number_v18nkfqm6afpsrvy82b2")
                     .inboundAch(
                         AccountNumberUpdateParams.InboundAch.builder()
-                            .debitStatus(AccountNumberUpdateParams.InboundAch.DebitStatus.ALLOWED)
+                            .debitStatus(AccountNumberUpdateParams.InboundAch.DebitStatus.BLOCKED)
                             .build()
                     )
                     .inboundChecks(
@@ -86,7 +86,7 @@ internal class AccountNumberServiceTest {
                             .build()
                     )
                     .name("x")
-                    .status(AccountNumberUpdateParams.Status.ACTIVE)
+                    .status(AccountNumberUpdateParams.Status.DISABLED)
                     .build()
             )
 

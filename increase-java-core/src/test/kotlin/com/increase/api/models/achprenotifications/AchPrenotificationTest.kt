@@ -22,14 +22,14 @@ internal class AchPrenotificationTest {
                 .companyEntryDescription(null)
                 .companyName(null)
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                .creditDebitIndicator(AchPrenotification.CreditDebitIndicator.CREDIT)
+                .creditDebitIndicator(null)
                 .effectiveDate(null)
                 .idempotencyKey(null)
                 .addNotificationsOfChange(
                     AchPrenotification.NotificationsOfChange.builder()
                         .changeCode(
                             AchPrenotification.NotificationsOfChange.ChangeCode
-                                .INCORRECT_ACCOUNT_NUMBER
+                                .INCORRECT_TRANSACTION_CODE
                         )
                         .correctedData("32")
                         .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
@@ -45,7 +45,7 @@ internal class AchPrenotificationTest {
                         .build()
                 )
                 .routingNumber("101050001")
-                .status(AchPrenotification.Status.PENDING_SUBMITTING)
+                .status(AchPrenotification.Status.SUBMITTED)
                 .type(AchPrenotification.Type.ACH_PRENOTIFICATION)
                 .build()
 
@@ -58,15 +58,15 @@ internal class AchPrenotificationTest {
         assertThat(achPrenotification.companyName()).isEmpty
         assertThat(achPrenotification.createdAt())
             .isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-        assertThat(achPrenotification.creditDebitIndicator())
-            .contains(AchPrenotification.CreditDebitIndicator.CREDIT)
+        assertThat(achPrenotification.creditDebitIndicator()).isEmpty
         assertThat(achPrenotification.effectiveDate()).isEmpty
         assertThat(achPrenotification.idempotencyKey()).isEmpty
         assertThat(achPrenotification.notificationsOfChange())
             .containsExactly(
                 AchPrenotification.NotificationsOfChange.builder()
                     .changeCode(
-                        AchPrenotification.NotificationsOfChange.ChangeCode.INCORRECT_ACCOUNT_NUMBER
+                        AchPrenotification.NotificationsOfChange.ChangeCode
+                            .INCORRECT_TRANSACTION_CODE
                     )
                     .correctedData("32")
                     .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
@@ -82,8 +82,7 @@ internal class AchPrenotificationTest {
                     .build()
             )
         assertThat(achPrenotification.routingNumber()).isEqualTo("101050001")
-        assertThat(achPrenotification.status())
-            .isEqualTo(AchPrenotification.Status.PENDING_SUBMITTING)
+        assertThat(achPrenotification.status()).isEqualTo(AchPrenotification.Status.SUBMITTED)
         assertThat(achPrenotification.type()).isEqualTo(AchPrenotification.Type.ACH_PRENOTIFICATION)
     }
 
@@ -100,14 +99,14 @@ internal class AchPrenotificationTest {
                 .companyEntryDescription(null)
                 .companyName(null)
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                .creditDebitIndicator(AchPrenotification.CreditDebitIndicator.CREDIT)
+                .creditDebitIndicator(null)
                 .effectiveDate(null)
                 .idempotencyKey(null)
                 .addNotificationsOfChange(
                     AchPrenotification.NotificationsOfChange.builder()
                         .changeCode(
                             AchPrenotification.NotificationsOfChange.ChangeCode
-                                .INCORRECT_ACCOUNT_NUMBER
+                                .INCORRECT_TRANSACTION_CODE
                         )
                         .correctedData("32")
                         .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
@@ -123,7 +122,7 @@ internal class AchPrenotificationTest {
                         .build()
                 )
                 .routingNumber("101050001")
-                .status(AchPrenotification.Status.PENDING_SUBMITTING)
+                .status(AchPrenotification.Status.SUBMITTED)
                 .type(AchPrenotification.Type.ACH_PRENOTIFICATION)
                 .build()
 

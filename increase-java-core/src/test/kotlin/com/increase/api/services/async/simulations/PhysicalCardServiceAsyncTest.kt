@@ -24,7 +24,7 @@ internal class PhysicalCardServiceAsyncTest {
             physicalCardServiceAsync.advanceShipment(
                 PhysicalCardAdvanceShipmentParams.builder()
                     .physicalCardId("physical_card_ode8duyq5v2ynhjoharl")
-                    .shipmentStatus(PhysicalCardAdvanceShipmentParams.ShipmentStatus.PENDING)
+                    .shipmentStatus(PhysicalCardAdvanceShipmentParams.ShipmentStatus.SHIPPED)
                     .build()
             )
 

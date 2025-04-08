@@ -40,7 +40,7 @@ internal class CheckTransferTest {
                                 .description("description")
                                 .build()
                         )
-                        .category(CheckTransfer.CreatedBy.Category.API_KEY)
+                        .category(CheckTransfer.CreatedBy.Category.USER)
                         .oauthApplication(
                             CheckTransfer.CreatedBy.OAuthApplication.builder().name("name").build()
                         )
@@ -49,7 +49,7 @@ internal class CheckTransferTest {
                         )
                         .build()
                 )
-                .currency(CheckTransfer.Currency.CAD)
+                .currency(CheckTransfer.Currency.USD)
                 .fulfillmentMethod(CheckTransfer.FulfillmentMethod.PHYSICAL_CHECK)
                 .idempotencyKey(null)
                 .mailing(
@@ -85,7 +85,7 @@ internal class CheckTransferTest {
                                 .state("NY")
                                 .build()
                         )
-                        .shippingMethod(CheckTransfer.PhysicalCheck.ShippingMethod.USPS_FIRST_CLASS)
+                        .shippingMethod(null)
                         .signatureText(null)
                         .addTrackingUpdate(
                             CheckTransfer.PhysicalCheck.TrackingUpdate.builder()
@@ -100,7 +100,7 @@ internal class CheckTransferTest {
                 )
                 .routingNumber("101050001")
                 .sourceAccountNumberId("account_number_v18nkfqm6afpsrvy82b2")
-                .status(CheckTransfer.Status.PENDING_APPROVAL)
+                .status(CheckTransfer.Status.MAILED)
                 .stopPaymentRequest(
                     CheckTransfer.StopPaymentRequest.builder()
                         .reason(CheckTransfer.StopPaymentRequest.Reason.MAIL_DELIVERY_FAILED)
@@ -155,14 +155,14 @@ internal class CheckTransferTest {
                     .apiKey(
                         CheckTransfer.CreatedBy.ApiKey.builder().description("description").build()
                     )
-                    .category(CheckTransfer.CreatedBy.Category.API_KEY)
+                    .category(CheckTransfer.CreatedBy.Category.USER)
                     .oauthApplication(
                         CheckTransfer.CreatedBy.OAuthApplication.builder().name("name").build()
                     )
                     .user(CheckTransfer.CreatedBy.User.builder().email("user@example.com").build())
                     .build()
             )
-        assertThat(checkTransfer.currency()).isEqualTo(CheckTransfer.Currency.CAD)
+        assertThat(checkTransfer.currency()).isEqualTo(CheckTransfer.Currency.USD)
         assertThat(checkTransfer.fulfillmentMethod())
             .isEqualTo(CheckTransfer.FulfillmentMethod.PHYSICAL_CHECK)
         assertThat(checkTransfer.idempotencyKey()).isEmpty
@@ -202,7 +202,7 @@ internal class CheckTransferTest {
                             .state("NY")
                             .build()
                     )
-                    .shippingMethod(CheckTransfer.PhysicalCheck.ShippingMethod.USPS_FIRST_CLASS)
+                    .shippingMethod(null)
                     .signatureText(null)
                     .addTrackingUpdate(
                         CheckTransfer.PhysicalCheck.TrackingUpdate.builder()
@@ -218,7 +218,7 @@ internal class CheckTransferTest {
         assertThat(checkTransfer.routingNumber()).isEqualTo("101050001")
         assertThat(checkTransfer.sourceAccountNumberId())
             .contains("account_number_v18nkfqm6afpsrvy82b2")
-        assertThat(checkTransfer.status()).isEqualTo(CheckTransfer.Status.PENDING_APPROVAL)
+        assertThat(checkTransfer.status()).isEqualTo(CheckTransfer.Status.MAILED)
         assertThat(checkTransfer.stopPaymentRequest())
             .contains(
                 CheckTransfer.StopPaymentRequest.builder()
@@ -275,7 +275,7 @@ internal class CheckTransferTest {
                                 .description("description")
                                 .build()
                         )
-                        .category(CheckTransfer.CreatedBy.Category.API_KEY)
+                        .category(CheckTransfer.CreatedBy.Category.USER)
                         .oauthApplication(
                             CheckTransfer.CreatedBy.OAuthApplication.builder().name("name").build()
                         )
@@ -284,7 +284,7 @@ internal class CheckTransferTest {
                         )
                         .build()
                 )
-                .currency(CheckTransfer.Currency.CAD)
+                .currency(CheckTransfer.Currency.USD)
                 .fulfillmentMethod(CheckTransfer.FulfillmentMethod.PHYSICAL_CHECK)
                 .idempotencyKey(null)
                 .mailing(
@@ -320,7 +320,7 @@ internal class CheckTransferTest {
                                 .state("NY")
                                 .build()
                         )
-                        .shippingMethod(CheckTransfer.PhysicalCheck.ShippingMethod.USPS_FIRST_CLASS)
+                        .shippingMethod(null)
                         .signatureText(null)
                         .addTrackingUpdate(
                             CheckTransfer.PhysicalCheck.TrackingUpdate.builder()
@@ -335,7 +335,7 @@ internal class CheckTransferTest {
                 )
                 .routingNumber("101050001")
                 .sourceAccountNumberId("account_number_v18nkfqm6afpsrvy82b2")
-                .status(CheckTransfer.Status.PENDING_APPROVAL)
+                .status(CheckTransfer.Status.MAILED)
                 .stopPaymentRequest(
                     CheckTransfer.StopPaymentRequest.builder()
                         .reason(CheckTransfer.StopPaymentRequest.Reason.MAIL_DELIVERY_FAILED)

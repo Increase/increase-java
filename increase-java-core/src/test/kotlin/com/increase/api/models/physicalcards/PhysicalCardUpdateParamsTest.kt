@@ -11,7 +11,7 @@ internal class PhysicalCardUpdateParamsTest {
     fun create() {
         PhysicalCardUpdateParams.builder()
             .physicalCardId("physical_card_ode8duyq5v2ynhjoharl")
-            .status(PhysicalCardUpdateParams.Status.ACTIVE)
+            .status(PhysicalCardUpdateParams.Status.DISABLED)
             .build()
     }
 
@@ -20,7 +20,7 @@ internal class PhysicalCardUpdateParamsTest {
         val params =
             PhysicalCardUpdateParams.builder()
                 .physicalCardId("physical_card_ode8duyq5v2ynhjoharl")
-                .status(PhysicalCardUpdateParams.Status.ACTIVE)
+                .status(PhysicalCardUpdateParams.Status.DISABLED)
                 .build()
 
         assertThat(params._pathParam(0)).isEqualTo("physical_card_ode8duyq5v2ynhjoharl")
@@ -33,11 +33,11 @@ internal class PhysicalCardUpdateParamsTest {
         val params =
             PhysicalCardUpdateParams.builder()
                 .physicalCardId("physical_card_ode8duyq5v2ynhjoharl")
-                .status(PhysicalCardUpdateParams.Status.ACTIVE)
+                .status(PhysicalCardUpdateParams.Status.DISABLED)
                 .build()
 
         val body = params._body()
 
-        assertThat(body.status()).isEqualTo(PhysicalCardUpdateParams.Status.ACTIVE)
+        assertThat(body.status()).isEqualTo(PhysicalCardUpdateParams.Status.DISABLED)
     }
 }

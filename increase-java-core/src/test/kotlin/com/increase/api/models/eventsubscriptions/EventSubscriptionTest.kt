@@ -18,7 +18,7 @@ internal class EventSubscriptionTest {
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .idempotencyKey(null)
                 .oauthConnectionId(null)
-                .selectedEventCategory(EventSubscription.SelectedEventCategory.ACCOUNT_CREATED)
+                .selectedEventCategory(null)
                 .status(EventSubscription.Status.ACTIVE)
                 .type(EventSubscription.Type.EVENT_SUBSCRIPTION)
                 .url("https://website.com/webhooks")
@@ -30,8 +30,7 @@ internal class EventSubscriptionTest {
             .isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
         assertThat(eventSubscription.idempotencyKey()).isEmpty
         assertThat(eventSubscription.oauthConnectionId()).isEmpty
-        assertThat(eventSubscription.selectedEventCategory())
-            .contains(EventSubscription.SelectedEventCategory.ACCOUNT_CREATED)
+        assertThat(eventSubscription.selectedEventCategory()).isEmpty
         assertThat(eventSubscription.status()).isEqualTo(EventSubscription.Status.ACTIVE)
         assertThat(eventSubscription.type()).isEqualTo(EventSubscription.Type.EVENT_SUBSCRIPTION)
         assertThat(eventSubscription.url()).isEqualTo("https://website.com/webhooks")
@@ -46,7 +45,7 @@ internal class EventSubscriptionTest {
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .idempotencyKey(null)
                 .oauthConnectionId(null)
-                .selectedEventCategory(EventSubscription.SelectedEventCategory.ACCOUNT_CREATED)
+                .selectedEventCategory(null)
                 .status(EventSubscription.Status.ACTIVE)
                 .type(EventSubscription.Type.EVENT_SUBSCRIPTION)
                 .url("https://website.com/webhooks")

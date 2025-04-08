@@ -24,7 +24,7 @@ internal class CardDisputeServiceAsyncTest {
             cardDisputeServiceAsync.action(
                 CardDisputeActionParams.builder()
                     .cardDisputeId("card_dispute_h9sc95nbl1cgltpp7men")
-                    .status(CardDisputeActionParams.Status.PENDING_USER_INFORMATION)
+                    .status(CardDisputeActionParams.Status.REJECTED)
                     .explanation("This was a valid recurring transaction")
                     .build()
             )

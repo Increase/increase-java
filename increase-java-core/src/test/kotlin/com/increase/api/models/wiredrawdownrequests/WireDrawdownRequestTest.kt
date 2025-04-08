@@ -32,7 +32,7 @@ internal class WireDrawdownRequestTest {
                 .recipientAddressLine3(null)
                 .recipientName("Ian Crease")
                 .recipientRoutingNumber("101050001")
-                .status(WireDrawdownRequest.Status.PENDING_SUBMISSION)
+                .status(WireDrawdownRequest.Status.FULFILLED)
                 .submission(
                     WireDrawdownRequest.Submission.builder()
                         .inputMessageAccountabilityData("20220118MMQFMP0P000003")
@@ -62,8 +62,7 @@ internal class WireDrawdownRequestTest {
         assertThat(wireDrawdownRequest.recipientAddressLine3()).isEmpty
         assertThat(wireDrawdownRequest.recipientName()).contains("Ian Crease")
         assertThat(wireDrawdownRequest.recipientRoutingNumber()).isEqualTo("101050001")
-        assertThat(wireDrawdownRequest.status())
-            .isEqualTo(WireDrawdownRequest.Status.PENDING_SUBMISSION)
+        assertThat(wireDrawdownRequest.status()).isEqualTo(WireDrawdownRequest.Status.FULFILLED)
         assertThat(wireDrawdownRequest.submission())
             .contains(
                 WireDrawdownRequest.Submission.builder()
@@ -97,7 +96,7 @@ internal class WireDrawdownRequestTest {
                 .recipientAddressLine3(null)
                 .recipientName("Ian Crease")
                 .recipientRoutingNumber("101050001")
-                .status(WireDrawdownRequest.Status.PENDING_SUBMISSION)
+                .status(WireDrawdownRequest.Status.FULFILLED)
                 .submission(
                     WireDrawdownRequest.Submission.builder()
                         .inputMessageAccountabilityData("20220118MMQFMP0P000003")

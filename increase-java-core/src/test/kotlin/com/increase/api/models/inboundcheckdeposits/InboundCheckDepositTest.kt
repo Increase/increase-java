@@ -32,7 +32,7 @@ internal class InboundCheckDepositTest {
                 .checkNumber("123")
                 .checkTransferId("check_transfer_30b43acfu9vw8fyc4f5")
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                .currency(InboundCheckDeposit.Currency.CAD)
+                .currency(InboundCheckDeposit.Currency.USD)
                 .declinedAt(null)
                 .declinedTransactionId(null)
                 .depositReturn(
@@ -44,7 +44,7 @@ internal class InboundCheckDepositTest {
                 )
                 .frontImageFileId("file_makxrc67oh9l6sg7w9yc")
                 .payeeNameAnalysis(InboundCheckDeposit.PayeeNameAnalysis.NAME_MATCHES)
-                .status(InboundCheckDeposit.Status.PENDING)
+                .status(InboundCheckDeposit.Status.ACCEPTED)
                 .transactionId("transaction_uyrp7fld2ium70oa7oi")
                 .type(InboundCheckDeposit.Type.INBOUND_CHECK_DEPOSIT)
                 .build()
@@ -72,7 +72,7 @@ internal class InboundCheckDepositTest {
             .contains("check_transfer_30b43acfu9vw8fyc4f5")
         assertThat(inboundCheckDeposit.createdAt())
             .isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-        assertThat(inboundCheckDeposit.currency()).isEqualTo(InboundCheckDeposit.Currency.CAD)
+        assertThat(inboundCheckDeposit.currency()).isEqualTo(InboundCheckDeposit.Currency.USD)
         assertThat(inboundCheckDeposit.declinedAt()).isEmpty
         assertThat(inboundCheckDeposit.declinedTransactionId()).isEmpty
         assertThat(inboundCheckDeposit.depositReturn())
@@ -86,7 +86,7 @@ internal class InboundCheckDepositTest {
         assertThat(inboundCheckDeposit.frontImageFileId()).contains("file_makxrc67oh9l6sg7w9yc")
         assertThat(inboundCheckDeposit.payeeNameAnalysis())
             .isEqualTo(InboundCheckDeposit.PayeeNameAnalysis.NAME_MATCHES)
-        assertThat(inboundCheckDeposit.status()).isEqualTo(InboundCheckDeposit.Status.PENDING)
+        assertThat(inboundCheckDeposit.status()).isEqualTo(InboundCheckDeposit.Status.ACCEPTED)
         assertThat(inboundCheckDeposit.transactionId()).contains("transaction_uyrp7fld2ium70oa7oi")
         assertThat(inboundCheckDeposit.type())
             .isEqualTo(InboundCheckDeposit.Type.INBOUND_CHECK_DEPOSIT)
@@ -115,7 +115,7 @@ internal class InboundCheckDepositTest {
                 .checkNumber("123")
                 .checkTransferId("check_transfer_30b43acfu9vw8fyc4f5")
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                .currency(InboundCheckDeposit.Currency.CAD)
+                .currency(InboundCheckDeposit.Currency.USD)
                 .declinedAt(null)
                 .declinedTransactionId(null)
                 .depositReturn(
@@ -127,7 +127,7 @@ internal class InboundCheckDepositTest {
                 )
                 .frontImageFileId("file_makxrc67oh9l6sg7w9yc")
                 .payeeNameAnalysis(InboundCheckDeposit.PayeeNameAnalysis.NAME_MATCHES)
-                .status(InboundCheckDeposit.Status.PENDING)
+                .status(InboundCheckDeposit.Status.ACCEPTED)
                 .transactionId("transaction_uyrp7fld2ium70oa7oi")
                 .type(InboundCheckDeposit.Type.INBOUND_CHECK_DEPOSIT)
                 .build()

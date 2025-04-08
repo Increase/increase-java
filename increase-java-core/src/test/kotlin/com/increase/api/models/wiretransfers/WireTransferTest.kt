@@ -43,7 +43,7 @@ internal class WireTransferTest {
                                 .description("description")
                                 .build()
                         )
-                        .category(WireTransfer.CreatedBy.Category.API_KEY)
+                        .category(WireTransfer.CreatedBy.Category.USER)
                         .oauthApplication(
                             WireTransfer.CreatedBy.OAuthApplication.builder().name("name").build()
                         )
@@ -52,7 +52,7 @@ internal class WireTransferTest {
                         )
                         .build()
                 )
-                .currency(WireTransfer.Currency.CAD)
+                .currency(WireTransfer.Currency.USD)
                 .externalAccountId("external_account_ukk55lr923a3ac0pp7iv")
                 .idempotencyKey(null)
                 .messageToRecipient("Message to recipient")
@@ -93,7 +93,7 @@ internal class WireTransferTest {
                 )
                 .routingNumber("101050001")
                 .sourceAccountNumberId(null)
-                .status(WireTransfer.Status.PENDING_APPROVAL)
+                .status(WireTransfer.Status.COMPLETE)
                 .submission(
                     WireTransfer.Submission.builder()
                         .inputMessageAccountabilityData("input_message_accountability_data")
@@ -133,14 +133,14 @@ internal class WireTransferTest {
                     .apiKey(
                         WireTransfer.CreatedBy.ApiKey.builder().description("description").build()
                     )
-                    .category(WireTransfer.CreatedBy.Category.API_KEY)
+                    .category(WireTransfer.CreatedBy.Category.USER)
                     .oauthApplication(
                         WireTransfer.CreatedBy.OAuthApplication.builder().name("name").build()
                     )
                     .user(WireTransfer.CreatedBy.User.builder().email("user@example.com").build())
                     .build()
             )
-        assertThat(wireTransfer.currency()).isEqualTo(WireTransfer.Currency.CAD)
+        assertThat(wireTransfer.currency()).isEqualTo(WireTransfer.Currency.USD)
         assertThat(wireTransfer.externalAccountId())
             .contains("external_account_ukk55lr923a3ac0pp7iv")
         assertThat(wireTransfer.idempotencyKey()).isEmpty
@@ -181,7 +181,7 @@ internal class WireTransferTest {
             )
         assertThat(wireTransfer.routingNumber()).isEqualTo("101050001")
         assertThat(wireTransfer.sourceAccountNumberId()).isEmpty
-        assertThat(wireTransfer.status()).isEqualTo(WireTransfer.Status.PENDING_APPROVAL)
+        assertThat(wireTransfer.status()).isEqualTo(WireTransfer.Status.COMPLETE)
         assertThat(wireTransfer.submission())
             .contains(
                 WireTransfer.Submission.builder()
@@ -226,7 +226,7 @@ internal class WireTransferTest {
                                 .description("description")
                                 .build()
                         )
-                        .category(WireTransfer.CreatedBy.Category.API_KEY)
+                        .category(WireTransfer.CreatedBy.Category.USER)
                         .oauthApplication(
                             WireTransfer.CreatedBy.OAuthApplication.builder().name("name").build()
                         )
@@ -235,7 +235,7 @@ internal class WireTransferTest {
                         )
                         .build()
                 )
-                .currency(WireTransfer.Currency.CAD)
+                .currency(WireTransfer.Currency.USD)
                 .externalAccountId("external_account_ukk55lr923a3ac0pp7iv")
                 .idempotencyKey(null)
                 .messageToRecipient("Message to recipient")
@@ -276,7 +276,7 @@ internal class WireTransferTest {
                 )
                 .routingNumber("101050001")
                 .sourceAccountNumberId(null)
-                .status(WireTransfer.Status.PENDING_APPROVAL)
+                .status(WireTransfer.Status.COMPLETE)
                 .submission(
                     WireTransfer.Submission.builder()
                         .inputMessageAccountabilityData("input_message_accountability_data")

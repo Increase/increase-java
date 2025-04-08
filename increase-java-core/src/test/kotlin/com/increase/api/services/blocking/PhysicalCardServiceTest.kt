@@ -88,7 +88,7 @@ internal class PhysicalCardServiceTest {
             physicalCardService.update(
                 PhysicalCardUpdateParams.builder()
                     .physicalCardId("physical_card_ode8duyq5v2ynhjoharl")
-                    .status(PhysicalCardUpdateParams.Status.ACTIVE)
+                    .status(PhysicalCardUpdateParams.Status.DISABLED)
                     .build()
             )
 
