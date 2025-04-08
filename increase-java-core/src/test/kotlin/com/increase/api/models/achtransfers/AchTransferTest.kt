@@ -73,7 +73,7 @@ internal class AchTransferTest {
                                 .description("description")
                                 .build()
                         )
-                        .category(AchTransfer.CreatedBy.Category.API_KEY)
+                        .category(AchTransfer.CreatedBy.Category.USER)
                         .oauthApplication(
                             AchTransfer.CreatedBy.OAuthApplication.builder().name("name").build()
                         )
@@ -82,7 +82,7 @@ internal class AchTransferTest {
                         )
                         .build()
                 )
-                .currency(AchTransfer.Currency.CAD)
+                .currency(AchTransfer.Currency.USD)
                 .destinationAccountHolder(AchTransfer.DestinationAccountHolder.BUSINESS)
                 .externalAccountId("external_account_ukk55lr923a3ac0pp7iv")
                 .funding(AchTransfer.Funding.CHECKING)
@@ -107,7 +107,7 @@ internal class AchTransferTest {
                 .addNotificationsOfChange(
                     AchTransfer.NotificationsOfChange.builder()
                         .changeCode(
-                            AchTransfer.NotificationsOfChange.ChangeCode.INCORRECT_ACCOUNT_NUMBER
+                            AchTransfer.NotificationsOfChange.ChangeCode.INCORRECT_TRANSACTION_CODE
                         )
                         .correctedData("32")
                         .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
@@ -142,13 +142,13 @@ internal class AchTransferTest {
                     AchTransfer.StandardEntryClassCode.CORPORATE_CREDIT_OR_DEBIT
                 )
                 .statementDescriptor("Statement descriptor")
-                .status(AchTransfer.Status.PENDING_APPROVAL)
+                .status(AchTransfer.Status.RETURNED)
                 .submission(
                     AchTransfer.Submission.builder()
                         .effectiveDate(LocalDate.parse("2020-01-31"))
                         .expectedFundsSettlementAt(OffsetDateTime.parse("2020-02-03T13:30:00Z"))
                         .expectedSettlementSchedule(
-                            AchTransfer.Submission.ExpectedSettlementSchedule.SAME_DAY
+                            AchTransfer.Submission.ExpectedSettlementSchedule.FUTURE_DATED
                         )
                         .submittedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                         .traceNumber("058349238292834")
@@ -216,14 +216,14 @@ internal class AchTransferTest {
                     .apiKey(
                         AchTransfer.CreatedBy.ApiKey.builder().description("description").build()
                     )
-                    .category(AchTransfer.CreatedBy.Category.API_KEY)
+                    .category(AchTransfer.CreatedBy.Category.USER)
                     .oauthApplication(
                         AchTransfer.CreatedBy.OAuthApplication.builder().name("name").build()
                     )
                     .user(AchTransfer.CreatedBy.User.builder().email("user@example.com").build())
                     .build()
             )
-        assertThat(achTransfer.currency()).isEqualTo(AchTransfer.Currency.CAD)
+        assertThat(achTransfer.currency()).isEqualTo(AchTransfer.Currency.USD)
         assertThat(achTransfer.destinationAccountHolder())
             .isEqualTo(AchTransfer.DestinationAccountHolder.BUSINESS)
         assertThat(achTransfer.externalAccountId())
@@ -252,7 +252,7 @@ internal class AchTransferTest {
             .containsExactly(
                 AchTransfer.NotificationsOfChange.builder()
                     .changeCode(
-                        AchTransfer.NotificationsOfChange.ChangeCode.INCORRECT_ACCOUNT_NUMBER
+                        AchTransfer.NotificationsOfChange.ChangeCode.INCORRECT_TRANSACTION_CODE
                     )
                     .correctedData("32")
                     .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
@@ -289,14 +289,14 @@ internal class AchTransferTest {
         assertThat(achTransfer.standardEntryClassCode())
             .isEqualTo(AchTransfer.StandardEntryClassCode.CORPORATE_CREDIT_OR_DEBIT)
         assertThat(achTransfer.statementDescriptor()).isEqualTo("Statement descriptor")
-        assertThat(achTransfer.status()).isEqualTo(AchTransfer.Status.PENDING_APPROVAL)
+        assertThat(achTransfer.status()).isEqualTo(AchTransfer.Status.RETURNED)
         assertThat(achTransfer.submission())
             .contains(
                 AchTransfer.Submission.builder()
                     .effectiveDate(LocalDate.parse("2020-01-31"))
                     .expectedFundsSettlementAt(OffsetDateTime.parse("2020-02-03T13:30:00Z"))
                     .expectedSettlementSchedule(
-                        AchTransfer.Submission.ExpectedSettlementSchedule.SAME_DAY
+                        AchTransfer.Submission.ExpectedSettlementSchedule.FUTURE_DATED
                     )
                     .submittedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                     .traceNumber("058349238292834")
@@ -369,7 +369,7 @@ internal class AchTransferTest {
                                 .description("description")
                                 .build()
                         )
-                        .category(AchTransfer.CreatedBy.Category.API_KEY)
+                        .category(AchTransfer.CreatedBy.Category.USER)
                         .oauthApplication(
                             AchTransfer.CreatedBy.OAuthApplication.builder().name("name").build()
                         )
@@ -378,7 +378,7 @@ internal class AchTransferTest {
                         )
                         .build()
                 )
-                .currency(AchTransfer.Currency.CAD)
+                .currency(AchTransfer.Currency.USD)
                 .destinationAccountHolder(AchTransfer.DestinationAccountHolder.BUSINESS)
                 .externalAccountId("external_account_ukk55lr923a3ac0pp7iv")
                 .funding(AchTransfer.Funding.CHECKING)
@@ -403,7 +403,7 @@ internal class AchTransferTest {
                 .addNotificationsOfChange(
                     AchTransfer.NotificationsOfChange.builder()
                         .changeCode(
-                            AchTransfer.NotificationsOfChange.ChangeCode.INCORRECT_ACCOUNT_NUMBER
+                            AchTransfer.NotificationsOfChange.ChangeCode.INCORRECT_TRANSACTION_CODE
                         )
                         .correctedData("32")
                         .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
@@ -438,13 +438,13 @@ internal class AchTransferTest {
                     AchTransfer.StandardEntryClassCode.CORPORATE_CREDIT_OR_DEBIT
                 )
                 .statementDescriptor("Statement descriptor")
-                .status(AchTransfer.Status.PENDING_APPROVAL)
+                .status(AchTransfer.Status.RETURNED)
                 .submission(
                     AchTransfer.Submission.builder()
                         .effectiveDate(LocalDate.parse("2020-01-31"))
                         .expectedFundsSettlementAt(OffsetDateTime.parse("2020-02-03T13:30:00Z"))
                         .expectedSettlementSchedule(
-                            AchTransfer.Submission.ExpectedSettlementSchedule.SAME_DAY
+                            AchTransfer.Submission.ExpectedSettlementSchedule.FUTURE_DATED
                         )
                         .submittedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                         .traceNumber("058349238292834")

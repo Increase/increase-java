@@ -42,7 +42,7 @@ internal class RealTimePaymentsTransferTest {
                                 .description("description")
                                 .build()
                         )
-                        .category(RealTimePaymentsTransfer.CreatedBy.Category.API_KEY)
+                        .category(RealTimePaymentsTransfer.CreatedBy.Category.USER)
                         .oauthApplication(
                             RealTimePaymentsTransfer.CreatedBy.OAuthApplication.builder()
                                 .name("name")
@@ -56,7 +56,7 @@ internal class RealTimePaymentsTransferTest {
                         .build()
                 )
                 .creditorName("Ian Crease")
-                .currency(RealTimePaymentsTransfer.Currency.CAD)
+                .currency(RealTimePaymentsTransfer.Currency.USD)
                 .debtorName(null)
                 .destinationAccountNumber("987654321")
                 .destinationRoutingNumber("101050001")
@@ -74,7 +74,7 @@ internal class RealTimePaymentsTransferTest {
                 )
                 .remittanceInformation("Invoice 29582")
                 .sourceAccountNumberId("account_number_v18nkfqm6afpsrvy82b2")
-                .status(RealTimePaymentsTransfer.Status.PENDING_APPROVAL)
+                .status(RealTimePaymentsTransfer.Status.COMPLETE)
                 .submission(
                     RealTimePaymentsTransfer.Submission.builder()
                         .submittedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
@@ -121,7 +121,7 @@ internal class RealTimePaymentsTransferTest {
                             .description("description")
                             .build()
                     )
-                    .category(RealTimePaymentsTransfer.CreatedBy.Category.API_KEY)
+                    .category(RealTimePaymentsTransfer.CreatedBy.Category.USER)
                     .oauthApplication(
                         RealTimePaymentsTransfer.CreatedBy.OAuthApplication.builder()
                             .name("name")
@@ -136,7 +136,7 @@ internal class RealTimePaymentsTransferTest {
             )
         assertThat(realTimePaymentsTransfer.creditorName()).isEqualTo("Ian Crease")
         assertThat(realTimePaymentsTransfer.currency())
-            .isEqualTo(RealTimePaymentsTransfer.Currency.CAD)
+            .isEqualTo(RealTimePaymentsTransfer.Currency.USD)
         assertThat(realTimePaymentsTransfer.debtorName()).isEmpty
         assertThat(realTimePaymentsTransfer.destinationAccountNumber()).isEqualTo("987654321")
         assertThat(realTimePaymentsTransfer.destinationRoutingNumber()).isEqualTo("101050001")
@@ -157,7 +157,7 @@ internal class RealTimePaymentsTransferTest {
         assertThat(realTimePaymentsTransfer.sourceAccountNumberId())
             .isEqualTo("account_number_v18nkfqm6afpsrvy82b2")
         assertThat(realTimePaymentsTransfer.status())
-            .isEqualTo(RealTimePaymentsTransfer.Status.PENDING_APPROVAL)
+            .isEqualTo(RealTimePaymentsTransfer.Status.COMPLETE)
         assertThat(realTimePaymentsTransfer.submission())
             .contains(
                 RealTimePaymentsTransfer.Submission.builder()
@@ -206,7 +206,7 @@ internal class RealTimePaymentsTransferTest {
                                 .description("description")
                                 .build()
                         )
-                        .category(RealTimePaymentsTransfer.CreatedBy.Category.API_KEY)
+                        .category(RealTimePaymentsTransfer.CreatedBy.Category.USER)
                         .oauthApplication(
                             RealTimePaymentsTransfer.CreatedBy.OAuthApplication.builder()
                                 .name("name")
@@ -220,7 +220,7 @@ internal class RealTimePaymentsTransferTest {
                         .build()
                 )
                 .creditorName("Ian Crease")
-                .currency(RealTimePaymentsTransfer.Currency.CAD)
+                .currency(RealTimePaymentsTransfer.Currency.USD)
                 .debtorName(null)
                 .destinationAccountNumber("987654321")
                 .destinationRoutingNumber("101050001")
@@ -238,7 +238,7 @@ internal class RealTimePaymentsTransferTest {
                 )
                 .remittanceInformation("Invoice 29582")
                 .sourceAccountNumberId("account_number_v18nkfqm6afpsrvy82b2")
-                .status(RealTimePaymentsTransfer.Status.PENDING_APPROVAL)
+                .status(RealTimePaymentsTransfer.Status.COMPLETE)
                 .submission(
                     RealTimePaymentsTransfer.Submission.builder()
                         .submittedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))

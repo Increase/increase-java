@@ -11,7 +11,7 @@ internal class InboundAchTransferTransferReturnParamsTest {
     fun create() {
         InboundAchTransferTransferReturnParams.builder()
             .inboundAchTransferId("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
-            .reason(InboundAchTransferTransferReturnParams.Reason.INSUFFICIENT_FUNDS)
+            .reason(InboundAchTransferTransferReturnParams.Reason.PAYMENT_STOPPED)
             .build()
     }
 
@@ -20,7 +20,7 @@ internal class InboundAchTransferTransferReturnParamsTest {
         val params =
             InboundAchTransferTransferReturnParams.builder()
                 .inboundAchTransferId("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
-                .reason(InboundAchTransferTransferReturnParams.Reason.INSUFFICIENT_FUNDS)
+                .reason(InboundAchTransferTransferReturnParams.Reason.PAYMENT_STOPPED)
                 .build()
 
         assertThat(params._pathParam(0)).isEqualTo("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
@@ -33,12 +33,12 @@ internal class InboundAchTransferTransferReturnParamsTest {
         val params =
             InboundAchTransferTransferReturnParams.builder()
                 .inboundAchTransferId("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
-                .reason(InboundAchTransferTransferReturnParams.Reason.INSUFFICIENT_FUNDS)
+                .reason(InboundAchTransferTransferReturnParams.Reason.PAYMENT_STOPPED)
                 .build()
 
         val body = params._body()
 
         assertThat(body.reason())
-            .isEqualTo(InboundAchTransferTransferReturnParams.Reason.INSUFFICIENT_FUNDS)
+            .isEqualTo(InboundAchTransferTransferReturnParams.Reason.PAYMENT_STOPPED)
     }
 }

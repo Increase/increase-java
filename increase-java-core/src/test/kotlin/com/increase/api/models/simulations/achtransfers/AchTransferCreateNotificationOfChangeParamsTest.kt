@@ -12,7 +12,7 @@ internal class AchTransferCreateNotificationOfChangeParamsTest {
         AchTransferCreateNotificationOfChangeParams.builder()
             .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
             .changeCode(
-                AchTransferCreateNotificationOfChangeParams.ChangeCode.INCORRECT_ACCOUNT_NUMBER
+                AchTransferCreateNotificationOfChangeParams.ChangeCode.INCORRECT_ROUTING_NUMBER
             )
             .correctedData("123456789")
             .build()
@@ -24,7 +24,7 @@ internal class AchTransferCreateNotificationOfChangeParamsTest {
             AchTransferCreateNotificationOfChangeParams.builder()
                 .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
                 .changeCode(
-                    AchTransferCreateNotificationOfChangeParams.ChangeCode.INCORRECT_ACCOUNT_NUMBER
+                    AchTransferCreateNotificationOfChangeParams.ChangeCode.INCORRECT_ROUTING_NUMBER
                 )
                 .correctedData("123456789")
                 .build()
@@ -40,7 +40,7 @@ internal class AchTransferCreateNotificationOfChangeParamsTest {
             AchTransferCreateNotificationOfChangeParams.builder()
                 .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
                 .changeCode(
-                    AchTransferCreateNotificationOfChangeParams.ChangeCode.INCORRECT_ACCOUNT_NUMBER
+                    AchTransferCreateNotificationOfChangeParams.ChangeCode.INCORRECT_ROUTING_NUMBER
                 )
                 .correctedData("123456789")
                 .build()
@@ -49,7 +49,7 @@ internal class AchTransferCreateNotificationOfChangeParamsTest {
 
         assertThat(body.changeCode())
             .isEqualTo(
-                AchTransferCreateNotificationOfChangeParams.ChangeCode.INCORRECT_ACCOUNT_NUMBER
+                AchTransferCreateNotificationOfChangeParams.ChangeCode.INCORRECT_ROUTING_NUMBER
             )
         assertThat(body.correctedData()).isEqualTo("123456789")
     }

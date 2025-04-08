@@ -11,7 +11,7 @@ internal class InboundAchTransferDeclineParamsTest {
     fun create() {
         InboundAchTransferDeclineParams.builder()
             .inboundAchTransferId("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
-            .reason(InboundAchTransferDeclineParams.Reason.INSUFFICIENT_FUNDS)
+            .reason(InboundAchTransferDeclineParams.Reason.PAYMENT_STOPPED)
             .build()
     }
 
@@ -32,13 +32,12 @@ internal class InboundAchTransferDeclineParamsTest {
         val params =
             InboundAchTransferDeclineParams.builder()
                 .inboundAchTransferId("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
-                .reason(InboundAchTransferDeclineParams.Reason.INSUFFICIENT_FUNDS)
+                .reason(InboundAchTransferDeclineParams.Reason.PAYMENT_STOPPED)
                 .build()
 
         val body = params._body()
 
-        assertThat(body.reason())
-            .contains(InboundAchTransferDeclineParams.Reason.INSUFFICIENT_FUNDS)
+        assertThat(body.reason()).contains(InboundAchTransferDeclineParams.Reason.PAYMENT_STOPPED)
     }
 
     @Test

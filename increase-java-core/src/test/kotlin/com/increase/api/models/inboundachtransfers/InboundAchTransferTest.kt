@@ -133,9 +133,9 @@ internal class InboundAchTransferTest {
                 .receiverIdNumber(null)
                 .receiverName("Ian Crease")
                 .standardEntryClassCode(
-                    InboundAchTransfer.StandardEntryClassCode.CORPORATE_CREDIT_OR_DEBIT
+                    InboundAchTransfer.StandardEntryClassCode.INTERNET_INITIATED
                 )
-                .status(InboundAchTransfer.Status.PENDING)
+                .status(InboundAchTransfer.Status.ACCEPTED)
                 .traceNumber("021000038461022")
                 .transferReturn(
                     InboundAchTransfer.TransferReturn.builder()
@@ -273,8 +273,8 @@ internal class InboundAchTransferTest {
         assertThat(inboundAchTransfer.receiverIdNumber()).isEmpty
         assertThat(inboundAchTransfer.receiverName()).contains("Ian Crease")
         assertThat(inboundAchTransfer.standardEntryClassCode())
-            .isEqualTo(InboundAchTransfer.StandardEntryClassCode.CORPORATE_CREDIT_OR_DEBIT)
-        assertThat(inboundAchTransfer.status()).isEqualTo(InboundAchTransfer.Status.PENDING)
+            .isEqualTo(InboundAchTransfer.StandardEntryClassCode.INTERNET_INITIATED)
+        assertThat(inboundAchTransfer.status()).isEqualTo(InboundAchTransfer.Status.ACCEPTED)
         assertThat(inboundAchTransfer.traceNumber()).isEqualTo("021000038461022")
         assertThat(inboundAchTransfer.transferReturn())
             .contains(
@@ -411,9 +411,9 @@ internal class InboundAchTransferTest {
                 .receiverIdNumber(null)
                 .receiverName("Ian Crease")
                 .standardEntryClassCode(
-                    InboundAchTransfer.StandardEntryClassCode.CORPORATE_CREDIT_OR_DEBIT
+                    InboundAchTransfer.StandardEntryClassCode.INTERNET_INITIATED
                 )
-                .status(InboundAchTransfer.Status.PENDING)
+                .status(InboundAchTransfer.Status.ACCEPTED)
                 .traceNumber("021000038461022")
                 .transferReturn(
                     InboundAchTransfer.TransferReturn.builder()

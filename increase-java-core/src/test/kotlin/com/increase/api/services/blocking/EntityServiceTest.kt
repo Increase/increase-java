@@ -130,8 +130,7 @@ internal class EntityServiceTest {
                                             .build()
                                     )
                                     .addProng(
-                                        EntityCreateParams.Corporation.BeneficialOwner.Prong
-                                            .OWNERSHIP
+                                        EntityCreateParams.Corporation.BeneficialOwner.Prong.CONTROL
                                     )
                                     .companyTitle("CEO")
                                     .build()
@@ -623,7 +622,7 @@ internal class EntityServiceTest {
                                     .build()
                             )
                             .addProng(
-                                EntityCreateBeneficialOwnerParams.BeneficialOwner.Prong.OWNERSHIP
+                                EntityCreateBeneficialOwnerParams.BeneficialOwner.Prong.CONTROL
                             )
                             .companyTitle("CEO")
                             .build()

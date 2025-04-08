@@ -13,9 +13,7 @@ internal class DigitalWalletTokenRequestCreateResponseTest {
     fun create() {
         val digitalWalletTokenRequestCreateResponse =
             DigitalWalletTokenRequestCreateResponse.builder()
-                .declineReason(
-                    DigitalWalletTokenRequestCreateResponse.DeclineReason.CARD_NOT_ACTIVE
-                )
+                .declineReason(null)
                 .digitalWalletTokenId("digital_wallet_token_izi62go3h51p369jrie0")
                 .type(
                     DigitalWalletTokenRequestCreateResponse.Type
@@ -23,8 +21,7 @@ internal class DigitalWalletTokenRequestCreateResponseTest {
                 )
                 .build()
 
-        assertThat(digitalWalletTokenRequestCreateResponse.declineReason())
-            .contains(DigitalWalletTokenRequestCreateResponse.DeclineReason.CARD_NOT_ACTIVE)
+        assertThat(digitalWalletTokenRequestCreateResponse.declineReason()).isEmpty
         assertThat(digitalWalletTokenRequestCreateResponse.digitalWalletTokenId())
             .contains("digital_wallet_token_izi62go3h51p369jrie0")
         assertThat(digitalWalletTokenRequestCreateResponse.type())
@@ -39,9 +36,7 @@ internal class DigitalWalletTokenRequestCreateResponseTest {
         val jsonMapper = jsonMapper()
         val digitalWalletTokenRequestCreateResponse =
             DigitalWalletTokenRequestCreateResponse.builder()
-                .declineReason(
-                    DigitalWalletTokenRequestCreateResponse.DeclineReason.CARD_NOT_ACTIVE
-                )
+                .declineReason(null)
                 .digitalWalletTokenId("digital_wallet_token_izi62go3h51p369jrie0")
                 .type(
                     DigitalWalletTokenRequestCreateResponse.Type
