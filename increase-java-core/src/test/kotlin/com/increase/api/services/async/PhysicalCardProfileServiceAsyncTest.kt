@@ -30,6 +30,7 @@ internal class PhysicalCardProfileServiceAsyncTest {
                     .contactPhone("+16505046304")
                     .description("My Card Profile")
                     .frontImageFileId("file_o6aex13wm1jcc36sgcj1")
+                    .programId("program_i2v2os4mwza1oetokh9i")
                     .build()
             )
 
