@@ -13,7 +13,7 @@ internal class LockboxUpdateParamsTest {
             .lockboxId("lockbox_3xt21ok13q19advds4t5")
             .description("x")
             .recipientName("x")
-            .status(LockboxUpdateParams.Status.ACTIVE)
+            .status(LockboxUpdateParams.Status.INACTIVE)
             .build()
     }
 
@@ -33,14 +33,14 @@ internal class LockboxUpdateParamsTest {
                 .lockboxId("lockbox_3xt21ok13q19advds4t5")
                 .description("x")
                 .recipientName("x")
-                .status(LockboxUpdateParams.Status.ACTIVE)
+                .status(LockboxUpdateParams.Status.INACTIVE)
                 .build()
 
         val body = params._body()
 
         assertThat(body.description()).contains("x")
         assertThat(body.recipientName()).contains("x")
-        assertThat(body.status()).contains(LockboxUpdateParams.Status.ACTIVE)
+        assertThat(body.status()).contains(LockboxUpdateParams.Status.INACTIVE)
     }
 
     @Test

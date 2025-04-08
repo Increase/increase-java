@@ -20,7 +20,7 @@ internal class TransactionTest {
                 .accountId("account_in71c4amph0vgo2qllky")
                 .amount(100L)
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                .currency(Transaction.Currency.CAD)
+                .currency(Transaction.Currency.USD)
                 .description("INVOICE 2468")
                 .routeId("account_number_v18nkfqm6afpsrvy82b2")
                 .routeType(Transaction.RouteType.ACCOUNT_NUMBER)
@@ -29,7 +29,7 @@ internal class TransactionTest {
                         .accountTransferIntention(
                             Transaction.Source.AccountTransferIntention.builder()
                                 .amount(100L)
-                                .currency(Transaction.Source.AccountTransferIntention.Currency.CAD)
+                                .currency(Transaction.Source.AccountTransferIntention.Currency.USD)
                                 .description("INVOICE 2468")
                                 .destinationAccountId("account_uf16sut2ct5bevmq3eh")
                                 .sourceAccountId("account_in71c4amph0vgo2qllky")
@@ -91,13 +91,13 @@ internal class TransactionTest {
                                         )
                                         .build()
                                 )
-                                .currency(Transaction.Source.CardRefund.Currency.CAD)
+                                .currency(Transaction.Source.CardRefund.Currency.USD)
                                 .interchange(
                                     Transaction.Source.CardRefund.Interchange.builder()
                                         .amount("0.137465")
                                         .code("271")
                                         .currency(
-                                            Transaction.Source.CardRefund.Interchange.Currency.CAD
+                                            Transaction.Source.CardRefund.Interchange.Currency.USD
                                         )
                                         .build()
                                 )
@@ -171,7 +171,7 @@ internal class TransactionTest {
                                                     Transaction.Source.CardRefund.PurchaseDetails
                                                         .Lodging
                                                         .ExtraCharges
-                                                        .NO_EXTRA_CHARGE
+                                                        .RESTAURANT
                                                 )
                                                 .folioCashAdvancesAmount(0L)
                                                 .folioCashAdvancesCurrency("usd")
@@ -181,7 +181,7 @@ internal class TransactionTest {
                                                     Transaction.Source.CardRefund.PurchaseDetails
                                                         .Lodging
                                                         .NoShowIndicator
-                                                        .NOT_APPLICABLE
+                                                        .NO_SHOW
                                                 )
                                                 .prepaidExpensesAmount(0L)
                                                 .prepaidExpensesCurrency("usd")
@@ -198,7 +198,7 @@ internal class TransactionTest {
                                         .purchaseIdentifierFormat(
                                             Transaction.Source.CardRefund.PurchaseDetails
                                                 .PurchaseIdentifierFormat
-                                                .FREE_TEXT
+                                                .ORDER_NUMBER
                                         )
                                         .travel(
                                             Transaction.Source.CardRefund.PurchaseDetails.Travel
@@ -308,7 +308,7 @@ internal class TransactionTest {
                         .cardRevenuePayment(
                             Transaction.Source.CardRevenuePayment.builder()
                                 .amount(100L)
-                                .currency(Transaction.Source.CardRevenuePayment.Currency.CAD)
+                                .currency(Transaction.Source.CardRevenuePayment.Currency.USD)
                                 .periodEnd(OffsetDateTime.parse("2025-04-30T23:59:59Z"))
                                 .periodStart(OffsetDateTime.parse("2025-04-01T00:00:00Z"))
                                 .transactedOnAccountId("account_in71c4amph0vgo2qllky")
@@ -328,14 +328,14 @@ internal class TransactionTest {
                                         )
                                         .build()
                                 )
-                                .currency(Transaction.Source.CardSettlement.Currency.CAD)
+                                .currency(Transaction.Source.CardSettlement.Currency.USD)
                                 .interchange(
                                     Transaction.Source.CardSettlement.Interchange.builder()
                                         .amount("0.137465")
                                         .code("271")
                                         .currency(
                                             Transaction.Source.CardSettlement.Interchange.Currency
-                                                .CAD
+                                                .USD
                                         )
                                         .build()
                                 )
@@ -415,7 +415,7 @@ internal class TransactionTest {
                                                         .PurchaseDetails
                                                         .Lodging
                                                         .ExtraCharges
-                                                        .NO_EXTRA_CHARGE
+                                                        .RESTAURANT
                                                 )
                                                 .folioCashAdvancesAmount(0L)
                                                 .folioCashAdvancesCurrency("usd")
@@ -426,7 +426,7 @@ internal class TransactionTest {
                                                         .PurchaseDetails
                                                         .Lodging
                                                         .NoShowIndicator
-                                                        .NOT_APPLICABLE
+                                                        .NO_SHOW
                                                 )
                                                 .prepaidExpensesAmount(0L)
                                                 .prepaidExpensesCurrency("usd")
@@ -443,7 +443,7 @@ internal class TransactionTest {
                                         .purchaseIdentifierFormat(
                                             Transaction.Source.CardSettlement.PurchaseDetails
                                                 .PurchaseIdentifierFormat
-                                                .FREE_TEXT
+                                                .ORDER_NUMBER
                                         )
                                         .travel(
                                             Transaction.Source.CardSettlement.PurchaseDetails.Travel
@@ -560,19 +560,19 @@ internal class TransactionTest {
                             Transaction.Source.CashbackPayment.builder()
                                 .accruedOnCardId("card_oubs0hwk5rn6knuecxg2")
                                 .amount(100L)
-                                .currency(Transaction.Source.CashbackPayment.Currency.CAD)
+                                .currency(Transaction.Source.CashbackPayment.Currency.USD)
                                 .periodEnd(OffsetDateTime.parse("2025-04-30T23:59:59Z"))
                                 .periodStart(OffsetDateTime.parse("2025-04-01T00:00:00Z"))
                                 .build()
                         )
-                        .category(Transaction.Source.Category.ACCOUNT_TRANSFER_INTENTION)
+                        .category(Transaction.Source.Category.INBOUND_ACH_TRANSFER)
                         .checkDepositAcceptance(
                             Transaction.Source.CheckDepositAcceptance.builder()
                                 .accountNumber("987654321")
                                 .amount(100L)
                                 .auxiliaryOnUs("101")
                                 .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
-                                .currency(Transaction.Source.CheckDepositAcceptance.Currency.CAD)
+                                .currency(Transaction.Source.CheckDepositAcceptance.Currency.USD)
                                 .routingNumber("101050001")
                                 .serialNumber(null)
                                 .build()
@@ -581,10 +581,10 @@ internal class TransactionTest {
                             Transaction.Source.CheckDepositReturn.builder()
                                 .amount(100L)
                                 .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
-                                .currency(Transaction.Source.CheckDepositReturn.Currency.CAD)
+                                .currency(Transaction.Source.CheckDepositReturn.Currency.USD)
                                 .returnReason(
                                     Transaction.Source.CheckDepositReturn.ReturnReason
-                                        .ACH_CONVERSION_NOT_SUPPORTED
+                                        .INSUFFICIENT_FUNDS
                                 )
                                 .returnedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                                 .transactionId("transaction_uyrp7fld2ium70oa7oi")
@@ -608,7 +608,7 @@ internal class TransactionTest {
                         .feePayment(
                             Transaction.Source.FeePayment.builder()
                                 .amount(100L)
-                                .currency(Transaction.Source.FeePayment.Currency.CAD)
+                                .currency(Transaction.Source.FeePayment.Currency.USD)
                                 .feePeriodStart(LocalDate.parse("2023-05-01"))
                                 .programId("program_i2v2os4mwza1oetokh9i")
                                 .build()
@@ -677,7 +677,7 @@ internal class TransactionTest {
                                 .currency(
                                     Transaction.Source.InboundRealTimePaymentsTransferConfirmation
                                         .Currency
-                                        .CAD
+                                        .USD
                                 )
                                 .debtorAccountNumber("987654321")
                                 .debtorName("National Phonograph Company")
@@ -696,14 +696,14 @@ internal class TransactionTest {
                                 .currency(
                                     Transaction.Source.InboundRealTimePaymentsTransferDecline
                                         .Currency
-                                        .CAD
+                                        .USD
                                 )
                                 .debtorAccountNumber("987654321")
                                 .debtorName("National Phonograph Company")
                                 .debtorRoutingNumber("101050001")
                                 .reason(
                                     Transaction.Source.InboundRealTimePaymentsTransferDecline.Reason
-                                        .ACCOUNT_NUMBER_CANCELED
+                                        .ACCOUNT_NUMBER_DISABLED
                                 )
                                 .remittanceInformation("Invoice 29582")
                                 .transactionIdentification("20220501234567891T1BSLZO01745013025")
@@ -767,7 +767,7 @@ internal class TransactionTest {
                             Transaction.Source.InterestPayment.builder()
                                 .accruedOnAccountId("account_in71c4amph0vgo2qllky")
                                 .amount(100L)
-                                .currency(Transaction.Source.InterestPayment.Currency.CAD)
+                                .currency(Transaction.Source.InterestPayment.Currency.USD)
                                 .periodEnd(OffsetDateTime.parse("2025-04-30T23:59:59Z"))
                                 .periodStart(OffsetDateTime.parse("2025-04-01T00:00:00Z"))
                                 .build()
@@ -775,8 +775,8 @@ internal class TransactionTest {
                         .internalSource(
                             Transaction.Source.InternalSource.builder()
                                 .amount(100L)
-                                .currency(Transaction.Source.InternalSource.Currency.CAD)
-                                .reason(Transaction.Source.InternalSource.Reason.ACCOUNT_CLOSURE)
+                                .currency(Transaction.Source.InternalSource.Currency.USD)
+                                .reason(Transaction.Source.InternalSource.Reason.SAMPLE_FUNDS)
                                 .build()
                         )
                         .other(JsonValue.from(mapOf<String, Any>()))
@@ -810,7 +810,7 @@ internal class TransactionTest {
         assertThat(transaction.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(transaction.amount()).isEqualTo(100L)
         assertThat(transaction.createdAt()).isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-        assertThat(transaction.currency()).isEqualTo(Transaction.Currency.CAD)
+        assertThat(transaction.currency()).isEqualTo(Transaction.Currency.USD)
         assertThat(transaction.description()).isEqualTo("INVOICE 2468")
         assertThat(transaction.routeId()).contains("account_number_v18nkfqm6afpsrvy82b2")
         assertThat(transaction.routeType()).contains(Transaction.RouteType.ACCOUNT_NUMBER)
@@ -820,7 +820,7 @@ internal class TransactionTest {
                     .accountTransferIntention(
                         Transaction.Source.AccountTransferIntention.builder()
                             .amount(100L)
-                            .currency(Transaction.Source.AccountTransferIntention.Currency.CAD)
+                            .currency(Transaction.Source.AccountTransferIntention.Currency.USD)
                             .description("INVOICE 2468")
                             .destinationAccountId("account_uf16sut2ct5bevmq3eh")
                             .sourceAccountId("account_in71c4amph0vgo2qllky")
@@ -880,13 +880,13 @@ internal class TransactionTest {
                                     .currency(Transaction.Source.CardRefund.Cashback.Currency.CAD)
                                     .build()
                             )
-                            .currency(Transaction.Source.CardRefund.Currency.CAD)
+                            .currency(Transaction.Source.CardRefund.Currency.USD)
                             .interchange(
                                 Transaction.Source.CardRefund.Interchange.builder()
                                     .amount("0.137465")
                                     .code("271")
                                     .currency(
-                                        Transaction.Source.CardRefund.Interchange.Currency.CAD
+                                        Transaction.Source.CardRefund.Interchange.Currency.USD
                                     )
                                     .build()
                             )
@@ -954,7 +954,7 @@ internal class TransactionTest {
                                                 Transaction.Source.CardRefund.PurchaseDetails
                                                     .Lodging
                                                     .ExtraCharges
-                                                    .NO_EXTRA_CHARGE
+                                                    .RESTAURANT
                                             )
                                             .folioCashAdvancesAmount(0L)
                                             .folioCashAdvancesCurrency("usd")
@@ -964,7 +964,7 @@ internal class TransactionTest {
                                                 Transaction.Source.CardRefund.PurchaseDetails
                                                     .Lodging
                                                     .NoShowIndicator
-                                                    .NOT_APPLICABLE
+                                                    .NO_SHOW
                                             )
                                             .prepaidExpensesAmount(0L)
                                             .prepaidExpensesCurrency("usd")
@@ -981,7 +981,7 @@ internal class TransactionTest {
                                     .purchaseIdentifierFormat(
                                         Transaction.Source.CardRefund.PurchaseDetails
                                             .PurchaseIdentifierFormat
-                                            .FREE_TEXT
+                                            .ORDER_NUMBER
                                     )
                                     .travel(
                                         Transaction.Source.CardRefund.PurchaseDetails.Travel
@@ -1084,7 +1084,7 @@ internal class TransactionTest {
                     .cardRevenuePayment(
                         Transaction.Source.CardRevenuePayment.builder()
                             .amount(100L)
-                            .currency(Transaction.Source.CardRevenuePayment.Currency.CAD)
+                            .currency(Transaction.Source.CardRevenuePayment.Currency.USD)
                             .periodEnd(OffsetDateTime.parse("2025-04-30T23:59:59Z"))
                             .periodStart(OffsetDateTime.parse("2025-04-01T00:00:00Z"))
                             .transactedOnAccountId("account_in71c4amph0vgo2qllky")
@@ -1104,13 +1104,13 @@ internal class TransactionTest {
                                     )
                                     .build()
                             )
-                            .currency(Transaction.Source.CardSettlement.Currency.CAD)
+                            .currency(Transaction.Source.CardSettlement.Currency.USD)
                             .interchange(
                                 Transaction.Source.CardSettlement.Interchange.builder()
                                     .amount("0.137465")
                                     .code("271")
                                     .currency(
-                                        Transaction.Source.CardSettlement.Interchange.Currency.CAD
+                                        Transaction.Source.CardSettlement.Interchange.Currency.USD
                                     )
                                     .build()
                             )
@@ -1179,7 +1179,7 @@ internal class TransactionTest {
                                                 Transaction.Source.CardSettlement.PurchaseDetails
                                                     .Lodging
                                                     .ExtraCharges
-                                                    .NO_EXTRA_CHARGE
+                                                    .RESTAURANT
                                             )
                                             .folioCashAdvancesAmount(0L)
                                             .folioCashAdvancesCurrency("usd")
@@ -1189,7 +1189,7 @@ internal class TransactionTest {
                                                 Transaction.Source.CardSettlement.PurchaseDetails
                                                     .Lodging
                                                     .NoShowIndicator
-                                                    .NOT_APPLICABLE
+                                                    .NO_SHOW
                                             )
                                             .prepaidExpensesAmount(0L)
                                             .prepaidExpensesCurrency("usd")
@@ -1206,7 +1206,7 @@ internal class TransactionTest {
                                     .purchaseIdentifierFormat(
                                         Transaction.Source.CardSettlement.PurchaseDetails
                                             .PurchaseIdentifierFormat
-                                            .FREE_TEXT
+                                            .ORDER_NUMBER
                                     )
                                     .travel(
                                         Transaction.Source.CardSettlement.PurchaseDetails.Travel
@@ -1315,19 +1315,19 @@ internal class TransactionTest {
                         Transaction.Source.CashbackPayment.builder()
                             .accruedOnCardId("card_oubs0hwk5rn6knuecxg2")
                             .amount(100L)
-                            .currency(Transaction.Source.CashbackPayment.Currency.CAD)
+                            .currency(Transaction.Source.CashbackPayment.Currency.USD)
                             .periodEnd(OffsetDateTime.parse("2025-04-30T23:59:59Z"))
                             .periodStart(OffsetDateTime.parse("2025-04-01T00:00:00Z"))
                             .build()
                     )
-                    .category(Transaction.Source.Category.ACCOUNT_TRANSFER_INTENTION)
+                    .category(Transaction.Source.Category.INBOUND_ACH_TRANSFER)
                     .checkDepositAcceptance(
                         Transaction.Source.CheckDepositAcceptance.builder()
                             .accountNumber("987654321")
                             .amount(100L)
                             .auxiliaryOnUs("101")
                             .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
-                            .currency(Transaction.Source.CheckDepositAcceptance.Currency.CAD)
+                            .currency(Transaction.Source.CheckDepositAcceptance.Currency.USD)
                             .routingNumber("101050001")
                             .serialNumber(null)
                             .build()
@@ -1336,10 +1336,10 @@ internal class TransactionTest {
                         Transaction.Source.CheckDepositReturn.builder()
                             .amount(100L)
                             .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
-                            .currency(Transaction.Source.CheckDepositReturn.Currency.CAD)
+                            .currency(Transaction.Source.CheckDepositReturn.Currency.USD)
                             .returnReason(
                                 Transaction.Source.CheckDepositReturn.ReturnReason
-                                    .ACH_CONVERSION_NOT_SUPPORTED
+                                    .INSUFFICIENT_FUNDS
                             )
                             .returnedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                             .transactionId("transaction_uyrp7fld2ium70oa7oi")
@@ -1362,7 +1362,7 @@ internal class TransactionTest {
                     .feePayment(
                         Transaction.Source.FeePayment.builder()
                             .amount(100L)
-                            .currency(Transaction.Source.FeePayment.Currency.CAD)
+                            .currency(Transaction.Source.FeePayment.Currency.USD)
                             .feePeriodStart(LocalDate.parse("2023-05-01"))
                             .programId("program_i2v2os4mwza1oetokh9i")
                             .build()
@@ -1429,7 +1429,7 @@ internal class TransactionTest {
                             .currency(
                                 Transaction.Source.InboundRealTimePaymentsTransferConfirmation
                                     .Currency
-                                    .CAD
+                                    .USD
                             )
                             .debtorAccountNumber("987654321")
                             .debtorName("National Phonograph Company")
@@ -1445,14 +1445,14 @@ internal class TransactionTest {
                             .creditorName("Ian Crease")
                             .currency(
                                 Transaction.Source.InboundRealTimePaymentsTransferDecline.Currency
-                                    .CAD
+                                    .USD
                             )
                             .debtorAccountNumber("987654321")
                             .debtorName("National Phonograph Company")
                             .debtorRoutingNumber("101050001")
                             .reason(
                                 Transaction.Source.InboundRealTimePaymentsTransferDecline.Reason
-                                    .ACCOUNT_NUMBER_CANCELED
+                                    .ACCOUNT_NUMBER_DISABLED
                             )
                             .remittanceInformation("Invoice 29582")
                             .transactionIdentification("20220501234567891T1BSLZO01745013025")
@@ -1512,7 +1512,7 @@ internal class TransactionTest {
                         Transaction.Source.InterestPayment.builder()
                             .accruedOnAccountId("account_in71c4amph0vgo2qllky")
                             .amount(100L)
-                            .currency(Transaction.Source.InterestPayment.Currency.CAD)
+                            .currency(Transaction.Source.InterestPayment.Currency.USD)
                             .periodEnd(OffsetDateTime.parse("2025-04-30T23:59:59Z"))
                             .periodStart(OffsetDateTime.parse("2025-04-01T00:00:00Z"))
                             .build()
@@ -1520,8 +1520,8 @@ internal class TransactionTest {
                     .internalSource(
                         Transaction.Source.InternalSource.builder()
                             .amount(100L)
-                            .currency(Transaction.Source.InternalSource.Currency.CAD)
-                            .reason(Transaction.Source.InternalSource.Reason.ACCOUNT_CLOSURE)
+                            .currency(Transaction.Source.InternalSource.Currency.USD)
+                            .reason(Transaction.Source.InternalSource.Reason.SAMPLE_FUNDS)
                             .build()
                     )
                     .other(JsonValue.from(mapOf<String, Any>()))
@@ -1560,7 +1560,7 @@ internal class TransactionTest {
                 .accountId("account_in71c4amph0vgo2qllky")
                 .amount(100L)
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                .currency(Transaction.Currency.CAD)
+                .currency(Transaction.Currency.USD)
                 .description("INVOICE 2468")
                 .routeId("account_number_v18nkfqm6afpsrvy82b2")
                 .routeType(Transaction.RouteType.ACCOUNT_NUMBER)
@@ -1569,7 +1569,7 @@ internal class TransactionTest {
                         .accountTransferIntention(
                             Transaction.Source.AccountTransferIntention.builder()
                                 .amount(100L)
-                                .currency(Transaction.Source.AccountTransferIntention.Currency.CAD)
+                                .currency(Transaction.Source.AccountTransferIntention.Currency.USD)
                                 .description("INVOICE 2468")
                                 .destinationAccountId("account_uf16sut2ct5bevmq3eh")
                                 .sourceAccountId("account_in71c4amph0vgo2qllky")
@@ -1631,13 +1631,13 @@ internal class TransactionTest {
                                         )
                                         .build()
                                 )
-                                .currency(Transaction.Source.CardRefund.Currency.CAD)
+                                .currency(Transaction.Source.CardRefund.Currency.USD)
                                 .interchange(
                                     Transaction.Source.CardRefund.Interchange.builder()
                                         .amount("0.137465")
                                         .code("271")
                                         .currency(
-                                            Transaction.Source.CardRefund.Interchange.Currency.CAD
+                                            Transaction.Source.CardRefund.Interchange.Currency.USD
                                         )
                                         .build()
                                 )
@@ -1711,7 +1711,7 @@ internal class TransactionTest {
                                                     Transaction.Source.CardRefund.PurchaseDetails
                                                         .Lodging
                                                         .ExtraCharges
-                                                        .NO_EXTRA_CHARGE
+                                                        .RESTAURANT
                                                 )
                                                 .folioCashAdvancesAmount(0L)
                                                 .folioCashAdvancesCurrency("usd")
@@ -1721,7 +1721,7 @@ internal class TransactionTest {
                                                     Transaction.Source.CardRefund.PurchaseDetails
                                                         .Lodging
                                                         .NoShowIndicator
-                                                        .NOT_APPLICABLE
+                                                        .NO_SHOW
                                                 )
                                                 .prepaidExpensesAmount(0L)
                                                 .prepaidExpensesCurrency("usd")
@@ -1738,7 +1738,7 @@ internal class TransactionTest {
                                         .purchaseIdentifierFormat(
                                             Transaction.Source.CardRefund.PurchaseDetails
                                                 .PurchaseIdentifierFormat
-                                                .FREE_TEXT
+                                                .ORDER_NUMBER
                                         )
                                         .travel(
                                             Transaction.Source.CardRefund.PurchaseDetails.Travel
@@ -1848,7 +1848,7 @@ internal class TransactionTest {
                         .cardRevenuePayment(
                             Transaction.Source.CardRevenuePayment.builder()
                                 .amount(100L)
-                                .currency(Transaction.Source.CardRevenuePayment.Currency.CAD)
+                                .currency(Transaction.Source.CardRevenuePayment.Currency.USD)
                                 .periodEnd(OffsetDateTime.parse("2025-04-30T23:59:59Z"))
                                 .periodStart(OffsetDateTime.parse("2025-04-01T00:00:00Z"))
                                 .transactedOnAccountId("account_in71c4amph0vgo2qllky")
@@ -1868,14 +1868,14 @@ internal class TransactionTest {
                                         )
                                         .build()
                                 )
-                                .currency(Transaction.Source.CardSettlement.Currency.CAD)
+                                .currency(Transaction.Source.CardSettlement.Currency.USD)
                                 .interchange(
                                     Transaction.Source.CardSettlement.Interchange.builder()
                                         .amount("0.137465")
                                         .code("271")
                                         .currency(
                                             Transaction.Source.CardSettlement.Interchange.Currency
-                                                .CAD
+                                                .USD
                                         )
                                         .build()
                                 )
@@ -1955,7 +1955,7 @@ internal class TransactionTest {
                                                         .PurchaseDetails
                                                         .Lodging
                                                         .ExtraCharges
-                                                        .NO_EXTRA_CHARGE
+                                                        .RESTAURANT
                                                 )
                                                 .folioCashAdvancesAmount(0L)
                                                 .folioCashAdvancesCurrency("usd")
@@ -1966,7 +1966,7 @@ internal class TransactionTest {
                                                         .PurchaseDetails
                                                         .Lodging
                                                         .NoShowIndicator
-                                                        .NOT_APPLICABLE
+                                                        .NO_SHOW
                                                 )
                                                 .prepaidExpensesAmount(0L)
                                                 .prepaidExpensesCurrency("usd")
@@ -1983,7 +1983,7 @@ internal class TransactionTest {
                                         .purchaseIdentifierFormat(
                                             Transaction.Source.CardSettlement.PurchaseDetails
                                                 .PurchaseIdentifierFormat
-                                                .FREE_TEXT
+                                                .ORDER_NUMBER
                                         )
                                         .travel(
                                             Transaction.Source.CardSettlement.PurchaseDetails.Travel
@@ -2100,19 +2100,19 @@ internal class TransactionTest {
                             Transaction.Source.CashbackPayment.builder()
                                 .accruedOnCardId("card_oubs0hwk5rn6knuecxg2")
                                 .amount(100L)
-                                .currency(Transaction.Source.CashbackPayment.Currency.CAD)
+                                .currency(Transaction.Source.CashbackPayment.Currency.USD)
                                 .periodEnd(OffsetDateTime.parse("2025-04-30T23:59:59Z"))
                                 .periodStart(OffsetDateTime.parse("2025-04-01T00:00:00Z"))
                                 .build()
                         )
-                        .category(Transaction.Source.Category.ACCOUNT_TRANSFER_INTENTION)
+                        .category(Transaction.Source.Category.INBOUND_ACH_TRANSFER)
                         .checkDepositAcceptance(
                             Transaction.Source.CheckDepositAcceptance.builder()
                                 .accountNumber("987654321")
                                 .amount(100L)
                                 .auxiliaryOnUs("101")
                                 .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
-                                .currency(Transaction.Source.CheckDepositAcceptance.Currency.CAD)
+                                .currency(Transaction.Source.CheckDepositAcceptance.Currency.USD)
                                 .routingNumber("101050001")
                                 .serialNumber(null)
                                 .build()
@@ -2121,10 +2121,10 @@ internal class TransactionTest {
                             Transaction.Source.CheckDepositReturn.builder()
                                 .amount(100L)
                                 .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
-                                .currency(Transaction.Source.CheckDepositReturn.Currency.CAD)
+                                .currency(Transaction.Source.CheckDepositReturn.Currency.USD)
                                 .returnReason(
                                     Transaction.Source.CheckDepositReturn.ReturnReason
-                                        .ACH_CONVERSION_NOT_SUPPORTED
+                                        .INSUFFICIENT_FUNDS
                                 )
                                 .returnedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                                 .transactionId("transaction_uyrp7fld2ium70oa7oi")
@@ -2148,7 +2148,7 @@ internal class TransactionTest {
                         .feePayment(
                             Transaction.Source.FeePayment.builder()
                                 .amount(100L)
-                                .currency(Transaction.Source.FeePayment.Currency.CAD)
+                                .currency(Transaction.Source.FeePayment.Currency.USD)
                                 .feePeriodStart(LocalDate.parse("2023-05-01"))
                                 .programId("program_i2v2os4mwza1oetokh9i")
                                 .build()
@@ -2217,7 +2217,7 @@ internal class TransactionTest {
                                 .currency(
                                     Transaction.Source.InboundRealTimePaymentsTransferConfirmation
                                         .Currency
-                                        .CAD
+                                        .USD
                                 )
                                 .debtorAccountNumber("987654321")
                                 .debtorName("National Phonograph Company")
@@ -2236,14 +2236,14 @@ internal class TransactionTest {
                                 .currency(
                                     Transaction.Source.InboundRealTimePaymentsTransferDecline
                                         .Currency
-                                        .CAD
+                                        .USD
                                 )
                                 .debtorAccountNumber("987654321")
                                 .debtorName("National Phonograph Company")
                                 .debtorRoutingNumber("101050001")
                                 .reason(
                                     Transaction.Source.InboundRealTimePaymentsTransferDecline.Reason
-                                        .ACCOUNT_NUMBER_CANCELED
+                                        .ACCOUNT_NUMBER_DISABLED
                                 )
                                 .remittanceInformation("Invoice 29582")
                                 .transactionIdentification("20220501234567891T1BSLZO01745013025")
@@ -2307,7 +2307,7 @@ internal class TransactionTest {
                             Transaction.Source.InterestPayment.builder()
                                 .accruedOnAccountId("account_in71c4amph0vgo2qllky")
                                 .amount(100L)
-                                .currency(Transaction.Source.InterestPayment.Currency.CAD)
+                                .currency(Transaction.Source.InterestPayment.Currency.USD)
                                 .periodEnd(OffsetDateTime.parse("2025-04-30T23:59:59Z"))
                                 .periodStart(OffsetDateTime.parse("2025-04-01T00:00:00Z"))
                                 .build()
@@ -2315,8 +2315,8 @@ internal class TransactionTest {
                         .internalSource(
                             Transaction.Source.InternalSource.builder()
                                 .amount(100L)
-                                .currency(Transaction.Source.InternalSource.Currency.CAD)
-                                .reason(Transaction.Source.InternalSource.Reason.ACCOUNT_CLOSURE)
+                                .currency(Transaction.Source.InternalSource.Currency.USD)
+                                .reason(Transaction.Source.InternalSource.Reason.SAMPLE_FUNDS)
                                 .build()
                         )
                         .other(JsonValue.from(mapOf<String, Any>()))

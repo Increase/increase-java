@@ -26,7 +26,7 @@ internal class ExportServiceTest {
         val export =
             exportService.create(
                 ExportCreateParams.builder()
-                    .category(ExportCreateParams.Category.ACCOUNT_STATEMENT_OFX)
+                    .category(ExportCreateParams.Category.TRANSACTION_CSV)
                     .accountStatementOfx(
                         ExportCreateParams.AccountStatementOfx.builder()
                             .accountId("account_id")

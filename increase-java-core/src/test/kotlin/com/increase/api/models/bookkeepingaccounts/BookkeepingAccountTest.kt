@@ -15,7 +15,7 @@ internal class BookkeepingAccountTest {
             BookkeepingAccount.builder()
                 .id("bookkeeping_account_e37p1f1iuocw5intf35v")
                 .accountId(null)
-                .complianceCategory(BookkeepingAccount.ComplianceCategory.COMMINGLED_CASH)
+                .complianceCategory(BookkeepingAccount.ComplianceCategory.CUSTOMER_BALANCE)
                 .entityId("entity_n8y8tnk2p9339ti393yi")
                 .idempotencyKey(null)
                 .name("John Doe Balance")
@@ -25,7 +25,7 @@ internal class BookkeepingAccountTest {
         assertThat(bookkeepingAccount.id()).isEqualTo("bookkeeping_account_e37p1f1iuocw5intf35v")
         assertThat(bookkeepingAccount.accountId()).isEmpty
         assertThat(bookkeepingAccount.complianceCategory())
-            .contains(BookkeepingAccount.ComplianceCategory.COMMINGLED_CASH)
+            .contains(BookkeepingAccount.ComplianceCategory.CUSTOMER_BALANCE)
         assertThat(bookkeepingAccount.entityId()).contains("entity_n8y8tnk2p9339ti393yi")
         assertThat(bookkeepingAccount.idempotencyKey()).isEmpty
         assertThat(bookkeepingAccount.name()).isEqualTo("John Doe Balance")
@@ -39,7 +39,7 @@ internal class BookkeepingAccountTest {
             BookkeepingAccount.builder()
                 .id("bookkeeping_account_e37p1f1iuocw5intf35v")
                 .accountId(null)
-                .complianceCategory(BookkeepingAccount.ComplianceCategory.COMMINGLED_CASH)
+                .complianceCategory(BookkeepingAccount.ComplianceCategory.CUSTOMER_BALANCE)
                 .entityId("entity_n8y8tnk2p9339ti393yi")
                 .idempotencyKey(null)
                 .name("John Doe Balance")

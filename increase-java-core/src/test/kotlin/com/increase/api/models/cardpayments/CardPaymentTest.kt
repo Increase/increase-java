@@ -62,12 +62,9 @@ internal class CardPaymentTest {
                                             .build()
                                     )
                                     .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                                    .denyReason(
-                                        CardPayment.Element.CardAuthentication.DenyReason
-                                            .GROUP_LOCKED
-                                    )
+                                    .denyReason(null)
                                     .deviceChannel(
-                                        CardPayment.Element.CardAuthentication.DeviceChannel.APP
+                                        CardPayment.Element.CardAuthentication.DeviceChannel.BROWSER
                                     )
                                     .merchantAcceptorId("5665270011000168")
                                     .merchantCategoryCode("5734")
@@ -76,7 +73,10 @@ internal class CardPaymentTest {
                                     .purchaseAmount(1000L)
                                     .purchaseCurrency("USD")
                                     .realTimeDecisionId(null)
-                                    .status(CardPayment.Element.CardAuthentication.Status.DENIED)
+                                    .status(
+                                        CardPayment.Element.CardAuthentication.Status
+                                            .VALIDATING_CHALLENGE
+                                    )
                                     .type(
                                         CardPayment.Element.CardAuthentication.Type
                                             .CARD_AUTHENTICATION
@@ -86,10 +86,12 @@ internal class CardPaymentTest {
                             .cardAuthorization(
                                 CardPayment.Element.CardAuthorization.builder()
                                     .id("card_authorization_6iqxap6ivd0fo5eu3i8x")
-                                    .actioner(CardPayment.Element.CardAuthorization.Actioner.USER)
+                                    .actioner(
+                                        CardPayment.Element.CardAuthorization.Actioner.INCREASE
+                                    )
                                     .amount(100L)
                                     .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
-                                    .currency(CardPayment.Element.CardAuthorization.Currency.CAD)
+                                    .currency(CardPayment.Element.CardAuthorization.Currency.USD)
                                     .digitalWalletTokenId(null)
                                     .direction(
                                         CardPayment.Element.CardAuthorization.Direction.SETTLEMENT
@@ -119,22 +121,16 @@ internal class CardPaymentTest {
                                                             .NetworkDetails
                                                             .Visa
                                                             .ElectronicCommerceIndicator
-                                                            .MAIL_PHONE_ORDER
+                                                            .SECURE_ELECTRONIC_COMMERCE
                                                     )
                                                     .pointOfServiceEntryMode(
                                                         CardPayment.Element.CardAuthorization
                                                             .NetworkDetails
                                                             .Visa
                                                             .PointOfServiceEntryMode
-                                                            .UNKNOWN
+                                                            .MANUAL
                                                     )
-                                                    .standInProcessingReason(
-                                                        CardPayment.Element.CardAuthorization
-                                                            .NetworkDetails
-                                                            .Visa
-                                                            .StandInProcessingReason
-                                                            .ISSUER_ERROR
-                                                    )
+                                                    .standInProcessingReason(null)
                                                     .build()
                                             )
                                             .build()
@@ -154,7 +150,7 @@ internal class CardPaymentTest {
                                     .presentmentCurrency("USD")
                                     .processingCategory(
                                         CardPayment.Element.CardAuthorization.ProcessingCategory
-                                            .ACCOUNT_FUNDING
+                                            .PURCHASE
                                     )
                                     .realTimeDecisionId(null)
                                     .terminalId("RCN5VNXS")
@@ -173,7 +169,7 @@ internal class CardPaymentTest {
                                                             .Verification
                                                             .CardVerificationCode
                                                             .Result
-                                                            .NOT_CHECKED
+                                                            .MATCH
                                                     )
                                                     .build()
                                             )
@@ -190,7 +186,7 @@ internal class CardPaymentTest {
                                                             .Verification
                                                             .CardholderAddress
                                                             .Result
-                                                            .NOT_CHECKED
+                                                            .POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
                                                     )
                                                     .build()
                                             )
@@ -203,7 +199,7 @@ internal class CardPaymentTest {
                                     .id("card_authorization_expiration_9xxbjtmixs8sfluzux2e")
                                     .cardAuthorizationId("card_authorization_6iqxap6ivd0fo5eu3i8x")
                                     .currency(
-                                        CardPayment.Element.CardAuthorizationExpiration.Currency.CAD
+                                        CardPayment.Element.CardAuthorizationExpiration.Currency.USD
                                     )
                                     .expiredAmount(20L)
                                     .network(
@@ -218,10 +214,10 @@ internal class CardPaymentTest {
                             .cardDecline(
                                 CardPayment.Element.CardDecline.builder()
                                     .id("card_decline_bx3o8zd7glq8yvtwg25v")
-                                    .actioner(CardPayment.Element.CardDecline.Actioner.USER)
+                                    .actioner(CardPayment.Element.CardDecline.Actioner.INCREASE)
                                     .amount(-1000L)
                                     .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
-                                    .currency(CardPayment.Element.CardDecline.Currency.CAD)
+                                    .currency(CardPayment.Element.CardDecline.Currency.USD)
                                     .declinedTransactionId(
                                         "declined_transaction_17jbn0yyhvkt4v4ooym8"
                                     )
@@ -249,22 +245,16 @@ internal class CardPaymentTest {
                                                             .NetworkDetails
                                                             .Visa
                                                             .ElectronicCommerceIndicator
-                                                            .MAIL_PHONE_ORDER
+                                                            .SECURE_ELECTRONIC_COMMERCE
                                                     )
                                                     .pointOfServiceEntryMode(
                                                         CardPayment.Element.CardDecline
                                                             .NetworkDetails
                                                             .Visa
                                                             .PointOfServiceEntryMode
-                                                            .UNKNOWN
+                                                            .MANUAL
                                                     )
-                                                    .standInProcessingReason(
-                                                        CardPayment.Element.CardDecline
-                                                            .NetworkDetails
-                                                            .Visa
-                                                            .StandInProcessingReason
-                                                            .ISSUER_ERROR
-                                                    )
+                                                    .standInProcessingReason(null)
                                                     .build()
                                             )
                                             .build()
@@ -281,15 +271,13 @@ internal class CardPaymentTest {
                                     .presentmentAmount(-1000L)
                                     .presentmentCurrency("USD")
                                     .processingCategory(
-                                        CardPayment.Element.CardDecline.ProcessingCategory
-                                            .ACCOUNT_FUNDING
+                                        CardPayment.Element.CardDecline.ProcessingCategory.PURCHASE
                                     )
                                     .realTimeDecisionId(null)
-                                    .realTimeDecisionReason(
-                                        CardPayment.Element.CardDecline.RealTimeDecisionReason
-                                            .INSUFFICIENT_FUNDS
+                                    .realTimeDecisionReason(null)
+                                    .reason(
+                                        CardPayment.Element.CardDecline.Reason.INSUFFICIENT_FUNDS
                                     )
-                                    .reason(CardPayment.Element.CardDecline.Reason.ACCOUNT_CLOSED)
                                     .terminalId("RCN5VNXS")
                                     .verification(
                                         CardPayment.Element.CardDecline.Verification.builder()
@@ -301,7 +289,7 @@ internal class CardPaymentTest {
                                                         CardPayment.Element.CardDecline.Verification
                                                             .CardVerificationCode
                                                             .Result
-                                                            .NOT_CHECKED
+                                                            .MATCH
                                                     )
                                                     .build()
                                             )
@@ -317,7 +305,7 @@ internal class CardPaymentTest {
                                                         CardPayment.Element.CardDecline.Verification
                                                             .CardholderAddress
                                                             .Result
-                                                            .NOT_CHECKED
+                                                            .POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
                                                     )
                                                     .build()
                                             )
@@ -329,7 +317,7 @@ internal class CardPaymentTest {
                                 CardPayment.Element.CardFuelConfirmation.builder()
                                     .id("card_fuel_confirmation_wuy91qate4judq2la80a")
                                     .cardAuthorizationId("card_authorization_6iqxap6ivd0fo5eu3i8x")
-                                    .currency(CardPayment.Element.CardFuelConfirmation.Currency.CAD)
+                                    .currency(CardPayment.Element.CardFuelConfirmation.Currency.USD)
                                     .network(CardPayment.Element.CardFuelConfirmation.Network.VISA)
                                     .networkIdentifiers(
                                         CardPayment.Element.CardFuelConfirmation.NetworkIdentifiers
@@ -352,10 +340,10 @@ internal class CardPaymentTest {
                             .cardIncrement(
                                 CardPayment.Element.CardIncrement.builder()
                                     .id("card_increment_6ztayc58j1od0rpebp3e")
-                                    .actioner(CardPayment.Element.CardIncrement.Actioner.USER)
+                                    .actioner(CardPayment.Element.CardIncrement.Actioner.INCREASE)
                                     .amount(20L)
                                     .cardAuthorizationId("card_authorization_6iqxap6ivd0fo5eu3i8x")
-                                    .currency(CardPayment.Element.CardIncrement.Currency.CAD)
+                                    .currency(CardPayment.Element.CardIncrement.Currency.USD)
                                     .network(CardPayment.Element.CardIncrement.Network.VISA)
                                     .networkIdentifiers(
                                         CardPayment.Element.CardIncrement.NetworkIdentifiers
@@ -387,14 +375,14 @@ internal class CardPaymentTest {
                                             )
                                             .build()
                                     )
-                                    .currency(CardPayment.Element.CardRefund.Currency.CAD)
+                                    .currency(CardPayment.Element.CardRefund.Currency.USD)
                                     .interchange(
                                         CardPayment.Element.CardRefund.Interchange.builder()
                                             .amount("0.137465")
                                             .code("271")
                                             .currency(
                                                 CardPayment.Element.CardRefund.Interchange.Currency
-                                                    .CAD
+                                                    .USD
                                             )
                                             .build()
                                     )
@@ -473,7 +461,7 @@ internal class CardPaymentTest {
                                                             .PurchaseDetails
                                                             .Lodging
                                                             .ExtraCharges
-                                                            .NO_EXTRA_CHARGE
+                                                            .RESTAURANT
                                                     )
                                                     .folioCashAdvancesAmount(0L)
                                                     .folioCashAdvancesCurrency("usd")
@@ -484,7 +472,7 @@ internal class CardPaymentTest {
                                                             .PurchaseDetails
                                                             .Lodging
                                                             .NoShowIndicator
-                                                            .NOT_APPLICABLE
+                                                            .NO_SHOW
                                                     )
                                                     .prepaidExpensesAmount(0L)
                                                     .prepaidExpensesCurrency("usd")
@@ -501,7 +489,7 @@ internal class CardPaymentTest {
                                             .purchaseIdentifierFormat(
                                                 CardPayment.Element.CardRefund.PurchaseDetails
                                                     .PurchaseIdentifierFormat
-                                                    .FREE_TEXT
+                                                    .ORDER_NUMBER
                                             )
                                             .travel(
                                                 CardPayment.Element.CardRefund.PurchaseDetails
@@ -619,7 +607,7 @@ internal class CardPaymentTest {
                                 CardPayment.Element.CardReversal.builder()
                                     .id("card_reversal_8vr9qy60cgf5d0slpb68")
                                     .cardAuthorizationId("card_authorization_6iqxap6ivd0fo5eu3i8x")
-                                    .currency(CardPayment.Element.CardReversal.Currency.CAD)
+                                    .currency(CardPayment.Element.CardReversal.Currency.USD)
                                     .merchantAcceptorId("5665270011000168")
                                     .merchantCategoryCode("5734")
                                     .merchantCity("New York")
@@ -664,7 +652,7 @@ internal class CardPaymentTest {
                                             )
                                             .build()
                                     )
-                                    .currency(CardPayment.Element.CardSettlement.Currency.CAD)
+                                    .currency(CardPayment.Element.CardSettlement.Currency.USD)
                                     .interchange(
                                         CardPayment.Element.CardSettlement.Interchange.builder()
                                             .amount("0.137465")
@@ -672,7 +660,7 @@ internal class CardPaymentTest {
                                             .currency(
                                                 CardPayment.Element.CardSettlement.Interchange
                                                     .Currency
-                                                    .CAD
+                                                    .USD
                                             )
                                             .build()
                                     )
@@ -753,7 +741,7 @@ internal class CardPaymentTest {
                                                             .PurchaseDetails
                                                             .Lodging
                                                             .ExtraCharges
-                                                            .NO_EXTRA_CHARGE
+                                                            .RESTAURANT
                                                     )
                                                     .folioCashAdvancesAmount(0L)
                                                     .folioCashAdvancesCurrency("usd")
@@ -764,7 +752,7 @@ internal class CardPaymentTest {
                                                             .PurchaseDetails
                                                             .Lodging
                                                             .NoShowIndicator
-                                                            .NOT_APPLICABLE
+                                                            .NO_SHOW
                                                     )
                                                     .prepaidExpensesAmount(0L)
                                                     .prepaidExpensesCurrency("usd")
@@ -781,7 +769,7 @@ internal class CardPaymentTest {
                                             .purchaseIdentifierFormat(
                                                 CardPayment.Element.CardSettlement.PurchaseDetails
                                                     .PurchaseIdentifierFormat
-                                                    .FREE_TEXT
+                                                    .ORDER_NUMBER
                                             )
                                             .travel(
                                                 CardPayment.Element.CardSettlement.PurchaseDetails
@@ -898,9 +886,9 @@ internal class CardPaymentTest {
                             .cardValidation(
                                 CardPayment.Element.CardValidation.builder()
                                     .id("card_validation_yi4e59jiaz6n9hx8tczv")
-                                    .actioner(CardPayment.Element.CardValidation.Actioner.USER)
+                                    .actioner(CardPayment.Element.CardValidation.Actioner.INCREASE)
                                     .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
-                                    .currency(CardPayment.Element.CardValidation.Currency.CAD)
+                                    .currency(CardPayment.Element.CardValidation.Currency.USD)
                                     .digitalWalletTokenId(null)
                                     .merchantAcceptorId("5665270011000168")
                                     .merchantCategoryCode("5734")
@@ -925,22 +913,16 @@ internal class CardPaymentTest {
                                                             .NetworkDetails
                                                             .Visa
                                                             .ElectronicCommerceIndicator
-                                                            .MAIL_PHONE_ORDER
+                                                            .SECURE_ELECTRONIC_COMMERCE
                                                     )
                                                     .pointOfServiceEntryMode(
                                                         CardPayment.Element.CardValidation
                                                             .NetworkDetails
                                                             .Visa
                                                             .PointOfServiceEntryMode
-                                                            .UNKNOWN
+                                                            .MANUAL
                                                     )
-                                                    .standInProcessingReason(
-                                                        CardPayment.Element.CardValidation
-                                                            .NetworkDetails
-                                                            .Visa
-                                                            .StandInProcessingReason
-                                                            .ISSUER_ERROR
-                                                    )
+                                                    .standInProcessingReason(null)
                                                     .build()
                                             )
                                             .build()
@@ -969,7 +951,7 @@ internal class CardPaymentTest {
                                                             .Verification
                                                             .CardVerificationCode
                                                             .Result
-                                                            .NOT_CHECKED
+                                                            .MATCH
                                                     )
                                                     .build()
                                             )
@@ -986,7 +968,7 @@ internal class CardPaymentTest {
                                                             .Verification
                                                             .CardholderAddress
                                                             .Result
-                                                            .NOT_CHECKED
+                                                            .POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
                                                     )
                                                     .build()
                                             )
@@ -1037,12 +1019,9 @@ internal class CardPaymentTest {
                                             .build()
                                     )
                                     .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                                    .denyReason(
-                                        CardPayment.Element.CardAuthentication.DenyReason
-                                            .GROUP_LOCKED
-                                    )
+                                    .denyReason(null)
                                     .deviceChannel(
-                                        CardPayment.Element.CardAuthentication.DeviceChannel.APP
+                                        CardPayment.Element.CardAuthentication.DeviceChannel.BROWSER
                                     )
                                     .merchantAcceptorId("5665270011000168")
                                     .merchantCategoryCode("5734")
@@ -1051,7 +1030,10 @@ internal class CardPaymentTest {
                                     .purchaseAmount(1000L)
                                     .purchaseCurrency("USD")
                                     .realTimeDecisionId(null)
-                                    .status(CardPayment.Element.CardAuthentication.Status.DENIED)
+                                    .status(
+                                        CardPayment.Element.CardAuthentication.Status
+                                            .VALIDATING_CHALLENGE
+                                    )
                                     .type(
                                         CardPayment.Element.CardAuthentication.Type
                                             .CARD_AUTHENTICATION
@@ -1061,10 +1043,12 @@ internal class CardPaymentTest {
                             .cardAuthorization(
                                 CardPayment.Element.CardAuthorization.builder()
                                     .id("card_authorization_6iqxap6ivd0fo5eu3i8x")
-                                    .actioner(CardPayment.Element.CardAuthorization.Actioner.USER)
+                                    .actioner(
+                                        CardPayment.Element.CardAuthorization.Actioner.INCREASE
+                                    )
                                     .amount(100L)
                                     .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
-                                    .currency(CardPayment.Element.CardAuthorization.Currency.CAD)
+                                    .currency(CardPayment.Element.CardAuthorization.Currency.USD)
                                     .digitalWalletTokenId(null)
                                     .direction(
                                         CardPayment.Element.CardAuthorization.Direction.SETTLEMENT
@@ -1094,22 +1078,16 @@ internal class CardPaymentTest {
                                                             .NetworkDetails
                                                             .Visa
                                                             .ElectronicCommerceIndicator
-                                                            .MAIL_PHONE_ORDER
+                                                            .SECURE_ELECTRONIC_COMMERCE
                                                     )
                                                     .pointOfServiceEntryMode(
                                                         CardPayment.Element.CardAuthorization
                                                             .NetworkDetails
                                                             .Visa
                                                             .PointOfServiceEntryMode
-                                                            .UNKNOWN
+                                                            .MANUAL
                                                     )
-                                                    .standInProcessingReason(
-                                                        CardPayment.Element.CardAuthorization
-                                                            .NetworkDetails
-                                                            .Visa
-                                                            .StandInProcessingReason
-                                                            .ISSUER_ERROR
-                                                    )
+                                                    .standInProcessingReason(null)
                                                     .build()
                                             )
                                             .build()
@@ -1129,7 +1107,7 @@ internal class CardPaymentTest {
                                     .presentmentCurrency("USD")
                                     .processingCategory(
                                         CardPayment.Element.CardAuthorization.ProcessingCategory
-                                            .ACCOUNT_FUNDING
+                                            .PURCHASE
                                     )
                                     .realTimeDecisionId(null)
                                     .terminalId("RCN5VNXS")
@@ -1148,7 +1126,7 @@ internal class CardPaymentTest {
                                                             .Verification
                                                             .CardVerificationCode
                                                             .Result
-                                                            .NOT_CHECKED
+                                                            .MATCH
                                                     )
                                                     .build()
                                             )
@@ -1165,7 +1143,7 @@ internal class CardPaymentTest {
                                                             .Verification
                                                             .CardholderAddress
                                                             .Result
-                                                            .NOT_CHECKED
+                                                            .POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
                                                     )
                                                     .build()
                                             )
@@ -1178,7 +1156,7 @@ internal class CardPaymentTest {
                                     .id("card_authorization_expiration_9xxbjtmixs8sfluzux2e")
                                     .cardAuthorizationId("card_authorization_6iqxap6ivd0fo5eu3i8x")
                                     .currency(
-                                        CardPayment.Element.CardAuthorizationExpiration.Currency.CAD
+                                        CardPayment.Element.CardAuthorizationExpiration.Currency.USD
                                     )
                                     .expiredAmount(20L)
                                     .network(
@@ -1193,10 +1171,10 @@ internal class CardPaymentTest {
                             .cardDecline(
                                 CardPayment.Element.CardDecline.builder()
                                     .id("card_decline_bx3o8zd7glq8yvtwg25v")
-                                    .actioner(CardPayment.Element.CardDecline.Actioner.USER)
+                                    .actioner(CardPayment.Element.CardDecline.Actioner.INCREASE)
                                     .amount(-1000L)
                                     .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
-                                    .currency(CardPayment.Element.CardDecline.Currency.CAD)
+                                    .currency(CardPayment.Element.CardDecline.Currency.USD)
                                     .declinedTransactionId(
                                         "declined_transaction_17jbn0yyhvkt4v4ooym8"
                                     )
@@ -1224,22 +1202,16 @@ internal class CardPaymentTest {
                                                             .NetworkDetails
                                                             .Visa
                                                             .ElectronicCommerceIndicator
-                                                            .MAIL_PHONE_ORDER
+                                                            .SECURE_ELECTRONIC_COMMERCE
                                                     )
                                                     .pointOfServiceEntryMode(
                                                         CardPayment.Element.CardDecline
                                                             .NetworkDetails
                                                             .Visa
                                                             .PointOfServiceEntryMode
-                                                            .UNKNOWN
+                                                            .MANUAL
                                                     )
-                                                    .standInProcessingReason(
-                                                        CardPayment.Element.CardDecline
-                                                            .NetworkDetails
-                                                            .Visa
-                                                            .StandInProcessingReason
-                                                            .ISSUER_ERROR
-                                                    )
+                                                    .standInProcessingReason(null)
                                                     .build()
                                             )
                                             .build()
@@ -1256,15 +1228,13 @@ internal class CardPaymentTest {
                                     .presentmentAmount(-1000L)
                                     .presentmentCurrency("USD")
                                     .processingCategory(
-                                        CardPayment.Element.CardDecline.ProcessingCategory
-                                            .ACCOUNT_FUNDING
+                                        CardPayment.Element.CardDecline.ProcessingCategory.PURCHASE
                                     )
                                     .realTimeDecisionId(null)
-                                    .realTimeDecisionReason(
-                                        CardPayment.Element.CardDecline.RealTimeDecisionReason
-                                            .INSUFFICIENT_FUNDS
+                                    .realTimeDecisionReason(null)
+                                    .reason(
+                                        CardPayment.Element.CardDecline.Reason.INSUFFICIENT_FUNDS
                                     )
-                                    .reason(CardPayment.Element.CardDecline.Reason.ACCOUNT_CLOSED)
                                     .terminalId("RCN5VNXS")
                                     .verification(
                                         CardPayment.Element.CardDecline.Verification.builder()
@@ -1276,7 +1246,7 @@ internal class CardPaymentTest {
                                                         CardPayment.Element.CardDecline.Verification
                                                             .CardVerificationCode
                                                             .Result
-                                                            .NOT_CHECKED
+                                                            .MATCH
                                                     )
                                                     .build()
                                             )
@@ -1292,7 +1262,7 @@ internal class CardPaymentTest {
                                                         CardPayment.Element.CardDecline.Verification
                                                             .CardholderAddress
                                                             .Result
-                                                            .NOT_CHECKED
+                                                            .POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
                                                     )
                                                     .build()
                                             )
@@ -1304,7 +1274,7 @@ internal class CardPaymentTest {
                                 CardPayment.Element.CardFuelConfirmation.builder()
                                     .id("card_fuel_confirmation_wuy91qate4judq2la80a")
                                     .cardAuthorizationId("card_authorization_6iqxap6ivd0fo5eu3i8x")
-                                    .currency(CardPayment.Element.CardFuelConfirmation.Currency.CAD)
+                                    .currency(CardPayment.Element.CardFuelConfirmation.Currency.USD)
                                     .network(CardPayment.Element.CardFuelConfirmation.Network.VISA)
                                     .networkIdentifiers(
                                         CardPayment.Element.CardFuelConfirmation.NetworkIdentifiers
@@ -1327,10 +1297,10 @@ internal class CardPaymentTest {
                             .cardIncrement(
                                 CardPayment.Element.CardIncrement.builder()
                                     .id("card_increment_6ztayc58j1od0rpebp3e")
-                                    .actioner(CardPayment.Element.CardIncrement.Actioner.USER)
+                                    .actioner(CardPayment.Element.CardIncrement.Actioner.INCREASE)
                                     .amount(20L)
                                     .cardAuthorizationId("card_authorization_6iqxap6ivd0fo5eu3i8x")
-                                    .currency(CardPayment.Element.CardIncrement.Currency.CAD)
+                                    .currency(CardPayment.Element.CardIncrement.Currency.USD)
                                     .network(CardPayment.Element.CardIncrement.Network.VISA)
                                     .networkIdentifiers(
                                         CardPayment.Element.CardIncrement.NetworkIdentifiers
@@ -1362,14 +1332,14 @@ internal class CardPaymentTest {
                                             )
                                             .build()
                                     )
-                                    .currency(CardPayment.Element.CardRefund.Currency.CAD)
+                                    .currency(CardPayment.Element.CardRefund.Currency.USD)
                                     .interchange(
                                         CardPayment.Element.CardRefund.Interchange.builder()
                                             .amount("0.137465")
                                             .code("271")
                                             .currency(
                                                 CardPayment.Element.CardRefund.Interchange.Currency
-                                                    .CAD
+                                                    .USD
                                             )
                                             .build()
                                     )
@@ -1448,7 +1418,7 @@ internal class CardPaymentTest {
                                                             .PurchaseDetails
                                                             .Lodging
                                                             .ExtraCharges
-                                                            .NO_EXTRA_CHARGE
+                                                            .RESTAURANT
                                                     )
                                                     .folioCashAdvancesAmount(0L)
                                                     .folioCashAdvancesCurrency("usd")
@@ -1459,7 +1429,7 @@ internal class CardPaymentTest {
                                                             .PurchaseDetails
                                                             .Lodging
                                                             .NoShowIndicator
-                                                            .NOT_APPLICABLE
+                                                            .NO_SHOW
                                                     )
                                                     .prepaidExpensesAmount(0L)
                                                     .prepaidExpensesCurrency("usd")
@@ -1476,7 +1446,7 @@ internal class CardPaymentTest {
                                             .purchaseIdentifierFormat(
                                                 CardPayment.Element.CardRefund.PurchaseDetails
                                                     .PurchaseIdentifierFormat
-                                                    .FREE_TEXT
+                                                    .ORDER_NUMBER
                                             )
                                             .travel(
                                                 CardPayment.Element.CardRefund.PurchaseDetails
@@ -1594,7 +1564,7 @@ internal class CardPaymentTest {
                                 CardPayment.Element.CardReversal.builder()
                                     .id("card_reversal_8vr9qy60cgf5d0slpb68")
                                     .cardAuthorizationId("card_authorization_6iqxap6ivd0fo5eu3i8x")
-                                    .currency(CardPayment.Element.CardReversal.Currency.CAD)
+                                    .currency(CardPayment.Element.CardReversal.Currency.USD)
                                     .merchantAcceptorId("5665270011000168")
                                     .merchantCategoryCode("5734")
                                     .merchantCity("New York")
@@ -1639,7 +1609,7 @@ internal class CardPaymentTest {
                                             )
                                             .build()
                                     )
-                                    .currency(CardPayment.Element.CardSettlement.Currency.CAD)
+                                    .currency(CardPayment.Element.CardSettlement.Currency.USD)
                                     .interchange(
                                         CardPayment.Element.CardSettlement.Interchange.builder()
                                             .amount("0.137465")
@@ -1647,7 +1617,7 @@ internal class CardPaymentTest {
                                             .currency(
                                                 CardPayment.Element.CardSettlement.Interchange
                                                     .Currency
-                                                    .CAD
+                                                    .USD
                                             )
                                             .build()
                                     )
@@ -1728,7 +1698,7 @@ internal class CardPaymentTest {
                                                             .PurchaseDetails
                                                             .Lodging
                                                             .ExtraCharges
-                                                            .NO_EXTRA_CHARGE
+                                                            .RESTAURANT
                                                     )
                                                     .folioCashAdvancesAmount(0L)
                                                     .folioCashAdvancesCurrency("usd")
@@ -1739,7 +1709,7 @@ internal class CardPaymentTest {
                                                             .PurchaseDetails
                                                             .Lodging
                                                             .NoShowIndicator
-                                                            .NOT_APPLICABLE
+                                                            .NO_SHOW
                                                     )
                                                     .prepaidExpensesAmount(0L)
                                                     .prepaidExpensesCurrency("usd")
@@ -1756,7 +1726,7 @@ internal class CardPaymentTest {
                                             .purchaseIdentifierFormat(
                                                 CardPayment.Element.CardSettlement.PurchaseDetails
                                                     .PurchaseIdentifierFormat
-                                                    .FREE_TEXT
+                                                    .ORDER_NUMBER
                                             )
                                             .travel(
                                                 CardPayment.Element.CardSettlement.PurchaseDetails
@@ -1873,9 +1843,9 @@ internal class CardPaymentTest {
                             .cardValidation(
                                 CardPayment.Element.CardValidation.builder()
                                     .id("card_validation_yi4e59jiaz6n9hx8tczv")
-                                    .actioner(CardPayment.Element.CardValidation.Actioner.USER)
+                                    .actioner(CardPayment.Element.CardValidation.Actioner.INCREASE)
                                     .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
-                                    .currency(CardPayment.Element.CardValidation.Currency.CAD)
+                                    .currency(CardPayment.Element.CardValidation.Currency.USD)
                                     .digitalWalletTokenId(null)
                                     .merchantAcceptorId("5665270011000168")
                                     .merchantCategoryCode("5734")
@@ -1900,22 +1870,16 @@ internal class CardPaymentTest {
                                                             .NetworkDetails
                                                             .Visa
                                                             .ElectronicCommerceIndicator
-                                                            .MAIL_PHONE_ORDER
+                                                            .SECURE_ELECTRONIC_COMMERCE
                                                     )
                                                     .pointOfServiceEntryMode(
                                                         CardPayment.Element.CardValidation
                                                             .NetworkDetails
                                                             .Visa
                                                             .PointOfServiceEntryMode
-                                                            .UNKNOWN
+                                                            .MANUAL
                                                     )
-                                                    .standInProcessingReason(
-                                                        CardPayment.Element.CardValidation
-                                                            .NetworkDetails
-                                                            .Visa
-                                                            .StandInProcessingReason
-                                                            .ISSUER_ERROR
-                                                    )
+                                                    .standInProcessingReason(null)
                                                     .build()
                                             )
                                             .build()
@@ -1944,7 +1908,7 @@ internal class CardPaymentTest {
                                                             .Verification
                                                             .CardVerificationCode
                                                             .Result
-                                                            .NOT_CHECKED
+                                                            .MATCH
                                                     )
                                                     .build()
                                             )
@@ -1961,7 +1925,7 @@ internal class CardPaymentTest {
                                                             .Verification
                                                             .CardholderAddress
                                                             .Result
-                                                            .NOT_CHECKED
+                                                            .POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
                                                     )
                                                     .build()
                                             )
@@ -1969,7 +1933,7 @@ internal class CardPaymentTest {
                                     )
                                     .build()
                             )
-                            .category(CardPayment.Element.Category.CARD_AUTHORIZATION)
+                            .category(CardPayment.Element.Category.CARD_REVERSAL)
                             .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                             .other(JsonValue.from(mapOf<String, Any>()))
                             .build(),
@@ -2012,12 +1976,9 @@ internal class CardPaymentTest {
                                             .build()
                                     )
                                     .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                                    .denyReason(
-                                        CardPayment.Element.CardAuthentication.DenyReason
-                                            .GROUP_LOCKED
-                                    )
+                                    .denyReason(null)
                                     .deviceChannel(
-                                        CardPayment.Element.CardAuthentication.DeviceChannel.APP
+                                        CardPayment.Element.CardAuthentication.DeviceChannel.BROWSER
                                     )
                                     .merchantAcceptorId("5665270011000168")
                                     .merchantCategoryCode("5734")
@@ -2026,7 +1987,10 @@ internal class CardPaymentTest {
                                     .purchaseAmount(1000L)
                                     .purchaseCurrency("USD")
                                     .realTimeDecisionId(null)
-                                    .status(CardPayment.Element.CardAuthentication.Status.DENIED)
+                                    .status(
+                                        CardPayment.Element.CardAuthentication.Status
+                                            .VALIDATING_CHALLENGE
+                                    )
                                     .type(
                                         CardPayment.Element.CardAuthentication.Type
                                             .CARD_AUTHENTICATION
@@ -2036,10 +2000,12 @@ internal class CardPaymentTest {
                             .cardAuthorization(
                                 CardPayment.Element.CardAuthorization.builder()
                                     .id("card_authorization_6iqxap6ivd0fo5eu3i8x")
-                                    .actioner(CardPayment.Element.CardAuthorization.Actioner.USER)
+                                    .actioner(
+                                        CardPayment.Element.CardAuthorization.Actioner.INCREASE
+                                    )
                                     .amount(100L)
                                     .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
-                                    .currency(CardPayment.Element.CardAuthorization.Currency.CAD)
+                                    .currency(CardPayment.Element.CardAuthorization.Currency.USD)
                                     .digitalWalletTokenId(null)
                                     .direction(
                                         CardPayment.Element.CardAuthorization.Direction.SETTLEMENT
@@ -2069,22 +2035,16 @@ internal class CardPaymentTest {
                                                             .NetworkDetails
                                                             .Visa
                                                             .ElectronicCommerceIndicator
-                                                            .MAIL_PHONE_ORDER
+                                                            .SECURE_ELECTRONIC_COMMERCE
                                                     )
                                                     .pointOfServiceEntryMode(
                                                         CardPayment.Element.CardAuthorization
                                                             .NetworkDetails
                                                             .Visa
                                                             .PointOfServiceEntryMode
-                                                            .UNKNOWN
+                                                            .MANUAL
                                                     )
-                                                    .standInProcessingReason(
-                                                        CardPayment.Element.CardAuthorization
-                                                            .NetworkDetails
-                                                            .Visa
-                                                            .StandInProcessingReason
-                                                            .ISSUER_ERROR
-                                                    )
+                                                    .standInProcessingReason(null)
                                                     .build()
                                             )
                                             .build()
@@ -2104,7 +2064,7 @@ internal class CardPaymentTest {
                                     .presentmentCurrency("USD")
                                     .processingCategory(
                                         CardPayment.Element.CardAuthorization.ProcessingCategory
-                                            .ACCOUNT_FUNDING
+                                            .PURCHASE
                                     )
                                     .realTimeDecisionId(null)
                                     .terminalId("RCN5VNXS")
@@ -2123,7 +2083,7 @@ internal class CardPaymentTest {
                                                             .Verification
                                                             .CardVerificationCode
                                                             .Result
-                                                            .NOT_CHECKED
+                                                            .MATCH
                                                     )
                                                     .build()
                                             )
@@ -2140,7 +2100,7 @@ internal class CardPaymentTest {
                                                             .Verification
                                                             .CardholderAddress
                                                             .Result
-                                                            .NOT_CHECKED
+                                                            .POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
                                                     )
                                                     .build()
                                             )
@@ -2153,7 +2113,7 @@ internal class CardPaymentTest {
                                     .id("card_authorization_expiration_9xxbjtmixs8sfluzux2e")
                                     .cardAuthorizationId("card_authorization_6iqxap6ivd0fo5eu3i8x")
                                     .currency(
-                                        CardPayment.Element.CardAuthorizationExpiration.Currency.CAD
+                                        CardPayment.Element.CardAuthorizationExpiration.Currency.USD
                                     )
                                     .expiredAmount(20L)
                                     .network(
@@ -2168,10 +2128,10 @@ internal class CardPaymentTest {
                             .cardDecline(
                                 CardPayment.Element.CardDecline.builder()
                                     .id("card_decline_bx3o8zd7glq8yvtwg25v")
-                                    .actioner(CardPayment.Element.CardDecline.Actioner.USER)
+                                    .actioner(CardPayment.Element.CardDecline.Actioner.INCREASE)
                                     .amount(-1000L)
                                     .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
-                                    .currency(CardPayment.Element.CardDecline.Currency.CAD)
+                                    .currency(CardPayment.Element.CardDecline.Currency.USD)
                                     .declinedTransactionId(
                                         "declined_transaction_17jbn0yyhvkt4v4ooym8"
                                     )
@@ -2199,22 +2159,16 @@ internal class CardPaymentTest {
                                                             .NetworkDetails
                                                             .Visa
                                                             .ElectronicCommerceIndicator
-                                                            .MAIL_PHONE_ORDER
+                                                            .SECURE_ELECTRONIC_COMMERCE
                                                     )
                                                     .pointOfServiceEntryMode(
                                                         CardPayment.Element.CardDecline
                                                             .NetworkDetails
                                                             .Visa
                                                             .PointOfServiceEntryMode
-                                                            .UNKNOWN
+                                                            .MANUAL
                                                     )
-                                                    .standInProcessingReason(
-                                                        CardPayment.Element.CardDecline
-                                                            .NetworkDetails
-                                                            .Visa
-                                                            .StandInProcessingReason
-                                                            .ISSUER_ERROR
-                                                    )
+                                                    .standInProcessingReason(null)
                                                     .build()
                                             )
                                             .build()
@@ -2231,15 +2185,13 @@ internal class CardPaymentTest {
                                     .presentmentAmount(-1000L)
                                     .presentmentCurrency("USD")
                                     .processingCategory(
-                                        CardPayment.Element.CardDecline.ProcessingCategory
-                                            .ACCOUNT_FUNDING
+                                        CardPayment.Element.CardDecline.ProcessingCategory.PURCHASE
                                     )
                                     .realTimeDecisionId(null)
-                                    .realTimeDecisionReason(
-                                        CardPayment.Element.CardDecline.RealTimeDecisionReason
-                                            .INSUFFICIENT_FUNDS
+                                    .realTimeDecisionReason(null)
+                                    .reason(
+                                        CardPayment.Element.CardDecline.Reason.INSUFFICIENT_FUNDS
                                     )
-                                    .reason(CardPayment.Element.CardDecline.Reason.ACCOUNT_CLOSED)
                                     .terminalId("RCN5VNXS")
                                     .verification(
                                         CardPayment.Element.CardDecline.Verification.builder()
@@ -2251,7 +2203,7 @@ internal class CardPaymentTest {
                                                         CardPayment.Element.CardDecline.Verification
                                                             .CardVerificationCode
                                                             .Result
-                                                            .NOT_CHECKED
+                                                            .MATCH
                                                     )
                                                     .build()
                                             )
@@ -2267,7 +2219,7 @@ internal class CardPaymentTest {
                                                         CardPayment.Element.CardDecline.Verification
                                                             .CardholderAddress
                                                             .Result
-                                                            .NOT_CHECKED
+                                                            .POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
                                                     )
                                                     .build()
                                             )
@@ -2279,7 +2231,7 @@ internal class CardPaymentTest {
                                 CardPayment.Element.CardFuelConfirmation.builder()
                                     .id("card_fuel_confirmation_wuy91qate4judq2la80a")
                                     .cardAuthorizationId("card_authorization_6iqxap6ivd0fo5eu3i8x")
-                                    .currency(CardPayment.Element.CardFuelConfirmation.Currency.CAD)
+                                    .currency(CardPayment.Element.CardFuelConfirmation.Currency.USD)
                                     .network(CardPayment.Element.CardFuelConfirmation.Network.VISA)
                                     .networkIdentifiers(
                                         CardPayment.Element.CardFuelConfirmation.NetworkIdentifiers
@@ -2302,10 +2254,10 @@ internal class CardPaymentTest {
                             .cardIncrement(
                                 CardPayment.Element.CardIncrement.builder()
                                     .id("card_increment_6ztayc58j1od0rpebp3e")
-                                    .actioner(CardPayment.Element.CardIncrement.Actioner.USER)
+                                    .actioner(CardPayment.Element.CardIncrement.Actioner.INCREASE)
                                     .amount(20L)
                                     .cardAuthorizationId("card_authorization_6iqxap6ivd0fo5eu3i8x")
-                                    .currency(CardPayment.Element.CardIncrement.Currency.CAD)
+                                    .currency(CardPayment.Element.CardIncrement.Currency.USD)
                                     .network(CardPayment.Element.CardIncrement.Network.VISA)
                                     .networkIdentifiers(
                                         CardPayment.Element.CardIncrement.NetworkIdentifiers
@@ -2337,14 +2289,14 @@ internal class CardPaymentTest {
                                             )
                                             .build()
                                     )
-                                    .currency(CardPayment.Element.CardRefund.Currency.CAD)
+                                    .currency(CardPayment.Element.CardRefund.Currency.USD)
                                     .interchange(
                                         CardPayment.Element.CardRefund.Interchange.builder()
                                             .amount("0.137465")
                                             .code("271")
                                             .currency(
                                                 CardPayment.Element.CardRefund.Interchange.Currency
-                                                    .CAD
+                                                    .USD
                                             )
                                             .build()
                                     )
@@ -2423,7 +2375,7 @@ internal class CardPaymentTest {
                                                             .PurchaseDetails
                                                             .Lodging
                                                             .ExtraCharges
-                                                            .NO_EXTRA_CHARGE
+                                                            .RESTAURANT
                                                     )
                                                     .folioCashAdvancesAmount(0L)
                                                     .folioCashAdvancesCurrency("usd")
@@ -2434,7 +2386,7 @@ internal class CardPaymentTest {
                                                             .PurchaseDetails
                                                             .Lodging
                                                             .NoShowIndicator
-                                                            .NOT_APPLICABLE
+                                                            .NO_SHOW
                                                     )
                                                     .prepaidExpensesAmount(0L)
                                                     .prepaidExpensesCurrency("usd")
@@ -2451,7 +2403,7 @@ internal class CardPaymentTest {
                                             .purchaseIdentifierFormat(
                                                 CardPayment.Element.CardRefund.PurchaseDetails
                                                     .PurchaseIdentifierFormat
-                                                    .FREE_TEXT
+                                                    .ORDER_NUMBER
                                             )
                                             .travel(
                                                 CardPayment.Element.CardRefund.PurchaseDetails
@@ -2569,7 +2521,7 @@ internal class CardPaymentTest {
                                 CardPayment.Element.CardReversal.builder()
                                     .id("card_reversal_8vr9qy60cgf5d0slpb68")
                                     .cardAuthorizationId("card_authorization_6iqxap6ivd0fo5eu3i8x")
-                                    .currency(CardPayment.Element.CardReversal.Currency.CAD)
+                                    .currency(CardPayment.Element.CardReversal.Currency.USD)
                                     .merchantAcceptorId("5665270011000168")
                                     .merchantCategoryCode("5734")
                                     .merchantCity("New York")
@@ -2614,7 +2566,7 @@ internal class CardPaymentTest {
                                             )
                                             .build()
                                     )
-                                    .currency(CardPayment.Element.CardSettlement.Currency.CAD)
+                                    .currency(CardPayment.Element.CardSettlement.Currency.USD)
                                     .interchange(
                                         CardPayment.Element.CardSettlement.Interchange.builder()
                                             .amount("0.137465")
@@ -2622,7 +2574,7 @@ internal class CardPaymentTest {
                                             .currency(
                                                 CardPayment.Element.CardSettlement.Interchange
                                                     .Currency
-                                                    .CAD
+                                                    .USD
                                             )
                                             .build()
                                     )
@@ -2703,7 +2655,7 @@ internal class CardPaymentTest {
                                                             .PurchaseDetails
                                                             .Lodging
                                                             .ExtraCharges
-                                                            .NO_EXTRA_CHARGE
+                                                            .RESTAURANT
                                                     )
                                                     .folioCashAdvancesAmount(0L)
                                                     .folioCashAdvancesCurrency("usd")
@@ -2714,7 +2666,7 @@ internal class CardPaymentTest {
                                                             .PurchaseDetails
                                                             .Lodging
                                                             .NoShowIndicator
-                                                            .NOT_APPLICABLE
+                                                            .NO_SHOW
                                                     )
                                                     .prepaidExpensesAmount(0L)
                                                     .prepaidExpensesCurrency("usd")
@@ -2731,7 +2683,7 @@ internal class CardPaymentTest {
                                             .purchaseIdentifierFormat(
                                                 CardPayment.Element.CardSettlement.PurchaseDetails
                                                     .PurchaseIdentifierFormat
-                                                    .FREE_TEXT
+                                                    .ORDER_NUMBER
                                             )
                                             .travel(
                                                 CardPayment.Element.CardSettlement.PurchaseDetails
@@ -2848,9 +2800,9 @@ internal class CardPaymentTest {
                             .cardValidation(
                                 CardPayment.Element.CardValidation.builder()
                                     .id("card_validation_yi4e59jiaz6n9hx8tczv")
-                                    .actioner(CardPayment.Element.CardValidation.Actioner.USER)
+                                    .actioner(CardPayment.Element.CardValidation.Actioner.INCREASE)
                                     .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
-                                    .currency(CardPayment.Element.CardValidation.Currency.CAD)
+                                    .currency(CardPayment.Element.CardValidation.Currency.USD)
                                     .digitalWalletTokenId(null)
                                     .merchantAcceptorId("5665270011000168")
                                     .merchantCategoryCode("5734")
@@ -2875,22 +2827,16 @@ internal class CardPaymentTest {
                                                             .NetworkDetails
                                                             .Visa
                                                             .ElectronicCommerceIndicator
-                                                            .MAIL_PHONE_ORDER
+                                                            .SECURE_ELECTRONIC_COMMERCE
                                                     )
                                                     .pointOfServiceEntryMode(
                                                         CardPayment.Element.CardValidation
                                                             .NetworkDetails
                                                             .Visa
                                                             .PointOfServiceEntryMode
-                                                            .UNKNOWN
+                                                            .MANUAL
                                                     )
-                                                    .standInProcessingReason(
-                                                        CardPayment.Element.CardValidation
-                                                            .NetworkDetails
-                                                            .Visa
-                                                            .StandInProcessingReason
-                                                            .ISSUER_ERROR
-                                                    )
+                                                    .standInProcessingReason(null)
                                                     .build()
                                             )
                                             .build()
@@ -2919,7 +2865,7 @@ internal class CardPaymentTest {
                                                             .Verification
                                                             .CardVerificationCode
                                                             .Result
-                                                            .NOT_CHECKED
+                                                            .MATCH
                                                     )
                                                     .build()
                                             )
@@ -2936,7 +2882,7 @@ internal class CardPaymentTest {
                                                             .Verification
                                                             .CardholderAddress
                                                             .Result
-                                                            .NOT_CHECKED
+                                                            .POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
                                                     )
                                                     .build()
                                             )
@@ -2944,7 +2890,7 @@ internal class CardPaymentTest {
                                     )
                                     .build()
                             )
-                            .category(CardPayment.Element.Category.CARD_AUTHORIZATION)
+                            .category(CardPayment.Element.Category.CARD_INCREMENT)
                             .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                             .other(JsonValue.from(mapOf<String, Any>()))
                             .build(),
@@ -2987,12 +2933,9 @@ internal class CardPaymentTest {
                                             .build()
                                     )
                                     .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                                    .denyReason(
-                                        CardPayment.Element.CardAuthentication.DenyReason
-                                            .GROUP_LOCKED
-                                    )
+                                    .denyReason(null)
                                     .deviceChannel(
-                                        CardPayment.Element.CardAuthentication.DeviceChannel.APP
+                                        CardPayment.Element.CardAuthentication.DeviceChannel.BROWSER
                                     )
                                     .merchantAcceptorId("5665270011000168")
                                     .merchantCategoryCode("5734")
@@ -3001,7 +2944,10 @@ internal class CardPaymentTest {
                                     .purchaseAmount(1000L)
                                     .purchaseCurrency("USD")
                                     .realTimeDecisionId(null)
-                                    .status(CardPayment.Element.CardAuthentication.Status.DENIED)
+                                    .status(
+                                        CardPayment.Element.CardAuthentication.Status
+                                            .VALIDATING_CHALLENGE
+                                    )
                                     .type(
                                         CardPayment.Element.CardAuthentication.Type
                                             .CARD_AUTHENTICATION
@@ -3011,10 +2957,12 @@ internal class CardPaymentTest {
                             .cardAuthorization(
                                 CardPayment.Element.CardAuthorization.builder()
                                     .id("card_authorization_6iqxap6ivd0fo5eu3i8x")
-                                    .actioner(CardPayment.Element.CardAuthorization.Actioner.USER)
+                                    .actioner(
+                                        CardPayment.Element.CardAuthorization.Actioner.INCREASE
+                                    )
                                     .amount(100L)
                                     .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
-                                    .currency(CardPayment.Element.CardAuthorization.Currency.CAD)
+                                    .currency(CardPayment.Element.CardAuthorization.Currency.USD)
                                     .digitalWalletTokenId(null)
                                     .direction(
                                         CardPayment.Element.CardAuthorization.Direction.SETTLEMENT
@@ -3044,22 +2992,16 @@ internal class CardPaymentTest {
                                                             .NetworkDetails
                                                             .Visa
                                                             .ElectronicCommerceIndicator
-                                                            .MAIL_PHONE_ORDER
+                                                            .SECURE_ELECTRONIC_COMMERCE
                                                     )
                                                     .pointOfServiceEntryMode(
                                                         CardPayment.Element.CardAuthorization
                                                             .NetworkDetails
                                                             .Visa
                                                             .PointOfServiceEntryMode
-                                                            .UNKNOWN
+                                                            .MANUAL
                                                     )
-                                                    .standInProcessingReason(
-                                                        CardPayment.Element.CardAuthorization
-                                                            .NetworkDetails
-                                                            .Visa
-                                                            .StandInProcessingReason
-                                                            .ISSUER_ERROR
-                                                    )
+                                                    .standInProcessingReason(null)
                                                     .build()
                                             )
                                             .build()
@@ -3079,7 +3021,7 @@ internal class CardPaymentTest {
                                     .presentmentCurrency("USD")
                                     .processingCategory(
                                         CardPayment.Element.CardAuthorization.ProcessingCategory
-                                            .ACCOUNT_FUNDING
+                                            .PURCHASE
                                     )
                                     .realTimeDecisionId(null)
                                     .terminalId("RCN5VNXS")
@@ -3098,7 +3040,7 @@ internal class CardPaymentTest {
                                                             .Verification
                                                             .CardVerificationCode
                                                             .Result
-                                                            .NOT_CHECKED
+                                                            .MATCH
                                                     )
                                                     .build()
                                             )
@@ -3115,7 +3057,7 @@ internal class CardPaymentTest {
                                                             .Verification
                                                             .CardholderAddress
                                                             .Result
-                                                            .NOT_CHECKED
+                                                            .POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
                                                     )
                                                     .build()
                                             )
@@ -3128,7 +3070,7 @@ internal class CardPaymentTest {
                                     .id("card_authorization_expiration_9xxbjtmixs8sfluzux2e")
                                     .cardAuthorizationId("card_authorization_6iqxap6ivd0fo5eu3i8x")
                                     .currency(
-                                        CardPayment.Element.CardAuthorizationExpiration.Currency.CAD
+                                        CardPayment.Element.CardAuthorizationExpiration.Currency.USD
                                     )
                                     .expiredAmount(20L)
                                     .network(
@@ -3143,10 +3085,10 @@ internal class CardPaymentTest {
                             .cardDecline(
                                 CardPayment.Element.CardDecline.builder()
                                     .id("card_decline_bx3o8zd7glq8yvtwg25v")
-                                    .actioner(CardPayment.Element.CardDecline.Actioner.USER)
+                                    .actioner(CardPayment.Element.CardDecline.Actioner.INCREASE)
                                     .amount(-1000L)
                                     .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
-                                    .currency(CardPayment.Element.CardDecline.Currency.CAD)
+                                    .currency(CardPayment.Element.CardDecline.Currency.USD)
                                     .declinedTransactionId(
                                         "declined_transaction_17jbn0yyhvkt4v4ooym8"
                                     )
@@ -3174,22 +3116,16 @@ internal class CardPaymentTest {
                                                             .NetworkDetails
                                                             .Visa
                                                             .ElectronicCommerceIndicator
-                                                            .MAIL_PHONE_ORDER
+                                                            .SECURE_ELECTRONIC_COMMERCE
                                                     )
                                                     .pointOfServiceEntryMode(
                                                         CardPayment.Element.CardDecline
                                                             .NetworkDetails
                                                             .Visa
                                                             .PointOfServiceEntryMode
-                                                            .UNKNOWN
+                                                            .MANUAL
                                                     )
-                                                    .standInProcessingReason(
-                                                        CardPayment.Element.CardDecline
-                                                            .NetworkDetails
-                                                            .Visa
-                                                            .StandInProcessingReason
-                                                            .ISSUER_ERROR
-                                                    )
+                                                    .standInProcessingReason(null)
                                                     .build()
                                             )
                                             .build()
@@ -3206,15 +3142,13 @@ internal class CardPaymentTest {
                                     .presentmentAmount(-1000L)
                                     .presentmentCurrency("USD")
                                     .processingCategory(
-                                        CardPayment.Element.CardDecline.ProcessingCategory
-                                            .ACCOUNT_FUNDING
+                                        CardPayment.Element.CardDecline.ProcessingCategory.PURCHASE
                                     )
                                     .realTimeDecisionId(null)
-                                    .realTimeDecisionReason(
-                                        CardPayment.Element.CardDecline.RealTimeDecisionReason
-                                            .INSUFFICIENT_FUNDS
+                                    .realTimeDecisionReason(null)
+                                    .reason(
+                                        CardPayment.Element.CardDecline.Reason.INSUFFICIENT_FUNDS
                                     )
-                                    .reason(CardPayment.Element.CardDecline.Reason.ACCOUNT_CLOSED)
                                     .terminalId("RCN5VNXS")
                                     .verification(
                                         CardPayment.Element.CardDecline.Verification.builder()
@@ -3226,7 +3160,7 @@ internal class CardPaymentTest {
                                                         CardPayment.Element.CardDecline.Verification
                                                             .CardVerificationCode
                                                             .Result
-                                                            .NOT_CHECKED
+                                                            .MATCH
                                                     )
                                                     .build()
                                             )
@@ -3242,7 +3176,7 @@ internal class CardPaymentTest {
                                                         CardPayment.Element.CardDecline.Verification
                                                             .CardholderAddress
                                                             .Result
-                                                            .NOT_CHECKED
+                                                            .POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
                                                     )
                                                     .build()
                                             )
@@ -3254,7 +3188,7 @@ internal class CardPaymentTest {
                                 CardPayment.Element.CardFuelConfirmation.builder()
                                     .id("card_fuel_confirmation_wuy91qate4judq2la80a")
                                     .cardAuthorizationId("card_authorization_6iqxap6ivd0fo5eu3i8x")
-                                    .currency(CardPayment.Element.CardFuelConfirmation.Currency.CAD)
+                                    .currency(CardPayment.Element.CardFuelConfirmation.Currency.USD)
                                     .network(CardPayment.Element.CardFuelConfirmation.Network.VISA)
                                     .networkIdentifiers(
                                         CardPayment.Element.CardFuelConfirmation.NetworkIdentifiers
@@ -3277,10 +3211,10 @@ internal class CardPaymentTest {
                             .cardIncrement(
                                 CardPayment.Element.CardIncrement.builder()
                                     .id("card_increment_6ztayc58j1od0rpebp3e")
-                                    .actioner(CardPayment.Element.CardIncrement.Actioner.USER)
+                                    .actioner(CardPayment.Element.CardIncrement.Actioner.INCREASE)
                                     .amount(20L)
                                     .cardAuthorizationId("card_authorization_6iqxap6ivd0fo5eu3i8x")
-                                    .currency(CardPayment.Element.CardIncrement.Currency.CAD)
+                                    .currency(CardPayment.Element.CardIncrement.Currency.USD)
                                     .network(CardPayment.Element.CardIncrement.Network.VISA)
                                     .networkIdentifiers(
                                         CardPayment.Element.CardIncrement.NetworkIdentifiers
@@ -3312,14 +3246,14 @@ internal class CardPaymentTest {
                                             )
                                             .build()
                                     )
-                                    .currency(CardPayment.Element.CardRefund.Currency.CAD)
+                                    .currency(CardPayment.Element.CardRefund.Currency.USD)
                                     .interchange(
                                         CardPayment.Element.CardRefund.Interchange.builder()
                                             .amount("0.137465")
                                             .code("271")
                                             .currency(
                                                 CardPayment.Element.CardRefund.Interchange.Currency
-                                                    .CAD
+                                                    .USD
                                             )
                                             .build()
                                     )
@@ -3398,7 +3332,7 @@ internal class CardPaymentTest {
                                                             .PurchaseDetails
                                                             .Lodging
                                                             .ExtraCharges
-                                                            .NO_EXTRA_CHARGE
+                                                            .RESTAURANT
                                                     )
                                                     .folioCashAdvancesAmount(0L)
                                                     .folioCashAdvancesCurrency("usd")
@@ -3409,7 +3343,7 @@ internal class CardPaymentTest {
                                                             .PurchaseDetails
                                                             .Lodging
                                                             .NoShowIndicator
-                                                            .NOT_APPLICABLE
+                                                            .NO_SHOW
                                                     )
                                                     .prepaidExpensesAmount(0L)
                                                     .prepaidExpensesCurrency("usd")
@@ -3426,7 +3360,7 @@ internal class CardPaymentTest {
                                             .purchaseIdentifierFormat(
                                                 CardPayment.Element.CardRefund.PurchaseDetails
                                                     .PurchaseIdentifierFormat
-                                                    .FREE_TEXT
+                                                    .ORDER_NUMBER
                                             )
                                             .travel(
                                                 CardPayment.Element.CardRefund.PurchaseDetails
@@ -3544,7 +3478,7 @@ internal class CardPaymentTest {
                                 CardPayment.Element.CardReversal.builder()
                                     .id("card_reversal_8vr9qy60cgf5d0slpb68")
                                     .cardAuthorizationId("card_authorization_6iqxap6ivd0fo5eu3i8x")
-                                    .currency(CardPayment.Element.CardReversal.Currency.CAD)
+                                    .currency(CardPayment.Element.CardReversal.Currency.USD)
                                     .merchantAcceptorId("5665270011000168")
                                     .merchantCategoryCode("5734")
                                     .merchantCity("New York")
@@ -3589,7 +3523,7 @@ internal class CardPaymentTest {
                                             )
                                             .build()
                                     )
-                                    .currency(CardPayment.Element.CardSettlement.Currency.CAD)
+                                    .currency(CardPayment.Element.CardSettlement.Currency.USD)
                                     .interchange(
                                         CardPayment.Element.CardSettlement.Interchange.builder()
                                             .amount("0.137465")
@@ -3597,7 +3531,7 @@ internal class CardPaymentTest {
                                             .currency(
                                                 CardPayment.Element.CardSettlement.Interchange
                                                     .Currency
-                                                    .CAD
+                                                    .USD
                                             )
                                             .build()
                                     )
@@ -3678,7 +3612,7 @@ internal class CardPaymentTest {
                                                             .PurchaseDetails
                                                             .Lodging
                                                             .ExtraCharges
-                                                            .NO_EXTRA_CHARGE
+                                                            .RESTAURANT
                                                     )
                                                     .folioCashAdvancesAmount(0L)
                                                     .folioCashAdvancesCurrency("usd")
@@ -3689,7 +3623,7 @@ internal class CardPaymentTest {
                                                             .PurchaseDetails
                                                             .Lodging
                                                             .NoShowIndicator
-                                                            .NOT_APPLICABLE
+                                                            .NO_SHOW
                                                     )
                                                     .prepaidExpensesAmount(0L)
                                                     .prepaidExpensesCurrency("usd")
@@ -3706,7 +3640,7 @@ internal class CardPaymentTest {
                                             .purchaseIdentifierFormat(
                                                 CardPayment.Element.CardSettlement.PurchaseDetails
                                                     .PurchaseIdentifierFormat
-                                                    .FREE_TEXT
+                                                    .ORDER_NUMBER
                                             )
                                             .travel(
                                                 CardPayment.Element.CardSettlement.PurchaseDetails
@@ -3823,9 +3757,9 @@ internal class CardPaymentTest {
                             .cardValidation(
                                 CardPayment.Element.CardValidation.builder()
                                     .id("card_validation_yi4e59jiaz6n9hx8tczv")
-                                    .actioner(CardPayment.Element.CardValidation.Actioner.USER)
+                                    .actioner(CardPayment.Element.CardValidation.Actioner.INCREASE)
                                     .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
-                                    .currency(CardPayment.Element.CardValidation.Currency.CAD)
+                                    .currency(CardPayment.Element.CardValidation.Currency.USD)
                                     .digitalWalletTokenId(null)
                                     .merchantAcceptorId("5665270011000168")
                                     .merchantCategoryCode("5734")
@@ -3850,22 +3784,16 @@ internal class CardPaymentTest {
                                                             .NetworkDetails
                                                             .Visa
                                                             .ElectronicCommerceIndicator
-                                                            .MAIL_PHONE_ORDER
+                                                            .SECURE_ELECTRONIC_COMMERCE
                                                     )
                                                     .pointOfServiceEntryMode(
                                                         CardPayment.Element.CardValidation
                                                             .NetworkDetails
                                                             .Visa
                                                             .PointOfServiceEntryMode
-                                                            .UNKNOWN
+                                                            .MANUAL
                                                     )
-                                                    .standInProcessingReason(
-                                                        CardPayment.Element.CardValidation
-                                                            .NetworkDetails
-                                                            .Visa
-                                                            .StandInProcessingReason
-                                                            .ISSUER_ERROR
-                                                    )
+                                                    .standInProcessingReason(null)
                                                     .build()
                                             )
                                             .build()
@@ -3894,7 +3822,7 @@ internal class CardPaymentTest {
                                                             .Verification
                                                             .CardVerificationCode
                                                             .Result
-                                                            .NOT_CHECKED
+                                                            .MATCH
                                                     )
                                                     .build()
                                             )
@@ -3911,7 +3839,7 @@ internal class CardPaymentTest {
                                                             .Verification
                                                             .CardholderAddress
                                                             .Result
-                                                            .NOT_CHECKED
+                                                            .POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
                                                     )
                                                     .build()
                                             )
@@ -3919,7 +3847,7 @@ internal class CardPaymentTest {
                                     )
                                     .build()
                             )
-                            .category(CardPayment.Element.Category.CARD_AUTHORIZATION)
+                            .category(CardPayment.Element.Category.CARD_SETTLEMENT)
                             .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                             .other(JsonValue.from(mapOf<String, Any>()))
                             .build(),
@@ -3980,10 +3908,10 @@ internal class CardPaymentTest {
                                     .build()
                             )
                             .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                            .denyReason(
-                                CardPayment.Element.CardAuthentication.DenyReason.GROUP_LOCKED
+                            .denyReason(null)
+                            .deviceChannel(
+                                CardPayment.Element.CardAuthentication.DeviceChannel.BROWSER
                             )
-                            .deviceChannel(CardPayment.Element.CardAuthentication.DeviceChannel.APP)
                             .merchantAcceptorId("5665270011000168")
                             .merchantCategoryCode("5734")
                             .merchantCountry("US")
@@ -3991,17 +3919,19 @@ internal class CardPaymentTest {
                             .purchaseAmount(1000L)
                             .purchaseCurrency("USD")
                             .realTimeDecisionId(null)
-                            .status(CardPayment.Element.CardAuthentication.Status.DENIED)
+                            .status(
+                                CardPayment.Element.CardAuthentication.Status.VALIDATING_CHALLENGE
+                            )
                             .type(CardPayment.Element.CardAuthentication.Type.CARD_AUTHENTICATION)
                             .build()
                     )
                     .cardAuthorization(
                         CardPayment.Element.CardAuthorization.builder()
                             .id("card_authorization_6iqxap6ivd0fo5eu3i8x")
-                            .actioner(CardPayment.Element.CardAuthorization.Actioner.USER)
+                            .actioner(CardPayment.Element.CardAuthorization.Actioner.INCREASE)
                             .amount(100L)
                             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
-                            .currency(CardPayment.Element.CardAuthorization.Currency.CAD)
+                            .currency(CardPayment.Element.CardAuthorization.Currency.USD)
                             .digitalWalletTokenId(null)
                             .direction(CardPayment.Element.CardAuthorization.Direction.SETTLEMENT)
                             .expiresAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
@@ -4026,20 +3956,15 @@ internal class CardPaymentTest {
                                                 CardPayment.Element.CardAuthorization.NetworkDetails
                                                     .Visa
                                                     .ElectronicCommerceIndicator
-                                                    .MAIL_PHONE_ORDER
+                                                    .SECURE_ELECTRONIC_COMMERCE
                                             )
                                             .pointOfServiceEntryMode(
                                                 CardPayment.Element.CardAuthorization.NetworkDetails
                                                     .Visa
                                                     .PointOfServiceEntryMode
-                                                    .UNKNOWN
+                                                    .MANUAL
                                             )
-                                            .standInProcessingReason(
-                                                CardPayment.Element.CardAuthorization.NetworkDetails
-                                                    .Visa
-                                                    .StandInProcessingReason
-                                                    .ISSUER_ERROR
-                                            )
+                                            .standInProcessingReason(null)
                                             .build()
                                     )
                                     .build()
@@ -4057,8 +3982,7 @@ internal class CardPaymentTest {
                             .presentmentAmount(100L)
                             .presentmentCurrency("USD")
                             .processingCategory(
-                                CardPayment.Element.CardAuthorization.ProcessingCategory
-                                    .ACCOUNT_FUNDING
+                                CardPayment.Element.CardAuthorization.ProcessingCategory.PURCHASE
                             )
                             .realTimeDecisionId(null)
                             .terminalId("RCN5VNXS")
@@ -4073,7 +3997,7 @@ internal class CardPaymentTest {
                                                 CardPayment.Element.CardAuthorization.Verification
                                                     .CardVerificationCode
                                                     .Result
-                                                    .NOT_CHECKED
+                                                    .MATCH
                                             )
                                             .build()
                                     )
@@ -4089,7 +4013,7 @@ internal class CardPaymentTest {
                                                 CardPayment.Element.CardAuthorization.Verification
                                                     .CardholderAddress
                                                     .Result
-                                                    .NOT_CHECKED
+                                                    .POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
                                             )
                                             .build()
                                     )
@@ -4101,7 +4025,7 @@ internal class CardPaymentTest {
                         CardPayment.Element.CardAuthorizationExpiration.builder()
                             .id("card_authorization_expiration_9xxbjtmixs8sfluzux2e")
                             .cardAuthorizationId("card_authorization_6iqxap6ivd0fo5eu3i8x")
-                            .currency(CardPayment.Element.CardAuthorizationExpiration.Currency.CAD)
+                            .currency(CardPayment.Element.CardAuthorizationExpiration.Currency.USD)
                             .expiredAmount(20L)
                             .network(CardPayment.Element.CardAuthorizationExpiration.Network.VISA)
                             .type(
@@ -4113,10 +4037,10 @@ internal class CardPaymentTest {
                     .cardDecline(
                         CardPayment.Element.CardDecline.builder()
                             .id("card_decline_bx3o8zd7glq8yvtwg25v")
-                            .actioner(CardPayment.Element.CardDecline.Actioner.USER)
+                            .actioner(CardPayment.Element.CardDecline.Actioner.INCREASE)
                             .amount(-1000L)
                             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
-                            .currency(CardPayment.Element.CardDecline.Currency.CAD)
+                            .currency(CardPayment.Element.CardDecline.Currency.USD)
                             .declinedTransactionId("declined_transaction_17jbn0yyhvkt4v4ooym8")
                             .digitalWalletTokenId(null)
                             .direction(CardPayment.Element.CardDecline.Direction.SETTLEMENT)
@@ -4138,18 +4062,14 @@ internal class CardPaymentTest {
                                             .electronicCommerceIndicator(
                                                 CardPayment.Element.CardDecline.NetworkDetails.Visa
                                                     .ElectronicCommerceIndicator
-                                                    .MAIL_PHONE_ORDER
+                                                    .SECURE_ELECTRONIC_COMMERCE
                                             )
                                             .pointOfServiceEntryMode(
                                                 CardPayment.Element.CardDecline.NetworkDetails.Visa
                                                     .PointOfServiceEntryMode
-                                                    .UNKNOWN
+                                                    .MANUAL
                                             )
-                                            .standInProcessingReason(
-                                                CardPayment.Element.CardDecline.NetworkDetails.Visa
-                                                    .StandInProcessingReason
-                                                    .ISSUER_ERROR
-                                            )
+                                            .standInProcessingReason(null)
                                             .build()
                                     )
                                     .build()
@@ -4166,14 +4086,11 @@ internal class CardPaymentTest {
                             .presentmentAmount(-1000L)
                             .presentmentCurrency("USD")
                             .processingCategory(
-                                CardPayment.Element.CardDecline.ProcessingCategory.ACCOUNT_FUNDING
+                                CardPayment.Element.CardDecline.ProcessingCategory.PURCHASE
                             )
                             .realTimeDecisionId(null)
-                            .realTimeDecisionReason(
-                                CardPayment.Element.CardDecline.RealTimeDecisionReason
-                                    .INSUFFICIENT_FUNDS
-                            )
-                            .reason(CardPayment.Element.CardDecline.Reason.ACCOUNT_CLOSED)
+                            .realTimeDecisionReason(null)
+                            .reason(CardPayment.Element.CardDecline.Reason.INSUFFICIENT_FUNDS)
                             .terminalId("RCN5VNXS")
                             .verification(
                                 CardPayment.Element.CardDecline.Verification.builder()
@@ -4185,7 +4102,7 @@ internal class CardPaymentTest {
                                                 CardPayment.Element.CardDecline.Verification
                                                     .CardVerificationCode
                                                     .Result
-                                                    .NOT_CHECKED
+                                                    .MATCH
                                             )
                                             .build()
                                     )
@@ -4201,7 +4118,7 @@ internal class CardPaymentTest {
                                                 CardPayment.Element.CardDecline.Verification
                                                     .CardholderAddress
                                                     .Result
-                                                    .NOT_CHECKED
+                                                    .POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
                                             )
                                             .build()
                                     )
@@ -4213,7 +4130,7 @@ internal class CardPaymentTest {
                         CardPayment.Element.CardFuelConfirmation.builder()
                             .id("card_fuel_confirmation_wuy91qate4judq2la80a")
                             .cardAuthorizationId("card_authorization_6iqxap6ivd0fo5eu3i8x")
-                            .currency(CardPayment.Element.CardFuelConfirmation.Currency.CAD)
+                            .currency(CardPayment.Element.CardFuelConfirmation.Currency.USD)
                             .network(CardPayment.Element.CardFuelConfirmation.Network.VISA)
                             .networkIdentifiers(
                                 CardPayment.Element.CardFuelConfirmation.NetworkIdentifiers
@@ -4233,10 +4150,10 @@ internal class CardPaymentTest {
                     .cardIncrement(
                         CardPayment.Element.CardIncrement.builder()
                             .id("card_increment_6ztayc58j1od0rpebp3e")
-                            .actioner(CardPayment.Element.CardIncrement.Actioner.USER)
+                            .actioner(CardPayment.Element.CardIncrement.Actioner.INCREASE)
                             .amount(20L)
                             .cardAuthorizationId("card_authorization_6iqxap6ivd0fo5eu3i8x")
-                            .currency(CardPayment.Element.CardIncrement.Currency.CAD)
+                            .currency(CardPayment.Element.CardIncrement.Currency.USD)
                             .network(CardPayment.Element.CardIncrement.Network.VISA)
                             .networkIdentifiers(
                                 CardPayment.Element.CardIncrement.NetworkIdentifiers.builder()
@@ -4263,13 +4180,13 @@ internal class CardPaymentTest {
                                     .currency(CardPayment.Element.CardRefund.Cashback.Currency.CAD)
                                     .build()
                             )
-                            .currency(CardPayment.Element.CardRefund.Currency.CAD)
+                            .currency(CardPayment.Element.CardRefund.Currency.USD)
                             .interchange(
                                 CardPayment.Element.CardRefund.Interchange.builder()
                                     .amount("0.137465")
                                     .code("271")
                                     .currency(
-                                        CardPayment.Element.CardRefund.Interchange.Currency.CAD
+                                        CardPayment.Element.CardRefund.Interchange.Currency.USD
                                     )
                                     .build()
                             )
@@ -4337,7 +4254,7 @@ internal class CardPaymentTest {
                                                 CardPayment.Element.CardRefund.PurchaseDetails
                                                     .Lodging
                                                     .ExtraCharges
-                                                    .NO_EXTRA_CHARGE
+                                                    .RESTAURANT
                                             )
                                             .folioCashAdvancesAmount(0L)
                                             .folioCashAdvancesCurrency("usd")
@@ -4347,7 +4264,7 @@ internal class CardPaymentTest {
                                                 CardPayment.Element.CardRefund.PurchaseDetails
                                                     .Lodging
                                                     .NoShowIndicator
-                                                    .NOT_APPLICABLE
+                                                    .NO_SHOW
                                             )
                                             .prepaidExpensesAmount(0L)
                                             .prepaidExpensesCurrency("usd")
@@ -4364,7 +4281,7 @@ internal class CardPaymentTest {
                                     .purchaseIdentifierFormat(
                                         CardPayment.Element.CardRefund.PurchaseDetails
                                             .PurchaseIdentifierFormat
-                                            .FREE_TEXT
+                                            .ORDER_NUMBER
                                     )
                                     .travel(
                                         CardPayment.Element.CardRefund.PurchaseDetails.Travel
@@ -4473,7 +4390,7 @@ internal class CardPaymentTest {
                         CardPayment.Element.CardReversal.builder()
                             .id("card_reversal_8vr9qy60cgf5d0slpb68")
                             .cardAuthorizationId("card_authorization_6iqxap6ivd0fo5eu3i8x")
-                            .currency(CardPayment.Element.CardReversal.Currency.CAD)
+                            .currency(CardPayment.Element.CardReversal.Currency.USD)
                             .merchantAcceptorId("5665270011000168")
                             .merchantCategoryCode("5734")
                             .merchantCity("New York")
@@ -4513,13 +4430,13 @@ internal class CardPaymentTest {
                                     )
                                     .build()
                             )
-                            .currency(CardPayment.Element.CardSettlement.Currency.CAD)
+                            .currency(CardPayment.Element.CardSettlement.Currency.USD)
                             .interchange(
                                 CardPayment.Element.CardSettlement.Interchange.builder()
                                     .amount("0.137465")
                                     .code("271")
                                     .currency(
-                                        CardPayment.Element.CardSettlement.Interchange.Currency.CAD
+                                        CardPayment.Element.CardSettlement.Interchange.Currency.USD
                                     )
                                     .build()
                             )
@@ -4588,7 +4505,7 @@ internal class CardPaymentTest {
                                                 CardPayment.Element.CardSettlement.PurchaseDetails
                                                     .Lodging
                                                     .ExtraCharges
-                                                    .NO_EXTRA_CHARGE
+                                                    .RESTAURANT
                                             )
                                             .folioCashAdvancesAmount(0L)
                                             .folioCashAdvancesCurrency("usd")
@@ -4598,7 +4515,7 @@ internal class CardPaymentTest {
                                                 CardPayment.Element.CardSettlement.PurchaseDetails
                                                     .Lodging
                                                     .NoShowIndicator
-                                                    .NOT_APPLICABLE
+                                                    .NO_SHOW
                                             )
                                             .prepaidExpensesAmount(0L)
                                             .prepaidExpensesCurrency("usd")
@@ -4615,7 +4532,7 @@ internal class CardPaymentTest {
                                     .purchaseIdentifierFormat(
                                         CardPayment.Element.CardSettlement.PurchaseDetails
                                             .PurchaseIdentifierFormat
-                                            .FREE_TEXT
+                                            .ORDER_NUMBER
                                     )
                                     .travel(
                                         CardPayment.Element.CardSettlement.PurchaseDetails.Travel
@@ -4723,9 +4640,9 @@ internal class CardPaymentTest {
                     .cardValidation(
                         CardPayment.Element.CardValidation.builder()
                             .id("card_validation_yi4e59jiaz6n9hx8tczv")
-                            .actioner(CardPayment.Element.CardValidation.Actioner.USER)
+                            .actioner(CardPayment.Element.CardValidation.Actioner.INCREASE)
                             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
-                            .currency(CardPayment.Element.CardValidation.Currency.CAD)
+                            .currency(CardPayment.Element.CardValidation.Currency.USD)
                             .digitalWalletTokenId(null)
                             .merchantAcceptorId("5665270011000168")
                             .merchantCategoryCode("5734")
@@ -4747,20 +4664,15 @@ internal class CardPaymentTest {
                                                 CardPayment.Element.CardValidation.NetworkDetails
                                                     .Visa
                                                     .ElectronicCommerceIndicator
-                                                    .MAIL_PHONE_ORDER
+                                                    .SECURE_ELECTRONIC_COMMERCE
                                             )
                                             .pointOfServiceEntryMode(
                                                 CardPayment.Element.CardValidation.NetworkDetails
                                                     .Visa
                                                     .PointOfServiceEntryMode
-                                                    .UNKNOWN
+                                                    .MANUAL
                                             )
-                                            .standInProcessingReason(
-                                                CardPayment.Element.CardValidation.NetworkDetails
-                                                    .Visa
-                                                    .StandInProcessingReason
-                                                    .ISSUER_ERROR
-                                            )
+                                            .standInProcessingReason(null)
                                             .build()
                                     )
                                     .build()
@@ -4787,7 +4699,7 @@ internal class CardPaymentTest {
                                                 CardPayment.Element.CardValidation.Verification
                                                     .CardVerificationCode
                                                     .Result
-                                                    .NOT_CHECKED
+                                                    .MATCH
                                             )
                                             .build()
                                     )
@@ -4803,7 +4715,7 @@ internal class CardPaymentTest {
                                                 CardPayment.Element.CardValidation.Verification
                                                     .CardholderAddress
                                                     .Result
-                                                    .NOT_CHECKED
+                                                    .POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
                                             )
                                             .build()
                                     )
@@ -4850,10 +4762,10 @@ internal class CardPaymentTest {
                                     .build()
                             )
                             .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                            .denyReason(
-                                CardPayment.Element.CardAuthentication.DenyReason.GROUP_LOCKED
+                            .denyReason(null)
+                            .deviceChannel(
+                                CardPayment.Element.CardAuthentication.DeviceChannel.BROWSER
                             )
-                            .deviceChannel(CardPayment.Element.CardAuthentication.DeviceChannel.APP)
                             .merchantAcceptorId("5665270011000168")
                             .merchantCategoryCode("5734")
                             .merchantCountry("US")
@@ -4861,17 +4773,19 @@ internal class CardPaymentTest {
                             .purchaseAmount(1000L)
                             .purchaseCurrency("USD")
                             .realTimeDecisionId(null)
-                            .status(CardPayment.Element.CardAuthentication.Status.DENIED)
+                            .status(
+                                CardPayment.Element.CardAuthentication.Status.VALIDATING_CHALLENGE
+                            )
                             .type(CardPayment.Element.CardAuthentication.Type.CARD_AUTHENTICATION)
                             .build()
                     )
                     .cardAuthorization(
                         CardPayment.Element.CardAuthorization.builder()
                             .id("card_authorization_6iqxap6ivd0fo5eu3i8x")
-                            .actioner(CardPayment.Element.CardAuthorization.Actioner.USER)
+                            .actioner(CardPayment.Element.CardAuthorization.Actioner.INCREASE)
                             .amount(100L)
                             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
-                            .currency(CardPayment.Element.CardAuthorization.Currency.CAD)
+                            .currency(CardPayment.Element.CardAuthorization.Currency.USD)
                             .digitalWalletTokenId(null)
                             .direction(CardPayment.Element.CardAuthorization.Direction.SETTLEMENT)
                             .expiresAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
@@ -4896,20 +4810,15 @@ internal class CardPaymentTest {
                                                 CardPayment.Element.CardAuthorization.NetworkDetails
                                                     .Visa
                                                     .ElectronicCommerceIndicator
-                                                    .MAIL_PHONE_ORDER
+                                                    .SECURE_ELECTRONIC_COMMERCE
                                             )
                                             .pointOfServiceEntryMode(
                                                 CardPayment.Element.CardAuthorization.NetworkDetails
                                                     .Visa
                                                     .PointOfServiceEntryMode
-                                                    .UNKNOWN
+                                                    .MANUAL
                                             )
-                                            .standInProcessingReason(
-                                                CardPayment.Element.CardAuthorization.NetworkDetails
-                                                    .Visa
-                                                    .StandInProcessingReason
-                                                    .ISSUER_ERROR
-                                            )
+                                            .standInProcessingReason(null)
                                             .build()
                                     )
                                     .build()
@@ -4927,8 +4836,7 @@ internal class CardPaymentTest {
                             .presentmentAmount(100L)
                             .presentmentCurrency("USD")
                             .processingCategory(
-                                CardPayment.Element.CardAuthorization.ProcessingCategory
-                                    .ACCOUNT_FUNDING
+                                CardPayment.Element.CardAuthorization.ProcessingCategory.PURCHASE
                             )
                             .realTimeDecisionId(null)
                             .terminalId("RCN5VNXS")
@@ -4943,7 +4851,7 @@ internal class CardPaymentTest {
                                                 CardPayment.Element.CardAuthorization.Verification
                                                     .CardVerificationCode
                                                     .Result
-                                                    .NOT_CHECKED
+                                                    .MATCH
                                             )
                                             .build()
                                     )
@@ -4959,7 +4867,7 @@ internal class CardPaymentTest {
                                                 CardPayment.Element.CardAuthorization.Verification
                                                     .CardholderAddress
                                                     .Result
-                                                    .NOT_CHECKED
+                                                    .POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
                                             )
                                             .build()
                                     )
@@ -4971,7 +4879,7 @@ internal class CardPaymentTest {
                         CardPayment.Element.CardAuthorizationExpiration.builder()
                             .id("card_authorization_expiration_9xxbjtmixs8sfluzux2e")
                             .cardAuthorizationId("card_authorization_6iqxap6ivd0fo5eu3i8x")
-                            .currency(CardPayment.Element.CardAuthorizationExpiration.Currency.CAD)
+                            .currency(CardPayment.Element.CardAuthorizationExpiration.Currency.USD)
                             .expiredAmount(20L)
                             .network(CardPayment.Element.CardAuthorizationExpiration.Network.VISA)
                             .type(
@@ -4983,10 +4891,10 @@ internal class CardPaymentTest {
                     .cardDecline(
                         CardPayment.Element.CardDecline.builder()
                             .id("card_decline_bx3o8zd7glq8yvtwg25v")
-                            .actioner(CardPayment.Element.CardDecline.Actioner.USER)
+                            .actioner(CardPayment.Element.CardDecline.Actioner.INCREASE)
                             .amount(-1000L)
                             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
-                            .currency(CardPayment.Element.CardDecline.Currency.CAD)
+                            .currency(CardPayment.Element.CardDecline.Currency.USD)
                             .declinedTransactionId("declined_transaction_17jbn0yyhvkt4v4ooym8")
                             .digitalWalletTokenId(null)
                             .direction(CardPayment.Element.CardDecline.Direction.SETTLEMENT)
@@ -5008,18 +4916,14 @@ internal class CardPaymentTest {
                                             .electronicCommerceIndicator(
                                                 CardPayment.Element.CardDecline.NetworkDetails.Visa
                                                     .ElectronicCommerceIndicator
-                                                    .MAIL_PHONE_ORDER
+                                                    .SECURE_ELECTRONIC_COMMERCE
                                             )
                                             .pointOfServiceEntryMode(
                                                 CardPayment.Element.CardDecline.NetworkDetails.Visa
                                                     .PointOfServiceEntryMode
-                                                    .UNKNOWN
+                                                    .MANUAL
                                             )
-                                            .standInProcessingReason(
-                                                CardPayment.Element.CardDecline.NetworkDetails.Visa
-                                                    .StandInProcessingReason
-                                                    .ISSUER_ERROR
-                                            )
+                                            .standInProcessingReason(null)
                                             .build()
                                     )
                                     .build()
@@ -5036,14 +4940,11 @@ internal class CardPaymentTest {
                             .presentmentAmount(-1000L)
                             .presentmentCurrency("USD")
                             .processingCategory(
-                                CardPayment.Element.CardDecline.ProcessingCategory.ACCOUNT_FUNDING
+                                CardPayment.Element.CardDecline.ProcessingCategory.PURCHASE
                             )
                             .realTimeDecisionId(null)
-                            .realTimeDecisionReason(
-                                CardPayment.Element.CardDecline.RealTimeDecisionReason
-                                    .INSUFFICIENT_FUNDS
-                            )
-                            .reason(CardPayment.Element.CardDecline.Reason.ACCOUNT_CLOSED)
+                            .realTimeDecisionReason(null)
+                            .reason(CardPayment.Element.CardDecline.Reason.INSUFFICIENT_FUNDS)
                             .terminalId("RCN5VNXS")
                             .verification(
                                 CardPayment.Element.CardDecline.Verification.builder()
@@ -5055,7 +4956,7 @@ internal class CardPaymentTest {
                                                 CardPayment.Element.CardDecline.Verification
                                                     .CardVerificationCode
                                                     .Result
-                                                    .NOT_CHECKED
+                                                    .MATCH
                                             )
                                             .build()
                                     )
@@ -5071,7 +4972,7 @@ internal class CardPaymentTest {
                                                 CardPayment.Element.CardDecline.Verification
                                                     .CardholderAddress
                                                     .Result
-                                                    .NOT_CHECKED
+                                                    .POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
                                             )
                                             .build()
                                     )
@@ -5083,7 +4984,7 @@ internal class CardPaymentTest {
                         CardPayment.Element.CardFuelConfirmation.builder()
                             .id("card_fuel_confirmation_wuy91qate4judq2la80a")
                             .cardAuthorizationId("card_authorization_6iqxap6ivd0fo5eu3i8x")
-                            .currency(CardPayment.Element.CardFuelConfirmation.Currency.CAD)
+                            .currency(CardPayment.Element.CardFuelConfirmation.Currency.USD)
                             .network(CardPayment.Element.CardFuelConfirmation.Network.VISA)
                             .networkIdentifiers(
                                 CardPayment.Element.CardFuelConfirmation.NetworkIdentifiers
@@ -5103,10 +5004,10 @@ internal class CardPaymentTest {
                     .cardIncrement(
                         CardPayment.Element.CardIncrement.builder()
                             .id("card_increment_6ztayc58j1od0rpebp3e")
-                            .actioner(CardPayment.Element.CardIncrement.Actioner.USER)
+                            .actioner(CardPayment.Element.CardIncrement.Actioner.INCREASE)
                             .amount(20L)
                             .cardAuthorizationId("card_authorization_6iqxap6ivd0fo5eu3i8x")
-                            .currency(CardPayment.Element.CardIncrement.Currency.CAD)
+                            .currency(CardPayment.Element.CardIncrement.Currency.USD)
                             .network(CardPayment.Element.CardIncrement.Network.VISA)
                             .networkIdentifiers(
                                 CardPayment.Element.CardIncrement.NetworkIdentifiers.builder()
@@ -5133,13 +5034,13 @@ internal class CardPaymentTest {
                                     .currency(CardPayment.Element.CardRefund.Cashback.Currency.CAD)
                                     .build()
                             )
-                            .currency(CardPayment.Element.CardRefund.Currency.CAD)
+                            .currency(CardPayment.Element.CardRefund.Currency.USD)
                             .interchange(
                                 CardPayment.Element.CardRefund.Interchange.builder()
                                     .amount("0.137465")
                                     .code("271")
                                     .currency(
-                                        CardPayment.Element.CardRefund.Interchange.Currency.CAD
+                                        CardPayment.Element.CardRefund.Interchange.Currency.USD
                                     )
                                     .build()
                             )
@@ -5207,7 +5108,7 @@ internal class CardPaymentTest {
                                                 CardPayment.Element.CardRefund.PurchaseDetails
                                                     .Lodging
                                                     .ExtraCharges
-                                                    .NO_EXTRA_CHARGE
+                                                    .RESTAURANT
                                             )
                                             .folioCashAdvancesAmount(0L)
                                             .folioCashAdvancesCurrency("usd")
@@ -5217,7 +5118,7 @@ internal class CardPaymentTest {
                                                 CardPayment.Element.CardRefund.PurchaseDetails
                                                     .Lodging
                                                     .NoShowIndicator
-                                                    .NOT_APPLICABLE
+                                                    .NO_SHOW
                                             )
                                             .prepaidExpensesAmount(0L)
                                             .prepaidExpensesCurrency("usd")
@@ -5234,7 +5135,7 @@ internal class CardPaymentTest {
                                     .purchaseIdentifierFormat(
                                         CardPayment.Element.CardRefund.PurchaseDetails
                                             .PurchaseIdentifierFormat
-                                            .FREE_TEXT
+                                            .ORDER_NUMBER
                                     )
                                     .travel(
                                         CardPayment.Element.CardRefund.PurchaseDetails.Travel
@@ -5343,7 +5244,7 @@ internal class CardPaymentTest {
                         CardPayment.Element.CardReversal.builder()
                             .id("card_reversal_8vr9qy60cgf5d0slpb68")
                             .cardAuthorizationId("card_authorization_6iqxap6ivd0fo5eu3i8x")
-                            .currency(CardPayment.Element.CardReversal.Currency.CAD)
+                            .currency(CardPayment.Element.CardReversal.Currency.USD)
                             .merchantAcceptorId("5665270011000168")
                             .merchantCategoryCode("5734")
                             .merchantCity("New York")
@@ -5383,13 +5284,13 @@ internal class CardPaymentTest {
                                     )
                                     .build()
                             )
-                            .currency(CardPayment.Element.CardSettlement.Currency.CAD)
+                            .currency(CardPayment.Element.CardSettlement.Currency.USD)
                             .interchange(
                                 CardPayment.Element.CardSettlement.Interchange.builder()
                                     .amount("0.137465")
                                     .code("271")
                                     .currency(
-                                        CardPayment.Element.CardSettlement.Interchange.Currency.CAD
+                                        CardPayment.Element.CardSettlement.Interchange.Currency.USD
                                     )
                                     .build()
                             )
@@ -5458,7 +5359,7 @@ internal class CardPaymentTest {
                                                 CardPayment.Element.CardSettlement.PurchaseDetails
                                                     .Lodging
                                                     .ExtraCharges
-                                                    .NO_EXTRA_CHARGE
+                                                    .RESTAURANT
                                             )
                                             .folioCashAdvancesAmount(0L)
                                             .folioCashAdvancesCurrency("usd")
@@ -5468,7 +5369,7 @@ internal class CardPaymentTest {
                                                 CardPayment.Element.CardSettlement.PurchaseDetails
                                                     .Lodging
                                                     .NoShowIndicator
-                                                    .NOT_APPLICABLE
+                                                    .NO_SHOW
                                             )
                                             .prepaidExpensesAmount(0L)
                                             .prepaidExpensesCurrency("usd")
@@ -5485,7 +5386,7 @@ internal class CardPaymentTest {
                                     .purchaseIdentifierFormat(
                                         CardPayment.Element.CardSettlement.PurchaseDetails
                                             .PurchaseIdentifierFormat
-                                            .FREE_TEXT
+                                            .ORDER_NUMBER
                                     )
                                     .travel(
                                         CardPayment.Element.CardSettlement.PurchaseDetails.Travel
@@ -5593,9 +5494,9 @@ internal class CardPaymentTest {
                     .cardValidation(
                         CardPayment.Element.CardValidation.builder()
                             .id("card_validation_yi4e59jiaz6n9hx8tczv")
-                            .actioner(CardPayment.Element.CardValidation.Actioner.USER)
+                            .actioner(CardPayment.Element.CardValidation.Actioner.INCREASE)
                             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
-                            .currency(CardPayment.Element.CardValidation.Currency.CAD)
+                            .currency(CardPayment.Element.CardValidation.Currency.USD)
                             .digitalWalletTokenId(null)
                             .merchantAcceptorId("5665270011000168")
                             .merchantCategoryCode("5734")
@@ -5617,20 +5518,15 @@ internal class CardPaymentTest {
                                                 CardPayment.Element.CardValidation.NetworkDetails
                                                     .Visa
                                                     .ElectronicCommerceIndicator
-                                                    .MAIL_PHONE_ORDER
+                                                    .SECURE_ELECTRONIC_COMMERCE
                                             )
                                             .pointOfServiceEntryMode(
                                                 CardPayment.Element.CardValidation.NetworkDetails
                                                     .Visa
                                                     .PointOfServiceEntryMode
-                                                    .UNKNOWN
+                                                    .MANUAL
                                             )
-                                            .standInProcessingReason(
-                                                CardPayment.Element.CardValidation.NetworkDetails
-                                                    .Visa
-                                                    .StandInProcessingReason
-                                                    .ISSUER_ERROR
-                                            )
+                                            .standInProcessingReason(null)
                                             .build()
                                     )
                                     .build()
@@ -5657,7 +5553,7 @@ internal class CardPaymentTest {
                                                 CardPayment.Element.CardValidation.Verification
                                                     .CardVerificationCode
                                                     .Result
-                                                    .NOT_CHECKED
+                                                    .MATCH
                                             )
                                             .build()
                                     )
@@ -5673,7 +5569,7 @@ internal class CardPaymentTest {
                                                 CardPayment.Element.CardValidation.Verification
                                                     .CardholderAddress
                                                     .Result
-                                                    .NOT_CHECKED
+                                                    .POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
                                             )
                                             .build()
                                     )
@@ -5681,7 +5577,7 @@ internal class CardPaymentTest {
                             )
                             .build()
                     )
-                    .category(CardPayment.Element.Category.CARD_AUTHORIZATION)
+                    .category(CardPayment.Element.Category.CARD_REVERSAL)
                     .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                     .other(JsonValue.from(mapOf<String, Any>()))
                     .build(),
@@ -5720,10 +5616,10 @@ internal class CardPaymentTest {
                                     .build()
                             )
                             .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                            .denyReason(
-                                CardPayment.Element.CardAuthentication.DenyReason.GROUP_LOCKED
+                            .denyReason(null)
+                            .deviceChannel(
+                                CardPayment.Element.CardAuthentication.DeviceChannel.BROWSER
                             )
-                            .deviceChannel(CardPayment.Element.CardAuthentication.DeviceChannel.APP)
                             .merchantAcceptorId("5665270011000168")
                             .merchantCategoryCode("5734")
                             .merchantCountry("US")
@@ -5731,17 +5627,19 @@ internal class CardPaymentTest {
                             .purchaseAmount(1000L)
                             .purchaseCurrency("USD")
                             .realTimeDecisionId(null)
-                            .status(CardPayment.Element.CardAuthentication.Status.DENIED)
+                            .status(
+                                CardPayment.Element.CardAuthentication.Status.VALIDATING_CHALLENGE
+                            )
                             .type(CardPayment.Element.CardAuthentication.Type.CARD_AUTHENTICATION)
                             .build()
                     )
                     .cardAuthorization(
                         CardPayment.Element.CardAuthorization.builder()
                             .id("card_authorization_6iqxap6ivd0fo5eu3i8x")
-                            .actioner(CardPayment.Element.CardAuthorization.Actioner.USER)
+                            .actioner(CardPayment.Element.CardAuthorization.Actioner.INCREASE)
                             .amount(100L)
                             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
-                            .currency(CardPayment.Element.CardAuthorization.Currency.CAD)
+                            .currency(CardPayment.Element.CardAuthorization.Currency.USD)
                             .digitalWalletTokenId(null)
                             .direction(CardPayment.Element.CardAuthorization.Direction.SETTLEMENT)
                             .expiresAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
@@ -5766,20 +5664,15 @@ internal class CardPaymentTest {
                                                 CardPayment.Element.CardAuthorization.NetworkDetails
                                                     .Visa
                                                     .ElectronicCommerceIndicator
-                                                    .MAIL_PHONE_ORDER
+                                                    .SECURE_ELECTRONIC_COMMERCE
                                             )
                                             .pointOfServiceEntryMode(
                                                 CardPayment.Element.CardAuthorization.NetworkDetails
                                                     .Visa
                                                     .PointOfServiceEntryMode
-                                                    .UNKNOWN
+                                                    .MANUAL
                                             )
-                                            .standInProcessingReason(
-                                                CardPayment.Element.CardAuthorization.NetworkDetails
-                                                    .Visa
-                                                    .StandInProcessingReason
-                                                    .ISSUER_ERROR
-                                            )
+                                            .standInProcessingReason(null)
                                             .build()
                                     )
                                     .build()
@@ -5797,8 +5690,7 @@ internal class CardPaymentTest {
                             .presentmentAmount(100L)
                             .presentmentCurrency("USD")
                             .processingCategory(
-                                CardPayment.Element.CardAuthorization.ProcessingCategory
-                                    .ACCOUNT_FUNDING
+                                CardPayment.Element.CardAuthorization.ProcessingCategory.PURCHASE
                             )
                             .realTimeDecisionId(null)
                             .terminalId("RCN5VNXS")
@@ -5813,7 +5705,7 @@ internal class CardPaymentTest {
                                                 CardPayment.Element.CardAuthorization.Verification
                                                     .CardVerificationCode
                                                     .Result
-                                                    .NOT_CHECKED
+                                                    .MATCH
                                             )
                                             .build()
                                     )
@@ -5829,7 +5721,7 @@ internal class CardPaymentTest {
                                                 CardPayment.Element.CardAuthorization.Verification
                                                     .CardholderAddress
                                                     .Result
-                                                    .NOT_CHECKED
+                                                    .POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
                                             )
                                             .build()
                                     )
@@ -5841,7 +5733,7 @@ internal class CardPaymentTest {
                         CardPayment.Element.CardAuthorizationExpiration.builder()
                             .id("card_authorization_expiration_9xxbjtmixs8sfluzux2e")
                             .cardAuthorizationId("card_authorization_6iqxap6ivd0fo5eu3i8x")
-                            .currency(CardPayment.Element.CardAuthorizationExpiration.Currency.CAD)
+                            .currency(CardPayment.Element.CardAuthorizationExpiration.Currency.USD)
                             .expiredAmount(20L)
                             .network(CardPayment.Element.CardAuthorizationExpiration.Network.VISA)
                             .type(
@@ -5853,10 +5745,10 @@ internal class CardPaymentTest {
                     .cardDecline(
                         CardPayment.Element.CardDecline.builder()
                             .id("card_decline_bx3o8zd7glq8yvtwg25v")
-                            .actioner(CardPayment.Element.CardDecline.Actioner.USER)
+                            .actioner(CardPayment.Element.CardDecline.Actioner.INCREASE)
                             .amount(-1000L)
                             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
-                            .currency(CardPayment.Element.CardDecline.Currency.CAD)
+                            .currency(CardPayment.Element.CardDecline.Currency.USD)
                             .declinedTransactionId("declined_transaction_17jbn0yyhvkt4v4ooym8")
                             .digitalWalletTokenId(null)
                             .direction(CardPayment.Element.CardDecline.Direction.SETTLEMENT)
@@ -5878,18 +5770,14 @@ internal class CardPaymentTest {
                                             .electronicCommerceIndicator(
                                                 CardPayment.Element.CardDecline.NetworkDetails.Visa
                                                     .ElectronicCommerceIndicator
-                                                    .MAIL_PHONE_ORDER
+                                                    .SECURE_ELECTRONIC_COMMERCE
                                             )
                                             .pointOfServiceEntryMode(
                                                 CardPayment.Element.CardDecline.NetworkDetails.Visa
                                                     .PointOfServiceEntryMode
-                                                    .UNKNOWN
+                                                    .MANUAL
                                             )
-                                            .standInProcessingReason(
-                                                CardPayment.Element.CardDecline.NetworkDetails.Visa
-                                                    .StandInProcessingReason
-                                                    .ISSUER_ERROR
-                                            )
+                                            .standInProcessingReason(null)
                                             .build()
                                     )
                                     .build()
@@ -5906,14 +5794,11 @@ internal class CardPaymentTest {
                             .presentmentAmount(-1000L)
                             .presentmentCurrency("USD")
                             .processingCategory(
-                                CardPayment.Element.CardDecline.ProcessingCategory.ACCOUNT_FUNDING
+                                CardPayment.Element.CardDecline.ProcessingCategory.PURCHASE
                             )
                             .realTimeDecisionId(null)
-                            .realTimeDecisionReason(
-                                CardPayment.Element.CardDecline.RealTimeDecisionReason
-                                    .INSUFFICIENT_FUNDS
-                            )
-                            .reason(CardPayment.Element.CardDecline.Reason.ACCOUNT_CLOSED)
+                            .realTimeDecisionReason(null)
+                            .reason(CardPayment.Element.CardDecline.Reason.INSUFFICIENT_FUNDS)
                             .terminalId("RCN5VNXS")
                             .verification(
                                 CardPayment.Element.CardDecline.Verification.builder()
@@ -5925,7 +5810,7 @@ internal class CardPaymentTest {
                                                 CardPayment.Element.CardDecline.Verification
                                                     .CardVerificationCode
                                                     .Result
-                                                    .NOT_CHECKED
+                                                    .MATCH
                                             )
                                             .build()
                                     )
@@ -5941,7 +5826,7 @@ internal class CardPaymentTest {
                                                 CardPayment.Element.CardDecline.Verification
                                                     .CardholderAddress
                                                     .Result
-                                                    .NOT_CHECKED
+                                                    .POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
                                             )
                                             .build()
                                     )
@@ -5953,7 +5838,7 @@ internal class CardPaymentTest {
                         CardPayment.Element.CardFuelConfirmation.builder()
                             .id("card_fuel_confirmation_wuy91qate4judq2la80a")
                             .cardAuthorizationId("card_authorization_6iqxap6ivd0fo5eu3i8x")
-                            .currency(CardPayment.Element.CardFuelConfirmation.Currency.CAD)
+                            .currency(CardPayment.Element.CardFuelConfirmation.Currency.USD)
                             .network(CardPayment.Element.CardFuelConfirmation.Network.VISA)
                             .networkIdentifiers(
                                 CardPayment.Element.CardFuelConfirmation.NetworkIdentifiers
@@ -5973,10 +5858,10 @@ internal class CardPaymentTest {
                     .cardIncrement(
                         CardPayment.Element.CardIncrement.builder()
                             .id("card_increment_6ztayc58j1od0rpebp3e")
-                            .actioner(CardPayment.Element.CardIncrement.Actioner.USER)
+                            .actioner(CardPayment.Element.CardIncrement.Actioner.INCREASE)
                             .amount(20L)
                             .cardAuthorizationId("card_authorization_6iqxap6ivd0fo5eu3i8x")
-                            .currency(CardPayment.Element.CardIncrement.Currency.CAD)
+                            .currency(CardPayment.Element.CardIncrement.Currency.USD)
                             .network(CardPayment.Element.CardIncrement.Network.VISA)
                             .networkIdentifiers(
                                 CardPayment.Element.CardIncrement.NetworkIdentifiers.builder()
@@ -6003,13 +5888,13 @@ internal class CardPaymentTest {
                                     .currency(CardPayment.Element.CardRefund.Cashback.Currency.CAD)
                                     .build()
                             )
-                            .currency(CardPayment.Element.CardRefund.Currency.CAD)
+                            .currency(CardPayment.Element.CardRefund.Currency.USD)
                             .interchange(
                                 CardPayment.Element.CardRefund.Interchange.builder()
                                     .amount("0.137465")
                                     .code("271")
                                     .currency(
-                                        CardPayment.Element.CardRefund.Interchange.Currency.CAD
+                                        CardPayment.Element.CardRefund.Interchange.Currency.USD
                                     )
                                     .build()
                             )
@@ -6077,7 +5962,7 @@ internal class CardPaymentTest {
                                                 CardPayment.Element.CardRefund.PurchaseDetails
                                                     .Lodging
                                                     .ExtraCharges
-                                                    .NO_EXTRA_CHARGE
+                                                    .RESTAURANT
                                             )
                                             .folioCashAdvancesAmount(0L)
                                             .folioCashAdvancesCurrency("usd")
@@ -6087,7 +5972,7 @@ internal class CardPaymentTest {
                                                 CardPayment.Element.CardRefund.PurchaseDetails
                                                     .Lodging
                                                     .NoShowIndicator
-                                                    .NOT_APPLICABLE
+                                                    .NO_SHOW
                                             )
                                             .prepaidExpensesAmount(0L)
                                             .prepaidExpensesCurrency("usd")
@@ -6104,7 +5989,7 @@ internal class CardPaymentTest {
                                     .purchaseIdentifierFormat(
                                         CardPayment.Element.CardRefund.PurchaseDetails
                                             .PurchaseIdentifierFormat
-                                            .FREE_TEXT
+                                            .ORDER_NUMBER
                                     )
                                     .travel(
                                         CardPayment.Element.CardRefund.PurchaseDetails.Travel
@@ -6213,7 +6098,7 @@ internal class CardPaymentTest {
                         CardPayment.Element.CardReversal.builder()
                             .id("card_reversal_8vr9qy60cgf5d0slpb68")
                             .cardAuthorizationId("card_authorization_6iqxap6ivd0fo5eu3i8x")
-                            .currency(CardPayment.Element.CardReversal.Currency.CAD)
+                            .currency(CardPayment.Element.CardReversal.Currency.USD)
                             .merchantAcceptorId("5665270011000168")
                             .merchantCategoryCode("5734")
                             .merchantCity("New York")
@@ -6253,13 +6138,13 @@ internal class CardPaymentTest {
                                     )
                                     .build()
                             )
-                            .currency(CardPayment.Element.CardSettlement.Currency.CAD)
+                            .currency(CardPayment.Element.CardSettlement.Currency.USD)
                             .interchange(
                                 CardPayment.Element.CardSettlement.Interchange.builder()
                                     .amount("0.137465")
                                     .code("271")
                                     .currency(
-                                        CardPayment.Element.CardSettlement.Interchange.Currency.CAD
+                                        CardPayment.Element.CardSettlement.Interchange.Currency.USD
                                     )
                                     .build()
                             )
@@ -6328,7 +6213,7 @@ internal class CardPaymentTest {
                                                 CardPayment.Element.CardSettlement.PurchaseDetails
                                                     .Lodging
                                                     .ExtraCharges
-                                                    .NO_EXTRA_CHARGE
+                                                    .RESTAURANT
                                             )
                                             .folioCashAdvancesAmount(0L)
                                             .folioCashAdvancesCurrency("usd")
@@ -6338,7 +6223,7 @@ internal class CardPaymentTest {
                                                 CardPayment.Element.CardSettlement.PurchaseDetails
                                                     .Lodging
                                                     .NoShowIndicator
-                                                    .NOT_APPLICABLE
+                                                    .NO_SHOW
                                             )
                                             .prepaidExpensesAmount(0L)
                                             .prepaidExpensesCurrency("usd")
@@ -6355,7 +6240,7 @@ internal class CardPaymentTest {
                                     .purchaseIdentifierFormat(
                                         CardPayment.Element.CardSettlement.PurchaseDetails
                                             .PurchaseIdentifierFormat
-                                            .FREE_TEXT
+                                            .ORDER_NUMBER
                                     )
                                     .travel(
                                         CardPayment.Element.CardSettlement.PurchaseDetails.Travel
@@ -6463,9 +6348,9 @@ internal class CardPaymentTest {
                     .cardValidation(
                         CardPayment.Element.CardValidation.builder()
                             .id("card_validation_yi4e59jiaz6n9hx8tczv")
-                            .actioner(CardPayment.Element.CardValidation.Actioner.USER)
+                            .actioner(CardPayment.Element.CardValidation.Actioner.INCREASE)
                             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
-                            .currency(CardPayment.Element.CardValidation.Currency.CAD)
+                            .currency(CardPayment.Element.CardValidation.Currency.USD)
                             .digitalWalletTokenId(null)
                             .merchantAcceptorId("5665270011000168")
                             .merchantCategoryCode("5734")
@@ -6487,20 +6372,15 @@ internal class CardPaymentTest {
                                                 CardPayment.Element.CardValidation.NetworkDetails
                                                     .Visa
                                                     .ElectronicCommerceIndicator
-                                                    .MAIL_PHONE_ORDER
+                                                    .SECURE_ELECTRONIC_COMMERCE
                                             )
                                             .pointOfServiceEntryMode(
                                                 CardPayment.Element.CardValidation.NetworkDetails
                                                     .Visa
                                                     .PointOfServiceEntryMode
-                                                    .UNKNOWN
+                                                    .MANUAL
                                             )
-                                            .standInProcessingReason(
-                                                CardPayment.Element.CardValidation.NetworkDetails
-                                                    .Visa
-                                                    .StandInProcessingReason
-                                                    .ISSUER_ERROR
-                                            )
+                                            .standInProcessingReason(null)
                                             .build()
                                     )
                                     .build()
@@ -6527,7 +6407,7 @@ internal class CardPaymentTest {
                                                 CardPayment.Element.CardValidation.Verification
                                                     .CardVerificationCode
                                                     .Result
-                                                    .NOT_CHECKED
+                                                    .MATCH
                                             )
                                             .build()
                                     )
@@ -6543,7 +6423,7 @@ internal class CardPaymentTest {
                                                 CardPayment.Element.CardValidation.Verification
                                                     .CardholderAddress
                                                     .Result
-                                                    .NOT_CHECKED
+                                                    .POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
                                             )
                                             .build()
                                     )
@@ -6551,7 +6431,7 @@ internal class CardPaymentTest {
                             )
                             .build()
                     )
-                    .category(CardPayment.Element.Category.CARD_AUTHORIZATION)
+                    .category(CardPayment.Element.Category.CARD_INCREMENT)
                     .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                     .other(JsonValue.from(mapOf<String, Any>()))
                     .build(),
@@ -6590,10 +6470,10 @@ internal class CardPaymentTest {
                                     .build()
                             )
                             .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                            .denyReason(
-                                CardPayment.Element.CardAuthentication.DenyReason.GROUP_LOCKED
+                            .denyReason(null)
+                            .deviceChannel(
+                                CardPayment.Element.CardAuthentication.DeviceChannel.BROWSER
                             )
-                            .deviceChannel(CardPayment.Element.CardAuthentication.DeviceChannel.APP)
                             .merchantAcceptorId("5665270011000168")
                             .merchantCategoryCode("5734")
                             .merchantCountry("US")
@@ -6601,17 +6481,19 @@ internal class CardPaymentTest {
                             .purchaseAmount(1000L)
                             .purchaseCurrency("USD")
                             .realTimeDecisionId(null)
-                            .status(CardPayment.Element.CardAuthentication.Status.DENIED)
+                            .status(
+                                CardPayment.Element.CardAuthentication.Status.VALIDATING_CHALLENGE
+                            )
                             .type(CardPayment.Element.CardAuthentication.Type.CARD_AUTHENTICATION)
                             .build()
                     )
                     .cardAuthorization(
                         CardPayment.Element.CardAuthorization.builder()
                             .id("card_authorization_6iqxap6ivd0fo5eu3i8x")
-                            .actioner(CardPayment.Element.CardAuthorization.Actioner.USER)
+                            .actioner(CardPayment.Element.CardAuthorization.Actioner.INCREASE)
                             .amount(100L)
                             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
-                            .currency(CardPayment.Element.CardAuthorization.Currency.CAD)
+                            .currency(CardPayment.Element.CardAuthorization.Currency.USD)
                             .digitalWalletTokenId(null)
                             .direction(CardPayment.Element.CardAuthorization.Direction.SETTLEMENT)
                             .expiresAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
@@ -6636,20 +6518,15 @@ internal class CardPaymentTest {
                                                 CardPayment.Element.CardAuthorization.NetworkDetails
                                                     .Visa
                                                     .ElectronicCommerceIndicator
-                                                    .MAIL_PHONE_ORDER
+                                                    .SECURE_ELECTRONIC_COMMERCE
                                             )
                                             .pointOfServiceEntryMode(
                                                 CardPayment.Element.CardAuthorization.NetworkDetails
                                                     .Visa
                                                     .PointOfServiceEntryMode
-                                                    .UNKNOWN
+                                                    .MANUAL
                                             )
-                                            .standInProcessingReason(
-                                                CardPayment.Element.CardAuthorization.NetworkDetails
-                                                    .Visa
-                                                    .StandInProcessingReason
-                                                    .ISSUER_ERROR
-                                            )
+                                            .standInProcessingReason(null)
                                             .build()
                                     )
                                     .build()
@@ -6667,8 +6544,7 @@ internal class CardPaymentTest {
                             .presentmentAmount(100L)
                             .presentmentCurrency("USD")
                             .processingCategory(
-                                CardPayment.Element.CardAuthorization.ProcessingCategory
-                                    .ACCOUNT_FUNDING
+                                CardPayment.Element.CardAuthorization.ProcessingCategory.PURCHASE
                             )
                             .realTimeDecisionId(null)
                             .terminalId("RCN5VNXS")
@@ -6683,7 +6559,7 @@ internal class CardPaymentTest {
                                                 CardPayment.Element.CardAuthorization.Verification
                                                     .CardVerificationCode
                                                     .Result
-                                                    .NOT_CHECKED
+                                                    .MATCH
                                             )
                                             .build()
                                     )
@@ -6699,7 +6575,7 @@ internal class CardPaymentTest {
                                                 CardPayment.Element.CardAuthorization.Verification
                                                     .CardholderAddress
                                                     .Result
-                                                    .NOT_CHECKED
+                                                    .POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
                                             )
                                             .build()
                                     )
@@ -6711,7 +6587,7 @@ internal class CardPaymentTest {
                         CardPayment.Element.CardAuthorizationExpiration.builder()
                             .id("card_authorization_expiration_9xxbjtmixs8sfluzux2e")
                             .cardAuthorizationId("card_authorization_6iqxap6ivd0fo5eu3i8x")
-                            .currency(CardPayment.Element.CardAuthorizationExpiration.Currency.CAD)
+                            .currency(CardPayment.Element.CardAuthorizationExpiration.Currency.USD)
                             .expiredAmount(20L)
                             .network(CardPayment.Element.CardAuthorizationExpiration.Network.VISA)
                             .type(
@@ -6723,10 +6599,10 @@ internal class CardPaymentTest {
                     .cardDecline(
                         CardPayment.Element.CardDecline.builder()
                             .id("card_decline_bx3o8zd7glq8yvtwg25v")
-                            .actioner(CardPayment.Element.CardDecline.Actioner.USER)
+                            .actioner(CardPayment.Element.CardDecline.Actioner.INCREASE)
                             .amount(-1000L)
                             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
-                            .currency(CardPayment.Element.CardDecline.Currency.CAD)
+                            .currency(CardPayment.Element.CardDecline.Currency.USD)
                             .declinedTransactionId("declined_transaction_17jbn0yyhvkt4v4ooym8")
                             .digitalWalletTokenId(null)
                             .direction(CardPayment.Element.CardDecline.Direction.SETTLEMENT)
@@ -6748,18 +6624,14 @@ internal class CardPaymentTest {
                                             .electronicCommerceIndicator(
                                                 CardPayment.Element.CardDecline.NetworkDetails.Visa
                                                     .ElectronicCommerceIndicator
-                                                    .MAIL_PHONE_ORDER
+                                                    .SECURE_ELECTRONIC_COMMERCE
                                             )
                                             .pointOfServiceEntryMode(
                                                 CardPayment.Element.CardDecline.NetworkDetails.Visa
                                                     .PointOfServiceEntryMode
-                                                    .UNKNOWN
+                                                    .MANUAL
                                             )
-                                            .standInProcessingReason(
-                                                CardPayment.Element.CardDecline.NetworkDetails.Visa
-                                                    .StandInProcessingReason
-                                                    .ISSUER_ERROR
-                                            )
+                                            .standInProcessingReason(null)
                                             .build()
                                     )
                                     .build()
@@ -6776,14 +6648,11 @@ internal class CardPaymentTest {
                             .presentmentAmount(-1000L)
                             .presentmentCurrency("USD")
                             .processingCategory(
-                                CardPayment.Element.CardDecline.ProcessingCategory.ACCOUNT_FUNDING
+                                CardPayment.Element.CardDecline.ProcessingCategory.PURCHASE
                             )
                             .realTimeDecisionId(null)
-                            .realTimeDecisionReason(
-                                CardPayment.Element.CardDecline.RealTimeDecisionReason
-                                    .INSUFFICIENT_FUNDS
-                            )
-                            .reason(CardPayment.Element.CardDecline.Reason.ACCOUNT_CLOSED)
+                            .realTimeDecisionReason(null)
+                            .reason(CardPayment.Element.CardDecline.Reason.INSUFFICIENT_FUNDS)
                             .terminalId("RCN5VNXS")
                             .verification(
                                 CardPayment.Element.CardDecline.Verification.builder()
@@ -6795,7 +6664,7 @@ internal class CardPaymentTest {
                                                 CardPayment.Element.CardDecline.Verification
                                                     .CardVerificationCode
                                                     .Result
-                                                    .NOT_CHECKED
+                                                    .MATCH
                                             )
                                             .build()
                                     )
@@ -6811,7 +6680,7 @@ internal class CardPaymentTest {
                                                 CardPayment.Element.CardDecline.Verification
                                                     .CardholderAddress
                                                     .Result
-                                                    .NOT_CHECKED
+                                                    .POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
                                             )
                                             .build()
                                     )
@@ -6823,7 +6692,7 @@ internal class CardPaymentTest {
                         CardPayment.Element.CardFuelConfirmation.builder()
                             .id("card_fuel_confirmation_wuy91qate4judq2la80a")
                             .cardAuthorizationId("card_authorization_6iqxap6ivd0fo5eu3i8x")
-                            .currency(CardPayment.Element.CardFuelConfirmation.Currency.CAD)
+                            .currency(CardPayment.Element.CardFuelConfirmation.Currency.USD)
                             .network(CardPayment.Element.CardFuelConfirmation.Network.VISA)
                             .networkIdentifiers(
                                 CardPayment.Element.CardFuelConfirmation.NetworkIdentifiers
@@ -6843,10 +6712,10 @@ internal class CardPaymentTest {
                     .cardIncrement(
                         CardPayment.Element.CardIncrement.builder()
                             .id("card_increment_6ztayc58j1od0rpebp3e")
-                            .actioner(CardPayment.Element.CardIncrement.Actioner.USER)
+                            .actioner(CardPayment.Element.CardIncrement.Actioner.INCREASE)
                             .amount(20L)
                             .cardAuthorizationId("card_authorization_6iqxap6ivd0fo5eu3i8x")
-                            .currency(CardPayment.Element.CardIncrement.Currency.CAD)
+                            .currency(CardPayment.Element.CardIncrement.Currency.USD)
                             .network(CardPayment.Element.CardIncrement.Network.VISA)
                             .networkIdentifiers(
                                 CardPayment.Element.CardIncrement.NetworkIdentifiers.builder()
@@ -6873,13 +6742,13 @@ internal class CardPaymentTest {
                                     .currency(CardPayment.Element.CardRefund.Cashback.Currency.CAD)
                                     .build()
                             )
-                            .currency(CardPayment.Element.CardRefund.Currency.CAD)
+                            .currency(CardPayment.Element.CardRefund.Currency.USD)
                             .interchange(
                                 CardPayment.Element.CardRefund.Interchange.builder()
                                     .amount("0.137465")
                                     .code("271")
                                     .currency(
-                                        CardPayment.Element.CardRefund.Interchange.Currency.CAD
+                                        CardPayment.Element.CardRefund.Interchange.Currency.USD
                                     )
                                     .build()
                             )
@@ -6947,7 +6816,7 @@ internal class CardPaymentTest {
                                                 CardPayment.Element.CardRefund.PurchaseDetails
                                                     .Lodging
                                                     .ExtraCharges
-                                                    .NO_EXTRA_CHARGE
+                                                    .RESTAURANT
                                             )
                                             .folioCashAdvancesAmount(0L)
                                             .folioCashAdvancesCurrency("usd")
@@ -6957,7 +6826,7 @@ internal class CardPaymentTest {
                                                 CardPayment.Element.CardRefund.PurchaseDetails
                                                     .Lodging
                                                     .NoShowIndicator
-                                                    .NOT_APPLICABLE
+                                                    .NO_SHOW
                                             )
                                             .prepaidExpensesAmount(0L)
                                             .prepaidExpensesCurrency("usd")
@@ -6974,7 +6843,7 @@ internal class CardPaymentTest {
                                     .purchaseIdentifierFormat(
                                         CardPayment.Element.CardRefund.PurchaseDetails
                                             .PurchaseIdentifierFormat
-                                            .FREE_TEXT
+                                            .ORDER_NUMBER
                                     )
                                     .travel(
                                         CardPayment.Element.CardRefund.PurchaseDetails.Travel
@@ -7083,7 +6952,7 @@ internal class CardPaymentTest {
                         CardPayment.Element.CardReversal.builder()
                             .id("card_reversal_8vr9qy60cgf5d0slpb68")
                             .cardAuthorizationId("card_authorization_6iqxap6ivd0fo5eu3i8x")
-                            .currency(CardPayment.Element.CardReversal.Currency.CAD)
+                            .currency(CardPayment.Element.CardReversal.Currency.USD)
                             .merchantAcceptorId("5665270011000168")
                             .merchantCategoryCode("5734")
                             .merchantCity("New York")
@@ -7123,13 +6992,13 @@ internal class CardPaymentTest {
                                     )
                                     .build()
                             )
-                            .currency(CardPayment.Element.CardSettlement.Currency.CAD)
+                            .currency(CardPayment.Element.CardSettlement.Currency.USD)
                             .interchange(
                                 CardPayment.Element.CardSettlement.Interchange.builder()
                                     .amount("0.137465")
                                     .code("271")
                                     .currency(
-                                        CardPayment.Element.CardSettlement.Interchange.Currency.CAD
+                                        CardPayment.Element.CardSettlement.Interchange.Currency.USD
                                     )
                                     .build()
                             )
@@ -7198,7 +7067,7 @@ internal class CardPaymentTest {
                                                 CardPayment.Element.CardSettlement.PurchaseDetails
                                                     .Lodging
                                                     .ExtraCharges
-                                                    .NO_EXTRA_CHARGE
+                                                    .RESTAURANT
                                             )
                                             .folioCashAdvancesAmount(0L)
                                             .folioCashAdvancesCurrency("usd")
@@ -7208,7 +7077,7 @@ internal class CardPaymentTest {
                                                 CardPayment.Element.CardSettlement.PurchaseDetails
                                                     .Lodging
                                                     .NoShowIndicator
-                                                    .NOT_APPLICABLE
+                                                    .NO_SHOW
                                             )
                                             .prepaidExpensesAmount(0L)
                                             .prepaidExpensesCurrency("usd")
@@ -7225,7 +7094,7 @@ internal class CardPaymentTest {
                                     .purchaseIdentifierFormat(
                                         CardPayment.Element.CardSettlement.PurchaseDetails
                                             .PurchaseIdentifierFormat
-                                            .FREE_TEXT
+                                            .ORDER_NUMBER
                                     )
                                     .travel(
                                         CardPayment.Element.CardSettlement.PurchaseDetails.Travel
@@ -7333,9 +7202,9 @@ internal class CardPaymentTest {
                     .cardValidation(
                         CardPayment.Element.CardValidation.builder()
                             .id("card_validation_yi4e59jiaz6n9hx8tczv")
-                            .actioner(CardPayment.Element.CardValidation.Actioner.USER)
+                            .actioner(CardPayment.Element.CardValidation.Actioner.INCREASE)
                             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
-                            .currency(CardPayment.Element.CardValidation.Currency.CAD)
+                            .currency(CardPayment.Element.CardValidation.Currency.USD)
                             .digitalWalletTokenId(null)
                             .merchantAcceptorId("5665270011000168")
                             .merchantCategoryCode("5734")
@@ -7357,20 +7226,15 @@ internal class CardPaymentTest {
                                                 CardPayment.Element.CardValidation.NetworkDetails
                                                     .Visa
                                                     .ElectronicCommerceIndicator
-                                                    .MAIL_PHONE_ORDER
+                                                    .SECURE_ELECTRONIC_COMMERCE
                                             )
                                             .pointOfServiceEntryMode(
                                                 CardPayment.Element.CardValidation.NetworkDetails
                                                     .Visa
                                                     .PointOfServiceEntryMode
-                                                    .UNKNOWN
+                                                    .MANUAL
                                             )
-                                            .standInProcessingReason(
-                                                CardPayment.Element.CardValidation.NetworkDetails
-                                                    .Visa
-                                                    .StandInProcessingReason
-                                                    .ISSUER_ERROR
-                                            )
+                                            .standInProcessingReason(null)
                                             .build()
                                     )
                                     .build()
@@ -7397,7 +7261,7 @@ internal class CardPaymentTest {
                                                 CardPayment.Element.CardValidation.Verification
                                                     .CardVerificationCode
                                                     .Result
-                                                    .NOT_CHECKED
+                                                    .MATCH
                                             )
                                             .build()
                                     )
@@ -7413,7 +7277,7 @@ internal class CardPaymentTest {
                                                 CardPayment.Element.CardValidation.Verification
                                                     .CardholderAddress
                                                     .Result
-                                                    .NOT_CHECKED
+                                                    .POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
                                             )
                                             .build()
                                     )
@@ -7421,7 +7285,7 @@ internal class CardPaymentTest {
                             )
                             .build()
                     )
-                    .category(CardPayment.Element.Category.CARD_AUTHORIZATION)
+                    .category(CardPayment.Element.Category.CARD_SETTLEMENT)
                     .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                     .other(JsonValue.from(mapOf<String, Any>()))
                     .build(),
@@ -7491,12 +7355,9 @@ internal class CardPaymentTest {
                                             .build()
                                     )
                                     .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                                    .denyReason(
-                                        CardPayment.Element.CardAuthentication.DenyReason
-                                            .GROUP_LOCKED
-                                    )
+                                    .denyReason(null)
                                     .deviceChannel(
-                                        CardPayment.Element.CardAuthentication.DeviceChannel.APP
+                                        CardPayment.Element.CardAuthentication.DeviceChannel.BROWSER
                                     )
                                     .merchantAcceptorId("5665270011000168")
                                     .merchantCategoryCode("5734")
@@ -7505,7 +7366,10 @@ internal class CardPaymentTest {
                                     .purchaseAmount(1000L)
                                     .purchaseCurrency("USD")
                                     .realTimeDecisionId(null)
-                                    .status(CardPayment.Element.CardAuthentication.Status.DENIED)
+                                    .status(
+                                        CardPayment.Element.CardAuthentication.Status
+                                            .VALIDATING_CHALLENGE
+                                    )
                                     .type(
                                         CardPayment.Element.CardAuthentication.Type
                                             .CARD_AUTHENTICATION
@@ -7515,10 +7379,12 @@ internal class CardPaymentTest {
                             .cardAuthorization(
                                 CardPayment.Element.CardAuthorization.builder()
                                     .id("card_authorization_6iqxap6ivd0fo5eu3i8x")
-                                    .actioner(CardPayment.Element.CardAuthorization.Actioner.USER)
+                                    .actioner(
+                                        CardPayment.Element.CardAuthorization.Actioner.INCREASE
+                                    )
                                     .amount(100L)
                                     .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
-                                    .currency(CardPayment.Element.CardAuthorization.Currency.CAD)
+                                    .currency(CardPayment.Element.CardAuthorization.Currency.USD)
                                     .digitalWalletTokenId(null)
                                     .direction(
                                         CardPayment.Element.CardAuthorization.Direction.SETTLEMENT
@@ -7548,22 +7414,16 @@ internal class CardPaymentTest {
                                                             .NetworkDetails
                                                             .Visa
                                                             .ElectronicCommerceIndicator
-                                                            .MAIL_PHONE_ORDER
+                                                            .SECURE_ELECTRONIC_COMMERCE
                                                     )
                                                     .pointOfServiceEntryMode(
                                                         CardPayment.Element.CardAuthorization
                                                             .NetworkDetails
                                                             .Visa
                                                             .PointOfServiceEntryMode
-                                                            .UNKNOWN
+                                                            .MANUAL
                                                     )
-                                                    .standInProcessingReason(
-                                                        CardPayment.Element.CardAuthorization
-                                                            .NetworkDetails
-                                                            .Visa
-                                                            .StandInProcessingReason
-                                                            .ISSUER_ERROR
-                                                    )
+                                                    .standInProcessingReason(null)
                                                     .build()
                                             )
                                             .build()
@@ -7583,7 +7443,7 @@ internal class CardPaymentTest {
                                     .presentmentCurrency("USD")
                                     .processingCategory(
                                         CardPayment.Element.CardAuthorization.ProcessingCategory
-                                            .ACCOUNT_FUNDING
+                                            .PURCHASE
                                     )
                                     .realTimeDecisionId(null)
                                     .terminalId("RCN5VNXS")
@@ -7602,7 +7462,7 @@ internal class CardPaymentTest {
                                                             .Verification
                                                             .CardVerificationCode
                                                             .Result
-                                                            .NOT_CHECKED
+                                                            .MATCH
                                                     )
                                                     .build()
                                             )
@@ -7619,7 +7479,7 @@ internal class CardPaymentTest {
                                                             .Verification
                                                             .CardholderAddress
                                                             .Result
-                                                            .NOT_CHECKED
+                                                            .POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
                                                     )
                                                     .build()
                                             )
@@ -7632,7 +7492,7 @@ internal class CardPaymentTest {
                                     .id("card_authorization_expiration_9xxbjtmixs8sfluzux2e")
                                     .cardAuthorizationId("card_authorization_6iqxap6ivd0fo5eu3i8x")
                                     .currency(
-                                        CardPayment.Element.CardAuthorizationExpiration.Currency.CAD
+                                        CardPayment.Element.CardAuthorizationExpiration.Currency.USD
                                     )
                                     .expiredAmount(20L)
                                     .network(
@@ -7647,10 +7507,10 @@ internal class CardPaymentTest {
                             .cardDecline(
                                 CardPayment.Element.CardDecline.builder()
                                     .id("card_decline_bx3o8zd7glq8yvtwg25v")
-                                    .actioner(CardPayment.Element.CardDecline.Actioner.USER)
+                                    .actioner(CardPayment.Element.CardDecline.Actioner.INCREASE)
                                     .amount(-1000L)
                                     .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
-                                    .currency(CardPayment.Element.CardDecline.Currency.CAD)
+                                    .currency(CardPayment.Element.CardDecline.Currency.USD)
                                     .declinedTransactionId(
                                         "declined_transaction_17jbn0yyhvkt4v4ooym8"
                                     )
@@ -7678,22 +7538,16 @@ internal class CardPaymentTest {
                                                             .NetworkDetails
                                                             .Visa
                                                             .ElectronicCommerceIndicator
-                                                            .MAIL_PHONE_ORDER
+                                                            .SECURE_ELECTRONIC_COMMERCE
                                                     )
                                                     .pointOfServiceEntryMode(
                                                         CardPayment.Element.CardDecline
                                                             .NetworkDetails
                                                             .Visa
                                                             .PointOfServiceEntryMode
-                                                            .UNKNOWN
+                                                            .MANUAL
                                                     )
-                                                    .standInProcessingReason(
-                                                        CardPayment.Element.CardDecline
-                                                            .NetworkDetails
-                                                            .Visa
-                                                            .StandInProcessingReason
-                                                            .ISSUER_ERROR
-                                                    )
+                                                    .standInProcessingReason(null)
                                                     .build()
                                             )
                                             .build()
@@ -7710,15 +7564,13 @@ internal class CardPaymentTest {
                                     .presentmentAmount(-1000L)
                                     .presentmentCurrency("USD")
                                     .processingCategory(
-                                        CardPayment.Element.CardDecline.ProcessingCategory
-                                            .ACCOUNT_FUNDING
+                                        CardPayment.Element.CardDecline.ProcessingCategory.PURCHASE
                                     )
                                     .realTimeDecisionId(null)
-                                    .realTimeDecisionReason(
-                                        CardPayment.Element.CardDecline.RealTimeDecisionReason
-                                            .INSUFFICIENT_FUNDS
+                                    .realTimeDecisionReason(null)
+                                    .reason(
+                                        CardPayment.Element.CardDecline.Reason.INSUFFICIENT_FUNDS
                                     )
-                                    .reason(CardPayment.Element.CardDecline.Reason.ACCOUNT_CLOSED)
                                     .terminalId("RCN5VNXS")
                                     .verification(
                                         CardPayment.Element.CardDecline.Verification.builder()
@@ -7730,7 +7582,7 @@ internal class CardPaymentTest {
                                                         CardPayment.Element.CardDecline.Verification
                                                             .CardVerificationCode
                                                             .Result
-                                                            .NOT_CHECKED
+                                                            .MATCH
                                                     )
                                                     .build()
                                             )
@@ -7746,7 +7598,7 @@ internal class CardPaymentTest {
                                                         CardPayment.Element.CardDecline.Verification
                                                             .CardholderAddress
                                                             .Result
-                                                            .NOT_CHECKED
+                                                            .POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
                                                     )
                                                     .build()
                                             )
@@ -7758,7 +7610,7 @@ internal class CardPaymentTest {
                                 CardPayment.Element.CardFuelConfirmation.builder()
                                     .id("card_fuel_confirmation_wuy91qate4judq2la80a")
                                     .cardAuthorizationId("card_authorization_6iqxap6ivd0fo5eu3i8x")
-                                    .currency(CardPayment.Element.CardFuelConfirmation.Currency.CAD)
+                                    .currency(CardPayment.Element.CardFuelConfirmation.Currency.USD)
                                     .network(CardPayment.Element.CardFuelConfirmation.Network.VISA)
                                     .networkIdentifiers(
                                         CardPayment.Element.CardFuelConfirmation.NetworkIdentifiers
@@ -7781,10 +7633,10 @@ internal class CardPaymentTest {
                             .cardIncrement(
                                 CardPayment.Element.CardIncrement.builder()
                                     .id("card_increment_6ztayc58j1od0rpebp3e")
-                                    .actioner(CardPayment.Element.CardIncrement.Actioner.USER)
+                                    .actioner(CardPayment.Element.CardIncrement.Actioner.INCREASE)
                                     .amount(20L)
                                     .cardAuthorizationId("card_authorization_6iqxap6ivd0fo5eu3i8x")
-                                    .currency(CardPayment.Element.CardIncrement.Currency.CAD)
+                                    .currency(CardPayment.Element.CardIncrement.Currency.USD)
                                     .network(CardPayment.Element.CardIncrement.Network.VISA)
                                     .networkIdentifiers(
                                         CardPayment.Element.CardIncrement.NetworkIdentifiers
@@ -7816,14 +7668,14 @@ internal class CardPaymentTest {
                                             )
                                             .build()
                                     )
-                                    .currency(CardPayment.Element.CardRefund.Currency.CAD)
+                                    .currency(CardPayment.Element.CardRefund.Currency.USD)
                                     .interchange(
                                         CardPayment.Element.CardRefund.Interchange.builder()
                                             .amount("0.137465")
                                             .code("271")
                                             .currency(
                                                 CardPayment.Element.CardRefund.Interchange.Currency
-                                                    .CAD
+                                                    .USD
                                             )
                                             .build()
                                     )
@@ -7902,7 +7754,7 @@ internal class CardPaymentTest {
                                                             .PurchaseDetails
                                                             .Lodging
                                                             .ExtraCharges
-                                                            .NO_EXTRA_CHARGE
+                                                            .RESTAURANT
                                                     )
                                                     .folioCashAdvancesAmount(0L)
                                                     .folioCashAdvancesCurrency("usd")
@@ -7913,7 +7765,7 @@ internal class CardPaymentTest {
                                                             .PurchaseDetails
                                                             .Lodging
                                                             .NoShowIndicator
-                                                            .NOT_APPLICABLE
+                                                            .NO_SHOW
                                                     )
                                                     .prepaidExpensesAmount(0L)
                                                     .prepaidExpensesCurrency("usd")
@@ -7930,7 +7782,7 @@ internal class CardPaymentTest {
                                             .purchaseIdentifierFormat(
                                                 CardPayment.Element.CardRefund.PurchaseDetails
                                                     .PurchaseIdentifierFormat
-                                                    .FREE_TEXT
+                                                    .ORDER_NUMBER
                                             )
                                             .travel(
                                                 CardPayment.Element.CardRefund.PurchaseDetails
@@ -8048,7 +7900,7 @@ internal class CardPaymentTest {
                                 CardPayment.Element.CardReversal.builder()
                                     .id("card_reversal_8vr9qy60cgf5d0slpb68")
                                     .cardAuthorizationId("card_authorization_6iqxap6ivd0fo5eu3i8x")
-                                    .currency(CardPayment.Element.CardReversal.Currency.CAD)
+                                    .currency(CardPayment.Element.CardReversal.Currency.USD)
                                     .merchantAcceptorId("5665270011000168")
                                     .merchantCategoryCode("5734")
                                     .merchantCity("New York")
@@ -8093,7 +7945,7 @@ internal class CardPaymentTest {
                                             )
                                             .build()
                                     )
-                                    .currency(CardPayment.Element.CardSettlement.Currency.CAD)
+                                    .currency(CardPayment.Element.CardSettlement.Currency.USD)
                                     .interchange(
                                         CardPayment.Element.CardSettlement.Interchange.builder()
                                             .amount("0.137465")
@@ -8101,7 +7953,7 @@ internal class CardPaymentTest {
                                             .currency(
                                                 CardPayment.Element.CardSettlement.Interchange
                                                     .Currency
-                                                    .CAD
+                                                    .USD
                                             )
                                             .build()
                                     )
@@ -8182,7 +8034,7 @@ internal class CardPaymentTest {
                                                             .PurchaseDetails
                                                             .Lodging
                                                             .ExtraCharges
-                                                            .NO_EXTRA_CHARGE
+                                                            .RESTAURANT
                                                     )
                                                     .folioCashAdvancesAmount(0L)
                                                     .folioCashAdvancesCurrency("usd")
@@ -8193,7 +8045,7 @@ internal class CardPaymentTest {
                                                             .PurchaseDetails
                                                             .Lodging
                                                             .NoShowIndicator
-                                                            .NOT_APPLICABLE
+                                                            .NO_SHOW
                                                     )
                                                     .prepaidExpensesAmount(0L)
                                                     .prepaidExpensesCurrency("usd")
@@ -8210,7 +8062,7 @@ internal class CardPaymentTest {
                                             .purchaseIdentifierFormat(
                                                 CardPayment.Element.CardSettlement.PurchaseDetails
                                                     .PurchaseIdentifierFormat
-                                                    .FREE_TEXT
+                                                    .ORDER_NUMBER
                                             )
                                             .travel(
                                                 CardPayment.Element.CardSettlement.PurchaseDetails
@@ -8327,9 +8179,9 @@ internal class CardPaymentTest {
                             .cardValidation(
                                 CardPayment.Element.CardValidation.builder()
                                     .id("card_validation_yi4e59jiaz6n9hx8tczv")
-                                    .actioner(CardPayment.Element.CardValidation.Actioner.USER)
+                                    .actioner(CardPayment.Element.CardValidation.Actioner.INCREASE)
                                     .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
-                                    .currency(CardPayment.Element.CardValidation.Currency.CAD)
+                                    .currency(CardPayment.Element.CardValidation.Currency.USD)
                                     .digitalWalletTokenId(null)
                                     .merchantAcceptorId("5665270011000168")
                                     .merchantCategoryCode("5734")
@@ -8354,22 +8206,16 @@ internal class CardPaymentTest {
                                                             .NetworkDetails
                                                             .Visa
                                                             .ElectronicCommerceIndicator
-                                                            .MAIL_PHONE_ORDER
+                                                            .SECURE_ELECTRONIC_COMMERCE
                                                     )
                                                     .pointOfServiceEntryMode(
                                                         CardPayment.Element.CardValidation
                                                             .NetworkDetails
                                                             .Visa
                                                             .PointOfServiceEntryMode
-                                                            .UNKNOWN
+                                                            .MANUAL
                                                     )
-                                                    .standInProcessingReason(
-                                                        CardPayment.Element.CardValidation
-                                                            .NetworkDetails
-                                                            .Visa
-                                                            .StandInProcessingReason
-                                                            .ISSUER_ERROR
-                                                    )
+                                                    .standInProcessingReason(null)
                                                     .build()
                                             )
                                             .build()
@@ -8398,7 +8244,7 @@ internal class CardPaymentTest {
                                                             .Verification
                                                             .CardVerificationCode
                                                             .Result
-                                                            .NOT_CHECKED
+                                                            .MATCH
                                                     )
                                                     .build()
                                             )
@@ -8415,7 +8261,7 @@ internal class CardPaymentTest {
                                                             .Verification
                                                             .CardholderAddress
                                                             .Result
-                                                            .NOT_CHECKED
+                                                            .POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
                                                     )
                                                     .build()
                                             )
@@ -8466,12 +8312,9 @@ internal class CardPaymentTest {
                                             .build()
                                     )
                                     .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                                    .denyReason(
-                                        CardPayment.Element.CardAuthentication.DenyReason
-                                            .GROUP_LOCKED
-                                    )
+                                    .denyReason(null)
                                     .deviceChannel(
-                                        CardPayment.Element.CardAuthentication.DeviceChannel.APP
+                                        CardPayment.Element.CardAuthentication.DeviceChannel.BROWSER
                                     )
                                     .merchantAcceptorId("5665270011000168")
                                     .merchantCategoryCode("5734")
@@ -8480,7 +8323,10 @@ internal class CardPaymentTest {
                                     .purchaseAmount(1000L)
                                     .purchaseCurrency("USD")
                                     .realTimeDecisionId(null)
-                                    .status(CardPayment.Element.CardAuthentication.Status.DENIED)
+                                    .status(
+                                        CardPayment.Element.CardAuthentication.Status
+                                            .VALIDATING_CHALLENGE
+                                    )
                                     .type(
                                         CardPayment.Element.CardAuthentication.Type
                                             .CARD_AUTHENTICATION
@@ -8490,10 +8336,12 @@ internal class CardPaymentTest {
                             .cardAuthorization(
                                 CardPayment.Element.CardAuthorization.builder()
                                     .id("card_authorization_6iqxap6ivd0fo5eu3i8x")
-                                    .actioner(CardPayment.Element.CardAuthorization.Actioner.USER)
+                                    .actioner(
+                                        CardPayment.Element.CardAuthorization.Actioner.INCREASE
+                                    )
                                     .amount(100L)
                                     .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
-                                    .currency(CardPayment.Element.CardAuthorization.Currency.CAD)
+                                    .currency(CardPayment.Element.CardAuthorization.Currency.USD)
                                     .digitalWalletTokenId(null)
                                     .direction(
                                         CardPayment.Element.CardAuthorization.Direction.SETTLEMENT
@@ -8523,22 +8371,16 @@ internal class CardPaymentTest {
                                                             .NetworkDetails
                                                             .Visa
                                                             .ElectronicCommerceIndicator
-                                                            .MAIL_PHONE_ORDER
+                                                            .SECURE_ELECTRONIC_COMMERCE
                                                     )
                                                     .pointOfServiceEntryMode(
                                                         CardPayment.Element.CardAuthorization
                                                             .NetworkDetails
                                                             .Visa
                                                             .PointOfServiceEntryMode
-                                                            .UNKNOWN
+                                                            .MANUAL
                                                     )
-                                                    .standInProcessingReason(
-                                                        CardPayment.Element.CardAuthorization
-                                                            .NetworkDetails
-                                                            .Visa
-                                                            .StandInProcessingReason
-                                                            .ISSUER_ERROR
-                                                    )
+                                                    .standInProcessingReason(null)
                                                     .build()
                                             )
                                             .build()
@@ -8558,7 +8400,7 @@ internal class CardPaymentTest {
                                     .presentmentCurrency("USD")
                                     .processingCategory(
                                         CardPayment.Element.CardAuthorization.ProcessingCategory
-                                            .ACCOUNT_FUNDING
+                                            .PURCHASE
                                     )
                                     .realTimeDecisionId(null)
                                     .terminalId("RCN5VNXS")
@@ -8577,7 +8419,7 @@ internal class CardPaymentTest {
                                                             .Verification
                                                             .CardVerificationCode
                                                             .Result
-                                                            .NOT_CHECKED
+                                                            .MATCH
                                                     )
                                                     .build()
                                             )
@@ -8594,7 +8436,7 @@ internal class CardPaymentTest {
                                                             .Verification
                                                             .CardholderAddress
                                                             .Result
-                                                            .NOT_CHECKED
+                                                            .POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
                                                     )
                                                     .build()
                                             )
@@ -8607,7 +8449,7 @@ internal class CardPaymentTest {
                                     .id("card_authorization_expiration_9xxbjtmixs8sfluzux2e")
                                     .cardAuthorizationId("card_authorization_6iqxap6ivd0fo5eu3i8x")
                                     .currency(
-                                        CardPayment.Element.CardAuthorizationExpiration.Currency.CAD
+                                        CardPayment.Element.CardAuthorizationExpiration.Currency.USD
                                     )
                                     .expiredAmount(20L)
                                     .network(
@@ -8622,10 +8464,10 @@ internal class CardPaymentTest {
                             .cardDecline(
                                 CardPayment.Element.CardDecline.builder()
                                     .id("card_decline_bx3o8zd7glq8yvtwg25v")
-                                    .actioner(CardPayment.Element.CardDecline.Actioner.USER)
+                                    .actioner(CardPayment.Element.CardDecline.Actioner.INCREASE)
                                     .amount(-1000L)
                                     .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
-                                    .currency(CardPayment.Element.CardDecline.Currency.CAD)
+                                    .currency(CardPayment.Element.CardDecline.Currency.USD)
                                     .declinedTransactionId(
                                         "declined_transaction_17jbn0yyhvkt4v4ooym8"
                                     )
@@ -8653,22 +8495,16 @@ internal class CardPaymentTest {
                                                             .NetworkDetails
                                                             .Visa
                                                             .ElectronicCommerceIndicator
-                                                            .MAIL_PHONE_ORDER
+                                                            .SECURE_ELECTRONIC_COMMERCE
                                                     )
                                                     .pointOfServiceEntryMode(
                                                         CardPayment.Element.CardDecline
                                                             .NetworkDetails
                                                             .Visa
                                                             .PointOfServiceEntryMode
-                                                            .UNKNOWN
+                                                            .MANUAL
                                                     )
-                                                    .standInProcessingReason(
-                                                        CardPayment.Element.CardDecline
-                                                            .NetworkDetails
-                                                            .Visa
-                                                            .StandInProcessingReason
-                                                            .ISSUER_ERROR
-                                                    )
+                                                    .standInProcessingReason(null)
                                                     .build()
                                             )
                                             .build()
@@ -8685,15 +8521,13 @@ internal class CardPaymentTest {
                                     .presentmentAmount(-1000L)
                                     .presentmentCurrency("USD")
                                     .processingCategory(
-                                        CardPayment.Element.CardDecline.ProcessingCategory
-                                            .ACCOUNT_FUNDING
+                                        CardPayment.Element.CardDecline.ProcessingCategory.PURCHASE
                                     )
                                     .realTimeDecisionId(null)
-                                    .realTimeDecisionReason(
-                                        CardPayment.Element.CardDecline.RealTimeDecisionReason
-                                            .INSUFFICIENT_FUNDS
+                                    .realTimeDecisionReason(null)
+                                    .reason(
+                                        CardPayment.Element.CardDecline.Reason.INSUFFICIENT_FUNDS
                                     )
-                                    .reason(CardPayment.Element.CardDecline.Reason.ACCOUNT_CLOSED)
                                     .terminalId("RCN5VNXS")
                                     .verification(
                                         CardPayment.Element.CardDecline.Verification.builder()
@@ -8705,7 +8539,7 @@ internal class CardPaymentTest {
                                                         CardPayment.Element.CardDecline.Verification
                                                             .CardVerificationCode
                                                             .Result
-                                                            .NOT_CHECKED
+                                                            .MATCH
                                                     )
                                                     .build()
                                             )
@@ -8721,7 +8555,7 @@ internal class CardPaymentTest {
                                                         CardPayment.Element.CardDecline.Verification
                                                             .CardholderAddress
                                                             .Result
-                                                            .NOT_CHECKED
+                                                            .POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
                                                     )
                                                     .build()
                                             )
@@ -8733,7 +8567,7 @@ internal class CardPaymentTest {
                                 CardPayment.Element.CardFuelConfirmation.builder()
                                     .id("card_fuel_confirmation_wuy91qate4judq2la80a")
                                     .cardAuthorizationId("card_authorization_6iqxap6ivd0fo5eu3i8x")
-                                    .currency(CardPayment.Element.CardFuelConfirmation.Currency.CAD)
+                                    .currency(CardPayment.Element.CardFuelConfirmation.Currency.USD)
                                     .network(CardPayment.Element.CardFuelConfirmation.Network.VISA)
                                     .networkIdentifiers(
                                         CardPayment.Element.CardFuelConfirmation.NetworkIdentifiers
@@ -8756,10 +8590,10 @@ internal class CardPaymentTest {
                             .cardIncrement(
                                 CardPayment.Element.CardIncrement.builder()
                                     .id("card_increment_6ztayc58j1od0rpebp3e")
-                                    .actioner(CardPayment.Element.CardIncrement.Actioner.USER)
+                                    .actioner(CardPayment.Element.CardIncrement.Actioner.INCREASE)
                                     .amount(20L)
                                     .cardAuthorizationId("card_authorization_6iqxap6ivd0fo5eu3i8x")
-                                    .currency(CardPayment.Element.CardIncrement.Currency.CAD)
+                                    .currency(CardPayment.Element.CardIncrement.Currency.USD)
                                     .network(CardPayment.Element.CardIncrement.Network.VISA)
                                     .networkIdentifiers(
                                         CardPayment.Element.CardIncrement.NetworkIdentifiers
@@ -8791,14 +8625,14 @@ internal class CardPaymentTest {
                                             )
                                             .build()
                                     )
-                                    .currency(CardPayment.Element.CardRefund.Currency.CAD)
+                                    .currency(CardPayment.Element.CardRefund.Currency.USD)
                                     .interchange(
                                         CardPayment.Element.CardRefund.Interchange.builder()
                                             .amount("0.137465")
                                             .code("271")
                                             .currency(
                                                 CardPayment.Element.CardRefund.Interchange.Currency
-                                                    .CAD
+                                                    .USD
                                             )
                                             .build()
                                     )
@@ -8877,7 +8711,7 @@ internal class CardPaymentTest {
                                                             .PurchaseDetails
                                                             .Lodging
                                                             .ExtraCharges
-                                                            .NO_EXTRA_CHARGE
+                                                            .RESTAURANT
                                                     )
                                                     .folioCashAdvancesAmount(0L)
                                                     .folioCashAdvancesCurrency("usd")
@@ -8888,7 +8722,7 @@ internal class CardPaymentTest {
                                                             .PurchaseDetails
                                                             .Lodging
                                                             .NoShowIndicator
-                                                            .NOT_APPLICABLE
+                                                            .NO_SHOW
                                                     )
                                                     .prepaidExpensesAmount(0L)
                                                     .prepaidExpensesCurrency("usd")
@@ -8905,7 +8739,7 @@ internal class CardPaymentTest {
                                             .purchaseIdentifierFormat(
                                                 CardPayment.Element.CardRefund.PurchaseDetails
                                                     .PurchaseIdentifierFormat
-                                                    .FREE_TEXT
+                                                    .ORDER_NUMBER
                                             )
                                             .travel(
                                                 CardPayment.Element.CardRefund.PurchaseDetails
@@ -9023,7 +8857,7 @@ internal class CardPaymentTest {
                                 CardPayment.Element.CardReversal.builder()
                                     .id("card_reversal_8vr9qy60cgf5d0slpb68")
                                     .cardAuthorizationId("card_authorization_6iqxap6ivd0fo5eu3i8x")
-                                    .currency(CardPayment.Element.CardReversal.Currency.CAD)
+                                    .currency(CardPayment.Element.CardReversal.Currency.USD)
                                     .merchantAcceptorId("5665270011000168")
                                     .merchantCategoryCode("5734")
                                     .merchantCity("New York")
@@ -9068,7 +8902,7 @@ internal class CardPaymentTest {
                                             )
                                             .build()
                                     )
-                                    .currency(CardPayment.Element.CardSettlement.Currency.CAD)
+                                    .currency(CardPayment.Element.CardSettlement.Currency.USD)
                                     .interchange(
                                         CardPayment.Element.CardSettlement.Interchange.builder()
                                             .amount("0.137465")
@@ -9076,7 +8910,7 @@ internal class CardPaymentTest {
                                             .currency(
                                                 CardPayment.Element.CardSettlement.Interchange
                                                     .Currency
-                                                    .CAD
+                                                    .USD
                                             )
                                             .build()
                                     )
@@ -9157,7 +8991,7 @@ internal class CardPaymentTest {
                                                             .PurchaseDetails
                                                             .Lodging
                                                             .ExtraCharges
-                                                            .NO_EXTRA_CHARGE
+                                                            .RESTAURANT
                                                     )
                                                     .folioCashAdvancesAmount(0L)
                                                     .folioCashAdvancesCurrency("usd")
@@ -9168,7 +9002,7 @@ internal class CardPaymentTest {
                                                             .PurchaseDetails
                                                             .Lodging
                                                             .NoShowIndicator
-                                                            .NOT_APPLICABLE
+                                                            .NO_SHOW
                                                     )
                                                     .prepaidExpensesAmount(0L)
                                                     .prepaidExpensesCurrency("usd")
@@ -9185,7 +9019,7 @@ internal class CardPaymentTest {
                                             .purchaseIdentifierFormat(
                                                 CardPayment.Element.CardSettlement.PurchaseDetails
                                                     .PurchaseIdentifierFormat
-                                                    .FREE_TEXT
+                                                    .ORDER_NUMBER
                                             )
                                             .travel(
                                                 CardPayment.Element.CardSettlement.PurchaseDetails
@@ -9302,9 +9136,9 @@ internal class CardPaymentTest {
                             .cardValidation(
                                 CardPayment.Element.CardValidation.builder()
                                     .id("card_validation_yi4e59jiaz6n9hx8tczv")
-                                    .actioner(CardPayment.Element.CardValidation.Actioner.USER)
+                                    .actioner(CardPayment.Element.CardValidation.Actioner.INCREASE)
                                     .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
-                                    .currency(CardPayment.Element.CardValidation.Currency.CAD)
+                                    .currency(CardPayment.Element.CardValidation.Currency.USD)
                                     .digitalWalletTokenId(null)
                                     .merchantAcceptorId("5665270011000168")
                                     .merchantCategoryCode("5734")
@@ -9329,22 +9163,16 @@ internal class CardPaymentTest {
                                                             .NetworkDetails
                                                             .Visa
                                                             .ElectronicCommerceIndicator
-                                                            .MAIL_PHONE_ORDER
+                                                            .SECURE_ELECTRONIC_COMMERCE
                                                     )
                                                     .pointOfServiceEntryMode(
                                                         CardPayment.Element.CardValidation
                                                             .NetworkDetails
                                                             .Visa
                                                             .PointOfServiceEntryMode
-                                                            .UNKNOWN
+                                                            .MANUAL
                                                     )
-                                                    .standInProcessingReason(
-                                                        CardPayment.Element.CardValidation
-                                                            .NetworkDetails
-                                                            .Visa
-                                                            .StandInProcessingReason
-                                                            .ISSUER_ERROR
-                                                    )
+                                                    .standInProcessingReason(null)
                                                     .build()
                                             )
                                             .build()
@@ -9373,7 +9201,7 @@ internal class CardPaymentTest {
                                                             .Verification
                                                             .CardVerificationCode
                                                             .Result
-                                                            .NOT_CHECKED
+                                                            .MATCH
                                                     )
                                                     .build()
                                             )
@@ -9390,7 +9218,7 @@ internal class CardPaymentTest {
                                                             .Verification
                                                             .CardholderAddress
                                                             .Result
-                                                            .NOT_CHECKED
+                                                            .POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
                                                     )
                                                     .build()
                                             )
@@ -9398,7 +9226,7 @@ internal class CardPaymentTest {
                                     )
                                     .build()
                             )
-                            .category(CardPayment.Element.Category.CARD_AUTHORIZATION)
+                            .category(CardPayment.Element.Category.CARD_REVERSAL)
                             .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                             .other(JsonValue.from(mapOf<String, Any>()))
                             .build(),
@@ -9441,12 +9269,9 @@ internal class CardPaymentTest {
                                             .build()
                                     )
                                     .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                                    .denyReason(
-                                        CardPayment.Element.CardAuthentication.DenyReason
-                                            .GROUP_LOCKED
-                                    )
+                                    .denyReason(null)
                                     .deviceChannel(
-                                        CardPayment.Element.CardAuthentication.DeviceChannel.APP
+                                        CardPayment.Element.CardAuthentication.DeviceChannel.BROWSER
                                     )
                                     .merchantAcceptorId("5665270011000168")
                                     .merchantCategoryCode("5734")
@@ -9455,7 +9280,10 @@ internal class CardPaymentTest {
                                     .purchaseAmount(1000L)
                                     .purchaseCurrency("USD")
                                     .realTimeDecisionId(null)
-                                    .status(CardPayment.Element.CardAuthentication.Status.DENIED)
+                                    .status(
+                                        CardPayment.Element.CardAuthentication.Status
+                                            .VALIDATING_CHALLENGE
+                                    )
                                     .type(
                                         CardPayment.Element.CardAuthentication.Type
                                             .CARD_AUTHENTICATION
@@ -9465,10 +9293,12 @@ internal class CardPaymentTest {
                             .cardAuthorization(
                                 CardPayment.Element.CardAuthorization.builder()
                                     .id("card_authorization_6iqxap6ivd0fo5eu3i8x")
-                                    .actioner(CardPayment.Element.CardAuthorization.Actioner.USER)
+                                    .actioner(
+                                        CardPayment.Element.CardAuthorization.Actioner.INCREASE
+                                    )
                                     .amount(100L)
                                     .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
-                                    .currency(CardPayment.Element.CardAuthorization.Currency.CAD)
+                                    .currency(CardPayment.Element.CardAuthorization.Currency.USD)
                                     .digitalWalletTokenId(null)
                                     .direction(
                                         CardPayment.Element.CardAuthorization.Direction.SETTLEMENT
@@ -9498,22 +9328,16 @@ internal class CardPaymentTest {
                                                             .NetworkDetails
                                                             .Visa
                                                             .ElectronicCommerceIndicator
-                                                            .MAIL_PHONE_ORDER
+                                                            .SECURE_ELECTRONIC_COMMERCE
                                                     )
                                                     .pointOfServiceEntryMode(
                                                         CardPayment.Element.CardAuthorization
                                                             .NetworkDetails
                                                             .Visa
                                                             .PointOfServiceEntryMode
-                                                            .UNKNOWN
+                                                            .MANUAL
                                                     )
-                                                    .standInProcessingReason(
-                                                        CardPayment.Element.CardAuthorization
-                                                            .NetworkDetails
-                                                            .Visa
-                                                            .StandInProcessingReason
-                                                            .ISSUER_ERROR
-                                                    )
+                                                    .standInProcessingReason(null)
                                                     .build()
                                             )
                                             .build()
@@ -9533,7 +9357,7 @@ internal class CardPaymentTest {
                                     .presentmentCurrency("USD")
                                     .processingCategory(
                                         CardPayment.Element.CardAuthorization.ProcessingCategory
-                                            .ACCOUNT_FUNDING
+                                            .PURCHASE
                                     )
                                     .realTimeDecisionId(null)
                                     .terminalId("RCN5VNXS")
@@ -9552,7 +9376,7 @@ internal class CardPaymentTest {
                                                             .Verification
                                                             .CardVerificationCode
                                                             .Result
-                                                            .NOT_CHECKED
+                                                            .MATCH
                                                     )
                                                     .build()
                                             )
@@ -9569,7 +9393,7 @@ internal class CardPaymentTest {
                                                             .Verification
                                                             .CardholderAddress
                                                             .Result
-                                                            .NOT_CHECKED
+                                                            .POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
                                                     )
                                                     .build()
                                             )
@@ -9582,7 +9406,7 @@ internal class CardPaymentTest {
                                     .id("card_authorization_expiration_9xxbjtmixs8sfluzux2e")
                                     .cardAuthorizationId("card_authorization_6iqxap6ivd0fo5eu3i8x")
                                     .currency(
-                                        CardPayment.Element.CardAuthorizationExpiration.Currency.CAD
+                                        CardPayment.Element.CardAuthorizationExpiration.Currency.USD
                                     )
                                     .expiredAmount(20L)
                                     .network(
@@ -9597,10 +9421,10 @@ internal class CardPaymentTest {
                             .cardDecline(
                                 CardPayment.Element.CardDecline.builder()
                                     .id("card_decline_bx3o8zd7glq8yvtwg25v")
-                                    .actioner(CardPayment.Element.CardDecline.Actioner.USER)
+                                    .actioner(CardPayment.Element.CardDecline.Actioner.INCREASE)
                                     .amount(-1000L)
                                     .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
-                                    .currency(CardPayment.Element.CardDecline.Currency.CAD)
+                                    .currency(CardPayment.Element.CardDecline.Currency.USD)
                                     .declinedTransactionId(
                                         "declined_transaction_17jbn0yyhvkt4v4ooym8"
                                     )
@@ -9628,22 +9452,16 @@ internal class CardPaymentTest {
                                                             .NetworkDetails
                                                             .Visa
                                                             .ElectronicCommerceIndicator
-                                                            .MAIL_PHONE_ORDER
+                                                            .SECURE_ELECTRONIC_COMMERCE
                                                     )
                                                     .pointOfServiceEntryMode(
                                                         CardPayment.Element.CardDecline
                                                             .NetworkDetails
                                                             .Visa
                                                             .PointOfServiceEntryMode
-                                                            .UNKNOWN
+                                                            .MANUAL
                                                     )
-                                                    .standInProcessingReason(
-                                                        CardPayment.Element.CardDecline
-                                                            .NetworkDetails
-                                                            .Visa
-                                                            .StandInProcessingReason
-                                                            .ISSUER_ERROR
-                                                    )
+                                                    .standInProcessingReason(null)
                                                     .build()
                                             )
                                             .build()
@@ -9660,15 +9478,13 @@ internal class CardPaymentTest {
                                     .presentmentAmount(-1000L)
                                     .presentmentCurrency("USD")
                                     .processingCategory(
-                                        CardPayment.Element.CardDecline.ProcessingCategory
-                                            .ACCOUNT_FUNDING
+                                        CardPayment.Element.CardDecline.ProcessingCategory.PURCHASE
                                     )
                                     .realTimeDecisionId(null)
-                                    .realTimeDecisionReason(
-                                        CardPayment.Element.CardDecline.RealTimeDecisionReason
-                                            .INSUFFICIENT_FUNDS
+                                    .realTimeDecisionReason(null)
+                                    .reason(
+                                        CardPayment.Element.CardDecline.Reason.INSUFFICIENT_FUNDS
                                     )
-                                    .reason(CardPayment.Element.CardDecline.Reason.ACCOUNT_CLOSED)
                                     .terminalId("RCN5VNXS")
                                     .verification(
                                         CardPayment.Element.CardDecline.Verification.builder()
@@ -9680,7 +9496,7 @@ internal class CardPaymentTest {
                                                         CardPayment.Element.CardDecline.Verification
                                                             .CardVerificationCode
                                                             .Result
-                                                            .NOT_CHECKED
+                                                            .MATCH
                                                     )
                                                     .build()
                                             )
@@ -9696,7 +9512,7 @@ internal class CardPaymentTest {
                                                         CardPayment.Element.CardDecline.Verification
                                                             .CardholderAddress
                                                             .Result
-                                                            .NOT_CHECKED
+                                                            .POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
                                                     )
                                                     .build()
                                             )
@@ -9708,7 +9524,7 @@ internal class CardPaymentTest {
                                 CardPayment.Element.CardFuelConfirmation.builder()
                                     .id("card_fuel_confirmation_wuy91qate4judq2la80a")
                                     .cardAuthorizationId("card_authorization_6iqxap6ivd0fo5eu3i8x")
-                                    .currency(CardPayment.Element.CardFuelConfirmation.Currency.CAD)
+                                    .currency(CardPayment.Element.CardFuelConfirmation.Currency.USD)
                                     .network(CardPayment.Element.CardFuelConfirmation.Network.VISA)
                                     .networkIdentifiers(
                                         CardPayment.Element.CardFuelConfirmation.NetworkIdentifiers
@@ -9731,10 +9547,10 @@ internal class CardPaymentTest {
                             .cardIncrement(
                                 CardPayment.Element.CardIncrement.builder()
                                     .id("card_increment_6ztayc58j1od0rpebp3e")
-                                    .actioner(CardPayment.Element.CardIncrement.Actioner.USER)
+                                    .actioner(CardPayment.Element.CardIncrement.Actioner.INCREASE)
                                     .amount(20L)
                                     .cardAuthorizationId("card_authorization_6iqxap6ivd0fo5eu3i8x")
-                                    .currency(CardPayment.Element.CardIncrement.Currency.CAD)
+                                    .currency(CardPayment.Element.CardIncrement.Currency.USD)
                                     .network(CardPayment.Element.CardIncrement.Network.VISA)
                                     .networkIdentifiers(
                                         CardPayment.Element.CardIncrement.NetworkIdentifiers
@@ -9766,14 +9582,14 @@ internal class CardPaymentTest {
                                             )
                                             .build()
                                     )
-                                    .currency(CardPayment.Element.CardRefund.Currency.CAD)
+                                    .currency(CardPayment.Element.CardRefund.Currency.USD)
                                     .interchange(
                                         CardPayment.Element.CardRefund.Interchange.builder()
                                             .amount("0.137465")
                                             .code("271")
                                             .currency(
                                                 CardPayment.Element.CardRefund.Interchange.Currency
-                                                    .CAD
+                                                    .USD
                                             )
                                             .build()
                                     )
@@ -9852,7 +9668,7 @@ internal class CardPaymentTest {
                                                             .PurchaseDetails
                                                             .Lodging
                                                             .ExtraCharges
-                                                            .NO_EXTRA_CHARGE
+                                                            .RESTAURANT
                                                     )
                                                     .folioCashAdvancesAmount(0L)
                                                     .folioCashAdvancesCurrency("usd")
@@ -9863,7 +9679,7 @@ internal class CardPaymentTest {
                                                             .PurchaseDetails
                                                             .Lodging
                                                             .NoShowIndicator
-                                                            .NOT_APPLICABLE
+                                                            .NO_SHOW
                                                     )
                                                     .prepaidExpensesAmount(0L)
                                                     .prepaidExpensesCurrency("usd")
@@ -9880,7 +9696,7 @@ internal class CardPaymentTest {
                                             .purchaseIdentifierFormat(
                                                 CardPayment.Element.CardRefund.PurchaseDetails
                                                     .PurchaseIdentifierFormat
-                                                    .FREE_TEXT
+                                                    .ORDER_NUMBER
                                             )
                                             .travel(
                                                 CardPayment.Element.CardRefund.PurchaseDetails
@@ -9998,7 +9814,7 @@ internal class CardPaymentTest {
                                 CardPayment.Element.CardReversal.builder()
                                     .id("card_reversal_8vr9qy60cgf5d0slpb68")
                                     .cardAuthorizationId("card_authorization_6iqxap6ivd0fo5eu3i8x")
-                                    .currency(CardPayment.Element.CardReversal.Currency.CAD)
+                                    .currency(CardPayment.Element.CardReversal.Currency.USD)
                                     .merchantAcceptorId("5665270011000168")
                                     .merchantCategoryCode("5734")
                                     .merchantCity("New York")
@@ -10043,7 +9859,7 @@ internal class CardPaymentTest {
                                             )
                                             .build()
                                     )
-                                    .currency(CardPayment.Element.CardSettlement.Currency.CAD)
+                                    .currency(CardPayment.Element.CardSettlement.Currency.USD)
                                     .interchange(
                                         CardPayment.Element.CardSettlement.Interchange.builder()
                                             .amount("0.137465")
@@ -10051,7 +9867,7 @@ internal class CardPaymentTest {
                                             .currency(
                                                 CardPayment.Element.CardSettlement.Interchange
                                                     .Currency
-                                                    .CAD
+                                                    .USD
                                             )
                                             .build()
                                     )
@@ -10132,7 +9948,7 @@ internal class CardPaymentTest {
                                                             .PurchaseDetails
                                                             .Lodging
                                                             .ExtraCharges
-                                                            .NO_EXTRA_CHARGE
+                                                            .RESTAURANT
                                                     )
                                                     .folioCashAdvancesAmount(0L)
                                                     .folioCashAdvancesCurrency("usd")
@@ -10143,7 +9959,7 @@ internal class CardPaymentTest {
                                                             .PurchaseDetails
                                                             .Lodging
                                                             .NoShowIndicator
-                                                            .NOT_APPLICABLE
+                                                            .NO_SHOW
                                                     )
                                                     .prepaidExpensesAmount(0L)
                                                     .prepaidExpensesCurrency("usd")
@@ -10160,7 +9976,7 @@ internal class CardPaymentTest {
                                             .purchaseIdentifierFormat(
                                                 CardPayment.Element.CardSettlement.PurchaseDetails
                                                     .PurchaseIdentifierFormat
-                                                    .FREE_TEXT
+                                                    .ORDER_NUMBER
                                             )
                                             .travel(
                                                 CardPayment.Element.CardSettlement.PurchaseDetails
@@ -10277,9 +10093,9 @@ internal class CardPaymentTest {
                             .cardValidation(
                                 CardPayment.Element.CardValidation.builder()
                                     .id("card_validation_yi4e59jiaz6n9hx8tczv")
-                                    .actioner(CardPayment.Element.CardValidation.Actioner.USER)
+                                    .actioner(CardPayment.Element.CardValidation.Actioner.INCREASE)
                                     .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
-                                    .currency(CardPayment.Element.CardValidation.Currency.CAD)
+                                    .currency(CardPayment.Element.CardValidation.Currency.USD)
                                     .digitalWalletTokenId(null)
                                     .merchantAcceptorId("5665270011000168")
                                     .merchantCategoryCode("5734")
@@ -10304,22 +10120,16 @@ internal class CardPaymentTest {
                                                             .NetworkDetails
                                                             .Visa
                                                             .ElectronicCommerceIndicator
-                                                            .MAIL_PHONE_ORDER
+                                                            .SECURE_ELECTRONIC_COMMERCE
                                                     )
                                                     .pointOfServiceEntryMode(
                                                         CardPayment.Element.CardValidation
                                                             .NetworkDetails
                                                             .Visa
                                                             .PointOfServiceEntryMode
-                                                            .UNKNOWN
+                                                            .MANUAL
                                                     )
-                                                    .standInProcessingReason(
-                                                        CardPayment.Element.CardValidation
-                                                            .NetworkDetails
-                                                            .Visa
-                                                            .StandInProcessingReason
-                                                            .ISSUER_ERROR
-                                                    )
+                                                    .standInProcessingReason(null)
                                                     .build()
                                             )
                                             .build()
@@ -10348,7 +10158,7 @@ internal class CardPaymentTest {
                                                             .Verification
                                                             .CardVerificationCode
                                                             .Result
-                                                            .NOT_CHECKED
+                                                            .MATCH
                                                     )
                                                     .build()
                                             )
@@ -10365,7 +10175,7 @@ internal class CardPaymentTest {
                                                             .Verification
                                                             .CardholderAddress
                                                             .Result
-                                                            .NOT_CHECKED
+                                                            .POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
                                                     )
                                                     .build()
                                             )
@@ -10373,7 +10183,7 @@ internal class CardPaymentTest {
                                     )
                                     .build()
                             )
-                            .category(CardPayment.Element.Category.CARD_AUTHORIZATION)
+                            .category(CardPayment.Element.Category.CARD_INCREMENT)
                             .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                             .other(JsonValue.from(mapOf<String, Any>()))
                             .build(),
@@ -10416,12 +10226,9 @@ internal class CardPaymentTest {
                                             .build()
                                     )
                                     .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                                    .denyReason(
-                                        CardPayment.Element.CardAuthentication.DenyReason
-                                            .GROUP_LOCKED
-                                    )
+                                    .denyReason(null)
                                     .deviceChannel(
-                                        CardPayment.Element.CardAuthentication.DeviceChannel.APP
+                                        CardPayment.Element.CardAuthentication.DeviceChannel.BROWSER
                                     )
                                     .merchantAcceptorId("5665270011000168")
                                     .merchantCategoryCode("5734")
@@ -10430,7 +10237,10 @@ internal class CardPaymentTest {
                                     .purchaseAmount(1000L)
                                     .purchaseCurrency("USD")
                                     .realTimeDecisionId(null)
-                                    .status(CardPayment.Element.CardAuthentication.Status.DENIED)
+                                    .status(
+                                        CardPayment.Element.CardAuthentication.Status
+                                            .VALIDATING_CHALLENGE
+                                    )
                                     .type(
                                         CardPayment.Element.CardAuthentication.Type
                                             .CARD_AUTHENTICATION
@@ -10440,10 +10250,12 @@ internal class CardPaymentTest {
                             .cardAuthorization(
                                 CardPayment.Element.CardAuthorization.builder()
                                     .id("card_authorization_6iqxap6ivd0fo5eu3i8x")
-                                    .actioner(CardPayment.Element.CardAuthorization.Actioner.USER)
+                                    .actioner(
+                                        CardPayment.Element.CardAuthorization.Actioner.INCREASE
+                                    )
                                     .amount(100L)
                                     .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
-                                    .currency(CardPayment.Element.CardAuthorization.Currency.CAD)
+                                    .currency(CardPayment.Element.CardAuthorization.Currency.USD)
                                     .digitalWalletTokenId(null)
                                     .direction(
                                         CardPayment.Element.CardAuthorization.Direction.SETTLEMENT
@@ -10473,22 +10285,16 @@ internal class CardPaymentTest {
                                                             .NetworkDetails
                                                             .Visa
                                                             .ElectronicCommerceIndicator
-                                                            .MAIL_PHONE_ORDER
+                                                            .SECURE_ELECTRONIC_COMMERCE
                                                     )
                                                     .pointOfServiceEntryMode(
                                                         CardPayment.Element.CardAuthorization
                                                             .NetworkDetails
                                                             .Visa
                                                             .PointOfServiceEntryMode
-                                                            .UNKNOWN
+                                                            .MANUAL
                                                     )
-                                                    .standInProcessingReason(
-                                                        CardPayment.Element.CardAuthorization
-                                                            .NetworkDetails
-                                                            .Visa
-                                                            .StandInProcessingReason
-                                                            .ISSUER_ERROR
-                                                    )
+                                                    .standInProcessingReason(null)
                                                     .build()
                                             )
                                             .build()
@@ -10508,7 +10314,7 @@ internal class CardPaymentTest {
                                     .presentmentCurrency("USD")
                                     .processingCategory(
                                         CardPayment.Element.CardAuthorization.ProcessingCategory
-                                            .ACCOUNT_FUNDING
+                                            .PURCHASE
                                     )
                                     .realTimeDecisionId(null)
                                     .terminalId("RCN5VNXS")
@@ -10527,7 +10333,7 @@ internal class CardPaymentTest {
                                                             .Verification
                                                             .CardVerificationCode
                                                             .Result
-                                                            .NOT_CHECKED
+                                                            .MATCH
                                                     )
                                                     .build()
                                             )
@@ -10544,7 +10350,7 @@ internal class CardPaymentTest {
                                                             .Verification
                                                             .CardholderAddress
                                                             .Result
-                                                            .NOT_CHECKED
+                                                            .POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
                                                     )
                                                     .build()
                                             )
@@ -10557,7 +10363,7 @@ internal class CardPaymentTest {
                                     .id("card_authorization_expiration_9xxbjtmixs8sfluzux2e")
                                     .cardAuthorizationId("card_authorization_6iqxap6ivd0fo5eu3i8x")
                                     .currency(
-                                        CardPayment.Element.CardAuthorizationExpiration.Currency.CAD
+                                        CardPayment.Element.CardAuthorizationExpiration.Currency.USD
                                     )
                                     .expiredAmount(20L)
                                     .network(
@@ -10572,10 +10378,10 @@ internal class CardPaymentTest {
                             .cardDecline(
                                 CardPayment.Element.CardDecline.builder()
                                     .id("card_decline_bx3o8zd7glq8yvtwg25v")
-                                    .actioner(CardPayment.Element.CardDecline.Actioner.USER)
+                                    .actioner(CardPayment.Element.CardDecline.Actioner.INCREASE)
                                     .amount(-1000L)
                                     .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
-                                    .currency(CardPayment.Element.CardDecline.Currency.CAD)
+                                    .currency(CardPayment.Element.CardDecline.Currency.USD)
                                     .declinedTransactionId(
                                         "declined_transaction_17jbn0yyhvkt4v4ooym8"
                                     )
@@ -10603,22 +10409,16 @@ internal class CardPaymentTest {
                                                             .NetworkDetails
                                                             .Visa
                                                             .ElectronicCommerceIndicator
-                                                            .MAIL_PHONE_ORDER
+                                                            .SECURE_ELECTRONIC_COMMERCE
                                                     )
                                                     .pointOfServiceEntryMode(
                                                         CardPayment.Element.CardDecline
                                                             .NetworkDetails
                                                             .Visa
                                                             .PointOfServiceEntryMode
-                                                            .UNKNOWN
+                                                            .MANUAL
                                                     )
-                                                    .standInProcessingReason(
-                                                        CardPayment.Element.CardDecline
-                                                            .NetworkDetails
-                                                            .Visa
-                                                            .StandInProcessingReason
-                                                            .ISSUER_ERROR
-                                                    )
+                                                    .standInProcessingReason(null)
                                                     .build()
                                             )
                                             .build()
@@ -10635,15 +10435,13 @@ internal class CardPaymentTest {
                                     .presentmentAmount(-1000L)
                                     .presentmentCurrency("USD")
                                     .processingCategory(
-                                        CardPayment.Element.CardDecline.ProcessingCategory
-                                            .ACCOUNT_FUNDING
+                                        CardPayment.Element.CardDecline.ProcessingCategory.PURCHASE
                                     )
                                     .realTimeDecisionId(null)
-                                    .realTimeDecisionReason(
-                                        CardPayment.Element.CardDecline.RealTimeDecisionReason
-                                            .INSUFFICIENT_FUNDS
+                                    .realTimeDecisionReason(null)
+                                    .reason(
+                                        CardPayment.Element.CardDecline.Reason.INSUFFICIENT_FUNDS
                                     )
-                                    .reason(CardPayment.Element.CardDecline.Reason.ACCOUNT_CLOSED)
                                     .terminalId("RCN5VNXS")
                                     .verification(
                                         CardPayment.Element.CardDecline.Verification.builder()
@@ -10655,7 +10453,7 @@ internal class CardPaymentTest {
                                                         CardPayment.Element.CardDecline.Verification
                                                             .CardVerificationCode
                                                             .Result
-                                                            .NOT_CHECKED
+                                                            .MATCH
                                                     )
                                                     .build()
                                             )
@@ -10671,7 +10469,7 @@ internal class CardPaymentTest {
                                                         CardPayment.Element.CardDecline.Verification
                                                             .CardholderAddress
                                                             .Result
-                                                            .NOT_CHECKED
+                                                            .POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
                                                     )
                                                     .build()
                                             )
@@ -10683,7 +10481,7 @@ internal class CardPaymentTest {
                                 CardPayment.Element.CardFuelConfirmation.builder()
                                     .id("card_fuel_confirmation_wuy91qate4judq2la80a")
                                     .cardAuthorizationId("card_authorization_6iqxap6ivd0fo5eu3i8x")
-                                    .currency(CardPayment.Element.CardFuelConfirmation.Currency.CAD)
+                                    .currency(CardPayment.Element.CardFuelConfirmation.Currency.USD)
                                     .network(CardPayment.Element.CardFuelConfirmation.Network.VISA)
                                     .networkIdentifiers(
                                         CardPayment.Element.CardFuelConfirmation.NetworkIdentifiers
@@ -10706,10 +10504,10 @@ internal class CardPaymentTest {
                             .cardIncrement(
                                 CardPayment.Element.CardIncrement.builder()
                                     .id("card_increment_6ztayc58j1od0rpebp3e")
-                                    .actioner(CardPayment.Element.CardIncrement.Actioner.USER)
+                                    .actioner(CardPayment.Element.CardIncrement.Actioner.INCREASE)
                                     .amount(20L)
                                     .cardAuthorizationId("card_authorization_6iqxap6ivd0fo5eu3i8x")
-                                    .currency(CardPayment.Element.CardIncrement.Currency.CAD)
+                                    .currency(CardPayment.Element.CardIncrement.Currency.USD)
                                     .network(CardPayment.Element.CardIncrement.Network.VISA)
                                     .networkIdentifiers(
                                         CardPayment.Element.CardIncrement.NetworkIdentifiers
@@ -10741,14 +10539,14 @@ internal class CardPaymentTest {
                                             )
                                             .build()
                                     )
-                                    .currency(CardPayment.Element.CardRefund.Currency.CAD)
+                                    .currency(CardPayment.Element.CardRefund.Currency.USD)
                                     .interchange(
                                         CardPayment.Element.CardRefund.Interchange.builder()
                                             .amount("0.137465")
                                             .code("271")
                                             .currency(
                                                 CardPayment.Element.CardRefund.Interchange.Currency
-                                                    .CAD
+                                                    .USD
                                             )
                                             .build()
                                     )
@@ -10827,7 +10625,7 @@ internal class CardPaymentTest {
                                                             .PurchaseDetails
                                                             .Lodging
                                                             .ExtraCharges
-                                                            .NO_EXTRA_CHARGE
+                                                            .RESTAURANT
                                                     )
                                                     .folioCashAdvancesAmount(0L)
                                                     .folioCashAdvancesCurrency("usd")
@@ -10838,7 +10636,7 @@ internal class CardPaymentTest {
                                                             .PurchaseDetails
                                                             .Lodging
                                                             .NoShowIndicator
-                                                            .NOT_APPLICABLE
+                                                            .NO_SHOW
                                                     )
                                                     .prepaidExpensesAmount(0L)
                                                     .prepaidExpensesCurrency("usd")
@@ -10855,7 +10653,7 @@ internal class CardPaymentTest {
                                             .purchaseIdentifierFormat(
                                                 CardPayment.Element.CardRefund.PurchaseDetails
                                                     .PurchaseIdentifierFormat
-                                                    .FREE_TEXT
+                                                    .ORDER_NUMBER
                                             )
                                             .travel(
                                                 CardPayment.Element.CardRefund.PurchaseDetails
@@ -10973,7 +10771,7 @@ internal class CardPaymentTest {
                                 CardPayment.Element.CardReversal.builder()
                                     .id("card_reversal_8vr9qy60cgf5d0slpb68")
                                     .cardAuthorizationId("card_authorization_6iqxap6ivd0fo5eu3i8x")
-                                    .currency(CardPayment.Element.CardReversal.Currency.CAD)
+                                    .currency(CardPayment.Element.CardReversal.Currency.USD)
                                     .merchantAcceptorId("5665270011000168")
                                     .merchantCategoryCode("5734")
                                     .merchantCity("New York")
@@ -11018,7 +10816,7 @@ internal class CardPaymentTest {
                                             )
                                             .build()
                                     )
-                                    .currency(CardPayment.Element.CardSettlement.Currency.CAD)
+                                    .currency(CardPayment.Element.CardSettlement.Currency.USD)
                                     .interchange(
                                         CardPayment.Element.CardSettlement.Interchange.builder()
                                             .amount("0.137465")
@@ -11026,7 +10824,7 @@ internal class CardPaymentTest {
                                             .currency(
                                                 CardPayment.Element.CardSettlement.Interchange
                                                     .Currency
-                                                    .CAD
+                                                    .USD
                                             )
                                             .build()
                                     )
@@ -11107,7 +10905,7 @@ internal class CardPaymentTest {
                                                             .PurchaseDetails
                                                             .Lodging
                                                             .ExtraCharges
-                                                            .NO_EXTRA_CHARGE
+                                                            .RESTAURANT
                                                     )
                                                     .folioCashAdvancesAmount(0L)
                                                     .folioCashAdvancesCurrency("usd")
@@ -11118,7 +10916,7 @@ internal class CardPaymentTest {
                                                             .PurchaseDetails
                                                             .Lodging
                                                             .NoShowIndicator
-                                                            .NOT_APPLICABLE
+                                                            .NO_SHOW
                                                     )
                                                     .prepaidExpensesAmount(0L)
                                                     .prepaidExpensesCurrency("usd")
@@ -11135,7 +10933,7 @@ internal class CardPaymentTest {
                                             .purchaseIdentifierFormat(
                                                 CardPayment.Element.CardSettlement.PurchaseDetails
                                                     .PurchaseIdentifierFormat
-                                                    .FREE_TEXT
+                                                    .ORDER_NUMBER
                                             )
                                             .travel(
                                                 CardPayment.Element.CardSettlement.PurchaseDetails
@@ -11252,9 +11050,9 @@ internal class CardPaymentTest {
                             .cardValidation(
                                 CardPayment.Element.CardValidation.builder()
                                     .id("card_validation_yi4e59jiaz6n9hx8tczv")
-                                    .actioner(CardPayment.Element.CardValidation.Actioner.USER)
+                                    .actioner(CardPayment.Element.CardValidation.Actioner.INCREASE)
                                     .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
-                                    .currency(CardPayment.Element.CardValidation.Currency.CAD)
+                                    .currency(CardPayment.Element.CardValidation.Currency.USD)
                                     .digitalWalletTokenId(null)
                                     .merchantAcceptorId("5665270011000168")
                                     .merchantCategoryCode("5734")
@@ -11279,22 +11077,16 @@ internal class CardPaymentTest {
                                                             .NetworkDetails
                                                             .Visa
                                                             .ElectronicCommerceIndicator
-                                                            .MAIL_PHONE_ORDER
+                                                            .SECURE_ELECTRONIC_COMMERCE
                                                     )
                                                     .pointOfServiceEntryMode(
                                                         CardPayment.Element.CardValidation
                                                             .NetworkDetails
                                                             .Visa
                                                             .PointOfServiceEntryMode
-                                                            .UNKNOWN
+                                                            .MANUAL
                                                     )
-                                                    .standInProcessingReason(
-                                                        CardPayment.Element.CardValidation
-                                                            .NetworkDetails
-                                                            .Visa
-                                                            .StandInProcessingReason
-                                                            .ISSUER_ERROR
-                                                    )
+                                                    .standInProcessingReason(null)
                                                     .build()
                                             )
                                             .build()
@@ -11323,7 +11115,7 @@ internal class CardPaymentTest {
                                                             .Verification
                                                             .CardVerificationCode
                                                             .Result
-                                                            .NOT_CHECKED
+                                                            .MATCH
                                                     )
                                                     .build()
                                             )
@@ -11340,7 +11132,7 @@ internal class CardPaymentTest {
                                                             .Verification
                                                             .CardholderAddress
                                                             .Result
-                                                            .NOT_CHECKED
+                                                            .POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
                                                     )
                                                     .build()
                                             )
@@ -11348,7 +11140,7 @@ internal class CardPaymentTest {
                                     )
                                     .build()
                             )
-                            .category(CardPayment.Element.Category.CARD_AUTHORIZATION)
+                            .category(CardPayment.Element.Category.CARD_SETTLEMENT)
                             .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                             .other(JsonValue.from(mapOf<String, Any>()))
                             .build(),

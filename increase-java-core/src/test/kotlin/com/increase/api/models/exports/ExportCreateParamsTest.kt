@@ -12,7 +12,7 @@ internal class ExportCreateParamsTest {
     @Test
     fun create() {
         ExportCreateParams.builder()
-            .category(ExportCreateParams.Category.ACCOUNT_STATEMENT_OFX)
+            .category(ExportCreateParams.Category.TRANSACTION_CSV)
             .accountStatementOfx(
                 ExportCreateParams.AccountStatementOfx.builder()
                     .accountId("account_id")
@@ -84,7 +84,7 @@ internal class ExportCreateParamsTest {
     fun body() {
         val params =
             ExportCreateParams.builder()
-                .category(ExportCreateParams.Category.ACCOUNT_STATEMENT_OFX)
+                .category(ExportCreateParams.Category.TRANSACTION_CSV)
                 .accountStatementOfx(
                     ExportCreateParams.AccountStatementOfx.builder()
                         .accountId("account_id")
@@ -153,7 +153,7 @@ internal class ExportCreateParamsTest {
 
         val body = params._body()
 
-        assertThat(body.category()).isEqualTo(ExportCreateParams.Category.ACCOUNT_STATEMENT_OFX)
+        assertThat(body.category()).isEqualTo(ExportCreateParams.Category.TRANSACTION_CSV)
         assertThat(body.accountStatementOfx())
             .contains(
                 ExportCreateParams.AccountStatementOfx.builder()
@@ -229,11 +229,11 @@ internal class ExportCreateParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             ExportCreateParams.builder()
-                .category(ExportCreateParams.Category.ACCOUNT_STATEMENT_OFX)
+                .category(ExportCreateParams.Category.TRANSACTION_CSV)
                 .build()
 
         val body = params._body()
 
-        assertThat(body.category()).isEqualTo(ExportCreateParams.Category.ACCOUNT_STATEMENT_OFX)
+        assertThat(body.category()).isEqualTo(ExportCreateParams.Category.TRANSACTION_CSV)
     }
 }

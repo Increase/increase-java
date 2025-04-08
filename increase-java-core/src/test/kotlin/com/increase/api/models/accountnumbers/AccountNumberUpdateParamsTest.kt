@@ -13,7 +13,7 @@ internal class AccountNumberUpdateParamsTest {
             .accountNumberId("account_number_v18nkfqm6afpsrvy82b2")
             .inboundAch(
                 AccountNumberUpdateParams.InboundAch.builder()
-                    .debitStatus(AccountNumberUpdateParams.InboundAch.DebitStatus.ALLOWED)
+                    .debitStatus(AccountNumberUpdateParams.InboundAch.DebitStatus.BLOCKED)
                     .build()
             )
             .inboundChecks(
@@ -22,7 +22,7 @@ internal class AccountNumberUpdateParamsTest {
                     .build()
             )
             .name("x")
-            .status(AccountNumberUpdateParams.Status.ACTIVE)
+            .status(AccountNumberUpdateParams.Status.DISABLED)
             .build()
     }
 
@@ -45,7 +45,7 @@ internal class AccountNumberUpdateParamsTest {
                 .accountNumberId("account_number_v18nkfqm6afpsrvy82b2")
                 .inboundAch(
                     AccountNumberUpdateParams.InboundAch.builder()
-                        .debitStatus(AccountNumberUpdateParams.InboundAch.DebitStatus.ALLOWED)
+                        .debitStatus(AccountNumberUpdateParams.InboundAch.DebitStatus.BLOCKED)
                         .build()
                 )
                 .inboundChecks(
@@ -54,7 +54,7 @@ internal class AccountNumberUpdateParamsTest {
                         .build()
                 )
                 .name("x")
-                .status(AccountNumberUpdateParams.Status.ACTIVE)
+                .status(AccountNumberUpdateParams.Status.DISABLED)
                 .build()
 
         val body = params._body()
@@ -62,7 +62,7 @@ internal class AccountNumberUpdateParamsTest {
         assertThat(body.inboundAch())
             .contains(
                 AccountNumberUpdateParams.InboundAch.builder()
-                    .debitStatus(AccountNumberUpdateParams.InboundAch.DebitStatus.ALLOWED)
+                    .debitStatus(AccountNumberUpdateParams.InboundAch.DebitStatus.BLOCKED)
                     .build()
             )
         assertThat(body.inboundChecks())
@@ -72,7 +72,7 @@ internal class AccountNumberUpdateParamsTest {
                     .build()
             )
         assertThat(body.name()).contains("x")
-        assertThat(body.status()).contains(AccountNumberUpdateParams.Status.ACTIVE)
+        assertThat(body.status()).contains(AccountNumberUpdateParams.Status.DISABLED)
     }
 
     @Test

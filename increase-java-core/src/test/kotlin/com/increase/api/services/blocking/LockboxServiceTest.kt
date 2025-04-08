@@ -66,7 +66,7 @@ internal class LockboxServiceTest {
                     .lockboxId("lockbox_3xt21ok13q19advds4t5")
                     .description("x")
                     .recipientName("x")
-                    .status(LockboxUpdateParams.Status.ACTIVE)
+                    .status(LockboxUpdateParams.Status.INACTIVE)
                     .build()
             )
 

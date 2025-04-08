@@ -95,9 +95,7 @@ internal class EntityCreateParamsTest {
                                     .confirmedNoUsTaxId(true)
                                     .build()
                             )
-                            .addProng(
-                                EntityCreateParams.Corporation.BeneficialOwner.Prong.OWNERSHIP
-                            )
+                            .addProng(EntityCreateParams.Corporation.BeneficialOwner.Prong.CONTROL)
                             .companyTitle("CEO")
                             .build()
                     )
@@ -488,7 +486,7 @@ internal class EntityCreateParamsTest {
                                         .build()
                                 )
                                 .addProng(
-                                    EntityCreateParams.Corporation.BeneficialOwner.Prong.OWNERSHIP
+                                    EntityCreateParams.Corporation.BeneficialOwner.Prong.CONTROL
                                 )
                                 .companyTitle("CEO")
                                 .build()
@@ -878,9 +876,7 @@ internal class EntityCreateParamsTest {
                                     .confirmedNoUsTaxId(true)
                                     .build()
                             )
-                            .addProng(
-                                EntityCreateParams.Corporation.BeneficialOwner.Prong.OWNERSHIP
-                            )
+                            .addProng(EntityCreateParams.Corporation.BeneficialOwner.Prong.CONTROL)
                             .companyTitle("CEO")
                             .build()
                     )

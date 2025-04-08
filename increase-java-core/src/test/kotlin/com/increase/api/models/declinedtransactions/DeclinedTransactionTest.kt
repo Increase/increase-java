@@ -19,7 +19,7 @@ internal class DeclinedTransactionTest {
                 .accountId("account_in71c4amph0vgo2qllky")
                 .amount(1750L)
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                .currency(DeclinedTransaction.Currency.CAD)
+                .currency(DeclinedTransaction.Currency.USD)
                 .description("INVOICE 2468")
                 .routeId("account_number_v18nkfqm6afpsrvy82b2")
                 .routeType(DeclinedTransaction.RouteType.ACCOUNT_NUMBER)
@@ -35,7 +35,7 @@ internal class DeclinedTransactionTest {
                                 .originatorCompanyId("0987654321")
                                 .originatorCompanyName("BIG BANK")
                                 .reason(
-                                    DeclinedTransaction.Source.AchDecline.Reason.ACH_ROUTE_CANCELED
+                                    DeclinedTransaction.Source.AchDecline.Reason.INSUFFICIENT_FUNDS
                                 )
                                 .receiverIdNumber("12345678900")
                                 .receiverName("IAN CREASE")
@@ -46,10 +46,10 @@ internal class DeclinedTransactionTest {
                         .cardDecline(
                             DeclinedTransaction.Source.CardDecline.builder()
                                 .id("card_decline_bx3o8zd7glq8yvtwg25v")
-                                .actioner(DeclinedTransaction.Source.CardDecline.Actioner.USER)
+                                .actioner(DeclinedTransaction.Source.CardDecline.Actioner.INCREASE)
                                 .amount(-1000L)
                                 .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
-                                .currency(DeclinedTransaction.Source.CardDecline.Currency.CAD)
+                                .currency(DeclinedTransaction.Source.CardDecline.Currency.USD)
                                 .declinedTransactionId("declined_transaction_17jbn0yyhvkt4v4ooym8")
                                 .digitalWalletTokenId(null)
                                 .direction(
@@ -78,22 +78,16 @@ internal class DeclinedTransactionTest {
                                                         .NetworkDetails
                                                         .Visa
                                                         .ElectronicCommerceIndicator
-                                                        .MAIL_PHONE_ORDER
+                                                        .SECURE_ELECTRONIC_COMMERCE
                                                 )
                                                 .pointOfServiceEntryMode(
                                                     DeclinedTransaction.Source.CardDecline
                                                         .NetworkDetails
                                                         .Visa
                                                         .PointOfServiceEntryMode
-                                                        .UNKNOWN
+                                                        .MANUAL
                                                 )
-                                                .standInProcessingReason(
-                                                    DeclinedTransaction.Source.CardDecline
-                                                        .NetworkDetails
-                                                        .Visa
-                                                        .StandInProcessingReason
-                                                        .ISSUER_ERROR
-                                                )
+                                                .standInProcessingReason(null)
                                                 .build()
                                         )
                                         .build()
@@ -112,15 +106,12 @@ internal class DeclinedTransactionTest {
                                 .presentmentCurrency("USD")
                                 .processingCategory(
                                     DeclinedTransaction.Source.CardDecline.ProcessingCategory
-                                        .ACCOUNT_FUNDING
+                                        .PURCHASE
                                 )
                                 .realTimeDecisionId(null)
-                                .realTimeDecisionReason(
-                                    DeclinedTransaction.Source.CardDecline.RealTimeDecisionReason
-                                        .INSUFFICIENT_FUNDS
-                                )
+                                .realTimeDecisionReason(null)
                                 .reason(
-                                    DeclinedTransaction.Source.CardDecline.Reason.ACCOUNT_CLOSED
+                                    DeclinedTransaction.Source.CardDecline.Reason.INSUFFICIENT_FUNDS
                                 )
                                 .terminalId("RCN5VNXS")
                                 .verification(
@@ -134,7 +125,7 @@ internal class DeclinedTransactionTest {
                                                         .Verification
                                                         .CardVerificationCode
                                                         .Result
-                                                        .NOT_CHECKED
+                                                        .MATCH
                                                 )
                                                 .build()
                                         )
@@ -151,7 +142,7 @@ internal class DeclinedTransactionTest {
                                                         .Verification
                                                         .CardholderAddress
                                                         .Result
-                                                        .NOT_CHECKED
+                                                        .POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
                                                 )
                                                 .build()
                                         )
@@ -170,7 +161,7 @@ internal class DeclinedTransactionTest {
                                 .inboundCheckDepositId("inbound_check_deposit_zoshvqybq0cjjm31mra")
                                 .reason(
                                     DeclinedTransaction.Source.CheckDecline.Reason
-                                        .ACH_ROUTE_DISABLED
+                                        .INSUFFICIENT_FUNDS
                                 )
                                 .build()
                         )
@@ -179,7 +170,7 @@ internal class DeclinedTransactionTest {
                                 .amount(1750L)
                                 .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
                                 .currency(
-                                    DeclinedTransaction.Source.CheckDepositRejection.Currency.CAD
+                                    DeclinedTransaction.Source.CheckDepositRejection.Currency.USD
                                 )
                                 .declinedTransactionId("declined_transaction_17jbn0yyhvkt4v4ooym8")
                                 .reason(
@@ -198,7 +189,7 @@ internal class DeclinedTransactionTest {
                                     DeclinedTransaction.Source
                                         .InboundRealTimePaymentsTransferDecline
                                         .Currency
-                                        .CAD
+                                        .USD
                                 )
                                 .debtorAccountNumber("987654321")
                                 .debtorName("National Phonograph Company")
@@ -207,7 +198,7 @@ internal class DeclinedTransactionTest {
                                     DeclinedTransaction.Source
                                         .InboundRealTimePaymentsTransferDecline
                                         .Reason
-                                        .ACCOUNT_NUMBER_CANCELED
+                                        .ACCOUNT_NUMBER_DISABLED
                                 )
                                 .remittanceInformation("Invoice 29582")
                                 .transactionIdentification("20220501234567891T1BSLZO01745013025")
@@ -222,7 +213,7 @@ internal class DeclinedTransactionTest {
                                 .inboundWireTransferId("inbound_wire_transfer_f228m6bmhtcxjco9pwp0")
                                 .reason(
                                     DeclinedTransaction.Source.WireDecline.Reason
-                                        .ACCOUNT_NUMBER_CANCELED
+                                        .ACCOUNT_NUMBER_DISABLED
                                 )
                                 .build()
                         )
@@ -236,7 +227,7 @@ internal class DeclinedTransactionTest {
         assertThat(declinedTransaction.amount()).isEqualTo(1750L)
         assertThat(declinedTransaction.createdAt())
             .isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-        assertThat(declinedTransaction.currency()).isEqualTo(DeclinedTransaction.Currency.CAD)
+        assertThat(declinedTransaction.currency()).isEqualTo(DeclinedTransaction.Currency.USD)
         assertThat(declinedTransaction.description()).isEqualTo("INVOICE 2468")
         assertThat(declinedTransaction.routeId()).contains("account_number_v18nkfqm6afpsrvy82b2")
         assertThat(declinedTransaction.routeType())
@@ -253,7 +244,7 @@ internal class DeclinedTransactionTest {
                             .originatorCompanyDiscretionaryData(null)
                             .originatorCompanyId("0987654321")
                             .originatorCompanyName("BIG BANK")
-                            .reason(DeclinedTransaction.Source.AchDecline.Reason.ACH_ROUTE_CANCELED)
+                            .reason(DeclinedTransaction.Source.AchDecline.Reason.INSUFFICIENT_FUNDS)
                             .receiverIdNumber("12345678900")
                             .receiverName("IAN CREASE")
                             .traceNumber("021000038461022")
@@ -263,10 +254,10 @@ internal class DeclinedTransactionTest {
                     .cardDecline(
                         DeclinedTransaction.Source.CardDecline.builder()
                             .id("card_decline_bx3o8zd7glq8yvtwg25v")
-                            .actioner(DeclinedTransaction.Source.CardDecline.Actioner.USER)
+                            .actioner(DeclinedTransaction.Source.CardDecline.Actioner.INCREASE)
                             .amount(-1000L)
                             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
-                            .currency(DeclinedTransaction.Source.CardDecline.Currency.CAD)
+                            .currency(DeclinedTransaction.Source.CardDecline.Currency.USD)
                             .declinedTransactionId("declined_transaction_17jbn0yyhvkt4v4ooym8")
                             .digitalWalletTokenId(null)
                             .direction(DeclinedTransaction.Source.CardDecline.Direction.SETTLEMENT)
@@ -292,22 +283,16 @@ internal class DeclinedTransactionTest {
                                                     .NetworkDetails
                                                     .Visa
                                                     .ElectronicCommerceIndicator
-                                                    .MAIL_PHONE_ORDER
+                                                    .SECURE_ELECTRONIC_COMMERCE
                                             )
                                             .pointOfServiceEntryMode(
                                                 DeclinedTransaction.Source.CardDecline
                                                     .NetworkDetails
                                                     .Visa
                                                     .PointOfServiceEntryMode
-                                                    .UNKNOWN
+                                                    .MANUAL
                                             )
-                                            .standInProcessingReason(
-                                                DeclinedTransaction.Source.CardDecline
-                                                    .NetworkDetails
-                                                    .Visa
-                                                    .StandInProcessingReason
-                                                    .ISSUER_ERROR
-                                            )
+                                            .standInProcessingReason(null)
                                             .build()
                                     )
                                     .build()
@@ -324,15 +309,13 @@ internal class DeclinedTransactionTest {
                             .presentmentAmount(-1000L)
                             .presentmentCurrency("USD")
                             .processingCategory(
-                                DeclinedTransaction.Source.CardDecline.ProcessingCategory
-                                    .ACCOUNT_FUNDING
+                                DeclinedTransaction.Source.CardDecline.ProcessingCategory.PURCHASE
                             )
                             .realTimeDecisionId(null)
-                            .realTimeDecisionReason(
-                                DeclinedTransaction.Source.CardDecline.RealTimeDecisionReason
-                                    .INSUFFICIENT_FUNDS
+                            .realTimeDecisionReason(null)
+                            .reason(
+                                DeclinedTransaction.Source.CardDecline.Reason.INSUFFICIENT_FUNDS
                             )
-                            .reason(DeclinedTransaction.Source.CardDecline.Reason.ACCOUNT_CLOSED)
                             .terminalId("RCN5VNXS")
                             .verification(
                                 DeclinedTransaction.Source.CardDecline.Verification.builder()
@@ -344,7 +327,7 @@ internal class DeclinedTransactionTest {
                                                 DeclinedTransaction.Source.CardDecline.Verification
                                                     .CardVerificationCode
                                                     .Result
-                                                    .NOT_CHECKED
+                                                    .MATCH
                                             )
                                             .build()
                                     )
@@ -360,7 +343,7 @@ internal class DeclinedTransactionTest {
                                                 DeclinedTransaction.Source.CardDecline.Verification
                                                     .CardholderAddress
                                                     .Result
-                                                    .NOT_CHECKED
+                                                    .POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
                                             )
                                             .build()
                                     )
@@ -378,7 +361,7 @@ internal class DeclinedTransactionTest {
                             .frontImageFileId(null)
                             .inboundCheckDepositId("inbound_check_deposit_zoshvqybq0cjjm31mra")
                             .reason(
-                                DeclinedTransaction.Source.CheckDecline.Reason.ACH_ROUTE_DISABLED
+                                DeclinedTransaction.Source.CheckDecline.Reason.INSUFFICIENT_FUNDS
                             )
                             .build()
                     )
@@ -386,7 +369,7 @@ internal class DeclinedTransactionTest {
                         DeclinedTransaction.Source.CheckDepositRejection.builder()
                             .amount(1750L)
                             .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
-                            .currency(DeclinedTransaction.Source.CheckDepositRejection.Currency.CAD)
+                            .currency(DeclinedTransaction.Source.CheckDepositRejection.Currency.USD)
                             .declinedTransactionId("declined_transaction_17jbn0yyhvkt4v4ooym8")
                             .reason(
                                 DeclinedTransaction.Source.CheckDepositRejection.Reason
@@ -402,7 +385,7 @@ internal class DeclinedTransactionTest {
                             .currency(
                                 DeclinedTransaction.Source.InboundRealTimePaymentsTransferDecline
                                     .Currency
-                                    .CAD
+                                    .USD
                             )
                             .debtorAccountNumber("987654321")
                             .debtorName("National Phonograph Company")
@@ -410,7 +393,7 @@ internal class DeclinedTransactionTest {
                             .reason(
                                 DeclinedTransaction.Source.InboundRealTimePaymentsTransferDecline
                                     .Reason
-                                    .ACCOUNT_NUMBER_CANCELED
+                                    .ACCOUNT_NUMBER_DISABLED
                             )
                             .remittanceInformation("Invoice 29582")
                             .transactionIdentification("20220501234567891T1BSLZO01745013025")
@@ -423,7 +406,7 @@ internal class DeclinedTransactionTest {
                             .inboundWireTransferId("inbound_wire_transfer_f228m6bmhtcxjco9pwp0")
                             .reason(
                                 DeclinedTransaction.Source.WireDecline.Reason
-                                    .ACCOUNT_NUMBER_CANCELED
+                                    .ACCOUNT_NUMBER_DISABLED
                             )
                             .build()
                     )
@@ -442,7 +425,7 @@ internal class DeclinedTransactionTest {
                 .accountId("account_in71c4amph0vgo2qllky")
                 .amount(1750L)
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                .currency(DeclinedTransaction.Currency.CAD)
+                .currency(DeclinedTransaction.Currency.USD)
                 .description("INVOICE 2468")
                 .routeId("account_number_v18nkfqm6afpsrvy82b2")
                 .routeType(DeclinedTransaction.RouteType.ACCOUNT_NUMBER)
@@ -458,7 +441,7 @@ internal class DeclinedTransactionTest {
                                 .originatorCompanyId("0987654321")
                                 .originatorCompanyName("BIG BANK")
                                 .reason(
-                                    DeclinedTransaction.Source.AchDecline.Reason.ACH_ROUTE_CANCELED
+                                    DeclinedTransaction.Source.AchDecline.Reason.INSUFFICIENT_FUNDS
                                 )
                                 .receiverIdNumber("12345678900")
                                 .receiverName("IAN CREASE")
@@ -469,10 +452,10 @@ internal class DeclinedTransactionTest {
                         .cardDecline(
                             DeclinedTransaction.Source.CardDecline.builder()
                                 .id("card_decline_bx3o8zd7glq8yvtwg25v")
-                                .actioner(DeclinedTransaction.Source.CardDecline.Actioner.USER)
+                                .actioner(DeclinedTransaction.Source.CardDecline.Actioner.INCREASE)
                                 .amount(-1000L)
                                 .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
-                                .currency(DeclinedTransaction.Source.CardDecline.Currency.CAD)
+                                .currency(DeclinedTransaction.Source.CardDecline.Currency.USD)
                                 .declinedTransactionId("declined_transaction_17jbn0yyhvkt4v4ooym8")
                                 .digitalWalletTokenId(null)
                                 .direction(
@@ -501,22 +484,16 @@ internal class DeclinedTransactionTest {
                                                         .NetworkDetails
                                                         .Visa
                                                         .ElectronicCommerceIndicator
-                                                        .MAIL_PHONE_ORDER
+                                                        .SECURE_ELECTRONIC_COMMERCE
                                                 )
                                                 .pointOfServiceEntryMode(
                                                     DeclinedTransaction.Source.CardDecline
                                                         .NetworkDetails
                                                         .Visa
                                                         .PointOfServiceEntryMode
-                                                        .UNKNOWN
+                                                        .MANUAL
                                                 )
-                                                .standInProcessingReason(
-                                                    DeclinedTransaction.Source.CardDecline
-                                                        .NetworkDetails
-                                                        .Visa
-                                                        .StandInProcessingReason
-                                                        .ISSUER_ERROR
-                                                )
+                                                .standInProcessingReason(null)
                                                 .build()
                                         )
                                         .build()
@@ -535,15 +512,12 @@ internal class DeclinedTransactionTest {
                                 .presentmentCurrency("USD")
                                 .processingCategory(
                                     DeclinedTransaction.Source.CardDecline.ProcessingCategory
-                                        .ACCOUNT_FUNDING
+                                        .PURCHASE
                                 )
                                 .realTimeDecisionId(null)
-                                .realTimeDecisionReason(
-                                    DeclinedTransaction.Source.CardDecline.RealTimeDecisionReason
-                                        .INSUFFICIENT_FUNDS
-                                )
+                                .realTimeDecisionReason(null)
                                 .reason(
-                                    DeclinedTransaction.Source.CardDecline.Reason.ACCOUNT_CLOSED
+                                    DeclinedTransaction.Source.CardDecline.Reason.INSUFFICIENT_FUNDS
                                 )
                                 .terminalId("RCN5VNXS")
                                 .verification(
@@ -557,7 +531,7 @@ internal class DeclinedTransactionTest {
                                                         .Verification
                                                         .CardVerificationCode
                                                         .Result
-                                                        .NOT_CHECKED
+                                                        .MATCH
                                                 )
                                                 .build()
                                         )
@@ -574,7 +548,7 @@ internal class DeclinedTransactionTest {
                                                         .Verification
                                                         .CardholderAddress
                                                         .Result
-                                                        .NOT_CHECKED
+                                                        .POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
                                                 )
                                                 .build()
                                         )
@@ -593,7 +567,7 @@ internal class DeclinedTransactionTest {
                                 .inboundCheckDepositId("inbound_check_deposit_zoshvqybq0cjjm31mra")
                                 .reason(
                                     DeclinedTransaction.Source.CheckDecline.Reason
-                                        .ACH_ROUTE_DISABLED
+                                        .INSUFFICIENT_FUNDS
                                 )
                                 .build()
                         )
@@ -602,7 +576,7 @@ internal class DeclinedTransactionTest {
                                 .amount(1750L)
                                 .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
                                 .currency(
-                                    DeclinedTransaction.Source.CheckDepositRejection.Currency.CAD
+                                    DeclinedTransaction.Source.CheckDepositRejection.Currency.USD
                                 )
                                 .declinedTransactionId("declined_transaction_17jbn0yyhvkt4v4ooym8")
                                 .reason(
@@ -621,7 +595,7 @@ internal class DeclinedTransactionTest {
                                     DeclinedTransaction.Source
                                         .InboundRealTimePaymentsTransferDecline
                                         .Currency
-                                        .CAD
+                                        .USD
                                 )
                                 .debtorAccountNumber("987654321")
                                 .debtorName("National Phonograph Company")
@@ -630,7 +604,7 @@ internal class DeclinedTransactionTest {
                                     DeclinedTransaction.Source
                                         .InboundRealTimePaymentsTransferDecline
                                         .Reason
-                                        .ACCOUNT_NUMBER_CANCELED
+                                        .ACCOUNT_NUMBER_DISABLED
                                 )
                                 .remittanceInformation("Invoice 29582")
                                 .transactionIdentification("20220501234567891T1BSLZO01745013025")
@@ -645,7 +619,7 @@ internal class DeclinedTransactionTest {
                                 .inboundWireTransferId("inbound_wire_transfer_f228m6bmhtcxjco9pwp0")
                                 .reason(
                                     DeclinedTransaction.Source.WireDecline.Reason
-                                        .ACCOUNT_NUMBER_CANCELED
+                                        .ACCOUNT_NUMBER_DISABLED
                                 )
                                 .build()
                         )

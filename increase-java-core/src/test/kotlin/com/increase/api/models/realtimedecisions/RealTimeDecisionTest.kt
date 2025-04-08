@@ -57,18 +57,14 @@ internal class RealTimeDecisionTest {
                                         .electronicCommerceIndicator(
                                             RealTimeDecision.CardAuthorization.NetworkDetails.Visa
                                                 .ElectronicCommerceIndicator
-                                                .MAIL_PHONE_ORDER
+                                                .SECURE_ELECTRONIC_COMMERCE
                                         )
                                         .pointOfServiceEntryMode(
                                             RealTimeDecision.CardAuthorization.NetworkDetails.Visa
                                                 .PointOfServiceEntryMode
-                                                .UNKNOWN
+                                                .MANUAL
                                         )
-                                        .standInProcessingReason(
-                                            RealTimeDecision.CardAuthorization.NetworkDetails.Visa
-                                                .StandInProcessingReason
-                                                .ISSUER_ERROR
-                                        )
+                                        .standInProcessingReason(null)
                                         .build()
                                 )
                                 .build()
@@ -85,7 +81,7 @@ internal class RealTimeDecisionTest {
                         .presentmentAmount(100L)
                         .presentmentCurrency("USD")
                         .processingCategory(
-                            RealTimeDecision.CardAuthorization.ProcessingCategory.ACCOUNT_FUNDING
+                            RealTimeDecision.CardAuthorization.ProcessingCategory.PURCHASE
                         )
                         .requestDetails(
                             RealTimeDecision.CardAuthorization.RequestDetails.builder()
@@ -120,7 +116,7 @@ internal class RealTimeDecisionTest {
                                             RealTimeDecision.CardAuthorization.Verification
                                                 .CardVerificationCode
                                                 .Result
-                                                .NOT_CHECKED
+                                                .MATCH
                                         )
                                         .build()
                                 )
@@ -136,7 +132,7 @@ internal class RealTimeDecisionTest {
                                             RealTimeDecision.CardAuthorization.Verification
                                                 .CardholderAddress
                                                 .Result
-                                                .NOT_CHECKED
+                                                .POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
                                         )
                                         .build()
                                 )
@@ -222,18 +218,14 @@ internal class RealTimeDecisionTest {
                                     .electronicCommerceIndicator(
                                         RealTimeDecision.CardAuthorization.NetworkDetails.Visa
                                             .ElectronicCommerceIndicator
-                                            .MAIL_PHONE_ORDER
+                                            .SECURE_ELECTRONIC_COMMERCE
                                     )
                                     .pointOfServiceEntryMode(
                                         RealTimeDecision.CardAuthorization.NetworkDetails.Visa
                                             .PointOfServiceEntryMode
-                                            .UNKNOWN
+                                            .MANUAL
                                     )
-                                    .standInProcessingReason(
-                                        RealTimeDecision.CardAuthorization.NetworkDetails.Visa
-                                            .StandInProcessingReason
-                                            .ISSUER_ERROR
-                                    )
+                                    .standInProcessingReason(null)
                                     .build()
                             )
                             .build()
@@ -250,7 +242,7 @@ internal class RealTimeDecisionTest {
                     .presentmentAmount(100L)
                     .presentmentCurrency("USD")
                     .processingCategory(
-                        RealTimeDecision.CardAuthorization.ProcessingCategory.ACCOUNT_FUNDING
+                        RealTimeDecision.CardAuthorization.ProcessingCategory.PURCHASE
                     )
                     .requestDetails(
                         RealTimeDecision.CardAuthorization.RequestDetails.builder()
@@ -282,7 +274,7 @@ internal class RealTimeDecisionTest {
                                         RealTimeDecision.CardAuthorization.Verification
                                             .CardVerificationCode
                                             .Result
-                                            .NOT_CHECKED
+                                            .MATCH
                                     )
                                     .build()
                             )
@@ -297,7 +289,7 @@ internal class RealTimeDecisionTest {
                                         RealTimeDecision.CardAuthorization.Verification
                                             .CardholderAddress
                                             .Result
-                                            .NOT_CHECKED
+                                            .POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
                                     )
                                     .build()
                             )
@@ -390,18 +382,14 @@ internal class RealTimeDecisionTest {
                                         .electronicCommerceIndicator(
                                             RealTimeDecision.CardAuthorization.NetworkDetails.Visa
                                                 .ElectronicCommerceIndicator
-                                                .MAIL_PHONE_ORDER
+                                                .SECURE_ELECTRONIC_COMMERCE
                                         )
                                         .pointOfServiceEntryMode(
                                             RealTimeDecision.CardAuthorization.NetworkDetails.Visa
                                                 .PointOfServiceEntryMode
-                                                .UNKNOWN
+                                                .MANUAL
                                         )
-                                        .standInProcessingReason(
-                                            RealTimeDecision.CardAuthorization.NetworkDetails.Visa
-                                                .StandInProcessingReason
-                                                .ISSUER_ERROR
-                                        )
+                                        .standInProcessingReason(null)
                                         .build()
                                 )
                                 .build()
@@ -418,7 +406,7 @@ internal class RealTimeDecisionTest {
                         .presentmentAmount(100L)
                         .presentmentCurrency("USD")
                         .processingCategory(
-                            RealTimeDecision.CardAuthorization.ProcessingCategory.ACCOUNT_FUNDING
+                            RealTimeDecision.CardAuthorization.ProcessingCategory.PURCHASE
                         )
                         .requestDetails(
                             RealTimeDecision.CardAuthorization.RequestDetails.builder()
@@ -453,7 +441,7 @@ internal class RealTimeDecisionTest {
                                             RealTimeDecision.CardAuthorization.Verification
                                                 .CardVerificationCode
                                                 .Result
-                                                .NOT_CHECKED
+                                                .MATCH
                                         )
                                         .build()
                                 )
@@ -469,7 +457,7 @@ internal class RealTimeDecisionTest {
                                             RealTimeDecision.CardAuthorization.Verification
                                                 .CardholderAddress
                                                 .Result
-                                                .NOT_CHECKED
+                                                .POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
                                         )
                                         .build()
                                 )

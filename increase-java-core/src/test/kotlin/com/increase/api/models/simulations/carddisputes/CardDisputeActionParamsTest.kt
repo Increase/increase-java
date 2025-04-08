@@ -11,7 +11,7 @@ internal class CardDisputeActionParamsTest {
     fun create() {
         CardDisputeActionParams.builder()
             .cardDisputeId("card_dispute_h9sc95nbl1cgltpp7men")
-            .status(CardDisputeActionParams.Status.PENDING_USER_INFORMATION)
+            .status(CardDisputeActionParams.Status.REJECTED)
             .explanation("This was a valid recurring transaction")
             .build()
     }
@@ -21,7 +21,7 @@ internal class CardDisputeActionParamsTest {
         val params =
             CardDisputeActionParams.builder()
                 .cardDisputeId("card_dispute_h9sc95nbl1cgltpp7men")
-                .status(CardDisputeActionParams.Status.PENDING_USER_INFORMATION)
+                .status(CardDisputeActionParams.Status.REJECTED)
                 .build()
 
         assertThat(params._pathParam(0)).isEqualTo("card_dispute_h9sc95nbl1cgltpp7men")
@@ -34,13 +34,13 @@ internal class CardDisputeActionParamsTest {
         val params =
             CardDisputeActionParams.builder()
                 .cardDisputeId("card_dispute_h9sc95nbl1cgltpp7men")
-                .status(CardDisputeActionParams.Status.PENDING_USER_INFORMATION)
+                .status(CardDisputeActionParams.Status.REJECTED)
                 .explanation("This was a valid recurring transaction")
                 .build()
 
         val body = params._body()
 
-        assertThat(body.status()).isEqualTo(CardDisputeActionParams.Status.PENDING_USER_INFORMATION)
+        assertThat(body.status()).isEqualTo(CardDisputeActionParams.Status.REJECTED)
         assertThat(body.explanation()).contains("This was a valid recurring transaction")
     }
 
@@ -49,11 +49,11 @@ internal class CardDisputeActionParamsTest {
         val params =
             CardDisputeActionParams.builder()
                 .cardDisputeId("card_dispute_h9sc95nbl1cgltpp7men")
-                .status(CardDisputeActionParams.Status.PENDING_USER_INFORMATION)
+                .status(CardDisputeActionParams.Status.REJECTED)
                 .build()
 
         val body = params._body()
 
-        assertThat(body.status()).isEqualTo(CardDisputeActionParams.Status.PENDING_USER_INFORMATION)
+        assertThat(body.status()).isEqualTo(CardDisputeActionParams.Status.REJECTED)
     }
 }

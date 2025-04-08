@@ -21,12 +21,12 @@ internal class AccountNumberTest {
                 .idempotencyKey(null)
                 .inboundAch(
                     AccountNumber.InboundAch.builder()
-                        .debitStatus(AccountNumber.InboundAch.DebitStatus.ALLOWED)
+                        .debitStatus(AccountNumber.InboundAch.DebitStatus.BLOCKED)
                         .build()
                 )
                 .inboundChecks(
                     AccountNumber.InboundChecks.builder()
-                        .status(AccountNumber.InboundChecks.Status.ALLOWED)
+                        .status(AccountNumber.InboundChecks.Status.CHECK_TRANSFERS_ONLY)
                         .build()
                 )
                 .name("ACH")
@@ -44,13 +44,13 @@ internal class AccountNumberTest {
         assertThat(accountNumber.inboundAch())
             .isEqualTo(
                 AccountNumber.InboundAch.builder()
-                    .debitStatus(AccountNumber.InboundAch.DebitStatus.ALLOWED)
+                    .debitStatus(AccountNumber.InboundAch.DebitStatus.BLOCKED)
                     .build()
             )
         assertThat(accountNumber.inboundChecks())
             .isEqualTo(
                 AccountNumber.InboundChecks.builder()
-                    .status(AccountNumber.InboundChecks.Status.ALLOWED)
+                    .status(AccountNumber.InboundChecks.Status.CHECK_TRANSFERS_ONLY)
                     .build()
             )
         assertThat(accountNumber.name()).isEqualTo("ACH")
@@ -71,12 +71,12 @@ internal class AccountNumberTest {
                 .idempotencyKey(null)
                 .inboundAch(
                     AccountNumber.InboundAch.builder()
-                        .debitStatus(AccountNumber.InboundAch.DebitStatus.ALLOWED)
+                        .debitStatus(AccountNumber.InboundAch.DebitStatus.BLOCKED)
                         .build()
                 )
                 .inboundChecks(
                     AccountNumber.InboundChecks.builder()
-                        .status(AccountNumber.InboundChecks.Status.ALLOWED)
+                        .status(AccountNumber.InboundChecks.Status.CHECK_TRANSFERS_ONLY)
                         .build()
                 )
                 .name("ACH")
