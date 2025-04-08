@@ -114,6 +114,19 @@ internal class CheckTransferTest {
                 )
                 .submission(
                     CheckTransfer.Submission.builder()
+                        .addressCorrectionAction(
+                            CheckTransfer.Submission.AddressCorrectionAction.STANDARDIZATION
+                        )
+                        .submittedAddress(
+                            CheckTransfer.Submission.SubmittedAddress.builder()
+                                .city("NEW YORK")
+                                .line1("33 LIBERTY STREET")
+                                .line2(null)
+                                .recipientName("IAN CREASE")
+                                .state("NY")
+                                .zip("10045")
+                                .build()
+                        )
                         .submittedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                         .build()
                 )
@@ -231,6 +244,19 @@ internal class CheckTransferTest {
         assertThat(checkTransfer.submission())
             .contains(
                 CheckTransfer.Submission.builder()
+                    .addressCorrectionAction(
+                        CheckTransfer.Submission.AddressCorrectionAction.STANDARDIZATION
+                    )
+                    .submittedAddress(
+                        CheckTransfer.Submission.SubmittedAddress.builder()
+                            .city("NEW YORK")
+                            .line1("33 LIBERTY STREET")
+                            .line2(null)
+                            .recipientName("IAN CREASE")
+                            .state("NY")
+                            .zip("10045")
+                            .build()
+                    )
                     .submittedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                     .build()
             )
@@ -349,6 +375,19 @@ internal class CheckTransferTest {
                 )
                 .submission(
                     CheckTransfer.Submission.builder()
+                        .addressCorrectionAction(
+                            CheckTransfer.Submission.AddressCorrectionAction.STANDARDIZATION
+                        )
+                        .submittedAddress(
+                            CheckTransfer.Submission.SubmittedAddress.builder()
+                                .city("NEW YORK")
+                                .line1("33 LIBERTY STREET")
+                                .line2(null)
+                                .recipientName("IAN CREASE")
+                                .state("NY")
+                                .zip("10045")
+                                .build()
+                        )
                         .submittedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                         .build()
                 )
