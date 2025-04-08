@@ -5717,16 +5717,44 @@ private constructor(
     /** After the transfer is submitted, this will contain supplemental details. */
     class Submission
     private constructor(
+        private val addressCorrectionAction: JsonField<AddressCorrectionAction>,
+        private val submittedAddress: JsonField<SubmittedAddress>,
         private val submittedAt: JsonField<OffsetDateTime>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         @JsonCreator
         private constructor(
+            @JsonProperty("address_correction_action")
+            @ExcludeMissing
+            addressCorrectionAction: JsonField<AddressCorrectionAction> = JsonMissing.of(),
+            @JsonProperty("submitted_address")
+            @ExcludeMissing
+            submittedAddress: JsonField<SubmittedAddress> = JsonMissing.of(),
             @JsonProperty("submitted_at")
             @ExcludeMissing
-            submittedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        ) : this(submittedAt, mutableMapOf())
+            submittedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        ) : this(addressCorrectionAction, submittedAddress, submittedAt, mutableMapOf())
+
+        /**
+         * Per USPS requirements, Increase will standardize the address to USPS standards and check
+         * it against the USPS National Change of Address (NCOA) database before mailing it. This
+         * indicates what modifications, if any, were made to the address before printing and
+         * mailing the check.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun addressCorrectionAction(): AddressCorrectionAction =
+            addressCorrectionAction.getRequired("address_correction_action")
+
+        /**
+         * The address we submitted to the printer. This is what is physically printed on the check.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun submittedAddress(): SubmittedAddress = submittedAddress.getRequired("submitted_address")
 
         /**
          * When this check transfer was submitted to our check printer.
@@ -5735,6 +5763,26 @@ private constructor(
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun submittedAt(): OffsetDateTime = submittedAt.getRequired("submitted_at")
+
+        /**
+         * Returns the raw JSON value of [addressCorrectionAction].
+         *
+         * Unlike [addressCorrectionAction], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("address_correction_action")
+        @ExcludeMissing
+        fun _addressCorrectionAction(): JsonField<AddressCorrectionAction> = addressCorrectionAction
+
+        /**
+         * Returns the raw JSON value of [submittedAddress].
+         *
+         * Unlike [submittedAddress], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("submitted_address")
+        @ExcludeMissing
+        fun _submittedAddress(): JsonField<SubmittedAddress> = submittedAddress
 
         /**
          * Returns the raw JSON value of [submittedAt].
@@ -5764,6 +5812,8 @@ private constructor(
              *
              * The following fields are required:
              * ```java
+             * .addressCorrectionAction()
+             * .submittedAddress()
              * .submittedAt()
              * ```
              */
@@ -5773,13 +5823,55 @@ private constructor(
         /** A builder for [Submission]. */
         class Builder internal constructor() {
 
+            private var addressCorrectionAction: JsonField<AddressCorrectionAction>? = null
+            private var submittedAddress: JsonField<SubmittedAddress>? = null
             private var submittedAt: JsonField<OffsetDateTime>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(submission: Submission) = apply {
+                addressCorrectionAction = submission.addressCorrectionAction
+                submittedAddress = submission.submittedAddress
                 submittedAt = submission.submittedAt
                 additionalProperties = submission.additionalProperties.toMutableMap()
+            }
+
+            /**
+             * Per USPS requirements, Increase will standardize the address to USPS standards and
+             * check it against the USPS National Change of Address (NCOA) database before mailing
+             * it. This indicates what modifications, if any, were made to the address before
+             * printing and mailing the check.
+             */
+            fun addressCorrectionAction(addressCorrectionAction: AddressCorrectionAction) =
+                addressCorrectionAction(JsonField.of(addressCorrectionAction))
+
+            /**
+             * Sets [Builder.addressCorrectionAction] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.addressCorrectionAction] with a well-typed
+             * [AddressCorrectionAction] value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
+             */
+            fun addressCorrectionAction(
+                addressCorrectionAction: JsonField<AddressCorrectionAction>
+            ) = apply { this.addressCorrectionAction = addressCorrectionAction }
+
+            /**
+             * The address we submitted to the printer. This is what is physically printed on the
+             * check.
+             */
+            fun submittedAddress(submittedAddress: SubmittedAddress) =
+                submittedAddress(JsonField.of(submittedAddress))
+
+            /**
+             * Sets [Builder.submittedAddress] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.submittedAddress] with a well-typed
+             * [SubmittedAddress] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun submittedAddress(submittedAddress: JsonField<SubmittedAddress>) = apply {
+                this.submittedAddress = submittedAddress
             }
 
             /** When this check transfer was submitted to our check printer. */
@@ -5822,6 +5914,8 @@ private constructor(
              *
              * The following fields are required:
              * ```java
+             * .addressCorrectionAction()
+             * .submittedAddress()
              * .submittedAt()
              * ```
              *
@@ -5829,6 +5923,8 @@ private constructor(
              */
             fun build(): Submission =
                 Submission(
+                    checkRequired("addressCorrectionAction", addressCorrectionAction),
+                    checkRequired("submittedAddress", submittedAddress),
                     checkRequired("submittedAt", submittedAt),
                     additionalProperties.toMutableMap(),
                 )
@@ -5841,6 +5937,8 @@ private constructor(
                 return@apply
             }
 
+            addressCorrectionAction().validate()
+            submittedAddress().validate()
             submittedAt()
             validated = true
         }
@@ -5859,24 +5957,573 @@ private constructor(
          *
          * Used for best match union deserialization.
          */
-        @JvmSynthetic internal fun validity(): Int = (if (submittedAt.asKnown().isPresent) 1 else 0)
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (addressCorrectionAction.asKnown().getOrNull()?.validity() ?: 0) +
+                (submittedAddress.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (submittedAt.asKnown().isPresent) 1 else 0)
+
+        /**
+         * Per USPS requirements, Increase will standardize the address to USPS standards and check
+         * it against the USPS National Change of Address (NCOA) database before mailing it. This
+         * indicates what modifications, if any, were made to the address before printing and
+         * mailing the check.
+         */
+        class AddressCorrectionAction
+        @JsonCreator
+        private constructor(private val value: JsonField<String>) : Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                /** No address correction took place. */
+                @JvmField val NONE = of("none")
+
+                /** The address was standardized. */
+                @JvmField val STANDARDIZATION = of("standardization")
+
+                /**
+                 * The address was first standardized and then changed because the recipient moved.
+                 */
+                @JvmField
+                val STANDARDIZATION_WITH_ADDRESS_CHANGE = of("standardization_with_address_change")
+
+                /**
+                 * An error occurred while correcting the address. This typically means the USPS
+                 * could not find that address. The address was not changed.
+                 */
+                @JvmField val ERROR = of("error")
+
+                @JvmStatic fun of(value: String) = AddressCorrectionAction(JsonField.of(value))
+            }
+
+            /** An enum containing [AddressCorrectionAction]'s known values. */
+            enum class Known {
+                /** No address correction took place. */
+                NONE,
+                /** The address was standardized. */
+                STANDARDIZATION,
+                /**
+                 * The address was first standardized and then changed because the recipient moved.
+                 */
+                STANDARDIZATION_WITH_ADDRESS_CHANGE,
+                /**
+                 * An error occurred while correcting the address. This typically means the USPS
+                 * could not find that address. The address was not changed.
+                 */
+                ERROR,
+            }
+
+            /**
+             * An enum containing [AddressCorrectionAction]'s known values, as well as an [_UNKNOWN]
+             * member.
+             *
+             * An instance of [AddressCorrectionAction] can contain an unknown value in a couple of
+             * cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                /** No address correction took place. */
+                NONE,
+                /** The address was standardized. */
+                STANDARDIZATION,
+                /**
+                 * The address was first standardized and then changed because the recipient moved.
+                 */
+                STANDARDIZATION_WITH_ADDRESS_CHANGE,
+                /**
+                 * An error occurred while correcting the address. This typically means the USPS
+                 * could not find that address. The address was not changed.
+                 */
+                ERROR,
+                /**
+                 * An enum member indicating that [AddressCorrectionAction] was instantiated with an
+                 * unknown value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    NONE -> Value.NONE
+                    STANDARDIZATION -> Value.STANDARDIZATION
+                    STANDARDIZATION_WITH_ADDRESS_CHANGE -> Value.STANDARDIZATION_WITH_ADDRESS_CHANGE
+                    ERROR -> Value.ERROR
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    NONE -> Known.NONE
+                    STANDARDIZATION -> Known.STANDARDIZATION
+                    STANDARDIZATION_WITH_ADDRESS_CHANGE -> Known.STANDARDIZATION_WITH_ADDRESS_CHANGE
+                    ERROR -> Known.ERROR
+                    else ->
+                        throw IncreaseInvalidDataException(
+                            "Unknown AddressCorrectionAction: $value"
+                        )
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    IncreaseInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            fun validate(): AddressCorrectionAction = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return /* spotless:off */ other is AddressCorrectionAction && value == other.value /* spotless:on */
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
+
+        /**
+         * The address we submitted to the printer. This is what is physically printed on the check.
+         */
+        class SubmittedAddress
+        private constructor(
+            private val city: JsonField<String>,
+            private val line1: JsonField<String>,
+            private val line2: JsonField<String>,
+            private val recipientName: JsonField<String>,
+            private val state: JsonField<String>,
+            private val zip: JsonField<String>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("city") @ExcludeMissing city: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("line1") @ExcludeMissing line1: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("line2") @ExcludeMissing line2: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("recipient_name")
+                @ExcludeMissing
+                recipientName: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("state") @ExcludeMissing state: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("zip") @ExcludeMissing zip: JsonField<String> = JsonMissing.of(),
+            ) : this(city, line1, line2, recipientName, state, zip, mutableMapOf())
+
+            /**
+             * The submitted address city.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun city(): String = city.getRequired("city")
+
+            /**
+             * The submitted address line 1.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun line1(): String = line1.getRequired("line1")
+
+            /**
+             * The submitted address line 2.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun line2(): Optional<String> = line2.getOptional("line2")
+
+            /**
+             * The submitted recipient name.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun recipientName(): String = recipientName.getRequired("recipient_name")
+
+            /**
+             * The submitted address state.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun state(): String = state.getRequired("state")
+
+            /**
+             * The submitted address zip.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun zip(): String = zip.getRequired("zip")
+
+            /**
+             * Returns the raw JSON value of [city].
+             *
+             * Unlike [city], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("city") @ExcludeMissing fun _city(): JsonField<String> = city
+
+            /**
+             * Returns the raw JSON value of [line1].
+             *
+             * Unlike [line1], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
+
+            /**
+             * Returns the raw JSON value of [line2].
+             *
+             * Unlike [line2], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
+
+            /**
+             * Returns the raw JSON value of [recipientName].
+             *
+             * Unlike [recipientName], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("recipient_name")
+            @ExcludeMissing
+            fun _recipientName(): JsonField<String> = recipientName
+
+            /**
+             * Returns the raw JSON value of [state].
+             *
+             * Unlike [state], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("state") @ExcludeMissing fun _state(): JsonField<String> = state
+
+            /**
+             * Returns the raw JSON value of [zip].
+             *
+             * Unlike [zip], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("zip") @ExcludeMissing fun _zip(): JsonField<String> = zip
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of [SubmittedAddress].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .city()
+                 * .line1()
+                 * .line2()
+                 * .recipientName()
+                 * .state()
+                 * .zip()
+                 * ```
+                 */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [SubmittedAddress]. */
+            class Builder internal constructor() {
+
+                private var city: JsonField<String>? = null
+                private var line1: JsonField<String>? = null
+                private var line2: JsonField<String>? = null
+                private var recipientName: JsonField<String>? = null
+                private var state: JsonField<String>? = null
+                private var zip: JsonField<String>? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(submittedAddress: SubmittedAddress) = apply {
+                    city = submittedAddress.city
+                    line1 = submittedAddress.line1
+                    line2 = submittedAddress.line2
+                    recipientName = submittedAddress.recipientName
+                    state = submittedAddress.state
+                    zip = submittedAddress.zip
+                    additionalProperties = submittedAddress.additionalProperties.toMutableMap()
+                }
+
+                /** The submitted address city. */
+                fun city(city: String) = city(JsonField.of(city))
+
+                /**
+                 * Sets [Builder.city] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.city] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun city(city: JsonField<String>) = apply { this.city = city }
+
+                /** The submitted address line 1. */
+                fun line1(line1: String) = line1(JsonField.of(line1))
+
+                /**
+                 * Sets [Builder.line1] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.line1] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
+
+                /** The submitted address line 2. */
+                fun line2(line2: String?) = line2(JsonField.ofNullable(line2))
+
+                /** Alias for calling [Builder.line2] with `line2.orElse(null)`. */
+                fun line2(line2: Optional<String>) = line2(line2.getOrNull())
+
+                /**
+                 * Sets [Builder.line2] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.line2] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
+
+                /** The submitted recipient name. */
+                fun recipientName(recipientName: String) =
+                    recipientName(JsonField.of(recipientName))
+
+                /**
+                 * Sets [Builder.recipientName] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.recipientName] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun recipientName(recipientName: JsonField<String>) = apply {
+                    this.recipientName = recipientName
+                }
+
+                /** The submitted address state. */
+                fun state(state: String) = state(JsonField.of(state))
+
+                /**
+                 * Sets [Builder.state] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.state] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun state(state: JsonField<String>) = apply { this.state = state }
+
+                /** The submitted address zip. */
+                fun zip(zip: String) = zip(JsonField.of(zip))
+
+                /**
+                 * Sets [Builder.zip] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.zip] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun zip(zip: JsonField<String>) = apply { this.zip = zip }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [SubmittedAddress].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .city()
+                 * .line1()
+                 * .line2()
+                 * .recipientName()
+                 * .state()
+                 * .zip()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
+                fun build(): SubmittedAddress =
+                    SubmittedAddress(
+                        checkRequired("city", city),
+                        checkRequired("line1", line1),
+                        checkRequired("line2", line2),
+                        checkRequired("recipientName", recipientName),
+                        checkRequired("state", state),
+                        checkRequired("zip", zip),
+                        additionalProperties.toMutableMap(),
+                    )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): SubmittedAddress = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                city()
+                line1()
+                line2()
+                recipientName()
+                state()
+                zip()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                (if (city.asKnown().isPresent) 1 else 0) +
+                    (if (line1.asKnown().isPresent) 1 else 0) +
+                    (if (line2.asKnown().isPresent) 1 else 0) +
+                    (if (recipientName.asKnown().isPresent) 1 else 0) +
+                    (if (state.asKnown().isPresent) 1 else 0) +
+                    (if (zip.asKnown().isPresent) 1 else 0)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return /* spotless:off */ other is SubmittedAddress && city == other.city && line1 == other.line1 && line2 == other.line2 && recipientName == other.recipientName && state == other.state && zip == other.zip && additionalProperties == other.additionalProperties /* spotless:on */
+            }
+
+            /* spotless:off */
+            private val hashCode: Int by lazy { Objects.hash(city, line1, line2, recipientName, state, zip, additionalProperties) }
+            /* spotless:on */
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "SubmittedAddress{city=$city, line1=$line1, line2=$line2, recipientName=$recipientName, state=$state, zip=$zip, additionalProperties=$additionalProperties}"
+        }
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
             }
 
-            return /* spotless:off */ other is Submission && submittedAt == other.submittedAt && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Submission && addressCorrectionAction == other.addressCorrectionAction && submittedAddress == other.submittedAddress && submittedAt == other.submittedAt && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(submittedAt, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(addressCorrectionAction, submittedAddress, submittedAt, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Submission{submittedAt=$submittedAt, additionalProperties=$additionalProperties}"
+            "Submission{addressCorrectionAction=$addressCorrectionAction, submittedAddress=$submittedAddress, submittedAt=$submittedAt, additionalProperties=$additionalProperties}"
     }
 
     /**
