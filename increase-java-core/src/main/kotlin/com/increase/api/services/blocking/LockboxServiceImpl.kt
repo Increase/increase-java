@@ -157,7 +157,13 @@ class LockboxServiceImpl internal constructor(private val clientOptions: ClientO
                             it.validate()
                         }
                     }
-                    .let { LockboxListPage.of(LockboxServiceImpl(clientOptions), params, it) }
+                    .let {
+                        LockboxListPage.builder()
+                            .service(LockboxServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
+                    }
             }
         }
     }

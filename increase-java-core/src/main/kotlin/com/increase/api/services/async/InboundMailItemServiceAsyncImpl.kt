@@ -105,11 +105,11 @@ internal constructor(private val clientOptions: ClientOptions) : InboundMailItem
                                 }
                             }
                             .let {
-                                InboundMailItemListPageAsync.of(
-                                    InboundMailItemServiceAsyncImpl(clientOptions),
-                                    params,
-                                    it,
-                                )
+                                InboundMailItemListPageAsync.builder()
+                                    .service(InboundMailItemServiceAsyncImpl(clientOptions))
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

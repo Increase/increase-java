@@ -148,11 +148,13 @@ internal constructor(private val clientOptions: ClientOptions) :
                                 }
                             }
                             .let {
-                                RealTimePaymentsTransferListPageAsync.of(
-                                    RealTimePaymentsTransferServiceAsyncImpl(clientOptions),
-                                    params,
-                                    it,
-                                )
+                                RealTimePaymentsTransferListPageAsync.builder()
+                                    .service(
+                                        RealTimePaymentsTransferServiceAsyncImpl(clientOptions)
+                                    )
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

@@ -144,11 +144,11 @@ class CardDisputeServiceAsyncImpl internal constructor(private val clientOptions
                                 }
                             }
                             .let {
-                                CardDisputeListPageAsync.of(
-                                    CardDisputeServiceAsyncImpl(clientOptions),
-                                    params,
-                                    it,
-                                )
+                                CardDisputeListPageAsync.builder()
+                                    .service(CardDisputeServiceAsyncImpl(clientOptions))
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

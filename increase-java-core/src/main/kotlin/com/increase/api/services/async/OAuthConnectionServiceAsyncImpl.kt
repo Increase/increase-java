@@ -105,11 +105,11 @@ internal constructor(private val clientOptions: ClientOptions) : OAuthConnection
                                 }
                             }
                             .let {
-                                OAuthConnectionListPageAsync.of(
-                                    OAuthConnectionServiceAsyncImpl(clientOptions),
-                                    params,
-                                    it,
-                                )
+                                OAuthConnectionListPageAsync.builder()
+                                    .service(OAuthConnectionServiceAsyncImpl(clientOptions))
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

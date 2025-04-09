@@ -170,7 +170,11 @@ class PhysicalCardServiceImpl internal constructor(private val clientOptions: Cl
                         }
                     }
                     .let {
-                        PhysicalCardListPage.of(PhysicalCardServiceImpl(clientOptions), params, it)
+                        PhysicalCardListPage.builder()
+                            .service(PhysicalCardServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

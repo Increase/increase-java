@@ -2,6 +2,7 @@
 
 package com.increase.api.models.declinedtransactions
 
+import com.increase.api.core.checkRequired
 import com.increase.api.services.async.DeclinedTransactionServiceAsync
 import java.util.Objects
 import java.util.Optional
@@ -10,16 +11,13 @@ import java.util.concurrent.Executor
 import java.util.function.Predicate
 import kotlin.jvm.optionals.getOrNull
 
-/** List Declined Transactions */
+/** @see [DeclinedTransactionServiceAsync.list] */
 class DeclinedTransactionListPageAsync
 private constructor(
-    private val declinedTransactionsService: DeclinedTransactionServiceAsync,
+    private val service: DeclinedTransactionServiceAsync,
     private val params: DeclinedTransactionListParams,
     private val response: DeclinedTransactionListPageResponse,
 ) {
-
-    /** Returns the response that this page was parsed from. */
-    fun response(): DeclinedTransactionListPageResponse = response
 
     /**
      * Delegates to [DeclinedTransactionListPageResponse], but gracefully handles missing data.
@@ -36,19 +34,6 @@ private constructor(
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is DeclinedTransactionListPageAsync && declinedTransactionsService == other.declinedTransactionsService && params == other.params && response == other.response /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(declinedTransactionsService, params, response) /* spotless:on */
-
-    override fun toString() =
-        "DeclinedTransactionListPageAsync{declinedTransactionsService=$declinedTransactionsService, params=$params, response=$response}"
-
     fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor().isPresent
 
     fun getNextPageParams(): Optional<DeclinedTransactionListParams> {
@@ -61,22 +46,82 @@ private constructor(
         )
     }
 
-    fun getNextPage(): CompletableFuture<Optional<DeclinedTransactionListPageAsync>> {
-        return getNextPageParams()
-            .map { declinedTransactionsService.list(it).thenApply { Optional.of(it) } }
+    fun getNextPage(): CompletableFuture<Optional<DeclinedTransactionListPageAsync>> =
+        getNextPageParams()
+            .map { service.list(it).thenApply { Optional.of(it) } }
             .orElseGet { CompletableFuture.completedFuture(Optional.empty()) }
-    }
 
     fun autoPager(): AutoPager = AutoPager(this)
 
+    /** The parameters that were used to request this page. */
+    fun params(): DeclinedTransactionListParams = params
+
+    /** The response that this page was parsed from. */
+    fun response(): DeclinedTransactionListPageResponse = response
+
+    fun toBuilder() = Builder().from(this)
+
     companion object {
 
-        @JvmStatic
-        fun of(
-            declinedTransactionsService: DeclinedTransactionServiceAsync,
-            params: DeclinedTransactionListParams,
-            response: DeclinedTransactionListPageResponse,
-        ) = DeclinedTransactionListPageAsync(declinedTransactionsService, params, response)
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [DeclinedTransactionListPageAsync].
+         *
+         * The following fields are required:
+         * ```java
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         */
+        @JvmStatic fun builder() = Builder()
+    }
+
+    /** A builder for [DeclinedTransactionListPageAsync]. */
+    class Builder internal constructor() {
+
+        private var service: DeclinedTransactionServiceAsync? = null
+        private var params: DeclinedTransactionListParams? = null
+        private var response: DeclinedTransactionListPageResponse? = null
+
+        @JvmSynthetic
+        internal fun from(declinedTransactionListPageAsync: DeclinedTransactionListPageAsync) =
+            apply {
+                service = declinedTransactionListPageAsync.service
+                params = declinedTransactionListPageAsync.params
+                response = declinedTransactionListPageAsync.response
+            }
+
+        fun service(service: DeclinedTransactionServiceAsync) = apply { this.service = service }
+
+        /** The parameters that were used to request this page. */
+        fun params(params: DeclinedTransactionListParams) = apply { this.params = params }
+
+        /** The response that this page was parsed from. */
+        fun response(response: DeclinedTransactionListPageResponse) = apply {
+            this.response = response
+        }
+
+        /**
+         * Returns an immutable instance of [DeclinedTransactionListPageAsync].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
+        fun build(): DeclinedTransactionListPageAsync =
+            DeclinedTransactionListPageAsync(
+                checkRequired("service", service),
+                checkRequired("params", params),
+                checkRequired("response", response),
+            )
     }
 
     class AutoPager(private val firstPage: DeclinedTransactionListPageAsync) {
@@ -107,4 +152,17 @@ private constructor(
             return forEach(values::add, executor).thenApply { values }
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is DeclinedTransactionListPageAsync && service == other.service && params == other.params && response == other.response /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, params, response) /* spotless:on */
+
+    override fun toString() =
+        "DeclinedTransactionListPageAsync{service=$service, params=$params, response=$response}"
 }

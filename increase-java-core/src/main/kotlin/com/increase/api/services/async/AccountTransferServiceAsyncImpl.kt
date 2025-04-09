@@ -160,11 +160,11 @@ internal constructor(private val clientOptions: ClientOptions) : AccountTransfer
                                 }
                             }
                             .let {
-                                AccountTransferListPageAsync.of(
-                                    AccountTransferServiceAsyncImpl(clientOptions),
-                                    params,
-                                    it,
-                                )
+                                AccountTransferListPageAsync.builder()
+                                    .service(AccountTransferServiceAsyncImpl(clientOptions))
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

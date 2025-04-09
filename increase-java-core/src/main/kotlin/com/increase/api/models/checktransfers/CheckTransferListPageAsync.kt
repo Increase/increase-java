@@ -2,6 +2,7 @@
 
 package com.increase.api.models.checktransfers
 
+import com.increase.api.core.checkRequired
 import com.increase.api.services.async.CheckTransferServiceAsync
 import java.util.Objects
 import java.util.Optional
@@ -10,16 +11,13 @@ import java.util.concurrent.Executor
 import java.util.function.Predicate
 import kotlin.jvm.optionals.getOrNull
 
-/** List Check Transfers */
+/** @see [CheckTransferServiceAsync.list] */
 class CheckTransferListPageAsync
 private constructor(
-    private val checkTransfersService: CheckTransferServiceAsync,
+    private val service: CheckTransferServiceAsync,
     private val params: CheckTransferListParams,
     private val response: CheckTransferListPageResponse,
 ) {
-
-    /** Returns the response that this page was parsed from. */
-    fun response(): CheckTransferListPageResponse = response
 
     /**
      * Delegates to [CheckTransferListPageResponse], but gracefully handles missing data.
@@ -36,19 +34,6 @@ private constructor(
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is CheckTransferListPageAsync && checkTransfersService == other.checkTransfersService && params == other.params && response == other.response /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(checkTransfersService, params, response) /* spotless:on */
-
-    override fun toString() =
-        "CheckTransferListPageAsync{checkTransfersService=$checkTransfersService, params=$params, response=$response}"
-
     fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor().isPresent
 
     fun getNextPageParams(): Optional<CheckTransferListParams> {
@@ -61,22 +46,78 @@ private constructor(
         )
     }
 
-    fun getNextPage(): CompletableFuture<Optional<CheckTransferListPageAsync>> {
-        return getNextPageParams()
-            .map { checkTransfersService.list(it).thenApply { Optional.of(it) } }
+    fun getNextPage(): CompletableFuture<Optional<CheckTransferListPageAsync>> =
+        getNextPageParams()
+            .map { service.list(it).thenApply { Optional.of(it) } }
             .orElseGet { CompletableFuture.completedFuture(Optional.empty()) }
-    }
 
     fun autoPager(): AutoPager = AutoPager(this)
 
+    /** The parameters that were used to request this page. */
+    fun params(): CheckTransferListParams = params
+
+    /** The response that this page was parsed from. */
+    fun response(): CheckTransferListPageResponse = response
+
+    fun toBuilder() = Builder().from(this)
+
     companion object {
 
-        @JvmStatic
-        fun of(
-            checkTransfersService: CheckTransferServiceAsync,
-            params: CheckTransferListParams,
-            response: CheckTransferListPageResponse,
-        ) = CheckTransferListPageAsync(checkTransfersService, params, response)
+        /**
+         * Returns a mutable builder for constructing an instance of [CheckTransferListPageAsync].
+         *
+         * The following fields are required:
+         * ```java
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         */
+        @JvmStatic fun builder() = Builder()
+    }
+
+    /** A builder for [CheckTransferListPageAsync]. */
+    class Builder internal constructor() {
+
+        private var service: CheckTransferServiceAsync? = null
+        private var params: CheckTransferListParams? = null
+        private var response: CheckTransferListPageResponse? = null
+
+        @JvmSynthetic
+        internal fun from(checkTransferListPageAsync: CheckTransferListPageAsync) = apply {
+            service = checkTransferListPageAsync.service
+            params = checkTransferListPageAsync.params
+            response = checkTransferListPageAsync.response
+        }
+
+        fun service(service: CheckTransferServiceAsync) = apply { this.service = service }
+
+        /** The parameters that were used to request this page. */
+        fun params(params: CheckTransferListParams) = apply { this.params = params }
+
+        /** The response that this page was parsed from. */
+        fun response(response: CheckTransferListPageResponse) = apply { this.response = response }
+
+        /**
+         * Returns an immutable instance of [CheckTransferListPageAsync].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
+        fun build(): CheckTransferListPageAsync =
+            CheckTransferListPageAsync(
+                checkRequired("service", service),
+                checkRequired("params", params),
+                checkRequired("response", response),
+            )
     }
 
     class AutoPager(private val firstPage: CheckTransferListPageAsync) {
@@ -104,4 +145,17 @@ private constructor(
             return forEach(values::add, executor).thenApply { values }
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is CheckTransferListPageAsync && service == other.service && params == other.params && response == other.response /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, params, response) /* spotless:on */
+
+    override fun toString() =
+        "CheckTransferListPageAsync{service=$service, params=$params, response=$response}"
 }

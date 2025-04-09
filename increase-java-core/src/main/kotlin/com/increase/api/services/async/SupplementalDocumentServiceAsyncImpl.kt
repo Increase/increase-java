@@ -109,11 +109,11 @@ internal constructor(private val clientOptions: ClientOptions) : SupplementalDoc
                                 }
                             }
                             .let {
-                                SupplementalDocumentListPageAsync.of(
-                                    SupplementalDocumentServiceAsyncImpl(clientOptions),
-                                    params,
-                                    it,
-                                )
+                                SupplementalDocumentListPageAsync.builder()
+                                    .service(SupplementalDocumentServiceAsyncImpl(clientOptions))
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

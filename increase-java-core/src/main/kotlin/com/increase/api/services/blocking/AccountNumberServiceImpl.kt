@@ -170,11 +170,11 @@ class AccountNumberServiceImpl internal constructor(private val clientOptions: C
                         }
                     }
                     .let {
-                        AccountNumberListPage.of(
-                            AccountNumberServiceImpl(clientOptions),
-                            params,
-                            it,
-                        )
+                        AccountNumberListPage.builder()
+                            .service(AccountNumberServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

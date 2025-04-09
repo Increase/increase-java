@@ -2,6 +2,7 @@
 
 package com.increase.api.models.digitalcardprofiles
 
+import com.increase.api.core.checkRequired
 import com.increase.api.services.blocking.DigitalCardProfileService
 import java.util.Objects
 import java.util.Optional
@@ -9,16 +10,13 @@ import java.util.stream.Stream
 import java.util.stream.StreamSupport
 import kotlin.jvm.optionals.getOrNull
 
-/** List Card Profiles */
+/** @see [DigitalCardProfileService.list] */
 class DigitalCardProfileListPage
 private constructor(
-    private val digitalCardProfilesService: DigitalCardProfileService,
+    private val service: DigitalCardProfileService,
     private val params: DigitalCardProfileListParams,
     private val response: DigitalCardProfileListPageResponse,
 ) {
-
-    /** Returns the response that this page was parsed from. */
-    fun response(): DigitalCardProfileListPageResponse = response
 
     /**
      * Delegates to [DigitalCardProfileListPageResponse], but gracefully handles missing data.
@@ -35,19 +33,6 @@ private constructor(
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is DigitalCardProfileListPage && digitalCardProfilesService == other.digitalCardProfilesService && params == other.params && response == other.response /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(digitalCardProfilesService, params, response) /* spotless:on */
-
-    override fun toString() =
-        "DigitalCardProfileListPage{digitalCardProfilesService=$digitalCardProfilesService, params=$params, response=$response}"
-
     fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor().isPresent
 
     fun getNextPageParams(): Optional<DigitalCardProfileListParams> {
@@ -60,20 +45,78 @@ private constructor(
         )
     }
 
-    fun getNextPage(): Optional<DigitalCardProfileListPage> {
-        return getNextPageParams().map { digitalCardProfilesService.list(it) }
-    }
+    fun getNextPage(): Optional<DigitalCardProfileListPage> =
+        getNextPageParams().map { service.list(it) }
 
     fun autoPager(): AutoPager = AutoPager(this)
 
+    /** The parameters that were used to request this page. */
+    fun params(): DigitalCardProfileListParams = params
+
+    /** The response that this page was parsed from. */
+    fun response(): DigitalCardProfileListPageResponse = response
+
+    fun toBuilder() = Builder().from(this)
+
     companion object {
 
-        @JvmStatic
-        fun of(
-            digitalCardProfilesService: DigitalCardProfileService,
-            params: DigitalCardProfileListParams,
-            response: DigitalCardProfileListPageResponse,
-        ) = DigitalCardProfileListPage(digitalCardProfilesService, params, response)
+        /**
+         * Returns a mutable builder for constructing an instance of [DigitalCardProfileListPage].
+         *
+         * The following fields are required:
+         * ```java
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         */
+        @JvmStatic fun builder() = Builder()
+    }
+
+    /** A builder for [DigitalCardProfileListPage]. */
+    class Builder internal constructor() {
+
+        private var service: DigitalCardProfileService? = null
+        private var params: DigitalCardProfileListParams? = null
+        private var response: DigitalCardProfileListPageResponse? = null
+
+        @JvmSynthetic
+        internal fun from(digitalCardProfileListPage: DigitalCardProfileListPage) = apply {
+            service = digitalCardProfileListPage.service
+            params = digitalCardProfileListPage.params
+            response = digitalCardProfileListPage.response
+        }
+
+        fun service(service: DigitalCardProfileService) = apply { this.service = service }
+
+        /** The parameters that were used to request this page. */
+        fun params(params: DigitalCardProfileListParams) = apply { this.params = params }
+
+        /** The response that this page was parsed from. */
+        fun response(response: DigitalCardProfileListPageResponse) = apply {
+            this.response = response
+        }
+
+        /**
+         * Returns an immutable instance of [DigitalCardProfileListPage].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
+        fun build(): DigitalCardProfileListPage =
+            DigitalCardProfileListPage(
+                checkRequired("service", service),
+                checkRequired("params", params),
+                checkRequired("response", response),
+            )
     }
 
     class AutoPager(private val firstPage: DigitalCardProfileListPage) :
@@ -95,4 +138,17 @@ private constructor(
             return StreamSupport.stream(spliterator(), false)
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is DigitalCardProfileListPage && service == other.service && params == other.params && response == other.response /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, params, response) /* spotless:on */
+
+    override fun toString() =
+        "DigitalCardProfileListPage{service=$service, params=$params, response=$response}"
 }

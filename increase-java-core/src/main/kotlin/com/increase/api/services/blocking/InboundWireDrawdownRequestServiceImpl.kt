@@ -101,11 +101,11 @@ internal constructor(private val clientOptions: ClientOptions) : InboundWireDraw
                         }
                     }
                     .let {
-                        InboundWireDrawdownRequestListPage.of(
-                            InboundWireDrawdownRequestServiceImpl(clientOptions),
-                            params,
-                            it,
-                        )
+                        InboundWireDrawdownRequestListPage.builder()
+                            .service(InboundWireDrawdownRequestServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

@@ -2,6 +2,7 @@
 
 package com.increase.api.models.programs
 
+import com.increase.api.core.checkRequired
 import com.increase.api.services.async.ProgramServiceAsync
 import java.util.Objects
 import java.util.Optional
@@ -10,16 +11,13 @@ import java.util.concurrent.Executor
 import java.util.function.Predicate
 import kotlin.jvm.optionals.getOrNull
 
-/** List Programs */
+/** @see [ProgramServiceAsync.list] */
 class ProgramListPageAsync
 private constructor(
-    private val programsService: ProgramServiceAsync,
+    private val service: ProgramServiceAsync,
     private val params: ProgramListParams,
     private val response: ProgramListPageResponse,
 ) {
-
-    /** Returns the response that this page was parsed from. */
-    fun response(): ProgramListPageResponse = response
 
     /**
      * Delegates to [ProgramListPageResponse], but gracefully handles missing data.
@@ -35,19 +33,6 @@ private constructor(
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is ProgramListPageAsync && programsService == other.programsService && params == other.params && response == other.response /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(programsService, params, response) /* spotless:on */
-
-    override fun toString() =
-        "ProgramListPageAsync{programsService=$programsService, params=$params, response=$response}"
-
     fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor().isPresent
 
     fun getNextPageParams(): Optional<ProgramListParams> {
@@ -60,22 +45,78 @@ private constructor(
         )
     }
 
-    fun getNextPage(): CompletableFuture<Optional<ProgramListPageAsync>> {
-        return getNextPageParams()
-            .map { programsService.list(it).thenApply { Optional.of(it) } }
+    fun getNextPage(): CompletableFuture<Optional<ProgramListPageAsync>> =
+        getNextPageParams()
+            .map { service.list(it).thenApply { Optional.of(it) } }
             .orElseGet { CompletableFuture.completedFuture(Optional.empty()) }
-    }
 
     fun autoPager(): AutoPager = AutoPager(this)
 
+    /** The parameters that were used to request this page. */
+    fun params(): ProgramListParams = params
+
+    /** The response that this page was parsed from. */
+    fun response(): ProgramListPageResponse = response
+
+    fun toBuilder() = Builder().from(this)
+
     companion object {
 
-        @JvmStatic
-        fun of(
-            programsService: ProgramServiceAsync,
-            params: ProgramListParams,
-            response: ProgramListPageResponse,
-        ) = ProgramListPageAsync(programsService, params, response)
+        /**
+         * Returns a mutable builder for constructing an instance of [ProgramListPageAsync].
+         *
+         * The following fields are required:
+         * ```java
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         */
+        @JvmStatic fun builder() = Builder()
+    }
+
+    /** A builder for [ProgramListPageAsync]. */
+    class Builder internal constructor() {
+
+        private var service: ProgramServiceAsync? = null
+        private var params: ProgramListParams? = null
+        private var response: ProgramListPageResponse? = null
+
+        @JvmSynthetic
+        internal fun from(programListPageAsync: ProgramListPageAsync) = apply {
+            service = programListPageAsync.service
+            params = programListPageAsync.params
+            response = programListPageAsync.response
+        }
+
+        fun service(service: ProgramServiceAsync) = apply { this.service = service }
+
+        /** The parameters that were used to request this page. */
+        fun params(params: ProgramListParams) = apply { this.params = params }
+
+        /** The response that this page was parsed from. */
+        fun response(response: ProgramListPageResponse) = apply { this.response = response }
+
+        /**
+         * Returns an immutable instance of [ProgramListPageAsync].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
+        fun build(): ProgramListPageAsync =
+            ProgramListPageAsync(
+                checkRequired("service", service),
+                checkRequired("params", params),
+                checkRequired("response", response),
+            )
     }
 
     class AutoPager(private val firstPage: ProgramListPageAsync) {
@@ -103,4 +144,17 @@ private constructor(
             return forEach(values::add, executor).thenApply { values }
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is ProgramListPageAsync && service == other.service && params == other.params && response == other.response /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, params, response) /* spotless:on */
+
+    override fun toString() =
+        "ProgramListPageAsync{service=$service, params=$params, response=$response}"
 }

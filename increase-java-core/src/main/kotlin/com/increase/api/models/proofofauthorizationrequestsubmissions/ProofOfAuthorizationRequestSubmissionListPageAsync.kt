@@ -2,6 +2,7 @@
 
 package com.increase.api.models.proofofauthorizationrequestsubmissions
 
+import com.increase.api.core.checkRequired
 import com.increase.api.services.async.ProofOfAuthorizationRequestSubmissionServiceAsync
 import java.util.Objects
 import java.util.Optional
@@ -10,17 +11,13 @@ import java.util.concurrent.Executor
 import java.util.function.Predicate
 import kotlin.jvm.optionals.getOrNull
 
-/** List Proof of Authorization Request Submissions */
+/** @see [ProofOfAuthorizationRequestSubmissionServiceAsync.list] */
 class ProofOfAuthorizationRequestSubmissionListPageAsync
 private constructor(
-    private val proofOfAuthorizationRequestSubmissionsService:
-        ProofOfAuthorizationRequestSubmissionServiceAsync,
+    private val service: ProofOfAuthorizationRequestSubmissionServiceAsync,
     private val params: ProofOfAuthorizationRequestSubmissionListParams,
     private val response: ProofOfAuthorizationRequestSubmissionListPageResponse,
 ) {
-
-    /** Returns the response that this page was parsed from. */
-    fun response(): ProofOfAuthorizationRequestSubmissionListPageResponse = response
 
     /**
      * Delegates to [ProofOfAuthorizationRequestSubmissionListPageResponse], but gracefully handles
@@ -39,19 +36,6 @@ private constructor(
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is ProofOfAuthorizationRequestSubmissionListPageAsync && proofOfAuthorizationRequestSubmissionsService == other.proofOfAuthorizationRequestSubmissionsService && params == other.params && response == other.response /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(proofOfAuthorizationRequestSubmissionsService, params, response) /* spotless:on */
-
-    override fun toString() =
-        "ProofOfAuthorizationRequestSubmissionListPageAsync{proofOfAuthorizationRequestSubmissionsService=$proofOfAuthorizationRequestSubmissionsService, params=$params, response=$response}"
-
     fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor().isPresent
 
     fun getNextPageParams(): Optional<ProofOfAuthorizationRequestSubmissionListParams> {
@@ -65,29 +49,87 @@ private constructor(
     }
 
     fun getNextPage():
-        CompletableFuture<Optional<ProofOfAuthorizationRequestSubmissionListPageAsync>> {
-        return getNextPageParams()
-            .map {
-                proofOfAuthorizationRequestSubmissionsService.list(it).thenApply { Optional.of(it) }
-            }
+        CompletableFuture<Optional<ProofOfAuthorizationRequestSubmissionListPageAsync>> =
+        getNextPageParams()
+            .map { service.list(it).thenApply { Optional.of(it) } }
             .orElseGet { CompletableFuture.completedFuture(Optional.empty()) }
-    }
 
     fun autoPager(): AutoPager = AutoPager(this)
 
+    /** The parameters that were used to request this page. */
+    fun params(): ProofOfAuthorizationRequestSubmissionListParams = params
+
+    /** The response that this page was parsed from. */
+    fun response(): ProofOfAuthorizationRequestSubmissionListPageResponse = response
+
+    fun toBuilder() = Builder().from(this)
+
     companion object {
 
-        @JvmStatic
-        fun of(
-            proofOfAuthorizationRequestSubmissionsService:
-                ProofOfAuthorizationRequestSubmissionServiceAsync,
-            params: ProofOfAuthorizationRequestSubmissionListParams,
-            response: ProofOfAuthorizationRequestSubmissionListPageResponse,
-        ) =
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [ProofOfAuthorizationRequestSubmissionListPageAsync].
+         *
+         * The following fields are required:
+         * ```java
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         */
+        @JvmStatic fun builder() = Builder()
+    }
+
+    /** A builder for [ProofOfAuthorizationRequestSubmissionListPageAsync]. */
+    class Builder internal constructor() {
+
+        private var service: ProofOfAuthorizationRequestSubmissionServiceAsync? = null
+        private var params: ProofOfAuthorizationRequestSubmissionListParams? = null
+        private var response: ProofOfAuthorizationRequestSubmissionListPageResponse? = null
+
+        @JvmSynthetic
+        internal fun from(
+            proofOfAuthorizationRequestSubmissionListPageAsync:
+                ProofOfAuthorizationRequestSubmissionListPageAsync
+        ) = apply {
+            service = proofOfAuthorizationRequestSubmissionListPageAsync.service
+            params = proofOfAuthorizationRequestSubmissionListPageAsync.params
+            response = proofOfAuthorizationRequestSubmissionListPageAsync.response
+        }
+
+        fun service(service: ProofOfAuthorizationRequestSubmissionServiceAsync) = apply {
+            this.service = service
+        }
+
+        /** The parameters that were used to request this page. */
+        fun params(params: ProofOfAuthorizationRequestSubmissionListParams) = apply {
+            this.params = params
+        }
+
+        /** The response that this page was parsed from. */
+        fun response(response: ProofOfAuthorizationRequestSubmissionListPageResponse) = apply {
+            this.response = response
+        }
+
+        /**
+         * Returns an immutable instance of [ProofOfAuthorizationRequestSubmissionListPageAsync].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
+        fun build(): ProofOfAuthorizationRequestSubmissionListPageAsync =
             ProofOfAuthorizationRequestSubmissionListPageAsync(
-                proofOfAuthorizationRequestSubmissionsService,
-                params,
-                response,
+                checkRequired("service", service),
+                checkRequired("params", params),
+                checkRequired("response", response),
             )
     }
 
@@ -122,4 +164,17 @@ private constructor(
             return forEach(values::add, executor).thenApply { values }
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is ProofOfAuthorizationRequestSubmissionListPageAsync && service == other.service && params == other.params && response == other.response /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, params, response) /* spotless:on */
+
+    override fun toString() =
+        "ProofOfAuthorizationRequestSubmissionListPageAsync{service=$service, params=$params, response=$response}"
 }

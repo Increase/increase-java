@@ -100,11 +100,11 @@ internal constructor(private val clientOptions: ClientOptions) : CardPurchaseSup
                         }
                     }
                     .let {
-                        CardPurchaseSupplementListPage.of(
-                            CardPurchaseSupplementServiceImpl(clientOptions),
-                            params,
-                            it,
-                        )
+                        CardPurchaseSupplementListPage.builder()
+                            .service(CardPurchaseSupplementServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

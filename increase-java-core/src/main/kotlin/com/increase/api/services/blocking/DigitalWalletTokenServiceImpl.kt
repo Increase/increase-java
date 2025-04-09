@@ -99,11 +99,11 @@ class DigitalWalletTokenServiceImpl internal constructor(private val clientOptio
                         }
                     }
                     .let {
-                        DigitalWalletTokenListPage.of(
-                            DigitalWalletTokenServiceImpl(clientOptions),
-                            params,
-                            it,
-                        )
+                        DigitalWalletTokenListPage.builder()
+                            .service(DigitalWalletTokenServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

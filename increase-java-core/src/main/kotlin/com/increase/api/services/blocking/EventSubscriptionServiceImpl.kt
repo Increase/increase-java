@@ -170,11 +170,11 @@ class EventSubscriptionServiceImpl internal constructor(private val clientOption
                         }
                     }
                     .let {
-                        EventSubscriptionListPage.of(
-                            EventSubscriptionServiceImpl(clientOptions),
-                            params,
-                            it,
-                        )
+                        EventSubscriptionListPage.builder()
+                            .service(EventSubscriptionServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

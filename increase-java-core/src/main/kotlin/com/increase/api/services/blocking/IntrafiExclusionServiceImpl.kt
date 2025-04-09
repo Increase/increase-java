@@ -143,11 +143,11 @@ class IntrafiExclusionServiceImpl internal constructor(private val clientOptions
                         }
                     }
                     .let {
-                        IntrafiExclusionListPage.of(
-                            IntrafiExclusionServiceImpl(clientOptions),
-                            params,
-                            it,
-                        )
+                        IntrafiExclusionListPage.builder()
+                            .service(IntrafiExclusionServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }
