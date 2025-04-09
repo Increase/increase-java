@@ -2,6 +2,7 @@
 
 package com.increase.api.models.wiretransfers
 
+import com.increase.api.core.checkRequired
 import com.increase.api.services.async.WireTransferServiceAsync
 import java.util.Objects
 import java.util.Optional
@@ -10,16 +11,13 @@ import java.util.concurrent.Executor
 import java.util.function.Predicate
 import kotlin.jvm.optionals.getOrNull
 
-/** List Wire Transfers */
+/** @see [WireTransferServiceAsync.list] */
 class WireTransferListPageAsync
 private constructor(
-    private val wireTransfersService: WireTransferServiceAsync,
+    private val service: WireTransferServiceAsync,
     private val params: WireTransferListParams,
     private val response: WireTransferListPageResponse,
 ) {
-
-    /** Returns the response that this page was parsed from. */
-    fun response(): WireTransferListPageResponse = response
 
     /**
      * Delegates to [WireTransferListPageResponse], but gracefully handles missing data.
@@ -35,19 +33,6 @@ private constructor(
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is WireTransferListPageAsync && wireTransfersService == other.wireTransfersService && params == other.params && response == other.response /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(wireTransfersService, params, response) /* spotless:on */
-
-    override fun toString() =
-        "WireTransferListPageAsync{wireTransfersService=$wireTransfersService, params=$params, response=$response}"
-
     fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor().isPresent
 
     fun getNextPageParams(): Optional<WireTransferListParams> {
@@ -60,22 +45,78 @@ private constructor(
         )
     }
 
-    fun getNextPage(): CompletableFuture<Optional<WireTransferListPageAsync>> {
-        return getNextPageParams()
-            .map { wireTransfersService.list(it).thenApply { Optional.of(it) } }
+    fun getNextPage(): CompletableFuture<Optional<WireTransferListPageAsync>> =
+        getNextPageParams()
+            .map { service.list(it).thenApply { Optional.of(it) } }
             .orElseGet { CompletableFuture.completedFuture(Optional.empty()) }
-    }
 
     fun autoPager(): AutoPager = AutoPager(this)
 
+    /** The parameters that were used to request this page. */
+    fun params(): WireTransferListParams = params
+
+    /** The response that this page was parsed from. */
+    fun response(): WireTransferListPageResponse = response
+
+    fun toBuilder() = Builder().from(this)
+
     companion object {
 
-        @JvmStatic
-        fun of(
-            wireTransfersService: WireTransferServiceAsync,
-            params: WireTransferListParams,
-            response: WireTransferListPageResponse,
-        ) = WireTransferListPageAsync(wireTransfersService, params, response)
+        /**
+         * Returns a mutable builder for constructing an instance of [WireTransferListPageAsync].
+         *
+         * The following fields are required:
+         * ```java
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         */
+        @JvmStatic fun builder() = Builder()
+    }
+
+    /** A builder for [WireTransferListPageAsync]. */
+    class Builder internal constructor() {
+
+        private var service: WireTransferServiceAsync? = null
+        private var params: WireTransferListParams? = null
+        private var response: WireTransferListPageResponse? = null
+
+        @JvmSynthetic
+        internal fun from(wireTransferListPageAsync: WireTransferListPageAsync) = apply {
+            service = wireTransferListPageAsync.service
+            params = wireTransferListPageAsync.params
+            response = wireTransferListPageAsync.response
+        }
+
+        fun service(service: WireTransferServiceAsync) = apply { this.service = service }
+
+        /** The parameters that were used to request this page. */
+        fun params(params: WireTransferListParams) = apply { this.params = params }
+
+        /** The response that this page was parsed from. */
+        fun response(response: WireTransferListPageResponse) = apply { this.response = response }
+
+        /**
+         * Returns an immutable instance of [WireTransferListPageAsync].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
+        fun build(): WireTransferListPageAsync =
+            WireTransferListPageAsync(
+                checkRequired("service", service),
+                checkRequired("params", params),
+                checkRequired("response", response),
+            )
     }
 
     class AutoPager(private val firstPage: WireTransferListPageAsync) {
@@ -103,4 +144,17 @@ private constructor(
             return forEach(values::add, executor).thenApply { values }
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is WireTransferListPageAsync && service == other.service && params == other.params && response == other.response /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, params, response) /* spotless:on */
+
+    override fun toString() =
+        "WireTransferListPageAsync{service=$service, params=$params, response=$response}"
 }

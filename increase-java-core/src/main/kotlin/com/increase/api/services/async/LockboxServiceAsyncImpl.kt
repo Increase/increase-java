@@ -182,11 +182,11 @@ class LockboxServiceAsyncImpl internal constructor(private val clientOptions: Cl
                                 }
                             }
                             .let {
-                                LockboxListPageAsync.of(
-                                    LockboxServiceAsyncImpl(clientOptions),
-                                    params,
-                                    it,
-                                )
+                                LockboxListPageAsync.builder()
+                                    .service(LockboxServiceAsyncImpl(clientOptions))
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

@@ -151,7 +151,11 @@ class WireTransferServiceImpl internal constructor(private val clientOptions: Cl
                         }
                     }
                     .let {
-                        WireTransferListPage.of(WireTransferServiceImpl(clientOptions), params, it)
+                        WireTransferListPage.builder()
+                            .service(WireTransferServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

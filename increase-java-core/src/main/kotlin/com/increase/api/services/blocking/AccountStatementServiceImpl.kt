@@ -99,11 +99,11 @@ class AccountStatementServiceImpl internal constructor(private val clientOptions
                         }
                     }
                     .let {
-                        AccountStatementListPage.of(
-                            AccountStatementServiceImpl(clientOptions),
-                            params,
-                            it,
-                        )
+                        AccountStatementListPage.builder()
+                            .service(AccountStatementServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

@@ -102,11 +102,11 @@ internal constructor(private val clientOptions: ClientOptions) :
                         }
                     }
                     .let {
-                        ProofOfAuthorizationRequestListPage.of(
-                            ProofOfAuthorizationRequestServiceImpl(clientOptions),
-                            params,
-                            it,
-                        )
+                        ProofOfAuthorizationRequestListPage.builder()
+                            .service(ProofOfAuthorizationRequestServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

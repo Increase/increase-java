@@ -92,7 +92,13 @@ class ProgramServiceImpl internal constructor(private val clientOptions: ClientO
                             it.validate()
                         }
                     }
-                    .let { ProgramListPage.of(ProgramServiceImpl(clientOptions), params, it) }
+                    .let {
+                        ProgramListPage.builder()
+                            .service(ProgramServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
+                    }
             }
         }
     }

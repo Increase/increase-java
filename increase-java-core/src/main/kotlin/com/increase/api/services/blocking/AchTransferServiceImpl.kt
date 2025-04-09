@@ -151,7 +151,11 @@ class AchTransferServiceImpl internal constructor(private val clientOptions: Cli
                         }
                     }
                     .let {
-                        AchTransferListPage.of(AchTransferServiceImpl(clientOptions), params, it)
+                        AchTransferListPage.builder()
+                            .service(AchTransferServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

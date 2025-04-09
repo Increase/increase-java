@@ -151,11 +151,11 @@ class AccountTransferServiceImpl internal constructor(private val clientOptions:
                         }
                     }
                     .let {
-                        AccountTransferListPage.of(
-                            AccountTransferServiceImpl(clientOptions),
-                            params,
-                            it,
-                        )
+                        AccountTransferListPage.builder()
+                            .service(AccountTransferServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

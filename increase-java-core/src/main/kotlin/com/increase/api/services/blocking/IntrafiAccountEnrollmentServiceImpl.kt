@@ -146,11 +146,11 @@ internal constructor(private val clientOptions: ClientOptions) : IntrafiAccountE
                         }
                     }
                     .let {
-                        IntrafiAccountEnrollmentListPage.of(
-                            IntrafiAccountEnrollmentServiceImpl(clientOptions),
-                            params,
-                            it,
-                        )
+                        IntrafiAccountEnrollmentListPage.builder()
+                            .service(IntrafiAccountEnrollmentServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

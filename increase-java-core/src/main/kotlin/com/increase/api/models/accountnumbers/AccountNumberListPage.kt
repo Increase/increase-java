@@ -2,6 +2,7 @@
 
 package com.increase.api.models.accountnumbers
 
+import com.increase.api.core.checkRequired
 import com.increase.api.services.blocking.AccountNumberService
 import java.util.Objects
 import java.util.Optional
@@ -9,16 +10,13 @@ import java.util.stream.Stream
 import java.util.stream.StreamSupport
 import kotlin.jvm.optionals.getOrNull
 
-/** List Account Numbers */
+/** @see [AccountNumberService.list] */
 class AccountNumberListPage
 private constructor(
-    private val accountNumbersService: AccountNumberService,
+    private val service: AccountNumberService,
     private val params: AccountNumberListParams,
     private val response: AccountNumberListPageResponse,
 ) {
-
-    /** Returns the response that this page was parsed from. */
-    fun response(): AccountNumberListPageResponse = response
 
     /**
      * Delegates to [AccountNumberListPageResponse], but gracefully handles missing data.
@@ -35,19 +33,6 @@ private constructor(
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is AccountNumberListPage && accountNumbersService == other.accountNumbersService && params == other.params && response == other.response /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountNumbersService, params, response) /* spotless:on */
-
-    override fun toString() =
-        "AccountNumberListPage{accountNumbersService=$accountNumbersService, params=$params, response=$response}"
-
     fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor().isPresent
 
     fun getNextPageParams(): Optional<AccountNumberListParams> {
@@ -60,20 +45,76 @@ private constructor(
         )
     }
 
-    fun getNextPage(): Optional<AccountNumberListPage> {
-        return getNextPageParams().map { accountNumbersService.list(it) }
-    }
+    fun getNextPage(): Optional<AccountNumberListPage> =
+        getNextPageParams().map { service.list(it) }
 
     fun autoPager(): AutoPager = AutoPager(this)
 
+    /** The parameters that were used to request this page. */
+    fun params(): AccountNumberListParams = params
+
+    /** The response that this page was parsed from. */
+    fun response(): AccountNumberListPageResponse = response
+
+    fun toBuilder() = Builder().from(this)
+
     companion object {
 
-        @JvmStatic
-        fun of(
-            accountNumbersService: AccountNumberService,
-            params: AccountNumberListParams,
-            response: AccountNumberListPageResponse,
-        ) = AccountNumberListPage(accountNumbersService, params, response)
+        /**
+         * Returns a mutable builder for constructing an instance of [AccountNumberListPage].
+         *
+         * The following fields are required:
+         * ```java
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         */
+        @JvmStatic fun builder() = Builder()
+    }
+
+    /** A builder for [AccountNumberListPage]. */
+    class Builder internal constructor() {
+
+        private var service: AccountNumberService? = null
+        private var params: AccountNumberListParams? = null
+        private var response: AccountNumberListPageResponse? = null
+
+        @JvmSynthetic
+        internal fun from(accountNumberListPage: AccountNumberListPage) = apply {
+            service = accountNumberListPage.service
+            params = accountNumberListPage.params
+            response = accountNumberListPage.response
+        }
+
+        fun service(service: AccountNumberService) = apply { this.service = service }
+
+        /** The parameters that were used to request this page. */
+        fun params(params: AccountNumberListParams) = apply { this.params = params }
+
+        /** The response that this page was parsed from. */
+        fun response(response: AccountNumberListPageResponse) = apply { this.response = response }
+
+        /**
+         * Returns an immutable instance of [AccountNumberListPage].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
+        fun build(): AccountNumberListPage =
+            AccountNumberListPage(
+                checkRequired("service", service),
+                checkRequired("params", params),
+                checkRequired("response", response),
+            )
     }
 
     class AutoPager(private val firstPage: AccountNumberListPage) : Iterable<AccountNumber> {
@@ -94,4 +135,17 @@ private constructor(
             return StreamSupport.stream(spliterator(), false)
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is AccountNumberListPage && service == other.service && params == other.params && response == other.response /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, params, response) /* spotless:on */
+
+    override fun toString() =
+        "AccountNumberListPage{service=$service, params=$params, response=$response}"
 }

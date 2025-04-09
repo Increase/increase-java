@@ -99,11 +99,11 @@ class OAuthApplicationServiceImpl internal constructor(private val clientOptions
                         }
                     }
                     .let {
-                        OAuthApplicationListPage.of(
-                            OAuthApplicationServiceImpl(clientOptions),
-                            params,
-                            it,
-                        )
+                        OAuthApplicationListPage.builder()
+                            .service(OAuthApplicationServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

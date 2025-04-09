@@ -2,6 +2,7 @@
 
 package com.increase.api.models.oauthapplications
 
+import com.increase.api.core.checkRequired
 import com.increase.api.services.async.OAuthApplicationServiceAsync
 import java.util.Objects
 import java.util.Optional
@@ -10,16 +11,13 @@ import java.util.concurrent.Executor
 import java.util.function.Predicate
 import kotlin.jvm.optionals.getOrNull
 
-/** List OAuth Applications */
+/** @see [OAuthApplicationServiceAsync.list] */
 class OAuthApplicationListPageAsync
 private constructor(
-    private val oauthApplicationsService: OAuthApplicationServiceAsync,
+    private val service: OAuthApplicationServiceAsync,
     private val params: OAuthApplicationListParams,
     private val response: OAuthApplicationListPageResponse,
 ) {
-
-    /** Returns the response that this page was parsed from. */
-    fun response(): OAuthApplicationListPageResponse = response
 
     /**
      * Delegates to [OAuthApplicationListPageResponse], but gracefully handles missing data.
@@ -36,19 +34,6 @@ private constructor(
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is OAuthApplicationListPageAsync && oauthApplicationsService == other.oauthApplicationsService && params == other.params && response == other.response /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(oauthApplicationsService, params, response) /* spotless:on */
-
-    override fun toString() =
-        "OAuthApplicationListPageAsync{oauthApplicationsService=$oauthApplicationsService, params=$params, response=$response}"
-
     fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor().isPresent
 
     fun getNextPageParams(): Optional<OAuthApplicationListParams> {
@@ -61,22 +46,81 @@ private constructor(
         )
     }
 
-    fun getNextPage(): CompletableFuture<Optional<OAuthApplicationListPageAsync>> {
-        return getNextPageParams()
-            .map { oauthApplicationsService.list(it).thenApply { Optional.of(it) } }
+    fun getNextPage(): CompletableFuture<Optional<OAuthApplicationListPageAsync>> =
+        getNextPageParams()
+            .map { service.list(it).thenApply { Optional.of(it) } }
             .orElseGet { CompletableFuture.completedFuture(Optional.empty()) }
-    }
 
     fun autoPager(): AutoPager = AutoPager(this)
 
+    /** The parameters that were used to request this page. */
+    fun params(): OAuthApplicationListParams = params
+
+    /** The response that this page was parsed from. */
+    fun response(): OAuthApplicationListPageResponse = response
+
+    fun toBuilder() = Builder().from(this)
+
     companion object {
 
-        @JvmStatic
-        fun of(
-            oauthApplicationsService: OAuthApplicationServiceAsync,
-            params: OAuthApplicationListParams,
-            response: OAuthApplicationListPageResponse,
-        ) = OAuthApplicationListPageAsync(oauthApplicationsService, params, response)
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [OAuthApplicationListPageAsync].
+         *
+         * The following fields are required:
+         * ```java
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         */
+        @JvmStatic fun builder() = Builder()
+    }
+
+    /** A builder for [OAuthApplicationListPageAsync]. */
+    class Builder internal constructor() {
+
+        private var service: OAuthApplicationServiceAsync? = null
+        private var params: OAuthApplicationListParams? = null
+        private var response: OAuthApplicationListPageResponse? = null
+
+        @JvmSynthetic
+        internal fun from(oauthApplicationListPageAsync: OAuthApplicationListPageAsync) = apply {
+            service = oauthApplicationListPageAsync.service
+            params = oauthApplicationListPageAsync.params
+            response = oauthApplicationListPageAsync.response
+        }
+
+        fun service(service: OAuthApplicationServiceAsync) = apply { this.service = service }
+
+        /** The parameters that were used to request this page. */
+        fun params(params: OAuthApplicationListParams) = apply { this.params = params }
+
+        /** The response that this page was parsed from. */
+        fun response(response: OAuthApplicationListPageResponse) = apply {
+            this.response = response
+        }
+
+        /**
+         * Returns an immutable instance of [OAuthApplicationListPageAsync].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
+        fun build(): OAuthApplicationListPageAsync =
+            OAuthApplicationListPageAsync(
+                checkRequired("service", service),
+                checkRequired("params", params),
+                checkRequired("response", response),
+            )
     }
 
     class AutoPager(private val firstPage: OAuthApplicationListPageAsync) {
@@ -107,4 +151,17 @@ private constructor(
             return forEach(values::add, executor).thenApply { values }
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is OAuthApplicationListPageAsync && service == other.service && params == other.params && response == other.response /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, params, response) /* spotless:on */
+
+    override fun toString() =
+        "OAuthApplicationListPageAsync{service=$service, params=$params, response=$response}"
 }

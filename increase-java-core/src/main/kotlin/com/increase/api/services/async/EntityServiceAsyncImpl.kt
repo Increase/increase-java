@@ -202,11 +202,11 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
                                 }
                             }
                             .let {
-                                EntityListPageAsync.of(
-                                    EntityServiceAsyncImpl(clientOptions),
-                                    params,
-                                    it,
-                                )
+                                EntityListPageAsync.builder()
+                                    .service(EntityServiceAsyncImpl(clientOptions))
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

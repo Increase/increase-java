@@ -137,11 +137,11 @@ internal constructor(private val clientOptions: ClientOptions) : WireDrawdownReq
                         }
                     }
                     .let {
-                        WireDrawdownRequestListPage.of(
-                            WireDrawdownRequestServiceImpl(clientOptions),
-                            params,
-                            it,
-                        )
+                        WireDrawdownRequestListPage.builder()
+                            .service(WireDrawdownRequestServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

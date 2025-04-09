@@ -2,6 +2,7 @@
 
 package com.increase.api.models.pendingtransactions
 
+import com.increase.api.core.checkRequired
 import com.increase.api.services.async.PendingTransactionServiceAsync
 import java.util.Objects
 import java.util.Optional
@@ -10,16 +11,13 @@ import java.util.concurrent.Executor
 import java.util.function.Predicate
 import kotlin.jvm.optionals.getOrNull
 
-/** List Pending Transactions */
+/** @see [PendingTransactionServiceAsync.list] */
 class PendingTransactionListPageAsync
 private constructor(
-    private val pendingTransactionsService: PendingTransactionServiceAsync,
+    private val service: PendingTransactionServiceAsync,
     private val params: PendingTransactionListParams,
     private val response: PendingTransactionListPageResponse,
 ) {
-
-    /** Returns the response that this page was parsed from. */
-    fun response(): PendingTransactionListPageResponse = response
 
     /**
      * Delegates to [PendingTransactionListPageResponse], but gracefully handles missing data.
@@ -36,19 +34,6 @@ private constructor(
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is PendingTransactionListPageAsync && pendingTransactionsService == other.pendingTransactionsService && params == other.params && response == other.response /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(pendingTransactionsService, params, response) /* spotless:on */
-
-    override fun toString() =
-        "PendingTransactionListPageAsync{pendingTransactionsService=$pendingTransactionsService, params=$params, response=$response}"
-
     fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor().isPresent
 
     fun getNextPageParams(): Optional<PendingTransactionListParams> {
@@ -61,22 +46,82 @@ private constructor(
         )
     }
 
-    fun getNextPage(): CompletableFuture<Optional<PendingTransactionListPageAsync>> {
-        return getNextPageParams()
-            .map { pendingTransactionsService.list(it).thenApply { Optional.of(it) } }
+    fun getNextPage(): CompletableFuture<Optional<PendingTransactionListPageAsync>> =
+        getNextPageParams()
+            .map { service.list(it).thenApply { Optional.of(it) } }
             .orElseGet { CompletableFuture.completedFuture(Optional.empty()) }
-    }
 
     fun autoPager(): AutoPager = AutoPager(this)
 
+    /** The parameters that were used to request this page. */
+    fun params(): PendingTransactionListParams = params
+
+    /** The response that this page was parsed from. */
+    fun response(): PendingTransactionListPageResponse = response
+
+    fun toBuilder() = Builder().from(this)
+
     companion object {
 
-        @JvmStatic
-        fun of(
-            pendingTransactionsService: PendingTransactionServiceAsync,
-            params: PendingTransactionListParams,
-            response: PendingTransactionListPageResponse,
-        ) = PendingTransactionListPageAsync(pendingTransactionsService, params, response)
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [PendingTransactionListPageAsync].
+         *
+         * The following fields are required:
+         * ```java
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         */
+        @JvmStatic fun builder() = Builder()
+    }
+
+    /** A builder for [PendingTransactionListPageAsync]. */
+    class Builder internal constructor() {
+
+        private var service: PendingTransactionServiceAsync? = null
+        private var params: PendingTransactionListParams? = null
+        private var response: PendingTransactionListPageResponse? = null
+
+        @JvmSynthetic
+        internal fun from(pendingTransactionListPageAsync: PendingTransactionListPageAsync) =
+            apply {
+                service = pendingTransactionListPageAsync.service
+                params = pendingTransactionListPageAsync.params
+                response = pendingTransactionListPageAsync.response
+            }
+
+        fun service(service: PendingTransactionServiceAsync) = apply { this.service = service }
+
+        /** The parameters that were used to request this page. */
+        fun params(params: PendingTransactionListParams) = apply { this.params = params }
+
+        /** The response that this page was parsed from. */
+        fun response(response: PendingTransactionListPageResponse) = apply {
+            this.response = response
+        }
+
+        /**
+         * Returns an immutable instance of [PendingTransactionListPageAsync].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
+        fun build(): PendingTransactionListPageAsync =
+            PendingTransactionListPageAsync(
+                checkRequired("service", service),
+                checkRequired("params", params),
+                checkRequired("response", response),
+            )
     }
 
     class AutoPager(private val firstPage: PendingTransactionListPageAsync) {
@@ -107,4 +152,17 @@ private constructor(
             return forEach(values::add, executor).thenApply { values }
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is PendingTransactionListPageAsync && service == other.service && params == other.params && response == other.response /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, params, response) /* spotless:on */
+
+    override fun toString() =
+        "PendingTransactionListPageAsync{service=$service, params=$params, response=$response}"
 }

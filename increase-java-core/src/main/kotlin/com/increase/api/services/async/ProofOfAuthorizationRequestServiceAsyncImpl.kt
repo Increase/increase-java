@@ -108,11 +108,13 @@ internal constructor(private val clientOptions: ClientOptions) :
                                 }
                             }
                             .let {
-                                ProofOfAuthorizationRequestListPageAsync.of(
-                                    ProofOfAuthorizationRequestServiceAsyncImpl(clientOptions),
-                                    params,
-                                    it,
-                                )
+                                ProofOfAuthorizationRequestListPageAsync.builder()
+                                    .service(
+                                        ProofOfAuthorizationRequestServiceAsyncImpl(clientOptions)
+                                    )
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

@@ -2,6 +2,7 @@
 
 package com.increase.api.models.inboundwiredrawdownrequests
 
+import com.increase.api.core.checkRequired
 import com.increase.api.services.async.InboundWireDrawdownRequestServiceAsync
 import java.util.Objects
 import java.util.Optional
@@ -10,16 +11,13 @@ import java.util.concurrent.Executor
 import java.util.function.Predicate
 import kotlin.jvm.optionals.getOrNull
 
-/** List Inbound Wire Drawdown Requests */
+/** @see [InboundWireDrawdownRequestServiceAsync.list] */
 class InboundWireDrawdownRequestListPageAsync
 private constructor(
-    private val inboundWireDrawdownRequestsService: InboundWireDrawdownRequestServiceAsync,
+    private val service: InboundWireDrawdownRequestServiceAsync,
     private val params: InboundWireDrawdownRequestListParams,
     private val response: InboundWireDrawdownRequestListPageResponse,
 ) {
-
-    /** Returns the response that this page was parsed from. */
-    fun response(): InboundWireDrawdownRequestListPageResponse = response
 
     /**
      * Delegates to [InboundWireDrawdownRequestListPageResponse], but gracefully handles missing
@@ -38,19 +36,6 @@ private constructor(
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is InboundWireDrawdownRequestListPageAsync && inboundWireDrawdownRequestsService == other.inboundWireDrawdownRequestsService && params == other.params && response == other.response /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(inboundWireDrawdownRequestsService, params, response) /* spotless:on */
-
-    override fun toString() =
-        "InboundWireDrawdownRequestListPageAsync{inboundWireDrawdownRequestsService=$inboundWireDrawdownRequestsService, params=$params, response=$response}"
-
     fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor().isPresent
 
     fun getNextPageParams(): Optional<InboundWireDrawdownRequestListParams> {
@@ -63,26 +48,84 @@ private constructor(
         )
     }
 
-    fun getNextPage(): CompletableFuture<Optional<InboundWireDrawdownRequestListPageAsync>> {
-        return getNextPageParams()
-            .map { inboundWireDrawdownRequestsService.list(it).thenApply { Optional.of(it) } }
+    fun getNextPage(): CompletableFuture<Optional<InboundWireDrawdownRequestListPageAsync>> =
+        getNextPageParams()
+            .map { service.list(it).thenApply { Optional.of(it) } }
             .orElseGet { CompletableFuture.completedFuture(Optional.empty()) }
-    }
 
     fun autoPager(): AutoPager = AutoPager(this)
 
+    /** The parameters that were used to request this page. */
+    fun params(): InboundWireDrawdownRequestListParams = params
+
+    /** The response that this page was parsed from. */
+    fun response(): InboundWireDrawdownRequestListPageResponse = response
+
+    fun toBuilder() = Builder().from(this)
+
     companion object {
 
-        @JvmStatic
-        fun of(
-            inboundWireDrawdownRequestsService: InboundWireDrawdownRequestServiceAsync,
-            params: InboundWireDrawdownRequestListParams,
-            response: InboundWireDrawdownRequestListPageResponse,
-        ) =
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [InboundWireDrawdownRequestListPageAsync].
+         *
+         * The following fields are required:
+         * ```java
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         */
+        @JvmStatic fun builder() = Builder()
+    }
+
+    /** A builder for [InboundWireDrawdownRequestListPageAsync]. */
+    class Builder internal constructor() {
+
+        private var service: InboundWireDrawdownRequestServiceAsync? = null
+        private var params: InboundWireDrawdownRequestListParams? = null
+        private var response: InboundWireDrawdownRequestListPageResponse? = null
+
+        @JvmSynthetic
+        internal fun from(
+            inboundWireDrawdownRequestListPageAsync: InboundWireDrawdownRequestListPageAsync
+        ) = apply {
+            service = inboundWireDrawdownRequestListPageAsync.service
+            params = inboundWireDrawdownRequestListPageAsync.params
+            response = inboundWireDrawdownRequestListPageAsync.response
+        }
+
+        fun service(service: InboundWireDrawdownRequestServiceAsync) = apply {
+            this.service = service
+        }
+
+        /** The parameters that were used to request this page. */
+        fun params(params: InboundWireDrawdownRequestListParams) = apply { this.params = params }
+
+        /** The response that this page was parsed from. */
+        fun response(response: InboundWireDrawdownRequestListPageResponse) = apply {
+            this.response = response
+        }
+
+        /**
+         * Returns an immutable instance of [InboundWireDrawdownRequestListPageAsync].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
+        fun build(): InboundWireDrawdownRequestListPageAsync =
             InboundWireDrawdownRequestListPageAsync(
-                inboundWireDrawdownRequestsService,
-                params,
-                response,
+                checkRequired("service", service),
+                checkRequired("params", params),
+                checkRequired("response", response),
             )
     }
 
@@ -114,4 +157,17 @@ private constructor(
             return forEach(values::add, executor).thenApply { values }
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is InboundWireDrawdownRequestListPageAsync && service == other.service && params == other.params && response == other.response /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, params, response) /* spotless:on */
+
+    override fun toString() =
+        "InboundWireDrawdownRequestListPageAsync{service=$service, params=$params, response=$response}"
 }
