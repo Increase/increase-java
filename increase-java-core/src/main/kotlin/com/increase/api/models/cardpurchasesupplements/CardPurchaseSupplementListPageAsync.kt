@@ -2,6 +2,7 @@
 
 package com.increase.api.models.cardpurchasesupplements
 
+import com.increase.api.core.checkRequired
 import com.increase.api.services.async.CardPurchaseSupplementServiceAsync
 import java.util.Objects
 import java.util.Optional
@@ -10,16 +11,13 @@ import java.util.concurrent.Executor
 import java.util.function.Predicate
 import kotlin.jvm.optionals.getOrNull
 
-/** List Card Purchase Supplements */
+/** @see [CardPurchaseSupplementServiceAsync.list] */
 class CardPurchaseSupplementListPageAsync
 private constructor(
-    private val cardPurchaseSupplementsService: CardPurchaseSupplementServiceAsync,
+    private val service: CardPurchaseSupplementServiceAsync,
     private val params: CardPurchaseSupplementListParams,
     private val response: CardPurchaseSupplementListPageResponse,
 ) {
-
-    /** Returns the response that this page was parsed from. */
-    fun response(): CardPurchaseSupplementListPageResponse = response
 
     /**
      * Delegates to [CardPurchaseSupplementListPageResponse], but gracefully handles missing data.
@@ -36,19 +34,6 @@ private constructor(
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is CardPurchaseSupplementListPageAsync && cardPurchaseSupplementsService == other.cardPurchaseSupplementsService && params == other.params && response == other.response /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(cardPurchaseSupplementsService, params, response) /* spotless:on */
-
-    override fun toString() =
-        "CardPurchaseSupplementListPageAsync{cardPurchaseSupplementsService=$cardPurchaseSupplementsService, params=$params, response=$response}"
-
     fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor().isPresent
 
     fun getNextPageParams(): Optional<CardPurchaseSupplementListParams> {
@@ -61,22 +46,83 @@ private constructor(
         )
     }
 
-    fun getNextPage(): CompletableFuture<Optional<CardPurchaseSupplementListPageAsync>> {
-        return getNextPageParams()
-            .map { cardPurchaseSupplementsService.list(it).thenApply { Optional.of(it) } }
+    fun getNextPage(): CompletableFuture<Optional<CardPurchaseSupplementListPageAsync>> =
+        getNextPageParams()
+            .map { service.list(it).thenApply { Optional.of(it) } }
             .orElseGet { CompletableFuture.completedFuture(Optional.empty()) }
-    }
 
     fun autoPager(): AutoPager = AutoPager(this)
 
+    /** The parameters that were used to request this page. */
+    fun params(): CardPurchaseSupplementListParams = params
+
+    /** The response that this page was parsed from. */
+    fun response(): CardPurchaseSupplementListPageResponse = response
+
+    fun toBuilder() = Builder().from(this)
+
     companion object {
 
-        @JvmStatic
-        fun of(
-            cardPurchaseSupplementsService: CardPurchaseSupplementServiceAsync,
-            params: CardPurchaseSupplementListParams,
-            response: CardPurchaseSupplementListPageResponse,
-        ) = CardPurchaseSupplementListPageAsync(cardPurchaseSupplementsService, params, response)
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [CardPurchaseSupplementListPageAsync].
+         *
+         * The following fields are required:
+         * ```java
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         */
+        @JvmStatic fun builder() = Builder()
+    }
+
+    /** A builder for [CardPurchaseSupplementListPageAsync]. */
+    class Builder internal constructor() {
+
+        private var service: CardPurchaseSupplementServiceAsync? = null
+        private var params: CardPurchaseSupplementListParams? = null
+        private var response: CardPurchaseSupplementListPageResponse? = null
+
+        @JvmSynthetic
+        internal fun from(
+            cardPurchaseSupplementListPageAsync: CardPurchaseSupplementListPageAsync
+        ) = apply {
+            service = cardPurchaseSupplementListPageAsync.service
+            params = cardPurchaseSupplementListPageAsync.params
+            response = cardPurchaseSupplementListPageAsync.response
+        }
+
+        fun service(service: CardPurchaseSupplementServiceAsync) = apply { this.service = service }
+
+        /** The parameters that were used to request this page. */
+        fun params(params: CardPurchaseSupplementListParams) = apply { this.params = params }
+
+        /** The response that this page was parsed from. */
+        fun response(response: CardPurchaseSupplementListPageResponse) = apply {
+            this.response = response
+        }
+
+        /**
+         * Returns an immutable instance of [CardPurchaseSupplementListPageAsync].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
+        fun build(): CardPurchaseSupplementListPageAsync =
+            CardPurchaseSupplementListPageAsync(
+                checkRequired("service", service),
+                checkRequired("params", params),
+                checkRequired("response", response),
+            )
     }
 
     class AutoPager(private val firstPage: CardPurchaseSupplementListPageAsync) {
@@ -107,4 +153,17 @@ private constructor(
             return forEach(values::add, executor).thenApply { values }
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is CardPurchaseSupplementListPageAsync && service == other.service && params == other.params && response == other.response /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, params, response) /* spotless:on */
+
+    override fun toString() =
+        "CardPurchaseSupplementListPageAsync{service=$service, params=$params, response=$response}"
 }

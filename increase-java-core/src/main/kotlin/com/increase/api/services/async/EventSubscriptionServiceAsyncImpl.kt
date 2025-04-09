@@ -182,11 +182,11 @@ internal constructor(private val clientOptions: ClientOptions) : EventSubscripti
                                 }
                             }
                             .let {
-                                EventSubscriptionListPageAsync.of(
-                                    EventSubscriptionServiceAsyncImpl(clientOptions),
-                                    params,
-                                    it,
-                                )
+                                EventSubscriptionListPageAsync.builder()
+                                    .service(EventSubscriptionServiceAsyncImpl(clientOptions))
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

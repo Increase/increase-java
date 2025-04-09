@@ -159,11 +159,11 @@ class CheckTransferServiceImpl internal constructor(private val clientOptions: C
                         }
                     }
                     .let {
-                        CheckTransferListPage.of(
-                            CheckTransferServiceImpl(clientOptions),
-                            params,
-                            it,
-                        )
+                        CheckTransferListPage.builder()
+                            .service(CheckTransferServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

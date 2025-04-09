@@ -2,6 +2,7 @@
 
 package com.increase.api.models.accounttransfers
 
+import com.increase.api.core.checkRequired
 import com.increase.api.services.blocking.AccountTransferService
 import java.util.Objects
 import java.util.Optional
@@ -9,16 +10,13 @@ import java.util.stream.Stream
 import java.util.stream.StreamSupport
 import kotlin.jvm.optionals.getOrNull
 
-/** List Account Transfers */
+/** @see [AccountTransferService.list] */
 class AccountTransferListPage
 private constructor(
-    private val accountTransfersService: AccountTransferService,
+    private val service: AccountTransferService,
     private val params: AccountTransferListParams,
     private val response: AccountTransferListPageResponse,
 ) {
-
-    /** Returns the response that this page was parsed from. */
-    fun response(): AccountTransferListPageResponse = response
 
     /**
      * Delegates to [AccountTransferListPageResponse], but gracefully handles missing data.
@@ -35,19 +33,6 @@ private constructor(
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is AccountTransferListPage && accountTransfersService == other.accountTransfersService && params == other.params && response == other.response /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountTransfersService, params, response) /* spotless:on */
-
-    override fun toString() =
-        "AccountTransferListPage{accountTransfersService=$accountTransfersService, params=$params, response=$response}"
-
     fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor().isPresent
 
     fun getNextPageParams(): Optional<AccountTransferListParams> {
@@ -60,20 +45,76 @@ private constructor(
         )
     }
 
-    fun getNextPage(): Optional<AccountTransferListPage> {
-        return getNextPageParams().map { accountTransfersService.list(it) }
-    }
+    fun getNextPage(): Optional<AccountTransferListPage> =
+        getNextPageParams().map { service.list(it) }
 
     fun autoPager(): AutoPager = AutoPager(this)
 
+    /** The parameters that were used to request this page. */
+    fun params(): AccountTransferListParams = params
+
+    /** The response that this page was parsed from. */
+    fun response(): AccountTransferListPageResponse = response
+
+    fun toBuilder() = Builder().from(this)
+
     companion object {
 
-        @JvmStatic
-        fun of(
-            accountTransfersService: AccountTransferService,
-            params: AccountTransferListParams,
-            response: AccountTransferListPageResponse,
-        ) = AccountTransferListPage(accountTransfersService, params, response)
+        /**
+         * Returns a mutable builder for constructing an instance of [AccountTransferListPage].
+         *
+         * The following fields are required:
+         * ```java
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         */
+        @JvmStatic fun builder() = Builder()
+    }
+
+    /** A builder for [AccountTransferListPage]. */
+    class Builder internal constructor() {
+
+        private var service: AccountTransferService? = null
+        private var params: AccountTransferListParams? = null
+        private var response: AccountTransferListPageResponse? = null
+
+        @JvmSynthetic
+        internal fun from(accountTransferListPage: AccountTransferListPage) = apply {
+            service = accountTransferListPage.service
+            params = accountTransferListPage.params
+            response = accountTransferListPage.response
+        }
+
+        fun service(service: AccountTransferService) = apply { this.service = service }
+
+        /** The parameters that were used to request this page. */
+        fun params(params: AccountTransferListParams) = apply { this.params = params }
+
+        /** The response that this page was parsed from. */
+        fun response(response: AccountTransferListPageResponse) = apply { this.response = response }
+
+        /**
+         * Returns an immutable instance of [AccountTransferListPage].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
+        fun build(): AccountTransferListPage =
+            AccountTransferListPage(
+                checkRequired("service", service),
+                checkRequired("params", params),
+                checkRequired("response", response),
+            )
     }
 
     class AutoPager(private val firstPage: AccountTransferListPage) : Iterable<AccountTransfer> {
@@ -94,4 +135,17 @@ private constructor(
             return StreamSupport.stream(spliterator(), false)
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is AccountTransferListPage && service == other.service && params == other.params && response == other.response /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, params, response) /* spotless:on */
+
+    override fun toString() =
+        "AccountTransferListPage{service=$service, params=$params, response=$response}"
 }

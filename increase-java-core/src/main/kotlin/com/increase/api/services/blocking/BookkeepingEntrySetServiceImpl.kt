@@ -137,11 +137,11 @@ internal constructor(private val clientOptions: ClientOptions) : BookkeepingEntr
                         }
                     }
                     .let {
-                        BookkeepingEntrySetListPage.of(
-                            BookkeepingEntrySetServiceImpl(clientOptions),
-                            params,
-                            it,
-                        )
+                        BookkeepingEntrySetListPage.builder()
+                            .service(BookkeepingEntrySetServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

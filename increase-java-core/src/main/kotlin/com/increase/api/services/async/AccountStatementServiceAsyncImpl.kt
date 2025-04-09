@@ -105,11 +105,11 @@ internal constructor(private val clientOptions: ClientOptions) : AccountStatemen
                                 }
                             }
                             .let {
-                                AccountStatementListPageAsync.of(
-                                    AccountStatementServiceAsyncImpl(clientOptions),
-                                    params,
-                                    it,
-                                )
+                                AccountStatementListPageAsync.builder()
+                                    .service(AccountStatementServiceAsyncImpl(clientOptions))
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

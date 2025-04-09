@@ -168,11 +168,11 @@ class CheckTransferServiceAsyncImpl internal constructor(private val clientOptio
                                 }
                             }
                             .let {
-                                CheckTransferListPageAsync.of(
-                                    CheckTransferServiceAsyncImpl(clientOptions),
-                                    params,
-                                    it,
-                                )
+                                CheckTransferListPageAsync.builder()
+                                    .service(CheckTransferServiceAsyncImpl(clientOptions))
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

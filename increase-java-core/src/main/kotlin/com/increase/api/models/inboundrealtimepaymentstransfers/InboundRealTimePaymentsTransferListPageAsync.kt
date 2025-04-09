@@ -2,6 +2,7 @@
 
 package com.increase.api.models.inboundrealtimepaymentstransfers
 
+import com.increase.api.core.checkRequired
 import com.increase.api.services.async.InboundRealTimePaymentsTransferServiceAsync
 import java.util.Objects
 import java.util.Optional
@@ -10,17 +11,13 @@ import java.util.concurrent.Executor
 import java.util.function.Predicate
 import kotlin.jvm.optionals.getOrNull
 
-/** List Inbound Real-Time Payments Transfers */
+/** @see [InboundRealTimePaymentsTransferServiceAsync.list] */
 class InboundRealTimePaymentsTransferListPageAsync
 private constructor(
-    private val inboundRealTimePaymentsTransfersService:
-        InboundRealTimePaymentsTransferServiceAsync,
+    private val service: InboundRealTimePaymentsTransferServiceAsync,
     private val params: InboundRealTimePaymentsTransferListParams,
     private val response: InboundRealTimePaymentsTransferListPageResponse,
 ) {
-
-    /** Returns the response that this page was parsed from. */
-    fun response(): InboundRealTimePaymentsTransferListPageResponse = response
 
     /**
      * Delegates to [InboundRealTimePaymentsTransferListPageResponse], but gracefully handles
@@ -39,19 +36,6 @@ private constructor(
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is InboundRealTimePaymentsTransferListPageAsync && inboundRealTimePaymentsTransfersService == other.inboundRealTimePaymentsTransfersService && params == other.params && response == other.response /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(inboundRealTimePaymentsTransfersService, params, response) /* spotless:on */
-
-    override fun toString() =
-        "InboundRealTimePaymentsTransferListPageAsync{inboundRealTimePaymentsTransfersService=$inboundRealTimePaymentsTransfersService, params=$params, response=$response}"
-
     fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor().isPresent
 
     fun getNextPageParams(): Optional<InboundRealTimePaymentsTransferListParams> {
@@ -64,26 +48,87 @@ private constructor(
         )
     }
 
-    fun getNextPage(): CompletableFuture<Optional<InboundRealTimePaymentsTransferListPageAsync>> {
-        return getNextPageParams()
-            .map { inboundRealTimePaymentsTransfersService.list(it).thenApply { Optional.of(it) } }
+    fun getNextPage(): CompletableFuture<Optional<InboundRealTimePaymentsTransferListPageAsync>> =
+        getNextPageParams()
+            .map { service.list(it).thenApply { Optional.of(it) } }
             .orElseGet { CompletableFuture.completedFuture(Optional.empty()) }
-    }
 
     fun autoPager(): AutoPager = AutoPager(this)
 
+    /** The parameters that were used to request this page. */
+    fun params(): InboundRealTimePaymentsTransferListParams = params
+
+    /** The response that this page was parsed from. */
+    fun response(): InboundRealTimePaymentsTransferListPageResponse = response
+
+    fun toBuilder() = Builder().from(this)
+
     companion object {
 
-        @JvmStatic
-        fun of(
-            inboundRealTimePaymentsTransfersService: InboundRealTimePaymentsTransferServiceAsync,
-            params: InboundRealTimePaymentsTransferListParams,
-            response: InboundRealTimePaymentsTransferListPageResponse,
-        ) =
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [InboundRealTimePaymentsTransferListPageAsync].
+         *
+         * The following fields are required:
+         * ```java
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         */
+        @JvmStatic fun builder() = Builder()
+    }
+
+    /** A builder for [InboundRealTimePaymentsTransferListPageAsync]. */
+    class Builder internal constructor() {
+
+        private var service: InboundRealTimePaymentsTransferServiceAsync? = null
+        private var params: InboundRealTimePaymentsTransferListParams? = null
+        private var response: InboundRealTimePaymentsTransferListPageResponse? = null
+
+        @JvmSynthetic
+        internal fun from(
+            inboundRealTimePaymentsTransferListPageAsync:
+                InboundRealTimePaymentsTransferListPageAsync
+        ) = apply {
+            service = inboundRealTimePaymentsTransferListPageAsync.service
+            params = inboundRealTimePaymentsTransferListPageAsync.params
+            response = inboundRealTimePaymentsTransferListPageAsync.response
+        }
+
+        fun service(service: InboundRealTimePaymentsTransferServiceAsync) = apply {
+            this.service = service
+        }
+
+        /** The parameters that were used to request this page. */
+        fun params(params: InboundRealTimePaymentsTransferListParams) = apply {
+            this.params = params
+        }
+
+        /** The response that this page was parsed from. */
+        fun response(response: InboundRealTimePaymentsTransferListPageResponse) = apply {
+            this.response = response
+        }
+
+        /**
+         * Returns an immutable instance of [InboundRealTimePaymentsTransferListPageAsync].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
+        fun build(): InboundRealTimePaymentsTransferListPageAsync =
             InboundRealTimePaymentsTransferListPageAsync(
-                inboundRealTimePaymentsTransfersService,
-                params,
-                response,
+                checkRequired("service", service),
+                checkRequired("params", params),
+                checkRequired("response", response),
             )
     }
 
@@ -115,4 +160,17 @@ private constructor(
             return forEach(values::add, executor).thenApply { values }
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is InboundRealTimePaymentsTransferListPageAsync && service == other.service && params == other.params && response == other.response /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, params, response) /* spotless:on */
+
+    override fun toString() =
+        "InboundRealTimePaymentsTransferListPageAsync{service=$service, params=$params, response=$response}"
 }

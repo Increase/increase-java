@@ -151,11 +151,11 @@ class DigitalCardProfileServiceImpl internal constructor(private val clientOptio
                         }
                     }
                     .let {
-                        DigitalCardProfileListPage.of(
-                            DigitalCardProfileServiceImpl(clientOptions),
-                            params,
-                            it,
-                        )
+                        DigitalCardProfileListPage.builder()
+                            .service(DigitalCardProfileServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

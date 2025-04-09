@@ -182,11 +182,11 @@ class PhysicalCardServiceAsyncImpl internal constructor(private val clientOption
                                 }
                             }
                             .let {
-                                PhysicalCardListPageAsync.of(
-                                    PhysicalCardServiceAsyncImpl(clientOptions),
-                                    params,
-                                    it,
-                                )
+                                PhysicalCardListPageAsync.builder()
+                                    .service(PhysicalCardServiceAsyncImpl(clientOptions))
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

@@ -108,11 +108,13 @@ internal constructor(private val clientOptions: ClientOptions) :
                                 }
                             }
                             .let {
-                                InboundWireDrawdownRequestListPageAsync.of(
-                                    InboundWireDrawdownRequestServiceAsyncImpl(clientOptions),
-                                    params,
-                                    it,
-                                )
+                                InboundWireDrawdownRequestListPageAsync.builder()
+                                    .service(
+                                        InboundWireDrawdownRequestServiceAsyncImpl(clientOptions)
+                                    )
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

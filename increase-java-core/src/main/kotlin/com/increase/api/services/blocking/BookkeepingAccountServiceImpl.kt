@@ -145,11 +145,11 @@ class BookkeepingAccountServiceImpl internal constructor(private val clientOptio
                         }
                     }
                     .let {
-                        BookkeepingAccountListPage.of(
-                            BookkeepingAccountServiceImpl(clientOptions),
-                            params,
-                            it,
-                        )
+                        BookkeepingAccountListPage.builder()
+                            .service(BookkeepingAccountServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

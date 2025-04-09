@@ -160,11 +160,11 @@ internal constructor(private val clientOptions: ClientOptions) : DigitalCardProf
                                 }
                             }
                             .let {
-                                DigitalCardProfileListPageAsync.of(
-                                    DigitalCardProfileServiceAsyncImpl(clientOptions),
-                                    params,
-                                    it,
-                                )
+                                DigitalCardProfileListPageAsync.builder()
+                                    .service(DigitalCardProfileServiceAsyncImpl(clientOptions))
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

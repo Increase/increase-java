@@ -2,6 +2,7 @@
 
 package com.increase.api.models.checkdeposits
 
+import com.increase.api.core.checkRequired
 import com.increase.api.services.async.CheckDepositServiceAsync
 import java.util.Objects
 import java.util.Optional
@@ -10,16 +11,13 @@ import java.util.concurrent.Executor
 import java.util.function.Predicate
 import kotlin.jvm.optionals.getOrNull
 
-/** List Check Deposits */
+/** @see [CheckDepositServiceAsync.list] */
 class CheckDepositListPageAsync
 private constructor(
-    private val checkDepositsService: CheckDepositServiceAsync,
+    private val service: CheckDepositServiceAsync,
     private val params: CheckDepositListParams,
     private val response: CheckDepositListPageResponse,
 ) {
-
-    /** Returns the response that this page was parsed from. */
-    fun response(): CheckDepositListPageResponse = response
 
     /**
      * Delegates to [CheckDepositListPageResponse], but gracefully handles missing data.
@@ -35,19 +33,6 @@ private constructor(
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is CheckDepositListPageAsync && checkDepositsService == other.checkDepositsService && params == other.params && response == other.response /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(checkDepositsService, params, response) /* spotless:on */
-
-    override fun toString() =
-        "CheckDepositListPageAsync{checkDepositsService=$checkDepositsService, params=$params, response=$response}"
-
     fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor().isPresent
 
     fun getNextPageParams(): Optional<CheckDepositListParams> {
@@ -60,22 +45,78 @@ private constructor(
         )
     }
 
-    fun getNextPage(): CompletableFuture<Optional<CheckDepositListPageAsync>> {
-        return getNextPageParams()
-            .map { checkDepositsService.list(it).thenApply { Optional.of(it) } }
+    fun getNextPage(): CompletableFuture<Optional<CheckDepositListPageAsync>> =
+        getNextPageParams()
+            .map { service.list(it).thenApply { Optional.of(it) } }
             .orElseGet { CompletableFuture.completedFuture(Optional.empty()) }
-    }
 
     fun autoPager(): AutoPager = AutoPager(this)
 
+    /** The parameters that were used to request this page. */
+    fun params(): CheckDepositListParams = params
+
+    /** The response that this page was parsed from. */
+    fun response(): CheckDepositListPageResponse = response
+
+    fun toBuilder() = Builder().from(this)
+
     companion object {
 
-        @JvmStatic
-        fun of(
-            checkDepositsService: CheckDepositServiceAsync,
-            params: CheckDepositListParams,
-            response: CheckDepositListPageResponse,
-        ) = CheckDepositListPageAsync(checkDepositsService, params, response)
+        /**
+         * Returns a mutable builder for constructing an instance of [CheckDepositListPageAsync].
+         *
+         * The following fields are required:
+         * ```java
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         */
+        @JvmStatic fun builder() = Builder()
+    }
+
+    /** A builder for [CheckDepositListPageAsync]. */
+    class Builder internal constructor() {
+
+        private var service: CheckDepositServiceAsync? = null
+        private var params: CheckDepositListParams? = null
+        private var response: CheckDepositListPageResponse? = null
+
+        @JvmSynthetic
+        internal fun from(checkDepositListPageAsync: CheckDepositListPageAsync) = apply {
+            service = checkDepositListPageAsync.service
+            params = checkDepositListPageAsync.params
+            response = checkDepositListPageAsync.response
+        }
+
+        fun service(service: CheckDepositServiceAsync) = apply { this.service = service }
+
+        /** The parameters that were used to request this page. */
+        fun params(params: CheckDepositListParams) = apply { this.params = params }
+
+        /** The response that this page was parsed from. */
+        fun response(response: CheckDepositListPageResponse) = apply { this.response = response }
+
+        /**
+         * Returns an immutable instance of [CheckDepositListPageAsync].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
+        fun build(): CheckDepositListPageAsync =
+            CheckDepositListPageAsync(
+                checkRequired("service", service),
+                checkRequired("params", params),
+                checkRequired("response", response),
+            )
     }
 
     class AutoPager(private val firstPage: CheckDepositListPageAsync) {
@@ -103,4 +144,17 @@ private constructor(
             return forEach(values::add, executor).thenApply { values }
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is CheckDepositListPageAsync && service == other.service && params == other.params && response == other.response /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, params, response) /* spotless:on */
+
+    override fun toString() =
+        "CheckDepositListPageAsync{service=$service, params=$params, response=$response}"
 }

@@ -124,11 +124,11 @@ class InboundAchTransferServiceImpl internal constructor(private val clientOptio
                         }
                     }
                     .let {
-                        InboundAchTransferListPage.of(
-                            InboundAchTransferServiceImpl(clientOptions),
-                            params,
-                            it,
-                        )
+                        InboundAchTransferListPage.builder()
+                            .service(InboundAchTransferServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

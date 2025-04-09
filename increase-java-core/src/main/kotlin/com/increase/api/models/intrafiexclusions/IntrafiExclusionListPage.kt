@@ -2,6 +2,7 @@
 
 package com.increase.api.models.intrafiexclusions
 
+import com.increase.api.core.checkRequired
 import com.increase.api.services.blocking.IntrafiExclusionService
 import java.util.Objects
 import java.util.Optional
@@ -9,16 +10,13 @@ import java.util.stream.Stream
 import java.util.stream.StreamSupport
 import kotlin.jvm.optionals.getOrNull
 
-/** List IntraFi Exclusions */
+/** @see [IntrafiExclusionService.list] */
 class IntrafiExclusionListPage
 private constructor(
-    private val intrafiExclusionsService: IntrafiExclusionService,
+    private val service: IntrafiExclusionService,
     private val params: IntrafiExclusionListParams,
     private val response: IntrafiExclusionListPageResponse,
 ) {
-
-    /** Returns the response that this page was parsed from. */
-    fun response(): IntrafiExclusionListPageResponse = response
 
     /**
      * Delegates to [IntrafiExclusionListPageResponse], but gracefully handles missing data.
@@ -35,19 +33,6 @@ private constructor(
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is IntrafiExclusionListPage && intrafiExclusionsService == other.intrafiExclusionsService && params == other.params && response == other.response /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(intrafiExclusionsService, params, response) /* spotless:on */
-
-    override fun toString() =
-        "IntrafiExclusionListPage{intrafiExclusionsService=$intrafiExclusionsService, params=$params, response=$response}"
-
     fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor().isPresent
 
     fun getNextPageParams(): Optional<IntrafiExclusionListParams> {
@@ -60,20 +45,78 @@ private constructor(
         )
     }
 
-    fun getNextPage(): Optional<IntrafiExclusionListPage> {
-        return getNextPageParams().map { intrafiExclusionsService.list(it) }
-    }
+    fun getNextPage(): Optional<IntrafiExclusionListPage> =
+        getNextPageParams().map { service.list(it) }
 
     fun autoPager(): AutoPager = AutoPager(this)
 
+    /** The parameters that were used to request this page. */
+    fun params(): IntrafiExclusionListParams = params
+
+    /** The response that this page was parsed from. */
+    fun response(): IntrafiExclusionListPageResponse = response
+
+    fun toBuilder() = Builder().from(this)
+
     companion object {
 
-        @JvmStatic
-        fun of(
-            intrafiExclusionsService: IntrafiExclusionService,
-            params: IntrafiExclusionListParams,
-            response: IntrafiExclusionListPageResponse,
-        ) = IntrafiExclusionListPage(intrafiExclusionsService, params, response)
+        /**
+         * Returns a mutable builder for constructing an instance of [IntrafiExclusionListPage].
+         *
+         * The following fields are required:
+         * ```java
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         */
+        @JvmStatic fun builder() = Builder()
+    }
+
+    /** A builder for [IntrafiExclusionListPage]. */
+    class Builder internal constructor() {
+
+        private var service: IntrafiExclusionService? = null
+        private var params: IntrafiExclusionListParams? = null
+        private var response: IntrafiExclusionListPageResponse? = null
+
+        @JvmSynthetic
+        internal fun from(intrafiExclusionListPage: IntrafiExclusionListPage) = apply {
+            service = intrafiExclusionListPage.service
+            params = intrafiExclusionListPage.params
+            response = intrafiExclusionListPage.response
+        }
+
+        fun service(service: IntrafiExclusionService) = apply { this.service = service }
+
+        /** The parameters that were used to request this page. */
+        fun params(params: IntrafiExclusionListParams) = apply { this.params = params }
+
+        /** The response that this page was parsed from. */
+        fun response(response: IntrafiExclusionListPageResponse) = apply {
+            this.response = response
+        }
+
+        /**
+         * Returns an immutable instance of [IntrafiExclusionListPage].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
+        fun build(): IntrafiExclusionListPage =
+            IntrafiExclusionListPage(
+                checkRequired("service", service),
+                checkRequired("params", params),
+                checkRequired("response", response),
+            )
     }
 
     class AutoPager(private val firstPage: IntrafiExclusionListPage) : Iterable<IntrafiExclusion> {
@@ -94,4 +137,17 @@ private constructor(
             return StreamSupport.stream(spliterator(), false)
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is IntrafiExclusionListPage && service == other.service && params == other.params && response == other.response /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, params, response) /* spotless:on */
+
+    override fun toString() =
+        "IntrafiExclusionListPage{service=$service, params=$params, response=$response}"
 }

@@ -160,11 +160,11 @@ class WireTransferServiceAsyncImpl internal constructor(private val clientOption
                                 }
                             }
                             .let {
-                                WireTransferListPageAsync.of(
-                                    WireTransferServiceAsyncImpl(clientOptions),
-                                    params,
-                                    it,
-                                )
+                                WireTransferListPageAsync.builder()
+                                    .service(WireTransferServiceAsyncImpl(clientOptions))
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

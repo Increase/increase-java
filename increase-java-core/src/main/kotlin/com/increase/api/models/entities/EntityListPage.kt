@@ -2,6 +2,7 @@
 
 package com.increase.api.models.entities
 
+import com.increase.api.core.checkRequired
 import com.increase.api.services.blocking.EntityService
 import java.util.Objects
 import java.util.Optional
@@ -9,16 +10,13 @@ import java.util.stream.Stream
 import java.util.stream.StreamSupport
 import kotlin.jvm.optionals.getOrNull
 
-/** List Entities */
+/** @see [EntityService.list] */
 class EntityListPage
 private constructor(
-    private val entitiesService: EntityService,
+    private val service: EntityService,
     private val params: EntityListParams,
     private val response: EntityListPageResponse,
 ) {
-
-    /** Returns the response that this page was parsed from. */
-    fun response(): EntityListPageResponse = response
 
     /**
      * Delegates to [EntityListPageResponse], but gracefully handles missing data.
@@ -34,19 +32,6 @@ private constructor(
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is EntityListPage && entitiesService == other.entitiesService && params == other.params && response == other.response /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(entitiesService, params, response) /* spotless:on */
-
-    override fun toString() =
-        "EntityListPage{entitiesService=$entitiesService, params=$params, response=$response}"
-
     fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor().isPresent
 
     fun getNextPageParams(): Optional<EntityListParams> {
@@ -59,20 +44,75 @@ private constructor(
         )
     }
 
-    fun getNextPage(): Optional<EntityListPage> {
-        return getNextPageParams().map { entitiesService.list(it) }
-    }
+    fun getNextPage(): Optional<EntityListPage> = getNextPageParams().map { service.list(it) }
 
     fun autoPager(): AutoPager = AutoPager(this)
 
+    /** The parameters that were used to request this page. */
+    fun params(): EntityListParams = params
+
+    /** The response that this page was parsed from. */
+    fun response(): EntityListPageResponse = response
+
+    fun toBuilder() = Builder().from(this)
+
     companion object {
 
-        @JvmStatic
-        fun of(
-            entitiesService: EntityService,
-            params: EntityListParams,
-            response: EntityListPageResponse,
-        ) = EntityListPage(entitiesService, params, response)
+        /**
+         * Returns a mutable builder for constructing an instance of [EntityListPage].
+         *
+         * The following fields are required:
+         * ```java
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         */
+        @JvmStatic fun builder() = Builder()
+    }
+
+    /** A builder for [EntityListPage]. */
+    class Builder internal constructor() {
+
+        private var service: EntityService? = null
+        private var params: EntityListParams? = null
+        private var response: EntityListPageResponse? = null
+
+        @JvmSynthetic
+        internal fun from(entityListPage: EntityListPage) = apply {
+            service = entityListPage.service
+            params = entityListPage.params
+            response = entityListPage.response
+        }
+
+        fun service(service: EntityService) = apply { this.service = service }
+
+        /** The parameters that were used to request this page. */
+        fun params(params: EntityListParams) = apply { this.params = params }
+
+        /** The response that this page was parsed from. */
+        fun response(response: EntityListPageResponse) = apply { this.response = response }
+
+        /**
+         * Returns an immutable instance of [EntityListPage].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
+        fun build(): EntityListPage =
+            EntityListPage(
+                checkRequired("service", service),
+                checkRequired("params", params),
+                checkRequired("response", response),
+            )
     }
 
     class AutoPager(private val firstPage: EntityListPage) : Iterable<Entity> {
@@ -93,4 +133,16 @@ private constructor(
             return StreamSupport.stream(spliterator(), false)
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is EntityListPage && service == other.service && params == other.params && response == other.response /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, params, response) /* spotless:on */
+
+    override fun toString() = "EntityListPage{service=$service, params=$params, response=$response}"
 }

@@ -144,11 +144,11 @@ class ExportServiceAsyncImpl internal constructor(private val clientOptions: Cli
                                 }
                             }
                             .let {
-                                ExportListPageAsync.of(
-                                    ExportServiceAsyncImpl(clientOptions),
-                                    params,
-                                    it,
-                                )
+                                ExportListPageAsync.builder()
+                                    .service(ExportServiceAsyncImpl(clientOptions))
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

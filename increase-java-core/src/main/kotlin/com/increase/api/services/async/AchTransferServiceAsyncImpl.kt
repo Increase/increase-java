@@ -160,11 +160,11 @@ class AchTransferServiceAsyncImpl internal constructor(private val clientOptions
                                 }
                             }
                             .let {
-                                AchTransferListPageAsync.of(
-                                    AchTransferServiceAsyncImpl(clientOptions),
-                                    params,
-                                    it,
-                                )
+                                AchTransferListPageAsync.builder()
+                                    .service(AchTransferServiceAsyncImpl(clientOptions))
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

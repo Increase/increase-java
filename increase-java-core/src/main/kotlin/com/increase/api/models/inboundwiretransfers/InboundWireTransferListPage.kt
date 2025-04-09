@@ -2,6 +2,7 @@
 
 package com.increase.api.models.inboundwiretransfers
 
+import com.increase.api.core.checkRequired
 import com.increase.api.services.blocking.InboundWireTransferService
 import java.util.Objects
 import java.util.Optional
@@ -9,16 +10,13 @@ import java.util.stream.Stream
 import java.util.stream.StreamSupport
 import kotlin.jvm.optionals.getOrNull
 
-/** List Inbound Wire Transfers */
+/** @see [InboundWireTransferService.list] */
 class InboundWireTransferListPage
 private constructor(
-    private val inboundWireTransfersService: InboundWireTransferService,
+    private val service: InboundWireTransferService,
     private val params: InboundWireTransferListParams,
     private val response: InboundWireTransferListPageResponse,
 ) {
-
-    /** Returns the response that this page was parsed from. */
-    fun response(): InboundWireTransferListPageResponse = response
 
     /**
      * Delegates to [InboundWireTransferListPageResponse], but gracefully handles missing data.
@@ -35,19 +33,6 @@ private constructor(
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is InboundWireTransferListPage && inboundWireTransfersService == other.inboundWireTransfersService && params == other.params && response == other.response /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(inboundWireTransfersService, params, response) /* spotless:on */
-
-    override fun toString() =
-        "InboundWireTransferListPage{inboundWireTransfersService=$inboundWireTransfersService, params=$params, response=$response}"
-
     fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor().isPresent
 
     fun getNextPageParams(): Optional<InboundWireTransferListParams> {
@@ -60,20 +45,78 @@ private constructor(
         )
     }
 
-    fun getNextPage(): Optional<InboundWireTransferListPage> {
-        return getNextPageParams().map { inboundWireTransfersService.list(it) }
-    }
+    fun getNextPage(): Optional<InboundWireTransferListPage> =
+        getNextPageParams().map { service.list(it) }
 
     fun autoPager(): AutoPager = AutoPager(this)
 
+    /** The parameters that were used to request this page. */
+    fun params(): InboundWireTransferListParams = params
+
+    /** The response that this page was parsed from. */
+    fun response(): InboundWireTransferListPageResponse = response
+
+    fun toBuilder() = Builder().from(this)
+
     companion object {
 
-        @JvmStatic
-        fun of(
-            inboundWireTransfersService: InboundWireTransferService,
-            params: InboundWireTransferListParams,
-            response: InboundWireTransferListPageResponse,
-        ) = InboundWireTransferListPage(inboundWireTransfersService, params, response)
+        /**
+         * Returns a mutable builder for constructing an instance of [InboundWireTransferListPage].
+         *
+         * The following fields are required:
+         * ```java
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         */
+        @JvmStatic fun builder() = Builder()
+    }
+
+    /** A builder for [InboundWireTransferListPage]. */
+    class Builder internal constructor() {
+
+        private var service: InboundWireTransferService? = null
+        private var params: InboundWireTransferListParams? = null
+        private var response: InboundWireTransferListPageResponse? = null
+
+        @JvmSynthetic
+        internal fun from(inboundWireTransferListPage: InboundWireTransferListPage) = apply {
+            service = inboundWireTransferListPage.service
+            params = inboundWireTransferListPage.params
+            response = inboundWireTransferListPage.response
+        }
+
+        fun service(service: InboundWireTransferService) = apply { this.service = service }
+
+        /** The parameters that were used to request this page. */
+        fun params(params: InboundWireTransferListParams) = apply { this.params = params }
+
+        /** The response that this page was parsed from. */
+        fun response(response: InboundWireTransferListPageResponse) = apply {
+            this.response = response
+        }
+
+        /**
+         * Returns an immutable instance of [InboundWireTransferListPage].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
+        fun build(): InboundWireTransferListPage =
+            InboundWireTransferListPage(
+                checkRequired("service", service),
+                checkRequired("params", params),
+                checkRequired("response", response),
+            )
     }
 
     class AutoPager(private val firstPage: InboundWireTransferListPage) :
@@ -95,4 +138,17 @@ private constructor(
             return StreamSupport.stream(spliterator(), false)
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is InboundWireTransferListPage && service == other.service && params == other.params && response == other.response /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, params, response) /* spotless:on */
+
+    override fun toString() =
+        "InboundWireTransferListPage{service=$service, params=$params, response=$response}"
 }

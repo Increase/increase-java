@@ -2,6 +2,7 @@
 
 package com.increase.api.models.inboundachtransfers
 
+import com.increase.api.core.checkRequired
 import com.increase.api.services.blocking.InboundAchTransferService
 import java.util.Objects
 import java.util.Optional
@@ -9,16 +10,13 @@ import java.util.stream.Stream
 import java.util.stream.StreamSupport
 import kotlin.jvm.optionals.getOrNull
 
-/** List Inbound ACH Transfers */
+/** @see [InboundAchTransferService.list] */
 class InboundAchTransferListPage
 private constructor(
-    private val inboundAchTransfersService: InboundAchTransferService,
+    private val service: InboundAchTransferService,
     private val params: InboundAchTransferListParams,
     private val response: InboundAchTransferListPageResponse,
 ) {
-
-    /** Returns the response that this page was parsed from. */
-    fun response(): InboundAchTransferListPageResponse = response
 
     /**
      * Delegates to [InboundAchTransferListPageResponse], but gracefully handles missing data.
@@ -35,19 +33,6 @@ private constructor(
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is InboundAchTransferListPage && inboundAchTransfersService == other.inboundAchTransfersService && params == other.params && response == other.response /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(inboundAchTransfersService, params, response) /* spotless:on */
-
-    override fun toString() =
-        "InboundAchTransferListPage{inboundAchTransfersService=$inboundAchTransfersService, params=$params, response=$response}"
-
     fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor().isPresent
 
     fun getNextPageParams(): Optional<InboundAchTransferListParams> {
@@ -60,20 +45,78 @@ private constructor(
         )
     }
 
-    fun getNextPage(): Optional<InboundAchTransferListPage> {
-        return getNextPageParams().map { inboundAchTransfersService.list(it) }
-    }
+    fun getNextPage(): Optional<InboundAchTransferListPage> =
+        getNextPageParams().map { service.list(it) }
 
     fun autoPager(): AutoPager = AutoPager(this)
 
+    /** The parameters that were used to request this page. */
+    fun params(): InboundAchTransferListParams = params
+
+    /** The response that this page was parsed from. */
+    fun response(): InboundAchTransferListPageResponse = response
+
+    fun toBuilder() = Builder().from(this)
+
     companion object {
 
-        @JvmStatic
-        fun of(
-            inboundAchTransfersService: InboundAchTransferService,
-            params: InboundAchTransferListParams,
-            response: InboundAchTransferListPageResponse,
-        ) = InboundAchTransferListPage(inboundAchTransfersService, params, response)
+        /**
+         * Returns a mutable builder for constructing an instance of [InboundAchTransferListPage].
+         *
+         * The following fields are required:
+         * ```java
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         */
+        @JvmStatic fun builder() = Builder()
+    }
+
+    /** A builder for [InboundAchTransferListPage]. */
+    class Builder internal constructor() {
+
+        private var service: InboundAchTransferService? = null
+        private var params: InboundAchTransferListParams? = null
+        private var response: InboundAchTransferListPageResponse? = null
+
+        @JvmSynthetic
+        internal fun from(inboundAchTransferListPage: InboundAchTransferListPage) = apply {
+            service = inboundAchTransferListPage.service
+            params = inboundAchTransferListPage.params
+            response = inboundAchTransferListPage.response
+        }
+
+        fun service(service: InboundAchTransferService) = apply { this.service = service }
+
+        /** The parameters that were used to request this page. */
+        fun params(params: InboundAchTransferListParams) = apply { this.params = params }
+
+        /** The response that this page was parsed from. */
+        fun response(response: InboundAchTransferListPageResponse) = apply {
+            this.response = response
+        }
+
+        /**
+         * Returns an immutable instance of [InboundAchTransferListPage].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
+        fun build(): InboundAchTransferListPage =
+            InboundAchTransferListPage(
+                checkRequired("service", service),
+                checkRequired("params", params),
+                checkRequired("response", response),
+            )
     }
 
     class AutoPager(private val firstPage: InboundAchTransferListPage) :
@@ -95,4 +138,17 @@ private constructor(
             return StreamSupport.stream(spliterator(), false)
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is InboundAchTransferListPage && service == other.service && params == other.params && response == other.response /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, params, response) /* spotless:on */
+
+    override fun toString() =
+        "InboundAchTransferListPage{service=$service, params=$params, response=$response}"
 }

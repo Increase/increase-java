@@ -99,11 +99,11 @@ class PendingTransactionServiceImpl internal constructor(private val clientOptio
                         }
                     }
                     .let {
-                        PendingTransactionListPage.of(
-                            PendingTransactionServiceImpl(clientOptions),
-                            params,
-                            it,
-                        )
+                        PendingTransactionListPage.builder()
+                            .service(PendingTransactionServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

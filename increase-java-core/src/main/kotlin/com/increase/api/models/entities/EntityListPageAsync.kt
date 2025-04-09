@@ -2,6 +2,7 @@
 
 package com.increase.api.models.entities
 
+import com.increase.api.core.checkRequired
 import com.increase.api.services.async.EntityServiceAsync
 import java.util.Objects
 import java.util.Optional
@@ -10,16 +11,13 @@ import java.util.concurrent.Executor
 import java.util.function.Predicate
 import kotlin.jvm.optionals.getOrNull
 
-/** List Entities */
+/** @see [EntityServiceAsync.list] */
 class EntityListPageAsync
 private constructor(
-    private val entitiesService: EntityServiceAsync,
+    private val service: EntityServiceAsync,
     private val params: EntityListParams,
     private val response: EntityListPageResponse,
 ) {
-
-    /** Returns the response that this page was parsed from. */
-    fun response(): EntityListPageResponse = response
 
     /**
      * Delegates to [EntityListPageResponse], but gracefully handles missing data.
@@ -35,19 +33,6 @@ private constructor(
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is EntityListPageAsync && entitiesService == other.entitiesService && params == other.params && response == other.response /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(entitiesService, params, response) /* spotless:on */
-
-    override fun toString() =
-        "EntityListPageAsync{entitiesService=$entitiesService, params=$params, response=$response}"
-
     fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor().isPresent
 
     fun getNextPageParams(): Optional<EntityListParams> {
@@ -60,22 +45,78 @@ private constructor(
         )
     }
 
-    fun getNextPage(): CompletableFuture<Optional<EntityListPageAsync>> {
-        return getNextPageParams()
-            .map { entitiesService.list(it).thenApply { Optional.of(it) } }
+    fun getNextPage(): CompletableFuture<Optional<EntityListPageAsync>> =
+        getNextPageParams()
+            .map { service.list(it).thenApply { Optional.of(it) } }
             .orElseGet { CompletableFuture.completedFuture(Optional.empty()) }
-    }
 
     fun autoPager(): AutoPager = AutoPager(this)
 
+    /** The parameters that were used to request this page. */
+    fun params(): EntityListParams = params
+
+    /** The response that this page was parsed from. */
+    fun response(): EntityListPageResponse = response
+
+    fun toBuilder() = Builder().from(this)
+
     companion object {
 
-        @JvmStatic
-        fun of(
-            entitiesService: EntityServiceAsync,
-            params: EntityListParams,
-            response: EntityListPageResponse,
-        ) = EntityListPageAsync(entitiesService, params, response)
+        /**
+         * Returns a mutable builder for constructing an instance of [EntityListPageAsync].
+         *
+         * The following fields are required:
+         * ```java
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         */
+        @JvmStatic fun builder() = Builder()
+    }
+
+    /** A builder for [EntityListPageAsync]. */
+    class Builder internal constructor() {
+
+        private var service: EntityServiceAsync? = null
+        private var params: EntityListParams? = null
+        private var response: EntityListPageResponse? = null
+
+        @JvmSynthetic
+        internal fun from(entityListPageAsync: EntityListPageAsync) = apply {
+            service = entityListPageAsync.service
+            params = entityListPageAsync.params
+            response = entityListPageAsync.response
+        }
+
+        fun service(service: EntityServiceAsync) = apply { this.service = service }
+
+        /** The parameters that were used to request this page. */
+        fun params(params: EntityListParams) = apply { this.params = params }
+
+        /** The response that this page was parsed from. */
+        fun response(response: EntityListPageResponse) = apply { this.response = response }
+
+        /**
+         * Returns an immutable instance of [EntityListPageAsync].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
+        fun build(): EntityListPageAsync =
+            EntityListPageAsync(
+                checkRequired("service", service),
+                checkRequired("params", params),
+                checkRequired("response", response),
+            )
     }
 
     class AutoPager(private val firstPage: EntityListPageAsync) {
@@ -103,4 +144,17 @@ private constructor(
             return forEach(values::add, executor).thenApply { values }
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is EntityListPageAsync && service == other.service && params == other.params && response == other.response /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, params, response) /* spotless:on */
+
+    override fun toString() =
+        "EntityListPageAsync{service=$service, params=$params, response=$response}"
 }

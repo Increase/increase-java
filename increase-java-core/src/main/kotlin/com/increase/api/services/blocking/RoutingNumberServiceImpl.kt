@@ -64,11 +64,11 @@ class RoutingNumberServiceImpl internal constructor(private val clientOptions: C
                         }
                     }
                     .let {
-                        RoutingNumberListPage.of(
-                            RoutingNumberServiceImpl(clientOptions),
-                            params,
-                            it,
-                        )
+                        RoutingNumberListPage.builder()
+                            .service(RoutingNumberServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }
