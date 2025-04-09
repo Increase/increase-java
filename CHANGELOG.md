@@ -1,5 +1,36 @@
 # Changelog
 
+## 0.211.0 (2025-04-09)
+
+Full Changelog: [v0.210.0...v0.211.0](https://github.com/Increase/increase-java/compare/v0.210.0...v0.211.0)
+
+### Features
+
+* **client:** make pagination robust to missing data ([620b779](https://github.com/Increase/increase-java/commit/620b7794bc1944bfb6696b8e12b76d3cc0b84482))
+* **client:** support setting base URL via env var ([#950](https://github.com/Increase/increase-java/issues/950)) ([024ab97](https://github.com/Increase/increase-java/commit/024ab978a92e5f622af6d255816d2baac4d5bad7))
+
+
+### Bug Fixes
+
+* **client:** bump to better jackson version ([#953](https://github.com/Increase/increase-java/issues/953)) ([23fd745](https://github.com/Increase/increase-java/commit/23fd74582cd9c0f80141d7346d6d273897292a9f))
+
+
+### Chores
+
+* **internal:** expand CI branch coverage ([#952](https://github.com/Increase/increase-java/issues/952)) ([9f82333](https://github.com/Increase/increase-java/commit/9f82333d4703adbc015308705f27b45a21c4b86c))
+* **internal:** reduce CI branch coverage ([39ffec0](https://github.com/Increase/increase-java/commit/39ffec05403adfb79127d71eec3ef51c804f46ca))
+
+
+### Documentation
+
+* add comments for page methods ([620b779](https://github.com/Increase/increase-java/commit/620b7794bc1944bfb6696b8e12b76d3cc0b84482))
+
+
+### Refactors
+
+* **client:** deduplicate page response classes ([#954](https://github.com/Increase/increase-java/issues/954)) ([620b779](https://github.com/Increase/increase-java/commit/620b7794bc1944bfb6696b8e12b76d3cc0b84482))
+* **client:** migrate pages to builder pattern ([#955](https://github.com/Increase/increase-java/issues/955)) ([22418b2](https://github.com/Increase/increase-java/commit/22418b2bd3c7b9f552f2dee0466e4ff7805ee3c7))
+
 ## 0.210.0 (2025-04-08)
 
 Full Changelog: [v0.209.0...v0.210.0](https://github.com/Increase/increase-java/compare/v0.209.0...v0.210.0)
