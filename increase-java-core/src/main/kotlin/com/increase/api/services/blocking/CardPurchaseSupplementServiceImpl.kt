@@ -16,6 +16,7 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.cardpurchasesupplements.CardPurchaseSupplement
 import com.increase.api.models.cardpurchasesupplements.CardPurchaseSupplementListPage
+import com.increase.api.models.cardpurchasesupplements.CardPurchaseSupplementListPageResponse
 import com.increase.api.models.cardpurchasesupplements.CardPurchaseSupplementListParams
 import com.increase.api.models.cardpurchasesupplements.CardPurchaseSupplementRetrieveParams
 
@@ -74,8 +75,8 @@ internal constructor(private val clientOptions: ClientOptions) : CardPurchaseSup
             }
         }
 
-        private val listHandler: Handler<CardPurchaseSupplementListPage.Response> =
-            jsonHandler<CardPurchaseSupplementListPage.Response>(clientOptions.jsonMapper)
+        private val listHandler: Handler<CardPurchaseSupplementListPageResponse> =
+            jsonHandler<CardPurchaseSupplementListPageResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override fun list(

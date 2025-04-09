@@ -20,6 +20,7 @@ import com.increase.api.models.achtransfers.AchTransferApproveParams
 import com.increase.api.models.achtransfers.AchTransferCancelParams
 import com.increase.api.models.achtransfers.AchTransferCreateParams
 import com.increase.api.models.achtransfers.AchTransferListPage
+import com.increase.api.models.achtransfers.AchTransferListPageResponse
 import com.increase.api.models.achtransfers.AchTransferListParams
 import com.increase.api.models.achtransfers.AchTransferRetrieveParams
 
@@ -125,8 +126,8 @@ class AchTransferServiceImpl internal constructor(private val clientOptions: Cli
             }
         }
 
-        private val listHandler: Handler<AchTransferListPage.Response> =
-            jsonHandler<AchTransferListPage.Response>(clientOptions.jsonMapper)
+        private val listHandler: Handler<AchTransferListPageResponse> =
+            jsonHandler<AchTransferListPageResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override fun list(

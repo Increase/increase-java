@@ -18,6 +18,7 @@ import com.increase.api.core.prepare
 import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransfer
 import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferCreateParams
 import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferListPage
+import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferListPageResponse
 import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferListParams
 import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferRetrieveParams
 
@@ -112,8 +113,8 @@ internal constructor(private val clientOptions: ClientOptions) : RealTimePayment
             }
         }
 
-        private val listHandler: Handler<RealTimePaymentsTransferListPage.Response> =
-            jsonHandler<RealTimePaymentsTransferListPage.Response>(clientOptions.jsonMapper)
+        private val listHandler: Handler<RealTimePaymentsTransferListPageResponse> =
+            jsonHandler<RealTimePaymentsTransferListPageResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override fun list(

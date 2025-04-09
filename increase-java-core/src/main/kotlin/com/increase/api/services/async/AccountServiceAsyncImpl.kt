@@ -20,6 +20,7 @@ import com.increase.api.models.accounts.AccountBalanceParams
 import com.increase.api.models.accounts.AccountCloseParams
 import com.increase.api.models.accounts.AccountCreateParams
 import com.increase.api.models.accounts.AccountListPageAsync
+import com.increase.api.models.accounts.AccountListPageResponse
 import com.increase.api.models.accounts.AccountListParams
 import com.increase.api.models.accounts.AccountRetrieveParams
 import com.increase.api.models.accounts.AccountUpdateParams
@@ -171,8 +172,8 @@ class AccountServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 }
         }
 
-        private val listHandler: Handler<AccountListPageAsync.Response> =
-            jsonHandler<AccountListPageAsync.Response>(clientOptions.jsonMapper)
+        private val listHandler: Handler<AccountListPageResponse> =
+            jsonHandler<AccountListPageResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override fun list(

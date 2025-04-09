@@ -16,6 +16,7 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.inboundmailitems.InboundMailItem
 import com.increase.api.models.inboundmailitems.InboundMailItemListPageAsync
+import com.increase.api.models.inboundmailitems.InboundMailItemListPageResponse
 import com.increase.api.models.inboundmailitems.InboundMailItemListParams
 import com.increase.api.models.inboundmailitems.InboundMailItemRetrieveParams
 import java.util.concurrent.CompletableFuture
@@ -77,8 +78,8 @@ internal constructor(private val clientOptions: ClientOptions) : InboundMailItem
                 }
         }
 
-        private val listHandler: Handler<InboundMailItemListPageAsync.Response> =
-            jsonHandler<InboundMailItemListPageAsync.Response>(clientOptions.jsonMapper)
+        private val listHandler: Handler<InboundMailItemListPageResponse> =
+            jsonHandler<InboundMailItemListPageResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override fun list(

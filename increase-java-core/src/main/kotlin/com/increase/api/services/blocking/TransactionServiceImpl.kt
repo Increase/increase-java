@@ -16,6 +16,7 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.transactions.Transaction
 import com.increase.api.models.transactions.TransactionListPage
+import com.increase.api.models.transactions.TransactionListPageResponse
 import com.increase.api.models.transactions.TransactionListParams
 import com.increase.api.models.transactions.TransactionRetrieveParams
 
@@ -73,8 +74,8 @@ class TransactionServiceImpl internal constructor(private val clientOptions: Cli
             }
         }
 
-        private val listHandler: Handler<TransactionListPage.Response> =
-            jsonHandler<TransactionListPage.Response>(clientOptions.jsonMapper)
+        private val listHandler: Handler<TransactionListPageResponse> =
+            jsonHandler<TransactionListPageResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override fun list(

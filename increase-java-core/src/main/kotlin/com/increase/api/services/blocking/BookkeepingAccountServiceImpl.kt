@@ -19,6 +19,7 @@ import com.increase.api.models.bookkeepingaccounts.BookkeepingAccount
 import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountBalanceParams
 import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountCreateParams
 import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountListPage
+import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountListPageResponse
 import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountListParams
 import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountUpdateParams
 import com.increase.api.models.bookkeepingaccounts.BookkeepingBalanceLookup
@@ -119,8 +120,8 @@ class BookkeepingAccountServiceImpl internal constructor(private val clientOptio
             }
         }
 
-        private val listHandler: Handler<BookkeepingAccountListPage.Response> =
-            jsonHandler<BookkeepingAccountListPage.Response>(clientOptions.jsonMapper)
+        private val listHandler: Handler<BookkeepingAccountListPageResponse> =
+            jsonHandler<BookkeepingAccountListPageResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override fun list(

@@ -16,6 +16,7 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.bookkeepingentries.BookkeepingEntry
 import com.increase.api.models.bookkeepingentries.BookkeepingEntryListPage
+import com.increase.api.models.bookkeepingentries.BookkeepingEntryListPageResponse
 import com.increase.api.models.bookkeepingentries.BookkeepingEntryListParams
 import com.increase.api.models.bookkeepingentries.BookkeepingEntryRetrieveParams
 
@@ -73,8 +74,8 @@ class BookkeepingEntryServiceImpl internal constructor(private val clientOptions
             }
         }
 
-        private val listHandler: Handler<BookkeepingEntryListPage.Response> =
-            jsonHandler<BookkeepingEntryListPage.Response>(clientOptions.jsonMapper)
+        private val listHandler: Handler<BookkeepingEntryListPageResponse> =
+            jsonHandler<BookkeepingEntryListPageResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override fun list(

@@ -16,6 +16,7 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.declinedtransactions.DeclinedTransaction
 import com.increase.api.models.declinedtransactions.DeclinedTransactionListPage
+import com.increase.api.models.declinedtransactions.DeclinedTransactionListPageResponse
 import com.increase.api.models.declinedtransactions.DeclinedTransactionListParams
 import com.increase.api.models.declinedtransactions.DeclinedTransactionRetrieveParams
 
@@ -74,8 +75,8 @@ internal constructor(private val clientOptions: ClientOptions) : DeclinedTransac
             }
         }
 
-        private val listHandler: Handler<DeclinedTransactionListPage.Response> =
-            jsonHandler<DeclinedTransactionListPage.Response>(clientOptions.jsonMapper)
+        private val listHandler: Handler<DeclinedTransactionListPageResponse> =
+            jsonHandler<DeclinedTransactionListPageResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override fun list(

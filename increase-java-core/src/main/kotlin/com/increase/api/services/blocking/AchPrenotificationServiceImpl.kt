@@ -18,6 +18,7 @@ import com.increase.api.core.prepare
 import com.increase.api.models.achprenotifications.AchPrenotification
 import com.increase.api.models.achprenotifications.AchPrenotificationCreateParams
 import com.increase.api.models.achprenotifications.AchPrenotificationListPage
+import com.increase.api.models.achprenotifications.AchPrenotificationListPageResponse
 import com.increase.api.models.achprenotifications.AchPrenotificationListParams
 import com.increase.api.models.achprenotifications.AchPrenotificationRetrieveParams
 
@@ -109,8 +110,8 @@ class AchPrenotificationServiceImpl internal constructor(private val clientOptio
             }
         }
 
-        private val listHandler: Handler<AchPrenotificationListPage.Response> =
-            jsonHandler<AchPrenotificationListPage.Response>(clientOptions.jsonMapper)
+        private val listHandler: Handler<AchPrenotificationListPageResponse> =
+            jsonHandler<AchPrenotificationListPageResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override fun list(

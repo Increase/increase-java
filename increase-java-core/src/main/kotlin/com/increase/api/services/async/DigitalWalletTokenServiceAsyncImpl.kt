@@ -16,6 +16,7 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.digitalwallettokens.DigitalWalletToken
 import com.increase.api.models.digitalwallettokens.DigitalWalletTokenListPageAsync
+import com.increase.api.models.digitalwallettokens.DigitalWalletTokenListPageResponse
 import com.increase.api.models.digitalwallettokens.DigitalWalletTokenListParams
 import com.increase.api.models.digitalwallettokens.DigitalWalletTokenRetrieveParams
 import java.util.concurrent.CompletableFuture
@@ -77,8 +78,8 @@ internal constructor(private val clientOptions: ClientOptions) : DigitalWalletTo
                 }
         }
 
-        private val listHandler: Handler<DigitalWalletTokenListPageAsync.Response> =
-            jsonHandler<DigitalWalletTokenListPageAsync.Response>(clientOptions.jsonMapper)
+        private val listHandler: Handler<DigitalWalletTokenListPageResponse> =
+            jsonHandler<DigitalWalletTokenListPageResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override fun list(

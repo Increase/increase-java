@@ -16,6 +16,7 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.cardpayments.CardPayment
 import com.increase.api.models.cardpayments.CardPaymentListPageAsync
+import com.increase.api.models.cardpayments.CardPaymentListPageResponse
 import com.increase.api.models.cardpayments.CardPaymentListParams
 import com.increase.api.models.cardpayments.CardPaymentRetrieveParams
 import java.util.concurrent.CompletableFuture
@@ -77,8 +78,8 @@ class CardPaymentServiceAsyncImpl internal constructor(private val clientOptions
                 }
         }
 
-        private val listHandler: Handler<CardPaymentListPageAsync.Response> =
-            jsonHandler<CardPaymentListPageAsync.Response>(clientOptions.jsonMapper)
+        private val listHandler: Handler<CardPaymentListPageResponse> =
+            jsonHandler<CardPaymentListPageResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override fun list(

@@ -16,6 +16,7 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.documents.Document
 import com.increase.api.models.documents.DocumentListPageAsync
+import com.increase.api.models.documents.DocumentListPageResponse
 import com.increase.api.models.documents.DocumentListParams
 import com.increase.api.models.documents.DocumentRetrieveParams
 import java.util.concurrent.CompletableFuture
@@ -77,8 +78,8 @@ class DocumentServiceAsyncImpl internal constructor(private val clientOptions: C
                 }
         }
 
-        private val listHandler: Handler<DocumentListPageAsync.Response> =
-            jsonHandler<DocumentListPageAsync.Response>(clientOptions.jsonMapper)
+        private val listHandler: Handler<DocumentListPageResponse> =
+            jsonHandler<DocumentListPageResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override fun list(
