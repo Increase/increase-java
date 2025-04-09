@@ -199,7 +199,10 @@ private constructor(
 
         fun removeAllQueryParams(keys: Set<String>) = apply { queryParams.removeAll(keys) }
 
+        fun baseUrl(): String = baseUrl
+
         fun fromEnv() = apply {
+            System.getenv("INCREASE_BASE_URL")?.let { baseUrl(it) }
             System.getenv("INCREASE_API_KEY")?.let { apiKey(it) }
             System.getenv("INCREASE_WEBHOOK_SECRET")?.let { webhookSecret(it) }
         }
