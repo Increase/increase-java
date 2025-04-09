@@ -18,6 +18,7 @@ import com.increase.api.core.prepareAsync
 import com.increase.api.models.exports.Export
 import com.increase.api.models.exports.ExportCreateParams
 import com.increase.api.models.exports.ExportListPageAsync
+import com.increase.api.models.exports.ExportListPageResponse
 import com.increase.api.models.exports.ExportListParams
 import com.increase.api.models.exports.ExportRetrieveParams
 import java.util.concurrent.CompletableFuture
@@ -116,8 +117,8 @@ class ExportServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 }
         }
 
-        private val listHandler: Handler<ExportListPageAsync.Response> =
-            jsonHandler<ExportListPageAsync.Response>(clientOptions.jsonMapper)
+        private val listHandler: Handler<ExportListPageResponse> =
+            jsonHandler<ExportListPageResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override fun list(

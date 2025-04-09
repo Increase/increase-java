@@ -18,6 +18,7 @@ import com.increase.api.core.prepare
 import com.increase.api.models.carddisputes.CardDispute
 import com.increase.api.models.carddisputes.CardDisputeCreateParams
 import com.increase.api.models.carddisputes.CardDisputeListPage
+import com.increase.api.models.carddisputes.CardDisputeListPageResponse
 import com.increase.api.models.carddisputes.CardDisputeListParams
 import com.increase.api.models.carddisputes.CardDisputeRetrieveParams
 
@@ -109,8 +110,8 @@ class CardDisputeServiceImpl internal constructor(private val clientOptions: Cli
             }
         }
 
-        private val listHandler: Handler<CardDisputeListPage.Response> =
-            jsonHandler<CardDisputeListPage.Response>(clientOptions.jsonMapper)
+        private val listHandler: Handler<CardDisputeListPageResponse> =
+            jsonHandler<CardDisputeListPageResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override fun list(

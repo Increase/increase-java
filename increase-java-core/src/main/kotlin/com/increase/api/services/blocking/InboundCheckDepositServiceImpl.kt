@@ -18,6 +18,7 @@ import com.increase.api.core.prepare
 import com.increase.api.models.inboundcheckdeposits.InboundCheckDeposit
 import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositDeclineParams
 import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositListPage
+import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositListPageResponse
 import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositListParams
 import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositRetrieveParams
 import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositReturnParams
@@ -91,8 +92,8 @@ internal constructor(private val clientOptions: ClientOptions) : InboundCheckDep
             }
         }
 
-        private val listHandler: Handler<InboundCheckDepositListPage.Response> =
-            jsonHandler<InboundCheckDepositListPage.Response>(clientOptions.jsonMapper)
+        private val listHandler: Handler<InboundCheckDepositListPageResponse> =
+            jsonHandler<InboundCheckDepositListPageResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override fun list(

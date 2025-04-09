@@ -18,6 +18,7 @@ import com.increase.api.core.prepareAsync
 import com.increase.api.models.checkdeposits.CheckDeposit
 import com.increase.api.models.checkdeposits.CheckDepositCreateParams
 import com.increase.api.models.checkdeposits.CheckDepositListPageAsync
+import com.increase.api.models.checkdeposits.CheckDepositListPageResponse
 import com.increase.api.models.checkdeposits.CheckDepositListParams
 import com.increase.api.models.checkdeposits.CheckDepositRetrieveParams
 import java.util.concurrent.CompletableFuture
@@ -116,8 +117,8 @@ class CheckDepositServiceAsyncImpl internal constructor(private val clientOption
                 }
         }
 
-        private val listHandler: Handler<CheckDepositListPageAsync.Response> =
-            jsonHandler<CheckDepositListPageAsync.Response>(clientOptions.jsonMapper)
+        private val listHandler: Handler<CheckDepositListPageResponse> =
+            jsonHandler<CheckDepositListPageResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override fun list(

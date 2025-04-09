@@ -20,6 +20,7 @@ import com.increase.api.models.achtransfers.AchTransferApproveParams
 import com.increase.api.models.achtransfers.AchTransferCancelParams
 import com.increase.api.models.achtransfers.AchTransferCreateParams
 import com.increase.api.models.achtransfers.AchTransferListPageAsync
+import com.increase.api.models.achtransfers.AchTransferListPageResponse
 import com.increase.api.models.achtransfers.AchTransferListParams
 import com.increase.api.models.achtransfers.AchTransferRetrieveParams
 import java.util.concurrent.CompletableFuture
@@ -132,8 +133,8 @@ class AchTransferServiceAsyncImpl internal constructor(private val clientOptions
                 }
         }
 
-        private val listHandler: Handler<AchTransferListPageAsync.Response> =
-            jsonHandler<AchTransferListPageAsync.Response>(clientOptions.jsonMapper)
+        private val listHandler: Handler<AchTransferListPageResponse> =
+            jsonHandler<AchTransferListPageResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override fun list(

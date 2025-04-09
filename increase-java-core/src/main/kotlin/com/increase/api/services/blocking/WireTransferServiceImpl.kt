@@ -20,6 +20,7 @@ import com.increase.api.models.wiretransfers.WireTransferApproveParams
 import com.increase.api.models.wiretransfers.WireTransferCancelParams
 import com.increase.api.models.wiretransfers.WireTransferCreateParams
 import com.increase.api.models.wiretransfers.WireTransferListPage
+import com.increase.api.models.wiretransfers.WireTransferListPageResponse
 import com.increase.api.models.wiretransfers.WireTransferListParams
 import com.increase.api.models.wiretransfers.WireTransferRetrieveParams
 
@@ -125,8 +126,8 @@ class WireTransferServiceImpl internal constructor(private val clientOptions: Cl
             }
         }
 
-        private val listHandler: Handler<WireTransferListPage.Response> =
-            jsonHandler<WireTransferListPage.Response>(clientOptions.jsonMapper)
+        private val listHandler: Handler<WireTransferListPageResponse> =
+            jsonHandler<WireTransferListPageResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override fun list(

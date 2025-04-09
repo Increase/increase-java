@@ -16,6 +16,7 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.programs.Program
 import com.increase.api.models.programs.ProgramListPageAsync
+import com.increase.api.models.programs.ProgramListPageResponse
 import com.increase.api.models.programs.ProgramListParams
 import com.increase.api.models.programs.ProgramRetrieveParams
 import java.util.concurrent.CompletableFuture
@@ -77,8 +78,8 @@ class ProgramServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 }
         }
 
-        private val listHandler: Handler<ProgramListPageAsync.Response> =
-            jsonHandler<ProgramListPageAsync.Response>(clientOptions.jsonMapper)
+        private val listHandler: Handler<ProgramListPageResponse> =
+            jsonHandler<ProgramListPageResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override fun list(

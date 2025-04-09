@@ -19,6 +19,7 @@ import com.increase.api.models.intrafiexclusions.IntrafiExclusion
 import com.increase.api.models.intrafiexclusions.IntrafiExclusionArchiveParams
 import com.increase.api.models.intrafiexclusions.IntrafiExclusionCreateParams
 import com.increase.api.models.intrafiexclusions.IntrafiExclusionListPage
+import com.increase.api.models.intrafiexclusions.IntrafiExclusionListPageResponse
 import com.increase.api.models.intrafiexclusions.IntrafiExclusionListParams
 import com.increase.api.models.intrafiexclusions.IntrafiExclusionRetrieveParams
 
@@ -117,8 +118,8 @@ class IntrafiExclusionServiceImpl internal constructor(private val clientOptions
             }
         }
 
-        private val listHandler: Handler<IntrafiExclusionListPage.Response> =
-            jsonHandler<IntrafiExclusionListPage.Response>(clientOptions.jsonMapper)
+        private val listHandler: Handler<IntrafiExclusionListPageResponse> =
+            jsonHandler<IntrafiExclusionListPageResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override fun list(

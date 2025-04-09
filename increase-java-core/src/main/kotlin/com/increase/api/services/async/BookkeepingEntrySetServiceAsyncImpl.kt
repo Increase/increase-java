@@ -18,6 +18,7 @@ import com.increase.api.core.prepareAsync
 import com.increase.api.models.bookkeepingentrysets.BookkeepingEntrySet
 import com.increase.api.models.bookkeepingentrysets.BookkeepingEntrySetCreateParams
 import com.increase.api.models.bookkeepingentrysets.BookkeepingEntrySetListPageAsync
+import com.increase.api.models.bookkeepingentrysets.BookkeepingEntrySetListPageResponse
 import com.increase.api.models.bookkeepingentrysets.BookkeepingEntrySetListParams
 import com.increase.api.models.bookkeepingentrysets.BookkeepingEntrySetRetrieveParams
 import java.util.concurrent.CompletableFuture
@@ -119,8 +120,8 @@ internal constructor(private val clientOptions: ClientOptions) : BookkeepingEntr
                 }
         }
 
-        private val listHandler: Handler<BookkeepingEntrySetListPageAsync.Response> =
-            jsonHandler<BookkeepingEntrySetListPageAsync.Response>(clientOptions.jsonMapper)
+        private val listHandler: Handler<BookkeepingEntrySetListPageResponse> =
+            jsonHandler<BookkeepingEntrySetListPageResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override fun list(

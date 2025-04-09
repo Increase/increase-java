@@ -16,6 +16,7 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.documents.Document
 import com.increase.api.models.documents.DocumentListPage
+import com.increase.api.models.documents.DocumentListPageResponse
 import com.increase.api.models.documents.DocumentListParams
 import com.increase.api.models.documents.DocumentRetrieveParams
 
@@ -73,8 +74,8 @@ class DocumentServiceImpl internal constructor(private val clientOptions: Client
             }
         }
 
-        private val listHandler: Handler<DocumentListPage.Response> =
-            jsonHandler<DocumentListPage.Response>(clientOptions.jsonMapper)
+        private val listHandler: Handler<DocumentListPageResponse> =
+            jsonHandler<DocumentListPageResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override fun list(

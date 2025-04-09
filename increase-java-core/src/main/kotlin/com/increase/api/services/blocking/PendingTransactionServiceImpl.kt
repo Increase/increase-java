@@ -16,6 +16,7 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.pendingtransactions.PendingTransaction
 import com.increase.api.models.pendingtransactions.PendingTransactionListPage
+import com.increase.api.models.pendingtransactions.PendingTransactionListPageResponse
 import com.increase.api.models.pendingtransactions.PendingTransactionListParams
 import com.increase.api.models.pendingtransactions.PendingTransactionRetrieveParams
 
@@ -73,8 +74,8 @@ class PendingTransactionServiceImpl internal constructor(private val clientOptio
             }
         }
 
-        private val listHandler: Handler<PendingTransactionListPage.Response> =
-            jsonHandler<PendingTransactionListPage.Response>(clientOptions.jsonMapper)
+        private val listHandler: Handler<PendingTransactionListPageResponse> =
+            jsonHandler<PendingTransactionListPageResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override fun list(

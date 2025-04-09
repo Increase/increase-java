@@ -20,6 +20,7 @@ import com.increase.api.models.cards.CardCreateParams
 import com.increase.api.models.cards.CardDetails
 import com.increase.api.models.cards.CardDetailsParams
 import com.increase.api.models.cards.CardListPageAsync
+import com.increase.api.models.cards.CardListPageResponse
 import com.increase.api.models.cards.CardListParams
 import com.increase.api.models.cards.CardRetrieveParams
 import com.increase.api.models.cards.CardUpdateParams
@@ -163,8 +164,8 @@ class CardServiceAsyncImpl internal constructor(private val clientOptions: Clien
                 }
         }
 
-        private val listHandler: Handler<CardListPageAsync.Response> =
-            jsonHandler<CardListPageAsync.Response>(clientOptions.jsonMapper)
+        private val listHandler: Handler<CardListPageResponse> =
+            jsonHandler<CardListPageResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override fun list(

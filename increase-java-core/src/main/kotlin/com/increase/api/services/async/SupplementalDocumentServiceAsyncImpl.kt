@@ -18,6 +18,7 @@ import com.increase.api.core.prepareAsync
 import com.increase.api.models.supplementaldocuments.EntitySupplementalDocument
 import com.increase.api.models.supplementaldocuments.SupplementalDocumentCreateParams
 import com.increase.api.models.supplementaldocuments.SupplementalDocumentListPageAsync
+import com.increase.api.models.supplementaldocuments.SupplementalDocumentListPageResponse
 import com.increase.api.models.supplementaldocuments.SupplementalDocumentListParams
 import java.util.concurrent.CompletableFuture
 
@@ -81,8 +82,8 @@ internal constructor(private val clientOptions: ClientOptions) : SupplementalDoc
                 }
         }
 
-        private val listHandler: Handler<SupplementalDocumentListPageAsync.Response> =
-            jsonHandler<SupplementalDocumentListPageAsync.Response>(clientOptions.jsonMapper)
+        private val listHandler: Handler<SupplementalDocumentListPageResponse> =
+            jsonHandler<SupplementalDocumentListPageResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override fun list(

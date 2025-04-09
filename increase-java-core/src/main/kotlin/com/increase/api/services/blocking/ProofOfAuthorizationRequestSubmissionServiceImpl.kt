@@ -18,6 +18,7 @@ import com.increase.api.core.prepare
 import com.increase.api.models.proofofauthorizationrequestsubmissions.ProofOfAuthorizationRequestSubmission
 import com.increase.api.models.proofofauthorizationrequestsubmissions.ProofOfAuthorizationRequestSubmissionCreateParams
 import com.increase.api.models.proofofauthorizationrequestsubmissions.ProofOfAuthorizationRequestSubmissionListPage
+import com.increase.api.models.proofofauthorizationrequestsubmissions.ProofOfAuthorizationRequestSubmissionListPageResponse
 import com.increase.api.models.proofofauthorizationrequestsubmissions.ProofOfAuthorizationRequestSubmissionListParams
 import com.increase.api.models.proofofauthorizationrequestsubmissions.ProofOfAuthorizationRequestSubmissionRetrieveParams
 
@@ -118,8 +119,8 @@ internal constructor(private val clientOptions: ClientOptions) :
             }
         }
 
-        private val listHandler: Handler<ProofOfAuthorizationRequestSubmissionListPage.Response> =
-            jsonHandler<ProofOfAuthorizationRequestSubmissionListPage.Response>(
+        private val listHandler: Handler<ProofOfAuthorizationRequestSubmissionListPageResponse> =
+            jsonHandler<ProofOfAuthorizationRequestSubmissionListPageResponse>(
                     clientOptions.jsonMapper
                 )
                 .withErrorHandler(errorHandler)

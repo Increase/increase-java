@@ -18,6 +18,7 @@ import com.increase.api.core.prepareAsync
 import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollment
 import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentCreateParams
 import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentListPageAsync
+import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentListPageResponse
 import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentListParams
 import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentRetrieveParams
 import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentUnenrollParams
@@ -128,8 +129,8 @@ internal constructor(private val clientOptions: ClientOptions) :
                 }
         }
 
-        private val listHandler: Handler<IntrafiAccountEnrollmentListPageAsync.Response> =
-            jsonHandler<IntrafiAccountEnrollmentListPageAsync.Response>(clientOptions.jsonMapper)
+        private val listHandler: Handler<IntrafiAccountEnrollmentListPageResponse> =
+            jsonHandler<IntrafiAccountEnrollmentListPageResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override fun list(

@@ -16,6 +16,7 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.oauthapplications.OAuthApplication
 import com.increase.api.models.oauthapplications.OAuthApplicationListPageAsync
+import com.increase.api.models.oauthapplications.OAuthApplicationListPageResponse
 import com.increase.api.models.oauthapplications.OAuthApplicationListParams
 import com.increase.api.models.oauthapplications.OAuthApplicationRetrieveParams
 import java.util.concurrent.CompletableFuture
@@ -77,8 +78,8 @@ internal constructor(private val clientOptions: ClientOptions) : OAuthApplicatio
                 }
         }
 
-        private val listHandler: Handler<OAuthApplicationListPageAsync.Response> =
-            jsonHandler<OAuthApplicationListPageAsync.Response>(clientOptions.jsonMapper)
+        private val listHandler: Handler<OAuthApplicationListPageResponse> =
+            jsonHandler<OAuthApplicationListPageResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override fun list(

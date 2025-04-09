@@ -20,6 +20,7 @@ import com.increase.api.models.physicalcardprofiles.PhysicalCardProfileArchivePa
 import com.increase.api.models.physicalcardprofiles.PhysicalCardProfileCloneParams
 import com.increase.api.models.physicalcardprofiles.PhysicalCardProfileCreateParams
 import com.increase.api.models.physicalcardprofiles.PhysicalCardProfileListPage
+import com.increase.api.models.physicalcardprofiles.PhysicalCardProfileListPageResponse
 import com.increase.api.models.physicalcardprofiles.PhysicalCardProfileListParams
 import com.increase.api.models.physicalcardprofiles.PhysicalCardProfileRetrieveParams
 
@@ -127,8 +128,8 @@ internal constructor(private val clientOptions: ClientOptions) : PhysicalCardPro
             }
         }
 
-        private val listHandler: Handler<PhysicalCardProfileListPage.Response> =
-            jsonHandler<PhysicalCardProfileListPage.Response>(clientOptions.jsonMapper)
+        private val listHandler: Handler<PhysicalCardProfileListPageResponse> =
+            jsonHandler<PhysicalCardProfileListPageResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override fun list(

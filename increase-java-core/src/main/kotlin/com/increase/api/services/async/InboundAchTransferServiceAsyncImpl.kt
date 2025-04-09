@@ -19,6 +19,7 @@ import com.increase.api.models.inboundachtransfers.InboundAchTransfer
 import com.increase.api.models.inboundachtransfers.InboundAchTransferCreateNotificationOfChangeParams
 import com.increase.api.models.inboundachtransfers.InboundAchTransferDeclineParams
 import com.increase.api.models.inboundachtransfers.InboundAchTransferListPageAsync
+import com.increase.api.models.inboundachtransfers.InboundAchTransferListPageResponse
 import com.increase.api.models.inboundachtransfers.InboundAchTransferListParams
 import com.increase.api.models.inboundachtransfers.InboundAchTransferRetrieveParams
 import com.increase.api.models.inboundachtransfers.InboundAchTransferTransferReturnParams
@@ -104,8 +105,8 @@ internal constructor(private val clientOptions: ClientOptions) : InboundAchTrans
                 }
         }
 
-        private val listHandler: Handler<InboundAchTransferListPageAsync.Response> =
-            jsonHandler<InboundAchTransferListPageAsync.Response>(clientOptions.jsonMapper)
+        private val listHandler: Handler<InboundAchTransferListPageResponse> =
+            jsonHandler<InboundAchTransferListPageResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override fun list(

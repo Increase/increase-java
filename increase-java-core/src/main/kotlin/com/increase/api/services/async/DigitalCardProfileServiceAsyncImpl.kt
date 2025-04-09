@@ -20,6 +20,7 @@ import com.increase.api.models.digitalcardprofiles.DigitalCardProfileArchivePara
 import com.increase.api.models.digitalcardprofiles.DigitalCardProfileCloneParams
 import com.increase.api.models.digitalcardprofiles.DigitalCardProfileCreateParams
 import com.increase.api.models.digitalcardprofiles.DigitalCardProfileListPageAsync
+import com.increase.api.models.digitalcardprofiles.DigitalCardProfileListPageResponse
 import com.increase.api.models.digitalcardprofiles.DigitalCardProfileListParams
 import com.increase.api.models.digitalcardprofiles.DigitalCardProfileRetrieveParams
 import java.util.concurrent.CompletableFuture
@@ -132,8 +133,8 @@ internal constructor(private val clientOptions: ClientOptions) : DigitalCardProf
                 }
         }
 
-        private val listHandler: Handler<DigitalCardProfileListPageAsync.Response> =
-            jsonHandler<DigitalCardProfileListPageAsync.Response>(clientOptions.jsonMapper)
+        private val listHandler: Handler<DigitalCardProfileListPageResponse> =
+            jsonHandler<DigitalCardProfileListPageResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override fun list(

@@ -20,6 +20,7 @@ import com.increase.api.models.accounts.AccountBalanceParams
 import com.increase.api.models.accounts.AccountCloseParams
 import com.increase.api.models.accounts.AccountCreateParams
 import com.increase.api.models.accounts.AccountListPage
+import com.increase.api.models.accounts.AccountListPageResponse
 import com.increase.api.models.accounts.AccountListParams
 import com.increase.api.models.accounts.AccountRetrieveParams
 import com.increase.api.models.accounts.AccountUpdateParams
@@ -146,8 +147,8 @@ class AccountServiceImpl internal constructor(private val clientOptions: ClientO
             }
         }
 
-        private val listHandler: Handler<AccountListPage.Response> =
-            jsonHandler<AccountListPage.Response>(clientOptions.jsonMapper)
+        private val listHandler: Handler<AccountListPageResponse> =
+            jsonHandler<AccountListPageResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override fun list(
