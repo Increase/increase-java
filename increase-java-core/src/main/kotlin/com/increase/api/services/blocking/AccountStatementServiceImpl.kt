@@ -16,6 +16,7 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.accountstatements.AccountStatement
 import com.increase.api.models.accountstatements.AccountStatementListPage
+import com.increase.api.models.accountstatements.AccountStatementListPageResponse
 import com.increase.api.models.accountstatements.AccountStatementListParams
 import com.increase.api.models.accountstatements.AccountStatementRetrieveParams
 
@@ -73,8 +74,8 @@ class AccountStatementServiceImpl internal constructor(private val clientOptions
             }
         }
 
-        private val listHandler: Handler<AccountStatementListPage.Response> =
-            jsonHandler<AccountStatementListPage.Response>(clientOptions.jsonMapper)
+        private val listHandler: Handler<AccountStatementListPageResponse> =
+            jsonHandler<AccountStatementListPageResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override fun list(

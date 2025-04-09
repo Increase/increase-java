@@ -20,6 +20,7 @@ import com.increase.api.models.accounttransfers.AccountTransferApproveParams
 import com.increase.api.models.accounttransfers.AccountTransferCancelParams
 import com.increase.api.models.accounttransfers.AccountTransferCreateParams
 import com.increase.api.models.accounttransfers.AccountTransferListPage
+import com.increase.api.models.accounttransfers.AccountTransferListPageResponse
 import com.increase.api.models.accounttransfers.AccountTransferListParams
 import com.increase.api.models.accounttransfers.AccountTransferRetrieveParams
 
@@ -125,8 +126,8 @@ class AccountTransferServiceImpl internal constructor(private val clientOptions:
             }
         }
 
-        private val listHandler: Handler<AccountTransferListPage.Response> =
-            jsonHandler<AccountTransferListPage.Response>(clientOptions.jsonMapper)
+        private val listHandler: Handler<AccountTransferListPageResponse> =
+            jsonHandler<AccountTransferListPageResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override fun list(

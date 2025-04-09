@@ -16,6 +16,7 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.proofofauthorizationrequests.ProofOfAuthorizationRequest
 import com.increase.api.models.proofofauthorizationrequests.ProofOfAuthorizationRequestListPage
+import com.increase.api.models.proofofauthorizationrequests.ProofOfAuthorizationRequestListPageResponse
 import com.increase.api.models.proofofauthorizationrequests.ProofOfAuthorizationRequestListParams
 import com.increase.api.models.proofofauthorizationrequests.ProofOfAuthorizationRequestRetrieveParams
 
@@ -76,8 +77,8 @@ internal constructor(private val clientOptions: ClientOptions) :
             }
         }
 
-        private val listHandler: Handler<ProofOfAuthorizationRequestListPage.Response> =
-            jsonHandler<ProofOfAuthorizationRequestListPage.Response>(clientOptions.jsonMapper)
+        private val listHandler: Handler<ProofOfAuthorizationRequestListPageResponse> =
+            jsonHandler<ProofOfAuthorizationRequestListPageResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override fun list(

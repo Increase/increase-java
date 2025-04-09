@@ -18,6 +18,7 @@ import com.increase.api.core.prepareAsync
 import com.increase.api.models.physicalcards.PhysicalCard
 import com.increase.api.models.physicalcards.PhysicalCardCreateParams
 import com.increase.api.models.physicalcards.PhysicalCardListPageAsync
+import com.increase.api.models.physicalcards.PhysicalCardListPageResponse
 import com.increase.api.models.physicalcards.PhysicalCardListParams
 import com.increase.api.models.physicalcards.PhysicalCardRetrieveParams
 import com.increase.api.models.physicalcards.PhysicalCardUpdateParams
@@ -154,8 +155,8 @@ class PhysicalCardServiceAsyncImpl internal constructor(private val clientOption
                 }
         }
 
-        private val listHandler: Handler<PhysicalCardListPageAsync.Response> =
-            jsonHandler<PhysicalCardListPageAsync.Response>(clientOptions.jsonMapper)
+        private val listHandler: Handler<PhysicalCardListPageResponse> =
+            jsonHandler<PhysicalCardListPageResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override fun list(

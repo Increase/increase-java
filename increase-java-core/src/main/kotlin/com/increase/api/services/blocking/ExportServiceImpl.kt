@@ -18,6 +18,7 @@ import com.increase.api.core.prepare
 import com.increase.api.models.exports.Export
 import com.increase.api.models.exports.ExportCreateParams
 import com.increase.api.models.exports.ExportListPage
+import com.increase.api.models.exports.ExportListPageResponse
 import com.increase.api.models.exports.ExportListParams
 import com.increase.api.models.exports.ExportRetrieveParams
 
@@ -100,8 +101,8 @@ class ExportServiceImpl internal constructor(private val clientOptions: ClientOp
             }
         }
 
-        private val listHandler: Handler<ExportListPage.Response> =
-            jsonHandler<ExportListPage.Response>(clientOptions.jsonMapper)
+        private val listHandler: Handler<ExportListPageResponse> =
+            jsonHandler<ExportListPageResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override fun list(

@@ -18,6 +18,7 @@ import com.increase.api.core.prepareAsync
 import com.increase.api.models.achprenotifications.AchPrenotification
 import com.increase.api.models.achprenotifications.AchPrenotificationCreateParams
 import com.increase.api.models.achprenotifications.AchPrenotificationListPageAsync
+import com.increase.api.models.achprenotifications.AchPrenotificationListPageResponse
 import com.increase.api.models.achprenotifications.AchPrenotificationListParams
 import com.increase.api.models.achprenotifications.AchPrenotificationRetrieveParams
 import java.util.concurrent.CompletableFuture
@@ -116,8 +117,8 @@ internal constructor(private val clientOptions: ClientOptions) : AchPrenotificat
                 }
         }
 
-        private val listHandler: Handler<AchPrenotificationListPageAsync.Response> =
-            jsonHandler<AchPrenotificationListPageAsync.Response>(clientOptions.jsonMapper)
+        private val listHandler: Handler<AchPrenotificationListPageResponse> =
+            jsonHandler<AchPrenotificationListPageResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override fun list(

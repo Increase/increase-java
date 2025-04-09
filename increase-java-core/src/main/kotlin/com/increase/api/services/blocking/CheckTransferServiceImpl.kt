@@ -20,6 +20,7 @@ import com.increase.api.models.checktransfers.CheckTransferApproveParams
 import com.increase.api.models.checktransfers.CheckTransferCancelParams
 import com.increase.api.models.checktransfers.CheckTransferCreateParams
 import com.increase.api.models.checktransfers.CheckTransferListPage
+import com.increase.api.models.checktransfers.CheckTransferListPageResponse
 import com.increase.api.models.checktransfers.CheckTransferListParams
 import com.increase.api.models.checktransfers.CheckTransferRetrieveParams
 import com.increase.api.models.checktransfers.CheckTransferStopPaymentParams
@@ -133,8 +134,8 @@ class CheckTransferServiceImpl internal constructor(private val clientOptions: C
             }
         }
 
-        private val listHandler: Handler<CheckTransferListPage.Response> =
-            jsonHandler<CheckTransferListPage.Response>(clientOptions.jsonMapper)
+        private val listHandler: Handler<CheckTransferListPageResponse> =
+            jsonHandler<CheckTransferListPageResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override fun list(

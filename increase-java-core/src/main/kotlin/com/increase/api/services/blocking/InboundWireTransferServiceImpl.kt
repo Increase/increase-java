@@ -16,6 +16,7 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.inboundwiretransfers.InboundWireTransfer
 import com.increase.api.models.inboundwiretransfers.InboundWireTransferListPage
+import com.increase.api.models.inboundwiretransfers.InboundWireTransferListPageResponse
 import com.increase.api.models.inboundwiretransfers.InboundWireTransferListParams
 import com.increase.api.models.inboundwiretransfers.InboundWireTransferRetrieveParams
 
@@ -74,8 +75,8 @@ internal constructor(private val clientOptions: ClientOptions) : InboundWireTran
             }
         }
 
-        private val listHandler: Handler<InboundWireTransferListPage.Response> =
-            jsonHandler<InboundWireTransferListPage.Response>(clientOptions.jsonMapper)
+        private val listHandler: Handler<InboundWireTransferListPageResponse> =
+            jsonHandler<InboundWireTransferListPageResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override fun list(

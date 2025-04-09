@@ -18,6 +18,7 @@ import com.increase.api.core.prepare
 import com.increase.api.models.files.File
 import com.increase.api.models.files.FileCreateParams
 import com.increase.api.models.files.FileListPage
+import com.increase.api.models.files.FileListPageResponse
 import com.increase.api.models.files.FileListParams
 import com.increase.api.models.files.FileRetrieveParams
 
@@ -99,8 +100,8 @@ class FileServiceImpl internal constructor(private val clientOptions: ClientOpti
             }
         }
 
-        private val listHandler: Handler<FileListPage.Response> =
-            jsonHandler<FileListPage.Response>(clientOptions.jsonMapper)
+        private val listHandler: Handler<FileListPageResponse> =
+            jsonHandler<FileListPageResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override fun list(

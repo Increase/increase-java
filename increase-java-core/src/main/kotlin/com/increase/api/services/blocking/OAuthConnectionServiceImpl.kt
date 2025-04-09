@@ -16,6 +16,7 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.oauthconnections.OAuthConnection
 import com.increase.api.models.oauthconnections.OAuthConnectionListPage
+import com.increase.api.models.oauthconnections.OAuthConnectionListPageResponse
 import com.increase.api.models.oauthconnections.OAuthConnectionListParams
 import com.increase.api.models.oauthconnections.OAuthConnectionRetrieveParams
 
@@ -73,8 +74,8 @@ class OAuthConnectionServiceImpl internal constructor(private val clientOptions:
             }
         }
 
-        private val listHandler: Handler<OAuthConnectionListPage.Response> =
-            jsonHandler<OAuthConnectionListPage.Response>(clientOptions.jsonMapper)
+        private val listHandler: Handler<OAuthConnectionListPageResponse> =
+            jsonHandler<OAuthConnectionListPageResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override fun list(

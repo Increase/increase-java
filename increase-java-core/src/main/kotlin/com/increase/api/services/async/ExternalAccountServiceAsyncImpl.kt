@@ -18,6 +18,7 @@ import com.increase.api.core.prepareAsync
 import com.increase.api.models.externalaccounts.ExternalAccount
 import com.increase.api.models.externalaccounts.ExternalAccountCreateParams
 import com.increase.api.models.externalaccounts.ExternalAccountListPageAsync
+import com.increase.api.models.externalaccounts.ExternalAccountListPageResponse
 import com.increase.api.models.externalaccounts.ExternalAccountListParams
 import com.increase.api.models.externalaccounts.ExternalAccountRetrieveParams
 import com.increase.api.models.externalaccounts.ExternalAccountUpdateParams
@@ -154,8 +155,8 @@ internal constructor(private val clientOptions: ClientOptions) : ExternalAccount
                 }
         }
 
-        private val listHandler: Handler<ExternalAccountListPageAsync.Response> =
-            jsonHandler<ExternalAccountListPageAsync.Response>(clientOptions.jsonMapper)
+        private val listHandler: Handler<ExternalAccountListPageResponse> =
+            jsonHandler<ExternalAccountListPageResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override fun list(

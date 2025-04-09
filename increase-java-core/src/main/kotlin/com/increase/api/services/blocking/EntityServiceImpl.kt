@@ -22,6 +22,7 @@ import com.increase.api.models.entities.EntityConfirmParams
 import com.increase.api.models.entities.EntityCreateBeneficialOwnerParams
 import com.increase.api.models.entities.EntityCreateParams
 import com.increase.api.models.entities.EntityListPage
+import com.increase.api.models.entities.EntityListPageResponse
 import com.increase.api.models.entities.EntityListParams
 import com.increase.api.models.entities.EntityRetrieveParams
 import com.increase.api.models.entities.EntityUpdateAddressParams
@@ -150,8 +151,8 @@ class EntityServiceImpl internal constructor(private val clientOptions: ClientOp
             }
         }
 
-        private val listHandler: Handler<EntityListPage.Response> =
-            jsonHandler<EntityListPage.Response>(clientOptions.jsonMapper)
+        private val listHandler: Handler<EntityListPageResponse> =
+            jsonHandler<EntityListPageResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override fun list(

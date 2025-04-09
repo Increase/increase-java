@@ -18,6 +18,7 @@ import com.increase.api.core.prepare
 import com.increase.api.models.lockboxes.Lockbox
 import com.increase.api.models.lockboxes.LockboxCreateParams
 import com.increase.api.models.lockboxes.LockboxListPage
+import com.increase.api.models.lockboxes.LockboxListPageResponse
 import com.increase.api.models.lockboxes.LockboxListParams
 import com.increase.api.models.lockboxes.LockboxRetrieveParams
 import com.increase.api.models.lockboxes.LockboxUpdateParams
@@ -132,8 +133,8 @@ class LockboxServiceImpl internal constructor(private val clientOptions: ClientO
             }
         }
 
-        private val listHandler: Handler<LockboxListPage.Response> =
-            jsonHandler<LockboxListPage.Response>(clientOptions.jsonMapper)
+        private val listHandler: Handler<LockboxListPageResponse> =
+            jsonHandler<LockboxListPageResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override fun list(

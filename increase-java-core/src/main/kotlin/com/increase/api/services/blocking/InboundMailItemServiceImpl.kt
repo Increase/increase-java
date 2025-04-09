@@ -16,6 +16,7 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.inboundmailitems.InboundMailItem
 import com.increase.api.models.inboundmailitems.InboundMailItemListPage
+import com.increase.api.models.inboundmailitems.InboundMailItemListPageResponse
 import com.increase.api.models.inboundmailitems.InboundMailItemListParams
 import com.increase.api.models.inboundmailitems.InboundMailItemRetrieveParams
 
@@ -73,8 +74,8 @@ class InboundMailItemServiceImpl internal constructor(private val clientOptions:
             }
         }
 
-        private val listHandler: Handler<InboundMailItemListPage.Response> =
-            jsonHandler<InboundMailItemListPage.Response>(clientOptions.jsonMapper)
+        private val listHandler: Handler<InboundMailItemListPageResponse> =
+            jsonHandler<InboundMailItemListPageResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override fun list(
