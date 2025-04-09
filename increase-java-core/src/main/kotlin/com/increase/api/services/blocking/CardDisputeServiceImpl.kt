@@ -135,7 +135,11 @@ class CardDisputeServiceImpl internal constructor(private val clientOptions: Cli
                         }
                     }
                     .let {
-                        CardDisputeListPage.of(CardDisputeServiceImpl(clientOptions), params, it)
+                        CardDisputeListPage.builder()
+                            .service(CardDisputeServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

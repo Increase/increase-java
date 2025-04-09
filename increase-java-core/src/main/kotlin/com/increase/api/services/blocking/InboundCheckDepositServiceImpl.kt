@@ -117,11 +117,11 @@ internal constructor(private val clientOptions: ClientOptions) : InboundCheckDep
                         }
                     }
                     .let {
-                        InboundCheckDepositListPage.of(
-                            InboundCheckDepositServiceImpl(clientOptions),
-                            params,
-                            it,
-                        )
+                        InboundCheckDepositListPage.builder()
+                            .service(InboundCheckDepositServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

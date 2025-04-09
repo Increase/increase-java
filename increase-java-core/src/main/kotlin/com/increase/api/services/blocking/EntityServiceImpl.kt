@@ -175,7 +175,13 @@ class EntityServiceImpl internal constructor(private val clientOptions: ClientOp
                             it.validate()
                         }
                     }
-                    .let { EntityListPage.of(EntityServiceImpl(clientOptions), params, it) }
+                    .let {
+                        EntityListPage.builder()
+                            .service(EntityServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
+                    }
             }
         }
 

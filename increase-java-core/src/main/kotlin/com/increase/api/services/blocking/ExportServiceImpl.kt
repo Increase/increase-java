@@ -125,7 +125,13 @@ class ExportServiceImpl internal constructor(private val clientOptions: ClientOp
                             it.validate()
                         }
                     }
-                    .let { ExportListPage.of(ExportServiceImpl(clientOptions), params, it) }
+                    .let {
+                        ExportListPage.builder()
+                            .service(ExportServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
+                    }
             }
         }
     }

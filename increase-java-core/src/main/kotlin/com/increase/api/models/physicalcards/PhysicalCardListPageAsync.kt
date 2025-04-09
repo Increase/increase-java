@@ -2,6 +2,7 @@
 
 package com.increase.api.models.physicalcards
 
+import com.increase.api.core.checkRequired
 import com.increase.api.services.async.PhysicalCardServiceAsync
 import java.util.Objects
 import java.util.Optional
@@ -10,16 +11,13 @@ import java.util.concurrent.Executor
 import java.util.function.Predicate
 import kotlin.jvm.optionals.getOrNull
 
-/** List Physical Cards */
+/** @see [PhysicalCardServiceAsync.list] */
 class PhysicalCardListPageAsync
 private constructor(
-    private val physicalCardsService: PhysicalCardServiceAsync,
+    private val service: PhysicalCardServiceAsync,
     private val params: PhysicalCardListParams,
     private val response: PhysicalCardListPageResponse,
 ) {
-
-    /** Returns the response that this page was parsed from. */
-    fun response(): PhysicalCardListPageResponse = response
 
     /**
      * Delegates to [PhysicalCardListPageResponse], but gracefully handles missing data.
@@ -35,19 +33,6 @@ private constructor(
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is PhysicalCardListPageAsync && physicalCardsService == other.physicalCardsService && params == other.params && response == other.response /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(physicalCardsService, params, response) /* spotless:on */
-
-    override fun toString() =
-        "PhysicalCardListPageAsync{physicalCardsService=$physicalCardsService, params=$params, response=$response}"
-
     fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor().isPresent
 
     fun getNextPageParams(): Optional<PhysicalCardListParams> {
@@ -60,22 +45,78 @@ private constructor(
         )
     }
 
-    fun getNextPage(): CompletableFuture<Optional<PhysicalCardListPageAsync>> {
-        return getNextPageParams()
-            .map { physicalCardsService.list(it).thenApply { Optional.of(it) } }
+    fun getNextPage(): CompletableFuture<Optional<PhysicalCardListPageAsync>> =
+        getNextPageParams()
+            .map { service.list(it).thenApply { Optional.of(it) } }
             .orElseGet { CompletableFuture.completedFuture(Optional.empty()) }
-    }
 
     fun autoPager(): AutoPager = AutoPager(this)
 
+    /** The parameters that were used to request this page. */
+    fun params(): PhysicalCardListParams = params
+
+    /** The response that this page was parsed from. */
+    fun response(): PhysicalCardListPageResponse = response
+
+    fun toBuilder() = Builder().from(this)
+
     companion object {
 
-        @JvmStatic
-        fun of(
-            physicalCardsService: PhysicalCardServiceAsync,
-            params: PhysicalCardListParams,
-            response: PhysicalCardListPageResponse,
-        ) = PhysicalCardListPageAsync(physicalCardsService, params, response)
+        /**
+         * Returns a mutable builder for constructing an instance of [PhysicalCardListPageAsync].
+         *
+         * The following fields are required:
+         * ```java
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         */
+        @JvmStatic fun builder() = Builder()
+    }
+
+    /** A builder for [PhysicalCardListPageAsync]. */
+    class Builder internal constructor() {
+
+        private var service: PhysicalCardServiceAsync? = null
+        private var params: PhysicalCardListParams? = null
+        private var response: PhysicalCardListPageResponse? = null
+
+        @JvmSynthetic
+        internal fun from(physicalCardListPageAsync: PhysicalCardListPageAsync) = apply {
+            service = physicalCardListPageAsync.service
+            params = physicalCardListPageAsync.params
+            response = physicalCardListPageAsync.response
+        }
+
+        fun service(service: PhysicalCardServiceAsync) = apply { this.service = service }
+
+        /** The parameters that were used to request this page. */
+        fun params(params: PhysicalCardListParams) = apply { this.params = params }
+
+        /** The response that this page was parsed from. */
+        fun response(response: PhysicalCardListPageResponse) = apply { this.response = response }
+
+        /**
+         * Returns an immutable instance of [PhysicalCardListPageAsync].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
+        fun build(): PhysicalCardListPageAsync =
+            PhysicalCardListPageAsync(
+                checkRequired("service", service),
+                checkRequired("params", params),
+                checkRequired("response", response),
+            )
     }
 
     class AutoPager(private val firstPage: PhysicalCardListPageAsync) {
@@ -103,4 +144,17 @@ private constructor(
             return forEach(values::add, executor).thenApply { values }
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is PhysicalCardListPageAsync && service == other.service && params == other.params && response == other.response /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, params, response) /* spotless:on */
+
+    override fun toString() =
+        "PhysicalCardListPageAsync{service=$service, params=$params, response=$response}"
 }

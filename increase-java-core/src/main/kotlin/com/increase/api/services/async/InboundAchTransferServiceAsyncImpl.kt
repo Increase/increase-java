@@ -132,11 +132,11 @@ internal constructor(private val clientOptions: ClientOptions) : InboundAchTrans
                                 }
                             }
                             .let {
-                                InboundAchTransferListPageAsync.of(
-                                    InboundAchTransferServiceAsyncImpl(clientOptions),
-                                    params,
-                                    it,
-                                )
+                                InboundAchTransferListPageAsync.builder()
+                                    .service(InboundAchTransferServiceAsyncImpl(clientOptions))
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

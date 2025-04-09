@@ -146,11 +146,13 @@ internal constructor(private val clientOptions: ClientOptions) :
                         }
                     }
                     .let {
-                        ProofOfAuthorizationRequestSubmissionListPage.of(
-                            ProofOfAuthorizationRequestSubmissionServiceImpl(clientOptions),
-                            params,
-                            it,
-                        )
+                        ProofOfAuthorizationRequestSubmissionListPage.builder()
+                            .service(
+                                ProofOfAuthorizationRequestSubmissionServiceImpl(clientOptions)
+                            )
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

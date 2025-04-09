@@ -105,11 +105,11 @@ class EventServiceAsyncImpl internal constructor(private val clientOptions: Clie
                                 }
                             }
                             .let {
-                                EventListPageAsync.of(
-                                    EventServiceAsyncImpl(clientOptions),
-                                    params,
-                                    it,
-                                )
+                                EventListPageAsync.builder()
+                                    .service(EventServiceAsyncImpl(clientOptions))
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

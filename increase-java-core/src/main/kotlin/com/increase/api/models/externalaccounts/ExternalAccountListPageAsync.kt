@@ -2,6 +2,7 @@
 
 package com.increase.api.models.externalaccounts
 
+import com.increase.api.core.checkRequired
 import com.increase.api.services.async.ExternalAccountServiceAsync
 import java.util.Objects
 import java.util.Optional
@@ -10,16 +11,13 @@ import java.util.concurrent.Executor
 import java.util.function.Predicate
 import kotlin.jvm.optionals.getOrNull
 
-/** List External Accounts */
+/** @see [ExternalAccountServiceAsync.list] */
 class ExternalAccountListPageAsync
 private constructor(
-    private val externalAccountsService: ExternalAccountServiceAsync,
+    private val service: ExternalAccountServiceAsync,
     private val params: ExternalAccountListParams,
     private val response: ExternalAccountListPageResponse,
 ) {
-
-    /** Returns the response that this page was parsed from. */
-    fun response(): ExternalAccountListPageResponse = response
 
     /**
      * Delegates to [ExternalAccountListPageResponse], but gracefully handles missing data.
@@ -36,19 +34,6 @@ private constructor(
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is ExternalAccountListPageAsync && externalAccountsService == other.externalAccountsService && params == other.params && response == other.response /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(externalAccountsService, params, response) /* spotless:on */
-
-    override fun toString() =
-        "ExternalAccountListPageAsync{externalAccountsService=$externalAccountsService, params=$params, response=$response}"
-
     fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor().isPresent
 
     fun getNextPageParams(): Optional<ExternalAccountListParams> {
@@ -61,22 +46,78 @@ private constructor(
         )
     }
 
-    fun getNextPage(): CompletableFuture<Optional<ExternalAccountListPageAsync>> {
-        return getNextPageParams()
-            .map { externalAccountsService.list(it).thenApply { Optional.of(it) } }
+    fun getNextPage(): CompletableFuture<Optional<ExternalAccountListPageAsync>> =
+        getNextPageParams()
+            .map { service.list(it).thenApply { Optional.of(it) } }
             .orElseGet { CompletableFuture.completedFuture(Optional.empty()) }
-    }
 
     fun autoPager(): AutoPager = AutoPager(this)
 
+    /** The parameters that were used to request this page. */
+    fun params(): ExternalAccountListParams = params
+
+    /** The response that this page was parsed from. */
+    fun response(): ExternalAccountListPageResponse = response
+
+    fun toBuilder() = Builder().from(this)
+
     companion object {
 
-        @JvmStatic
-        fun of(
-            externalAccountsService: ExternalAccountServiceAsync,
-            params: ExternalAccountListParams,
-            response: ExternalAccountListPageResponse,
-        ) = ExternalAccountListPageAsync(externalAccountsService, params, response)
+        /**
+         * Returns a mutable builder for constructing an instance of [ExternalAccountListPageAsync].
+         *
+         * The following fields are required:
+         * ```java
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         */
+        @JvmStatic fun builder() = Builder()
+    }
+
+    /** A builder for [ExternalAccountListPageAsync]. */
+    class Builder internal constructor() {
+
+        private var service: ExternalAccountServiceAsync? = null
+        private var params: ExternalAccountListParams? = null
+        private var response: ExternalAccountListPageResponse? = null
+
+        @JvmSynthetic
+        internal fun from(externalAccountListPageAsync: ExternalAccountListPageAsync) = apply {
+            service = externalAccountListPageAsync.service
+            params = externalAccountListPageAsync.params
+            response = externalAccountListPageAsync.response
+        }
+
+        fun service(service: ExternalAccountServiceAsync) = apply { this.service = service }
+
+        /** The parameters that were used to request this page. */
+        fun params(params: ExternalAccountListParams) = apply { this.params = params }
+
+        /** The response that this page was parsed from. */
+        fun response(response: ExternalAccountListPageResponse) = apply { this.response = response }
+
+        /**
+         * Returns an immutable instance of [ExternalAccountListPageAsync].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
+        fun build(): ExternalAccountListPageAsync =
+            ExternalAccountListPageAsync(
+                checkRequired("service", service),
+                checkRequired("params", params),
+                checkRequired("response", response),
+            )
     }
 
     class AutoPager(private val firstPage: ExternalAccountListPageAsync) {
@@ -107,4 +148,17 @@ private constructor(
             return forEach(values::add, executor).thenApply { values }
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is ExternalAccountListPageAsync && service == other.service && params == other.params && response == other.response /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, params, response) /* spotless:on */
+
+    override fun toString() =
+        "ExternalAccountListPageAsync{service=$service, params=$params, response=$response}"
 }

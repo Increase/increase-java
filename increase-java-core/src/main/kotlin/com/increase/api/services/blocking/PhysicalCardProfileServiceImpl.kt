@@ -153,11 +153,11 @@ internal constructor(private val clientOptions: ClientOptions) : PhysicalCardPro
                         }
                     }
                     .let {
-                        PhysicalCardProfileListPage.of(
-                            PhysicalCardProfileServiceImpl(clientOptions),
-                            params,
-                            it,
-                        )
+                        PhysicalCardProfileListPage.builder()
+                            .service(PhysicalCardProfileServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

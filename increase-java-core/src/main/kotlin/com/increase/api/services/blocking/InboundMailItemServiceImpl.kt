@@ -99,11 +99,11 @@ class InboundMailItemServiceImpl internal constructor(private val clientOptions:
                         }
                     }
                     .let {
-                        InboundMailItemListPage.of(
-                            InboundMailItemServiceImpl(clientOptions),
-                            params,
-                            it,
-                        )
+                        InboundMailItemListPage.builder()
+                            .service(InboundMailItemServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

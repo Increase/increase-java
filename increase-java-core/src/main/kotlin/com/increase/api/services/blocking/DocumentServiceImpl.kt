@@ -98,7 +98,13 @@ class DocumentServiceImpl internal constructor(private val clientOptions: Client
                             it.validate()
                         }
                     }
-                    .let { DocumentListPage.of(DocumentServiceImpl(clientOptions), params, it) }
+                    .let {
+                        DocumentListPage.builder()
+                            .service(DocumentServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
+                    }
             }
         }
     }

@@ -2,6 +2,7 @@
 
 package com.increase.api.models.checkdeposits
 
+import com.increase.api.core.checkRequired
 import com.increase.api.services.blocking.CheckDepositService
 import java.util.Objects
 import java.util.Optional
@@ -9,16 +10,13 @@ import java.util.stream.Stream
 import java.util.stream.StreamSupport
 import kotlin.jvm.optionals.getOrNull
 
-/** List Check Deposits */
+/** @see [CheckDepositService.list] */
 class CheckDepositListPage
 private constructor(
-    private val checkDepositsService: CheckDepositService,
+    private val service: CheckDepositService,
     private val params: CheckDepositListParams,
     private val response: CheckDepositListPageResponse,
 ) {
-
-    /** Returns the response that this page was parsed from. */
-    fun response(): CheckDepositListPageResponse = response
 
     /**
      * Delegates to [CheckDepositListPageResponse], but gracefully handles missing data.
@@ -34,19 +32,6 @@ private constructor(
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is CheckDepositListPage && checkDepositsService == other.checkDepositsService && params == other.params && response == other.response /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(checkDepositsService, params, response) /* spotless:on */
-
-    override fun toString() =
-        "CheckDepositListPage{checkDepositsService=$checkDepositsService, params=$params, response=$response}"
-
     fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor().isPresent
 
     fun getNextPageParams(): Optional<CheckDepositListParams> {
@@ -59,20 +44,75 @@ private constructor(
         )
     }
 
-    fun getNextPage(): Optional<CheckDepositListPage> {
-        return getNextPageParams().map { checkDepositsService.list(it) }
-    }
+    fun getNextPage(): Optional<CheckDepositListPage> = getNextPageParams().map { service.list(it) }
 
     fun autoPager(): AutoPager = AutoPager(this)
 
+    /** The parameters that were used to request this page. */
+    fun params(): CheckDepositListParams = params
+
+    /** The response that this page was parsed from. */
+    fun response(): CheckDepositListPageResponse = response
+
+    fun toBuilder() = Builder().from(this)
+
     companion object {
 
-        @JvmStatic
-        fun of(
-            checkDepositsService: CheckDepositService,
-            params: CheckDepositListParams,
-            response: CheckDepositListPageResponse,
-        ) = CheckDepositListPage(checkDepositsService, params, response)
+        /**
+         * Returns a mutable builder for constructing an instance of [CheckDepositListPage].
+         *
+         * The following fields are required:
+         * ```java
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         */
+        @JvmStatic fun builder() = Builder()
+    }
+
+    /** A builder for [CheckDepositListPage]. */
+    class Builder internal constructor() {
+
+        private var service: CheckDepositService? = null
+        private var params: CheckDepositListParams? = null
+        private var response: CheckDepositListPageResponse? = null
+
+        @JvmSynthetic
+        internal fun from(checkDepositListPage: CheckDepositListPage) = apply {
+            service = checkDepositListPage.service
+            params = checkDepositListPage.params
+            response = checkDepositListPage.response
+        }
+
+        fun service(service: CheckDepositService) = apply { this.service = service }
+
+        /** The parameters that were used to request this page. */
+        fun params(params: CheckDepositListParams) = apply { this.params = params }
+
+        /** The response that this page was parsed from. */
+        fun response(response: CheckDepositListPageResponse) = apply { this.response = response }
+
+        /**
+         * Returns an immutable instance of [CheckDepositListPage].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
+        fun build(): CheckDepositListPage =
+            CheckDepositListPage(
+                checkRequired("service", service),
+                checkRequired("params", params),
+                checkRequired("response", response),
+            )
     }
 
     class AutoPager(private val firstPage: CheckDepositListPage) : Iterable<CheckDeposit> {
@@ -93,4 +133,17 @@ private constructor(
             return StreamSupport.stream(spliterator(), false)
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is CheckDepositListPage && service == other.service && params == other.params && response == other.response /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, params, response) /* spotless:on */
+
+    override fun toString() =
+        "CheckDepositListPage{service=$service, params=$params, response=$response}"
 }

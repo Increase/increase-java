@@ -135,7 +135,11 @@ class CheckDepositServiceImpl internal constructor(private val clientOptions: Cl
                         }
                     }
                     .let {
-                        CheckDepositListPage.of(CheckDepositServiceImpl(clientOptions), params, it)
+                        CheckDepositListPage.builder()
+                            .service(CheckDepositServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

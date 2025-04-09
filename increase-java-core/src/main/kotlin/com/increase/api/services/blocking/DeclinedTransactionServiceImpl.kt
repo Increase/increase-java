@@ -100,11 +100,11 @@ internal constructor(private val clientOptions: ClientOptions) : DeclinedTransac
                         }
                     }
                     .let {
-                        DeclinedTransactionListPage.of(
-                            DeclinedTransactionServiceImpl(clientOptions),
-                            params,
-                            it,
-                        )
+                        DeclinedTransactionListPage.builder()
+                            .service(DeclinedTransactionServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

@@ -107,11 +107,11 @@ internal constructor(private val clientOptions: ClientOptions) : InboundWireTran
                                 }
                             }
                             .let {
-                                InboundWireTransferListPageAsync.of(
-                                    InboundWireTransferServiceAsyncImpl(clientOptions),
-                                    params,
-                                    it,
-                                )
+                                InboundWireTransferListPageAsync.builder()
+                                    .service(InboundWireTransferServiceAsyncImpl(clientOptions))
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

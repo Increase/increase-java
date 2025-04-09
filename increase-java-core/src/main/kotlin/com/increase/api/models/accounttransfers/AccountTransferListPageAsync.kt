@@ -2,6 +2,7 @@
 
 package com.increase.api.models.accounttransfers
 
+import com.increase.api.core.checkRequired
 import com.increase.api.services.async.AccountTransferServiceAsync
 import java.util.Objects
 import java.util.Optional
@@ -10,16 +11,13 @@ import java.util.concurrent.Executor
 import java.util.function.Predicate
 import kotlin.jvm.optionals.getOrNull
 
-/** List Account Transfers */
+/** @see [AccountTransferServiceAsync.list] */
 class AccountTransferListPageAsync
 private constructor(
-    private val accountTransfersService: AccountTransferServiceAsync,
+    private val service: AccountTransferServiceAsync,
     private val params: AccountTransferListParams,
     private val response: AccountTransferListPageResponse,
 ) {
-
-    /** Returns the response that this page was parsed from. */
-    fun response(): AccountTransferListPageResponse = response
 
     /**
      * Delegates to [AccountTransferListPageResponse], but gracefully handles missing data.
@@ -36,19 +34,6 @@ private constructor(
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is AccountTransferListPageAsync && accountTransfersService == other.accountTransfersService && params == other.params && response == other.response /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountTransfersService, params, response) /* spotless:on */
-
-    override fun toString() =
-        "AccountTransferListPageAsync{accountTransfersService=$accountTransfersService, params=$params, response=$response}"
-
     fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor().isPresent
 
     fun getNextPageParams(): Optional<AccountTransferListParams> {
@@ -61,22 +46,78 @@ private constructor(
         )
     }
 
-    fun getNextPage(): CompletableFuture<Optional<AccountTransferListPageAsync>> {
-        return getNextPageParams()
-            .map { accountTransfersService.list(it).thenApply { Optional.of(it) } }
+    fun getNextPage(): CompletableFuture<Optional<AccountTransferListPageAsync>> =
+        getNextPageParams()
+            .map { service.list(it).thenApply { Optional.of(it) } }
             .orElseGet { CompletableFuture.completedFuture(Optional.empty()) }
-    }
 
     fun autoPager(): AutoPager = AutoPager(this)
 
+    /** The parameters that were used to request this page. */
+    fun params(): AccountTransferListParams = params
+
+    /** The response that this page was parsed from. */
+    fun response(): AccountTransferListPageResponse = response
+
+    fun toBuilder() = Builder().from(this)
+
     companion object {
 
-        @JvmStatic
-        fun of(
-            accountTransfersService: AccountTransferServiceAsync,
-            params: AccountTransferListParams,
-            response: AccountTransferListPageResponse,
-        ) = AccountTransferListPageAsync(accountTransfersService, params, response)
+        /**
+         * Returns a mutable builder for constructing an instance of [AccountTransferListPageAsync].
+         *
+         * The following fields are required:
+         * ```java
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         */
+        @JvmStatic fun builder() = Builder()
+    }
+
+    /** A builder for [AccountTransferListPageAsync]. */
+    class Builder internal constructor() {
+
+        private var service: AccountTransferServiceAsync? = null
+        private var params: AccountTransferListParams? = null
+        private var response: AccountTransferListPageResponse? = null
+
+        @JvmSynthetic
+        internal fun from(accountTransferListPageAsync: AccountTransferListPageAsync) = apply {
+            service = accountTransferListPageAsync.service
+            params = accountTransferListPageAsync.params
+            response = accountTransferListPageAsync.response
+        }
+
+        fun service(service: AccountTransferServiceAsync) = apply { this.service = service }
+
+        /** The parameters that were used to request this page. */
+        fun params(params: AccountTransferListParams) = apply { this.params = params }
+
+        /** The response that this page was parsed from. */
+        fun response(response: AccountTransferListPageResponse) = apply { this.response = response }
+
+        /**
+         * Returns an immutable instance of [AccountTransferListPageAsync].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
+        fun build(): AccountTransferListPageAsync =
+            AccountTransferListPageAsync(
+                checkRequired("service", service),
+                checkRequired("params", params),
+                checkRequired("response", response),
+            )
     }
 
     class AutoPager(private val firstPage: AccountTransferListPageAsync) {
@@ -107,4 +148,17 @@ private constructor(
             return forEach(values::add, executor).thenApply { values }
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is AccountTransferListPageAsync && service == other.service && params == other.params && response == other.response /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, params, response) /* spotless:on */
+
+    override fun toString() =
+        "AccountTransferListPageAsync{service=$service, params=$params, response=$response}"
 }

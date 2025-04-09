@@ -144,11 +144,11 @@ class CheckDepositServiceAsyncImpl internal constructor(private val clientOption
                                 }
                             }
                             .let {
-                                CheckDepositListPageAsync.of(
-                                    CheckDepositServiceAsyncImpl(clientOptions),
-                                    params,
-                                    it,
-                                )
+                                CheckDepositListPageAsync.builder()
+                                    .service(CheckDepositServiceAsyncImpl(clientOptions))
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

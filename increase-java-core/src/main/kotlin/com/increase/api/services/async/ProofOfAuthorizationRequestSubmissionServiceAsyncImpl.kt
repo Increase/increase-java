@@ -155,13 +155,15 @@ internal constructor(private val clientOptions: ClientOptions) :
                                 }
                             }
                             .let {
-                                ProofOfAuthorizationRequestSubmissionListPageAsync.of(
-                                    ProofOfAuthorizationRequestSubmissionServiceAsyncImpl(
-                                        clientOptions
-                                    ),
-                                    params,
-                                    it,
-                                )
+                                ProofOfAuthorizationRequestSubmissionListPageAsync.builder()
+                                    .service(
+                                        ProofOfAuthorizationRequestSubmissionServiceAsyncImpl(
+                                            clientOptions
+                                        )
+                                    )
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }
