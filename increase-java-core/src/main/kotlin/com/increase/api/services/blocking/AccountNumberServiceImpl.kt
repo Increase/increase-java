@@ -18,6 +18,7 @@ import com.increase.api.core.prepare
 import com.increase.api.models.accountnumbers.AccountNumber
 import com.increase.api.models.accountnumbers.AccountNumberCreateParams
 import com.increase.api.models.accountnumbers.AccountNumberListPage
+import com.increase.api.models.accountnumbers.AccountNumberListPageResponse
 import com.increase.api.models.accountnumbers.AccountNumberListParams
 import com.increase.api.models.accountnumbers.AccountNumberRetrieveParams
 import com.increase.api.models.accountnumbers.AccountNumberUpdateParams
@@ -144,8 +145,8 @@ class AccountNumberServiceImpl internal constructor(private val clientOptions: C
             }
         }
 
-        private val listHandler: Handler<AccountNumberListPage.Response> =
-            jsonHandler<AccountNumberListPage.Response>(clientOptions.jsonMapper)
+        private val listHandler: Handler<AccountNumberListPageResponse> =
+            jsonHandler<AccountNumberListPageResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override fun list(

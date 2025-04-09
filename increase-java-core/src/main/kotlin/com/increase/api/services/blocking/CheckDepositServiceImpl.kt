@@ -18,6 +18,7 @@ import com.increase.api.core.prepare
 import com.increase.api.models.checkdeposits.CheckDeposit
 import com.increase.api.models.checkdeposits.CheckDepositCreateParams
 import com.increase.api.models.checkdeposits.CheckDepositListPage
+import com.increase.api.models.checkdeposits.CheckDepositListPageResponse
 import com.increase.api.models.checkdeposits.CheckDepositListParams
 import com.increase.api.models.checkdeposits.CheckDepositRetrieveParams
 
@@ -109,8 +110,8 @@ class CheckDepositServiceImpl internal constructor(private val clientOptions: Cl
             }
         }
 
-        private val listHandler: Handler<CheckDepositListPage.Response> =
-            jsonHandler<CheckDepositListPage.Response>(clientOptions.jsonMapper)
+        private val listHandler: Handler<CheckDepositListPageResponse> =
+            jsonHandler<CheckDepositListPageResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override fun list(

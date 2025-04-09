@@ -18,6 +18,7 @@ import com.increase.api.core.prepare
 import com.increase.api.models.eventsubscriptions.EventSubscription
 import com.increase.api.models.eventsubscriptions.EventSubscriptionCreateParams
 import com.increase.api.models.eventsubscriptions.EventSubscriptionListPage
+import com.increase.api.models.eventsubscriptions.EventSubscriptionListPageResponse
 import com.increase.api.models.eventsubscriptions.EventSubscriptionListParams
 import com.increase.api.models.eventsubscriptions.EventSubscriptionRetrieveParams
 import com.increase.api.models.eventsubscriptions.EventSubscriptionUpdateParams
@@ -144,8 +145,8 @@ class EventSubscriptionServiceImpl internal constructor(private val clientOption
             }
         }
 
-        private val listHandler: Handler<EventSubscriptionListPage.Response> =
-            jsonHandler<EventSubscriptionListPage.Response>(clientOptions.jsonMapper)
+        private val listHandler: Handler<EventSubscriptionListPageResponse> =
+            jsonHandler<EventSubscriptionListPageResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override fun list(

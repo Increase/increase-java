@@ -18,6 +18,7 @@ import com.increase.api.core.prepareAsync
 import com.increase.api.models.carddisputes.CardDispute
 import com.increase.api.models.carddisputes.CardDisputeCreateParams
 import com.increase.api.models.carddisputes.CardDisputeListPageAsync
+import com.increase.api.models.carddisputes.CardDisputeListPageResponse
 import com.increase.api.models.carddisputes.CardDisputeListParams
 import com.increase.api.models.carddisputes.CardDisputeRetrieveParams
 import java.util.concurrent.CompletableFuture
@@ -116,8 +117,8 @@ class CardDisputeServiceAsyncImpl internal constructor(private val clientOptions
                 }
         }
 
-        private val listHandler: Handler<CardDisputeListPageAsync.Response> =
-            jsonHandler<CardDisputeListPageAsync.Response>(clientOptions.jsonMapper)
+        private val listHandler: Handler<CardDisputeListPageResponse> =
+            jsonHandler<CardDisputeListPageResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override fun list(

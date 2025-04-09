@@ -22,6 +22,7 @@ import com.increase.api.models.entities.EntityConfirmParams
 import com.increase.api.models.entities.EntityCreateBeneficialOwnerParams
 import com.increase.api.models.entities.EntityCreateParams
 import com.increase.api.models.entities.EntityListPageAsync
+import com.increase.api.models.entities.EntityListPageResponse
 import com.increase.api.models.entities.EntityListParams
 import com.increase.api.models.entities.EntityRetrieveParams
 import com.increase.api.models.entities.EntityUpdateAddressParams
@@ -174,8 +175,8 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 }
         }
 
-        private val listHandler: Handler<EntityListPageAsync.Response> =
-            jsonHandler<EntityListPageAsync.Response>(clientOptions.jsonMapper)
+        private val listHandler: Handler<EntityListPageResponse> =
+            jsonHandler<EntityListPageResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override fun list(

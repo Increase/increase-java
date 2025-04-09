@@ -16,6 +16,7 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.events.Event
 import com.increase.api.models.events.EventListPageAsync
+import com.increase.api.models.events.EventListPageResponse
 import com.increase.api.models.events.EventListParams
 import com.increase.api.models.events.EventRetrieveParams
 import java.util.concurrent.CompletableFuture
@@ -77,8 +78,8 @@ class EventServiceAsyncImpl internal constructor(private val clientOptions: Clie
                 }
         }
 
-        private val listHandler: Handler<EventListPageAsync.Response> =
-            jsonHandler<EventListPageAsync.Response>(clientOptions.jsonMapper)
+        private val listHandler: Handler<EventListPageResponse> =
+            jsonHandler<EventListPageResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override fun list(

@@ -18,6 +18,7 @@ import com.increase.api.core.prepare
 import com.increase.api.models.wiredrawdownrequests.WireDrawdownRequest
 import com.increase.api.models.wiredrawdownrequests.WireDrawdownRequestCreateParams
 import com.increase.api.models.wiredrawdownrequests.WireDrawdownRequestListPage
+import com.increase.api.models.wiredrawdownrequests.WireDrawdownRequestListPageResponse
 import com.increase.api.models.wiredrawdownrequests.WireDrawdownRequestListParams
 import com.increase.api.models.wiredrawdownrequests.WireDrawdownRequestRetrieveParams
 
@@ -111,8 +112,8 @@ internal constructor(private val clientOptions: ClientOptions) : WireDrawdownReq
             }
         }
 
-        private val listHandler: Handler<WireDrawdownRequestListPage.Response> =
-            jsonHandler<WireDrawdownRequestListPage.Response>(clientOptions.jsonMapper)
+        private val listHandler: Handler<WireDrawdownRequestListPageResponse> =
+            jsonHandler<WireDrawdownRequestListPageResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override fun list(

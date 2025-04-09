@@ -19,6 +19,7 @@ import com.increase.api.models.intrafiexclusions.IntrafiExclusion
 import com.increase.api.models.intrafiexclusions.IntrafiExclusionArchiveParams
 import com.increase.api.models.intrafiexclusions.IntrafiExclusionCreateParams
 import com.increase.api.models.intrafiexclusions.IntrafiExclusionListPageAsync
+import com.increase.api.models.intrafiexclusions.IntrafiExclusionListPageResponse
 import com.increase.api.models.intrafiexclusions.IntrafiExclusionListParams
 import com.increase.api.models.intrafiexclusions.IntrafiExclusionRetrieveParams
 import java.util.concurrent.CompletableFuture
@@ -124,8 +125,8 @@ internal constructor(private val clientOptions: ClientOptions) : IntrafiExclusio
                 }
         }
 
-        private val listHandler: Handler<IntrafiExclusionListPageAsync.Response> =
-            jsonHandler<IntrafiExclusionListPageAsync.Response>(clientOptions.jsonMapper)
+        private val listHandler: Handler<IntrafiExclusionListPageResponse> =
+            jsonHandler<IntrafiExclusionListPageResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override fun list(

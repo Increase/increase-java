@@ -16,6 +16,7 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.events.Event
 import com.increase.api.models.events.EventListPage
+import com.increase.api.models.events.EventListPageResponse
 import com.increase.api.models.events.EventListParams
 import com.increase.api.models.events.EventRetrieveParams
 
@@ -67,8 +68,8 @@ class EventServiceImpl internal constructor(private val clientOptions: ClientOpt
             }
         }
 
-        private val listHandler: Handler<EventListPage.Response> =
-            jsonHandler<EventListPage.Response>(clientOptions.jsonMapper)
+        private val listHandler: Handler<EventListPageResponse> =
+            jsonHandler<EventListPageResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override fun list(

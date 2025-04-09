@@ -15,6 +15,7 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.routingnumbers.RoutingNumberListPage
+import com.increase.api.models.routingnumbers.RoutingNumberListPageResponse
 import com.increase.api.models.routingnumbers.RoutingNumberListParams
 
 class RoutingNumberServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -38,8 +39,8 @@ class RoutingNumberServiceImpl internal constructor(private val clientOptions: C
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
 
-        private val listHandler: Handler<RoutingNumberListPage.Response> =
-            jsonHandler<RoutingNumberListPage.Response>(clientOptions.jsonMapper)
+        private val listHandler: Handler<RoutingNumberListPageResponse> =
+            jsonHandler<RoutingNumberListPageResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override fun list(
