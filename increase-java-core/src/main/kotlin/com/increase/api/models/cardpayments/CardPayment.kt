@@ -20081,9 +20081,10 @@ private constructor(
                 ) : this(amount, code, currency, mutableMapOf())
 
                 /**
-                 * The interchange amount given as a string containing a decimal number. The amount
-                 * is a positive number if it is credited to Increase (e.g., settlements) and a
-                 * negative number if it is debited (e.g., refunds).
+                 * The interchange amount given as a string containing a decimal number in major
+                 * units (so e.g., "3.14" for $3.14). The amount is a positive number if it is
+                 * credited to Increase (e.g., settlements) and a negative number if it is debited
+                 * (e.g., refunds).
                  *
                  * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
                  *   is unexpectedly missing or null (e.g. if the server responded with an
@@ -20179,9 +20180,10 @@ private constructor(
                     }
 
                     /**
-                     * The interchange amount given as a string containing a decimal number. The
-                     * amount is a positive number if it is credited to Increase (e.g., settlements)
-                     * and a negative number if it is debited (e.g., refunds).
+                     * The interchange amount given as a string containing a decimal number in major
+                     * units (so e.g., "3.14" for $3.14). The amount is a positive number if it is
+                     * credited to Increase (e.g., settlements) and a negative number if it is
+                     * debited (e.g., refunds).
                      */
                     fun amount(amount: String) = amount(JsonField.of(amount))
 
@@ -31387,9 +31389,10 @@ private constructor(
                 ) : this(amount, code, currency, mutableMapOf())
 
                 /**
-                 * The interchange amount given as a string containing a decimal number. The amount
-                 * is a positive number if it is credited to Increase (e.g., settlements) and a
-                 * negative number if it is debited (e.g., refunds).
+                 * The interchange amount given as a string containing a decimal number in major
+                 * units (so e.g., "3.14" for $3.14). The amount is a positive number if it is
+                 * credited to Increase (e.g., settlements) and a negative number if it is debited
+                 * (e.g., refunds).
                  *
                  * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
                  *   is unexpectedly missing or null (e.g. if the server responded with an
@@ -31485,9 +31488,10 @@ private constructor(
                     }
 
                     /**
-                     * The interchange amount given as a string containing a decimal number. The
-                     * amount is a positive number if it is credited to Increase (e.g., settlements)
-                     * and a negative number if it is debited (e.g., refunds).
+                     * The interchange amount given as a string containing a decimal number in major
+                     * units (so e.g., "3.14" for $3.14). The amount is a positive number if it is
+                     * credited to Increase (e.g., settlements) and a negative number if it is
+                     * debited (e.g., refunds).
                      */
                     fun amount(amount: String) = amount(JsonField.of(amount))
 
