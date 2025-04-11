@@ -27,6 +27,7 @@ internal class CheckTransferCreateParamsTest {
                     )
                     .memo("Check payment")
                     .recipientName("Ian Crease")
+                    .attachmentFileId("attachment_file_id")
                     .checkNumber("x")
                     .note("x")
                     .returnAddress(
@@ -38,6 +39,9 @@ internal class CheckTransferCreateParamsTest {
                             .state("x")
                             .line2("x")
                             .build()
+                    )
+                    .shippingMethod(
+                        CheckTransferCreateParams.PhysicalCheck.ShippingMethod.USPS_FIRST_CLASS
                     )
                     .signatureText("Ian Crease")
                     .build()
@@ -73,6 +77,7 @@ internal class CheckTransferCreateParamsTest {
                         )
                         .memo("Check payment")
                         .recipientName("Ian Crease")
+                        .attachmentFileId("attachment_file_id")
                         .checkNumber("x")
                         .note("x")
                         .returnAddress(
@@ -84,6 +89,9 @@ internal class CheckTransferCreateParamsTest {
                                 .state("x")
                                 .line2("x")
                                 .build()
+                        )
+                        .shippingMethod(
+                            CheckTransferCreateParams.PhysicalCheck.ShippingMethod.USPS_FIRST_CLASS
                         )
                         .signatureText("Ian Crease")
                         .build()
@@ -118,6 +126,7 @@ internal class CheckTransferCreateParamsTest {
                     )
                     .memo("Check payment")
                     .recipientName("Ian Crease")
+                    .attachmentFileId("attachment_file_id")
                     .checkNumber("x")
                     .note("x")
                     .returnAddress(
@@ -129,6 +138,9 @@ internal class CheckTransferCreateParamsTest {
                             .state("x")
                             .line2("x")
                             .build()
+                    )
+                    .shippingMethod(
+                        CheckTransferCreateParams.PhysicalCheck.ShippingMethod.USPS_FIRST_CLASS
                     )
                     .signatureText("Ian Crease")
                     .build()
