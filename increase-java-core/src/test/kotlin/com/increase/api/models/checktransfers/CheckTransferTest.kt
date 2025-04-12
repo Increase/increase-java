@@ -131,10 +131,7 @@ internal class CheckTransferTest {
                         .build()
                 )
                 .thirdParty(
-                    CheckTransfer.ThirdParty.builder()
-                        .checkNumber("check_number")
-                        .recipientName("recipient_name")
-                        .build()
+                    CheckTransfer.ThirdParty.builder().recipientName("recipient_name").build()
                 )
                 .type(CheckTransfer.Type.CHECK_TRANSFER)
                 .build()
@@ -261,12 +258,7 @@ internal class CheckTransferTest {
                     .build()
             )
         assertThat(checkTransfer.thirdParty())
-            .contains(
-                CheckTransfer.ThirdParty.builder()
-                    .checkNumber("check_number")
-                    .recipientName("recipient_name")
-                    .build()
-            )
+            .contains(CheckTransfer.ThirdParty.builder().recipientName("recipient_name").build())
         assertThat(checkTransfer.type()).isEqualTo(CheckTransfer.Type.CHECK_TRANSFER)
     }
 
@@ -392,10 +384,7 @@ internal class CheckTransferTest {
                         .build()
                 )
                 .thirdParty(
-                    CheckTransfer.ThirdParty.builder()
-                        .checkNumber("check_number")
-                        .recipientName("recipient_name")
-                        .build()
+                    CheckTransfer.ThirdParty.builder().recipientName("recipient_name").build()
                 )
                 .type(CheckTransfer.Type.CHECK_TRANSFER)
                 .build()

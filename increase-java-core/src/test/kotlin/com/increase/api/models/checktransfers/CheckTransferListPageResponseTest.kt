@@ -141,7 +141,6 @@ internal class CheckTransferListPageResponseTest {
                         )
                         .thirdParty(
                             CheckTransfer.ThirdParty.builder()
-                                .checkNumber("check_number")
                                 .recipientName("recipient_name")
                                 .build()
                         )
@@ -276,10 +275,7 @@ internal class CheckTransferListPageResponseTest {
                             .build()
                     )
                     .thirdParty(
-                        CheckTransfer.ThirdParty.builder()
-                            .checkNumber("check_number")
-                            .recipientName("recipient_name")
-                            .build()
+                        CheckTransfer.ThirdParty.builder().recipientName("recipient_name").build()
                     )
                     .type(CheckTransfer.Type.CHECK_TRANSFER)
                     .build()
@@ -419,7 +415,6 @@ internal class CheckTransferListPageResponseTest {
                         )
                         .thirdParty(
                             CheckTransfer.ThirdParty.builder()
-                                .checkNumber("check_number")
                                 .recipientName("recipient_name")
                                 .build()
                         )
