@@ -2385,30 +2385,16 @@ private constructor(
      */
     class ThirdParty
     private constructor(
-        private val checkNumber: JsonField<String>,
         private val recipientName: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         @JsonCreator
         private constructor(
-            @JsonProperty("check_number")
-            @ExcludeMissing
-            checkNumber: JsonField<String> = JsonMissing.of(),
             @JsonProperty("recipient_name")
             @ExcludeMissing
-            recipientName: JsonField<String> = JsonMissing.of(),
-        ) : this(checkNumber, recipientName, mutableMapOf())
-
-        /**
-         * The check number you will print on the check. This should not contain leading zeroes. If
-         * this is omitted, Increase will generate a check number for you; you should inspect the
-         * response and use that check number.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun checkNumber(): Optional<String> = checkNumber.getOptional("check_number")
+            recipientName: JsonField<String> = JsonMissing.of()
+        ) : this(recipientName, mutableMapOf())
 
         /**
          * The pay-to name you will print on the check. If provided, this is used for
@@ -2419,15 +2405,6 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun recipientName(): Optional<String> = recipientName.getOptional("recipient_name")
-
-        /**
-         * Returns the raw JSON value of [checkNumber].
-         *
-         * Unlike [checkNumber], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("check_number")
-        @ExcludeMissing
-        fun _checkNumber(): JsonField<String> = checkNumber
 
         /**
          * Returns the raw JSON value of [recipientName].
@@ -2460,33 +2437,13 @@ private constructor(
         /** A builder for [ThirdParty]. */
         class Builder internal constructor() {
 
-            private var checkNumber: JsonField<String> = JsonMissing.of()
             private var recipientName: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(thirdParty: ThirdParty) = apply {
-                checkNumber = thirdParty.checkNumber
                 recipientName = thirdParty.recipientName
                 additionalProperties = thirdParty.additionalProperties.toMutableMap()
-            }
-
-            /**
-             * The check number you will print on the check. This should not contain leading zeroes.
-             * If this is omitted, Increase will generate a check number for you; you should inspect
-             * the response and use that check number.
-             */
-            fun checkNumber(checkNumber: String) = checkNumber(JsonField.of(checkNumber))
-
-            /**
-             * Sets [Builder.checkNumber] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.checkNumber] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun checkNumber(checkNumber: JsonField<String>) = apply {
-                this.checkNumber = checkNumber
             }
 
             /**
@@ -2531,8 +2488,7 @@ private constructor(
              *
              * Further updates to this [Builder] will not mutate the returned instance.
              */
-            fun build(): ThirdParty =
-                ThirdParty(checkNumber, recipientName, additionalProperties.toMutableMap())
+            fun build(): ThirdParty = ThirdParty(recipientName, additionalProperties.toMutableMap())
         }
 
         private var validated: Boolean = false
@@ -2542,7 +2498,6 @@ private constructor(
                 return@apply
             }
 
-            checkNumber()
             recipientName()
             validated = true
         }
@@ -2562,26 +2517,24 @@ private constructor(
          * Used for best match union deserialization.
          */
         @JvmSynthetic
-        internal fun validity(): Int =
-            (if (checkNumber.asKnown().isPresent) 1 else 0) +
-                (if (recipientName.asKnown().isPresent) 1 else 0)
+        internal fun validity(): Int = (if (recipientName.asKnown().isPresent) 1 else 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
             }
 
-            return /* spotless:off */ other is ThirdParty && checkNumber == other.checkNumber && recipientName == other.recipientName && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is ThirdParty && recipientName == other.recipientName && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(checkNumber, recipientName, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(recipientName, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "ThirdParty{checkNumber=$checkNumber, recipientName=$recipientName, additionalProperties=$additionalProperties}"
+            "ThirdParty{recipientName=$recipientName, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
