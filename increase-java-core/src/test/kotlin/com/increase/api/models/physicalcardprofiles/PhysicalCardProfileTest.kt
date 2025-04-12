@@ -24,6 +24,7 @@ internal class PhysicalCardProfileTest {
                 .frontImageFileId("file_makxrc67oh9l6sg7w9yc")
                 .idempotencyKey(null)
                 .isDefault(false)
+                .programId("program_i2v2os4mwza1oetokh9i")
                 .status(PhysicalCardProfile.Status.ACTIVE)
                 .type(PhysicalCardProfile.Type.PHYSICAL_CARD_PROFILE)
                 .build()
@@ -39,6 +40,7 @@ internal class PhysicalCardProfileTest {
         assertThat(physicalCardProfile.frontImageFileId()).contains("file_makxrc67oh9l6sg7w9yc")
         assertThat(physicalCardProfile.idempotencyKey()).isEmpty
         assertThat(physicalCardProfile.isDefault()).isEqualTo(false)
+        assertThat(physicalCardProfile.programId()).isEqualTo("program_i2v2os4mwza1oetokh9i")
         assertThat(physicalCardProfile.status()).isEqualTo(PhysicalCardProfile.Status.ACTIVE)
         assertThat(physicalCardProfile.type())
             .isEqualTo(PhysicalCardProfile.Type.PHYSICAL_CARD_PROFILE)
@@ -59,6 +61,7 @@ internal class PhysicalCardProfileTest {
                 .frontImageFileId("file_makxrc67oh9l6sg7w9yc")
                 .idempotencyKey(null)
                 .isDefault(false)
+                .programId("program_i2v2os4mwza1oetokh9i")
                 .status(PhysicalCardProfile.Status.ACTIVE)
                 .type(PhysicalCardProfile.Type.PHYSICAL_CARD_PROFILE)
                 .build()
