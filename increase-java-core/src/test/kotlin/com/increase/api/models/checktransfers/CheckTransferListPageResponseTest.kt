@@ -68,6 +68,7 @@ internal class CheckTransferListPageResponseTest {
                         .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")
                         .physicalCheck(
                             CheckTransfer.PhysicalCheck.builder()
+                                .attachmentFileId(null)
                                 .mailingAddress(
                                     CheckTransfer.PhysicalCheck.MailingAddress.builder()
                                         .city("New York")
@@ -205,6 +206,7 @@ internal class CheckTransferListPageResponseTest {
                     .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")
                     .physicalCheck(
                         CheckTransfer.PhysicalCheck.builder()
+                            .attachmentFileId(null)
                             .mailingAddress(
                                 CheckTransfer.PhysicalCheck.MailingAddress.builder()
                                     .city("New York")
@@ -342,6 +344,7 @@ internal class CheckTransferListPageResponseTest {
                         .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")
                         .physicalCheck(
                             CheckTransfer.PhysicalCheck.builder()
+                                .attachmentFileId(null)
                                 .mailingAddress(
                                     CheckTransfer.PhysicalCheck.MailingAddress.builder()
                                         .city("New York")
