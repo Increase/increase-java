@@ -62,6 +62,7 @@ internal class CheckTransferTest {
                 .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")
                 .physicalCheck(
                     CheckTransfer.PhysicalCheck.builder()
+                        .attachmentFileId(null)
                         .mailingAddress(
                             CheckTransfer.PhysicalCheck.MailingAddress.builder()
                                 .city("New York")
@@ -189,6 +190,7 @@ internal class CheckTransferTest {
         assertThat(checkTransfer.physicalCheck())
             .contains(
                 CheckTransfer.PhysicalCheck.builder()
+                    .attachmentFileId(null)
                     .mailingAddress(
                         CheckTransfer.PhysicalCheck.MailingAddress.builder()
                             .city("New York")
@@ -315,6 +317,7 @@ internal class CheckTransferTest {
                 .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")
                 .physicalCheck(
                     CheckTransfer.PhysicalCheck.builder()
+                        .attachmentFileId(null)
                         .mailingAddress(
                             CheckTransfer.PhysicalCheck.MailingAddress.builder()
                                 .city("New York")

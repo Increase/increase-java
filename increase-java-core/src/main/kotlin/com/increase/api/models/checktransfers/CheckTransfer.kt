@@ -3139,6 +3139,7 @@ private constructor(
      */
     class PhysicalCheck
     private constructor(
+        private val attachmentFileId: JsonField<String>,
         private val mailingAddress: JsonField<MailingAddress>,
         private val memo: JsonField<String>,
         private val note: JsonField<String>,
@@ -3152,6 +3153,9 @@ private constructor(
 
         @JsonCreator
         private constructor(
+            @JsonProperty("attachment_file_id")
+            @ExcludeMissing
+            attachmentFileId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("mailing_address")
             @ExcludeMissing
             mailingAddress: JsonField<MailingAddress> = JsonMissing.of(),
@@ -3173,6 +3177,7 @@ private constructor(
             @ExcludeMissing
             trackingUpdates: JsonField<List<TrackingUpdate>> = JsonMissing.of(),
         ) : this(
+            attachmentFileId,
             mailingAddress,
             memo,
             note,
@@ -3183,6 +3188,15 @@ private constructor(
             trackingUpdates,
             mutableMapOf(),
         )
+
+        /**
+         * The ID of the file for the check attachment.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun attachmentFileId(): Optional<String> =
+            attachmentFileId.getOptional("attachment_file_id")
 
         /**
          * Details for where Increase will mail the check.
@@ -3250,6 +3264,16 @@ private constructor(
          */
         fun trackingUpdates(): List<TrackingUpdate> =
             trackingUpdates.getRequired("tracking_updates")
+
+        /**
+         * Returns the raw JSON value of [attachmentFileId].
+         *
+         * Unlike [attachmentFileId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("attachment_file_id")
+        @ExcludeMissing
+        fun _attachmentFileId(): JsonField<String> = attachmentFileId
 
         /**
          * Returns the raw JSON value of [mailingAddress].
@@ -3344,6 +3368,7 @@ private constructor(
              *
              * The following fields are required:
              * ```java
+             * .attachmentFileId()
              * .mailingAddress()
              * .memo()
              * .note()
@@ -3360,6 +3385,7 @@ private constructor(
         /** A builder for [PhysicalCheck]. */
         class Builder internal constructor() {
 
+            private var attachmentFileId: JsonField<String>? = null
             private var mailingAddress: JsonField<MailingAddress>? = null
             private var memo: JsonField<String>? = null
             private var note: JsonField<String>? = null
@@ -3372,6 +3398,7 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(physicalCheck: PhysicalCheck) = apply {
+                attachmentFileId = physicalCheck.attachmentFileId
                 mailingAddress = physicalCheck.mailingAddress
                 memo = physicalCheck.memo
                 note = physicalCheck.note
@@ -3381,6 +3408,27 @@ private constructor(
                 signatureText = physicalCheck.signatureText
                 trackingUpdates = physicalCheck.trackingUpdates.map { it.toMutableList() }
                 additionalProperties = physicalCheck.additionalProperties.toMutableMap()
+            }
+
+            /** The ID of the file for the check attachment. */
+            fun attachmentFileId(attachmentFileId: String?) =
+                attachmentFileId(JsonField.ofNullable(attachmentFileId))
+
+            /**
+             * Alias for calling [Builder.attachmentFileId] with `attachmentFileId.orElse(null)`.
+             */
+            fun attachmentFileId(attachmentFileId: Optional<String>) =
+                attachmentFileId(attachmentFileId.getOrNull())
+
+            /**
+             * Sets [Builder.attachmentFileId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.attachmentFileId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun attachmentFileId(attachmentFileId: JsonField<String>) = apply {
+                this.attachmentFileId = attachmentFileId
             }
 
             /** Details for where Increase will mail the check. */
@@ -3555,6 +3603,7 @@ private constructor(
              *
              * The following fields are required:
              * ```java
+             * .attachmentFileId()
              * .mailingAddress()
              * .memo()
              * .note()
@@ -3569,6 +3618,7 @@ private constructor(
              */
             fun build(): PhysicalCheck =
                 PhysicalCheck(
+                    checkRequired("attachmentFileId", attachmentFileId),
                     checkRequired("mailingAddress", mailingAddress),
                     checkRequired("memo", memo),
                     checkRequired("note", note),
@@ -3588,6 +3638,7 @@ private constructor(
                 return@apply
             }
 
+            attachmentFileId()
             mailingAddress().validate()
             memo()
             note()
@@ -3615,7 +3666,8 @@ private constructor(
          */
         @JvmSynthetic
         internal fun validity(): Int =
-            (mailingAddress.asKnown().getOrNull()?.validity() ?: 0) +
+            (if (attachmentFileId.asKnown().isPresent) 1 else 0) +
+                (mailingAddress.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (memo.asKnown().isPresent) 1 else 0) +
                 (if (note.asKnown().isPresent) 1 else 0) +
                 (if (recipientName.asKnown().isPresent) 1 else 0) +
@@ -4923,17 +4975,17 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is PhysicalCheck && mailingAddress == other.mailingAddress && memo == other.memo && note == other.note && recipientName == other.recipientName && returnAddress == other.returnAddress && shippingMethod == other.shippingMethod && signatureText == other.signatureText && trackingUpdates == other.trackingUpdates && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is PhysicalCheck && attachmentFileId == other.attachmentFileId && mailingAddress == other.mailingAddress && memo == other.memo && note == other.note && recipientName == other.recipientName && returnAddress == other.returnAddress && shippingMethod == other.shippingMethod && signatureText == other.signatureText && trackingUpdates == other.trackingUpdates && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(mailingAddress, memo, note, recipientName, returnAddress, shippingMethod, signatureText, trackingUpdates, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(attachmentFileId, mailingAddress, memo, note, recipientName, returnAddress, shippingMethod, signatureText, trackingUpdates, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "PhysicalCheck{mailingAddress=$mailingAddress, memo=$memo, note=$note, recipientName=$recipientName, returnAddress=$returnAddress, shippingMethod=$shippingMethod, signatureText=$signatureText, trackingUpdates=$trackingUpdates, additionalProperties=$additionalProperties}"
+            "PhysicalCheck{attachmentFileId=$attachmentFileId, mailingAddress=$mailingAddress, memo=$memo, note=$note, recipientName=$recipientName, returnAddress=$returnAddress, shippingMethod=$shippingMethod, signatureText=$signatureText, trackingUpdates=$trackingUpdates, additionalProperties=$additionalProperties}"
     }
 
     /** The lifecycle status of the transfer. */
