@@ -64,6 +64,7 @@ internal class AchTransferTest {
                 .companyDescriptiveDate(null)
                 .companyDiscretionaryData(null)
                 .companyEntryDescription(null)
+                .companyId("1234987601")
                 .companyName("National Phonograph Company")
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .createdBy(
@@ -208,6 +209,7 @@ internal class AchTransferTest {
         assertThat(achTransfer.companyDescriptiveDate()).isEmpty
         assertThat(achTransfer.companyDiscretionaryData()).isEmpty
         assertThat(achTransfer.companyEntryDescription()).isEmpty
+        assertThat(achTransfer.companyId()).isEqualTo("1234987601")
         assertThat(achTransfer.companyName()).contains("National Phonograph Company")
         assertThat(achTransfer.createdAt()).isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
         assertThat(achTransfer.createdBy())
@@ -360,6 +362,7 @@ internal class AchTransferTest {
                 .companyDescriptiveDate(null)
                 .companyDiscretionaryData(null)
                 .companyEntryDescription(null)
+                .companyId("1234987601")
                 .companyName("National Phonograph Company")
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .createdBy(
