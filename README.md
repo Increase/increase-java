@@ -13,7 +13,7 @@ The Increase Java SDK is similar to the Increase Kotlin SDK but with minor diffe
 
 <!-- x-release-please-start-version -->
 
-The REST API documentation can be found on [increase.com](https://increase.com/documentation). Javadocs are also available on [javadoc.io](https://javadoc.io/doc/com.increase.api/increase-java/0.213.0).
+The REST API documentation can be found on [increase.com](https://increase.com/documentation). Javadocs are available on [javadoc.io](https://javadoc.io/doc/com.increase.api/increase-java/0.213.0).
 
 <!-- x-release-please-end -->
 
