@@ -68,6 +68,7 @@ internal class AchTransferListPageResponseTest {
                         .companyDescriptiveDate(null)
                         .companyDiscretionaryData(null)
                         .companyEntryDescription(null)
+                        .companyId("1234987601")
                         .companyName("National Phonograph Company")
                         .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                         .createdBy(
@@ -230,6 +231,7 @@ internal class AchTransferListPageResponseTest {
                     .companyDescriptiveDate(null)
                     .companyDiscretionaryData(null)
                     .companyEntryDescription(null)
+                    .companyId("1234987601")
                     .companyName("National Phonograph Company")
                     .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                     .createdBy(
@@ -392,6 +394,7 @@ internal class AchTransferListPageResponseTest {
                         .companyDescriptiveDate(null)
                         .companyDiscretionaryData(null)
                         .companyEntryDescription(null)
+                        .companyId("1234987601")
                         .companyName("National Phonograph Company")
                         .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                         .createdBy(
