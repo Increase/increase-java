@@ -354,6 +354,17 @@ Or to `debug` for more verbose logging:
 $ export INCREASE_LOG=debug
 ```
 
+## Jackson
+
+The SDK depends on [Jackson](https://github.com/FasterXML/jackson) for JSON serialization/deserialization. It is compatible with version 2.13.4 or higher, but depends on version 2.18.2 by default.
+
+The SDK throws an exception if it detects an incompatible Jackson version at runtime (e.g. if the default version was overridden in your Maven or Gradle config).
+
+If the SDK threw an exception, but you're _certain_ the version is compatible, then disable the version check using the `checkJacksonVersionCompatibility` on [`IncreaseOkHttpClient`](increase-java-client-okhttp/src/main/kotlin/com/increase/api/client/okhttp/IncreaseOkHttpClient.kt) or [`IncreaseOkHttpClientAsync`](increase-java-client-okhttp/src/main/kotlin/com/increase/api/client/okhttp/IncreaseOkHttpClientAsync.kt).
+
+> [!CAUTION]
+> We make no guarantee that the SDK works correctly when the Jackson version check is disabled.
+
 ## Network options
 
 ### Retries
