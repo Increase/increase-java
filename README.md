@@ -455,6 +455,42 @@ IncreaseClient client = IncreaseOkHttpClient.builder()
     .build();
 ```
 
+### Custom HTTP client
+
+The SDK consists of three artifacts:
+
+- `increase-java-core`
+  - Contains core SDK logic
+  - Does not depend on [OkHttp](https://square.github.io/okhttp)
+  - Exposes [`IncreaseClient`](increase-java-core/src/main/kotlin/com/increase/api/client/IncreaseClient.kt), [`IncreaseClientAsync`](increase-java-core/src/main/kotlin/com/increase/api/client/IncreaseClientAsync.kt), [`IncreaseClientImpl`](increase-java-core/src/main/kotlin/com/increase/api/client/IncreaseClientImpl.kt), and [`IncreaseClientAsyncImpl`](increase-java-core/src/main/kotlin/com/increase/api/client/IncreaseClientAsyncImpl.kt), all of which can work with any HTTP client
+- `increase-java-client-okhttp`
+  - Depends on [OkHttp](https://square.github.io/okhttp)
+  - Exposes [`IncreaseOkHttpClient`](increase-java-client-okhttp/src/main/kotlin/com/increase/api/client/okhttp/IncreaseOkHttpClient.kt) and [`IncreaseOkHttpClientAsync`](increase-java-client-okhttp/src/main/kotlin/com/increase/api/client/okhttp/IncreaseOkHttpClientAsync.kt), which provide a way to construct [`IncreaseClientImpl`](increase-java-core/src/main/kotlin/com/increase/api/client/IncreaseClientImpl.kt) and [`IncreaseClientAsyncImpl`](increase-java-core/src/main/kotlin/com/increase/api/client/IncreaseClientAsyncImpl.kt), respectively, using OkHttp
+- `increase-java`
+  - Depends on and exposes the APIs of both `increase-java-core` and `increase-java-client-okhttp`
+  - Does not have its own logic
+
+This structure allows replacing the SDK's default HTTP client without pulling in unnecessary dependencies.
+
+#### Customized [`OkHttpClient`](https://square.github.io/okhttp/3.x/okhttp/okhttp3/OkHttpClient.html)
+
+> [!TIP]
+> Try the available [network options](#network-options) before replacing the default client.
+
+To use a customized `OkHttpClient`:
+
+1. Replace your [`increase-java` dependency](#installation) with `increase-java-core`
+2. Copy `increase-java-client-okhttp`'s [`OkHttpClient`](increase-java-client-okhttp/src/main/kotlin/com/increase/api/client/okhttp/OkHttpClient.kt) class into your code and customize it
+3. Construct [`IncreaseClientImpl`](increase-java-core/src/main/kotlin/com/increase/api/client/IncreaseClientImpl.kt) or [`IncreaseClientAsyncImpl`](increase-java-core/src/main/kotlin/com/increase/api/client/IncreaseClientAsyncImpl.kt), similarly to [`IncreaseOkHttpClient`](increase-java-client-okhttp/src/main/kotlin/com/increase/api/client/okhttp/IncreaseOkHttpClient.kt) or [`IncreaseOkHttpClientAsync`](increase-java-client-okhttp/src/main/kotlin/com/increase/api/client/okhttp/IncreaseOkHttpClientAsync.kt), using your customized client
+
+### Completely custom HTTP client
+
+To use a completely custom HTTP client:
+
+1. Replace your [`increase-java` dependency](#installation) with `increase-java-core`
+2. Write a class that implements the [`HttpClient`](increase-java-core/src/main/kotlin/com/increase/api/core/http/HttpClient.kt) interface
+3. Construct [`IncreaseClientImpl`](increase-java-core/src/main/kotlin/com/increase/api/client/IncreaseClientImpl.kt) or [`IncreaseClientAsyncImpl`](increase-java-core/src/main/kotlin/com/increase/api/client/IncreaseClientAsyncImpl.kt), similarly to [`IncreaseOkHttpClient`](increase-java-client-okhttp/src/main/kotlin/com/increase/api/client/okhttp/IncreaseOkHttpClient.kt) or [`IncreaseOkHttpClientAsync`](increase-java-client-okhttp/src/main/kotlin/com/increase/api/client/okhttp/IncreaseOkHttpClientAsync.kt), using your new client class
+
 ## Undocumented API functionality
 
 The SDK is typed for convenient usage of the documented API. However, it also supports working with undocumented or not yet supported parts of the API.
