@@ -15,7 +15,11 @@ internal class ProofOfAuthorizationRequestSubmissionTest {
         val proofOfAuthorizationRequestSubmission =
             ProofOfAuthorizationRequestSubmission.builder()
                 .id("proof_of_authorization_request_submission_uqhqroiley7n0097vizn")
-                .additionalEvidenceFileId(null)
+                .addAdditionalEvidenceFile(
+                    ProofOfAuthorizationRequestSubmission.AdditionalEvidenceFile.builder()
+                        .fileId("file_makxrc67oh9l6sg7w9yc")
+                        .build()
+                )
                 .authorizationTerms("I agree to the terms.")
                 .authorizedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .authorizerCompany("National Phonograph Company")
@@ -41,7 +45,12 @@ internal class ProofOfAuthorizationRequestSubmissionTest {
 
         assertThat(proofOfAuthorizationRequestSubmission.id())
             .isEqualTo("proof_of_authorization_request_submission_uqhqroiley7n0097vizn")
-        assertThat(proofOfAuthorizationRequestSubmission.additionalEvidenceFileId()).isEmpty
+        assertThat(proofOfAuthorizationRequestSubmission.additionalEvidenceFiles())
+            .containsExactly(
+                ProofOfAuthorizationRequestSubmission.AdditionalEvidenceFile.builder()
+                    .fileId("file_makxrc67oh9l6sg7w9yc")
+                    .build()
+            )
         assertThat(proofOfAuthorizationRequestSubmission.authorizationTerms())
             .isEqualTo("I agree to the terms.")
         assertThat(proofOfAuthorizationRequestSubmission.authorizedAt())
@@ -87,7 +96,11 @@ internal class ProofOfAuthorizationRequestSubmissionTest {
         val proofOfAuthorizationRequestSubmission =
             ProofOfAuthorizationRequestSubmission.builder()
                 .id("proof_of_authorization_request_submission_uqhqroiley7n0097vizn")
-                .additionalEvidenceFileId(null)
+                .addAdditionalEvidenceFile(
+                    ProofOfAuthorizationRequestSubmission.AdditionalEvidenceFile.builder()
+                        .fileId("file_makxrc67oh9l6sg7w9yc")
+                        .build()
+                )
                 .authorizationTerms("I agree to the terms.")
                 .authorizedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .authorizerCompany("National Phonograph Company")

@@ -17,7 +17,11 @@ internal class ProofOfAuthorizationRequestSubmissionListPageResponseTest {
                 .addData(
                     ProofOfAuthorizationRequestSubmission.builder()
                         .id("proof_of_authorization_request_submission_uqhqroiley7n0097vizn")
-                        .additionalEvidenceFileId(null)
+                        .addAdditionalEvidenceFile(
+                            ProofOfAuthorizationRequestSubmission.AdditionalEvidenceFile.builder()
+                                .fileId("file_makxrc67oh9l6sg7w9yc")
+                                .build()
+                        )
                         .authorizationTerms("I agree to the terms.")
                         .authorizedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                         .authorizerCompany("National Phonograph Company")
@@ -48,7 +52,11 @@ internal class ProofOfAuthorizationRequestSubmissionListPageResponseTest {
             .containsExactly(
                 ProofOfAuthorizationRequestSubmission.builder()
                     .id("proof_of_authorization_request_submission_uqhqroiley7n0097vizn")
-                    .additionalEvidenceFileId(null)
+                    .addAdditionalEvidenceFile(
+                        ProofOfAuthorizationRequestSubmission.AdditionalEvidenceFile.builder()
+                            .fileId("file_makxrc67oh9l6sg7w9yc")
+                            .build()
+                    )
                     .authorizationTerms("I agree to the terms.")
                     .authorizedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                     .authorizerCompany("National Phonograph Company")
@@ -84,7 +92,11 @@ internal class ProofOfAuthorizationRequestSubmissionListPageResponseTest {
                 .addData(
                     ProofOfAuthorizationRequestSubmission.builder()
                         .id("proof_of_authorization_request_submission_uqhqroiley7n0097vizn")
-                        .additionalEvidenceFileId(null)
+                        .addAdditionalEvidenceFile(
+                            ProofOfAuthorizationRequestSubmission.AdditionalEvidenceFile.builder()
+                                .fileId("file_makxrc67oh9l6sg7w9yc")
+                                .build()
+                        )
                         .authorizationTerms("I agree to the terms.")
                         .authorizedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                         .authorizerCompany("National Phonograph Company")
