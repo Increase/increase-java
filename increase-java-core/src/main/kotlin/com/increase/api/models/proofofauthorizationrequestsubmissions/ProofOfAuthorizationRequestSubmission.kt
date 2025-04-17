@@ -11,7 +11,9 @@ import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
+import com.increase.api.core.checkKnown
 import com.increase.api.core.checkRequired
+import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Collections
@@ -28,7 +30,7 @@ import kotlin.jvm.optionals.getOrNull
 class ProofOfAuthorizationRequestSubmission
 private constructor(
     private val id: JsonField<String>,
-    private val additionalEvidenceFileId: JsonField<String>,
+    private val additionalEvidenceFiles: JsonField<List<AdditionalEvidenceFile>>,
     private val authorizationTerms: JsonField<String>,
     private val authorizedAt: JsonField<OffsetDateTime>,
     private val authorizerCompany: JsonField<String>,
@@ -51,9 +53,9 @@ private constructor(
     @JsonCreator
     private constructor(
         @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("additional_evidence_file_id")
+        @JsonProperty("additional_evidence_files")
         @ExcludeMissing
-        additionalEvidenceFileId: JsonField<String> = JsonMissing.of(),
+        additionalEvidenceFiles: JsonField<List<AdditionalEvidenceFile>> = JsonMissing.of(),
         @JsonProperty("authorization_terms")
         @ExcludeMissing
         authorizationTerms: JsonField<String> = JsonMissing.of(),
@@ -100,7 +102,7 @@ private constructor(
         validatedAccountOwnershipWithMicrodeposit: JsonField<Boolean> = JsonMissing.of(),
     ) : this(
         id,
-        additionalEvidenceFileId,
+        additionalEvidenceFiles,
         authorizationTerms,
         authorizedAt,
         authorizerCompany,
@@ -129,13 +131,13 @@ private constructor(
     fun id(): String = id.getRequired("id")
 
     /**
-     * File containing additional evidence.
+     * Files containing additional evidence.
      *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun additionalEvidenceFileId(): Optional<String> =
-        additionalEvidenceFileId.getOptional("additional_evidence_file_id")
+    fun additionalEvidenceFiles(): List<AdditionalEvidenceFile> =
+        additionalEvidenceFiles.getRequired("additional_evidence_files")
 
     /**
      * Terms of authorization.
@@ -288,14 +290,15 @@ private constructor(
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /**
-     * Returns the raw JSON value of [additionalEvidenceFileId].
+     * Returns the raw JSON value of [additionalEvidenceFiles].
      *
-     * Unlike [additionalEvidenceFileId], this method doesn't throw if the JSON field has an
+     * Unlike [additionalEvidenceFiles], this method doesn't throw if the JSON field has an
      * unexpected type.
      */
-    @JsonProperty("additional_evidence_file_id")
+    @JsonProperty("additional_evidence_files")
     @ExcludeMissing
-    fun _additionalEvidenceFileId(): JsonField<String> = additionalEvidenceFileId
+    fun _additionalEvidenceFiles(): JsonField<List<AdditionalEvidenceFile>> =
+        additionalEvidenceFiles
 
     /**
      * Returns the raw JSON value of [authorizationTerms].
@@ -469,7 +472,7 @@ private constructor(
          * The following fields are required:
          * ```java
          * .id()
-         * .additionalEvidenceFileId()
+         * .additionalEvidenceFiles()
          * .authorizationTerms()
          * .authorizedAt()
          * .authorizerCompany()
@@ -495,7 +498,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var id: JsonField<String>? = null
-        private var additionalEvidenceFileId: JsonField<String>? = null
+        private var additionalEvidenceFiles: JsonField<MutableList<AdditionalEvidenceFile>>? = null
         private var authorizationTerms: JsonField<String>? = null
         private var authorizedAt: JsonField<OffsetDateTime>? = null
         private var authorizerCompany: JsonField<String>? = null
@@ -519,8 +522,10 @@ private constructor(
             proofOfAuthorizationRequestSubmission: ProofOfAuthorizationRequestSubmission
         ) = apply {
             id = proofOfAuthorizationRequestSubmission.id
-            additionalEvidenceFileId =
-                proofOfAuthorizationRequestSubmission.additionalEvidenceFileId
+            additionalEvidenceFiles =
+                proofOfAuthorizationRequestSubmission.additionalEvidenceFiles.map {
+                    it.toMutableList()
+                }
             authorizationTerms = proofOfAuthorizationRequestSubmission.authorizationTerms
             authorizedAt = proofOfAuthorizationRequestSubmission.authorizedAt
             authorizerCompany = proofOfAuthorizationRequestSubmission.authorizerCompany
@@ -557,26 +562,33 @@ private constructor(
          */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
-        /** File containing additional evidence. */
-        fun additionalEvidenceFileId(additionalEvidenceFileId: String?) =
-            additionalEvidenceFileId(JsonField.ofNullable(additionalEvidenceFileId))
+        /** Files containing additional evidence. */
+        fun additionalEvidenceFiles(additionalEvidenceFiles: List<AdditionalEvidenceFile>) =
+            additionalEvidenceFiles(JsonField.of(additionalEvidenceFiles))
 
         /**
-         * Alias for calling [Builder.additionalEvidenceFileId] with
-         * `additionalEvidenceFileId.orElse(null)`.
-         */
-        fun additionalEvidenceFileId(additionalEvidenceFileId: Optional<String>) =
-            additionalEvidenceFileId(additionalEvidenceFileId.getOrNull())
-
-        /**
-         * Sets [Builder.additionalEvidenceFileId] to an arbitrary JSON value.
+         * Sets [Builder.additionalEvidenceFiles] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.additionalEvidenceFileId] with a well-typed [String]
-         * value instead. This method is primarily for setting the field to an undocumented or not
-         * yet supported value.
+         * You should usually call [Builder.additionalEvidenceFiles] with a well-typed
+         * `List<AdditionalEvidenceFile>` value instead. This method is primarily for setting the
+         * field to an undocumented or not yet supported value.
          */
-        fun additionalEvidenceFileId(additionalEvidenceFileId: JsonField<String>) = apply {
-            this.additionalEvidenceFileId = additionalEvidenceFileId
+        fun additionalEvidenceFiles(
+            additionalEvidenceFiles: JsonField<List<AdditionalEvidenceFile>>
+        ) = apply {
+            this.additionalEvidenceFiles = additionalEvidenceFiles.map { it.toMutableList() }
+        }
+
+        /**
+         * Adds a single [AdditionalEvidenceFile] to [additionalEvidenceFiles].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addAdditionalEvidenceFile(additionalEvidenceFile: AdditionalEvidenceFile) = apply {
+            additionalEvidenceFiles =
+                (additionalEvidenceFiles ?: JsonField.of(mutableListOf())).also {
+                    checkKnown("additionalEvidenceFiles", it).add(additionalEvidenceFile)
+                }
         }
 
         /** Terms of authorization. */
@@ -965,7 +977,7 @@ private constructor(
          * The following fields are required:
          * ```java
          * .id()
-         * .additionalEvidenceFileId()
+         * .additionalEvidenceFiles()
          * .authorizationTerms()
          * .authorizedAt()
          * .authorizerCompany()
@@ -989,7 +1001,9 @@ private constructor(
         fun build(): ProofOfAuthorizationRequestSubmission =
             ProofOfAuthorizationRequestSubmission(
                 checkRequired("id", id),
-                checkRequired("additionalEvidenceFileId", additionalEvidenceFileId),
+                checkRequired("additionalEvidenceFiles", additionalEvidenceFiles).map {
+                    it.toImmutable()
+                },
                 checkRequired("authorizationTerms", authorizationTerms),
                 checkRequired("authorizedAt", authorizedAt),
                 checkRequired("authorizerCompany", authorizerCompany),
@@ -1027,7 +1041,7 @@ private constructor(
         }
 
         id()
-        additionalEvidenceFileId()
+        additionalEvidenceFiles().forEach { it.validate() }
         authorizationTerms()
         authorizedAt()
         authorizerCompany()
@@ -1063,7 +1077,7 @@ private constructor(
     @JvmSynthetic
     internal fun validity(): Int =
         (if (id.asKnown().isPresent) 1 else 0) +
-            (if (additionalEvidenceFileId.asKnown().isPresent) 1 else 0) +
+            (additionalEvidenceFiles.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
             (if (authorizationTerms.asKnown().isPresent) 1 else 0) +
             (if (authorizedAt.asKnown().isPresent) 1 else 0) +
             (if (authorizerCompany.asKnown().isPresent) 1 else 0) +
@@ -1080,6 +1094,164 @@ private constructor(
             (if (validatedAccountOwnershipViaCredential.asKnown().isPresent) 1 else 0) +
             (if (validatedAccountOwnershipWithAccountStatement.asKnown().isPresent) 1 else 0) +
             (if (validatedAccountOwnershipWithMicrodeposit.asKnown().isPresent) 1 else 0)
+
+    class AdditionalEvidenceFile
+    private constructor(
+        private val fileId: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("file_id") @ExcludeMissing fileId: JsonField<String> = JsonMissing.of()
+        ) : this(fileId, mutableMapOf())
+
+        /**
+         * The File identifier.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun fileId(): String = fileId.getRequired("file_id")
+
+        /**
+         * Returns the raw JSON value of [fileId].
+         *
+         * Unlike [fileId], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("file_id") @ExcludeMissing fun _fileId(): JsonField<String> = fileId
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [AdditionalEvidenceFile].
+             *
+             * The following fields are required:
+             * ```java
+             * .fileId()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [AdditionalEvidenceFile]. */
+        class Builder internal constructor() {
+
+            private var fileId: JsonField<String>? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(additionalEvidenceFile: AdditionalEvidenceFile) = apply {
+                fileId = additionalEvidenceFile.fileId
+                additionalProperties = additionalEvidenceFile.additionalProperties.toMutableMap()
+            }
+
+            /** The File identifier. */
+            fun fileId(fileId: String) = fileId(JsonField.of(fileId))
+
+            /**
+             * Sets [Builder.fileId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.fileId] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun fileId(fileId: JsonField<String>) = apply { this.fileId = fileId }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [AdditionalEvidenceFile].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .fileId()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): AdditionalEvidenceFile =
+                AdditionalEvidenceFile(
+                    checkRequired("fileId", fileId),
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): AdditionalEvidenceFile = apply {
+            if (validated) {
+                return@apply
+            }
+
+            fileId()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = (if (fileId.asKnown().isPresent) 1 else 0)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is AdditionalEvidenceFile && fileId == other.fileId && additionalProperties == other.additionalProperties /* spotless:on */
+        }
+
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(fileId, additionalProperties) }
+        /* spotless:on */
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "AdditionalEvidenceFile{fileId=$fileId, additionalProperties=$additionalProperties}"
+    }
 
     /** Status of the proof of authorization request submission. */
     class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
@@ -1382,15 +1554,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is ProofOfAuthorizationRequestSubmission && id == other.id && additionalEvidenceFileId == other.additionalEvidenceFileId && authorizationTerms == other.authorizationTerms && authorizedAt == other.authorizedAt && authorizerCompany == other.authorizerCompany && authorizerEmail == other.authorizerEmail && authorizerIpAddress == other.authorizerIpAddress && authorizerName == other.authorizerName && createdAt == other.createdAt && customerHasBeenOffboarded == other.customerHasBeenOffboarded && idempotencyKey == other.idempotencyKey && proofOfAuthorizationRequestId == other.proofOfAuthorizationRequestId && status == other.status && type == other.type && updatedAt == other.updatedAt && validatedAccountOwnershipViaCredential == other.validatedAccountOwnershipViaCredential && validatedAccountOwnershipWithAccountStatement == other.validatedAccountOwnershipWithAccountStatement && validatedAccountOwnershipWithMicrodeposit == other.validatedAccountOwnershipWithMicrodeposit && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is ProofOfAuthorizationRequestSubmission && id == other.id && additionalEvidenceFiles == other.additionalEvidenceFiles && authorizationTerms == other.authorizationTerms && authorizedAt == other.authorizedAt && authorizerCompany == other.authorizerCompany && authorizerEmail == other.authorizerEmail && authorizerIpAddress == other.authorizerIpAddress && authorizerName == other.authorizerName && createdAt == other.createdAt && customerHasBeenOffboarded == other.customerHasBeenOffboarded && idempotencyKey == other.idempotencyKey && proofOfAuthorizationRequestId == other.proofOfAuthorizationRequestId && status == other.status && type == other.type && updatedAt == other.updatedAt && validatedAccountOwnershipViaCredential == other.validatedAccountOwnershipViaCredential && validatedAccountOwnershipWithAccountStatement == other.validatedAccountOwnershipWithAccountStatement && validatedAccountOwnershipWithMicrodeposit == other.validatedAccountOwnershipWithMicrodeposit && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, additionalEvidenceFileId, authorizationTerms, authorizedAt, authorizerCompany, authorizerEmail, authorizerIpAddress, authorizerName, createdAt, customerHasBeenOffboarded, idempotencyKey, proofOfAuthorizationRequestId, status, type, updatedAt, validatedAccountOwnershipViaCredential, validatedAccountOwnershipWithAccountStatement, validatedAccountOwnershipWithMicrodeposit, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, additionalEvidenceFiles, authorizationTerms, authorizedAt, authorizerCompany, authorizerEmail, authorizerIpAddress, authorizerName, createdAt, customerHasBeenOffboarded, idempotencyKey, proofOfAuthorizationRequestId, status, type, updatedAt, validatedAccountOwnershipViaCredential, validatedAccountOwnershipWithAccountStatement, validatedAccountOwnershipWithMicrodeposit, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "ProofOfAuthorizationRequestSubmission{id=$id, additionalEvidenceFileId=$additionalEvidenceFileId, authorizationTerms=$authorizationTerms, authorizedAt=$authorizedAt, authorizerCompany=$authorizerCompany, authorizerEmail=$authorizerEmail, authorizerIpAddress=$authorizerIpAddress, authorizerName=$authorizerName, createdAt=$createdAt, customerHasBeenOffboarded=$customerHasBeenOffboarded, idempotencyKey=$idempotencyKey, proofOfAuthorizationRequestId=$proofOfAuthorizationRequestId, status=$status, type=$type, updatedAt=$updatedAt, validatedAccountOwnershipViaCredential=$validatedAccountOwnershipViaCredential, validatedAccountOwnershipWithAccountStatement=$validatedAccountOwnershipWithAccountStatement, validatedAccountOwnershipWithMicrodeposit=$validatedAccountOwnershipWithMicrodeposit, additionalProperties=$additionalProperties}"
+        "ProofOfAuthorizationRequestSubmission{id=$id, additionalEvidenceFiles=$additionalEvidenceFiles, authorizationTerms=$authorizationTerms, authorizedAt=$authorizedAt, authorizerCompany=$authorizerCompany, authorizerEmail=$authorizerEmail, authorizerIpAddress=$authorizerIpAddress, authorizerName=$authorizerName, createdAt=$createdAt, customerHasBeenOffboarded=$customerHasBeenOffboarded, idempotencyKey=$idempotencyKey, proofOfAuthorizationRequestId=$proofOfAuthorizationRequestId, status=$status, type=$type, updatedAt=$updatedAt, validatedAccountOwnershipViaCredential=$validatedAccountOwnershipViaCredential, validatedAccountOwnershipWithAccountStatement=$validatedAccountOwnershipWithAccountStatement, validatedAccountOwnershipWithMicrodeposit=$validatedAccountOwnershipWithMicrodeposit, additionalProperties=$additionalProperties}"
 }
