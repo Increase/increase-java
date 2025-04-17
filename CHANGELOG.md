@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.215.0 (2025-04-17)
+
+Full Changelog: [v0.214.0...v0.215.0](https://github.com/Increase/increase-java/compare/v0.214.0...v0.215.0)
+
+### Features
+
+* **api:** api update ([3b84f94](https://github.com/Increase/increase-java/commit/3b84f94bb6626b0073e7c38d93d05c235e5f4024))
+
+
+### Performance Improvements
+
+* **internal:** improve compilation+test speed ([19e3880](https://github.com/Increase/increase-java/commit/19e3880175d5caf93e7ac9ecb86845bb060b5879))
+
+
+### Documentation
+
+* **client:** update jackson compat error message ([83a1d97](https://github.com/Increase/increase-java/commit/83a1d97d41e22e353d518b9b2b28de1ca70de3a6))
+* explain http client customization ([cdd2abf](https://github.com/Increase/increase-java/commit/cdd2abff4f724ace2ac0855324e826efe472dd73))
+* explain jackson compat in readme ([6da3037](https://github.com/Increase/increase-java/commit/6da3037a23506c1c40035d5800f647e41f3fa03f))
+
 ## 0.214.0 (2025-04-14)
 
 Full Changelog: [v0.213.0...v0.214.0](https://github.com/Increase/increase-java/compare/v0.213.0...v0.214.0)
