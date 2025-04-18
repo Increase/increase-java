@@ -1225,6 +1225,8 @@ private constructor(
         private val beneficialOwners: JsonField<List<BeneficialOwner>>,
         private val name: JsonField<String>,
         private val taxIdentifier: JsonField<String>,
+        private val beneficialOwnershipExemptionReason:
+            JsonField<BeneficialOwnershipExemptionReason>,
         private val incorporationState: JsonField<String>,
         private val industryCode: JsonField<String>,
         private val website: JsonField<String>,
@@ -1241,6 +1243,10 @@ private constructor(
             @JsonProperty("tax_identifier")
             @ExcludeMissing
             taxIdentifier: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("beneficial_ownership_exemption_reason")
+            @ExcludeMissing
+            beneficialOwnershipExemptionReason: JsonField<BeneficialOwnershipExemptionReason> =
+                JsonMissing.of(),
             @JsonProperty("incorporation_state")
             @ExcludeMissing
             incorporationState: JsonField<String> = JsonMissing.of(),
@@ -1253,6 +1259,7 @@ private constructor(
             beneficialOwners,
             name,
             taxIdentifier,
+            beneficialOwnershipExemptionReason,
             incorporationState,
             industryCode,
             website,
@@ -1269,7 +1276,9 @@ private constructor(
         fun address(): Address = address.getRequired("address")
 
         /**
-         * The identifying details of anyone controlling or owning 25% or more of the corporation.
+         * The identifying details of each person who owns 25% or more of the business and one
+         * control person, like the CEO, CFO, or other executive. You can submit between 1 and 5
+         * people to this list.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -1292,6 +1301,17 @@ private constructor(
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun taxIdentifier(): String = taxIdentifier.getRequired("tax_identifier")
+
+        /**
+         * If the entity is exempt from the requirement to submit beneficial owners, provide the
+         * justification. If a reason is provided, you do not need to submit a list of beneficial
+         * owners.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun beneficialOwnershipExemptionReason(): Optional<BeneficialOwnershipExemptionReason> =
+            beneficialOwnershipExemptionReason.getOptional("beneficial_ownership_exemption_reason")
 
         /**
          * The two-letter United States Postal Service (USPS) abbreviation for the corporation's
@@ -1357,6 +1377,17 @@ private constructor(
         fun _taxIdentifier(): JsonField<String> = taxIdentifier
 
         /**
+         * Returns the raw JSON value of [beneficialOwnershipExemptionReason].
+         *
+         * Unlike [beneficialOwnershipExemptionReason], this method doesn't throw if the JSON field
+         * has an unexpected type.
+         */
+        @JsonProperty("beneficial_ownership_exemption_reason")
+        @ExcludeMissing
+        fun _beneficialOwnershipExemptionReason(): JsonField<BeneficialOwnershipExemptionReason> =
+            beneficialOwnershipExemptionReason
+
+        /**
          * Returns the raw JSON value of [incorporationState].
          *
          * Unlike [incorporationState], this method doesn't throw if the JSON field has an
@@ -1418,6 +1449,9 @@ private constructor(
             private var beneficialOwners: JsonField<MutableList<BeneficialOwner>>? = null
             private var name: JsonField<String>? = null
             private var taxIdentifier: JsonField<String>? = null
+            private var beneficialOwnershipExemptionReason:
+                JsonField<BeneficialOwnershipExemptionReason> =
+                JsonMissing.of()
             private var incorporationState: JsonField<String> = JsonMissing.of()
             private var industryCode: JsonField<String> = JsonMissing.of()
             private var website: JsonField<String> = JsonMissing.of()
@@ -1429,6 +1463,7 @@ private constructor(
                 beneficialOwners = corporation.beneficialOwners.map { it.toMutableList() }
                 name = corporation.name
                 taxIdentifier = corporation.taxIdentifier
+                beneficialOwnershipExemptionReason = corporation.beneficialOwnershipExemptionReason
                 incorporationState = corporation.incorporationState
                 industryCode = corporation.industryCode
                 website = corporation.website
@@ -1451,8 +1486,9 @@ private constructor(
             fun address(address: JsonField<Address>) = apply { this.address = address }
 
             /**
-             * The identifying details of anyone controlling or owning 25% or more of the
-             * corporation.
+             * The identifying details of each person who owns 25% or more of the business and one
+             * control person, like the CEO, CFO, or other executive. You can submit between 1 and 5
+             * people to this list.
              */
             fun beneficialOwners(beneficialOwners: List<BeneficialOwner>) =
                 beneficialOwners(JsonField.of(beneficialOwners))
@@ -1504,6 +1540,28 @@ private constructor(
              */
             fun taxIdentifier(taxIdentifier: JsonField<String>) = apply {
                 this.taxIdentifier = taxIdentifier
+            }
+
+            /**
+             * If the entity is exempt from the requirement to submit beneficial owners, provide the
+             * justification. If a reason is provided, you do not need to submit a list of
+             * beneficial owners.
+             */
+            fun beneficialOwnershipExemptionReason(
+                beneficialOwnershipExemptionReason: BeneficialOwnershipExemptionReason
+            ) = beneficialOwnershipExemptionReason(JsonField.of(beneficialOwnershipExemptionReason))
+
+            /**
+             * Sets [Builder.beneficialOwnershipExemptionReason] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.beneficialOwnershipExemptionReason] with a
+             * well-typed [BeneficialOwnershipExemptionReason] value instead. This method is
+             * primarily for setting the field to an undocumented or not yet supported value.
+             */
+            fun beneficialOwnershipExemptionReason(
+                beneficialOwnershipExemptionReason: JsonField<BeneficialOwnershipExemptionReason>
+            ) = apply {
+                this.beneficialOwnershipExemptionReason = beneficialOwnershipExemptionReason
             }
 
             /**
@@ -1595,6 +1653,7 @@ private constructor(
                     checkRequired("beneficialOwners", beneficialOwners).map { it.toImmutable() },
                     checkRequired("name", name),
                     checkRequired("taxIdentifier", taxIdentifier),
+                    beneficialOwnershipExemptionReason,
                     incorporationState,
                     industryCode,
                     website,
@@ -1613,6 +1672,7 @@ private constructor(
             beneficialOwners().forEach { it.validate() }
             name()
             taxIdentifier()
+            beneficialOwnershipExemptionReason().ifPresent { it.validate() }
             incorporationState()
             industryCode()
             website()
@@ -1639,6 +1699,7 @@ private constructor(
                 (beneficialOwners.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
                 (if (name.asKnown().isPresent) 1 else 0) +
                 (if (taxIdentifier.asKnown().isPresent) 1 else 0) +
+                (beneficialOwnershipExemptionReason.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (incorporationState.asKnown().isPresent) 1 else 0) +
                 (if (industryCode.asKnown().isPresent) 1 else 0) +
                 (if (website.asKnown().isPresent) 1 else 0)
@@ -4575,22 +4636,181 @@ private constructor(
                 "BeneficialOwner{individual=$individual, prongs=$prongs, companyTitle=$companyTitle, additionalProperties=$additionalProperties}"
         }
 
+        /**
+         * If the entity is exempt from the requirement to submit beneficial owners, provide the
+         * justification. If a reason is provided, you do not need to submit a list of beneficial
+         * owners.
+         */
+        class BeneficialOwnershipExemptionReason
+        @JsonCreator
+        private constructor(private val value: JsonField<String>) : Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                /** A regulated financial institution. */
+                @JvmField
+                val REGULATED_FINANCIAL_INSTITUTION = of("regulated_financial_institution")
+
+                /** A publicly traded company. */
+                @JvmField val PUBLICLY_TRADED_COMPANY = of("publicly_traded_company")
+
+                /** A public entity acting on behalf of the federal or a state government. */
+                @JvmField val PUBLIC_ENTITY = of("public_entity")
+
+                @JvmStatic
+                fun of(value: String) = BeneficialOwnershipExemptionReason(JsonField.of(value))
+            }
+
+            /** An enum containing [BeneficialOwnershipExemptionReason]'s known values. */
+            enum class Known {
+                /** A regulated financial institution. */
+                REGULATED_FINANCIAL_INSTITUTION,
+                /** A publicly traded company. */
+                PUBLICLY_TRADED_COMPANY,
+                /** A public entity acting on behalf of the federal or a state government. */
+                PUBLIC_ENTITY,
+            }
+
+            /**
+             * An enum containing [BeneficialOwnershipExemptionReason]'s known values, as well as an
+             * [_UNKNOWN] member.
+             *
+             * An instance of [BeneficialOwnershipExemptionReason] can contain an unknown value in a
+             * couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                /** A regulated financial institution. */
+                REGULATED_FINANCIAL_INSTITUTION,
+                /** A publicly traded company. */
+                PUBLICLY_TRADED_COMPANY,
+                /** A public entity acting on behalf of the federal or a state government. */
+                PUBLIC_ENTITY,
+                /**
+                 * An enum member indicating that [BeneficialOwnershipExemptionReason] was
+                 * instantiated with an unknown value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    REGULATED_FINANCIAL_INSTITUTION -> Value.REGULATED_FINANCIAL_INSTITUTION
+                    PUBLICLY_TRADED_COMPANY -> Value.PUBLICLY_TRADED_COMPANY
+                    PUBLIC_ENTITY -> Value.PUBLIC_ENTITY
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    REGULATED_FINANCIAL_INSTITUTION -> Known.REGULATED_FINANCIAL_INSTITUTION
+                    PUBLICLY_TRADED_COMPANY -> Known.PUBLICLY_TRADED_COMPANY
+                    PUBLIC_ENTITY -> Known.PUBLIC_ENTITY
+                    else ->
+                        throw IncreaseInvalidDataException(
+                            "Unknown BeneficialOwnershipExemptionReason: $value"
+                        )
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    IncreaseInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            fun validate(): BeneficialOwnershipExemptionReason = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return /* spotless:off */ other is BeneficialOwnershipExemptionReason && value == other.value /* spotless:on */
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
+
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
             }
 
-            return /* spotless:off */ other is Corporation && address == other.address && beneficialOwners == other.beneficialOwners && name == other.name && taxIdentifier == other.taxIdentifier && incorporationState == other.incorporationState && industryCode == other.industryCode && website == other.website && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Corporation && address == other.address && beneficialOwners == other.beneficialOwners && name == other.name && taxIdentifier == other.taxIdentifier && beneficialOwnershipExemptionReason == other.beneficialOwnershipExemptionReason && incorporationState == other.incorporationState && industryCode == other.industryCode && website == other.website && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(address, beneficialOwners, name, taxIdentifier, incorporationState, industryCode, website, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(address, beneficialOwners, name, taxIdentifier, beneficialOwnershipExemptionReason, incorporationState, industryCode, website, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Corporation{address=$address, beneficialOwners=$beneficialOwners, name=$name, taxIdentifier=$taxIdentifier, incorporationState=$incorporationState, industryCode=$industryCode, website=$website, additionalProperties=$additionalProperties}"
+            "Corporation{address=$address, beneficialOwners=$beneficialOwners, name=$name, taxIdentifier=$taxIdentifier, beneficialOwnershipExemptionReason=$beneficialOwnershipExemptionReason, incorporationState=$incorporationState, industryCode=$industryCode, website=$website, additionalProperties=$additionalProperties}"
     }
 
     /**
