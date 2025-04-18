@@ -54,7 +54,7 @@ internal class InboundWireDrawdownRequestTest {
             .isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
         assertThat(inboundWireDrawdownRequest.currency()).isEqualTo("USD")
         assertThat(inboundWireDrawdownRequest.messageToRecipient()).contains("Invoice 29582")
-        assertThat(inboundWireDrawdownRequest.originatorAccountNumber()).isEqualTo("987654321")
+        assertThat(inboundWireDrawdownRequest.originatorAccountNumber()).contains("987654321")
         assertThat(inboundWireDrawdownRequest.originatorAddressLine1())
             .contains("33 Liberty Street")
         assertThat(inboundWireDrawdownRequest.originatorAddressLine2())
