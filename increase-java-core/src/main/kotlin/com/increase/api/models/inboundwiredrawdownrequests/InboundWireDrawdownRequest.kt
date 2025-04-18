@@ -240,11 +240,11 @@ private constructor(
     /**
      * The drawdown request's originator's account number.
      *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
-    fun originatorAccountNumber(): String =
-        originatorAccountNumber.getRequired("originator_account_number")
+    fun originatorAccountNumber(): Optional<String> =
+        originatorAccountNumber.getOptional("originator_account_number")
 
     /**
      * Line 1 of the drawdown request's originator's address.
@@ -866,8 +866,15 @@ private constructor(
         }
 
         /** The drawdown request's originator's account number. */
-        fun originatorAccountNumber(originatorAccountNumber: String) =
-            originatorAccountNumber(JsonField.of(originatorAccountNumber))
+        fun originatorAccountNumber(originatorAccountNumber: String?) =
+            originatorAccountNumber(JsonField.ofNullable(originatorAccountNumber))
+
+        /**
+         * Alias for calling [Builder.originatorAccountNumber] with
+         * `originatorAccountNumber.orElse(null)`.
+         */
+        fun originatorAccountNumber(originatorAccountNumber: Optional<String>) =
+            originatorAccountNumber(originatorAccountNumber.getOrNull())
 
         /**
          * Sets [Builder.originatorAccountNumber] to an arbitrary JSON value.
