@@ -92,10 +92,6 @@ import com.increase.api.services.async.PhysicalCardServiceAsync
 import com.increase.api.services.async.PhysicalCardServiceAsyncImpl
 import com.increase.api.services.async.ProgramServiceAsync
 import com.increase.api.services.async.ProgramServiceAsyncImpl
-import com.increase.api.services.async.ProofOfAuthorizationRequestServiceAsync
-import com.increase.api.services.async.ProofOfAuthorizationRequestServiceAsyncImpl
-import com.increase.api.services.async.ProofOfAuthorizationRequestSubmissionServiceAsync
-import com.increase.api.services.async.ProofOfAuthorizationRequestSubmissionServiceAsyncImpl
 import com.increase.api.services.async.RealTimeDecisionServiceAsync
 import com.increase.api.services.async.RealTimeDecisionServiceAsyncImpl
 import com.increase.api.services.async.RealTimePaymentsTransferServiceAsync
@@ -261,15 +257,6 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
         ProgramServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
-    private val proofOfAuthorizationRequests: ProofOfAuthorizationRequestServiceAsync by lazy {
-        ProofOfAuthorizationRequestServiceAsyncImpl(clientOptionsWithUserAgent)
-    }
-
-    private val proofOfAuthorizationRequestSubmissions:
-        ProofOfAuthorizationRequestSubmissionServiceAsync by lazy {
-        ProofOfAuthorizationRequestSubmissionServiceAsyncImpl(clientOptionsWithUserAgent)
-    }
-
     private val accountStatements: AccountStatementServiceAsync by lazy {
         AccountStatementServiceAsyncImpl(clientOptionsWithUserAgent)
     }
@@ -417,12 +404,6 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
     override fun supplementalDocuments(): SupplementalDocumentServiceAsync = supplementalDocuments
 
     override fun programs(): ProgramServiceAsync = programs
-
-    override fun proofOfAuthorizationRequests(): ProofOfAuthorizationRequestServiceAsync =
-        proofOfAuthorizationRequests
-
-    override fun proofOfAuthorizationRequestSubmissions():
-        ProofOfAuthorizationRequestSubmissionServiceAsync = proofOfAuthorizationRequestSubmissions
 
     override fun accountStatements(): AccountStatementServiceAsync = accountStatements
 
@@ -605,16 +586,6 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
             ProgramServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
-        private val proofOfAuthorizationRequests:
-            ProofOfAuthorizationRequestServiceAsync.WithRawResponse by lazy {
-            ProofOfAuthorizationRequestServiceAsyncImpl.WithRawResponseImpl(clientOptions)
-        }
-
-        private val proofOfAuthorizationRequestSubmissions:
-            ProofOfAuthorizationRequestSubmissionServiceAsync.WithRawResponse by lazy {
-            ProofOfAuthorizationRequestSubmissionServiceAsyncImpl.WithRawResponseImpl(clientOptions)
-        }
-
         private val accountStatements: AccountStatementServiceAsync.WithRawResponse by lazy {
             AccountStatementServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
@@ -776,13 +747,6 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
             supplementalDocuments
 
         override fun programs(): ProgramServiceAsync.WithRawResponse = programs
-
-        override fun proofOfAuthorizationRequests():
-            ProofOfAuthorizationRequestServiceAsync.WithRawResponse = proofOfAuthorizationRequests
-
-        override fun proofOfAuthorizationRequestSubmissions():
-            ProofOfAuthorizationRequestSubmissionServiceAsync.WithRawResponse =
-            proofOfAuthorizationRequestSubmissions
 
         override fun accountStatements(): AccountStatementServiceAsync.WithRawResponse =
             accountStatements

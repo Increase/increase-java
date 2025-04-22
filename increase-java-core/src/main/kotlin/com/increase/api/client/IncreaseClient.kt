@@ -46,8 +46,6 @@ import com.increase.api.services.blocking.PendingTransactionService
 import com.increase.api.services.blocking.PhysicalCardProfileService
 import com.increase.api.services.blocking.PhysicalCardService
 import com.increase.api.services.blocking.ProgramService
-import com.increase.api.services.blocking.ProofOfAuthorizationRequestService
-import com.increase.api.services.blocking.ProofOfAuthorizationRequestSubmissionService
 import com.increase.api.services.blocking.RealTimeDecisionService
 import com.increase.api.services.blocking.RealTimePaymentsTransferService
 import com.increase.api.services.blocking.RoutingNumberService
@@ -151,10 +149,6 @@ interface IncreaseClient {
     fun supplementalDocuments(): SupplementalDocumentService
 
     fun programs(): ProgramService
-
-    fun proofOfAuthorizationRequests(): ProofOfAuthorizationRequestService
-
-    fun proofOfAuthorizationRequestSubmissions(): ProofOfAuthorizationRequestSubmissionService
 
     fun accountStatements(): AccountStatementService
 
@@ -276,11 +270,6 @@ interface IncreaseClient {
         fun supplementalDocuments(): SupplementalDocumentService.WithRawResponse
 
         fun programs(): ProgramService.WithRawResponse
-
-        fun proofOfAuthorizationRequests(): ProofOfAuthorizationRequestService.WithRawResponse
-
-        fun proofOfAuthorizationRequestSubmissions():
-            ProofOfAuthorizationRequestSubmissionService.WithRawResponse
 
         fun accountStatements(): AccountStatementService.WithRawResponse
 

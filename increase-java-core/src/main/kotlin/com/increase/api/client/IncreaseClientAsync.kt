@@ -46,8 +46,6 @@ import com.increase.api.services.async.PendingTransactionServiceAsync
 import com.increase.api.services.async.PhysicalCardProfileServiceAsync
 import com.increase.api.services.async.PhysicalCardServiceAsync
 import com.increase.api.services.async.ProgramServiceAsync
-import com.increase.api.services.async.ProofOfAuthorizationRequestServiceAsync
-import com.increase.api.services.async.ProofOfAuthorizationRequestSubmissionServiceAsync
 import com.increase.api.services.async.RealTimeDecisionServiceAsync
 import com.increase.api.services.async.RealTimePaymentsTransferServiceAsync
 import com.increase.api.services.async.RoutingNumberServiceAsync
@@ -151,10 +149,6 @@ interface IncreaseClientAsync {
     fun supplementalDocuments(): SupplementalDocumentServiceAsync
 
     fun programs(): ProgramServiceAsync
-
-    fun proofOfAuthorizationRequests(): ProofOfAuthorizationRequestServiceAsync
-
-    fun proofOfAuthorizationRequestSubmissions(): ProofOfAuthorizationRequestSubmissionServiceAsync
 
     fun accountStatements(): AccountStatementServiceAsync
 
@@ -278,11 +272,6 @@ interface IncreaseClientAsync {
         fun supplementalDocuments(): SupplementalDocumentServiceAsync.WithRawResponse
 
         fun programs(): ProgramServiceAsync.WithRawResponse
-
-        fun proofOfAuthorizationRequests(): ProofOfAuthorizationRequestServiceAsync.WithRawResponse
-
-        fun proofOfAuthorizationRequestSubmissions():
-            ProofOfAuthorizationRequestSubmissionServiceAsync.WithRawResponse
 
         fun accountStatements(): AccountStatementServiceAsync.WithRawResponse
 
