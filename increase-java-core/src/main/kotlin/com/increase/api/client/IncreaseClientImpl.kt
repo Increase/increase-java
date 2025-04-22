@@ -92,10 +92,6 @@ import com.increase.api.services.blocking.PhysicalCardService
 import com.increase.api.services.blocking.PhysicalCardServiceImpl
 import com.increase.api.services.blocking.ProgramService
 import com.increase.api.services.blocking.ProgramServiceImpl
-import com.increase.api.services.blocking.ProofOfAuthorizationRequestService
-import com.increase.api.services.blocking.ProofOfAuthorizationRequestServiceImpl
-import com.increase.api.services.blocking.ProofOfAuthorizationRequestSubmissionService
-import com.increase.api.services.blocking.ProofOfAuthorizationRequestSubmissionServiceImpl
 import com.increase.api.services.blocking.RealTimeDecisionService
 import com.increase.api.services.blocking.RealTimeDecisionServiceImpl
 import com.increase.api.services.blocking.RealTimePaymentsTransferService
@@ -254,15 +250,6 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
 
     private val programs: ProgramService by lazy { ProgramServiceImpl(clientOptionsWithUserAgent) }
 
-    private val proofOfAuthorizationRequests: ProofOfAuthorizationRequestService by lazy {
-        ProofOfAuthorizationRequestServiceImpl(clientOptionsWithUserAgent)
-    }
-
-    private val proofOfAuthorizationRequestSubmissions:
-        ProofOfAuthorizationRequestSubmissionService by lazy {
-        ProofOfAuthorizationRequestSubmissionServiceImpl(clientOptionsWithUserAgent)
-    }
-
     private val accountStatements: AccountStatementService by lazy {
         AccountStatementServiceImpl(clientOptionsWithUserAgent)
     }
@@ -405,12 +392,6 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
     override fun supplementalDocuments(): SupplementalDocumentService = supplementalDocuments
 
     override fun programs(): ProgramService = programs
-
-    override fun proofOfAuthorizationRequests(): ProofOfAuthorizationRequestService =
-        proofOfAuthorizationRequests
-
-    override fun proofOfAuthorizationRequestSubmissions():
-        ProofOfAuthorizationRequestSubmissionService = proofOfAuthorizationRequestSubmissions
 
     override fun accountStatements(): AccountStatementService = accountStatements
 
@@ -593,16 +574,6 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
             ProgramServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
-        private val proofOfAuthorizationRequests:
-            ProofOfAuthorizationRequestService.WithRawResponse by lazy {
-            ProofOfAuthorizationRequestServiceImpl.WithRawResponseImpl(clientOptions)
-        }
-
-        private val proofOfAuthorizationRequestSubmissions:
-            ProofOfAuthorizationRequestSubmissionService.WithRawResponse by lazy {
-            ProofOfAuthorizationRequestSubmissionServiceImpl.WithRawResponseImpl(clientOptions)
-        }
-
         private val accountStatements: AccountStatementService.WithRawResponse by lazy {
             AccountStatementServiceImpl.WithRawResponseImpl(clientOptions)
         }
@@ -761,13 +732,6 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
             supplementalDocuments
 
         override fun programs(): ProgramService.WithRawResponse = programs
-
-        override fun proofOfAuthorizationRequests():
-            ProofOfAuthorizationRequestService.WithRawResponse = proofOfAuthorizationRequests
-
-        override fun proofOfAuthorizationRequestSubmissions():
-            ProofOfAuthorizationRequestSubmissionService.WithRawResponse =
-            proofOfAuthorizationRequestSubmissions
 
         override fun accountStatements(): AccountStatementService.WithRawResponse =
             accountStatements
