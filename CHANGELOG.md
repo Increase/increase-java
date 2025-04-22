@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.217.0 (2025-04-22)
+
+Full Changelog: [v0.216.0...v0.217.0](https://github.com/Increase/increase-java/compare/v0.216.0...v0.217.0)
+
+### Features
+
+* **api:** api update ([1b64980](https://github.com/Increase/increase-java/commit/1b64980b229303eaadf5a297926c4085024dbd86))
+
+
+### Chores
+
+* **internal:** codegen related update ([2ad10b4](https://github.com/Increase/increase-java/commit/2ad10b42f1457e56f128b0f0e915e0e66356535e))
+
 ## 0.216.0 (2025-04-18)
 
 Full Changelog: [v0.215.0...v0.216.0](https://github.com/Increase/increase-java/compare/v0.215.0...v0.216.0)
