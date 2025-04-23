@@ -24,7 +24,7 @@ internal class FileServiceTest {
         val file =
             fileService.create(
                 FileCreateParams.builder()
-                    .file("some content".toByteArray())
+                    .file("some content".byteInputStream())
                     .purpose(FileCreateParams.Purpose.CHECK_IMAGE_FRONT)
                     .description("x")
                     .build()
