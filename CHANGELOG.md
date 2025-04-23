@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.217.1 (2025-04-23)
+
+Full Changelog: [v0.217.0...v0.217.1](https://github.com/Increase/increase-java/compare/v0.217.0...v0.217.1)
+
+### Bug Fixes
+
+* **client:** add missing convenience methods ([c9fcc9f](https://github.com/Increase/increase-java/commit/c9fcc9f7ebef82a23a929246b8a9a2223b7441db))
+
+
+### Chores
+
+* **ci:** only use depot for staging repos ([f52c224](https://github.com/Increase/increase-java/commit/f52c2240ad55cb086883c562260b3ff92215c6a4))
+* **ci:** run on more branches and use depot runners ([40b53eb](https://github.com/Increase/increase-java/commit/40b53eb08cfbe0aec0bc9ca02b0d59c22b7f496d))
+* **internal:** java 17 -&gt; 21 on ci ([bb64e14](https://github.com/Increase/increase-java/commit/bb64e1410c14ef4c64b72fa79b0b2de998f7afe3))
+* **internal:** use `byteInputStream()` in tests ([c9fcc9f](https://github.com/Increase/increase-java/commit/c9fcc9f7ebef82a23a929246b8a9a2223b7441db))
+
 ## 0.217.0 (2025-04-22)
 
 Full Changelog: [v0.216.0...v0.217.0](https://github.com/Increase/increase-java/compare/v0.216.0...v0.217.0)
