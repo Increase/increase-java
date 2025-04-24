@@ -962,6 +962,7 @@ private constructor(
         private val other: JsonValue,
         private val realTimePaymentsTransferInstruction:
             JsonField<RealTimePaymentsTransferInstruction>,
+        private val swiftTransferInstruction: JsonField<SwiftTransferInstruction>,
         private val wireTransferInstruction: JsonField<WireTransferInstruction>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -997,6 +998,9 @@ private constructor(
             @ExcludeMissing
             realTimePaymentsTransferInstruction: JsonField<RealTimePaymentsTransferInstruction> =
                 JsonMissing.of(),
+            @JsonProperty("swift_transfer_instruction")
+            @ExcludeMissing
+            swiftTransferInstruction: JsonField<SwiftTransferInstruction> = JsonMissing.of(),
             @JsonProperty("wire_transfer_instruction")
             @ExcludeMissing
             wireTransferInstruction: JsonField<WireTransferInstruction> = JsonMissing.of(),
@@ -1011,6 +1015,7 @@ private constructor(
             inboundWireTransferReversal,
             other,
             realTimePaymentsTransferInstruction,
+            swiftTransferInstruction,
             wireTransferInstruction,
             mutableMapOf(),
         )
@@ -1118,6 +1123,16 @@ private constructor(
             )
 
         /**
+         * A Swift Transfer Instruction object. This field will be present in the JSON response if
+         * and only if `category` is equal to `swift_transfer_instruction`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun swiftTransferInstruction(): Optional<SwiftTransferInstruction> =
+            swiftTransferInstruction.getOptional("swift_transfer_instruction")
+
+        /**
          * A Wire Transfer Instruction object. This field will be present in the JSON response if
          * and only if `category` is equal to `wire_transfer_instruction`.
          *
@@ -1219,6 +1234,17 @@ private constructor(
             realTimePaymentsTransferInstruction
 
         /**
+         * Returns the raw JSON value of [swiftTransferInstruction].
+         *
+         * Unlike [swiftTransferInstruction], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("swift_transfer_instruction")
+        @ExcludeMissing
+        fun _swiftTransferInstruction(): JsonField<SwiftTransferInstruction> =
+            swiftTransferInstruction
+
+        /**
          * Returns the raw JSON value of [wireTransferInstruction].
          *
          * Unlike [wireTransferInstruction], this method doesn't throw if the JSON field has an
@@ -1257,6 +1283,7 @@ private constructor(
              * .inboundWireTransferReversal()
              * .other()
              * .realTimePaymentsTransferInstruction()
+             * .swiftTransferInstruction()
              * .wireTransferInstruction()
              * ```
              */
@@ -1278,6 +1305,7 @@ private constructor(
             private var realTimePaymentsTransferInstruction:
                 JsonField<RealTimePaymentsTransferInstruction>? =
                 null
+            private var swiftTransferInstruction: JsonField<SwiftTransferInstruction>? = null
             private var wireTransferInstruction: JsonField<WireTransferInstruction>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -1293,6 +1321,7 @@ private constructor(
                 inboundWireTransferReversal = source.inboundWireTransferReversal
                 other = source.other
                 realTimePaymentsTransferInstruction = source.realTimePaymentsTransferInstruction
+                swiftTransferInstruction = source.swiftTransferInstruction
                 wireTransferInstruction = source.wireTransferInstruction
                 additionalProperties = source.additionalProperties.toMutableMap()
             }
@@ -1538,6 +1567,32 @@ private constructor(
             }
 
             /**
+             * A Swift Transfer Instruction object. This field will be present in the JSON response
+             * if and only if `category` is equal to `swift_transfer_instruction`.
+             */
+            fun swiftTransferInstruction(swiftTransferInstruction: SwiftTransferInstruction?) =
+                swiftTransferInstruction(JsonField.ofNullable(swiftTransferInstruction))
+
+            /**
+             * Alias for calling [Builder.swiftTransferInstruction] with
+             * `swiftTransferInstruction.orElse(null)`.
+             */
+            fun swiftTransferInstruction(
+                swiftTransferInstruction: Optional<SwiftTransferInstruction>
+            ) = swiftTransferInstruction(swiftTransferInstruction.getOrNull())
+
+            /**
+             * Sets [Builder.swiftTransferInstruction] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.swiftTransferInstruction] with a well-typed
+             * [SwiftTransferInstruction] value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
+             */
+            fun swiftTransferInstruction(
+                swiftTransferInstruction: JsonField<SwiftTransferInstruction>
+            ) = apply { this.swiftTransferInstruction = swiftTransferInstruction }
+
+            /**
              * A Wire Transfer Instruction object. This field will be present in the JSON response
              * if and only if `category` is equal to `wire_transfer_instruction`.
              */
@@ -1599,6 +1654,7 @@ private constructor(
              * .inboundWireTransferReversal()
              * .other()
              * .realTimePaymentsTransferInstruction()
+             * .swiftTransferInstruction()
              * .wireTransferInstruction()
              * ```
              *
@@ -1619,6 +1675,7 @@ private constructor(
                         "realTimePaymentsTransferInstruction",
                         realTimePaymentsTransferInstruction,
                     ),
+                    checkRequired("swiftTransferInstruction", swiftTransferInstruction),
                     checkRequired("wireTransferInstruction", wireTransferInstruction),
                     additionalProperties.toMutableMap(),
                 )
@@ -1640,6 +1697,7 @@ private constructor(
             inboundFundsHold().ifPresent { it.validate() }
             inboundWireTransferReversal().ifPresent { it.validate() }
             realTimePaymentsTransferInstruction().ifPresent { it.validate() }
+            swiftTransferInstruction().ifPresent { it.validate() }
             wireTransferInstruction().ifPresent { it.validate() }
             validated = true
         }
@@ -1669,6 +1727,7 @@ private constructor(
                 (inboundFundsHold.asKnown().getOrNull()?.validity() ?: 0) +
                 (inboundWireTransferReversal.asKnown().getOrNull()?.validity() ?: 0) +
                 (realTimePaymentsTransferInstruction.asKnown().getOrNull()?.validity() ?: 0) +
+                (swiftTransferInstruction.asKnown().getOrNull()?.validity() ?: 0) +
                 (wireTransferInstruction.asKnown().getOrNull()?.validity() ?: 0)
 
         /**
@@ -7618,6 +7677,12 @@ private constructor(
                  */
                 @JvmField val INBOUND_WIRE_TRANSFER_REVERSAL = of("inbound_wire_transfer_reversal")
 
+                /**
+                 * Swift Transfer Instruction: details will be under the
+                 * `swift_transfer_instruction` object.
+                 */
+                @JvmField val SWIFT_TRANSFER_INSTRUCTION = of("swift_transfer_instruction")
+
                 /** The Pending Transaction was made for an undocumented or deprecated reason. */
                 @JvmField val OTHER = of("other")
 
@@ -7665,6 +7730,11 @@ private constructor(
                  * `inbound_wire_transfer_reversal` object.
                  */
                 INBOUND_WIRE_TRANSFER_REVERSAL,
+                /**
+                 * Swift Transfer Instruction: details will be under the
+                 * `swift_transfer_instruction` object.
+                 */
+                SWIFT_TRANSFER_INSTRUCTION,
                 /** The Pending Transaction was made for an undocumented or deprecated reason. */
                 OTHER,
             }
@@ -7718,6 +7788,11 @@ private constructor(
                  * `inbound_wire_transfer_reversal` object.
                  */
                 INBOUND_WIRE_TRANSFER_REVERSAL,
+                /**
+                 * Swift Transfer Instruction: details will be under the
+                 * `swift_transfer_instruction` object.
+                 */
+                SWIFT_TRANSFER_INSTRUCTION,
                 /** The Pending Transaction was made for an undocumented or deprecated reason. */
                 OTHER,
                 /**
@@ -7745,6 +7820,7 @@ private constructor(
                         Value.REAL_TIME_PAYMENTS_TRANSFER_INSTRUCTION
                     WIRE_TRANSFER_INSTRUCTION -> Value.WIRE_TRANSFER_INSTRUCTION
                     INBOUND_WIRE_TRANSFER_REVERSAL -> Value.INBOUND_WIRE_TRANSFER_REVERSAL
+                    SWIFT_TRANSFER_INSTRUCTION -> Value.SWIFT_TRANSFER_INSTRUCTION
                     OTHER -> Value.OTHER
                     else -> Value._UNKNOWN
                 }
@@ -7770,6 +7846,7 @@ private constructor(
                         Known.REAL_TIME_PAYMENTS_TRANSFER_INSTRUCTION
                     WIRE_TRANSFER_INSTRUCTION -> Known.WIRE_TRANSFER_INSTRUCTION
                     INBOUND_WIRE_TRANSFER_REVERSAL -> Known.INBOUND_WIRE_TRANSFER_REVERSAL
+                    SWIFT_TRANSFER_INSTRUCTION -> Known.SWIFT_TRANSFER_INSTRUCTION
                     OTHER -> Known.OTHER
                     else -> throw IncreaseInvalidDataException("Unknown Category: $value")
                 }
@@ -10260,6 +10337,182 @@ private constructor(
         }
 
         /**
+         * A Swift Transfer Instruction object. This field will be present in the JSON response if
+         * and only if `category` is equal to `swift_transfer_instruction`.
+         */
+        class SwiftTransferInstruction
+        private constructor(
+            private val transferId: JsonField<String>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("transfer_id")
+                @ExcludeMissing
+                transferId: JsonField<String> = JsonMissing.of()
+            ) : this(transferId, mutableMapOf())
+
+            /**
+             * The identifier of the Swift Transfer that led to this Pending Transaction.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun transferId(): String = transferId.getRequired("transfer_id")
+
+            /**
+             * Returns the raw JSON value of [transferId].
+             *
+             * Unlike [transferId], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("transfer_id")
+            @ExcludeMissing
+            fun _transferId(): JsonField<String> = transferId
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of
+                 * [SwiftTransferInstruction].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .transferId()
+                 * ```
+                 */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [SwiftTransferInstruction]. */
+            class Builder internal constructor() {
+
+                private var transferId: JsonField<String>? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(swiftTransferInstruction: SwiftTransferInstruction) = apply {
+                    transferId = swiftTransferInstruction.transferId
+                    additionalProperties =
+                        swiftTransferInstruction.additionalProperties.toMutableMap()
+                }
+
+                /** The identifier of the Swift Transfer that led to this Pending Transaction. */
+                fun transferId(transferId: String) = transferId(JsonField.of(transferId))
+
+                /**
+                 * Sets [Builder.transferId] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.transferId] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun transferId(transferId: JsonField<String>) = apply {
+                    this.transferId = transferId
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [SwiftTransferInstruction].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .transferId()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
+                fun build(): SwiftTransferInstruction =
+                    SwiftTransferInstruction(
+                        checkRequired("transferId", transferId),
+                        additionalProperties.toMutableMap(),
+                    )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): SwiftTransferInstruction = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                transferId()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int = (if (transferId.asKnown().isPresent) 1 else 0)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return /* spotless:off */ other is SwiftTransferInstruction && transferId == other.transferId && additionalProperties == other.additionalProperties /* spotless:on */
+            }
+
+            /* spotless:off */
+            private val hashCode: Int by lazy { Objects.hash(transferId, additionalProperties) }
+            /* spotless:on */
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "SwiftTransferInstruction{transferId=$transferId, additionalProperties=$additionalProperties}"
+        }
+
+        /**
          * A Wire Transfer Instruction object. This field will be present in the JSON response if
          * and only if `category` is equal to `wire_transfer_instruction`.
          */
@@ -10625,17 +10878,17 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Source && accountTransferInstruction == other.accountTransferInstruction && achTransferInstruction == other.achTransferInstruction && cardAuthorization == other.cardAuthorization && category == other.category && checkDepositInstruction == other.checkDepositInstruction && checkTransferInstruction == other.checkTransferInstruction && inboundFundsHold == other.inboundFundsHold && inboundWireTransferReversal == other.inboundWireTransferReversal && this.other == other.other && realTimePaymentsTransferInstruction == other.realTimePaymentsTransferInstruction && wireTransferInstruction == other.wireTransferInstruction && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Source && accountTransferInstruction == other.accountTransferInstruction && achTransferInstruction == other.achTransferInstruction && cardAuthorization == other.cardAuthorization && category == other.category && checkDepositInstruction == other.checkDepositInstruction && checkTransferInstruction == other.checkTransferInstruction && inboundFundsHold == other.inboundFundsHold && inboundWireTransferReversal == other.inboundWireTransferReversal && this.other == other.other && realTimePaymentsTransferInstruction == other.realTimePaymentsTransferInstruction && swiftTransferInstruction == other.swiftTransferInstruction && wireTransferInstruction == other.wireTransferInstruction && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(accountTransferInstruction, achTransferInstruction, cardAuthorization, category, checkDepositInstruction, checkTransferInstruction, inboundFundsHold, inboundWireTransferReversal, other, realTimePaymentsTransferInstruction, wireTransferInstruction, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(accountTransferInstruction, achTransferInstruction, cardAuthorization, category, checkDepositInstruction, checkTransferInstruction, inboundFundsHold, inboundWireTransferReversal, other, realTimePaymentsTransferInstruction, swiftTransferInstruction, wireTransferInstruction, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Source{accountTransferInstruction=$accountTransferInstruction, achTransferInstruction=$achTransferInstruction, cardAuthorization=$cardAuthorization, category=$category, checkDepositInstruction=$checkDepositInstruction, checkTransferInstruction=$checkTransferInstruction, inboundFundsHold=$inboundFundsHold, inboundWireTransferReversal=$inboundWireTransferReversal, other=$other, realTimePaymentsTransferInstruction=$realTimePaymentsTransferInstruction, wireTransferInstruction=$wireTransferInstruction, additionalProperties=$additionalProperties}"
+            "Source{accountTransferInstruction=$accountTransferInstruction, achTransferInstruction=$achTransferInstruction, cardAuthorization=$cardAuthorization, category=$category, checkDepositInstruction=$checkDepositInstruction, checkTransferInstruction=$checkTransferInstruction, inboundFundsHold=$inboundFundsHold, inboundWireTransferReversal=$inboundWireTransferReversal, other=$other, realTimePaymentsTransferInstruction=$realTimePaymentsTransferInstruction, swiftTransferInstruction=$swiftTransferInstruction, wireTransferInstruction=$wireTransferInstruction, additionalProperties=$additionalProperties}"
     }
 
     /** Whether the Pending Transaction has been confirmed and has an associated Transaction. */
