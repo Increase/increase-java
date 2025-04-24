@@ -873,6 +873,11 @@ internal class TransactionListPageResponseTest {
                                         .originator("dashboard")
                                         .build()
                                 )
+                                .swiftTransferIntention(
+                                    Transaction.Source.SwiftTransferIntention.builder()
+                                        .transferId("swift_transfer_29h21xkng03788zwd3fh")
+                                        .build()
+                                )
                                 .wireTransferIntention(
                                     Transaction.Source.WireTransferIntention.builder()
                                         .accountNumber("987654321")
@@ -1708,6 +1713,11 @@ internal class TransactionListPageResponseTest {
                             .sampleFunds(
                                 Transaction.Source.SampleFunds.builder()
                                     .originator("dashboard")
+                                    .build()
+                            )
+                            .swiftTransferIntention(
+                                Transaction.Source.SwiftTransferIntention.builder()
+                                    .transferId("swift_transfer_29h21xkng03788zwd3fh")
                                     .build()
                             )
                             .wireTransferIntention(
@@ -2587,6 +2597,11 @@ internal class TransactionListPageResponseTest {
                                 .sampleFunds(
                                     Transaction.Source.SampleFunds.builder()
                                         .originator("dashboard")
+                                        .build()
+                                )
+                                .swiftTransferIntention(
+                                    Transaction.Source.SwiftTransferIntention.builder()
+                                        .transferId("swift_transfer_29h21xkng03788zwd3fh")
                                         .build()
                                 )
                                 .wireTransferIntention(

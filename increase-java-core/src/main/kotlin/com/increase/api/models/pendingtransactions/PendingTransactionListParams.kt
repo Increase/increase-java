@@ -481,6 +481,12 @@ private constructor(
                  */
                 @JvmField val INBOUND_WIRE_TRANSFER_REVERSAL = of("inbound_wire_transfer_reversal")
 
+                /**
+                 * Swift Transfer Instruction: details will be under the
+                 * `swift_transfer_instruction` object.
+                 */
+                @JvmField val SWIFT_TRANSFER_INSTRUCTION = of("swift_transfer_instruction")
+
                 /** The Pending Transaction was made for an undocumented or deprecated reason. */
                 @JvmField val OTHER = of("other")
 
@@ -528,6 +534,11 @@ private constructor(
                  * `inbound_wire_transfer_reversal` object.
                  */
                 INBOUND_WIRE_TRANSFER_REVERSAL,
+                /**
+                 * Swift Transfer Instruction: details will be under the
+                 * `swift_transfer_instruction` object.
+                 */
+                SWIFT_TRANSFER_INSTRUCTION,
                 /** The Pending Transaction was made for an undocumented or deprecated reason. */
                 OTHER,
             }
@@ -581,6 +592,11 @@ private constructor(
                  * `inbound_wire_transfer_reversal` object.
                  */
                 INBOUND_WIRE_TRANSFER_REVERSAL,
+                /**
+                 * Swift Transfer Instruction: details will be under the
+                 * `swift_transfer_instruction` object.
+                 */
+                SWIFT_TRANSFER_INSTRUCTION,
                 /** The Pending Transaction was made for an undocumented or deprecated reason. */
                 OTHER,
                 /** An enum member indicating that [In] was instantiated with an unknown value. */
@@ -606,6 +622,7 @@ private constructor(
                         Value.REAL_TIME_PAYMENTS_TRANSFER_INSTRUCTION
                     WIRE_TRANSFER_INSTRUCTION -> Value.WIRE_TRANSFER_INSTRUCTION
                     INBOUND_WIRE_TRANSFER_REVERSAL -> Value.INBOUND_WIRE_TRANSFER_REVERSAL
+                    SWIFT_TRANSFER_INSTRUCTION -> Value.SWIFT_TRANSFER_INSTRUCTION
                     OTHER -> Value.OTHER
                     else -> Value._UNKNOWN
                 }
@@ -631,6 +648,7 @@ private constructor(
                         Known.REAL_TIME_PAYMENTS_TRANSFER_INSTRUCTION
                     WIRE_TRANSFER_INSTRUCTION -> Known.WIRE_TRANSFER_INSTRUCTION
                     INBOUND_WIRE_TRANSFER_REVERSAL -> Known.INBOUND_WIRE_TRANSFER_REVERSAL
+                    SWIFT_TRANSFER_INSTRUCTION -> Known.SWIFT_TRANSFER_INSTRUCTION
                     OTHER -> Known.OTHER
                     else -> throw IncreaseInvalidDataException("Unknown In: $value")
                 }
