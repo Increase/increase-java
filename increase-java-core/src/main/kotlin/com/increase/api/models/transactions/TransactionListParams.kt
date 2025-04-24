@@ -564,6 +564,12 @@ private constructor(
                  */
                 @JvmField val WIRE_TRANSFER_INTENTION = of("wire_transfer_intention")
 
+                /**
+                 * Swift Transfer Intention: details will be under the `swift_transfer_intention`
+                 * object.
+                 */
+                @JvmField val SWIFT_TRANSFER_INTENTION = of("swift_transfer_intention")
+
                 /** The Transaction was made for an undocumented or deprecated reason. */
                 @JvmField val OTHER = of("other")
 
@@ -682,6 +688,11 @@ private constructor(
                  * object.
                  */
                 WIRE_TRANSFER_INTENTION,
+                /**
+                 * Swift Transfer Intention: details will be under the `swift_transfer_intention`
+                 * object.
+                 */
+                SWIFT_TRANSFER_INTENTION,
                 /** The Transaction was made for an undocumented or deprecated reason. */
                 OTHER,
             }
@@ -806,6 +817,11 @@ private constructor(
                  * object.
                  */
                 WIRE_TRANSFER_INTENTION,
+                /**
+                 * Swift Transfer Intention: details will be under the `swift_transfer_intention`
+                 * object.
+                 */
+                SWIFT_TRANSFER_INTENTION,
                 /** The Transaction was made for an undocumented or deprecated reason. */
                 OTHER,
                 /** An enum member indicating that [In] was instantiated with an unknown value. */
@@ -854,6 +870,7 @@ private constructor(
                         Value.REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT
                     SAMPLE_FUNDS -> Value.SAMPLE_FUNDS
                     WIRE_TRANSFER_INTENTION -> Value.WIRE_TRANSFER_INTENTION
+                    SWIFT_TRANSFER_INTENTION -> Value.SWIFT_TRANSFER_INTENTION
                     OTHER -> Value.OTHER
                     else -> Value._UNKNOWN
                 }
@@ -902,6 +919,7 @@ private constructor(
                         Known.REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT
                     SAMPLE_FUNDS -> Known.SAMPLE_FUNDS
                     WIRE_TRANSFER_INTENTION -> Known.WIRE_TRANSFER_INTENTION
+                    SWIFT_TRANSFER_INTENTION -> Known.SWIFT_TRANSFER_INTENTION
                     OTHER -> Known.OTHER
                     else -> throw IncreaseInvalidDataException("Unknown In: $value")
                 }
