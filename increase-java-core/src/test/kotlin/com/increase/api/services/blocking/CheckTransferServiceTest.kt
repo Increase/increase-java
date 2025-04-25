@@ -31,6 +31,7 @@ internal class CheckTransferServiceTest {
                     .amount(1000L)
                     .fulfillmentMethod(CheckTransferCreateParams.FulfillmentMethod.PHYSICAL_CHECK)
                     .sourceAccountNumberId("account_number_v18nkfqm6afpsrvy82b2")
+                    .checkNumber("x")
                     .physicalCheck(
                         CheckTransferCreateParams.PhysicalCheck.builder()
                             .mailingAddress(
@@ -45,7 +46,6 @@ internal class CheckTransferServiceTest {
                             .memo("Check payment")
                             .recipientName("Ian Crease")
                             .attachmentFileId("attachment_file_id")
-                            .checkNumber("x")
                             .note("x")
                             .returnAddress(
                                 CheckTransferCreateParams.PhysicalCheck.ReturnAddress.builder()
