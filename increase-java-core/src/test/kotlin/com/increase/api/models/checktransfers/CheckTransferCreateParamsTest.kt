@@ -14,6 +14,7 @@ internal class CheckTransferCreateParamsTest {
             .amount(1000L)
             .fulfillmentMethod(CheckTransferCreateParams.FulfillmentMethod.PHYSICAL_CHECK)
             .sourceAccountNumberId("account_number_v18nkfqm6afpsrvy82b2")
+            .checkNumber("x")
             .physicalCheck(
                 CheckTransferCreateParams.PhysicalCheck.builder()
                     .mailingAddress(
@@ -28,7 +29,6 @@ internal class CheckTransferCreateParamsTest {
                     .memo("Check payment")
                     .recipientName("Ian Crease")
                     .attachmentFileId("attachment_file_id")
-                    .checkNumber("x")
                     .note("x")
                     .returnAddress(
                         CheckTransferCreateParams.PhysicalCheck.ReturnAddress.builder()
@@ -59,6 +59,7 @@ internal class CheckTransferCreateParamsTest {
                 .amount(1000L)
                 .fulfillmentMethod(CheckTransferCreateParams.FulfillmentMethod.PHYSICAL_CHECK)
                 .sourceAccountNumberId("account_number_v18nkfqm6afpsrvy82b2")
+                .checkNumber("x")
                 .physicalCheck(
                     CheckTransferCreateParams.PhysicalCheck.builder()
                         .mailingAddress(
@@ -73,7 +74,6 @@ internal class CheckTransferCreateParamsTest {
                         .memo("Check payment")
                         .recipientName("Ian Crease")
                         .attachmentFileId("attachment_file_id")
-                        .checkNumber("x")
                         .note("x")
                         .returnAddress(
                             CheckTransferCreateParams.PhysicalCheck.ReturnAddress.builder()
@@ -104,6 +104,7 @@ internal class CheckTransferCreateParamsTest {
         assertThat(body.fulfillmentMethod())
             .isEqualTo(CheckTransferCreateParams.FulfillmentMethod.PHYSICAL_CHECK)
         assertThat(body.sourceAccountNumberId()).isEqualTo("account_number_v18nkfqm6afpsrvy82b2")
+        assertThat(body.checkNumber()).contains("x")
         assertThat(body.physicalCheck())
             .contains(
                 CheckTransferCreateParams.PhysicalCheck.builder()
@@ -119,7 +120,6 @@ internal class CheckTransferCreateParamsTest {
                     .memo("Check payment")
                     .recipientName("Ian Crease")
                     .attachmentFileId("attachment_file_id")
-                    .checkNumber("x")
                     .note("x")
                     .returnAddress(
                         CheckTransferCreateParams.PhysicalCheck.ReturnAddress.builder()
