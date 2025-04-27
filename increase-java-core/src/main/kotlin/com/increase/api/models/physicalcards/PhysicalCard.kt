@@ -11,7 +11,9 @@ import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
+import com.increase.api.core.checkKnown
 import com.increase.api.core.checkRequired
+import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Collections
@@ -1722,6 +1724,7 @@ private constructor(
             private val returnNumber: JsonField<String>,
             private val returnReason: JsonField<String>,
             private val shippedAt: JsonField<OffsetDateTime>,
+            private val updates: JsonField<List<Update>>,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
 
@@ -1739,7 +1742,10 @@ private constructor(
                 @JsonProperty("shipped_at")
                 @ExcludeMissing
                 shippedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-            ) : this(number, returnNumber, returnReason, shippedAt, mutableMapOf())
+                @JsonProperty("updates")
+                @ExcludeMissing
+                updates: JsonField<List<Update>> = JsonMissing.of(),
+            ) : this(number, returnNumber, returnReason, shippedAt, updates, mutableMapOf())
 
             /**
              * The tracking number.
@@ -1775,6 +1781,15 @@ private constructor(
              *   value).
              */
             fun shippedAt(): OffsetDateTime = shippedAt.getRequired("shipped_at")
+
+            /**
+             * Tracking updates relating to the physical card's delivery.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun updates(): List<Update> = updates.getRequired("updates")
 
             /**
              * Returns the raw JSON value of [number].
@@ -1813,6 +1828,15 @@ private constructor(
             @ExcludeMissing
             fun _shippedAt(): JsonField<OffsetDateTime> = shippedAt
 
+            /**
+             * Returns the raw JSON value of [updates].
+             *
+             * Unlike [updates], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("updates")
+            @ExcludeMissing
+            fun _updates(): JsonField<List<Update>> = updates
+
             @JsonAnySetter
             private fun putAdditionalProperty(key: String, value: JsonValue) {
                 additionalProperties.put(key, value)
@@ -1836,6 +1860,7 @@ private constructor(
                  * .returnNumber()
                  * .returnReason()
                  * .shippedAt()
+                 * .updates()
                  * ```
                  */
                 @JvmStatic fun builder() = Builder()
@@ -1848,6 +1873,7 @@ private constructor(
                 private var returnNumber: JsonField<String>? = null
                 private var returnReason: JsonField<String>? = null
                 private var shippedAt: JsonField<OffsetDateTime>? = null
+                private var updates: JsonField<MutableList<Update>>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
@@ -1856,6 +1882,7 @@ private constructor(
                     returnNumber = tracking.returnNumber
                     returnReason = tracking.returnReason
                     shippedAt = tracking.shippedAt
+                    updates = tracking.updates.map { it.toMutableList() }
                     additionalProperties = tracking.additionalProperties.toMutableMap()
                 }
 
@@ -1927,6 +1954,32 @@ private constructor(
                     this.shippedAt = shippedAt
                 }
 
+                /** Tracking updates relating to the physical card's delivery. */
+                fun updates(updates: List<Update>) = updates(JsonField.of(updates))
+
+                /**
+                 * Sets [Builder.updates] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.updates] with a well-typed `List<Update>` value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun updates(updates: JsonField<List<Update>>) = apply {
+                    this.updates = updates.map { it.toMutableList() }
+                }
+
+                /**
+                 * Adds a single [Update] to [updates].
+                 *
+                 * @throws IllegalStateException if the field was previously set to a non-list.
+                 */
+                fun addUpdate(update: Update) = apply {
+                    updates =
+                        (updates ?: JsonField.of(mutableListOf())).also {
+                            checkKnown("updates", it).add(update)
+                        }
+                }
+
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
                     putAllAdditionalProperties(additionalProperties)
@@ -1960,6 +2013,7 @@ private constructor(
                  * .returnNumber()
                  * .returnReason()
                  * .shippedAt()
+                 * .updates()
                  * ```
                  *
                  * @throws IllegalStateException if any required field is unset.
@@ -1970,6 +2024,7 @@ private constructor(
                         checkRequired("returnNumber", returnNumber),
                         checkRequired("returnReason", returnReason),
                         checkRequired("shippedAt", shippedAt),
+                        checkRequired("updates", updates).map { it.toImmutable() },
                         additionalProperties.toMutableMap(),
                     )
             }
@@ -1985,6 +2040,7 @@ private constructor(
                 returnNumber()
                 returnReason()
                 shippedAt()
+                updates().forEach { it.validate() }
                 validated = true
             }
 
@@ -2007,24 +2063,446 @@ private constructor(
                 (if (number.asKnown().isPresent) 1 else 0) +
                     (if (returnNumber.asKnown().isPresent) 1 else 0) +
                     (if (returnReason.asKnown().isPresent) 1 else 0) +
-                    (if (shippedAt.asKnown().isPresent) 1 else 0)
+                    (if (shippedAt.asKnown().isPresent) 1 else 0) +
+                    (updates.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0)
+
+            class Update
+            private constructor(
+                private val category: JsonField<Category>,
+                private val createdAt: JsonField<OffsetDateTime>,
+                private val postalCode: JsonField<String>,
+                private val additionalProperties: MutableMap<String, JsonValue>,
+            ) {
+
+                @JsonCreator
+                private constructor(
+                    @JsonProperty("category")
+                    @ExcludeMissing
+                    category: JsonField<Category> = JsonMissing.of(),
+                    @JsonProperty("created_at")
+                    @ExcludeMissing
+                    createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+                    @JsonProperty("postal_code")
+                    @ExcludeMissing
+                    postalCode: JsonField<String> = JsonMissing.of(),
+                ) : this(category, createdAt, postalCode, mutableMapOf())
+
+                /**
+                 * The type of tracking event.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
+                fun category(): Category = category.getRequired("category")
+
+                /**
+                 * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+                 * tracking event took place.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
+                fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
+
+                /**
+                 * The postal code where the event took place.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
+                fun postalCode(): String = postalCode.getRequired("postal_code")
+
+                /**
+                 * Returns the raw JSON value of [category].
+                 *
+                 * Unlike [category], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("category")
+                @ExcludeMissing
+                fun _category(): JsonField<Category> = category
+
+                /**
+                 * Returns the raw JSON value of [createdAt].
+                 *
+                 * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("created_at")
+                @ExcludeMissing
+                fun _createdAt(): JsonField<OffsetDateTime> = createdAt
+
+                /**
+                 * Returns the raw JSON value of [postalCode].
+                 *
+                 * Unlike [postalCode], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
+                @JsonProperty("postal_code")
+                @ExcludeMissing
+                fun _postalCode(): JsonField<String> = postalCode
+
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /**
+                     * Returns a mutable builder for constructing an instance of [Update].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .category()
+                     * .createdAt()
+                     * .postalCode()
+                     * ```
+                     */
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                /** A builder for [Update]. */
+                class Builder internal constructor() {
+
+                    private var category: JsonField<Category>? = null
+                    private var createdAt: JsonField<OffsetDateTime>? = null
+                    private var postalCode: JsonField<String>? = null
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(update: Update) = apply {
+                        category = update.category
+                        createdAt = update.createdAt
+                        postalCode = update.postalCode
+                        additionalProperties = update.additionalProperties.toMutableMap()
+                    }
+
+                    /** The type of tracking event. */
+                    fun category(category: Category) = category(JsonField.of(category))
+
+                    /**
+                     * Sets [Builder.category] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.category] with a well-typed [Category] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun category(category: JsonField<Category>) = apply { this.category = category }
+
+                    /**
+                     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
+                     * the tracking event took place.
+                     */
+                    fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+
+                    /**
+                     * Sets [Builder.createdAt] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.createdAt] with a well-typed
+                     * [OffsetDateTime] value instead. This method is primarily for setting the
+                     * field to an undocumented or not yet supported value.
+                     */
+                    fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
+                        this.createdAt = createdAt
+                    }
+
+                    /** The postal code where the event took place. */
+                    fun postalCode(postalCode: String) = postalCode(JsonField.of(postalCode))
+
+                    /**
+                     * Sets [Builder.postalCode] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.postalCode] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun postalCode(postalCode: JsonField<String>) = apply {
+                        this.postalCode = postalCode
+                    }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [Update].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .category()
+                     * .createdAt()
+                     * .postalCode()
+                     * ```
+                     *
+                     * @throws IllegalStateException if any required field is unset.
+                     */
+                    fun build(): Update =
+                        Update(
+                            checkRequired("category", category),
+                            checkRequired("createdAt", createdAt),
+                            checkRequired("postalCode", postalCode),
+                            additionalProperties.toMutableMap(),
+                        )
+                }
+
+                private var validated: Boolean = false
+
+                fun validate(): Update = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    category().validate()
+                    createdAt()
+                    postalCode()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic
+                internal fun validity(): Int =
+                    (category.asKnown().getOrNull()?.validity() ?: 0) +
+                        (if (createdAt.asKnown().isPresent) 1 else 0) +
+                        (if (postalCode.asKnown().isPresent) 1 else 0)
+
+                /** The type of tracking event. */
+                class Category
+                @JsonCreator
+                private constructor(private val value: JsonField<String>) : Enum {
+
+                    /**
+                     * Returns this class instance's raw value.
+                     *
+                     * This is usually only useful if this instance was deserialized from data that
+                     * doesn't match any known member, and you want to know that value. For example,
+                     * if the SDK is on an older version than the API, then the API may respond with
+                     * new members that the SDK is unaware of.
+                     */
+                    @com.fasterxml.jackson.annotation.JsonValue
+                    fun _value(): JsonField<String> = value
+
+                    companion object {
+
+                        /** The physical card is in transit. */
+                        @JvmField val IN_TRANSIT = of("in_transit")
+
+                        /** The physical card has been processed for delivery. */
+                        @JvmField val PROCESSED_FOR_DELIVERY = of("processed_for_delivery")
+
+                        /** The physical card has been delivered. */
+                        @JvmField val DELIVERED = of("delivered")
+
+                        /** Delivery failed and the physical card was returned to sender. */
+                        @JvmField val RETURNED_TO_SENDER = of("returned_to_sender")
+
+                        @JvmStatic fun of(value: String) = Category(JsonField.of(value))
+                    }
+
+                    /** An enum containing [Category]'s known values. */
+                    enum class Known {
+                        /** The physical card is in transit. */
+                        IN_TRANSIT,
+                        /** The physical card has been processed for delivery. */
+                        PROCESSED_FOR_DELIVERY,
+                        /** The physical card has been delivered. */
+                        DELIVERED,
+                        /** Delivery failed and the physical card was returned to sender. */
+                        RETURNED_TO_SENDER,
+                    }
+
+                    /**
+                     * An enum containing [Category]'s known values, as well as an [_UNKNOWN]
+                     * member.
+                     *
+                     * An instance of [Category] can contain an unknown value in a couple of cases:
+                     * - It was deserialized from data that doesn't match any known member. For
+                     *   example, if the SDK is on an older version than the API, then the API may
+                     *   respond with new members that the SDK is unaware of.
+                     * - It was constructed with an arbitrary value using the [of] method.
+                     */
+                    enum class Value {
+                        /** The physical card is in transit. */
+                        IN_TRANSIT,
+                        /** The physical card has been processed for delivery. */
+                        PROCESSED_FOR_DELIVERY,
+                        /** The physical card has been delivered. */
+                        DELIVERED,
+                        /** Delivery failed and the physical card was returned to sender. */
+                        RETURNED_TO_SENDER,
+                        /**
+                         * An enum member indicating that [Category] was instantiated with an
+                         * unknown value.
+                         */
+                        _UNKNOWN,
+                    }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value, or
+                     * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                     *
+                     * Use the [known] method instead if you're certain the value is always known or
+                     * if you want to throw for the unknown case.
+                     */
+                    fun value(): Value =
+                        when (this) {
+                            IN_TRANSIT -> Value.IN_TRANSIT
+                            PROCESSED_FOR_DELIVERY -> Value.PROCESSED_FOR_DELIVERY
+                            DELIVERED -> Value.DELIVERED
+                            RETURNED_TO_SENDER -> Value.RETURNED_TO_SENDER
+                            else -> Value._UNKNOWN
+                        }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value.
+                     *
+                     * Use the [value] method instead if you're uncertain the value is always known
+                     * and don't want to throw for the unknown case.
+                     *
+                     * @throws IncreaseInvalidDataException if this class instance's value is a not
+                     *   a known member.
+                     */
+                    fun known(): Known =
+                        when (this) {
+                            IN_TRANSIT -> Known.IN_TRANSIT
+                            PROCESSED_FOR_DELIVERY -> Known.PROCESSED_FOR_DELIVERY
+                            DELIVERED -> Known.DELIVERED
+                            RETURNED_TO_SENDER -> Known.RETURNED_TO_SENDER
+                            else -> throw IncreaseInvalidDataException("Unknown Category: $value")
+                        }
+
+                    /**
+                     * Returns this class instance's primitive wire representation.
+                     *
+                     * This differs from the [toString] method because that method is primarily for
+                     * debugging and generally doesn't throw.
+                     *
+                     * @throws IncreaseInvalidDataException if this class instance's value does not
+                     *   have the expected primitive type.
+                     */
+                    fun asString(): String =
+                        _value().asString().orElseThrow {
+                            IncreaseInvalidDataException("Value is not a String")
+                        }
+
+                    private var validated: Boolean = false
+
+                    fun validate(): Category = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        known()
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    @JvmSynthetic
+                    internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return /* spotless:off */ other is Category && value == other.value /* spotless:on */
+                    }
+
+                    override fun hashCode() = value.hashCode()
+
+                    override fun toString() = value.toString()
+                }
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return /* spotless:off */ other is Update && category == other.category && createdAt == other.createdAt && postalCode == other.postalCode && additionalProperties == other.additionalProperties /* spotless:on */
+                }
+
+                /* spotless:off */
+                private val hashCode: Int by lazy { Objects.hash(category, createdAt, postalCode, additionalProperties) }
+                /* spotless:on */
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() =
+                    "Update{category=$category, createdAt=$createdAt, postalCode=$postalCode, additionalProperties=$additionalProperties}"
+            }
 
             override fun equals(other: Any?): Boolean {
                 if (this === other) {
                     return true
                 }
 
-                return /* spotless:off */ other is Tracking && number == other.number && returnNumber == other.returnNumber && returnReason == other.returnReason && shippedAt == other.shippedAt && additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is Tracking && number == other.number && returnNumber == other.returnNumber && returnReason == other.returnReason && shippedAt == other.shippedAt && updates == other.updates && additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             /* spotless:off */
-            private val hashCode: Int by lazy { Objects.hash(number, returnNumber, returnReason, shippedAt, additionalProperties) }
+            private val hashCode: Int by lazy { Objects.hash(number, returnNumber, returnReason, shippedAt, updates, additionalProperties) }
             /* spotless:on */
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "Tracking{number=$number, returnNumber=$returnNumber, returnReason=$returnReason, shippedAt=$shippedAt, additionalProperties=$additionalProperties}"
+                "Tracking{number=$number, returnNumber=$returnNumber, returnReason=$returnReason, shippedAt=$shippedAt, updates=$updates, additionalProperties=$additionalProperties}"
         }
 
         override fun equals(other: Any?): Boolean {
