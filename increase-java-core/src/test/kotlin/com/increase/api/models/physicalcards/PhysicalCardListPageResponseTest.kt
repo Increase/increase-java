@@ -41,13 +41,25 @@ internal class PhysicalCardListPageResponseTest {
                                         .build()
                                 )
                                 .method(PhysicalCard.Shipment.Method.USPS)
-                                .status(PhysicalCard.Shipment.Status.PENDING)
+                                .status(PhysicalCard.Shipment.Status.SHIPPED)
                                 .tracking(
                                     PhysicalCard.Shipment.Tracking.builder()
-                                        .number("number")
-                                        .returnNumber("return_number")
-                                        .returnReason("return_reason")
-                                        .shippedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                        .number("9400110200881234567890")
+                                        .returnNumber(null)
+                                        .returnReason(null)
+                                        .shippedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                        .addUpdate(
+                                            PhysicalCard.Shipment.Tracking.Update.builder()
+                                                .category(
+                                                    PhysicalCard.Shipment.Tracking.Update.Category
+                                                        .DELIVERED
+                                                )
+                                                .createdAt(
+                                                    OffsetDateTime.parse("2020-01-31T23:59:59Z")
+                                                )
+                                                .postalCode("10001")
+                                                .build()
+                                        )
                                         .build()
                                 )
                                 .build()
@@ -87,13 +99,23 @@ internal class PhysicalCardListPageResponseTest {
                                     .build()
                             )
                             .method(PhysicalCard.Shipment.Method.USPS)
-                            .status(PhysicalCard.Shipment.Status.PENDING)
+                            .status(PhysicalCard.Shipment.Status.SHIPPED)
                             .tracking(
                                 PhysicalCard.Shipment.Tracking.builder()
-                                    .number("number")
-                                    .returnNumber("return_number")
-                                    .returnReason("return_reason")
-                                    .shippedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .number("9400110200881234567890")
+                                    .returnNumber(null)
+                                    .returnReason(null)
+                                    .shippedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                    .addUpdate(
+                                        PhysicalCard.Shipment.Tracking.Update.builder()
+                                            .category(
+                                                PhysicalCard.Shipment.Tracking.Update.Category
+                                                    .DELIVERED
+                                            )
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .postalCode("10001")
+                                            .build()
+                                    )
                                     .build()
                             )
                             .build()
@@ -137,13 +159,25 @@ internal class PhysicalCardListPageResponseTest {
                                         .build()
                                 )
                                 .method(PhysicalCard.Shipment.Method.USPS)
-                                .status(PhysicalCard.Shipment.Status.PENDING)
+                                .status(PhysicalCard.Shipment.Status.SHIPPED)
                                 .tracking(
                                     PhysicalCard.Shipment.Tracking.builder()
-                                        .number("number")
-                                        .returnNumber("return_number")
-                                        .returnReason("return_reason")
-                                        .shippedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                        .number("9400110200881234567890")
+                                        .returnNumber(null)
+                                        .returnReason(null)
+                                        .shippedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                        .addUpdate(
+                                            PhysicalCard.Shipment.Tracking.Update.builder()
+                                                .category(
+                                                    PhysicalCard.Shipment.Tracking.Update.Category
+                                                        .DELIVERED
+                                                )
+                                                .createdAt(
+                                                    OffsetDateTime.parse("2020-01-31T23:59:59Z")
+                                                )
+                                                .postalCode("10001")
+                                                .build()
+                                        )
                                         .build()
                                 )
                                 .build()
