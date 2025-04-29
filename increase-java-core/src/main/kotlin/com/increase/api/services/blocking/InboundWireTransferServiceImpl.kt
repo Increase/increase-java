@@ -12,6 +12,7 @@ import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.core.http.HttpResponseFor
+import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.inboundwiretransfers.InboundWireTransfer
@@ -19,6 +20,7 @@ import com.increase.api.models.inboundwiretransfers.InboundWireTransferListPage
 import com.increase.api.models.inboundwiretransfers.InboundWireTransferListPageResponse
 import com.increase.api.models.inboundwiretransfers.InboundWireTransferListParams
 import com.increase.api.models.inboundwiretransfers.InboundWireTransferRetrieveParams
+import com.increase.api.models.inboundwiretransfers.InboundWireTransferReverseParams
 
 class InboundWireTransferServiceImpl
 internal constructor(private val clientOptions: ClientOptions) : InboundWireTransferService {
@@ -42,6 +44,13 @@ internal constructor(private val clientOptions: ClientOptions) : InboundWireTran
     ): InboundWireTransferListPage =
         // get /inbound_wire_transfers
         withRawResponse().list(params, requestOptions).parse()
+
+    override fun reverse(
+        params: InboundWireTransferReverseParams,
+        requestOptions: RequestOptions,
+    ): InboundWireTransfer =
+        // post /inbound_wire_transfers/{inbound_wire_transfer_id}/reverse
+        withRawResponse().reverse(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         InboundWireTransferService.WithRawResponse {
@@ -105,6 +114,34 @@ internal constructor(private val clientOptions: ClientOptions) : InboundWireTran
                             .params(params)
                             .response(it)
                             .build()
+                    }
+            }
+        }
+
+        private val reverseHandler: Handler<InboundWireTransfer> =
+            jsonHandler<InboundWireTransfer>(clientOptions.jsonMapper)
+                .withErrorHandler(errorHandler)
+
+        override fun reverse(
+            params: InboundWireTransferReverseParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<InboundWireTransfer> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .addPathSegments("inbound_wire_transfers", params._pathParam(0), "reverse")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { reverseHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
                     }
             }
         }

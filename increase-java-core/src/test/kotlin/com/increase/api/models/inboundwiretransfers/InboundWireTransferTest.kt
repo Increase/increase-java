@@ -36,6 +36,12 @@ internal class InboundWireTransferTest {
                 .originatorToBeneficiaryInformationLine2(null)
                 .originatorToBeneficiaryInformationLine3(null)
                 .originatorToBeneficiaryInformationLine4(null)
+                .reversal(
+                    InboundWireTransfer.Reversal.builder()
+                        .reason(InboundWireTransfer.Reversal.Reason.CREDITOR_REQUEST)
+                        .reversedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .build()
+                )
                 .senderReference(null)
                 .status(InboundWireTransfer.Status.ACCEPTED)
                 .type(InboundWireTransfer.Type.INBOUND_WIRE_TRANSFER)
@@ -65,6 +71,13 @@ internal class InboundWireTransferTest {
         assertThat(inboundWireTransfer.originatorToBeneficiaryInformationLine2()).isEmpty
         assertThat(inboundWireTransfer.originatorToBeneficiaryInformationLine3()).isEmpty
         assertThat(inboundWireTransfer.originatorToBeneficiaryInformationLine4()).isEmpty
+        assertThat(inboundWireTransfer.reversal())
+            .contains(
+                InboundWireTransfer.Reversal.builder()
+                    .reason(InboundWireTransfer.Reversal.Reason.CREDITOR_REQUEST)
+                    .reversedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                    .build()
+            )
         assertThat(inboundWireTransfer.senderReference()).isEmpty
         assertThat(inboundWireTransfer.status()).isEqualTo(InboundWireTransfer.Status.ACCEPTED)
         assertThat(inboundWireTransfer.type())
@@ -98,6 +111,12 @@ internal class InboundWireTransferTest {
                 .originatorToBeneficiaryInformationLine2(null)
                 .originatorToBeneficiaryInformationLine3(null)
                 .originatorToBeneficiaryInformationLine4(null)
+                .reversal(
+                    InboundWireTransfer.Reversal.builder()
+                        .reason(InboundWireTransfer.Reversal.Reason.CREDITOR_REQUEST)
+                        .reversedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .build()
+                )
                 .senderReference(null)
                 .status(InboundWireTransfer.Status.ACCEPTED)
                 .type(InboundWireTransfer.Type.INBOUND_WIRE_TRANSFER)
