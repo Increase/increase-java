@@ -44,6 +44,7 @@ private constructor(
     private val originatorToBeneficiaryInformationLine2: JsonField<String>,
     private val originatorToBeneficiaryInformationLine3: JsonField<String>,
     private val originatorToBeneficiaryInformationLine4: JsonField<String>,
+    private val reversal: JsonField<Reversal>,
     private val senderReference: JsonField<String>,
     private val status: JsonField<Status>,
     private val type: JsonField<Type>,
@@ -112,6 +113,7 @@ private constructor(
         @JsonProperty("originator_to_beneficiary_information_line4")
         @ExcludeMissing
         originatorToBeneficiaryInformationLine4: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("reversal") @ExcludeMissing reversal: JsonField<Reversal> = JsonMissing.of(),
         @JsonProperty("sender_reference")
         @ExcludeMissing
         senderReference: JsonField<String> = JsonMissing.of(),
@@ -140,6 +142,7 @@ private constructor(
         originatorToBeneficiaryInformationLine2,
         originatorToBeneficiaryInformationLine3,
         originatorToBeneficiaryInformationLine4,
+        reversal,
         senderReference,
         status,
         type,
@@ -346,6 +349,14 @@ private constructor(
         originatorToBeneficiaryInformationLine4.getOptional(
             "originator_to_beneficiary_information_line4"
         )
+
+    /**
+     * Information about the reversal of the inbound wire transfer if it has been reversed.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun reversal(): Optional<Reversal> = reversal.getOptional("reversal")
 
     /**
      * The sending bank's reference number for the wire transfer.
@@ -582,6 +593,13 @@ private constructor(
         originatorToBeneficiaryInformationLine4
 
     /**
+     * Returns the raw JSON value of [reversal].
+     *
+     * Unlike [reversal], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("reversal") @ExcludeMissing fun _reversal(): JsonField<Reversal> = reversal
+
+    /**
      * Returns the raw JSON value of [senderReference].
      *
      * Unlike [senderReference], this method doesn't throw if the JSON field has an unexpected type.
@@ -645,6 +663,7 @@ private constructor(
          * .originatorToBeneficiaryInformationLine2()
          * .originatorToBeneficiaryInformationLine3()
          * .originatorToBeneficiaryInformationLine4()
+         * .reversal()
          * .senderReference()
          * .status()
          * .type()
@@ -678,6 +697,7 @@ private constructor(
         private var originatorToBeneficiaryInformationLine2: JsonField<String>? = null
         private var originatorToBeneficiaryInformationLine3: JsonField<String>? = null
         private var originatorToBeneficiaryInformationLine4: JsonField<String>? = null
+        private var reversal: JsonField<Reversal>? = null
         private var senderReference: JsonField<String>? = null
         private var status: JsonField<Status>? = null
         private var type: JsonField<Type>? = null
@@ -712,6 +732,7 @@ private constructor(
                 inboundWireTransfer.originatorToBeneficiaryInformationLine3
             originatorToBeneficiaryInformationLine4 =
                 inboundWireTransfer.originatorToBeneficiaryInformationLine4
+            reversal = inboundWireTransfer.reversal
             senderReference = inboundWireTransfer.senderReference
             status = inboundWireTransfer.status
             type = inboundWireTransfer.type
@@ -1191,6 +1212,21 @@ private constructor(
             this.originatorToBeneficiaryInformationLine4 = originatorToBeneficiaryInformationLine4
         }
 
+        /** Information about the reversal of the inbound wire transfer if it has been reversed. */
+        fun reversal(reversal: Reversal?) = reversal(JsonField.ofNullable(reversal))
+
+        /** Alias for calling [Builder.reversal] with `reversal.orElse(null)`. */
+        fun reversal(reversal: Optional<Reversal>) = reversal(reversal.getOrNull())
+
+        /**
+         * Sets [Builder.reversal] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.reversal] with a well-typed [Reversal] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun reversal(reversal: JsonField<Reversal>) = apply { this.reversal = reversal }
+
         /** The sending bank's reference number for the wire transfer. */
         fun senderReference(senderReference: String?) =
             senderReference(JsonField.ofNullable(senderReference))
@@ -1283,6 +1319,7 @@ private constructor(
          * .originatorToBeneficiaryInformationLine2()
          * .originatorToBeneficiaryInformationLine3()
          * .originatorToBeneficiaryInformationLine4()
+         * .reversal()
          * .senderReference()
          * .status()
          * .type()
@@ -1329,6 +1366,7 @@ private constructor(
                     "originatorToBeneficiaryInformationLine4",
                     originatorToBeneficiaryInformationLine4,
                 ),
+                checkRequired("reversal", reversal),
                 checkRequired("senderReference", senderReference),
                 checkRequired("status", status),
                 checkRequired("type", type),
@@ -1365,6 +1403,7 @@ private constructor(
         originatorToBeneficiaryInformationLine2()
         originatorToBeneficiaryInformationLine3()
         originatorToBeneficiaryInformationLine4()
+        reversal().ifPresent { it.validate() }
         senderReference()
         status().validate()
         type().validate()
@@ -1408,9 +1447,359 @@ private constructor(
             (if (originatorToBeneficiaryInformationLine2.asKnown().isPresent) 1 else 0) +
             (if (originatorToBeneficiaryInformationLine3.asKnown().isPresent) 1 else 0) +
             (if (originatorToBeneficiaryInformationLine4.asKnown().isPresent) 1 else 0) +
+            (reversal.asKnown().getOrNull()?.validity() ?: 0) +
             (if (senderReference.asKnown().isPresent) 1 else 0) +
             (status.asKnown().getOrNull()?.validity() ?: 0) +
             (type.asKnown().getOrNull()?.validity() ?: 0)
+
+    /** Information about the reversal of the inbound wire transfer if it has been reversed. */
+    class Reversal
+    private constructor(
+        private val reason: JsonField<Reason>,
+        private val reversedAt: JsonField<OffsetDateTime>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("reason") @ExcludeMissing reason: JsonField<Reason> = JsonMissing.of(),
+            @JsonProperty("reversed_at")
+            @ExcludeMissing
+            reversedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        ) : this(reason, reversedAt, mutableMapOf())
+
+        /**
+         * The reason for the reversal.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun reason(): Reason = reason.getRequired("reason")
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+         * transfer was reversed.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun reversedAt(): OffsetDateTime = reversedAt.getRequired("reversed_at")
+
+        /**
+         * Returns the raw JSON value of [reason].
+         *
+         * Unlike [reason], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("reason") @ExcludeMissing fun _reason(): JsonField<Reason> = reason
+
+        /**
+         * Returns the raw JSON value of [reversedAt].
+         *
+         * Unlike [reversedAt], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("reversed_at")
+        @ExcludeMissing
+        fun _reversedAt(): JsonField<OffsetDateTime> = reversedAt
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [Reversal].
+             *
+             * The following fields are required:
+             * ```java
+             * .reason()
+             * .reversedAt()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Reversal]. */
+        class Builder internal constructor() {
+
+            private var reason: JsonField<Reason>? = null
+            private var reversedAt: JsonField<OffsetDateTime>? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(reversal: Reversal) = apply {
+                reason = reversal.reason
+                reversedAt = reversal.reversedAt
+                additionalProperties = reversal.additionalProperties.toMutableMap()
+            }
+
+            /** The reason for the reversal. */
+            fun reason(reason: Reason) = reason(JsonField.of(reason))
+
+            /**
+             * Sets [Builder.reason] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.reason] with a well-typed [Reason] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun reason(reason: JsonField<Reason>) = apply { this.reason = reason }
+
+            /**
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+             * transfer was reversed.
+             */
+            fun reversedAt(reversedAt: OffsetDateTime) = reversedAt(JsonField.of(reversedAt))
+
+            /**
+             * Sets [Builder.reversedAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.reversedAt] with a well-typed [OffsetDateTime] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun reversedAt(reversedAt: JsonField<OffsetDateTime>) = apply {
+                this.reversedAt = reversedAt
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Reversal].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .reason()
+             * .reversedAt()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): Reversal =
+                Reversal(
+                    checkRequired("reason", reason),
+                    checkRequired("reversedAt", reversedAt),
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Reversal = apply {
+            if (validated) {
+                return@apply
+            }
+
+            reason().validate()
+            reversedAt()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (reason.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (reversedAt.asKnown().isPresent) 1 else 0)
+
+        /** The reason for the reversal. */
+        class Reason @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                /** The inbound wire transfer was a duplicate. */
+                @JvmField val DUPLICATE = of("duplicate")
+
+                /**
+                 * The recipient of the wire transfer requested the funds be returned to the sender.
+                 */
+                @JvmField val CREDITOR_REQUEST = of("creditor_request")
+
+                @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
+            }
+
+            /** An enum containing [Reason]'s known values. */
+            enum class Known {
+                /** The inbound wire transfer was a duplicate. */
+                DUPLICATE,
+                /**
+                 * The recipient of the wire transfer requested the funds be returned to the sender.
+                 */
+                CREDITOR_REQUEST,
+            }
+
+            /**
+             * An enum containing [Reason]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [Reason] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                /** The inbound wire transfer was a duplicate. */
+                DUPLICATE,
+                /**
+                 * The recipient of the wire transfer requested the funds be returned to the sender.
+                 */
+                CREDITOR_REQUEST,
+                /**
+                 * An enum member indicating that [Reason] was instantiated with an unknown value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    DUPLICATE -> Value.DUPLICATE
+                    CREDITOR_REQUEST -> Value.CREDITOR_REQUEST
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    DUPLICATE -> Known.DUPLICATE
+                    CREDITOR_REQUEST -> Known.CREDITOR_REQUEST
+                    else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    IncreaseInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            fun validate(): Reason = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return /* spotless:off */ other is Reason && value == other.value /* spotless:on */
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is Reversal && reason == other.reason && reversedAt == other.reversedAt && additionalProperties == other.additionalProperties /* spotless:on */
+        }
+
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(reason, reversedAt, additionalProperties) }
+        /* spotless:on */
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Reversal{reason=$reason, reversedAt=$reversedAt, additionalProperties=$additionalProperties}"
+    }
 
     /** The status of the transfer. */
     class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
@@ -1703,15 +2092,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is InboundWireTransfer && id == other.id && accountId == other.accountId && accountNumberId == other.accountNumberId && amount == other.amount && beneficiaryAddressLine1 == other.beneficiaryAddressLine1 && beneficiaryAddressLine2 == other.beneficiaryAddressLine2 && beneficiaryAddressLine3 == other.beneficiaryAddressLine3 && beneficiaryName == other.beneficiaryName && beneficiaryReference == other.beneficiaryReference && createdAt == other.createdAt && description == other.description && inputMessageAccountabilityData == other.inputMessageAccountabilityData && originatorAddressLine1 == other.originatorAddressLine1 && originatorAddressLine2 == other.originatorAddressLine2 && originatorAddressLine3 == other.originatorAddressLine3 && originatorName == other.originatorName && originatorRoutingNumber == other.originatorRoutingNumber && originatorToBeneficiaryInformation == other.originatorToBeneficiaryInformation && originatorToBeneficiaryInformationLine1 == other.originatorToBeneficiaryInformationLine1 && originatorToBeneficiaryInformationLine2 == other.originatorToBeneficiaryInformationLine2 && originatorToBeneficiaryInformationLine3 == other.originatorToBeneficiaryInformationLine3 && originatorToBeneficiaryInformationLine4 == other.originatorToBeneficiaryInformationLine4 && senderReference == other.senderReference && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is InboundWireTransfer && id == other.id && accountId == other.accountId && accountNumberId == other.accountNumberId && amount == other.amount && beneficiaryAddressLine1 == other.beneficiaryAddressLine1 && beneficiaryAddressLine2 == other.beneficiaryAddressLine2 && beneficiaryAddressLine3 == other.beneficiaryAddressLine3 && beneficiaryName == other.beneficiaryName && beneficiaryReference == other.beneficiaryReference && createdAt == other.createdAt && description == other.description && inputMessageAccountabilityData == other.inputMessageAccountabilityData && originatorAddressLine1 == other.originatorAddressLine1 && originatorAddressLine2 == other.originatorAddressLine2 && originatorAddressLine3 == other.originatorAddressLine3 && originatorName == other.originatorName && originatorRoutingNumber == other.originatorRoutingNumber && originatorToBeneficiaryInformation == other.originatorToBeneficiaryInformation && originatorToBeneficiaryInformationLine1 == other.originatorToBeneficiaryInformationLine1 && originatorToBeneficiaryInformationLine2 == other.originatorToBeneficiaryInformationLine2 && originatorToBeneficiaryInformationLine3 == other.originatorToBeneficiaryInformationLine3 && originatorToBeneficiaryInformationLine4 == other.originatorToBeneficiaryInformationLine4 && reversal == other.reversal && senderReference == other.senderReference && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, accountId, accountNumberId, amount, beneficiaryAddressLine1, beneficiaryAddressLine2, beneficiaryAddressLine3, beneficiaryName, beneficiaryReference, createdAt, description, inputMessageAccountabilityData, originatorAddressLine1, originatorAddressLine2, originatorAddressLine3, originatorName, originatorRoutingNumber, originatorToBeneficiaryInformation, originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4, senderReference, status, type, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, accountId, accountNumberId, amount, beneficiaryAddressLine1, beneficiaryAddressLine2, beneficiaryAddressLine3, beneficiaryName, beneficiaryReference, createdAt, description, inputMessageAccountabilityData, originatorAddressLine1, originatorAddressLine2, originatorAddressLine3, originatorName, originatorRoutingNumber, originatorToBeneficiaryInformation, originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4, reversal, senderReference, status, type, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "InboundWireTransfer{id=$id, accountId=$accountId, accountNumberId=$accountNumberId, amount=$amount, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, beneficiaryName=$beneficiaryName, beneficiaryReference=$beneficiaryReference, createdAt=$createdAt, description=$description, inputMessageAccountabilityData=$inputMessageAccountabilityData, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, originatorRoutingNumber=$originatorRoutingNumber, originatorToBeneficiaryInformation=$originatorToBeneficiaryInformation, originatorToBeneficiaryInformationLine1=$originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2=$originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3=$originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4=$originatorToBeneficiaryInformationLine4, senderReference=$senderReference, status=$status, type=$type, additionalProperties=$additionalProperties}"
+        "InboundWireTransfer{id=$id, accountId=$accountId, accountNumberId=$accountNumberId, amount=$amount, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, beneficiaryName=$beneficiaryName, beneficiaryReference=$beneficiaryReference, createdAt=$createdAt, description=$description, inputMessageAccountabilityData=$inputMessageAccountabilityData, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, originatorRoutingNumber=$originatorRoutingNumber, originatorToBeneficiaryInformation=$originatorToBeneficiaryInformation, originatorToBeneficiaryInformationLine1=$originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2=$originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3=$originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4=$originatorToBeneficiaryInformationLine4, reversal=$reversal, senderReference=$senderReference, status=$status, type=$type, additionalProperties=$additionalProperties}"
 }

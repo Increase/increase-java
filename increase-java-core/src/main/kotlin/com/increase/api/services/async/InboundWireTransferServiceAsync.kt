@@ -9,6 +9,7 @@ import com.increase.api.models.inboundwiretransfers.InboundWireTransfer
 import com.increase.api.models.inboundwiretransfers.InboundWireTransferListPageAsync
 import com.increase.api.models.inboundwiretransfers.InboundWireTransferListParams
 import com.increase.api.models.inboundwiretransfers.InboundWireTransferRetrieveParams
+import com.increase.api.models.inboundwiretransfers.InboundWireTransferReverseParams
 import java.util.concurrent.CompletableFuture
 
 interface InboundWireTransferServiceAsync {
@@ -47,6 +48,16 @@ interface InboundWireTransferServiceAsync {
     /** @see [list] */
     fun list(requestOptions: RequestOptions): CompletableFuture<InboundWireTransferListPageAsync> =
         list(InboundWireTransferListParams.none(), requestOptions)
+
+    /** Reverse an Inbound Wire Transfer */
+    fun reverse(params: InboundWireTransferReverseParams): CompletableFuture<InboundWireTransfer> =
+        reverse(params, RequestOptions.none())
+
+    /** @see [reverse] */
+    fun reverse(
+        params: InboundWireTransferReverseParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<InboundWireTransfer>
 
     /**
      * A view of [InboundWireTransferServiceAsync] that provides access to raw HTTP responses for
@@ -99,5 +110,23 @@ interface InboundWireTransferServiceAsync {
             requestOptions: RequestOptions
         ): CompletableFuture<HttpResponseFor<InboundWireTransferListPageAsync>> =
             list(InboundWireTransferListParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post
+         * /inbound_wire_transfers/{inbound_wire_transfer_id}/reverse`, but is otherwise the same as
+         * [InboundWireTransferServiceAsync.reverse].
+         */
+        @MustBeClosed
+        fun reverse(
+            params: InboundWireTransferReverseParams
+        ): CompletableFuture<HttpResponseFor<InboundWireTransfer>> =
+            reverse(params, RequestOptions.none())
+
+        /** @see [reverse] */
+        @MustBeClosed
+        fun reverse(
+            params: InboundWireTransferReverseParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<InboundWireTransfer>>
     }
 }
