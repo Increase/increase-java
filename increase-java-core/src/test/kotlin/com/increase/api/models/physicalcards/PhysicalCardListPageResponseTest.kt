@@ -54,10 +54,12 @@ internal class PhysicalCardListPageResponseTest {
                                                     PhysicalCard.Shipment.Tracking.Update.Category
                                                         .DELIVERED
                                                 )
+                                                .city(null)
                                                 .createdAt(
                                                     OffsetDateTime.parse("2020-01-31T23:59:59Z")
                                                 )
                                                 .postalCode("10001")
+                                                .state(null)
                                                 .build()
                                         )
                                         .build()
@@ -112,8 +114,10 @@ internal class PhysicalCardListPageResponseTest {
                                                 PhysicalCard.Shipment.Tracking.Update.Category
                                                     .DELIVERED
                                             )
+                                            .city(null)
                                             .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                                             .postalCode("10001")
+                                            .state(null)
                                             .build()
                                     )
                                     .build()
@@ -172,10 +176,12 @@ internal class PhysicalCardListPageResponseTest {
                                                     PhysicalCard.Shipment.Tracking.Update.Category
                                                         .DELIVERED
                                                 )
+                                                .city(null)
                                                 .createdAt(
                                                     OffsetDateTime.parse("2020-01-31T23:59:59Z")
                                                 )
                                                 .postalCode("10001")
+                                                .state(null)
                                                 .build()
                                         )
                                         .build()
