@@ -2069,8 +2069,10 @@ private constructor(
             class Update
             private constructor(
                 private val category: JsonField<Category>,
+                private val city: JsonField<String>,
                 private val createdAt: JsonField<OffsetDateTime>,
                 private val postalCode: JsonField<String>,
+                private val state: JsonField<String>,
                 private val additionalProperties: MutableMap<String, JsonValue>,
             ) {
 
@@ -2079,13 +2081,19 @@ private constructor(
                     @JsonProperty("category")
                     @ExcludeMissing
                     category: JsonField<Category> = JsonMissing.of(),
+                    @JsonProperty("city")
+                    @ExcludeMissing
+                    city: JsonField<String> = JsonMissing.of(),
                     @JsonProperty("created_at")
                     @ExcludeMissing
                     createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
                     @JsonProperty("postal_code")
                     @ExcludeMissing
                     postalCode: JsonField<String> = JsonMissing.of(),
-                ) : this(category, createdAt, postalCode, mutableMapOf())
+                    @JsonProperty("state")
+                    @ExcludeMissing
+                    state: JsonField<String> = JsonMissing.of(),
+                ) : this(category, city, createdAt, postalCode, state, mutableMapOf())
 
                 /**
                  * The type of tracking event.
@@ -2095,6 +2103,14 @@ private constructor(
                  *   unexpected value).
                  */
                 fun category(): Category = category.getRequired("category")
+
+                /**
+                 * The city where the event took place.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                 *   (e.g. if the server responded with an unexpected value).
+                 */
+                fun city(): Optional<String> = city.getOptional("city")
 
                 /**
                  * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
@@ -2109,11 +2125,18 @@ private constructor(
                 /**
                  * The postal code where the event took place.
                  *
-                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
-                 *   is unexpectedly missing or null (e.g. if the server responded with an
-                 *   unexpected value).
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                 *   (e.g. if the server responded with an unexpected value).
                  */
-                fun postalCode(): String = postalCode.getRequired("postal_code")
+                fun postalCode(): Optional<String> = postalCode.getOptional("postal_code")
+
+                /**
+                 * The state where the event took place.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                 *   (e.g. if the server responded with an unexpected value).
+                 */
+                fun state(): Optional<String> = state.getOptional("state")
 
                 /**
                  * Returns the raw JSON value of [category].
@@ -2124,6 +2147,14 @@ private constructor(
                 @JsonProperty("category")
                 @ExcludeMissing
                 fun _category(): JsonField<Category> = category
+
+                /**
+                 * Returns the raw JSON value of [city].
+                 *
+                 * Unlike [city], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("city") @ExcludeMissing fun _city(): JsonField<String> = city
 
                 /**
                  * Returns the raw JSON value of [createdAt].
@@ -2145,6 +2176,14 @@ private constructor(
                 @ExcludeMissing
                 fun _postalCode(): JsonField<String> = postalCode
 
+                /**
+                 * Returns the raw JSON value of [state].
+                 *
+                 * Unlike [state], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("state") @ExcludeMissing fun _state(): JsonField<String> = state
+
                 @JsonAnySetter
                 private fun putAdditionalProperty(key: String, value: JsonValue) {
                     additionalProperties.put(key, value)
@@ -2165,8 +2204,10 @@ private constructor(
                      * The following fields are required:
                      * ```java
                      * .category()
+                     * .city()
                      * .createdAt()
                      * .postalCode()
+                     * .state()
                      * ```
                      */
                     @JvmStatic fun builder() = Builder()
@@ -2176,15 +2217,19 @@ private constructor(
                 class Builder internal constructor() {
 
                     private var category: JsonField<Category>? = null
+                    private var city: JsonField<String>? = null
                     private var createdAt: JsonField<OffsetDateTime>? = null
                     private var postalCode: JsonField<String>? = null
+                    private var state: JsonField<String>? = null
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     @JvmSynthetic
                     internal fun from(update: Update) = apply {
                         category = update.category
+                        city = update.city
                         createdAt = update.createdAt
                         postalCode = update.postalCode
+                        state = update.state
                         additionalProperties = update.additionalProperties.toMutableMap()
                     }
 
@@ -2199,6 +2244,21 @@ private constructor(
                      * not yet supported value.
                      */
                     fun category(category: JsonField<Category>) = apply { this.category = category }
+
+                    /** The city where the event took place. */
+                    fun city(city: String?) = city(JsonField.ofNullable(city))
+
+                    /** Alias for calling [Builder.city] with `city.orElse(null)`. */
+                    fun city(city: Optional<String>) = city(city.getOrNull())
+
+                    /**
+                     * Sets [Builder.city] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.city] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun city(city: JsonField<String>) = apply { this.city = city }
 
                     /**
                      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
@@ -2218,7 +2278,12 @@ private constructor(
                     }
 
                     /** The postal code where the event took place. */
-                    fun postalCode(postalCode: String) = postalCode(JsonField.of(postalCode))
+                    fun postalCode(postalCode: String?) =
+                        postalCode(JsonField.ofNullable(postalCode))
+
+                    /** Alias for calling [Builder.postalCode] with `postalCode.orElse(null)`. */
+                    fun postalCode(postalCode: Optional<String>) =
+                        postalCode(postalCode.getOrNull())
 
                     /**
                      * Sets [Builder.postalCode] to an arbitrary JSON value.
@@ -2230,6 +2295,21 @@ private constructor(
                     fun postalCode(postalCode: JsonField<String>) = apply {
                         this.postalCode = postalCode
                     }
+
+                    /** The state where the event took place. */
+                    fun state(state: String?) = state(JsonField.ofNullable(state))
+
+                    /** Alias for calling [Builder.state] with `state.orElse(null)`. */
+                    fun state(state: Optional<String>) = state(state.getOrNull())
+
+                    /**
+                     * Sets [Builder.state] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.state] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun state(state: JsonField<String>) = apply { this.state = state }
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
@@ -2261,8 +2341,10 @@ private constructor(
                      * The following fields are required:
                      * ```java
                      * .category()
+                     * .city()
                      * .createdAt()
                      * .postalCode()
+                     * .state()
                      * ```
                      *
                      * @throws IllegalStateException if any required field is unset.
@@ -2270,8 +2352,10 @@ private constructor(
                     fun build(): Update =
                         Update(
                             checkRequired("category", category),
+                            checkRequired("city", city),
                             checkRequired("createdAt", createdAt),
                             checkRequired("postalCode", postalCode),
+                            checkRequired("state", state),
                             additionalProperties.toMutableMap(),
                         )
                 }
@@ -2284,8 +2368,10 @@ private constructor(
                     }
 
                     category().validate()
+                    city()
                     createdAt()
                     postalCode()
+                    state()
                     validated = true
                 }
 
@@ -2306,8 +2392,10 @@ private constructor(
                 @JvmSynthetic
                 internal fun validity(): Int =
                     (category.asKnown().getOrNull()?.validity() ?: 0) +
+                        (if (city.asKnown().isPresent) 1 else 0) +
                         (if (createdAt.asKnown().isPresent) 1 else 0) +
-                        (if (postalCode.asKnown().isPresent) 1 else 0)
+                        (if (postalCode.asKnown().isPresent) 1 else 0) +
+                        (if (state.asKnown().isPresent) 1 else 0)
 
                 /** The type of tracking event. */
                 class Category
@@ -2474,17 +2562,17 @@ private constructor(
                         return true
                     }
 
-                    return /* spotless:off */ other is Update && category == other.category && createdAt == other.createdAt && postalCode == other.postalCode && additionalProperties == other.additionalProperties /* spotless:on */
+                    return /* spotless:off */ other is Update && category == other.category && city == other.city && createdAt == other.createdAt && postalCode == other.postalCode && state == other.state && additionalProperties == other.additionalProperties /* spotless:on */
                 }
 
                 /* spotless:off */
-                private val hashCode: Int by lazy { Objects.hash(category, createdAt, postalCode, additionalProperties) }
+                private val hashCode: Int by lazy { Objects.hash(category, city, createdAt, postalCode, state, additionalProperties) }
                 /* spotless:on */
 
                 override fun hashCode(): Int = hashCode
 
                 override fun toString() =
-                    "Update{category=$category, createdAt=$createdAt, postalCode=$postalCode, additionalProperties=$additionalProperties}"
+                    "Update{category=$category, city=$city, createdAt=$createdAt, postalCode=$postalCode, state=$state, additionalProperties=$additionalProperties}"
             }
 
             override fun equals(other: Any?): Boolean {
