@@ -8,7 +8,10 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
 
-/** Get IntraFi balances by bank */
+/**
+ * Returns the IntraFi balance for the given account. IntraFi may sweep funds to multiple banks.
+ * This endpoint will include both the total balance and the amount swept to each institution.
+ */
 class IntrafiBalanceIntrafiBalanceParams
 private constructor(
     private val accountId: String,
