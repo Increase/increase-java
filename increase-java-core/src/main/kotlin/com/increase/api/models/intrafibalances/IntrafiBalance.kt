@@ -22,7 +22,7 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * When using IntraFi, each account's balance over the standard FDIC insurance amount are swept to
+ * When using IntraFi, each account's balance over the standard FDIC insurance amount is swept to
  * various other institutions. Funds are rebalanced across banks as needed once per business day.
  */
 class IntrafiBalance
