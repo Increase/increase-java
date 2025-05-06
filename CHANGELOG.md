@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.225.0 (2025-05-06)
+
+Full Changelog: [v0.224.0...v0.225.0](https://github.com/Increase/increase-java/compare/v0.224.0...v0.225.0)
+
+### Features
+
+* **api:** api update ([819fc5e](https://github.com/Increase/increase-java/commit/819fc5e5595a6edcaf6af057291bdaecf6c0c822))
+* **api:** api update ([9cd81d4](https://github.com/Increase/increase-java/commit/9cd81d497a9be0ff345c6abb8dec5a05d84ac300))
+
+
+### Chores
+
+* **internal:** remove flaky `-Xbackend-threads=0` option ([012b764](https://github.com/Increase/increase-java/commit/012b7649fac6130eee58343b4ab4fbdc1ba4cbce))
+
 ## 0.224.0 (2025-05-05)
 
 Full Changelog: [v0.223.0...v0.224.0](https://github.com/Increase/increase-java/compare/v0.223.0...v0.224.0)
