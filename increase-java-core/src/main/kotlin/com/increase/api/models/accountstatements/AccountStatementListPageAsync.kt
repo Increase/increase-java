@@ -2,22 +2,24 @@
 
 package com.increase.api.models.accountstatements
 
+import com.increase.api.core.AutoPagerAsync
+import com.increase.api.core.PageAsync
 import com.increase.api.core.checkRequired
 import com.increase.api.services.async.AccountStatementServiceAsync
 import java.util.Objects
 import java.util.Optional
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executor
-import java.util.function.Predicate
 import kotlin.jvm.optionals.getOrNull
 
 /** @see [AccountStatementServiceAsync.list] */
 class AccountStatementListPageAsync
 private constructor(
     private val service: AccountStatementServiceAsync,
+    private val streamHandlerExecutor: Executor,
     private val params: AccountStatementListParams,
     private val response: AccountStatementListPageResponse,
-) {
+) : PageAsync<AccountStatement> {
 
     /**
      * Delegates to [AccountStatementListPageResponse], but gracefully handles missing data.
@@ -34,24 +36,22 @@ private constructor(
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 
-    fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor().isPresent
+    override fun items(): List<AccountStatement> = data()
 
-    fun getNextPageParams(): Optional<AccountStatementListParams> {
-        if (!hasNextPage()) {
-            return Optional.empty()
-        }
+    override fun hasNextPage(): Boolean = items().isNotEmpty() && nextCursor().isPresent
 
-        return Optional.of(
-            params.toBuilder().apply { nextCursor().ifPresent { cursor(it) } }.build()
-        )
+    fun nextPageParams(): AccountStatementListParams {
+        val nextCursor =
+            nextCursor().getOrNull()
+                ?: throw IllegalStateException("Cannot construct next page params")
+        return params.toBuilder().cursor(nextCursor).build()
     }
 
-    fun getNextPage(): CompletableFuture<Optional<AccountStatementListPageAsync>> =
-        getNextPageParams()
-            .map { service.list(it).thenApply { Optional.of(it) } }
-            .orElseGet { CompletableFuture.completedFuture(Optional.empty()) }
+    override fun nextPage(): CompletableFuture<AccountStatementListPageAsync> =
+        service.list(nextPageParams())
 
-    fun autoPager(): AutoPager = AutoPager(this)
+    fun autoPager(): AutoPagerAsync<AccountStatement> =
+        AutoPagerAsync.from(this, streamHandlerExecutor)
 
     /** The parameters that were used to request this page. */
     fun params(): AccountStatementListParams = params
@@ -70,6 +70,7 @@ private constructor(
          * The following fields are required:
          * ```java
          * .service()
+         * .streamHandlerExecutor()
          * .params()
          * .response()
          * ```
@@ -81,17 +82,23 @@ private constructor(
     class Builder internal constructor() {
 
         private var service: AccountStatementServiceAsync? = null
+        private var streamHandlerExecutor: Executor? = null
         private var params: AccountStatementListParams? = null
         private var response: AccountStatementListPageResponse? = null
 
         @JvmSynthetic
         internal fun from(accountStatementListPageAsync: AccountStatementListPageAsync) = apply {
             service = accountStatementListPageAsync.service
+            streamHandlerExecutor = accountStatementListPageAsync.streamHandlerExecutor
             params = accountStatementListPageAsync.params
             response = accountStatementListPageAsync.response
         }
 
         fun service(service: AccountStatementServiceAsync) = apply { this.service = service }
+
+        fun streamHandlerExecutor(streamHandlerExecutor: Executor) = apply {
+            this.streamHandlerExecutor = streamHandlerExecutor
+        }
 
         /** The parameters that were used to request this page. */
         fun params(params: AccountStatementListParams) = apply { this.params = params }
@@ -109,6 +116,7 @@ private constructor(
          * The following fields are required:
          * ```java
          * .service()
+         * .streamHandlerExecutor()
          * .params()
          * .response()
          * ```
@@ -118,38 +126,10 @@ private constructor(
         fun build(): AccountStatementListPageAsync =
             AccountStatementListPageAsync(
                 checkRequired("service", service),
+                checkRequired("streamHandlerExecutor", streamHandlerExecutor),
                 checkRequired("params", params),
                 checkRequired("response", response),
             )
-    }
-
-    class AutoPager(private val firstPage: AccountStatementListPageAsync) {
-
-        fun forEach(
-            action: Predicate<AccountStatement>,
-            executor: Executor,
-        ): CompletableFuture<Void> {
-            fun CompletableFuture<Optional<AccountStatementListPageAsync>>.forEach(
-                action: (AccountStatement) -> Boolean,
-                executor: Executor,
-            ): CompletableFuture<Void> =
-                thenComposeAsync(
-                    { page ->
-                        page
-                            .filter { it.data().all(action) }
-                            .map { it.getNextPage().forEach(action, executor) }
-                            .orElseGet { CompletableFuture.completedFuture(null) }
-                    },
-                    executor,
-                )
-            return CompletableFuture.completedFuture(Optional.of(firstPage))
-                .forEach(action::test, executor)
-        }
-
-        fun toList(executor: Executor): CompletableFuture<List<AccountStatement>> {
-            val values = mutableListOf<AccountStatement>()
-            return forEach(values::add, executor).thenApply { values }
-        }
     }
 
     override fun equals(other: Any?): Boolean {
@@ -157,11 +137,11 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is AccountStatementListPageAsync && service == other.service && params == other.params && response == other.response /* spotless:on */
+        return /* spotless:off */ other is AccountStatementListPageAsync && service == other.service && streamHandlerExecutor == other.streamHandlerExecutor && params == other.params && response == other.response /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, params, response) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, streamHandlerExecutor, params, response) /* spotless:on */
 
     override fun toString() =
-        "AccountStatementListPageAsync{service=$service, params=$params, response=$response}"
+        "AccountStatementListPageAsync{service=$service, streamHandlerExecutor=$streamHandlerExecutor, params=$params, response=$response}"
 }

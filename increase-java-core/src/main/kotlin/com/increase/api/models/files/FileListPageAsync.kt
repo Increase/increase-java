@@ -2,22 +2,24 @@
 
 package com.increase.api.models.files
 
+import com.increase.api.core.AutoPagerAsync
+import com.increase.api.core.PageAsync
 import com.increase.api.core.checkRequired
 import com.increase.api.services.async.FileServiceAsync
 import java.util.Objects
 import java.util.Optional
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executor
-import java.util.function.Predicate
 import kotlin.jvm.optionals.getOrNull
 
 /** @see [FileServiceAsync.list] */
 class FileListPageAsync
 private constructor(
     private val service: FileServiceAsync,
+    private val streamHandlerExecutor: Executor,
     private val params: FileListParams,
     private val response: FileListPageResponse,
-) {
+) : PageAsync<File> {
 
     /**
      * Delegates to [FileListPageResponse], but gracefully handles missing data.
@@ -33,24 +35,20 @@ private constructor(
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 
-    fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor().isPresent
+    override fun items(): List<File> = data()
 
-    fun getNextPageParams(): Optional<FileListParams> {
-        if (!hasNextPage()) {
-            return Optional.empty()
-        }
+    override fun hasNextPage(): Boolean = items().isNotEmpty() && nextCursor().isPresent
 
-        return Optional.of(
-            params.toBuilder().apply { nextCursor().ifPresent { cursor(it) } }.build()
-        )
+    fun nextPageParams(): FileListParams {
+        val nextCursor =
+            nextCursor().getOrNull()
+                ?: throw IllegalStateException("Cannot construct next page params")
+        return params.toBuilder().cursor(nextCursor).build()
     }
 
-    fun getNextPage(): CompletableFuture<Optional<FileListPageAsync>> =
-        getNextPageParams()
-            .map { service.list(it).thenApply { Optional.of(it) } }
-            .orElseGet { CompletableFuture.completedFuture(Optional.empty()) }
+    override fun nextPage(): CompletableFuture<FileListPageAsync> = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager = AutoPager(this)
+    fun autoPager(): AutoPagerAsync<File> = AutoPagerAsync.from(this, streamHandlerExecutor)
 
     /** The parameters that were used to request this page. */
     fun params(): FileListParams = params
@@ -68,6 +66,7 @@ private constructor(
          * The following fields are required:
          * ```java
          * .service()
+         * .streamHandlerExecutor()
          * .params()
          * .response()
          * ```
@@ -79,17 +78,23 @@ private constructor(
     class Builder internal constructor() {
 
         private var service: FileServiceAsync? = null
+        private var streamHandlerExecutor: Executor? = null
         private var params: FileListParams? = null
         private var response: FileListPageResponse? = null
 
         @JvmSynthetic
         internal fun from(fileListPageAsync: FileListPageAsync) = apply {
             service = fileListPageAsync.service
+            streamHandlerExecutor = fileListPageAsync.streamHandlerExecutor
             params = fileListPageAsync.params
             response = fileListPageAsync.response
         }
 
         fun service(service: FileServiceAsync) = apply { this.service = service }
+
+        fun streamHandlerExecutor(streamHandlerExecutor: Executor) = apply {
+            this.streamHandlerExecutor = streamHandlerExecutor
+        }
 
         /** The parameters that were used to request this page. */
         fun params(params: FileListParams) = apply { this.params = params }
@@ -105,6 +110,7 @@ private constructor(
          * The following fields are required:
          * ```java
          * .service()
+         * .streamHandlerExecutor()
          * .params()
          * .response()
          * ```
@@ -114,35 +120,10 @@ private constructor(
         fun build(): FileListPageAsync =
             FileListPageAsync(
                 checkRequired("service", service),
+                checkRequired("streamHandlerExecutor", streamHandlerExecutor),
                 checkRequired("params", params),
                 checkRequired("response", response),
             )
-    }
-
-    class AutoPager(private val firstPage: FileListPageAsync) {
-
-        fun forEach(action: Predicate<File>, executor: Executor): CompletableFuture<Void> {
-            fun CompletableFuture<Optional<FileListPageAsync>>.forEach(
-                action: (File) -> Boolean,
-                executor: Executor,
-            ): CompletableFuture<Void> =
-                thenComposeAsync(
-                    { page ->
-                        page
-                            .filter { it.data().all(action) }
-                            .map { it.getNextPage().forEach(action, executor) }
-                            .orElseGet { CompletableFuture.completedFuture(null) }
-                    },
-                    executor,
-                )
-            return CompletableFuture.completedFuture(Optional.of(firstPage))
-                .forEach(action::test, executor)
-        }
-
-        fun toList(executor: Executor): CompletableFuture<List<File>> {
-            val values = mutableListOf<File>()
-            return forEach(values::add, executor).thenApply { values }
-        }
     }
 
     override fun equals(other: Any?): Boolean {
@@ -150,11 +131,11 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is FileListPageAsync && service == other.service && params == other.params && response == other.response /* spotless:on */
+        return /* spotless:off */ other is FileListPageAsync && service == other.service && streamHandlerExecutor == other.streamHandlerExecutor && params == other.params && response == other.response /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, params, response) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, streamHandlerExecutor, params, response) /* spotless:on */
 
     override fun toString() =
-        "FileListPageAsync{service=$service, params=$params, response=$response}"
+        "FileListPageAsync{service=$service, streamHandlerExecutor=$streamHandlerExecutor, params=$params, response=$response}"
 }

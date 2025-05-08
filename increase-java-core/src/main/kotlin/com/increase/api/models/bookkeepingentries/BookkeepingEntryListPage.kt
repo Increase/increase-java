@@ -2,12 +2,12 @@
 
 package com.increase.api.models.bookkeepingentries
 
+import com.increase.api.core.AutoPager
+import com.increase.api.core.Page
 import com.increase.api.core.checkRequired
 import com.increase.api.services.blocking.BookkeepingEntryService
 import java.util.Objects
 import java.util.Optional
-import java.util.stream.Stream
-import java.util.stream.StreamSupport
 import kotlin.jvm.optionals.getOrNull
 
 /** @see [BookkeepingEntryService.list] */
@@ -16,7 +16,7 @@ private constructor(
     private val service: BookkeepingEntryService,
     private val params: BookkeepingEntryListParams,
     private val response: BookkeepingEntryListPageResponse,
-) {
+) : Page<BookkeepingEntry> {
 
     /**
      * Delegates to [BookkeepingEntryListPageResponse], but gracefully handles missing data.
@@ -33,22 +33,20 @@ private constructor(
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 
-    fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor().isPresent
+    override fun items(): List<BookkeepingEntry> = data()
 
-    fun getNextPageParams(): Optional<BookkeepingEntryListParams> {
-        if (!hasNextPage()) {
-            return Optional.empty()
-        }
+    override fun hasNextPage(): Boolean = items().isNotEmpty() && nextCursor().isPresent
 
-        return Optional.of(
-            params.toBuilder().apply { nextCursor().ifPresent { cursor(it) } }.build()
-        )
+    fun nextPageParams(): BookkeepingEntryListParams {
+        val nextCursor =
+            nextCursor().getOrNull()
+                ?: throw IllegalStateException("Cannot construct next page params")
+        return params.toBuilder().cursor(nextCursor).build()
     }
 
-    fun getNextPage(): Optional<BookkeepingEntryListPage> =
-        getNextPageParams().map { service.list(it) }
+    override fun nextPage(): BookkeepingEntryListPage = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager = AutoPager(this)
+    fun autoPager(): AutoPager<BookkeepingEntry> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): BookkeepingEntryListParams = params
@@ -117,25 +115,6 @@ private constructor(
                 checkRequired("params", params),
                 checkRequired("response", response),
             )
-    }
-
-    class AutoPager(private val firstPage: BookkeepingEntryListPage) : Iterable<BookkeepingEntry> {
-
-        override fun iterator(): Iterator<BookkeepingEntry> = iterator {
-            var page = firstPage
-            var index = 0
-            while (true) {
-                while (index < page.data().size) {
-                    yield(page.data()[index++])
-                }
-                page = page.getNextPage().getOrNull() ?: break
-                index = 0
-            }
-        }
-
-        fun stream(): Stream<BookkeepingEntry> {
-            return StreamSupport.stream(spliterator(), false)
-        }
     }
 
     override fun equals(other: Any?): Boolean {

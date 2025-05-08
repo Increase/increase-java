@@ -151,6 +151,7 @@ class FileServiceAsyncImpl internal constructor(private val clientOptions: Clien
                             .let {
                                 FileListPageAsync.builder()
                                     .service(FileServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
                                     .params(params)
                                     .response(it)
                                     .build()

@@ -192,6 +192,7 @@ internal constructor(private val clientOptions: ClientOptions) : ExternalAccount
                             .let {
                                 ExternalAccountListPageAsync.builder()
                                     .service(ExternalAccountServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
                                     .params(params)
                                     .response(it)
                                     .build()

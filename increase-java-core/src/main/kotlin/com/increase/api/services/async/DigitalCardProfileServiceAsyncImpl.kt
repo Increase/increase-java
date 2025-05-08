@@ -167,6 +167,7 @@ internal constructor(private val clientOptions: ClientOptions) : DigitalCardProf
                             .let {
                                 DigitalCardProfileListPageAsync.builder()
                                     .service(DigitalCardProfileServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
                                     .params(params)
                                     .response(it)
                                     .build()

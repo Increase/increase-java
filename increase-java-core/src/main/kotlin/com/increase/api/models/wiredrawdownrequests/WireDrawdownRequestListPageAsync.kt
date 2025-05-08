@@ -2,22 +2,24 @@
 
 package com.increase.api.models.wiredrawdownrequests
 
+import com.increase.api.core.AutoPagerAsync
+import com.increase.api.core.PageAsync
 import com.increase.api.core.checkRequired
 import com.increase.api.services.async.WireDrawdownRequestServiceAsync
 import java.util.Objects
 import java.util.Optional
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executor
-import java.util.function.Predicate
 import kotlin.jvm.optionals.getOrNull
 
 /** @see [WireDrawdownRequestServiceAsync.list] */
 class WireDrawdownRequestListPageAsync
 private constructor(
     private val service: WireDrawdownRequestServiceAsync,
+    private val streamHandlerExecutor: Executor,
     private val params: WireDrawdownRequestListParams,
     private val response: WireDrawdownRequestListPageResponse,
-) {
+) : PageAsync<WireDrawdownRequest> {
 
     /**
      * Delegates to [WireDrawdownRequestListPageResponse], but gracefully handles missing data.
@@ -34,24 +36,22 @@ private constructor(
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 
-    fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor().isPresent
+    override fun items(): List<WireDrawdownRequest> = data()
 
-    fun getNextPageParams(): Optional<WireDrawdownRequestListParams> {
-        if (!hasNextPage()) {
-            return Optional.empty()
-        }
+    override fun hasNextPage(): Boolean = items().isNotEmpty() && nextCursor().isPresent
 
-        return Optional.of(
-            params.toBuilder().apply { nextCursor().ifPresent { cursor(it) } }.build()
-        )
+    fun nextPageParams(): WireDrawdownRequestListParams {
+        val nextCursor =
+            nextCursor().getOrNull()
+                ?: throw IllegalStateException("Cannot construct next page params")
+        return params.toBuilder().cursor(nextCursor).build()
     }
 
-    fun getNextPage(): CompletableFuture<Optional<WireDrawdownRequestListPageAsync>> =
-        getNextPageParams()
-            .map { service.list(it).thenApply { Optional.of(it) } }
-            .orElseGet { CompletableFuture.completedFuture(Optional.empty()) }
+    override fun nextPage(): CompletableFuture<WireDrawdownRequestListPageAsync> =
+        service.list(nextPageParams())
 
-    fun autoPager(): AutoPager = AutoPager(this)
+    fun autoPager(): AutoPagerAsync<WireDrawdownRequest> =
+        AutoPagerAsync.from(this, streamHandlerExecutor)
 
     /** The parameters that were used to request this page. */
     fun params(): WireDrawdownRequestListParams = params
@@ -70,6 +70,7 @@ private constructor(
          * The following fields are required:
          * ```java
          * .service()
+         * .streamHandlerExecutor()
          * .params()
          * .response()
          * ```
@@ -81,6 +82,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var service: WireDrawdownRequestServiceAsync? = null
+        private var streamHandlerExecutor: Executor? = null
         private var params: WireDrawdownRequestListParams? = null
         private var response: WireDrawdownRequestListPageResponse? = null
 
@@ -88,11 +90,16 @@ private constructor(
         internal fun from(wireDrawdownRequestListPageAsync: WireDrawdownRequestListPageAsync) =
             apply {
                 service = wireDrawdownRequestListPageAsync.service
+                streamHandlerExecutor = wireDrawdownRequestListPageAsync.streamHandlerExecutor
                 params = wireDrawdownRequestListPageAsync.params
                 response = wireDrawdownRequestListPageAsync.response
             }
 
         fun service(service: WireDrawdownRequestServiceAsync) = apply { this.service = service }
+
+        fun streamHandlerExecutor(streamHandlerExecutor: Executor) = apply {
+            this.streamHandlerExecutor = streamHandlerExecutor
+        }
 
         /** The parameters that were used to request this page. */
         fun params(params: WireDrawdownRequestListParams) = apply { this.params = params }
@@ -110,6 +117,7 @@ private constructor(
          * The following fields are required:
          * ```java
          * .service()
+         * .streamHandlerExecutor()
          * .params()
          * .response()
          * ```
@@ -119,38 +127,10 @@ private constructor(
         fun build(): WireDrawdownRequestListPageAsync =
             WireDrawdownRequestListPageAsync(
                 checkRequired("service", service),
+                checkRequired("streamHandlerExecutor", streamHandlerExecutor),
                 checkRequired("params", params),
                 checkRequired("response", response),
             )
-    }
-
-    class AutoPager(private val firstPage: WireDrawdownRequestListPageAsync) {
-
-        fun forEach(
-            action: Predicate<WireDrawdownRequest>,
-            executor: Executor,
-        ): CompletableFuture<Void> {
-            fun CompletableFuture<Optional<WireDrawdownRequestListPageAsync>>.forEach(
-                action: (WireDrawdownRequest) -> Boolean,
-                executor: Executor,
-            ): CompletableFuture<Void> =
-                thenComposeAsync(
-                    { page ->
-                        page
-                            .filter { it.data().all(action) }
-                            .map { it.getNextPage().forEach(action, executor) }
-                            .orElseGet { CompletableFuture.completedFuture(null) }
-                    },
-                    executor,
-                )
-            return CompletableFuture.completedFuture(Optional.of(firstPage))
-                .forEach(action::test, executor)
-        }
-
-        fun toList(executor: Executor): CompletableFuture<List<WireDrawdownRequest>> {
-            val values = mutableListOf<WireDrawdownRequest>()
-            return forEach(values::add, executor).thenApply { values }
-        }
     }
 
     override fun equals(other: Any?): Boolean {
@@ -158,11 +138,11 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is WireDrawdownRequestListPageAsync && service == other.service && params == other.params && response == other.response /* spotless:on */
+        return /* spotless:off */ other is WireDrawdownRequestListPageAsync && service == other.service && streamHandlerExecutor == other.streamHandlerExecutor && params == other.params && response == other.response /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, params, response) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, streamHandlerExecutor, params, response) /* spotless:on */
 
     override fun toString() =
-        "WireDrawdownRequestListPageAsync{service=$service, params=$params, response=$response}"
+        "WireDrawdownRequestListPageAsync{service=$service, streamHandlerExecutor=$streamHandlerExecutor, params=$params, response=$response}"
 }

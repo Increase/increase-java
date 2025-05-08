@@ -123,6 +123,7 @@ internal constructor(private val clientOptions: ClientOptions) : InboundWireTran
                             .let {
                                 InboundWireTransferListPageAsync.builder()
                                     .service(InboundWireTransferServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
                                     .params(params)
                                     .response(it)
                                     .build()

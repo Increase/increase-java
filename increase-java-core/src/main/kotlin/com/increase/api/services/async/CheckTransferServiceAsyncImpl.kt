@@ -175,6 +175,7 @@ class CheckTransferServiceAsyncImpl internal constructor(private val clientOptio
                             .let {
                                 CheckTransferListPageAsync.builder()
                                     .service(CheckTransferServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
                                     .params(params)
                                     .response(it)
                                     .build()

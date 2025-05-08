@@ -151,6 +151,7 @@ class ExportServiceAsyncImpl internal constructor(private val clientOptions: Cli
                             .let {
                                 ExportListPageAsync.builder()
                                     .service(ExportServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
                                     .params(params)
                                     .response(it)
                                     .build()

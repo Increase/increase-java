@@ -192,6 +192,7 @@ class PhysicalCardServiceAsyncImpl internal constructor(private val clientOption
                             .let {
                                 PhysicalCardListPageAsync.builder()
                                     .service(PhysicalCardServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
                                     .params(params)
                                     .response(it)
                                     .build()

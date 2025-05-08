@@ -151,6 +151,7 @@ class CardDisputeServiceAsyncImpl internal constructor(private val clientOptions
                             .let {
                                 CardDisputeListPageAsync.builder()
                                     .service(CardDisputeServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
                                     .params(params)
                                     .response(it)
                                     .build()

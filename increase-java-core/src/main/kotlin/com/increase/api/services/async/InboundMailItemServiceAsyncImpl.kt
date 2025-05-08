@@ -112,6 +112,7 @@ internal constructor(private val clientOptions: ClientOptions) : InboundMailItem
                             .let {
                                 InboundMailItemListPageAsync.builder()
                                     .service(InboundMailItemServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
                                     .params(params)
                                     .response(it)
                                     .build()

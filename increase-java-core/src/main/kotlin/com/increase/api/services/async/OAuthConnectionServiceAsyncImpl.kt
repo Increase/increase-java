@@ -112,6 +112,7 @@ internal constructor(private val clientOptions: ClientOptions) : OAuthConnection
                             .let {
                                 OAuthConnectionListPageAsync.builder()
                                     .service(OAuthConnectionServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
                                     .params(params)
                                     .response(it)
                                     .build()

@@ -69,6 +69,7 @@ class RoutingNumberServiceAsyncImpl internal constructor(private val clientOptio
                             .let {
                                 RoutingNumberListPageAsync.builder()
                                     .service(RoutingNumberServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
                                     .params(params)
                                     .response(it)
                                     .build()

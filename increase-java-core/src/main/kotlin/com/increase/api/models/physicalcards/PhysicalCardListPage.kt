@@ -2,12 +2,12 @@
 
 package com.increase.api.models.physicalcards
 
+import com.increase.api.core.AutoPager
+import com.increase.api.core.Page
 import com.increase.api.core.checkRequired
 import com.increase.api.services.blocking.PhysicalCardService
 import java.util.Objects
 import java.util.Optional
-import java.util.stream.Stream
-import java.util.stream.StreamSupport
 import kotlin.jvm.optionals.getOrNull
 
 /** @see [PhysicalCardService.list] */
@@ -16,7 +16,7 @@ private constructor(
     private val service: PhysicalCardService,
     private val params: PhysicalCardListParams,
     private val response: PhysicalCardListPageResponse,
-) {
+) : Page<PhysicalCard> {
 
     /**
      * Delegates to [PhysicalCardListPageResponse], but gracefully handles missing data.
@@ -32,21 +32,20 @@ private constructor(
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 
-    fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor().isPresent
+    override fun items(): List<PhysicalCard> = data()
 
-    fun getNextPageParams(): Optional<PhysicalCardListParams> {
-        if (!hasNextPage()) {
-            return Optional.empty()
-        }
+    override fun hasNextPage(): Boolean = items().isNotEmpty() && nextCursor().isPresent
 
-        return Optional.of(
-            params.toBuilder().apply { nextCursor().ifPresent { cursor(it) } }.build()
-        )
+    fun nextPageParams(): PhysicalCardListParams {
+        val nextCursor =
+            nextCursor().getOrNull()
+                ?: throw IllegalStateException("Cannot construct next page params")
+        return params.toBuilder().cursor(nextCursor).build()
     }
 
-    fun getNextPage(): Optional<PhysicalCardListPage> = getNextPageParams().map { service.list(it) }
+    override fun nextPage(): PhysicalCardListPage = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager = AutoPager(this)
+    fun autoPager(): AutoPager<PhysicalCard> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): PhysicalCardListParams = params
@@ -113,25 +112,6 @@ private constructor(
                 checkRequired("params", params),
                 checkRequired("response", response),
             )
-    }
-
-    class AutoPager(private val firstPage: PhysicalCardListPage) : Iterable<PhysicalCard> {
-
-        override fun iterator(): Iterator<PhysicalCard> = iterator {
-            var page = firstPage
-            var index = 0
-            while (true) {
-                while (index < page.data().size) {
-                    yield(page.data()[index++])
-                }
-                page = page.getNextPage().getOrNull() ?: break
-                index = 0
-            }
-        }
-
-        fun stream(): Stream<PhysicalCard> {
-            return StreamSupport.stream(spliterator(), false)
-        }
     }
 
     override fun equals(other: Any?): Boolean {
