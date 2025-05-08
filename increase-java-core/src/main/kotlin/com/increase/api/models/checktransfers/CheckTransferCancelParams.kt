@@ -4,24 +4,24 @@ package com.increase.api.models.checktransfers
 
 import com.increase.api.core.JsonValue
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.toImmutable
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /** Cancel a pending Check Transfer */
 class CheckTransferCancelParams
 private constructor(
-    private val checkTransferId: String,
+    private val checkTransferId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
     private val additionalBodyProperties: Map<String, JsonValue>,
 ) : Params {
 
     /** The identifier of the pending Check Transfer to cancel. */
-    fun checkTransferId(): String = checkTransferId
+    fun checkTransferId(): Optional<String> = Optional.ofNullable(checkTransferId)
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
@@ -33,13 +33,10 @@ private constructor(
 
     companion object {
 
+        @JvmStatic fun none(): CheckTransferCancelParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of [CheckTransferCancelParams].
-         *
-         * The following fields are required:
-         * ```java
-         * .checkTransferId()
-         * ```
          */
         @JvmStatic fun builder() = Builder()
     }
@@ -62,9 +59,13 @@ private constructor(
         }
 
         /** The identifier of the pending Check Transfer to cancel. */
-        fun checkTransferId(checkTransferId: String) = apply {
+        fun checkTransferId(checkTransferId: String?) = apply {
             this.checkTransferId = checkTransferId
         }
+
+        /** Alias for calling [Builder.checkTransferId] with `checkTransferId.orElse(null)`. */
+        fun checkTransferId(checkTransferId: Optional<String>) =
+            checkTransferId(checkTransferId.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -190,17 +191,10 @@ private constructor(
          * Returns an immutable instance of [CheckTransferCancelParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```java
-         * .checkTransferId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): CheckTransferCancelParams =
             CheckTransferCancelParams(
-                checkRequired("checkTransferId", checkTransferId),
+                checkTransferId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
                 additionalBodyProperties.toImmutable(),
@@ -212,7 +206,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> checkTransferId
+            0 -> checkTransferId ?: ""
             else -> ""
         }
 

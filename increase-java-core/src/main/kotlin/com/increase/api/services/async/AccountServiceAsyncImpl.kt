@@ -5,6 +5,7 @@ package com.increase.api.services.async
 import com.increase.api.core.ClientOptions
 import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
+import com.increase.api.core.checkRequired
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
 import com.increase.api.core.handlers.withErrorHandler
@@ -26,6 +27,7 @@ import com.increase.api.models.accounts.AccountRetrieveParams
 import com.increase.api.models.accounts.AccountUpdateParams
 import com.increase.api.models.accounts.BalanceLookup
 import java.util.concurrent.CompletableFuture
+import kotlin.jvm.optionals.getOrNull
 
 class AccountServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     AccountServiceAsync {
@@ -120,6 +122,9 @@ class AccountServiceAsyncImpl internal constructor(private val clientOptions: Cl
             params: AccountRetrieveParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<Account>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("accountId", params.accountId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -149,6 +154,9 @@ class AccountServiceAsyncImpl internal constructor(private val clientOptions: Cl
             params: AccountUpdateParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<Account>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("accountId", params.accountId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
@@ -216,6 +224,9 @@ class AccountServiceAsyncImpl internal constructor(private val clientOptions: Cl
             params: AccountBalanceParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<BalanceLookup>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("accountId", params.accountId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -245,6 +256,9 @@ class AccountServiceAsyncImpl internal constructor(private val clientOptions: Cl
             params: AccountCloseParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<Account>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("accountId", params.accountId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)

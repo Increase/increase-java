@@ -18,19 +18,20 @@ import com.increase.api.core.http.QueryParams
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Collections
 import java.util.Objects
+import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /** Update a Physical Card */
 class PhysicalCardUpdateParams
 private constructor(
-    private val physicalCardId: String,
+    private val physicalCardId: String?,
     private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The Physical Card identifier. */
-    fun physicalCardId(): String = physicalCardId
+    fun physicalCardId(): Optional<String> = Optional.ofNullable(physicalCardId)
 
     /**
      * The status to update the Physical Card to.
@@ -62,7 +63,6 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .physicalCardId()
          * .status()
          * ```
          */
@@ -86,7 +86,11 @@ private constructor(
         }
 
         /** The Physical Card identifier. */
-        fun physicalCardId(physicalCardId: String) = apply { this.physicalCardId = physicalCardId }
+        fun physicalCardId(physicalCardId: String?) = apply { this.physicalCardId = physicalCardId }
+
+        /** Alias for calling [Builder.physicalCardId] with `physicalCardId.orElse(null)`. */
+        fun physicalCardId(physicalCardId: Optional<String>) =
+            physicalCardId(physicalCardId.getOrNull())
 
         /**
          * Sets the entire request body.
@@ -232,7 +236,6 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .physicalCardId()
          * .status()
          * ```
          *
@@ -240,7 +243,7 @@ private constructor(
          */
         fun build(): PhysicalCardUpdateParams =
             PhysicalCardUpdateParams(
-                checkRequired("physicalCardId", physicalCardId),
+                physicalCardId,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -251,7 +254,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> physicalCardId
+            0 -> physicalCardId ?: ""
             else -> ""
         }
 

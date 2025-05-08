@@ -5,6 +5,7 @@ package com.increase.api.services.async.simulations
 import com.increase.api.core.ClientOptions
 import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
+import com.increase.api.core.checkRequired
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
 import com.increase.api.core.handlers.withErrorHandler
@@ -20,6 +21,7 @@ import com.increase.api.models.simulations.checkdeposits.CheckDepositRejectParam
 import com.increase.api.models.simulations.checkdeposits.CheckDepositReturnParams
 import com.increase.api.models.simulations.checkdeposits.CheckDepositSubmitParams
 import java.util.concurrent.CompletableFuture
+import kotlin.jvm.optionals.getOrNull
 
 class CheckDepositServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     CheckDepositServiceAsync {
@@ -63,6 +65,9 @@ class CheckDepositServiceAsyncImpl internal constructor(private val clientOption
             params: CheckDepositRejectParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<CheckDeposit>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("checkDepositId", params.checkDepositId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -98,6 +103,9 @@ class CheckDepositServiceAsyncImpl internal constructor(private val clientOption
             params: CheckDepositReturnParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<CheckDeposit>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("checkDepositId", params.checkDepositId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -133,6 +141,9 @@ class CheckDepositServiceAsyncImpl internal constructor(private val clientOption
             params: CheckDepositSubmitParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<CheckDeposit>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("checkDepositId", params.checkDepositId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)

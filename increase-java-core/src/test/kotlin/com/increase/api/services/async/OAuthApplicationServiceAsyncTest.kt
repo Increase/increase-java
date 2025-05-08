@@ -4,7 +4,6 @@ package com.increase.api.services.async
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
-import com.increase.api.models.oauthapplications.OAuthApplicationRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -21,11 +20,7 @@ internal class OAuthApplicationServiceAsyncTest {
         val oauthApplicationServiceAsync = client.oauthApplications()
 
         val oauthApplicationFuture =
-            oauthApplicationServiceAsync.retrieve(
-                OAuthApplicationRetrieveParams.builder()
-                    .oauthApplicationId("application_gj9ufmpgh5i56k4vyriy")
-                    .build()
-            )
+            oauthApplicationServiceAsync.retrieve("application_gj9ufmpgh5i56k4vyriy")
 
         val oauthApplication = oauthApplicationFuture.get()
         oauthApplication.validate()

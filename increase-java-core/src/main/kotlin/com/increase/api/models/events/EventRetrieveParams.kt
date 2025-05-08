@@ -3,21 +3,22 @@
 package com.increase.api.models.events
 
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
+import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /** Retrieve an Event */
 class EventRetrieveParams
 private constructor(
-    private val eventId: String,
+    private val eventId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the Event. */
-    fun eventId(): String = eventId
+    fun eventId(): Optional<String> = Optional.ofNullable(eventId)
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
@@ -27,14 +28,9 @@ private constructor(
 
     companion object {
 
-        /**
-         * Returns a mutable builder for constructing an instance of [EventRetrieveParams].
-         *
-         * The following fields are required:
-         * ```java
-         * .eventId()
-         * ```
-         */
+        @JvmStatic fun none(): EventRetrieveParams = builder().build()
+
+        /** Returns a mutable builder for constructing an instance of [EventRetrieveParams]. */
         @JvmStatic fun builder() = Builder()
     }
 
@@ -53,7 +49,10 @@ private constructor(
         }
 
         /** The identifier of the Event. */
-        fun eventId(eventId: String) = apply { this.eventId = eventId }
+        fun eventId(eventId: String?) = apply { this.eventId = eventId }
+
+        /** Alias for calling [Builder.eventId] with `eventId.orElse(null)`. */
+        fun eventId(eventId: Optional<String>) = eventId(eventId.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -157,25 +156,14 @@ private constructor(
          * Returns an immutable instance of [EventRetrieveParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```java
-         * .eventId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): EventRetrieveParams =
-            EventRetrieveParams(
-                checkRequired("eventId", eventId),
-                additionalHeaders.build(),
-                additionalQueryParams.build(),
-            )
+            EventRetrieveParams(eventId, additionalHeaders.build(), additionalQueryParams.build())
     }
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> eventId
+            0 -> eventId ?: ""
             else -> ""
         }
 

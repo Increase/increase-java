@@ -5,11 +5,9 @@ package com.increase.api.services.async
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
 import com.increase.api.models.entities.EntityArchiveBeneficialOwnerParams
-import com.increase.api.models.entities.EntityArchiveParams
 import com.increase.api.models.entities.EntityConfirmParams
 import com.increase.api.models.entities.EntityCreateBeneficialOwnerParams
 import com.increase.api.models.entities.EntityCreateParams
-import com.increase.api.models.entities.EntityRetrieveParams
 import com.increase.api.models.entities.EntityUpdateAddressParams
 import com.increase.api.models.entities.EntityUpdateBeneficialOwnerAddressParams
 import com.increase.api.models.entities.EntityUpdateIndustryCodeParams
@@ -460,10 +458,7 @@ internal class EntityServiceAsyncTest {
                 .build()
         val entityServiceAsync = client.entities()
 
-        val entityFuture =
-            entityServiceAsync.retrieve(
-                EntityRetrieveParams.builder().entityId("entity_n8y8tnk2p9339ti393yi").build()
-            )
+        val entityFuture = entityServiceAsync.retrieve("entity_n8y8tnk2p9339ti393yi")
 
         val entity = entityFuture.get()
         entity.validate()
@@ -493,10 +488,7 @@ internal class EntityServiceAsyncTest {
                 .build()
         val entityServiceAsync = client.entities()
 
-        val entityFuture =
-            entityServiceAsync.archive(
-                EntityArchiveParams.builder().entityId("entity_n8y8tnk2p9339ti393yi").build()
-            )
+        val entityFuture = entityServiceAsync.archive("entity_n8y8tnk2p9339ti393yi")
 
         val entity = entityFuture.get()
         entity.validate()

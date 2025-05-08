@@ -18,14 +18,42 @@ interface DeclinedTransactionService {
     fun withRawResponse(): WithRawResponse
 
     /** Retrieve a Declined Transaction */
-    fun retrieve(params: DeclinedTransactionRetrieveParams): DeclinedTransaction =
-        retrieve(params, RequestOptions.none())
+    fun retrieve(declinedTransactionId: String): DeclinedTransaction =
+        retrieve(declinedTransactionId, DeclinedTransactionRetrieveParams.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        declinedTransactionId: String,
+        params: DeclinedTransactionRetrieveParams = DeclinedTransactionRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): DeclinedTransaction =
+        retrieve(
+            params.toBuilder().declinedTransactionId(declinedTransactionId).build(),
+            requestOptions,
+        )
+
+    /** @see [retrieve] */
+    fun retrieve(
+        declinedTransactionId: String,
+        params: DeclinedTransactionRetrieveParams = DeclinedTransactionRetrieveParams.none(),
+    ): DeclinedTransaction = retrieve(declinedTransactionId, params, RequestOptions.none())
 
     /** @see [retrieve] */
     fun retrieve(
         params: DeclinedTransactionRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): DeclinedTransaction
+
+    /** @see [retrieve] */
+    fun retrieve(params: DeclinedTransactionRetrieveParams): DeclinedTransaction =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        declinedTransactionId: String,
+        requestOptions: RequestOptions,
+    ): DeclinedTransaction =
+        retrieve(declinedTransactionId, DeclinedTransactionRetrieveParams.none(), requestOptions)
 
     /** List Declined Transactions */
     fun list(): DeclinedTransactionListPage = list(DeclinedTransactionListParams.none())
@@ -56,9 +84,28 @@ interface DeclinedTransactionService {
          * but is otherwise the same as [DeclinedTransactionService.retrieve].
          */
         @MustBeClosed
+        fun retrieve(declinedTransactionId: String): HttpResponseFor<DeclinedTransaction> =
+            retrieve(declinedTransactionId, DeclinedTransactionRetrieveParams.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
         fun retrieve(
-            params: DeclinedTransactionRetrieveParams
-        ): HttpResponseFor<DeclinedTransaction> = retrieve(params, RequestOptions.none())
+            declinedTransactionId: String,
+            params: DeclinedTransactionRetrieveParams = DeclinedTransactionRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<DeclinedTransaction> =
+            retrieve(
+                params.toBuilder().declinedTransactionId(declinedTransactionId).build(),
+                requestOptions,
+            )
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            declinedTransactionId: String,
+            params: DeclinedTransactionRetrieveParams = DeclinedTransactionRetrieveParams.none(),
+        ): HttpResponseFor<DeclinedTransaction> =
+            retrieve(declinedTransactionId, params, RequestOptions.none())
 
         /** @see [retrieve] */
         @MustBeClosed
@@ -66,6 +113,24 @@ interface DeclinedTransactionService {
             params: DeclinedTransactionRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<DeclinedTransaction>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            params: DeclinedTransactionRetrieveParams
+        ): HttpResponseFor<DeclinedTransaction> = retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            declinedTransactionId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<DeclinedTransaction> =
+            retrieve(
+                declinedTransactionId,
+                DeclinedTransactionRetrieveParams.none(),
+                requestOptions,
+            )
 
         /**
          * Returns a raw HTTP response for `get /declined_transactions`, but is otherwise the same

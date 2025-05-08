@@ -3,7 +3,6 @@
 package com.increase.api.models.bookkeepingaccounts
 
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.time.OffsetDateTime
@@ -15,14 +14,14 @@ import kotlin.jvm.optionals.getOrNull
 /** Retrieve a Bookkeeping Account Balance */
 class BookkeepingAccountBalanceParams
 private constructor(
-    private val bookkeepingAccountId: String,
+    private val bookkeepingAccountId: String?,
     private val atTime: OffsetDateTime?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the Bookkeeping Account to retrieve. */
-    fun bookkeepingAccountId(): String = bookkeepingAccountId
+    fun bookkeepingAccountId(): Optional<String> = Optional.ofNullable(bookkeepingAccountId)
 
     /** The moment to query the balance at. If not set, returns the current balances. */
     fun atTime(): Optional<OffsetDateTime> = Optional.ofNullable(atTime)
@@ -35,14 +34,11 @@ private constructor(
 
     companion object {
 
+        @JvmStatic fun none(): BookkeepingAccountBalanceParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of
          * [BookkeepingAccountBalanceParams].
-         *
-         * The following fields are required:
-         * ```java
-         * .bookkeepingAccountId()
-         * ```
          */
         @JvmStatic fun builder() = Builder()
     }
@@ -66,9 +62,16 @@ private constructor(
             }
 
         /** The identifier of the Bookkeeping Account to retrieve. */
-        fun bookkeepingAccountId(bookkeepingAccountId: String) = apply {
+        fun bookkeepingAccountId(bookkeepingAccountId: String?) = apply {
             this.bookkeepingAccountId = bookkeepingAccountId
         }
+
+        /**
+         * Alias for calling [Builder.bookkeepingAccountId] with
+         * `bookkeepingAccountId.orElse(null)`.
+         */
+        fun bookkeepingAccountId(bookkeepingAccountId: Optional<String>) =
+            bookkeepingAccountId(bookkeepingAccountId.getOrNull())
 
         /** The moment to query the balance at. If not set, returns the current balances. */
         fun atTime(atTime: OffsetDateTime?) = apply { this.atTime = atTime }
@@ -178,17 +181,10 @@ private constructor(
          * Returns an immutable instance of [BookkeepingAccountBalanceParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```java
-         * .bookkeepingAccountId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): BookkeepingAccountBalanceParams =
             BookkeepingAccountBalanceParams(
-                checkRequired("bookkeepingAccountId", bookkeepingAccountId),
+                bookkeepingAccountId,
                 atTime,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -197,7 +193,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> bookkeepingAccountId
+            0 -> bookkeepingAccountId ?: ""
             else -> ""
         }
 

@@ -24,14 +24,14 @@ import kotlin.jvm.optionals.getOrNull
 /** Update an Account Number */
 class AccountNumberUpdateParams
 private constructor(
-    private val accountNumberId: String,
+    private val accountNumberId: String?,
     private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the Account Number. */
-    fun accountNumberId(): String = accountNumberId
+    fun accountNumberId(): Optional<String> = Optional.ofNullable(accountNumberId)
 
     /**
      * Options related to how this Account Number handles inbound ACH transfers.
@@ -103,13 +103,10 @@ private constructor(
 
     companion object {
 
+        @JvmStatic fun none(): AccountNumberUpdateParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of [AccountNumberUpdateParams].
-         *
-         * The following fields are required:
-         * ```java
-         * .accountNumberId()
-         * ```
          */
         @JvmStatic fun builder() = Builder()
     }
@@ -131,9 +128,13 @@ private constructor(
         }
 
         /** The identifier of the Account Number. */
-        fun accountNumberId(accountNumberId: String) = apply {
+        fun accountNumberId(accountNumberId: String?) = apply {
             this.accountNumberId = accountNumberId
         }
+
+        /** Alias for calling [Builder.accountNumberId] with `accountNumberId.orElse(null)`. */
+        fun accountNumberId(accountNumberId: Optional<String>) =
+            accountNumberId(accountNumberId.getOrNull())
 
         /**
          * Sets the entire request body.
@@ -318,17 +319,10 @@ private constructor(
          * Returns an immutable instance of [AccountNumberUpdateParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```java
-         * .accountNumberId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): AccountNumberUpdateParams =
             AccountNumberUpdateParams(
-                checkRequired("accountNumberId", accountNumberId),
+                accountNumberId,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -339,7 +333,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> accountNumberId
+            0 -> accountNumberId ?: ""
             else -> ""
         }
 

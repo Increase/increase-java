@@ -4,7 +4,6 @@ package com.increase.api.services.blocking
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.inboundmailitems.InboundMailItemRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -21,11 +20,7 @@ internal class InboundMailItemServiceTest {
         val inboundMailItemService = client.inboundMailItems()
 
         val inboundMailItem =
-            inboundMailItemService.retrieve(
-                InboundMailItemRetrieveParams.builder()
-                    .inboundMailItemId("inbound_mail_item_q6rrg7mmqpplx80zceev")
-                    .build()
-            )
+            inboundMailItemService.retrieve("inbound_mail_item_q6rrg7mmqpplx80zceev")
 
         inboundMailItem.validate()
     }

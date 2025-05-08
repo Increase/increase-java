@@ -30,8 +30,22 @@ interface ExternalAccountService {
     ): ExternalAccount
 
     /** Retrieve an External Account */
-    fun retrieve(params: ExternalAccountRetrieveParams): ExternalAccount =
-        retrieve(params, RequestOptions.none())
+    fun retrieve(externalAccountId: String): ExternalAccount =
+        retrieve(externalAccountId, ExternalAccountRetrieveParams.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        externalAccountId: String,
+        params: ExternalAccountRetrieveParams = ExternalAccountRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ExternalAccount =
+        retrieve(params.toBuilder().externalAccountId(externalAccountId).build(), requestOptions)
+
+    /** @see [retrieve] */
+    fun retrieve(
+        externalAccountId: String,
+        params: ExternalAccountRetrieveParams = ExternalAccountRetrieveParams.none(),
+    ): ExternalAccount = retrieve(externalAccountId, params, RequestOptions.none())
 
     /** @see [retrieve] */
     fun retrieve(
@@ -39,15 +53,45 @@ interface ExternalAccountService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ExternalAccount
 
+    /** @see [retrieve] */
+    fun retrieve(params: ExternalAccountRetrieveParams): ExternalAccount =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
+    fun retrieve(externalAccountId: String, requestOptions: RequestOptions): ExternalAccount =
+        retrieve(externalAccountId, ExternalAccountRetrieveParams.none(), requestOptions)
+
     /** Update an External Account */
-    fun update(params: ExternalAccountUpdateParams): ExternalAccount =
-        update(params, RequestOptions.none())
+    fun update(externalAccountId: String): ExternalAccount =
+        update(externalAccountId, ExternalAccountUpdateParams.none())
+
+    /** @see [update] */
+    fun update(
+        externalAccountId: String,
+        params: ExternalAccountUpdateParams = ExternalAccountUpdateParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ExternalAccount =
+        update(params.toBuilder().externalAccountId(externalAccountId).build(), requestOptions)
+
+    /** @see [update] */
+    fun update(
+        externalAccountId: String,
+        params: ExternalAccountUpdateParams = ExternalAccountUpdateParams.none(),
+    ): ExternalAccount = update(externalAccountId, params, RequestOptions.none())
 
     /** @see [update] */
     fun update(
         params: ExternalAccountUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ExternalAccount
+
+    /** @see [update] */
+    fun update(params: ExternalAccountUpdateParams): ExternalAccount =
+        update(params, RequestOptions.none())
+
+    /** @see [update] */
+    fun update(externalAccountId: String, requestOptions: RequestOptions): ExternalAccount =
+        update(externalAccountId, ExternalAccountUpdateParams.none(), requestOptions)
 
     /** List External Accounts */
     fun list(): ExternalAccountListPage = list(ExternalAccountListParams.none())
@@ -93,8 +137,28 @@ interface ExternalAccountService {
          * otherwise the same as [ExternalAccountService.retrieve].
          */
         @MustBeClosed
-        fun retrieve(params: ExternalAccountRetrieveParams): HttpResponseFor<ExternalAccount> =
-            retrieve(params, RequestOptions.none())
+        fun retrieve(externalAccountId: String): HttpResponseFor<ExternalAccount> =
+            retrieve(externalAccountId, ExternalAccountRetrieveParams.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            externalAccountId: String,
+            params: ExternalAccountRetrieveParams = ExternalAccountRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ExternalAccount> =
+            retrieve(
+                params.toBuilder().externalAccountId(externalAccountId).build(),
+                requestOptions,
+            )
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            externalAccountId: String,
+            params: ExternalAccountRetrieveParams = ExternalAccountRetrieveParams.none(),
+        ): HttpResponseFor<ExternalAccount> =
+            retrieve(externalAccountId, params, RequestOptions.none())
 
         /** @see [retrieve] */
         @MustBeClosed
@@ -103,13 +167,43 @@ interface ExternalAccountService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ExternalAccount>
 
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(params: ExternalAccountRetrieveParams): HttpResponseFor<ExternalAccount> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            externalAccountId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<ExternalAccount> =
+            retrieve(externalAccountId, ExternalAccountRetrieveParams.none(), requestOptions)
+
         /**
          * Returns a raw HTTP response for `patch /external_accounts/{external_account_id}`, but is
          * otherwise the same as [ExternalAccountService.update].
          */
         @MustBeClosed
-        fun update(params: ExternalAccountUpdateParams): HttpResponseFor<ExternalAccount> =
-            update(params, RequestOptions.none())
+        fun update(externalAccountId: String): HttpResponseFor<ExternalAccount> =
+            update(externalAccountId, ExternalAccountUpdateParams.none())
+
+        /** @see [update] */
+        @MustBeClosed
+        fun update(
+            externalAccountId: String,
+            params: ExternalAccountUpdateParams = ExternalAccountUpdateParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ExternalAccount> =
+            update(params.toBuilder().externalAccountId(externalAccountId).build(), requestOptions)
+
+        /** @see [update] */
+        @MustBeClosed
+        fun update(
+            externalAccountId: String,
+            params: ExternalAccountUpdateParams = ExternalAccountUpdateParams.none(),
+        ): HttpResponseFor<ExternalAccount> =
+            update(externalAccountId, params, RequestOptions.none())
 
         /** @see [update] */
         @MustBeClosed
@@ -117,6 +211,19 @@ interface ExternalAccountService {
             params: ExternalAccountUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ExternalAccount>
+
+        /** @see [update] */
+        @MustBeClosed
+        fun update(params: ExternalAccountUpdateParams): HttpResponseFor<ExternalAccount> =
+            update(params, RequestOptions.none())
+
+        /** @see [update] */
+        @MustBeClosed
+        fun update(
+            externalAccountId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<ExternalAccount> =
+            update(externalAccountId, ExternalAccountUpdateParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /external_accounts`, but is otherwise the same as

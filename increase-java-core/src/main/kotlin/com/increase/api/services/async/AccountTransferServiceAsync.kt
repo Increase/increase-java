@@ -32,14 +32,40 @@ interface AccountTransferServiceAsync {
     ): CompletableFuture<AccountTransfer>
 
     /** Retrieve an Account Transfer */
-    fun retrieve(params: AccountTransferRetrieveParams): CompletableFuture<AccountTransfer> =
-        retrieve(params, RequestOptions.none())
+    fun retrieve(accountTransferId: String): CompletableFuture<AccountTransfer> =
+        retrieve(accountTransferId, AccountTransferRetrieveParams.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        accountTransferId: String,
+        params: AccountTransferRetrieveParams = AccountTransferRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<AccountTransfer> =
+        retrieve(params.toBuilder().accountTransferId(accountTransferId).build(), requestOptions)
+
+    /** @see [retrieve] */
+    fun retrieve(
+        accountTransferId: String,
+        params: AccountTransferRetrieveParams = AccountTransferRetrieveParams.none(),
+    ): CompletableFuture<AccountTransfer> =
+        retrieve(accountTransferId, params, RequestOptions.none())
 
     /** @see [retrieve] */
     fun retrieve(
         params: AccountTransferRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AccountTransfer>
+
+    /** @see [retrieve] */
+    fun retrieve(params: AccountTransferRetrieveParams): CompletableFuture<AccountTransfer> =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        accountTransferId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<AccountTransfer> =
+        retrieve(accountTransferId, AccountTransferRetrieveParams.none(), requestOptions)
 
     /** List Account Transfers */
     fun list(): CompletableFuture<AccountTransferListPageAsync> =
@@ -61,8 +87,23 @@ interface AccountTransferServiceAsync {
         list(AccountTransferListParams.none(), requestOptions)
 
     /** Approve an Account Transfer */
-    fun approve(params: AccountTransferApproveParams): CompletableFuture<AccountTransfer> =
-        approve(params, RequestOptions.none())
+    fun approve(accountTransferId: String): CompletableFuture<AccountTransfer> =
+        approve(accountTransferId, AccountTransferApproveParams.none())
+
+    /** @see [approve] */
+    fun approve(
+        accountTransferId: String,
+        params: AccountTransferApproveParams = AccountTransferApproveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<AccountTransfer> =
+        approve(params.toBuilder().accountTransferId(accountTransferId).build(), requestOptions)
+
+    /** @see [approve] */
+    fun approve(
+        accountTransferId: String,
+        params: AccountTransferApproveParams = AccountTransferApproveParams.none(),
+    ): CompletableFuture<AccountTransfer> =
+        approve(accountTransferId, params, RequestOptions.none())
 
     /** @see [approve] */
     fun approve(
@@ -70,15 +111,51 @@ interface AccountTransferServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AccountTransfer>
 
+    /** @see [approve] */
+    fun approve(params: AccountTransferApproveParams): CompletableFuture<AccountTransfer> =
+        approve(params, RequestOptions.none())
+
+    /** @see [approve] */
+    fun approve(
+        accountTransferId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<AccountTransfer> =
+        approve(accountTransferId, AccountTransferApproveParams.none(), requestOptions)
+
     /** Cancel an Account Transfer */
-    fun cancel(params: AccountTransferCancelParams): CompletableFuture<AccountTransfer> =
-        cancel(params, RequestOptions.none())
+    fun cancel(accountTransferId: String): CompletableFuture<AccountTransfer> =
+        cancel(accountTransferId, AccountTransferCancelParams.none())
+
+    /** @see [cancel] */
+    fun cancel(
+        accountTransferId: String,
+        params: AccountTransferCancelParams = AccountTransferCancelParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<AccountTransfer> =
+        cancel(params.toBuilder().accountTransferId(accountTransferId).build(), requestOptions)
+
+    /** @see [cancel] */
+    fun cancel(
+        accountTransferId: String,
+        params: AccountTransferCancelParams = AccountTransferCancelParams.none(),
+    ): CompletableFuture<AccountTransfer> = cancel(accountTransferId, params, RequestOptions.none())
 
     /** @see [cancel] */
     fun cancel(
         params: AccountTransferCancelParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AccountTransfer>
+
+    /** @see [cancel] */
+    fun cancel(params: AccountTransferCancelParams): CompletableFuture<AccountTransfer> =
+        cancel(params, RequestOptions.none())
+
+    /** @see [cancel] */
+    fun cancel(
+        accountTransferId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<AccountTransfer> =
+        cancel(accountTransferId, AccountTransferCancelParams.none(), requestOptions)
 
     /**
      * A view of [AccountTransferServiceAsync] that provides access to raw HTTP responses for each
@@ -109,9 +186,29 @@ interface AccountTransferServiceAsync {
          */
         @MustBeClosed
         fun retrieve(
-            params: AccountTransferRetrieveParams
+            accountTransferId: String
         ): CompletableFuture<HttpResponseFor<AccountTransfer>> =
-            retrieve(params, RequestOptions.none())
+            retrieve(accountTransferId, AccountTransferRetrieveParams.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            accountTransferId: String,
+            params: AccountTransferRetrieveParams = AccountTransferRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<AccountTransfer>> =
+            retrieve(
+                params.toBuilder().accountTransferId(accountTransferId).build(),
+                requestOptions,
+            )
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            accountTransferId: String,
+            params: AccountTransferRetrieveParams = AccountTransferRetrieveParams.none(),
+        ): CompletableFuture<HttpResponseFor<AccountTransfer>> =
+            retrieve(accountTransferId, params, RequestOptions.none())
 
         /** @see [retrieve] */
         @MustBeClosed
@@ -119,6 +216,21 @@ interface AccountTransferServiceAsync {
             params: AccountTransferRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<AccountTransfer>>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            params: AccountTransferRetrieveParams
+        ): CompletableFuture<HttpResponseFor<AccountTransfer>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            accountTransferId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<AccountTransfer>> =
+            retrieve(accountTransferId, AccountTransferRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /account_transfers`, but is otherwise the same as
@@ -155,9 +267,26 @@ interface AccountTransferServiceAsync {
          */
         @MustBeClosed
         fun approve(
-            params: AccountTransferApproveParams
+            accountTransferId: String
         ): CompletableFuture<HttpResponseFor<AccountTransfer>> =
-            approve(params, RequestOptions.none())
+            approve(accountTransferId, AccountTransferApproveParams.none())
+
+        /** @see [approve] */
+        @MustBeClosed
+        fun approve(
+            accountTransferId: String,
+            params: AccountTransferApproveParams = AccountTransferApproveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<AccountTransfer>> =
+            approve(params.toBuilder().accountTransferId(accountTransferId).build(), requestOptions)
+
+        /** @see [approve] */
+        @MustBeClosed
+        fun approve(
+            accountTransferId: String,
+            params: AccountTransferApproveParams = AccountTransferApproveParams.none(),
+        ): CompletableFuture<HttpResponseFor<AccountTransfer>> =
+            approve(accountTransferId, params, RequestOptions.none())
 
         /** @see [approve] */
         @MustBeClosed
@@ -166,10 +295,54 @@ interface AccountTransferServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<AccountTransfer>>
 
+        /** @see [approve] */
+        @MustBeClosed
+        fun approve(
+            params: AccountTransferApproveParams
+        ): CompletableFuture<HttpResponseFor<AccountTransfer>> =
+            approve(params, RequestOptions.none())
+
+        /** @see [approve] */
+        @MustBeClosed
+        fun approve(
+            accountTransferId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<AccountTransfer>> =
+            approve(accountTransferId, AccountTransferApproveParams.none(), requestOptions)
+
         /**
          * Returns a raw HTTP response for `post /account_transfers/{account_transfer_id}/cancel`,
          * but is otherwise the same as [AccountTransferServiceAsync.cancel].
          */
+        @MustBeClosed
+        fun cancel(accountTransferId: String): CompletableFuture<HttpResponseFor<AccountTransfer>> =
+            cancel(accountTransferId, AccountTransferCancelParams.none())
+
+        /** @see [cancel] */
+        @MustBeClosed
+        fun cancel(
+            accountTransferId: String,
+            params: AccountTransferCancelParams = AccountTransferCancelParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<AccountTransfer>> =
+            cancel(params.toBuilder().accountTransferId(accountTransferId).build(), requestOptions)
+
+        /** @see [cancel] */
+        @MustBeClosed
+        fun cancel(
+            accountTransferId: String,
+            params: AccountTransferCancelParams = AccountTransferCancelParams.none(),
+        ): CompletableFuture<HttpResponseFor<AccountTransfer>> =
+            cancel(accountTransferId, params, RequestOptions.none())
+
+        /** @see [cancel] */
+        @MustBeClosed
+        fun cancel(
+            params: AccountTransferCancelParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<AccountTransfer>>
+
+        /** @see [cancel] */
         @MustBeClosed
         fun cancel(
             params: AccountTransferCancelParams
@@ -179,8 +352,9 @@ interface AccountTransferServiceAsync {
         /** @see [cancel] */
         @MustBeClosed
         fun cancel(
-            params: AccountTransferCancelParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<AccountTransfer>>
+            accountTransferId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<AccountTransfer>> =
+            cancel(accountTransferId, AccountTransferCancelParams.none(), requestOptions)
     }
 }

@@ -5,6 +5,7 @@ package com.increase.api.services.blocking
 import com.increase.api.core.ClientOptions
 import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
+import com.increase.api.core.checkRequired
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
 import com.increase.api.core.handlers.withErrorHandler
@@ -19,6 +20,7 @@ import com.increase.api.models.oauthapplications.OAuthApplicationListPage
 import com.increase.api.models.oauthapplications.OAuthApplicationListPageResponse
 import com.increase.api.models.oauthapplications.OAuthApplicationListParams
 import com.increase.api.models.oauthapplications.OAuthApplicationRetrieveParams
+import kotlin.jvm.optionals.getOrNull
 
 class OAuthApplicationServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     OAuthApplicationService {
@@ -55,6 +57,9 @@ class OAuthApplicationServiceImpl internal constructor(private val clientOptions
             params: OAuthApplicationRetrieveParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<OAuthApplication> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("oauthApplicationId", params.oauthApplicationId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)

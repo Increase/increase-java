@@ -4,10 +4,7 @@ package com.increase.api.services.blocking
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.achtransfers.AchTransferApproveParams
-import com.increase.api.models.achtransfers.AchTransferCancelParams
 import com.increase.api.models.achtransfers.AchTransferCreateParams
-import com.increase.api.models.achtransfers.AchTransferRetrieveParams
 import java.time.LocalDate
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -99,12 +96,7 @@ internal class AchTransferServiceTest {
                 .build()
         val achTransferService = client.achTransfers()
 
-        val achTransfer =
-            achTransferService.retrieve(
-                AchTransferRetrieveParams.builder()
-                    .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
-                    .build()
-            )
+        val achTransfer = achTransferService.retrieve("ach_transfer_uoxatyh3lt5evrsdvo7q")
 
         achTransfer.validate()
     }
@@ -132,12 +124,7 @@ internal class AchTransferServiceTest {
                 .build()
         val achTransferService = client.achTransfers()
 
-        val achTransfer =
-            achTransferService.approve(
-                AchTransferApproveParams.builder()
-                    .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
-                    .build()
-            )
+        val achTransfer = achTransferService.approve("ach_transfer_uoxatyh3lt5evrsdvo7q")
 
         achTransfer.validate()
     }
@@ -151,12 +138,7 @@ internal class AchTransferServiceTest {
                 .build()
         val achTransferService = client.achTransfers()
 
-        val achTransfer =
-            achTransferService.cancel(
-                AchTransferCancelParams.builder()
-                    .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
-                    .build()
-            )
+        val achTransfer = achTransferService.cancel("ach_transfer_uoxatyh3lt5evrsdvo7q")
 
         achTransfer.validate()
     }

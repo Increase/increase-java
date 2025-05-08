@@ -19,15 +19,48 @@ interface CardPurchaseSupplementServiceAsync {
     fun withRawResponse(): WithRawResponse
 
     /** Retrieve a Card Purchase Supplement */
+    fun retrieve(cardPurchaseSupplementId: String): CompletableFuture<CardPurchaseSupplement> =
+        retrieve(cardPurchaseSupplementId, CardPurchaseSupplementRetrieveParams.none())
+
+    /** @see [retrieve] */
     fun retrieve(
-        params: CardPurchaseSupplementRetrieveParams
-    ): CompletableFuture<CardPurchaseSupplement> = retrieve(params, RequestOptions.none())
+        cardPurchaseSupplementId: String,
+        params: CardPurchaseSupplementRetrieveParams = CardPurchaseSupplementRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<CardPurchaseSupplement> =
+        retrieve(
+            params.toBuilder().cardPurchaseSupplementId(cardPurchaseSupplementId).build(),
+            requestOptions,
+        )
+
+    /** @see [retrieve] */
+    fun retrieve(
+        cardPurchaseSupplementId: String,
+        params: CardPurchaseSupplementRetrieveParams = CardPurchaseSupplementRetrieveParams.none(),
+    ): CompletableFuture<CardPurchaseSupplement> =
+        retrieve(cardPurchaseSupplementId, params, RequestOptions.none())
 
     /** @see [retrieve] */
     fun retrieve(
         params: CardPurchaseSupplementRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CardPurchaseSupplement>
+
+    /** @see [retrieve] */
+    fun retrieve(
+        params: CardPurchaseSupplementRetrieveParams
+    ): CompletableFuture<CardPurchaseSupplement> = retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        cardPurchaseSupplementId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<CardPurchaseSupplement> =
+        retrieve(
+            cardPurchaseSupplementId,
+            CardPurchaseSupplementRetrieveParams.none(),
+            requestOptions,
+        )
 
     /** List Card Purchase Supplements */
     fun list(): CompletableFuture<CardPurchaseSupplementListPageAsync> =
@@ -63,9 +96,31 @@ interface CardPurchaseSupplementServiceAsync {
          */
         @MustBeClosed
         fun retrieve(
-            params: CardPurchaseSupplementRetrieveParams
+            cardPurchaseSupplementId: String
         ): CompletableFuture<HttpResponseFor<CardPurchaseSupplement>> =
-            retrieve(params, RequestOptions.none())
+            retrieve(cardPurchaseSupplementId, CardPurchaseSupplementRetrieveParams.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            cardPurchaseSupplementId: String,
+            params: CardPurchaseSupplementRetrieveParams =
+                CardPurchaseSupplementRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<CardPurchaseSupplement>> =
+            retrieve(
+                params.toBuilder().cardPurchaseSupplementId(cardPurchaseSupplementId).build(),
+                requestOptions,
+            )
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            cardPurchaseSupplementId: String,
+            params: CardPurchaseSupplementRetrieveParams =
+                CardPurchaseSupplementRetrieveParams.none(),
+        ): CompletableFuture<HttpResponseFor<CardPurchaseSupplement>> =
+            retrieve(cardPurchaseSupplementId, params, RequestOptions.none())
 
         /** @see [retrieve] */
         @MustBeClosed
@@ -73,6 +128,25 @@ interface CardPurchaseSupplementServiceAsync {
             params: CardPurchaseSupplementRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<CardPurchaseSupplement>>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            params: CardPurchaseSupplementRetrieveParams
+        ): CompletableFuture<HttpResponseFor<CardPurchaseSupplement>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            cardPurchaseSupplementId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<CardPurchaseSupplement>> =
+            retrieve(
+                cardPurchaseSupplementId,
+                CardPurchaseSupplementRetrieveParams.none(),
+                requestOptions,
+            )
 
         /**
          * Returns a raw HTTP response for `get /card_purchase_supplements`, but is otherwise the

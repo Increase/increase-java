@@ -3,21 +3,22 @@
 package com.increase.api.models.bookkeepingentrysets
 
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
+import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /** Retrieve a Bookkeeping Entry Set */
 class BookkeepingEntrySetRetrieveParams
 private constructor(
-    private val bookkeepingEntrySetId: String,
+    private val bookkeepingEntrySetId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the Bookkeeping Entry Set. */
-    fun bookkeepingEntrySetId(): String = bookkeepingEntrySetId
+    fun bookkeepingEntrySetId(): Optional<String> = Optional.ofNullable(bookkeepingEntrySetId)
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
@@ -27,14 +28,11 @@ private constructor(
 
     companion object {
 
+        @JvmStatic fun none(): BookkeepingEntrySetRetrieveParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of
          * [BookkeepingEntrySetRetrieveParams].
-         *
-         * The following fields are required:
-         * ```java
-         * .bookkeepingEntrySetId()
-         * ```
          */
         @JvmStatic fun builder() = Builder()
     }
@@ -56,9 +54,16 @@ private constructor(
             }
 
         /** The identifier of the Bookkeeping Entry Set. */
-        fun bookkeepingEntrySetId(bookkeepingEntrySetId: String) = apply {
+        fun bookkeepingEntrySetId(bookkeepingEntrySetId: String?) = apply {
             this.bookkeepingEntrySetId = bookkeepingEntrySetId
         }
+
+        /**
+         * Alias for calling [Builder.bookkeepingEntrySetId] with
+         * `bookkeepingEntrySetId.orElse(null)`.
+         */
+        fun bookkeepingEntrySetId(bookkeepingEntrySetId: Optional<String>) =
+            bookkeepingEntrySetId(bookkeepingEntrySetId.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -162,17 +167,10 @@ private constructor(
          * Returns an immutable instance of [BookkeepingEntrySetRetrieveParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```java
-         * .bookkeepingEntrySetId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): BookkeepingEntrySetRetrieveParams =
             BookkeepingEntrySetRetrieveParams(
-                checkRequired("bookkeepingEntrySetId", bookkeepingEntrySetId),
+                bookkeepingEntrySetId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -180,7 +178,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> bookkeepingEntrySetId
+            0 -> bookkeepingEntrySetId ?: ""
             else -> ""
         }
 

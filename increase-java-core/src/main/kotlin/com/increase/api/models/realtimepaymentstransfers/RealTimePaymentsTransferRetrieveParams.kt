@@ -3,21 +3,23 @@
 package com.increase.api.models.realtimepaymentstransfers
 
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
+import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /** Retrieve a Real-Time Payments Transfer */
 class RealTimePaymentsTransferRetrieveParams
 private constructor(
-    private val realTimePaymentsTransferId: String,
+    private val realTimePaymentsTransferId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the Real-Time Payments Transfer. */
-    fun realTimePaymentsTransferId(): String = realTimePaymentsTransferId
+    fun realTimePaymentsTransferId(): Optional<String> =
+        Optional.ofNullable(realTimePaymentsTransferId)
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
@@ -27,14 +29,11 @@ private constructor(
 
     companion object {
 
+        @JvmStatic fun none(): RealTimePaymentsTransferRetrieveParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of
          * [RealTimePaymentsTransferRetrieveParams].
-         *
-         * The following fields are required:
-         * ```java
-         * .realTimePaymentsTransferId()
-         * ```
          */
         @JvmStatic fun builder() = Builder()
     }
@@ -58,9 +57,16 @@ private constructor(
         }
 
         /** The identifier of the Real-Time Payments Transfer. */
-        fun realTimePaymentsTransferId(realTimePaymentsTransferId: String) = apply {
+        fun realTimePaymentsTransferId(realTimePaymentsTransferId: String?) = apply {
             this.realTimePaymentsTransferId = realTimePaymentsTransferId
         }
+
+        /**
+         * Alias for calling [Builder.realTimePaymentsTransferId] with
+         * `realTimePaymentsTransferId.orElse(null)`.
+         */
+        fun realTimePaymentsTransferId(realTimePaymentsTransferId: Optional<String>) =
+            realTimePaymentsTransferId(realTimePaymentsTransferId.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -164,17 +170,10 @@ private constructor(
          * Returns an immutable instance of [RealTimePaymentsTransferRetrieveParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```java
-         * .realTimePaymentsTransferId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): RealTimePaymentsTransferRetrieveParams =
             RealTimePaymentsTransferRetrieveParams(
-                checkRequired("realTimePaymentsTransferId", realTimePaymentsTransferId),
+                realTimePaymentsTransferId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -182,7 +181,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> realTimePaymentsTransferId
+            0 -> realTimePaymentsTransferId ?: ""
             else -> ""
         }
 

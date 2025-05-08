@@ -5,6 +5,7 @@ package com.increase.api.services.async
 import com.increase.api.core.ClientOptions
 import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
+import com.increase.api.core.checkRequired
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
 import com.increase.api.core.handlers.withErrorHandler
@@ -23,6 +24,7 @@ import com.increase.api.models.intrafiexclusions.IntrafiExclusionListPageRespons
 import com.increase.api.models.intrafiexclusions.IntrafiExclusionListParams
 import com.increase.api.models.intrafiexclusions.IntrafiExclusionRetrieveParams
 import java.util.concurrent.CompletableFuture
+import kotlin.jvm.optionals.getOrNull
 
 class IntrafiExclusionServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) : IntrafiExclusionServiceAsync {
@@ -103,6 +105,9 @@ internal constructor(private val clientOptions: ClientOptions) : IntrafiExclusio
             params: IntrafiExclusionRetrieveParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<IntrafiExclusion>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("intrafiExclusionId", params.intrafiExclusionId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -169,6 +174,9 @@ internal constructor(private val clientOptions: ClientOptions) : IntrafiExclusio
             params: IntrafiExclusionArchiveParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<IntrafiExclusion>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("intrafiExclusionId", params.intrafiExclusionId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)

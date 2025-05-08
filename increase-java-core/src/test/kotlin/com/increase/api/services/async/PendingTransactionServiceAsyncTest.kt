@@ -4,7 +4,6 @@ package com.increase.api.services.async
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
-import com.increase.api.models.pendingtransactions.PendingTransactionRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -21,11 +20,7 @@ internal class PendingTransactionServiceAsyncTest {
         val pendingTransactionServiceAsync = client.pendingTransactions()
 
         val pendingTransactionFuture =
-            pendingTransactionServiceAsync.retrieve(
-                PendingTransactionRetrieveParams.builder()
-                    .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")
-                    .build()
-            )
+            pendingTransactionServiceAsync.retrieve("pending_transaction_k1sfetcau2qbvjbzgju4")
 
         val pendingTransaction = pendingTransactionFuture.get()
         pendingTransaction.validate()

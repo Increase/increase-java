@@ -4,9 +4,7 @@ package com.increase.api.services.blocking
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.intrafiexclusions.IntrafiExclusionArchiveParams
 import com.increase.api.models.intrafiexclusions.IntrafiExclusionCreateParams
-import com.increase.api.models.intrafiexclusions.IntrafiExclusionRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -42,12 +40,7 @@ internal class IntrafiExclusionServiceTest {
                 .build()
         val intrafiExclusionService = client.intrafiExclusions()
 
-        val intrafiExclusion =
-            intrafiExclusionService.retrieve(
-                IntrafiExclusionRetrieveParams.builder()
-                    .intrafiExclusionId("account_in71c4amph0vgo2qllky")
-                    .build()
-            )
+        val intrafiExclusion = intrafiExclusionService.retrieve("account_in71c4amph0vgo2qllky")
 
         intrafiExclusion.validate()
     }
@@ -76,11 +69,7 @@ internal class IntrafiExclusionServiceTest {
         val intrafiExclusionService = client.intrafiExclusions()
 
         val intrafiExclusion =
-            intrafiExclusionService.archive(
-                IntrafiExclusionArchiveParams.builder()
-                    .intrafiExclusionId("intrafi_exclusion_ygfqduuzpau3jqof6jyh")
-                    .build()
-            )
+            intrafiExclusionService.archive("intrafi_exclusion_ygfqduuzpau3jqof6jyh")
 
         intrafiExclusion.validate()
     }

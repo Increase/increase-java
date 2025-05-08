@@ -30,14 +30,49 @@ interface IntrafiAccountEnrollmentService {
     ): IntrafiAccountEnrollment
 
     /** Get an IntraFi Account Enrollment */
-    fun retrieve(params: IntrafiAccountEnrollmentRetrieveParams): IntrafiAccountEnrollment =
-        retrieve(params, RequestOptions.none())
+    fun retrieve(intrafiAccountEnrollmentId: String): IntrafiAccountEnrollment =
+        retrieve(intrafiAccountEnrollmentId, IntrafiAccountEnrollmentRetrieveParams.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        intrafiAccountEnrollmentId: String,
+        params: IntrafiAccountEnrollmentRetrieveParams =
+            IntrafiAccountEnrollmentRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): IntrafiAccountEnrollment =
+        retrieve(
+            params.toBuilder().intrafiAccountEnrollmentId(intrafiAccountEnrollmentId).build(),
+            requestOptions,
+        )
+
+    /** @see [retrieve] */
+    fun retrieve(
+        intrafiAccountEnrollmentId: String,
+        params: IntrafiAccountEnrollmentRetrieveParams =
+            IntrafiAccountEnrollmentRetrieveParams.none(),
+    ): IntrafiAccountEnrollment =
+        retrieve(intrafiAccountEnrollmentId, params, RequestOptions.none())
 
     /** @see [retrieve] */
     fun retrieve(
         params: IntrafiAccountEnrollmentRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): IntrafiAccountEnrollment
+
+    /** @see [retrieve] */
+    fun retrieve(params: IntrafiAccountEnrollmentRetrieveParams): IntrafiAccountEnrollment =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        intrafiAccountEnrollmentId: String,
+        requestOptions: RequestOptions,
+    ): IntrafiAccountEnrollment =
+        retrieve(
+            intrafiAccountEnrollmentId,
+            IntrafiAccountEnrollmentRetrieveParams.none(),
+            requestOptions,
+        )
 
     /** List IntraFi Account Enrollments */
     fun list(): IntrafiAccountEnrollmentListPage = list(IntrafiAccountEnrollmentListParams.none())
@@ -58,14 +93,49 @@ interface IntrafiAccountEnrollmentService {
         list(IntrafiAccountEnrollmentListParams.none(), requestOptions)
 
     /** Unenroll an account from IntraFi */
-    fun unenroll(params: IntrafiAccountEnrollmentUnenrollParams): IntrafiAccountEnrollment =
-        unenroll(params, RequestOptions.none())
+    fun unenroll(intrafiAccountEnrollmentId: String): IntrafiAccountEnrollment =
+        unenroll(intrafiAccountEnrollmentId, IntrafiAccountEnrollmentUnenrollParams.none())
+
+    /** @see [unenroll] */
+    fun unenroll(
+        intrafiAccountEnrollmentId: String,
+        params: IntrafiAccountEnrollmentUnenrollParams =
+            IntrafiAccountEnrollmentUnenrollParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): IntrafiAccountEnrollment =
+        unenroll(
+            params.toBuilder().intrafiAccountEnrollmentId(intrafiAccountEnrollmentId).build(),
+            requestOptions,
+        )
+
+    /** @see [unenroll] */
+    fun unenroll(
+        intrafiAccountEnrollmentId: String,
+        params: IntrafiAccountEnrollmentUnenrollParams =
+            IntrafiAccountEnrollmentUnenrollParams.none(),
+    ): IntrafiAccountEnrollment =
+        unenroll(intrafiAccountEnrollmentId, params, RequestOptions.none())
 
     /** @see [unenroll] */
     fun unenroll(
         params: IntrafiAccountEnrollmentUnenrollParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): IntrafiAccountEnrollment
+
+    /** @see [unenroll] */
+    fun unenroll(params: IntrafiAccountEnrollmentUnenrollParams): IntrafiAccountEnrollment =
+        unenroll(params, RequestOptions.none())
+
+    /** @see [unenroll] */
+    fun unenroll(
+        intrafiAccountEnrollmentId: String,
+        requestOptions: RequestOptions,
+    ): IntrafiAccountEnrollment =
+        unenroll(
+            intrafiAccountEnrollmentId,
+            IntrafiAccountEnrollmentUnenrollParams.none(),
+            requestOptions,
+        )
 
     /**
      * A view of [IntrafiAccountEnrollmentService] that provides access to raw HTTP responses for
@@ -96,8 +166,31 @@ interface IntrafiAccountEnrollmentService {
          */
         @MustBeClosed
         fun retrieve(
-            params: IntrafiAccountEnrollmentRetrieveParams
-        ): HttpResponseFor<IntrafiAccountEnrollment> = retrieve(params, RequestOptions.none())
+            intrafiAccountEnrollmentId: String
+        ): HttpResponseFor<IntrafiAccountEnrollment> =
+            retrieve(intrafiAccountEnrollmentId, IntrafiAccountEnrollmentRetrieveParams.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            intrafiAccountEnrollmentId: String,
+            params: IntrafiAccountEnrollmentRetrieveParams =
+                IntrafiAccountEnrollmentRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<IntrafiAccountEnrollment> =
+            retrieve(
+                params.toBuilder().intrafiAccountEnrollmentId(intrafiAccountEnrollmentId).build(),
+                requestOptions,
+            )
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            intrafiAccountEnrollmentId: String,
+            params: IntrafiAccountEnrollmentRetrieveParams =
+                IntrafiAccountEnrollmentRetrieveParams.none(),
+        ): HttpResponseFor<IntrafiAccountEnrollment> =
+            retrieve(intrafiAccountEnrollmentId, params, RequestOptions.none())
 
         /** @see [retrieve] */
         @MustBeClosed
@@ -105,6 +198,24 @@ interface IntrafiAccountEnrollmentService {
             params: IntrafiAccountEnrollmentRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<IntrafiAccountEnrollment>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            params: IntrafiAccountEnrollmentRetrieveParams
+        ): HttpResponseFor<IntrafiAccountEnrollment> = retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            intrafiAccountEnrollmentId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<IntrafiAccountEnrollment> =
+            retrieve(
+                intrafiAccountEnrollmentId,
+                IntrafiAccountEnrollmentRetrieveParams.none(),
+                requestOptions,
+            )
 
         /**
          * Returns a raw HTTP response for `get /intrafi_account_enrollments`, but is otherwise the
@@ -141,8 +252,31 @@ interface IntrafiAccountEnrollmentService {
          */
         @MustBeClosed
         fun unenroll(
-            params: IntrafiAccountEnrollmentUnenrollParams
-        ): HttpResponseFor<IntrafiAccountEnrollment> = unenroll(params, RequestOptions.none())
+            intrafiAccountEnrollmentId: String
+        ): HttpResponseFor<IntrafiAccountEnrollment> =
+            unenroll(intrafiAccountEnrollmentId, IntrafiAccountEnrollmentUnenrollParams.none())
+
+        /** @see [unenroll] */
+        @MustBeClosed
+        fun unenroll(
+            intrafiAccountEnrollmentId: String,
+            params: IntrafiAccountEnrollmentUnenrollParams =
+                IntrafiAccountEnrollmentUnenrollParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<IntrafiAccountEnrollment> =
+            unenroll(
+                params.toBuilder().intrafiAccountEnrollmentId(intrafiAccountEnrollmentId).build(),
+                requestOptions,
+            )
+
+        /** @see [unenroll] */
+        @MustBeClosed
+        fun unenroll(
+            intrafiAccountEnrollmentId: String,
+            params: IntrafiAccountEnrollmentUnenrollParams =
+                IntrafiAccountEnrollmentUnenrollParams.none(),
+        ): HttpResponseFor<IntrafiAccountEnrollment> =
+            unenroll(intrafiAccountEnrollmentId, params, RequestOptions.none())
 
         /** @see [unenroll] */
         @MustBeClosed
@@ -150,5 +284,23 @@ interface IntrafiAccountEnrollmentService {
             params: IntrafiAccountEnrollmentUnenrollParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<IntrafiAccountEnrollment>
+
+        /** @see [unenroll] */
+        @MustBeClosed
+        fun unenroll(
+            params: IntrafiAccountEnrollmentUnenrollParams
+        ): HttpResponseFor<IntrafiAccountEnrollment> = unenroll(params, RequestOptions.none())
+
+        /** @see [unenroll] */
+        @MustBeClosed
+        fun unenroll(
+            intrafiAccountEnrollmentId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<IntrafiAccountEnrollment> =
+            unenroll(
+                intrafiAccountEnrollmentId,
+                IntrafiAccountEnrollmentUnenrollParams.none(),
+                requestOptions,
+            )
     }
 }

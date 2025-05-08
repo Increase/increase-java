@@ -32,15 +32,50 @@ interface IntrafiAccountEnrollmentServiceAsync {
     ): CompletableFuture<IntrafiAccountEnrollment>
 
     /** Get an IntraFi Account Enrollment */
+    fun retrieve(intrafiAccountEnrollmentId: String): CompletableFuture<IntrafiAccountEnrollment> =
+        retrieve(intrafiAccountEnrollmentId, IntrafiAccountEnrollmentRetrieveParams.none())
+
+    /** @see [retrieve] */
     fun retrieve(
-        params: IntrafiAccountEnrollmentRetrieveParams
-    ): CompletableFuture<IntrafiAccountEnrollment> = retrieve(params, RequestOptions.none())
+        intrafiAccountEnrollmentId: String,
+        params: IntrafiAccountEnrollmentRetrieveParams =
+            IntrafiAccountEnrollmentRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<IntrafiAccountEnrollment> =
+        retrieve(
+            params.toBuilder().intrafiAccountEnrollmentId(intrafiAccountEnrollmentId).build(),
+            requestOptions,
+        )
+
+    /** @see [retrieve] */
+    fun retrieve(
+        intrafiAccountEnrollmentId: String,
+        params: IntrafiAccountEnrollmentRetrieveParams =
+            IntrafiAccountEnrollmentRetrieveParams.none(),
+    ): CompletableFuture<IntrafiAccountEnrollment> =
+        retrieve(intrafiAccountEnrollmentId, params, RequestOptions.none())
 
     /** @see [retrieve] */
     fun retrieve(
         params: IntrafiAccountEnrollmentRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<IntrafiAccountEnrollment>
+
+    /** @see [retrieve] */
+    fun retrieve(
+        params: IntrafiAccountEnrollmentRetrieveParams
+    ): CompletableFuture<IntrafiAccountEnrollment> = retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        intrafiAccountEnrollmentId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<IntrafiAccountEnrollment> =
+        retrieve(
+            intrafiAccountEnrollmentId,
+            IntrafiAccountEnrollmentRetrieveParams.none(),
+            requestOptions,
+        )
 
     /** List IntraFi Account Enrollments */
     fun list(): CompletableFuture<IntrafiAccountEnrollmentListPageAsync> =
@@ -65,15 +100,50 @@ interface IntrafiAccountEnrollmentServiceAsync {
         list(IntrafiAccountEnrollmentListParams.none(), requestOptions)
 
     /** Unenroll an account from IntraFi */
+    fun unenroll(intrafiAccountEnrollmentId: String): CompletableFuture<IntrafiAccountEnrollment> =
+        unenroll(intrafiAccountEnrollmentId, IntrafiAccountEnrollmentUnenrollParams.none())
+
+    /** @see [unenroll] */
     fun unenroll(
-        params: IntrafiAccountEnrollmentUnenrollParams
-    ): CompletableFuture<IntrafiAccountEnrollment> = unenroll(params, RequestOptions.none())
+        intrafiAccountEnrollmentId: String,
+        params: IntrafiAccountEnrollmentUnenrollParams =
+            IntrafiAccountEnrollmentUnenrollParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<IntrafiAccountEnrollment> =
+        unenroll(
+            params.toBuilder().intrafiAccountEnrollmentId(intrafiAccountEnrollmentId).build(),
+            requestOptions,
+        )
+
+    /** @see [unenroll] */
+    fun unenroll(
+        intrafiAccountEnrollmentId: String,
+        params: IntrafiAccountEnrollmentUnenrollParams =
+            IntrafiAccountEnrollmentUnenrollParams.none(),
+    ): CompletableFuture<IntrafiAccountEnrollment> =
+        unenroll(intrafiAccountEnrollmentId, params, RequestOptions.none())
 
     /** @see [unenroll] */
     fun unenroll(
         params: IntrafiAccountEnrollmentUnenrollParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<IntrafiAccountEnrollment>
+
+    /** @see [unenroll] */
+    fun unenroll(
+        params: IntrafiAccountEnrollmentUnenrollParams
+    ): CompletableFuture<IntrafiAccountEnrollment> = unenroll(params, RequestOptions.none())
+
+    /** @see [unenroll] */
+    fun unenroll(
+        intrafiAccountEnrollmentId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<IntrafiAccountEnrollment> =
+        unenroll(
+            intrafiAccountEnrollmentId,
+            IntrafiAccountEnrollmentUnenrollParams.none(),
+            requestOptions,
+        )
 
     /**
      * A view of [IntrafiAccountEnrollmentServiceAsync] that provides access to raw HTTP responses
@@ -105,9 +175,31 @@ interface IntrafiAccountEnrollmentServiceAsync {
          */
         @MustBeClosed
         fun retrieve(
-            params: IntrafiAccountEnrollmentRetrieveParams
+            intrafiAccountEnrollmentId: String
         ): CompletableFuture<HttpResponseFor<IntrafiAccountEnrollment>> =
-            retrieve(params, RequestOptions.none())
+            retrieve(intrafiAccountEnrollmentId, IntrafiAccountEnrollmentRetrieveParams.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            intrafiAccountEnrollmentId: String,
+            params: IntrafiAccountEnrollmentRetrieveParams =
+                IntrafiAccountEnrollmentRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<IntrafiAccountEnrollment>> =
+            retrieve(
+                params.toBuilder().intrafiAccountEnrollmentId(intrafiAccountEnrollmentId).build(),
+                requestOptions,
+            )
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            intrafiAccountEnrollmentId: String,
+            params: IntrafiAccountEnrollmentRetrieveParams =
+                IntrafiAccountEnrollmentRetrieveParams.none(),
+        ): CompletableFuture<HttpResponseFor<IntrafiAccountEnrollment>> =
+            retrieve(intrafiAccountEnrollmentId, params, RequestOptions.none())
 
         /** @see [retrieve] */
         @MustBeClosed
@@ -115,6 +207,25 @@ interface IntrafiAccountEnrollmentServiceAsync {
             params: IntrafiAccountEnrollmentRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<IntrafiAccountEnrollment>>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            params: IntrafiAccountEnrollmentRetrieveParams
+        ): CompletableFuture<HttpResponseFor<IntrafiAccountEnrollment>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            intrafiAccountEnrollmentId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<IntrafiAccountEnrollment>> =
+            retrieve(
+                intrafiAccountEnrollmentId,
+                IntrafiAccountEnrollmentRetrieveParams.none(),
+                requestOptions,
+            )
 
         /**
          * Returns a raw HTTP response for `get /intrafi_account_enrollments`, but is otherwise the
@@ -152,9 +263,31 @@ interface IntrafiAccountEnrollmentServiceAsync {
          */
         @MustBeClosed
         fun unenroll(
-            params: IntrafiAccountEnrollmentUnenrollParams
+            intrafiAccountEnrollmentId: String
         ): CompletableFuture<HttpResponseFor<IntrafiAccountEnrollment>> =
-            unenroll(params, RequestOptions.none())
+            unenroll(intrafiAccountEnrollmentId, IntrafiAccountEnrollmentUnenrollParams.none())
+
+        /** @see [unenroll] */
+        @MustBeClosed
+        fun unenroll(
+            intrafiAccountEnrollmentId: String,
+            params: IntrafiAccountEnrollmentUnenrollParams =
+                IntrafiAccountEnrollmentUnenrollParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<IntrafiAccountEnrollment>> =
+            unenroll(
+                params.toBuilder().intrafiAccountEnrollmentId(intrafiAccountEnrollmentId).build(),
+                requestOptions,
+            )
+
+        /** @see [unenroll] */
+        @MustBeClosed
+        fun unenroll(
+            intrafiAccountEnrollmentId: String,
+            params: IntrafiAccountEnrollmentUnenrollParams =
+                IntrafiAccountEnrollmentUnenrollParams.none(),
+        ): CompletableFuture<HttpResponseFor<IntrafiAccountEnrollment>> =
+            unenroll(intrafiAccountEnrollmentId, params, RequestOptions.none())
 
         /** @see [unenroll] */
         @MustBeClosed
@@ -162,5 +295,24 @@ interface IntrafiAccountEnrollmentServiceAsync {
             params: IntrafiAccountEnrollmentUnenrollParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<IntrafiAccountEnrollment>>
+
+        /** @see [unenroll] */
+        @MustBeClosed
+        fun unenroll(
+            params: IntrafiAccountEnrollmentUnenrollParams
+        ): CompletableFuture<HttpResponseFor<IntrafiAccountEnrollment>> =
+            unenroll(params, RequestOptions.none())
+
+        /** @see [unenroll] */
+        @MustBeClosed
+        fun unenroll(
+            intrafiAccountEnrollmentId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<IntrafiAccountEnrollment>> =
+            unenroll(
+                intrafiAccountEnrollmentId,
+                IntrafiAccountEnrollmentUnenrollParams.none(),
+                requestOptions,
+            )
     }
 }

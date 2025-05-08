@@ -3,21 +3,22 @@
 package com.increase.api.models.cardpayments
 
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
+import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /** Retrieve a Card Payment */
 class CardPaymentRetrieveParams
 private constructor(
-    private val cardPaymentId: String,
+    private val cardPaymentId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the Card Payment. */
-    fun cardPaymentId(): String = cardPaymentId
+    fun cardPaymentId(): Optional<String> = Optional.ofNullable(cardPaymentId)
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
@@ -27,13 +28,10 @@ private constructor(
 
     companion object {
 
+        @JvmStatic fun none(): CardPaymentRetrieveParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of [CardPaymentRetrieveParams].
-         *
-         * The following fields are required:
-         * ```java
-         * .cardPaymentId()
-         * ```
          */
         @JvmStatic fun builder() = Builder()
     }
@@ -53,7 +51,11 @@ private constructor(
         }
 
         /** The identifier of the Card Payment. */
-        fun cardPaymentId(cardPaymentId: String) = apply { this.cardPaymentId = cardPaymentId }
+        fun cardPaymentId(cardPaymentId: String?) = apply { this.cardPaymentId = cardPaymentId }
+
+        /** Alias for calling [Builder.cardPaymentId] with `cardPaymentId.orElse(null)`. */
+        fun cardPaymentId(cardPaymentId: Optional<String>) =
+            cardPaymentId(cardPaymentId.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -157,17 +159,10 @@ private constructor(
          * Returns an immutable instance of [CardPaymentRetrieveParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```java
-         * .cardPaymentId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): CardPaymentRetrieveParams =
             CardPaymentRetrieveParams(
-                checkRequired("cardPaymentId", cardPaymentId),
+                cardPaymentId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -175,7 +170,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> cardPaymentId
+            0 -> cardPaymentId ?: ""
             else -> ""
         }
 

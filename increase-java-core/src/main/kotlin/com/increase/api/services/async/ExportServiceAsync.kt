@@ -30,14 +30,36 @@ interface ExportServiceAsync {
     ): CompletableFuture<Export>
 
     /** Retrieve an Export */
-    fun retrieve(params: ExportRetrieveParams): CompletableFuture<Export> =
-        retrieve(params, RequestOptions.none())
+    fun retrieve(exportId: String): CompletableFuture<Export> =
+        retrieve(exportId, ExportRetrieveParams.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        exportId: String,
+        params: ExportRetrieveParams = ExportRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Export> =
+        retrieve(params.toBuilder().exportId(exportId).build(), requestOptions)
+
+    /** @see [retrieve] */
+    fun retrieve(
+        exportId: String,
+        params: ExportRetrieveParams = ExportRetrieveParams.none(),
+    ): CompletableFuture<Export> = retrieve(exportId, params, RequestOptions.none())
 
     /** @see [retrieve] */
     fun retrieve(
         params: ExportRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Export>
+
+    /** @see [retrieve] */
+    fun retrieve(params: ExportRetrieveParams): CompletableFuture<Export> =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
+    fun retrieve(exportId: String, requestOptions: RequestOptions): CompletableFuture<Export> =
+        retrieve(exportId, ExportRetrieveParams.none(), requestOptions)
 
     /** List Exports */
     fun list(): CompletableFuture<ExportListPageAsync> = list(ExportListParams.none())
@@ -82,8 +104,25 @@ interface ExportServiceAsync {
          * [ExportServiceAsync.retrieve].
          */
         @MustBeClosed
-        fun retrieve(params: ExportRetrieveParams): CompletableFuture<HttpResponseFor<Export>> =
-            retrieve(params, RequestOptions.none())
+        fun retrieve(exportId: String): CompletableFuture<HttpResponseFor<Export>> =
+            retrieve(exportId, ExportRetrieveParams.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            exportId: String,
+            params: ExportRetrieveParams = ExportRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<Export>> =
+            retrieve(params.toBuilder().exportId(exportId).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            exportId: String,
+            params: ExportRetrieveParams = ExportRetrieveParams.none(),
+        ): CompletableFuture<HttpResponseFor<Export>> =
+            retrieve(exportId, params, RequestOptions.none())
 
         /** @see [retrieve] */
         @MustBeClosed
@@ -91,6 +130,19 @@ interface ExportServiceAsync {
             params: ExportRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<Export>>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(params: ExportRetrieveParams): CompletableFuture<HttpResponseFor<Export>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            exportId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<Export>> =
+            retrieve(exportId, ExportRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /exports`, but is otherwise the same as

@@ -22,14 +22,43 @@ interface InboundAchTransferServiceAsync {
     fun withRawResponse(): WithRawResponse
 
     /** Retrieve an Inbound ACH Transfer */
-    fun retrieve(params: InboundAchTransferRetrieveParams): CompletableFuture<InboundAchTransfer> =
-        retrieve(params, RequestOptions.none())
+    fun retrieve(inboundAchTransferId: String): CompletableFuture<InboundAchTransfer> =
+        retrieve(inboundAchTransferId, InboundAchTransferRetrieveParams.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        inboundAchTransferId: String,
+        params: InboundAchTransferRetrieveParams = InboundAchTransferRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<InboundAchTransfer> =
+        retrieve(
+            params.toBuilder().inboundAchTransferId(inboundAchTransferId).build(),
+            requestOptions,
+        )
+
+    /** @see [retrieve] */
+    fun retrieve(
+        inboundAchTransferId: String,
+        params: InboundAchTransferRetrieveParams = InboundAchTransferRetrieveParams.none(),
+    ): CompletableFuture<InboundAchTransfer> =
+        retrieve(inboundAchTransferId, params, RequestOptions.none())
 
     /** @see [retrieve] */
     fun retrieve(
         params: InboundAchTransferRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<InboundAchTransfer>
+
+    /** @see [retrieve] */
+    fun retrieve(params: InboundAchTransferRetrieveParams): CompletableFuture<InboundAchTransfer> =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        inboundAchTransferId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<InboundAchTransfer> =
+        retrieve(inboundAchTransferId, InboundAchTransferRetrieveParams.none(), requestOptions)
 
     /** List Inbound ACH Transfers */
     fun list(): CompletableFuture<InboundAchTransferListPageAsync> =
@@ -52,9 +81,32 @@ interface InboundAchTransferServiceAsync {
 
     /** Create a notification of change for an Inbound ACH Transfer */
     fun createNotificationOfChange(
-        params: InboundAchTransferCreateNotificationOfChangeParams
+        inboundAchTransferId: String
     ): CompletableFuture<InboundAchTransfer> =
-        createNotificationOfChange(params, RequestOptions.none())
+        createNotificationOfChange(
+            inboundAchTransferId,
+            InboundAchTransferCreateNotificationOfChangeParams.none(),
+        )
+
+    /** @see [createNotificationOfChange] */
+    fun createNotificationOfChange(
+        inboundAchTransferId: String,
+        params: InboundAchTransferCreateNotificationOfChangeParams =
+            InboundAchTransferCreateNotificationOfChangeParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<InboundAchTransfer> =
+        createNotificationOfChange(
+            params.toBuilder().inboundAchTransferId(inboundAchTransferId).build(),
+            requestOptions,
+        )
+
+    /** @see [createNotificationOfChange] */
+    fun createNotificationOfChange(
+        inboundAchTransferId: String,
+        params: InboundAchTransferCreateNotificationOfChangeParams =
+            InboundAchTransferCreateNotificationOfChangeParams.none(),
+    ): CompletableFuture<InboundAchTransfer> =
+        createNotificationOfChange(inboundAchTransferId, params, RequestOptions.none())
 
     /** @see [createNotificationOfChange] */
     fun createNotificationOfChange(
@@ -62,9 +114,44 @@ interface InboundAchTransferServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<InboundAchTransfer>
 
+    /** @see [createNotificationOfChange] */
+    fun createNotificationOfChange(
+        params: InboundAchTransferCreateNotificationOfChangeParams
+    ): CompletableFuture<InboundAchTransfer> =
+        createNotificationOfChange(params, RequestOptions.none())
+
+    /** @see [createNotificationOfChange] */
+    fun createNotificationOfChange(
+        inboundAchTransferId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<InboundAchTransfer> =
+        createNotificationOfChange(
+            inboundAchTransferId,
+            InboundAchTransferCreateNotificationOfChangeParams.none(),
+            requestOptions,
+        )
+
     /** Decline an Inbound ACH Transfer */
-    fun decline(params: InboundAchTransferDeclineParams): CompletableFuture<InboundAchTransfer> =
-        decline(params, RequestOptions.none())
+    fun decline(inboundAchTransferId: String): CompletableFuture<InboundAchTransfer> =
+        decline(inboundAchTransferId, InboundAchTransferDeclineParams.none())
+
+    /** @see [decline] */
+    fun decline(
+        inboundAchTransferId: String,
+        params: InboundAchTransferDeclineParams = InboundAchTransferDeclineParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<InboundAchTransfer> =
+        decline(
+            params.toBuilder().inboundAchTransferId(inboundAchTransferId).build(),
+            requestOptions,
+        )
+
+    /** @see [decline] */
+    fun decline(
+        inboundAchTransferId: String,
+        params: InboundAchTransferDeclineParams = InboundAchTransferDeclineParams.none(),
+    ): CompletableFuture<InboundAchTransfer> =
+        decline(inboundAchTransferId, params, RequestOptions.none())
 
     /** @see [decline] */
     fun decline(
@@ -72,7 +159,36 @@ interface InboundAchTransferServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<InboundAchTransfer>
 
+    /** @see [decline] */
+    fun decline(params: InboundAchTransferDeclineParams): CompletableFuture<InboundAchTransfer> =
+        decline(params, RequestOptions.none())
+
+    /** @see [decline] */
+    fun decline(
+        inboundAchTransferId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<InboundAchTransfer> =
+        decline(inboundAchTransferId, InboundAchTransferDeclineParams.none(), requestOptions)
+
     /** Return an Inbound ACH Transfer */
+    fun transferReturn(
+        inboundAchTransferId: String,
+        params: InboundAchTransferTransferReturnParams,
+    ): CompletableFuture<InboundAchTransfer> =
+        transferReturn(inboundAchTransferId, params, RequestOptions.none())
+
+    /** @see [transferReturn] */
+    fun transferReturn(
+        inboundAchTransferId: String,
+        params: InboundAchTransferTransferReturnParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<InboundAchTransfer> =
+        transferReturn(
+            params.toBuilder().inboundAchTransferId(inboundAchTransferId).build(),
+            requestOptions,
+        )
+
+    /** @see [transferReturn] */
     fun transferReturn(
         params: InboundAchTransferTransferReturnParams
     ): CompletableFuture<InboundAchTransfer> = transferReturn(params, RequestOptions.none())
@@ -95,9 +211,29 @@ interface InboundAchTransferServiceAsync {
          */
         @MustBeClosed
         fun retrieve(
-            params: InboundAchTransferRetrieveParams
+            inboundAchTransferId: String
         ): CompletableFuture<HttpResponseFor<InboundAchTransfer>> =
-            retrieve(params, RequestOptions.none())
+            retrieve(inboundAchTransferId, InboundAchTransferRetrieveParams.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            inboundAchTransferId: String,
+            params: InboundAchTransferRetrieveParams = InboundAchTransferRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<InboundAchTransfer>> =
+            retrieve(
+                params.toBuilder().inboundAchTransferId(inboundAchTransferId).build(),
+                requestOptions,
+            )
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            inboundAchTransferId: String,
+            params: InboundAchTransferRetrieveParams = InboundAchTransferRetrieveParams.none(),
+        ): CompletableFuture<HttpResponseFor<InboundAchTransfer>> =
+            retrieve(inboundAchTransferId, params, RequestOptions.none())
 
         /** @see [retrieve] */
         @MustBeClosed
@@ -105,6 +241,21 @@ interface InboundAchTransferServiceAsync {
             params: InboundAchTransferRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<InboundAchTransfer>>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            params: InboundAchTransferRetrieveParams
+        ): CompletableFuture<HttpResponseFor<InboundAchTransfer>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            inboundAchTransferId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<InboundAchTransfer>> =
+            retrieve(inboundAchTransferId, InboundAchTransferRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /inbound_ach_transfers`, but is otherwise the same
@@ -142,9 +293,34 @@ interface InboundAchTransferServiceAsync {
          */
         @MustBeClosed
         fun createNotificationOfChange(
-            params: InboundAchTransferCreateNotificationOfChangeParams
+            inboundAchTransferId: String
         ): CompletableFuture<HttpResponseFor<InboundAchTransfer>> =
-            createNotificationOfChange(params, RequestOptions.none())
+            createNotificationOfChange(
+                inboundAchTransferId,
+                InboundAchTransferCreateNotificationOfChangeParams.none(),
+            )
+
+        /** @see [createNotificationOfChange] */
+        @MustBeClosed
+        fun createNotificationOfChange(
+            inboundAchTransferId: String,
+            params: InboundAchTransferCreateNotificationOfChangeParams =
+                InboundAchTransferCreateNotificationOfChangeParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<InboundAchTransfer>> =
+            createNotificationOfChange(
+                params.toBuilder().inboundAchTransferId(inboundAchTransferId).build(),
+                requestOptions,
+            )
+
+        /** @see [createNotificationOfChange] */
+        @MustBeClosed
+        fun createNotificationOfChange(
+            inboundAchTransferId: String,
+            params: InboundAchTransferCreateNotificationOfChangeParams =
+                InboundAchTransferCreateNotificationOfChangeParams.none(),
+        ): CompletableFuture<HttpResponseFor<InboundAchTransfer>> =
+            createNotificationOfChange(inboundAchTransferId, params, RequestOptions.none())
 
         /** @see [createNotificationOfChange] */
         @MustBeClosed
@@ -153,11 +329,64 @@ interface InboundAchTransferServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<InboundAchTransfer>>
 
+        /** @see [createNotificationOfChange] */
+        @MustBeClosed
+        fun createNotificationOfChange(
+            params: InboundAchTransferCreateNotificationOfChangeParams
+        ): CompletableFuture<HttpResponseFor<InboundAchTransfer>> =
+            createNotificationOfChange(params, RequestOptions.none())
+
+        /** @see [createNotificationOfChange] */
+        @MustBeClosed
+        fun createNotificationOfChange(
+            inboundAchTransferId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<InboundAchTransfer>> =
+            createNotificationOfChange(
+                inboundAchTransferId,
+                InboundAchTransferCreateNotificationOfChangeParams.none(),
+                requestOptions,
+            )
+
         /**
          * Returns a raw HTTP response for `post
          * /inbound_ach_transfers/{inbound_ach_transfer_id}/decline`, but is otherwise the same as
          * [InboundAchTransferServiceAsync.decline].
          */
+        @MustBeClosed
+        fun decline(
+            inboundAchTransferId: String
+        ): CompletableFuture<HttpResponseFor<InboundAchTransfer>> =
+            decline(inboundAchTransferId, InboundAchTransferDeclineParams.none())
+
+        /** @see [decline] */
+        @MustBeClosed
+        fun decline(
+            inboundAchTransferId: String,
+            params: InboundAchTransferDeclineParams = InboundAchTransferDeclineParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<InboundAchTransfer>> =
+            decline(
+                params.toBuilder().inboundAchTransferId(inboundAchTransferId).build(),
+                requestOptions,
+            )
+
+        /** @see [decline] */
+        @MustBeClosed
+        fun decline(
+            inboundAchTransferId: String,
+            params: InboundAchTransferDeclineParams = InboundAchTransferDeclineParams.none(),
+        ): CompletableFuture<HttpResponseFor<InboundAchTransfer>> =
+            decline(inboundAchTransferId, params, RequestOptions.none())
+
+        /** @see [decline] */
+        @MustBeClosed
+        fun decline(
+            params: InboundAchTransferDeclineParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<InboundAchTransfer>>
+
+        /** @see [decline] */
         @MustBeClosed
         fun decline(
             params: InboundAchTransferDeclineParams
@@ -167,15 +396,36 @@ interface InboundAchTransferServiceAsync {
         /** @see [decline] */
         @MustBeClosed
         fun decline(
-            params: InboundAchTransferDeclineParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<InboundAchTransfer>>
+            inboundAchTransferId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<InboundAchTransfer>> =
+            decline(inboundAchTransferId, InboundAchTransferDeclineParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post
          * /inbound_ach_transfers/{inbound_ach_transfer_id}/transfer_return`, but is otherwise the
          * same as [InboundAchTransferServiceAsync.transferReturn].
          */
+        @MustBeClosed
+        fun transferReturn(
+            inboundAchTransferId: String,
+            params: InboundAchTransferTransferReturnParams,
+        ): CompletableFuture<HttpResponseFor<InboundAchTransfer>> =
+            transferReturn(inboundAchTransferId, params, RequestOptions.none())
+
+        /** @see [transferReturn] */
+        @MustBeClosed
+        fun transferReturn(
+            inboundAchTransferId: String,
+            params: InboundAchTransferTransferReturnParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<InboundAchTransfer>> =
+            transferReturn(
+                params.toBuilder().inboundAchTransferId(inboundAchTransferId).build(),
+                requestOptions,
+            )
+
+        /** @see [transferReturn] */
         @MustBeClosed
         fun transferReturn(
             params: InboundAchTransferTransferReturnParams

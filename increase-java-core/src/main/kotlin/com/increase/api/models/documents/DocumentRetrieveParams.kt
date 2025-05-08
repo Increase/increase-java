@@ -3,21 +3,22 @@
 package com.increase.api.models.documents
 
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
+import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /** Retrieve a Document */
 class DocumentRetrieveParams
 private constructor(
-    private val documentId: String,
+    private val documentId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the Document to retrieve. */
-    fun documentId(): String = documentId
+    fun documentId(): Optional<String> = Optional.ofNullable(documentId)
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
@@ -27,14 +28,9 @@ private constructor(
 
     companion object {
 
-        /**
-         * Returns a mutable builder for constructing an instance of [DocumentRetrieveParams].
-         *
-         * The following fields are required:
-         * ```java
-         * .documentId()
-         * ```
-         */
+        @JvmStatic fun none(): DocumentRetrieveParams = builder().build()
+
+        /** Returns a mutable builder for constructing an instance of [DocumentRetrieveParams]. */
         @JvmStatic fun builder() = Builder()
     }
 
@@ -53,7 +49,10 @@ private constructor(
         }
 
         /** The identifier of the Document to retrieve. */
-        fun documentId(documentId: String) = apply { this.documentId = documentId }
+        fun documentId(documentId: String?) = apply { this.documentId = documentId }
+
+        /** Alias for calling [Builder.documentId] with `documentId.orElse(null)`. */
+        fun documentId(documentId: Optional<String>) = documentId(documentId.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -157,17 +156,10 @@ private constructor(
          * Returns an immutable instance of [DocumentRetrieveParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```java
-         * .documentId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): DocumentRetrieveParams =
             DocumentRetrieveParams(
-                checkRequired("documentId", documentId),
+                documentId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -175,7 +167,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> documentId
+            0 -> documentId ?: ""
             else -> ""
         }
 

@@ -4,7 +4,6 @@ package com.increase.api.services.async
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
-import com.increase.api.models.inboundwiredrawdownrequests.InboundWireDrawdownRequestRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -22,11 +21,7 @@ internal class InboundWireDrawdownRequestServiceAsyncTest {
 
         val inboundWireDrawdownRequestFuture =
             inboundWireDrawdownRequestServiceAsync.retrieve(
-                InboundWireDrawdownRequestRetrieveParams.builder()
-                    .inboundWireDrawdownRequestId(
-                        "inbound_wire_drawdown_request_u5a92ikqhz1ytphn799e"
-                    )
-                    .build()
+                "inbound_wire_drawdown_request_u5a92ikqhz1ytphn799e"
             )
 
         val inboundWireDrawdownRequest = inboundWireDrawdownRequestFuture.get()

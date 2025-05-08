@@ -4,24 +4,24 @@ package com.increase.api.models.accounttransfers
 
 import com.increase.api.core.JsonValue
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.toImmutable
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /** Approve an Account Transfer */
 class AccountTransferApproveParams
 private constructor(
-    private val accountTransferId: String,
+    private val accountTransferId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
     private val additionalBodyProperties: Map<String, JsonValue>,
 ) : Params {
 
     /** The identifier of the Account Transfer to approve. */
-    fun accountTransferId(): String = accountTransferId
+    fun accountTransferId(): Optional<String> = Optional.ofNullable(accountTransferId)
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
@@ -33,13 +33,10 @@ private constructor(
 
     companion object {
 
+        @JvmStatic fun none(): AccountTransferApproveParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of [AccountTransferApproveParams].
-         *
-         * The following fields are required:
-         * ```java
-         * .accountTransferId()
-         * ```
          */
         @JvmStatic fun builder() = Builder()
     }
@@ -62,9 +59,13 @@ private constructor(
         }
 
         /** The identifier of the Account Transfer to approve. */
-        fun accountTransferId(accountTransferId: String) = apply {
+        fun accountTransferId(accountTransferId: String?) = apply {
             this.accountTransferId = accountTransferId
         }
+
+        /** Alias for calling [Builder.accountTransferId] with `accountTransferId.orElse(null)`. */
+        fun accountTransferId(accountTransferId: Optional<String>) =
+            accountTransferId(accountTransferId.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -190,17 +191,10 @@ private constructor(
          * Returns an immutable instance of [AccountTransferApproveParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```java
-         * .accountTransferId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): AccountTransferApproveParams =
             AccountTransferApproveParams(
-                checkRequired("accountTransferId", accountTransferId),
+                accountTransferId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
                 additionalBodyProperties.toImmutable(),
@@ -212,7 +206,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> accountTransferId
+            0 -> accountTransferId ?: ""
             else -> ""
         }
 

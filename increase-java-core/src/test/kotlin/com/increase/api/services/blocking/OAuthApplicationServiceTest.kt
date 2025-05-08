@@ -4,7 +4,6 @@ package com.increase.api.services.blocking
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.oauthapplications.OAuthApplicationRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -20,12 +19,7 @@ internal class OAuthApplicationServiceTest {
                 .build()
         val oauthApplicationService = client.oauthApplications()
 
-        val oauthApplication =
-            oauthApplicationService.retrieve(
-                OAuthApplicationRetrieveParams.builder()
-                    .oauthApplicationId("application_gj9ufmpgh5i56k4vyriy")
-                    .build()
-            )
+        val oauthApplication = oauthApplicationService.retrieve("application_gj9ufmpgh5i56k4vyriy")
 
         oauthApplication.validate()
     }

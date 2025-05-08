@@ -4,7 +4,6 @@ package com.increase.api.services.blocking
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.events.EventRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -20,10 +19,7 @@ internal class EventServiceTest {
                 .build()
         val eventService = client.events()
 
-        val event =
-            eventService.retrieve(
-                EventRetrieveParams.builder().eventId("event_001dzz0r20rzr4zrhrr1364hy80").build()
-            )
+        val event = eventService.retrieve("event_001dzz0r20rzr4zrhrr1364hy80")
 
         event.validate()
     }

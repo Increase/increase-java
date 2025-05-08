@@ -3,21 +3,22 @@
 package com.increase.api.models.programs
 
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
+import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /** Retrieve a Program */
 class ProgramRetrieveParams
 private constructor(
-    private val programId: String,
+    private val programId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the Program to retrieve. */
-    fun programId(): String = programId
+    fun programId(): Optional<String> = Optional.ofNullable(programId)
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
@@ -27,14 +28,9 @@ private constructor(
 
     companion object {
 
-        /**
-         * Returns a mutable builder for constructing an instance of [ProgramRetrieveParams].
-         *
-         * The following fields are required:
-         * ```java
-         * .programId()
-         * ```
-         */
+        @JvmStatic fun none(): ProgramRetrieveParams = builder().build()
+
+        /** Returns a mutable builder for constructing an instance of [ProgramRetrieveParams]. */
         @JvmStatic fun builder() = Builder()
     }
 
@@ -53,7 +49,10 @@ private constructor(
         }
 
         /** The identifier of the Program to retrieve. */
-        fun programId(programId: String) = apply { this.programId = programId }
+        fun programId(programId: String?) = apply { this.programId = programId }
+
+        /** Alias for calling [Builder.programId] with `programId.orElse(null)`. */
+        fun programId(programId: Optional<String>) = programId(programId.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -157,17 +156,10 @@ private constructor(
          * Returns an immutable instance of [ProgramRetrieveParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```java
-         * .programId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): ProgramRetrieveParams =
             ProgramRetrieveParams(
-                checkRequired("programId", programId),
+                programId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -175,7 +167,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> programId
+            0 -> programId ?: ""
             else -> ""
         }
 

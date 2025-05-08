@@ -21,6 +21,17 @@ interface CardDisputeService {
      * into a rejected or accepted state. A Card Dispute can only be actioned one time and must have
      * a status of `pending_reviewing`.
      */
+    fun action(cardDisputeId: String, params: CardDisputeActionParams): CardDispute =
+        action(cardDisputeId, params, RequestOptions.none())
+
+    /** @see [action] */
+    fun action(
+        cardDisputeId: String,
+        params: CardDisputeActionParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CardDispute = action(params.toBuilder().cardDisputeId(cardDisputeId).build(), requestOptions)
+
+    /** @see [action] */
     fun action(params: CardDisputeActionParams): CardDispute = action(params, RequestOptions.none())
 
     /** @see [action] */
@@ -39,6 +50,22 @@ interface CardDisputeService {
          * /simulations/card_disputes/{card_dispute_id}/action`, but is otherwise the same as
          * [CardDisputeService.action].
          */
+        @MustBeClosed
+        fun action(
+            cardDisputeId: String,
+            params: CardDisputeActionParams,
+        ): HttpResponseFor<CardDispute> = action(cardDisputeId, params, RequestOptions.none())
+
+        /** @see [action] */
+        @MustBeClosed
+        fun action(
+            cardDisputeId: String,
+            params: CardDisputeActionParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CardDispute> =
+            action(params.toBuilder().cardDisputeId(cardDisputeId).build(), requestOptions)
+
+        /** @see [action] */
         @MustBeClosed
         fun action(params: CardDisputeActionParams): HttpResponseFor<CardDispute> =
             action(params, RequestOptions.none())

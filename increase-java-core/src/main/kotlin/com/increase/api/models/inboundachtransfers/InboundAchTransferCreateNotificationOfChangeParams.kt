@@ -11,25 +11,25 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /** Create a notification of change for an Inbound ACH Transfer */
 class InboundAchTransferCreateNotificationOfChangeParams
 private constructor(
-    private val inboundAchTransferId: String,
+    private val inboundAchTransferId: String?,
     private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the Inbound ACH Transfer for which to create a notification of change. */
-    fun inboundAchTransferId(): String = inboundAchTransferId
+    fun inboundAchTransferId(): Optional<String> = Optional.ofNullable(inboundAchTransferId)
 
     /**
      * The updated account number to send in the notification of change.
@@ -73,14 +73,12 @@ private constructor(
 
     companion object {
 
+        @JvmStatic
+        fun none(): InboundAchTransferCreateNotificationOfChangeParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of
          * [InboundAchTransferCreateNotificationOfChangeParams].
-         *
-         * The following fields are required:
-         * ```java
-         * .inboundAchTransferId()
-         * ```
          */
         @JvmStatic fun builder() = Builder()
     }
@@ -110,9 +108,16 @@ private constructor(
         /**
          * The identifier of the Inbound ACH Transfer for which to create a notification of change.
          */
-        fun inboundAchTransferId(inboundAchTransferId: String) = apply {
+        fun inboundAchTransferId(inboundAchTransferId: String?) = apply {
             this.inboundAchTransferId = inboundAchTransferId
         }
+
+        /**
+         * Alias for calling [Builder.inboundAchTransferId] with
+         * `inboundAchTransferId.orElse(null)`.
+         */
+        fun inboundAchTransferId(inboundAchTransferId: Optional<String>) =
+            inboundAchTransferId(inboundAchTransferId.getOrNull())
 
         /**
          * Sets the entire request body.
@@ -277,17 +282,10 @@ private constructor(
          * Returns an immutable instance of [InboundAchTransferCreateNotificationOfChangeParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```java
-         * .inboundAchTransferId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): InboundAchTransferCreateNotificationOfChangeParams =
             InboundAchTransferCreateNotificationOfChangeParams(
-                checkRequired("inboundAchTransferId", inboundAchTransferId),
+                inboundAchTransferId,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -298,7 +296,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> inboundAchTransferId
+            0 -> inboundAchTransferId ?: ""
             else -> ""
         }
 

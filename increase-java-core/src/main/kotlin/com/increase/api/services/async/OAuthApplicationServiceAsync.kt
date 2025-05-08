@@ -19,14 +19,40 @@ interface OAuthApplicationServiceAsync {
     fun withRawResponse(): WithRawResponse
 
     /** Retrieve an OAuth Application */
-    fun retrieve(params: OAuthApplicationRetrieveParams): CompletableFuture<OAuthApplication> =
-        retrieve(params, RequestOptions.none())
+    fun retrieve(oauthApplicationId: String): CompletableFuture<OAuthApplication> =
+        retrieve(oauthApplicationId, OAuthApplicationRetrieveParams.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        oauthApplicationId: String,
+        params: OAuthApplicationRetrieveParams = OAuthApplicationRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<OAuthApplication> =
+        retrieve(params.toBuilder().oauthApplicationId(oauthApplicationId).build(), requestOptions)
+
+    /** @see [retrieve] */
+    fun retrieve(
+        oauthApplicationId: String,
+        params: OAuthApplicationRetrieveParams = OAuthApplicationRetrieveParams.none(),
+    ): CompletableFuture<OAuthApplication> =
+        retrieve(oauthApplicationId, params, RequestOptions.none())
 
     /** @see [retrieve] */
     fun retrieve(
         params: OAuthApplicationRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<OAuthApplication>
+
+    /** @see [retrieve] */
+    fun retrieve(params: OAuthApplicationRetrieveParams): CompletableFuture<OAuthApplication> =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        oauthApplicationId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<OAuthApplication> =
+        retrieve(oauthApplicationId, OAuthApplicationRetrieveParams.none(), requestOptions)
 
     /** List OAuth Applications */
     fun list(): CompletableFuture<OAuthApplicationListPageAsync> =
@@ -59,9 +85,29 @@ interface OAuthApplicationServiceAsync {
          */
         @MustBeClosed
         fun retrieve(
-            params: OAuthApplicationRetrieveParams
+            oauthApplicationId: String
         ): CompletableFuture<HttpResponseFor<OAuthApplication>> =
-            retrieve(params, RequestOptions.none())
+            retrieve(oauthApplicationId, OAuthApplicationRetrieveParams.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            oauthApplicationId: String,
+            params: OAuthApplicationRetrieveParams = OAuthApplicationRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<OAuthApplication>> =
+            retrieve(
+                params.toBuilder().oauthApplicationId(oauthApplicationId).build(),
+                requestOptions,
+            )
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            oauthApplicationId: String,
+            params: OAuthApplicationRetrieveParams = OAuthApplicationRetrieveParams.none(),
+        ): CompletableFuture<HttpResponseFor<OAuthApplication>> =
+            retrieve(oauthApplicationId, params, RequestOptions.none())
 
         /** @see [retrieve] */
         @MustBeClosed
@@ -69,6 +115,21 @@ interface OAuthApplicationServiceAsync {
             params: OAuthApplicationRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<OAuthApplication>>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            params: OAuthApplicationRetrieveParams
+        ): CompletableFuture<HttpResponseFor<OAuthApplication>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            oauthApplicationId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<OAuthApplication>> =
+            retrieve(oauthApplicationId, OAuthApplicationRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /oauth_applications`, but is otherwise the same as

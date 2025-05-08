@@ -4,17 +4,17 @@ package com.increase.api.models.entities
 
 import com.increase.api.core.JsonValue
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.toImmutable
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /** Archive an Entity */
 class EntityArchiveParams
 private constructor(
-    private val entityId: String,
+    private val entityId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
     private val additionalBodyProperties: Map<String, JsonValue>,
@@ -24,7 +24,7 @@ private constructor(
      * The identifier of the Entity to archive. Any accounts associated with an entity must be
      * closed before the entity can be archived.
      */
-    fun entityId(): String = entityId
+    fun entityId(): Optional<String> = Optional.ofNullable(entityId)
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
@@ -36,14 +36,9 @@ private constructor(
 
     companion object {
 
-        /**
-         * Returns a mutable builder for constructing an instance of [EntityArchiveParams].
-         *
-         * The following fields are required:
-         * ```java
-         * .entityId()
-         * ```
-         */
+        @JvmStatic fun none(): EntityArchiveParams = builder().build()
+
+        /** Returns a mutable builder for constructing an instance of [EntityArchiveParams]. */
         @JvmStatic fun builder() = Builder()
     }
 
@@ -67,7 +62,10 @@ private constructor(
          * The identifier of the Entity to archive. Any accounts associated with an entity must be
          * closed before the entity can be archived.
          */
-        fun entityId(entityId: String) = apply { this.entityId = entityId }
+        fun entityId(entityId: String?) = apply { this.entityId = entityId }
+
+        /** Alias for calling [Builder.entityId] with `entityId.orElse(null)`. */
+        fun entityId(entityId: Optional<String>) = entityId(entityId.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -193,17 +191,10 @@ private constructor(
          * Returns an immutable instance of [EntityArchiveParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```java
-         * .entityId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): EntityArchiveParams =
             EntityArchiveParams(
-                checkRequired("entityId", entityId),
+                entityId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
                 additionalBodyProperties.toImmutable(),
@@ -215,7 +206,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> entityId
+            0 -> entityId ?: ""
             else -> ""
         }
 

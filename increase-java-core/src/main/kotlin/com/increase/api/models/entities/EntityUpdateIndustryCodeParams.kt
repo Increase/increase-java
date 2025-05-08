@@ -17,11 +17,13 @@ import com.increase.api.core.http.QueryParams
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Collections
 import java.util.Objects
+import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /** Update the industry code for a corporate Entity */
 class EntityUpdateIndustryCodeParams
 private constructor(
-    private val entityId: String,
+    private val entityId: String?,
     private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -30,7 +32,7 @@ private constructor(
     /**
      * The identifier of the Entity to update. This endpoint only accepts `corporation` entities.
      */
-    fun entityId(): String = entityId
+    fun entityId(): Optional<String> = Optional.ofNullable(entityId)
 
     /**
      * The North American Industry Classification System (NAICS) code for the corporation's primary
@@ -66,7 +68,6 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .entityId()
          * .industryCode()
          * ```
          */
@@ -93,7 +94,10 @@ private constructor(
          * The identifier of the Entity to update. This endpoint only accepts `corporation`
          * entities.
          */
-        fun entityId(entityId: String) = apply { this.entityId = entityId }
+        fun entityId(entityId: String?) = apply { this.entityId = entityId }
+
+        /** Alias for calling [Builder.entityId] with `entityId.orElse(null)`. */
+        fun entityId(entityId: Optional<String>) = entityId(entityId.getOrNull())
 
         /**
          * Sets the entire request body.
@@ -247,7 +251,6 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .entityId()
          * .industryCode()
          * ```
          *
@@ -255,7 +258,7 @@ private constructor(
          */
         fun build(): EntityUpdateIndustryCodeParams =
             EntityUpdateIndustryCodeParams(
-                checkRequired("entityId", entityId),
+                entityId,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -266,7 +269,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> entityId
+            0 -> entityId ?: ""
             else -> ""
         }
 

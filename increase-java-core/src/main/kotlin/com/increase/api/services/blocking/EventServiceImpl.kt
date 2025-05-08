@@ -5,6 +5,7 @@ package com.increase.api.services.blocking
 import com.increase.api.core.ClientOptions
 import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
+import com.increase.api.core.checkRequired
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
 import com.increase.api.core.handlers.withErrorHandler
@@ -19,6 +20,7 @@ import com.increase.api.models.events.EventListPage
 import com.increase.api.models.events.EventListPageResponse
 import com.increase.api.models.events.EventListParams
 import com.increase.api.models.events.EventRetrieveParams
+import kotlin.jvm.optionals.getOrNull
 
 class EventServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     EventService {
@@ -49,6 +51,9 @@ class EventServiceImpl internal constructor(private val clientOptions: ClientOpt
             params: EventRetrieveParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<Event> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("eventId", params.eventId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)

@@ -4,7 +4,6 @@ package com.increase.api.services.blocking
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.pendingtransactions.PendingTransactionRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -21,11 +20,7 @@ internal class PendingTransactionServiceTest {
         val pendingTransactionService = client.pendingTransactions()
 
         val pendingTransaction =
-            pendingTransactionService.retrieve(
-                PendingTransactionRetrieveParams.builder()
-                    .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")
-                    .build()
-            )
+            pendingTransactionService.retrieve("pending_transaction_k1sfetcau2qbvjbzgju4")
 
         pendingTransaction.validate()
     }

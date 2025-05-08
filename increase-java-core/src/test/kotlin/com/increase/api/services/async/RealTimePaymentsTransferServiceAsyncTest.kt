@@ -5,7 +5,6 @@ package com.increase.api.services.async
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
 import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferCreateParams
-import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -53,9 +52,7 @@ internal class RealTimePaymentsTransferServiceAsyncTest {
 
         val realTimePaymentsTransferFuture =
             realTimePaymentsTransferServiceAsync.retrieve(
-                RealTimePaymentsTransferRetrieveParams.builder()
-                    .realTimePaymentsTransferId("real_time_payments_transfer_iyuhl5kdn7ssmup83mvq")
-                    .build()
+                "real_time_payments_transfer_iyuhl5kdn7ssmup83mvq"
             )
 
         val realTimePaymentsTransfer = realTimePaymentsTransferFuture.get()

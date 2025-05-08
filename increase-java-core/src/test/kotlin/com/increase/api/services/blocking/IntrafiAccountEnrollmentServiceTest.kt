@@ -5,8 +5,6 @@ package com.increase.api.services.blocking
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentCreateParams
-import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentRetrieveParams
-import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentUnenrollParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -44,9 +42,7 @@ internal class IntrafiAccountEnrollmentServiceTest {
 
         val intrafiAccountEnrollment =
             intrafiAccountEnrollmentService.retrieve(
-                IntrafiAccountEnrollmentRetrieveParams.builder()
-                    .intrafiAccountEnrollmentId("intrafi_account_enrollment_w8l97znzreopkwf2tg75")
-                    .build()
+                "intrafi_account_enrollment_w8l97znzreopkwf2tg75"
             )
 
         intrafiAccountEnrollment.validate()
@@ -77,9 +73,7 @@ internal class IntrafiAccountEnrollmentServiceTest {
 
         val intrafiAccountEnrollment =
             intrafiAccountEnrollmentService.unenroll(
-                IntrafiAccountEnrollmentUnenrollParams.builder()
-                    .intrafiAccountEnrollmentId("intrafi_account_enrollment_w8l97znzreopkwf2tg75")
-                    .build()
+                "intrafi_account_enrollment_w8l97znzreopkwf2tg75"
             )
 
         intrafiAccountEnrollment.validate()

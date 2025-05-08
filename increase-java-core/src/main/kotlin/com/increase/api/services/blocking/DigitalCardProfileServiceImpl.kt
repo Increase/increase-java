@@ -5,6 +5,7 @@ package com.increase.api.services.blocking
 import com.increase.api.core.ClientOptions
 import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
+import com.increase.api.core.checkRequired
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
 import com.increase.api.core.handlers.withErrorHandler
@@ -23,6 +24,7 @@ import com.increase.api.models.digitalcardprofiles.DigitalCardProfileListPage
 import com.increase.api.models.digitalcardprofiles.DigitalCardProfileListPageResponse
 import com.increase.api.models.digitalcardprofiles.DigitalCardProfileListParams
 import com.increase.api.models.digitalcardprofiles.DigitalCardProfileRetrieveParams
+import kotlin.jvm.optionals.getOrNull
 
 class DigitalCardProfileServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     DigitalCardProfileService {
@@ -107,6 +109,9 @@ class DigitalCardProfileServiceImpl internal constructor(private val clientOptio
             params: DigitalCardProfileRetrieveParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<DigitalCardProfile> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("digitalCardProfileId", params.digitalCardProfileId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -167,6 +172,9 @@ class DigitalCardProfileServiceImpl internal constructor(private val clientOptio
             params: DigitalCardProfileArchiveParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<DigitalCardProfile> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("digitalCardProfileId", params.digitalCardProfileId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -194,6 +202,9 @@ class DigitalCardProfileServiceImpl internal constructor(private val clientOptio
             params: DigitalCardProfileCloneParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<DigitalCardProfile> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("digitalCardProfileId", params.digitalCardProfileId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)

@@ -18,19 +18,20 @@ import com.increase.api.core.http.QueryParams
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Collections
 import java.util.Objects
+import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /** Simulates receiving a Notification of Change for an [ACH Transfer](#ach-transfers). */
 class AchTransferCreateNotificationOfChangeParams
 private constructor(
-    private val achTransferId: String,
+    private val achTransferId: String?,
     private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the ACH Transfer you wish to create a notification of change for. */
-    fun achTransferId(): String = achTransferId
+    fun achTransferId(): Optional<String> = Optional.ofNullable(achTransferId)
 
     /**
      * The reason for the notification of change.
@@ -78,7 +79,6 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .achTransferId()
          * .changeCode()
          * .correctedData()
          * ```
@@ -107,7 +107,11 @@ private constructor(
         }
 
         /** The identifier of the ACH Transfer you wish to create a notification of change for. */
-        fun achTransferId(achTransferId: String) = apply { this.achTransferId = achTransferId }
+        fun achTransferId(achTransferId: String?) = apply { this.achTransferId = achTransferId }
+
+        /** Alias for calling [Builder.achTransferId] with `achTransferId.orElse(null)`. */
+        fun achTransferId(achTransferId: Optional<String>) =
+            achTransferId(achTransferId.getOrNull())
 
         /**
          * Sets the entire request body.
@@ -269,7 +273,6 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .achTransferId()
          * .changeCode()
          * .correctedData()
          * ```
@@ -278,7 +281,7 @@ private constructor(
          */
         fun build(): AchTransferCreateNotificationOfChangeParams =
             AchTransferCreateNotificationOfChangeParams(
-                checkRequired("achTransferId", achTransferId),
+                achTransferId,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -289,7 +292,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> achTransferId
+            0 -> achTransferId ?: ""
             else -> ""
         }
 

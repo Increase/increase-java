@@ -31,8 +31,26 @@ interface EventSubscriptionServiceAsync {
     ): CompletableFuture<EventSubscription>
 
     /** Retrieve an Event Subscription */
-    fun retrieve(params: EventSubscriptionRetrieveParams): CompletableFuture<EventSubscription> =
-        retrieve(params, RequestOptions.none())
+    fun retrieve(eventSubscriptionId: String): CompletableFuture<EventSubscription> =
+        retrieve(eventSubscriptionId, EventSubscriptionRetrieveParams.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        eventSubscriptionId: String,
+        params: EventSubscriptionRetrieveParams = EventSubscriptionRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<EventSubscription> =
+        retrieve(
+            params.toBuilder().eventSubscriptionId(eventSubscriptionId).build(),
+            requestOptions,
+        )
+
+    /** @see [retrieve] */
+    fun retrieve(
+        eventSubscriptionId: String,
+        params: EventSubscriptionRetrieveParams = EventSubscriptionRetrieveParams.none(),
+    ): CompletableFuture<EventSubscription> =
+        retrieve(eventSubscriptionId, params, RequestOptions.none())
 
     /** @see [retrieve] */
     fun retrieve(
@@ -40,15 +58,52 @@ interface EventSubscriptionServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<EventSubscription>
 
+    /** @see [retrieve] */
+    fun retrieve(params: EventSubscriptionRetrieveParams): CompletableFuture<EventSubscription> =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        eventSubscriptionId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<EventSubscription> =
+        retrieve(eventSubscriptionId, EventSubscriptionRetrieveParams.none(), requestOptions)
+
     /** Update an Event Subscription */
-    fun update(params: EventSubscriptionUpdateParams): CompletableFuture<EventSubscription> =
-        update(params, RequestOptions.none())
+    fun update(eventSubscriptionId: String): CompletableFuture<EventSubscription> =
+        update(eventSubscriptionId, EventSubscriptionUpdateParams.none())
+
+    /** @see [update] */
+    fun update(
+        eventSubscriptionId: String,
+        params: EventSubscriptionUpdateParams = EventSubscriptionUpdateParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<EventSubscription> =
+        update(params.toBuilder().eventSubscriptionId(eventSubscriptionId).build(), requestOptions)
+
+    /** @see [update] */
+    fun update(
+        eventSubscriptionId: String,
+        params: EventSubscriptionUpdateParams = EventSubscriptionUpdateParams.none(),
+    ): CompletableFuture<EventSubscription> =
+        update(eventSubscriptionId, params, RequestOptions.none())
 
     /** @see [update] */
     fun update(
         params: EventSubscriptionUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<EventSubscription>
+
+    /** @see [update] */
+    fun update(params: EventSubscriptionUpdateParams): CompletableFuture<EventSubscription> =
+        update(params, RequestOptions.none())
+
+    /** @see [update] */
+    fun update(
+        eventSubscriptionId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<EventSubscription> =
+        update(eventSubscriptionId, EventSubscriptionUpdateParams.none(), requestOptions)
 
     /** List Event Subscriptions */
     fun list(): CompletableFuture<EventSubscriptionListPageAsync> =
@@ -98,9 +153,29 @@ interface EventSubscriptionServiceAsync {
          */
         @MustBeClosed
         fun retrieve(
-            params: EventSubscriptionRetrieveParams
+            eventSubscriptionId: String
         ): CompletableFuture<HttpResponseFor<EventSubscription>> =
-            retrieve(params, RequestOptions.none())
+            retrieve(eventSubscriptionId, EventSubscriptionRetrieveParams.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            eventSubscriptionId: String,
+            params: EventSubscriptionRetrieveParams = EventSubscriptionRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<EventSubscription>> =
+            retrieve(
+                params.toBuilder().eventSubscriptionId(eventSubscriptionId).build(),
+                requestOptions,
+            )
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            eventSubscriptionId: String,
+            params: EventSubscriptionRetrieveParams = EventSubscriptionRetrieveParams.none(),
+        ): CompletableFuture<HttpResponseFor<EventSubscription>> =
+            retrieve(eventSubscriptionId, params, RequestOptions.none())
 
         /** @see [retrieve] */
         @MustBeClosed
@@ -109,10 +184,59 @@ interface EventSubscriptionServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<EventSubscription>>
 
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            params: EventSubscriptionRetrieveParams
+        ): CompletableFuture<HttpResponseFor<EventSubscription>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            eventSubscriptionId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<EventSubscription>> =
+            retrieve(eventSubscriptionId, EventSubscriptionRetrieveParams.none(), requestOptions)
+
         /**
          * Returns a raw HTTP response for `patch /event_subscriptions/{event_subscription_id}`, but
          * is otherwise the same as [EventSubscriptionServiceAsync.update].
          */
+        @MustBeClosed
+        fun update(
+            eventSubscriptionId: String
+        ): CompletableFuture<HttpResponseFor<EventSubscription>> =
+            update(eventSubscriptionId, EventSubscriptionUpdateParams.none())
+
+        /** @see [update] */
+        @MustBeClosed
+        fun update(
+            eventSubscriptionId: String,
+            params: EventSubscriptionUpdateParams = EventSubscriptionUpdateParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<EventSubscription>> =
+            update(
+                params.toBuilder().eventSubscriptionId(eventSubscriptionId).build(),
+                requestOptions,
+            )
+
+        /** @see [update] */
+        @MustBeClosed
+        fun update(
+            eventSubscriptionId: String,
+            params: EventSubscriptionUpdateParams = EventSubscriptionUpdateParams.none(),
+        ): CompletableFuture<HttpResponseFor<EventSubscription>> =
+            update(eventSubscriptionId, params, RequestOptions.none())
+
+        /** @see [update] */
+        @MustBeClosed
+        fun update(
+            params: EventSubscriptionUpdateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<EventSubscription>>
+
+        /** @see [update] */
         @MustBeClosed
         fun update(
             params: EventSubscriptionUpdateParams
@@ -122,9 +246,10 @@ interface EventSubscriptionServiceAsync {
         /** @see [update] */
         @MustBeClosed
         fun update(
-            params: EventSubscriptionUpdateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<EventSubscription>>
+            eventSubscriptionId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<EventSubscription>> =
+            update(eventSubscriptionId, EventSubscriptionUpdateParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /event_subscriptions`, but is otherwise the same as

@@ -18,14 +18,49 @@ interface InboundWireDrawdownRequestService {
     fun withRawResponse(): WithRawResponse
 
     /** Retrieve an Inbound Wire Drawdown Request */
-    fun retrieve(params: InboundWireDrawdownRequestRetrieveParams): InboundWireDrawdownRequest =
-        retrieve(params, RequestOptions.none())
+    fun retrieve(inboundWireDrawdownRequestId: String): InboundWireDrawdownRequest =
+        retrieve(inboundWireDrawdownRequestId, InboundWireDrawdownRequestRetrieveParams.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        inboundWireDrawdownRequestId: String,
+        params: InboundWireDrawdownRequestRetrieveParams =
+            InboundWireDrawdownRequestRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): InboundWireDrawdownRequest =
+        retrieve(
+            params.toBuilder().inboundWireDrawdownRequestId(inboundWireDrawdownRequestId).build(),
+            requestOptions,
+        )
+
+    /** @see [retrieve] */
+    fun retrieve(
+        inboundWireDrawdownRequestId: String,
+        params: InboundWireDrawdownRequestRetrieveParams =
+            InboundWireDrawdownRequestRetrieveParams.none(),
+    ): InboundWireDrawdownRequest =
+        retrieve(inboundWireDrawdownRequestId, params, RequestOptions.none())
 
     /** @see [retrieve] */
     fun retrieve(
         params: InboundWireDrawdownRequestRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundWireDrawdownRequest
+
+    /** @see [retrieve] */
+    fun retrieve(params: InboundWireDrawdownRequestRetrieveParams): InboundWireDrawdownRequest =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        inboundWireDrawdownRequestId: String,
+        requestOptions: RequestOptions,
+    ): InboundWireDrawdownRequest =
+        retrieve(
+            inboundWireDrawdownRequestId,
+            InboundWireDrawdownRequestRetrieveParams.none(),
+            requestOptions,
+        )
 
     /** List Inbound Wire Drawdown Requests */
     fun list(): InboundWireDrawdownRequestListPage =
@@ -59,8 +94,34 @@ interface InboundWireDrawdownRequestService {
          */
         @MustBeClosed
         fun retrieve(
-            params: InboundWireDrawdownRequestRetrieveParams
-        ): HttpResponseFor<InboundWireDrawdownRequest> = retrieve(params, RequestOptions.none())
+            inboundWireDrawdownRequestId: String
+        ): HttpResponseFor<InboundWireDrawdownRequest> =
+            retrieve(inboundWireDrawdownRequestId, InboundWireDrawdownRequestRetrieveParams.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            inboundWireDrawdownRequestId: String,
+            params: InboundWireDrawdownRequestRetrieveParams =
+                InboundWireDrawdownRequestRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<InboundWireDrawdownRequest> =
+            retrieve(
+                params
+                    .toBuilder()
+                    .inboundWireDrawdownRequestId(inboundWireDrawdownRequestId)
+                    .build(),
+                requestOptions,
+            )
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            inboundWireDrawdownRequestId: String,
+            params: InboundWireDrawdownRequestRetrieveParams =
+                InboundWireDrawdownRequestRetrieveParams.none(),
+        ): HttpResponseFor<InboundWireDrawdownRequest> =
+            retrieve(inboundWireDrawdownRequestId, params, RequestOptions.none())
 
         /** @see [retrieve] */
         @MustBeClosed
@@ -68,6 +129,24 @@ interface InboundWireDrawdownRequestService {
             params: InboundWireDrawdownRequestRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InboundWireDrawdownRequest>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            params: InboundWireDrawdownRequestRetrieveParams
+        ): HttpResponseFor<InboundWireDrawdownRequest> = retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            inboundWireDrawdownRequestId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<InboundWireDrawdownRequest> =
+            retrieve(
+                inboundWireDrawdownRequestId,
+                InboundWireDrawdownRequestRetrieveParams.none(),
+                requestOptions,
+            )
 
         /**
          * Returns a raw HTTP response for `get /inbound_wire_drawdown_requests`, but is otherwise

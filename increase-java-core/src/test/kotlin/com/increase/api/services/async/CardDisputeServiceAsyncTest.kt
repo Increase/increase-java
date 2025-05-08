@@ -5,7 +5,6 @@ package com.increase.api.services.async
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
 import com.increase.api.models.carddisputes.CardDisputeCreateParams
-import com.increase.api.models.carddisputes.CardDisputeRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -44,11 +43,7 @@ internal class CardDisputeServiceAsyncTest {
         val cardDisputeServiceAsync = client.cardDisputes()
 
         val cardDisputeFuture =
-            cardDisputeServiceAsync.retrieve(
-                CardDisputeRetrieveParams.builder()
-                    .cardDisputeId("card_dispute_h9sc95nbl1cgltpp7men")
-                    .build()
-            )
+            cardDisputeServiceAsync.retrieve("card_dispute_h9sc95nbl1cgltpp7men")
 
         val cardDispute = cardDisputeFuture.get()
         cardDispute.validate()

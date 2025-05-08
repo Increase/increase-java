@@ -5,7 +5,6 @@ package com.increase.api.services.blocking
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.models.eventsubscriptions.EventSubscriptionCreateParams
-import com.increase.api.models.eventsubscriptions.EventSubscriptionRetrieveParams
 import com.increase.api.models.eventsubscriptions.EventSubscriptionUpdateParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -47,11 +46,7 @@ internal class EventSubscriptionServiceTest {
         val eventSubscriptionService = client.eventSubscriptions()
 
         val eventSubscription =
-            eventSubscriptionService.retrieve(
-                EventSubscriptionRetrieveParams.builder()
-                    .eventSubscriptionId("event_subscription_001dzz0r20rcdxgb013zqb8m04g")
-                    .build()
-            )
+            eventSubscriptionService.retrieve("event_subscription_001dzz0r20rcdxgb013zqb8m04g")
 
         eventSubscription.validate()
     }

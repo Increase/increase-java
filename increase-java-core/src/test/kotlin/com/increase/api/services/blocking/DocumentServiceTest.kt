@@ -4,7 +4,6 @@ package com.increase.api.services.blocking
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.documents.DocumentRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -20,10 +19,7 @@ internal class DocumentServiceTest {
                 .build()
         val documentService = client.documents()
 
-        val document =
-            documentService.retrieve(
-                DocumentRetrieveParams.builder().documentId("document_qjtqc6s4c14ve2q89izm").build()
-            )
+        val document = documentService.retrieve("document_qjtqc6s4c14ve2q89izm")
 
         document.validate()
     }

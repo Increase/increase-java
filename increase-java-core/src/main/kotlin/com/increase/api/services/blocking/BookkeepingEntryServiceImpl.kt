@@ -5,6 +5,7 @@ package com.increase.api.services.blocking
 import com.increase.api.core.ClientOptions
 import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
+import com.increase.api.core.checkRequired
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
 import com.increase.api.core.handlers.withErrorHandler
@@ -19,6 +20,7 @@ import com.increase.api.models.bookkeepingentries.BookkeepingEntryListPage
 import com.increase.api.models.bookkeepingentries.BookkeepingEntryListPageResponse
 import com.increase.api.models.bookkeepingentries.BookkeepingEntryListParams
 import com.increase.api.models.bookkeepingentries.BookkeepingEntryRetrieveParams
+import kotlin.jvm.optionals.getOrNull
 
 class BookkeepingEntryServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     BookkeepingEntryService {
@@ -55,6 +57,9 @@ class BookkeepingEntryServiceImpl internal constructor(private val clientOptions
             params: BookkeepingEntryRetrieveParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<BookkeepingEntry> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("bookkeepingEntryId", params.bookkeepingEntryId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)

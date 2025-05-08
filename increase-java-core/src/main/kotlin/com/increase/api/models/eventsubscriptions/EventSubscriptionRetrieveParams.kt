@@ -3,21 +3,22 @@
 package com.increase.api.models.eventsubscriptions
 
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
+import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /** Retrieve an Event Subscription */
 class EventSubscriptionRetrieveParams
 private constructor(
-    private val eventSubscriptionId: String,
+    private val eventSubscriptionId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the Event Subscription. */
-    fun eventSubscriptionId(): String = eventSubscriptionId
+    fun eventSubscriptionId(): Optional<String> = Optional.ofNullable(eventSubscriptionId)
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
@@ -27,14 +28,11 @@ private constructor(
 
     companion object {
 
+        @JvmStatic fun none(): EventSubscriptionRetrieveParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of
          * [EventSubscriptionRetrieveParams].
-         *
-         * The following fields are required:
-         * ```java
-         * .eventSubscriptionId()
-         * ```
          */
         @JvmStatic fun builder() = Builder()
     }
@@ -56,9 +54,15 @@ private constructor(
             }
 
         /** The identifier of the Event Subscription. */
-        fun eventSubscriptionId(eventSubscriptionId: String) = apply {
+        fun eventSubscriptionId(eventSubscriptionId: String?) = apply {
             this.eventSubscriptionId = eventSubscriptionId
         }
+
+        /**
+         * Alias for calling [Builder.eventSubscriptionId] with `eventSubscriptionId.orElse(null)`.
+         */
+        fun eventSubscriptionId(eventSubscriptionId: Optional<String>) =
+            eventSubscriptionId(eventSubscriptionId.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -162,17 +166,10 @@ private constructor(
          * Returns an immutable instance of [EventSubscriptionRetrieveParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```java
-         * .eventSubscriptionId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): EventSubscriptionRetrieveParams =
             EventSubscriptionRetrieveParams(
-                checkRequired("eventSubscriptionId", eventSubscriptionId),
+                eventSubscriptionId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -180,7 +177,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> eventSubscriptionId
+            0 -> eventSubscriptionId ?: ""
             else -> ""
         }
 

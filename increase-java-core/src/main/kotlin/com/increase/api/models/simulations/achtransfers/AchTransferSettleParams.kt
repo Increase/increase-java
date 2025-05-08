@@ -4,12 +4,12 @@ package com.increase.api.models.simulations.achtransfers
 
 import com.increase.api.core.JsonValue
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.toImmutable
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /**
  * Simulates the settlement of an [ACH Transfer](#ach-transfers) by the Federal Reserve. This
@@ -20,14 +20,14 @@ import java.util.Optional
  */
 class AchTransferSettleParams
 private constructor(
-    private val achTransferId: String,
+    private val achTransferId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
     private val additionalBodyProperties: Map<String, JsonValue>,
 ) : Params {
 
     /** The identifier of the ACH Transfer you wish to become settled. */
-    fun achTransferId(): String = achTransferId
+    fun achTransferId(): Optional<String> = Optional.ofNullable(achTransferId)
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
@@ -39,14 +39,9 @@ private constructor(
 
     companion object {
 
-        /**
-         * Returns a mutable builder for constructing an instance of [AchTransferSettleParams].
-         *
-         * The following fields are required:
-         * ```java
-         * .achTransferId()
-         * ```
-         */
+        @JvmStatic fun none(): AchTransferSettleParams = builder().build()
+
+        /** Returns a mutable builder for constructing an instance of [AchTransferSettleParams]. */
         @JvmStatic fun builder() = Builder()
     }
 
@@ -68,7 +63,11 @@ private constructor(
         }
 
         /** The identifier of the ACH Transfer you wish to become settled. */
-        fun achTransferId(achTransferId: String) = apply { this.achTransferId = achTransferId }
+        fun achTransferId(achTransferId: String?) = apply { this.achTransferId = achTransferId }
+
+        /** Alias for calling [Builder.achTransferId] with `achTransferId.orElse(null)`. */
+        fun achTransferId(achTransferId: Optional<String>) =
+            achTransferId(achTransferId.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -194,17 +193,10 @@ private constructor(
          * Returns an immutable instance of [AchTransferSettleParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```java
-         * .achTransferId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): AchTransferSettleParams =
             AchTransferSettleParams(
-                checkRequired("achTransferId", achTransferId),
+                achTransferId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
                 additionalBodyProperties.toImmutable(),
@@ -216,7 +208,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> achTransferId
+            0 -> achTransferId ?: ""
             else -> ""
         }
 

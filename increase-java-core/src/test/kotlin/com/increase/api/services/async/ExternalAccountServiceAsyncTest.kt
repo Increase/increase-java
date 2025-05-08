@@ -5,7 +5,6 @@ package com.increase.api.services.async
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
 import com.increase.api.models.externalaccounts.ExternalAccountCreateParams
-import com.increase.api.models.externalaccounts.ExternalAccountRetrieveParams
 import com.increase.api.models.externalaccounts.ExternalAccountUpdateParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -47,11 +46,7 @@ internal class ExternalAccountServiceAsyncTest {
         val externalAccountServiceAsync = client.externalAccounts()
 
         val externalAccountFuture =
-            externalAccountServiceAsync.retrieve(
-                ExternalAccountRetrieveParams.builder()
-                    .externalAccountId("external_account_ukk55lr923a3ac0pp7iv")
-                    .build()
-            )
+            externalAccountServiceAsync.retrieve("external_account_ukk55lr923a3ac0pp7iv")
 
         val externalAccount = externalAccountFuture.get()
         externalAccount.validate()

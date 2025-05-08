@@ -21,6 +21,21 @@ interface PhysicalCardServiceAsync {
      * simulate e.g., that a physical card was attempted shipped but then failed delivery.
      */
     fun advanceShipment(
+        physicalCardId: String,
+        params: PhysicalCardAdvanceShipmentParams,
+    ): CompletableFuture<PhysicalCard> =
+        advanceShipment(physicalCardId, params, RequestOptions.none())
+
+    /** @see [advanceShipment] */
+    fun advanceShipment(
+        physicalCardId: String,
+        params: PhysicalCardAdvanceShipmentParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<PhysicalCard> =
+        advanceShipment(params.toBuilder().physicalCardId(physicalCardId).build(), requestOptions)
+
+    /** @see [advanceShipment] */
+    fun advanceShipment(
         params: PhysicalCardAdvanceShipmentParams
     ): CompletableFuture<PhysicalCard> = advanceShipment(params, RequestOptions.none())
 
@@ -41,6 +56,26 @@ interface PhysicalCardServiceAsync {
          * /simulations/physical_cards/{physical_card_id}/advance_shipment`, but is otherwise the
          * same as [PhysicalCardServiceAsync.advanceShipment].
          */
+        @MustBeClosed
+        fun advanceShipment(
+            physicalCardId: String,
+            params: PhysicalCardAdvanceShipmentParams,
+        ): CompletableFuture<HttpResponseFor<PhysicalCard>> =
+            advanceShipment(physicalCardId, params, RequestOptions.none())
+
+        /** @see [advanceShipment] */
+        @MustBeClosed
+        fun advanceShipment(
+            physicalCardId: String,
+            params: PhysicalCardAdvanceShipmentParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<PhysicalCard>> =
+            advanceShipment(
+                params.toBuilder().physicalCardId(physicalCardId).build(),
+                requestOptions,
+            )
+
+        /** @see [advanceShipment] */
         @MustBeClosed
         fun advanceShipment(
             params: PhysicalCardAdvanceShipmentParams
