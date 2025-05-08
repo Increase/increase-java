@@ -5,7 +5,6 @@ package com.increase.api.services.blocking
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.models.lockboxes.LockboxCreateParams
-import com.increase.api.models.lockboxes.LockboxRetrieveParams
 import com.increase.api.models.lockboxes.LockboxUpdateParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -43,10 +42,7 @@ internal class LockboxServiceTest {
                 .build()
         val lockboxService = client.lockboxes()
 
-        val lockbox =
-            lockboxService.retrieve(
-                LockboxRetrieveParams.builder().lockboxId("lockbox_3xt21ok13q19advds4t5").build()
-            )
+        val lockbox = lockboxService.retrieve("lockbox_3xt21ok13q19advds4t5")
 
         lockbox.validate()
     }

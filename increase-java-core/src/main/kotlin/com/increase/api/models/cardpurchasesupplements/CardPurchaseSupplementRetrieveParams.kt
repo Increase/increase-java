@@ -3,21 +3,22 @@
 package com.increase.api.models.cardpurchasesupplements
 
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
+import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /** Retrieve a Card Purchase Supplement */
 class CardPurchaseSupplementRetrieveParams
 private constructor(
-    private val cardPurchaseSupplementId: String,
+    private val cardPurchaseSupplementId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the Card Purchase Supplement. */
-    fun cardPurchaseSupplementId(): String = cardPurchaseSupplementId
+    fun cardPurchaseSupplementId(): Optional<String> = Optional.ofNullable(cardPurchaseSupplementId)
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
@@ -27,14 +28,11 @@ private constructor(
 
     companion object {
 
+        @JvmStatic fun none(): CardPurchaseSupplementRetrieveParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of
          * [CardPurchaseSupplementRetrieveParams].
-         *
-         * The following fields are required:
-         * ```java
-         * .cardPurchaseSupplementId()
-         * ```
          */
         @JvmStatic fun builder() = Builder()
     }
@@ -57,9 +55,16 @@ private constructor(
         }
 
         /** The identifier of the Card Purchase Supplement. */
-        fun cardPurchaseSupplementId(cardPurchaseSupplementId: String) = apply {
+        fun cardPurchaseSupplementId(cardPurchaseSupplementId: String?) = apply {
             this.cardPurchaseSupplementId = cardPurchaseSupplementId
         }
+
+        /**
+         * Alias for calling [Builder.cardPurchaseSupplementId] with
+         * `cardPurchaseSupplementId.orElse(null)`.
+         */
+        fun cardPurchaseSupplementId(cardPurchaseSupplementId: Optional<String>) =
+            cardPurchaseSupplementId(cardPurchaseSupplementId.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -163,17 +168,10 @@ private constructor(
          * Returns an immutable instance of [CardPurchaseSupplementRetrieveParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```java
-         * .cardPurchaseSupplementId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): CardPurchaseSupplementRetrieveParams =
             CardPurchaseSupplementRetrieveParams(
-                checkRequired("cardPurchaseSupplementId", cardPurchaseSupplementId),
+                cardPurchaseSupplementId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -181,7 +179,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> cardPurchaseSupplementId
+            0 -> cardPurchaseSupplementId ?: ""
             else -> ""
         }
 

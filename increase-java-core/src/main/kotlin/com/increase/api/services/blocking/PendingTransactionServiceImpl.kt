@@ -5,6 +5,7 @@ package com.increase.api.services.blocking
 import com.increase.api.core.ClientOptions
 import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
+import com.increase.api.core.checkRequired
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
 import com.increase.api.core.handlers.withErrorHandler
@@ -19,6 +20,7 @@ import com.increase.api.models.pendingtransactions.PendingTransactionListPage
 import com.increase.api.models.pendingtransactions.PendingTransactionListPageResponse
 import com.increase.api.models.pendingtransactions.PendingTransactionListParams
 import com.increase.api.models.pendingtransactions.PendingTransactionRetrieveParams
+import kotlin.jvm.optionals.getOrNull
 
 class PendingTransactionServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     PendingTransactionService {
@@ -55,6 +57,9 @@ class PendingTransactionServiceImpl internal constructor(private val clientOptio
             params: PendingTransactionRetrieveParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<PendingTransaction> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("pendingTransactionId", params.pendingTransactionId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)

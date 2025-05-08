@@ -5,6 +5,7 @@ package com.increase.api.services.blocking
 import com.increase.api.core.ClientOptions
 import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
+import com.increase.api.core.checkRequired
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
 import com.increase.api.core.handlers.withErrorHandler
@@ -23,6 +24,7 @@ import com.increase.api.models.wiretransfers.WireTransferListPage
 import com.increase.api.models.wiretransfers.WireTransferListPageResponse
 import com.increase.api.models.wiretransfers.WireTransferListParams
 import com.increase.api.models.wiretransfers.WireTransferRetrieveParams
+import kotlin.jvm.optionals.getOrNull
 
 class WireTransferServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     WireTransferService {
@@ -107,6 +109,9 @@ class WireTransferServiceImpl internal constructor(private val clientOptions: Cl
             params: WireTransferRetrieveParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<WireTransfer> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("wireTransferId", params.wireTransferId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -167,6 +172,9 @@ class WireTransferServiceImpl internal constructor(private val clientOptions: Cl
             params: WireTransferApproveParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<WireTransfer> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("wireTransferId", params.wireTransferId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -194,6 +202,9 @@ class WireTransferServiceImpl internal constructor(private val clientOptions: Cl
             params: WireTransferCancelParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<WireTransfer> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("wireTransferId", params.wireTransferId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)

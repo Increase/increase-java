@@ -34,14 +34,35 @@ interface FileServiceAsync {
     ): CompletableFuture<File>
 
     /** Retrieve a File */
-    fun retrieve(params: FileRetrieveParams): CompletableFuture<File> =
-        retrieve(params, RequestOptions.none())
+    fun retrieve(fileId: String): CompletableFuture<File> =
+        retrieve(fileId, FileRetrieveParams.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        fileId: String,
+        params: FileRetrieveParams = FileRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<File> = retrieve(params.toBuilder().fileId(fileId).build(), requestOptions)
+
+    /** @see [retrieve] */
+    fun retrieve(
+        fileId: String,
+        params: FileRetrieveParams = FileRetrieveParams.none(),
+    ): CompletableFuture<File> = retrieve(fileId, params, RequestOptions.none())
 
     /** @see [retrieve] */
     fun retrieve(
         params: FileRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<File>
+
+    /** @see [retrieve] */
+    fun retrieve(params: FileRetrieveParams): CompletableFuture<File> =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
+    fun retrieve(fileId: String, requestOptions: RequestOptions): CompletableFuture<File> =
+        retrieve(fileId, FileRetrieveParams.none(), requestOptions)
 
     /** List Files */
     fun list(): CompletableFuture<FileListPageAsync> = list(FileListParams.none())
@@ -83,8 +104,25 @@ interface FileServiceAsync {
          * [FileServiceAsync.retrieve].
          */
         @MustBeClosed
-        fun retrieve(params: FileRetrieveParams): CompletableFuture<HttpResponseFor<File>> =
-            retrieve(params, RequestOptions.none())
+        fun retrieve(fileId: String): CompletableFuture<HttpResponseFor<File>> =
+            retrieve(fileId, FileRetrieveParams.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            fileId: String,
+            params: FileRetrieveParams = FileRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<File>> =
+            retrieve(params.toBuilder().fileId(fileId).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            fileId: String,
+            params: FileRetrieveParams = FileRetrieveParams.none(),
+        ): CompletableFuture<HttpResponseFor<File>> =
+            retrieve(fileId, params, RequestOptions.none())
 
         /** @see [retrieve] */
         @MustBeClosed
@@ -92,6 +130,19 @@ interface FileServiceAsync {
             params: FileRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<File>>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(params: FileRetrieveParams): CompletableFuture<HttpResponseFor<File>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            fileId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<File>> =
+            retrieve(fileId, FileRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /files`, but is otherwise the same as

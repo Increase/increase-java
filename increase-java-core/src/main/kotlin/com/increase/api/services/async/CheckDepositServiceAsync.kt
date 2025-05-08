@@ -30,14 +30,39 @@ interface CheckDepositServiceAsync {
     ): CompletableFuture<CheckDeposit>
 
     /** Retrieve a Check Deposit */
-    fun retrieve(params: CheckDepositRetrieveParams): CompletableFuture<CheckDeposit> =
-        retrieve(params, RequestOptions.none())
+    fun retrieve(checkDepositId: String): CompletableFuture<CheckDeposit> =
+        retrieve(checkDepositId, CheckDepositRetrieveParams.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        checkDepositId: String,
+        params: CheckDepositRetrieveParams = CheckDepositRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<CheckDeposit> =
+        retrieve(params.toBuilder().checkDepositId(checkDepositId).build(), requestOptions)
+
+    /** @see [retrieve] */
+    fun retrieve(
+        checkDepositId: String,
+        params: CheckDepositRetrieveParams = CheckDepositRetrieveParams.none(),
+    ): CompletableFuture<CheckDeposit> = retrieve(checkDepositId, params, RequestOptions.none())
 
     /** @see [retrieve] */
     fun retrieve(
         params: CheckDepositRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CheckDeposit>
+
+    /** @see [retrieve] */
+    fun retrieve(params: CheckDepositRetrieveParams): CompletableFuture<CheckDeposit> =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        checkDepositId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<CheckDeposit> =
+        retrieve(checkDepositId, CheckDepositRetrieveParams.none(), requestOptions)
 
     /** List Check Deposits */
     fun list(): CompletableFuture<CheckDepositListPageAsync> = list(CheckDepositListParams.none())
@@ -84,6 +109,35 @@ interface CheckDepositServiceAsync {
          * otherwise the same as [CheckDepositServiceAsync.retrieve].
          */
         @MustBeClosed
+        fun retrieve(checkDepositId: String): CompletableFuture<HttpResponseFor<CheckDeposit>> =
+            retrieve(checkDepositId, CheckDepositRetrieveParams.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            checkDepositId: String,
+            params: CheckDepositRetrieveParams = CheckDepositRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<CheckDeposit>> =
+            retrieve(params.toBuilder().checkDepositId(checkDepositId).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            checkDepositId: String,
+            params: CheckDepositRetrieveParams = CheckDepositRetrieveParams.none(),
+        ): CompletableFuture<HttpResponseFor<CheckDeposit>> =
+            retrieve(checkDepositId, params, RequestOptions.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            params: CheckDepositRetrieveParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<CheckDeposit>>
+
+        /** @see [retrieve] */
+        @MustBeClosed
         fun retrieve(
             params: CheckDepositRetrieveParams
         ): CompletableFuture<HttpResponseFor<CheckDeposit>> =
@@ -92,9 +146,10 @@ interface CheckDepositServiceAsync {
         /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
-            params: CheckDepositRetrieveParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CheckDeposit>>
+            checkDepositId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<CheckDeposit>> =
+            retrieve(checkDepositId, CheckDepositRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /check_deposits`, but is otherwise the same as

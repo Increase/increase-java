@@ -19,14 +19,43 @@ interface PendingTransactionServiceAsync {
     fun withRawResponse(): WithRawResponse
 
     /** Retrieve a Pending Transaction */
-    fun retrieve(params: PendingTransactionRetrieveParams): CompletableFuture<PendingTransaction> =
-        retrieve(params, RequestOptions.none())
+    fun retrieve(pendingTransactionId: String): CompletableFuture<PendingTransaction> =
+        retrieve(pendingTransactionId, PendingTransactionRetrieveParams.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        pendingTransactionId: String,
+        params: PendingTransactionRetrieveParams = PendingTransactionRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<PendingTransaction> =
+        retrieve(
+            params.toBuilder().pendingTransactionId(pendingTransactionId).build(),
+            requestOptions,
+        )
+
+    /** @see [retrieve] */
+    fun retrieve(
+        pendingTransactionId: String,
+        params: PendingTransactionRetrieveParams = PendingTransactionRetrieveParams.none(),
+    ): CompletableFuture<PendingTransaction> =
+        retrieve(pendingTransactionId, params, RequestOptions.none())
 
     /** @see [retrieve] */
     fun retrieve(
         params: PendingTransactionRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PendingTransaction>
+
+    /** @see [retrieve] */
+    fun retrieve(params: PendingTransactionRetrieveParams): CompletableFuture<PendingTransaction> =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        pendingTransactionId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<PendingTransaction> =
+        retrieve(pendingTransactionId, PendingTransactionRetrieveParams.none(), requestOptions)
 
     /** List Pending Transactions */
     fun list(): CompletableFuture<PendingTransactionListPageAsync> =
@@ -59,9 +88,29 @@ interface PendingTransactionServiceAsync {
          */
         @MustBeClosed
         fun retrieve(
-            params: PendingTransactionRetrieveParams
+            pendingTransactionId: String
         ): CompletableFuture<HttpResponseFor<PendingTransaction>> =
-            retrieve(params, RequestOptions.none())
+            retrieve(pendingTransactionId, PendingTransactionRetrieveParams.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            pendingTransactionId: String,
+            params: PendingTransactionRetrieveParams = PendingTransactionRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<PendingTransaction>> =
+            retrieve(
+                params.toBuilder().pendingTransactionId(pendingTransactionId).build(),
+                requestOptions,
+            )
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            pendingTransactionId: String,
+            params: PendingTransactionRetrieveParams = PendingTransactionRetrieveParams.none(),
+        ): CompletableFuture<HttpResponseFor<PendingTransaction>> =
+            retrieve(pendingTransactionId, params, RequestOptions.none())
 
         /** @see [retrieve] */
         @MustBeClosed
@@ -69,6 +118,21 @@ interface PendingTransactionServiceAsync {
             params: PendingTransactionRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<PendingTransaction>>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            params: PendingTransactionRetrieveParams
+        ): CompletableFuture<HttpResponseFor<PendingTransaction>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            pendingTransactionId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<PendingTransaction>> =
+            retrieve(pendingTransactionId, PendingTransactionRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /pending_transactions`, but is otherwise the same as

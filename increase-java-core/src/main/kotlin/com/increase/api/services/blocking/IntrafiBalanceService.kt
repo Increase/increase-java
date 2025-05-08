@@ -19,14 +19,36 @@ interface IntrafiBalanceService {
      * Returns the IntraFi balance for the given account. IntraFi may sweep funds to multiple banks.
      * This endpoint will include both the total balance and the amount swept to each institution.
      */
-    fun intrafiBalance(params: IntrafiBalanceIntrafiBalanceParams): IntrafiBalance =
-        intrafiBalance(params, RequestOptions.none())
+    fun intrafiBalance(accountId: String): IntrafiBalance =
+        intrafiBalance(accountId, IntrafiBalanceIntrafiBalanceParams.none())
+
+    /** @see [intrafiBalance] */
+    fun intrafiBalance(
+        accountId: String,
+        params: IntrafiBalanceIntrafiBalanceParams = IntrafiBalanceIntrafiBalanceParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): IntrafiBalance =
+        intrafiBalance(params.toBuilder().accountId(accountId).build(), requestOptions)
+
+    /** @see [intrafiBalance] */
+    fun intrafiBalance(
+        accountId: String,
+        params: IntrafiBalanceIntrafiBalanceParams = IntrafiBalanceIntrafiBalanceParams.none(),
+    ): IntrafiBalance = intrafiBalance(accountId, params, RequestOptions.none())
 
     /** @see [intrafiBalance] */
     fun intrafiBalance(
         params: IntrafiBalanceIntrafiBalanceParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): IntrafiBalance
+
+    /** @see [intrafiBalance] */
+    fun intrafiBalance(params: IntrafiBalanceIntrafiBalanceParams): IntrafiBalance =
+        intrafiBalance(params, RequestOptions.none())
+
+    /** @see [intrafiBalance] */
+    fun intrafiBalance(accountId: String, requestOptions: RequestOptions): IntrafiBalance =
+        intrafiBalance(accountId, IntrafiBalanceIntrafiBalanceParams.none(), requestOptions)
 
     /**
      * A view of [IntrafiBalanceService] that provides access to raw HTTP responses for each method.
@@ -38,9 +60,25 @@ interface IntrafiBalanceService {
          * otherwise the same as [IntrafiBalanceService.intrafiBalance].
          */
         @MustBeClosed
+        fun intrafiBalance(accountId: String): HttpResponseFor<IntrafiBalance> =
+            intrafiBalance(accountId, IntrafiBalanceIntrafiBalanceParams.none())
+
+        /** @see [intrafiBalance] */
+        @MustBeClosed
         fun intrafiBalance(
-            params: IntrafiBalanceIntrafiBalanceParams
-        ): HttpResponseFor<IntrafiBalance> = intrafiBalance(params, RequestOptions.none())
+            accountId: String,
+            params: IntrafiBalanceIntrafiBalanceParams = IntrafiBalanceIntrafiBalanceParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<IntrafiBalance> =
+            intrafiBalance(params.toBuilder().accountId(accountId).build(), requestOptions)
+
+        /** @see [intrafiBalance] */
+        @MustBeClosed
+        fun intrafiBalance(
+            accountId: String,
+            params: IntrafiBalanceIntrafiBalanceParams = IntrafiBalanceIntrafiBalanceParams.none(),
+        ): HttpResponseFor<IntrafiBalance> =
+            intrafiBalance(accountId, params, RequestOptions.none())
 
         /** @see [intrafiBalance] */
         @MustBeClosed
@@ -48,5 +86,19 @@ interface IntrafiBalanceService {
             params: IntrafiBalanceIntrafiBalanceParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<IntrafiBalance>
+
+        /** @see [intrafiBalance] */
+        @MustBeClosed
+        fun intrafiBalance(
+            params: IntrafiBalanceIntrafiBalanceParams
+        ): HttpResponseFor<IntrafiBalance> = intrafiBalance(params, RequestOptions.none())
+
+        /** @see [intrafiBalance] */
+        @MustBeClosed
+        fun intrafiBalance(
+            accountId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<IntrafiBalance> =
+            intrafiBalance(accountId, IntrafiBalanceIntrafiBalanceParams.none(), requestOptions)
     }
 }

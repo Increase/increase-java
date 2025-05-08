@@ -17,18 +17,20 @@ import com.increase.api.core.http.QueryParams
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Collections
 import java.util.Objects
+import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /** Update a Bookkeeping Account */
 class BookkeepingAccountUpdateParams
 private constructor(
-    private val bookkeepingAccountId: String,
+    private val bookkeepingAccountId: String?,
     private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The bookkeeping account you would like to update. */
-    fun bookkeepingAccountId(): String = bookkeepingAccountId
+    fun bookkeepingAccountId(): Optional<String> = Optional.ofNullable(bookkeepingAccountId)
 
     /**
      * The name you choose for the account.
@@ -61,7 +63,6 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .bookkeepingAccountId()
          * .name()
          * ```
          */
@@ -85,9 +86,16 @@ private constructor(
         }
 
         /** The bookkeeping account you would like to update. */
-        fun bookkeepingAccountId(bookkeepingAccountId: String) = apply {
+        fun bookkeepingAccountId(bookkeepingAccountId: String?) = apply {
             this.bookkeepingAccountId = bookkeepingAccountId
         }
+
+        /**
+         * Alias for calling [Builder.bookkeepingAccountId] with
+         * `bookkeepingAccountId.orElse(null)`.
+         */
+        fun bookkeepingAccountId(bookkeepingAccountId: Optional<String>) =
+            bookkeepingAccountId(bookkeepingAccountId.getOrNull())
 
         /**
          * Sets the entire request body.
@@ -233,7 +241,6 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .bookkeepingAccountId()
          * .name()
          * ```
          *
@@ -241,7 +248,7 @@ private constructor(
          */
         fun build(): BookkeepingAccountUpdateParams =
             BookkeepingAccountUpdateParams(
-                checkRequired("bookkeepingAccountId", bookkeepingAccountId),
+                bookkeepingAccountId,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -252,7 +259,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> bookkeepingAccountId
+            0 -> bookkeepingAccountId ?: ""
             else -> ""
         }
 

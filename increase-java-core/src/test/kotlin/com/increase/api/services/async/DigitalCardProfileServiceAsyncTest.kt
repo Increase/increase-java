@@ -4,10 +4,8 @@ package com.increase.api.services.async
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
-import com.increase.api.models.digitalcardprofiles.DigitalCardProfileArchiveParams
 import com.increase.api.models.digitalcardprofiles.DigitalCardProfileCloneParams
 import com.increase.api.models.digitalcardprofiles.DigitalCardProfileCreateParams
-import com.increase.api.models.digitalcardprofiles.DigitalCardProfileRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -58,11 +56,7 @@ internal class DigitalCardProfileServiceAsyncTest {
         val digitalCardProfileServiceAsync = client.digitalCardProfiles()
 
         val digitalCardProfileFuture =
-            digitalCardProfileServiceAsync.retrieve(
-                DigitalCardProfileRetrieveParams.builder()
-                    .digitalCardProfileId("digital_card_profile_s3puplu90f04xhcwkiga")
-                    .build()
-            )
+            digitalCardProfileServiceAsync.retrieve("digital_card_profile_s3puplu90f04xhcwkiga")
 
         val digitalCardProfile = digitalCardProfileFuture.get()
         digitalCardProfile.validate()
@@ -93,11 +87,7 @@ internal class DigitalCardProfileServiceAsyncTest {
         val digitalCardProfileServiceAsync = client.digitalCardProfiles()
 
         val digitalCardProfileFuture =
-            digitalCardProfileServiceAsync.archive(
-                DigitalCardProfileArchiveParams.builder()
-                    .digitalCardProfileId("digital_card_profile_s3puplu90f04xhcwkiga")
-                    .build()
-            )
+            digitalCardProfileServiceAsync.archive("digital_card_profile_s3puplu90f04xhcwkiga")
 
         val digitalCardProfile = digitalCardProfileFuture.get()
         digitalCardProfile.validate()

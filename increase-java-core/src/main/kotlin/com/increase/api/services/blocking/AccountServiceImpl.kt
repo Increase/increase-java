@@ -5,6 +5,7 @@ package com.increase.api.services.blocking
 import com.increase.api.core.ClientOptions
 import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
+import com.increase.api.core.checkRequired
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
 import com.increase.api.core.handlers.withErrorHandler
@@ -25,6 +26,7 @@ import com.increase.api.models.accounts.AccountListParams
 import com.increase.api.models.accounts.AccountRetrieveParams
 import com.increase.api.models.accounts.AccountUpdateParams
 import com.increase.api.models.accounts.BalanceLookup
+import kotlin.jvm.optionals.getOrNull
 
 class AccountServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     AccountService {
@@ -101,6 +103,9 @@ class AccountServiceImpl internal constructor(private val clientOptions: ClientO
             params: AccountRetrieveParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<Account> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("accountId", params.accountId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -127,6 +132,9 @@ class AccountServiceImpl internal constructor(private val clientOptions: ClientO
             params: AccountUpdateParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<Account> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("accountId", params.accountId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
@@ -188,6 +196,9 @@ class AccountServiceImpl internal constructor(private val clientOptions: ClientO
             params: AccountBalanceParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<BalanceLookup> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("accountId", params.accountId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -214,6 +225,9 @@ class AccountServiceImpl internal constructor(private val clientOptions: ClientO
             params: AccountCloseParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<Account> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("accountId", params.accountId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)

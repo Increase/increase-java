@@ -19,14 +19,36 @@ interface ProgramServiceAsync {
     fun withRawResponse(): WithRawResponse
 
     /** Retrieve a Program */
-    fun retrieve(params: ProgramRetrieveParams): CompletableFuture<Program> =
-        retrieve(params, RequestOptions.none())
+    fun retrieve(programId: String): CompletableFuture<Program> =
+        retrieve(programId, ProgramRetrieveParams.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        programId: String,
+        params: ProgramRetrieveParams = ProgramRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Program> =
+        retrieve(params.toBuilder().programId(programId).build(), requestOptions)
+
+    /** @see [retrieve] */
+    fun retrieve(
+        programId: String,
+        params: ProgramRetrieveParams = ProgramRetrieveParams.none(),
+    ): CompletableFuture<Program> = retrieve(programId, params, RequestOptions.none())
 
     /** @see [retrieve] */
     fun retrieve(
         params: ProgramRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Program>
+
+    /** @see [retrieve] */
+    fun retrieve(params: ProgramRetrieveParams): CompletableFuture<Program> =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
+    fun retrieve(programId: String, requestOptions: RequestOptions): CompletableFuture<Program> =
+        retrieve(programId, ProgramRetrieveParams.none(), requestOptions)
 
     /** List Programs */
     fun list(): CompletableFuture<ProgramListPageAsync> = list(ProgramListParams.none())
@@ -56,8 +78,25 @@ interface ProgramServiceAsync {
          * as [ProgramServiceAsync.retrieve].
          */
         @MustBeClosed
-        fun retrieve(params: ProgramRetrieveParams): CompletableFuture<HttpResponseFor<Program>> =
-            retrieve(params, RequestOptions.none())
+        fun retrieve(programId: String): CompletableFuture<HttpResponseFor<Program>> =
+            retrieve(programId, ProgramRetrieveParams.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            programId: String,
+            params: ProgramRetrieveParams = ProgramRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<Program>> =
+            retrieve(params.toBuilder().programId(programId).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            programId: String,
+            params: ProgramRetrieveParams = ProgramRetrieveParams.none(),
+        ): CompletableFuture<HttpResponseFor<Program>> =
+            retrieve(programId, params, RequestOptions.none())
 
         /** @see [retrieve] */
         @MustBeClosed
@@ -65,6 +104,19 @@ interface ProgramServiceAsync {
             params: ProgramRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<Program>>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(params: ProgramRetrieveParams): CompletableFuture<HttpResponseFor<Program>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            programId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<Program>> =
+            retrieve(programId, ProgramRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /programs`, but is otherwise the same as

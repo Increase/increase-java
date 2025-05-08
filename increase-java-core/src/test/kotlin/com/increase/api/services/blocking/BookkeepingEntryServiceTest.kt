@@ -4,7 +4,6 @@ package com.increase.api.services.blocking
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.bookkeepingentries.BookkeepingEntryRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -21,11 +20,7 @@ internal class BookkeepingEntryServiceTest {
         val bookkeepingEntryService = client.bookkeepingEntries()
 
         val bookkeepingEntry =
-            bookkeepingEntryService.retrieve(
-                BookkeepingEntryRetrieveParams.builder()
-                    .bookkeepingEntryId("bookkeeping_entry_ctjpajsj3ks2blx10375")
-                    .build()
-            )
+            bookkeepingEntryService.retrieve("bookkeeping_entry_ctjpajsj3ks2blx10375")
 
         bookkeepingEntry.validate()
     }

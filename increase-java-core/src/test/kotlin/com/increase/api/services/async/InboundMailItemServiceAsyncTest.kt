@@ -4,7 +4,6 @@ package com.increase.api.services.async
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
-import com.increase.api.models.inboundmailitems.InboundMailItemRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -21,11 +20,7 @@ internal class InboundMailItemServiceAsyncTest {
         val inboundMailItemServiceAsync = client.inboundMailItems()
 
         val inboundMailItemFuture =
-            inboundMailItemServiceAsync.retrieve(
-                InboundMailItemRetrieveParams.builder()
-                    .inboundMailItemId("inbound_mail_item_q6rrg7mmqpplx80zceev")
-                    .build()
-            )
+            inboundMailItemServiceAsync.retrieve("inbound_mail_item_q6rrg7mmqpplx80zceev")
 
         val inboundMailItem = inboundMailItemFuture.get()
         inboundMailItem.validate()

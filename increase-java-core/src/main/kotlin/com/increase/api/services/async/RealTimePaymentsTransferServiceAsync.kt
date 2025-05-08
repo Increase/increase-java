@@ -31,15 +31,50 @@ interface RealTimePaymentsTransferServiceAsync {
     ): CompletableFuture<RealTimePaymentsTransfer>
 
     /** Retrieve a Real-Time Payments Transfer */
+    fun retrieve(realTimePaymentsTransferId: String): CompletableFuture<RealTimePaymentsTransfer> =
+        retrieve(realTimePaymentsTransferId, RealTimePaymentsTransferRetrieveParams.none())
+
+    /** @see [retrieve] */
     fun retrieve(
-        params: RealTimePaymentsTransferRetrieveParams
-    ): CompletableFuture<RealTimePaymentsTransfer> = retrieve(params, RequestOptions.none())
+        realTimePaymentsTransferId: String,
+        params: RealTimePaymentsTransferRetrieveParams =
+            RealTimePaymentsTransferRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<RealTimePaymentsTransfer> =
+        retrieve(
+            params.toBuilder().realTimePaymentsTransferId(realTimePaymentsTransferId).build(),
+            requestOptions,
+        )
+
+    /** @see [retrieve] */
+    fun retrieve(
+        realTimePaymentsTransferId: String,
+        params: RealTimePaymentsTransferRetrieveParams =
+            RealTimePaymentsTransferRetrieveParams.none(),
+    ): CompletableFuture<RealTimePaymentsTransfer> =
+        retrieve(realTimePaymentsTransferId, params, RequestOptions.none())
 
     /** @see [retrieve] */
     fun retrieve(
         params: RealTimePaymentsTransferRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<RealTimePaymentsTransfer>
+
+    /** @see [retrieve] */
+    fun retrieve(
+        params: RealTimePaymentsTransferRetrieveParams
+    ): CompletableFuture<RealTimePaymentsTransfer> = retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        realTimePaymentsTransferId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<RealTimePaymentsTransfer> =
+        retrieve(
+            realTimePaymentsTransferId,
+            RealTimePaymentsTransferRetrieveParams.none(),
+            requestOptions,
+        )
 
     /** List Real-Time Payments Transfers */
     fun list(): CompletableFuture<RealTimePaymentsTransferListPageAsync> =
@@ -93,9 +128,31 @@ interface RealTimePaymentsTransferServiceAsync {
          */
         @MustBeClosed
         fun retrieve(
-            params: RealTimePaymentsTransferRetrieveParams
+            realTimePaymentsTransferId: String
         ): CompletableFuture<HttpResponseFor<RealTimePaymentsTransfer>> =
-            retrieve(params, RequestOptions.none())
+            retrieve(realTimePaymentsTransferId, RealTimePaymentsTransferRetrieveParams.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            realTimePaymentsTransferId: String,
+            params: RealTimePaymentsTransferRetrieveParams =
+                RealTimePaymentsTransferRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<RealTimePaymentsTransfer>> =
+            retrieve(
+                params.toBuilder().realTimePaymentsTransferId(realTimePaymentsTransferId).build(),
+                requestOptions,
+            )
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            realTimePaymentsTransferId: String,
+            params: RealTimePaymentsTransferRetrieveParams =
+                RealTimePaymentsTransferRetrieveParams.none(),
+        ): CompletableFuture<HttpResponseFor<RealTimePaymentsTransfer>> =
+            retrieve(realTimePaymentsTransferId, params, RequestOptions.none())
 
         /** @see [retrieve] */
         @MustBeClosed
@@ -103,6 +160,25 @@ interface RealTimePaymentsTransferServiceAsync {
             params: RealTimePaymentsTransferRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<RealTimePaymentsTransfer>>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            params: RealTimePaymentsTransferRetrieveParams
+        ): CompletableFuture<HttpResponseFor<RealTimePaymentsTransfer>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            realTimePaymentsTransferId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<RealTimePaymentsTransfer>> =
+            retrieve(
+                realTimePaymentsTransferId,
+                RealTimePaymentsTransferRetrieveParams.none(),
+                requestOptions,
+            )
 
         /**
          * Returns a raw HTTP response for `get /real_time_payments_transfers`, but is otherwise the

@@ -3,21 +3,22 @@
 package com.increase.api.models.pendingtransactions
 
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
+import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /** Retrieve a Pending Transaction */
 class PendingTransactionRetrieveParams
 private constructor(
-    private val pendingTransactionId: String,
+    private val pendingTransactionId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the Pending Transaction. */
-    fun pendingTransactionId(): String = pendingTransactionId
+    fun pendingTransactionId(): Optional<String> = Optional.ofNullable(pendingTransactionId)
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
@@ -27,14 +28,11 @@ private constructor(
 
     companion object {
 
+        @JvmStatic fun none(): PendingTransactionRetrieveParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of
          * [PendingTransactionRetrieveParams].
-         *
-         * The following fields are required:
-         * ```java
-         * .pendingTransactionId()
-         * ```
          */
         @JvmStatic fun builder() = Builder()
     }
@@ -56,9 +54,16 @@ private constructor(
             }
 
         /** The identifier of the Pending Transaction. */
-        fun pendingTransactionId(pendingTransactionId: String) = apply {
+        fun pendingTransactionId(pendingTransactionId: String?) = apply {
             this.pendingTransactionId = pendingTransactionId
         }
+
+        /**
+         * Alias for calling [Builder.pendingTransactionId] with
+         * `pendingTransactionId.orElse(null)`.
+         */
+        fun pendingTransactionId(pendingTransactionId: Optional<String>) =
+            pendingTransactionId(pendingTransactionId.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -162,17 +167,10 @@ private constructor(
          * Returns an immutable instance of [PendingTransactionRetrieveParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```java
-         * .pendingTransactionId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): PendingTransactionRetrieveParams =
             PendingTransactionRetrieveParams(
-                checkRequired("pendingTransactionId", pendingTransactionId),
+                pendingTransactionId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -180,7 +178,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> pendingTransactionId
+            0 -> pendingTransactionId ?: ""
             else -> ""
         }
 

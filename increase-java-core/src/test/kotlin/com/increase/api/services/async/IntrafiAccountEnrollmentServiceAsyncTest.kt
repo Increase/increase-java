@@ -5,8 +5,6 @@ package com.increase.api.services.async
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
 import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentCreateParams
-import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentRetrieveParams
-import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentUnenrollParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -45,9 +43,7 @@ internal class IntrafiAccountEnrollmentServiceAsyncTest {
 
         val intrafiAccountEnrollmentFuture =
             intrafiAccountEnrollmentServiceAsync.retrieve(
-                IntrafiAccountEnrollmentRetrieveParams.builder()
-                    .intrafiAccountEnrollmentId("intrafi_account_enrollment_w8l97znzreopkwf2tg75")
-                    .build()
+                "intrafi_account_enrollment_w8l97znzreopkwf2tg75"
             )
 
         val intrafiAccountEnrollment = intrafiAccountEnrollmentFuture.get()
@@ -80,9 +76,7 @@ internal class IntrafiAccountEnrollmentServiceAsyncTest {
 
         val intrafiAccountEnrollmentFuture =
             intrafiAccountEnrollmentServiceAsync.unenroll(
-                IntrafiAccountEnrollmentUnenrollParams.builder()
-                    .intrafiAccountEnrollmentId("intrafi_account_enrollment_w8l97znzreopkwf2tg75")
-                    .build()
+                "intrafi_account_enrollment_w8l97znzreopkwf2tg75"
             )
 
         val intrafiAccountEnrollment = intrafiAccountEnrollmentFuture.get()

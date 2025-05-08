@@ -3,21 +3,22 @@
 package com.increase.api.models.inboundwiretransfers
 
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
+import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /** Retrieve an Inbound Wire Transfer */
 class InboundWireTransferRetrieveParams
 private constructor(
-    private val inboundWireTransferId: String,
+    private val inboundWireTransferId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the Inbound Wire Transfer to get details for. */
-    fun inboundWireTransferId(): String = inboundWireTransferId
+    fun inboundWireTransferId(): Optional<String> = Optional.ofNullable(inboundWireTransferId)
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
@@ -27,14 +28,11 @@ private constructor(
 
     companion object {
 
+        @JvmStatic fun none(): InboundWireTransferRetrieveParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of
          * [InboundWireTransferRetrieveParams].
-         *
-         * The following fields are required:
-         * ```java
-         * .inboundWireTransferId()
-         * ```
          */
         @JvmStatic fun builder() = Builder()
     }
@@ -56,9 +54,16 @@ private constructor(
             }
 
         /** The identifier of the Inbound Wire Transfer to get details for. */
-        fun inboundWireTransferId(inboundWireTransferId: String) = apply {
+        fun inboundWireTransferId(inboundWireTransferId: String?) = apply {
             this.inboundWireTransferId = inboundWireTransferId
         }
+
+        /**
+         * Alias for calling [Builder.inboundWireTransferId] with
+         * `inboundWireTransferId.orElse(null)`.
+         */
+        fun inboundWireTransferId(inboundWireTransferId: Optional<String>) =
+            inboundWireTransferId(inboundWireTransferId.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -162,17 +167,10 @@ private constructor(
          * Returns an immutable instance of [InboundWireTransferRetrieveParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```java
-         * .inboundWireTransferId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): InboundWireTransferRetrieveParams =
             InboundWireTransferRetrieveParams(
-                checkRequired("inboundWireTransferId", inboundWireTransferId),
+                inboundWireTransferId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -180,7 +178,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> inboundWireTransferId
+            0 -> inboundWireTransferId ?: ""
             else -> ""
         }
 

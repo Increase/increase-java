@@ -4,7 +4,6 @@ package com.increase.api.services.blocking
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.programs.ProgramRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -20,10 +19,7 @@ internal class ProgramServiceTest {
                 .build()
         val programService = client.programs()
 
-        val program =
-            programService.retrieve(
-                ProgramRetrieveParams.builder().programId("program_i2v2os4mwza1oetokh9i").build()
-            )
+        val program = programService.retrieve("program_i2v2os4mwza1oetokh9i")
 
         program.validate()
     }

@@ -5,6 +5,7 @@ package com.increase.api.services.blocking.simulations
 import com.increase.api.core.ClientOptions
 import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
+import com.increase.api.core.checkRequired
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
 import com.increase.api.core.handlers.withErrorHandler
@@ -17,6 +18,7 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.accounttransfers.AccountTransfer
 import com.increase.api.models.simulations.accounttransfers.AccountTransferCompleteParams
+import kotlin.jvm.optionals.getOrNull
 
 class AccountTransferServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     AccountTransferService {
@@ -46,6 +48,9 @@ class AccountTransferServiceImpl internal constructor(private val clientOptions:
             params: AccountTransferCompleteParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<AccountTransfer> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("accountTransferId", params.accountTransferId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)

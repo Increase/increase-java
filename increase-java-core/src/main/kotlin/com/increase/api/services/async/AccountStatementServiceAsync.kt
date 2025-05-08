@@ -19,14 +19,40 @@ interface AccountStatementServiceAsync {
     fun withRawResponse(): WithRawResponse
 
     /** Retrieve an Account Statement */
-    fun retrieve(params: AccountStatementRetrieveParams): CompletableFuture<AccountStatement> =
-        retrieve(params, RequestOptions.none())
+    fun retrieve(accountStatementId: String): CompletableFuture<AccountStatement> =
+        retrieve(accountStatementId, AccountStatementRetrieveParams.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        accountStatementId: String,
+        params: AccountStatementRetrieveParams = AccountStatementRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<AccountStatement> =
+        retrieve(params.toBuilder().accountStatementId(accountStatementId).build(), requestOptions)
+
+    /** @see [retrieve] */
+    fun retrieve(
+        accountStatementId: String,
+        params: AccountStatementRetrieveParams = AccountStatementRetrieveParams.none(),
+    ): CompletableFuture<AccountStatement> =
+        retrieve(accountStatementId, params, RequestOptions.none())
 
     /** @see [retrieve] */
     fun retrieve(
         params: AccountStatementRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AccountStatement>
+
+    /** @see [retrieve] */
+    fun retrieve(params: AccountStatementRetrieveParams): CompletableFuture<AccountStatement> =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        accountStatementId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<AccountStatement> =
+        retrieve(accountStatementId, AccountStatementRetrieveParams.none(), requestOptions)
 
     /** List Account Statements */
     fun list(): CompletableFuture<AccountStatementListPageAsync> =
@@ -59,9 +85,29 @@ interface AccountStatementServiceAsync {
          */
         @MustBeClosed
         fun retrieve(
-            params: AccountStatementRetrieveParams
+            accountStatementId: String
         ): CompletableFuture<HttpResponseFor<AccountStatement>> =
-            retrieve(params, RequestOptions.none())
+            retrieve(accountStatementId, AccountStatementRetrieveParams.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            accountStatementId: String,
+            params: AccountStatementRetrieveParams = AccountStatementRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<AccountStatement>> =
+            retrieve(
+                params.toBuilder().accountStatementId(accountStatementId).build(),
+                requestOptions,
+            )
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            accountStatementId: String,
+            params: AccountStatementRetrieveParams = AccountStatementRetrieveParams.none(),
+        ): CompletableFuture<HttpResponseFor<AccountStatement>> =
+            retrieve(accountStatementId, params, RequestOptions.none())
 
         /** @see [retrieve] */
         @MustBeClosed
@@ -69,6 +115,21 @@ interface AccountStatementServiceAsync {
             params: AccountStatementRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<AccountStatement>>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            params: AccountStatementRetrieveParams
+        ): CompletableFuture<HttpResponseFor<AccountStatement>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            accountStatementId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<AccountStatement>> =
+            retrieve(accountStatementId, AccountStatementRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /account_statements`, but is otherwise the same as

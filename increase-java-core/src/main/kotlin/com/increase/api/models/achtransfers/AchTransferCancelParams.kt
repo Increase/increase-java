@@ -4,24 +4,24 @@ package com.increase.api.models.achtransfers
 
 import com.increase.api.core.JsonValue
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.toImmutable
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /** Cancels an ACH Transfer in a pending_approval state. */
 class AchTransferCancelParams
 private constructor(
-    private val achTransferId: String,
+    private val achTransferId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
     private val additionalBodyProperties: Map<String, JsonValue>,
 ) : Params {
 
     /** The identifier of the pending ACH Transfer to cancel. */
-    fun achTransferId(): String = achTransferId
+    fun achTransferId(): Optional<String> = Optional.ofNullable(achTransferId)
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
@@ -33,14 +33,9 @@ private constructor(
 
     companion object {
 
-        /**
-         * Returns a mutable builder for constructing an instance of [AchTransferCancelParams].
-         *
-         * The following fields are required:
-         * ```java
-         * .achTransferId()
-         * ```
-         */
+        @JvmStatic fun none(): AchTransferCancelParams = builder().build()
+
+        /** Returns a mutable builder for constructing an instance of [AchTransferCancelParams]. */
         @JvmStatic fun builder() = Builder()
     }
 
@@ -62,7 +57,11 @@ private constructor(
         }
 
         /** The identifier of the pending ACH Transfer to cancel. */
-        fun achTransferId(achTransferId: String) = apply { this.achTransferId = achTransferId }
+        fun achTransferId(achTransferId: String?) = apply { this.achTransferId = achTransferId }
+
+        /** Alias for calling [Builder.achTransferId] with `achTransferId.orElse(null)`. */
+        fun achTransferId(achTransferId: Optional<String>) =
+            achTransferId(achTransferId.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -188,17 +187,10 @@ private constructor(
          * Returns an immutable instance of [AchTransferCancelParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```java
-         * .achTransferId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): AchTransferCancelParams =
             AchTransferCancelParams(
-                checkRequired("achTransferId", achTransferId),
+                achTransferId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
                 additionalBodyProperties.toImmutable(),
@@ -210,7 +202,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> achTransferId
+            0 -> achTransferId ?: ""
             else -> ""
         }
 

@@ -3,21 +3,22 @@
 package com.increase.api.models.cards
 
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
+import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /** Retrieve sensitive details for a Card */
 class CardDetailsParams
 private constructor(
-    private val cardId: String,
+    private val cardId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the Card to retrieve details for. */
-    fun cardId(): String = cardId
+    fun cardId(): Optional<String> = Optional.ofNullable(cardId)
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
@@ -27,14 +28,9 @@ private constructor(
 
     companion object {
 
-        /**
-         * Returns a mutable builder for constructing an instance of [CardDetailsParams].
-         *
-         * The following fields are required:
-         * ```java
-         * .cardId()
-         * ```
-         */
+        @JvmStatic fun none(): CardDetailsParams = builder().build()
+
+        /** Returns a mutable builder for constructing an instance of [CardDetailsParams]. */
         @JvmStatic fun builder() = Builder()
     }
 
@@ -53,7 +49,10 @@ private constructor(
         }
 
         /** The identifier of the Card to retrieve details for. */
-        fun cardId(cardId: String) = apply { this.cardId = cardId }
+        fun cardId(cardId: String?) = apply { this.cardId = cardId }
+
+        /** Alias for calling [Builder.cardId] with `cardId.orElse(null)`. */
+        fun cardId(cardId: Optional<String>) = cardId(cardId.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -157,25 +156,14 @@ private constructor(
          * Returns an immutable instance of [CardDetailsParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```java
-         * .cardId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): CardDetailsParams =
-            CardDetailsParams(
-                checkRequired("cardId", cardId),
-                additionalHeaders.build(),
-                additionalQueryParams.build(),
-            )
+            CardDetailsParams(cardId, additionalHeaders.build(), additionalQueryParams.build())
     }
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> cardId
+            0 -> cardId ?: ""
             else -> ""
         }
 

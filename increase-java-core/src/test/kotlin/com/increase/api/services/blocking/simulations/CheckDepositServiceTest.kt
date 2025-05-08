@@ -4,9 +4,6 @@ package com.increase.api.services.blocking.simulations
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.simulations.checkdeposits.CheckDepositRejectParams
-import com.increase.api.models.simulations.checkdeposits.CheckDepositReturnParams
-import com.increase.api.models.simulations.checkdeposits.CheckDepositSubmitParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -22,12 +19,7 @@ internal class CheckDepositServiceTest {
                 .build()
         val checkDepositService = client.simulations().checkDeposits()
 
-        val checkDeposit =
-            checkDepositService.reject(
-                CheckDepositRejectParams.builder()
-                    .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
-                    .build()
-            )
+        val checkDeposit = checkDepositService.reject("check_deposit_f06n9gpg7sxn8t19lfc1")
 
         checkDeposit.validate()
     }
@@ -41,12 +33,7 @@ internal class CheckDepositServiceTest {
                 .build()
         val checkDepositService = client.simulations().checkDeposits()
 
-        val checkDeposit =
-            checkDepositService.return_(
-                CheckDepositReturnParams.builder()
-                    .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
-                    .build()
-            )
+        val checkDeposit = checkDepositService.return_("check_deposit_f06n9gpg7sxn8t19lfc1")
 
         checkDeposit.validate()
     }
@@ -60,12 +47,7 @@ internal class CheckDepositServiceTest {
                 .build()
         val checkDepositService = client.simulations().checkDeposits()
 
-        val checkDeposit =
-            checkDepositService.submit(
-                CheckDepositSubmitParams.builder()
-                    .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
-                    .build()
-            )
+        val checkDeposit = checkDepositService.submit("check_deposit_f06n9gpg7sxn8t19lfc1")
 
         checkDeposit.validate()
     }

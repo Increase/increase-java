@@ -5,7 +5,6 @@ package com.increase.api.services.blocking
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.models.realtimedecisions.RealTimeDecisionActionParams
-import com.increase.api.models.realtimedecisions.RealTimeDecisionRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -22,11 +21,7 @@ internal class RealTimeDecisionServiceTest {
         val realTimeDecisionService = client.realTimeDecisions()
 
         val realTimeDecision =
-            realTimeDecisionService.retrieve(
-                RealTimeDecisionRetrieveParams.builder()
-                    .realTimeDecisionId("real_time_decision_j76n2e810ezcg3zh5qtn")
-                    .build()
-            )
+            realTimeDecisionService.retrieve("real_time_decision_j76n2e810ezcg3zh5qtn")
 
         realTimeDecision.validate()
     }

@@ -3,21 +3,22 @@
 package com.increase.api.models.transactions
 
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
+import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /** Retrieve a Transaction */
 class TransactionRetrieveParams
 private constructor(
-    private val transactionId: String,
+    private val transactionId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the Transaction to retrieve. */
-    fun transactionId(): String = transactionId
+    fun transactionId(): Optional<String> = Optional.ofNullable(transactionId)
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
@@ -27,13 +28,10 @@ private constructor(
 
     companion object {
 
+        @JvmStatic fun none(): TransactionRetrieveParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of [TransactionRetrieveParams].
-         *
-         * The following fields are required:
-         * ```java
-         * .transactionId()
-         * ```
          */
         @JvmStatic fun builder() = Builder()
     }
@@ -53,7 +51,11 @@ private constructor(
         }
 
         /** The identifier of the Transaction to retrieve. */
-        fun transactionId(transactionId: String) = apply { this.transactionId = transactionId }
+        fun transactionId(transactionId: String?) = apply { this.transactionId = transactionId }
+
+        /** Alias for calling [Builder.transactionId] with `transactionId.orElse(null)`. */
+        fun transactionId(transactionId: Optional<String>) =
+            transactionId(transactionId.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -157,17 +159,10 @@ private constructor(
          * Returns an immutable instance of [TransactionRetrieveParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```java
-         * .transactionId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): TransactionRetrieveParams =
             TransactionRetrieveParams(
-                checkRequired("transactionId", transactionId),
+                transactionId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -175,7 +170,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> transactionId
+            0 -> transactionId ?: ""
             else -> ""
         }
 

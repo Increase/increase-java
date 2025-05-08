@@ -4,7 +4,6 @@ package com.increase.api.services.blocking
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.digitalwallettokens.DigitalWalletTokenRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -21,11 +20,7 @@ internal class DigitalWalletTokenServiceTest {
         val digitalWalletTokenService = client.digitalWalletTokens()
 
         val digitalWalletToken =
-            digitalWalletTokenService.retrieve(
-                DigitalWalletTokenRetrieveParams.builder()
-                    .digitalWalletTokenId("digital_wallet_token_izi62go3h51p369jrie0")
-                    .build()
-            )
+            digitalWalletTokenService.retrieve("digital_wallet_token_izi62go3h51p369jrie0")
 
         digitalWalletToken.validate()
     }

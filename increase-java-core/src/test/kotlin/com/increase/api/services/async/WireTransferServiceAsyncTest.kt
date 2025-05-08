@@ -4,10 +4,7 @@ package com.increase.api.services.async
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
-import com.increase.api.models.wiretransfers.WireTransferApproveParams
-import com.increase.api.models.wiretransfers.WireTransferCancelParams
 import com.increase.api.models.wiretransfers.WireTransferCreateParams
-import com.increase.api.models.wiretransfers.WireTransferRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -59,11 +56,7 @@ internal class WireTransferServiceAsyncTest {
         val wireTransferServiceAsync = client.wireTransfers()
 
         val wireTransferFuture =
-            wireTransferServiceAsync.retrieve(
-                WireTransferRetrieveParams.builder()
-                    .wireTransferId("wire_transfer_5akynk7dqsq25qwk9q2u")
-                    .build()
-            )
+            wireTransferServiceAsync.retrieve("wire_transfer_5akynk7dqsq25qwk9q2u")
 
         val wireTransfer = wireTransferFuture.get()
         wireTransfer.validate()
@@ -94,11 +87,7 @@ internal class WireTransferServiceAsyncTest {
         val wireTransferServiceAsync = client.wireTransfers()
 
         val wireTransferFuture =
-            wireTransferServiceAsync.approve(
-                WireTransferApproveParams.builder()
-                    .wireTransferId("wire_transfer_5akynk7dqsq25qwk9q2u")
-                    .build()
-            )
+            wireTransferServiceAsync.approve("wire_transfer_5akynk7dqsq25qwk9q2u")
 
         val wireTransfer = wireTransferFuture.get()
         wireTransfer.validate()
@@ -114,11 +103,7 @@ internal class WireTransferServiceAsyncTest {
         val wireTransferServiceAsync = client.wireTransfers()
 
         val wireTransferFuture =
-            wireTransferServiceAsync.cancel(
-                WireTransferCancelParams.builder()
-                    .wireTransferId("wire_transfer_5akynk7dqsq25qwk9q2u")
-                    .build()
-            )
+            wireTransferServiceAsync.cancel("wire_transfer_5akynk7dqsq25qwk9q2u")
 
         val wireTransfer = wireTransferFuture.get()
         wireTransfer.validate()

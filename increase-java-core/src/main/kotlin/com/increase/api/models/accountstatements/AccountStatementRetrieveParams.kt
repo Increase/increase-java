@@ -3,21 +3,22 @@
 package com.increase.api.models.accountstatements
 
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
+import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /** Retrieve an Account Statement */
 class AccountStatementRetrieveParams
 private constructor(
-    private val accountStatementId: String,
+    private val accountStatementId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the Account Statement to retrieve. */
-    fun accountStatementId(): String = accountStatementId
+    fun accountStatementId(): Optional<String> = Optional.ofNullable(accountStatementId)
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
@@ -27,14 +28,11 @@ private constructor(
 
     companion object {
 
+        @JvmStatic fun none(): AccountStatementRetrieveParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of
          * [AccountStatementRetrieveParams].
-         *
-         * The following fields are required:
-         * ```java
-         * .accountStatementId()
-         * ```
          */
         @JvmStatic fun builder() = Builder()
     }
@@ -54,9 +52,15 @@ private constructor(
         }
 
         /** The identifier of the Account Statement to retrieve. */
-        fun accountStatementId(accountStatementId: String) = apply {
+        fun accountStatementId(accountStatementId: String?) = apply {
             this.accountStatementId = accountStatementId
         }
+
+        /**
+         * Alias for calling [Builder.accountStatementId] with `accountStatementId.orElse(null)`.
+         */
+        fun accountStatementId(accountStatementId: Optional<String>) =
+            accountStatementId(accountStatementId.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -160,17 +164,10 @@ private constructor(
          * Returns an immutable instance of [AccountStatementRetrieveParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```java
-         * .accountStatementId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): AccountStatementRetrieveParams =
             AccountStatementRetrieveParams(
-                checkRequired("accountStatementId", accountStatementId),
+                accountStatementId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -178,7 +175,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> accountStatementId
+            0 -> accountStatementId ?: ""
             else -> ""
         }
 

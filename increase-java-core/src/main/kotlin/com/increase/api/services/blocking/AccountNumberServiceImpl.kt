@@ -5,6 +5,7 @@ package com.increase.api.services.blocking
 import com.increase.api.core.ClientOptions
 import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
+import com.increase.api.core.checkRequired
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
 import com.increase.api.core.handlers.withErrorHandler
@@ -22,6 +23,7 @@ import com.increase.api.models.accountnumbers.AccountNumberListPageResponse
 import com.increase.api.models.accountnumbers.AccountNumberListParams
 import com.increase.api.models.accountnumbers.AccountNumberRetrieveParams
 import com.increase.api.models.accountnumbers.AccountNumberUpdateParams
+import kotlin.jvm.optionals.getOrNull
 
 class AccountNumberServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     AccountNumberService {
@@ -99,6 +101,9 @@ class AccountNumberServiceImpl internal constructor(private val clientOptions: C
             params: AccountNumberRetrieveParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<AccountNumber> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("accountNumberId", params.accountNumberId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -125,6 +130,9 @@ class AccountNumberServiceImpl internal constructor(private val clientOptions: C
             params: AccountNumberUpdateParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<AccountNumber> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("accountNumberId", params.accountNumberId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)

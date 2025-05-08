@@ -19,14 +19,39 @@ interface TransactionServiceAsync {
     fun withRawResponse(): WithRawResponse
 
     /** Retrieve a Transaction */
-    fun retrieve(params: TransactionRetrieveParams): CompletableFuture<Transaction> =
-        retrieve(params, RequestOptions.none())
+    fun retrieve(transactionId: String): CompletableFuture<Transaction> =
+        retrieve(transactionId, TransactionRetrieveParams.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        transactionId: String,
+        params: TransactionRetrieveParams = TransactionRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Transaction> =
+        retrieve(params.toBuilder().transactionId(transactionId).build(), requestOptions)
+
+    /** @see [retrieve] */
+    fun retrieve(
+        transactionId: String,
+        params: TransactionRetrieveParams = TransactionRetrieveParams.none(),
+    ): CompletableFuture<Transaction> = retrieve(transactionId, params, RequestOptions.none())
 
     /** @see [retrieve] */
     fun retrieve(
         params: TransactionRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Transaction>
+
+    /** @see [retrieve] */
+    fun retrieve(params: TransactionRetrieveParams): CompletableFuture<Transaction> =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        transactionId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<Transaction> =
+        retrieve(transactionId, TransactionRetrieveParams.none(), requestOptions)
 
     /** List Transactions */
     fun list(): CompletableFuture<TransactionListPageAsync> = list(TransactionListParams.none())
@@ -57,9 +82,25 @@ interface TransactionServiceAsync {
          * the same as [TransactionServiceAsync.retrieve].
          */
         @MustBeClosed
+        fun retrieve(transactionId: String): CompletableFuture<HttpResponseFor<Transaction>> =
+            retrieve(transactionId, TransactionRetrieveParams.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
         fun retrieve(
-            params: TransactionRetrieveParams
-        ): CompletableFuture<HttpResponseFor<Transaction>> = retrieve(params, RequestOptions.none())
+            transactionId: String,
+            params: TransactionRetrieveParams = TransactionRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<Transaction>> =
+            retrieve(params.toBuilder().transactionId(transactionId).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            transactionId: String,
+            params: TransactionRetrieveParams = TransactionRetrieveParams.none(),
+        ): CompletableFuture<HttpResponseFor<Transaction>> =
+            retrieve(transactionId, params, RequestOptions.none())
 
         /** @see [retrieve] */
         @MustBeClosed
@@ -67,6 +108,20 @@ interface TransactionServiceAsync {
             params: TransactionRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<Transaction>>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            params: TransactionRetrieveParams
+        ): CompletableFuture<HttpResponseFor<Transaction>> = retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            transactionId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<Transaction>> =
+            retrieve(transactionId, TransactionRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /transactions`, but is otherwise the same as

@@ -31,14 +31,40 @@ interface IntrafiExclusionServiceAsync {
     ): CompletableFuture<IntrafiExclusion>
 
     /** Get an IntraFi Exclusion */
-    fun retrieve(params: IntrafiExclusionRetrieveParams): CompletableFuture<IntrafiExclusion> =
-        retrieve(params, RequestOptions.none())
+    fun retrieve(intrafiExclusionId: String): CompletableFuture<IntrafiExclusion> =
+        retrieve(intrafiExclusionId, IntrafiExclusionRetrieveParams.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        intrafiExclusionId: String,
+        params: IntrafiExclusionRetrieveParams = IntrafiExclusionRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<IntrafiExclusion> =
+        retrieve(params.toBuilder().intrafiExclusionId(intrafiExclusionId).build(), requestOptions)
+
+    /** @see [retrieve] */
+    fun retrieve(
+        intrafiExclusionId: String,
+        params: IntrafiExclusionRetrieveParams = IntrafiExclusionRetrieveParams.none(),
+    ): CompletableFuture<IntrafiExclusion> =
+        retrieve(intrafiExclusionId, params, RequestOptions.none())
 
     /** @see [retrieve] */
     fun retrieve(
         params: IntrafiExclusionRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<IntrafiExclusion>
+
+    /** @see [retrieve] */
+    fun retrieve(params: IntrafiExclusionRetrieveParams): CompletableFuture<IntrafiExclusion> =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        intrafiExclusionId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<IntrafiExclusion> =
+        retrieve(intrafiExclusionId, IntrafiExclusionRetrieveParams.none(), requestOptions)
 
     /** List IntraFi Exclusions */
     fun list(): CompletableFuture<IntrafiExclusionListPageAsync> =
@@ -60,14 +86,40 @@ interface IntrafiExclusionServiceAsync {
         list(IntrafiExclusionListParams.none(), requestOptions)
 
     /** Archive an IntraFi Exclusion */
-    fun archive(params: IntrafiExclusionArchiveParams): CompletableFuture<IntrafiExclusion> =
-        archive(params, RequestOptions.none())
+    fun archive(intrafiExclusionId: String): CompletableFuture<IntrafiExclusion> =
+        archive(intrafiExclusionId, IntrafiExclusionArchiveParams.none())
+
+    /** @see [archive] */
+    fun archive(
+        intrafiExclusionId: String,
+        params: IntrafiExclusionArchiveParams = IntrafiExclusionArchiveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<IntrafiExclusion> =
+        archive(params.toBuilder().intrafiExclusionId(intrafiExclusionId).build(), requestOptions)
+
+    /** @see [archive] */
+    fun archive(
+        intrafiExclusionId: String,
+        params: IntrafiExclusionArchiveParams = IntrafiExclusionArchiveParams.none(),
+    ): CompletableFuture<IntrafiExclusion> =
+        archive(intrafiExclusionId, params, RequestOptions.none())
 
     /** @see [archive] */
     fun archive(
         params: IntrafiExclusionArchiveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<IntrafiExclusion>
+
+    /** @see [archive] */
+    fun archive(params: IntrafiExclusionArchiveParams): CompletableFuture<IntrafiExclusion> =
+        archive(params, RequestOptions.none())
+
+    /** @see [archive] */
+    fun archive(
+        intrafiExclusionId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<IntrafiExclusion> =
+        archive(intrafiExclusionId, IntrafiExclusionArchiveParams.none(), requestOptions)
 
     /**
      * A view of [IntrafiExclusionServiceAsync] that provides access to raw HTTP responses for each
@@ -98,9 +150,29 @@ interface IntrafiExclusionServiceAsync {
          */
         @MustBeClosed
         fun retrieve(
-            params: IntrafiExclusionRetrieveParams
+            intrafiExclusionId: String
         ): CompletableFuture<HttpResponseFor<IntrafiExclusion>> =
-            retrieve(params, RequestOptions.none())
+            retrieve(intrafiExclusionId, IntrafiExclusionRetrieveParams.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            intrafiExclusionId: String,
+            params: IntrafiExclusionRetrieveParams = IntrafiExclusionRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<IntrafiExclusion>> =
+            retrieve(
+                params.toBuilder().intrafiExclusionId(intrafiExclusionId).build(),
+                requestOptions,
+            )
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            intrafiExclusionId: String,
+            params: IntrafiExclusionRetrieveParams = IntrafiExclusionRetrieveParams.none(),
+        ): CompletableFuture<HttpResponseFor<IntrafiExclusion>> =
+            retrieve(intrafiExclusionId, params, RequestOptions.none())
 
         /** @see [retrieve] */
         @MustBeClosed
@@ -108,6 +180,21 @@ interface IntrafiExclusionServiceAsync {
             params: IntrafiExclusionRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<IntrafiExclusion>>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            params: IntrafiExclusionRetrieveParams
+        ): CompletableFuture<HttpResponseFor<IntrafiExclusion>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            intrafiExclusionId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<IntrafiExclusion>> =
+            retrieve(intrafiExclusionId, IntrafiExclusionRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /intrafi_exclusions`, but is otherwise the same as
@@ -145,9 +232,29 @@ interface IntrafiExclusionServiceAsync {
          */
         @MustBeClosed
         fun archive(
-            params: IntrafiExclusionArchiveParams
+            intrafiExclusionId: String
         ): CompletableFuture<HttpResponseFor<IntrafiExclusion>> =
-            archive(params, RequestOptions.none())
+            archive(intrafiExclusionId, IntrafiExclusionArchiveParams.none())
+
+        /** @see [archive] */
+        @MustBeClosed
+        fun archive(
+            intrafiExclusionId: String,
+            params: IntrafiExclusionArchiveParams = IntrafiExclusionArchiveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<IntrafiExclusion>> =
+            archive(
+                params.toBuilder().intrafiExclusionId(intrafiExclusionId).build(),
+                requestOptions,
+            )
+
+        /** @see [archive] */
+        @MustBeClosed
+        fun archive(
+            intrafiExclusionId: String,
+            params: IntrafiExclusionArchiveParams = IntrafiExclusionArchiveParams.none(),
+        ): CompletableFuture<HttpResponseFor<IntrafiExclusion>> =
+            archive(intrafiExclusionId, params, RequestOptions.none())
 
         /** @see [archive] */
         @MustBeClosed
@@ -155,5 +262,20 @@ interface IntrafiExclusionServiceAsync {
             params: IntrafiExclusionArchiveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<IntrafiExclusion>>
+
+        /** @see [archive] */
+        @MustBeClosed
+        fun archive(
+            params: IntrafiExclusionArchiveParams
+        ): CompletableFuture<HttpResponseFor<IntrafiExclusion>> =
+            archive(params, RequestOptions.none())
+
+        /** @see [archive] */
+        @MustBeClosed
+        fun archive(
+            intrafiExclusionId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<IntrafiExclusion>> =
+            archive(intrafiExclusionId, IntrafiExclusionArchiveParams.none(), requestOptions)
     }
 }

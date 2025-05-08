@@ -4,24 +4,24 @@ package com.increase.api.models.digitalcardprofiles
 
 import com.increase.api.core.JsonValue
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.toImmutable
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /** Archive a Digital Card Profile */
 class DigitalCardProfileArchiveParams
 private constructor(
-    private val digitalCardProfileId: String,
+    private val digitalCardProfileId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
     private val additionalBodyProperties: Map<String, JsonValue>,
 ) : Params {
 
     /** The identifier of the Digital Card Profile to archive. */
-    fun digitalCardProfileId(): String = digitalCardProfileId
+    fun digitalCardProfileId(): Optional<String> = Optional.ofNullable(digitalCardProfileId)
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
@@ -33,14 +33,11 @@ private constructor(
 
     companion object {
 
+        @JvmStatic fun none(): DigitalCardProfileArchiveParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of
          * [DigitalCardProfileArchiveParams].
-         *
-         * The following fields are required:
-         * ```java
-         * .digitalCardProfileId()
-         * ```
          */
         @JvmStatic fun builder() = Builder()
     }
@@ -65,9 +62,16 @@ private constructor(
             }
 
         /** The identifier of the Digital Card Profile to archive. */
-        fun digitalCardProfileId(digitalCardProfileId: String) = apply {
+        fun digitalCardProfileId(digitalCardProfileId: String?) = apply {
             this.digitalCardProfileId = digitalCardProfileId
         }
+
+        /**
+         * Alias for calling [Builder.digitalCardProfileId] with
+         * `digitalCardProfileId.orElse(null)`.
+         */
+        fun digitalCardProfileId(digitalCardProfileId: Optional<String>) =
+            digitalCardProfileId(digitalCardProfileId.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -193,17 +197,10 @@ private constructor(
          * Returns an immutable instance of [DigitalCardProfileArchiveParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```java
-         * .digitalCardProfileId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): DigitalCardProfileArchiveParams =
             DigitalCardProfileArchiveParams(
-                checkRequired("digitalCardProfileId", digitalCardProfileId),
+                digitalCardProfileId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
                 additionalBodyProperties.toImmutable(),
@@ -215,7 +212,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> digitalCardProfileId
+            0 -> digitalCardProfileId ?: ""
             else -> ""
         }
 

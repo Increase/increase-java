@@ -4,9 +4,6 @@ package com.increase.api.services.async.simulations
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
-import com.increase.api.models.simulations.checkdeposits.CheckDepositRejectParams
-import com.increase.api.models.simulations.checkdeposits.CheckDepositReturnParams
-import com.increase.api.models.simulations.checkdeposits.CheckDepositSubmitParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -23,11 +20,7 @@ internal class CheckDepositServiceAsyncTest {
         val checkDepositServiceAsync = client.simulations().checkDeposits()
 
         val checkDepositFuture =
-            checkDepositServiceAsync.reject(
-                CheckDepositRejectParams.builder()
-                    .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
-                    .build()
-            )
+            checkDepositServiceAsync.reject("check_deposit_f06n9gpg7sxn8t19lfc1")
 
         val checkDeposit = checkDepositFuture.get()
         checkDeposit.validate()
@@ -43,11 +36,7 @@ internal class CheckDepositServiceAsyncTest {
         val checkDepositServiceAsync = client.simulations().checkDeposits()
 
         val checkDepositFuture =
-            checkDepositServiceAsync.return_(
-                CheckDepositReturnParams.builder()
-                    .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
-                    .build()
-            )
+            checkDepositServiceAsync.return_("check_deposit_f06n9gpg7sxn8t19lfc1")
 
         val checkDeposit = checkDepositFuture.get()
         checkDeposit.validate()
@@ -63,11 +52,7 @@ internal class CheckDepositServiceAsyncTest {
         val checkDepositServiceAsync = client.simulations().checkDeposits()
 
         val checkDepositFuture =
-            checkDepositServiceAsync.submit(
-                CheckDepositSubmitParams.builder()
-                    .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
-                    .build()
-            )
+            checkDepositServiceAsync.submit("check_deposit_f06n9gpg7sxn8t19lfc1")
 
         val checkDeposit = checkDepositFuture.get()
         checkDeposit.validate()

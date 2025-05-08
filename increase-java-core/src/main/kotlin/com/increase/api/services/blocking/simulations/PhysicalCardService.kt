@@ -19,6 +19,20 @@ interface PhysicalCardService {
      * This endpoint allows you to simulate advancing the shipment status of a Physical Card, to
      * simulate e.g., that a physical card was attempted shipped but then failed delivery.
      */
+    fun advanceShipment(
+        physicalCardId: String,
+        params: PhysicalCardAdvanceShipmentParams,
+    ): PhysicalCard = advanceShipment(physicalCardId, params, RequestOptions.none())
+
+    /** @see [advanceShipment] */
+    fun advanceShipment(
+        physicalCardId: String,
+        params: PhysicalCardAdvanceShipmentParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): PhysicalCard =
+        advanceShipment(params.toBuilder().physicalCardId(physicalCardId).build(), requestOptions)
+
+    /** @see [advanceShipment] */
     fun advanceShipment(params: PhysicalCardAdvanceShipmentParams): PhysicalCard =
         advanceShipment(params, RequestOptions.none())
 
@@ -38,6 +52,26 @@ interface PhysicalCardService {
          * /simulations/physical_cards/{physical_card_id}/advance_shipment`, but is otherwise the
          * same as [PhysicalCardService.advanceShipment].
          */
+        @MustBeClosed
+        fun advanceShipment(
+            physicalCardId: String,
+            params: PhysicalCardAdvanceShipmentParams,
+        ): HttpResponseFor<PhysicalCard> =
+            advanceShipment(physicalCardId, params, RequestOptions.none())
+
+        /** @see [advanceShipment] */
+        @MustBeClosed
+        fun advanceShipment(
+            physicalCardId: String,
+            params: PhysicalCardAdvanceShipmentParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PhysicalCard> =
+            advanceShipment(
+                params.toBuilder().physicalCardId(physicalCardId).build(),
+                requestOptions,
+            )
+
+        /** @see [advanceShipment] */
         @MustBeClosed
         fun advanceShipment(
             params: PhysicalCardAdvanceShipmentParams

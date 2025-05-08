@@ -5,7 +5,6 @@ package com.increase.api.services.async
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
 import com.increase.api.models.achprenotifications.AchPrenotificationCreateParams
-import com.increase.api.models.achprenotifications.AchPrenotificationRetrieveParams
 import java.time.LocalDate
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -60,11 +59,7 @@ internal class AchPrenotificationServiceAsyncTest {
         val achPrenotificationServiceAsync = client.achPrenotifications()
 
         val achPrenotificationFuture =
-            achPrenotificationServiceAsync.retrieve(
-                AchPrenotificationRetrieveParams.builder()
-                    .achPrenotificationId("ach_prenotification_ubjf9qqsxl3obbcn1u34")
-                    .build()
-            )
+            achPrenotificationServiceAsync.retrieve("ach_prenotification_ubjf9qqsxl3obbcn1u34")
 
         val achPrenotification = achPrenotificationFuture.get()
         achPrenotification.validate()

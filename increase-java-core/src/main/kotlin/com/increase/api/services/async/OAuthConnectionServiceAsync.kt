@@ -19,14 +19,40 @@ interface OAuthConnectionServiceAsync {
     fun withRawResponse(): WithRawResponse
 
     /** Retrieve an OAuth Connection */
-    fun retrieve(params: OAuthConnectionRetrieveParams): CompletableFuture<OAuthConnection> =
-        retrieve(params, RequestOptions.none())
+    fun retrieve(oauthConnectionId: String): CompletableFuture<OAuthConnection> =
+        retrieve(oauthConnectionId, OAuthConnectionRetrieveParams.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        oauthConnectionId: String,
+        params: OAuthConnectionRetrieveParams = OAuthConnectionRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<OAuthConnection> =
+        retrieve(params.toBuilder().oauthConnectionId(oauthConnectionId).build(), requestOptions)
+
+    /** @see [retrieve] */
+    fun retrieve(
+        oauthConnectionId: String,
+        params: OAuthConnectionRetrieveParams = OAuthConnectionRetrieveParams.none(),
+    ): CompletableFuture<OAuthConnection> =
+        retrieve(oauthConnectionId, params, RequestOptions.none())
 
     /** @see [retrieve] */
     fun retrieve(
         params: OAuthConnectionRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<OAuthConnection>
+
+    /** @see [retrieve] */
+    fun retrieve(params: OAuthConnectionRetrieveParams): CompletableFuture<OAuthConnection> =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        oauthConnectionId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<OAuthConnection> =
+        retrieve(oauthConnectionId, OAuthConnectionRetrieveParams.none(), requestOptions)
 
     /** List OAuth Connections */
     fun list(): CompletableFuture<OAuthConnectionListPageAsync> =
@@ -59,9 +85,29 @@ interface OAuthConnectionServiceAsync {
          */
         @MustBeClosed
         fun retrieve(
-            params: OAuthConnectionRetrieveParams
+            oauthConnectionId: String
         ): CompletableFuture<HttpResponseFor<OAuthConnection>> =
-            retrieve(params, RequestOptions.none())
+            retrieve(oauthConnectionId, OAuthConnectionRetrieveParams.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            oauthConnectionId: String,
+            params: OAuthConnectionRetrieveParams = OAuthConnectionRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<OAuthConnection>> =
+            retrieve(
+                params.toBuilder().oauthConnectionId(oauthConnectionId).build(),
+                requestOptions,
+            )
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            oauthConnectionId: String,
+            params: OAuthConnectionRetrieveParams = OAuthConnectionRetrieveParams.none(),
+        ): CompletableFuture<HttpResponseFor<OAuthConnection>> =
+            retrieve(oauthConnectionId, params, RequestOptions.none())
 
         /** @see [retrieve] */
         @MustBeClosed
@@ -69,6 +115,21 @@ interface OAuthConnectionServiceAsync {
             params: OAuthConnectionRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<OAuthConnection>>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            params: OAuthConnectionRetrieveParams
+        ): CompletableFuture<HttpResponseFor<OAuthConnection>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            oauthConnectionId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<OAuthConnection>> =
+            retrieve(oauthConnectionId, OAuthConnectionRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /oauth_connections`, but is otherwise the same as

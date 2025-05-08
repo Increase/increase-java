@@ -4,7 +4,6 @@ package com.increase.api.services.async
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
-import com.increase.api.models.transactions.TransactionRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -20,12 +19,7 @@ internal class TransactionServiceAsyncTest {
                 .build()
         val transactionServiceAsync = client.transactions()
 
-        val transactionFuture =
-            transactionServiceAsync.retrieve(
-                TransactionRetrieveParams.builder()
-                    .transactionId("transaction_uyrp7fld2ium70oa7oi")
-                    .build()
-            )
+        val transactionFuture = transactionServiceAsync.retrieve("transaction_uyrp7fld2ium70oa7oi")
 
         val transaction = transactionFuture.get()
         transaction.validate()

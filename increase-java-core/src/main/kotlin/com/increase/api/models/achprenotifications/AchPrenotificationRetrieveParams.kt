@@ -3,21 +3,22 @@
 package com.increase.api.models.achprenotifications
 
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
+import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /** Retrieve an ACH Prenotification */
 class AchPrenotificationRetrieveParams
 private constructor(
-    private val achPrenotificationId: String,
+    private val achPrenotificationId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the ACH Prenotification to retrieve. */
-    fun achPrenotificationId(): String = achPrenotificationId
+    fun achPrenotificationId(): Optional<String> = Optional.ofNullable(achPrenotificationId)
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
@@ -27,14 +28,11 @@ private constructor(
 
     companion object {
 
+        @JvmStatic fun none(): AchPrenotificationRetrieveParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of
          * [AchPrenotificationRetrieveParams].
-         *
-         * The following fields are required:
-         * ```java
-         * .achPrenotificationId()
-         * ```
          */
         @JvmStatic fun builder() = Builder()
     }
@@ -56,9 +54,16 @@ private constructor(
             }
 
         /** The identifier of the ACH Prenotification to retrieve. */
-        fun achPrenotificationId(achPrenotificationId: String) = apply {
+        fun achPrenotificationId(achPrenotificationId: String?) = apply {
             this.achPrenotificationId = achPrenotificationId
         }
+
+        /**
+         * Alias for calling [Builder.achPrenotificationId] with
+         * `achPrenotificationId.orElse(null)`.
+         */
+        fun achPrenotificationId(achPrenotificationId: Optional<String>) =
+            achPrenotificationId(achPrenotificationId.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -162,17 +167,10 @@ private constructor(
          * Returns an immutable instance of [AchPrenotificationRetrieveParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```java
-         * .achPrenotificationId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): AchPrenotificationRetrieveParams =
             AchPrenotificationRetrieveParams(
-                checkRequired("achPrenotificationId", achPrenotificationId),
+                achPrenotificationId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -180,7 +178,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> achPrenotificationId
+            0 -> achPrenotificationId ?: ""
             else -> ""
         }
 

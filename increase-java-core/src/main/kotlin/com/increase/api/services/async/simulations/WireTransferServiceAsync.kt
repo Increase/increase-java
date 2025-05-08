@@ -22,8 +22,22 @@ interface WireTransferServiceAsync {
      * error conditions. This will also create a [Transaction](#transaction) to account for the
      * returned funds. This Wire Transfer must first have a `status` of `complete`.
      */
-    fun reverse(params: WireTransferReverseParams): CompletableFuture<WireTransfer> =
-        reverse(params, RequestOptions.none())
+    fun reverse(wireTransferId: String): CompletableFuture<WireTransfer> =
+        reverse(wireTransferId, WireTransferReverseParams.none())
+
+    /** @see [reverse] */
+    fun reverse(
+        wireTransferId: String,
+        params: WireTransferReverseParams = WireTransferReverseParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<WireTransfer> =
+        reverse(params.toBuilder().wireTransferId(wireTransferId).build(), requestOptions)
+
+    /** @see [reverse] */
+    fun reverse(
+        wireTransferId: String,
+        params: WireTransferReverseParams = WireTransferReverseParams.none(),
+    ): CompletableFuture<WireTransfer> = reverse(wireTransferId, params, RequestOptions.none())
 
     /** @see [reverse] */
     fun reverse(
@@ -31,18 +45,54 @@ interface WireTransferServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<WireTransfer>
 
+    /** @see [reverse] */
+    fun reverse(params: WireTransferReverseParams): CompletableFuture<WireTransfer> =
+        reverse(params, RequestOptions.none())
+
+    /** @see [reverse] */
+    fun reverse(
+        wireTransferId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<WireTransfer> =
+        reverse(wireTransferId, WireTransferReverseParams.none(), requestOptions)
+
     /**
      * Simulates the submission of a [Wire Transfer](#wire-transfers) to the Federal Reserve. This
      * transfer must first have a `status` of `pending_approval` or `pending_creating`.
      */
-    fun submit(params: WireTransferSubmitParams): CompletableFuture<WireTransfer> =
-        submit(params, RequestOptions.none())
+    fun submit(wireTransferId: String): CompletableFuture<WireTransfer> =
+        submit(wireTransferId, WireTransferSubmitParams.none())
+
+    /** @see [submit] */
+    fun submit(
+        wireTransferId: String,
+        params: WireTransferSubmitParams = WireTransferSubmitParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<WireTransfer> =
+        submit(params.toBuilder().wireTransferId(wireTransferId).build(), requestOptions)
+
+    /** @see [submit] */
+    fun submit(
+        wireTransferId: String,
+        params: WireTransferSubmitParams = WireTransferSubmitParams.none(),
+    ): CompletableFuture<WireTransfer> = submit(wireTransferId, params, RequestOptions.none())
 
     /** @see [submit] */
     fun submit(
         params: WireTransferSubmitParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<WireTransfer>
+
+    /** @see [submit] */
+    fun submit(params: WireTransferSubmitParams): CompletableFuture<WireTransfer> =
+        submit(params, RequestOptions.none())
+
+    /** @see [submit] */
+    fun submit(
+        wireTransferId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<WireTransfer> =
+        submit(wireTransferId, WireTransferSubmitParams.none(), requestOptions)
 
     /**
      * A view of [WireTransferServiceAsync] that provides access to raw HTTP responses for each
@@ -56,9 +106,25 @@ interface WireTransferServiceAsync {
          * [WireTransferServiceAsync.reverse].
          */
         @MustBeClosed
+        fun reverse(wireTransferId: String): CompletableFuture<HttpResponseFor<WireTransfer>> =
+            reverse(wireTransferId, WireTransferReverseParams.none())
+
+        /** @see [reverse] */
+        @MustBeClosed
         fun reverse(
-            params: WireTransferReverseParams
-        ): CompletableFuture<HttpResponseFor<WireTransfer>> = reverse(params, RequestOptions.none())
+            wireTransferId: String,
+            params: WireTransferReverseParams = WireTransferReverseParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<WireTransfer>> =
+            reverse(params.toBuilder().wireTransferId(wireTransferId).build(), requestOptions)
+
+        /** @see [reverse] */
+        @MustBeClosed
+        fun reverse(
+            wireTransferId: String,
+            params: WireTransferReverseParams = WireTransferReverseParams.none(),
+        ): CompletableFuture<HttpResponseFor<WireTransfer>> =
+            reverse(wireTransferId, params, RequestOptions.none())
 
         /** @see [reverse] */
         @MustBeClosed
@@ -67,11 +133,54 @@ interface WireTransferServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<WireTransfer>>
 
+        /** @see [reverse] */
+        @MustBeClosed
+        fun reverse(
+            params: WireTransferReverseParams
+        ): CompletableFuture<HttpResponseFor<WireTransfer>> = reverse(params, RequestOptions.none())
+
+        /** @see [reverse] */
+        @MustBeClosed
+        fun reverse(
+            wireTransferId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<WireTransfer>> =
+            reverse(wireTransferId, WireTransferReverseParams.none(), requestOptions)
+
         /**
          * Returns a raw HTTP response for `post
          * /simulations/wire_transfers/{wire_transfer_id}/submit`, but is otherwise the same as
          * [WireTransferServiceAsync.submit].
          */
+        @MustBeClosed
+        fun submit(wireTransferId: String): CompletableFuture<HttpResponseFor<WireTransfer>> =
+            submit(wireTransferId, WireTransferSubmitParams.none())
+
+        /** @see [submit] */
+        @MustBeClosed
+        fun submit(
+            wireTransferId: String,
+            params: WireTransferSubmitParams = WireTransferSubmitParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<WireTransfer>> =
+            submit(params.toBuilder().wireTransferId(wireTransferId).build(), requestOptions)
+
+        /** @see [submit] */
+        @MustBeClosed
+        fun submit(
+            wireTransferId: String,
+            params: WireTransferSubmitParams = WireTransferSubmitParams.none(),
+        ): CompletableFuture<HttpResponseFor<WireTransfer>> =
+            submit(wireTransferId, params, RequestOptions.none())
+
+        /** @see [submit] */
+        @MustBeClosed
+        fun submit(
+            params: WireTransferSubmitParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<WireTransfer>>
+
+        /** @see [submit] */
         @MustBeClosed
         fun submit(
             params: WireTransferSubmitParams
@@ -80,8 +189,9 @@ interface WireTransferServiceAsync {
         /** @see [submit] */
         @MustBeClosed
         fun submit(
-            params: WireTransferSubmitParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<WireTransfer>>
+            wireTransferId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<WireTransfer>> =
+            submit(wireTransferId, WireTransferSubmitParams.none(), requestOptions)
     }
 }

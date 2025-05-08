@@ -4,7 +4,6 @@ package com.increase.api.services.async
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
-import com.increase.api.models.declinedtransactions.DeclinedTransactionRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -21,11 +20,7 @@ internal class DeclinedTransactionServiceAsyncTest {
         val declinedTransactionServiceAsync = client.declinedTransactions()
 
         val declinedTransactionFuture =
-            declinedTransactionServiceAsync.retrieve(
-                DeclinedTransactionRetrieveParams.builder()
-                    .declinedTransactionId("declined_transaction_17jbn0yyhvkt4v4ooym8")
-                    .build()
-            )
+            declinedTransactionServiceAsync.retrieve("declined_transaction_17jbn0yyhvkt4v4ooym8")
 
         val declinedTransaction = declinedTransactionFuture.get()
         declinedTransaction.validate()

@@ -6,7 +6,6 @@ import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.core.JsonValue
 import com.increase.api.models.exports.ExportCreateParams
-import com.increase.api.models.exports.ExportRetrieveParams
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -106,10 +105,7 @@ internal class ExportServiceTest {
                 .build()
         val exportService = client.exports()
 
-        val export =
-            exportService.retrieve(
-                ExportRetrieveParams.builder().exportId("export_8s4m48qz3bclzje0zwh9").build()
-            )
+        val export = exportService.retrieve("export_8s4m48qz3bclzje0zwh9")
 
         export.validate()
     }

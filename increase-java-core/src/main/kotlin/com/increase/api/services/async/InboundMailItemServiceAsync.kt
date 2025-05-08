@@ -19,14 +19,40 @@ interface InboundMailItemServiceAsync {
     fun withRawResponse(): WithRawResponse
 
     /** Retrieve an Inbound Mail Item */
-    fun retrieve(params: InboundMailItemRetrieveParams): CompletableFuture<InboundMailItem> =
-        retrieve(params, RequestOptions.none())
+    fun retrieve(inboundMailItemId: String): CompletableFuture<InboundMailItem> =
+        retrieve(inboundMailItemId, InboundMailItemRetrieveParams.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        inboundMailItemId: String,
+        params: InboundMailItemRetrieveParams = InboundMailItemRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<InboundMailItem> =
+        retrieve(params.toBuilder().inboundMailItemId(inboundMailItemId).build(), requestOptions)
+
+    /** @see [retrieve] */
+    fun retrieve(
+        inboundMailItemId: String,
+        params: InboundMailItemRetrieveParams = InboundMailItemRetrieveParams.none(),
+    ): CompletableFuture<InboundMailItem> =
+        retrieve(inboundMailItemId, params, RequestOptions.none())
 
     /** @see [retrieve] */
     fun retrieve(
         params: InboundMailItemRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<InboundMailItem>
+
+    /** @see [retrieve] */
+    fun retrieve(params: InboundMailItemRetrieveParams): CompletableFuture<InboundMailItem> =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        inboundMailItemId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<InboundMailItem> =
+        retrieve(inboundMailItemId, InboundMailItemRetrieveParams.none(), requestOptions)
 
     /** List Inbound Mail Items */
     fun list(): CompletableFuture<InboundMailItemListPageAsync> =
@@ -59,9 +85,29 @@ interface InboundMailItemServiceAsync {
          */
         @MustBeClosed
         fun retrieve(
-            params: InboundMailItemRetrieveParams
+            inboundMailItemId: String
         ): CompletableFuture<HttpResponseFor<InboundMailItem>> =
-            retrieve(params, RequestOptions.none())
+            retrieve(inboundMailItemId, InboundMailItemRetrieveParams.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            inboundMailItemId: String,
+            params: InboundMailItemRetrieveParams = InboundMailItemRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<InboundMailItem>> =
+            retrieve(
+                params.toBuilder().inboundMailItemId(inboundMailItemId).build(),
+                requestOptions,
+            )
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            inboundMailItemId: String,
+            params: InboundMailItemRetrieveParams = InboundMailItemRetrieveParams.none(),
+        ): CompletableFuture<HttpResponseFor<InboundMailItem>> =
+            retrieve(inboundMailItemId, params, RequestOptions.none())
 
         /** @see [retrieve] */
         @MustBeClosed
@@ -69,6 +115,21 @@ interface InboundMailItemServiceAsync {
             params: InboundMailItemRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<InboundMailItem>>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            params: InboundMailItemRetrieveParams
+        ): CompletableFuture<HttpResponseFor<InboundMailItem>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            inboundMailItemId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<InboundMailItem>> =
+            retrieve(inboundMailItemId, InboundMailItemRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /inbound_mail_items`, but is otherwise the same as

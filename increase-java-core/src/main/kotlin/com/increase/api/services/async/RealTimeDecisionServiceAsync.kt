@@ -18,8 +18,23 @@ interface RealTimeDecisionServiceAsync {
     fun withRawResponse(): WithRawResponse
 
     /** Retrieve a Real-Time Decision */
-    fun retrieve(params: RealTimeDecisionRetrieveParams): CompletableFuture<RealTimeDecision> =
-        retrieve(params, RequestOptions.none())
+    fun retrieve(realTimeDecisionId: String): CompletableFuture<RealTimeDecision> =
+        retrieve(realTimeDecisionId, RealTimeDecisionRetrieveParams.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        realTimeDecisionId: String,
+        params: RealTimeDecisionRetrieveParams = RealTimeDecisionRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<RealTimeDecision> =
+        retrieve(params.toBuilder().realTimeDecisionId(realTimeDecisionId).build(), requestOptions)
+
+    /** @see [retrieve] */
+    fun retrieve(
+        realTimeDecisionId: String,
+        params: RealTimeDecisionRetrieveParams = RealTimeDecisionRetrieveParams.none(),
+    ): CompletableFuture<RealTimeDecision> =
+        retrieve(realTimeDecisionId, params, RequestOptions.none())
 
     /** @see [retrieve] */
     fun retrieve(
@@ -27,15 +42,52 @@ interface RealTimeDecisionServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<RealTimeDecision>
 
+    /** @see [retrieve] */
+    fun retrieve(params: RealTimeDecisionRetrieveParams): CompletableFuture<RealTimeDecision> =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        realTimeDecisionId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<RealTimeDecision> =
+        retrieve(realTimeDecisionId, RealTimeDecisionRetrieveParams.none(), requestOptions)
+
     /** Action a Real-Time Decision */
-    fun action(params: RealTimeDecisionActionParams): CompletableFuture<RealTimeDecision> =
-        action(params, RequestOptions.none())
+    fun action(realTimeDecisionId: String): CompletableFuture<RealTimeDecision> =
+        action(realTimeDecisionId, RealTimeDecisionActionParams.none())
+
+    /** @see [action] */
+    fun action(
+        realTimeDecisionId: String,
+        params: RealTimeDecisionActionParams = RealTimeDecisionActionParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<RealTimeDecision> =
+        action(params.toBuilder().realTimeDecisionId(realTimeDecisionId).build(), requestOptions)
+
+    /** @see [action] */
+    fun action(
+        realTimeDecisionId: String,
+        params: RealTimeDecisionActionParams = RealTimeDecisionActionParams.none(),
+    ): CompletableFuture<RealTimeDecision> =
+        action(realTimeDecisionId, params, RequestOptions.none())
 
     /** @see [action] */
     fun action(
         params: RealTimeDecisionActionParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<RealTimeDecision>
+
+    /** @see [action] */
+    fun action(params: RealTimeDecisionActionParams): CompletableFuture<RealTimeDecision> =
+        action(params, RequestOptions.none())
+
+    /** @see [action] */
+    fun action(
+        realTimeDecisionId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<RealTimeDecision> =
+        action(realTimeDecisionId, RealTimeDecisionActionParams.none(), requestOptions)
 
     /**
      * A view of [RealTimeDecisionServiceAsync] that provides access to raw HTTP responses for each
@@ -49,9 +101,29 @@ interface RealTimeDecisionServiceAsync {
          */
         @MustBeClosed
         fun retrieve(
-            params: RealTimeDecisionRetrieveParams
+            realTimeDecisionId: String
         ): CompletableFuture<HttpResponseFor<RealTimeDecision>> =
-            retrieve(params, RequestOptions.none())
+            retrieve(realTimeDecisionId, RealTimeDecisionRetrieveParams.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            realTimeDecisionId: String,
+            params: RealTimeDecisionRetrieveParams = RealTimeDecisionRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<RealTimeDecision>> =
+            retrieve(
+                params.toBuilder().realTimeDecisionId(realTimeDecisionId).build(),
+                requestOptions,
+            )
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            realTimeDecisionId: String,
+            params: RealTimeDecisionRetrieveParams = RealTimeDecisionRetrieveParams.none(),
+        ): CompletableFuture<HttpResponseFor<RealTimeDecision>> =
+            retrieve(realTimeDecisionId, params, RequestOptions.none())
 
         /** @see [retrieve] */
         @MustBeClosed
@@ -60,11 +132,60 @@ interface RealTimeDecisionServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<RealTimeDecision>>
 
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            params: RealTimeDecisionRetrieveParams
+        ): CompletableFuture<HttpResponseFor<RealTimeDecision>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            realTimeDecisionId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<RealTimeDecision>> =
+            retrieve(realTimeDecisionId, RealTimeDecisionRetrieveParams.none(), requestOptions)
+
         /**
          * Returns a raw HTTP response for `post
          * /real_time_decisions/{real_time_decision_id}/action`, but is otherwise the same as
          * [RealTimeDecisionServiceAsync.action].
          */
+        @MustBeClosed
+        fun action(
+            realTimeDecisionId: String
+        ): CompletableFuture<HttpResponseFor<RealTimeDecision>> =
+            action(realTimeDecisionId, RealTimeDecisionActionParams.none())
+
+        /** @see [action] */
+        @MustBeClosed
+        fun action(
+            realTimeDecisionId: String,
+            params: RealTimeDecisionActionParams = RealTimeDecisionActionParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<RealTimeDecision>> =
+            action(
+                params.toBuilder().realTimeDecisionId(realTimeDecisionId).build(),
+                requestOptions,
+            )
+
+        /** @see [action] */
+        @MustBeClosed
+        fun action(
+            realTimeDecisionId: String,
+            params: RealTimeDecisionActionParams = RealTimeDecisionActionParams.none(),
+        ): CompletableFuture<HttpResponseFor<RealTimeDecision>> =
+            action(realTimeDecisionId, params, RequestOptions.none())
+
+        /** @see [action] */
+        @MustBeClosed
+        fun action(
+            params: RealTimeDecisionActionParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<RealTimeDecision>>
+
+        /** @see [action] */
         @MustBeClosed
         fun action(
             params: RealTimeDecisionActionParams
@@ -74,8 +195,9 @@ interface RealTimeDecisionServiceAsync {
         /** @see [action] */
         @MustBeClosed
         fun action(
-            params: RealTimeDecisionActionParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<RealTimeDecision>>
+            realTimeDecisionId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<RealTimeDecision>> =
+            action(realTimeDecisionId, RealTimeDecisionActionParams.none(), requestOptions)
     }
 }

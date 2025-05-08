@@ -19,14 +19,40 @@ interface BookkeepingEntryServiceAsync {
     fun withRawResponse(): WithRawResponse
 
     /** Retrieve a Bookkeeping Entry */
-    fun retrieve(params: BookkeepingEntryRetrieveParams): CompletableFuture<BookkeepingEntry> =
-        retrieve(params, RequestOptions.none())
+    fun retrieve(bookkeepingEntryId: String): CompletableFuture<BookkeepingEntry> =
+        retrieve(bookkeepingEntryId, BookkeepingEntryRetrieveParams.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        bookkeepingEntryId: String,
+        params: BookkeepingEntryRetrieveParams = BookkeepingEntryRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<BookkeepingEntry> =
+        retrieve(params.toBuilder().bookkeepingEntryId(bookkeepingEntryId).build(), requestOptions)
+
+    /** @see [retrieve] */
+    fun retrieve(
+        bookkeepingEntryId: String,
+        params: BookkeepingEntryRetrieveParams = BookkeepingEntryRetrieveParams.none(),
+    ): CompletableFuture<BookkeepingEntry> =
+        retrieve(bookkeepingEntryId, params, RequestOptions.none())
 
     /** @see [retrieve] */
     fun retrieve(
         params: BookkeepingEntryRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<BookkeepingEntry>
+
+    /** @see [retrieve] */
+    fun retrieve(params: BookkeepingEntryRetrieveParams): CompletableFuture<BookkeepingEntry> =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        bookkeepingEntryId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<BookkeepingEntry> =
+        retrieve(bookkeepingEntryId, BookkeepingEntryRetrieveParams.none(), requestOptions)
 
     /** List Bookkeeping Entries */
     fun list(): CompletableFuture<BookkeepingEntryListPageAsync> =
@@ -59,9 +85,29 @@ interface BookkeepingEntryServiceAsync {
          */
         @MustBeClosed
         fun retrieve(
-            params: BookkeepingEntryRetrieveParams
+            bookkeepingEntryId: String
         ): CompletableFuture<HttpResponseFor<BookkeepingEntry>> =
-            retrieve(params, RequestOptions.none())
+            retrieve(bookkeepingEntryId, BookkeepingEntryRetrieveParams.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            bookkeepingEntryId: String,
+            params: BookkeepingEntryRetrieveParams = BookkeepingEntryRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<BookkeepingEntry>> =
+            retrieve(
+                params.toBuilder().bookkeepingEntryId(bookkeepingEntryId).build(),
+                requestOptions,
+            )
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            bookkeepingEntryId: String,
+            params: BookkeepingEntryRetrieveParams = BookkeepingEntryRetrieveParams.none(),
+        ): CompletableFuture<HttpResponseFor<BookkeepingEntry>> =
+            retrieve(bookkeepingEntryId, params, RequestOptions.none())
 
         /** @see [retrieve] */
         @MustBeClosed
@@ -69,6 +115,21 @@ interface BookkeepingEntryServiceAsync {
             params: BookkeepingEntryRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<BookkeepingEntry>>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            params: BookkeepingEntryRetrieveParams
+        ): CompletableFuture<HttpResponseFor<BookkeepingEntry>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            bookkeepingEntryId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<BookkeepingEntry>> =
+            retrieve(bookkeepingEntryId, BookkeepingEntryRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /bookkeeping_entries`, but is otherwise the same as

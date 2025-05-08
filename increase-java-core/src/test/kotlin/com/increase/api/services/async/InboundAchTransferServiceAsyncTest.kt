@@ -6,7 +6,6 @@ import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
 import com.increase.api.models.inboundachtransfers.InboundAchTransferCreateNotificationOfChangeParams
 import com.increase.api.models.inboundachtransfers.InboundAchTransferDeclineParams
-import com.increase.api.models.inboundachtransfers.InboundAchTransferRetrieveParams
 import com.increase.api.models.inboundachtransfers.InboundAchTransferTransferReturnParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -24,11 +23,7 @@ internal class InboundAchTransferServiceAsyncTest {
         val inboundAchTransferServiceAsync = client.inboundAchTransfers()
 
         val inboundAchTransferFuture =
-            inboundAchTransferServiceAsync.retrieve(
-                InboundAchTransferRetrieveParams.builder()
-                    .inboundAchTransferId("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
-                    .build()
-            )
+            inboundAchTransferServiceAsync.retrieve("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
 
         val inboundAchTransfer = inboundAchTransferFuture.get()
         inboundAchTransfer.validate()

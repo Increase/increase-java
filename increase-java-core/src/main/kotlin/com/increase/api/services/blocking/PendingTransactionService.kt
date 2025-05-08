@@ -18,14 +18,39 @@ interface PendingTransactionService {
     fun withRawResponse(): WithRawResponse
 
     /** Retrieve a Pending Transaction */
-    fun retrieve(params: PendingTransactionRetrieveParams): PendingTransaction =
-        retrieve(params, RequestOptions.none())
+    fun retrieve(pendingTransactionId: String): PendingTransaction =
+        retrieve(pendingTransactionId, PendingTransactionRetrieveParams.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        pendingTransactionId: String,
+        params: PendingTransactionRetrieveParams = PendingTransactionRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): PendingTransaction =
+        retrieve(
+            params.toBuilder().pendingTransactionId(pendingTransactionId).build(),
+            requestOptions,
+        )
+
+    /** @see [retrieve] */
+    fun retrieve(
+        pendingTransactionId: String,
+        params: PendingTransactionRetrieveParams = PendingTransactionRetrieveParams.none(),
+    ): PendingTransaction = retrieve(pendingTransactionId, params, RequestOptions.none())
 
     /** @see [retrieve] */
     fun retrieve(
         params: PendingTransactionRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PendingTransaction
+
+    /** @see [retrieve] */
+    fun retrieve(params: PendingTransactionRetrieveParams): PendingTransaction =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
+    fun retrieve(pendingTransactionId: String, requestOptions: RequestOptions): PendingTransaction =
+        retrieve(pendingTransactionId, PendingTransactionRetrieveParams.none(), requestOptions)
 
     /** List Pending Transactions */
     fun list(): PendingTransactionListPage = list(PendingTransactionListParams.none())
@@ -56,9 +81,28 @@ interface PendingTransactionService {
          * is otherwise the same as [PendingTransactionService.retrieve].
          */
         @MustBeClosed
+        fun retrieve(pendingTransactionId: String): HttpResponseFor<PendingTransaction> =
+            retrieve(pendingTransactionId, PendingTransactionRetrieveParams.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
         fun retrieve(
-            params: PendingTransactionRetrieveParams
-        ): HttpResponseFor<PendingTransaction> = retrieve(params, RequestOptions.none())
+            pendingTransactionId: String,
+            params: PendingTransactionRetrieveParams = PendingTransactionRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PendingTransaction> =
+            retrieve(
+                params.toBuilder().pendingTransactionId(pendingTransactionId).build(),
+                requestOptions,
+            )
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            pendingTransactionId: String,
+            params: PendingTransactionRetrieveParams = PendingTransactionRetrieveParams.none(),
+        ): HttpResponseFor<PendingTransaction> =
+            retrieve(pendingTransactionId, params, RequestOptions.none())
 
         /** @see [retrieve] */
         @MustBeClosed
@@ -66,6 +110,20 @@ interface PendingTransactionService {
             params: PendingTransactionRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PendingTransaction>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            params: PendingTransactionRetrieveParams
+        ): HttpResponseFor<PendingTransaction> = retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            pendingTransactionId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<PendingTransaction> =
+            retrieve(pendingTransactionId, PendingTransactionRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /pending_transactions`, but is otherwise the same as

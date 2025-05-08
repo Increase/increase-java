@@ -4,11 +4,8 @@ package com.increase.api.services.blocking.simulations
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.simulations.achtransfers.AchTransferAcknowledgeParams
 import com.increase.api.models.simulations.achtransfers.AchTransferCreateNotificationOfChangeParams
 import com.increase.api.models.simulations.achtransfers.AchTransferReturnParams
-import com.increase.api.models.simulations.achtransfers.AchTransferSettleParams
-import com.increase.api.models.simulations.achtransfers.AchTransferSubmitParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -24,12 +21,7 @@ internal class AchTransferServiceTest {
                 .build()
         val achTransferService = client.simulations().achTransfers()
 
-        val achTransfer =
-            achTransferService.acknowledge(
-                AchTransferAcknowledgeParams.builder()
-                    .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
-                    .build()
-            )
+        val achTransfer = achTransferService.acknowledge("ach_transfer_uoxatyh3lt5evrsdvo7q")
 
         achTransfer.validate()
     }
@@ -87,12 +79,7 @@ internal class AchTransferServiceTest {
                 .build()
         val achTransferService = client.simulations().achTransfers()
 
-        val achTransfer =
-            achTransferService.settle(
-                AchTransferSettleParams.builder()
-                    .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
-                    .build()
-            )
+        val achTransfer = achTransferService.settle("ach_transfer_uoxatyh3lt5evrsdvo7q")
 
         achTransfer.validate()
     }
@@ -106,12 +93,7 @@ internal class AchTransferServiceTest {
                 .build()
         val achTransferService = client.simulations().achTransfers()
 
-        val achTransfer =
-            achTransferService.submit(
-                AchTransferSubmitParams.builder()
-                    .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
-                    .build()
-            )
+        val achTransfer = achTransferService.submit("ach_transfer_uoxatyh3lt5evrsdvo7q")
 
         achTransfer.validate()
     }

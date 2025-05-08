@@ -5,6 +5,7 @@ package com.increase.api.services.async
 import com.increase.api.core.ClientOptions
 import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
+import com.increase.api.core.checkRequired
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
 import com.increase.api.core.handlers.withErrorHandler
@@ -20,6 +21,7 @@ import com.increase.api.models.transactions.TransactionListPageResponse
 import com.increase.api.models.transactions.TransactionListParams
 import com.increase.api.models.transactions.TransactionRetrieveParams
 import java.util.concurrent.CompletableFuture
+import kotlin.jvm.optionals.getOrNull
 
 class TransactionServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     TransactionServiceAsync {
@@ -56,6 +58,9 @@ class TransactionServiceAsyncImpl internal constructor(private val clientOptions
             params: TransactionRetrieveParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<Transaction>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("transactionId", params.transactionId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)

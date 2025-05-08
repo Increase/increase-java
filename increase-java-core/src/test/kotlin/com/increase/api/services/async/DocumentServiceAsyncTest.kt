@@ -4,7 +4,6 @@ package com.increase.api.services.async
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
-import com.increase.api.models.documents.DocumentRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -20,10 +19,7 @@ internal class DocumentServiceAsyncTest {
                 .build()
         val documentServiceAsync = client.documents()
 
-        val documentFuture =
-            documentServiceAsync.retrieve(
-                DocumentRetrieveParams.builder().documentId("document_qjtqc6s4c14ve2q89izm").build()
-            )
+        val documentFuture = documentServiceAsync.retrieve("document_qjtqc6s4c14ve2q89izm")
 
         val document = documentFuture.get()
         document.validate()

@@ -5,6 +5,7 @@ package com.increase.api.services.blocking
 import com.increase.api.core.ClientOptions
 import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
+import com.increase.api.core.checkRequired
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
 import com.increase.api.core.handlers.withErrorHandler
@@ -21,6 +22,7 @@ import com.increase.api.models.achprenotifications.AchPrenotificationListPage
 import com.increase.api.models.achprenotifications.AchPrenotificationListPageResponse
 import com.increase.api.models.achprenotifications.AchPrenotificationListParams
 import com.increase.api.models.achprenotifications.AchPrenotificationRetrieveParams
+import kotlin.jvm.optionals.getOrNull
 
 class AchPrenotificationServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     AchPrenotificationService {
@@ -91,6 +93,9 @@ class AchPrenotificationServiceImpl internal constructor(private val clientOptio
             params: AchPrenotificationRetrieveParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<AchPrenotification> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("achPrenotificationId", params.achPrenotificationId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)

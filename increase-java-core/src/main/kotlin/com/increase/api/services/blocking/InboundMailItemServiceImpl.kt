@@ -5,6 +5,7 @@ package com.increase.api.services.blocking
 import com.increase.api.core.ClientOptions
 import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
+import com.increase.api.core.checkRequired
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
 import com.increase.api.core.handlers.withErrorHandler
@@ -19,6 +20,7 @@ import com.increase.api.models.inboundmailitems.InboundMailItemListPage
 import com.increase.api.models.inboundmailitems.InboundMailItemListPageResponse
 import com.increase.api.models.inboundmailitems.InboundMailItemListParams
 import com.increase.api.models.inboundmailitems.InboundMailItemRetrieveParams
+import kotlin.jvm.optionals.getOrNull
 
 class InboundMailItemServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     InboundMailItemService {
@@ -55,6 +57,9 @@ class InboundMailItemServiceImpl internal constructor(private val clientOptions:
             params: InboundMailItemRetrieveParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<InboundMailItem> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("inboundMailItemId", params.inboundMailItemId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)

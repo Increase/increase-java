@@ -19,15 +19,44 @@ interface DeclinedTransactionServiceAsync {
     fun withRawResponse(): WithRawResponse
 
     /** Retrieve a Declined Transaction */
+    fun retrieve(declinedTransactionId: String): CompletableFuture<DeclinedTransaction> =
+        retrieve(declinedTransactionId, DeclinedTransactionRetrieveParams.none())
+
+    /** @see [retrieve] */
     fun retrieve(
-        params: DeclinedTransactionRetrieveParams
-    ): CompletableFuture<DeclinedTransaction> = retrieve(params, RequestOptions.none())
+        declinedTransactionId: String,
+        params: DeclinedTransactionRetrieveParams = DeclinedTransactionRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<DeclinedTransaction> =
+        retrieve(
+            params.toBuilder().declinedTransactionId(declinedTransactionId).build(),
+            requestOptions,
+        )
+
+    /** @see [retrieve] */
+    fun retrieve(
+        declinedTransactionId: String,
+        params: DeclinedTransactionRetrieveParams = DeclinedTransactionRetrieveParams.none(),
+    ): CompletableFuture<DeclinedTransaction> =
+        retrieve(declinedTransactionId, params, RequestOptions.none())
 
     /** @see [retrieve] */
     fun retrieve(
         params: DeclinedTransactionRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<DeclinedTransaction>
+
+    /** @see [retrieve] */
+    fun retrieve(
+        params: DeclinedTransactionRetrieveParams
+    ): CompletableFuture<DeclinedTransaction> = retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        declinedTransactionId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<DeclinedTransaction> =
+        retrieve(declinedTransactionId, DeclinedTransactionRetrieveParams.none(), requestOptions)
 
     /** List Declined Transactions */
     fun list(): CompletableFuture<DeclinedTransactionListPageAsync> =
@@ -60,9 +89,29 @@ interface DeclinedTransactionServiceAsync {
          */
         @MustBeClosed
         fun retrieve(
-            params: DeclinedTransactionRetrieveParams
+            declinedTransactionId: String
         ): CompletableFuture<HttpResponseFor<DeclinedTransaction>> =
-            retrieve(params, RequestOptions.none())
+            retrieve(declinedTransactionId, DeclinedTransactionRetrieveParams.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            declinedTransactionId: String,
+            params: DeclinedTransactionRetrieveParams = DeclinedTransactionRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<DeclinedTransaction>> =
+            retrieve(
+                params.toBuilder().declinedTransactionId(declinedTransactionId).build(),
+                requestOptions,
+            )
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            declinedTransactionId: String,
+            params: DeclinedTransactionRetrieveParams = DeclinedTransactionRetrieveParams.none(),
+        ): CompletableFuture<HttpResponseFor<DeclinedTransaction>> =
+            retrieve(declinedTransactionId, params, RequestOptions.none())
 
         /** @see [retrieve] */
         @MustBeClosed
@@ -70,6 +119,25 @@ interface DeclinedTransactionServiceAsync {
             params: DeclinedTransactionRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<DeclinedTransaction>>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            params: DeclinedTransactionRetrieveParams
+        ): CompletableFuture<HttpResponseFor<DeclinedTransaction>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            declinedTransactionId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<DeclinedTransaction>> =
+            retrieve(
+                declinedTransactionId,
+                DeclinedTransactionRetrieveParams.none(),
+                requestOptions,
+            )
 
         /**
          * Returns a raw HTTP response for `get /declined_transactions`, but is otherwise the same

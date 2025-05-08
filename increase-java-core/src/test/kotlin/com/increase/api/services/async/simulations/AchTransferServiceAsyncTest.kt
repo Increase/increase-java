@@ -4,11 +4,8 @@ package com.increase.api.services.async.simulations
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
-import com.increase.api.models.simulations.achtransfers.AchTransferAcknowledgeParams
 import com.increase.api.models.simulations.achtransfers.AchTransferCreateNotificationOfChangeParams
 import com.increase.api.models.simulations.achtransfers.AchTransferReturnParams
-import com.increase.api.models.simulations.achtransfers.AchTransferSettleParams
-import com.increase.api.models.simulations.achtransfers.AchTransferSubmitParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -25,11 +22,7 @@ internal class AchTransferServiceAsyncTest {
         val achTransferServiceAsync = client.simulations().achTransfers()
 
         val achTransferFuture =
-            achTransferServiceAsync.acknowledge(
-                AchTransferAcknowledgeParams.builder()
-                    .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
-                    .build()
-            )
+            achTransferServiceAsync.acknowledge("ach_transfer_uoxatyh3lt5evrsdvo7q")
 
         val achTransfer = achTransferFuture.get()
         achTransfer.validate()
@@ -90,12 +83,7 @@ internal class AchTransferServiceAsyncTest {
                 .build()
         val achTransferServiceAsync = client.simulations().achTransfers()
 
-        val achTransferFuture =
-            achTransferServiceAsync.settle(
-                AchTransferSettleParams.builder()
-                    .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
-                    .build()
-            )
+        val achTransferFuture = achTransferServiceAsync.settle("ach_transfer_uoxatyh3lt5evrsdvo7q")
 
         val achTransfer = achTransferFuture.get()
         achTransfer.validate()
@@ -110,12 +98,7 @@ internal class AchTransferServiceAsyncTest {
                 .build()
         val achTransferServiceAsync = client.simulations().achTransfers()
 
-        val achTransferFuture =
-            achTransferServiceAsync.submit(
-                AchTransferSubmitParams.builder()
-                    .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
-                    .build()
-            )
+        val achTransferFuture = achTransferServiceAsync.submit("ach_transfer_uoxatyh3lt5evrsdvo7q")
 
         val achTransfer = achTransferFuture.get()
         achTransfer.validate()

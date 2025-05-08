@@ -5,7 +5,6 @@ package com.increase.api.services.async
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
 import com.increase.api.models.physicalcards.PhysicalCardCreateParams
-import com.increase.api.models.physicalcards.PhysicalCardRetrieveParams
 import com.increase.api.models.physicalcards.PhysicalCardUpdateParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -67,11 +66,7 @@ internal class PhysicalCardServiceAsyncTest {
         val physicalCardServiceAsync = client.physicalCards()
 
         val physicalCardFuture =
-            physicalCardServiceAsync.retrieve(
-                PhysicalCardRetrieveParams.builder()
-                    .physicalCardId("physical_card_ode8duyq5v2ynhjoharl")
-                    .build()
-            )
+            physicalCardServiceAsync.retrieve("physical_card_ode8duyq5v2ynhjoharl")
 
         val physicalCard = physicalCardFuture.get()
         physicalCard.validate()

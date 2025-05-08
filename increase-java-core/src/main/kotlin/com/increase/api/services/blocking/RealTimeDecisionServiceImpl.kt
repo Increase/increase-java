@@ -5,6 +5,7 @@ package com.increase.api.services.blocking
 import com.increase.api.core.ClientOptions
 import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
+import com.increase.api.core.checkRequired
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
 import com.increase.api.core.handlers.withErrorHandler
@@ -18,6 +19,7 @@ import com.increase.api.core.prepare
 import com.increase.api.models.realtimedecisions.RealTimeDecision
 import com.increase.api.models.realtimedecisions.RealTimeDecisionActionParams
 import com.increase.api.models.realtimedecisions.RealTimeDecisionRetrieveParams
+import kotlin.jvm.optionals.getOrNull
 
 class RealTimeDecisionServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     RealTimeDecisionService {
@@ -54,6 +56,9 @@ class RealTimeDecisionServiceImpl internal constructor(private val clientOptions
             params: RealTimeDecisionRetrieveParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<RealTimeDecision> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("realTimeDecisionId", params.realTimeDecisionId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -80,6 +85,9 @@ class RealTimeDecisionServiceImpl internal constructor(private val clientOptions
             params: RealTimeDecisionActionParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<RealTimeDecision> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("realTimeDecisionId", params.realTimeDecisionId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)

@@ -18,13 +18,33 @@ interface ProgramService {
     fun withRawResponse(): WithRawResponse
 
     /** Retrieve a Program */
-    fun retrieve(params: ProgramRetrieveParams): Program = retrieve(params, RequestOptions.none())
+    fun retrieve(programId: String): Program = retrieve(programId, ProgramRetrieveParams.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        programId: String,
+        params: ProgramRetrieveParams = ProgramRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): Program = retrieve(params.toBuilder().programId(programId).build(), requestOptions)
+
+    /** @see [retrieve] */
+    fun retrieve(
+        programId: String,
+        params: ProgramRetrieveParams = ProgramRetrieveParams.none(),
+    ): Program = retrieve(programId, params, RequestOptions.none())
 
     /** @see [retrieve] */
     fun retrieve(
         params: ProgramRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Program
+
+    /** @see [retrieve] */
+    fun retrieve(params: ProgramRetrieveParams): Program = retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
+    fun retrieve(programId: String, requestOptions: RequestOptions): Program =
+        retrieve(programId, ProgramRetrieveParams.none(), requestOptions)
 
     /** List Programs */
     fun list(): ProgramListPage = list(ProgramListParams.none())
@@ -51,8 +71,24 @@ interface ProgramService {
          * as [ProgramService.retrieve].
          */
         @MustBeClosed
-        fun retrieve(params: ProgramRetrieveParams): HttpResponseFor<Program> =
-            retrieve(params, RequestOptions.none())
+        fun retrieve(programId: String): HttpResponseFor<Program> =
+            retrieve(programId, ProgramRetrieveParams.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            programId: String,
+            params: ProgramRetrieveParams = ProgramRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Program> =
+            retrieve(params.toBuilder().programId(programId).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            programId: String,
+            params: ProgramRetrieveParams = ProgramRetrieveParams.none(),
+        ): HttpResponseFor<Program> = retrieve(programId, params, RequestOptions.none())
 
         /** @see [retrieve] */
         @MustBeClosed
@@ -60,6 +96,16 @@ interface ProgramService {
             params: ProgramRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Program>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(params: ProgramRetrieveParams): HttpResponseFor<Program> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(programId: String, requestOptions: RequestOptions): HttpResponseFor<Program> =
+            retrieve(programId, ProgramRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /programs`, but is otherwise the same as

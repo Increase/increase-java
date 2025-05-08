@@ -21,15 +21,44 @@ interface InboundCheckDepositServiceAsync {
     fun withRawResponse(): WithRawResponse
 
     /** Retrieve an Inbound Check Deposit */
+    fun retrieve(inboundCheckDepositId: String): CompletableFuture<InboundCheckDeposit> =
+        retrieve(inboundCheckDepositId, InboundCheckDepositRetrieveParams.none())
+
+    /** @see [retrieve] */
     fun retrieve(
-        params: InboundCheckDepositRetrieveParams
-    ): CompletableFuture<InboundCheckDeposit> = retrieve(params, RequestOptions.none())
+        inboundCheckDepositId: String,
+        params: InboundCheckDepositRetrieveParams = InboundCheckDepositRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<InboundCheckDeposit> =
+        retrieve(
+            params.toBuilder().inboundCheckDepositId(inboundCheckDepositId).build(),
+            requestOptions,
+        )
+
+    /** @see [retrieve] */
+    fun retrieve(
+        inboundCheckDepositId: String,
+        params: InboundCheckDepositRetrieveParams = InboundCheckDepositRetrieveParams.none(),
+    ): CompletableFuture<InboundCheckDeposit> =
+        retrieve(inboundCheckDepositId, params, RequestOptions.none())
 
     /** @see [retrieve] */
     fun retrieve(
         params: InboundCheckDepositRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<InboundCheckDeposit>
+
+    /** @see [retrieve] */
+    fun retrieve(
+        params: InboundCheckDepositRetrieveParams
+    ): CompletableFuture<InboundCheckDeposit> = retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        inboundCheckDepositId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<InboundCheckDeposit> =
+        retrieve(inboundCheckDepositId, InboundCheckDepositRetrieveParams.none(), requestOptions)
 
     /** List Inbound Check Deposits */
     fun list(): CompletableFuture<InboundCheckDepositListPageAsync> =
@@ -51,8 +80,26 @@ interface InboundCheckDepositServiceAsync {
         list(InboundCheckDepositListParams.none(), requestOptions)
 
     /** Decline an Inbound Check Deposit */
-    fun decline(params: InboundCheckDepositDeclineParams): CompletableFuture<InboundCheckDeposit> =
-        decline(params, RequestOptions.none())
+    fun decline(inboundCheckDepositId: String): CompletableFuture<InboundCheckDeposit> =
+        decline(inboundCheckDepositId, InboundCheckDepositDeclineParams.none())
+
+    /** @see [decline] */
+    fun decline(
+        inboundCheckDepositId: String,
+        params: InboundCheckDepositDeclineParams = InboundCheckDepositDeclineParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<InboundCheckDeposit> =
+        decline(
+            params.toBuilder().inboundCheckDepositId(inboundCheckDepositId).build(),
+            requestOptions,
+        )
+
+    /** @see [decline] */
+    fun decline(
+        inboundCheckDepositId: String,
+        params: InboundCheckDepositDeclineParams = InboundCheckDepositDeclineParams.none(),
+    ): CompletableFuture<InboundCheckDeposit> =
+        decline(inboundCheckDepositId, params, RequestOptions.none())
 
     /** @see [decline] */
     fun decline(
@@ -60,7 +107,36 @@ interface InboundCheckDepositServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<InboundCheckDeposit>
 
+    /** @see [decline] */
+    fun decline(params: InboundCheckDepositDeclineParams): CompletableFuture<InboundCheckDeposit> =
+        decline(params, RequestOptions.none())
+
+    /** @see [decline] */
+    fun decline(
+        inboundCheckDepositId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<InboundCheckDeposit> =
+        decline(inboundCheckDepositId, InboundCheckDepositDeclineParams.none(), requestOptions)
+
     /** Return an Inbound Check Deposit */
+    fun return_(
+        inboundCheckDepositId: String,
+        params: InboundCheckDepositReturnParams,
+    ): CompletableFuture<InboundCheckDeposit> =
+        return_(inboundCheckDepositId, params, RequestOptions.none())
+
+    /** @see [return_] */
+    fun return_(
+        inboundCheckDepositId: String,
+        params: InboundCheckDepositReturnParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<InboundCheckDeposit> =
+        return_(
+            params.toBuilder().inboundCheckDepositId(inboundCheckDepositId).build(),
+            requestOptions,
+        )
+
+    /** @see [return_] */
     fun return_(params: InboundCheckDepositReturnParams): CompletableFuture<InboundCheckDeposit> =
         return_(params, RequestOptions.none())
 
@@ -82,9 +158,29 @@ interface InboundCheckDepositServiceAsync {
          */
         @MustBeClosed
         fun retrieve(
-            params: InboundCheckDepositRetrieveParams
+            inboundCheckDepositId: String
         ): CompletableFuture<HttpResponseFor<InboundCheckDeposit>> =
-            retrieve(params, RequestOptions.none())
+            retrieve(inboundCheckDepositId, InboundCheckDepositRetrieveParams.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            inboundCheckDepositId: String,
+            params: InboundCheckDepositRetrieveParams = InboundCheckDepositRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<InboundCheckDeposit>> =
+            retrieve(
+                params.toBuilder().inboundCheckDepositId(inboundCheckDepositId).build(),
+                requestOptions,
+            )
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            inboundCheckDepositId: String,
+            params: InboundCheckDepositRetrieveParams = InboundCheckDepositRetrieveParams.none(),
+        ): CompletableFuture<HttpResponseFor<InboundCheckDeposit>> =
+            retrieve(inboundCheckDepositId, params, RequestOptions.none())
 
         /** @see [retrieve] */
         @MustBeClosed
@@ -92,6 +188,25 @@ interface InboundCheckDepositServiceAsync {
             params: InboundCheckDepositRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<InboundCheckDeposit>>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            params: InboundCheckDepositRetrieveParams
+        ): CompletableFuture<HttpResponseFor<InboundCheckDeposit>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            inboundCheckDepositId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<InboundCheckDeposit>> =
+            retrieve(
+                inboundCheckDepositId,
+                InboundCheckDepositRetrieveParams.none(),
+                requestOptions,
+            )
 
         /**
          * Returns a raw HTTP response for `get /inbound_check_deposits`, but is otherwise the same
@@ -129,9 +244,29 @@ interface InboundCheckDepositServiceAsync {
          */
         @MustBeClosed
         fun decline(
-            params: InboundCheckDepositDeclineParams
+            inboundCheckDepositId: String
         ): CompletableFuture<HttpResponseFor<InboundCheckDeposit>> =
-            decline(params, RequestOptions.none())
+            decline(inboundCheckDepositId, InboundCheckDepositDeclineParams.none())
+
+        /** @see [decline] */
+        @MustBeClosed
+        fun decline(
+            inboundCheckDepositId: String,
+            params: InboundCheckDepositDeclineParams = InboundCheckDepositDeclineParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<InboundCheckDeposit>> =
+            decline(
+                params.toBuilder().inboundCheckDepositId(inboundCheckDepositId).build(),
+                requestOptions,
+            )
+
+        /** @see [decline] */
+        @MustBeClosed
+        fun decline(
+            inboundCheckDepositId: String,
+            params: InboundCheckDepositDeclineParams = InboundCheckDepositDeclineParams.none(),
+        ): CompletableFuture<HttpResponseFor<InboundCheckDeposit>> =
+            decline(inboundCheckDepositId, params, RequestOptions.none())
 
         /** @see [decline] */
         @MustBeClosed
@@ -140,11 +275,46 @@ interface InboundCheckDepositServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<InboundCheckDeposit>>
 
+        /** @see [decline] */
+        @MustBeClosed
+        fun decline(
+            params: InboundCheckDepositDeclineParams
+        ): CompletableFuture<HttpResponseFor<InboundCheckDeposit>> =
+            decline(params, RequestOptions.none())
+
+        /** @see [decline] */
+        @MustBeClosed
+        fun decline(
+            inboundCheckDepositId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<InboundCheckDeposit>> =
+            decline(inboundCheckDepositId, InboundCheckDepositDeclineParams.none(), requestOptions)
+
         /**
          * Returns a raw HTTP response for `post
          * /inbound_check_deposits/{inbound_check_deposit_id}/return`, but is otherwise the same as
          * [InboundCheckDepositServiceAsync.return_].
          */
+        @MustBeClosed
+        fun return_(
+            inboundCheckDepositId: String,
+            params: InboundCheckDepositReturnParams,
+        ): CompletableFuture<HttpResponseFor<InboundCheckDeposit>> =
+            return_(inboundCheckDepositId, params, RequestOptions.none())
+
+        /** @see [return_] */
+        @MustBeClosed
+        fun return_(
+            inboundCheckDepositId: String,
+            params: InboundCheckDepositReturnParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<InboundCheckDeposit>> =
+            return_(
+                params.toBuilder().inboundCheckDepositId(inboundCheckDepositId).build(),
+                requestOptions,
+            )
+
+        /** @see [return_] */
         @MustBeClosed
         fun return_(
             params: InboundCheckDepositReturnParams

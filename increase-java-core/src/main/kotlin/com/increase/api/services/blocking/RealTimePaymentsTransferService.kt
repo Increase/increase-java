@@ -29,14 +29,49 @@ interface RealTimePaymentsTransferService {
     ): RealTimePaymentsTransfer
 
     /** Retrieve a Real-Time Payments Transfer */
-    fun retrieve(params: RealTimePaymentsTransferRetrieveParams): RealTimePaymentsTransfer =
-        retrieve(params, RequestOptions.none())
+    fun retrieve(realTimePaymentsTransferId: String): RealTimePaymentsTransfer =
+        retrieve(realTimePaymentsTransferId, RealTimePaymentsTransferRetrieveParams.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        realTimePaymentsTransferId: String,
+        params: RealTimePaymentsTransferRetrieveParams =
+            RealTimePaymentsTransferRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): RealTimePaymentsTransfer =
+        retrieve(
+            params.toBuilder().realTimePaymentsTransferId(realTimePaymentsTransferId).build(),
+            requestOptions,
+        )
+
+    /** @see [retrieve] */
+    fun retrieve(
+        realTimePaymentsTransferId: String,
+        params: RealTimePaymentsTransferRetrieveParams =
+            RealTimePaymentsTransferRetrieveParams.none(),
+    ): RealTimePaymentsTransfer =
+        retrieve(realTimePaymentsTransferId, params, RequestOptions.none())
 
     /** @see [retrieve] */
     fun retrieve(
         params: RealTimePaymentsTransferRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): RealTimePaymentsTransfer
+
+    /** @see [retrieve] */
+    fun retrieve(params: RealTimePaymentsTransferRetrieveParams): RealTimePaymentsTransfer =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        realTimePaymentsTransferId: String,
+        requestOptions: RequestOptions,
+    ): RealTimePaymentsTransfer =
+        retrieve(
+            realTimePaymentsTransferId,
+            RealTimePaymentsTransferRetrieveParams.none(),
+            requestOptions,
+        )
 
     /** List Real-Time Payments Transfers */
     fun list(): RealTimePaymentsTransferListPage = list(RealTimePaymentsTransferListParams.none())
@@ -85,8 +120,31 @@ interface RealTimePaymentsTransferService {
          */
         @MustBeClosed
         fun retrieve(
-            params: RealTimePaymentsTransferRetrieveParams
-        ): HttpResponseFor<RealTimePaymentsTransfer> = retrieve(params, RequestOptions.none())
+            realTimePaymentsTransferId: String
+        ): HttpResponseFor<RealTimePaymentsTransfer> =
+            retrieve(realTimePaymentsTransferId, RealTimePaymentsTransferRetrieveParams.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            realTimePaymentsTransferId: String,
+            params: RealTimePaymentsTransferRetrieveParams =
+                RealTimePaymentsTransferRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<RealTimePaymentsTransfer> =
+            retrieve(
+                params.toBuilder().realTimePaymentsTransferId(realTimePaymentsTransferId).build(),
+                requestOptions,
+            )
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            realTimePaymentsTransferId: String,
+            params: RealTimePaymentsTransferRetrieveParams =
+                RealTimePaymentsTransferRetrieveParams.none(),
+        ): HttpResponseFor<RealTimePaymentsTransfer> =
+            retrieve(realTimePaymentsTransferId, params, RequestOptions.none())
 
         /** @see [retrieve] */
         @MustBeClosed
@@ -94,6 +152,24 @@ interface RealTimePaymentsTransferService {
             params: RealTimePaymentsTransferRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<RealTimePaymentsTransfer>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            params: RealTimePaymentsTransferRetrieveParams
+        ): HttpResponseFor<RealTimePaymentsTransfer> = retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            realTimePaymentsTransferId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<RealTimePaymentsTransfer> =
+            retrieve(
+                realTimePaymentsTransferId,
+                RealTimePaymentsTransferRetrieveParams.none(),
+                requestOptions,
+            )
 
         /**
          * Returns a raw HTTP response for `get /real_time_payments_transfers`, but is otherwise the

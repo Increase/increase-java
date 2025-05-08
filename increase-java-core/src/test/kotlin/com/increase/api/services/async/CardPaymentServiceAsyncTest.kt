@@ -4,7 +4,6 @@ package com.increase.api.services.async
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
-import com.increase.api.models.cardpayments.CardPaymentRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -21,11 +20,7 @@ internal class CardPaymentServiceAsyncTest {
         val cardPaymentServiceAsync = client.cardPayments()
 
         val cardPaymentFuture =
-            cardPaymentServiceAsync.retrieve(
-                CardPaymentRetrieveParams.builder()
-                    .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
-                    .build()
-            )
+            cardPaymentServiceAsync.retrieve("card_payment_nd3k2kacrqjli8482ave")
 
         val cardPayment = cardPaymentFuture.get()
         cardPayment.validate()

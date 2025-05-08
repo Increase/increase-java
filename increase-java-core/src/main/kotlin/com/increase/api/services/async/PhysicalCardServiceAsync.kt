@@ -31,8 +31,22 @@ interface PhysicalCardServiceAsync {
     ): CompletableFuture<PhysicalCard>
 
     /** Retrieve a Physical Card */
-    fun retrieve(params: PhysicalCardRetrieveParams): CompletableFuture<PhysicalCard> =
-        retrieve(params, RequestOptions.none())
+    fun retrieve(physicalCardId: String): CompletableFuture<PhysicalCard> =
+        retrieve(physicalCardId, PhysicalCardRetrieveParams.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        physicalCardId: String,
+        params: PhysicalCardRetrieveParams = PhysicalCardRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<PhysicalCard> =
+        retrieve(params.toBuilder().physicalCardId(physicalCardId).build(), requestOptions)
+
+    /** @see [retrieve] */
+    fun retrieve(
+        physicalCardId: String,
+        params: PhysicalCardRetrieveParams = PhysicalCardRetrieveParams.none(),
+    ): CompletableFuture<PhysicalCard> = retrieve(physicalCardId, params, RequestOptions.none())
 
     /** @see [retrieve] */
     fun retrieve(
@@ -40,7 +54,32 @@ interface PhysicalCardServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PhysicalCard>
 
+    /** @see [retrieve] */
+    fun retrieve(params: PhysicalCardRetrieveParams): CompletableFuture<PhysicalCard> =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        physicalCardId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<PhysicalCard> =
+        retrieve(physicalCardId, PhysicalCardRetrieveParams.none(), requestOptions)
+
     /** Update a Physical Card */
+    fun update(
+        physicalCardId: String,
+        params: PhysicalCardUpdateParams,
+    ): CompletableFuture<PhysicalCard> = update(physicalCardId, params, RequestOptions.none())
+
+    /** @see [update] */
+    fun update(
+        physicalCardId: String,
+        params: PhysicalCardUpdateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<PhysicalCard> =
+        update(params.toBuilder().physicalCardId(physicalCardId).build(), requestOptions)
+
+    /** @see [update] */
     fun update(params: PhysicalCardUpdateParams): CompletableFuture<PhysicalCard> =
         update(params, RequestOptions.none())
 
@@ -95,10 +134,25 @@ interface PhysicalCardServiceAsync {
          * otherwise the same as [PhysicalCardServiceAsync.retrieve].
          */
         @MustBeClosed
+        fun retrieve(physicalCardId: String): CompletableFuture<HttpResponseFor<PhysicalCard>> =
+            retrieve(physicalCardId, PhysicalCardRetrieveParams.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
         fun retrieve(
-            params: PhysicalCardRetrieveParams
+            physicalCardId: String,
+            params: PhysicalCardRetrieveParams = PhysicalCardRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<PhysicalCard>> =
-            retrieve(params, RequestOptions.none())
+            retrieve(params.toBuilder().physicalCardId(physicalCardId).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            physicalCardId: String,
+            params: PhysicalCardRetrieveParams = PhysicalCardRetrieveParams.none(),
+        ): CompletableFuture<HttpResponseFor<PhysicalCard>> =
+            retrieve(physicalCardId, params, RequestOptions.none())
 
         /** @see [retrieve] */
         @MustBeClosed
@@ -107,10 +161,42 @@ interface PhysicalCardServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<PhysicalCard>>
 
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            params: PhysicalCardRetrieveParams
+        ): CompletableFuture<HttpResponseFor<PhysicalCard>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            physicalCardId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<PhysicalCard>> =
+            retrieve(physicalCardId, PhysicalCardRetrieveParams.none(), requestOptions)
+
         /**
          * Returns a raw HTTP response for `patch /physical_cards/{physical_card_id}`, but is
          * otherwise the same as [PhysicalCardServiceAsync.update].
          */
+        @MustBeClosed
+        fun update(
+            physicalCardId: String,
+            params: PhysicalCardUpdateParams,
+        ): CompletableFuture<HttpResponseFor<PhysicalCard>> =
+            update(physicalCardId, params, RequestOptions.none())
+
+        /** @see [update] */
+        @MustBeClosed
+        fun update(
+            physicalCardId: String,
+            params: PhysicalCardUpdateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<PhysicalCard>> =
+            update(params.toBuilder().physicalCardId(physicalCardId).build(), requestOptions)
+
+        /** @see [update] */
         @MustBeClosed
         fun update(
             params: PhysicalCardUpdateParams

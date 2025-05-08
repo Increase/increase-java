@@ -23,14 +23,14 @@ import kotlin.jvm.optionals.getOrNull
 /** Clones a Digital Card Profile */
 class DigitalCardProfileCloneParams
 private constructor(
-    private val digitalCardProfileId: String,
+    private val digitalCardProfileId: String?,
     private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the Digital Card Profile to clone. */
-    fun digitalCardProfileId(): String = digitalCardProfileId
+    fun digitalCardProfileId(): Optional<String> = Optional.ofNullable(digitalCardProfileId)
 
     /**
      * The identifier of the File containing the card's icon image.
@@ -178,14 +178,11 @@ private constructor(
 
     companion object {
 
+        @JvmStatic fun none(): DigitalCardProfileCloneParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of
          * [DigitalCardProfileCloneParams].
-         *
-         * The following fields are required:
-         * ```java
-         * .digitalCardProfileId()
-         * ```
          */
         @JvmStatic fun builder() = Builder()
     }
@@ -207,9 +204,16 @@ private constructor(
         }
 
         /** The identifier of the Digital Card Profile to clone. */
-        fun digitalCardProfileId(digitalCardProfileId: String) = apply {
+        fun digitalCardProfileId(digitalCardProfileId: String?) = apply {
             this.digitalCardProfileId = digitalCardProfileId
         }
+
+        /**
+         * Alias for calling [Builder.digitalCardProfileId] with
+         * `digitalCardProfileId.orElse(null)`.
+         */
+        fun digitalCardProfileId(digitalCardProfileId: Optional<String>) =
+            digitalCardProfileId(digitalCardProfileId.getOrNull())
 
         /**
          * Sets the entire request body.
@@ -470,17 +474,10 @@ private constructor(
          * Returns an immutable instance of [DigitalCardProfileCloneParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```java
-         * .digitalCardProfileId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): DigitalCardProfileCloneParams =
             DigitalCardProfileCloneParams(
-                checkRequired("digitalCardProfileId", digitalCardProfileId),
+                digitalCardProfileId,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -491,7 +488,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> digitalCardProfileId
+            0 -> digitalCardProfileId ?: ""
             else -> ""
         }
 

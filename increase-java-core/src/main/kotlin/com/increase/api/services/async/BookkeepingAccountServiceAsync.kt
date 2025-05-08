@@ -32,6 +32,24 @@ interface BookkeepingAccountServiceAsync {
     ): CompletableFuture<BookkeepingAccount>
 
     /** Update a Bookkeeping Account */
+    fun update(
+        bookkeepingAccountId: String,
+        params: BookkeepingAccountUpdateParams,
+    ): CompletableFuture<BookkeepingAccount> =
+        update(bookkeepingAccountId, params, RequestOptions.none())
+
+    /** @see [update] */
+    fun update(
+        bookkeepingAccountId: String,
+        params: BookkeepingAccountUpdateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<BookkeepingAccount> =
+        update(
+            params.toBuilder().bookkeepingAccountId(bookkeepingAccountId).build(),
+            requestOptions,
+        )
+
+    /** @see [update] */
     fun update(params: BookkeepingAccountUpdateParams): CompletableFuture<BookkeepingAccount> =
         update(params, RequestOptions.none())
 
@@ -61,15 +79,44 @@ interface BookkeepingAccountServiceAsync {
         list(BookkeepingAccountListParams.none(), requestOptions)
 
     /** Retrieve a Bookkeeping Account Balance */
+    fun balance(bookkeepingAccountId: String): CompletableFuture<BookkeepingBalanceLookup> =
+        balance(bookkeepingAccountId, BookkeepingAccountBalanceParams.none())
+
+    /** @see [balance] */
     fun balance(
-        params: BookkeepingAccountBalanceParams
-    ): CompletableFuture<BookkeepingBalanceLookup> = balance(params, RequestOptions.none())
+        bookkeepingAccountId: String,
+        params: BookkeepingAccountBalanceParams = BookkeepingAccountBalanceParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<BookkeepingBalanceLookup> =
+        balance(
+            params.toBuilder().bookkeepingAccountId(bookkeepingAccountId).build(),
+            requestOptions,
+        )
+
+    /** @see [balance] */
+    fun balance(
+        bookkeepingAccountId: String,
+        params: BookkeepingAccountBalanceParams = BookkeepingAccountBalanceParams.none(),
+    ): CompletableFuture<BookkeepingBalanceLookup> =
+        balance(bookkeepingAccountId, params, RequestOptions.none())
 
     /** @see [balance] */
     fun balance(
         params: BookkeepingAccountBalanceParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<BookkeepingBalanceLookup>
+
+    /** @see [balance] */
+    fun balance(
+        params: BookkeepingAccountBalanceParams
+    ): CompletableFuture<BookkeepingBalanceLookup> = balance(params, RequestOptions.none())
+
+    /** @see [balance] */
+    fun balance(
+        bookkeepingAccountId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<BookkeepingBalanceLookup> =
+        balance(bookkeepingAccountId, BookkeepingAccountBalanceParams.none(), requestOptions)
 
     /**
      * A view of [BookkeepingAccountServiceAsync] that provides access to raw HTTP responses for
@@ -98,6 +145,26 @@ interface BookkeepingAccountServiceAsync {
          * Returns a raw HTTP response for `patch /bookkeeping_accounts/{bookkeeping_account_id}`,
          * but is otherwise the same as [BookkeepingAccountServiceAsync.update].
          */
+        @MustBeClosed
+        fun update(
+            bookkeepingAccountId: String,
+            params: BookkeepingAccountUpdateParams,
+        ): CompletableFuture<HttpResponseFor<BookkeepingAccount>> =
+            update(bookkeepingAccountId, params, RequestOptions.none())
+
+        /** @see [update] */
+        @MustBeClosed
+        fun update(
+            bookkeepingAccountId: String,
+            params: BookkeepingAccountUpdateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<BookkeepingAccount>> =
+            update(
+                params.toBuilder().bookkeepingAccountId(bookkeepingAccountId).build(),
+                requestOptions,
+            )
+
+        /** @see [update] */
         @MustBeClosed
         fun update(
             params: BookkeepingAccountUpdateParams
@@ -147,9 +214,29 @@ interface BookkeepingAccountServiceAsync {
          */
         @MustBeClosed
         fun balance(
-            params: BookkeepingAccountBalanceParams
+            bookkeepingAccountId: String
         ): CompletableFuture<HttpResponseFor<BookkeepingBalanceLookup>> =
-            balance(params, RequestOptions.none())
+            balance(bookkeepingAccountId, BookkeepingAccountBalanceParams.none())
+
+        /** @see [balance] */
+        @MustBeClosed
+        fun balance(
+            bookkeepingAccountId: String,
+            params: BookkeepingAccountBalanceParams = BookkeepingAccountBalanceParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<BookkeepingBalanceLookup>> =
+            balance(
+                params.toBuilder().bookkeepingAccountId(bookkeepingAccountId).build(),
+                requestOptions,
+            )
+
+        /** @see [balance] */
+        @MustBeClosed
+        fun balance(
+            bookkeepingAccountId: String,
+            params: BookkeepingAccountBalanceParams = BookkeepingAccountBalanceParams.none(),
+        ): CompletableFuture<HttpResponseFor<BookkeepingBalanceLookup>> =
+            balance(bookkeepingAccountId, params, RequestOptions.none())
 
         /** @see [balance] */
         @MustBeClosed
@@ -157,5 +244,20 @@ interface BookkeepingAccountServiceAsync {
             params: BookkeepingAccountBalanceParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<BookkeepingBalanceLookup>>
+
+        /** @see [balance] */
+        @MustBeClosed
+        fun balance(
+            params: BookkeepingAccountBalanceParams
+        ): CompletableFuture<HttpResponseFor<BookkeepingBalanceLookup>> =
+            balance(params, RequestOptions.none())
+
+        /** @see [balance] */
+        @MustBeClosed
+        fun balance(
+            bookkeepingAccountId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<BookkeepingBalanceLookup>> =
+            balance(bookkeepingAccountId, BookkeepingAccountBalanceParams.none(), requestOptions)
     }
 }

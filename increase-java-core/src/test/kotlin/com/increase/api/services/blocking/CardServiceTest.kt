@@ -5,8 +5,6 @@ package com.increase.api.services.blocking
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.models.cards.CardCreateParams
-import com.increase.api.models.cards.CardDetailsParams
-import com.increase.api.models.cards.CardRetrieveParams
 import com.increase.api.models.cards.CardUpdateParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -60,10 +58,7 @@ internal class CardServiceTest {
                 .build()
         val cardService = client.cards()
 
-        val card =
-            cardService.retrieve(
-                CardRetrieveParams.builder().cardId("card_oubs0hwk5rn6knuecxg2").build()
-            )
+        val card = cardService.retrieve("card_oubs0hwk5rn6knuecxg2")
 
         card.validate()
     }
@@ -129,10 +124,7 @@ internal class CardServiceTest {
                 .build()
         val cardService = client.cards()
 
-        val cardDetails =
-            cardService.details(
-                CardDetailsParams.builder().cardId("card_oubs0hwk5rn6knuecxg2").build()
-            )
+        val cardDetails = cardService.details("card_oubs0hwk5rn6knuecxg2")
 
         cardDetails.validate()
     }

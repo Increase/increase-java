@@ -4,12 +4,12 @@ package com.increase.api.models.simulations.checkdeposits
 
 import com.increase.api.core.JsonValue
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.toImmutable
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /**
  * Simulates the submission of a [Check Deposit](#check-deposits) to the Federal Reserve. This Check
@@ -17,14 +17,14 @@ import java.util.Optional
  */
 class CheckDepositSubmitParams
 private constructor(
-    private val checkDepositId: String,
+    private val checkDepositId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
     private val additionalBodyProperties: Map<String, JsonValue>,
 ) : Params {
 
     /** The identifier of the Check Deposit you wish to submit. */
-    fun checkDepositId(): String = checkDepositId
+    fun checkDepositId(): Optional<String> = Optional.ofNullable(checkDepositId)
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
@@ -36,14 +36,9 @@ private constructor(
 
     companion object {
 
-        /**
-         * Returns a mutable builder for constructing an instance of [CheckDepositSubmitParams].
-         *
-         * The following fields are required:
-         * ```java
-         * .checkDepositId()
-         * ```
-         */
+        @JvmStatic fun none(): CheckDepositSubmitParams = builder().build()
+
+        /** Returns a mutable builder for constructing an instance of [CheckDepositSubmitParams]. */
         @JvmStatic fun builder() = Builder()
     }
 
@@ -65,7 +60,11 @@ private constructor(
         }
 
         /** The identifier of the Check Deposit you wish to submit. */
-        fun checkDepositId(checkDepositId: String) = apply { this.checkDepositId = checkDepositId }
+        fun checkDepositId(checkDepositId: String?) = apply { this.checkDepositId = checkDepositId }
+
+        /** Alias for calling [Builder.checkDepositId] with `checkDepositId.orElse(null)`. */
+        fun checkDepositId(checkDepositId: Optional<String>) =
+            checkDepositId(checkDepositId.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -191,17 +190,10 @@ private constructor(
          * Returns an immutable instance of [CheckDepositSubmitParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```java
-         * .checkDepositId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): CheckDepositSubmitParams =
             CheckDepositSubmitParams(
-                checkRequired("checkDepositId", checkDepositId),
+                checkDepositId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
                 additionalBodyProperties.toImmutable(),
@@ -213,7 +205,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> checkDepositId
+            0 -> checkDepositId ?: ""
             else -> ""
         }
 

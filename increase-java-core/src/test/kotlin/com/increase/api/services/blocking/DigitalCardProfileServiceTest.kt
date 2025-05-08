@@ -4,10 +4,8 @@ package com.increase.api.services.blocking
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.digitalcardprofiles.DigitalCardProfileArchiveParams
 import com.increase.api.models.digitalcardprofiles.DigitalCardProfileCloneParams
 import com.increase.api.models.digitalcardprofiles.DigitalCardProfileCreateParams
-import com.increase.api.models.digitalcardprofiles.DigitalCardProfileRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -57,11 +55,7 @@ internal class DigitalCardProfileServiceTest {
         val digitalCardProfileService = client.digitalCardProfiles()
 
         val digitalCardProfile =
-            digitalCardProfileService.retrieve(
-                DigitalCardProfileRetrieveParams.builder()
-                    .digitalCardProfileId("digital_card_profile_s3puplu90f04xhcwkiga")
-                    .build()
-            )
+            digitalCardProfileService.retrieve("digital_card_profile_s3puplu90f04xhcwkiga")
 
         digitalCardProfile.validate()
     }
@@ -90,11 +84,7 @@ internal class DigitalCardProfileServiceTest {
         val digitalCardProfileService = client.digitalCardProfiles()
 
         val digitalCardProfile =
-            digitalCardProfileService.archive(
-                DigitalCardProfileArchiveParams.builder()
-                    .digitalCardProfileId("digital_card_profile_s3puplu90f04xhcwkiga")
-                    .build()
-            )
+            digitalCardProfileService.archive("digital_card_profile_s3puplu90f04xhcwkiga")
 
         digitalCardProfile.validate()
     }

@@ -5,6 +5,7 @@ package com.increase.api.services.async.simulations
 import com.increase.api.core.ClientOptions
 import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
+import com.increase.api.core.checkRequired
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
 import com.increase.api.core.handlers.withErrorHandler
@@ -22,6 +23,7 @@ import com.increase.api.models.simulations.achtransfers.AchTransferReturnParams
 import com.increase.api.models.simulations.achtransfers.AchTransferSettleParams
 import com.increase.api.models.simulations.achtransfers.AchTransferSubmitParams
 import java.util.concurrent.CompletableFuture
+import kotlin.jvm.optionals.getOrNull
 
 class AchTransferServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     AchTransferServiceAsync {
@@ -81,6 +83,9 @@ class AchTransferServiceAsyncImpl internal constructor(private val clientOptions
             params: AchTransferAcknowledgeParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<AchTransfer>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("achTransferId", params.achTransferId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -116,6 +121,9 @@ class AchTransferServiceAsyncImpl internal constructor(private val clientOptions
             params: AchTransferCreateNotificationOfChangeParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<AchTransfer>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("achTransferId", params.achTransferId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -151,6 +159,9 @@ class AchTransferServiceAsyncImpl internal constructor(private val clientOptions
             params: AchTransferReturnParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<AchTransfer>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("achTransferId", params.achTransferId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -181,6 +192,9 @@ class AchTransferServiceAsyncImpl internal constructor(private val clientOptions
             params: AchTransferSettleParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<AchTransfer>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("achTransferId", params.achTransferId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -211,6 +225,9 @@ class AchTransferServiceAsyncImpl internal constructor(private val clientOptions
             params: AchTransferSubmitParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<AchTransfer>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("achTransferId", params.achTransferId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)

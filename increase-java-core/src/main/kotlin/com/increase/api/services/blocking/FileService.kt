@@ -32,13 +32,31 @@ interface FileService {
     ): File
 
     /** Retrieve a File */
-    fun retrieve(params: FileRetrieveParams): File = retrieve(params, RequestOptions.none())
+    fun retrieve(fileId: String): File = retrieve(fileId, FileRetrieveParams.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        fileId: String,
+        params: FileRetrieveParams = FileRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): File = retrieve(params.toBuilder().fileId(fileId).build(), requestOptions)
+
+    /** @see [retrieve] */
+    fun retrieve(fileId: String, params: FileRetrieveParams = FileRetrieveParams.none()): File =
+        retrieve(fileId, params, RequestOptions.none())
 
     /** @see [retrieve] */
     fun retrieve(
         params: FileRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): File
+
+    /** @see [retrieve] */
+    fun retrieve(params: FileRetrieveParams): File = retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
+    fun retrieve(fileId: String, requestOptions: RequestOptions): File =
+        retrieve(fileId, FileRetrieveParams.none(), requestOptions)
 
     /** List Files */
     fun list(): FileListPage = list(FileListParams.none())
@@ -80,8 +98,24 @@ interface FileService {
          * [FileService.retrieve].
          */
         @MustBeClosed
-        fun retrieve(params: FileRetrieveParams): HttpResponseFor<File> =
-            retrieve(params, RequestOptions.none())
+        fun retrieve(fileId: String): HttpResponseFor<File> =
+            retrieve(fileId, FileRetrieveParams.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            fileId: String,
+            params: FileRetrieveParams = FileRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<File> =
+            retrieve(params.toBuilder().fileId(fileId).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            fileId: String,
+            params: FileRetrieveParams = FileRetrieveParams.none(),
+        ): HttpResponseFor<File> = retrieve(fileId, params, RequestOptions.none())
 
         /** @see [retrieve] */
         @MustBeClosed
@@ -89,6 +123,16 @@ interface FileService {
             params: FileRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<File>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(params: FileRetrieveParams): HttpResponseFor<File> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(fileId: String, requestOptions: RequestOptions): HttpResponseFor<File> =
+            retrieve(fileId, FileRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /files`, but is otherwise the same as

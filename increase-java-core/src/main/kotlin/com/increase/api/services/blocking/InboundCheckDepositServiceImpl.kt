@@ -5,6 +5,7 @@ package com.increase.api.services.blocking
 import com.increase.api.core.ClientOptions
 import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
+import com.increase.api.core.checkRequired
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
 import com.increase.api.core.handlers.withErrorHandler
@@ -22,6 +23,7 @@ import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositListPageR
 import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositListParams
 import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositRetrieveParams
 import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositReturnParams
+import kotlin.jvm.optionals.getOrNull
 
 class InboundCheckDepositServiceImpl
 internal constructor(private val clientOptions: ClientOptions) : InboundCheckDepositService {
@@ -73,6 +75,9 @@ internal constructor(private val clientOptions: ClientOptions) : InboundCheckDep
             params: InboundCheckDepositRetrieveParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<InboundCheckDeposit> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("inboundCheckDepositId", params.inboundCheckDepositId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -134,6 +139,9 @@ internal constructor(private val clientOptions: ClientOptions) : InboundCheckDep
             params: InboundCheckDepositDeclineParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<InboundCheckDeposit> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("inboundCheckDepositId", params.inboundCheckDepositId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -162,6 +170,9 @@ internal constructor(private val clientOptions: ClientOptions) : InboundCheckDep
             params: InboundCheckDepositReturnParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<InboundCheckDeposit> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("inboundCheckDepositId", params.inboundCheckDepositId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)

@@ -20,14 +20,57 @@ interface InboundRealTimePaymentsTransferServiceAsync {
 
     /** Retrieve an Inbound Real-Time Payments Transfer */
     fun retrieve(
-        params: InboundRealTimePaymentsTransferRetrieveParams
-    ): CompletableFuture<InboundRealTimePaymentsTransfer> = retrieve(params, RequestOptions.none())
+        inboundRealTimePaymentsTransferId: String
+    ): CompletableFuture<InboundRealTimePaymentsTransfer> =
+        retrieve(
+            inboundRealTimePaymentsTransferId,
+            InboundRealTimePaymentsTransferRetrieveParams.none(),
+        )
+
+    /** @see [retrieve] */
+    fun retrieve(
+        inboundRealTimePaymentsTransferId: String,
+        params: InboundRealTimePaymentsTransferRetrieveParams =
+            InboundRealTimePaymentsTransferRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<InboundRealTimePaymentsTransfer> =
+        retrieve(
+            params
+                .toBuilder()
+                .inboundRealTimePaymentsTransferId(inboundRealTimePaymentsTransferId)
+                .build(),
+            requestOptions,
+        )
+
+    /** @see [retrieve] */
+    fun retrieve(
+        inboundRealTimePaymentsTransferId: String,
+        params: InboundRealTimePaymentsTransferRetrieveParams =
+            InboundRealTimePaymentsTransferRetrieveParams.none(),
+    ): CompletableFuture<InboundRealTimePaymentsTransfer> =
+        retrieve(inboundRealTimePaymentsTransferId, params, RequestOptions.none())
 
     /** @see [retrieve] */
     fun retrieve(
         params: InboundRealTimePaymentsTransferRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<InboundRealTimePaymentsTransfer>
+
+    /** @see [retrieve] */
+    fun retrieve(
+        params: InboundRealTimePaymentsTransferRetrieveParams
+    ): CompletableFuture<InboundRealTimePaymentsTransfer> = retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        inboundRealTimePaymentsTransferId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<InboundRealTimePaymentsTransfer> =
+        retrieve(
+            inboundRealTimePaymentsTransferId,
+            InboundRealTimePaymentsTransferRetrieveParams.none(),
+            requestOptions,
+        )
 
     /** List Inbound Real-Time Payments Transfers */
     fun list(): CompletableFuture<InboundRealTimePaymentsTransferListPageAsync> =
@@ -66,9 +109,37 @@ interface InboundRealTimePaymentsTransferServiceAsync {
          */
         @MustBeClosed
         fun retrieve(
-            params: InboundRealTimePaymentsTransferRetrieveParams
+            inboundRealTimePaymentsTransferId: String
         ): CompletableFuture<HttpResponseFor<InboundRealTimePaymentsTransfer>> =
-            retrieve(params, RequestOptions.none())
+            retrieve(
+                inboundRealTimePaymentsTransferId,
+                InboundRealTimePaymentsTransferRetrieveParams.none(),
+            )
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            inboundRealTimePaymentsTransferId: String,
+            params: InboundRealTimePaymentsTransferRetrieveParams =
+                InboundRealTimePaymentsTransferRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<InboundRealTimePaymentsTransfer>> =
+            retrieve(
+                params
+                    .toBuilder()
+                    .inboundRealTimePaymentsTransferId(inboundRealTimePaymentsTransferId)
+                    .build(),
+                requestOptions,
+            )
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            inboundRealTimePaymentsTransferId: String,
+            params: InboundRealTimePaymentsTransferRetrieveParams =
+                InboundRealTimePaymentsTransferRetrieveParams.none(),
+        ): CompletableFuture<HttpResponseFor<InboundRealTimePaymentsTransfer>> =
+            retrieve(inboundRealTimePaymentsTransferId, params, RequestOptions.none())
 
         /** @see [retrieve] */
         @MustBeClosed
@@ -76,6 +147,25 @@ interface InboundRealTimePaymentsTransferServiceAsync {
             params: InboundRealTimePaymentsTransferRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<InboundRealTimePaymentsTransfer>>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            params: InboundRealTimePaymentsTransferRetrieveParams
+        ): CompletableFuture<HttpResponseFor<InboundRealTimePaymentsTransfer>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            inboundRealTimePaymentsTransferId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<InboundRealTimePaymentsTransfer>> =
+            retrieve(
+                inboundRealTimePaymentsTransferId,
+                InboundRealTimePaymentsTransferRetrieveParams.none(),
+                requestOptions,
+            )
 
         /**
          * Returns a raw HTTP response for `get /inbound_real_time_payments_transfers`, but is
