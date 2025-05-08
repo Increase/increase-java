@@ -5,8 +5,6 @@ package com.increase.api.services.async
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
 import com.increase.api.models.cards.CardCreateParams
-import com.increase.api.models.cards.CardDetailsParams
-import com.increase.api.models.cards.CardRetrieveParams
 import com.increase.api.models.cards.CardUpdateParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -61,10 +59,7 @@ internal class CardServiceAsyncTest {
                 .build()
         val cardServiceAsync = client.cards()
 
-        val cardFuture =
-            cardServiceAsync.retrieve(
-                CardRetrieveParams.builder().cardId("card_oubs0hwk5rn6knuecxg2").build()
-            )
+        val cardFuture = cardServiceAsync.retrieve("card_oubs0hwk5rn6knuecxg2")
 
         val card = cardFuture.get()
         card.validate()
@@ -133,10 +128,7 @@ internal class CardServiceAsyncTest {
                 .build()
         val cardServiceAsync = client.cards()
 
-        val cardDetailsFuture =
-            cardServiceAsync.details(
-                CardDetailsParams.builder().cardId("card_oubs0hwk5rn6knuecxg2").build()
-            )
+        val cardDetailsFuture = cardServiceAsync.details("card_oubs0hwk5rn6knuecxg2")
 
         val cardDetails = cardDetailsFuture.get()
         cardDetails.validate()

@@ -12,7 +12,6 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.errors.IncreaseInvalidDataException
@@ -24,14 +23,14 @@ import kotlin.jvm.optionals.getOrNull
 /** Request a stop payment on a Check Transfer */
 class CheckTransferStopPaymentParams
 private constructor(
-    private val checkTransferId: String,
+    private val checkTransferId: String?,
     private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the Check Transfer. */
-    fun checkTransferId(): String = checkTransferId
+    fun checkTransferId(): Optional<String> = Optional.ofNullable(checkTransferId)
 
     /**
      * The reason why this transfer should be stopped.
@@ -58,14 +57,11 @@ private constructor(
 
     companion object {
 
+        @JvmStatic fun none(): CheckTransferStopPaymentParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of
          * [CheckTransferStopPaymentParams].
-         *
-         * The following fields are required:
-         * ```java
-         * .checkTransferId()
-         * ```
          */
         @JvmStatic fun builder() = Builder()
     }
@@ -87,9 +83,13 @@ private constructor(
         }
 
         /** The identifier of the Check Transfer. */
-        fun checkTransferId(checkTransferId: String) = apply {
+        fun checkTransferId(checkTransferId: String?) = apply {
             this.checkTransferId = checkTransferId
         }
+
+        /** Alias for calling [Builder.checkTransferId] with `checkTransferId.orElse(null)`. */
+        fun checkTransferId(checkTransferId: Optional<String>) =
+            checkTransferId(checkTransferId.getOrNull())
 
         /**
          * Sets the entire request body.
@@ -232,17 +232,10 @@ private constructor(
          * Returns an immutable instance of [CheckTransferStopPaymentParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```java
-         * .checkTransferId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): CheckTransferStopPaymentParams =
             CheckTransferStopPaymentParams(
-                checkRequired("checkTransferId", checkTransferId),
+                checkTransferId,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -253,7 +246,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> checkTransferId
+            0 -> checkTransferId ?: ""
             else -> ""
         }
 

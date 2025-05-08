@@ -5,7 +5,6 @@ package com.increase.api.services.blocking
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.models.bookkeepingentrysets.BookkeepingEntrySetCreateParams
-import com.increase.api.models.bookkeepingentrysets.BookkeepingEntrySetRetrieveParams
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -55,11 +54,7 @@ internal class BookkeepingEntrySetServiceTest {
         val bookkeepingEntrySetService = client.bookkeepingEntrySets()
 
         val bookkeepingEntrySet =
-            bookkeepingEntrySetService.retrieve(
-                BookkeepingEntrySetRetrieveParams.builder()
-                    .bookkeepingEntrySetId("bookkeeping_entry_set_n80c6wr2p8gtc6p4ingf")
-                    .build()
-            )
+            bookkeepingEntrySetService.retrieve("bookkeeping_entry_set_n80c6wr2p8gtc6p4ingf")
 
         bookkeepingEntrySet.validate()
     }

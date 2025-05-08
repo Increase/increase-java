@@ -5,7 +5,6 @@ package com.increase.api.services.async
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
 import com.increase.api.models.lockboxes.LockboxCreateParams
-import com.increase.api.models.lockboxes.LockboxRetrieveParams
 import com.increase.api.models.lockboxes.LockboxUpdateParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -44,10 +43,7 @@ internal class LockboxServiceAsyncTest {
                 .build()
         val lockboxServiceAsync = client.lockboxes()
 
-        val lockboxFuture =
-            lockboxServiceAsync.retrieve(
-                LockboxRetrieveParams.builder().lockboxId("lockbox_3xt21ok13q19advds4t5").build()
-            )
+        val lockboxFuture = lockboxServiceAsync.retrieve("lockbox_3xt21ok13q19advds4t5")
 
         val lockbox = lockboxFuture.get()
         lockbox.validate()

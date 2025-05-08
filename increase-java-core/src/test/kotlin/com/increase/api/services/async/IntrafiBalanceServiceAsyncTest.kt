@@ -4,7 +4,6 @@ package com.increase.api.services.async
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
-import com.increase.api.models.intrafibalances.IntrafiBalanceIntrafiBalanceParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -21,11 +20,7 @@ internal class IntrafiBalanceServiceAsyncTest {
         val intrafiBalanceServiceAsync = client.intrafiBalances()
 
         val intrafiBalanceFuture =
-            intrafiBalanceServiceAsync.intrafiBalance(
-                IntrafiBalanceIntrafiBalanceParams.builder()
-                    .accountId("account_in71c4amph0vgo2qllky")
-                    .build()
-            )
+            intrafiBalanceServiceAsync.intrafiBalance("account_in71c4amph0vgo2qllky")
 
         val intrafiBalance = intrafiBalanceFuture.get()
         intrafiBalance.validate()

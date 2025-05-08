@@ -18,13 +18,33 @@ interface DocumentService {
     fun withRawResponse(): WithRawResponse
 
     /** Retrieve a Document */
-    fun retrieve(params: DocumentRetrieveParams): Document = retrieve(params, RequestOptions.none())
+    fun retrieve(documentId: String): Document = retrieve(documentId, DocumentRetrieveParams.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        documentId: String,
+        params: DocumentRetrieveParams = DocumentRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): Document = retrieve(params.toBuilder().documentId(documentId).build(), requestOptions)
+
+    /** @see [retrieve] */
+    fun retrieve(
+        documentId: String,
+        params: DocumentRetrieveParams = DocumentRetrieveParams.none(),
+    ): Document = retrieve(documentId, params, RequestOptions.none())
 
     /** @see [retrieve] */
     fun retrieve(
         params: DocumentRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Document
+
+    /** @see [retrieve] */
+    fun retrieve(params: DocumentRetrieveParams): Document = retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
+    fun retrieve(documentId: String, requestOptions: RequestOptions): Document =
+        retrieve(documentId, DocumentRetrieveParams.none(), requestOptions)
 
     /** List Documents */
     fun list(): DocumentListPage = list(DocumentListParams.none())
@@ -51,8 +71,24 @@ interface DocumentService {
          * as [DocumentService.retrieve].
          */
         @MustBeClosed
-        fun retrieve(params: DocumentRetrieveParams): HttpResponseFor<Document> =
-            retrieve(params, RequestOptions.none())
+        fun retrieve(documentId: String): HttpResponseFor<Document> =
+            retrieve(documentId, DocumentRetrieveParams.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            documentId: String,
+            params: DocumentRetrieveParams = DocumentRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Document> =
+            retrieve(params.toBuilder().documentId(documentId).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            documentId: String,
+            params: DocumentRetrieveParams = DocumentRetrieveParams.none(),
+        ): HttpResponseFor<Document> = retrieve(documentId, params, RequestOptions.none())
 
         /** @see [retrieve] */
         @MustBeClosed
@@ -60,6 +96,19 @@ interface DocumentService {
             params: DocumentRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Document>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(params: DocumentRetrieveParams): HttpResponseFor<Document> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            documentId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<Document> =
+            retrieve(documentId, DocumentRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /documents`, but is otherwise the same as

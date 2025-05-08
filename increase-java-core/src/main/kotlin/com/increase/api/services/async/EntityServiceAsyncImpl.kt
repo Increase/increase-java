@@ -5,6 +5,7 @@ package com.increase.api.services.async
 import com.increase.api.core.ClientOptions
 import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
+import com.increase.api.core.checkRequired
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
 import com.increase.api.core.handlers.withErrorHandler
@@ -29,6 +30,7 @@ import com.increase.api.models.entities.EntityUpdateAddressParams
 import com.increase.api.models.entities.EntityUpdateBeneficialOwnerAddressParams
 import com.increase.api.models.entities.EntityUpdateIndustryCodeParams
 import java.util.concurrent.CompletableFuture
+import kotlin.jvm.optionals.getOrNull
 
 class EntityServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     EntityServiceAsync {
@@ -153,6 +155,9 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
             params: EntityRetrieveParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<Entity>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("entityId", params.entityId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -219,6 +224,9 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
             params: EntityArchiveParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<Entity>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("entityId", params.entityId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -249,6 +257,9 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
             params: EntityArchiveBeneficialOwnerParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<Entity>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("entityId", params.entityId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -279,6 +290,9 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
             params: EntityConfirmParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<Entity>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("entityId", params.entityId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -309,6 +323,9 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
             params: EntityCreateBeneficialOwnerParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<Entity>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("entityId", params.entityId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -339,6 +356,9 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
             params: EntityUpdateAddressParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<Entity>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("entityId", params.entityId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -369,6 +389,9 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
             params: EntityUpdateBeneficialOwnerAddressParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<Entity>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("entityId", params.entityId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -403,6 +426,9 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
             params: EntityUpdateIndustryCodeParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<Entity>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("entityId", params.entityId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)

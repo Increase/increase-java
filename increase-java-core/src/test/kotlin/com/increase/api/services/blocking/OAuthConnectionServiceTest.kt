@@ -4,7 +4,6 @@ package com.increase.api.services.blocking
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.oauthconnections.OAuthConnectionRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -20,12 +19,7 @@ internal class OAuthConnectionServiceTest {
                 .build()
         val oauthConnectionService = client.oauthConnections()
 
-        val oauthConnection =
-            oauthConnectionService.retrieve(
-                OAuthConnectionRetrieveParams.builder()
-                    .oauthConnectionId("connection_dauknoksyr4wilz4e6my")
-                    .build()
-            )
+        val oauthConnection = oauthConnectionService.retrieve("connection_dauknoksyr4wilz4e6my")
 
         oauthConnection.validate()
     }

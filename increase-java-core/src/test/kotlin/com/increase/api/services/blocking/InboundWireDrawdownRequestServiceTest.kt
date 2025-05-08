@@ -4,7 +4,6 @@ package com.increase.api.services.blocking
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.inboundwiredrawdownrequests.InboundWireDrawdownRequestRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -22,11 +21,7 @@ internal class InboundWireDrawdownRequestServiceTest {
 
         val inboundWireDrawdownRequest =
             inboundWireDrawdownRequestService.retrieve(
-                InboundWireDrawdownRequestRetrieveParams.builder()
-                    .inboundWireDrawdownRequestId(
-                        "inbound_wire_drawdown_request_u5a92ikqhz1ytphn799e"
-                    )
-                    .build()
+                "inbound_wire_drawdown_request_u5a92ikqhz1ytphn799e"
             )
 
         inboundWireDrawdownRequest.validate()

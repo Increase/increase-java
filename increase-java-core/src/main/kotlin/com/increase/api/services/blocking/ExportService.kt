@@ -28,13 +28,33 @@ interface ExportService {
     ): Export
 
     /** Retrieve an Export */
-    fun retrieve(params: ExportRetrieveParams): Export = retrieve(params, RequestOptions.none())
+    fun retrieve(exportId: String): Export = retrieve(exportId, ExportRetrieveParams.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        exportId: String,
+        params: ExportRetrieveParams = ExportRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): Export = retrieve(params.toBuilder().exportId(exportId).build(), requestOptions)
+
+    /** @see [retrieve] */
+    fun retrieve(
+        exportId: String,
+        params: ExportRetrieveParams = ExportRetrieveParams.none(),
+    ): Export = retrieve(exportId, params, RequestOptions.none())
 
     /** @see [retrieve] */
     fun retrieve(
         params: ExportRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Export
+
+    /** @see [retrieve] */
+    fun retrieve(params: ExportRetrieveParams): Export = retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
+    fun retrieve(exportId: String, requestOptions: RequestOptions): Export =
+        retrieve(exportId, ExportRetrieveParams.none(), requestOptions)
 
     /** List Exports */
     fun list(): ExportListPage = list(ExportListParams.none())
@@ -76,8 +96,24 @@ interface ExportService {
          * [ExportService.retrieve].
          */
         @MustBeClosed
-        fun retrieve(params: ExportRetrieveParams): HttpResponseFor<Export> =
-            retrieve(params, RequestOptions.none())
+        fun retrieve(exportId: String): HttpResponseFor<Export> =
+            retrieve(exportId, ExportRetrieveParams.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            exportId: String,
+            params: ExportRetrieveParams = ExportRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Export> =
+            retrieve(params.toBuilder().exportId(exportId).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            exportId: String,
+            params: ExportRetrieveParams = ExportRetrieveParams.none(),
+        ): HttpResponseFor<Export> = retrieve(exportId, params, RequestOptions.none())
 
         /** @see [retrieve] */
         @MustBeClosed
@@ -85,6 +121,16 @@ interface ExportService {
             params: ExportRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Export>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(params: ExportRetrieveParams): HttpResponseFor<Export> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(exportId: String, requestOptions: RequestOptions): HttpResponseFor<Export> =
+            retrieve(exportId, ExportRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /exports`, but is otherwise the same as

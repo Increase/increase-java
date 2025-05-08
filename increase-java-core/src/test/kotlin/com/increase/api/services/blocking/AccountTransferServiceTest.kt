@@ -4,10 +4,7 @@ package com.increase.api.services.blocking
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.accounttransfers.AccountTransferApproveParams
-import com.increase.api.models.accounttransfers.AccountTransferCancelParams
 import com.increase.api.models.accounttransfers.AccountTransferCreateParams
-import com.increase.api.models.accounttransfers.AccountTransferRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -47,11 +44,7 @@ internal class AccountTransferServiceTest {
         val accountTransferService = client.accountTransfers()
 
         val accountTransfer =
-            accountTransferService.retrieve(
-                AccountTransferRetrieveParams.builder()
-                    .accountTransferId("account_transfer_7k9qe1ysdgqztnt63l7n")
-                    .build()
-            )
+            accountTransferService.retrieve("account_transfer_7k9qe1ysdgqztnt63l7n")
 
         accountTransfer.validate()
     }
@@ -80,11 +73,7 @@ internal class AccountTransferServiceTest {
         val accountTransferService = client.accountTransfers()
 
         val accountTransfer =
-            accountTransferService.approve(
-                AccountTransferApproveParams.builder()
-                    .accountTransferId("account_transfer_7k9qe1ysdgqztnt63l7n")
-                    .build()
-            )
+            accountTransferService.approve("account_transfer_7k9qe1ysdgqztnt63l7n")
 
         accountTransfer.validate()
     }
@@ -98,12 +87,7 @@ internal class AccountTransferServiceTest {
                 .build()
         val accountTransferService = client.accountTransfers()
 
-        val accountTransfer =
-            accountTransferService.cancel(
-                AccountTransferCancelParams.builder()
-                    .accountTransferId("account_transfer_7k9qe1ysdgqztnt63l7n")
-                    .build()
-            )
+        val accountTransfer = accountTransferService.cancel("account_transfer_7k9qe1ysdgqztnt63l7n")
 
         accountTransfer.validate()
     }

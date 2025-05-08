@@ -5,6 +5,7 @@ package com.increase.api.services.blocking
 import com.increase.api.core.ClientOptions
 import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
+import com.increase.api.core.checkRequired
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
 import com.increase.api.core.handlers.withErrorHandler
@@ -19,6 +20,7 @@ import com.increase.api.models.cardpayments.CardPaymentListPage
 import com.increase.api.models.cardpayments.CardPaymentListPageResponse
 import com.increase.api.models.cardpayments.CardPaymentListParams
 import com.increase.api.models.cardpayments.CardPaymentRetrieveParams
+import kotlin.jvm.optionals.getOrNull
 
 class CardPaymentServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     CardPaymentService {
@@ -55,6 +57,9 @@ class CardPaymentServiceImpl internal constructor(private val clientOptions: Cli
             params: CardPaymentRetrieveParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<CardPayment> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("cardPaymentId", params.cardPaymentId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)

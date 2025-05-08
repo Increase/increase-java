@@ -32,14 +32,39 @@ interface WireTransferServiceAsync {
     ): CompletableFuture<WireTransfer>
 
     /** Retrieve a Wire Transfer */
-    fun retrieve(params: WireTransferRetrieveParams): CompletableFuture<WireTransfer> =
-        retrieve(params, RequestOptions.none())
+    fun retrieve(wireTransferId: String): CompletableFuture<WireTransfer> =
+        retrieve(wireTransferId, WireTransferRetrieveParams.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        wireTransferId: String,
+        params: WireTransferRetrieveParams = WireTransferRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<WireTransfer> =
+        retrieve(params.toBuilder().wireTransferId(wireTransferId).build(), requestOptions)
+
+    /** @see [retrieve] */
+    fun retrieve(
+        wireTransferId: String,
+        params: WireTransferRetrieveParams = WireTransferRetrieveParams.none(),
+    ): CompletableFuture<WireTransfer> = retrieve(wireTransferId, params, RequestOptions.none())
 
     /** @see [retrieve] */
     fun retrieve(
         params: WireTransferRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<WireTransfer>
+
+    /** @see [retrieve] */
+    fun retrieve(params: WireTransferRetrieveParams): CompletableFuture<WireTransfer> =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        wireTransferId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<WireTransfer> =
+        retrieve(wireTransferId, WireTransferRetrieveParams.none(), requestOptions)
 
     /** List Wire Transfers */
     fun list(): CompletableFuture<WireTransferListPageAsync> = list(WireTransferListParams.none())
@@ -60,8 +85,22 @@ interface WireTransferServiceAsync {
         list(WireTransferListParams.none(), requestOptions)
 
     /** Approve a Wire Transfer */
-    fun approve(params: WireTransferApproveParams): CompletableFuture<WireTransfer> =
-        approve(params, RequestOptions.none())
+    fun approve(wireTransferId: String): CompletableFuture<WireTransfer> =
+        approve(wireTransferId, WireTransferApproveParams.none())
+
+    /** @see [approve] */
+    fun approve(
+        wireTransferId: String,
+        params: WireTransferApproveParams = WireTransferApproveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<WireTransfer> =
+        approve(params.toBuilder().wireTransferId(wireTransferId).build(), requestOptions)
+
+    /** @see [approve] */
+    fun approve(
+        wireTransferId: String,
+        params: WireTransferApproveParams = WireTransferApproveParams.none(),
+    ): CompletableFuture<WireTransfer> = approve(wireTransferId, params, RequestOptions.none())
 
     /** @see [approve] */
     fun approve(
@@ -69,15 +108,51 @@ interface WireTransferServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<WireTransfer>
 
+    /** @see [approve] */
+    fun approve(params: WireTransferApproveParams): CompletableFuture<WireTransfer> =
+        approve(params, RequestOptions.none())
+
+    /** @see [approve] */
+    fun approve(
+        wireTransferId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<WireTransfer> =
+        approve(wireTransferId, WireTransferApproveParams.none(), requestOptions)
+
     /** Cancel a pending Wire Transfer */
-    fun cancel(params: WireTransferCancelParams): CompletableFuture<WireTransfer> =
-        cancel(params, RequestOptions.none())
+    fun cancel(wireTransferId: String): CompletableFuture<WireTransfer> =
+        cancel(wireTransferId, WireTransferCancelParams.none())
+
+    /** @see [cancel] */
+    fun cancel(
+        wireTransferId: String,
+        params: WireTransferCancelParams = WireTransferCancelParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<WireTransfer> =
+        cancel(params.toBuilder().wireTransferId(wireTransferId).build(), requestOptions)
+
+    /** @see [cancel] */
+    fun cancel(
+        wireTransferId: String,
+        params: WireTransferCancelParams = WireTransferCancelParams.none(),
+    ): CompletableFuture<WireTransfer> = cancel(wireTransferId, params, RequestOptions.none())
 
     /** @see [cancel] */
     fun cancel(
         params: WireTransferCancelParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<WireTransfer>
+
+    /** @see [cancel] */
+    fun cancel(params: WireTransferCancelParams): CompletableFuture<WireTransfer> =
+        cancel(params, RequestOptions.none())
+
+    /** @see [cancel] */
+    fun cancel(
+        wireTransferId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<WireTransfer> =
+        cancel(wireTransferId, WireTransferCancelParams.none(), requestOptions)
 
     /**
      * A view of [WireTransferServiceAsync] that provides access to raw HTTP responses for each
@@ -106,6 +181,35 @@ interface WireTransferServiceAsync {
          * otherwise the same as [WireTransferServiceAsync.retrieve].
          */
         @MustBeClosed
+        fun retrieve(wireTransferId: String): CompletableFuture<HttpResponseFor<WireTransfer>> =
+            retrieve(wireTransferId, WireTransferRetrieveParams.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            wireTransferId: String,
+            params: WireTransferRetrieveParams = WireTransferRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<WireTransfer>> =
+            retrieve(params.toBuilder().wireTransferId(wireTransferId).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            wireTransferId: String,
+            params: WireTransferRetrieveParams = WireTransferRetrieveParams.none(),
+        ): CompletableFuture<HttpResponseFor<WireTransfer>> =
+            retrieve(wireTransferId, params, RequestOptions.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            params: WireTransferRetrieveParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<WireTransfer>>
+
+        /** @see [retrieve] */
+        @MustBeClosed
         fun retrieve(
             params: WireTransferRetrieveParams
         ): CompletableFuture<HttpResponseFor<WireTransfer>> =
@@ -114,9 +218,10 @@ interface WireTransferServiceAsync {
         /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
-            params: WireTransferRetrieveParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<WireTransfer>>
+            wireTransferId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<WireTransfer>> =
+            retrieve(wireTransferId, WireTransferRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /wire_transfers`, but is otherwise the same as
@@ -152,9 +257,25 @@ interface WireTransferServiceAsync {
          * otherwise the same as [WireTransferServiceAsync.approve].
          */
         @MustBeClosed
+        fun approve(wireTransferId: String): CompletableFuture<HttpResponseFor<WireTransfer>> =
+            approve(wireTransferId, WireTransferApproveParams.none())
+
+        /** @see [approve] */
+        @MustBeClosed
         fun approve(
-            params: WireTransferApproveParams
-        ): CompletableFuture<HttpResponseFor<WireTransfer>> = approve(params, RequestOptions.none())
+            wireTransferId: String,
+            params: WireTransferApproveParams = WireTransferApproveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<WireTransfer>> =
+            approve(params.toBuilder().wireTransferId(wireTransferId).build(), requestOptions)
+
+        /** @see [approve] */
+        @MustBeClosed
+        fun approve(
+            wireTransferId: String,
+            params: WireTransferApproveParams = WireTransferApproveParams.none(),
+        ): CompletableFuture<HttpResponseFor<WireTransfer>> =
+            approve(wireTransferId, params, RequestOptions.none())
 
         /** @see [approve] */
         @MustBeClosed
@@ -163,10 +284,53 @@ interface WireTransferServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<WireTransfer>>
 
+        /** @see [approve] */
+        @MustBeClosed
+        fun approve(
+            params: WireTransferApproveParams
+        ): CompletableFuture<HttpResponseFor<WireTransfer>> = approve(params, RequestOptions.none())
+
+        /** @see [approve] */
+        @MustBeClosed
+        fun approve(
+            wireTransferId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<WireTransfer>> =
+            approve(wireTransferId, WireTransferApproveParams.none(), requestOptions)
+
         /**
          * Returns a raw HTTP response for `post /wire_transfers/{wire_transfer_id}/cancel`, but is
          * otherwise the same as [WireTransferServiceAsync.cancel].
          */
+        @MustBeClosed
+        fun cancel(wireTransferId: String): CompletableFuture<HttpResponseFor<WireTransfer>> =
+            cancel(wireTransferId, WireTransferCancelParams.none())
+
+        /** @see [cancel] */
+        @MustBeClosed
+        fun cancel(
+            wireTransferId: String,
+            params: WireTransferCancelParams = WireTransferCancelParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<WireTransfer>> =
+            cancel(params.toBuilder().wireTransferId(wireTransferId).build(), requestOptions)
+
+        /** @see [cancel] */
+        @MustBeClosed
+        fun cancel(
+            wireTransferId: String,
+            params: WireTransferCancelParams = WireTransferCancelParams.none(),
+        ): CompletableFuture<HttpResponseFor<WireTransfer>> =
+            cancel(wireTransferId, params, RequestOptions.none())
+
+        /** @see [cancel] */
+        @MustBeClosed
+        fun cancel(
+            params: WireTransferCancelParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<WireTransfer>>
+
+        /** @see [cancel] */
         @MustBeClosed
         fun cancel(
             params: WireTransferCancelParams
@@ -175,8 +339,9 @@ interface WireTransferServiceAsync {
         /** @see [cancel] */
         @MustBeClosed
         fun cancel(
-            params: WireTransferCancelParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<WireTransfer>>
+            wireTransferId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<WireTransfer>> =
+            cancel(wireTransferId, WireTransferCancelParams.none(), requestOptions)
     }
 }

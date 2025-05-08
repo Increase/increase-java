@@ -18,15 +18,56 @@ interface InboundRealTimePaymentsTransferService {
     fun withRawResponse(): WithRawResponse
 
     /** Retrieve an Inbound Real-Time Payments Transfer */
+    fun retrieve(inboundRealTimePaymentsTransferId: String): InboundRealTimePaymentsTransfer =
+        retrieve(
+            inboundRealTimePaymentsTransferId,
+            InboundRealTimePaymentsTransferRetrieveParams.none(),
+        )
+
+    /** @see [retrieve] */
     fun retrieve(
-        params: InboundRealTimePaymentsTransferRetrieveParams
-    ): InboundRealTimePaymentsTransfer = retrieve(params, RequestOptions.none())
+        inboundRealTimePaymentsTransferId: String,
+        params: InboundRealTimePaymentsTransferRetrieveParams =
+            InboundRealTimePaymentsTransferRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): InboundRealTimePaymentsTransfer =
+        retrieve(
+            params
+                .toBuilder()
+                .inboundRealTimePaymentsTransferId(inboundRealTimePaymentsTransferId)
+                .build(),
+            requestOptions,
+        )
+
+    /** @see [retrieve] */
+    fun retrieve(
+        inboundRealTimePaymentsTransferId: String,
+        params: InboundRealTimePaymentsTransferRetrieveParams =
+            InboundRealTimePaymentsTransferRetrieveParams.none(),
+    ): InboundRealTimePaymentsTransfer =
+        retrieve(inboundRealTimePaymentsTransferId, params, RequestOptions.none())
 
     /** @see [retrieve] */
     fun retrieve(
         params: InboundRealTimePaymentsTransferRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundRealTimePaymentsTransfer
+
+    /** @see [retrieve] */
+    fun retrieve(
+        params: InboundRealTimePaymentsTransferRetrieveParams
+    ): InboundRealTimePaymentsTransfer = retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        inboundRealTimePaymentsTransferId: String,
+        requestOptions: RequestOptions,
+    ): InboundRealTimePaymentsTransfer =
+        retrieve(
+            inboundRealTimePaymentsTransferId,
+            InboundRealTimePaymentsTransferRetrieveParams.none(),
+            requestOptions,
+        )
 
     /** List Inbound Real-Time Payments Transfers */
     fun list(): InboundRealTimePaymentsTransferListPage =
@@ -62,9 +103,37 @@ interface InboundRealTimePaymentsTransferService {
          */
         @MustBeClosed
         fun retrieve(
-            params: InboundRealTimePaymentsTransferRetrieveParams
+            inboundRealTimePaymentsTransferId: String
         ): HttpResponseFor<InboundRealTimePaymentsTransfer> =
-            retrieve(params, RequestOptions.none())
+            retrieve(
+                inboundRealTimePaymentsTransferId,
+                InboundRealTimePaymentsTransferRetrieveParams.none(),
+            )
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            inboundRealTimePaymentsTransferId: String,
+            params: InboundRealTimePaymentsTransferRetrieveParams =
+                InboundRealTimePaymentsTransferRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<InboundRealTimePaymentsTransfer> =
+            retrieve(
+                params
+                    .toBuilder()
+                    .inboundRealTimePaymentsTransferId(inboundRealTimePaymentsTransferId)
+                    .build(),
+                requestOptions,
+            )
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            inboundRealTimePaymentsTransferId: String,
+            params: InboundRealTimePaymentsTransferRetrieveParams =
+                InboundRealTimePaymentsTransferRetrieveParams.none(),
+        ): HttpResponseFor<InboundRealTimePaymentsTransfer> =
+            retrieve(inboundRealTimePaymentsTransferId, params, RequestOptions.none())
 
         /** @see [retrieve] */
         @MustBeClosed
@@ -72,6 +141,25 @@ interface InboundRealTimePaymentsTransferService {
             params: InboundRealTimePaymentsTransferRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InboundRealTimePaymentsTransfer>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            params: InboundRealTimePaymentsTransferRetrieveParams
+        ): HttpResponseFor<InboundRealTimePaymentsTransfer> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            inboundRealTimePaymentsTransferId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<InboundRealTimePaymentsTransfer> =
+            retrieve(
+                inboundRealTimePaymentsTransferId,
+                InboundRealTimePaymentsTransferRetrieveParams.none(),
+                requestOptions,
+            )
 
         /**
          * Returns a raw HTTP response for `get /inbound_real_time_payments_transfers`, but is

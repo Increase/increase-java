@@ -3,21 +3,22 @@
 package com.increase.api.models.oauthapplications
 
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
+import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /** Retrieve an OAuth Application */
 class OAuthApplicationRetrieveParams
 private constructor(
-    private val oauthApplicationId: String,
+    private val oauthApplicationId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the OAuth Application. */
-    fun oauthApplicationId(): String = oauthApplicationId
+    fun oauthApplicationId(): Optional<String> = Optional.ofNullable(oauthApplicationId)
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
@@ -27,14 +28,11 @@ private constructor(
 
     companion object {
 
+        @JvmStatic fun none(): OAuthApplicationRetrieveParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of
          * [OAuthApplicationRetrieveParams].
-         *
-         * The following fields are required:
-         * ```java
-         * .oauthApplicationId()
-         * ```
          */
         @JvmStatic fun builder() = Builder()
     }
@@ -54,9 +52,15 @@ private constructor(
         }
 
         /** The identifier of the OAuth Application. */
-        fun oauthApplicationId(oauthApplicationId: String) = apply {
+        fun oauthApplicationId(oauthApplicationId: String?) = apply {
             this.oauthApplicationId = oauthApplicationId
         }
+
+        /**
+         * Alias for calling [Builder.oauthApplicationId] with `oauthApplicationId.orElse(null)`.
+         */
+        fun oauthApplicationId(oauthApplicationId: Optional<String>) =
+            oauthApplicationId(oauthApplicationId.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -160,17 +164,10 @@ private constructor(
          * Returns an immutable instance of [OAuthApplicationRetrieveParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```java
-         * .oauthApplicationId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): OAuthApplicationRetrieveParams =
             OAuthApplicationRetrieveParams(
-                checkRequired("oauthApplicationId", oauthApplicationId),
+                oauthApplicationId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -178,7 +175,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> oauthApplicationId
+            0 -> oauthApplicationId ?: ""
             else -> ""
         }
 

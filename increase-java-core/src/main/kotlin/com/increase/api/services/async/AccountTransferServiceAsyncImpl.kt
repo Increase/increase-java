@@ -5,6 +5,7 @@ package com.increase.api.services.async
 import com.increase.api.core.ClientOptions
 import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
+import com.increase.api.core.checkRequired
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
 import com.increase.api.core.handlers.withErrorHandler
@@ -24,6 +25,7 @@ import com.increase.api.models.accounttransfers.AccountTransferListPageResponse
 import com.increase.api.models.accounttransfers.AccountTransferListParams
 import com.increase.api.models.accounttransfers.AccountTransferRetrieveParams
 import java.util.concurrent.CompletableFuture
+import kotlin.jvm.optionals.getOrNull
 
 class AccountTransferServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) : AccountTransferServiceAsync {
@@ -111,6 +113,9 @@ internal constructor(private val clientOptions: ClientOptions) : AccountTransfer
             params: AccountTransferRetrieveParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<AccountTransfer>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("accountTransferId", params.accountTransferId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -177,6 +182,9 @@ internal constructor(private val clientOptions: ClientOptions) : AccountTransfer
             params: AccountTransferApproveParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<AccountTransfer>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("accountTransferId", params.accountTransferId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -207,6 +215,9 @@ internal constructor(private val clientOptions: ClientOptions) : AccountTransfer
             params: AccountTransferCancelParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<AccountTransfer>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("accountTransferId", params.accountTransferId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)

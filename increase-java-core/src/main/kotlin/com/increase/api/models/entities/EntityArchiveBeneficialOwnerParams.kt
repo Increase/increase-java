@@ -17,18 +17,20 @@ import com.increase.api.core.http.QueryParams
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Collections
 import java.util.Objects
+import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /** Archive a beneficial owner for a corporate Entity */
 class EntityArchiveBeneficialOwnerParams
 private constructor(
-    private val entityId: String,
+    private val entityId: String?,
     private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the Entity associated with the Beneficial Owner that is being archived. */
-    fun entityId(): String = entityId
+    fun entityId(): Optional<String> = Optional.ofNullable(entityId)
 
     /**
      * The identifying details of anyone controlling or owning 25% or more of the corporation.
@@ -62,7 +64,6 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .entityId()
          * .beneficialOwnerId()
          * ```
          */
@@ -90,7 +91,10 @@ private constructor(
         /**
          * The identifier of the Entity associated with the Beneficial Owner that is being archived.
          */
-        fun entityId(entityId: String) = apply { this.entityId = entityId }
+        fun entityId(entityId: String?) = apply { this.entityId = entityId }
+
+        /** Alias for calling [Builder.entityId] with `entityId.orElse(null)`. */
+        fun entityId(entityId: Optional<String>) = entityId(entityId.getOrNull())
 
         /**
          * Sets the entire request body.
@@ -243,7 +247,6 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .entityId()
          * .beneficialOwnerId()
          * ```
          *
@@ -251,7 +254,7 @@ private constructor(
          */
         fun build(): EntityArchiveBeneficialOwnerParams =
             EntityArchiveBeneficialOwnerParams(
-                checkRequired("entityId", entityId),
+                entityId,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -262,7 +265,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> entityId
+            0 -> entityId ?: ""
             else -> ""
         }
 

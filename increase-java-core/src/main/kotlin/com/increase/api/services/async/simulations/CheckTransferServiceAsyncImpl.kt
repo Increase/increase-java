@@ -5,6 +5,7 @@ package com.increase.api.services.async.simulations
 import com.increase.api.core.ClientOptions
 import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
+import com.increase.api.core.checkRequired
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
 import com.increase.api.core.handlers.withErrorHandler
@@ -18,6 +19,7 @@ import com.increase.api.core.prepareAsync
 import com.increase.api.models.checktransfers.CheckTransfer
 import com.increase.api.models.simulations.checktransfers.CheckTransferMailParams
 import java.util.concurrent.CompletableFuture
+import kotlin.jvm.optionals.getOrNull
 
 class CheckTransferServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     CheckTransferServiceAsync {
@@ -47,6 +49,9 @@ class CheckTransferServiceAsyncImpl internal constructor(private val clientOptio
             params: CheckTransferMailParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<CheckTransfer>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("checkTransferId", params.checkTransferId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)

@@ -5,7 +5,6 @@ package com.increase.api.services.async
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
 import com.increase.api.models.realtimedecisions.RealTimeDecisionActionParams
-import com.increase.api.models.realtimedecisions.RealTimeDecisionRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -22,11 +21,7 @@ internal class RealTimeDecisionServiceAsyncTest {
         val realTimeDecisionServiceAsync = client.realTimeDecisions()
 
         val realTimeDecisionFuture =
-            realTimeDecisionServiceAsync.retrieve(
-                RealTimeDecisionRetrieveParams.builder()
-                    .realTimeDecisionId("real_time_decision_j76n2e810ezcg3zh5qtn")
-                    .build()
-            )
+            realTimeDecisionServiceAsync.retrieve("real_time_decision_j76n2e810ezcg3zh5qtn")
 
         val realTimeDecision = realTimeDecisionFuture.get()
         realTimeDecision.validate()

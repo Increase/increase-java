@@ -4,7 +4,6 @@ package com.increase.api.services.async
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
-import com.increase.api.models.oauthconnections.OAuthConnectionRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -21,11 +20,7 @@ internal class OAuthConnectionServiceAsyncTest {
         val oauthConnectionServiceAsync = client.oauthConnections()
 
         val oauthConnectionFuture =
-            oauthConnectionServiceAsync.retrieve(
-                OAuthConnectionRetrieveParams.builder()
-                    .oauthConnectionId("connection_dauknoksyr4wilz4e6my")
-                    .build()
-            )
+            oauthConnectionServiceAsync.retrieve("connection_dauknoksyr4wilz4e6my")
 
         val oauthConnection = oauthConnectionFuture.get()
         oauthConnection.validate()

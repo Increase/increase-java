@@ -11,7 +11,6 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.errors.IncreaseInvalidDataException
@@ -19,6 +18,7 @@ import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /**
  * Depending on your program, you may be required to re-confirm an Entity's details on a recurring
@@ -27,14 +27,14 @@ import java.util.Optional
  */
 class EntityConfirmParams
 private constructor(
-    private val entityId: String,
+    private val entityId: String?,
     private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the Entity to confirm the details of. */
-    fun entityId(): String = entityId
+    fun entityId(): Optional<String> = Optional.ofNullable(entityId)
 
     /**
      * When your user confirmed the Entity's details. If not provided, the current time will be
@@ -62,14 +62,9 @@ private constructor(
 
     companion object {
 
-        /**
-         * Returns a mutable builder for constructing an instance of [EntityConfirmParams].
-         *
-         * The following fields are required:
-         * ```java
-         * .entityId()
-         * ```
-         */
+        @JvmStatic fun none(): EntityConfirmParams = builder().build()
+
+        /** Returns a mutable builder for constructing an instance of [EntityConfirmParams]. */
         @JvmStatic fun builder() = Builder()
     }
 
@@ -90,7 +85,10 @@ private constructor(
         }
 
         /** The identifier of the Entity to confirm the details of. */
-        fun entityId(entityId: String) = apply { this.entityId = entityId }
+        fun entityId(entityId: String?) = apply { this.entityId = entityId }
+
+        /** Alias for calling [Builder.entityId] with `entityId.orElse(null)`. */
+        fun entityId(entityId: Optional<String>) = entityId(entityId.getOrNull())
 
         /**
          * Sets the entire request body.
@@ -239,17 +237,10 @@ private constructor(
          * Returns an immutable instance of [EntityConfirmParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```java
-         * .entityId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): EntityConfirmParams =
             EntityConfirmParams(
-                checkRequired("entityId", entityId),
+                entityId,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -260,7 +251,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> entityId
+            0 -> entityId ?: ""
             else -> ""
         }
 

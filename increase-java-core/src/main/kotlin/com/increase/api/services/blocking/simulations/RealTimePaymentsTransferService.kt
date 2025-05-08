@@ -20,14 +20,49 @@ interface RealTimePaymentsTransferService {
      * handling the response from the destination financial institution. This transfer must first
      * have a `status` of `pending_submission`.
      */
-    fun complete(params: RealTimePaymentsTransferCompleteParams): RealTimePaymentsTransfer =
-        complete(params, RequestOptions.none())
+    fun complete(realTimePaymentsTransferId: String): RealTimePaymentsTransfer =
+        complete(realTimePaymentsTransferId, RealTimePaymentsTransferCompleteParams.none())
+
+    /** @see [complete] */
+    fun complete(
+        realTimePaymentsTransferId: String,
+        params: RealTimePaymentsTransferCompleteParams =
+            RealTimePaymentsTransferCompleteParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): RealTimePaymentsTransfer =
+        complete(
+            params.toBuilder().realTimePaymentsTransferId(realTimePaymentsTransferId).build(),
+            requestOptions,
+        )
+
+    /** @see [complete] */
+    fun complete(
+        realTimePaymentsTransferId: String,
+        params: RealTimePaymentsTransferCompleteParams =
+            RealTimePaymentsTransferCompleteParams.none(),
+    ): RealTimePaymentsTransfer =
+        complete(realTimePaymentsTransferId, params, RequestOptions.none())
 
     /** @see [complete] */
     fun complete(
         params: RealTimePaymentsTransferCompleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): RealTimePaymentsTransfer
+
+    /** @see [complete] */
+    fun complete(params: RealTimePaymentsTransferCompleteParams): RealTimePaymentsTransfer =
+        complete(params, RequestOptions.none())
+
+    /** @see [complete] */
+    fun complete(
+        realTimePaymentsTransferId: String,
+        requestOptions: RequestOptions,
+    ): RealTimePaymentsTransfer =
+        complete(
+            realTimePaymentsTransferId,
+            RealTimePaymentsTransferCompleteParams.none(),
+            requestOptions,
+        )
 
     /**
      * A view of [RealTimePaymentsTransferService] that provides access to raw HTTP responses for
@@ -42,8 +77,31 @@ interface RealTimePaymentsTransferService {
          */
         @MustBeClosed
         fun complete(
-            params: RealTimePaymentsTransferCompleteParams
-        ): HttpResponseFor<RealTimePaymentsTransfer> = complete(params, RequestOptions.none())
+            realTimePaymentsTransferId: String
+        ): HttpResponseFor<RealTimePaymentsTransfer> =
+            complete(realTimePaymentsTransferId, RealTimePaymentsTransferCompleteParams.none())
+
+        /** @see [complete] */
+        @MustBeClosed
+        fun complete(
+            realTimePaymentsTransferId: String,
+            params: RealTimePaymentsTransferCompleteParams =
+                RealTimePaymentsTransferCompleteParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<RealTimePaymentsTransfer> =
+            complete(
+                params.toBuilder().realTimePaymentsTransferId(realTimePaymentsTransferId).build(),
+                requestOptions,
+            )
+
+        /** @see [complete] */
+        @MustBeClosed
+        fun complete(
+            realTimePaymentsTransferId: String,
+            params: RealTimePaymentsTransferCompleteParams =
+                RealTimePaymentsTransferCompleteParams.none(),
+        ): HttpResponseFor<RealTimePaymentsTransfer> =
+            complete(realTimePaymentsTransferId, params, RequestOptions.none())
 
         /** @see [complete] */
         @MustBeClosed
@@ -51,5 +109,23 @@ interface RealTimePaymentsTransferService {
             params: RealTimePaymentsTransferCompleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<RealTimePaymentsTransfer>
+
+        /** @see [complete] */
+        @MustBeClosed
+        fun complete(
+            params: RealTimePaymentsTransferCompleteParams
+        ): HttpResponseFor<RealTimePaymentsTransfer> = complete(params, RequestOptions.none())
+
+        /** @see [complete] */
+        @MustBeClosed
+        fun complete(
+            realTimePaymentsTransferId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<RealTimePaymentsTransfer> =
+            complete(
+                realTimePaymentsTransferId,
+                RealTimePaymentsTransferCompleteParams.none(),
+                requestOptions,
+            )
     }
 }

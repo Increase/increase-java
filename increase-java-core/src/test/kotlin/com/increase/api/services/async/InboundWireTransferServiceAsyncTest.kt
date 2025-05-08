@@ -4,7 +4,6 @@ package com.increase.api.services.async
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
-import com.increase.api.models.inboundwiretransfers.InboundWireTransferRetrieveParams
 import com.increase.api.models.inboundwiretransfers.InboundWireTransferReverseParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -22,11 +21,7 @@ internal class InboundWireTransferServiceAsyncTest {
         val inboundWireTransferServiceAsync = client.inboundWireTransfers()
 
         val inboundWireTransferFuture =
-            inboundWireTransferServiceAsync.retrieve(
-                InboundWireTransferRetrieveParams.builder()
-                    .inboundWireTransferId("inbound_wire_transfer_f228m6bmhtcxjco9pwp0")
-                    .build()
-            )
+            inboundWireTransferServiceAsync.retrieve("inbound_wire_transfer_f228m6bmhtcxjco9pwp0")
 
         val inboundWireTransfer = inboundWireTransferFuture.get()
         inboundWireTransfer.validate()

@@ -5,11 +5,9 @@ package com.increase.api.services.blocking
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.models.entities.EntityArchiveBeneficialOwnerParams
-import com.increase.api.models.entities.EntityArchiveParams
 import com.increase.api.models.entities.EntityConfirmParams
 import com.increase.api.models.entities.EntityCreateBeneficialOwnerParams
 import com.increase.api.models.entities.EntityCreateParams
-import com.increase.api.models.entities.EntityRetrieveParams
 import com.increase.api.models.entities.EntityUpdateAddressParams
 import com.increase.api.models.entities.EntityUpdateBeneficialOwnerAddressParams
 import com.increase.api.models.entities.EntityUpdateIndustryCodeParams
@@ -459,10 +457,7 @@ internal class EntityServiceTest {
                 .build()
         val entityService = client.entities()
 
-        val entity =
-            entityService.retrieve(
-                EntityRetrieveParams.builder().entityId("entity_n8y8tnk2p9339ti393yi").build()
-            )
+        val entity = entityService.retrieve("entity_n8y8tnk2p9339ti393yi")
 
         entity.validate()
     }
@@ -490,10 +485,7 @@ internal class EntityServiceTest {
                 .build()
         val entityService = client.entities()
 
-        val entity =
-            entityService.archive(
-                EntityArchiveParams.builder().entityId("entity_n8y8tnk2p9339ti393yi").build()
-            )
+        val entity = entityService.archive("entity_n8y8tnk2p9339ti393yi")
 
         entity.validate()
     }

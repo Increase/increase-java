@@ -5,6 +5,7 @@ package com.increase.api.services.blocking
 import com.increase.api.core.ClientOptions
 import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
+import com.increase.api.core.checkRequired
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
 import com.increase.api.core.handlers.withErrorHandler
@@ -16,6 +17,7 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.intrafibalances.IntrafiBalance
 import com.increase.api.models.intrafibalances.IntrafiBalanceIntrafiBalanceParams
+import kotlin.jvm.optionals.getOrNull
 
 class IntrafiBalanceServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     IntrafiBalanceService {
@@ -45,6 +47,9 @@ class IntrafiBalanceServiceImpl internal constructor(private val clientOptions: 
             params: IntrafiBalanceIntrafiBalanceParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<IntrafiBalance> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("accountId", params.accountId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)

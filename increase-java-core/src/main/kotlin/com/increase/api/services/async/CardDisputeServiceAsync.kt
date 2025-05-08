@@ -30,14 +30,39 @@ interface CardDisputeServiceAsync {
     ): CompletableFuture<CardDispute>
 
     /** Retrieve a Card Dispute */
-    fun retrieve(params: CardDisputeRetrieveParams): CompletableFuture<CardDispute> =
-        retrieve(params, RequestOptions.none())
+    fun retrieve(cardDisputeId: String): CompletableFuture<CardDispute> =
+        retrieve(cardDisputeId, CardDisputeRetrieveParams.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        cardDisputeId: String,
+        params: CardDisputeRetrieveParams = CardDisputeRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<CardDispute> =
+        retrieve(params.toBuilder().cardDisputeId(cardDisputeId).build(), requestOptions)
+
+    /** @see [retrieve] */
+    fun retrieve(
+        cardDisputeId: String,
+        params: CardDisputeRetrieveParams = CardDisputeRetrieveParams.none(),
+    ): CompletableFuture<CardDispute> = retrieve(cardDisputeId, params, RequestOptions.none())
 
     /** @see [retrieve] */
     fun retrieve(
         params: CardDisputeRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CardDispute>
+
+    /** @see [retrieve] */
+    fun retrieve(params: CardDisputeRetrieveParams): CompletableFuture<CardDispute> =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        cardDisputeId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<CardDispute> =
+        retrieve(cardDisputeId, CardDisputeRetrieveParams.none(), requestOptions)
 
     /** List Card Disputes */
     fun list(): CompletableFuture<CardDisputeListPageAsync> = list(CardDisputeListParams.none())
@@ -84,9 +109,25 @@ interface CardDisputeServiceAsync {
          * the same as [CardDisputeServiceAsync.retrieve].
          */
         @MustBeClosed
+        fun retrieve(cardDisputeId: String): CompletableFuture<HttpResponseFor<CardDispute>> =
+            retrieve(cardDisputeId, CardDisputeRetrieveParams.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
         fun retrieve(
-            params: CardDisputeRetrieveParams
-        ): CompletableFuture<HttpResponseFor<CardDispute>> = retrieve(params, RequestOptions.none())
+            cardDisputeId: String,
+            params: CardDisputeRetrieveParams = CardDisputeRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<CardDispute>> =
+            retrieve(params.toBuilder().cardDisputeId(cardDisputeId).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            cardDisputeId: String,
+            params: CardDisputeRetrieveParams = CardDisputeRetrieveParams.none(),
+        ): CompletableFuture<HttpResponseFor<CardDispute>> =
+            retrieve(cardDisputeId, params, RequestOptions.none())
 
         /** @see [retrieve] */
         @MustBeClosed
@@ -94,6 +135,20 @@ interface CardDisputeServiceAsync {
             params: CardDisputeRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<CardDispute>>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            params: CardDisputeRetrieveParams
+        ): CompletableFuture<HttpResponseFor<CardDispute>> = retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            cardDisputeId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<CardDispute>> =
+            retrieve(cardDisputeId, CardDisputeRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /card_disputes`, but is otherwise the same as

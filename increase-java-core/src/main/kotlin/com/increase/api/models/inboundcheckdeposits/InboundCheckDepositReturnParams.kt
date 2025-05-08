@@ -18,19 +18,20 @@ import com.increase.api.core.http.QueryParams
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Collections
 import java.util.Objects
+import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /** Return an Inbound Check Deposit */
 class InboundCheckDepositReturnParams
 private constructor(
-    private val inboundCheckDepositId: String,
+    private val inboundCheckDepositId: String?,
     private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the Inbound Check Deposit to return. */
-    fun inboundCheckDepositId(): String = inboundCheckDepositId
+    fun inboundCheckDepositId(): Optional<String> = Optional.ofNullable(inboundCheckDepositId)
 
     /**
      * The reason to return the Inbound Check Deposit.
@@ -63,7 +64,6 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .inboundCheckDepositId()
          * .reason()
          * ```
          */
@@ -89,9 +89,16 @@ private constructor(
             }
 
         /** The identifier of the Inbound Check Deposit to return. */
-        fun inboundCheckDepositId(inboundCheckDepositId: String) = apply {
+        fun inboundCheckDepositId(inboundCheckDepositId: String?) = apply {
             this.inboundCheckDepositId = inboundCheckDepositId
         }
+
+        /**
+         * Alias for calling [Builder.inboundCheckDepositId] with
+         * `inboundCheckDepositId.orElse(null)`.
+         */
+        fun inboundCheckDepositId(inboundCheckDepositId: Optional<String>) =
+            inboundCheckDepositId(inboundCheckDepositId.getOrNull())
 
         /**
          * Sets the entire request body.
@@ -237,7 +244,6 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .inboundCheckDepositId()
          * .reason()
          * ```
          *
@@ -245,7 +251,7 @@ private constructor(
          */
         fun build(): InboundCheckDepositReturnParams =
             InboundCheckDepositReturnParams(
-                checkRequired("inboundCheckDepositId", inboundCheckDepositId),
+                inboundCheckDepositId,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -256,7 +262,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> inboundCheckDepositId
+            0 -> inboundCheckDepositId ?: ""
             else -> ""
         }
 

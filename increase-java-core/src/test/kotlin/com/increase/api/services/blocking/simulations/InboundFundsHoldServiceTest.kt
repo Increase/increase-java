@@ -4,7 +4,6 @@ package com.increase.api.services.blocking.simulations
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.simulations.inboundfundsholds.InboundFundsHoldReleaseParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -20,12 +19,7 @@ internal class InboundFundsHoldServiceTest {
                 .build()
         val inboundFundsHoldService = client.simulations().inboundFundsHolds()
 
-        val response =
-            inboundFundsHoldService.release(
-                InboundFundsHoldReleaseParams.builder()
-                    .inboundFundsHoldId("inbound_funds_hold_9vuasmywdo7xb3zt4071")
-                    .build()
-            )
+        val response = inboundFundsHoldService.release("inbound_funds_hold_9vuasmywdo7xb3zt4071")
 
         response.validate()
     }

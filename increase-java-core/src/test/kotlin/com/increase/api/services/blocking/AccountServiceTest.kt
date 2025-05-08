@@ -5,9 +5,7 @@ package com.increase.api.services.blocking
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.models.accounts.AccountBalanceParams
-import com.increase.api.models.accounts.AccountCloseParams
 import com.increase.api.models.accounts.AccountCreateParams
-import com.increase.api.models.accounts.AccountRetrieveParams
 import com.increase.api.models.accounts.AccountUpdateParams
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Test
@@ -47,10 +45,7 @@ internal class AccountServiceTest {
                 .build()
         val accountService = client.accounts()
 
-        val account =
-            accountService.retrieve(
-                AccountRetrieveParams.builder().accountId("account_in71c4amph0vgo2qllky").build()
-            )
+        val account = accountService.retrieve("account_in71c4amph0vgo2qllky")
 
         account.validate()
     }
@@ -118,10 +113,7 @@ internal class AccountServiceTest {
                 .build()
         val accountService = client.accounts()
 
-        val account =
-            accountService.close(
-                AccountCloseParams.builder().accountId("account_in71c4amph0vgo2qllky").build()
-            )
+        val account = accountService.close("account_in71c4amph0vgo2qllky")
 
         account.validate()
     }

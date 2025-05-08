@@ -4,10 +4,7 @@ package com.increase.api.services.blocking
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.wiretransfers.WireTransferApproveParams
-import com.increase.api.models.wiretransfers.WireTransferCancelParams
 import com.increase.api.models.wiretransfers.WireTransferCreateParams
-import com.increase.api.models.wiretransfers.WireTransferRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -57,12 +54,7 @@ internal class WireTransferServiceTest {
                 .build()
         val wireTransferService = client.wireTransfers()
 
-        val wireTransfer =
-            wireTransferService.retrieve(
-                WireTransferRetrieveParams.builder()
-                    .wireTransferId("wire_transfer_5akynk7dqsq25qwk9q2u")
-                    .build()
-            )
+        val wireTransfer = wireTransferService.retrieve("wire_transfer_5akynk7dqsq25qwk9q2u")
 
         wireTransfer.validate()
     }
@@ -90,12 +82,7 @@ internal class WireTransferServiceTest {
                 .build()
         val wireTransferService = client.wireTransfers()
 
-        val wireTransfer =
-            wireTransferService.approve(
-                WireTransferApproveParams.builder()
-                    .wireTransferId("wire_transfer_5akynk7dqsq25qwk9q2u")
-                    .build()
-            )
+        val wireTransfer = wireTransferService.approve("wire_transfer_5akynk7dqsq25qwk9q2u")
 
         wireTransfer.validate()
     }
@@ -109,12 +96,7 @@ internal class WireTransferServiceTest {
                 .build()
         val wireTransferService = client.wireTransfers()
 
-        val wireTransfer =
-            wireTransferService.cancel(
-                WireTransferCancelParams.builder()
-                    .wireTransferId("wire_transfer_5akynk7dqsq25qwk9q2u")
-                    .build()
-            )
+        val wireTransfer = wireTransferService.cancel("wire_transfer_5akynk7dqsq25qwk9q2u")
 
         wireTransfer.validate()
     }

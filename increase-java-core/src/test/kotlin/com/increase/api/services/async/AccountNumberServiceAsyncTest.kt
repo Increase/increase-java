@@ -5,7 +5,6 @@ package com.increase.api.services.async
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
 import com.increase.api.models.accountnumbers.AccountNumberCreateParams
-import com.increase.api.models.accountnumbers.AccountNumberRetrieveParams
 import com.increase.api.models.accountnumbers.AccountNumberUpdateParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -54,11 +53,7 @@ internal class AccountNumberServiceAsyncTest {
         val accountNumberServiceAsync = client.accountNumbers()
 
         val accountNumberFuture =
-            accountNumberServiceAsync.retrieve(
-                AccountNumberRetrieveParams.builder()
-                    .accountNumberId("account_number_v18nkfqm6afpsrvy82b2")
-                    .build()
-            )
+            accountNumberServiceAsync.retrieve("account_number_v18nkfqm6afpsrvy82b2")
 
         val accountNumber = accountNumberFuture.get()
         accountNumber.validate()

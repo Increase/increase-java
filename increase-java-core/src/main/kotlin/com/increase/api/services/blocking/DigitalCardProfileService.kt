@@ -31,14 +31,39 @@ interface DigitalCardProfileService {
     ): DigitalCardProfile
 
     /** Retrieve a Digital Card Profile */
-    fun retrieve(params: DigitalCardProfileRetrieveParams): DigitalCardProfile =
-        retrieve(params, RequestOptions.none())
+    fun retrieve(digitalCardProfileId: String): DigitalCardProfile =
+        retrieve(digitalCardProfileId, DigitalCardProfileRetrieveParams.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        digitalCardProfileId: String,
+        params: DigitalCardProfileRetrieveParams = DigitalCardProfileRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): DigitalCardProfile =
+        retrieve(
+            params.toBuilder().digitalCardProfileId(digitalCardProfileId).build(),
+            requestOptions,
+        )
+
+    /** @see [retrieve] */
+    fun retrieve(
+        digitalCardProfileId: String,
+        params: DigitalCardProfileRetrieveParams = DigitalCardProfileRetrieveParams.none(),
+    ): DigitalCardProfile = retrieve(digitalCardProfileId, params, RequestOptions.none())
 
     /** @see [retrieve] */
     fun retrieve(
         params: DigitalCardProfileRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): DigitalCardProfile
+
+    /** @see [retrieve] */
+    fun retrieve(params: DigitalCardProfileRetrieveParams): DigitalCardProfile =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
+    fun retrieve(digitalCardProfileId: String, requestOptions: RequestOptions): DigitalCardProfile =
+        retrieve(digitalCardProfileId, DigitalCardProfileRetrieveParams.none(), requestOptions)
 
     /** List Card Profiles */
     fun list(): DigitalCardProfileListPage = list(DigitalCardProfileListParams.none())
@@ -59,8 +84,25 @@ interface DigitalCardProfileService {
         list(DigitalCardProfileListParams.none(), requestOptions)
 
     /** Archive a Digital Card Profile */
-    fun archive(params: DigitalCardProfileArchiveParams): DigitalCardProfile =
-        archive(params, RequestOptions.none())
+    fun archive(digitalCardProfileId: String): DigitalCardProfile =
+        archive(digitalCardProfileId, DigitalCardProfileArchiveParams.none())
+
+    /** @see [archive] */
+    fun archive(
+        digitalCardProfileId: String,
+        params: DigitalCardProfileArchiveParams = DigitalCardProfileArchiveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): DigitalCardProfile =
+        archive(
+            params.toBuilder().digitalCardProfileId(digitalCardProfileId).build(),
+            requestOptions,
+        )
+
+    /** @see [archive] */
+    fun archive(
+        digitalCardProfileId: String,
+        params: DigitalCardProfileArchiveParams = DigitalCardProfileArchiveParams.none(),
+    ): DigitalCardProfile = archive(digitalCardProfileId, params, RequestOptions.none())
 
     /** @see [archive] */
     fun archive(
@@ -68,15 +110,45 @@ interface DigitalCardProfileService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): DigitalCardProfile
 
+    /** @see [archive] */
+    fun archive(params: DigitalCardProfileArchiveParams): DigitalCardProfile =
+        archive(params, RequestOptions.none())
+
+    /** @see [archive] */
+    fun archive(digitalCardProfileId: String, requestOptions: RequestOptions): DigitalCardProfile =
+        archive(digitalCardProfileId, DigitalCardProfileArchiveParams.none(), requestOptions)
+
     /** Clones a Digital Card Profile */
-    fun clone(params: DigitalCardProfileCloneParams): DigitalCardProfile =
-        clone(params, RequestOptions.none())
+    fun clone(digitalCardProfileId: String): DigitalCardProfile =
+        clone(digitalCardProfileId, DigitalCardProfileCloneParams.none())
+
+    /** @see [clone] */
+    fun clone(
+        digitalCardProfileId: String,
+        params: DigitalCardProfileCloneParams = DigitalCardProfileCloneParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): DigitalCardProfile =
+        clone(params.toBuilder().digitalCardProfileId(digitalCardProfileId).build(), requestOptions)
+
+    /** @see [clone] */
+    fun clone(
+        digitalCardProfileId: String,
+        params: DigitalCardProfileCloneParams = DigitalCardProfileCloneParams.none(),
+    ): DigitalCardProfile = clone(digitalCardProfileId, params, RequestOptions.none())
 
     /** @see [clone] */
     fun clone(
         params: DigitalCardProfileCloneParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): DigitalCardProfile
+
+    /** @see [clone] */
+    fun clone(params: DigitalCardProfileCloneParams): DigitalCardProfile =
+        clone(params, RequestOptions.none())
+
+    /** @see [clone] */
+    fun clone(digitalCardProfileId: String, requestOptions: RequestOptions): DigitalCardProfile =
+        clone(digitalCardProfileId, DigitalCardProfileCloneParams.none(), requestOptions)
 
     /**
      * A view of [DigitalCardProfileService] that provides access to raw HTTP responses for each
@@ -104,9 +176,28 @@ interface DigitalCardProfileService {
          * but is otherwise the same as [DigitalCardProfileService.retrieve].
          */
         @MustBeClosed
+        fun retrieve(digitalCardProfileId: String): HttpResponseFor<DigitalCardProfile> =
+            retrieve(digitalCardProfileId, DigitalCardProfileRetrieveParams.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
         fun retrieve(
-            params: DigitalCardProfileRetrieveParams
-        ): HttpResponseFor<DigitalCardProfile> = retrieve(params, RequestOptions.none())
+            digitalCardProfileId: String,
+            params: DigitalCardProfileRetrieveParams = DigitalCardProfileRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<DigitalCardProfile> =
+            retrieve(
+                params.toBuilder().digitalCardProfileId(digitalCardProfileId).build(),
+                requestOptions,
+            )
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            digitalCardProfileId: String,
+            params: DigitalCardProfileRetrieveParams = DigitalCardProfileRetrieveParams.none(),
+        ): HttpResponseFor<DigitalCardProfile> =
+            retrieve(digitalCardProfileId, params, RequestOptions.none())
 
         /** @see [retrieve] */
         @MustBeClosed
@@ -114,6 +205,20 @@ interface DigitalCardProfileService {
             params: DigitalCardProfileRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<DigitalCardProfile>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            params: DigitalCardProfileRetrieveParams
+        ): HttpResponseFor<DigitalCardProfile> = retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            digitalCardProfileId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<DigitalCardProfile> =
+            retrieve(digitalCardProfileId, DigitalCardProfileRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /digital_card_profiles`, but is otherwise the same
@@ -147,8 +252,28 @@ interface DigitalCardProfileService {
          * [DigitalCardProfileService.archive].
          */
         @MustBeClosed
-        fun archive(params: DigitalCardProfileArchiveParams): HttpResponseFor<DigitalCardProfile> =
-            archive(params, RequestOptions.none())
+        fun archive(digitalCardProfileId: String): HttpResponseFor<DigitalCardProfile> =
+            archive(digitalCardProfileId, DigitalCardProfileArchiveParams.none())
+
+        /** @see [archive] */
+        @MustBeClosed
+        fun archive(
+            digitalCardProfileId: String,
+            params: DigitalCardProfileArchiveParams = DigitalCardProfileArchiveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<DigitalCardProfile> =
+            archive(
+                params.toBuilder().digitalCardProfileId(digitalCardProfileId).build(),
+                requestOptions,
+            )
+
+        /** @see [archive] */
+        @MustBeClosed
+        fun archive(
+            digitalCardProfileId: String,
+            params: DigitalCardProfileArchiveParams = DigitalCardProfileArchiveParams.none(),
+        ): HttpResponseFor<DigitalCardProfile> =
+            archive(digitalCardProfileId, params, RequestOptions.none())
 
         /** @see [archive] */
         @MustBeClosed
@@ -157,14 +282,47 @@ interface DigitalCardProfileService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<DigitalCardProfile>
 
+        /** @see [archive] */
+        @MustBeClosed
+        fun archive(params: DigitalCardProfileArchiveParams): HttpResponseFor<DigitalCardProfile> =
+            archive(params, RequestOptions.none())
+
+        /** @see [archive] */
+        @MustBeClosed
+        fun archive(
+            digitalCardProfileId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<DigitalCardProfile> =
+            archive(digitalCardProfileId, DigitalCardProfileArchiveParams.none(), requestOptions)
+
         /**
          * Returns a raw HTTP response for `post
          * /digital_card_profiles/{digital_card_profile_id}/clone`, but is otherwise the same as
          * [DigitalCardProfileService.clone].
          */
         @MustBeClosed
-        fun clone(params: DigitalCardProfileCloneParams): HttpResponseFor<DigitalCardProfile> =
-            clone(params, RequestOptions.none())
+        fun clone(digitalCardProfileId: String): HttpResponseFor<DigitalCardProfile> =
+            clone(digitalCardProfileId, DigitalCardProfileCloneParams.none())
+
+        /** @see [clone] */
+        @MustBeClosed
+        fun clone(
+            digitalCardProfileId: String,
+            params: DigitalCardProfileCloneParams = DigitalCardProfileCloneParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<DigitalCardProfile> =
+            clone(
+                params.toBuilder().digitalCardProfileId(digitalCardProfileId).build(),
+                requestOptions,
+            )
+
+        /** @see [clone] */
+        @MustBeClosed
+        fun clone(
+            digitalCardProfileId: String,
+            params: DigitalCardProfileCloneParams = DigitalCardProfileCloneParams.none(),
+        ): HttpResponseFor<DigitalCardProfile> =
+            clone(digitalCardProfileId, params, RequestOptions.none())
 
         /** @see [clone] */
         @MustBeClosed
@@ -172,5 +330,18 @@ interface DigitalCardProfileService {
             params: DigitalCardProfileCloneParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<DigitalCardProfile>
+
+        /** @see [clone] */
+        @MustBeClosed
+        fun clone(params: DigitalCardProfileCloneParams): HttpResponseFor<DigitalCardProfile> =
+            clone(params, RequestOptions.none())
+
+        /** @see [clone] */
+        @MustBeClosed
+        fun clone(
+            digitalCardProfileId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<DigitalCardProfile> =
+            clone(digitalCardProfileId, DigitalCardProfileCloneParams.none(), requestOptions)
     }
 }

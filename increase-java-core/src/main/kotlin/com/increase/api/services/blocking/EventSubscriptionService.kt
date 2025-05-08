@@ -30,8 +30,25 @@ interface EventSubscriptionService {
     ): EventSubscription
 
     /** Retrieve an Event Subscription */
-    fun retrieve(params: EventSubscriptionRetrieveParams): EventSubscription =
-        retrieve(params, RequestOptions.none())
+    fun retrieve(eventSubscriptionId: String): EventSubscription =
+        retrieve(eventSubscriptionId, EventSubscriptionRetrieveParams.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        eventSubscriptionId: String,
+        params: EventSubscriptionRetrieveParams = EventSubscriptionRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): EventSubscription =
+        retrieve(
+            params.toBuilder().eventSubscriptionId(eventSubscriptionId).build(),
+            requestOptions,
+        )
+
+    /** @see [retrieve] */
+    fun retrieve(
+        eventSubscriptionId: String,
+        params: EventSubscriptionRetrieveParams = EventSubscriptionRetrieveParams.none(),
+    ): EventSubscription = retrieve(eventSubscriptionId, params, RequestOptions.none())
 
     /** @see [retrieve] */
     fun retrieve(
@@ -39,15 +56,45 @@ interface EventSubscriptionService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): EventSubscription
 
+    /** @see [retrieve] */
+    fun retrieve(params: EventSubscriptionRetrieveParams): EventSubscription =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
+    fun retrieve(eventSubscriptionId: String, requestOptions: RequestOptions): EventSubscription =
+        retrieve(eventSubscriptionId, EventSubscriptionRetrieveParams.none(), requestOptions)
+
     /** Update an Event Subscription */
-    fun update(params: EventSubscriptionUpdateParams): EventSubscription =
-        update(params, RequestOptions.none())
+    fun update(eventSubscriptionId: String): EventSubscription =
+        update(eventSubscriptionId, EventSubscriptionUpdateParams.none())
+
+    /** @see [update] */
+    fun update(
+        eventSubscriptionId: String,
+        params: EventSubscriptionUpdateParams = EventSubscriptionUpdateParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): EventSubscription =
+        update(params.toBuilder().eventSubscriptionId(eventSubscriptionId).build(), requestOptions)
+
+    /** @see [update] */
+    fun update(
+        eventSubscriptionId: String,
+        params: EventSubscriptionUpdateParams = EventSubscriptionUpdateParams.none(),
+    ): EventSubscription = update(eventSubscriptionId, params, RequestOptions.none())
 
     /** @see [update] */
     fun update(
         params: EventSubscriptionUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): EventSubscription
+
+    /** @see [update] */
+    fun update(params: EventSubscriptionUpdateParams): EventSubscription =
+        update(params, RequestOptions.none())
+
+    /** @see [update] */
+    fun update(eventSubscriptionId: String, requestOptions: RequestOptions): EventSubscription =
+        update(eventSubscriptionId, EventSubscriptionUpdateParams.none(), requestOptions)
 
     /** List Event Subscriptions */
     fun list(): EventSubscriptionListPage = list(EventSubscriptionListParams.none())
@@ -93,8 +140,28 @@ interface EventSubscriptionService {
          * is otherwise the same as [EventSubscriptionService.retrieve].
          */
         @MustBeClosed
-        fun retrieve(params: EventSubscriptionRetrieveParams): HttpResponseFor<EventSubscription> =
-            retrieve(params, RequestOptions.none())
+        fun retrieve(eventSubscriptionId: String): HttpResponseFor<EventSubscription> =
+            retrieve(eventSubscriptionId, EventSubscriptionRetrieveParams.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            eventSubscriptionId: String,
+            params: EventSubscriptionRetrieveParams = EventSubscriptionRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<EventSubscription> =
+            retrieve(
+                params.toBuilder().eventSubscriptionId(eventSubscriptionId).build(),
+                requestOptions,
+            )
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            eventSubscriptionId: String,
+            params: EventSubscriptionRetrieveParams = EventSubscriptionRetrieveParams.none(),
+        ): HttpResponseFor<EventSubscription> =
+            retrieve(eventSubscriptionId, params, RequestOptions.none())
 
         /** @see [retrieve] */
         @MustBeClosed
@@ -103,13 +170,46 @@ interface EventSubscriptionService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<EventSubscription>
 
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(params: EventSubscriptionRetrieveParams): HttpResponseFor<EventSubscription> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            eventSubscriptionId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<EventSubscription> =
+            retrieve(eventSubscriptionId, EventSubscriptionRetrieveParams.none(), requestOptions)
+
         /**
          * Returns a raw HTTP response for `patch /event_subscriptions/{event_subscription_id}`, but
          * is otherwise the same as [EventSubscriptionService.update].
          */
         @MustBeClosed
-        fun update(params: EventSubscriptionUpdateParams): HttpResponseFor<EventSubscription> =
-            update(params, RequestOptions.none())
+        fun update(eventSubscriptionId: String): HttpResponseFor<EventSubscription> =
+            update(eventSubscriptionId, EventSubscriptionUpdateParams.none())
+
+        /** @see [update] */
+        @MustBeClosed
+        fun update(
+            eventSubscriptionId: String,
+            params: EventSubscriptionUpdateParams = EventSubscriptionUpdateParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<EventSubscription> =
+            update(
+                params.toBuilder().eventSubscriptionId(eventSubscriptionId).build(),
+                requestOptions,
+            )
+
+        /** @see [update] */
+        @MustBeClosed
+        fun update(
+            eventSubscriptionId: String,
+            params: EventSubscriptionUpdateParams = EventSubscriptionUpdateParams.none(),
+        ): HttpResponseFor<EventSubscription> =
+            update(eventSubscriptionId, params, RequestOptions.none())
 
         /** @see [update] */
         @MustBeClosed
@@ -117,6 +217,19 @@ interface EventSubscriptionService {
             params: EventSubscriptionUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<EventSubscription>
+
+        /** @see [update] */
+        @MustBeClosed
+        fun update(params: EventSubscriptionUpdateParams): HttpResponseFor<EventSubscription> =
+            update(params, RequestOptions.none())
+
+        /** @see [update] */
+        @MustBeClosed
+        fun update(
+            eventSubscriptionId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<EventSubscription> =
+            update(eventSubscriptionId, EventSubscriptionUpdateParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /event_subscriptions`, but is otherwise the same as

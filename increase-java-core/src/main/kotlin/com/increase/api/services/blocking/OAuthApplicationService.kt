@@ -18,14 +18,36 @@ interface OAuthApplicationService {
     fun withRawResponse(): WithRawResponse
 
     /** Retrieve an OAuth Application */
-    fun retrieve(params: OAuthApplicationRetrieveParams): OAuthApplication =
-        retrieve(params, RequestOptions.none())
+    fun retrieve(oauthApplicationId: String): OAuthApplication =
+        retrieve(oauthApplicationId, OAuthApplicationRetrieveParams.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        oauthApplicationId: String,
+        params: OAuthApplicationRetrieveParams = OAuthApplicationRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): OAuthApplication =
+        retrieve(params.toBuilder().oauthApplicationId(oauthApplicationId).build(), requestOptions)
+
+    /** @see [retrieve] */
+    fun retrieve(
+        oauthApplicationId: String,
+        params: OAuthApplicationRetrieveParams = OAuthApplicationRetrieveParams.none(),
+    ): OAuthApplication = retrieve(oauthApplicationId, params, RequestOptions.none())
 
     /** @see [retrieve] */
     fun retrieve(
         params: OAuthApplicationRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): OAuthApplication
+
+    /** @see [retrieve] */
+    fun retrieve(params: OAuthApplicationRetrieveParams): OAuthApplication =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
+    fun retrieve(oauthApplicationId: String, requestOptions: RequestOptions): OAuthApplication =
+        retrieve(oauthApplicationId, OAuthApplicationRetrieveParams.none(), requestOptions)
 
     /** List OAuth Applications */
     fun list(): OAuthApplicationListPage = list(OAuthApplicationListParams.none())
@@ -56,8 +78,28 @@ interface OAuthApplicationService {
          * otherwise the same as [OAuthApplicationService.retrieve].
          */
         @MustBeClosed
-        fun retrieve(params: OAuthApplicationRetrieveParams): HttpResponseFor<OAuthApplication> =
-            retrieve(params, RequestOptions.none())
+        fun retrieve(oauthApplicationId: String): HttpResponseFor<OAuthApplication> =
+            retrieve(oauthApplicationId, OAuthApplicationRetrieveParams.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            oauthApplicationId: String,
+            params: OAuthApplicationRetrieveParams = OAuthApplicationRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<OAuthApplication> =
+            retrieve(
+                params.toBuilder().oauthApplicationId(oauthApplicationId).build(),
+                requestOptions,
+            )
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            oauthApplicationId: String,
+            params: OAuthApplicationRetrieveParams = OAuthApplicationRetrieveParams.none(),
+        ): HttpResponseFor<OAuthApplication> =
+            retrieve(oauthApplicationId, params, RequestOptions.none())
 
         /** @see [retrieve] */
         @MustBeClosed
@@ -65,6 +107,19 @@ interface OAuthApplicationService {
             params: OAuthApplicationRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<OAuthApplication>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(params: OAuthApplicationRetrieveParams): HttpResponseFor<OAuthApplication> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            oauthApplicationId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<OAuthApplication> =
+            retrieve(oauthApplicationId, OAuthApplicationRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /oauth_applications`, but is otherwise the same as

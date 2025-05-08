@@ -18,19 +18,20 @@ import com.increase.api.core.http.QueryParams
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Collections
 import java.util.Objects
+import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /** Reverse an Inbound Wire Transfer */
 class InboundWireTransferReverseParams
 private constructor(
-    private val inboundWireTransferId: String,
+    private val inboundWireTransferId: String?,
     private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the Inbound Wire Transfer to reverse. */
-    fun inboundWireTransferId(): String = inboundWireTransferId
+    fun inboundWireTransferId(): Optional<String> = Optional.ofNullable(inboundWireTransferId)
 
     /**
      * Reason for the reversal.
@@ -63,7 +64,6 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .inboundWireTransferId()
          * .reason()
          * ```
          */
@@ -89,9 +89,16 @@ private constructor(
             }
 
         /** The identifier of the Inbound Wire Transfer to reverse. */
-        fun inboundWireTransferId(inboundWireTransferId: String) = apply {
+        fun inboundWireTransferId(inboundWireTransferId: String?) = apply {
             this.inboundWireTransferId = inboundWireTransferId
         }
+
+        /**
+         * Alias for calling [Builder.inboundWireTransferId] with
+         * `inboundWireTransferId.orElse(null)`.
+         */
+        fun inboundWireTransferId(inboundWireTransferId: Optional<String>) =
+            inboundWireTransferId(inboundWireTransferId.getOrNull())
 
         /**
          * Sets the entire request body.
@@ -237,7 +244,6 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .inboundWireTransferId()
          * .reason()
          * ```
          *
@@ -245,7 +251,7 @@ private constructor(
          */
         fun build(): InboundWireTransferReverseParams =
             InboundWireTransferReverseParams(
-                checkRequired("inboundWireTransferId", inboundWireTransferId),
+                inboundWireTransferId,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -256,7 +262,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> inboundWireTransferId
+            0 -> inboundWireTransferId ?: ""
             else -> ""
         }
 

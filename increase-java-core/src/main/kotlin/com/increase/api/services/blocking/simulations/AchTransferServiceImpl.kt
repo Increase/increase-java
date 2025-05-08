@@ -5,6 +5,7 @@ package com.increase.api.services.blocking.simulations
 import com.increase.api.core.ClientOptions
 import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
+import com.increase.api.core.checkRequired
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
 import com.increase.api.core.handlers.withErrorHandler
@@ -21,6 +22,7 @@ import com.increase.api.models.simulations.achtransfers.AchTransferCreateNotific
 import com.increase.api.models.simulations.achtransfers.AchTransferReturnParams
 import com.increase.api.models.simulations.achtransfers.AchTransferSettleParams
 import com.increase.api.models.simulations.achtransfers.AchTransferSubmitParams
+import kotlin.jvm.optionals.getOrNull
 
 class AchTransferServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     AchTransferService {
@@ -78,6 +80,9 @@ class AchTransferServiceImpl internal constructor(private val clientOptions: Cli
             params: AchTransferAcknowledgeParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<AchTransfer> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("achTransferId", params.achTransferId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -110,6 +115,9 @@ class AchTransferServiceImpl internal constructor(private val clientOptions: Cli
             params: AchTransferCreateNotificationOfChangeParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<AchTransfer> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("achTransferId", params.achTransferId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -142,6 +150,9 @@ class AchTransferServiceImpl internal constructor(private val clientOptions: Cli
             params: AchTransferReturnParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<AchTransfer> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("achTransferId", params.achTransferId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -169,6 +180,9 @@ class AchTransferServiceImpl internal constructor(private val clientOptions: Cli
             params: AchTransferSettleParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<AchTransfer> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("achTransferId", params.achTransferId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -196,6 +210,9 @@ class AchTransferServiceImpl internal constructor(private val clientOptions: Cli
             params: AchTransferSubmitParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<AchTransfer> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("achTransferId", params.achTransferId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)

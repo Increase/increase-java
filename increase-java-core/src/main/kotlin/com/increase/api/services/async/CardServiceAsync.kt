@@ -33,8 +33,21 @@ interface CardServiceAsync {
     ): CompletableFuture<Card>
 
     /** Retrieve a Card */
-    fun retrieve(params: CardRetrieveParams): CompletableFuture<Card> =
-        retrieve(params, RequestOptions.none())
+    fun retrieve(cardId: String): CompletableFuture<Card> =
+        retrieve(cardId, CardRetrieveParams.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        cardId: String,
+        params: CardRetrieveParams = CardRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Card> = retrieve(params.toBuilder().cardId(cardId).build(), requestOptions)
+
+    /** @see [retrieve] */
+    fun retrieve(
+        cardId: String,
+        params: CardRetrieveParams = CardRetrieveParams.none(),
+    ): CompletableFuture<Card> = retrieve(cardId, params, RequestOptions.none())
 
     /** @see [retrieve] */
     fun retrieve(
@@ -42,15 +55,43 @@ interface CardServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Card>
 
+    /** @see [retrieve] */
+    fun retrieve(params: CardRetrieveParams): CompletableFuture<Card> =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
+    fun retrieve(cardId: String, requestOptions: RequestOptions): CompletableFuture<Card> =
+        retrieve(cardId, CardRetrieveParams.none(), requestOptions)
+
     /** Update a Card */
-    fun update(params: CardUpdateParams): CompletableFuture<Card> =
-        update(params, RequestOptions.none())
+    fun update(cardId: String): CompletableFuture<Card> = update(cardId, CardUpdateParams.none())
+
+    /** @see [update] */
+    fun update(
+        cardId: String,
+        params: CardUpdateParams = CardUpdateParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Card> = update(params.toBuilder().cardId(cardId).build(), requestOptions)
+
+    /** @see [update] */
+    fun update(
+        cardId: String,
+        params: CardUpdateParams = CardUpdateParams.none(),
+    ): CompletableFuture<Card> = update(cardId, params, RequestOptions.none())
 
     /** @see [update] */
     fun update(
         params: CardUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Card>
+
+    /** @see [update] */
+    fun update(params: CardUpdateParams): CompletableFuture<Card> =
+        update(params, RequestOptions.none())
+
+    /** @see [update] */
+    fun update(cardId: String, requestOptions: RequestOptions): CompletableFuture<Card> =
+        update(cardId, CardUpdateParams.none(), requestOptions)
 
     /** List Cards */
     fun list(): CompletableFuture<CardListPageAsync> = list(CardListParams.none())
@@ -70,14 +111,36 @@ interface CardServiceAsync {
         list(CardListParams.none(), requestOptions)
 
     /** Retrieve sensitive details for a Card */
-    fun details(params: CardDetailsParams): CompletableFuture<CardDetails> =
-        details(params, RequestOptions.none())
+    fun details(cardId: String): CompletableFuture<CardDetails> =
+        details(cardId, CardDetailsParams.none())
+
+    /** @see [details] */
+    fun details(
+        cardId: String,
+        params: CardDetailsParams = CardDetailsParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<CardDetails> =
+        details(params.toBuilder().cardId(cardId).build(), requestOptions)
+
+    /** @see [details] */
+    fun details(
+        cardId: String,
+        params: CardDetailsParams = CardDetailsParams.none(),
+    ): CompletableFuture<CardDetails> = details(cardId, params, RequestOptions.none())
 
     /** @see [details] */
     fun details(
         params: CardDetailsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CardDetails>
+
+    /** @see [details] */
+    fun details(params: CardDetailsParams): CompletableFuture<CardDetails> =
+        details(params, RequestOptions.none())
+
+    /** @see [details] */
+    fun details(cardId: String, requestOptions: RequestOptions): CompletableFuture<CardDetails> =
+        details(cardId, CardDetailsParams.none(), requestOptions)
 
     /** A view of [CardServiceAsync] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -102,8 +165,25 @@ interface CardServiceAsync {
          * [CardServiceAsync.retrieve].
          */
         @MustBeClosed
-        fun retrieve(params: CardRetrieveParams): CompletableFuture<HttpResponseFor<Card>> =
-            retrieve(params, RequestOptions.none())
+        fun retrieve(cardId: String): CompletableFuture<HttpResponseFor<Card>> =
+            retrieve(cardId, CardRetrieveParams.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            cardId: String,
+            params: CardRetrieveParams = CardRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<Card>> =
+            retrieve(params.toBuilder().cardId(cardId).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            cardId: String,
+            params: CardRetrieveParams = CardRetrieveParams.none(),
+        ): CompletableFuture<HttpResponseFor<Card>> =
+            retrieve(cardId, params, RequestOptions.none())
 
         /** @see [retrieve] */
         @MustBeClosed
@@ -112,13 +192,42 @@ interface CardServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<Card>>
 
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(params: CardRetrieveParams): CompletableFuture<HttpResponseFor<Card>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            cardId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<Card>> =
+            retrieve(cardId, CardRetrieveParams.none(), requestOptions)
+
         /**
          * Returns a raw HTTP response for `patch /cards/{card_id}`, but is otherwise the same as
          * [CardServiceAsync.update].
          */
         @MustBeClosed
-        fun update(params: CardUpdateParams): CompletableFuture<HttpResponseFor<Card>> =
-            update(params, RequestOptions.none())
+        fun update(cardId: String): CompletableFuture<HttpResponseFor<Card>> =
+            update(cardId, CardUpdateParams.none())
+
+        /** @see [update] */
+        @MustBeClosed
+        fun update(
+            cardId: String,
+            params: CardUpdateParams = CardUpdateParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<Card>> =
+            update(params.toBuilder().cardId(cardId).build(), requestOptions)
+
+        /** @see [update] */
+        @MustBeClosed
+        fun update(
+            cardId: String,
+            params: CardUpdateParams = CardUpdateParams.none(),
+        ): CompletableFuture<HttpResponseFor<Card>> = update(cardId, params, RequestOptions.none())
 
         /** @see [update] */
         @MustBeClosed
@@ -126,6 +235,19 @@ interface CardServiceAsync {
             params: CardUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<Card>>
+
+        /** @see [update] */
+        @MustBeClosed
+        fun update(params: CardUpdateParams): CompletableFuture<HttpResponseFor<Card>> =
+            update(params, RequestOptions.none())
+
+        /** @see [update] */
+        @MustBeClosed
+        fun update(
+            cardId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<Card>> =
+            update(cardId, CardUpdateParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /cards`, but is otherwise the same as
@@ -161,8 +283,25 @@ interface CardServiceAsync {
          * as [CardServiceAsync.details].
          */
         @MustBeClosed
-        fun details(params: CardDetailsParams): CompletableFuture<HttpResponseFor<CardDetails>> =
-            details(params, RequestOptions.none())
+        fun details(cardId: String): CompletableFuture<HttpResponseFor<CardDetails>> =
+            details(cardId, CardDetailsParams.none())
+
+        /** @see [details] */
+        @MustBeClosed
+        fun details(
+            cardId: String,
+            params: CardDetailsParams = CardDetailsParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<CardDetails>> =
+            details(params.toBuilder().cardId(cardId).build(), requestOptions)
+
+        /** @see [details] */
+        @MustBeClosed
+        fun details(
+            cardId: String,
+            params: CardDetailsParams = CardDetailsParams.none(),
+        ): CompletableFuture<HttpResponseFor<CardDetails>> =
+            details(cardId, params, RequestOptions.none())
 
         /** @see [details] */
         @MustBeClosed
@@ -170,5 +309,18 @@ interface CardServiceAsync {
             params: CardDetailsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<CardDetails>>
+
+        /** @see [details] */
+        @MustBeClosed
+        fun details(params: CardDetailsParams): CompletableFuture<HttpResponseFor<CardDetails>> =
+            details(params, RequestOptions.none())
+
+        /** @see [details] */
+        @MustBeClosed
+        fun details(
+            cardId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<CardDetails>> =
+            details(cardId, CardDetailsParams.none(), requestOptions)
     }
 }

@@ -18,14 +18,39 @@ interface DigitalWalletTokenService {
     fun withRawResponse(): WithRawResponse
 
     /** Retrieve a Digital Wallet Token */
-    fun retrieve(params: DigitalWalletTokenRetrieveParams): DigitalWalletToken =
-        retrieve(params, RequestOptions.none())
+    fun retrieve(digitalWalletTokenId: String): DigitalWalletToken =
+        retrieve(digitalWalletTokenId, DigitalWalletTokenRetrieveParams.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        digitalWalletTokenId: String,
+        params: DigitalWalletTokenRetrieveParams = DigitalWalletTokenRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): DigitalWalletToken =
+        retrieve(
+            params.toBuilder().digitalWalletTokenId(digitalWalletTokenId).build(),
+            requestOptions,
+        )
+
+    /** @see [retrieve] */
+    fun retrieve(
+        digitalWalletTokenId: String,
+        params: DigitalWalletTokenRetrieveParams = DigitalWalletTokenRetrieveParams.none(),
+    ): DigitalWalletToken = retrieve(digitalWalletTokenId, params, RequestOptions.none())
 
     /** @see [retrieve] */
     fun retrieve(
         params: DigitalWalletTokenRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): DigitalWalletToken
+
+    /** @see [retrieve] */
+    fun retrieve(params: DigitalWalletTokenRetrieveParams): DigitalWalletToken =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
+    fun retrieve(digitalWalletTokenId: String, requestOptions: RequestOptions): DigitalWalletToken =
+        retrieve(digitalWalletTokenId, DigitalWalletTokenRetrieveParams.none(), requestOptions)
 
     /** List Digital Wallet Tokens */
     fun list(): DigitalWalletTokenListPage = list(DigitalWalletTokenListParams.none())
@@ -56,9 +81,28 @@ interface DigitalWalletTokenService {
          * but is otherwise the same as [DigitalWalletTokenService.retrieve].
          */
         @MustBeClosed
+        fun retrieve(digitalWalletTokenId: String): HttpResponseFor<DigitalWalletToken> =
+            retrieve(digitalWalletTokenId, DigitalWalletTokenRetrieveParams.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
         fun retrieve(
-            params: DigitalWalletTokenRetrieveParams
-        ): HttpResponseFor<DigitalWalletToken> = retrieve(params, RequestOptions.none())
+            digitalWalletTokenId: String,
+            params: DigitalWalletTokenRetrieveParams = DigitalWalletTokenRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<DigitalWalletToken> =
+            retrieve(
+                params.toBuilder().digitalWalletTokenId(digitalWalletTokenId).build(),
+                requestOptions,
+            )
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            digitalWalletTokenId: String,
+            params: DigitalWalletTokenRetrieveParams = DigitalWalletTokenRetrieveParams.none(),
+        ): HttpResponseFor<DigitalWalletToken> =
+            retrieve(digitalWalletTokenId, params, RequestOptions.none())
 
         /** @see [retrieve] */
         @MustBeClosed
@@ -66,6 +110,20 @@ interface DigitalWalletTokenService {
             params: DigitalWalletTokenRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<DigitalWalletToken>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            params: DigitalWalletTokenRetrieveParams
+        ): HttpResponseFor<DigitalWalletToken> = retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            digitalWalletTokenId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<DigitalWalletToken> =
+            retrieve(digitalWalletTokenId, DigitalWalletTokenRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /digital_wallet_tokens`, but is otherwise the same

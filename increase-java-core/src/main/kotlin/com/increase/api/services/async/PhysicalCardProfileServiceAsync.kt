@@ -32,15 +32,44 @@ interface PhysicalCardProfileServiceAsync {
     ): CompletableFuture<PhysicalCardProfile>
 
     /** Retrieve a Card Profile */
+    fun retrieve(physicalCardProfileId: String): CompletableFuture<PhysicalCardProfile> =
+        retrieve(physicalCardProfileId, PhysicalCardProfileRetrieveParams.none())
+
+    /** @see [retrieve] */
     fun retrieve(
-        params: PhysicalCardProfileRetrieveParams
-    ): CompletableFuture<PhysicalCardProfile> = retrieve(params, RequestOptions.none())
+        physicalCardProfileId: String,
+        params: PhysicalCardProfileRetrieveParams = PhysicalCardProfileRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<PhysicalCardProfile> =
+        retrieve(
+            params.toBuilder().physicalCardProfileId(physicalCardProfileId).build(),
+            requestOptions,
+        )
+
+    /** @see [retrieve] */
+    fun retrieve(
+        physicalCardProfileId: String,
+        params: PhysicalCardProfileRetrieveParams = PhysicalCardProfileRetrieveParams.none(),
+    ): CompletableFuture<PhysicalCardProfile> =
+        retrieve(physicalCardProfileId, params, RequestOptions.none())
 
     /** @see [retrieve] */
     fun retrieve(
         params: PhysicalCardProfileRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PhysicalCardProfile>
+
+    /** @see [retrieve] */
+    fun retrieve(
+        params: PhysicalCardProfileRetrieveParams
+    ): CompletableFuture<PhysicalCardProfile> = retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        physicalCardProfileId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<PhysicalCardProfile> =
+        retrieve(physicalCardProfileId, PhysicalCardProfileRetrieveParams.none(), requestOptions)
 
     /** List Physical Card Profiles */
     fun list(): CompletableFuture<PhysicalCardProfileListPageAsync> =
@@ -62,8 +91,26 @@ interface PhysicalCardProfileServiceAsync {
         list(PhysicalCardProfileListParams.none(), requestOptions)
 
     /** Archive a Physical Card Profile */
-    fun archive(params: PhysicalCardProfileArchiveParams): CompletableFuture<PhysicalCardProfile> =
-        archive(params, RequestOptions.none())
+    fun archive(physicalCardProfileId: String): CompletableFuture<PhysicalCardProfile> =
+        archive(physicalCardProfileId, PhysicalCardProfileArchiveParams.none())
+
+    /** @see [archive] */
+    fun archive(
+        physicalCardProfileId: String,
+        params: PhysicalCardProfileArchiveParams = PhysicalCardProfileArchiveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<PhysicalCardProfile> =
+        archive(
+            params.toBuilder().physicalCardProfileId(physicalCardProfileId).build(),
+            requestOptions,
+        )
+
+    /** @see [archive] */
+    fun archive(
+        physicalCardProfileId: String,
+        params: PhysicalCardProfileArchiveParams = PhysicalCardProfileArchiveParams.none(),
+    ): CompletableFuture<PhysicalCardProfile> =
+        archive(physicalCardProfileId, params, RequestOptions.none())
 
     /** @see [archive] */
     fun archive(
@@ -71,15 +118,55 @@ interface PhysicalCardProfileServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PhysicalCardProfile>
 
+    /** @see [archive] */
+    fun archive(params: PhysicalCardProfileArchiveParams): CompletableFuture<PhysicalCardProfile> =
+        archive(params, RequestOptions.none())
+
+    /** @see [archive] */
+    fun archive(
+        physicalCardProfileId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<PhysicalCardProfile> =
+        archive(physicalCardProfileId, PhysicalCardProfileArchiveParams.none(), requestOptions)
+
     /** Clone a Physical Card Profile */
-    fun clone(params: PhysicalCardProfileCloneParams): CompletableFuture<PhysicalCardProfile> =
-        clone(params, RequestOptions.none())
+    fun clone(physicalCardProfileId: String): CompletableFuture<PhysicalCardProfile> =
+        clone(physicalCardProfileId, PhysicalCardProfileCloneParams.none())
+
+    /** @see [clone] */
+    fun clone(
+        physicalCardProfileId: String,
+        params: PhysicalCardProfileCloneParams = PhysicalCardProfileCloneParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<PhysicalCardProfile> =
+        clone(
+            params.toBuilder().physicalCardProfileId(physicalCardProfileId).build(),
+            requestOptions,
+        )
+
+    /** @see [clone] */
+    fun clone(
+        physicalCardProfileId: String,
+        params: PhysicalCardProfileCloneParams = PhysicalCardProfileCloneParams.none(),
+    ): CompletableFuture<PhysicalCardProfile> =
+        clone(physicalCardProfileId, params, RequestOptions.none())
 
     /** @see [clone] */
     fun clone(
         params: PhysicalCardProfileCloneParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PhysicalCardProfile>
+
+    /** @see [clone] */
+    fun clone(params: PhysicalCardProfileCloneParams): CompletableFuture<PhysicalCardProfile> =
+        clone(params, RequestOptions.none())
+
+    /** @see [clone] */
+    fun clone(
+        physicalCardProfileId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<PhysicalCardProfile> =
+        clone(physicalCardProfileId, PhysicalCardProfileCloneParams.none(), requestOptions)
 
     /**
      * A view of [PhysicalCardProfileServiceAsync] that provides access to raw HTTP responses for
@@ -110,9 +197,29 @@ interface PhysicalCardProfileServiceAsync {
          */
         @MustBeClosed
         fun retrieve(
-            params: PhysicalCardProfileRetrieveParams
+            physicalCardProfileId: String
         ): CompletableFuture<HttpResponseFor<PhysicalCardProfile>> =
-            retrieve(params, RequestOptions.none())
+            retrieve(physicalCardProfileId, PhysicalCardProfileRetrieveParams.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            physicalCardProfileId: String,
+            params: PhysicalCardProfileRetrieveParams = PhysicalCardProfileRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<PhysicalCardProfile>> =
+            retrieve(
+                params.toBuilder().physicalCardProfileId(physicalCardProfileId).build(),
+                requestOptions,
+            )
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            physicalCardProfileId: String,
+            params: PhysicalCardProfileRetrieveParams = PhysicalCardProfileRetrieveParams.none(),
+        ): CompletableFuture<HttpResponseFor<PhysicalCardProfile>> =
+            retrieve(physicalCardProfileId, params, RequestOptions.none())
 
         /** @see [retrieve] */
         @MustBeClosed
@@ -120,6 +227,25 @@ interface PhysicalCardProfileServiceAsync {
             params: PhysicalCardProfileRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<PhysicalCardProfile>>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            params: PhysicalCardProfileRetrieveParams
+        ): CompletableFuture<HttpResponseFor<PhysicalCardProfile>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            physicalCardProfileId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<PhysicalCardProfile>> =
+            retrieve(
+                physicalCardProfileId,
+                PhysicalCardProfileRetrieveParams.none(),
+                requestOptions,
+            )
 
         /**
          * Returns a raw HTTP response for `get /physical_card_profiles`, but is otherwise the same
@@ -157,9 +283,29 @@ interface PhysicalCardProfileServiceAsync {
          */
         @MustBeClosed
         fun archive(
-            params: PhysicalCardProfileArchiveParams
+            physicalCardProfileId: String
         ): CompletableFuture<HttpResponseFor<PhysicalCardProfile>> =
-            archive(params, RequestOptions.none())
+            archive(physicalCardProfileId, PhysicalCardProfileArchiveParams.none())
+
+        /** @see [archive] */
+        @MustBeClosed
+        fun archive(
+            physicalCardProfileId: String,
+            params: PhysicalCardProfileArchiveParams = PhysicalCardProfileArchiveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<PhysicalCardProfile>> =
+            archive(
+                params.toBuilder().physicalCardProfileId(physicalCardProfileId).build(),
+                requestOptions,
+            )
+
+        /** @see [archive] */
+        @MustBeClosed
+        fun archive(
+            physicalCardProfileId: String,
+            params: PhysicalCardProfileArchiveParams = PhysicalCardProfileArchiveParams.none(),
+        ): CompletableFuture<HttpResponseFor<PhysicalCardProfile>> =
+            archive(physicalCardProfileId, params, RequestOptions.none())
 
         /** @see [archive] */
         @MustBeClosed
@@ -168,11 +314,60 @@ interface PhysicalCardProfileServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<PhysicalCardProfile>>
 
+        /** @see [archive] */
+        @MustBeClosed
+        fun archive(
+            params: PhysicalCardProfileArchiveParams
+        ): CompletableFuture<HttpResponseFor<PhysicalCardProfile>> =
+            archive(params, RequestOptions.none())
+
+        /** @see [archive] */
+        @MustBeClosed
+        fun archive(
+            physicalCardProfileId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<PhysicalCardProfile>> =
+            archive(physicalCardProfileId, PhysicalCardProfileArchiveParams.none(), requestOptions)
+
         /**
          * Returns a raw HTTP response for `post
          * /physical_card_profiles/{physical_card_profile_id}/clone`, but is otherwise the same as
          * [PhysicalCardProfileServiceAsync.clone].
          */
+        @MustBeClosed
+        fun clone(
+            physicalCardProfileId: String
+        ): CompletableFuture<HttpResponseFor<PhysicalCardProfile>> =
+            clone(physicalCardProfileId, PhysicalCardProfileCloneParams.none())
+
+        /** @see [clone] */
+        @MustBeClosed
+        fun clone(
+            physicalCardProfileId: String,
+            params: PhysicalCardProfileCloneParams = PhysicalCardProfileCloneParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<PhysicalCardProfile>> =
+            clone(
+                params.toBuilder().physicalCardProfileId(physicalCardProfileId).build(),
+                requestOptions,
+            )
+
+        /** @see [clone] */
+        @MustBeClosed
+        fun clone(
+            physicalCardProfileId: String,
+            params: PhysicalCardProfileCloneParams = PhysicalCardProfileCloneParams.none(),
+        ): CompletableFuture<HttpResponseFor<PhysicalCardProfile>> =
+            clone(physicalCardProfileId, params, RequestOptions.none())
+
+        /** @see [clone] */
+        @MustBeClosed
+        fun clone(
+            params: PhysicalCardProfileCloneParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<PhysicalCardProfile>>
+
+        /** @see [clone] */
         @MustBeClosed
         fun clone(
             params: PhysicalCardProfileCloneParams
@@ -182,8 +377,9 @@ interface PhysicalCardProfileServiceAsync {
         /** @see [clone] */
         @MustBeClosed
         fun clone(
-            params: PhysicalCardProfileCloneParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PhysicalCardProfile>>
+            physicalCardProfileId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<PhysicalCardProfile>> =
+            clone(physicalCardProfileId, PhysicalCardProfileCloneParams.none(), requestOptions)
     }
 }

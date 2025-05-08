@@ -5,6 +5,7 @@ package com.increase.api.services.blocking
 import com.increase.api.core.ClientOptions
 import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
+import com.increase.api.core.checkRequired
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
 import com.increase.api.core.handlers.withErrorHandler
@@ -19,6 +20,7 @@ import com.increase.api.models.accountstatements.AccountStatementListPage
 import com.increase.api.models.accountstatements.AccountStatementListPageResponse
 import com.increase.api.models.accountstatements.AccountStatementListParams
 import com.increase.api.models.accountstatements.AccountStatementRetrieveParams
+import kotlin.jvm.optionals.getOrNull
 
 class AccountStatementServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     AccountStatementService {
@@ -55,6 +57,9 @@ class AccountStatementServiceImpl internal constructor(private val clientOptions
             params: AccountStatementRetrieveParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<AccountStatement> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("accountStatementId", params.accountStatementId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)

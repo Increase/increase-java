@@ -4,7 +4,6 @@ package com.increase.api.services.blocking
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.cardpurchasesupplements.CardPurchaseSupplementRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -21,11 +20,7 @@ internal class CardPurchaseSupplementServiceTest {
         val cardPurchaseSupplementService = client.cardPurchaseSupplements()
 
         val cardPurchaseSupplement =
-            cardPurchaseSupplementService.retrieve(
-                CardPurchaseSupplementRetrieveParams.builder()
-                    .cardPurchaseSupplementId("card_purchase_supplement_ijuc45iym4jchnh2sfk3")
-                    .build()
-            )
+            cardPurchaseSupplementService.retrieve("card_purchase_supplement_ijuc45iym4jchnh2sfk3")
 
         cardPurchaseSupplement.validate()
     }

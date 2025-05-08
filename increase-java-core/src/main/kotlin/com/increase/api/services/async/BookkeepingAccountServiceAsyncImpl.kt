@@ -5,6 +5,7 @@ package com.increase.api.services.async
 import com.increase.api.core.ClientOptions
 import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
+import com.increase.api.core.checkRequired
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
 import com.increase.api.core.handlers.withErrorHandler
@@ -24,6 +25,7 @@ import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountListParams
 import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountUpdateParams
 import com.increase.api.models.bookkeepingaccounts.BookkeepingBalanceLookup
 import java.util.concurrent.CompletableFuture
+import kotlin.jvm.optionals.getOrNull
 
 class BookkeepingAccountServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) : BookkeepingAccountServiceAsync {
@@ -104,6 +106,9 @@ internal constructor(private val clientOptions: ClientOptions) : BookkeepingAcco
             params: BookkeepingAccountUpdateParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<BookkeepingAccount>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("bookkeepingAccountId", params.bookkeepingAccountId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
@@ -172,6 +177,9 @@ internal constructor(private val clientOptions: ClientOptions) : BookkeepingAcco
             params: BookkeepingAccountBalanceParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<BookkeepingBalanceLookup>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("bookkeepingAccountId", params.bookkeepingAccountId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)

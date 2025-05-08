@@ -19,14 +19,36 @@ interface EventServiceAsync {
     fun withRawResponse(): WithRawResponse
 
     /** Retrieve an Event */
-    fun retrieve(params: EventRetrieveParams): CompletableFuture<Event> =
-        retrieve(params, RequestOptions.none())
+    fun retrieve(eventId: String): CompletableFuture<Event> =
+        retrieve(eventId, EventRetrieveParams.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        eventId: String,
+        params: EventRetrieveParams = EventRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Event> =
+        retrieve(params.toBuilder().eventId(eventId).build(), requestOptions)
+
+    /** @see [retrieve] */
+    fun retrieve(
+        eventId: String,
+        params: EventRetrieveParams = EventRetrieveParams.none(),
+    ): CompletableFuture<Event> = retrieve(eventId, params, RequestOptions.none())
 
     /** @see [retrieve] */
     fun retrieve(
         params: EventRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Event>
+
+    /** @see [retrieve] */
+    fun retrieve(params: EventRetrieveParams): CompletableFuture<Event> =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
+    fun retrieve(eventId: String, requestOptions: RequestOptions): CompletableFuture<Event> =
+        retrieve(eventId, EventRetrieveParams.none(), requestOptions)
 
     /** List Events */
     fun list(): CompletableFuture<EventListPageAsync> = list(EventListParams.none())
@@ -54,8 +76,25 @@ interface EventServiceAsync {
          * [EventServiceAsync.retrieve].
          */
         @MustBeClosed
-        fun retrieve(params: EventRetrieveParams): CompletableFuture<HttpResponseFor<Event>> =
-            retrieve(params, RequestOptions.none())
+        fun retrieve(eventId: String): CompletableFuture<HttpResponseFor<Event>> =
+            retrieve(eventId, EventRetrieveParams.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            eventId: String,
+            params: EventRetrieveParams = EventRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<Event>> =
+            retrieve(params.toBuilder().eventId(eventId).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            eventId: String,
+            params: EventRetrieveParams = EventRetrieveParams.none(),
+        ): CompletableFuture<HttpResponseFor<Event>> =
+            retrieve(eventId, params, RequestOptions.none())
 
         /** @see [retrieve] */
         @MustBeClosed
@@ -63,6 +102,19 @@ interface EventServiceAsync {
             params: EventRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<Event>>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(params: EventRetrieveParams): CompletableFuture<HttpResponseFor<Event>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            eventId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<Event>> =
+            retrieve(eventId, EventRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /events`, but is otherwise the same as

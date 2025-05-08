@@ -20,14 +20,51 @@ interface InboundWireDrawdownRequestServiceAsync {
 
     /** Retrieve an Inbound Wire Drawdown Request */
     fun retrieve(
-        params: InboundWireDrawdownRequestRetrieveParams
-    ): CompletableFuture<InboundWireDrawdownRequest> = retrieve(params, RequestOptions.none())
+        inboundWireDrawdownRequestId: String
+    ): CompletableFuture<InboundWireDrawdownRequest> =
+        retrieve(inboundWireDrawdownRequestId, InboundWireDrawdownRequestRetrieveParams.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        inboundWireDrawdownRequestId: String,
+        params: InboundWireDrawdownRequestRetrieveParams =
+            InboundWireDrawdownRequestRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<InboundWireDrawdownRequest> =
+        retrieve(
+            params.toBuilder().inboundWireDrawdownRequestId(inboundWireDrawdownRequestId).build(),
+            requestOptions,
+        )
+
+    /** @see [retrieve] */
+    fun retrieve(
+        inboundWireDrawdownRequestId: String,
+        params: InboundWireDrawdownRequestRetrieveParams =
+            InboundWireDrawdownRequestRetrieveParams.none(),
+    ): CompletableFuture<InboundWireDrawdownRequest> =
+        retrieve(inboundWireDrawdownRequestId, params, RequestOptions.none())
 
     /** @see [retrieve] */
     fun retrieve(
         params: InboundWireDrawdownRequestRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<InboundWireDrawdownRequest>
+
+    /** @see [retrieve] */
+    fun retrieve(
+        params: InboundWireDrawdownRequestRetrieveParams
+    ): CompletableFuture<InboundWireDrawdownRequest> = retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        inboundWireDrawdownRequestId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<InboundWireDrawdownRequest> =
+        retrieve(
+            inboundWireDrawdownRequestId,
+            InboundWireDrawdownRequestRetrieveParams.none(),
+            requestOptions,
+        )
 
     /** List Inbound Wire Drawdown Requests */
     fun list(): CompletableFuture<InboundWireDrawdownRequestListPageAsync> =
@@ -64,9 +101,34 @@ interface InboundWireDrawdownRequestServiceAsync {
          */
         @MustBeClosed
         fun retrieve(
-            params: InboundWireDrawdownRequestRetrieveParams
+            inboundWireDrawdownRequestId: String
         ): CompletableFuture<HttpResponseFor<InboundWireDrawdownRequest>> =
-            retrieve(params, RequestOptions.none())
+            retrieve(inboundWireDrawdownRequestId, InboundWireDrawdownRequestRetrieveParams.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            inboundWireDrawdownRequestId: String,
+            params: InboundWireDrawdownRequestRetrieveParams =
+                InboundWireDrawdownRequestRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<InboundWireDrawdownRequest>> =
+            retrieve(
+                params
+                    .toBuilder()
+                    .inboundWireDrawdownRequestId(inboundWireDrawdownRequestId)
+                    .build(),
+                requestOptions,
+            )
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            inboundWireDrawdownRequestId: String,
+            params: InboundWireDrawdownRequestRetrieveParams =
+                InboundWireDrawdownRequestRetrieveParams.none(),
+        ): CompletableFuture<HttpResponseFor<InboundWireDrawdownRequest>> =
+            retrieve(inboundWireDrawdownRequestId, params, RequestOptions.none())
 
         /** @see [retrieve] */
         @MustBeClosed
@@ -74,6 +136,25 @@ interface InboundWireDrawdownRequestServiceAsync {
             params: InboundWireDrawdownRequestRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<InboundWireDrawdownRequest>>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            params: InboundWireDrawdownRequestRetrieveParams
+        ): CompletableFuture<HttpResponseFor<InboundWireDrawdownRequest>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            inboundWireDrawdownRequestId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<InboundWireDrawdownRequest>> =
+            retrieve(
+                inboundWireDrawdownRequestId,
+                InboundWireDrawdownRequestRetrieveParams.none(),
+                requestOptions,
+            )
 
         /**
          * Returns a raw HTTP response for `get /inbound_wire_drawdown_requests`, but is otherwise

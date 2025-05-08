@@ -12,7 +12,6 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.errors.IncreaseInvalidDataException
@@ -24,14 +23,14 @@ import kotlin.jvm.optionals.getOrNull
 /** Update an Event Subscription */
 class EventSubscriptionUpdateParams
 private constructor(
-    private val eventSubscriptionId: String,
+    private val eventSubscriptionId: String?,
     private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the Event Subscription. */
-    fun eventSubscriptionId(): String = eventSubscriptionId
+    fun eventSubscriptionId(): Optional<String> = Optional.ofNullable(eventSubscriptionId)
 
     /**
      * The status to update the Event Subscription with.
@@ -58,14 +57,11 @@ private constructor(
 
     companion object {
 
+        @JvmStatic fun none(): EventSubscriptionUpdateParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of
          * [EventSubscriptionUpdateParams].
-         *
-         * The following fields are required:
-         * ```java
-         * .eventSubscriptionId()
-         * ```
          */
         @JvmStatic fun builder() = Builder()
     }
@@ -87,9 +83,15 @@ private constructor(
         }
 
         /** The identifier of the Event Subscription. */
-        fun eventSubscriptionId(eventSubscriptionId: String) = apply {
+        fun eventSubscriptionId(eventSubscriptionId: String?) = apply {
             this.eventSubscriptionId = eventSubscriptionId
         }
+
+        /**
+         * Alias for calling [Builder.eventSubscriptionId] with `eventSubscriptionId.orElse(null)`.
+         */
+        fun eventSubscriptionId(eventSubscriptionId: Optional<String>) =
+            eventSubscriptionId(eventSubscriptionId.getOrNull())
 
         /**
          * Sets the entire request body.
@@ -232,17 +234,10 @@ private constructor(
          * Returns an immutable instance of [EventSubscriptionUpdateParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```java
-         * .eventSubscriptionId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): EventSubscriptionUpdateParams =
             EventSubscriptionUpdateParams(
-                checkRequired("eventSubscriptionId", eventSubscriptionId),
+                eventSubscriptionId,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -253,7 +248,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> eventSubscriptionId
+            0 -> eventSubscriptionId ?: ""
             else -> ""
         }
 

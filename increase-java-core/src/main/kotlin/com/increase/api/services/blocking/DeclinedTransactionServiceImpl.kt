@@ -5,6 +5,7 @@ package com.increase.api.services.blocking
 import com.increase.api.core.ClientOptions
 import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
+import com.increase.api.core.checkRequired
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
 import com.increase.api.core.handlers.withErrorHandler
@@ -19,6 +20,7 @@ import com.increase.api.models.declinedtransactions.DeclinedTransactionListPage
 import com.increase.api.models.declinedtransactions.DeclinedTransactionListPageResponse
 import com.increase.api.models.declinedtransactions.DeclinedTransactionListParams
 import com.increase.api.models.declinedtransactions.DeclinedTransactionRetrieveParams
+import kotlin.jvm.optionals.getOrNull
 
 class DeclinedTransactionServiceImpl
 internal constructor(private val clientOptions: ClientOptions) : DeclinedTransactionService {
@@ -56,6 +58,9 @@ internal constructor(private val clientOptions: ClientOptions) : DeclinedTransac
             params: DeclinedTransactionRetrieveParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<DeclinedTransaction> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("declinedTransactionId", params.declinedTransactionId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)

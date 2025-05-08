@@ -30,14 +30,36 @@ interface AchTransferService {
     ): AchTransfer
 
     /** Retrieve an ACH Transfer */
-    fun retrieve(params: AchTransferRetrieveParams): AchTransfer =
-        retrieve(params, RequestOptions.none())
+    fun retrieve(achTransferId: String): AchTransfer =
+        retrieve(achTransferId, AchTransferRetrieveParams.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        achTransferId: String,
+        params: AchTransferRetrieveParams = AchTransferRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): AchTransfer =
+        retrieve(params.toBuilder().achTransferId(achTransferId).build(), requestOptions)
+
+    /** @see [retrieve] */
+    fun retrieve(
+        achTransferId: String,
+        params: AchTransferRetrieveParams = AchTransferRetrieveParams.none(),
+    ): AchTransfer = retrieve(achTransferId, params, RequestOptions.none())
 
     /** @see [retrieve] */
     fun retrieve(
         params: AchTransferRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AchTransfer
+
+    /** @see [retrieve] */
+    fun retrieve(params: AchTransferRetrieveParams): AchTransfer =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
+    fun retrieve(achTransferId: String, requestOptions: RequestOptions): AchTransfer =
+        retrieve(achTransferId, AchTransferRetrieveParams.none(), requestOptions)
 
     /** List ACH Transfers */
     fun list(): AchTransferListPage = list(AchTransferListParams.none())
@@ -57,8 +79,22 @@ interface AchTransferService {
         list(AchTransferListParams.none(), requestOptions)
 
     /** Approves an ACH Transfer in a pending_approval state. */
-    fun approve(params: AchTransferApproveParams): AchTransfer =
-        approve(params, RequestOptions.none())
+    fun approve(achTransferId: String): AchTransfer =
+        approve(achTransferId, AchTransferApproveParams.none())
+
+    /** @see [approve] */
+    fun approve(
+        achTransferId: String,
+        params: AchTransferApproveParams = AchTransferApproveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): AchTransfer =
+        approve(params.toBuilder().achTransferId(achTransferId).build(), requestOptions)
+
+    /** @see [approve] */
+    fun approve(
+        achTransferId: String,
+        params: AchTransferApproveParams = AchTransferApproveParams.none(),
+    ): AchTransfer = approve(achTransferId, params, RequestOptions.none())
 
     /** @see [approve] */
     fun approve(
@@ -66,14 +102,43 @@ interface AchTransferService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AchTransfer
 
+    /** @see [approve] */
+    fun approve(params: AchTransferApproveParams): AchTransfer =
+        approve(params, RequestOptions.none())
+
+    /** @see [approve] */
+    fun approve(achTransferId: String, requestOptions: RequestOptions): AchTransfer =
+        approve(achTransferId, AchTransferApproveParams.none(), requestOptions)
+
     /** Cancels an ACH Transfer in a pending_approval state. */
-    fun cancel(params: AchTransferCancelParams): AchTransfer = cancel(params, RequestOptions.none())
+    fun cancel(achTransferId: String): AchTransfer =
+        cancel(achTransferId, AchTransferCancelParams.none())
+
+    /** @see [cancel] */
+    fun cancel(
+        achTransferId: String,
+        params: AchTransferCancelParams = AchTransferCancelParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): AchTransfer = cancel(params.toBuilder().achTransferId(achTransferId).build(), requestOptions)
+
+    /** @see [cancel] */
+    fun cancel(
+        achTransferId: String,
+        params: AchTransferCancelParams = AchTransferCancelParams.none(),
+    ): AchTransfer = cancel(achTransferId, params, RequestOptions.none())
 
     /** @see [cancel] */
     fun cancel(
         params: AchTransferCancelParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AchTransfer
+
+    /** @see [cancel] */
+    fun cancel(params: AchTransferCancelParams): AchTransfer = cancel(params, RequestOptions.none())
+
+    /** @see [cancel] */
+    fun cancel(achTransferId: String, requestOptions: RequestOptions): AchTransfer =
+        cancel(achTransferId, AchTransferCancelParams.none(), requestOptions)
 
     /**
      * A view of [AchTransferService] that provides access to raw HTTP responses for each method.
@@ -100,8 +165,24 @@ interface AchTransferService {
          * the same as [AchTransferService.retrieve].
          */
         @MustBeClosed
-        fun retrieve(params: AchTransferRetrieveParams): HttpResponseFor<AchTransfer> =
-            retrieve(params, RequestOptions.none())
+        fun retrieve(achTransferId: String): HttpResponseFor<AchTransfer> =
+            retrieve(achTransferId, AchTransferRetrieveParams.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            achTransferId: String,
+            params: AchTransferRetrieveParams = AchTransferRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<AchTransfer> =
+            retrieve(params.toBuilder().achTransferId(achTransferId).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            achTransferId: String,
+            params: AchTransferRetrieveParams = AchTransferRetrieveParams.none(),
+        ): HttpResponseFor<AchTransfer> = retrieve(achTransferId, params, RequestOptions.none())
 
         /** @see [retrieve] */
         @MustBeClosed
@@ -109,6 +190,19 @@ interface AchTransferService {
             params: AchTransferRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AchTransfer>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(params: AchTransferRetrieveParams): HttpResponseFor<AchTransfer> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            achTransferId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<AchTransfer> =
+            retrieve(achTransferId, AchTransferRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /ach_transfers`, but is otherwise the same as
@@ -140,8 +234,24 @@ interface AchTransferService {
          * otherwise the same as [AchTransferService.approve].
          */
         @MustBeClosed
-        fun approve(params: AchTransferApproveParams): HttpResponseFor<AchTransfer> =
-            approve(params, RequestOptions.none())
+        fun approve(achTransferId: String): HttpResponseFor<AchTransfer> =
+            approve(achTransferId, AchTransferApproveParams.none())
+
+        /** @see [approve] */
+        @MustBeClosed
+        fun approve(
+            achTransferId: String,
+            params: AchTransferApproveParams = AchTransferApproveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<AchTransfer> =
+            approve(params.toBuilder().achTransferId(achTransferId).build(), requestOptions)
+
+        /** @see [approve] */
+        @MustBeClosed
+        fun approve(
+            achTransferId: String,
+            params: AchTransferApproveParams = AchTransferApproveParams.none(),
+        ): HttpResponseFor<AchTransfer> = approve(achTransferId, params, RequestOptions.none())
 
         /** @see [approve] */
         @MustBeClosed
@@ -150,13 +260,42 @@ interface AchTransferService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AchTransfer>
 
+        /** @see [approve] */
+        @MustBeClosed
+        fun approve(params: AchTransferApproveParams): HttpResponseFor<AchTransfer> =
+            approve(params, RequestOptions.none())
+
+        /** @see [approve] */
+        @MustBeClosed
+        fun approve(
+            achTransferId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<AchTransfer> =
+            approve(achTransferId, AchTransferApproveParams.none(), requestOptions)
+
         /**
          * Returns a raw HTTP response for `post /ach_transfers/{ach_transfer_id}/cancel`, but is
          * otherwise the same as [AchTransferService.cancel].
          */
         @MustBeClosed
-        fun cancel(params: AchTransferCancelParams): HttpResponseFor<AchTransfer> =
-            cancel(params, RequestOptions.none())
+        fun cancel(achTransferId: String): HttpResponseFor<AchTransfer> =
+            cancel(achTransferId, AchTransferCancelParams.none())
+
+        /** @see [cancel] */
+        @MustBeClosed
+        fun cancel(
+            achTransferId: String,
+            params: AchTransferCancelParams = AchTransferCancelParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<AchTransfer> =
+            cancel(params.toBuilder().achTransferId(achTransferId).build(), requestOptions)
+
+        /** @see [cancel] */
+        @MustBeClosed
+        fun cancel(
+            achTransferId: String,
+            params: AchTransferCancelParams = AchTransferCancelParams.none(),
+        ): HttpResponseFor<AchTransfer> = cancel(achTransferId, params, RequestOptions.none())
 
         /** @see [cancel] */
         @MustBeClosed
@@ -164,5 +303,18 @@ interface AchTransferService {
             params: AchTransferCancelParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AchTransfer>
+
+        /** @see [cancel] */
+        @MustBeClosed
+        fun cancel(params: AchTransferCancelParams): HttpResponseFor<AchTransfer> =
+            cancel(params, RequestOptions.none())
+
+        /** @see [cancel] */
+        @MustBeClosed
+        fun cancel(
+            achTransferId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<AchTransfer> =
+            cancel(achTransferId, AchTransferCancelParams.none(), requestOptions)
     }
 }

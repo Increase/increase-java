@@ -5,6 +5,7 @@ package com.increase.api.services.blocking
 import com.increase.api.core.ClientOptions
 import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
+import com.increase.api.core.checkRequired
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
 import com.increase.api.core.handlers.withErrorHandler
@@ -19,6 +20,7 @@ import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimeP
 import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransferListPageResponse
 import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransferListParams
 import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransferRetrieveParams
+import kotlin.jvm.optionals.getOrNull
 
 class InboundRealTimePaymentsTransferServiceImpl
 internal constructor(private val clientOptions: ClientOptions) :
@@ -58,6 +60,12 @@ internal constructor(private val clientOptions: ClientOptions) :
             params: InboundRealTimePaymentsTransferRetrieveParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<InboundRealTimePaymentsTransfer> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired(
+                "inboundRealTimePaymentsTransferId",
+                params.inboundRealTimePaymentsTransferId().getOrNull(),
+            )
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)

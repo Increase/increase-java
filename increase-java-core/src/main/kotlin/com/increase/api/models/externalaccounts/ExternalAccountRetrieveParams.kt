@@ -3,21 +3,22 @@
 package com.increase.api.models.externalaccounts
 
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
+import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /** Retrieve an External Account */
 class ExternalAccountRetrieveParams
 private constructor(
-    private val externalAccountId: String,
+    private val externalAccountId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the External Account. */
-    fun externalAccountId(): String = externalAccountId
+    fun externalAccountId(): Optional<String> = Optional.ofNullable(externalAccountId)
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
@@ -27,14 +28,11 @@ private constructor(
 
     companion object {
 
+        @JvmStatic fun none(): ExternalAccountRetrieveParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of
          * [ExternalAccountRetrieveParams].
-         *
-         * The following fields are required:
-         * ```java
-         * .externalAccountId()
-         * ```
          */
         @JvmStatic fun builder() = Builder()
     }
@@ -54,9 +52,13 @@ private constructor(
         }
 
         /** The identifier of the External Account. */
-        fun externalAccountId(externalAccountId: String) = apply {
+        fun externalAccountId(externalAccountId: String?) = apply {
             this.externalAccountId = externalAccountId
         }
+
+        /** Alias for calling [Builder.externalAccountId] with `externalAccountId.orElse(null)`. */
+        fun externalAccountId(externalAccountId: Optional<String>) =
+            externalAccountId(externalAccountId.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -160,17 +162,10 @@ private constructor(
          * Returns an immutable instance of [ExternalAccountRetrieveParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```java
-         * .externalAccountId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): ExternalAccountRetrieveParams =
             ExternalAccountRetrieveParams(
-                checkRequired("externalAccountId", externalAccountId),
+                externalAccountId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -178,7 +173,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> externalAccountId
+            0 -> externalAccountId ?: ""
             else -> ""
         }
 

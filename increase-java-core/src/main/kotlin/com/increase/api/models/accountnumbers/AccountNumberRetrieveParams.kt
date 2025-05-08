@@ -3,21 +3,22 @@
 package com.increase.api.models.accountnumbers
 
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
+import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /** Retrieve an Account Number */
 class AccountNumberRetrieveParams
 private constructor(
-    private val accountNumberId: String,
+    private val accountNumberId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the Account Number to retrieve. */
-    fun accountNumberId(): String = accountNumberId
+    fun accountNumberId(): Optional<String> = Optional.ofNullable(accountNumberId)
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
@@ -27,13 +28,10 @@ private constructor(
 
     companion object {
 
+        @JvmStatic fun none(): AccountNumberRetrieveParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of [AccountNumberRetrieveParams].
-         *
-         * The following fields are required:
-         * ```java
-         * .accountNumberId()
-         * ```
          */
         @JvmStatic fun builder() = Builder()
     }
@@ -53,9 +51,13 @@ private constructor(
         }
 
         /** The identifier of the Account Number to retrieve. */
-        fun accountNumberId(accountNumberId: String) = apply {
+        fun accountNumberId(accountNumberId: String?) = apply {
             this.accountNumberId = accountNumberId
         }
+
+        /** Alias for calling [Builder.accountNumberId] with `accountNumberId.orElse(null)`. */
+        fun accountNumberId(accountNumberId: Optional<String>) =
+            accountNumberId(accountNumberId.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -159,17 +161,10 @@ private constructor(
          * Returns an immutable instance of [AccountNumberRetrieveParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```java
-         * .accountNumberId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): AccountNumberRetrieveParams =
             AccountNumberRetrieveParams(
-                checkRequired("accountNumberId", accountNumberId),
+                accountNumberId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -177,7 +172,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> accountNumberId
+            0 -> accountNumberId ?: ""
             else -> ""
         }
 

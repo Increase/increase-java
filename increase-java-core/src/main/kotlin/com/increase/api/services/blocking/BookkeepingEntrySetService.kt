@@ -29,14 +29,42 @@ interface BookkeepingEntrySetService {
     ): BookkeepingEntrySet
 
     /** Retrieve a Bookkeeping Entry Set */
-    fun retrieve(params: BookkeepingEntrySetRetrieveParams): BookkeepingEntrySet =
-        retrieve(params, RequestOptions.none())
+    fun retrieve(bookkeepingEntrySetId: String): BookkeepingEntrySet =
+        retrieve(bookkeepingEntrySetId, BookkeepingEntrySetRetrieveParams.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        bookkeepingEntrySetId: String,
+        params: BookkeepingEntrySetRetrieveParams = BookkeepingEntrySetRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): BookkeepingEntrySet =
+        retrieve(
+            params.toBuilder().bookkeepingEntrySetId(bookkeepingEntrySetId).build(),
+            requestOptions,
+        )
+
+    /** @see [retrieve] */
+    fun retrieve(
+        bookkeepingEntrySetId: String,
+        params: BookkeepingEntrySetRetrieveParams = BookkeepingEntrySetRetrieveParams.none(),
+    ): BookkeepingEntrySet = retrieve(bookkeepingEntrySetId, params, RequestOptions.none())
 
     /** @see [retrieve] */
     fun retrieve(
         params: BookkeepingEntrySetRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BookkeepingEntrySet
+
+    /** @see [retrieve] */
+    fun retrieve(params: BookkeepingEntrySetRetrieveParams): BookkeepingEntrySet =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        bookkeepingEntrySetId: String,
+        requestOptions: RequestOptions,
+    ): BookkeepingEntrySet =
+        retrieve(bookkeepingEntrySetId, BookkeepingEntrySetRetrieveParams.none(), requestOptions)
 
     /** List Bookkeeping Entry Sets */
     fun list(): BookkeepingEntrySetListPage = list(BookkeepingEntrySetListParams.none())
@@ -82,9 +110,28 @@ interface BookkeepingEntrySetService {
          * but is otherwise the same as [BookkeepingEntrySetService.retrieve].
          */
         @MustBeClosed
+        fun retrieve(bookkeepingEntrySetId: String): HttpResponseFor<BookkeepingEntrySet> =
+            retrieve(bookkeepingEntrySetId, BookkeepingEntrySetRetrieveParams.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
         fun retrieve(
-            params: BookkeepingEntrySetRetrieveParams
-        ): HttpResponseFor<BookkeepingEntrySet> = retrieve(params, RequestOptions.none())
+            bookkeepingEntrySetId: String,
+            params: BookkeepingEntrySetRetrieveParams = BookkeepingEntrySetRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<BookkeepingEntrySet> =
+            retrieve(
+                params.toBuilder().bookkeepingEntrySetId(bookkeepingEntrySetId).build(),
+                requestOptions,
+            )
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            bookkeepingEntrySetId: String,
+            params: BookkeepingEntrySetRetrieveParams = BookkeepingEntrySetRetrieveParams.none(),
+        ): HttpResponseFor<BookkeepingEntrySet> =
+            retrieve(bookkeepingEntrySetId, params, RequestOptions.none())
 
         /** @see [retrieve] */
         @MustBeClosed
@@ -92,6 +139,24 @@ interface BookkeepingEntrySetService {
             params: BookkeepingEntrySetRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BookkeepingEntrySet>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            params: BookkeepingEntrySetRetrieveParams
+        ): HttpResponseFor<BookkeepingEntrySet> = retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            bookkeepingEntrySetId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<BookkeepingEntrySet> =
+            retrieve(
+                bookkeepingEntrySetId,
+                BookkeepingEntrySetRetrieveParams.none(),
+                requestOptions,
+            )
 
         /**
          * Returns a raw HTTP response for `get /bookkeeping_entry_sets`, but is otherwise the same

@@ -21,14 +21,36 @@ interface AccountTransferService {
      * Account Transfers in the dashboard. This transfer must first have a `status` of
      * `pending_approval`.
      */
-    fun complete(params: AccountTransferCompleteParams): AccountTransfer =
-        complete(params, RequestOptions.none())
+    fun complete(accountTransferId: String): AccountTransfer =
+        complete(accountTransferId, AccountTransferCompleteParams.none())
+
+    /** @see [complete] */
+    fun complete(
+        accountTransferId: String,
+        params: AccountTransferCompleteParams = AccountTransferCompleteParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): AccountTransfer =
+        complete(params.toBuilder().accountTransferId(accountTransferId).build(), requestOptions)
+
+    /** @see [complete] */
+    fun complete(
+        accountTransferId: String,
+        params: AccountTransferCompleteParams = AccountTransferCompleteParams.none(),
+    ): AccountTransfer = complete(accountTransferId, params, RequestOptions.none())
 
     /** @see [complete] */
     fun complete(
         params: AccountTransferCompleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountTransfer
+
+    /** @see [complete] */
+    fun complete(params: AccountTransferCompleteParams): AccountTransfer =
+        complete(params, RequestOptions.none())
+
+    /** @see [complete] */
+    fun complete(accountTransferId: String, requestOptions: RequestOptions): AccountTransfer =
+        complete(accountTransferId, AccountTransferCompleteParams.none(), requestOptions)
 
     /**
      * A view of [AccountTransferService] that provides access to raw HTTP responses for each
@@ -42,8 +64,28 @@ interface AccountTransferService {
          * as [AccountTransferService.complete].
          */
         @MustBeClosed
-        fun complete(params: AccountTransferCompleteParams): HttpResponseFor<AccountTransfer> =
-            complete(params, RequestOptions.none())
+        fun complete(accountTransferId: String): HttpResponseFor<AccountTransfer> =
+            complete(accountTransferId, AccountTransferCompleteParams.none())
+
+        /** @see [complete] */
+        @MustBeClosed
+        fun complete(
+            accountTransferId: String,
+            params: AccountTransferCompleteParams = AccountTransferCompleteParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<AccountTransfer> =
+            complete(
+                params.toBuilder().accountTransferId(accountTransferId).build(),
+                requestOptions,
+            )
+
+        /** @see [complete] */
+        @MustBeClosed
+        fun complete(
+            accountTransferId: String,
+            params: AccountTransferCompleteParams = AccountTransferCompleteParams.none(),
+        ): HttpResponseFor<AccountTransfer> =
+            complete(accountTransferId, params, RequestOptions.none())
 
         /** @see [complete] */
         @MustBeClosed
@@ -51,5 +93,18 @@ interface AccountTransferService {
             params: AccountTransferCompleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AccountTransfer>
+
+        /** @see [complete] */
+        @MustBeClosed
+        fun complete(params: AccountTransferCompleteParams): HttpResponseFor<AccountTransfer> =
+            complete(params, RequestOptions.none())
+
+        /** @see [complete] */
+        @MustBeClosed
+        fun complete(
+            accountTransferId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<AccountTransfer> =
+            complete(accountTransferId, AccountTransferCompleteParams.none(), requestOptions)
     }
 }

@@ -33,14 +33,39 @@ interface CheckTransferServiceAsync {
     ): CompletableFuture<CheckTransfer>
 
     /** Retrieve a Check Transfer */
-    fun retrieve(params: CheckTransferRetrieveParams): CompletableFuture<CheckTransfer> =
-        retrieve(params, RequestOptions.none())
+    fun retrieve(checkTransferId: String): CompletableFuture<CheckTransfer> =
+        retrieve(checkTransferId, CheckTransferRetrieveParams.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        checkTransferId: String,
+        params: CheckTransferRetrieveParams = CheckTransferRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<CheckTransfer> =
+        retrieve(params.toBuilder().checkTransferId(checkTransferId).build(), requestOptions)
+
+    /** @see [retrieve] */
+    fun retrieve(
+        checkTransferId: String,
+        params: CheckTransferRetrieveParams = CheckTransferRetrieveParams.none(),
+    ): CompletableFuture<CheckTransfer> = retrieve(checkTransferId, params, RequestOptions.none())
 
     /** @see [retrieve] */
     fun retrieve(
         params: CheckTransferRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CheckTransfer>
+
+    /** @see [retrieve] */
+    fun retrieve(params: CheckTransferRetrieveParams): CompletableFuture<CheckTransfer> =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        checkTransferId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<CheckTransfer> =
+        retrieve(checkTransferId, CheckTransferRetrieveParams.none(), requestOptions)
 
     /** List Check Transfers */
     fun list(): CompletableFuture<CheckTransferListPageAsync> = list(CheckTransferListParams.none())
@@ -61,8 +86,22 @@ interface CheckTransferServiceAsync {
         list(CheckTransferListParams.none(), requestOptions)
 
     /** Approve a Check Transfer */
-    fun approve(params: CheckTransferApproveParams): CompletableFuture<CheckTransfer> =
-        approve(params, RequestOptions.none())
+    fun approve(checkTransferId: String): CompletableFuture<CheckTransfer> =
+        approve(checkTransferId, CheckTransferApproveParams.none())
+
+    /** @see [approve] */
+    fun approve(
+        checkTransferId: String,
+        params: CheckTransferApproveParams = CheckTransferApproveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<CheckTransfer> =
+        approve(params.toBuilder().checkTransferId(checkTransferId).build(), requestOptions)
+
+    /** @see [approve] */
+    fun approve(
+        checkTransferId: String,
+        params: CheckTransferApproveParams = CheckTransferApproveParams.none(),
+    ): CompletableFuture<CheckTransfer> = approve(checkTransferId, params, RequestOptions.none())
 
     /** @see [approve] */
     fun approve(
@@ -70,9 +109,34 @@ interface CheckTransferServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CheckTransfer>
 
+    /** @see [approve] */
+    fun approve(params: CheckTransferApproveParams): CompletableFuture<CheckTransfer> =
+        approve(params, RequestOptions.none())
+
+    /** @see [approve] */
+    fun approve(
+        checkTransferId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<CheckTransfer> =
+        approve(checkTransferId, CheckTransferApproveParams.none(), requestOptions)
+
     /** Cancel a pending Check Transfer */
-    fun cancel(params: CheckTransferCancelParams): CompletableFuture<CheckTransfer> =
-        cancel(params, RequestOptions.none())
+    fun cancel(checkTransferId: String): CompletableFuture<CheckTransfer> =
+        cancel(checkTransferId, CheckTransferCancelParams.none())
+
+    /** @see [cancel] */
+    fun cancel(
+        checkTransferId: String,
+        params: CheckTransferCancelParams = CheckTransferCancelParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<CheckTransfer> =
+        cancel(params.toBuilder().checkTransferId(checkTransferId).build(), requestOptions)
+
+    /** @see [cancel] */
+    fun cancel(
+        checkTransferId: String,
+        params: CheckTransferCancelParams = CheckTransferCancelParams.none(),
+    ): CompletableFuture<CheckTransfer> = cancel(checkTransferId, params, RequestOptions.none())
 
     /** @see [cancel] */
     fun cancel(
@@ -80,15 +144,52 @@ interface CheckTransferServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CheckTransfer>
 
+    /** @see [cancel] */
+    fun cancel(params: CheckTransferCancelParams): CompletableFuture<CheckTransfer> =
+        cancel(params, RequestOptions.none())
+
+    /** @see [cancel] */
+    fun cancel(
+        checkTransferId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<CheckTransfer> =
+        cancel(checkTransferId, CheckTransferCancelParams.none(), requestOptions)
+
     /** Request a stop payment on a Check Transfer */
-    fun stopPayment(params: CheckTransferStopPaymentParams): CompletableFuture<CheckTransfer> =
-        stopPayment(params, RequestOptions.none())
+    fun stopPayment(checkTransferId: String): CompletableFuture<CheckTransfer> =
+        stopPayment(checkTransferId, CheckTransferStopPaymentParams.none())
+
+    /** @see [stopPayment] */
+    fun stopPayment(
+        checkTransferId: String,
+        params: CheckTransferStopPaymentParams = CheckTransferStopPaymentParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<CheckTransfer> =
+        stopPayment(params.toBuilder().checkTransferId(checkTransferId).build(), requestOptions)
+
+    /** @see [stopPayment] */
+    fun stopPayment(
+        checkTransferId: String,
+        params: CheckTransferStopPaymentParams = CheckTransferStopPaymentParams.none(),
+    ): CompletableFuture<CheckTransfer> =
+        stopPayment(checkTransferId, params, RequestOptions.none())
 
     /** @see [stopPayment] */
     fun stopPayment(
         params: CheckTransferStopPaymentParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CheckTransfer>
+
+    /** @see [stopPayment] */
+    fun stopPayment(params: CheckTransferStopPaymentParams): CompletableFuture<CheckTransfer> =
+        stopPayment(params, RequestOptions.none())
+
+    /** @see [stopPayment] */
+    fun stopPayment(
+        checkTransferId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<CheckTransfer> =
+        stopPayment(checkTransferId, CheckTransferStopPaymentParams.none(), requestOptions)
 
     /**
      * A view of [CheckTransferServiceAsync] that provides access to raw HTTP responses for each
@@ -117,6 +218,35 @@ interface CheckTransferServiceAsync {
          * otherwise the same as [CheckTransferServiceAsync.retrieve].
          */
         @MustBeClosed
+        fun retrieve(checkTransferId: String): CompletableFuture<HttpResponseFor<CheckTransfer>> =
+            retrieve(checkTransferId, CheckTransferRetrieveParams.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            checkTransferId: String,
+            params: CheckTransferRetrieveParams = CheckTransferRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<CheckTransfer>> =
+            retrieve(params.toBuilder().checkTransferId(checkTransferId).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            checkTransferId: String,
+            params: CheckTransferRetrieveParams = CheckTransferRetrieveParams.none(),
+        ): CompletableFuture<HttpResponseFor<CheckTransfer>> =
+            retrieve(checkTransferId, params, RequestOptions.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            params: CheckTransferRetrieveParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<CheckTransfer>>
+
+        /** @see [retrieve] */
+        @MustBeClosed
         fun retrieve(
             params: CheckTransferRetrieveParams
         ): CompletableFuture<HttpResponseFor<CheckTransfer>> =
@@ -125,9 +255,10 @@ interface CheckTransferServiceAsync {
         /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(
-            params: CheckTransferRetrieveParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CheckTransfer>>
+            checkTransferId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<CheckTransfer>> =
+            retrieve(checkTransferId, CheckTransferRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /check_transfers`, but is otherwise the same as
@@ -163,10 +294,25 @@ interface CheckTransferServiceAsync {
          * is otherwise the same as [CheckTransferServiceAsync.approve].
          */
         @MustBeClosed
+        fun approve(checkTransferId: String): CompletableFuture<HttpResponseFor<CheckTransfer>> =
+            approve(checkTransferId, CheckTransferApproveParams.none())
+
+        /** @see [approve] */
+        @MustBeClosed
         fun approve(
-            params: CheckTransferApproveParams
+            checkTransferId: String,
+            params: CheckTransferApproveParams = CheckTransferApproveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<CheckTransfer>> =
-            approve(params, RequestOptions.none())
+            approve(params.toBuilder().checkTransferId(checkTransferId).build(), requestOptions)
+
+        /** @see [approve] */
+        @MustBeClosed
+        fun approve(
+            checkTransferId: String,
+            params: CheckTransferApproveParams = CheckTransferApproveParams.none(),
+        ): CompletableFuture<HttpResponseFor<CheckTransfer>> =
+            approve(checkTransferId, params, RequestOptions.none())
 
         /** @see [approve] */
         @MustBeClosed
@@ -175,14 +321,45 @@ interface CheckTransferServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<CheckTransfer>>
 
+        /** @see [approve] */
+        @MustBeClosed
+        fun approve(
+            params: CheckTransferApproveParams
+        ): CompletableFuture<HttpResponseFor<CheckTransfer>> =
+            approve(params, RequestOptions.none())
+
+        /** @see [approve] */
+        @MustBeClosed
+        fun approve(
+            checkTransferId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<CheckTransfer>> =
+            approve(checkTransferId, CheckTransferApproveParams.none(), requestOptions)
+
         /**
          * Returns a raw HTTP response for `post /check_transfers/{check_transfer_id}/cancel`, but
          * is otherwise the same as [CheckTransferServiceAsync.cancel].
          */
         @MustBeClosed
+        fun cancel(checkTransferId: String): CompletableFuture<HttpResponseFor<CheckTransfer>> =
+            cancel(checkTransferId, CheckTransferCancelParams.none())
+
+        /** @see [cancel] */
+        @MustBeClosed
         fun cancel(
-            params: CheckTransferCancelParams
-        ): CompletableFuture<HttpResponseFor<CheckTransfer>> = cancel(params, RequestOptions.none())
+            checkTransferId: String,
+            params: CheckTransferCancelParams = CheckTransferCancelParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<CheckTransfer>> =
+            cancel(params.toBuilder().checkTransferId(checkTransferId).build(), requestOptions)
+
+        /** @see [cancel] */
+        @MustBeClosed
+        fun cancel(
+            checkTransferId: String,
+            params: CheckTransferCancelParams = CheckTransferCancelParams.none(),
+        ): CompletableFuture<HttpResponseFor<CheckTransfer>> =
+            cancel(checkTransferId, params, RequestOptions.none())
 
         /** @see [cancel] */
         @MustBeClosed
@@ -191,10 +368,55 @@ interface CheckTransferServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<CheckTransfer>>
 
+        /** @see [cancel] */
+        @MustBeClosed
+        fun cancel(
+            params: CheckTransferCancelParams
+        ): CompletableFuture<HttpResponseFor<CheckTransfer>> = cancel(params, RequestOptions.none())
+
+        /** @see [cancel] */
+        @MustBeClosed
+        fun cancel(
+            checkTransferId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<CheckTransfer>> =
+            cancel(checkTransferId, CheckTransferCancelParams.none(), requestOptions)
+
         /**
          * Returns a raw HTTP response for `post /check_transfers/{check_transfer_id}/stop_payment`,
          * but is otherwise the same as [CheckTransferServiceAsync.stopPayment].
          */
+        @MustBeClosed
+        fun stopPayment(
+            checkTransferId: String
+        ): CompletableFuture<HttpResponseFor<CheckTransfer>> =
+            stopPayment(checkTransferId, CheckTransferStopPaymentParams.none())
+
+        /** @see [stopPayment] */
+        @MustBeClosed
+        fun stopPayment(
+            checkTransferId: String,
+            params: CheckTransferStopPaymentParams = CheckTransferStopPaymentParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<CheckTransfer>> =
+            stopPayment(params.toBuilder().checkTransferId(checkTransferId).build(), requestOptions)
+
+        /** @see [stopPayment] */
+        @MustBeClosed
+        fun stopPayment(
+            checkTransferId: String,
+            params: CheckTransferStopPaymentParams = CheckTransferStopPaymentParams.none(),
+        ): CompletableFuture<HttpResponseFor<CheckTransfer>> =
+            stopPayment(checkTransferId, params, RequestOptions.none())
+
+        /** @see [stopPayment] */
+        @MustBeClosed
+        fun stopPayment(
+            params: CheckTransferStopPaymentParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<CheckTransfer>>
+
+        /** @see [stopPayment] */
         @MustBeClosed
         fun stopPayment(
             params: CheckTransferStopPaymentParams
@@ -204,8 +426,9 @@ interface CheckTransferServiceAsync {
         /** @see [stopPayment] */
         @MustBeClosed
         fun stopPayment(
-            params: CheckTransferStopPaymentParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CheckTransfer>>
+            checkTransferId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<CheckTransfer>> =
+            stopPayment(checkTransferId, CheckTransferStopPaymentParams.none(), requestOptions)
     }
 }

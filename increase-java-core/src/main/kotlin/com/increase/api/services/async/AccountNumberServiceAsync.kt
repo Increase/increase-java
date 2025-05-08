@@ -31,8 +31,22 @@ interface AccountNumberServiceAsync {
     ): CompletableFuture<AccountNumber>
 
     /** Retrieve an Account Number */
-    fun retrieve(params: AccountNumberRetrieveParams): CompletableFuture<AccountNumber> =
-        retrieve(params, RequestOptions.none())
+    fun retrieve(accountNumberId: String): CompletableFuture<AccountNumber> =
+        retrieve(accountNumberId, AccountNumberRetrieveParams.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        accountNumberId: String,
+        params: AccountNumberRetrieveParams = AccountNumberRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<AccountNumber> =
+        retrieve(params.toBuilder().accountNumberId(accountNumberId).build(), requestOptions)
+
+    /** @see [retrieve] */
+    fun retrieve(
+        accountNumberId: String,
+        params: AccountNumberRetrieveParams = AccountNumberRetrieveParams.none(),
+    ): CompletableFuture<AccountNumber> = retrieve(accountNumberId, params, RequestOptions.none())
 
     /** @see [retrieve] */
     fun retrieve(
@@ -40,15 +54,51 @@ interface AccountNumberServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AccountNumber>
 
+    /** @see [retrieve] */
+    fun retrieve(params: AccountNumberRetrieveParams): CompletableFuture<AccountNumber> =
+        retrieve(params, RequestOptions.none())
+
+    /** @see [retrieve] */
+    fun retrieve(
+        accountNumberId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<AccountNumber> =
+        retrieve(accountNumberId, AccountNumberRetrieveParams.none(), requestOptions)
+
     /** Update an Account Number */
-    fun update(params: AccountNumberUpdateParams): CompletableFuture<AccountNumber> =
-        update(params, RequestOptions.none())
+    fun update(accountNumberId: String): CompletableFuture<AccountNumber> =
+        update(accountNumberId, AccountNumberUpdateParams.none())
+
+    /** @see [update] */
+    fun update(
+        accountNumberId: String,
+        params: AccountNumberUpdateParams = AccountNumberUpdateParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<AccountNumber> =
+        update(params.toBuilder().accountNumberId(accountNumberId).build(), requestOptions)
+
+    /** @see [update] */
+    fun update(
+        accountNumberId: String,
+        params: AccountNumberUpdateParams = AccountNumberUpdateParams.none(),
+    ): CompletableFuture<AccountNumber> = update(accountNumberId, params, RequestOptions.none())
 
     /** @see [update] */
     fun update(
         params: AccountNumberUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AccountNumber>
+
+    /** @see [update] */
+    fun update(params: AccountNumberUpdateParams): CompletableFuture<AccountNumber> =
+        update(params, RequestOptions.none())
+
+    /** @see [update] */
+    fun update(
+        accountNumberId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<AccountNumber> =
+        update(accountNumberId, AccountNumberUpdateParams.none(), requestOptions)
 
     /** List Account Numbers */
     fun list(): CompletableFuture<AccountNumberListPageAsync> = list(AccountNumberListParams.none())
@@ -95,10 +145,25 @@ interface AccountNumberServiceAsync {
          * otherwise the same as [AccountNumberServiceAsync.retrieve].
          */
         @MustBeClosed
+        fun retrieve(accountNumberId: String): CompletableFuture<HttpResponseFor<AccountNumber>> =
+            retrieve(accountNumberId, AccountNumberRetrieveParams.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
         fun retrieve(
-            params: AccountNumberRetrieveParams
+            accountNumberId: String,
+            params: AccountNumberRetrieveParams = AccountNumberRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<AccountNumber>> =
-            retrieve(params, RequestOptions.none())
+            retrieve(params.toBuilder().accountNumberId(accountNumberId).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            accountNumberId: String,
+            params: AccountNumberRetrieveParams = AccountNumberRetrieveParams.none(),
+        ): CompletableFuture<HttpResponseFor<AccountNumber>> =
+            retrieve(accountNumberId, params, RequestOptions.none())
 
         /** @see [retrieve] */
         @MustBeClosed
@@ -107,10 +172,54 @@ interface AccountNumberServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<AccountNumber>>
 
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            params: AccountNumberRetrieveParams
+        ): CompletableFuture<HttpResponseFor<AccountNumber>> =
+            retrieve(params, RequestOptions.none())
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            accountNumberId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<AccountNumber>> =
+            retrieve(accountNumberId, AccountNumberRetrieveParams.none(), requestOptions)
+
         /**
          * Returns a raw HTTP response for `patch /account_numbers/{account_number_id}`, but is
          * otherwise the same as [AccountNumberServiceAsync.update].
          */
+        @MustBeClosed
+        fun update(accountNumberId: String): CompletableFuture<HttpResponseFor<AccountNumber>> =
+            update(accountNumberId, AccountNumberUpdateParams.none())
+
+        /** @see [update] */
+        @MustBeClosed
+        fun update(
+            accountNumberId: String,
+            params: AccountNumberUpdateParams = AccountNumberUpdateParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<AccountNumber>> =
+            update(params.toBuilder().accountNumberId(accountNumberId).build(), requestOptions)
+
+        /** @see [update] */
+        @MustBeClosed
+        fun update(
+            accountNumberId: String,
+            params: AccountNumberUpdateParams = AccountNumberUpdateParams.none(),
+        ): CompletableFuture<HttpResponseFor<AccountNumber>> =
+            update(accountNumberId, params, RequestOptions.none())
+
+        /** @see [update] */
+        @MustBeClosed
+        fun update(
+            params: AccountNumberUpdateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<AccountNumber>>
+
+        /** @see [update] */
         @MustBeClosed
         fun update(
             params: AccountNumberUpdateParams
@@ -119,9 +228,10 @@ interface AccountNumberServiceAsync {
         /** @see [update] */
         @MustBeClosed
         fun update(
-            params: AccountNumberUpdateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<AccountNumber>>
+            accountNumberId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<AccountNumber>> =
+            update(accountNumberId, AccountNumberUpdateParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /account_numbers`, but is otherwise the same as
