@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.227.0 (2025-05-08)
+
+Full Changelog: [v0.226.0...v0.227.0](https://github.com/Increase/increase-java/compare/v0.226.0...v0.227.0)
+
+### ⚠ BREAKING CHANGES
+
+* **client:** extract auto pagination to shared classes
+* **client:** **Migration:** - If you were referencing the `AutoPager` class on a specific `*Page` or `*PageAsync` type, then you should instead reference the shared `AutoPager` and `AutoPagerAsync` types, under the `core` package
+    - `AutoPagerAsync` now has different usage. You can call `.subscribe(...)` on the returned object instead to get called back each page item. You can also call `onCompleteFuture()` to get a future that completes when all items have been processed. Finally, you can call `.close()` on the returned object to stop auto-paginating early
+    - If you were referencing `getNextPage` or `getNextPageParams`:
+       - Swap to `nextPage()` and `nextPageParams()`
+       - Note that these both now return non-optional types (use `hasNextPage()` before calling these, since they will throw if it's impossible to get another page)
+
+### Features
+
+* **client:** allow providing some params positionally ([0d80e20](https://github.com/Increase/increase-java/commit/0d80e20051d5888f945e0af4039d5fa3653bf462))
+* **client:** extract auto pagination to shared classes ([973109a](https://github.com/Increase/increase-java/commit/973109aca513fb56221975aa3659036158bc3861))
+
 ## 0.226.0 (2025-05-07)
 
 Full Changelog: [v0.225.0...v0.226.0](https://github.com/Increase/increase-java/compare/v0.225.0...v0.226.0)
