@@ -139,6 +139,7 @@ internal constructor(private val clientOptions: ClientOptions) : InboundAchTrans
                             .let {
                                 InboundAchTransferListPageAsync.builder()
                                     .service(InboundAchTransferServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
                                     .params(params)
                                     .response(it)
                                     .build()

@@ -192,6 +192,7 @@ class AccountNumberServiceAsyncImpl internal constructor(private val clientOptio
                             .let {
                                 AccountNumberListPageAsync.builder()
                                     .service(AccountNumberServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
                                     .params(params)
                                     .response(it)
                                     .build()

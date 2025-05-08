@@ -159,6 +159,7 @@ internal constructor(private val clientOptions: ClientOptions) : IntrafiExclusio
                             .let {
                                 IntrafiExclusionListPageAsync.builder()
                                     .service(IntrafiExclusionServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
                                     .params(params)
                                     .response(it)
                                     .build()

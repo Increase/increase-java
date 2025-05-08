@@ -288,53 +288,101 @@ The SDK throws custom unchecked exception types:
 
 ## Pagination
 
-For methods that return a paginated list of results, this library provides convenient ways access the results either one page at a time, or item-by-item across all pages.
+The SDK defines methods that return a paginated lists of results. It provides convenient ways to access the results either one page at a time or item-by-item across all pages.
 
 ### Auto-pagination
 
-To iterate through all results across all pages, you can use `autoPager`, which automatically handles fetching more pages for you:
+To iterate through all results across all pages, use the `autoPager()` method, which automatically fetches more pages as needed.
 
-### Synchronous
+When using the synchronous client, the method returns an [`Iterable`](https://docs.oracle.com/javase/8/docs/api/java/lang/Iterable.html)
 
 ```java
 import com.increase.api.models.accounts.Account;
 import com.increase.api.models.accounts.AccountListPage;
 
-// As an Iterable:
-AccountListPage page = client.accounts().list(params);
+AccountListPage page = client.accounts().list();
+
+// Process as an Iterable
 for (Account account : page.autoPager()) {
     System.out.println(account);
-};
+}
 
-// As a Stream:
-client.accounts().list(params).autoPager().stream()
+// Process as a Stream
+page.autoPager()
+    .stream()
     .limit(50)
     .forEach(account -> System.out.println(account));
 ```
 
-### Asynchronous
+When using the asynchronous client, the method returns an [`AsyncStreamResponse`](increase-java-core/src/main/kotlin/com/increase/api/core/http/AsyncStreamResponse.kt):
 
 ```java
-// Using forEach, which returns CompletableFuture<Void>:
-asyncClient.accounts().list(params).autoPager()
-    .forEach(account -> System.out.println(account), executor);
+import com.increase.api.core.http.AsyncStreamResponse;
+import com.increase.api.models.accounts.Account;
+import com.increase.api.models.accounts.AccountListPageAsync;
+import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+
+CompletableFuture<AccountListPageAsync> pageFuture = client.async().accounts().list();
+
+pageFuture.thenRun(page -> page.autoPager().subscribe(account -> {
+    System.out.println(account);
+}));
+
+// If you need to handle errors or completion of the stream
+pageFuture.thenRun(page -> page.autoPager().subscribe(new AsyncStreamResponse.Handler<>() {
+    @Override
+    public void onNext(Account account) {
+        System.out.println(account);
+    }
+
+    @Override
+    public void onComplete(Optional<Throwable> error) {
+        if (error.isPresent()) {
+            System.out.println("Something went wrong!");
+            throw new RuntimeException(error.get());
+        } else {
+            System.out.println("No more!");
+        }
+    }
+}));
+
+// Or use futures
+pageFuture.thenRun(page -> page.autoPager()
+    .subscribe(account -> {
+        System.out.println(account);
+    })
+    .onCompleteFuture()
+    .whenComplete((unused, error) -> {
+        if (error != null) {
+            System.out.println("Something went wrong!");
+            throw new RuntimeException(error);
+        } else {
+            System.out.println("No more!");
+        }
+    }));
 ```
 
 ### Manual pagination
 
-If none of the above helpers meet your needs, you can also manually request pages one-by-one. A page of results has a `data()` method to fetch the list of objects, as well as top-level `response` and other methods to fetch top-level data about the page. It also has methods `hasNextPage`, `getNextPage`, and `getNextPageParams` methods to help with pagination.
+To access individual page items and manually request the next page, use the `items()`,
+`hasNextPage()`, and `nextPage()` methods:
 
 ```java
 import com.increase.api.models.accounts.Account;
 import com.increase.api.models.accounts.AccountListPage;
 
-AccountListPage page = client.accounts().list(params);
-while (page != null) {
-    for (Account account : page.data()) {
+AccountListPage page = client.accounts().list();
+while (true) {
+    for (Account account : page.items()) {
         System.out.println(account);
     }
 
-    page = page.getNextPage().orElse(null);
+    if (!page.hasNextPage()) {
+        break;
+    }
+
+    page = page.nextPage();
 }
 ```
 
@@ -401,7 +449,6 @@ To set a custom timeout, configure the method call using the `timeout` method:
 
 ```java
 import com.increase.api.models.accounts.Account;
-import com.increase.api.models.accounts.AccountCreateParams;
 
 Account account = client.accounts().create(
   params, RequestOptions.builder().timeout(Duration.ofSeconds(30)).build()
@@ -649,7 +696,6 @@ Or configure the method call to validate the response using the `responseValidat
 
 ```java
 import com.increase.api.models.accounts.Account;
-import com.increase.api.models.accounts.AccountCreateParams;
 
 Account account = client.accounts().create(
   params, RequestOptions.builder().responseValidation(true).build()

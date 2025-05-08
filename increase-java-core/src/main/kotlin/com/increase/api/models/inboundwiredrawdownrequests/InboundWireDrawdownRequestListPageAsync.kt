@@ -2,22 +2,24 @@
 
 package com.increase.api.models.inboundwiredrawdownrequests
 
+import com.increase.api.core.AutoPagerAsync
+import com.increase.api.core.PageAsync
 import com.increase.api.core.checkRequired
 import com.increase.api.services.async.InboundWireDrawdownRequestServiceAsync
 import java.util.Objects
 import java.util.Optional
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executor
-import java.util.function.Predicate
 import kotlin.jvm.optionals.getOrNull
 
 /** @see [InboundWireDrawdownRequestServiceAsync.list] */
 class InboundWireDrawdownRequestListPageAsync
 private constructor(
     private val service: InboundWireDrawdownRequestServiceAsync,
+    private val streamHandlerExecutor: Executor,
     private val params: InboundWireDrawdownRequestListParams,
     private val response: InboundWireDrawdownRequestListPageResponse,
-) {
+) : PageAsync<InboundWireDrawdownRequest> {
 
     /**
      * Delegates to [InboundWireDrawdownRequestListPageResponse], but gracefully handles missing
@@ -36,24 +38,22 @@ private constructor(
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 
-    fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor().isPresent
+    override fun items(): List<InboundWireDrawdownRequest> = data()
 
-    fun getNextPageParams(): Optional<InboundWireDrawdownRequestListParams> {
-        if (!hasNextPage()) {
-            return Optional.empty()
-        }
+    override fun hasNextPage(): Boolean = items().isNotEmpty() && nextCursor().isPresent
 
-        return Optional.of(
-            params.toBuilder().apply { nextCursor().ifPresent { cursor(it) } }.build()
-        )
+    fun nextPageParams(): InboundWireDrawdownRequestListParams {
+        val nextCursor =
+            nextCursor().getOrNull()
+                ?: throw IllegalStateException("Cannot construct next page params")
+        return params.toBuilder().cursor(nextCursor).build()
     }
 
-    fun getNextPage(): CompletableFuture<Optional<InboundWireDrawdownRequestListPageAsync>> =
-        getNextPageParams()
-            .map { service.list(it).thenApply { Optional.of(it) } }
-            .orElseGet { CompletableFuture.completedFuture(Optional.empty()) }
+    override fun nextPage(): CompletableFuture<InboundWireDrawdownRequestListPageAsync> =
+        service.list(nextPageParams())
 
-    fun autoPager(): AutoPager = AutoPager(this)
+    fun autoPager(): AutoPagerAsync<InboundWireDrawdownRequest> =
+        AutoPagerAsync.from(this, streamHandlerExecutor)
 
     /** The parameters that were used to request this page. */
     fun params(): InboundWireDrawdownRequestListParams = params
@@ -72,6 +72,7 @@ private constructor(
          * The following fields are required:
          * ```java
          * .service()
+         * .streamHandlerExecutor()
          * .params()
          * .response()
          * ```
@@ -83,6 +84,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var service: InboundWireDrawdownRequestServiceAsync? = null
+        private var streamHandlerExecutor: Executor? = null
         private var params: InboundWireDrawdownRequestListParams? = null
         private var response: InboundWireDrawdownRequestListPageResponse? = null
 
@@ -91,12 +93,17 @@ private constructor(
             inboundWireDrawdownRequestListPageAsync: InboundWireDrawdownRequestListPageAsync
         ) = apply {
             service = inboundWireDrawdownRequestListPageAsync.service
+            streamHandlerExecutor = inboundWireDrawdownRequestListPageAsync.streamHandlerExecutor
             params = inboundWireDrawdownRequestListPageAsync.params
             response = inboundWireDrawdownRequestListPageAsync.response
         }
 
         fun service(service: InboundWireDrawdownRequestServiceAsync) = apply {
             this.service = service
+        }
+
+        fun streamHandlerExecutor(streamHandlerExecutor: Executor) = apply {
+            this.streamHandlerExecutor = streamHandlerExecutor
         }
 
         /** The parameters that were used to request this page. */
@@ -115,6 +122,7 @@ private constructor(
          * The following fields are required:
          * ```java
          * .service()
+         * .streamHandlerExecutor()
          * .params()
          * .response()
          * ```
@@ -124,38 +132,10 @@ private constructor(
         fun build(): InboundWireDrawdownRequestListPageAsync =
             InboundWireDrawdownRequestListPageAsync(
                 checkRequired("service", service),
+                checkRequired("streamHandlerExecutor", streamHandlerExecutor),
                 checkRequired("params", params),
                 checkRequired("response", response),
             )
-    }
-
-    class AutoPager(private val firstPage: InboundWireDrawdownRequestListPageAsync) {
-
-        fun forEach(
-            action: Predicate<InboundWireDrawdownRequest>,
-            executor: Executor,
-        ): CompletableFuture<Void> {
-            fun CompletableFuture<Optional<InboundWireDrawdownRequestListPageAsync>>.forEach(
-                action: (InboundWireDrawdownRequest) -> Boolean,
-                executor: Executor,
-            ): CompletableFuture<Void> =
-                thenComposeAsync(
-                    { page ->
-                        page
-                            .filter { it.data().all(action) }
-                            .map { it.getNextPage().forEach(action, executor) }
-                            .orElseGet { CompletableFuture.completedFuture(null) }
-                    },
-                    executor,
-                )
-            return CompletableFuture.completedFuture(Optional.of(firstPage))
-                .forEach(action::test, executor)
-        }
-
-        fun toList(executor: Executor): CompletableFuture<List<InboundWireDrawdownRequest>> {
-            val values = mutableListOf<InboundWireDrawdownRequest>()
-            return forEach(values::add, executor).thenApply { values }
-        }
     }
 
     override fun equals(other: Any?): Boolean {
@@ -163,11 +143,11 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is InboundWireDrawdownRequestListPageAsync && service == other.service && params == other.params && response == other.response /* spotless:on */
+        return /* spotless:off */ other is InboundWireDrawdownRequestListPageAsync && service == other.service && streamHandlerExecutor == other.streamHandlerExecutor && params == other.params && response == other.response /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, params, response) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, streamHandlerExecutor, params, response) /* spotless:on */
 
     override fun toString() =
-        "InboundWireDrawdownRequestListPageAsync{service=$service, params=$params, response=$response}"
+        "InboundWireDrawdownRequestListPageAsync{service=$service, streamHandlerExecutor=$streamHandlerExecutor, params=$params, response=$response}"
 }

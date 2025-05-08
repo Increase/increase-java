@@ -154,6 +154,7 @@ internal constructor(private val clientOptions: ClientOptions) : WireDrawdownReq
                             .let {
                                 WireDrawdownRequestListPageAsync.builder()
                                     .service(WireDrawdownRequestServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
                                     .params(params)
                                     .response(it)
                                     .build()

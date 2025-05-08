@@ -168,6 +168,7 @@ internal constructor(private val clientOptions: ClientOptions) :
                                     .service(
                                         IntrafiAccountEnrollmentServiceAsyncImpl(clientOptions)
                                     )
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
                                     .params(params)
                                     .response(it)
                                     .build()

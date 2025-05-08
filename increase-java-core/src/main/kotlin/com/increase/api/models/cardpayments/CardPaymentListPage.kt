@@ -2,12 +2,12 @@
 
 package com.increase.api.models.cardpayments
 
+import com.increase.api.core.AutoPager
+import com.increase.api.core.Page
 import com.increase.api.core.checkRequired
 import com.increase.api.services.blocking.CardPaymentService
 import java.util.Objects
 import java.util.Optional
-import java.util.stream.Stream
-import java.util.stream.StreamSupport
 import kotlin.jvm.optionals.getOrNull
 
 /** @see [CardPaymentService.list] */
@@ -16,7 +16,7 @@ private constructor(
     private val service: CardPaymentService,
     private val params: CardPaymentListParams,
     private val response: CardPaymentListPageResponse,
-) {
+) : Page<CardPayment> {
 
     /**
      * Delegates to [CardPaymentListPageResponse], but gracefully handles missing data.
@@ -32,21 +32,20 @@ private constructor(
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 
-    fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor().isPresent
+    override fun items(): List<CardPayment> = data()
 
-    fun getNextPageParams(): Optional<CardPaymentListParams> {
-        if (!hasNextPage()) {
-            return Optional.empty()
-        }
+    override fun hasNextPage(): Boolean = items().isNotEmpty() && nextCursor().isPresent
 
-        return Optional.of(
-            params.toBuilder().apply { nextCursor().ifPresent { cursor(it) } }.build()
-        )
+    fun nextPageParams(): CardPaymentListParams {
+        val nextCursor =
+            nextCursor().getOrNull()
+                ?: throw IllegalStateException("Cannot construct next page params")
+        return params.toBuilder().cursor(nextCursor).build()
     }
 
-    fun getNextPage(): Optional<CardPaymentListPage> = getNextPageParams().map { service.list(it) }
+    override fun nextPage(): CardPaymentListPage = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager = AutoPager(this)
+    fun autoPager(): AutoPager<CardPayment> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): CardPaymentListParams = params
@@ -113,25 +112,6 @@ private constructor(
                 checkRequired("params", params),
                 checkRequired("response", response),
             )
-    }
-
-    class AutoPager(private val firstPage: CardPaymentListPage) : Iterable<CardPayment> {
-
-        override fun iterator(): Iterator<CardPayment> = iterator {
-            var page = firstPage
-            var index = 0
-            while (true) {
-                while (index < page.data().size) {
-                    yield(page.data()[index++])
-                }
-                page = page.getNextPage().getOrNull() ?: break
-                index = 0
-            }
-        }
-
-        fun stream(): Stream<CardPayment> {
-            return StreamSupport.stream(spliterator(), false)
-        }
     }
 
     override fun equals(other: Any?): Boolean {

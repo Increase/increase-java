@@ -114,6 +114,7 @@ internal constructor(private val clientOptions: ClientOptions) : DeclinedTransac
                             .let {
                                 DeclinedTransactionListPageAsync.builder()
                                     .service(DeclinedTransactionServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
                                     .params(params)
                                     .response(it)
                                     .build()

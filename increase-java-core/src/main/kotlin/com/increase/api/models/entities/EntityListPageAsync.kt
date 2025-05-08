@@ -2,22 +2,24 @@
 
 package com.increase.api.models.entities
 
+import com.increase.api.core.AutoPagerAsync
+import com.increase.api.core.PageAsync
 import com.increase.api.core.checkRequired
 import com.increase.api.services.async.EntityServiceAsync
 import java.util.Objects
 import java.util.Optional
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executor
-import java.util.function.Predicate
 import kotlin.jvm.optionals.getOrNull
 
 /** @see [EntityServiceAsync.list] */
 class EntityListPageAsync
 private constructor(
     private val service: EntityServiceAsync,
+    private val streamHandlerExecutor: Executor,
     private val params: EntityListParams,
     private val response: EntityListPageResponse,
-) {
+) : PageAsync<Entity> {
 
     /**
      * Delegates to [EntityListPageResponse], but gracefully handles missing data.
@@ -33,24 +35,20 @@ private constructor(
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 
-    fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor().isPresent
+    override fun items(): List<Entity> = data()
 
-    fun getNextPageParams(): Optional<EntityListParams> {
-        if (!hasNextPage()) {
-            return Optional.empty()
-        }
+    override fun hasNextPage(): Boolean = items().isNotEmpty() && nextCursor().isPresent
 
-        return Optional.of(
-            params.toBuilder().apply { nextCursor().ifPresent { cursor(it) } }.build()
-        )
+    fun nextPageParams(): EntityListParams {
+        val nextCursor =
+            nextCursor().getOrNull()
+                ?: throw IllegalStateException("Cannot construct next page params")
+        return params.toBuilder().cursor(nextCursor).build()
     }
 
-    fun getNextPage(): CompletableFuture<Optional<EntityListPageAsync>> =
-        getNextPageParams()
-            .map { service.list(it).thenApply { Optional.of(it) } }
-            .orElseGet { CompletableFuture.completedFuture(Optional.empty()) }
+    override fun nextPage(): CompletableFuture<EntityListPageAsync> = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager = AutoPager(this)
+    fun autoPager(): AutoPagerAsync<Entity> = AutoPagerAsync.from(this, streamHandlerExecutor)
 
     /** The parameters that were used to request this page. */
     fun params(): EntityListParams = params
@@ -68,6 +66,7 @@ private constructor(
          * The following fields are required:
          * ```java
          * .service()
+         * .streamHandlerExecutor()
          * .params()
          * .response()
          * ```
@@ -79,17 +78,23 @@ private constructor(
     class Builder internal constructor() {
 
         private var service: EntityServiceAsync? = null
+        private var streamHandlerExecutor: Executor? = null
         private var params: EntityListParams? = null
         private var response: EntityListPageResponse? = null
 
         @JvmSynthetic
         internal fun from(entityListPageAsync: EntityListPageAsync) = apply {
             service = entityListPageAsync.service
+            streamHandlerExecutor = entityListPageAsync.streamHandlerExecutor
             params = entityListPageAsync.params
             response = entityListPageAsync.response
         }
 
         fun service(service: EntityServiceAsync) = apply { this.service = service }
+
+        fun streamHandlerExecutor(streamHandlerExecutor: Executor) = apply {
+            this.streamHandlerExecutor = streamHandlerExecutor
+        }
 
         /** The parameters that were used to request this page. */
         fun params(params: EntityListParams) = apply { this.params = params }
@@ -105,6 +110,7 @@ private constructor(
          * The following fields are required:
          * ```java
          * .service()
+         * .streamHandlerExecutor()
          * .params()
          * .response()
          * ```
@@ -114,35 +120,10 @@ private constructor(
         fun build(): EntityListPageAsync =
             EntityListPageAsync(
                 checkRequired("service", service),
+                checkRequired("streamHandlerExecutor", streamHandlerExecutor),
                 checkRequired("params", params),
                 checkRequired("response", response),
             )
-    }
-
-    class AutoPager(private val firstPage: EntityListPageAsync) {
-
-        fun forEach(action: Predicate<Entity>, executor: Executor): CompletableFuture<Void> {
-            fun CompletableFuture<Optional<EntityListPageAsync>>.forEach(
-                action: (Entity) -> Boolean,
-                executor: Executor,
-            ): CompletableFuture<Void> =
-                thenComposeAsync(
-                    { page ->
-                        page
-                            .filter { it.data().all(action) }
-                            .map { it.getNextPage().forEach(action, executor) }
-                            .orElseGet { CompletableFuture.completedFuture(null) }
-                    },
-                    executor,
-                )
-            return CompletableFuture.completedFuture(Optional.of(firstPage))
-                .forEach(action::test, executor)
-        }
-
-        fun toList(executor: Executor): CompletableFuture<List<Entity>> {
-            val values = mutableListOf<Entity>()
-            return forEach(values::add, executor).thenApply { values }
-        }
     }
 
     override fun equals(other: Any?): Boolean {
@@ -150,11 +131,11 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is EntityListPageAsync && service == other.service && params == other.params && response == other.response /* spotless:on */
+        return /* spotless:off */ other is EntityListPageAsync && service == other.service && streamHandlerExecutor == other.streamHandlerExecutor && params == other.params && response == other.response /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, params, response) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, streamHandlerExecutor, params, response) /* spotless:on */
 
     override fun toString() =
-        "EntityListPageAsync{service=$service, params=$params, response=$response}"
+        "EntityListPageAsync{service=$service, streamHandlerExecutor=$streamHandlerExecutor, params=$params, response=$response}"
 }

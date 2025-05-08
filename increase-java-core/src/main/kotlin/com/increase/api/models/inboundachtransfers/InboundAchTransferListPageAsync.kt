@@ -2,22 +2,24 @@
 
 package com.increase.api.models.inboundachtransfers
 
+import com.increase.api.core.AutoPagerAsync
+import com.increase.api.core.PageAsync
 import com.increase.api.core.checkRequired
 import com.increase.api.services.async.InboundAchTransferServiceAsync
 import java.util.Objects
 import java.util.Optional
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executor
-import java.util.function.Predicate
 import kotlin.jvm.optionals.getOrNull
 
 /** @see [InboundAchTransferServiceAsync.list] */
 class InboundAchTransferListPageAsync
 private constructor(
     private val service: InboundAchTransferServiceAsync,
+    private val streamHandlerExecutor: Executor,
     private val params: InboundAchTransferListParams,
     private val response: InboundAchTransferListPageResponse,
-) {
+) : PageAsync<InboundAchTransfer> {
 
     /**
      * Delegates to [InboundAchTransferListPageResponse], but gracefully handles missing data.
@@ -34,24 +36,22 @@ private constructor(
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 
-    fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor().isPresent
+    override fun items(): List<InboundAchTransfer> = data()
 
-    fun getNextPageParams(): Optional<InboundAchTransferListParams> {
-        if (!hasNextPage()) {
-            return Optional.empty()
-        }
+    override fun hasNextPage(): Boolean = items().isNotEmpty() && nextCursor().isPresent
 
-        return Optional.of(
-            params.toBuilder().apply { nextCursor().ifPresent { cursor(it) } }.build()
-        )
+    fun nextPageParams(): InboundAchTransferListParams {
+        val nextCursor =
+            nextCursor().getOrNull()
+                ?: throw IllegalStateException("Cannot construct next page params")
+        return params.toBuilder().cursor(nextCursor).build()
     }
 
-    fun getNextPage(): CompletableFuture<Optional<InboundAchTransferListPageAsync>> =
-        getNextPageParams()
-            .map { service.list(it).thenApply { Optional.of(it) } }
-            .orElseGet { CompletableFuture.completedFuture(Optional.empty()) }
+    override fun nextPage(): CompletableFuture<InboundAchTransferListPageAsync> =
+        service.list(nextPageParams())
 
-    fun autoPager(): AutoPager = AutoPager(this)
+    fun autoPager(): AutoPagerAsync<InboundAchTransfer> =
+        AutoPagerAsync.from(this, streamHandlerExecutor)
 
     /** The parameters that were used to request this page. */
     fun params(): InboundAchTransferListParams = params
@@ -70,6 +70,7 @@ private constructor(
          * The following fields are required:
          * ```java
          * .service()
+         * .streamHandlerExecutor()
          * .params()
          * .response()
          * ```
@@ -81,6 +82,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var service: InboundAchTransferServiceAsync? = null
+        private var streamHandlerExecutor: Executor? = null
         private var params: InboundAchTransferListParams? = null
         private var response: InboundAchTransferListPageResponse? = null
 
@@ -88,11 +90,16 @@ private constructor(
         internal fun from(inboundAchTransferListPageAsync: InboundAchTransferListPageAsync) =
             apply {
                 service = inboundAchTransferListPageAsync.service
+                streamHandlerExecutor = inboundAchTransferListPageAsync.streamHandlerExecutor
                 params = inboundAchTransferListPageAsync.params
                 response = inboundAchTransferListPageAsync.response
             }
 
         fun service(service: InboundAchTransferServiceAsync) = apply { this.service = service }
+
+        fun streamHandlerExecutor(streamHandlerExecutor: Executor) = apply {
+            this.streamHandlerExecutor = streamHandlerExecutor
+        }
 
         /** The parameters that were used to request this page. */
         fun params(params: InboundAchTransferListParams) = apply { this.params = params }
@@ -110,6 +117,7 @@ private constructor(
          * The following fields are required:
          * ```java
          * .service()
+         * .streamHandlerExecutor()
          * .params()
          * .response()
          * ```
@@ -119,38 +127,10 @@ private constructor(
         fun build(): InboundAchTransferListPageAsync =
             InboundAchTransferListPageAsync(
                 checkRequired("service", service),
+                checkRequired("streamHandlerExecutor", streamHandlerExecutor),
                 checkRequired("params", params),
                 checkRequired("response", response),
             )
-    }
-
-    class AutoPager(private val firstPage: InboundAchTransferListPageAsync) {
-
-        fun forEach(
-            action: Predicate<InboundAchTransfer>,
-            executor: Executor,
-        ): CompletableFuture<Void> {
-            fun CompletableFuture<Optional<InboundAchTransferListPageAsync>>.forEach(
-                action: (InboundAchTransfer) -> Boolean,
-                executor: Executor,
-            ): CompletableFuture<Void> =
-                thenComposeAsync(
-                    { page ->
-                        page
-                            .filter { it.data().all(action) }
-                            .map { it.getNextPage().forEach(action, executor) }
-                            .orElseGet { CompletableFuture.completedFuture(null) }
-                    },
-                    executor,
-                )
-            return CompletableFuture.completedFuture(Optional.of(firstPage))
-                .forEach(action::test, executor)
-        }
-
-        fun toList(executor: Executor): CompletableFuture<List<InboundAchTransfer>> {
-            val values = mutableListOf<InboundAchTransfer>()
-            return forEach(values::add, executor).thenApply { values }
-        }
     }
 
     override fun equals(other: Any?): Boolean {
@@ -158,11 +138,11 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is InboundAchTransferListPageAsync && service == other.service && params == other.params && response == other.response /* spotless:on */
+        return /* spotless:off */ other is InboundAchTransferListPageAsync && service == other.service && streamHandlerExecutor == other.streamHandlerExecutor && params == other.params && response == other.response /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, params, response) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, streamHandlerExecutor, params, response) /* spotless:on */
 
     override fun toString() =
-        "InboundAchTransferListPageAsync{service=$service, params=$params, response=$response}"
+        "InboundAchTransferListPageAsync{service=$service, streamHandlerExecutor=$streamHandlerExecutor, params=$params, response=$response}"
 }

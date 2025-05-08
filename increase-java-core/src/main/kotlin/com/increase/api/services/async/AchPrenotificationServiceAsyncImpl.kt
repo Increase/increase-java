@@ -151,6 +151,7 @@ internal constructor(private val clientOptions: ClientOptions) : AchPrenotificat
                             .let {
                                 AchPrenotificationListPageAsync.builder()
                                     .service(AchPrenotificationServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
                                     .params(params)
                                     .response(it)
                                     .build()

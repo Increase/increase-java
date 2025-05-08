@@ -131,6 +131,7 @@ internal constructor(private val clientOptions: ClientOptions) : InboundCheckDep
                             .let {
                                 InboundCheckDepositListPageAsync.builder()
                                     .service(InboundCheckDepositServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
                                     .params(params)
                                     .response(it)
                                     .build()

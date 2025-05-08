@@ -2,22 +2,24 @@
 
 package com.increase.api.models.inboundwiretransfers
 
+import com.increase.api.core.AutoPagerAsync
+import com.increase.api.core.PageAsync
 import com.increase.api.core.checkRequired
 import com.increase.api.services.async.InboundWireTransferServiceAsync
 import java.util.Objects
 import java.util.Optional
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executor
-import java.util.function.Predicate
 import kotlin.jvm.optionals.getOrNull
 
 /** @see [InboundWireTransferServiceAsync.list] */
 class InboundWireTransferListPageAsync
 private constructor(
     private val service: InboundWireTransferServiceAsync,
+    private val streamHandlerExecutor: Executor,
     private val params: InboundWireTransferListParams,
     private val response: InboundWireTransferListPageResponse,
-) {
+) : PageAsync<InboundWireTransfer> {
 
     /**
      * Delegates to [InboundWireTransferListPageResponse], but gracefully handles missing data.
@@ -34,24 +36,22 @@ private constructor(
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 
-    fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor().isPresent
+    override fun items(): List<InboundWireTransfer> = data()
 
-    fun getNextPageParams(): Optional<InboundWireTransferListParams> {
-        if (!hasNextPage()) {
-            return Optional.empty()
-        }
+    override fun hasNextPage(): Boolean = items().isNotEmpty() && nextCursor().isPresent
 
-        return Optional.of(
-            params.toBuilder().apply { nextCursor().ifPresent { cursor(it) } }.build()
-        )
+    fun nextPageParams(): InboundWireTransferListParams {
+        val nextCursor =
+            nextCursor().getOrNull()
+                ?: throw IllegalStateException("Cannot construct next page params")
+        return params.toBuilder().cursor(nextCursor).build()
     }
 
-    fun getNextPage(): CompletableFuture<Optional<InboundWireTransferListPageAsync>> =
-        getNextPageParams()
-            .map { service.list(it).thenApply { Optional.of(it) } }
-            .orElseGet { CompletableFuture.completedFuture(Optional.empty()) }
+    override fun nextPage(): CompletableFuture<InboundWireTransferListPageAsync> =
+        service.list(nextPageParams())
 
-    fun autoPager(): AutoPager = AutoPager(this)
+    fun autoPager(): AutoPagerAsync<InboundWireTransfer> =
+        AutoPagerAsync.from(this, streamHandlerExecutor)
 
     /** The parameters that were used to request this page. */
     fun params(): InboundWireTransferListParams = params
@@ -70,6 +70,7 @@ private constructor(
          * The following fields are required:
          * ```java
          * .service()
+         * .streamHandlerExecutor()
          * .params()
          * .response()
          * ```
@@ -81,6 +82,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var service: InboundWireTransferServiceAsync? = null
+        private var streamHandlerExecutor: Executor? = null
         private var params: InboundWireTransferListParams? = null
         private var response: InboundWireTransferListPageResponse? = null
 
@@ -88,11 +90,16 @@ private constructor(
         internal fun from(inboundWireTransferListPageAsync: InboundWireTransferListPageAsync) =
             apply {
                 service = inboundWireTransferListPageAsync.service
+                streamHandlerExecutor = inboundWireTransferListPageAsync.streamHandlerExecutor
                 params = inboundWireTransferListPageAsync.params
                 response = inboundWireTransferListPageAsync.response
             }
 
         fun service(service: InboundWireTransferServiceAsync) = apply { this.service = service }
+
+        fun streamHandlerExecutor(streamHandlerExecutor: Executor) = apply {
+            this.streamHandlerExecutor = streamHandlerExecutor
+        }
 
         /** The parameters that were used to request this page. */
         fun params(params: InboundWireTransferListParams) = apply { this.params = params }
@@ -110,6 +117,7 @@ private constructor(
          * The following fields are required:
          * ```java
          * .service()
+         * .streamHandlerExecutor()
          * .params()
          * .response()
          * ```
@@ -119,38 +127,10 @@ private constructor(
         fun build(): InboundWireTransferListPageAsync =
             InboundWireTransferListPageAsync(
                 checkRequired("service", service),
+                checkRequired("streamHandlerExecutor", streamHandlerExecutor),
                 checkRequired("params", params),
                 checkRequired("response", response),
             )
-    }
-
-    class AutoPager(private val firstPage: InboundWireTransferListPageAsync) {
-
-        fun forEach(
-            action: Predicate<InboundWireTransfer>,
-            executor: Executor,
-        ): CompletableFuture<Void> {
-            fun CompletableFuture<Optional<InboundWireTransferListPageAsync>>.forEach(
-                action: (InboundWireTransfer) -> Boolean,
-                executor: Executor,
-            ): CompletableFuture<Void> =
-                thenComposeAsync(
-                    { page ->
-                        page
-                            .filter { it.data().all(action) }
-                            .map { it.getNextPage().forEach(action, executor) }
-                            .orElseGet { CompletableFuture.completedFuture(null) }
-                    },
-                    executor,
-                )
-            return CompletableFuture.completedFuture(Optional.of(firstPage))
-                .forEach(action::test, executor)
-        }
-
-        fun toList(executor: Executor): CompletableFuture<List<InboundWireTransfer>> {
-            val values = mutableListOf<InboundWireTransfer>()
-            return forEach(values::add, executor).thenApply { values }
-        }
     }
 
     override fun equals(other: Any?): Boolean {
@@ -158,11 +138,11 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is InboundWireTransferListPageAsync && service == other.service && params == other.params && response == other.response /* spotless:on */
+        return /* spotless:off */ other is InboundWireTransferListPageAsync && service == other.service && streamHandlerExecutor == other.streamHandlerExecutor && params == other.params && response == other.response /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, params, response) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, streamHandlerExecutor, params, response) /* spotless:on */
 
     override fun toString() =
-        "InboundWireTransferListPageAsync{service=$service, params=$params, response=$response}"
+        "InboundWireTransferListPageAsync{service=$service, streamHandlerExecutor=$streamHandlerExecutor, params=$params, response=$response}"
 }
