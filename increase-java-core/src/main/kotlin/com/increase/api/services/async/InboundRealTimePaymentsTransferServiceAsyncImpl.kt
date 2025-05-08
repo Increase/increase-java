@@ -123,6 +123,7 @@ internal constructor(private val clientOptions: ClientOptions) :
                                             clientOptions
                                         )
                                     )
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
                                     .params(params)
                                     .response(it)
                                     .build()

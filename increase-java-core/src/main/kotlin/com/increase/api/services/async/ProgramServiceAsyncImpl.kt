@@ -112,6 +112,7 @@ class ProgramServiceAsyncImpl internal constructor(private val clientOptions: Cl
                             .let {
                                 ProgramListPageAsync.builder()
                                     .service(ProgramServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
                                     .params(params)
                                     .response(it)
                                     .build()

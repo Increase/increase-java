@@ -115,6 +115,7 @@ internal constructor(private val clientOptions: ClientOptions) :
                             .let {
                                 CardPurchaseSupplementListPageAsync.builder()
                                     .service(CardPurchaseSupplementServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
                                     .params(params)
                                     .response(it)
                                     .build()

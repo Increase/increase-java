@@ -2,12 +2,12 @@
 
 package com.increase.api.models.wiretransfers
 
+import com.increase.api.core.AutoPager
+import com.increase.api.core.Page
 import com.increase.api.core.checkRequired
 import com.increase.api.services.blocking.WireTransferService
 import java.util.Objects
 import java.util.Optional
-import java.util.stream.Stream
-import java.util.stream.StreamSupport
 import kotlin.jvm.optionals.getOrNull
 
 /** @see [WireTransferService.list] */
@@ -16,7 +16,7 @@ private constructor(
     private val service: WireTransferService,
     private val params: WireTransferListParams,
     private val response: WireTransferListPageResponse,
-) {
+) : Page<WireTransfer> {
 
     /**
      * Delegates to [WireTransferListPageResponse], but gracefully handles missing data.
@@ -32,21 +32,20 @@ private constructor(
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 
-    fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor().isPresent
+    override fun items(): List<WireTransfer> = data()
 
-    fun getNextPageParams(): Optional<WireTransferListParams> {
-        if (!hasNextPage()) {
-            return Optional.empty()
-        }
+    override fun hasNextPage(): Boolean = items().isNotEmpty() && nextCursor().isPresent
 
-        return Optional.of(
-            params.toBuilder().apply { nextCursor().ifPresent { cursor(it) } }.build()
-        )
+    fun nextPageParams(): WireTransferListParams {
+        val nextCursor =
+            nextCursor().getOrNull()
+                ?: throw IllegalStateException("Cannot construct next page params")
+        return params.toBuilder().cursor(nextCursor).build()
     }
 
-    fun getNextPage(): Optional<WireTransferListPage> = getNextPageParams().map { service.list(it) }
+    override fun nextPage(): WireTransferListPage = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager = AutoPager(this)
+    fun autoPager(): AutoPager<WireTransfer> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): WireTransferListParams = params
@@ -113,25 +112,6 @@ private constructor(
                 checkRequired("params", params),
                 checkRequired("response", response),
             )
-    }
-
-    class AutoPager(private val firstPage: WireTransferListPage) : Iterable<WireTransfer> {
-
-        override fun iterator(): Iterator<WireTransfer> = iterator {
-            var page = firstPage
-            var index = 0
-            while (true) {
-                while (index < page.data().size) {
-                    yield(page.data()[index++])
-                }
-                page = page.getNextPage().getOrNull() ?: break
-                index = 0
-            }
-        }
-
-        fun stream(): Stream<WireTransfer> {
-            return StreamSupport.stream(spliterator(), false)
-        }
     }
 
     override fun equals(other: Any?): Boolean {

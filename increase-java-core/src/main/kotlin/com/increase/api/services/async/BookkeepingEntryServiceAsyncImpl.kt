@@ -112,6 +112,7 @@ internal constructor(private val clientOptions: ClientOptions) : BookkeepingEntr
                             .let {
                                 BookkeepingEntryListPageAsync.builder()
                                     .service(BookkeepingEntryServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
                                     .params(params)
                                     .response(it)
                                     .build()

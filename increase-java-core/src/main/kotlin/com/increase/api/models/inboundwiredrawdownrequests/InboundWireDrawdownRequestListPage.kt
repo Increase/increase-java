@@ -2,12 +2,12 @@
 
 package com.increase.api.models.inboundwiredrawdownrequests
 
+import com.increase.api.core.AutoPager
+import com.increase.api.core.Page
 import com.increase.api.core.checkRequired
 import com.increase.api.services.blocking.InboundWireDrawdownRequestService
 import java.util.Objects
 import java.util.Optional
-import java.util.stream.Stream
-import java.util.stream.StreamSupport
 import kotlin.jvm.optionals.getOrNull
 
 /** @see [InboundWireDrawdownRequestService.list] */
@@ -16,7 +16,7 @@ private constructor(
     private val service: InboundWireDrawdownRequestService,
     private val params: InboundWireDrawdownRequestListParams,
     private val response: InboundWireDrawdownRequestListPageResponse,
-) {
+) : Page<InboundWireDrawdownRequest> {
 
     /**
      * Delegates to [InboundWireDrawdownRequestListPageResponse], but gracefully handles missing
@@ -35,22 +35,20 @@ private constructor(
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 
-    fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor().isPresent
+    override fun items(): List<InboundWireDrawdownRequest> = data()
 
-    fun getNextPageParams(): Optional<InboundWireDrawdownRequestListParams> {
-        if (!hasNextPage()) {
-            return Optional.empty()
-        }
+    override fun hasNextPage(): Boolean = items().isNotEmpty() && nextCursor().isPresent
 
-        return Optional.of(
-            params.toBuilder().apply { nextCursor().ifPresent { cursor(it) } }.build()
-        )
+    fun nextPageParams(): InboundWireDrawdownRequestListParams {
+        val nextCursor =
+            nextCursor().getOrNull()
+                ?: throw IllegalStateException("Cannot construct next page params")
+        return params.toBuilder().cursor(nextCursor).build()
     }
 
-    fun getNextPage(): Optional<InboundWireDrawdownRequestListPage> =
-        getNextPageParams().map { service.list(it) }
+    override fun nextPage(): InboundWireDrawdownRequestListPage = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager = AutoPager(this)
+    fun autoPager(): AutoPager<InboundWireDrawdownRequest> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): InboundWireDrawdownRequestListParams = params
@@ -121,26 +119,6 @@ private constructor(
                 checkRequired("params", params),
                 checkRequired("response", response),
             )
-    }
-
-    class AutoPager(private val firstPage: InboundWireDrawdownRequestListPage) :
-        Iterable<InboundWireDrawdownRequest> {
-
-        override fun iterator(): Iterator<InboundWireDrawdownRequest> = iterator {
-            var page = firstPage
-            var index = 0
-            while (true) {
-                while (index < page.data().size) {
-                    yield(page.data()[index++])
-                }
-                page = page.getNextPage().getOrNull() ?: break
-                index = 0
-            }
-        }
-
-        fun stream(): Stream<InboundWireDrawdownRequest> {
-            return StreamSupport.stream(spliterator(), false)
-        }
     }
 
     override fun equals(other: Any?): Boolean {

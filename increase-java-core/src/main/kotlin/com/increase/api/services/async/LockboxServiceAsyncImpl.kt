@@ -192,6 +192,7 @@ class LockboxServiceAsyncImpl internal constructor(private val clientOptions: Cl
                             .let {
                                 LockboxListPageAsync.builder()
                                     .service(LockboxServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
                                     .params(params)
                                     .response(it)
                                     .build()

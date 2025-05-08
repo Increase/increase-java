@@ -112,6 +112,7 @@ internal constructor(private val clientOptions: ClientOptions) : DigitalWalletTo
                             .let {
                                 DigitalWalletTokenListPageAsync.builder()
                                     .service(DigitalWalletTokenServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
                                     .params(params)
                                     .response(it)
                                     .build()

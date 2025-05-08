@@ -120,6 +120,7 @@ internal constructor(private val clientOptions: ClientOptions) :
                                     .service(
                                         InboundWireDrawdownRequestServiceAsyncImpl(clientOptions)
                                     )
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
                                     .params(params)
                                     .response(it)
                                     .build()

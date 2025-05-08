@@ -209,6 +209,7 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
                             .let {
                                 EntityListPageAsync.builder()
                                     .service(EntityServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
                                     .params(params)
                                     .response(it)
                                     .build()

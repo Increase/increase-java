@@ -170,6 +170,7 @@ internal constructor(private val clientOptions: ClientOptions) : PhysicalCardPro
                             .let {
                                 PhysicalCardProfileListPageAsync.builder()
                                     .service(PhysicalCardProfileServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
                                     .params(params)
                                     .response(it)
                                     .build()

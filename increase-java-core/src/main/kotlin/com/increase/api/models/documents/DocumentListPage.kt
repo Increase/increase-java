@@ -2,12 +2,12 @@
 
 package com.increase.api.models.documents
 
+import com.increase.api.core.AutoPager
+import com.increase.api.core.Page
 import com.increase.api.core.checkRequired
 import com.increase.api.services.blocking.DocumentService
 import java.util.Objects
 import java.util.Optional
-import java.util.stream.Stream
-import java.util.stream.StreamSupport
 import kotlin.jvm.optionals.getOrNull
 
 /** @see [DocumentService.list] */
@@ -16,7 +16,7 @@ private constructor(
     private val service: DocumentService,
     private val params: DocumentListParams,
     private val response: DocumentListPageResponse,
-) {
+) : Page<Document> {
 
     /**
      * Delegates to [DocumentListPageResponse], but gracefully handles missing data.
@@ -32,21 +32,20 @@ private constructor(
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 
-    fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor().isPresent
+    override fun items(): List<Document> = data()
 
-    fun getNextPageParams(): Optional<DocumentListParams> {
-        if (!hasNextPage()) {
-            return Optional.empty()
-        }
+    override fun hasNextPage(): Boolean = items().isNotEmpty() && nextCursor().isPresent
 
-        return Optional.of(
-            params.toBuilder().apply { nextCursor().ifPresent { cursor(it) } }.build()
-        )
+    fun nextPageParams(): DocumentListParams {
+        val nextCursor =
+            nextCursor().getOrNull()
+                ?: throw IllegalStateException("Cannot construct next page params")
+        return params.toBuilder().cursor(nextCursor).build()
     }
 
-    fun getNextPage(): Optional<DocumentListPage> = getNextPageParams().map { service.list(it) }
+    override fun nextPage(): DocumentListPage = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager = AutoPager(this)
+    fun autoPager(): AutoPager<Document> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): DocumentListParams = params
@@ -113,25 +112,6 @@ private constructor(
                 checkRequired("params", params),
                 checkRequired("response", response),
             )
-    }
-
-    class AutoPager(private val firstPage: DocumentListPage) : Iterable<Document> {
-
-        override fun iterator(): Iterator<Document> = iterator {
-            var page = firstPage
-            var index = 0
-            while (true) {
-                while (index < page.data().size) {
-                    yield(page.data()[index++])
-                }
-                page = page.getNextPage().getOrNull() ?: break
-                index = 0
-            }
-        }
-
-        fun stream(): Stream<Document> {
-            return StreamSupport.stream(spliterator(), false)
-        }
     }
 
     override fun equals(other: Any?): Boolean {

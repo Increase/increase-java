@@ -112,6 +112,7 @@ internal constructor(private val clientOptions: ClientOptions) : PendingTransact
                             .let {
                                 PendingTransactionListPageAsync.builder()
                                     .service(PendingTransactionServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
                                     .params(params)
                                     .response(it)
                                     .build()

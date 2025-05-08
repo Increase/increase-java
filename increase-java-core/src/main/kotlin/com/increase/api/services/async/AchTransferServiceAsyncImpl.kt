@@ -167,6 +167,7 @@ class AchTransferServiceAsyncImpl internal constructor(private val clientOptions
                             .let {
                                 AchTransferListPageAsync.builder()
                                     .service(AchTransferServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
                                     .params(params)
                                     .response(it)
                                     .build()

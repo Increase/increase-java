@@ -167,6 +167,7 @@ internal constructor(private val clientOptions: ClientOptions) : AccountTransfer
                             .let {
                                 AccountTransferListPageAsync.builder()
                                     .service(AccountTransferServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
                                     .params(params)
                                     .response(it)
                                     .build()

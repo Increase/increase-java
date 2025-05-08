@@ -112,6 +112,7 @@ internal constructor(private val clientOptions: ClientOptions) : AccountStatemen
                             .let {
                                 AccountStatementListPageAsync.builder()
                                     .service(AccountStatementServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
                                     .params(params)
                                     .response(it)
                                     .build()

@@ -167,6 +167,7 @@ class WireTransferServiceAsyncImpl internal constructor(private val clientOption
                             .let {
                                 WireTransferListPageAsync.builder()
                                     .service(WireTransferServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
                                     .params(params)
                                     .response(it)
                                     .build()

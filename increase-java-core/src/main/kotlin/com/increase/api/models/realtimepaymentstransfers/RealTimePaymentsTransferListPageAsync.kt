@@ -2,22 +2,24 @@
 
 package com.increase.api.models.realtimepaymentstransfers
 
+import com.increase.api.core.AutoPagerAsync
+import com.increase.api.core.PageAsync
 import com.increase.api.core.checkRequired
 import com.increase.api.services.async.RealTimePaymentsTransferServiceAsync
 import java.util.Objects
 import java.util.Optional
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executor
-import java.util.function.Predicate
 import kotlin.jvm.optionals.getOrNull
 
 /** @see [RealTimePaymentsTransferServiceAsync.list] */
 class RealTimePaymentsTransferListPageAsync
 private constructor(
     private val service: RealTimePaymentsTransferServiceAsync,
+    private val streamHandlerExecutor: Executor,
     private val params: RealTimePaymentsTransferListParams,
     private val response: RealTimePaymentsTransferListPageResponse,
-) {
+) : PageAsync<RealTimePaymentsTransfer> {
 
     /**
      * Delegates to [RealTimePaymentsTransferListPageResponse], but gracefully handles missing data.
@@ -34,24 +36,22 @@ private constructor(
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 
-    fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor().isPresent
+    override fun items(): List<RealTimePaymentsTransfer> = data()
 
-    fun getNextPageParams(): Optional<RealTimePaymentsTransferListParams> {
-        if (!hasNextPage()) {
-            return Optional.empty()
-        }
+    override fun hasNextPage(): Boolean = items().isNotEmpty() && nextCursor().isPresent
 
-        return Optional.of(
-            params.toBuilder().apply { nextCursor().ifPresent { cursor(it) } }.build()
-        )
+    fun nextPageParams(): RealTimePaymentsTransferListParams {
+        val nextCursor =
+            nextCursor().getOrNull()
+                ?: throw IllegalStateException("Cannot construct next page params")
+        return params.toBuilder().cursor(nextCursor).build()
     }
 
-    fun getNextPage(): CompletableFuture<Optional<RealTimePaymentsTransferListPageAsync>> =
-        getNextPageParams()
-            .map { service.list(it).thenApply { Optional.of(it) } }
-            .orElseGet { CompletableFuture.completedFuture(Optional.empty()) }
+    override fun nextPage(): CompletableFuture<RealTimePaymentsTransferListPageAsync> =
+        service.list(nextPageParams())
 
-    fun autoPager(): AutoPager = AutoPager(this)
+    fun autoPager(): AutoPagerAsync<RealTimePaymentsTransfer> =
+        AutoPagerAsync.from(this, streamHandlerExecutor)
 
     /** The parameters that were used to request this page. */
     fun params(): RealTimePaymentsTransferListParams = params
@@ -70,6 +70,7 @@ private constructor(
          * The following fields are required:
          * ```java
          * .service()
+         * .streamHandlerExecutor()
          * .params()
          * .response()
          * ```
@@ -81,6 +82,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var service: RealTimePaymentsTransferServiceAsync? = null
+        private var streamHandlerExecutor: Executor? = null
         private var params: RealTimePaymentsTransferListParams? = null
         private var response: RealTimePaymentsTransferListPageResponse? = null
 
@@ -89,12 +91,17 @@ private constructor(
             realTimePaymentsTransferListPageAsync: RealTimePaymentsTransferListPageAsync
         ) = apply {
             service = realTimePaymentsTransferListPageAsync.service
+            streamHandlerExecutor = realTimePaymentsTransferListPageAsync.streamHandlerExecutor
             params = realTimePaymentsTransferListPageAsync.params
             response = realTimePaymentsTransferListPageAsync.response
         }
 
         fun service(service: RealTimePaymentsTransferServiceAsync) = apply {
             this.service = service
+        }
+
+        fun streamHandlerExecutor(streamHandlerExecutor: Executor) = apply {
+            this.streamHandlerExecutor = streamHandlerExecutor
         }
 
         /** The parameters that were used to request this page. */
@@ -113,6 +120,7 @@ private constructor(
          * The following fields are required:
          * ```java
          * .service()
+         * .streamHandlerExecutor()
          * .params()
          * .response()
          * ```
@@ -122,38 +130,10 @@ private constructor(
         fun build(): RealTimePaymentsTransferListPageAsync =
             RealTimePaymentsTransferListPageAsync(
                 checkRequired("service", service),
+                checkRequired("streamHandlerExecutor", streamHandlerExecutor),
                 checkRequired("params", params),
                 checkRequired("response", response),
             )
-    }
-
-    class AutoPager(private val firstPage: RealTimePaymentsTransferListPageAsync) {
-
-        fun forEach(
-            action: Predicate<RealTimePaymentsTransfer>,
-            executor: Executor,
-        ): CompletableFuture<Void> {
-            fun CompletableFuture<Optional<RealTimePaymentsTransferListPageAsync>>.forEach(
-                action: (RealTimePaymentsTransfer) -> Boolean,
-                executor: Executor,
-            ): CompletableFuture<Void> =
-                thenComposeAsync(
-                    { page ->
-                        page
-                            .filter { it.data().all(action) }
-                            .map { it.getNextPage().forEach(action, executor) }
-                            .orElseGet { CompletableFuture.completedFuture(null) }
-                    },
-                    executor,
-                )
-            return CompletableFuture.completedFuture(Optional.of(firstPage))
-                .forEach(action::test, executor)
-        }
-
-        fun toList(executor: Executor): CompletableFuture<List<RealTimePaymentsTransfer>> {
-            val values = mutableListOf<RealTimePaymentsTransfer>()
-            return forEach(values::add, executor).thenApply { values }
-        }
     }
 
     override fun equals(other: Any?): Boolean {
@@ -161,11 +141,11 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is RealTimePaymentsTransferListPageAsync && service == other.service && params == other.params && response == other.response /* spotless:on */
+        return /* spotless:off */ other is RealTimePaymentsTransferListPageAsync && service == other.service && streamHandlerExecutor == other.streamHandlerExecutor && params == other.params && response == other.response /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, params, response) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, streamHandlerExecutor, params, response) /* spotless:on */
 
     override fun toString() =
-        "RealTimePaymentsTransferListPageAsync{service=$service, params=$params, response=$response}"
+        "RealTimePaymentsTransferListPageAsync{service=$service, streamHandlerExecutor=$streamHandlerExecutor, params=$params, response=$response}"
 }

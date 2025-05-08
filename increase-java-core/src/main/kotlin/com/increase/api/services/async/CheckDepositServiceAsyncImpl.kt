@@ -151,6 +151,7 @@ class CheckDepositServiceAsyncImpl internal constructor(private val clientOption
                             .let {
                                 CheckDepositListPageAsync.builder()
                                     .service(CheckDepositServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
                                     .params(params)
                                     .response(it)
                                     .build()

@@ -111,6 +111,7 @@ internal constructor(private val clientOptions: ClientOptions) : SupplementalDoc
                             .let {
                                 SupplementalDocumentListPageAsync.builder()
                                     .service(SupplementalDocumentServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
                                     .params(params)
                                     .response(it)
                                     .build()

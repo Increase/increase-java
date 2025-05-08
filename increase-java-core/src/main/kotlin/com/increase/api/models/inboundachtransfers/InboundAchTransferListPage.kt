@@ -2,12 +2,12 @@
 
 package com.increase.api.models.inboundachtransfers
 
+import com.increase.api.core.AutoPager
+import com.increase.api.core.Page
 import com.increase.api.core.checkRequired
 import com.increase.api.services.blocking.InboundAchTransferService
 import java.util.Objects
 import java.util.Optional
-import java.util.stream.Stream
-import java.util.stream.StreamSupport
 import kotlin.jvm.optionals.getOrNull
 
 /** @see [InboundAchTransferService.list] */
@@ -16,7 +16,7 @@ private constructor(
     private val service: InboundAchTransferService,
     private val params: InboundAchTransferListParams,
     private val response: InboundAchTransferListPageResponse,
-) {
+) : Page<InboundAchTransfer> {
 
     /**
      * Delegates to [InboundAchTransferListPageResponse], but gracefully handles missing data.
@@ -33,22 +33,20 @@ private constructor(
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 
-    fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor().isPresent
+    override fun items(): List<InboundAchTransfer> = data()
 
-    fun getNextPageParams(): Optional<InboundAchTransferListParams> {
-        if (!hasNextPage()) {
-            return Optional.empty()
-        }
+    override fun hasNextPage(): Boolean = items().isNotEmpty() && nextCursor().isPresent
 
-        return Optional.of(
-            params.toBuilder().apply { nextCursor().ifPresent { cursor(it) } }.build()
-        )
+    fun nextPageParams(): InboundAchTransferListParams {
+        val nextCursor =
+            nextCursor().getOrNull()
+                ?: throw IllegalStateException("Cannot construct next page params")
+        return params.toBuilder().cursor(nextCursor).build()
     }
 
-    fun getNextPage(): Optional<InboundAchTransferListPage> =
-        getNextPageParams().map { service.list(it) }
+    override fun nextPage(): InboundAchTransferListPage = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager = AutoPager(this)
+    fun autoPager(): AutoPager<InboundAchTransfer> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): InboundAchTransferListParams = params
@@ -117,26 +115,6 @@ private constructor(
                 checkRequired("params", params),
                 checkRequired("response", response),
             )
-    }
-
-    class AutoPager(private val firstPage: InboundAchTransferListPage) :
-        Iterable<InboundAchTransfer> {
-
-        override fun iterator(): Iterator<InboundAchTransfer> = iterator {
-            var page = firstPage
-            var index = 0
-            while (true) {
-                while (index < page.data().size) {
-                    yield(page.data()[index++])
-                }
-                page = page.getNextPage().getOrNull() ?: break
-                index = 0
-            }
-        }
-
-        fun stream(): Stream<InboundAchTransfer> {
-            return StreamSupport.stream(spliterator(), false)
-        }
     }
 
     override fun equals(other: Any?): Boolean {

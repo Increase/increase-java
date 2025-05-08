@@ -2,22 +2,24 @@
 
 package com.increase.api.models.physicalcards
 
+import com.increase.api.core.AutoPagerAsync
+import com.increase.api.core.PageAsync
 import com.increase.api.core.checkRequired
 import com.increase.api.services.async.PhysicalCardServiceAsync
 import java.util.Objects
 import java.util.Optional
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executor
-import java.util.function.Predicate
 import kotlin.jvm.optionals.getOrNull
 
 /** @see [PhysicalCardServiceAsync.list] */
 class PhysicalCardListPageAsync
 private constructor(
     private val service: PhysicalCardServiceAsync,
+    private val streamHandlerExecutor: Executor,
     private val params: PhysicalCardListParams,
     private val response: PhysicalCardListPageResponse,
-) {
+) : PageAsync<PhysicalCard> {
 
     /**
      * Delegates to [PhysicalCardListPageResponse], but gracefully handles missing data.
@@ -33,24 +35,21 @@ private constructor(
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 
-    fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor().isPresent
+    override fun items(): List<PhysicalCard> = data()
 
-    fun getNextPageParams(): Optional<PhysicalCardListParams> {
-        if (!hasNextPage()) {
-            return Optional.empty()
-        }
+    override fun hasNextPage(): Boolean = items().isNotEmpty() && nextCursor().isPresent
 
-        return Optional.of(
-            params.toBuilder().apply { nextCursor().ifPresent { cursor(it) } }.build()
-        )
+    fun nextPageParams(): PhysicalCardListParams {
+        val nextCursor =
+            nextCursor().getOrNull()
+                ?: throw IllegalStateException("Cannot construct next page params")
+        return params.toBuilder().cursor(nextCursor).build()
     }
 
-    fun getNextPage(): CompletableFuture<Optional<PhysicalCardListPageAsync>> =
-        getNextPageParams()
-            .map { service.list(it).thenApply { Optional.of(it) } }
-            .orElseGet { CompletableFuture.completedFuture(Optional.empty()) }
+    override fun nextPage(): CompletableFuture<PhysicalCardListPageAsync> =
+        service.list(nextPageParams())
 
-    fun autoPager(): AutoPager = AutoPager(this)
+    fun autoPager(): AutoPagerAsync<PhysicalCard> = AutoPagerAsync.from(this, streamHandlerExecutor)
 
     /** The parameters that were used to request this page. */
     fun params(): PhysicalCardListParams = params
@@ -68,6 +67,7 @@ private constructor(
          * The following fields are required:
          * ```java
          * .service()
+         * .streamHandlerExecutor()
          * .params()
          * .response()
          * ```
@@ -79,17 +79,23 @@ private constructor(
     class Builder internal constructor() {
 
         private var service: PhysicalCardServiceAsync? = null
+        private var streamHandlerExecutor: Executor? = null
         private var params: PhysicalCardListParams? = null
         private var response: PhysicalCardListPageResponse? = null
 
         @JvmSynthetic
         internal fun from(physicalCardListPageAsync: PhysicalCardListPageAsync) = apply {
             service = physicalCardListPageAsync.service
+            streamHandlerExecutor = physicalCardListPageAsync.streamHandlerExecutor
             params = physicalCardListPageAsync.params
             response = physicalCardListPageAsync.response
         }
 
         fun service(service: PhysicalCardServiceAsync) = apply { this.service = service }
+
+        fun streamHandlerExecutor(streamHandlerExecutor: Executor) = apply {
+            this.streamHandlerExecutor = streamHandlerExecutor
+        }
 
         /** The parameters that were used to request this page. */
         fun params(params: PhysicalCardListParams) = apply { this.params = params }
@@ -105,6 +111,7 @@ private constructor(
          * The following fields are required:
          * ```java
          * .service()
+         * .streamHandlerExecutor()
          * .params()
          * .response()
          * ```
@@ -114,35 +121,10 @@ private constructor(
         fun build(): PhysicalCardListPageAsync =
             PhysicalCardListPageAsync(
                 checkRequired("service", service),
+                checkRequired("streamHandlerExecutor", streamHandlerExecutor),
                 checkRequired("params", params),
                 checkRequired("response", response),
             )
-    }
-
-    class AutoPager(private val firstPage: PhysicalCardListPageAsync) {
-
-        fun forEach(action: Predicate<PhysicalCard>, executor: Executor): CompletableFuture<Void> {
-            fun CompletableFuture<Optional<PhysicalCardListPageAsync>>.forEach(
-                action: (PhysicalCard) -> Boolean,
-                executor: Executor,
-            ): CompletableFuture<Void> =
-                thenComposeAsync(
-                    { page ->
-                        page
-                            .filter { it.data().all(action) }
-                            .map { it.getNextPage().forEach(action, executor) }
-                            .orElseGet { CompletableFuture.completedFuture(null) }
-                    },
-                    executor,
-                )
-            return CompletableFuture.completedFuture(Optional.of(firstPage))
-                .forEach(action::test, executor)
-        }
-
-        fun toList(executor: Executor): CompletableFuture<List<PhysicalCard>> {
-            val values = mutableListOf<PhysicalCard>()
-            return forEach(values::add, executor).thenApply { values }
-        }
     }
 
     override fun equals(other: Any?): Boolean {
@@ -150,11 +132,11 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is PhysicalCardListPageAsync && service == other.service && params == other.params && response == other.response /* spotless:on */
+        return /* spotless:off */ other is PhysicalCardListPageAsync && service == other.service && streamHandlerExecutor == other.streamHandlerExecutor && params == other.params && response == other.response /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, params, response) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, streamHandlerExecutor, params, response) /* spotless:on */
 
     override fun toString() =
-        "PhysicalCardListPageAsync{service=$service, params=$params, response=$response}"
+        "PhysicalCardListPageAsync{service=$service, streamHandlerExecutor=$streamHandlerExecutor, params=$params, response=$response}"
 }
