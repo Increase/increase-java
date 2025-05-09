@@ -29,6 +29,12 @@ internal class PhysicalCardProfileServiceTest {
                     .description("My Card Profile")
                     .frontImageFileId("file_o6aex13wm1jcc36sgcj1")
                     .programId("program_i2v2os4mwza1oetokh9i")
+                    .frontText(
+                        PhysicalCardProfileCreateParams.FrontText.builder()
+                            .line1("x")
+                            .line2("x")
+                            .build()
+                    )
                     .build()
             )
 
