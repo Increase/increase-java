@@ -17,6 +17,7 @@ import com.increase.api.core.http.QueryParams
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Collections
 import java.util.Objects
+import java.util.Optional
 
 /**
  * Simulates a [Program](#programs) being created in your group. By default, your group has one
@@ -39,11 +40,27 @@ private constructor(
     fun name(): String = body.name()
 
     /**
+     * The identifier of the Account the Program should be added to is for.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun reserveAccountId(): Optional<String> = body.reserveAccountId()
+
+    /**
      * Returns the raw JSON value of [name].
      *
      * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _name(): JsonField<String> = body._name()
+
+    /**
+     * Returns the raw JSON value of [reserveAccountId].
+     *
+     * Unlike [reserveAccountId], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _reserveAccountId(): JsonField<String> = body._reserveAccountId()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -86,6 +103,7 @@ private constructor(
          * This is generally only useful if you are already constructing the body separately.
          * Otherwise, it's more convenient to use the top-level setters instead:
          * - [name]
+         * - [reserveAccountId]
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
@@ -99,6 +117,22 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun name(name: JsonField<String>) = apply { body.name(name) }
+
+        /** The identifier of the Account the Program should be added to is for. */
+        fun reserveAccountId(reserveAccountId: String) = apply {
+            body.reserveAccountId(reserveAccountId)
+        }
+
+        /**
+         * Sets [Builder.reserveAccountId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.reserveAccountId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun reserveAccountId(reserveAccountId: JsonField<String>) = apply {
+            body.reserveAccountId(reserveAccountId)
+        }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -246,13 +280,17 @@ private constructor(
     class Body
     private constructor(
         private val name: JsonField<String>,
+        private val reserveAccountId: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         @JsonCreator
         private constructor(
-            @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of()
-        ) : this(name, mutableMapOf())
+            @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("reserve_account_id")
+            @ExcludeMissing
+            reserveAccountId: JsonField<String> = JsonMissing.of(),
+        ) : this(name, reserveAccountId, mutableMapOf())
 
         /**
          * The name of the program being added.
@@ -263,11 +301,30 @@ private constructor(
         fun name(): String = name.getRequired("name")
 
         /**
+         * The identifier of the Account the Program should be added to is for.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun reserveAccountId(): Optional<String> =
+            reserveAccountId.getOptional("reserve_account_id")
+
+        /**
          * Returns the raw JSON value of [name].
          *
          * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+
+        /**
+         * Returns the raw JSON value of [reserveAccountId].
+         *
+         * Unlike [reserveAccountId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("reserve_account_id")
+        @ExcludeMissing
+        fun _reserveAccountId(): JsonField<String> = reserveAccountId
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -298,11 +355,13 @@ private constructor(
         class Builder internal constructor() {
 
             private var name: JsonField<String>? = null
+            private var reserveAccountId: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(body: Body) = apply {
                 name = body.name
+                reserveAccountId = body.reserveAccountId
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
@@ -317,6 +376,21 @@ private constructor(
              * value.
              */
             fun name(name: JsonField<String>) = apply { this.name = name }
+
+            /** The identifier of the Account the Program should be added to is for. */
+            fun reserveAccountId(reserveAccountId: String) =
+                reserveAccountId(JsonField.of(reserveAccountId))
+
+            /**
+             * Sets [Builder.reserveAccountId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.reserveAccountId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun reserveAccountId(reserveAccountId: JsonField<String>) = apply {
+                this.reserveAccountId = reserveAccountId
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -350,7 +424,11 @@ private constructor(
              * @throws IllegalStateException if any required field is unset.
              */
             fun build(): Body =
-                Body(checkRequired("name", name), additionalProperties.toMutableMap())
+                Body(
+                    checkRequired("name", name),
+                    reserveAccountId,
+                    additionalProperties.toMutableMap(),
+                )
         }
 
         private var validated: Boolean = false
@@ -361,6 +439,7 @@ private constructor(
             }
 
             name()
+            reserveAccountId()
             validated = true
         }
 
@@ -378,23 +457,27 @@ private constructor(
          *
          * Used for best match union deserialization.
          */
-        @JvmSynthetic internal fun validity(): Int = (if (name.asKnown().isPresent) 1 else 0)
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (name.asKnown().isPresent) 1 else 0) +
+                (if (reserveAccountId.asKnown().isPresent) 1 else 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
             }
 
-            return /* spotless:off */ other is Body && name == other.name && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && name == other.name && reserveAccountId == other.reserveAccountId && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(name, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(name, reserveAccountId, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() = "Body{name=$name, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "Body{name=$name, reserveAccountId=$reserveAccountId, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
