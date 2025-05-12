@@ -9,11 +9,28 @@ internal class ProgramCreateParamsTest {
 
     @Test
     fun create() {
-        ProgramCreateParams.builder().name("For Benefit Of").build()
+        ProgramCreateParams.builder()
+            .name("For Benefit Of")
+            .reserveAccountId("reserve_account_id")
+            .build()
     }
 
     @Test
     fun body() {
+        val params =
+            ProgramCreateParams.builder()
+                .name("For Benefit Of")
+                .reserveAccountId("reserve_account_id")
+                .build()
+
+        val body = params._body()
+
+        assertThat(body.name()).isEqualTo("For Benefit Of")
+        assertThat(body.reserveAccountId()).contains("reserve_account_id")
+    }
+
+    @Test
+    fun bodyWithoutOptionalFields() {
         val params = ProgramCreateParams.builder().name("For Benefit Of").build()
 
         val body = params._body()
