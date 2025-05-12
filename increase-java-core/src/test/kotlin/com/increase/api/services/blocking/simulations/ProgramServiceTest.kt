@@ -21,7 +21,12 @@ internal class ProgramServiceTest {
         val programService = client.simulations().programs()
 
         val program =
-            programService.create(ProgramCreateParams.builder().name("For Benefit Of").build())
+            programService.create(
+                ProgramCreateParams.builder()
+                    .name("For Benefit Of")
+                    .reserveAccountId("reserve_account_id")
+                    .build()
+            )
 
         program.validate()
     }
