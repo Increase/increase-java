@@ -10555,6 +10555,9 @@ private constructor(
                 /** Middesk. See https://middesk.com for more information. */
                 @JvmField val MIDDESK = of("middesk")
 
+                /** Oscilar. See https://oscilar.com for more information. */
+                @JvmField val OSCILAR = of("oscilar")
+
                 @JvmStatic fun of(value: String) = Vendor(JsonField.of(value))
             }
 
@@ -10564,6 +10567,8 @@ private constructor(
                 ALLOY,
                 /** Middesk. See https://middesk.com for more information. */
                 MIDDESK,
+                /** Oscilar. See https://oscilar.com for more information. */
+                OSCILAR,
             }
 
             /**
@@ -10580,6 +10585,8 @@ private constructor(
                 ALLOY,
                 /** Middesk. See https://middesk.com for more information. */
                 MIDDESK,
+                /** Oscilar. See https://oscilar.com for more information. */
+                OSCILAR,
                 /**
                  * An enum member indicating that [Vendor] was instantiated with an unknown value.
                  */
@@ -10597,6 +10604,7 @@ private constructor(
                 when (this) {
                     ALLOY -> Value.ALLOY
                     MIDDESK -> Value.MIDDESK
+                    OSCILAR -> Value.OSCILAR
                     else -> Value._UNKNOWN
                 }
 
@@ -10613,6 +10621,7 @@ private constructor(
                 when (this) {
                     ALLOY -> Known.ALLOY
                     MIDDESK -> Known.MIDDESK
+                    OSCILAR -> Known.OSCILAR
                     else -> throw IncreaseInvalidDataException("Unknown Vendor: $value")
                 }
 
