@@ -473,6 +473,15 @@ internal class CardAuthorizationCreateResponseTest {
                                         .build()
                                 )
                                 .other(JsonValue.from(mapOf<String, Any>()))
+                                .outboundCardPushTransferInstruction(
+                                    PendingTransaction.Source.OutboundCardPushTransferInstruction
+                                        .builder()
+                                        .amount(100L)
+                                        .transferId(
+                                            "outbound_card_push_transfer_e0z9rdpamraczh4tvwye"
+                                        )
+                                        .build()
+                                )
                                 .realTimePaymentsTransferInstruction(
                                     PendingTransaction.Source.RealTimePaymentsTransferInstruction
                                         .builder()
@@ -946,6 +955,13 @@ internal class CardAuthorizationCreateResponseTest {
                                     .build()
                             )
                             .other(JsonValue.from(mapOf<String, Any>()))
+                            .outboundCardPushTransferInstruction(
+                                PendingTransaction.Source.OutboundCardPushTransferInstruction
+                                    .builder()
+                                    .amount(100L)
+                                    .transferId("outbound_card_push_transfer_e0z9rdpamraczh4tvwye")
+                                    .build()
+                            )
                             .realTimePaymentsTransferInstruction(
                                 PendingTransaction.Source.RealTimePaymentsTransferInstruction
                                     .builder()
@@ -1440,6 +1456,15 @@ internal class CardAuthorizationCreateResponseTest {
                                         .build()
                                 )
                                 .other(JsonValue.from(mapOf<String, Any>()))
+                                .outboundCardPushTransferInstruction(
+                                    PendingTransaction.Source.OutboundCardPushTransferInstruction
+                                        .builder()
+                                        .amount(100L)
+                                        .transferId(
+                                            "outbound_card_push_transfer_e0z9rdpamraczh4tvwye"
+                                        )
+                                        .build()
+                                )
                                 .realTimePaymentsTransferInstruction(
                                     PendingTransaction.Source.RealTimePaymentsTransferInstruction
                                         .builder()

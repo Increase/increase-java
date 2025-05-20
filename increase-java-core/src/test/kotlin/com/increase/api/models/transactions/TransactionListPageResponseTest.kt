@@ -856,6 +856,14 @@ internal class TransactionListPageResponseTest {
                                         .build()
                                 )
                                 .other(JsonValue.from(mapOf<String, Any>()))
+                                .outboundCardPushTransferAcceptance(
+                                    Transaction.Source.OutboundCardPushTransferAcceptance.builder()
+                                        .amount(100L)
+                                        .transferId(
+                                            "outbound_card_push_transfer_e0z9rdpamraczh4tvwye"
+                                        )
+                                        .build()
+                                )
                                 .realTimePaymentsTransferAcknowledgement(
                                     Transaction.Source.RealTimePaymentsTransferAcknowledgement
                                         .builder()
@@ -1701,6 +1709,12 @@ internal class TransactionListPageResponseTest {
                                     .build()
                             )
                             .other(JsonValue.from(mapOf<String, Any>()))
+                            .outboundCardPushTransferAcceptance(
+                                Transaction.Source.OutboundCardPushTransferAcceptance.builder()
+                                    .amount(100L)
+                                    .transferId("outbound_card_push_transfer_e0z9rdpamraczh4tvwye")
+                                    .build()
+                            )
                             .realTimePaymentsTransferAcknowledgement(
                                 Transaction.Source.RealTimePaymentsTransferAcknowledgement.builder()
                                     .amount(100L)
@@ -2582,6 +2596,14 @@ internal class TransactionListPageResponseTest {
                                         .build()
                                 )
                                 .other(JsonValue.from(mapOf<String, Any>()))
+                                .outboundCardPushTransferAcceptance(
+                                    Transaction.Source.OutboundCardPushTransferAcceptance.builder()
+                                        .amount(100L)
+                                        .transferId(
+                                            "outbound_card_push_transfer_e0z9rdpamraczh4tvwye"
+                                        )
+                                        .build()
+                                )
                                 .realTimePaymentsTransferAcknowledgement(
                                     Transaction.Source.RealTimePaymentsTransferAcknowledgement
                                         .builder()

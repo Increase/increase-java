@@ -487,6 +487,14 @@ private constructor(
                  */
                 @JvmField val SWIFT_TRANSFER_INSTRUCTION = of("swift_transfer_instruction")
 
+                /**
+                 * Outbound Card Push Transfer Instruction: details will be under the
+                 * `outbound_card_push_transfer_instruction` object.
+                 */
+                @JvmField
+                val OUTBOUND_CARD_PUSH_TRANSFER_INSTRUCTION =
+                    of("outbound_card_push_transfer_instruction")
+
                 /** The Pending Transaction was made for an undocumented or deprecated reason. */
                 @JvmField val OTHER = of("other")
 
@@ -539,6 +547,11 @@ private constructor(
                  * `swift_transfer_instruction` object.
                  */
                 SWIFT_TRANSFER_INSTRUCTION,
+                /**
+                 * Outbound Card Push Transfer Instruction: details will be under the
+                 * `outbound_card_push_transfer_instruction` object.
+                 */
+                OUTBOUND_CARD_PUSH_TRANSFER_INSTRUCTION,
                 /** The Pending Transaction was made for an undocumented or deprecated reason. */
                 OTHER,
             }
@@ -597,6 +610,11 @@ private constructor(
                  * `swift_transfer_instruction` object.
                  */
                 SWIFT_TRANSFER_INSTRUCTION,
+                /**
+                 * Outbound Card Push Transfer Instruction: details will be under the
+                 * `outbound_card_push_transfer_instruction` object.
+                 */
+                OUTBOUND_CARD_PUSH_TRANSFER_INSTRUCTION,
                 /** The Pending Transaction was made for an undocumented or deprecated reason. */
                 OTHER,
                 /** An enum member indicating that [In] was instantiated with an unknown value. */
@@ -623,6 +641,8 @@ private constructor(
                     WIRE_TRANSFER_INSTRUCTION -> Value.WIRE_TRANSFER_INSTRUCTION
                     INBOUND_WIRE_TRANSFER_REVERSAL -> Value.INBOUND_WIRE_TRANSFER_REVERSAL
                     SWIFT_TRANSFER_INSTRUCTION -> Value.SWIFT_TRANSFER_INSTRUCTION
+                    OUTBOUND_CARD_PUSH_TRANSFER_INSTRUCTION ->
+                        Value.OUTBOUND_CARD_PUSH_TRANSFER_INSTRUCTION
                     OTHER -> Value.OTHER
                     else -> Value._UNKNOWN
                 }
@@ -649,6 +669,8 @@ private constructor(
                     WIRE_TRANSFER_INSTRUCTION -> Known.WIRE_TRANSFER_INSTRUCTION
                     INBOUND_WIRE_TRANSFER_REVERSAL -> Known.INBOUND_WIRE_TRANSFER_REVERSAL
                     SWIFT_TRANSFER_INSTRUCTION -> Known.SWIFT_TRANSFER_INSTRUCTION
+                    OUTBOUND_CARD_PUSH_TRANSFER_INSTRUCTION ->
+                        Known.OUTBOUND_CARD_PUSH_TRANSFER_INSTRUCTION
                     OTHER -> Known.OTHER
                     else -> throw IncreaseInvalidDataException("Unknown In: $value")
                 }

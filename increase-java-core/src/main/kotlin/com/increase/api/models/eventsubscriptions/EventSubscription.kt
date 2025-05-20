@@ -709,6 +709,14 @@ private constructor(
             /** Occurs whenever an OAuth Connection is deactivated. */
             @JvmField val OAUTH_CONNECTION_DEACTIVATED = of("oauth_connection.deactivated")
 
+            /** Occurs whenever an Outbound Card Push Transfer is created. */
+            @JvmField
+            val OUTBOUND_CARD_PUSH_TRANSFER_CREATED = of("outbound_card_push_transfer.created")
+
+            /** Occurs whenever an Outbound Card Push Transfer is updated. */
+            @JvmField
+            val OUTBOUND_CARD_PUSH_TRANSFER_UPDATED = of("outbound_card_push_transfer.updated")
+
             /** Occurs whenever a Pending Transaction is created. */
             @JvmField val PENDING_TRANSACTION_CREATED = of("pending_transaction.created")
 
@@ -944,6 +952,10 @@ private constructor(
             OAUTH_CONNECTION_CREATED,
             /** Occurs whenever an OAuth Connection is deactivated. */
             OAUTH_CONNECTION_DEACTIVATED,
+            /** Occurs whenever an Outbound Card Push Transfer is created. */
+            OUTBOUND_CARD_PUSH_TRANSFER_CREATED,
+            /** Occurs whenever an Outbound Card Push Transfer is updated. */
+            OUTBOUND_CARD_PUSH_TRANSFER_UPDATED,
             /** Occurs whenever a Pending Transaction is created. */
             PENDING_TRANSACTION_CREATED,
             /** Occurs whenever a Pending Transaction is updated. */
@@ -1145,6 +1157,10 @@ private constructor(
             OAUTH_CONNECTION_CREATED,
             /** Occurs whenever an OAuth Connection is deactivated. */
             OAUTH_CONNECTION_DEACTIVATED,
+            /** Occurs whenever an Outbound Card Push Transfer is created. */
+            OUTBOUND_CARD_PUSH_TRANSFER_CREATED,
+            /** Occurs whenever an Outbound Card Push Transfer is updated. */
+            OUTBOUND_CARD_PUSH_TRANSFER_UPDATED,
             /** Occurs whenever a Pending Transaction is created. */
             PENDING_TRANSACTION_CREATED,
             /** Occurs whenever a Pending Transaction is updated. */
@@ -1284,6 +1300,8 @@ private constructor(
                 LOCKBOX_UPDATED -> Value.LOCKBOX_UPDATED
                 OAUTH_CONNECTION_CREATED -> Value.OAUTH_CONNECTION_CREATED
                 OAUTH_CONNECTION_DEACTIVATED -> Value.OAUTH_CONNECTION_DEACTIVATED
+                OUTBOUND_CARD_PUSH_TRANSFER_CREATED -> Value.OUTBOUND_CARD_PUSH_TRANSFER_CREATED
+                OUTBOUND_CARD_PUSH_TRANSFER_UPDATED -> Value.OUTBOUND_CARD_PUSH_TRANSFER_UPDATED
                 PENDING_TRANSACTION_CREATED -> Value.PENDING_TRANSACTION_CREATED
                 PENDING_TRANSACTION_UPDATED -> Value.PENDING_TRANSACTION_UPDATED
                 PHYSICAL_CARD_CREATED -> Value.PHYSICAL_CARD_CREATED
@@ -1395,6 +1413,8 @@ private constructor(
                 LOCKBOX_UPDATED -> Known.LOCKBOX_UPDATED
                 OAUTH_CONNECTION_CREATED -> Known.OAUTH_CONNECTION_CREATED
                 OAUTH_CONNECTION_DEACTIVATED -> Known.OAUTH_CONNECTION_DEACTIVATED
+                OUTBOUND_CARD_PUSH_TRANSFER_CREATED -> Known.OUTBOUND_CARD_PUSH_TRANSFER_CREATED
+                OUTBOUND_CARD_PUSH_TRANSFER_UPDATED -> Known.OUTBOUND_CARD_PUSH_TRANSFER_UPDATED
                 PENDING_TRANSACTION_CREATED -> Known.PENDING_TRANSACTION_CREATED
                 PENDING_TRANSACTION_UPDATED -> Known.PENDING_TRANSACTION_UPDATED
                 PHYSICAL_CARD_CREATED -> Known.PHYSICAL_CARD_CREATED
