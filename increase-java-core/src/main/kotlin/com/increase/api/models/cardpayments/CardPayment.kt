@@ -7696,6 +7696,9 @@ private constructor(
                     /** A transaction used to pay a bill. */
                     @JvmField val BILL_PAYMENT = of("bill_payment")
 
+                    /** Original credit transactions are used to send money to a cardholder. */
+                    @JvmField val ORIGINAL_CREDIT = of("original_credit")
+
                     /** A regular purchase. */
                     @JvmField val PURCHASE = of("purchase")
 
@@ -7729,6 +7732,8 @@ private constructor(
                     AUTOMATIC_FUEL_DISPENSER,
                     /** A transaction used to pay a bill. */
                     BILL_PAYMENT,
+                    /** Original credit transactions are used to send money to a cardholder. */
+                    ORIGINAL_CREDIT,
                     /** A regular purchase. */
                     PURCHASE,
                     /**
@@ -7768,6 +7773,8 @@ private constructor(
                     AUTOMATIC_FUEL_DISPENSER,
                     /** A transaction used to pay a bill. */
                     BILL_PAYMENT,
+                    /** Original credit transactions are used to send money to a cardholder. */
+                    ORIGINAL_CREDIT,
                     /** A regular purchase. */
                     PURCHASE,
                     /**
@@ -7799,6 +7806,7 @@ private constructor(
                         ACCOUNT_FUNDING -> Value.ACCOUNT_FUNDING
                         AUTOMATIC_FUEL_DISPENSER -> Value.AUTOMATIC_FUEL_DISPENSER
                         BILL_PAYMENT -> Value.BILL_PAYMENT
+                        ORIGINAL_CREDIT -> Value.ORIGINAL_CREDIT
                         PURCHASE -> Value.PURCHASE
                         QUASI_CASH -> Value.QUASI_CASH
                         REFUND -> Value.REFUND
@@ -7819,6 +7827,7 @@ private constructor(
                         ACCOUNT_FUNDING -> Known.ACCOUNT_FUNDING
                         AUTOMATIC_FUEL_DISPENSER -> Known.AUTOMATIC_FUEL_DISPENSER
                         BILL_PAYMENT -> Known.BILL_PAYMENT
+                        ORIGINAL_CREDIT -> Known.ORIGINAL_CREDIT
                         PURCHASE -> Known.PURCHASE
                         QUASI_CASH -> Known.QUASI_CASH
                         REFUND -> Known.REFUND
@@ -13753,6 +13762,9 @@ private constructor(
                     /** A transaction used to pay a bill. */
                     @JvmField val BILL_PAYMENT = of("bill_payment")
 
+                    /** Original credit transactions are used to send money to a cardholder. */
+                    @JvmField val ORIGINAL_CREDIT = of("original_credit")
+
                     /** A regular purchase. */
                     @JvmField val PURCHASE = of("purchase")
 
@@ -13786,6 +13798,8 @@ private constructor(
                     AUTOMATIC_FUEL_DISPENSER,
                     /** A transaction used to pay a bill. */
                     BILL_PAYMENT,
+                    /** Original credit transactions are used to send money to a cardholder. */
+                    ORIGINAL_CREDIT,
                     /** A regular purchase. */
                     PURCHASE,
                     /**
@@ -13825,6 +13839,8 @@ private constructor(
                     AUTOMATIC_FUEL_DISPENSER,
                     /** A transaction used to pay a bill. */
                     BILL_PAYMENT,
+                    /** Original credit transactions are used to send money to a cardholder. */
+                    ORIGINAL_CREDIT,
                     /** A regular purchase. */
                     PURCHASE,
                     /**
@@ -13856,6 +13872,7 @@ private constructor(
                         ACCOUNT_FUNDING -> Value.ACCOUNT_FUNDING
                         AUTOMATIC_FUEL_DISPENSER -> Value.AUTOMATIC_FUEL_DISPENSER
                         BILL_PAYMENT -> Value.BILL_PAYMENT
+                        ORIGINAL_CREDIT -> Value.ORIGINAL_CREDIT
                         PURCHASE -> Value.PURCHASE
                         QUASI_CASH -> Value.QUASI_CASH
                         REFUND -> Value.REFUND
@@ -13876,6 +13893,7 @@ private constructor(
                         ACCOUNT_FUNDING -> Known.ACCOUNT_FUNDING
                         AUTOMATIC_FUEL_DISPENSER -> Known.AUTOMATIC_FUEL_DISPENSER
                         BILL_PAYMENT -> Known.BILL_PAYMENT
+                        ORIGINAL_CREDIT -> Known.ORIGINAL_CREDIT
                         PURCHASE -> Known.PURCHASE
                         QUASI_CASH -> Known.QUASI_CASH
                         REFUND -> Known.REFUND
