@@ -26,6 +26,21 @@ internal class InboundAchTransferServiceTest {
                 InboundAchTransferCreateParams.builder()
                     .accountNumberId("account_number_v18nkfqm6afpsrvy82b2")
                     .amount(1000L)
+                    .addenda(
+                        InboundAchTransferCreateParams.Addenda.builder()
+                            .category(InboundAchTransferCreateParams.Addenda.Category.FREEFORM)
+                            .freeform(
+                                InboundAchTransferCreateParams.Addenda.Freeform.builder()
+                                    .addEntry(
+                                        InboundAchTransferCreateParams.Addenda.Freeform.Entry
+                                            .builder()
+                                            .paymentRelatedInformation("x")
+                                            .build()
+                                    )
+                                    .build()
+                            )
+                            .build()
+                    )
                     .companyDescriptiveDate("x")
                     .companyDiscretionaryData("x")
                     .companyEntryDescription("x")
