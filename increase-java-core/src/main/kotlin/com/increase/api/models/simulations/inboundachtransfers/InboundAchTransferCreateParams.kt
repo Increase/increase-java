@@ -12,9 +12,11 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.Params
+import com.increase.api.core.checkKnown
 import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
+import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Collections
@@ -56,6 +58,14 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun amount(): Long = body.amount()
+
+    /**
+     * Additional information to include in the transfer.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun addenda(): Optional<Addenda> = body.addenda()
 
     /**
      * The description of the date of the transfer.
@@ -142,6 +152,13 @@ private constructor(
      * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _amount(): JsonField<Long> = body._amount()
+
+    /**
+     * Returns the raw JSON value of [addenda].
+     *
+     * Unlike [addenda], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _addenda(): JsonField<Addenda> = body._addenda()
 
     /**
      * Returns the raw JSON value of [companyDescriptiveDate].
@@ -256,9 +273,9 @@ private constructor(
          * Otherwise, it's more convenient to use the top-level setters instead:
          * - [accountNumberId]
          * - [amount]
+         * - [addenda]
          * - [companyDescriptiveDate]
          * - [companyDiscretionaryData]
-         * - [companyEntryDescription]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -293,6 +310,17 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun amount(amount: JsonField<Long>) = apply { body.amount(amount) }
+
+        /** Additional information to include in the transfer. */
+        fun addenda(addenda: Addenda) = apply { body.addenda(addenda) }
+
+        /**
+         * Sets [Builder.addenda] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.addenda] with a well-typed [Addenda] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun addenda(addenda: JsonField<Addenda>) = apply { body.addenda(addenda) }
 
         /** The description of the date of the transfer. */
         fun companyDescriptiveDate(companyDescriptiveDate: String) = apply {
@@ -576,6 +604,7 @@ private constructor(
     private constructor(
         private val accountNumberId: JsonField<String>,
         private val amount: JsonField<Long>,
+        private val addenda: JsonField<Addenda>,
         private val companyDescriptiveDate: JsonField<String>,
         private val companyDiscretionaryData: JsonField<String>,
         private val companyEntryDescription: JsonField<String>,
@@ -594,6 +623,7 @@ private constructor(
             @ExcludeMissing
             accountNumberId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("addenda") @ExcludeMissing addenda: JsonField<Addenda> = JsonMissing.of(),
             @JsonProperty("company_descriptive_date")
             @ExcludeMissing
             companyDescriptiveDate: JsonField<String> = JsonMissing.of(),
@@ -624,6 +654,7 @@ private constructor(
         ) : this(
             accountNumberId,
             amount,
+            addenda,
             companyDescriptiveDate,
             companyDiscretionaryData,
             companyEntryDescription,
@@ -653,6 +684,14 @@ private constructor(
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun amount(): Long = amount.getRequired("amount")
+
+        /**
+         * Additional information to include in the transfer.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun addenda(): Optional<Addenda> = addenda.getOptional("addenda")
 
         /**
          * The description of the date of the transfer.
@@ -748,6 +787,13 @@ private constructor(
          * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
+
+        /**
+         * Returns the raw JSON value of [addenda].
+         *
+         * Unlike [addenda], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("addenda") @ExcludeMissing fun _addenda(): JsonField<Addenda> = addenda
 
         /**
          * Returns the raw JSON value of [companyDescriptiveDate].
@@ -865,6 +911,7 @@ private constructor(
 
             private var accountNumberId: JsonField<String>? = null
             private var amount: JsonField<Long>? = null
+            private var addenda: JsonField<Addenda> = JsonMissing.of()
             private var companyDescriptiveDate: JsonField<String> = JsonMissing.of()
             private var companyDiscretionaryData: JsonField<String> = JsonMissing.of()
             private var companyEntryDescription: JsonField<String> = JsonMissing.of()
@@ -880,6 +927,7 @@ private constructor(
             internal fun from(body: Body) = apply {
                 accountNumberId = body.accountNumberId
                 amount = body.amount
+                addenda = body.addenda
                 companyDescriptiveDate = body.companyDescriptiveDate
                 companyDiscretionaryData = body.companyDiscretionaryData
                 companyEntryDescription = body.companyEntryDescription
@@ -922,6 +970,18 @@ private constructor(
              * value.
              */
             fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+
+            /** Additional information to include in the transfer. */
+            fun addenda(addenda: Addenda) = addenda(JsonField.of(addenda))
+
+            /**
+             * Sets [Builder.addenda] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.addenda] with a well-typed [Addenda] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun addenda(addenda: JsonField<Addenda>) = apply { this.addenda = addenda }
 
             /** The description of the date of the transfer. */
             fun companyDescriptiveDate(companyDescriptiveDate: String) =
@@ -1092,6 +1152,7 @@ private constructor(
                 Body(
                     checkRequired("accountNumberId", accountNumberId),
                     checkRequired("amount", amount),
+                    addenda,
                     companyDescriptiveDate,
                     companyDiscretionaryData,
                     companyEntryDescription,
@@ -1114,6 +1175,7 @@ private constructor(
 
             accountNumberId()
             amount()
+            addenda().ifPresent { it.validate() }
             companyDescriptiveDate()
             companyDiscretionaryData()
             companyEntryDescription()
@@ -1144,6 +1206,7 @@ private constructor(
         internal fun validity(): Int =
             (if (accountNumberId.asKnown().isPresent) 1 else 0) +
                 (if (amount.asKnown().isPresent) 1 else 0) +
+                (addenda.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (companyDescriptiveDate.asKnown().isPresent) 1 else 0) +
                 (if (companyDiscretionaryData.asKnown().isPresent) 1 else 0) +
                 (if (companyEntryDescription.asKnown().isPresent) 1 else 0) +
@@ -1159,17 +1222,701 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Body && accountNumberId == other.accountNumberId && amount == other.amount && companyDescriptiveDate == other.companyDescriptiveDate && companyDiscretionaryData == other.companyDiscretionaryData && companyEntryDescription == other.companyEntryDescription && companyId == other.companyId && companyName == other.companyName && receiverIdNumber == other.receiverIdNumber && receiverName == other.receiverName && resolveAt == other.resolveAt && standardEntryClassCode == other.standardEntryClassCode && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && accountNumberId == other.accountNumberId && amount == other.amount && addenda == other.addenda && companyDescriptiveDate == other.companyDescriptiveDate && companyDiscretionaryData == other.companyDiscretionaryData && companyEntryDescription == other.companyEntryDescription && companyId == other.companyId && companyName == other.companyName && receiverIdNumber == other.receiverIdNumber && receiverName == other.receiverName && resolveAt == other.resolveAt && standardEntryClassCode == other.standardEntryClassCode && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(accountNumberId, amount, companyDescriptiveDate, companyDiscretionaryData, companyEntryDescription, companyId, companyName, receiverIdNumber, receiverName, resolveAt, standardEntryClassCode, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(accountNumberId, amount, addenda, companyDescriptiveDate, companyDiscretionaryData, companyEntryDescription, companyId, companyName, receiverIdNumber, receiverName, resolveAt, standardEntryClassCode, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{accountNumberId=$accountNumberId, amount=$amount, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyId=$companyId, companyName=$companyName, receiverIdNumber=$receiverIdNumber, receiverName=$receiverName, resolveAt=$resolveAt, standardEntryClassCode=$standardEntryClassCode, additionalProperties=$additionalProperties}"
+            "Body{accountNumberId=$accountNumberId, amount=$amount, addenda=$addenda, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyId=$companyId, companyName=$companyName, receiverIdNumber=$receiverIdNumber, receiverName=$receiverName, resolveAt=$resolveAt, standardEntryClassCode=$standardEntryClassCode, additionalProperties=$additionalProperties}"
+    }
+
+    /** Additional information to include in the transfer. */
+    class Addenda
+    private constructor(
+        private val category: JsonField<Category>,
+        private val freeform: JsonField<Freeform>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("category")
+            @ExcludeMissing
+            category: JsonField<Category> = JsonMissing.of(),
+            @JsonProperty("freeform")
+            @ExcludeMissing
+            freeform: JsonField<Freeform> = JsonMissing.of(),
+        ) : this(category, freeform, mutableMapOf())
+
+        /**
+         * The type of addenda to simulate being sent with the transfer.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun category(): Category = category.getRequired("category")
+
+        /**
+         * Unstructured `payment_related_information` passed through with the transfer.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun freeform(): Optional<Freeform> = freeform.getOptional("freeform")
+
+        /**
+         * Returns the raw JSON value of [category].
+         *
+         * Unlike [category], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("category") @ExcludeMissing fun _category(): JsonField<Category> = category
+
+        /**
+         * Returns the raw JSON value of [freeform].
+         *
+         * Unlike [freeform], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("freeform") @ExcludeMissing fun _freeform(): JsonField<Freeform> = freeform
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [Addenda].
+             *
+             * The following fields are required:
+             * ```java
+             * .category()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Addenda]. */
+        class Builder internal constructor() {
+
+            private var category: JsonField<Category>? = null
+            private var freeform: JsonField<Freeform> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(addenda: Addenda) = apply {
+                category = addenda.category
+                freeform = addenda.freeform
+                additionalProperties = addenda.additionalProperties.toMutableMap()
+            }
+
+            /** The type of addenda to simulate being sent with the transfer. */
+            fun category(category: Category) = category(JsonField.of(category))
+
+            /**
+             * Sets [Builder.category] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.category] with a well-typed [Category] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun category(category: JsonField<Category>) = apply { this.category = category }
+
+            /** Unstructured `payment_related_information` passed through with the transfer. */
+            fun freeform(freeform: Freeform) = freeform(JsonField.of(freeform))
+
+            /**
+             * Sets [Builder.freeform] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.freeform] with a well-typed [Freeform] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun freeform(freeform: JsonField<Freeform>) = apply { this.freeform = freeform }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Addenda].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .category()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): Addenda =
+                Addenda(
+                    checkRequired("category", category),
+                    freeform,
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Addenda = apply {
+            if (validated) {
+                return@apply
+            }
+
+            category().validate()
+            freeform().ifPresent { it.validate() }
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (category.asKnown().getOrNull()?.validity() ?: 0) +
+                (freeform.asKnown().getOrNull()?.validity() ?: 0)
+
+        /** The type of addenda to simulate being sent with the transfer. */
+        class Category @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                /** Unstructured `payment_related_information` passed through with the transfer. */
+                @JvmField val FREEFORM = of("freeform")
+
+                @JvmStatic fun of(value: String) = Category(JsonField.of(value))
+            }
+
+            /** An enum containing [Category]'s known values. */
+            enum class Known {
+                /** Unstructured `payment_related_information` passed through with the transfer. */
+                FREEFORM
+            }
+
+            /**
+             * An enum containing [Category]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [Category] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                /** Unstructured `payment_related_information` passed through with the transfer. */
+                FREEFORM,
+                /**
+                 * An enum member indicating that [Category] was instantiated with an unknown value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    FREEFORM -> Value.FREEFORM
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    FREEFORM -> Known.FREEFORM
+                    else -> throw IncreaseInvalidDataException("Unknown Category: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    IncreaseInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            fun validate(): Category = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return /* spotless:off */ other is Category && value == other.value /* spotless:on */
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
+
+        /** Unstructured `payment_related_information` passed through with the transfer. */
+        class Freeform
+        private constructor(
+            private val entries: JsonField<List<Entry>>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("entries")
+                @ExcludeMissing
+                entries: JsonField<List<Entry>> = JsonMissing.of()
+            ) : this(entries, mutableMapOf())
+
+            /**
+             * Each entry represents an addendum sent with the transfer.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun entries(): List<Entry> = entries.getRequired("entries")
+
+            /**
+             * Returns the raw JSON value of [entries].
+             *
+             * Unlike [entries], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("entries")
+            @ExcludeMissing
+            fun _entries(): JsonField<List<Entry>> = entries
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of [Freeform].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .entries()
+                 * ```
+                 */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [Freeform]. */
+            class Builder internal constructor() {
+
+                private var entries: JsonField<MutableList<Entry>>? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(freeform: Freeform) = apply {
+                    entries = freeform.entries.map { it.toMutableList() }
+                    additionalProperties = freeform.additionalProperties.toMutableMap()
+                }
+
+                /** Each entry represents an addendum sent with the transfer. */
+                fun entries(entries: List<Entry>) = entries(JsonField.of(entries))
+
+                /**
+                 * Sets [Builder.entries] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.entries] with a well-typed `List<Entry>` value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun entries(entries: JsonField<List<Entry>>) = apply {
+                    this.entries = entries.map { it.toMutableList() }
+                }
+
+                /**
+                 * Adds a single [Entry] to [entries].
+                 *
+                 * @throws IllegalStateException if the field was previously set to a non-list.
+                 */
+                fun addEntry(entry: Entry) = apply {
+                    entries =
+                        (entries ?: JsonField.of(mutableListOf())).also {
+                            checkKnown("entries", it).add(entry)
+                        }
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [Freeform].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .entries()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
+                fun build(): Freeform =
+                    Freeform(
+                        checkRequired("entries", entries).map { it.toImmutable() },
+                        additionalProperties.toMutableMap(),
+                    )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): Freeform = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                entries().forEach { it.validate() }
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                (entries.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0)
+
+            class Entry
+            private constructor(
+                private val paymentRelatedInformation: JsonField<String>,
+                private val additionalProperties: MutableMap<String, JsonValue>,
+            ) {
+
+                @JsonCreator
+                private constructor(
+                    @JsonProperty("payment_related_information")
+                    @ExcludeMissing
+                    paymentRelatedInformation: JsonField<String> = JsonMissing.of()
+                ) : this(paymentRelatedInformation, mutableMapOf())
+
+                /**
+                 * The payment related information passed in the addendum.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
+                fun paymentRelatedInformation(): String =
+                    paymentRelatedInformation.getRequired("payment_related_information")
+
+                /**
+                 * Returns the raw JSON value of [paymentRelatedInformation].
+                 *
+                 * Unlike [paymentRelatedInformation], this method doesn't throw if the JSON field
+                 * has an unexpected type.
+                 */
+                @JsonProperty("payment_related_information")
+                @ExcludeMissing
+                fun _paymentRelatedInformation(): JsonField<String> = paymentRelatedInformation
+
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /**
+                     * Returns a mutable builder for constructing an instance of [Entry].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .paymentRelatedInformation()
+                     * ```
+                     */
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                /** A builder for [Entry]. */
+                class Builder internal constructor() {
+
+                    private var paymentRelatedInformation: JsonField<String>? = null
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(entry: Entry) = apply {
+                        paymentRelatedInformation = entry.paymentRelatedInformation
+                        additionalProperties = entry.additionalProperties.toMutableMap()
+                    }
+
+                    /** The payment related information passed in the addendum. */
+                    fun paymentRelatedInformation(paymentRelatedInformation: String) =
+                        paymentRelatedInformation(JsonField.of(paymentRelatedInformation))
+
+                    /**
+                     * Sets [Builder.paymentRelatedInformation] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.paymentRelatedInformation] with a well-typed
+                     * [String] value instead. This method is primarily for setting the field to an
+                     * undocumented or not yet supported value.
+                     */
+                    fun paymentRelatedInformation(paymentRelatedInformation: JsonField<String>) =
+                        apply {
+                            this.paymentRelatedInformation = paymentRelatedInformation
+                        }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [Entry].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .paymentRelatedInformation()
+                     * ```
+                     *
+                     * @throws IllegalStateException if any required field is unset.
+                     */
+                    fun build(): Entry =
+                        Entry(
+                            checkRequired("paymentRelatedInformation", paymentRelatedInformation),
+                            additionalProperties.toMutableMap(),
+                        )
+                }
+
+                private var validated: Boolean = false
+
+                fun validate(): Entry = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    paymentRelatedInformation()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic
+                internal fun validity(): Int =
+                    (if (paymentRelatedInformation.asKnown().isPresent) 1 else 0)
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return /* spotless:off */ other is Entry && paymentRelatedInformation == other.paymentRelatedInformation && additionalProperties == other.additionalProperties /* spotless:on */
+                }
+
+                /* spotless:off */
+                private val hashCode: Int by lazy { Objects.hash(paymentRelatedInformation, additionalProperties) }
+                /* spotless:on */
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() =
+                    "Entry{paymentRelatedInformation=$paymentRelatedInformation, additionalProperties=$additionalProperties}"
+            }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return /* spotless:off */ other is Freeform && entries == other.entries && additionalProperties == other.additionalProperties /* spotless:on */
+            }
+
+            /* spotless:off */
+            private val hashCode: Int by lazy { Objects.hash(entries, additionalProperties) }
+            /* spotless:on */
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "Freeform{entries=$entries, additionalProperties=$additionalProperties}"
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is Addenda && category == other.category && freeform == other.freeform && additionalProperties == other.additionalProperties /* spotless:on */
+        }
+
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(category, freeform, additionalProperties) }
+        /* spotless:on */
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Addenda{category=$category, freeform=$freeform, additionalProperties=$additionalProperties}"
     }
 
     /** The standard entry class code for the transfer. */
