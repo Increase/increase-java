@@ -5,6 +5,8 @@ package com.increase.api.services.blocking.simulations
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.models.simulations.physicalcards.PhysicalCardAdvanceShipmentParams
+import com.increase.api.models.simulations.physicalcards.PhysicalCardTrackingUpdatesParams
+import java.time.OffsetDateTime
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -25,6 +27,30 @@ internal class PhysicalCardServiceTest {
                 PhysicalCardAdvanceShipmentParams.builder()
                     .physicalCardId("physical_card_ode8duyq5v2ynhjoharl")
                     .shipmentStatus(PhysicalCardAdvanceShipmentParams.ShipmentStatus.SHIPPED)
+                    .build()
+            )
+
+        physicalCard.validate()
+    }
+
+    @Test
+    fun trackingUpdates() {
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val physicalCardService = client.simulations().physicalCards()
+
+        val physicalCard =
+            physicalCardService.trackingUpdates(
+                PhysicalCardTrackingUpdatesParams.builder()
+                    .physicalCardId("physical_card_ode8duyq5v2ynhjoharl")
+                    .category(PhysicalCardTrackingUpdatesParams.Category.DELIVERED)
+                    .carrierEstimatedDeliveryAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .city("New York")
+                    .postalCode("10045")
+                    .state("NY")
                     .build()
             )
 
