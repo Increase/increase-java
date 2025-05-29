@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.235.1 (2025-05-29)
+
+Full Changelog: [v0.235.0...v0.235.1](https://github.com/Increase/increase-java/compare/v0.235.0...v0.235.1)
+
+### Bug Fixes
+
+* **client:** remove `@MustBeClosed` for future returning methods ([e9b6118](https://github.com/Increase/increase-java/commit/e9b6118dc39abe6df5f4f0b4124d8176325863ba))
+
 ## 0.235.0 (2025-05-28)
 
 Full Changelog: [v0.234.0...v0.235.0](https://github.com/Increase/increase-java/compare/v0.234.0...v0.235.0)
