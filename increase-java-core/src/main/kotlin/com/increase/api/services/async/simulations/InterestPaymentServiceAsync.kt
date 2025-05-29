@@ -2,7 +2,6 @@
 
 package com.increase.api.services.async.simulations
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.simulations.interestpayments.InterestPaymentCreateParams
@@ -39,13 +38,11 @@ interface InterestPaymentServiceAsync {
          * Returns a raw HTTP response for `post /simulations/interest_payments`, but is otherwise
          * the same as [InterestPaymentServiceAsync.create].
          */
-        @MustBeClosed
         fun create(
             params: InterestPaymentCreateParams
         ): CompletableFuture<HttpResponseFor<Transaction>> = create(params, RequestOptions.none())
 
         /** @see [create] */
-        @MustBeClosed
         fun create(
             params: InterestPaymentCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),

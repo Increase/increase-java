@@ -2,7 +2,6 @@
 
 package com.increase.api.services.async
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.cardpayments.CardPayment
@@ -81,12 +80,10 @@ interface CardPaymentServiceAsync {
          * Returns a raw HTTP response for `get /card_payments/{card_payment_id}`, but is otherwise
          * the same as [CardPaymentServiceAsync.retrieve].
          */
-        @MustBeClosed
         fun retrieve(cardPaymentId: String): CompletableFuture<HttpResponseFor<CardPayment>> =
             retrieve(cardPaymentId, CardPaymentRetrieveParams.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             cardPaymentId: String,
             params: CardPaymentRetrieveParams = CardPaymentRetrieveParams.none(),
@@ -95,7 +92,6 @@ interface CardPaymentServiceAsync {
             retrieve(params.toBuilder().cardPaymentId(cardPaymentId).build(), requestOptions)
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             cardPaymentId: String,
             params: CardPaymentRetrieveParams = CardPaymentRetrieveParams.none(),
@@ -103,20 +99,17 @@ interface CardPaymentServiceAsync {
             retrieve(cardPaymentId, params, RequestOptions.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             params: CardPaymentRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<CardPayment>>
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             params: CardPaymentRetrieveParams
         ): CompletableFuture<HttpResponseFor<CardPayment>> = retrieve(params, RequestOptions.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             cardPaymentId: String,
             requestOptions: RequestOptions,
@@ -127,26 +120,22 @@ interface CardPaymentServiceAsync {
          * Returns a raw HTTP response for `get /card_payments`, but is otherwise the same as
          * [CardPaymentServiceAsync.list].
          */
-        @MustBeClosed
         fun list(): CompletableFuture<HttpResponseFor<CardPaymentListPageAsync>> =
             list(CardPaymentListParams.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             params: CardPaymentListParams = CardPaymentListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<CardPaymentListPageAsync>>
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             params: CardPaymentListParams = CardPaymentListParams.none()
         ): CompletableFuture<HttpResponseFor<CardPaymentListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             requestOptions: RequestOptions
         ): CompletableFuture<HttpResponseFor<CardPaymentListPageAsync>> =

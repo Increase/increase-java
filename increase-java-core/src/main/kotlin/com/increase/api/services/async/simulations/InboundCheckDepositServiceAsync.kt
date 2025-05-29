@@ -2,7 +2,6 @@
 
 package com.increase.api.services.async.simulations
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.inboundcheckdeposits.InboundCheckDeposit
@@ -42,14 +41,12 @@ interface InboundCheckDepositServiceAsync {
          * Returns a raw HTTP response for `post /simulations/inbound_check_deposits`, but is
          * otherwise the same as [InboundCheckDepositServiceAsync.create].
          */
-        @MustBeClosed
         fun create(
             params: InboundCheckDepositCreateParams
         ): CompletableFuture<HttpResponseFor<InboundCheckDeposit>> =
             create(params, RequestOptions.none())
 
         /** @see [create] */
-        @MustBeClosed
         fun create(
             params: InboundCheckDepositCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),

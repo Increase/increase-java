@@ -2,7 +2,6 @@
 
 package com.increase.api.services.async.simulations
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.simulations.inboundfundsholds.InboundFundsHoldReleaseParams
@@ -67,14 +66,12 @@ interface InboundFundsHoldServiceAsync {
          * /simulations/inbound_funds_holds/{inbound_funds_hold_id}/release`, but is otherwise the
          * same as [InboundFundsHoldServiceAsync.release].
          */
-        @MustBeClosed
         fun release(
             inboundFundsHoldId: String
         ): CompletableFuture<HttpResponseFor<InboundFundsHoldReleaseResponse>> =
             release(inboundFundsHoldId, InboundFundsHoldReleaseParams.none())
 
         /** @see [release] */
-        @MustBeClosed
         fun release(
             inboundFundsHoldId: String,
             params: InboundFundsHoldReleaseParams = InboundFundsHoldReleaseParams.none(),
@@ -86,7 +83,6 @@ interface InboundFundsHoldServiceAsync {
             )
 
         /** @see [release] */
-        @MustBeClosed
         fun release(
             inboundFundsHoldId: String,
             params: InboundFundsHoldReleaseParams = InboundFundsHoldReleaseParams.none(),
@@ -94,21 +90,18 @@ interface InboundFundsHoldServiceAsync {
             release(inboundFundsHoldId, params, RequestOptions.none())
 
         /** @see [release] */
-        @MustBeClosed
         fun release(
             params: InboundFundsHoldReleaseParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<InboundFundsHoldReleaseResponse>>
 
         /** @see [release] */
-        @MustBeClosed
         fun release(
             params: InboundFundsHoldReleaseParams
         ): CompletableFuture<HttpResponseFor<InboundFundsHoldReleaseResponse>> =
             release(params, RequestOptions.none())
 
         /** @see [release] */
-        @MustBeClosed
         fun release(
             inboundFundsHoldId: String,
             requestOptions: RequestOptions,

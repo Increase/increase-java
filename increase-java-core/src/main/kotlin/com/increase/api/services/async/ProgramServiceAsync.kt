@@ -2,7 +2,6 @@
 
 package com.increase.api.services.async
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.programs.Program
@@ -77,12 +76,10 @@ interface ProgramServiceAsync {
          * Returns a raw HTTP response for `get /programs/{program_id}`, but is otherwise the same
          * as [ProgramServiceAsync.retrieve].
          */
-        @MustBeClosed
         fun retrieve(programId: String): CompletableFuture<HttpResponseFor<Program>> =
             retrieve(programId, ProgramRetrieveParams.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             programId: String,
             params: ProgramRetrieveParams = ProgramRetrieveParams.none(),
@@ -91,7 +88,6 @@ interface ProgramServiceAsync {
             retrieve(params.toBuilder().programId(programId).build(), requestOptions)
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             programId: String,
             params: ProgramRetrieveParams = ProgramRetrieveParams.none(),
@@ -99,19 +95,16 @@ interface ProgramServiceAsync {
             retrieve(programId, params, RequestOptions.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             params: ProgramRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<Program>>
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(params: ProgramRetrieveParams): CompletableFuture<HttpResponseFor<Program>> =
             retrieve(params, RequestOptions.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             programId: String,
             requestOptions: RequestOptions,
@@ -122,26 +115,22 @@ interface ProgramServiceAsync {
          * Returns a raw HTTP response for `get /programs`, but is otherwise the same as
          * [ProgramServiceAsync.list].
          */
-        @MustBeClosed
         fun list(): CompletableFuture<HttpResponseFor<ProgramListPageAsync>> =
             list(ProgramListParams.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             params: ProgramListParams = ProgramListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<ProgramListPageAsync>>
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             params: ProgramListParams = ProgramListParams.none()
         ): CompletableFuture<HttpResponseFor<ProgramListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             requestOptions: RequestOptions
         ): CompletableFuture<HttpResponseFor<ProgramListPageAsync>> =

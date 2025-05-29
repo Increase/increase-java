@@ -2,7 +2,6 @@
 
 package com.increase.api.services.async
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.cardpurchasesupplements.CardPurchaseSupplement
@@ -94,14 +93,12 @@ interface CardPurchaseSupplementServiceAsync {
          * /card_purchase_supplements/{card_purchase_supplement_id}`, but is otherwise the same as
          * [CardPurchaseSupplementServiceAsync.retrieve].
          */
-        @MustBeClosed
         fun retrieve(
             cardPurchaseSupplementId: String
         ): CompletableFuture<HttpResponseFor<CardPurchaseSupplement>> =
             retrieve(cardPurchaseSupplementId, CardPurchaseSupplementRetrieveParams.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             cardPurchaseSupplementId: String,
             params: CardPurchaseSupplementRetrieveParams =
@@ -114,7 +111,6 @@ interface CardPurchaseSupplementServiceAsync {
             )
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             cardPurchaseSupplementId: String,
             params: CardPurchaseSupplementRetrieveParams =
@@ -123,21 +119,18 @@ interface CardPurchaseSupplementServiceAsync {
             retrieve(cardPurchaseSupplementId, params, RequestOptions.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             params: CardPurchaseSupplementRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<CardPurchaseSupplement>>
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             params: CardPurchaseSupplementRetrieveParams
         ): CompletableFuture<HttpResponseFor<CardPurchaseSupplement>> =
             retrieve(params, RequestOptions.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             cardPurchaseSupplementId: String,
             requestOptions: RequestOptions,
@@ -152,26 +145,22 @@ interface CardPurchaseSupplementServiceAsync {
          * Returns a raw HTTP response for `get /card_purchase_supplements`, but is otherwise the
          * same as [CardPurchaseSupplementServiceAsync.list].
          */
-        @MustBeClosed
         fun list(): CompletableFuture<HttpResponseFor<CardPurchaseSupplementListPageAsync>> =
             list(CardPurchaseSupplementListParams.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             params: CardPurchaseSupplementListParams = CardPurchaseSupplementListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<CardPurchaseSupplementListPageAsync>>
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             params: CardPurchaseSupplementListParams = CardPurchaseSupplementListParams.none()
         ): CompletableFuture<HttpResponseFor<CardPurchaseSupplementListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             requestOptions: RequestOptions
         ): CompletableFuture<HttpResponseFor<CardPurchaseSupplementListPageAsync>> =

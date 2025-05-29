@@ -2,7 +2,6 @@
 
 package com.increase.api.services.async.simulations
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.cardpayments.CardPayment
@@ -40,13 +39,11 @@ interface CardReversalServiceAsync {
          * Returns a raw HTTP response for `post /simulations/card_reversals`, but is otherwise the
          * same as [CardReversalServiceAsync.create].
          */
-        @MustBeClosed
         fun create(
             params: CardReversalCreateParams
         ): CompletableFuture<HttpResponseFor<CardPayment>> = create(params, RequestOptions.none())
 
         /** @see [create] */
-        @MustBeClosed
         fun create(
             params: CardReversalCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),

@@ -2,7 +2,6 @@
 
 package com.increase.api.services.async
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.accountstatements.AccountStatement
@@ -83,14 +82,12 @@ interface AccountStatementServiceAsync {
          * Returns a raw HTTP response for `get /account_statements/{account_statement_id}`, but is
          * otherwise the same as [AccountStatementServiceAsync.retrieve].
          */
-        @MustBeClosed
         fun retrieve(
             accountStatementId: String
         ): CompletableFuture<HttpResponseFor<AccountStatement>> =
             retrieve(accountStatementId, AccountStatementRetrieveParams.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             accountStatementId: String,
             params: AccountStatementRetrieveParams = AccountStatementRetrieveParams.none(),
@@ -102,7 +99,6 @@ interface AccountStatementServiceAsync {
             )
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             accountStatementId: String,
             params: AccountStatementRetrieveParams = AccountStatementRetrieveParams.none(),
@@ -110,21 +106,18 @@ interface AccountStatementServiceAsync {
             retrieve(accountStatementId, params, RequestOptions.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             params: AccountStatementRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<AccountStatement>>
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             params: AccountStatementRetrieveParams
         ): CompletableFuture<HttpResponseFor<AccountStatement>> =
             retrieve(params, RequestOptions.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             accountStatementId: String,
             requestOptions: RequestOptions,
@@ -135,26 +128,22 @@ interface AccountStatementServiceAsync {
          * Returns a raw HTTP response for `get /account_statements`, but is otherwise the same as
          * [AccountStatementServiceAsync.list].
          */
-        @MustBeClosed
         fun list(): CompletableFuture<HttpResponseFor<AccountStatementListPageAsync>> =
             list(AccountStatementListParams.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             params: AccountStatementListParams = AccountStatementListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<AccountStatementListPageAsync>>
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             params: AccountStatementListParams = AccountStatementListParams.none()
         ): CompletableFuture<HttpResponseFor<AccountStatementListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             requestOptions: RequestOptions
         ): CompletableFuture<HttpResponseFor<AccountStatementListPageAsync>> =

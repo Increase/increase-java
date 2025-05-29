@@ -2,7 +2,6 @@
 
 package com.increase.api.services.async
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.accounts.Account
@@ -194,12 +193,10 @@ interface AccountServiceAsync {
          * Returns a raw HTTP response for `post /accounts`, but is otherwise the same as
          * [AccountServiceAsync.create].
          */
-        @MustBeClosed
         fun create(params: AccountCreateParams): CompletableFuture<HttpResponseFor<Account>> =
             create(params, RequestOptions.none())
 
         /** @see [create] */
-        @MustBeClosed
         fun create(
             params: AccountCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
@@ -209,12 +206,10 @@ interface AccountServiceAsync {
          * Returns a raw HTTP response for `get /accounts/{account_id}`, but is otherwise the same
          * as [AccountServiceAsync.retrieve].
          */
-        @MustBeClosed
         fun retrieve(accountId: String): CompletableFuture<HttpResponseFor<Account>> =
             retrieve(accountId, AccountRetrieveParams.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             accountId: String,
             params: AccountRetrieveParams = AccountRetrieveParams.none(),
@@ -223,7 +218,6 @@ interface AccountServiceAsync {
             retrieve(params.toBuilder().accountId(accountId).build(), requestOptions)
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             accountId: String,
             params: AccountRetrieveParams = AccountRetrieveParams.none(),
@@ -231,19 +225,16 @@ interface AccountServiceAsync {
             retrieve(accountId, params, RequestOptions.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             params: AccountRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<Account>>
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(params: AccountRetrieveParams): CompletableFuture<HttpResponseFor<Account>> =
             retrieve(params, RequestOptions.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             accountId: String,
             requestOptions: RequestOptions,
@@ -254,12 +245,10 @@ interface AccountServiceAsync {
          * Returns a raw HTTP response for `patch /accounts/{account_id}`, but is otherwise the same
          * as [AccountServiceAsync.update].
          */
-        @MustBeClosed
         fun update(accountId: String): CompletableFuture<HttpResponseFor<Account>> =
             update(accountId, AccountUpdateParams.none())
 
         /** @see [update] */
-        @MustBeClosed
         fun update(
             accountId: String,
             params: AccountUpdateParams = AccountUpdateParams.none(),
@@ -268,7 +257,6 @@ interface AccountServiceAsync {
             update(params.toBuilder().accountId(accountId).build(), requestOptions)
 
         /** @see [update] */
-        @MustBeClosed
         fun update(
             accountId: String,
             params: AccountUpdateParams = AccountUpdateParams.none(),
@@ -276,19 +264,16 @@ interface AccountServiceAsync {
             update(accountId, params, RequestOptions.none())
 
         /** @see [update] */
-        @MustBeClosed
         fun update(
             params: AccountUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<Account>>
 
         /** @see [update] */
-        @MustBeClosed
         fun update(params: AccountUpdateParams): CompletableFuture<HttpResponseFor<Account>> =
             update(params, RequestOptions.none())
 
         /** @see [update] */
-        @MustBeClosed
         fun update(
             accountId: String,
             requestOptions: RequestOptions,
@@ -299,26 +284,22 @@ interface AccountServiceAsync {
          * Returns a raw HTTP response for `get /accounts`, but is otherwise the same as
          * [AccountServiceAsync.list].
          */
-        @MustBeClosed
         fun list(): CompletableFuture<HttpResponseFor<AccountListPageAsync>> =
             list(AccountListParams.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             params: AccountListParams = AccountListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<AccountListPageAsync>>
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             params: AccountListParams = AccountListParams.none()
         ): CompletableFuture<HttpResponseFor<AccountListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             requestOptions: RequestOptions
         ): CompletableFuture<HttpResponseFor<AccountListPageAsync>> =
@@ -328,12 +309,10 @@ interface AccountServiceAsync {
          * Returns a raw HTTP response for `get /accounts/{account_id}/balance`, but is otherwise
          * the same as [AccountServiceAsync.balance].
          */
-        @MustBeClosed
         fun balance(accountId: String): CompletableFuture<HttpResponseFor<BalanceLookup>> =
             balance(accountId, AccountBalanceParams.none())
 
         /** @see [balance] */
-        @MustBeClosed
         fun balance(
             accountId: String,
             params: AccountBalanceParams = AccountBalanceParams.none(),
@@ -342,7 +321,6 @@ interface AccountServiceAsync {
             balance(params.toBuilder().accountId(accountId).build(), requestOptions)
 
         /** @see [balance] */
-        @MustBeClosed
         fun balance(
             accountId: String,
             params: AccountBalanceParams = AccountBalanceParams.none(),
@@ -350,21 +328,18 @@ interface AccountServiceAsync {
             balance(accountId, params, RequestOptions.none())
 
         /** @see [balance] */
-        @MustBeClosed
         fun balance(
             params: AccountBalanceParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<BalanceLookup>>
 
         /** @see [balance] */
-        @MustBeClosed
         fun balance(
             params: AccountBalanceParams
         ): CompletableFuture<HttpResponseFor<BalanceLookup>> =
             balance(params, RequestOptions.none())
 
         /** @see [balance] */
-        @MustBeClosed
         fun balance(
             accountId: String,
             requestOptions: RequestOptions,
@@ -375,12 +350,10 @@ interface AccountServiceAsync {
          * Returns a raw HTTP response for `post /accounts/{account_id}/close`, but is otherwise the
          * same as [AccountServiceAsync.close].
          */
-        @MustBeClosed
         fun close(accountId: String): CompletableFuture<HttpResponseFor<Account>> =
             close(accountId, AccountCloseParams.none())
 
         /** @see [close] */
-        @MustBeClosed
         fun close(
             accountId: String,
             params: AccountCloseParams = AccountCloseParams.none(),
@@ -389,7 +362,6 @@ interface AccountServiceAsync {
             close(params.toBuilder().accountId(accountId).build(), requestOptions)
 
         /** @see [close] */
-        @MustBeClosed
         fun close(
             accountId: String,
             params: AccountCloseParams = AccountCloseParams.none(),
@@ -397,19 +369,16 @@ interface AccountServiceAsync {
             close(accountId, params, RequestOptions.none())
 
         /** @see [close] */
-        @MustBeClosed
         fun close(
             params: AccountCloseParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<Account>>
 
         /** @see [close] */
-        @MustBeClosed
         fun close(params: AccountCloseParams): CompletableFuture<HttpResponseFor<Account>> =
             close(params, RequestOptions.none())
 
         /** @see [close] */
-        @MustBeClosed
         fun close(
             accountId: String,
             requestOptions: RequestOptions,

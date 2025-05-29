@@ -2,7 +2,6 @@
 
 package com.increase.api.services.async.simulations
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransfer
@@ -77,14 +76,12 @@ interface RealTimePaymentsTransferServiceAsync {
          * /simulations/real_time_payments_transfers/{real_time_payments_transfer_id}/complete`, but
          * is otherwise the same as [RealTimePaymentsTransferServiceAsync.complete].
          */
-        @MustBeClosed
         fun complete(
             realTimePaymentsTransferId: String
         ): CompletableFuture<HttpResponseFor<RealTimePaymentsTransfer>> =
             complete(realTimePaymentsTransferId, RealTimePaymentsTransferCompleteParams.none())
 
         /** @see [complete] */
-        @MustBeClosed
         fun complete(
             realTimePaymentsTransferId: String,
             params: RealTimePaymentsTransferCompleteParams =
@@ -97,7 +94,6 @@ interface RealTimePaymentsTransferServiceAsync {
             )
 
         /** @see [complete] */
-        @MustBeClosed
         fun complete(
             realTimePaymentsTransferId: String,
             params: RealTimePaymentsTransferCompleteParams =
@@ -106,21 +102,18 @@ interface RealTimePaymentsTransferServiceAsync {
             complete(realTimePaymentsTransferId, params, RequestOptions.none())
 
         /** @see [complete] */
-        @MustBeClosed
         fun complete(
             params: RealTimePaymentsTransferCompleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<RealTimePaymentsTransfer>>
 
         /** @see [complete] */
-        @MustBeClosed
         fun complete(
             params: RealTimePaymentsTransferCompleteParams
         ): CompletableFuture<HttpResponseFor<RealTimePaymentsTransfer>> =
             complete(params, RequestOptions.none())
 
         /** @see [complete] */
-        @MustBeClosed
         fun complete(
             realTimePaymentsTransferId: String,
             requestOptions: RequestOptions,

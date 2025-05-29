@@ -2,7 +2,6 @@
 
 package com.increase.api.services.async.simulations
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.inboundmailitems.InboundMailItem
@@ -39,14 +38,12 @@ interface InboundMailItemServiceAsync {
          * Returns a raw HTTP response for `post /simulations/inbound_mail_items`, but is otherwise
          * the same as [InboundMailItemServiceAsync.create].
          */
-        @MustBeClosed
         fun create(
             params: InboundMailItemCreateParams
         ): CompletableFuture<HttpResponseFor<InboundMailItem>> =
             create(params, RequestOptions.none())
 
         /** @see [create] */
-        @MustBeClosed
         fun create(
             params: InboundMailItemCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),

@@ -2,7 +2,6 @@
 
 package com.increase.api.services.async.simulations
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.carddisputes.CardDispute
@@ -56,7 +55,6 @@ interface CardDisputeServiceAsync {
          * /simulations/card_disputes/{card_dispute_id}/action`, but is otherwise the same as
          * [CardDisputeServiceAsync.action].
          */
-        @MustBeClosed
         fun action(
             cardDisputeId: String,
             params: CardDisputeActionParams,
@@ -64,7 +62,6 @@ interface CardDisputeServiceAsync {
             action(cardDisputeId, params, RequestOptions.none())
 
         /** @see [action] */
-        @MustBeClosed
         fun action(
             cardDisputeId: String,
             params: CardDisputeActionParams,
@@ -73,13 +70,11 @@ interface CardDisputeServiceAsync {
             action(params.toBuilder().cardDisputeId(cardDisputeId).build(), requestOptions)
 
         /** @see [action] */
-        @MustBeClosed
         fun action(
             params: CardDisputeActionParams
         ): CompletableFuture<HttpResponseFor<CardDispute>> = action(params, RequestOptions.none())
 
         /** @see [action] */
-        @MustBeClosed
         fun action(
             params: CardDisputeActionParams,
             requestOptions: RequestOptions = RequestOptions.none(),

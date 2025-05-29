@@ -2,7 +2,6 @@
 
 package com.increase.api.services.async
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.checkdeposits.CheckDeposit
@@ -92,13 +91,11 @@ interface CheckDepositServiceAsync {
          * Returns a raw HTTP response for `post /check_deposits`, but is otherwise the same as
          * [CheckDepositServiceAsync.create].
          */
-        @MustBeClosed
         fun create(
             params: CheckDepositCreateParams
         ): CompletableFuture<HttpResponseFor<CheckDeposit>> = create(params, RequestOptions.none())
 
         /** @see [create] */
-        @MustBeClosed
         fun create(
             params: CheckDepositCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
@@ -108,12 +105,10 @@ interface CheckDepositServiceAsync {
          * Returns a raw HTTP response for `get /check_deposits/{check_deposit_id}`, but is
          * otherwise the same as [CheckDepositServiceAsync.retrieve].
          */
-        @MustBeClosed
         fun retrieve(checkDepositId: String): CompletableFuture<HttpResponseFor<CheckDeposit>> =
             retrieve(checkDepositId, CheckDepositRetrieveParams.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             checkDepositId: String,
             params: CheckDepositRetrieveParams = CheckDepositRetrieveParams.none(),
@@ -122,7 +117,6 @@ interface CheckDepositServiceAsync {
             retrieve(params.toBuilder().checkDepositId(checkDepositId).build(), requestOptions)
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             checkDepositId: String,
             params: CheckDepositRetrieveParams = CheckDepositRetrieveParams.none(),
@@ -130,21 +124,18 @@ interface CheckDepositServiceAsync {
             retrieve(checkDepositId, params, RequestOptions.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             params: CheckDepositRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<CheckDeposit>>
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             params: CheckDepositRetrieveParams
         ): CompletableFuture<HttpResponseFor<CheckDeposit>> =
             retrieve(params, RequestOptions.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             checkDepositId: String,
             requestOptions: RequestOptions,
@@ -155,26 +146,22 @@ interface CheckDepositServiceAsync {
          * Returns a raw HTTP response for `get /check_deposits`, but is otherwise the same as
          * [CheckDepositServiceAsync.list].
          */
-        @MustBeClosed
         fun list(): CompletableFuture<HttpResponseFor<CheckDepositListPageAsync>> =
             list(CheckDepositListParams.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             params: CheckDepositListParams = CheckDepositListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<CheckDepositListPageAsync>>
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             params: CheckDepositListParams = CheckDepositListParams.none()
         ): CompletableFuture<HttpResponseFor<CheckDepositListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             requestOptions: RequestOptions
         ): CompletableFuture<HttpResponseFor<CheckDepositListPageAsync>> =

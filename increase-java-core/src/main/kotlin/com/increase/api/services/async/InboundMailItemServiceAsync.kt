@@ -2,7 +2,6 @@
 
 package com.increase.api.services.async
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.inboundmailitems.InboundMailItem
@@ -83,14 +82,12 @@ interface InboundMailItemServiceAsync {
          * Returns a raw HTTP response for `get /inbound_mail_items/{inbound_mail_item_id}`, but is
          * otherwise the same as [InboundMailItemServiceAsync.retrieve].
          */
-        @MustBeClosed
         fun retrieve(
             inboundMailItemId: String
         ): CompletableFuture<HttpResponseFor<InboundMailItem>> =
             retrieve(inboundMailItemId, InboundMailItemRetrieveParams.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             inboundMailItemId: String,
             params: InboundMailItemRetrieveParams = InboundMailItemRetrieveParams.none(),
@@ -102,7 +99,6 @@ interface InboundMailItemServiceAsync {
             )
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             inboundMailItemId: String,
             params: InboundMailItemRetrieveParams = InboundMailItemRetrieveParams.none(),
@@ -110,21 +106,18 @@ interface InboundMailItemServiceAsync {
             retrieve(inboundMailItemId, params, RequestOptions.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             params: InboundMailItemRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<InboundMailItem>>
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             params: InboundMailItemRetrieveParams
         ): CompletableFuture<HttpResponseFor<InboundMailItem>> =
             retrieve(params, RequestOptions.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             inboundMailItemId: String,
             requestOptions: RequestOptions,
@@ -135,26 +128,22 @@ interface InboundMailItemServiceAsync {
          * Returns a raw HTTP response for `get /inbound_mail_items`, but is otherwise the same as
          * [InboundMailItemServiceAsync.list].
          */
-        @MustBeClosed
         fun list(): CompletableFuture<HttpResponseFor<InboundMailItemListPageAsync>> =
             list(InboundMailItemListParams.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             params: InboundMailItemListParams = InboundMailItemListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<InboundMailItemListPageAsync>>
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             params: InboundMailItemListParams = InboundMailItemListParams.none()
         ): CompletableFuture<HttpResponseFor<InboundMailItemListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             requestOptions: RequestOptions
         ): CompletableFuture<HttpResponseFor<InboundMailItemListPageAsync>> =

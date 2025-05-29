@@ -2,7 +2,6 @@
 
 package com.increase.api.services.async
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.events.Event
@@ -75,12 +74,10 @@ interface EventServiceAsync {
          * Returns a raw HTTP response for `get /events/{event_id}`, but is otherwise the same as
          * [EventServiceAsync.retrieve].
          */
-        @MustBeClosed
         fun retrieve(eventId: String): CompletableFuture<HttpResponseFor<Event>> =
             retrieve(eventId, EventRetrieveParams.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             eventId: String,
             params: EventRetrieveParams = EventRetrieveParams.none(),
@@ -89,7 +86,6 @@ interface EventServiceAsync {
             retrieve(params.toBuilder().eventId(eventId).build(), requestOptions)
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             eventId: String,
             params: EventRetrieveParams = EventRetrieveParams.none(),
@@ -97,19 +93,16 @@ interface EventServiceAsync {
             retrieve(eventId, params, RequestOptions.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             params: EventRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<Event>>
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(params: EventRetrieveParams): CompletableFuture<HttpResponseFor<Event>> =
             retrieve(params, RequestOptions.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             eventId: String,
             requestOptions: RequestOptions,
@@ -120,26 +113,22 @@ interface EventServiceAsync {
          * Returns a raw HTTP response for `get /events`, but is otherwise the same as
          * [EventServiceAsync.list].
          */
-        @MustBeClosed
         fun list(): CompletableFuture<HttpResponseFor<EventListPageAsync>> =
             list(EventListParams.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             params: EventListParams = EventListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<EventListPageAsync>>
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             params: EventListParams = EventListParams.none()
         ): CompletableFuture<HttpResponseFor<EventListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             requestOptions: RequestOptions
         ): CompletableFuture<HttpResponseFor<EventListPageAsync>> =

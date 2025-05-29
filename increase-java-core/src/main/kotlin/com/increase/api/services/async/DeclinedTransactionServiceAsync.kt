@@ -2,7 +2,6 @@
 
 package com.increase.api.services.async
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.declinedtransactions.DeclinedTransaction
@@ -87,14 +86,12 @@ interface DeclinedTransactionServiceAsync {
          * Returns a raw HTTP response for `get /declined_transactions/{declined_transaction_id}`,
          * but is otherwise the same as [DeclinedTransactionServiceAsync.retrieve].
          */
-        @MustBeClosed
         fun retrieve(
             declinedTransactionId: String
         ): CompletableFuture<HttpResponseFor<DeclinedTransaction>> =
             retrieve(declinedTransactionId, DeclinedTransactionRetrieveParams.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             declinedTransactionId: String,
             params: DeclinedTransactionRetrieveParams = DeclinedTransactionRetrieveParams.none(),
@@ -106,7 +103,6 @@ interface DeclinedTransactionServiceAsync {
             )
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             declinedTransactionId: String,
             params: DeclinedTransactionRetrieveParams = DeclinedTransactionRetrieveParams.none(),
@@ -114,21 +110,18 @@ interface DeclinedTransactionServiceAsync {
             retrieve(declinedTransactionId, params, RequestOptions.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             params: DeclinedTransactionRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<DeclinedTransaction>>
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             params: DeclinedTransactionRetrieveParams
         ): CompletableFuture<HttpResponseFor<DeclinedTransaction>> =
             retrieve(params, RequestOptions.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             declinedTransactionId: String,
             requestOptions: RequestOptions,
@@ -143,26 +136,22 @@ interface DeclinedTransactionServiceAsync {
          * Returns a raw HTTP response for `get /declined_transactions`, but is otherwise the same
          * as [DeclinedTransactionServiceAsync.list].
          */
-        @MustBeClosed
         fun list(): CompletableFuture<HttpResponseFor<DeclinedTransactionListPageAsync>> =
             list(DeclinedTransactionListParams.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             params: DeclinedTransactionListParams = DeclinedTransactionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<DeclinedTransactionListPageAsync>>
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             params: DeclinedTransactionListParams = DeclinedTransactionListParams.none()
         ): CompletableFuture<HttpResponseFor<DeclinedTransactionListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             requestOptions: RequestOptions
         ): CompletableFuture<HttpResponseFor<DeclinedTransactionListPageAsync>> =

@@ -2,7 +2,6 @@
 
 package com.increase.api.services.async.simulations
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.simulations.wiretransfers.WireTransferReverseParams
@@ -105,12 +104,10 @@ interface WireTransferServiceAsync {
          * /simulations/wire_transfers/{wire_transfer_id}/reverse`, but is otherwise the same as
          * [WireTransferServiceAsync.reverse].
          */
-        @MustBeClosed
         fun reverse(wireTransferId: String): CompletableFuture<HttpResponseFor<WireTransfer>> =
             reverse(wireTransferId, WireTransferReverseParams.none())
 
         /** @see [reverse] */
-        @MustBeClosed
         fun reverse(
             wireTransferId: String,
             params: WireTransferReverseParams = WireTransferReverseParams.none(),
@@ -119,7 +116,6 @@ interface WireTransferServiceAsync {
             reverse(params.toBuilder().wireTransferId(wireTransferId).build(), requestOptions)
 
         /** @see [reverse] */
-        @MustBeClosed
         fun reverse(
             wireTransferId: String,
             params: WireTransferReverseParams = WireTransferReverseParams.none(),
@@ -127,20 +123,17 @@ interface WireTransferServiceAsync {
             reverse(wireTransferId, params, RequestOptions.none())
 
         /** @see [reverse] */
-        @MustBeClosed
         fun reverse(
             params: WireTransferReverseParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<WireTransfer>>
 
         /** @see [reverse] */
-        @MustBeClosed
         fun reverse(
             params: WireTransferReverseParams
         ): CompletableFuture<HttpResponseFor<WireTransfer>> = reverse(params, RequestOptions.none())
 
         /** @see [reverse] */
-        @MustBeClosed
         fun reverse(
             wireTransferId: String,
             requestOptions: RequestOptions,
@@ -152,12 +145,10 @@ interface WireTransferServiceAsync {
          * /simulations/wire_transfers/{wire_transfer_id}/submit`, but is otherwise the same as
          * [WireTransferServiceAsync.submit].
          */
-        @MustBeClosed
         fun submit(wireTransferId: String): CompletableFuture<HttpResponseFor<WireTransfer>> =
             submit(wireTransferId, WireTransferSubmitParams.none())
 
         /** @see [submit] */
-        @MustBeClosed
         fun submit(
             wireTransferId: String,
             params: WireTransferSubmitParams = WireTransferSubmitParams.none(),
@@ -166,7 +157,6 @@ interface WireTransferServiceAsync {
             submit(params.toBuilder().wireTransferId(wireTransferId).build(), requestOptions)
 
         /** @see [submit] */
-        @MustBeClosed
         fun submit(
             wireTransferId: String,
             params: WireTransferSubmitParams = WireTransferSubmitParams.none(),
@@ -174,20 +164,17 @@ interface WireTransferServiceAsync {
             submit(wireTransferId, params, RequestOptions.none())
 
         /** @see [submit] */
-        @MustBeClosed
         fun submit(
             params: WireTransferSubmitParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<WireTransfer>>
 
         /** @see [submit] */
-        @MustBeClosed
         fun submit(
             params: WireTransferSubmitParams
         ): CompletableFuture<HttpResponseFor<WireTransfer>> = submit(params, RequestOptions.none())
 
         /** @see [submit] */
-        @MustBeClosed
         fun submit(
             wireTransferId: String,
             requestOptions: RequestOptions,
