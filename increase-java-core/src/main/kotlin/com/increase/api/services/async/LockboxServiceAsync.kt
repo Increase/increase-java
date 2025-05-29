@@ -2,7 +2,6 @@
 
 package com.increase.api.services.async
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.lockboxes.Lockbox
@@ -121,12 +120,10 @@ interface LockboxServiceAsync {
          * Returns a raw HTTP response for `post /lockboxes`, but is otherwise the same as
          * [LockboxServiceAsync.create].
          */
-        @MustBeClosed
         fun create(params: LockboxCreateParams): CompletableFuture<HttpResponseFor<Lockbox>> =
             create(params, RequestOptions.none())
 
         /** @see [create] */
-        @MustBeClosed
         fun create(
             params: LockboxCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
@@ -136,12 +133,10 @@ interface LockboxServiceAsync {
          * Returns a raw HTTP response for `get /lockboxes/{lockbox_id}`, but is otherwise the same
          * as [LockboxServiceAsync.retrieve].
          */
-        @MustBeClosed
         fun retrieve(lockboxId: String): CompletableFuture<HttpResponseFor<Lockbox>> =
             retrieve(lockboxId, LockboxRetrieveParams.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             lockboxId: String,
             params: LockboxRetrieveParams = LockboxRetrieveParams.none(),
@@ -150,7 +145,6 @@ interface LockboxServiceAsync {
             retrieve(params.toBuilder().lockboxId(lockboxId).build(), requestOptions)
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             lockboxId: String,
             params: LockboxRetrieveParams = LockboxRetrieveParams.none(),
@@ -158,19 +152,16 @@ interface LockboxServiceAsync {
             retrieve(lockboxId, params, RequestOptions.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             params: LockboxRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<Lockbox>>
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(params: LockboxRetrieveParams): CompletableFuture<HttpResponseFor<Lockbox>> =
             retrieve(params, RequestOptions.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             lockboxId: String,
             requestOptions: RequestOptions,
@@ -181,12 +172,10 @@ interface LockboxServiceAsync {
          * Returns a raw HTTP response for `patch /lockboxes/{lockbox_id}`, but is otherwise the
          * same as [LockboxServiceAsync.update].
          */
-        @MustBeClosed
         fun update(lockboxId: String): CompletableFuture<HttpResponseFor<Lockbox>> =
             update(lockboxId, LockboxUpdateParams.none())
 
         /** @see [update] */
-        @MustBeClosed
         fun update(
             lockboxId: String,
             params: LockboxUpdateParams = LockboxUpdateParams.none(),
@@ -195,7 +184,6 @@ interface LockboxServiceAsync {
             update(params.toBuilder().lockboxId(lockboxId).build(), requestOptions)
 
         /** @see [update] */
-        @MustBeClosed
         fun update(
             lockboxId: String,
             params: LockboxUpdateParams = LockboxUpdateParams.none(),
@@ -203,19 +191,16 @@ interface LockboxServiceAsync {
             update(lockboxId, params, RequestOptions.none())
 
         /** @see [update] */
-        @MustBeClosed
         fun update(
             params: LockboxUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<Lockbox>>
 
         /** @see [update] */
-        @MustBeClosed
         fun update(params: LockboxUpdateParams): CompletableFuture<HttpResponseFor<Lockbox>> =
             update(params, RequestOptions.none())
 
         /** @see [update] */
-        @MustBeClosed
         fun update(
             lockboxId: String,
             requestOptions: RequestOptions,
@@ -226,26 +211,22 @@ interface LockboxServiceAsync {
          * Returns a raw HTTP response for `get /lockboxes`, but is otherwise the same as
          * [LockboxServiceAsync.list].
          */
-        @MustBeClosed
         fun list(): CompletableFuture<HttpResponseFor<LockboxListPageAsync>> =
             list(LockboxListParams.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             params: LockboxListParams = LockboxListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<LockboxListPageAsync>>
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             params: LockboxListParams = LockboxListParams.none()
         ): CompletableFuture<HttpResponseFor<LockboxListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             requestOptions: RequestOptions
         ): CompletableFuture<HttpResponseFor<LockboxListPageAsync>> =

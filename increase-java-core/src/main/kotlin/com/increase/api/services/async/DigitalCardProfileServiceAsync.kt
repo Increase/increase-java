@@ -2,7 +2,6 @@
 
 package com.increase.api.services.async
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.digitalcardprofiles.DigitalCardProfile
@@ -174,14 +173,12 @@ interface DigitalCardProfileServiceAsync {
          * Returns a raw HTTP response for `post /digital_card_profiles`, but is otherwise the same
          * as [DigitalCardProfileServiceAsync.create].
          */
-        @MustBeClosed
         fun create(
             params: DigitalCardProfileCreateParams
         ): CompletableFuture<HttpResponseFor<DigitalCardProfile>> =
             create(params, RequestOptions.none())
 
         /** @see [create] */
-        @MustBeClosed
         fun create(
             params: DigitalCardProfileCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
@@ -191,14 +188,12 @@ interface DigitalCardProfileServiceAsync {
          * Returns a raw HTTP response for `get /digital_card_profiles/{digital_card_profile_id}`,
          * but is otherwise the same as [DigitalCardProfileServiceAsync.retrieve].
          */
-        @MustBeClosed
         fun retrieve(
             digitalCardProfileId: String
         ): CompletableFuture<HttpResponseFor<DigitalCardProfile>> =
             retrieve(digitalCardProfileId, DigitalCardProfileRetrieveParams.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             digitalCardProfileId: String,
             params: DigitalCardProfileRetrieveParams = DigitalCardProfileRetrieveParams.none(),
@@ -210,7 +205,6 @@ interface DigitalCardProfileServiceAsync {
             )
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             digitalCardProfileId: String,
             params: DigitalCardProfileRetrieveParams = DigitalCardProfileRetrieveParams.none(),
@@ -218,21 +212,18 @@ interface DigitalCardProfileServiceAsync {
             retrieve(digitalCardProfileId, params, RequestOptions.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             params: DigitalCardProfileRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<DigitalCardProfile>>
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             params: DigitalCardProfileRetrieveParams
         ): CompletableFuture<HttpResponseFor<DigitalCardProfile>> =
             retrieve(params, RequestOptions.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             digitalCardProfileId: String,
             requestOptions: RequestOptions,
@@ -243,26 +234,22 @@ interface DigitalCardProfileServiceAsync {
          * Returns a raw HTTP response for `get /digital_card_profiles`, but is otherwise the same
          * as [DigitalCardProfileServiceAsync.list].
          */
-        @MustBeClosed
         fun list(): CompletableFuture<HttpResponseFor<DigitalCardProfileListPageAsync>> =
             list(DigitalCardProfileListParams.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             params: DigitalCardProfileListParams = DigitalCardProfileListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<DigitalCardProfileListPageAsync>>
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             params: DigitalCardProfileListParams = DigitalCardProfileListParams.none()
         ): CompletableFuture<HttpResponseFor<DigitalCardProfileListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             requestOptions: RequestOptions
         ): CompletableFuture<HttpResponseFor<DigitalCardProfileListPageAsync>> =
@@ -273,14 +260,12 @@ interface DigitalCardProfileServiceAsync {
          * /digital_card_profiles/{digital_card_profile_id}/archive`, but is otherwise the same as
          * [DigitalCardProfileServiceAsync.archive].
          */
-        @MustBeClosed
         fun archive(
             digitalCardProfileId: String
         ): CompletableFuture<HttpResponseFor<DigitalCardProfile>> =
             archive(digitalCardProfileId, DigitalCardProfileArchiveParams.none())
 
         /** @see [archive] */
-        @MustBeClosed
         fun archive(
             digitalCardProfileId: String,
             params: DigitalCardProfileArchiveParams = DigitalCardProfileArchiveParams.none(),
@@ -292,7 +277,6 @@ interface DigitalCardProfileServiceAsync {
             )
 
         /** @see [archive] */
-        @MustBeClosed
         fun archive(
             digitalCardProfileId: String,
             params: DigitalCardProfileArchiveParams = DigitalCardProfileArchiveParams.none(),
@@ -300,21 +284,18 @@ interface DigitalCardProfileServiceAsync {
             archive(digitalCardProfileId, params, RequestOptions.none())
 
         /** @see [archive] */
-        @MustBeClosed
         fun archive(
             params: DigitalCardProfileArchiveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<DigitalCardProfile>>
 
         /** @see [archive] */
-        @MustBeClosed
         fun archive(
             params: DigitalCardProfileArchiveParams
         ): CompletableFuture<HttpResponseFor<DigitalCardProfile>> =
             archive(params, RequestOptions.none())
 
         /** @see [archive] */
-        @MustBeClosed
         fun archive(
             digitalCardProfileId: String,
             requestOptions: RequestOptions,
@@ -326,14 +307,12 @@ interface DigitalCardProfileServiceAsync {
          * /digital_card_profiles/{digital_card_profile_id}/clone`, but is otherwise the same as
          * [DigitalCardProfileServiceAsync.clone].
          */
-        @MustBeClosed
         fun clone(
             digitalCardProfileId: String
         ): CompletableFuture<HttpResponseFor<DigitalCardProfile>> =
             clone(digitalCardProfileId, DigitalCardProfileCloneParams.none())
 
         /** @see [clone] */
-        @MustBeClosed
         fun clone(
             digitalCardProfileId: String,
             params: DigitalCardProfileCloneParams = DigitalCardProfileCloneParams.none(),
@@ -345,7 +324,6 @@ interface DigitalCardProfileServiceAsync {
             )
 
         /** @see [clone] */
-        @MustBeClosed
         fun clone(
             digitalCardProfileId: String,
             params: DigitalCardProfileCloneParams = DigitalCardProfileCloneParams.none(),
@@ -353,21 +331,18 @@ interface DigitalCardProfileServiceAsync {
             clone(digitalCardProfileId, params, RequestOptions.none())
 
         /** @see [clone] */
-        @MustBeClosed
         fun clone(
             params: DigitalCardProfileCloneParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<DigitalCardProfile>>
 
         /** @see [clone] */
-        @MustBeClosed
         fun clone(
             params: DigitalCardProfileCloneParams
         ): CompletableFuture<HttpResponseFor<DigitalCardProfile>> =
             clone(params, RequestOptions.none())
 
         /** @see [clone] */
-        @MustBeClosed
         fun clone(
             digitalCardProfileId: String,
             requestOptions: RequestOptions,

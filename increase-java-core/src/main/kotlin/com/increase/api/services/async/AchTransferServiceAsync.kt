@@ -2,7 +2,6 @@
 
 package com.increase.api.services.async
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.achtransfers.AchTransfer
@@ -164,13 +163,11 @@ interface AchTransferServiceAsync {
          * Returns a raw HTTP response for `post /ach_transfers`, but is otherwise the same as
          * [AchTransferServiceAsync.create].
          */
-        @MustBeClosed
         fun create(
             params: AchTransferCreateParams
         ): CompletableFuture<HttpResponseFor<AchTransfer>> = create(params, RequestOptions.none())
 
         /** @see [create] */
-        @MustBeClosed
         fun create(
             params: AchTransferCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
@@ -180,12 +177,10 @@ interface AchTransferServiceAsync {
          * Returns a raw HTTP response for `get /ach_transfers/{ach_transfer_id}`, but is otherwise
          * the same as [AchTransferServiceAsync.retrieve].
          */
-        @MustBeClosed
         fun retrieve(achTransferId: String): CompletableFuture<HttpResponseFor<AchTransfer>> =
             retrieve(achTransferId, AchTransferRetrieveParams.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             achTransferId: String,
             params: AchTransferRetrieveParams = AchTransferRetrieveParams.none(),
@@ -194,7 +189,6 @@ interface AchTransferServiceAsync {
             retrieve(params.toBuilder().achTransferId(achTransferId).build(), requestOptions)
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             achTransferId: String,
             params: AchTransferRetrieveParams = AchTransferRetrieveParams.none(),
@@ -202,20 +196,17 @@ interface AchTransferServiceAsync {
             retrieve(achTransferId, params, RequestOptions.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             params: AchTransferRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<AchTransfer>>
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             params: AchTransferRetrieveParams
         ): CompletableFuture<HttpResponseFor<AchTransfer>> = retrieve(params, RequestOptions.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             achTransferId: String,
             requestOptions: RequestOptions,
@@ -226,26 +217,22 @@ interface AchTransferServiceAsync {
          * Returns a raw HTTP response for `get /ach_transfers`, but is otherwise the same as
          * [AchTransferServiceAsync.list].
          */
-        @MustBeClosed
         fun list(): CompletableFuture<HttpResponseFor<AchTransferListPageAsync>> =
             list(AchTransferListParams.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             params: AchTransferListParams = AchTransferListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<AchTransferListPageAsync>>
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             params: AchTransferListParams = AchTransferListParams.none()
         ): CompletableFuture<HttpResponseFor<AchTransferListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             requestOptions: RequestOptions
         ): CompletableFuture<HttpResponseFor<AchTransferListPageAsync>> =
@@ -255,12 +242,10 @@ interface AchTransferServiceAsync {
          * Returns a raw HTTP response for `post /ach_transfers/{ach_transfer_id}/approve`, but is
          * otherwise the same as [AchTransferServiceAsync.approve].
          */
-        @MustBeClosed
         fun approve(achTransferId: String): CompletableFuture<HttpResponseFor<AchTransfer>> =
             approve(achTransferId, AchTransferApproveParams.none())
 
         /** @see [approve] */
-        @MustBeClosed
         fun approve(
             achTransferId: String,
             params: AchTransferApproveParams = AchTransferApproveParams.none(),
@@ -269,7 +254,6 @@ interface AchTransferServiceAsync {
             approve(params.toBuilder().achTransferId(achTransferId).build(), requestOptions)
 
         /** @see [approve] */
-        @MustBeClosed
         fun approve(
             achTransferId: String,
             params: AchTransferApproveParams = AchTransferApproveParams.none(),
@@ -277,20 +261,17 @@ interface AchTransferServiceAsync {
             approve(achTransferId, params, RequestOptions.none())
 
         /** @see [approve] */
-        @MustBeClosed
         fun approve(
             params: AchTransferApproveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<AchTransfer>>
 
         /** @see [approve] */
-        @MustBeClosed
         fun approve(
             params: AchTransferApproveParams
         ): CompletableFuture<HttpResponseFor<AchTransfer>> = approve(params, RequestOptions.none())
 
         /** @see [approve] */
-        @MustBeClosed
         fun approve(
             achTransferId: String,
             requestOptions: RequestOptions,
@@ -301,12 +282,10 @@ interface AchTransferServiceAsync {
          * Returns a raw HTTP response for `post /ach_transfers/{ach_transfer_id}/cancel`, but is
          * otherwise the same as [AchTransferServiceAsync.cancel].
          */
-        @MustBeClosed
         fun cancel(achTransferId: String): CompletableFuture<HttpResponseFor<AchTransfer>> =
             cancel(achTransferId, AchTransferCancelParams.none())
 
         /** @see [cancel] */
-        @MustBeClosed
         fun cancel(
             achTransferId: String,
             params: AchTransferCancelParams = AchTransferCancelParams.none(),
@@ -315,7 +294,6 @@ interface AchTransferServiceAsync {
             cancel(params.toBuilder().achTransferId(achTransferId).build(), requestOptions)
 
         /** @see [cancel] */
-        @MustBeClosed
         fun cancel(
             achTransferId: String,
             params: AchTransferCancelParams = AchTransferCancelParams.none(),
@@ -323,20 +301,17 @@ interface AchTransferServiceAsync {
             cancel(achTransferId, params, RequestOptions.none())
 
         /** @see [cancel] */
-        @MustBeClosed
         fun cancel(
             params: AchTransferCancelParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<AchTransfer>>
 
         /** @see [cancel] */
-        @MustBeClosed
         fun cancel(
             params: AchTransferCancelParams
         ): CompletableFuture<HttpResponseFor<AchTransfer>> = cancel(params, RequestOptions.none())
 
         /** @see [cancel] */
-        @MustBeClosed
         fun cancel(
             achTransferId: String,
             requestOptions: RequestOptions,

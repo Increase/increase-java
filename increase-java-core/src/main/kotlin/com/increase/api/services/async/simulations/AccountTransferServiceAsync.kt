@@ -2,7 +2,6 @@
 
 package com.increase.api.services.async.simulations
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.accounttransfers.AccountTransfer
@@ -68,14 +67,12 @@ interface AccountTransferServiceAsync {
          * /simulations/account_transfers/{account_transfer_id}/complete`, but is otherwise the same
          * as [AccountTransferServiceAsync.complete].
          */
-        @MustBeClosed
         fun complete(
             accountTransferId: String
         ): CompletableFuture<HttpResponseFor<AccountTransfer>> =
             complete(accountTransferId, AccountTransferCompleteParams.none())
 
         /** @see [complete] */
-        @MustBeClosed
         fun complete(
             accountTransferId: String,
             params: AccountTransferCompleteParams = AccountTransferCompleteParams.none(),
@@ -87,7 +84,6 @@ interface AccountTransferServiceAsync {
             )
 
         /** @see [complete] */
-        @MustBeClosed
         fun complete(
             accountTransferId: String,
             params: AccountTransferCompleteParams = AccountTransferCompleteParams.none(),
@@ -95,21 +91,18 @@ interface AccountTransferServiceAsync {
             complete(accountTransferId, params, RequestOptions.none())
 
         /** @see [complete] */
-        @MustBeClosed
         fun complete(
             params: AccountTransferCompleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<AccountTransfer>>
 
         /** @see [complete] */
-        @MustBeClosed
         fun complete(
             params: AccountTransferCompleteParams
         ): CompletableFuture<HttpResponseFor<AccountTransfer>> =
             complete(params, RequestOptions.none())
 
         /** @see [complete] */
-        @MustBeClosed
         fun complete(
             accountTransferId: String,
             requestOptions: RequestOptions,

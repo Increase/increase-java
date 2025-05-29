@@ -2,7 +2,6 @@
 
 package com.increase.api.services.async
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.oauthconnections.OAuthConnection
@@ -83,14 +82,12 @@ interface OAuthConnectionServiceAsync {
          * Returns a raw HTTP response for `get /oauth_connections/{oauth_connection_id}`, but is
          * otherwise the same as [OAuthConnectionServiceAsync.retrieve].
          */
-        @MustBeClosed
         fun retrieve(
             oauthConnectionId: String
         ): CompletableFuture<HttpResponseFor<OAuthConnection>> =
             retrieve(oauthConnectionId, OAuthConnectionRetrieveParams.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             oauthConnectionId: String,
             params: OAuthConnectionRetrieveParams = OAuthConnectionRetrieveParams.none(),
@@ -102,7 +99,6 @@ interface OAuthConnectionServiceAsync {
             )
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             oauthConnectionId: String,
             params: OAuthConnectionRetrieveParams = OAuthConnectionRetrieveParams.none(),
@@ -110,21 +106,18 @@ interface OAuthConnectionServiceAsync {
             retrieve(oauthConnectionId, params, RequestOptions.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             params: OAuthConnectionRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<OAuthConnection>>
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             params: OAuthConnectionRetrieveParams
         ): CompletableFuture<HttpResponseFor<OAuthConnection>> =
             retrieve(params, RequestOptions.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             oauthConnectionId: String,
             requestOptions: RequestOptions,
@@ -135,26 +128,22 @@ interface OAuthConnectionServiceAsync {
          * Returns a raw HTTP response for `get /oauth_connections`, but is otherwise the same as
          * [OAuthConnectionServiceAsync.list].
          */
-        @MustBeClosed
         fun list(): CompletableFuture<HttpResponseFor<OAuthConnectionListPageAsync>> =
             list(OAuthConnectionListParams.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             params: OAuthConnectionListParams = OAuthConnectionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<OAuthConnectionListPageAsync>>
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             params: OAuthConnectionListParams = OAuthConnectionListParams.none()
         ): CompletableFuture<HttpResponseFor<OAuthConnectionListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             requestOptions: RequestOptions
         ): CompletableFuture<HttpResponseFor<OAuthConnectionListPageAsync>> =

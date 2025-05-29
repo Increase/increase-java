@@ -2,7 +2,6 @@
 
 package com.increase.api.services.async
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.digitalwallettokens.DigitalWalletToken
@@ -86,14 +85,12 @@ interface DigitalWalletTokenServiceAsync {
          * Returns a raw HTTP response for `get /digital_wallet_tokens/{digital_wallet_token_id}`,
          * but is otherwise the same as [DigitalWalletTokenServiceAsync.retrieve].
          */
-        @MustBeClosed
         fun retrieve(
             digitalWalletTokenId: String
         ): CompletableFuture<HttpResponseFor<DigitalWalletToken>> =
             retrieve(digitalWalletTokenId, DigitalWalletTokenRetrieveParams.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             digitalWalletTokenId: String,
             params: DigitalWalletTokenRetrieveParams = DigitalWalletTokenRetrieveParams.none(),
@@ -105,7 +102,6 @@ interface DigitalWalletTokenServiceAsync {
             )
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             digitalWalletTokenId: String,
             params: DigitalWalletTokenRetrieveParams = DigitalWalletTokenRetrieveParams.none(),
@@ -113,21 +109,18 @@ interface DigitalWalletTokenServiceAsync {
             retrieve(digitalWalletTokenId, params, RequestOptions.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             params: DigitalWalletTokenRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<DigitalWalletToken>>
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             params: DigitalWalletTokenRetrieveParams
         ): CompletableFuture<HttpResponseFor<DigitalWalletToken>> =
             retrieve(params, RequestOptions.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             digitalWalletTokenId: String,
             requestOptions: RequestOptions,
@@ -138,26 +131,22 @@ interface DigitalWalletTokenServiceAsync {
          * Returns a raw HTTP response for `get /digital_wallet_tokens`, but is otherwise the same
          * as [DigitalWalletTokenServiceAsync.list].
          */
-        @MustBeClosed
         fun list(): CompletableFuture<HttpResponseFor<DigitalWalletTokenListPageAsync>> =
             list(DigitalWalletTokenListParams.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             params: DigitalWalletTokenListParams = DigitalWalletTokenListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<DigitalWalletTokenListPageAsync>>
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             params: DigitalWalletTokenListParams = DigitalWalletTokenListParams.none()
         ): CompletableFuture<HttpResponseFor<DigitalWalletTokenListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             requestOptions: RequestOptions
         ): CompletableFuture<HttpResponseFor<DigitalWalletTokenListPageAsync>> =

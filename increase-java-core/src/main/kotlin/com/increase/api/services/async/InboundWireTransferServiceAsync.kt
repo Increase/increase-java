@@ -2,7 +2,6 @@
 
 package com.increase.api.services.async
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.inboundwiretransfers.InboundWireTransfer
@@ -116,14 +115,12 @@ interface InboundWireTransferServiceAsync {
          * Returns a raw HTTP response for `get /inbound_wire_transfers/{inbound_wire_transfer_id}`,
          * but is otherwise the same as [InboundWireTransferServiceAsync.retrieve].
          */
-        @MustBeClosed
         fun retrieve(
             inboundWireTransferId: String
         ): CompletableFuture<HttpResponseFor<InboundWireTransfer>> =
             retrieve(inboundWireTransferId, InboundWireTransferRetrieveParams.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             inboundWireTransferId: String,
             params: InboundWireTransferRetrieveParams = InboundWireTransferRetrieveParams.none(),
@@ -135,7 +132,6 @@ interface InboundWireTransferServiceAsync {
             )
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             inboundWireTransferId: String,
             params: InboundWireTransferRetrieveParams = InboundWireTransferRetrieveParams.none(),
@@ -143,21 +139,18 @@ interface InboundWireTransferServiceAsync {
             retrieve(inboundWireTransferId, params, RequestOptions.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             params: InboundWireTransferRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<InboundWireTransfer>>
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             params: InboundWireTransferRetrieveParams
         ): CompletableFuture<HttpResponseFor<InboundWireTransfer>> =
             retrieve(params, RequestOptions.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             inboundWireTransferId: String,
             requestOptions: RequestOptions,
@@ -172,26 +165,22 @@ interface InboundWireTransferServiceAsync {
          * Returns a raw HTTP response for `get /inbound_wire_transfers`, but is otherwise the same
          * as [InboundWireTransferServiceAsync.list].
          */
-        @MustBeClosed
         fun list(): CompletableFuture<HttpResponseFor<InboundWireTransferListPageAsync>> =
             list(InboundWireTransferListParams.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             params: InboundWireTransferListParams = InboundWireTransferListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<InboundWireTransferListPageAsync>>
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             params: InboundWireTransferListParams = InboundWireTransferListParams.none()
         ): CompletableFuture<HttpResponseFor<InboundWireTransferListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             requestOptions: RequestOptions
         ): CompletableFuture<HttpResponseFor<InboundWireTransferListPageAsync>> =
@@ -202,7 +191,6 @@ interface InboundWireTransferServiceAsync {
          * /inbound_wire_transfers/{inbound_wire_transfer_id}/reverse`, but is otherwise the same as
          * [InboundWireTransferServiceAsync.reverse].
          */
-        @MustBeClosed
         fun reverse(
             inboundWireTransferId: String,
             params: InboundWireTransferReverseParams,
@@ -210,7 +198,6 @@ interface InboundWireTransferServiceAsync {
             reverse(inboundWireTransferId, params, RequestOptions.none())
 
         /** @see [reverse] */
-        @MustBeClosed
         fun reverse(
             inboundWireTransferId: String,
             params: InboundWireTransferReverseParams,
@@ -222,14 +209,12 @@ interface InboundWireTransferServiceAsync {
             )
 
         /** @see [reverse] */
-        @MustBeClosed
         fun reverse(
             params: InboundWireTransferReverseParams
         ): CompletableFuture<HttpResponseFor<InboundWireTransfer>> =
             reverse(params, RequestOptions.none())
 
         /** @see [reverse] */
-        @MustBeClosed
         fun reverse(
             params: InboundWireTransferReverseParams,
             requestOptions: RequestOptions = RequestOptions.none(),

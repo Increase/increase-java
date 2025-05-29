@@ -2,7 +2,6 @@
 
 package com.increase.api.services.async.simulations
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.simulations.cardauthorizations.CardAuthorizationCreateParams
@@ -44,14 +43,12 @@ interface CardAuthorizationServiceAsync {
          * Returns a raw HTTP response for `post /simulations/card_authorizations`, but is otherwise
          * the same as [CardAuthorizationServiceAsync.create].
          */
-        @MustBeClosed
         fun create(
             params: CardAuthorizationCreateParams
         ): CompletableFuture<HttpResponseFor<CardAuthorizationCreateResponse>> =
             create(params, RequestOptions.none())
 
         /** @see [create] */
-        @MustBeClosed
         fun create(
             params: CardAuthorizationCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),

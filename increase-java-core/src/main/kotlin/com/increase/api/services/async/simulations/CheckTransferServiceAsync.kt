@@ -2,7 +2,6 @@
 
 package com.increase.api.services.async.simulations
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.checktransfers.CheckTransfer
@@ -66,12 +65,10 @@ interface CheckTransferServiceAsync {
          * /simulations/check_transfers/{check_transfer_id}/mail`, but is otherwise the same as
          * [CheckTransferServiceAsync.mail].
          */
-        @MustBeClosed
         fun mail(checkTransferId: String): CompletableFuture<HttpResponseFor<CheckTransfer>> =
             mail(checkTransferId, CheckTransferMailParams.none())
 
         /** @see [mail] */
-        @MustBeClosed
         fun mail(
             checkTransferId: String,
             params: CheckTransferMailParams = CheckTransferMailParams.none(),
@@ -80,7 +77,6 @@ interface CheckTransferServiceAsync {
             mail(params.toBuilder().checkTransferId(checkTransferId).build(), requestOptions)
 
         /** @see [mail] */
-        @MustBeClosed
         fun mail(
             checkTransferId: String,
             params: CheckTransferMailParams = CheckTransferMailParams.none(),
@@ -88,20 +84,17 @@ interface CheckTransferServiceAsync {
             mail(checkTransferId, params, RequestOptions.none())
 
         /** @see [mail] */
-        @MustBeClosed
         fun mail(
             params: CheckTransferMailParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<CheckTransfer>>
 
         /** @see [mail] */
-        @MustBeClosed
         fun mail(
             params: CheckTransferMailParams
         ): CompletableFuture<HttpResponseFor<CheckTransfer>> = mail(params, RequestOptions.none())
 
         /** @see [mail] */
-        @MustBeClosed
         fun mail(
             checkTransferId: String,
             requestOptions: RequestOptions,

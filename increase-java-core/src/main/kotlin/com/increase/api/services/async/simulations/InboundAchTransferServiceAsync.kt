@@ -2,7 +2,6 @@
 
 package com.increase.api.services.async.simulations
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.inboundachtransfers.InboundAchTransfer
@@ -46,14 +45,12 @@ interface InboundAchTransferServiceAsync {
          * Returns a raw HTTP response for `post /simulations/inbound_ach_transfers`, but is
          * otherwise the same as [InboundAchTransferServiceAsync.create].
          */
-        @MustBeClosed
         fun create(
             params: InboundAchTransferCreateParams
         ): CompletableFuture<HttpResponseFor<InboundAchTransfer>> =
             create(params, RequestOptions.none())
 
         /** @see [create] */
-        @MustBeClosed
         fun create(
             params: InboundAchTransferCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),

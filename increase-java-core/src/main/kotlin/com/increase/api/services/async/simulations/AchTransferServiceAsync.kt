@@ -2,7 +2,6 @@
 
 package com.increase.api.services.async.simulations
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.achtransfers.AchTransfer
@@ -222,12 +221,10 @@ interface AchTransferServiceAsync {
          * /simulations/ach_transfers/{ach_transfer_id}/acknowledge`, but is otherwise the same as
          * [AchTransferServiceAsync.acknowledge].
          */
-        @MustBeClosed
         fun acknowledge(achTransferId: String): CompletableFuture<HttpResponseFor<AchTransfer>> =
             acknowledge(achTransferId, AchTransferAcknowledgeParams.none())
 
         /** @see [acknowledge] */
-        @MustBeClosed
         fun acknowledge(
             achTransferId: String,
             params: AchTransferAcknowledgeParams = AchTransferAcknowledgeParams.none(),
@@ -236,7 +233,6 @@ interface AchTransferServiceAsync {
             acknowledge(params.toBuilder().achTransferId(achTransferId).build(), requestOptions)
 
         /** @see [acknowledge] */
-        @MustBeClosed
         fun acknowledge(
             achTransferId: String,
             params: AchTransferAcknowledgeParams = AchTransferAcknowledgeParams.none(),
@@ -244,21 +240,18 @@ interface AchTransferServiceAsync {
             acknowledge(achTransferId, params, RequestOptions.none())
 
         /** @see [acknowledge] */
-        @MustBeClosed
         fun acknowledge(
             params: AchTransferAcknowledgeParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<AchTransfer>>
 
         /** @see [acknowledge] */
-        @MustBeClosed
         fun acknowledge(
             params: AchTransferAcknowledgeParams
         ): CompletableFuture<HttpResponseFor<AchTransfer>> =
             acknowledge(params, RequestOptions.none())
 
         /** @see [acknowledge] */
-        @MustBeClosed
         fun acknowledge(
             achTransferId: String,
             requestOptions: RequestOptions,
@@ -270,7 +263,6 @@ interface AchTransferServiceAsync {
          * /simulations/ach_transfers/{ach_transfer_id}/create_notification_of_change`, but is
          * otherwise the same as [AchTransferServiceAsync.createNotificationOfChange].
          */
-        @MustBeClosed
         fun createNotificationOfChange(
             achTransferId: String,
             params: AchTransferCreateNotificationOfChangeParams,
@@ -278,7 +270,6 @@ interface AchTransferServiceAsync {
             createNotificationOfChange(achTransferId, params, RequestOptions.none())
 
         /** @see [createNotificationOfChange] */
-        @MustBeClosed
         fun createNotificationOfChange(
             achTransferId: String,
             params: AchTransferCreateNotificationOfChangeParams,
@@ -290,14 +281,12 @@ interface AchTransferServiceAsync {
             )
 
         /** @see [createNotificationOfChange] */
-        @MustBeClosed
         fun createNotificationOfChange(
             params: AchTransferCreateNotificationOfChangeParams
         ): CompletableFuture<HttpResponseFor<AchTransfer>> =
             createNotificationOfChange(params, RequestOptions.none())
 
         /** @see [createNotificationOfChange] */
-        @MustBeClosed
         fun createNotificationOfChange(
             params: AchTransferCreateNotificationOfChangeParams,
             requestOptions: RequestOptions = RequestOptions.none(),
@@ -308,12 +297,10 @@ interface AchTransferServiceAsync {
          * /simulations/ach_transfers/{ach_transfer_id}/return`, but is otherwise the same as
          * [AchTransferServiceAsync.return_].
          */
-        @MustBeClosed
         fun return_(achTransferId: String): CompletableFuture<HttpResponseFor<AchTransfer>> =
             return_(achTransferId, AchTransferReturnParams.none())
 
         /** @see [return_] */
-        @MustBeClosed
         fun return_(
             achTransferId: String,
             params: AchTransferReturnParams = AchTransferReturnParams.none(),
@@ -322,7 +309,6 @@ interface AchTransferServiceAsync {
             return_(params.toBuilder().achTransferId(achTransferId).build(), requestOptions)
 
         /** @see [return_] */
-        @MustBeClosed
         fun return_(
             achTransferId: String,
             params: AchTransferReturnParams = AchTransferReturnParams.none(),
@@ -330,20 +316,17 @@ interface AchTransferServiceAsync {
             return_(achTransferId, params, RequestOptions.none())
 
         /** @see [return_] */
-        @MustBeClosed
         fun return_(
             params: AchTransferReturnParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<AchTransfer>>
 
         /** @see [return_] */
-        @MustBeClosed
         fun return_(
             params: AchTransferReturnParams
         ): CompletableFuture<HttpResponseFor<AchTransfer>> = return_(params, RequestOptions.none())
 
         /** @see [return_] */
-        @MustBeClosed
         fun return_(
             achTransferId: String,
             requestOptions: RequestOptions,
@@ -355,12 +338,10 @@ interface AchTransferServiceAsync {
          * /simulations/ach_transfers/{ach_transfer_id}/settle`, but is otherwise the same as
          * [AchTransferServiceAsync.settle].
          */
-        @MustBeClosed
         fun settle(achTransferId: String): CompletableFuture<HttpResponseFor<AchTransfer>> =
             settle(achTransferId, AchTransferSettleParams.none())
 
         /** @see [settle] */
-        @MustBeClosed
         fun settle(
             achTransferId: String,
             params: AchTransferSettleParams = AchTransferSettleParams.none(),
@@ -369,7 +350,6 @@ interface AchTransferServiceAsync {
             settle(params.toBuilder().achTransferId(achTransferId).build(), requestOptions)
 
         /** @see [settle] */
-        @MustBeClosed
         fun settle(
             achTransferId: String,
             params: AchTransferSettleParams = AchTransferSettleParams.none(),
@@ -377,20 +357,17 @@ interface AchTransferServiceAsync {
             settle(achTransferId, params, RequestOptions.none())
 
         /** @see [settle] */
-        @MustBeClosed
         fun settle(
             params: AchTransferSettleParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<AchTransfer>>
 
         /** @see [settle] */
-        @MustBeClosed
         fun settle(
             params: AchTransferSettleParams
         ): CompletableFuture<HttpResponseFor<AchTransfer>> = settle(params, RequestOptions.none())
 
         /** @see [settle] */
-        @MustBeClosed
         fun settle(
             achTransferId: String,
             requestOptions: RequestOptions,
@@ -402,12 +379,10 @@ interface AchTransferServiceAsync {
          * /simulations/ach_transfers/{ach_transfer_id}/submit`, but is otherwise the same as
          * [AchTransferServiceAsync.submit].
          */
-        @MustBeClosed
         fun submit(achTransferId: String): CompletableFuture<HttpResponseFor<AchTransfer>> =
             submit(achTransferId, AchTransferSubmitParams.none())
 
         /** @see [submit] */
-        @MustBeClosed
         fun submit(
             achTransferId: String,
             params: AchTransferSubmitParams = AchTransferSubmitParams.none(),
@@ -416,7 +391,6 @@ interface AchTransferServiceAsync {
             submit(params.toBuilder().achTransferId(achTransferId).build(), requestOptions)
 
         /** @see [submit] */
-        @MustBeClosed
         fun submit(
             achTransferId: String,
             params: AchTransferSubmitParams = AchTransferSubmitParams.none(),
@@ -424,20 +398,17 @@ interface AchTransferServiceAsync {
             submit(achTransferId, params, RequestOptions.none())
 
         /** @see [submit] */
-        @MustBeClosed
         fun submit(
             params: AchTransferSubmitParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<AchTransfer>>
 
         /** @see [submit] */
-        @MustBeClosed
         fun submit(
             params: AchTransferSubmitParams
         ): CompletableFuture<HttpResponseFor<AchTransfer>> = submit(params, RequestOptions.none())
 
         /** @see [submit] */
-        @MustBeClosed
         fun submit(
             achTransferId: String,
             requestOptions: RequestOptions,

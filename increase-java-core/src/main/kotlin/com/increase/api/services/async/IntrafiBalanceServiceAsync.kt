@@ -2,7 +2,6 @@
 
 package com.increase.api.services.async
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.intrafibalances.IntrafiBalance
@@ -65,12 +64,10 @@ interface IntrafiBalanceServiceAsync {
          * Returns a raw HTTP response for `get /accounts/{account_id}/intrafi_balance`, but is
          * otherwise the same as [IntrafiBalanceServiceAsync.intrafiBalance].
          */
-        @MustBeClosed
         fun intrafiBalance(accountId: String): CompletableFuture<HttpResponseFor<IntrafiBalance>> =
             intrafiBalance(accountId, IntrafiBalanceIntrafiBalanceParams.none())
 
         /** @see [intrafiBalance] */
-        @MustBeClosed
         fun intrafiBalance(
             accountId: String,
             params: IntrafiBalanceIntrafiBalanceParams = IntrafiBalanceIntrafiBalanceParams.none(),
@@ -79,7 +76,6 @@ interface IntrafiBalanceServiceAsync {
             intrafiBalance(params.toBuilder().accountId(accountId).build(), requestOptions)
 
         /** @see [intrafiBalance] */
-        @MustBeClosed
         fun intrafiBalance(
             accountId: String,
             params: IntrafiBalanceIntrafiBalanceParams = IntrafiBalanceIntrafiBalanceParams.none(),
@@ -87,21 +83,18 @@ interface IntrafiBalanceServiceAsync {
             intrafiBalance(accountId, params, RequestOptions.none())
 
         /** @see [intrafiBalance] */
-        @MustBeClosed
         fun intrafiBalance(
             params: IntrafiBalanceIntrafiBalanceParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<IntrafiBalance>>
 
         /** @see [intrafiBalance] */
-        @MustBeClosed
         fun intrafiBalance(
             params: IntrafiBalanceIntrafiBalanceParams
         ): CompletableFuture<HttpResponseFor<IntrafiBalance>> =
             intrafiBalance(params, RequestOptions.none())
 
         /** @see [intrafiBalance] */
-        @MustBeClosed
         fun intrafiBalance(
             accountId: String,
             requestOptions: RequestOptions,

@@ -2,7 +2,6 @@
 
 package com.increase.api.services.async
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.entities.Entity
@@ -287,12 +286,10 @@ interface EntityServiceAsync {
          * Returns a raw HTTP response for `post /entities`, but is otherwise the same as
          * [EntityServiceAsync.create].
          */
-        @MustBeClosed
         fun create(params: EntityCreateParams): CompletableFuture<HttpResponseFor<Entity>> =
             create(params, RequestOptions.none())
 
         /** @see [create] */
-        @MustBeClosed
         fun create(
             params: EntityCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
@@ -302,12 +299,10 @@ interface EntityServiceAsync {
          * Returns a raw HTTP response for `get /entities/{entity_id}`, but is otherwise the same as
          * [EntityServiceAsync.retrieve].
          */
-        @MustBeClosed
         fun retrieve(entityId: String): CompletableFuture<HttpResponseFor<Entity>> =
             retrieve(entityId, EntityRetrieveParams.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             entityId: String,
             params: EntityRetrieveParams = EntityRetrieveParams.none(),
@@ -316,7 +311,6 @@ interface EntityServiceAsync {
             retrieve(params.toBuilder().entityId(entityId).build(), requestOptions)
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             entityId: String,
             params: EntityRetrieveParams = EntityRetrieveParams.none(),
@@ -324,19 +318,16 @@ interface EntityServiceAsync {
             retrieve(entityId, params, RequestOptions.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             params: EntityRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<Entity>>
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(params: EntityRetrieveParams): CompletableFuture<HttpResponseFor<Entity>> =
             retrieve(params, RequestOptions.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             entityId: String,
             requestOptions: RequestOptions,
@@ -347,26 +338,22 @@ interface EntityServiceAsync {
          * Returns a raw HTTP response for `get /entities`, but is otherwise the same as
          * [EntityServiceAsync.list].
          */
-        @MustBeClosed
         fun list(): CompletableFuture<HttpResponseFor<EntityListPageAsync>> =
             list(EntityListParams.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             params: EntityListParams = EntityListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<EntityListPageAsync>>
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             params: EntityListParams = EntityListParams.none()
         ): CompletableFuture<HttpResponseFor<EntityListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             requestOptions: RequestOptions
         ): CompletableFuture<HttpResponseFor<EntityListPageAsync>> =
@@ -376,12 +363,10 @@ interface EntityServiceAsync {
          * Returns a raw HTTP response for `post /entities/{entity_id}/archive`, but is otherwise
          * the same as [EntityServiceAsync.archive].
          */
-        @MustBeClosed
         fun archive(entityId: String): CompletableFuture<HttpResponseFor<Entity>> =
             archive(entityId, EntityArchiveParams.none())
 
         /** @see [archive] */
-        @MustBeClosed
         fun archive(
             entityId: String,
             params: EntityArchiveParams = EntityArchiveParams.none(),
@@ -390,7 +375,6 @@ interface EntityServiceAsync {
             archive(params.toBuilder().entityId(entityId).build(), requestOptions)
 
         /** @see [archive] */
-        @MustBeClosed
         fun archive(
             entityId: String,
             params: EntityArchiveParams = EntityArchiveParams.none(),
@@ -398,19 +382,16 @@ interface EntityServiceAsync {
             archive(entityId, params, RequestOptions.none())
 
         /** @see [archive] */
-        @MustBeClosed
         fun archive(
             params: EntityArchiveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<Entity>>
 
         /** @see [archive] */
-        @MustBeClosed
         fun archive(params: EntityArchiveParams): CompletableFuture<HttpResponseFor<Entity>> =
             archive(params, RequestOptions.none())
 
         /** @see [archive] */
-        @MustBeClosed
         fun archive(
             entityId: String,
             requestOptions: RequestOptions,
@@ -421,7 +402,6 @@ interface EntityServiceAsync {
          * Returns a raw HTTP response for `post /entities/{entity_id}/archive_beneficial_owner`,
          * but is otherwise the same as [EntityServiceAsync.archiveBeneficialOwner].
          */
-        @MustBeClosed
         fun archiveBeneficialOwner(
             entityId: String,
             params: EntityArchiveBeneficialOwnerParams,
@@ -429,7 +409,6 @@ interface EntityServiceAsync {
             archiveBeneficialOwner(entityId, params, RequestOptions.none())
 
         /** @see [archiveBeneficialOwner] */
-        @MustBeClosed
         fun archiveBeneficialOwner(
             entityId: String,
             params: EntityArchiveBeneficialOwnerParams,
@@ -438,14 +417,12 @@ interface EntityServiceAsync {
             archiveBeneficialOwner(params.toBuilder().entityId(entityId).build(), requestOptions)
 
         /** @see [archiveBeneficialOwner] */
-        @MustBeClosed
         fun archiveBeneficialOwner(
             params: EntityArchiveBeneficialOwnerParams
         ): CompletableFuture<HttpResponseFor<Entity>> =
             archiveBeneficialOwner(params, RequestOptions.none())
 
         /** @see [archiveBeneficialOwner] */
-        @MustBeClosed
         fun archiveBeneficialOwner(
             params: EntityArchiveBeneficialOwnerParams,
             requestOptions: RequestOptions = RequestOptions.none(),
@@ -455,12 +432,10 @@ interface EntityServiceAsync {
          * Returns a raw HTTP response for `post /entities/{entity_id}/confirm`, but is otherwise
          * the same as [EntityServiceAsync.confirm].
          */
-        @MustBeClosed
         fun confirm(entityId: String): CompletableFuture<HttpResponseFor<Entity>> =
             confirm(entityId, EntityConfirmParams.none())
 
         /** @see [confirm] */
-        @MustBeClosed
         fun confirm(
             entityId: String,
             params: EntityConfirmParams = EntityConfirmParams.none(),
@@ -469,7 +444,6 @@ interface EntityServiceAsync {
             confirm(params.toBuilder().entityId(entityId).build(), requestOptions)
 
         /** @see [confirm] */
-        @MustBeClosed
         fun confirm(
             entityId: String,
             params: EntityConfirmParams = EntityConfirmParams.none(),
@@ -477,19 +451,16 @@ interface EntityServiceAsync {
             confirm(entityId, params, RequestOptions.none())
 
         /** @see [confirm] */
-        @MustBeClosed
         fun confirm(
             params: EntityConfirmParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<Entity>>
 
         /** @see [confirm] */
-        @MustBeClosed
         fun confirm(params: EntityConfirmParams): CompletableFuture<HttpResponseFor<Entity>> =
             confirm(params, RequestOptions.none())
 
         /** @see [confirm] */
-        @MustBeClosed
         fun confirm(
             entityId: String,
             requestOptions: RequestOptions,
@@ -500,7 +471,6 @@ interface EntityServiceAsync {
          * Returns a raw HTTP response for `post /entities/{entity_id}/create_beneficial_owner`, but
          * is otherwise the same as [EntityServiceAsync.createBeneficialOwner].
          */
-        @MustBeClosed
         fun createBeneficialOwner(
             entityId: String,
             params: EntityCreateBeneficialOwnerParams,
@@ -508,7 +478,6 @@ interface EntityServiceAsync {
             createBeneficialOwner(entityId, params, RequestOptions.none())
 
         /** @see [createBeneficialOwner] */
-        @MustBeClosed
         fun createBeneficialOwner(
             entityId: String,
             params: EntityCreateBeneficialOwnerParams,
@@ -517,14 +486,12 @@ interface EntityServiceAsync {
             createBeneficialOwner(params.toBuilder().entityId(entityId).build(), requestOptions)
 
         /** @see [createBeneficialOwner] */
-        @MustBeClosed
         fun createBeneficialOwner(
             params: EntityCreateBeneficialOwnerParams
         ): CompletableFuture<HttpResponseFor<Entity>> =
             createBeneficialOwner(params, RequestOptions.none())
 
         /** @see [createBeneficialOwner] */
-        @MustBeClosed
         fun createBeneficialOwner(
             params: EntityCreateBeneficialOwnerParams,
             requestOptions: RequestOptions = RequestOptions.none(),
@@ -534,7 +501,6 @@ interface EntityServiceAsync {
          * Returns a raw HTTP response for `post /entities/{entity_id}/update_address`, but is
          * otherwise the same as [EntityServiceAsync.updateAddress].
          */
-        @MustBeClosed
         fun updateAddress(
             entityId: String,
             params: EntityUpdateAddressParams,
@@ -542,7 +508,6 @@ interface EntityServiceAsync {
             updateAddress(entityId, params, RequestOptions.none())
 
         /** @see [updateAddress] */
-        @MustBeClosed
         fun updateAddress(
             entityId: String,
             params: EntityUpdateAddressParams,
@@ -551,13 +516,11 @@ interface EntityServiceAsync {
             updateAddress(params.toBuilder().entityId(entityId).build(), requestOptions)
 
         /** @see [updateAddress] */
-        @MustBeClosed
         fun updateAddress(
             params: EntityUpdateAddressParams
         ): CompletableFuture<HttpResponseFor<Entity>> = updateAddress(params, RequestOptions.none())
 
         /** @see [updateAddress] */
-        @MustBeClosed
         fun updateAddress(
             params: EntityUpdateAddressParams,
             requestOptions: RequestOptions = RequestOptions.none(),
@@ -568,7 +531,6 @@ interface EntityServiceAsync {
          * /entities/{entity_id}/update_beneficial_owner_address`, but is otherwise the same as
          * [EntityServiceAsync.updateBeneficialOwnerAddress].
          */
-        @MustBeClosed
         fun updateBeneficialOwnerAddress(
             entityId: String,
             params: EntityUpdateBeneficialOwnerAddressParams,
@@ -576,7 +538,6 @@ interface EntityServiceAsync {
             updateBeneficialOwnerAddress(entityId, params, RequestOptions.none())
 
         /** @see [updateBeneficialOwnerAddress] */
-        @MustBeClosed
         fun updateBeneficialOwnerAddress(
             entityId: String,
             params: EntityUpdateBeneficialOwnerAddressParams,
@@ -588,14 +549,12 @@ interface EntityServiceAsync {
             )
 
         /** @see [updateBeneficialOwnerAddress] */
-        @MustBeClosed
         fun updateBeneficialOwnerAddress(
             params: EntityUpdateBeneficialOwnerAddressParams
         ): CompletableFuture<HttpResponseFor<Entity>> =
             updateBeneficialOwnerAddress(params, RequestOptions.none())
 
         /** @see [updateBeneficialOwnerAddress] */
-        @MustBeClosed
         fun updateBeneficialOwnerAddress(
             params: EntityUpdateBeneficialOwnerAddressParams,
             requestOptions: RequestOptions = RequestOptions.none(),
@@ -605,7 +564,6 @@ interface EntityServiceAsync {
          * Returns a raw HTTP response for `post /entities/{entity_id}/update_industry_code`, but is
          * otherwise the same as [EntityServiceAsync.updateIndustryCode].
          */
-        @MustBeClosed
         fun updateIndustryCode(
             entityId: String,
             params: EntityUpdateIndustryCodeParams,
@@ -613,7 +571,6 @@ interface EntityServiceAsync {
             updateIndustryCode(entityId, params, RequestOptions.none())
 
         /** @see [updateIndustryCode] */
-        @MustBeClosed
         fun updateIndustryCode(
             entityId: String,
             params: EntityUpdateIndustryCodeParams,
@@ -622,14 +579,12 @@ interface EntityServiceAsync {
             updateIndustryCode(params.toBuilder().entityId(entityId).build(), requestOptions)
 
         /** @see [updateIndustryCode] */
-        @MustBeClosed
         fun updateIndustryCode(
             params: EntityUpdateIndustryCodeParams
         ): CompletableFuture<HttpResponseFor<Entity>> =
             updateIndustryCode(params, RequestOptions.none())
 
         /** @see [updateIndustryCode] */
-        @MustBeClosed
         fun updateIndustryCode(
             params: EntityUpdateIndustryCodeParams,
             requestOptions: RequestOptions = RequestOptions.none(),

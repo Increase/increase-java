@@ -2,7 +2,6 @@
 
 package com.increase.api.services.async
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransfer
@@ -108,14 +107,12 @@ interface RealTimePaymentsTransferServiceAsync {
          * Returns a raw HTTP response for `post /real_time_payments_transfers`, but is otherwise
          * the same as [RealTimePaymentsTransferServiceAsync.create].
          */
-        @MustBeClosed
         fun create(
             params: RealTimePaymentsTransferCreateParams
         ): CompletableFuture<HttpResponseFor<RealTimePaymentsTransfer>> =
             create(params, RequestOptions.none())
 
         /** @see [create] */
-        @MustBeClosed
         fun create(
             params: RealTimePaymentsTransferCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
@@ -126,14 +123,12 @@ interface RealTimePaymentsTransferServiceAsync {
          * /real_time_payments_transfers/{real_time_payments_transfer_id}`, but is otherwise the
          * same as [RealTimePaymentsTransferServiceAsync.retrieve].
          */
-        @MustBeClosed
         fun retrieve(
             realTimePaymentsTransferId: String
         ): CompletableFuture<HttpResponseFor<RealTimePaymentsTransfer>> =
             retrieve(realTimePaymentsTransferId, RealTimePaymentsTransferRetrieveParams.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             realTimePaymentsTransferId: String,
             params: RealTimePaymentsTransferRetrieveParams =
@@ -146,7 +141,6 @@ interface RealTimePaymentsTransferServiceAsync {
             )
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             realTimePaymentsTransferId: String,
             params: RealTimePaymentsTransferRetrieveParams =
@@ -155,21 +149,18 @@ interface RealTimePaymentsTransferServiceAsync {
             retrieve(realTimePaymentsTransferId, params, RequestOptions.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             params: RealTimePaymentsTransferRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<RealTimePaymentsTransfer>>
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             params: RealTimePaymentsTransferRetrieveParams
         ): CompletableFuture<HttpResponseFor<RealTimePaymentsTransfer>> =
             retrieve(params, RequestOptions.none())
 
         /** @see [retrieve] */
-        @MustBeClosed
         fun retrieve(
             realTimePaymentsTransferId: String,
             requestOptions: RequestOptions,
@@ -184,26 +175,22 @@ interface RealTimePaymentsTransferServiceAsync {
          * Returns a raw HTTP response for `get /real_time_payments_transfers`, but is otherwise the
          * same as [RealTimePaymentsTransferServiceAsync.list].
          */
-        @MustBeClosed
         fun list(): CompletableFuture<HttpResponseFor<RealTimePaymentsTransferListPageAsync>> =
             list(RealTimePaymentsTransferListParams.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             params: RealTimePaymentsTransferListParams = RealTimePaymentsTransferListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<RealTimePaymentsTransferListPageAsync>>
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             params: RealTimePaymentsTransferListParams = RealTimePaymentsTransferListParams.none()
         ): CompletableFuture<HttpResponseFor<RealTimePaymentsTransferListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             requestOptions: RequestOptions
         ): CompletableFuture<HttpResponseFor<RealTimePaymentsTransferListPageAsync>> =
