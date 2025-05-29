@@ -2,7 +2,6 @@
 
 package com.increase.api.services.async.simulations
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.programs.Program
@@ -39,12 +38,10 @@ interface ProgramServiceAsync {
          * Returns a raw HTTP response for `post /simulations/programs`, but is otherwise the same
          * as [ProgramServiceAsync.create].
          */
-        @MustBeClosed
         fun create(params: ProgramCreateParams): CompletableFuture<HttpResponseFor<Program>> =
             create(params, RequestOptions.none())
 
         /** @see [create] */
-        @MustBeClosed
         fun create(
             params: ProgramCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),

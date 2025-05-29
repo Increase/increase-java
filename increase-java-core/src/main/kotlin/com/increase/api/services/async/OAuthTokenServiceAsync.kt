@@ -2,7 +2,6 @@
 
 package com.increase.api.services.async
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.oauthtokens.OAuthToken
@@ -36,12 +35,10 @@ interface OAuthTokenServiceAsync {
          * Returns a raw HTTP response for `post /oauth/tokens`, but is otherwise the same as
          * [OAuthTokenServiceAsync.create].
          */
-        @MustBeClosed
         fun create(params: OAuthTokenCreateParams): CompletableFuture<HttpResponseFor<OAuthToken>> =
             create(params, RequestOptions.none())
 
         /** @see [create] */
-        @MustBeClosed
         fun create(
             params: OAuthTokenCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),

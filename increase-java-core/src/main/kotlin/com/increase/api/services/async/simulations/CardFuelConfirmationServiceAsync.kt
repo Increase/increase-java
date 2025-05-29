@@ -2,7 +2,6 @@
 
 package com.increase.api.services.async.simulations
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.cardpayments.CardPayment
@@ -40,13 +39,11 @@ interface CardFuelConfirmationServiceAsync {
          * Returns a raw HTTP response for `post /simulations/card_fuel_confirmations`, but is
          * otherwise the same as [CardFuelConfirmationServiceAsync.create].
          */
-        @MustBeClosed
         fun create(
             params: CardFuelConfirmationCreateParams
         ): CompletableFuture<HttpResponseFor<CardPayment>> = create(params, RequestOptions.none())
 
         /** @see [create] */
-        @MustBeClosed
         fun create(
             params: CardFuelConfirmationCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),

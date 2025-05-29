@@ -2,7 +2,6 @@
 
 package com.increase.api.services.async.simulations
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.accountstatements.AccountStatement
@@ -39,14 +38,12 @@ interface AccountStatementServiceAsync {
          * Returns a raw HTTP response for `post /simulations/account_statements`, but is otherwise
          * the same as [AccountStatementServiceAsync.create].
          */
-        @MustBeClosed
         fun create(
             params: AccountStatementCreateParams
         ): CompletableFuture<HttpResponseFor<AccountStatement>> =
             create(params, RequestOptions.none())
 
         /** @see [create] */
-        @MustBeClosed
         fun create(
             params: AccountStatementCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),

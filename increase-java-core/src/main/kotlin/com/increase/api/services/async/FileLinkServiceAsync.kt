@@ -2,7 +2,6 @@
 
 package com.increase.api.services.async
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.filelinks.FileLink
@@ -35,12 +34,10 @@ interface FileLinkServiceAsync {
          * Returns a raw HTTP response for `post /file_links`, but is otherwise the same as
          * [FileLinkServiceAsync.create].
          */
-        @MustBeClosed
         fun create(params: FileLinkCreateParams): CompletableFuture<HttpResponseFor<FileLink>> =
             create(params, RequestOptions.none())
 
         /** @see [create] */
-        @MustBeClosed
         fun create(
             params: FileLinkCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),

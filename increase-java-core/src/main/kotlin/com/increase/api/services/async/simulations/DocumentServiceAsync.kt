@@ -2,7 +2,6 @@
 
 package com.increase.api.services.async.simulations
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.documents.Document
@@ -35,12 +34,10 @@ interface DocumentServiceAsync {
          * Returns a raw HTTP response for `post /simulations/documents`, but is otherwise the same
          * as [DocumentServiceAsync.create].
          */
-        @MustBeClosed
         fun create(params: DocumentCreateParams): CompletableFuture<HttpResponseFor<Document>> =
             create(params, RequestOptions.none())
 
         /** @see [create] */
-        @MustBeClosed
         fun create(
             params: DocumentCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),

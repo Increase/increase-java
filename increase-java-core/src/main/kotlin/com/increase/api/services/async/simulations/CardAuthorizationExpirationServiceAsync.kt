@@ -2,7 +2,6 @@
 
 package com.increase.api.services.async.simulations
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.cardpayments.CardPayment
@@ -36,13 +35,11 @@ interface CardAuthorizationExpirationServiceAsync {
          * Returns a raw HTTP response for `post /simulations/card_authorization_expirations`, but
          * is otherwise the same as [CardAuthorizationExpirationServiceAsync.create].
          */
-        @MustBeClosed
         fun create(
             params: CardAuthorizationExpirationCreateParams
         ): CompletableFuture<HttpResponseFor<CardPayment>> = create(params, RequestOptions.none())
 
         /** @see [create] */
-        @MustBeClosed
         fun create(
             params: CardAuthorizationExpirationCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),

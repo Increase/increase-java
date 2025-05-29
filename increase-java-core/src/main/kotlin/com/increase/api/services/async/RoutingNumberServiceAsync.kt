@@ -2,7 +2,6 @@
 
 package com.increase.api.services.async
 
-import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.routingnumbers.RoutingNumberListPageAsync
@@ -41,14 +40,12 @@ interface RoutingNumberServiceAsync {
          * Returns a raw HTTP response for `get /routing_numbers`, but is otherwise the same as
          * [RoutingNumberServiceAsync.list].
          */
-        @MustBeClosed
         fun list(
             params: RoutingNumberListParams
         ): CompletableFuture<HttpResponseFor<RoutingNumberListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see [list] */
-        @MustBeClosed
         fun list(
             params: RoutingNumberListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
