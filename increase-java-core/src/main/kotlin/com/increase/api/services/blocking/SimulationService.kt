@@ -17,7 +17,6 @@ import com.increase.api.services.blocking.simulations.CheckDepositService
 import com.increase.api.services.blocking.simulations.CheckTransferService
 import com.increase.api.services.blocking.simulations.DigitalWalletTokenRequestService
 import com.increase.api.services.blocking.simulations.DocumentService
-import com.increase.api.services.blocking.simulations.FeePaymentService
 import com.increase.api.services.blocking.simulations.InboundAchTransferService
 import com.increase.api.services.blocking.simulations.InboundCheckDepositService
 import com.increase.api.services.blocking.simulations.InboundFundsHoldService
@@ -39,8 +38,6 @@ interface SimulationService {
     fun withRawResponse(): WithRawResponse
 
     fun interestPayments(): InterestPaymentService
-
-    fun feePayments(): FeePaymentService
 
     fun cardAuthorizations(): CardAuthorizationService
 
@@ -98,8 +95,6 @@ interface SimulationService {
     interface WithRawResponse {
 
         fun interestPayments(): InterestPaymentService.WithRawResponse
-
-        fun feePayments(): FeePaymentService.WithRawResponse
 
         fun cardAuthorizations(): CardAuthorizationService.WithRawResponse
 
