@@ -30,6 +30,7 @@ private constructor(
     private val createdAt: JsonField<OffsetDateTime>,
     private val entityId: JsonField<String>,
     private val fileId: JsonField<String>,
+    private val idempotencyKey: JsonField<String>,
     private val type: JsonField<Type>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
@@ -43,8 +44,11 @@ private constructor(
         createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
         @JsonProperty("entity_id") @ExcludeMissing entityId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("file_id") @ExcludeMissing fileId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("idempotency_key")
+        @ExcludeMissing
+        idempotencyKey: JsonField<String> = JsonMissing.of(),
         @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
-    ) : this(id, category, createdAt, entityId, fileId, type, mutableMapOf())
+    ) : this(id, category, createdAt, entityId, fileId, idempotencyKey, type, mutableMapOf())
 
     /**
      * The Document identifier.
@@ -86,6 +90,16 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun fileId(): String = fileId.getRequired("file_id")
+
+    /**
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun idempotencyKey(): Optional<String> = idempotencyKey.getOptional("idempotency_key")
 
     /**
      * A constant representing the object's type. For this resource it will always be `document`.
@@ -133,6 +147,15 @@ private constructor(
     @JsonProperty("file_id") @ExcludeMissing fun _fileId(): JsonField<String> = fileId
 
     /**
+     * Returns the raw JSON value of [idempotencyKey].
+     *
+     * Unlike [idempotencyKey], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("idempotency_key")
+    @ExcludeMissing
+    fun _idempotencyKey(): JsonField<String> = idempotencyKey
+
+    /**
      * Returns the raw JSON value of [type].
      *
      * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
@@ -163,6 +186,7 @@ private constructor(
          * .createdAt()
          * .entityId()
          * .fileId()
+         * .idempotencyKey()
          * .type()
          * ```
          */
@@ -177,6 +201,7 @@ private constructor(
         private var createdAt: JsonField<OffsetDateTime>? = null
         private var entityId: JsonField<String>? = null
         private var fileId: JsonField<String>? = null
+        private var idempotencyKey: JsonField<String>? = null
         private var type: JsonField<Type>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -187,6 +212,7 @@ private constructor(
             createdAt = document.createdAt
             entityId = document.entityId
             fileId = document.fileId
+            idempotencyKey = document.idempotencyKey
             type = document.type
             additionalProperties = document.additionalProperties.toMutableMap()
         }
@@ -255,6 +281,29 @@ private constructor(
         fun fileId(fileId: JsonField<String>) = apply { this.fileId = fileId }
 
         /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        fun idempotencyKey(idempotencyKey: String?) =
+            idempotencyKey(JsonField.ofNullable(idempotencyKey))
+
+        /** Alias for calling [Builder.idempotencyKey] with `idempotencyKey.orElse(null)`. */
+        fun idempotencyKey(idempotencyKey: Optional<String>) =
+            idempotencyKey(idempotencyKey.getOrNull())
+
+        /**
+         * Sets [Builder.idempotencyKey] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.idempotencyKey] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
+            this.idempotencyKey = idempotencyKey
+        }
+
+        /**
          * A constant representing the object's type. For this resource it will always be
          * `document`.
          */
@@ -299,6 +348,7 @@ private constructor(
          * .createdAt()
          * .entityId()
          * .fileId()
+         * .idempotencyKey()
          * .type()
          * ```
          *
@@ -311,6 +361,7 @@ private constructor(
                 checkRequired("createdAt", createdAt),
                 checkRequired("entityId", entityId),
                 checkRequired("fileId", fileId),
+                checkRequired("idempotencyKey", idempotencyKey),
                 checkRequired("type", type),
                 additionalProperties.toMutableMap(),
             )
@@ -328,6 +379,7 @@ private constructor(
         createdAt()
         entityId()
         fileId()
+        idempotencyKey()
         type().validate()
         validated = true
     }
@@ -352,6 +404,7 @@ private constructor(
             (if (createdAt.asKnown().isPresent) 1 else 0) +
             (if (entityId.asKnown().isPresent) 1 else 0) +
             (if (fileId.asKnown().isPresent) 1 else 0) +
+            (if (idempotencyKey.asKnown().isPresent) 1 else 0) +
             (type.asKnown().getOrNull()?.validity() ?: 0)
 
     /** The type of document. */
@@ -387,6 +440,9 @@ private constructor(
              */
             @JvmField val COMPANY_INFORMATION = of("company_information")
 
+            /** An account verification letter. */
+            @JvmField val ACCOUNT_VERIFICATION_LETTER = of("account_verification_letter")
+
             @JvmStatic fun of(value: String) = Category(JsonField.of(value))
         }
 
@@ -406,6 +462,8 @@ private constructor(
              * due diligence process.
              */
             COMPANY_INFORMATION,
+            /** An account verification letter. */
+            ACCOUNT_VERIFICATION_LETTER,
         }
 
         /**
@@ -432,6 +490,8 @@ private constructor(
              * due diligence process.
              */
             COMPANY_INFORMATION,
+            /** An account verification letter. */
+            ACCOUNT_VERIFICATION_LETTER,
             /** An enum member indicating that [Category] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -449,6 +509,7 @@ private constructor(
                 FORM_1099_MISC -> Value.FORM_1099_MISC
                 PROOF_OF_AUTHORIZATION -> Value.PROOF_OF_AUTHORIZATION
                 COMPANY_INFORMATION -> Value.COMPANY_INFORMATION
+                ACCOUNT_VERIFICATION_LETTER -> Value.ACCOUNT_VERIFICATION_LETTER
                 else -> Value._UNKNOWN
             }
 
@@ -467,6 +528,7 @@ private constructor(
                 FORM_1099_MISC -> Known.FORM_1099_MISC
                 PROOF_OF_AUTHORIZATION -> Known.PROOF_OF_AUTHORIZATION
                 COMPANY_INFORMATION -> Known.COMPANY_INFORMATION
+                ACCOUNT_VERIFICATION_LETTER -> Known.ACCOUNT_VERIFICATION_LETTER
                 else -> throw IncreaseInvalidDataException("Unknown Category: $value")
             }
 
@@ -653,15 +715,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is Document && id == other.id && category == other.category && createdAt == other.createdAt && entityId == other.entityId && fileId == other.fileId && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is Document && id == other.id && category == other.category && createdAt == other.createdAt && entityId == other.entityId && fileId == other.fileId && idempotencyKey == other.idempotencyKey && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, category, createdAt, entityId, fileId, type, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, category, createdAt, entityId, fileId, idempotencyKey, type, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "Document{id=$id, category=$category, createdAt=$createdAt, entityId=$entityId, fileId=$fileId, type=$type, additionalProperties=$additionalProperties}"
+        "Document{id=$id, category=$category, createdAt=$createdAt, entityId=$entityId, fileId=$fileId, idempotencyKey=$idempotencyKey, type=$type, additionalProperties=$additionalProperties}"
 }
