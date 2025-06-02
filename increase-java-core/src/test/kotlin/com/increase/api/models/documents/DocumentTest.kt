@@ -19,6 +19,7 @@ internal class DocumentTest {
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .entityId("entity_n8y8tnk2p9339ti393yi")
                 .fileId("file_makxrc67oh9l6sg7w9yc")
+                .idempotencyKey(null)
                 .type(Document.Type.DOCUMENT)
                 .build()
 
@@ -27,6 +28,7 @@ internal class DocumentTest {
         assertThat(document.createdAt()).isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
         assertThat(document.entityId()).contains("entity_n8y8tnk2p9339ti393yi")
         assertThat(document.fileId()).isEqualTo("file_makxrc67oh9l6sg7w9yc")
+        assertThat(document.idempotencyKey()).isEmpty
         assertThat(document.type()).isEqualTo(Document.Type.DOCUMENT)
     }
 
@@ -40,6 +42,7 @@ internal class DocumentTest {
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .entityId("entity_n8y8tnk2p9339ti393yi")
                 .fileId("file_makxrc67oh9l6sg7w9yc")
+                .idempotencyKey(null)
                 .type(Document.Type.DOCUMENT)
                 .build()
 

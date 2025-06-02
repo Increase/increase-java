@@ -27,6 +27,7 @@ internal class DocumentListParamsTest {
             )
             .cursor("cursor")
             .entityId("entity_id")
+            .idempotencyKey("x")
             .limit(1L)
             .build()
     }
@@ -50,6 +51,7 @@ internal class DocumentListParamsTest {
                 )
                 .cursor("cursor")
                 .entityId("entity_id")
+                .idempotencyKey("x")
                 .limit(1L)
                 .build()
 
@@ -65,6 +67,7 @@ internal class DocumentListParamsTest {
                     .put("created_at.on_or_before", "2019-12-27T18:11:19.117Z")
                     .put("cursor", "cursor")
                     .put("entity_id", "entity_id")
+                    .put("idempotency_key", "x")
                     .put("limit", "1")
                     .build()
             )
