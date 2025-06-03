@@ -17,6 +17,11 @@ internal class DocumentListPageResponseTest {
                 .addData(
                     Document.builder()
                         .id("document_qjtqc6s4c14ve2q89izm")
+                        .accountVerificationLetter(
+                            Document.AccountVerificationLetter.builder()
+                                .accountNumberId("account_number_id")
+                                .build()
+                        )
                         .category(Document.Category.FORM_1099_INT)
                         .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                         .entityId("entity_n8y8tnk2p9339ti393yi")
@@ -32,6 +37,11 @@ internal class DocumentListPageResponseTest {
             .containsExactly(
                 Document.builder()
                     .id("document_qjtqc6s4c14ve2q89izm")
+                    .accountVerificationLetter(
+                        Document.AccountVerificationLetter.builder()
+                            .accountNumberId("account_number_id")
+                            .build()
+                    )
                     .category(Document.Category.FORM_1099_INT)
                     .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                     .entityId("entity_n8y8tnk2p9339ti393yi")
@@ -51,6 +61,11 @@ internal class DocumentListPageResponseTest {
                 .addData(
                     Document.builder()
                         .id("document_qjtqc6s4c14ve2q89izm")
+                        .accountVerificationLetter(
+                            Document.AccountVerificationLetter.builder()
+                                .accountNumberId("account_number_id")
+                                .build()
+                        )
                         .category(Document.Category.FORM_1099_INT)
                         .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                         .entityId("entity_n8y8tnk2p9339ti393yi")
