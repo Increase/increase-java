@@ -15,6 +15,11 @@ internal class DocumentTest {
         val document =
             Document.builder()
                 .id("document_qjtqc6s4c14ve2q89izm")
+                .accountVerificationLetter(
+                    Document.AccountVerificationLetter.builder()
+                        .accountNumberId("account_number_id")
+                        .build()
+                )
                 .category(Document.Category.FORM_1099_INT)
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .entityId("entity_n8y8tnk2p9339ti393yi")
@@ -24,6 +29,12 @@ internal class DocumentTest {
                 .build()
 
         assertThat(document.id()).isEqualTo("document_qjtqc6s4c14ve2q89izm")
+        assertThat(document.accountVerificationLetter())
+            .contains(
+                Document.AccountVerificationLetter.builder()
+                    .accountNumberId("account_number_id")
+                    .build()
+            )
         assertThat(document.category()).isEqualTo(Document.Category.FORM_1099_INT)
         assertThat(document.createdAt()).isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
         assertThat(document.entityId()).contains("entity_n8y8tnk2p9339ti393yi")
@@ -38,6 +49,11 @@ internal class DocumentTest {
         val document =
             Document.builder()
                 .id("document_qjtqc6s4c14ve2q89izm")
+                .accountVerificationLetter(
+                    Document.AccountVerificationLetter.builder()
+                        .accountNumberId("account_number_id")
+                        .build()
+                )
                 .category(Document.Category.FORM_1099_INT)
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .entityId("entity_n8y8tnk2p9339ti393yi")

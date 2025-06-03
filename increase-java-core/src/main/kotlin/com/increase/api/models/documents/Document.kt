@@ -26,6 +26,7 @@ import kotlin.jvm.optionals.getOrNull
 class Document
 private constructor(
     private val id: JsonField<String>,
+    private val accountVerificationLetter: JsonField<AccountVerificationLetter>,
     private val category: JsonField<Category>,
     private val createdAt: JsonField<OffsetDateTime>,
     private val entityId: JsonField<String>,
@@ -38,6 +39,9 @@ private constructor(
     @JsonCreator
     private constructor(
         @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("account_verification_letter")
+        @ExcludeMissing
+        accountVerificationLetter: JsonField<AccountVerificationLetter> = JsonMissing.of(),
         @JsonProperty("category") @ExcludeMissing category: JsonField<Category> = JsonMissing.of(),
         @JsonProperty("created_at")
         @ExcludeMissing
@@ -48,7 +52,17 @@ private constructor(
         @ExcludeMissing
         idempotencyKey: JsonField<String> = JsonMissing.of(),
         @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
-    ) : this(id, category, createdAt, entityId, fileId, idempotencyKey, type, mutableMapOf())
+    ) : this(
+        id,
+        accountVerificationLetter,
+        category,
+        createdAt,
+        entityId,
+        fileId,
+        idempotencyKey,
+        type,
+        mutableMapOf(),
+    )
 
     /**
      * The Document identifier.
@@ -57,6 +71,15 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun id(): String = id.getRequired("id")
+
+    /**
+     * Properties of an account verification letter document.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun accountVerificationLetter(): Optional<AccountVerificationLetter> =
+        accountVerificationLetter.getOptional("account_verification_letter")
 
     /**
      * The type of document.
@@ -115,6 +138,17 @@ private constructor(
      * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+
+    /**
+     * Returns the raw JSON value of [accountVerificationLetter].
+     *
+     * Unlike [accountVerificationLetter], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    @JsonProperty("account_verification_letter")
+    @ExcludeMissing
+    fun _accountVerificationLetter(): JsonField<AccountVerificationLetter> =
+        accountVerificationLetter
 
     /**
      * Returns the raw JSON value of [category].
@@ -182,6 +216,7 @@ private constructor(
          * The following fields are required:
          * ```java
          * .id()
+         * .accountVerificationLetter()
          * .category()
          * .createdAt()
          * .entityId()
@@ -197,6 +232,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var id: JsonField<String>? = null
+        private var accountVerificationLetter: JsonField<AccountVerificationLetter>? = null
         private var category: JsonField<Category>? = null
         private var createdAt: JsonField<OffsetDateTime>? = null
         private var entityId: JsonField<String>? = null
@@ -208,6 +244,7 @@ private constructor(
         @JvmSynthetic
         internal fun from(document: Document) = apply {
             id = document.id
+            accountVerificationLetter = document.accountVerificationLetter
             category = document.category
             createdAt = document.createdAt
             entityId = document.entityId
@@ -227,6 +264,29 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun id(id: JsonField<String>) = apply { this.id = id }
+
+        /** Properties of an account verification letter document. */
+        fun accountVerificationLetter(accountVerificationLetter: AccountVerificationLetter?) =
+            accountVerificationLetter(JsonField.ofNullable(accountVerificationLetter))
+
+        /**
+         * Alias for calling [Builder.accountVerificationLetter] with
+         * `accountVerificationLetter.orElse(null)`.
+         */
+        fun accountVerificationLetter(
+            accountVerificationLetter: Optional<AccountVerificationLetter>
+        ) = accountVerificationLetter(accountVerificationLetter.getOrNull())
+
+        /**
+         * Sets [Builder.accountVerificationLetter] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.accountVerificationLetter] with a well-typed
+         * [AccountVerificationLetter] value instead. This method is primarily for setting the field
+         * to an undocumented or not yet supported value.
+         */
+        fun accountVerificationLetter(
+            accountVerificationLetter: JsonField<AccountVerificationLetter>
+        ) = apply { this.accountVerificationLetter = accountVerificationLetter }
 
         /** The type of document. */
         fun category(category: Category) = category(JsonField.of(category))
@@ -344,6 +404,7 @@ private constructor(
          * The following fields are required:
          * ```java
          * .id()
+         * .accountVerificationLetter()
          * .category()
          * .createdAt()
          * .entityId()
@@ -357,6 +418,7 @@ private constructor(
         fun build(): Document =
             Document(
                 checkRequired("id", id),
+                checkRequired("accountVerificationLetter", accountVerificationLetter),
                 checkRequired("category", category),
                 checkRequired("createdAt", createdAt),
                 checkRequired("entityId", entityId),
@@ -375,6 +437,7 @@ private constructor(
         }
 
         id()
+        accountVerificationLetter().ifPresent { it.validate() }
         category().validate()
         createdAt()
         entityId()
@@ -400,12 +463,182 @@ private constructor(
     @JvmSynthetic
     internal fun validity(): Int =
         (if (id.asKnown().isPresent) 1 else 0) +
+            (accountVerificationLetter.asKnown().getOrNull()?.validity() ?: 0) +
             (category.asKnown().getOrNull()?.validity() ?: 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
             (if (entityId.asKnown().isPresent) 1 else 0) +
             (if (fileId.asKnown().isPresent) 1 else 0) +
             (if (idempotencyKey.asKnown().isPresent) 1 else 0) +
             (type.asKnown().getOrNull()?.validity() ?: 0)
+
+    /** Properties of an account verification letter document. */
+    class AccountVerificationLetter
+    private constructor(
+        private val accountNumberId: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("account_number_id")
+            @ExcludeMissing
+            accountNumberId: JsonField<String> = JsonMissing.of()
+        ) : this(accountNumberId, mutableMapOf())
+
+        /**
+         * The identifier of the Account Number the document was generated for.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun accountNumberId(): String = accountNumberId.getRequired("account_number_id")
+
+        /**
+         * Returns the raw JSON value of [accountNumberId].
+         *
+         * Unlike [accountNumberId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("account_number_id")
+        @ExcludeMissing
+        fun _accountNumberId(): JsonField<String> = accountNumberId
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [AccountVerificationLetter].
+             *
+             * The following fields are required:
+             * ```java
+             * .accountNumberId()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [AccountVerificationLetter]. */
+        class Builder internal constructor() {
+
+            private var accountNumberId: JsonField<String>? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(accountVerificationLetter: AccountVerificationLetter) = apply {
+                accountNumberId = accountVerificationLetter.accountNumberId
+                additionalProperties = accountVerificationLetter.additionalProperties.toMutableMap()
+            }
+
+            /** The identifier of the Account Number the document was generated for. */
+            fun accountNumberId(accountNumberId: String) =
+                accountNumberId(JsonField.of(accountNumberId))
+
+            /**
+             * Sets [Builder.accountNumberId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.accountNumberId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun accountNumberId(accountNumberId: JsonField<String>) = apply {
+                this.accountNumberId = accountNumberId
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [AccountVerificationLetter].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .accountNumberId()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): AccountVerificationLetter =
+                AccountVerificationLetter(
+                    checkRequired("accountNumberId", accountNumberId),
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): AccountVerificationLetter = apply {
+            if (validated) {
+                return@apply
+            }
+
+            accountNumberId()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int = (if (accountNumberId.asKnown().isPresent) 1 else 0)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is AccountVerificationLetter && accountNumberId == other.accountNumberId && additionalProperties == other.additionalProperties /* spotless:on */
+        }
+
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(accountNumberId, additionalProperties) }
+        /* spotless:on */
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "AccountVerificationLetter{accountNumberId=$accountNumberId, additionalProperties=$additionalProperties}"
+    }
 
     /** The type of document. */
     class Category @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
@@ -715,15 +948,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is Document && id == other.id && category == other.category && createdAt == other.createdAt && entityId == other.entityId && fileId == other.fileId && idempotencyKey == other.idempotencyKey && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is Document && id == other.id && accountVerificationLetter == other.accountVerificationLetter && category == other.category && createdAt == other.createdAt && entityId == other.entityId && fileId == other.fileId && idempotencyKey == other.idempotencyKey && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, category, createdAt, entityId, fileId, idempotencyKey, type, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, accountVerificationLetter, category, createdAt, entityId, fileId, idempotencyKey, type, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "Document{id=$id, category=$category, createdAt=$createdAt, entityId=$entityId, fileId=$fileId, idempotencyKey=$idempotencyKey, type=$type, additionalProperties=$additionalProperties}"
+        "Document{id=$id, accountVerificationLetter=$accountVerificationLetter, category=$category, createdAt=$createdAt, entityId=$entityId, fileId=$fileId, idempotencyKey=$idempotencyKey, type=$type, additionalProperties=$additionalProperties}"
 }
