@@ -24,7 +24,6 @@ internal class ExternalAccountTest {
                 .routingNumber("101050001")
                 .status(ExternalAccount.Status.ACTIVE)
                 .type(ExternalAccount.Type.EXTERNAL_ACCOUNT)
-                .verificationStatus(ExternalAccount.VerificationStatus.VERIFIED)
                 .build()
 
         assertThat(externalAccount.id()).isEqualTo("external_account_ukk55lr923a3ac0pp7iv")
@@ -39,8 +38,6 @@ internal class ExternalAccountTest {
         assertThat(externalAccount.routingNumber()).isEqualTo("101050001")
         assertThat(externalAccount.status()).isEqualTo(ExternalAccount.Status.ACTIVE)
         assertThat(externalAccount.type()).isEqualTo(ExternalAccount.Type.EXTERNAL_ACCOUNT)
-        assertThat(externalAccount.verificationStatus())
-            .isEqualTo(ExternalAccount.VerificationStatus.VERIFIED)
     }
 
     @Test
@@ -58,7 +55,6 @@ internal class ExternalAccountTest {
                 .routingNumber("101050001")
                 .status(ExternalAccount.Status.ACTIVE)
                 .type(ExternalAccount.Type.EXTERNAL_ACCOUNT)
-                .verificationStatus(ExternalAccount.VerificationStatus.VERIFIED)
                 .build()
 
         val roundtrippedExternalAccount =
