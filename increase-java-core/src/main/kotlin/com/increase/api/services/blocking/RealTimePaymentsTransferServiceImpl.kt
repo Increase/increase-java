@@ -17,6 +17,8 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransfer
+import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferApproveParams
+import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferCancelParams
 import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferCreateParams
 import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferListPage
 import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferListPageResponse
@@ -54,6 +56,20 @@ internal constructor(private val clientOptions: ClientOptions) : RealTimePayment
     ): RealTimePaymentsTransferListPage =
         // get /real_time_payments_transfers
         withRawResponse().list(params, requestOptions).parse()
+
+    override fun approve(
+        params: RealTimePaymentsTransferApproveParams,
+        requestOptions: RequestOptions,
+    ): RealTimePaymentsTransfer =
+        // post /real_time_payments_transfers/{real_time_payments_transfer_id}/approve
+        withRawResponse().approve(params, requestOptions).parse()
+
+    override fun cancel(
+        params: RealTimePaymentsTransferCancelParams,
+        requestOptions: RequestOptions,
+    ): RealTimePaymentsTransfer =
+        // post /real_time_payments_transfers/{real_time_payments_transfer_id}/cancel
+        withRawResponse().cancel(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         RealTimePaymentsTransferService.WithRawResponse {
@@ -151,6 +167,78 @@ internal constructor(private val clientOptions: ClientOptions) : RealTimePayment
                             .params(params)
                             .response(it)
                             .build()
+                    }
+            }
+        }
+
+        private val approveHandler: Handler<RealTimePaymentsTransfer> =
+            jsonHandler<RealTimePaymentsTransfer>(clientOptions.jsonMapper)
+                .withErrorHandler(errorHandler)
+
+        override fun approve(
+            params: RealTimePaymentsTransferApproveParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<RealTimePaymentsTransfer> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired(
+                "realTimePaymentsTransferId",
+                params.realTimePaymentsTransferId().getOrNull(),
+            )
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .addPathSegments(
+                        "real_time_payments_transfers",
+                        params._pathParam(0),
+                        "approve",
+                    )
+                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { approveHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val cancelHandler: Handler<RealTimePaymentsTransfer> =
+            jsonHandler<RealTimePaymentsTransfer>(clientOptions.jsonMapper)
+                .withErrorHandler(errorHandler)
+
+        override fun cancel(
+            params: RealTimePaymentsTransferCancelParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<RealTimePaymentsTransfer> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired(
+                "realTimePaymentsTransferId",
+                params.realTimePaymentsTransferId().getOrNull(),
+            )
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .addPathSegments("real_time_payments_transfers", params._pathParam(0), "cancel")
+                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { cancelHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
                     }
             }
         }
