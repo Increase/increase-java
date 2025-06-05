@@ -89,7 +89,7 @@ internal class RetryingHttpClientTest {
     fun execute_withIdempotencyHeader(async: Boolean) {
         stubFor(
             post(urlPathEqualTo("/something"))
-                .withHeader("X-Some-Header", matching("stainless-java-retry-.+"))
+                .withHeader("X-Some-Header", matching("increase-java-retry-.+"))
                 .willReturn(ok())
         )
         val retryingClient =
