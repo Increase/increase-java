@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.240.0 (2025-06-05)
+
+Full Changelog: [v0.239.0...v0.240.0](https://github.com/Increase/increase-java/compare/v0.239.0...v0.240.0)
+
+### Features
+
+* **api:** api update ([fd9cfeb](https://github.com/Increase/increase-java/commit/fd9cfeb7cb9bc10304f7af08c23e3cb155c04d4b))
+
+
+### Chores
+
+* fix idempotency header ([118ba35](https://github.com/Increase/increase-java/commit/118ba35cace4b33a2e94364623bea94fd930e8ff))
+
 ## 0.239.0 (2025-06-03)
 
 Full Changelog: [v0.238.0...v0.239.0](https://github.com/Increase/increase-java/compare/v0.238.0...v0.239.0)
