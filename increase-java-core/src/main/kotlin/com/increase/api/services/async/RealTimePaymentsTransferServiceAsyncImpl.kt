@@ -17,6 +17,8 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransfer
+import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferApproveParams
+import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferCancelParams
 import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferCreateParams
 import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferListPageAsync
 import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferListPageResponse
@@ -56,6 +58,20 @@ internal constructor(private val clientOptions: ClientOptions) :
     ): CompletableFuture<RealTimePaymentsTransferListPageAsync> =
         // get /real_time_payments_transfers
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
+
+    override fun approve(
+        params: RealTimePaymentsTransferApproveParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<RealTimePaymentsTransfer> =
+        // post /real_time_payments_transfers/{real_time_payments_transfer_id}/approve
+        withRawResponse().approve(params, requestOptions).thenApply { it.parse() }
+
+    override fun cancel(
+        params: RealTimePaymentsTransferCancelParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<RealTimePaymentsTransfer> =
+        // post /real_time_payments_transfers/{real_time_payments_transfer_id}/cancel
+        withRawResponse().cancel(params, requestOptions).thenApply { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         RealTimePaymentsTransferServiceAsync.WithRawResponse {
@@ -164,6 +180,84 @@ internal constructor(private val clientOptions: ClientOptions) :
                                     .params(params)
                                     .response(it)
                                     .build()
+                            }
+                    }
+                }
+        }
+
+        private val approveHandler: Handler<RealTimePaymentsTransfer> =
+            jsonHandler<RealTimePaymentsTransfer>(clientOptions.jsonMapper)
+                .withErrorHandler(errorHandler)
+
+        override fun approve(
+            params: RealTimePaymentsTransferApproveParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<RealTimePaymentsTransfer>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired(
+                "realTimePaymentsTransferId",
+                params.realTimePaymentsTransferId().getOrNull(),
+            )
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .addPathSegments(
+                        "real_time_payments_transfers",
+                        params._pathParam(0),
+                        "approve",
+                    )
+                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    response.parseable {
+                        response
+                            .use { approveHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val cancelHandler: Handler<RealTimePaymentsTransfer> =
+            jsonHandler<RealTimePaymentsTransfer>(clientOptions.jsonMapper)
+                .withErrorHandler(errorHandler)
+
+        override fun cancel(
+            params: RealTimePaymentsTransferCancelParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<RealTimePaymentsTransfer>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired(
+                "realTimePaymentsTransferId",
+                params.realTimePaymentsTransferId().getOrNull(),
+            )
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .addPathSegments("real_time_payments_transfers", params._pathParam(0), "cancel")
+                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    response.parseable {
+                        response
+                            .use { cancelHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
                             }
                     }
                 }
