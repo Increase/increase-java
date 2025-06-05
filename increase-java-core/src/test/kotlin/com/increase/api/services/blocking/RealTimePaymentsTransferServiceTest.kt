@@ -70,4 +70,38 @@ internal class RealTimePaymentsTransferServiceTest {
 
         page.response().validate()
     }
+
+    @Test
+    fun approve() {
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val realTimePaymentsTransferService = client.realTimePaymentsTransfers()
+
+        val realTimePaymentsTransfer =
+            realTimePaymentsTransferService.approve(
+                "real_time_payments_transfer_iyuhl5kdn7ssmup83mvq"
+            )
+
+        realTimePaymentsTransfer.validate()
+    }
+
+    @Test
+    fun cancel() {
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val realTimePaymentsTransferService = client.realTimePaymentsTransfers()
+
+        val realTimePaymentsTransfer =
+            realTimePaymentsTransferService.cancel(
+                "real_time_payments_transfer_iyuhl5kdn7ssmup83mvq"
+            )
+
+        realTimePaymentsTransfer.validate()
+    }
 }
