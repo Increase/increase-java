@@ -177,6 +177,11 @@ internal class PendingTransactionTest {
                                 .transferId("check_transfer_30b43acfu9vw8fyc4f5")
                                 .build()
                         )
+                        .groupInitiatedHold(
+                            PendingTransaction.Source.GroupInitiatedHold.builder()
+                                .id("group_initiated_hold_shcn9ol99ph2qf4rcrqc")
+                                .build()
+                        )
                         .inboundFundsHold(
                             PendingTransaction.Source.InboundFundsHold.builder()
                                 .id("inbound_funds_hold_9vuasmywdo7xb3zt4071")
@@ -388,6 +393,11 @@ internal class PendingTransactionTest {
                                 PendingTransaction.Source.CheckTransferInstruction.Currency.USD
                             )
                             .transferId("check_transfer_30b43acfu9vw8fyc4f5")
+                            .build()
+                    )
+                    .groupInitiatedHold(
+                        PendingTransaction.Source.GroupInitiatedHold.builder()
+                            .id("group_initiated_hold_shcn9ol99ph2qf4rcrqc")
                             .build()
                     )
                     .inboundFundsHold(
@@ -609,6 +619,11 @@ internal class PendingTransactionTest {
                                     PendingTransaction.Source.CheckTransferInstruction.Currency.USD
                                 )
                                 .transferId("check_transfer_30b43acfu9vw8fyc4f5")
+                                .build()
+                        )
+                        .groupInitiatedHold(
+                            PendingTransaction.Source.GroupInitiatedHold.builder()
+                                .id("group_initiated_hold_shcn9ol99ph2qf4rcrqc")
                                 .build()
                         )
                         .inboundFundsHold(
