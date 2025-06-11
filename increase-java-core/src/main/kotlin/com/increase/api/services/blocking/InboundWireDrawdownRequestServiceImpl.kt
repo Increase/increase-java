@@ -68,6 +68,7 @@ internal constructor(private val clientOptions: ClientOptions) : InboundWireDraw
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("inbound_wire_drawdown_requests", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
@@ -95,6 +96,7 @@ internal constructor(private val clientOptions: ClientOptions) : InboundWireDraw
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("inbound_wire_drawdown_requests")
                     .build()
                     .prepare(clientOptions, params)

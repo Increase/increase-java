@@ -63,6 +63,7 @@ class TransactionServiceImpl internal constructor(private val clientOptions: Cli
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("transactions", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
@@ -90,6 +91,7 @@ class TransactionServiceImpl internal constructor(private val clientOptions: Cli
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("transactions")
                     .build()
                     .prepare(clientOptions, params)

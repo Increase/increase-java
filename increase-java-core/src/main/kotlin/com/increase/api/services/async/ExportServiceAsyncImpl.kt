@@ -70,6 +70,7 @@ class ExportServiceAsyncImpl internal constructor(private val clientOptions: Cli
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("exports")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -103,6 +104,7 @@ class ExportServiceAsyncImpl internal constructor(private val clientOptions: Cli
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("exports", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -133,6 +135,7 @@ class ExportServiceAsyncImpl internal constructor(private val clientOptions: Cli
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("exports")
                     .build()
                     .prepareAsync(clientOptions, params)

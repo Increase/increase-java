@@ -70,6 +70,7 @@ class DocumentServiceAsyncImpl internal constructor(private val clientOptions: C
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("documents")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -103,6 +104,7 @@ class DocumentServiceAsyncImpl internal constructor(private val clientOptions: C
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("documents", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -133,6 +135,7 @@ class DocumentServiceAsyncImpl internal constructor(private val clientOptions: C
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("documents")
                     .build()
                     .prepareAsync(clientOptions, params)

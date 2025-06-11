@@ -57,6 +57,7 @@ class ProgramServiceImpl internal constructor(private val clientOptions: ClientO
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("programs", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
@@ -84,6 +85,7 @@ class ProgramServiceImpl internal constructor(private val clientOptions: ClientO
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("programs")
                     .build()
                     .prepare(clientOptions, params)

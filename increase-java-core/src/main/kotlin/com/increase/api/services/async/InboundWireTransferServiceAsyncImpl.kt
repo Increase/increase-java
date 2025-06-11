@@ -75,6 +75,7 @@ internal constructor(private val clientOptions: ClientOptions) : InboundWireTran
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("inbound_wire_transfers", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -105,6 +106,7 @@ internal constructor(private val clientOptions: ClientOptions) : InboundWireTran
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("inbound_wire_transfers")
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -146,6 +148,7 @@ internal constructor(private val clientOptions: ClientOptions) : InboundWireTran
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("inbound_wire_transfers", params._pathParam(0), "reverse")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()

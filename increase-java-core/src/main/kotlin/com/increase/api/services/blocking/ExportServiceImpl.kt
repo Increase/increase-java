@@ -60,6 +60,7 @@ class ExportServiceImpl internal constructor(private val clientOptions: ClientOp
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("exports")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -90,6 +91,7 @@ class ExportServiceImpl internal constructor(private val clientOptions: ClientOp
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("exports", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
@@ -117,6 +119,7 @@ class ExportServiceImpl internal constructor(private val clientOptions: ClientOp
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("exports")
                     .build()
                     .prepare(clientOptions, params)

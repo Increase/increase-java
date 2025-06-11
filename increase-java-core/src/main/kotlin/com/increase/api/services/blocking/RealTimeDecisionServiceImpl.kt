@@ -62,6 +62,7 @@ class RealTimeDecisionServiceImpl internal constructor(private val clientOptions
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("real_time_decisions", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
@@ -91,6 +92,7 @@ class RealTimeDecisionServiceImpl internal constructor(private val clientOptions
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("real_time_decisions", params._pathParam(0), "action")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()

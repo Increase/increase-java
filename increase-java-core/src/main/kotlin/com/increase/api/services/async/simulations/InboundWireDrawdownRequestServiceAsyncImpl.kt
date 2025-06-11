@@ -53,6 +53,7 @@ internal constructor(private val clientOptions: ClientOptions) :
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("simulations", "inbound_wire_drawdown_requests")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
