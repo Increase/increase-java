@@ -70,6 +70,7 @@ internal constructor(private val clientOptions: ClientOptions) : BookkeepingEntr
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("bookkeeping_entry_sets")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -101,6 +102,7 @@ internal constructor(private val clientOptions: ClientOptions) : BookkeepingEntr
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("bookkeeping_entry_sets", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
@@ -128,6 +130,7 @@ internal constructor(private val clientOptions: ClientOptions) : BookkeepingEntr
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("bookkeeping_entry_sets")
                     .build()
                     .prepare(clientOptions, params)

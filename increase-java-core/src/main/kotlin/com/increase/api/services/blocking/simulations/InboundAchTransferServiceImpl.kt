@@ -49,6 +49,7 @@ class InboundAchTransferServiceImpl internal constructor(private val clientOptio
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("simulations", "inbound_ach_transfers")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()

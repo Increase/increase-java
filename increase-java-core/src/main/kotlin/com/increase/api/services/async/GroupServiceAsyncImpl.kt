@@ -49,6 +49,7 @@ class GroupServiceAsyncImpl internal constructor(private val clientOptions: Clie
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("groups", "current")
                     .build()
                     .prepareAsync(clientOptions, params)

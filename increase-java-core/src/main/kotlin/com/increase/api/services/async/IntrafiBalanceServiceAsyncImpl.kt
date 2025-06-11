@@ -54,6 +54,7 @@ internal constructor(private val clientOptions: ClientOptions) : IntrafiBalanceS
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("accounts", params._pathParam(0), "intrafi_balance")
                     .build()
                     .prepareAsync(clientOptions, params)

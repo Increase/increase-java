@@ -67,6 +67,7 @@ internal constructor(private val clientOptions: ClientOptions) :
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("card_purchase_supplements", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -97,6 +98,7 @@ internal constructor(private val clientOptions: ClientOptions) :
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("card_purchase_supplements")
                     .build()
                     .prepareAsync(clientOptions, params)

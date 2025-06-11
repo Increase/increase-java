@@ -50,6 +50,7 @@ internal constructor(private val clientOptions: ClientOptions) : CardSettlementS
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("simulations", "card_settlements")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()

@@ -65,6 +65,7 @@ class LockboxServiceImpl internal constructor(private val clientOptions: ClientO
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("lockboxes")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -95,6 +96,7 @@ class LockboxServiceImpl internal constructor(private val clientOptions: ClientO
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("lockboxes", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
@@ -124,6 +126,7 @@ class LockboxServiceImpl internal constructor(private val clientOptions: ClientO
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("lockboxes", params._pathParam(0))
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -152,6 +155,7 @@ class LockboxServiceImpl internal constructor(private val clientOptions: ClientO
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("lockboxes")
                     .build()
                     .prepare(clientOptions, params)

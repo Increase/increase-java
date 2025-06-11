@@ -51,6 +51,7 @@ class RoutingNumberServiceAsyncImpl internal constructor(private val clientOptio
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("routing_numbers")
                     .build()
                     .prepareAsync(clientOptions, params)

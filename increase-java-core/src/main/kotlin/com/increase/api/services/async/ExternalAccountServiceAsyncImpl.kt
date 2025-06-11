@@ -78,6 +78,7 @@ internal constructor(private val clientOptions: ClientOptions) : ExternalAccount
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("external_accounts")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -111,6 +112,7 @@ internal constructor(private val clientOptions: ClientOptions) : ExternalAccount
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("external_accounts", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -143,6 +145,7 @@ internal constructor(private val clientOptions: ClientOptions) : ExternalAccount
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("external_accounts", params._pathParam(0))
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -174,6 +177,7 @@ internal constructor(private val clientOptions: ClientOptions) : ExternalAccount
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("external_accounts")
                     .build()
                     .prepareAsync(clientOptions, params)

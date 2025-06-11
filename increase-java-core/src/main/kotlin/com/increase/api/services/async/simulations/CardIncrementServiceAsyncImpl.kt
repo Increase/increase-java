@@ -50,6 +50,7 @@ class CardIncrementServiceAsyncImpl internal constructor(private val clientOptio
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("simulations", "card_increments")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()

@@ -63,6 +63,7 @@ class InboundMailItemServiceImpl internal constructor(private val clientOptions:
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("inbound_mail_items", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
@@ -90,6 +91,7 @@ class InboundMailItemServiceImpl internal constructor(private val clientOptions:
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("inbound_mail_items")
                     .build()
                     .prepare(clientOptions, params)

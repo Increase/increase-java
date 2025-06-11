@@ -51,6 +51,7 @@ internal constructor(private val clientOptions: ClientOptions) :
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("simulations", "card_authorization_expirations")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()

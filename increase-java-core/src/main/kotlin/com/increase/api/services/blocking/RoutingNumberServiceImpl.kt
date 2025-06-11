@@ -50,6 +50,7 @@ class RoutingNumberServiceImpl internal constructor(private val clientOptions: C
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("routing_numbers")
                     .build()
                     .prepare(clientOptions, params)

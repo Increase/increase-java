@@ -78,6 +78,7 @@ class LockboxServiceAsyncImpl internal constructor(private val clientOptions: Cl
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("lockboxes")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -111,6 +112,7 @@ class LockboxServiceAsyncImpl internal constructor(private val clientOptions: Cl
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("lockboxes", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -143,6 +145,7 @@ class LockboxServiceAsyncImpl internal constructor(private val clientOptions: Cl
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("lockboxes", params._pathParam(0))
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -174,6 +177,7 @@ class LockboxServiceAsyncImpl internal constructor(private val clientOptions: Cl
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("lockboxes")
                     .build()
                     .prepareAsync(clientOptions, params)

@@ -53,6 +53,7 @@ class IntrafiBalanceServiceImpl internal constructor(private val clientOptions: 
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("accounts", params._pathParam(0), "intrafi_balance")
                     .build()
                     .prepare(clientOptions, params)
