@@ -50,6 +50,7 @@ internal constructor(private val clientOptions: ClientOptions) : InboundCheckDep
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("simulations", "inbound_check_deposits")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()

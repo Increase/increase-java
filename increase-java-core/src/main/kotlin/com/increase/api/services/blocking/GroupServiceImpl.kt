@@ -45,6 +45,7 @@ class GroupServiceImpl internal constructor(private val clientOptions: ClientOpt
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("groups", "current")
                     .build()
                     .prepare(clientOptions, params)

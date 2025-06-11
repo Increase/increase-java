@@ -88,6 +88,7 @@ internal constructor(private val clientOptions: ClientOptions) : PhysicalCardPro
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("physical_card_profiles")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -122,6 +123,7 @@ internal constructor(private val clientOptions: ClientOptions) : PhysicalCardPro
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("physical_card_profiles", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -152,6 +154,7 @@ internal constructor(private val clientOptions: ClientOptions) : PhysicalCardPro
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("physical_card_profiles")
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -193,6 +196,7 @@ internal constructor(private val clientOptions: ClientOptions) : PhysicalCardPro
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("physical_card_profiles", params._pathParam(0), "archive")
                     .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
@@ -227,6 +231,7 @@ internal constructor(private val clientOptions: ClientOptions) : PhysicalCardPro
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("physical_card_profiles", params._pathParam(0), "clone")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()

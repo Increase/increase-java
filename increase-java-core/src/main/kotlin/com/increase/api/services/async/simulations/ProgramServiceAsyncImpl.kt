@@ -50,6 +50,7 @@ class ProgramServiceAsyncImpl internal constructor(private val clientOptions: Cl
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("simulations", "programs")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()

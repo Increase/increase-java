@@ -60,6 +60,7 @@ internal constructor(private val clientOptions: ClientOptions) : SupplementalDoc
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("entity_supplemental_documents")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -88,6 +89,7 @@ internal constructor(private val clientOptions: ClientOptions) : SupplementalDoc
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("entity_supplemental_documents")
                     .build()
                     .prepare(clientOptions, params)

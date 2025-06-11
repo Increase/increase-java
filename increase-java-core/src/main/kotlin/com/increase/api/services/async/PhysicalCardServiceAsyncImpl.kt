@@ -78,6 +78,7 @@ class PhysicalCardServiceAsyncImpl internal constructor(private val clientOption
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("physical_cards")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -111,6 +112,7 @@ class PhysicalCardServiceAsyncImpl internal constructor(private val clientOption
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("physical_cards", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -143,6 +145,7 @@ class PhysicalCardServiceAsyncImpl internal constructor(private val clientOption
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("physical_cards", params._pathParam(0))
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -174,6 +177,7 @@ class PhysicalCardServiceAsyncImpl internal constructor(private val clientOption
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("physical_cards")
                     .build()
                     .prepareAsync(clientOptions, params)

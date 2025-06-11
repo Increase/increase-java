@@ -63,6 +63,7 @@ class OAuthApplicationServiceImpl internal constructor(private val clientOptions
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("oauth_applications", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
@@ -90,6 +91,7 @@ class OAuthApplicationServiceImpl internal constructor(private val clientOptions
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("oauth_applications")
                     .build()
                     .prepare(clientOptions, params)

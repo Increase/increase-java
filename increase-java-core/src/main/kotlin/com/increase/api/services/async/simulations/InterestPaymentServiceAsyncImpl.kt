@@ -50,6 +50,7 @@ internal constructor(private val clientOptions: ClientOptions) : InterestPayment
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("simulations", "interest_payments")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()

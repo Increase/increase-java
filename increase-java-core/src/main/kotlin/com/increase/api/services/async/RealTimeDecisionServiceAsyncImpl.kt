@@ -63,6 +63,7 @@ internal constructor(private val clientOptions: ClientOptions) : RealTimeDecisio
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("real_time_decisions", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -95,6 +96,7 @@ internal constructor(private val clientOptions: ClientOptions) : RealTimeDecisio
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("real_time_decisions", params._pathParam(0), "action")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()

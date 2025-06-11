@@ -56,6 +56,7 @@ internal constructor(private val clientOptions: ClientOptions) : InboundFundsHol
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments(
                         "simulations",
                         "inbound_funds_holds",

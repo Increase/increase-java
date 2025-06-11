@@ -59,6 +59,7 @@ internal constructor(private val clientOptions: ClientOptions) : RealTimePayment
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments(
                         "simulations",
                         "real_time_payments_transfers",

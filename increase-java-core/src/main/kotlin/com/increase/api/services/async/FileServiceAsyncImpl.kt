@@ -70,6 +70,7 @@ class FileServiceAsyncImpl internal constructor(private val clientOptions: Clien
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("files")
                     .body(multipartFormData(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -103,6 +104,7 @@ class FileServiceAsyncImpl internal constructor(private val clientOptions: Clien
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("files", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -133,6 +135,7 @@ class FileServiceAsyncImpl internal constructor(private val clientOptions: Clien
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("files")
                     .build()
                     .prepareAsync(clientOptions, params)
