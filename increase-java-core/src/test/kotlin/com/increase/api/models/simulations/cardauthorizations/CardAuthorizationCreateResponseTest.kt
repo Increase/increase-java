@@ -440,11 +440,6 @@ internal class CardAuthorizationCreateResponseTest {
                                         .transferId("check_transfer_30b43acfu9vw8fyc4f5")
                                         .build()
                                 )
-                                .groupInitiatedHold(
-                                    PendingTransaction.Source.GroupInitiatedHold.builder()
-                                        .id("group_initiated_hold_shcn9ol99ph2qf4rcrqc")
-                                        .build()
-                                )
                                 .inboundFundsHold(
                                     PendingTransaction.Source.InboundFundsHold.builder()
                                         .id("inbound_funds_hold_9vuasmywdo7xb3zt4071")
@@ -501,6 +496,7 @@ internal class CardAuthorizationCreateResponseTest {
                                         .transferId("swift_transfer_29h21xkng03788zwd3fh")
                                         .build()
                                 )
+                                .userInitiatedHold(JsonValue.from(mapOf<String, Any>()))
                                 .wireTransferInstruction(
                                     PendingTransaction.Source.WireTransferInstruction.builder()
                                         .accountNumber("987654321")
@@ -929,11 +925,6 @@ internal class CardAuthorizationCreateResponseTest {
                                     .transferId("check_transfer_30b43acfu9vw8fyc4f5")
                                     .build()
                             )
-                            .groupInitiatedHold(
-                                PendingTransaction.Source.GroupInitiatedHold.builder()
-                                    .id("group_initiated_hold_shcn9ol99ph2qf4rcrqc")
-                                    .build()
-                            )
                             .inboundFundsHold(
                                 PendingTransaction.Source.InboundFundsHold.builder()
                                     .id("inbound_funds_hold_9vuasmywdo7xb3zt4071")
@@ -984,6 +975,7 @@ internal class CardAuthorizationCreateResponseTest {
                                     .transferId("swift_transfer_29h21xkng03788zwd3fh")
                                     .build()
                             )
+                            .userInitiatedHold(JsonValue.from(mapOf<String, Any>()))
                             .wireTransferInstruction(
                                 PendingTransaction.Source.WireTransferInstruction.builder()
                                     .accountNumber("987654321")
@@ -1433,11 +1425,6 @@ internal class CardAuthorizationCreateResponseTest {
                                         .transferId("check_transfer_30b43acfu9vw8fyc4f5")
                                         .build()
                                 )
-                                .groupInitiatedHold(
-                                    PendingTransaction.Source.GroupInitiatedHold.builder()
-                                        .id("group_initiated_hold_shcn9ol99ph2qf4rcrqc")
-                                        .build()
-                                )
                                 .inboundFundsHold(
                                     PendingTransaction.Source.InboundFundsHold.builder()
                                         .id("inbound_funds_hold_9vuasmywdo7xb3zt4071")
@@ -1494,6 +1481,7 @@ internal class CardAuthorizationCreateResponseTest {
                                         .transferId("swift_transfer_29h21xkng03788zwd3fh")
                                         .build()
                                 )
+                                .userInitiatedHold(JsonValue.from(mapOf<String, Any>()))
                                 .wireTransferInstruction(
                                     PendingTransaction.Source.WireTransferInstruction.builder()
                                         .accountNumber("987654321")
