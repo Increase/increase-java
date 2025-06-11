@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.242.0 (2025-06-11)
+
+Full Changelog: [v0.241.0...v0.242.0](https://github.com/Increase/increase-java/compare/v0.241.0...v0.242.0)
+
+### Features
+
+* **api:** api update ([fe6a923](https://github.com/Increase/increase-java/commit/fe6a923e00770daf70bb826d0d3cf488f382c4f6))
+* **client:** implement per-endpoint base URL support ([abb3370](https://github.com/Increase/increase-java/commit/abb3370c94b509e1ca9a49dd8a0248eabff14bf3))
+
 ## 0.241.0 (2025-06-08)
 
 Full Changelog: [v0.240.0...v0.241.0](https://github.com/Increase/increase-java/compare/v0.240.0...v0.241.0)
