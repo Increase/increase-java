@@ -23,6 +23,7 @@ import com.increase.api.models.checkdeposits.CheckDepositListPageResponse
 import com.increase.api.models.checkdeposits.CheckDepositListParams
 import com.increase.api.models.checkdeposits.CheckDepositRetrieveParams
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class CheckDepositServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -33,6 +34,9 @@ class CheckDepositServiceAsyncImpl internal constructor(private val clientOption
     }
 
     override fun withRawResponse(): CheckDepositServiceAsync.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): CheckDepositServiceAsync =
+        CheckDepositServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun create(
         params: CheckDepositCreateParams,
@@ -59,6 +63,13 @@ class CheckDepositServiceAsyncImpl internal constructor(private val clientOption
         CheckDepositServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): CheckDepositServiceAsync.WithRawResponse =
+            CheckDepositServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val createHandler: Handler<CheckDeposit> =
             jsonHandler<CheckDeposit>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

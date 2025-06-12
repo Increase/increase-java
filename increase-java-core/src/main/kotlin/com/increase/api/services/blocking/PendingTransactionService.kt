@@ -3,6 +3,7 @@
 package com.increase.api.services.blocking
 
 import com.google.errorprone.annotations.MustBeClosed
+import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.pendingtransactions.PendingTransaction
@@ -11,6 +12,7 @@ import com.increase.api.models.pendingtransactions.PendingTransactionListPage
 import com.increase.api.models.pendingtransactions.PendingTransactionListParams
 import com.increase.api.models.pendingtransactions.PendingTransactionReleaseParams
 import com.increase.api.models.pendingtransactions.PendingTransactionRetrieveParams
+import java.util.function.Consumer
 
 interface PendingTransactionService {
 
@@ -18,6 +20,13 @@ interface PendingTransactionService {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): PendingTransactionService
 
     /**
      * Creates a pending transaction on an account. This can be useful to hold funds for an external
@@ -131,6 +140,15 @@ interface PendingTransactionService {
      * method.
      */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): PendingTransactionService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post /pending_transactions`, but is otherwise the same

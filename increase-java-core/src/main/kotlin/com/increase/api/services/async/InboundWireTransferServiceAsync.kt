@@ -2,6 +2,7 @@
 
 package com.increase.api.services.async
 
+import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.inboundwiretransfers.InboundWireTransfer
@@ -10,6 +11,7 @@ import com.increase.api.models.inboundwiretransfers.InboundWireTransferListParam
 import com.increase.api.models.inboundwiretransfers.InboundWireTransferRetrieveParams
 import com.increase.api.models.inboundwiretransfers.InboundWireTransferReverseParams
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 
 interface InboundWireTransferServiceAsync {
 
@@ -17,6 +19,13 @@ interface InboundWireTransferServiceAsync {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): InboundWireTransferServiceAsync
 
     /** Retrieve an Inbound Wire Transfer */
     fun retrieve(inboundWireTransferId: String): CompletableFuture<InboundWireTransfer> =
@@ -110,6 +119,15 @@ interface InboundWireTransferServiceAsync {
      * each method.
      */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): InboundWireTransferServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /inbound_wire_transfers/{inbound_wire_transfer_id}`,

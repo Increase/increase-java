@@ -24,6 +24,7 @@ import com.increase.api.models.accountnumbers.AccountNumberListParams
 import com.increase.api.models.accountnumbers.AccountNumberRetrieveParams
 import com.increase.api.models.accountnumbers.AccountNumberUpdateParams
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class AccountNumberServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -34,6 +35,9 @@ class AccountNumberServiceAsyncImpl internal constructor(private val clientOptio
     }
 
     override fun withRawResponse(): AccountNumberServiceAsync.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): AccountNumberServiceAsync =
+        AccountNumberServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun create(
         params: AccountNumberCreateParams,
@@ -67,6 +71,13 @@ class AccountNumberServiceAsyncImpl internal constructor(private val clientOptio
         AccountNumberServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): AccountNumberServiceAsync.WithRawResponse =
+            AccountNumberServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val createHandler: Handler<AccountNumber> =
             jsonHandler<AccountNumber>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

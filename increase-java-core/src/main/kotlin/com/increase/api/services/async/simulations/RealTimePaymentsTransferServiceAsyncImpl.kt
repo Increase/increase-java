@@ -19,6 +19,7 @@ import com.increase.api.core.prepareAsync
 import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransfer
 import com.increase.api.models.simulations.realtimepaymentstransfers.RealTimePaymentsTransferCompleteParams
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class RealTimePaymentsTransferServiceAsyncImpl
@@ -32,6 +33,13 @@ internal constructor(private val clientOptions: ClientOptions) :
     override fun withRawResponse(): RealTimePaymentsTransferServiceAsync.WithRawResponse =
         withRawResponse
 
+    override fun withOptions(
+        modifier: Consumer<ClientOptions.Builder>
+    ): RealTimePaymentsTransferServiceAsync =
+        RealTimePaymentsTransferServiceAsyncImpl(
+            clientOptions.toBuilder().apply(modifier::accept).build()
+        )
+
     override fun complete(
         params: RealTimePaymentsTransferCompleteParams,
         requestOptions: RequestOptions,
@@ -43,6 +51,13 @@ internal constructor(private val clientOptions: ClientOptions) :
         RealTimePaymentsTransferServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): RealTimePaymentsTransferServiceAsync.WithRawResponse =
+            RealTimePaymentsTransferServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val completeHandler: Handler<RealTimePaymentsTransfer> =
             jsonHandler<RealTimePaymentsTransfer>(clientOptions.jsonMapper)

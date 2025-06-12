@@ -18,6 +18,7 @@ import com.increase.api.core.prepareAsync
 import com.increase.api.models.simulations.cardauthorizations.CardAuthorizationCreateParams
 import com.increase.api.models.simulations.cardauthorizations.CardAuthorizationCreateResponse
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 
 class CardAuthorizationServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) : CardAuthorizationServiceAsync {
@@ -27,6 +28,11 @@ internal constructor(private val clientOptions: ClientOptions) : CardAuthorizati
     }
 
     override fun withRawResponse(): CardAuthorizationServiceAsync.WithRawResponse = withRawResponse
+
+    override fun withOptions(
+        modifier: Consumer<ClientOptions.Builder>
+    ): CardAuthorizationServiceAsync =
+        CardAuthorizationServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun create(
         params: CardAuthorizationCreateParams,
@@ -39,6 +45,13 @@ internal constructor(private val clientOptions: ClientOptions) : CardAuthorizati
         CardAuthorizationServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): CardAuthorizationServiceAsync.WithRawResponse =
+            CardAuthorizationServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val createHandler: Handler<CardAuthorizationCreateResponse> =
             jsonHandler<CardAuthorizationCreateResponse>(clientOptions.jsonMapper)

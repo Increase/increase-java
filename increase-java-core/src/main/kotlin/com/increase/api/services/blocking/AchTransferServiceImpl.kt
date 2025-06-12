@@ -24,6 +24,7 @@ import com.increase.api.models.achtransfers.AchTransferListPage
 import com.increase.api.models.achtransfers.AchTransferListPageResponse
 import com.increase.api.models.achtransfers.AchTransferListParams
 import com.increase.api.models.achtransfers.AchTransferRetrieveParams
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class AchTransferServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -34,6 +35,9 @@ class AchTransferServiceImpl internal constructor(private val clientOptions: Cli
     }
 
     override fun withRawResponse(): AchTransferService.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): AchTransferService =
+        AchTransferServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun create(
         params: AchTransferCreateParams,
@@ -74,6 +78,13 @@ class AchTransferServiceImpl internal constructor(private val clientOptions: Cli
         AchTransferService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): AchTransferService.WithRawResponse =
+            AchTransferServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val createHandler: Handler<AchTransfer> =
             jsonHandler<AchTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

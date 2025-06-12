@@ -17,6 +17,7 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.intrafibalances.IntrafiBalance
 import com.increase.api.models.intrafibalances.IntrafiBalanceIntrafiBalanceParams
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class IntrafiBalanceServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -27,6 +28,9 @@ class IntrafiBalanceServiceImpl internal constructor(private val clientOptions: 
     }
 
     override fun withRawResponse(): IntrafiBalanceService.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): IntrafiBalanceService =
+        IntrafiBalanceServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun intrafiBalance(
         params: IntrafiBalanceIntrafiBalanceParams,
@@ -39,6 +43,13 @@ class IntrafiBalanceServiceImpl internal constructor(private val clientOptions: 
         IntrafiBalanceService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): IntrafiBalanceService.WithRawResponse =
+            IntrafiBalanceServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val intrafiBalanceHandler: Handler<IntrafiBalance> =
             jsonHandler<IntrafiBalance>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

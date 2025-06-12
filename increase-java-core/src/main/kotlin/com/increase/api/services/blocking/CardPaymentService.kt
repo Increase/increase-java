@@ -3,12 +3,14 @@
 package com.increase.api.services.blocking
 
 import com.google.errorprone.annotations.MustBeClosed
+import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.cardpayments.CardPayment
 import com.increase.api.models.cardpayments.CardPaymentListPage
 import com.increase.api.models.cardpayments.CardPaymentListParams
 import com.increase.api.models.cardpayments.CardPaymentRetrieveParams
+import java.util.function.Consumer
 
 interface CardPaymentService {
 
@@ -16,6 +18,13 @@ interface CardPaymentService {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): CardPaymentService
 
     /** Retrieve a Card Payment */
     fun retrieve(cardPaymentId: String): CardPayment =
@@ -70,6 +79,15 @@ interface CardPaymentService {
      * A view of [CardPaymentService] that provides access to raw HTTP responses for each method.
      */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): CardPaymentService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /card_payments/{card_payment_id}`, but is otherwise

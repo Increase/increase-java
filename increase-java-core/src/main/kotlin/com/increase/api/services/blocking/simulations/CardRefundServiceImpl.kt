@@ -17,6 +17,7 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.simulations.cardrefunds.CardRefundCreateParams
 import com.increase.api.models.transactions.Transaction
+import java.util.function.Consumer
 
 class CardRefundServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     CardRefundService {
@@ -26,6 +27,9 @@ class CardRefundServiceImpl internal constructor(private val clientOptions: Clie
     }
 
     override fun withRawResponse(): CardRefundService.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): CardRefundService =
+        CardRefundServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun create(
         params: CardRefundCreateParams,
@@ -38,6 +42,13 @@ class CardRefundServiceImpl internal constructor(private val clientOptions: Clie
         CardRefundService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): CardRefundService.WithRawResponse =
+            CardRefundServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val createHandler: Handler<Transaction> =
             jsonHandler<Transaction>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

@@ -18,6 +18,7 @@ import com.increase.api.core.prepareAsync
 import com.increase.api.models.accountstatements.AccountStatement
 import com.increase.api.models.simulations.accountstatements.AccountStatementCreateParams
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 
 class AccountStatementServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) : AccountStatementServiceAsync {
@@ -27,6 +28,11 @@ internal constructor(private val clientOptions: ClientOptions) : AccountStatemen
     }
 
     override fun withRawResponse(): AccountStatementServiceAsync.WithRawResponse = withRawResponse
+
+    override fun withOptions(
+        modifier: Consumer<ClientOptions.Builder>
+    ): AccountStatementServiceAsync =
+        AccountStatementServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun create(
         params: AccountStatementCreateParams,
@@ -39,6 +45,13 @@ internal constructor(private val clientOptions: ClientOptions) : AccountStatemen
         AccountStatementServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): AccountStatementServiceAsync.WithRawResponse =
+            AccountStatementServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val createHandler: Handler<AccountStatement> =
             jsonHandler<AccountStatement>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

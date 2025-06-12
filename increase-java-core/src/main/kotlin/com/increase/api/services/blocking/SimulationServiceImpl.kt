@@ -57,6 +57,7 @@ import com.increase.api.services.blocking.simulations.RealTimePaymentsTransferSe
 import com.increase.api.services.blocking.simulations.RealTimePaymentsTransferServiceImpl
 import com.increase.api.services.blocking.simulations.WireTransferService
 import com.increase.api.services.blocking.simulations.WireTransferServiceImpl
+import java.util.function.Consumer
 
 class SimulationServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     SimulationService {
@@ -164,6 +165,9 @@ class SimulationServiceImpl internal constructor(private val clientOptions: Clie
     private val documents: DocumentService by lazy { DocumentServiceImpl(clientOptions) }
 
     override fun withRawResponse(): SimulationService.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): SimulationService =
+        SimulationServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun interestPayments(): InterestPaymentService = interestPayments
 
@@ -339,6 +343,13 @@ class SimulationServiceImpl internal constructor(private val clientOptions: Clie
         private val documents: DocumentService.WithRawResponse by lazy {
             DocumentServiceImpl.WithRawResponseImpl(clientOptions)
         }
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): SimulationService.WithRawResponse =
+            SimulationServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         override fun interestPayments(): InterestPaymentService.WithRawResponse = interestPayments
 

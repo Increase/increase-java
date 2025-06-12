@@ -3,6 +3,7 @@
 package com.increase.api.services.blocking
 
 import com.google.errorprone.annotations.MustBeClosed
+import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.exports.Export
@@ -10,6 +11,7 @@ import com.increase.api.models.exports.ExportCreateParams
 import com.increase.api.models.exports.ExportListPage
 import com.increase.api.models.exports.ExportListParams
 import com.increase.api.models.exports.ExportRetrieveParams
+import java.util.function.Consumer
 
 interface ExportService {
 
@@ -17,6 +19,13 @@ interface ExportService {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): ExportService
 
     /** Create an Export */
     fun create(params: ExportCreateParams): Export = create(params, RequestOptions.none())
@@ -75,6 +84,13 @@ interface ExportService {
 
     /** A view of [ExportService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(modifier: Consumer<ClientOptions.Builder>): ExportService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post /exports`, but is otherwise the same as

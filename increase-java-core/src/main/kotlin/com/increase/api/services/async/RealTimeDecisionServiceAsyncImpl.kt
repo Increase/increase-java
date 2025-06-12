@@ -20,6 +20,7 @@ import com.increase.api.models.realtimedecisions.RealTimeDecision
 import com.increase.api.models.realtimedecisions.RealTimeDecisionActionParams
 import com.increase.api.models.realtimedecisions.RealTimeDecisionRetrieveParams
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class RealTimeDecisionServiceAsyncImpl
@@ -30,6 +31,11 @@ internal constructor(private val clientOptions: ClientOptions) : RealTimeDecisio
     }
 
     override fun withRawResponse(): RealTimeDecisionServiceAsync.WithRawResponse = withRawResponse
+
+    override fun withOptions(
+        modifier: Consumer<ClientOptions.Builder>
+    ): RealTimeDecisionServiceAsync =
+        RealTimeDecisionServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun retrieve(
         params: RealTimeDecisionRetrieveParams,
@@ -49,6 +55,13 @@ internal constructor(private val clientOptions: ClientOptions) : RealTimeDecisio
         RealTimeDecisionServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): RealTimeDecisionServiceAsync.WithRawResponse =
+            RealTimeDecisionServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val retrieveHandler: Handler<RealTimeDecision> =
             jsonHandler<RealTimeDecision>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

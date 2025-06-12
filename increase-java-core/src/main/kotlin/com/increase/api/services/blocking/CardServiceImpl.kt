@@ -25,6 +25,7 @@ import com.increase.api.models.cards.CardListPageResponse
 import com.increase.api.models.cards.CardListParams
 import com.increase.api.models.cards.CardRetrieveParams
 import com.increase.api.models.cards.CardUpdateParams
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class CardServiceImpl internal constructor(private val clientOptions: ClientOptions) : CardService {
@@ -34,6 +35,9 @@ class CardServiceImpl internal constructor(private val clientOptions: ClientOpti
     }
 
     override fun withRawResponse(): CardService.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): CardService =
+        CardServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun create(params: CardCreateParams, requestOptions: RequestOptions): Card =
         // post /cards
@@ -59,6 +63,13 @@ class CardServiceImpl internal constructor(private val clientOptions: ClientOpti
         CardService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): CardService.WithRawResponse =
+            CardServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val createHandler: Handler<Card> =
             jsonHandler<Card>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

@@ -17,6 +17,7 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransfer
 import com.increase.api.models.simulations.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransferCreateParams
+import java.util.function.Consumer
 
 class InboundRealTimePaymentsTransferServiceImpl
 internal constructor(private val clientOptions: ClientOptions) :
@@ -29,6 +30,13 @@ internal constructor(private val clientOptions: ClientOptions) :
     override fun withRawResponse(): InboundRealTimePaymentsTransferService.WithRawResponse =
         withRawResponse
 
+    override fun withOptions(
+        modifier: Consumer<ClientOptions.Builder>
+    ): InboundRealTimePaymentsTransferService =
+        InboundRealTimePaymentsTransferServiceImpl(
+            clientOptions.toBuilder().apply(modifier::accept).build()
+        )
+
     override fun create(
         params: InboundRealTimePaymentsTransferCreateParams,
         requestOptions: RequestOptions,
@@ -40,6 +48,13 @@ internal constructor(private val clientOptions: ClientOptions) :
         InboundRealTimePaymentsTransferService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): InboundRealTimePaymentsTransferService.WithRawResponse =
+            InboundRealTimePaymentsTransferServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val createHandler: Handler<InboundRealTimePaymentsTransfer> =
             jsonHandler<InboundRealTimePaymentsTransfer>(clientOptions.jsonMapper)

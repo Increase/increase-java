@@ -17,6 +17,7 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.inboundcheckdeposits.InboundCheckDeposit
 import com.increase.api.models.simulations.inboundcheckdeposits.InboundCheckDepositCreateParams
+import java.util.function.Consumer
 
 class InboundCheckDepositServiceImpl
 internal constructor(private val clientOptions: ClientOptions) : InboundCheckDepositService {
@@ -26,6 +27,11 @@ internal constructor(private val clientOptions: ClientOptions) : InboundCheckDep
     }
 
     override fun withRawResponse(): InboundCheckDepositService.WithRawResponse = withRawResponse
+
+    override fun withOptions(
+        modifier: Consumer<ClientOptions.Builder>
+    ): InboundCheckDepositService =
+        InboundCheckDepositServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun create(
         params: InboundCheckDepositCreateParams,
@@ -38,6 +44,13 @@ internal constructor(private val clientOptions: ClientOptions) : InboundCheckDep
         InboundCheckDepositService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): InboundCheckDepositService.WithRawResponse =
+            InboundCheckDepositServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val createHandler: Handler<InboundCheckDeposit> =
             jsonHandler<InboundCheckDeposit>(clientOptions.jsonMapper)

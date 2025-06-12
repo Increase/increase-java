@@ -2,6 +2,7 @@
 
 package com.increase.api.services.async
 
+import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.entities.Entity
@@ -17,6 +18,7 @@ import com.increase.api.models.entities.EntityUpdateAddressParams
 import com.increase.api.models.entities.EntityUpdateBeneficialOwnerAddressParams
 import com.increase.api.models.entities.EntityUpdateIndustryCodeParams
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 
 interface EntityServiceAsync {
 
@@ -24,6 +26,13 @@ interface EntityServiceAsync {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): EntityServiceAsync
 
     /** Create an Entity */
     fun create(params: EntityCreateParams): CompletableFuture<Entity> =
@@ -281,6 +290,15 @@ interface EntityServiceAsync {
      * A view of [EntityServiceAsync] that provides access to raw HTTP responses for each method.
      */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): EntityServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post /entities`, but is otherwise the same as

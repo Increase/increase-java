@@ -23,6 +23,7 @@ import com.increase.api.models.lockboxes.LockboxListPageResponse
 import com.increase.api.models.lockboxes.LockboxListParams
 import com.increase.api.models.lockboxes.LockboxRetrieveParams
 import com.increase.api.models.lockboxes.LockboxUpdateParams
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class LockboxServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -33,6 +34,9 @@ class LockboxServiceImpl internal constructor(private val clientOptions: ClientO
     }
 
     override fun withRawResponse(): LockboxService.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): LockboxService =
+        LockboxServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun create(params: LockboxCreateParams, requestOptions: RequestOptions): Lockbox =
         // post /lockboxes
@@ -54,6 +58,13 @@ class LockboxServiceImpl internal constructor(private val clientOptions: ClientO
         LockboxService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): LockboxService.WithRawResponse =
+            LockboxServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val createHandler: Handler<Lockbox> =
             jsonHandler<Lockbox>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

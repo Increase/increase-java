@@ -21,6 +21,7 @@ import com.increase.api.models.cardpayments.CardPaymentListPageResponse
 import com.increase.api.models.cardpayments.CardPaymentListParams
 import com.increase.api.models.cardpayments.CardPaymentRetrieveParams
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class CardPaymentServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -31,6 +32,9 @@ class CardPaymentServiceAsyncImpl internal constructor(private val clientOptions
     }
 
     override fun withRawResponse(): CardPaymentServiceAsync.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): CardPaymentServiceAsync =
+        CardPaymentServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun retrieve(
         params: CardPaymentRetrieveParams,
@@ -50,6 +54,13 @@ class CardPaymentServiceAsyncImpl internal constructor(private val clientOptions
         CardPaymentServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): CardPaymentServiceAsync.WithRawResponse =
+            CardPaymentServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val retrieveHandler: Handler<CardPayment> =
             jsonHandler<CardPayment>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

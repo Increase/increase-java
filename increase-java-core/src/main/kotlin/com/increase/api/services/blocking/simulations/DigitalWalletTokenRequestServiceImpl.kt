@@ -17,6 +17,7 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.simulations.digitalwallettokenrequests.DigitalWalletTokenRequestCreateParams
 import com.increase.api.models.simulations.digitalwallettokenrequests.DigitalWalletTokenRequestCreateResponse
+import java.util.function.Consumer
 
 class DigitalWalletTokenRequestServiceImpl
 internal constructor(private val clientOptions: ClientOptions) : DigitalWalletTokenRequestService {
@@ -27,6 +28,13 @@ internal constructor(private val clientOptions: ClientOptions) : DigitalWalletTo
 
     override fun withRawResponse(): DigitalWalletTokenRequestService.WithRawResponse =
         withRawResponse
+
+    override fun withOptions(
+        modifier: Consumer<ClientOptions.Builder>
+    ): DigitalWalletTokenRequestService =
+        DigitalWalletTokenRequestServiceImpl(
+            clientOptions.toBuilder().apply(modifier::accept).build()
+        )
 
     override fun create(
         params: DigitalWalletTokenRequestCreateParams,
@@ -39,6 +47,13 @@ internal constructor(private val clientOptions: ClientOptions) : DigitalWalletTo
         DigitalWalletTokenRequestService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): DigitalWalletTokenRequestService.WithRawResponse =
+            DigitalWalletTokenRequestServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val createHandler: Handler<DigitalWalletTokenRequestCreateResponse> =
             jsonHandler<DigitalWalletTokenRequestCreateResponse>(clientOptions.jsonMapper)

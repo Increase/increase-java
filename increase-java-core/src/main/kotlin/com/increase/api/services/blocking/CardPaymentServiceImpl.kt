@@ -20,6 +20,7 @@ import com.increase.api.models.cardpayments.CardPaymentListPage
 import com.increase.api.models.cardpayments.CardPaymentListPageResponse
 import com.increase.api.models.cardpayments.CardPaymentListParams
 import com.increase.api.models.cardpayments.CardPaymentRetrieveParams
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class CardPaymentServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -30,6 +31,9 @@ class CardPaymentServiceImpl internal constructor(private val clientOptions: Cli
     }
 
     override fun withRawResponse(): CardPaymentService.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): CardPaymentService =
+        CardPaymentServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun retrieve(
         params: CardPaymentRetrieveParams,
@@ -49,6 +53,13 @@ class CardPaymentServiceImpl internal constructor(private val clientOptions: Cli
         CardPaymentService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): CardPaymentService.WithRawResponse =
+            CardPaymentServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val retrieveHandler: Handler<CardPayment> =
             jsonHandler<CardPayment>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

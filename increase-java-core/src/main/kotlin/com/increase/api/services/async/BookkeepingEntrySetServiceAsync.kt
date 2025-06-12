@@ -2,6 +2,7 @@
 
 package com.increase.api.services.async
 
+import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.bookkeepingentrysets.BookkeepingEntrySet
@@ -10,6 +11,7 @@ import com.increase.api.models.bookkeepingentrysets.BookkeepingEntrySetListPageA
 import com.increase.api.models.bookkeepingentrysets.BookkeepingEntrySetListParams
 import com.increase.api.models.bookkeepingentrysets.BookkeepingEntrySetRetrieveParams
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 
 interface BookkeepingEntrySetServiceAsync {
 
@@ -17,6 +19,13 @@ interface BookkeepingEntrySetServiceAsync {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): BookkeepingEntrySetServiceAsync
 
     /** Create a Bookkeeping Entry Set */
     fun create(params: BookkeepingEntrySetCreateParams): CompletableFuture<BookkeepingEntrySet> =
@@ -92,6 +101,15 @@ interface BookkeepingEntrySetServiceAsync {
      * each method.
      */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): BookkeepingEntrySetServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post /bookkeeping_entry_sets`, but is otherwise the same

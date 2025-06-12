@@ -18,6 +18,7 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.carddisputes.CardDispute
 import com.increase.api.models.simulations.carddisputes.CardDisputeActionParams
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class CardDisputeServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -28,6 +29,9 @@ class CardDisputeServiceImpl internal constructor(private val clientOptions: Cli
     }
 
     override fun withRawResponse(): CardDisputeService.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): CardDisputeService =
+        CardDisputeServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun action(
         params: CardDisputeActionParams,
@@ -40,6 +44,13 @@ class CardDisputeServiceImpl internal constructor(private val clientOptions: Cli
         CardDisputeService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): CardDisputeService.WithRawResponse =
+            CardDisputeServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val actionHandler: Handler<CardDispute> =
             jsonHandler<CardDispute>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

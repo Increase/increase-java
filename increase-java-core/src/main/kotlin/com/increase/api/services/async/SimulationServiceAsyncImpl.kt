@@ -57,6 +57,7 @@ import com.increase.api.services.async.simulations.RealTimePaymentsTransferServi
 import com.increase.api.services.async.simulations.RealTimePaymentsTransferServiceAsyncImpl
 import com.increase.api.services.async.simulations.WireTransferServiceAsync
 import com.increase.api.services.async.simulations.WireTransferServiceAsyncImpl
+import java.util.function.Consumer
 
 class SimulationServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     SimulationServiceAsync {
@@ -171,6 +172,9 @@ class SimulationServiceAsyncImpl internal constructor(private val clientOptions:
     private val documents: DocumentServiceAsync by lazy { DocumentServiceAsyncImpl(clientOptions) }
 
     override fun withRawResponse(): SimulationServiceAsync.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): SimulationServiceAsync =
+        SimulationServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun interestPayments(): InterestPaymentServiceAsync = interestPayments
 
@@ -347,6 +351,13 @@ class SimulationServiceAsyncImpl internal constructor(private val clientOptions:
         private val documents: DocumentServiceAsync.WithRawResponse by lazy {
             DocumentServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): SimulationServiceAsync.WithRawResponse =
+            SimulationServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         override fun interestPayments(): InterestPaymentServiceAsync.WithRawResponse =
             interestPayments

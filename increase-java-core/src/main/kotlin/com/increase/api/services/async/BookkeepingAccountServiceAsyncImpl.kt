@@ -25,6 +25,7 @@ import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountListParams
 import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountUpdateParams
 import com.increase.api.models.bookkeepingaccounts.BookkeepingBalanceLookup
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class BookkeepingAccountServiceAsyncImpl
@@ -35,6 +36,13 @@ internal constructor(private val clientOptions: ClientOptions) : BookkeepingAcco
     }
 
     override fun withRawResponse(): BookkeepingAccountServiceAsync.WithRawResponse = withRawResponse
+
+    override fun withOptions(
+        modifier: Consumer<ClientOptions.Builder>
+    ): BookkeepingAccountServiceAsync =
+        BookkeepingAccountServiceAsyncImpl(
+            clientOptions.toBuilder().apply(modifier::accept).build()
+        )
 
     override fun create(
         params: BookkeepingAccountCreateParams,
@@ -68,6 +76,13 @@ internal constructor(private val clientOptions: ClientOptions) : BookkeepingAcco
         BookkeepingAccountServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): BookkeepingAccountServiceAsync.WithRawResponse =
+            BookkeepingAccountServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val createHandler: Handler<BookkeepingAccount> =
             jsonHandler<BookkeepingAccount>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

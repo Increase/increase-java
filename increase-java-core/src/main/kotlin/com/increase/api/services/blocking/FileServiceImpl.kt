@@ -22,6 +22,7 @@ import com.increase.api.models.files.FileListPage
 import com.increase.api.models.files.FileListPageResponse
 import com.increase.api.models.files.FileListParams
 import com.increase.api.models.files.FileRetrieveParams
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class FileServiceImpl internal constructor(private val clientOptions: ClientOptions) : FileService {
@@ -31,6 +32,9 @@ class FileServiceImpl internal constructor(private val clientOptions: ClientOpti
     }
 
     override fun withRawResponse(): FileService.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): FileService =
+        FileServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun create(params: FileCreateParams, requestOptions: RequestOptions): File =
         // post /files
@@ -48,6 +52,13 @@ class FileServiceImpl internal constructor(private val clientOptions: ClientOpti
         FileService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): FileService.WithRawResponse =
+            FileServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val createHandler: Handler<File> =
             jsonHandler<File>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

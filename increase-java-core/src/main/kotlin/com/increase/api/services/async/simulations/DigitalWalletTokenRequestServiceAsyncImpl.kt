@@ -18,6 +18,7 @@ import com.increase.api.core.prepareAsync
 import com.increase.api.models.simulations.digitalwallettokenrequests.DigitalWalletTokenRequestCreateParams
 import com.increase.api.models.simulations.digitalwallettokenrequests.DigitalWalletTokenRequestCreateResponse
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 
 class DigitalWalletTokenRequestServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) :
@@ -30,6 +31,13 @@ internal constructor(private val clientOptions: ClientOptions) :
     override fun withRawResponse(): DigitalWalletTokenRequestServiceAsync.WithRawResponse =
         withRawResponse
 
+    override fun withOptions(
+        modifier: Consumer<ClientOptions.Builder>
+    ): DigitalWalletTokenRequestServiceAsync =
+        DigitalWalletTokenRequestServiceAsyncImpl(
+            clientOptions.toBuilder().apply(modifier::accept).build()
+        )
+
     override fun create(
         params: DigitalWalletTokenRequestCreateParams,
         requestOptions: RequestOptions,
@@ -41,6 +49,13 @@ internal constructor(private val clientOptions: ClientOptions) :
         DigitalWalletTokenRequestServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): DigitalWalletTokenRequestServiceAsync.WithRawResponse =
+            DigitalWalletTokenRequestServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val createHandler: Handler<DigitalWalletTokenRequestCreateResponse> =
             jsonHandler<DigitalWalletTokenRequestCreateResponse>(clientOptions.jsonMapper)

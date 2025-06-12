@@ -3,10 +3,12 @@
 package com.increase.api.services.blocking.simulations
 
 import com.google.errorprone.annotations.MustBeClosed
+import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.simulations.inboundfundsholds.InboundFundsHoldReleaseParams
 import com.increase.api.models.simulations.inboundfundsholds.InboundFundsHoldReleaseResponse
+import java.util.function.Consumer
 
 interface InboundFundsHoldService {
 
@@ -14,6 +16,13 @@ interface InboundFundsHoldService {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): InboundFundsHoldService
 
     /**
      * This endpoint simulates immediately releasing an Inbound Funds Hold, which might be created
@@ -58,6 +67,15 @@ interface InboundFundsHoldService {
      * method.
      */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): InboundFundsHoldService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post

@@ -2,6 +2,7 @@
 
 package com.increase.api.services.async
 
+import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.bookkeepingentries.BookkeepingEntry
@@ -9,6 +10,7 @@ import com.increase.api.models.bookkeepingentries.BookkeepingEntryListPageAsync
 import com.increase.api.models.bookkeepingentries.BookkeepingEntryListParams
 import com.increase.api.models.bookkeepingentries.BookkeepingEntryRetrieveParams
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 
 interface BookkeepingEntryServiceAsync {
 
@@ -16,6 +18,13 @@ interface BookkeepingEntryServiceAsync {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): BookkeepingEntryServiceAsync
 
     /** Retrieve a Bookkeeping Entry */
     fun retrieve(bookkeepingEntryId: String): CompletableFuture<BookkeepingEntry> =
@@ -77,6 +86,15 @@ interface BookkeepingEntryServiceAsync {
      * method.
      */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): BookkeepingEntryServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /bookkeeping_entries/{bookkeeping_entry_id}`, but is

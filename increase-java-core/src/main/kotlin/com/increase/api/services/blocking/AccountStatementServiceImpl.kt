@@ -20,6 +20,7 @@ import com.increase.api.models.accountstatements.AccountStatementListPage
 import com.increase.api.models.accountstatements.AccountStatementListPageResponse
 import com.increase.api.models.accountstatements.AccountStatementListParams
 import com.increase.api.models.accountstatements.AccountStatementRetrieveParams
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class AccountStatementServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -30,6 +31,9 @@ class AccountStatementServiceImpl internal constructor(private val clientOptions
     }
 
     override fun withRawResponse(): AccountStatementService.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): AccountStatementService =
+        AccountStatementServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun retrieve(
         params: AccountStatementRetrieveParams,
@@ -49,6 +53,13 @@ class AccountStatementServiceImpl internal constructor(private val clientOptions
         AccountStatementService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): AccountStatementService.WithRawResponse =
+            AccountStatementServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val retrieveHandler: Handler<AccountStatement> =
             jsonHandler<AccountStatement>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

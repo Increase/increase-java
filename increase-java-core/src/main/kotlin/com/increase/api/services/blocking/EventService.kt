@@ -3,12 +3,14 @@
 package com.increase.api.services.blocking
 
 import com.google.errorprone.annotations.MustBeClosed
+import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.events.Event
 import com.increase.api.models.events.EventListPage
 import com.increase.api.models.events.EventListParams
 import com.increase.api.models.events.EventRetrieveParams
+import java.util.function.Consumer
 
 interface EventService {
 
@@ -16,6 +18,13 @@ interface EventService {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): EventService
 
     /** Retrieve an Event */
     fun retrieve(eventId: String): Event = retrieve(eventId, EventRetrieveParams.none())
@@ -63,6 +72,13 @@ interface EventService {
 
     /** A view of [EventService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(modifier: Consumer<ClientOptions.Builder>): EventService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /events/{event_id}`, but is otherwise the same as

@@ -23,6 +23,7 @@ import com.increase.api.models.inboundwiretransfers.InboundWireTransferListParam
 import com.increase.api.models.inboundwiretransfers.InboundWireTransferRetrieveParams
 import com.increase.api.models.inboundwiretransfers.InboundWireTransferReverseParams
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class InboundWireTransferServiceAsyncImpl
@@ -34,6 +35,13 @@ internal constructor(private val clientOptions: ClientOptions) : InboundWireTran
 
     override fun withRawResponse(): InboundWireTransferServiceAsync.WithRawResponse =
         withRawResponse
+
+    override fun withOptions(
+        modifier: Consumer<ClientOptions.Builder>
+    ): InboundWireTransferServiceAsync =
+        InboundWireTransferServiceAsyncImpl(
+            clientOptions.toBuilder().apply(modifier::accept).build()
+        )
 
     override fun retrieve(
         params: InboundWireTransferRetrieveParams,
@@ -60,6 +68,13 @@ internal constructor(private val clientOptions: ClientOptions) : InboundWireTran
         InboundWireTransferServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): InboundWireTransferServiceAsync.WithRawResponse =
+            InboundWireTransferServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val retrieveHandler: Handler<InboundWireTransfer> =
             jsonHandler<InboundWireTransfer>(clientOptions.jsonMapper)

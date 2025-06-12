@@ -18,6 +18,7 @@ import com.increase.api.core.prepareAsync
 import com.increase.api.models.inboundmailitems.InboundMailItem
 import com.increase.api.models.simulations.inboundmailitems.InboundMailItemCreateParams
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 
 class InboundMailItemServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) : InboundMailItemServiceAsync {
@@ -27,6 +28,11 @@ internal constructor(private val clientOptions: ClientOptions) : InboundMailItem
     }
 
     override fun withRawResponse(): InboundMailItemServiceAsync.WithRawResponse = withRawResponse
+
+    override fun withOptions(
+        modifier: Consumer<ClientOptions.Builder>
+    ): InboundMailItemServiceAsync =
+        InboundMailItemServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun create(
         params: InboundMailItemCreateParams,
@@ -39,6 +45,13 @@ internal constructor(private val clientOptions: ClientOptions) : InboundMailItem
         InboundMailItemServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): InboundMailItemServiceAsync.WithRawResponse =
+            InboundMailItemServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val createHandler: Handler<InboundMailItem> =
             jsonHandler<InboundMailItem>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

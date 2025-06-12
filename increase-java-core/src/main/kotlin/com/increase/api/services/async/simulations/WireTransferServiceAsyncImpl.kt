@@ -20,6 +20,7 @@ import com.increase.api.models.simulations.wiretransfers.WireTransferReversePara
 import com.increase.api.models.simulations.wiretransfers.WireTransferSubmitParams
 import com.increase.api.models.wiretransfers.WireTransfer
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class WireTransferServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -30,6 +31,9 @@ class WireTransferServiceAsyncImpl internal constructor(private val clientOption
     }
 
     override fun withRawResponse(): WireTransferServiceAsync.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): WireTransferServiceAsync =
+        WireTransferServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun reverse(
         params: WireTransferReverseParams,
@@ -49,6 +53,13 @@ class WireTransferServiceAsyncImpl internal constructor(private val clientOption
         WireTransferServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): WireTransferServiceAsync.WithRawResponse =
+            WireTransferServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val reverseHandler: Handler<WireTransfer> =
             jsonHandler<WireTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

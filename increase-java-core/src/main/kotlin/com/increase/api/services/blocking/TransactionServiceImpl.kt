@@ -20,6 +20,7 @@ import com.increase.api.models.transactions.TransactionListPage
 import com.increase.api.models.transactions.TransactionListPageResponse
 import com.increase.api.models.transactions.TransactionListParams
 import com.increase.api.models.transactions.TransactionRetrieveParams
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class TransactionServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -30,6 +31,9 @@ class TransactionServiceImpl internal constructor(private val clientOptions: Cli
     }
 
     override fun withRawResponse(): TransactionService.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): TransactionService =
+        TransactionServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun retrieve(
         params: TransactionRetrieveParams,
@@ -49,6 +53,13 @@ class TransactionServiceImpl internal constructor(private val clientOptions: Cli
         TransactionService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): TransactionService.WithRawResponse =
+            TransactionServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val retrieveHandler: Handler<Transaction> =
             jsonHandler<Transaction>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

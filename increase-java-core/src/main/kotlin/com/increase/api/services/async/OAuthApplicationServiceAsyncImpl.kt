@@ -21,6 +21,7 @@ import com.increase.api.models.oauthapplications.OAuthApplicationListPageRespons
 import com.increase.api.models.oauthapplications.OAuthApplicationListParams
 import com.increase.api.models.oauthapplications.OAuthApplicationRetrieveParams
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class OAuthApplicationServiceAsyncImpl
@@ -31,6 +32,11 @@ internal constructor(private val clientOptions: ClientOptions) : OAuthApplicatio
     }
 
     override fun withRawResponse(): OAuthApplicationServiceAsync.WithRawResponse = withRawResponse
+
+    override fun withOptions(
+        modifier: Consumer<ClientOptions.Builder>
+    ): OAuthApplicationServiceAsync =
+        OAuthApplicationServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun retrieve(
         params: OAuthApplicationRetrieveParams,
@@ -50,6 +56,13 @@ internal constructor(private val clientOptions: ClientOptions) : OAuthApplicatio
         OAuthApplicationServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): OAuthApplicationServiceAsync.WithRawResponse =
+            OAuthApplicationServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val retrieveHandler: Handler<OAuthApplication> =
             jsonHandler<OAuthApplication>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

@@ -17,6 +17,7 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.cardpayments.CardPayment
 import com.increase.api.models.simulations.cardincrements.CardIncrementCreateParams
+import java.util.function.Consumer
 
 class CardIncrementServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     CardIncrementService {
@@ -26,6 +27,9 @@ class CardIncrementServiceImpl internal constructor(private val clientOptions: C
     }
 
     override fun withRawResponse(): CardIncrementService.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): CardIncrementService =
+        CardIncrementServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun create(
         params: CardIncrementCreateParams,
@@ -38,6 +42,13 @@ class CardIncrementServiceImpl internal constructor(private val clientOptions: C
         CardIncrementService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): CardIncrementService.WithRawResponse =
+            CardIncrementServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val createHandler: Handler<CardPayment> =
             jsonHandler<CardPayment>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

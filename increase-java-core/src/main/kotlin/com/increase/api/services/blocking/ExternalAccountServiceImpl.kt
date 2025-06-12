@@ -23,6 +23,7 @@ import com.increase.api.models.externalaccounts.ExternalAccountListPageResponse
 import com.increase.api.models.externalaccounts.ExternalAccountListParams
 import com.increase.api.models.externalaccounts.ExternalAccountRetrieveParams
 import com.increase.api.models.externalaccounts.ExternalAccountUpdateParams
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class ExternalAccountServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -33,6 +34,9 @@ class ExternalAccountServiceImpl internal constructor(private val clientOptions:
     }
 
     override fun withRawResponse(): ExternalAccountService.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): ExternalAccountService =
+        ExternalAccountServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun create(
         params: ExternalAccountCreateParams,
@@ -66,6 +70,13 @@ class ExternalAccountServiceImpl internal constructor(private val clientOptions:
         ExternalAccountService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): ExternalAccountService.WithRawResponse =
+            ExternalAccountServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val createHandler: Handler<ExternalAccount> =
             jsonHandler<ExternalAccount>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

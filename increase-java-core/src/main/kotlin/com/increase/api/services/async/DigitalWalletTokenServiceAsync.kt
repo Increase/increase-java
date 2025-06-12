@@ -2,6 +2,7 @@
 
 package com.increase.api.services.async
 
+import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.digitalwallettokens.DigitalWalletToken
@@ -9,6 +10,7 @@ import com.increase.api.models.digitalwallettokens.DigitalWalletTokenListPageAsy
 import com.increase.api.models.digitalwallettokens.DigitalWalletTokenListParams
 import com.increase.api.models.digitalwallettokens.DigitalWalletTokenRetrieveParams
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 
 interface DigitalWalletTokenServiceAsync {
 
@@ -16,6 +18,13 @@ interface DigitalWalletTokenServiceAsync {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): DigitalWalletTokenServiceAsync
 
     /** Retrieve a Digital Wallet Token */
     fun retrieve(digitalWalletTokenId: String): CompletableFuture<DigitalWalletToken> =
@@ -80,6 +89,15 @@ interface DigitalWalletTokenServiceAsync {
      * each method.
      */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): DigitalWalletTokenServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /digital_wallet_tokens/{digital_wallet_token_id}`,

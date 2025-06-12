@@ -20,6 +20,7 @@ import com.increase.api.models.programs.ProgramListPage
 import com.increase.api.models.programs.ProgramListPageResponse
 import com.increase.api.models.programs.ProgramListParams
 import com.increase.api.models.programs.ProgramRetrieveParams
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class ProgramServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -30,6 +31,9 @@ class ProgramServiceImpl internal constructor(private val clientOptions: ClientO
     }
 
     override fun withRawResponse(): ProgramService.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): ProgramService =
+        ProgramServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun retrieve(params: ProgramRetrieveParams, requestOptions: RequestOptions): Program =
         // get /programs/{program_id}
@@ -43,6 +47,13 @@ class ProgramServiceImpl internal constructor(private val clientOptions: ClientO
         ProgramService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): ProgramService.WithRawResponse =
+            ProgramServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val retrieveHandler: Handler<Program> =
             jsonHandler<Program>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

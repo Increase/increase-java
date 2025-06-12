@@ -29,6 +29,7 @@ import com.increase.api.models.entities.EntityRetrieveParams
 import com.increase.api.models.entities.EntityUpdateAddressParams
 import com.increase.api.models.entities.EntityUpdateBeneficialOwnerAddressParams
 import com.increase.api.models.entities.EntityUpdateIndustryCodeParams
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class EntityServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -39,6 +40,9 @@ class EntityServiceImpl internal constructor(private val clientOptions: ClientOp
     }
 
     override fun withRawResponse(): EntityService.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): EntityService =
+        EntityServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun create(params: EntityCreateParams, requestOptions: RequestOptions): Entity =
         // post /entities
@@ -99,6 +103,13 @@ class EntityServiceImpl internal constructor(private val clientOptions: ClientOp
         EntityService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): EntityService.WithRawResponse =
+            EntityServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val createHandler: Handler<Entity> =
             jsonHandler<Entity>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

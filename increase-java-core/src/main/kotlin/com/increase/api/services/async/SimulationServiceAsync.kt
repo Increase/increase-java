@@ -2,6 +2,7 @@
 
 package com.increase.api.services.async
 
+import com.increase.api.core.ClientOptions
 import com.increase.api.services.async.simulations.AccountStatementServiceAsync
 import com.increase.api.services.async.simulations.AccountTransferServiceAsync
 import com.increase.api.services.async.simulations.AchTransferServiceAsync
@@ -29,6 +30,7 @@ import com.increase.api.services.async.simulations.PhysicalCardServiceAsync
 import com.increase.api.services.async.simulations.ProgramServiceAsync
 import com.increase.api.services.async.simulations.RealTimePaymentsTransferServiceAsync
 import com.increase.api.services.async.simulations.WireTransferServiceAsync
+import java.util.function.Consumer
 
 interface SimulationServiceAsync {
 
@@ -36,6 +38,13 @@ interface SimulationServiceAsync {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): SimulationServiceAsync
 
     fun interestPayments(): InterestPaymentServiceAsync
 
@@ -96,6 +105,15 @@ interface SimulationServiceAsync {
      * method.
      */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): SimulationServiceAsync.WithRawResponse
 
         fun interestPayments(): InterestPaymentServiceAsync.WithRawResponse
 

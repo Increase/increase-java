@@ -17,6 +17,7 @@ import com.increase.api.core.prepareAsync
 import com.increase.api.models.groups.Group
 import com.increase.api.models.groups.GroupRetrieveParams
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 
 class GroupServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     GroupServiceAsync {
@@ -26,6 +27,9 @@ class GroupServiceAsyncImpl internal constructor(private val clientOptions: Clie
     }
 
     override fun withRawResponse(): GroupServiceAsync.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): GroupServiceAsync =
+        GroupServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun retrieve(
         params: GroupRetrieveParams,
@@ -38,6 +42,13 @@ class GroupServiceAsyncImpl internal constructor(private val clientOptions: Clie
         GroupServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): GroupServiceAsync.WithRawResponse =
+            GroupServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val retrieveHandler: Handler<Group> =
             jsonHandler<Group>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

@@ -2,6 +2,7 @@
 
 package com.increase.api.services.async
 
+import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.oauthconnections.OAuthConnection
@@ -9,6 +10,7 @@ import com.increase.api.models.oauthconnections.OAuthConnectionListPageAsync
 import com.increase.api.models.oauthconnections.OAuthConnectionListParams
 import com.increase.api.models.oauthconnections.OAuthConnectionRetrieveParams
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 
 interface OAuthConnectionServiceAsync {
 
@@ -16,6 +18,13 @@ interface OAuthConnectionServiceAsync {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): OAuthConnectionServiceAsync
 
     /** Retrieve an OAuth Connection */
     fun retrieve(oauthConnectionId: String): CompletableFuture<OAuthConnection> =
@@ -77,6 +86,15 @@ interface OAuthConnectionServiceAsync {
      * method.
      */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): OAuthConnectionServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /oauth_connections/{oauth_connection_id}`, but is

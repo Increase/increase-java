@@ -18,6 +18,7 @@ import com.increase.api.core.prepareAsync
 import com.increase.api.models.simulations.cardsettlements.CardSettlementCreateParams
 import com.increase.api.models.transactions.Transaction
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 
 class CardSettlementServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) : CardSettlementServiceAsync {
@@ -27,6 +28,11 @@ internal constructor(private val clientOptions: ClientOptions) : CardSettlementS
     }
 
     override fun withRawResponse(): CardSettlementServiceAsync.WithRawResponse = withRawResponse
+
+    override fun withOptions(
+        modifier: Consumer<ClientOptions.Builder>
+    ): CardSettlementServiceAsync =
+        CardSettlementServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun create(
         params: CardSettlementCreateParams,
@@ -39,6 +45,13 @@ internal constructor(private val clientOptions: ClientOptions) : CardSettlementS
         CardSettlementServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): CardSettlementServiceAsync.WithRawResponse =
+            CardSettlementServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val createHandler: Handler<Transaction> =
             jsonHandler<Transaction>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

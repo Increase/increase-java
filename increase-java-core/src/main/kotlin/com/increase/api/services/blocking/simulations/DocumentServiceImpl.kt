@@ -17,6 +17,7 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.documents.Document
 import com.increase.api.models.simulations.documents.DocumentCreateParams
+import java.util.function.Consumer
 
 class DocumentServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     DocumentService {
@@ -27,6 +28,9 @@ class DocumentServiceImpl internal constructor(private val clientOptions: Client
 
     override fun withRawResponse(): DocumentService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): DocumentService =
+        DocumentServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
+
     override fun create(params: DocumentCreateParams, requestOptions: RequestOptions): Document =
         // post /simulations/documents
         withRawResponse().create(params, requestOptions).parse()
@@ -35,6 +39,13 @@ class DocumentServiceImpl internal constructor(private val clientOptions: Client
         DocumentService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): DocumentService.WithRawResponse =
+            DocumentServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val createHandler: Handler<Document> =
             jsonHandler<Document>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

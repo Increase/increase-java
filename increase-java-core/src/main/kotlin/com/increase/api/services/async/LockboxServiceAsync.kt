@@ -2,6 +2,7 @@
 
 package com.increase.api.services.async
 
+import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.lockboxes.Lockbox
@@ -11,6 +12,7 @@ import com.increase.api.models.lockboxes.LockboxListParams
 import com.increase.api.models.lockboxes.LockboxRetrieveParams
 import com.increase.api.models.lockboxes.LockboxUpdateParams
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 
 interface LockboxServiceAsync {
 
@@ -18,6 +20,13 @@ interface LockboxServiceAsync {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): LockboxServiceAsync
 
     /** Create a Lockbox */
     fun create(params: LockboxCreateParams): CompletableFuture<Lockbox> =
@@ -115,6 +124,15 @@ interface LockboxServiceAsync {
      * A view of [LockboxServiceAsync] that provides access to raw HTTP responses for each method.
      */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): LockboxServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post /lockboxes`, but is otherwise the same as
