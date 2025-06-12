@@ -24,6 +24,7 @@ import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransfe
 import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferListPageResponse
 import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferListParams
 import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferRetrieveParams
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class RealTimePaymentsTransferServiceImpl
@@ -35,6 +36,13 @@ internal constructor(private val clientOptions: ClientOptions) : RealTimePayment
 
     override fun withRawResponse(): RealTimePaymentsTransferService.WithRawResponse =
         withRawResponse
+
+    override fun withOptions(
+        modifier: Consumer<ClientOptions.Builder>
+    ): RealTimePaymentsTransferService =
+        RealTimePaymentsTransferServiceImpl(
+            clientOptions.toBuilder().apply(modifier::accept).build()
+        )
 
     override fun create(
         params: RealTimePaymentsTransferCreateParams,
@@ -75,6 +83,13 @@ internal constructor(private val clientOptions: ClientOptions) : RealTimePayment
         RealTimePaymentsTransferService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): RealTimePaymentsTransferService.WithRawResponse =
+            RealTimePaymentsTransferServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val createHandler: Handler<RealTimePaymentsTransfer> =
             jsonHandler<RealTimePaymentsTransfer>(clientOptions.jsonMapper)

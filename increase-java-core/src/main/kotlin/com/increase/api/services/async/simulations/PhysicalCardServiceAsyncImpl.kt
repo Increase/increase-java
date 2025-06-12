@@ -20,6 +20,7 @@ import com.increase.api.models.physicalcards.PhysicalCard
 import com.increase.api.models.simulations.physicalcards.PhysicalCardAdvanceShipmentParams
 import com.increase.api.models.simulations.physicalcards.PhysicalCardTrackingUpdatesParams
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class PhysicalCardServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -30,6 +31,9 @@ class PhysicalCardServiceAsyncImpl internal constructor(private val clientOption
     }
 
     override fun withRawResponse(): PhysicalCardServiceAsync.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): PhysicalCardServiceAsync =
+        PhysicalCardServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun advanceShipment(
         params: PhysicalCardAdvanceShipmentParams,
@@ -49,6 +53,13 @@ class PhysicalCardServiceAsyncImpl internal constructor(private val clientOption
         PhysicalCardServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): PhysicalCardServiceAsync.WithRawResponse =
+            PhysicalCardServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val advanceShipmentHandler: Handler<PhysicalCard> =
             jsonHandler<PhysicalCard>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

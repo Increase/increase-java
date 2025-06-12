@@ -23,6 +23,7 @@ import com.increase.api.models.intrafiexclusions.IntrafiExclusionListPage
 import com.increase.api.models.intrafiexclusions.IntrafiExclusionListPageResponse
 import com.increase.api.models.intrafiexclusions.IntrafiExclusionListParams
 import com.increase.api.models.intrafiexclusions.IntrafiExclusionRetrieveParams
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class IntrafiExclusionServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -33,6 +34,9 @@ class IntrafiExclusionServiceImpl internal constructor(private val clientOptions
     }
 
     override fun withRawResponse(): IntrafiExclusionService.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): IntrafiExclusionService =
+        IntrafiExclusionServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun create(
         params: IntrafiExclusionCreateParams,
@@ -66,6 +70,13 @@ class IntrafiExclusionServiceImpl internal constructor(private val clientOptions
         IntrafiExclusionService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): IntrafiExclusionService.WithRawResponse =
+            IntrafiExclusionServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val createHandler: Handler<IntrafiExclusion> =
             jsonHandler<IntrafiExclusion>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

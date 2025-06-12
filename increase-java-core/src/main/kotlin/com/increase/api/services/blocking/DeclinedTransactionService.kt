@@ -3,12 +3,14 @@
 package com.increase.api.services.blocking
 
 import com.google.errorprone.annotations.MustBeClosed
+import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.declinedtransactions.DeclinedTransaction
 import com.increase.api.models.declinedtransactions.DeclinedTransactionListPage
 import com.increase.api.models.declinedtransactions.DeclinedTransactionListParams
 import com.increase.api.models.declinedtransactions.DeclinedTransactionRetrieveParams
+import java.util.function.Consumer
 
 interface DeclinedTransactionService {
 
@@ -16,6 +18,13 @@ interface DeclinedTransactionService {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): DeclinedTransactionService
 
     /** Retrieve a Declined Transaction */
     fun retrieve(declinedTransactionId: String): DeclinedTransaction =
@@ -78,6 +87,15 @@ interface DeclinedTransactionService {
      * method.
      */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): DeclinedTransactionService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /declined_transactions/{declined_transaction_id}`,

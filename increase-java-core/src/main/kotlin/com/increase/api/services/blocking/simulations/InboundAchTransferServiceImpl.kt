@@ -17,6 +17,7 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.inboundachtransfers.InboundAchTransfer
 import com.increase.api.models.simulations.inboundachtransfers.InboundAchTransferCreateParams
+import java.util.function.Consumer
 
 class InboundAchTransferServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     InboundAchTransferService {
@@ -26,6 +27,9 @@ class InboundAchTransferServiceImpl internal constructor(private val clientOptio
     }
 
     override fun withRawResponse(): InboundAchTransferService.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): InboundAchTransferService =
+        InboundAchTransferServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun create(
         params: InboundAchTransferCreateParams,
@@ -38,6 +42,13 @@ class InboundAchTransferServiceImpl internal constructor(private val clientOptio
         InboundAchTransferService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): InboundAchTransferService.WithRawResponse =
+            InboundAchTransferServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val createHandler: Handler<InboundAchTransfer> =
             jsonHandler<InboundAchTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

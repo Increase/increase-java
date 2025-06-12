@@ -24,6 +24,7 @@ import com.increase.api.models.intrafiexclusions.IntrafiExclusionListPageRespons
 import com.increase.api.models.intrafiexclusions.IntrafiExclusionListParams
 import com.increase.api.models.intrafiexclusions.IntrafiExclusionRetrieveParams
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class IntrafiExclusionServiceAsyncImpl
@@ -34,6 +35,11 @@ internal constructor(private val clientOptions: ClientOptions) : IntrafiExclusio
     }
 
     override fun withRawResponse(): IntrafiExclusionServiceAsync.WithRawResponse = withRawResponse
+
+    override fun withOptions(
+        modifier: Consumer<ClientOptions.Builder>
+    ): IntrafiExclusionServiceAsync =
+        IntrafiExclusionServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun create(
         params: IntrafiExclusionCreateParams,
@@ -67,6 +73,13 @@ internal constructor(private val clientOptions: ClientOptions) : IntrafiExclusio
         IntrafiExclusionServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): IntrafiExclusionServiceAsync.WithRawResponse =
+            IntrafiExclusionServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val createHandler: Handler<IntrafiExclusion> =
             jsonHandler<IntrafiExclusion>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

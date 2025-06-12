@@ -17,6 +17,7 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.simulations.cardauthorizations.CardAuthorizationCreateParams
 import com.increase.api.models.simulations.cardauthorizations.CardAuthorizationCreateResponse
+import java.util.function.Consumer
 
 class CardAuthorizationServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     CardAuthorizationService {
@@ -26,6 +27,9 @@ class CardAuthorizationServiceImpl internal constructor(private val clientOption
     }
 
     override fun withRawResponse(): CardAuthorizationService.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): CardAuthorizationService =
+        CardAuthorizationServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun create(
         params: CardAuthorizationCreateParams,
@@ -38,6 +42,13 @@ class CardAuthorizationServiceImpl internal constructor(private val clientOption
         CardAuthorizationService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): CardAuthorizationService.WithRawResponse =
+            CardAuthorizationServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val createHandler: Handler<CardAuthorizationCreateResponse> =
             jsonHandler<CardAuthorizationCreateResponse>(clientOptions.jsonMapper)

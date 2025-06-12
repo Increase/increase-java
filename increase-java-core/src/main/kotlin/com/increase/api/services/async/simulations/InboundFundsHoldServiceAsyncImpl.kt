@@ -19,6 +19,7 @@ import com.increase.api.core.prepareAsync
 import com.increase.api.models.simulations.inboundfundsholds.InboundFundsHoldReleaseParams
 import com.increase.api.models.simulations.inboundfundsholds.InboundFundsHoldReleaseResponse
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class InboundFundsHoldServiceAsyncImpl
@@ -29,6 +30,11 @@ internal constructor(private val clientOptions: ClientOptions) : InboundFundsHol
     }
 
     override fun withRawResponse(): InboundFundsHoldServiceAsync.WithRawResponse = withRawResponse
+
+    override fun withOptions(
+        modifier: Consumer<ClientOptions.Builder>
+    ): InboundFundsHoldServiceAsync =
+        InboundFundsHoldServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun release(
         params: InboundFundsHoldReleaseParams,
@@ -41,6 +47,13 @@ internal constructor(private val clientOptions: ClientOptions) : InboundFundsHol
         InboundFundsHoldServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): InboundFundsHoldServiceAsync.WithRawResponse =
+            InboundFundsHoldServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val releaseHandler: Handler<InboundFundsHoldReleaseResponse> =
             jsonHandler<InboundFundsHoldReleaseResponse>(clientOptions.jsonMapper)

@@ -18,6 +18,7 @@ import com.increase.api.core.prepareAsync
 import com.increase.api.models.filelinks.FileLink
 import com.increase.api.models.filelinks.FileLinkCreateParams
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 
 class FileLinkServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     FileLinkServiceAsync {
@@ -27,6 +28,9 @@ class FileLinkServiceAsyncImpl internal constructor(private val clientOptions: C
     }
 
     override fun withRawResponse(): FileLinkServiceAsync.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): FileLinkServiceAsync =
+        FileLinkServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun create(
         params: FileLinkCreateParams,
@@ -39,6 +43,13 @@ class FileLinkServiceAsyncImpl internal constructor(private val clientOptions: C
         FileLinkServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): FileLinkServiceAsync.WithRawResponse =
+            FileLinkServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val createHandler: Handler<FileLink> =
             jsonHandler<FileLink>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

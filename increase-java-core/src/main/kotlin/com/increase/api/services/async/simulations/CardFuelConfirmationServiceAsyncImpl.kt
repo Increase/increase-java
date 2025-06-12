@@ -18,6 +18,7 @@ import com.increase.api.core.prepareAsync
 import com.increase.api.models.cardpayments.CardPayment
 import com.increase.api.models.simulations.cardfuelconfirmations.CardFuelConfirmationCreateParams
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 
 class CardFuelConfirmationServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) : CardFuelConfirmationServiceAsync {
@@ -28,6 +29,13 @@ internal constructor(private val clientOptions: ClientOptions) : CardFuelConfirm
 
     override fun withRawResponse(): CardFuelConfirmationServiceAsync.WithRawResponse =
         withRawResponse
+
+    override fun withOptions(
+        modifier: Consumer<ClientOptions.Builder>
+    ): CardFuelConfirmationServiceAsync =
+        CardFuelConfirmationServiceAsyncImpl(
+            clientOptions.toBuilder().apply(modifier::accept).build()
+        )
 
     override fun create(
         params: CardFuelConfirmationCreateParams,
@@ -40,6 +48,13 @@ internal constructor(private val clientOptions: ClientOptions) : CardFuelConfirm
         CardFuelConfirmationServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): CardFuelConfirmationServiceAsync.WithRawResponse =
+            CardFuelConfirmationServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val createHandler: Handler<CardPayment> =
             jsonHandler<CardPayment>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

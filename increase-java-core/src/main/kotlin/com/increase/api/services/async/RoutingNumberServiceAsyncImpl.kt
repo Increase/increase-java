@@ -18,6 +18,7 @@ import com.increase.api.models.routingnumbers.RoutingNumberListPageAsync
 import com.increase.api.models.routingnumbers.RoutingNumberListPageResponse
 import com.increase.api.models.routingnumbers.RoutingNumberListParams
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 
 class RoutingNumberServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     RoutingNumberServiceAsync {
@@ -27,6 +28,9 @@ class RoutingNumberServiceAsyncImpl internal constructor(private val clientOptio
     }
 
     override fun withRawResponse(): RoutingNumberServiceAsync.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): RoutingNumberServiceAsync =
+        RoutingNumberServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun list(
         params: RoutingNumberListParams,
@@ -39,6 +43,13 @@ class RoutingNumberServiceAsyncImpl internal constructor(private val clientOptio
         RoutingNumberServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): RoutingNumberServiceAsync.WithRawResponse =
+            RoutingNumberServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val listHandler: Handler<RoutingNumberListPageResponse> =
             jsonHandler<RoutingNumberListPageResponse>(clientOptions.jsonMapper)

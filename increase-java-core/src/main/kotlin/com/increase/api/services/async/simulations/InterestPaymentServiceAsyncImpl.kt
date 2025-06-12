@@ -18,6 +18,7 @@ import com.increase.api.core.prepareAsync
 import com.increase.api.models.simulations.interestpayments.InterestPaymentCreateParams
 import com.increase.api.models.transactions.Transaction
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 
 class InterestPaymentServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) : InterestPaymentServiceAsync {
@@ -27,6 +28,11 @@ internal constructor(private val clientOptions: ClientOptions) : InterestPayment
     }
 
     override fun withRawResponse(): InterestPaymentServiceAsync.WithRawResponse = withRawResponse
+
+    override fun withOptions(
+        modifier: Consumer<ClientOptions.Builder>
+    ): InterestPaymentServiceAsync =
+        InterestPaymentServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun create(
         params: InterestPaymentCreateParams,
@@ -39,6 +45,13 @@ internal constructor(private val clientOptions: ClientOptions) : InterestPayment
         InterestPaymentServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): InterestPaymentServiceAsync.WithRawResponse =
+            InterestPaymentServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val createHandler: Handler<Transaction> =
             jsonHandler<Transaction>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

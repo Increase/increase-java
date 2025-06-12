@@ -24,6 +24,7 @@ import com.increase.api.models.digitalcardprofiles.DigitalCardProfileListPage
 import com.increase.api.models.digitalcardprofiles.DigitalCardProfileListPageResponse
 import com.increase.api.models.digitalcardprofiles.DigitalCardProfileListParams
 import com.increase.api.models.digitalcardprofiles.DigitalCardProfileRetrieveParams
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class DigitalCardProfileServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -34,6 +35,9 @@ class DigitalCardProfileServiceImpl internal constructor(private val clientOptio
     }
 
     override fun withRawResponse(): DigitalCardProfileService.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): DigitalCardProfileService =
+        DigitalCardProfileServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun create(
         params: DigitalCardProfileCreateParams,
@@ -74,6 +78,13 @@ class DigitalCardProfileServiceImpl internal constructor(private val clientOptio
         DigitalCardProfileService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): DigitalCardProfileService.WithRawResponse =
+            DigitalCardProfileServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val createHandler: Handler<DigitalCardProfile> =
             jsonHandler<DigitalCardProfile>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

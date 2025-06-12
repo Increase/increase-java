@@ -3,12 +3,14 @@
 package com.increase.api.services.blocking.simulations
 
 import com.google.errorprone.annotations.MustBeClosed
+import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.checkdeposits.CheckDeposit
 import com.increase.api.models.simulations.checkdeposits.CheckDepositRejectParams
 import com.increase.api.models.simulations.checkdeposits.CheckDepositReturnParams
 import com.increase.api.models.simulations.checkdeposits.CheckDepositSubmitParams
+import java.util.function.Consumer
 
 interface CheckDepositService {
 
@@ -16,6 +18,13 @@ interface CheckDepositService {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): CheckDepositService
 
     /**
      * Simulates the rejection of a [Check Deposit](#check-deposits) by Increase due to factors like
@@ -126,6 +135,15 @@ interface CheckDepositService {
      * A view of [CheckDepositService] that provides access to raw HTTP responses for each method.
      */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): CheckDepositService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post

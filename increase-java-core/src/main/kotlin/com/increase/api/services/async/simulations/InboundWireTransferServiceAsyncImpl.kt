@@ -18,6 +18,7 @@ import com.increase.api.core.prepareAsync
 import com.increase.api.models.inboundwiretransfers.InboundWireTransfer
 import com.increase.api.models.simulations.inboundwiretransfers.InboundWireTransferCreateParams
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 
 class InboundWireTransferServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) : InboundWireTransferServiceAsync {
@@ -28,6 +29,13 @@ internal constructor(private val clientOptions: ClientOptions) : InboundWireTran
 
     override fun withRawResponse(): InboundWireTransferServiceAsync.WithRawResponse =
         withRawResponse
+
+    override fun withOptions(
+        modifier: Consumer<ClientOptions.Builder>
+    ): InboundWireTransferServiceAsync =
+        InboundWireTransferServiceAsyncImpl(
+            clientOptions.toBuilder().apply(modifier::accept).build()
+        )
 
     override fun create(
         params: InboundWireTransferCreateParams,
@@ -40,6 +48,13 @@ internal constructor(private val clientOptions: ClientOptions) : InboundWireTran
         InboundWireTransferServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): InboundWireTransferServiceAsync.WithRawResponse =
+            InboundWireTransferServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val createHandler: Handler<InboundWireTransfer> =
             jsonHandler<InboundWireTransfer>(clientOptions.jsonMapper)

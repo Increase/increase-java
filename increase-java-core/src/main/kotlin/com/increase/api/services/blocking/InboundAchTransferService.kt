@@ -3,6 +3,7 @@
 package com.increase.api.services.blocking
 
 import com.google.errorprone.annotations.MustBeClosed
+import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.inboundachtransfers.InboundAchTransfer
@@ -12,6 +13,7 @@ import com.increase.api.models.inboundachtransfers.InboundAchTransferListPage
 import com.increase.api.models.inboundachtransfers.InboundAchTransferListParams
 import com.increase.api.models.inboundachtransfers.InboundAchTransferRetrieveParams
 import com.increase.api.models.inboundachtransfers.InboundAchTransferTransferReturnParams
+import java.util.function.Consumer
 
 interface InboundAchTransferService {
 
@@ -19,6 +21,13 @@ interface InboundAchTransferService {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): InboundAchTransferService
 
     /** Retrieve an Inbound ACH Transfer */
     fun retrieve(inboundAchTransferId: String): InboundAchTransfer =
@@ -189,6 +198,15 @@ interface InboundAchTransferService {
      * method.
      */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): InboundAchTransferService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /inbound_ach_transfers/{inbound_ach_transfer_id}`,

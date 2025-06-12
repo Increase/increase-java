@@ -18,6 +18,7 @@ import com.increase.api.core.prepareAsync
 import com.increase.api.models.inboundcheckdeposits.InboundCheckDeposit
 import com.increase.api.models.simulations.inboundcheckdeposits.InboundCheckDepositCreateParams
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 
 class InboundCheckDepositServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) : InboundCheckDepositServiceAsync {
@@ -28,6 +29,13 @@ internal constructor(private val clientOptions: ClientOptions) : InboundCheckDep
 
     override fun withRawResponse(): InboundCheckDepositServiceAsync.WithRawResponse =
         withRawResponse
+
+    override fun withOptions(
+        modifier: Consumer<ClientOptions.Builder>
+    ): InboundCheckDepositServiceAsync =
+        InboundCheckDepositServiceAsyncImpl(
+            clientOptions.toBuilder().apply(modifier::accept).build()
+        )
 
     override fun create(
         params: InboundCheckDepositCreateParams,
@@ -40,6 +48,13 @@ internal constructor(private val clientOptions: ClientOptions) : InboundCheckDep
         InboundCheckDepositServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): InboundCheckDepositServiceAsync.WithRawResponse =
+            InboundCheckDepositServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val createHandler: Handler<InboundCheckDeposit> =
             jsonHandler<InboundCheckDeposit>(clientOptions.jsonMapper)

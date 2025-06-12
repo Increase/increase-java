@@ -2,6 +2,7 @@
 
 package com.increase.api.services.async
 
+import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.exports.Export
@@ -10,6 +11,7 @@ import com.increase.api.models.exports.ExportListPageAsync
 import com.increase.api.models.exports.ExportListParams
 import com.increase.api.models.exports.ExportRetrieveParams
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 
 interface ExportServiceAsync {
 
@@ -17,6 +19,13 @@ interface ExportServiceAsync {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): ExportServiceAsync
 
     /** Create an Export */
     fun create(params: ExportCreateParams): CompletableFuture<Export> =
@@ -82,6 +91,15 @@ interface ExportServiceAsync {
      * A view of [ExportServiceAsync] that provides access to raw HTTP responses for each method.
      */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): ExportServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post /exports`, but is otherwise the same as

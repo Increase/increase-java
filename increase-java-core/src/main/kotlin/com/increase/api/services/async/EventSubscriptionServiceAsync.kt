@@ -2,6 +2,7 @@
 
 package com.increase.api.services.async
 
+import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.eventsubscriptions.EventSubscription
@@ -11,6 +12,7 @@ import com.increase.api.models.eventsubscriptions.EventSubscriptionListParams
 import com.increase.api.models.eventsubscriptions.EventSubscriptionRetrieveParams
 import com.increase.api.models.eventsubscriptions.EventSubscriptionUpdateParams
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 
 interface EventSubscriptionServiceAsync {
 
@@ -18,6 +20,13 @@ interface EventSubscriptionServiceAsync {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): EventSubscriptionServiceAsync
 
     /** Create an Event Subscription */
     fun create(params: EventSubscriptionCreateParams): CompletableFuture<EventSubscription> =
@@ -128,6 +137,15 @@ interface EventSubscriptionServiceAsync {
      * method.
      */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): EventSubscriptionServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post /event_subscriptions`, but is otherwise the same as

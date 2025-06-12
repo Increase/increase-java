@@ -3,12 +3,14 @@
 package com.increase.api.services.blocking
 
 import com.google.errorprone.annotations.MustBeClosed
+import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.accountstatements.AccountStatement
 import com.increase.api.models.accountstatements.AccountStatementListPage
 import com.increase.api.models.accountstatements.AccountStatementListParams
 import com.increase.api.models.accountstatements.AccountStatementRetrieveParams
+import java.util.function.Consumer
 
 interface AccountStatementService {
 
@@ -16,6 +18,13 @@ interface AccountStatementService {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): AccountStatementService
 
     /** Retrieve an Account Statement */
     fun retrieve(accountStatementId: String): AccountStatement =
@@ -72,6 +81,15 @@ interface AccountStatementService {
      * method.
      */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): AccountStatementService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /account_statements/{account_statement_id}`, but is

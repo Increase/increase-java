@@ -3,10 +3,12 @@
 package com.increase.api.services.blocking.simulations
 
 import com.google.errorprone.annotations.MustBeClosed
+import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.inboundachtransfers.InboundAchTransfer
 import com.increase.api.models.simulations.inboundachtransfers.InboundAchTransferCreateParams
+import java.util.function.Consumer
 
 interface InboundAchTransferService {
 
@@ -14,6 +16,13 @@ interface InboundAchTransferService {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): InboundAchTransferService
 
     /**
      * Simulates an inbound ACH transfer to your account. This imitates initiating a transfer to an
@@ -40,6 +49,15 @@ interface InboundAchTransferService {
      * method.
      */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): InboundAchTransferService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post /simulations/inbound_ach_transfers`, but is

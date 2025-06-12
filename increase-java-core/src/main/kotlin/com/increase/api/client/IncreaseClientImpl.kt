@@ -108,6 +108,7 @@ import com.increase.api.services.blocking.WireDrawdownRequestService
 import com.increase.api.services.blocking.WireDrawdownRequestServiceImpl
 import com.increase.api.services.blocking.WireTransferService
 import com.increase.api.services.blocking.WireTransferServiceImpl
+import java.util.function.Consumer
 
 class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseClient {
 
@@ -319,6 +320,9 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
     override fun async(): IncreaseClientAsync = async
 
     override fun withRawResponse(): IncreaseClient.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): IncreaseClient =
+        IncreaseClientImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun accounts(): AccountService = accounts
 
@@ -644,6 +648,13 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
         private val simulations: SimulationService.WithRawResponse by lazy {
             SimulationServiceImpl.WithRawResponseImpl(clientOptions)
         }
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): IncreaseClient.WithRawResponse =
+            IncreaseClientImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         override fun accounts(): AccountService.WithRawResponse = accounts
 

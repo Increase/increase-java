@@ -2,6 +2,7 @@
 
 package com.increase.api.services.async
 
+import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.inboundcheckdeposits.InboundCheckDeposit
@@ -11,6 +12,7 @@ import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositListParam
 import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositRetrieveParams
 import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositReturnParams
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 
 interface InboundCheckDepositServiceAsync {
 
@@ -18,6 +20,13 @@ interface InboundCheckDepositServiceAsync {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): InboundCheckDepositServiceAsync
 
     /** Retrieve an Inbound Check Deposit */
     fun retrieve(inboundCheckDepositId: String): CompletableFuture<InboundCheckDeposit> =
@@ -150,6 +159,15 @@ interface InboundCheckDepositServiceAsync {
      * each method.
      */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): InboundCheckDepositServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /inbound_check_deposits/{inbound_check_deposit_id}`,

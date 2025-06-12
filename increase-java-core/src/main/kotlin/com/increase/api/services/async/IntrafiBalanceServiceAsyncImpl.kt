@@ -18,6 +18,7 @@ import com.increase.api.core.prepareAsync
 import com.increase.api.models.intrafibalances.IntrafiBalance
 import com.increase.api.models.intrafibalances.IntrafiBalanceIntrafiBalanceParams
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class IntrafiBalanceServiceAsyncImpl
@@ -28,6 +29,11 @@ internal constructor(private val clientOptions: ClientOptions) : IntrafiBalanceS
     }
 
     override fun withRawResponse(): IntrafiBalanceServiceAsync.WithRawResponse = withRawResponse
+
+    override fun withOptions(
+        modifier: Consumer<ClientOptions.Builder>
+    ): IntrafiBalanceServiceAsync =
+        IntrafiBalanceServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun intrafiBalance(
         params: IntrafiBalanceIntrafiBalanceParams,
@@ -40,6 +46,13 @@ internal constructor(private val clientOptions: ClientOptions) : IntrafiBalanceS
         IntrafiBalanceServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): IntrafiBalanceServiceAsync.WithRawResponse =
+            IntrafiBalanceServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val intrafiBalanceHandler: Handler<IntrafiBalance> =
             jsonHandler<IntrafiBalance>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

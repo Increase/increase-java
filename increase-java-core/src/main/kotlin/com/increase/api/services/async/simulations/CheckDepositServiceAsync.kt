@@ -2,6 +2,7 @@
 
 package com.increase.api.services.async.simulations
 
+import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.checkdeposits.CheckDeposit
@@ -9,6 +10,7 @@ import com.increase.api.models.simulations.checkdeposits.CheckDepositRejectParam
 import com.increase.api.models.simulations.checkdeposits.CheckDepositReturnParams
 import com.increase.api.models.simulations.checkdeposits.CheckDepositSubmitParams
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 
 interface CheckDepositServiceAsync {
 
@@ -16,6 +18,13 @@ interface CheckDepositServiceAsync {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): CheckDepositServiceAsync
 
     /**
      * Simulates the rejection of a [Check Deposit](#check-deposits) by Increase due to factors like
@@ -136,6 +145,15 @@ interface CheckDepositServiceAsync {
      * method.
      */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): CheckDepositServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post

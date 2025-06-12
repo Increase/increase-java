@@ -2,6 +2,7 @@
 
 package com.increase.api.client
 
+import com.increase.api.core.ClientOptions
 import com.increase.api.services.async.AccountNumberServiceAsync
 import com.increase.api.services.async.AccountServiceAsync
 import com.increase.api.services.async.AccountStatementServiceAsync
@@ -54,6 +55,7 @@ import com.increase.api.services.async.SupplementalDocumentServiceAsync
 import com.increase.api.services.async.TransactionServiceAsync
 import com.increase.api.services.async.WireDrawdownRequestServiceAsync
 import com.increase.api.services.async.WireTransferServiceAsync
+import java.util.function.Consumer
 
 /**
  * A client for interacting with the Increase REST API asynchronously. You can also switch to
@@ -83,6 +85,13 @@ interface IncreaseClientAsync {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): IncreaseClientAsync
 
     fun accounts(): AccountServiceAsync
 
@@ -205,6 +214,15 @@ interface IncreaseClientAsync {
      * A view of [IncreaseClientAsync] that provides access to raw HTTP responses for each method.
      */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): IncreaseClientAsync.WithRawResponse
 
         fun accounts(): AccountServiceAsync.WithRawResponse
 

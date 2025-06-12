@@ -3,6 +3,7 @@
 package com.increase.api.services.blocking
 
 import com.google.errorprone.annotations.MustBeClosed
+import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.carddisputes.CardDispute
@@ -10,6 +11,7 @@ import com.increase.api.models.carddisputes.CardDisputeCreateParams
 import com.increase.api.models.carddisputes.CardDisputeListPage
 import com.increase.api.models.carddisputes.CardDisputeListParams
 import com.increase.api.models.carddisputes.CardDisputeRetrieveParams
+import java.util.function.Consumer
 
 interface CardDisputeService {
 
@@ -17,6 +19,13 @@ interface CardDisputeService {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): CardDisputeService
 
     /** Create a Card Dispute */
     fun create(params: CardDisputeCreateParams): CardDispute = create(params, RequestOptions.none())
@@ -80,6 +89,15 @@ interface CardDisputeService {
      * A view of [CardDisputeService] that provides access to raw HTTP responses for each method.
      */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): CardDisputeService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post /card_disputes`, but is otherwise the same as

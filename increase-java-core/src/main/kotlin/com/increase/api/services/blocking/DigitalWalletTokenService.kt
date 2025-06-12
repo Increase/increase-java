@@ -3,12 +3,14 @@
 package com.increase.api.services.blocking
 
 import com.google.errorprone.annotations.MustBeClosed
+import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.digitalwallettokens.DigitalWalletToken
 import com.increase.api.models.digitalwallettokens.DigitalWalletTokenListPage
 import com.increase.api.models.digitalwallettokens.DigitalWalletTokenListParams
 import com.increase.api.models.digitalwallettokens.DigitalWalletTokenRetrieveParams
+import java.util.function.Consumer
 
 interface DigitalWalletTokenService {
 
@@ -16,6 +18,13 @@ interface DigitalWalletTokenService {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): DigitalWalletTokenService
 
     /** Retrieve a Digital Wallet Token */
     fun retrieve(digitalWalletTokenId: String): DigitalWalletToken =
@@ -75,6 +84,15 @@ interface DigitalWalletTokenService {
      * method.
      */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): DigitalWalletTokenService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /digital_wallet_tokens/{digital_wallet_token_id}`,

@@ -23,6 +23,7 @@ import com.increase.api.models.physicalcards.PhysicalCardListPageResponse
 import com.increase.api.models.physicalcards.PhysicalCardListParams
 import com.increase.api.models.physicalcards.PhysicalCardRetrieveParams
 import com.increase.api.models.physicalcards.PhysicalCardUpdateParams
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class PhysicalCardServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -33,6 +34,9 @@ class PhysicalCardServiceImpl internal constructor(private val clientOptions: Cl
     }
 
     override fun withRawResponse(): PhysicalCardService.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): PhysicalCardService =
+        PhysicalCardServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun create(
         params: PhysicalCardCreateParams,
@@ -66,6 +70,13 @@ class PhysicalCardServiceImpl internal constructor(private val clientOptions: Cl
         PhysicalCardService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): PhysicalCardService.WithRawResponse =
+            PhysicalCardServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val createHandler: Handler<PhysicalCard> =
             jsonHandler<PhysicalCard>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

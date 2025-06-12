@@ -2,12 +2,14 @@
 
 package com.increase.api.services.async.simulations
 
+import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.simulations.wiretransfers.WireTransferReverseParams
 import com.increase.api.models.simulations.wiretransfers.WireTransferSubmitParams
 import com.increase.api.models.wiretransfers.WireTransfer
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 
 interface WireTransferServiceAsync {
 
@@ -15,6 +17,13 @@ interface WireTransferServiceAsync {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): WireTransferServiceAsync
 
     /**
      * Simulates the reversal of a [Wire Transfer](#wire-transfers) by the Federal Reserve due to
@@ -98,6 +107,15 @@ interface WireTransferServiceAsync {
      * method.
      */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): WireTransferServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post

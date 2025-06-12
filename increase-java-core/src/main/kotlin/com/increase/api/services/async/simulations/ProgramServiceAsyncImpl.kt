@@ -18,6 +18,7 @@ import com.increase.api.core.prepareAsync
 import com.increase.api.models.programs.Program
 import com.increase.api.models.simulations.programs.ProgramCreateParams
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 
 class ProgramServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     ProgramServiceAsync {
@@ -27,6 +28,9 @@ class ProgramServiceAsyncImpl internal constructor(private val clientOptions: Cl
     }
 
     override fun withRawResponse(): ProgramServiceAsync.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): ProgramServiceAsync =
+        ProgramServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun create(
         params: ProgramCreateParams,
@@ -39,6 +43,13 @@ class ProgramServiceAsyncImpl internal constructor(private val clientOptions: Cl
         ProgramServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): ProgramServiceAsync.WithRawResponse =
+            ProgramServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val createHandler: Handler<Program> =
             jsonHandler<Program>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

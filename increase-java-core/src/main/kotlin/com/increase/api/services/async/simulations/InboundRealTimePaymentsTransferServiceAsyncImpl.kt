@@ -18,6 +18,7 @@ import com.increase.api.core.prepareAsync
 import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransfer
 import com.increase.api.models.simulations.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransferCreateParams
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 
 class InboundRealTimePaymentsTransferServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) :
@@ -31,6 +32,13 @@ internal constructor(private val clientOptions: ClientOptions) :
     override fun withRawResponse(): InboundRealTimePaymentsTransferServiceAsync.WithRawResponse =
         withRawResponse
 
+    override fun withOptions(
+        modifier: Consumer<ClientOptions.Builder>
+    ): InboundRealTimePaymentsTransferServiceAsync =
+        InboundRealTimePaymentsTransferServiceAsyncImpl(
+            clientOptions.toBuilder().apply(modifier::accept).build()
+        )
+
     override fun create(
         params: InboundRealTimePaymentsTransferCreateParams,
         requestOptions: RequestOptions,
@@ -42,6 +50,13 @@ internal constructor(private val clientOptions: ClientOptions) :
         InboundRealTimePaymentsTransferServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): InboundRealTimePaymentsTransferServiceAsync.WithRawResponse =
+            InboundRealTimePaymentsTransferServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val createHandler: Handler<InboundRealTimePaymentsTransfer> =
             jsonHandler<InboundRealTimePaymentsTransfer>(clientOptions.jsonMapper)
