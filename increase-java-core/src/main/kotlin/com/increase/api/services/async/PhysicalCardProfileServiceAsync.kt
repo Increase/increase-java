@@ -2,6 +2,7 @@
 
 package com.increase.api.services.async
 
+import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.physicalcardprofiles.PhysicalCardProfile
@@ -12,6 +13,7 @@ import com.increase.api.models.physicalcardprofiles.PhysicalCardProfileListPageA
 import com.increase.api.models.physicalcardprofiles.PhysicalCardProfileListParams
 import com.increase.api.models.physicalcardprofiles.PhysicalCardProfileRetrieveParams
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 
 interface PhysicalCardProfileServiceAsync {
 
@@ -19,6 +21,13 @@ interface PhysicalCardProfileServiceAsync {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): PhysicalCardProfileServiceAsync
 
     /** Create a Physical Card Profile */
     fun create(params: PhysicalCardProfileCreateParams): CompletableFuture<PhysicalCardProfile> =
@@ -172,6 +181,15 @@ interface PhysicalCardProfileServiceAsync {
      * each method.
      */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): PhysicalCardProfileServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post /physical_card_profiles`, but is otherwise the same

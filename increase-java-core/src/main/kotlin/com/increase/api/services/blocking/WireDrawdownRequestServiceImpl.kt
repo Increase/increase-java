@@ -22,6 +22,7 @@ import com.increase.api.models.wiredrawdownrequests.WireDrawdownRequestListPage
 import com.increase.api.models.wiredrawdownrequests.WireDrawdownRequestListPageResponse
 import com.increase.api.models.wiredrawdownrequests.WireDrawdownRequestListParams
 import com.increase.api.models.wiredrawdownrequests.WireDrawdownRequestRetrieveParams
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class WireDrawdownRequestServiceImpl
@@ -32,6 +33,11 @@ internal constructor(private val clientOptions: ClientOptions) : WireDrawdownReq
     }
 
     override fun withRawResponse(): WireDrawdownRequestService.WithRawResponse = withRawResponse
+
+    override fun withOptions(
+        modifier: Consumer<ClientOptions.Builder>
+    ): WireDrawdownRequestService =
+        WireDrawdownRequestServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun create(
         params: WireDrawdownRequestCreateParams,
@@ -58,6 +64,13 @@ internal constructor(private val clientOptions: ClientOptions) : WireDrawdownReq
         WireDrawdownRequestService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): WireDrawdownRequestService.WithRawResponse =
+            WireDrawdownRequestServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val createHandler: Handler<WireDrawdownRequest> =
             jsonHandler<WireDrawdownRequest>(clientOptions.jsonMapper)

@@ -18,6 +18,7 @@ import com.increase.api.core.prepareAsync
 import com.increase.api.models.simulations.cardrefunds.CardRefundCreateParams
 import com.increase.api.models.transactions.Transaction
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 
 class CardRefundServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     CardRefundServiceAsync {
@@ -27,6 +28,9 @@ class CardRefundServiceAsyncImpl internal constructor(private val clientOptions:
     }
 
     override fun withRawResponse(): CardRefundServiceAsync.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): CardRefundServiceAsync =
+        CardRefundServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun create(
         params: CardRefundCreateParams,
@@ -39,6 +43,13 @@ class CardRefundServiceAsyncImpl internal constructor(private val clientOptions:
         CardRefundServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): CardRefundServiceAsync.WithRawResponse =
+            CardRefundServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val createHandler: Handler<Transaction> =
             jsonHandler<Transaction>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

@@ -17,6 +17,7 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.oauthtokens.OAuthToken
 import com.increase.api.models.oauthtokens.OAuthTokenCreateParams
+import java.util.function.Consumer
 
 class OAuthTokenServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     OAuthTokenService {
@@ -26,6 +27,9 @@ class OAuthTokenServiceImpl internal constructor(private val clientOptions: Clie
     }
 
     override fun withRawResponse(): OAuthTokenService.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): OAuthTokenService =
+        OAuthTokenServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun create(
         params: OAuthTokenCreateParams,
@@ -38,6 +42,13 @@ class OAuthTokenServiceImpl internal constructor(private val clientOptions: Clie
         OAuthTokenService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): OAuthTokenService.WithRawResponse =
+            OAuthTokenServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val createHandler: Handler<OAuthToken> =
             jsonHandler<OAuthToken>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

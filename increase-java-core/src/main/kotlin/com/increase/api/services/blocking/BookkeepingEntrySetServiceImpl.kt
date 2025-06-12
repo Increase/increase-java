@@ -22,6 +22,7 @@ import com.increase.api.models.bookkeepingentrysets.BookkeepingEntrySetListPage
 import com.increase.api.models.bookkeepingentrysets.BookkeepingEntrySetListPageResponse
 import com.increase.api.models.bookkeepingentrysets.BookkeepingEntrySetListParams
 import com.increase.api.models.bookkeepingentrysets.BookkeepingEntrySetRetrieveParams
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class BookkeepingEntrySetServiceImpl
@@ -32,6 +33,11 @@ internal constructor(private val clientOptions: ClientOptions) : BookkeepingEntr
     }
 
     override fun withRawResponse(): BookkeepingEntrySetService.WithRawResponse = withRawResponse
+
+    override fun withOptions(
+        modifier: Consumer<ClientOptions.Builder>
+    ): BookkeepingEntrySetService =
+        BookkeepingEntrySetServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun create(
         params: BookkeepingEntrySetCreateParams,
@@ -58,6 +64,13 @@ internal constructor(private val clientOptions: ClientOptions) : BookkeepingEntr
         BookkeepingEntrySetService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): BookkeepingEntrySetService.WithRawResponse =
+            BookkeepingEntrySetServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val createHandler: Handler<BookkeepingEntrySet> =
             jsonHandler<BookkeepingEntrySet>(clientOptions.jsonMapper)

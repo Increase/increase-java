@@ -24,6 +24,7 @@ import com.increase.api.models.physicalcardprofiles.PhysicalCardProfileListPage
 import com.increase.api.models.physicalcardprofiles.PhysicalCardProfileListPageResponse
 import com.increase.api.models.physicalcardprofiles.PhysicalCardProfileListParams
 import com.increase.api.models.physicalcardprofiles.PhysicalCardProfileRetrieveParams
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class PhysicalCardProfileServiceImpl
@@ -34,6 +35,11 @@ internal constructor(private val clientOptions: ClientOptions) : PhysicalCardPro
     }
 
     override fun withRawResponse(): PhysicalCardProfileService.WithRawResponse = withRawResponse
+
+    override fun withOptions(
+        modifier: Consumer<ClientOptions.Builder>
+    ): PhysicalCardProfileService =
+        PhysicalCardProfileServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun create(
         params: PhysicalCardProfileCreateParams,
@@ -74,6 +80,13 @@ internal constructor(private val clientOptions: ClientOptions) : PhysicalCardPro
         PhysicalCardProfileService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): PhysicalCardProfileService.WithRawResponse =
+            PhysicalCardProfileServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val createHandler: Handler<PhysicalCardProfile> =
             jsonHandler<PhysicalCardProfile>(clientOptions.jsonMapper)

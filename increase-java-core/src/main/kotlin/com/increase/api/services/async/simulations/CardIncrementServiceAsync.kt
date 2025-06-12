@@ -2,11 +2,13 @@
 
 package com.increase.api.services.async.simulations
 
+import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.cardpayments.CardPayment
 import com.increase.api.models.simulations.cardincrements.CardIncrementCreateParams
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 
 interface CardIncrementServiceAsync {
 
@@ -14,6 +16,13 @@ interface CardIncrementServiceAsync {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): CardIncrementServiceAsync
 
     /**
      * Simulates the increment of an authorization by a card acquirer. An authorization can be
@@ -33,6 +42,15 @@ interface CardIncrementServiceAsync {
      * method.
      */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): CardIncrementServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post /simulations/card_increments`, but is otherwise the

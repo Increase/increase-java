@@ -17,6 +17,7 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.programs.Program
 import com.increase.api.models.simulations.programs.ProgramCreateParams
+import java.util.function.Consumer
 
 class ProgramServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     ProgramService {
@@ -27,6 +28,9 @@ class ProgramServiceImpl internal constructor(private val clientOptions: ClientO
 
     override fun withRawResponse(): ProgramService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): ProgramService =
+        ProgramServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
+
     override fun create(params: ProgramCreateParams, requestOptions: RequestOptions): Program =
         // post /simulations/programs
         withRawResponse().create(params, requestOptions).parse()
@@ -35,6 +39,13 @@ class ProgramServiceImpl internal constructor(private val clientOptions: ClientO
         ProgramService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): ProgramService.WithRawResponse =
+            ProgramServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val createHandler: Handler<Program> =
             jsonHandler<Program>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

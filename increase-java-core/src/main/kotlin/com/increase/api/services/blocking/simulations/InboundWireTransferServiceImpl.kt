@@ -17,6 +17,7 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.inboundwiretransfers.InboundWireTransfer
 import com.increase.api.models.simulations.inboundwiretransfers.InboundWireTransferCreateParams
+import java.util.function.Consumer
 
 class InboundWireTransferServiceImpl
 internal constructor(private val clientOptions: ClientOptions) : InboundWireTransferService {
@@ -26,6 +27,11 @@ internal constructor(private val clientOptions: ClientOptions) : InboundWireTran
     }
 
     override fun withRawResponse(): InboundWireTransferService.WithRawResponse = withRawResponse
+
+    override fun withOptions(
+        modifier: Consumer<ClientOptions.Builder>
+    ): InboundWireTransferService =
+        InboundWireTransferServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun create(
         params: InboundWireTransferCreateParams,
@@ -38,6 +44,13 @@ internal constructor(private val clientOptions: ClientOptions) : InboundWireTran
         InboundWireTransferService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): InboundWireTransferService.WithRawResponse =
+            InboundWireTransferServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val createHandler: Handler<InboundWireTransfer> =
             jsonHandler<InboundWireTransfer>(clientOptions.jsonMapper)

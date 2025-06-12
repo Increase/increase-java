@@ -2,6 +2,7 @@
 
 package com.increase.api.services.async
 
+import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.digitalcardprofiles.DigitalCardProfile
@@ -12,6 +13,7 @@ import com.increase.api.models.digitalcardprofiles.DigitalCardProfileListPageAsy
 import com.increase.api.models.digitalcardprofiles.DigitalCardProfileListParams
 import com.increase.api.models.digitalcardprofiles.DigitalCardProfileRetrieveParams
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 
 interface DigitalCardProfileServiceAsync {
 
@@ -19,6 +21,13 @@ interface DigitalCardProfileServiceAsync {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): DigitalCardProfileServiceAsync
 
     /** Create a Digital Card Profile */
     fun create(params: DigitalCardProfileCreateParams): CompletableFuture<DigitalCardProfile> =
@@ -168,6 +177,15 @@ interface DigitalCardProfileServiceAsync {
      * each method.
      */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): DigitalCardProfileServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post /digital_card_profiles`, but is otherwise the same

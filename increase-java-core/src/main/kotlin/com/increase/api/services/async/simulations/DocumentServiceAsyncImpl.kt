@@ -18,6 +18,7 @@ import com.increase.api.core.prepareAsync
 import com.increase.api.models.documents.Document
 import com.increase.api.models.simulations.documents.DocumentCreateParams
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 
 class DocumentServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     DocumentServiceAsync {
@@ -27,6 +28,9 @@ class DocumentServiceAsyncImpl internal constructor(private val clientOptions: C
     }
 
     override fun withRawResponse(): DocumentServiceAsync.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): DocumentServiceAsync =
+        DocumentServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun create(
         params: DocumentCreateParams,
@@ -39,6 +43,13 @@ class DocumentServiceAsyncImpl internal constructor(private val clientOptions: C
         DocumentServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): DocumentServiceAsync.WithRawResponse =
+            DocumentServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val createHandler: Handler<Document> =
             jsonHandler<Document>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

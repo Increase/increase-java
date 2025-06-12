@@ -17,6 +17,7 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.simulations.interestpayments.InterestPaymentCreateParams
 import com.increase.api.models.transactions.Transaction
+import java.util.function.Consumer
 
 class InterestPaymentServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     InterestPaymentService {
@@ -26,6 +27,9 @@ class InterestPaymentServiceImpl internal constructor(private val clientOptions:
     }
 
     override fun withRawResponse(): InterestPaymentService.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): InterestPaymentService =
+        InterestPaymentServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun create(
         params: InterestPaymentCreateParams,
@@ -38,6 +42,13 @@ class InterestPaymentServiceImpl internal constructor(private val clientOptions:
         InterestPaymentService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): InterestPaymentService.WithRawResponse =
+            InterestPaymentServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val createHandler: Handler<Transaction> =
             jsonHandler<Transaction>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

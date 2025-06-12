@@ -20,6 +20,7 @@ import com.increase.api.models.inboundmailitems.InboundMailItemListPage
 import com.increase.api.models.inboundmailitems.InboundMailItemListPageResponse
 import com.increase.api.models.inboundmailitems.InboundMailItemListParams
 import com.increase.api.models.inboundmailitems.InboundMailItemRetrieveParams
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class InboundMailItemServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -30,6 +31,9 @@ class InboundMailItemServiceImpl internal constructor(private val clientOptions:
     }
 
     override fun withRawResponse(): InboundMailItemService.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): InboundMailItemService =
+        InboundMailItemServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun retrieve(
         params: InboundMailItemRetrieveParams,
@@ -49,6 +53,13 @@ class InboundMailItemServiceImpl internal constructor(private val clientOptions:
         InboundMailItemService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): InboundMailItemService.WithRawResponse =
+            InboundMailItemServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val retrieveHandler: Handler<InboundMailItem> =
             jsonHandler<InboundMailItem>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

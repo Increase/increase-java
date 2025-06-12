@@ -3,6 +3,7 @@
 package com.increase.api.services.blocking
 
 import com.google.errorprone.annotations.MustBeClosed
+import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.bookkeepingaccounts.BookkeepingAccount
@@ -12,6 +13,7 @@ import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountListPage
 import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountListParams
 import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountUpdateParams
 import com.increase.api.models.bookkeepingaccounts.BookkeepingBalanceLookup
+import java.util.function.Consumer
 
 interface BookkeepingAccountService {
 
@@ -19,6 +21,13 @@ interface BookkeepingAccountService {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): BookkeepingAccountService
 
     /** Create a Bookkeeping Account */
     fun create(params: BookkeepingAccountCreateParams): BookkeepingAccount =
@@ -118,6 +127,15 @@ interface BookkeepingAccountService {
      * method.
      */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): BookkeepingAccountService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post /bookkeeping_accounts`, but is otherwise the same

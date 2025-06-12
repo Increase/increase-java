@@ -21,6 +21,7 @@ import com.increase.api.models.declinedtransactions.DeclinedTransactionListPageR
 import com.increase.api.models.declinedtransactions.DeclinedTransactionListParams
 import com.increase.api.models.declinedtransactions.DeclinedTransactionRetrieveParams
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class DeclinedTransactionServiceAsyncImpl
@@ -32,6 +33,13 @@ internal constructor(private val clientOptions: ClientOptions) : DeclinedTransac
 
     override fun withRawResponse(): DeclinedTransactionServiceAsync.WithRawResponse =
         withRawResponse
+
+    override fun withOptions(
+        modifier: Consumer<ClientOptions.Builder>
+    ): DeclinedTransactionServiceAsync =
+        DeclinedTransactionServiceAsyncImpl(
+            clientOptions.toBuilder().apply(modifier::accept).build()
+        )
 
     override fun retrieve(
         params: DeclinedTransactionRetrieveParams,
@@ -51,6 +59,13 @@ internal constructor(private val clientOptions: ClientOptions) : DeclinedTransac
         DeclinedTransactionServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): DeclinedTransactionServiceAsync.WithRawResponse =
+            DeclinedTransactionServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val retrieveHandler: Handler<DeclinedTransaction> =
             jsonHandler<DeclinedTransaction>(clientOptions.jsonMapper)

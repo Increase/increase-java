@@ -24,6 +24,7 @@ import com.increase.api.models.wiretransfers.WireTransferListPage
 import com.increase.api.models.wiretransfers.WireTransferListPageResponse
 import com.increase.api.models.wiretransfers.WireTransferListParams
 import com.increase.api.models.wiretransfers.WireTransferRetrieveParams
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class WireTransferServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -34,6 +35,9 @@ class WireTransferServiceImpl internal constructor(private val clientOptions: Cl
     }
 
     override fun withRawResponse(): WireTransferService.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): WireTransferService =
+        WireTransferServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun create(
         params: WireTransferCreateParams,
@@ -74,6 +78,13 @@ class WireTransferServiceImpl internal constructor(private val clientOptions: Cl
         WireTransferService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): WireTransferService.WithRawResponse =
+            WireTransferServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val createHandler: Handler<WireTransfer> =
             jsonHandler<WireTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

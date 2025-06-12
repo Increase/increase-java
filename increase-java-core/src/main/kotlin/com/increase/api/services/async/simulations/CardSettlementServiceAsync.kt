@@ -2,11 +2,13 @@
 
 package com.increase.api.services.async.simulations
 
+import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.simulations.cardsettlements.CardSettlementCreateParams
 import com.increase.api.models.transactions.Transaction
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 
 interface CardSettlementServiceAsync {
 
@@ -14,6 +16,13 @@ interface CardSettlementServiceAsync {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): CardSettlementServiceAsync
 
     /**
      * Simulates the settlement of an authorization by a card acquirer. After a card authorization
@@ -35,6 +44,15 @@ interface CardSettlementServiceAsync {
      * method.
      */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): CardSettlementServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post /simulations/card_settlements`, but is otherwise

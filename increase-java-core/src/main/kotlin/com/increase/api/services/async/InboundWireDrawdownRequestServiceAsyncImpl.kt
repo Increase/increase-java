@@ -21,6 +21,7 @@ import com.increase.api.models.inboundwiredrawdownrequests.InboundWireDrawdownRe
 import com.increase.api.models.inboundwiredrawdownrequests.InboundWireDrawdownRequestListParams
 import com.increase.api.models.inboundwiredrawdownrequests.InboundWireDrawdownRequestRetrieveParams
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class InboundWireDrawdownRequestServiceAsyncImpl
@@ -33,6 +34,13 @@ internal constructor(private val clientOptions: ClientOptions) :
 
     override fun withRawResponse(): InboundWireDrawdownRequestServiceAsync.WithRawResponse =
         withRawResponse
+
+    override fun withOptions(
+        modifier: Consumer<ClientOptions.Builder>
+    ): InboundWireDrawdownRequestServiceAsync =
+        InboundWireDrawdownRequestServiceAsyncImpl(
+            clientOptions.toBuilder().apply(modifier::accept).build()
+        )
 
     override fun retrieve(
         params: InboundWireDrawdownRequestRetrieveParams,
@@ -52,6 +60,13 @@ internal constructor(private val clientOptions: ClientOptions) :
         InboundWireDrawdownRequestServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): InboundWireDrawdownRequestServiceAsync.WithRawResponse =
+            InboundWireDrawdownRequestServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val retrieveHandler: Handler<InboundWireDrawdownRequest> =
             jsonHandler<InboundWireDrawdownRequest>(clientOptions.jsonMapper)

@@ -17,6 +17,7 @@ import com.increase.api.core.prepare
 import com.increase.api.models.routingnumbers.RoutingNumberListPage
 import com.increase.api.models.routingnumbers.RoutingNumberListPageResponse
 import com.increase.api.models.routingnumbers.RoutingNumberListParams
+import java.util.function.Consumer
 
 class RoutingNumberServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     RoutingNumberService {
@@ -26,6 +27,9 @@ class RoutingNumberServiceImpl internal constructor(private val clientOptions: C
     }
 
     override fun withRawResponse(): RoutingNumberService.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): RoutingNumberService =
+        RoutingNumberServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun list(
         params: RoutingNumberListParams,
@@ -38,6 +42,13 @@ class RoutingNumberServiceImpl internal constructor(private val clientOptions: C
         RoutingNumberService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): RoutingNumberService.WithRawResponse =
+            RoutingNumberServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val listHandler: Handler<RoutingNumberListPageResponse> =
             jsonHandler<RoutingNumberListPageResponse>(clientOptions.jsonMapper)

@@ -20,6 +20,7 @@ import com.increase.api.models.checkdeposits.CheckDeposit
 import com.increase.api.models.simulations.checkdeposits.CheckDepositRejectParams
 import com.increase.api.models.simulations.checkdeposits.CheckDepositReturnParams
 import com.increase.api.models.simulations.checkdeposits.CheckDepositSubmitParams
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class CheckDepositServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -30,6 +31,9 @@ class CheckDepositServiceImpl internal constructor(private val clientOptions: Cl
     }
 
     override fun withRawResponse(): CheckDepositService.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): CheckDepositService =
+        CheckDepositServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun reject(
         params: CheckDepositRejectParams,
@@ -56,6 +60,13 @@ class CheckDepositServiceImpl internal constructor(private val clientOptions: Cl
         CheckDepositService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): CheckDepositService.WithRawResponse =
+            CheckDepositServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val rejectHandler: Handler<CheckDeposit> =
             jsonHandler<CheckDeposit>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

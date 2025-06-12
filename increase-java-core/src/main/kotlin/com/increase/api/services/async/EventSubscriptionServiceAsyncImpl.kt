@@ -24,6 +24,7 @@ import com.increase.api.models.eventsubscriptions.EventSubscriptionListParams
 import com.increase.api.models.eventsubscriptions.EventSubscriptionRetrieveParams
 import com.increase.api.models.eventsubscriptions.EventSubscriptionUpdateParams
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class EventSubscriptionServiceAsyncImpl
@@ -34,6 +35,11 @@ internal constructor(private val clientOptions: ClientOptions) : EventSubscripti
     }
 
     override fun withRawResponse(): EventSubscriptionServiceAsync.WithRawResponse = withRawResponse
+
+    override fun withOptions(
+        modifier: Consumer<ClientOptions.Builder>
+    ): EventSubscriptionServiceAsync =
+        EventSubscriptionServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun create(
         params: EventSubscriptionCreateParams,
@@ -67,6 +73,13 @@ internal constructor(private val clientOptions: ClientOptions) : EventSubscripti
         EventSubscriptionServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): EventSubscriptionServiceAsync.WithRawResponse =
+            EventSubscriptionServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val createHandler: Handler<EventSubscription> =
             jsonHandler<EventSubscription>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

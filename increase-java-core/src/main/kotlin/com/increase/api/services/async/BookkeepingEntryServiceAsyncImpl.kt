@@ -21,6 +21,7 @@ import com.increase.api.models.bookkeepingentries.BookkeepingEntryListPageRespon
 import com.increase.api.models.bookkeepingentries.BookkeepingEntryListParams
 import com.increase.api.models.bookkeepingentries.BookkeepingEntryRetrieveParams
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class BookkeepingEntryServiceAsyncImpl
@@ -31,6 +32,11 @@ internal constructor(private val clientOptions: ClientOptions) : BookkeepingEntr
     }
 
     override fun withRawResponse(): BookkeepingEntryServiceAsync.WithRawResponse = withRawResponse
+
+    override fun withOptions(
+        modifier: Consumer<ClientOptions.Builder>
+    ): BookkeepingEntryServiceAsync =
+        BookkeepingEntryServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun retrieve(
         params: BookkeepingEntryRetrieveParams,
@@ -50,6 +56,13 @@ internal constructor(private val clientOptions: ClientOptions) : BookkeepingEntr
         BookkeepingEntryServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): BookkeepingEntryServiceAsync.WithRawResponse =
+            BookkeepingEntryServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val retrieveHandler: Handler<BookkeepingEntry> =
             jsonHandler<BookkeepingEntry>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

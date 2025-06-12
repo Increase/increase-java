@@ -24,6 +24,7 @@ import com.increase.api.models.inboundachtransfers.InboundAchTransferListPageRes
 import com.increase.api.models.inboundachtransfers.InboundAchTransferListParams
 import com.increase.api.models.inboundachtransfers.InboundAchTransferRetrieveParams
 import com.increase.api.models.inboundachtransfers.InboundAchTransferTransferReturnParams
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class InboundAchTransferServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -34,6 +35,9 @@ class InboundAchTransferServiceImpl internal constructor(private val clientOptio
     }
 
     override fun withRawResponse(): InboundAchTransferService.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): InboundAchTransferService =
+        InboundAchTransferServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun retrieve(
         params: InboundAchTransferRetrieveParams,
@@ -74,6 +78,13 @@ class InboundAchTransferServiceImpl internal constructor(private val clientOptio
         InboundAchTransferService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): InboundAchTransferService.WithRawResponse =
+            InboundAchTransferServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val retrieveHandler: Handler<InboundAchTransfer> =
             jsonHandler<InboundAchTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

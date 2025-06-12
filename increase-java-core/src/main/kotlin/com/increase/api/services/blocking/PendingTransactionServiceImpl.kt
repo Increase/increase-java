@@ -23,6 +23,7 @@ import com.increase.api.models.pendingtransactions.PendingTransactionListPageRes
 import com.increase.api.models.pendingtransactions.PendingTransactionListParams
 import com.increase.api.models.pendingtransactions.PendingTransactionReleaseParams
 import com.increase.api.models.pendingtransactions.PendingTransactionRetrieveParams
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class PendingTransactionServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -33,6 +34,9 @@ class PendingTransactionServiceImpl internal constructor(private val clientOptio
     }
 
     override fun withRawResponse(): PendingTransactionService.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): PendingTransactionService =
+        PendingTransactionServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun create(
         params: PendingTransactionCreateParams,
@@ -66,6 +70,13 @@ class PendingTransactionServiceImpl internal constructor(private val clientOptio
         PendingTransactionService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): PendingTransactionService.WithRawResponse =
+            PendingTransactionServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val createHandler: Handler<PendingTransaction> =
             jsonHandler<PendingTransaction>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

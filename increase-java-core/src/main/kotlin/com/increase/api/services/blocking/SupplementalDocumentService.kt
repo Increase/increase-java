@@ -3,12 +3,14 @@
 package com.increase.api.services.blocking
 
 import com.google.errorprone.annotations.MustBeClosed
+import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.supplementaldocuments.EntitySupplementalDocument
 import com.increase.api.models.supplementaldocuments.SupplementalDocumentCreateParams
 import com.increase.api.models.supplementaldocuments.SupplementalDocumentListPage
 import com.increase.api.models.supplementaldocuments.SupplementalDocumentListParams
+import java.util.function.Consumer
 
 interface SupplementalDocumentService {
 
@@ -16,6 +18,13 @@ interface SupplementalDocumentService {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): SupplementalDocumentService
 
     /** Create a supplemental document for an Entity */
     fun create(params: SupplementalDocumentCreateParams): EntitySupplementalDocument =
@@ -42,6 +51,15 @@ interface SupplementalDocumentService {
      * method.
      */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): SupplementalDocumentService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post /entity_supplemental_documents`, but is otherwise

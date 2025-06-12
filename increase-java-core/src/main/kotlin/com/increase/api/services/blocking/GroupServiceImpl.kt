@@ -16,6 +16,7 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.groups.Group
 import com.increase.api.models.groups.GroupRetrieveParams
+import java.util.function.Consumer
 
 class GroupServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     GroupService {
@@ -26,6 +27,9 @@ class GroupServiceImpl internal constructor(private val clientOptions: ClientOpt
 
     override fun withRawResponse(): GroupService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): GroupService =
+        GroupServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
+
     override fun retrieve(params: GroupRetrieveParams, requestOptions: RequestOptions): Group =
         // get /groups/current
         withRawResponse().retrieve(params, requestOptions).parse()
@@ -34,6 +38,13 @@ class GroupServiceImpl internal constructor(private val clientOptions: ClientOpt
         GroupService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): GroupService.WithRawResponse =
+            GroupServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val retrieveHandler: Handler<Group> =
             jsonHandler<Group>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

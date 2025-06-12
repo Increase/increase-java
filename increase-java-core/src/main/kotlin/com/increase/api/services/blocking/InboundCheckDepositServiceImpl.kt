@@ -23,6 +23,7 @@ import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositListPageR
 import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositListParams
 import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositRetrieveParams
 import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositReturnParams
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class InboundCheckDepositServiceImpl
@@ -33,6 +34,11 @@ internal constructor(private val clientOptions: ClientOptions) : InboundCheckDep
     }
 
     override fun withRawResponse(): InboundCheckDepositService.WithRawResponse = withRawResponse
+
+    override fun withOptions(
+        modifier: Consumer<ClientOptions.Builder>
+    ): InboundCheckDepositService =
+        InboundCheckDepositServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun retrieve(
         params: InboundCheckDepositRetrieveParams,
@@ -66,6 +72,13 @@ internal constructor(private val clientOptions: ClientOptions) : InboundCheckDep
         InboundCheckDepositService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): InboundCheckDepositService.WithRawResponse =
+            InboundCheckDepositServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val retrieveHandler: Handler<InboundCheckDeposit> =
             jsonHandler<InboundCheckDeposit>(clientOptions.jsonMapper)

@@ -21,6 +21,7 @@ import com.increase.api.models.programs.ProgramListPageResponse
 import com.increase.api.models.programs.ProgramListParams
 import com.increase.api.models.programs.ProgramRetrieveParams
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class ProgramServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -31,6 +32,9 @@ class ProgramServiceAsyncImpl internal constructor(private val clientOptions: Cl
     }
 
     override fun withRawResponse(): ProgramServiceAsync.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): ProgramServiceAsync =
+        ProgramServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun retrieve(
         params: ProgramRetrieveParams,
@@ -50,6 +54,13 @@ class ProgramServiceAsyncImpl internal constructor(private val clientOptions: Cl
         ProgramServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): ProgramServiceAsync.WithRawResponse =
+            ProgramServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val retrieveHandler: Handler<Program> =
             jsonHandler<Program>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

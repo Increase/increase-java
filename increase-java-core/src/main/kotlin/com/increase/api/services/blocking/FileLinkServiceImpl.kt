@@ -17,6 +17,7 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.filelinks.FileLink
 import com.increase.api.models.filelinks.FileLinkCreateParams
+import java.util.function.Consumer
 
 class FileLinkServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     FileLinkService {
@@ -27,6 +28,9 @@ class FileLinkServiceImpl internal constructor(private val clientOptions: Client
 
     override fun withRawResponse(): FileLinkService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): FileLinkService =
+        FileLinkServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
+
     override fun create(params: FileLinkCreateParams, requestOptions: RequestOptions): FileLink =
         // post /file_links
         withRawResponse().create(params, requestOptions).parse()
@@ -35,6 +39,13 @@ class FileLinkServiceImpl internal constructor(private val clientOptions: Client
         FileLinkService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): FileLinkService.WithRawResponse =
+            FileLinkServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val createHandler: Handler<FileLink> =
             jsonHandler<FileLink>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

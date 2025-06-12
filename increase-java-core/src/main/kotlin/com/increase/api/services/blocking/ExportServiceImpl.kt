@@ -22,6 +22,7 @@ import com.increase.api.models.exports.ExportListPage
 import com.increase.api.models.exports.ExportListPageResponse
 import com.increase.api.models.exports.ExportListParams
 import com.increase.api.models.exports.ExportRetrieveParams
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class ExportServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -32,6 +33,9 @@ class ExportServiceImpl internal constructor(private val clientOptions: ClientOp
     }
 
     override fun withRawResponse(): ExportService.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): ExportService =
+        ExportServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun create(params: ExportCreateParams, requestOptions: RequestOptions): Export =
         // post /exports
@@ -49,6 +53,13 @@ class ExportServiceImpl internal constructor(private val clientOptions: ClientOp
         ExportService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): ExportService.WithRawResponse =
+            ExportServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val createHandler: Handler<Export> =
             jsonHandler<Export>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

@@ -22,6 +22,7 @@ import com.increase.api.models.achprenotifications.AchPrenotificationListPage
 import com.increase.api.models.achprenotifications.AchPrenotificationListPageResponse
 import com.increase.api.models.achprenotifications.AchPrenotificationListParams
 import com.increase.api.models.achprenotifications.AchPrenotificationRetrieveParams
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class AchPrenotificationServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -32,6 +33,9 @@ class AchPrenotificationServiceImpl internal constructor(private val clientOptio
     }
 
     override fun withRawResponse(): AchPrenotificationService.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): AchPrenotificationService =
+        AchPrenotificationServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun create(
         params: AchPrenotificationCreateParams,
@@ -58,6 +62,13 @@ class AchPrenotificationServiceImpl internal constructor(private val clientOptio
         AchPrenotificationService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): AchPrenotificationService.WithRawResponse =
+            AchPrenotificationServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val createHandler: Handler<AchPrenotification> =
             jsonHandler<AchPrenotification>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

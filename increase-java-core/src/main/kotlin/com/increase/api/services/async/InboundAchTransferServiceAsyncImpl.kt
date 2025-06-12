@@ -25,6 +25,7 @@ import com.increase.api.models.inboundachtransfers.InboundAchTransferListParams
 import com.increase.api.models.inboundachtransfers.InboundAchTransferRetrieveParams
 import com.increase.api.models.inboundachtransfers.InboundAchTransferTransferReturnParams
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class InboundAchTransferServiceAsyncImpl
@@ -35,6 +36,13 @@ internal constructor(private val clientOptions: ClientOptions) : InboundAchTrans
     }
 
     override fun withRawResponse(): InboundAchTransferServiceAsync.WithRawResponse = withRawResponse
+
+    override fun withOptions(
+        modifier: Consumer<ClientOptions.Builder>
+    ): InboundAchTransferServiceAsync =
+        InboundAchTransferServiceAsyncImpl(
+            clientOptions.toBuilder().apply(modifier::accept).build()
+        )
 
     override fun retrieve(
         params: InboundAchTransferRetrieveParams,
@@ -77,6 +85,13 @@ internal constructor(private val clientOptions: ClientOptions) : InboundAchTrans
         InboundAchTransferServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): InboundAchTransferServiceAsync.WithRawResponse =
+            InboundAchTransferServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val retrieveHandler: Handler<InboundAchTransfer> =
             jsonHandler<InboundAchTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

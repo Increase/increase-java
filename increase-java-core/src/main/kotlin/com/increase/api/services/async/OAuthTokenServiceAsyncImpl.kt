@@ -18,6 +18,7 @@ import com.increase.api.core.prepareAsync
 import com.increase.api.models.oauthtokens.OAuthToken
 import com.increase.api.models.oauthtokens.OAuthTokenCreateParams
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 
 class OAuthTokenServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     OAuthTokenServiceAsync {
@@ -27,6 +28,9 @@ class OAuthTokenServiceAsyncImpl internal constructor(private val clientOptions:
     }
 
     override fun withRawResponse(): OAuthTokenServiceAsync.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): OAuthTokenServiceAsync =
+        OAuthTokenServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun create(
         params: OAuthTokenCreateParams,
@@ -39,6 +43,13 @@ class OAuthTokenServiceAsyncImpl internal constructor(private val clientOptions:
         OAuthTokenServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): OAuthTokenServiceAsync.WithRawResponse =
+            OAuthTokenServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val createHandler: Handler<OAuthToken> =
             jsonHandler<OAuthToken>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

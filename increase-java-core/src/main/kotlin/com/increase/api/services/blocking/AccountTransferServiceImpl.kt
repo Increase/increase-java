@@ -24,6 +24,7 @@ import com.increase.api.models.accounttransfers.AccountTransferListPage
 import com.increase.api.models.accounttransfers.AccountTransferListPageResponse
 import com.increase.api.models.accounttransfers.AccountTransferListParams
 import com.increase.api.models.accounttransfers.AccountTransferRetrieveParams
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class AccountTransferServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -34,6 +35,9 @@ class AccountTransferServiceImpl internal constructor(private val clientOptions:
     }
 
     override fun withRawResponse(): AccountTransferService.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): AccountTransferService =
+        AccountTransferServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun create(
         params: AccountTransferCreateParams,
@@ -74,6 +78,13 @@ class AccountTransferServiceImpl internal constructor(private val clientOptions:
         AccountTransferService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): AccountTransferService.WithRawResponse =
+            AccountTransferServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val createHandler: Handler<AccountTransfer> =
             jsonHandler<AccountTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

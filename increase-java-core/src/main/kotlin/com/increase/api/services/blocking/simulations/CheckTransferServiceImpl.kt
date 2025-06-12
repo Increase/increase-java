@@ -18,6 +18,7 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.checktransfers.CheckTransfer
 import com.increase.api.models.simulations.checktransfers.CheckTransferMailParams
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class CheckTransferServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -28,6 +29,9 @@ class CheckTransferServiceImpl internal constructor(private val clientOptions: C
     }
 
     override fun withRawResponse(): CheckTransferService.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): CheckTransferService =
+        CheckTransferServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun mail(
         params: CheckTransferMailParams,
@@ -40,6 +44,13 @@ class CheckTransferServiceImpl internal constructor(private val clientOptions: C
         CheckTransferService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): CheckTransferService.WithRawResponse =
+            CheckTransferServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val mailHandler: Handler<CheckTransfer> =
             jsonHandler<CheckTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

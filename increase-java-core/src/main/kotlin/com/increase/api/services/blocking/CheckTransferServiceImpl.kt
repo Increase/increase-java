@@ -25,6 +25,7 @@ import com.increase.api.models.checktransfers.CheckTransferListPageResponse
 import com.increase.api.models.checktransfers.CheckTransferListParams
 import com.increase.api.models.checktransfers.CheckTransferRetrieveParams
 import com.increase.api.models.checktransfers.CheckTransferStopPaymentParams
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class CheckTransferServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -35,6 +36,9 @@ class CheckTransferServiceImpl internal constructor(private val clientOptions: C
     }
 
     override fun withRawResponse(): CheckTransferService.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): CheckTransferService =
+        CheckTransferServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun create(
         params: CheckTransferCreateParams,
@@ -82,6 +86,13 @@ class CheckTransferServiceImpl internal constructor(private val clientOptions: C
         CheckTransferService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): CheckTransferService.WithRawResponse =
+            CheckTransferServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val createHandler: Handler<CheckTransfer> =
             jsonHandler<CheckTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

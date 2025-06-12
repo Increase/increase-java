@@ -19,6 +19,7 @@ import com.increase.api.core.prepareAsync
 import com.increase.api.models.checktransfers.CheckTransfer
 import com.increase.api.models.simulations.checktransfers.CheckTransferMailParams
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class CheckTransferServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -29,6 +30,9 @@ class CheckTransferServiceAsyncImpl internal constructor(private val clientOptio
     }
 
     override fun withRawResponse(): CheckTransferServiceAsync.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): CheckTransferServiceAsync =
+        CheckTransferServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun mail(
         params: CheckTransferMailParams,
@@ -41,6 +45,13 @@ class CheckTransferServiceAsyncImpl internal constructor(private val clientOptio
         CheckTransferServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): CheckTransferServiceAsync.WithRawResponse =
+            CheckTransferServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val mailHandler: Handler<CheckTransfer> =
             jsonHandler<CheckTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

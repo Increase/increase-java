@@ -20,6 +20,7 @@ import com.increase.api.models.supplementaldocuments.SupplementalDocumentCreateP
 import com.increase.api.models.supplementaldocuments.SupplementalDocumentListPage
 import com.increase.api.models.supplementaldocuments.SupplementalDocumentListPageResponse
 import com.increase.api.models.supplementaldocuments.SupplementalDocumentListParams
+import java.util.function.Consumer
 
 class SupplementalDocumentServiceImpl
 internal constructor(private val clientOptions: ClientOptions) : SupplementalDocumentService {
@@ -29,6 +30,11 @@ internal constructor(private val clientOptions: ClientOptions) : SupplementalDoc
     }
 
     override fun withRawResponse(): SupplementalDocumentService.WithRawResponse = withRawResponse
+
+    override fun withOptions(
+        modifier: Consumer<ClientOptions.Builder>
+    ): SupplementalDocumentService =
+        SupplementalDocumentServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun create(
         params: SupplementalDocumentCreateParams,
@@ -48,6 +54,13 @@ internal constructor(private val clientOptions: ClientOptions) : SupplementalDoc
         SupplementalDocumentService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): SupplementalDocumentService.WithRawResponse =
+            SupplementalDocumentServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val createHandler: Handler<EntitySupplementalDocument> =
             jsonHandler<EntitySupplementalDocument>(clientOptions.jsonMapper)

@@ -20,6 +20,7 @@ import com.increase.api.models.cardpurchasesupplements.CardPurchaseSupplementLis
 import com.increase.api.models.cardpurchasesupplements.CardPurchaseSupplementListPageResponse
 import com.increase.api.models.cardpurchasesupplements.CardPurchaseSupplementListParams
 import com.increase.api.models.cardpurchasesupplements.CardPurchaseSupplementRetrieveParams
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class CardPurchaseSupplementServiceImpl
@@ -30,6 +31,11 @@ internal constructor(private val clientOptions: ClientOptions) : CardPurchaseSup
     }
 
     override fun withRawResponse(): CardPurchaseSupplementService.WithRawResponse = withRawResponse
+
+    override fun withOptions(
+        modifier: Consumer<ClientOptions.Builder>
+    ): CardPurchaseSupplementService =
+        CardPurchaseSupplementServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun retrieve(
         params: CardPurchaseSupplementRetrieveParams,
@@ -49,6 +55,13 @@ internal constructor(private val clientOptions: ClientOptions) : CardPurchaseSup
         CardPurchaseSupplementService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): CardPurchaseSupplementService.WithRawResponse =
+            CardPurchaseSupplementServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val retrieveHandler: Handler<CardPurchaseSupplement> =
             jsonHandler<CardPurchaseSupplement>(clientOptions.jsonMapper)

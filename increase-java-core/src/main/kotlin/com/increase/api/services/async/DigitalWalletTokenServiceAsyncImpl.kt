@@ -21,6 +21,7 @@ import com.increase.api.models.digitalwallettokens.DigitalWalletTokenListPageRes
 import com.increase.api.models.digitalwallettokens.DigitalWalletTokenListParams
 import com.increase.api.models.digitalwallettokens.DigitalWalletTokenRetrieveParams
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class DigitalWalletTokenServiceAsyncImpl
@@ -31,6 +32,13 @@ internal constructor(private val clientOptions: ClientOptions) : DigitalWalletTo
     }
 
     override fun withRawResponse(): DigitalWalletTokenServiceAsync.WithRawResponse = withRawResponse
+
+    override fun withOptions(
+        modifier: Consumer<ClientOptions.Builder>
+    ): DigitalWalletTokenServiceAsync =
+        DigitalWalletTokenServiceAsyncImpl(
+            clientOptions.toBuilder().apply(modifier::accept).build()
+        )
 
     override fun retrieve(
         params: DigitalWalletTokenRetrieveParams,
@@ -50,6 +58,13 @@ internal constructor(private val clientOptions: ClientOptions) : DigitalWalletTo
         DigitalWalletTokenServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): DigitalWalletTokenServiceAsync.WithRawResponse =
+            DigitalWalletTokenServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val retrieveHandler: Handler<DigitalWalletToken> =
             jsonHandler<DigitalWalletToken>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

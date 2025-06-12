@@ -20,6 +20,7 @@ import com.increase.api.models.digitalwallettokens.DigitalWalletTokenListPage
 import com.increase.api.models.digitalwallettokens.DigitalWalletTokenListPageResponse
 import com.increase.api.models.digitalwallettokens.DigitalWalletTokenListParams
 import com.increase.api.models.digitalwallettokens.DigitalWalletTokenRetrieveParams
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class DigitalWalletTokenServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -30,6 +31,9 @@ class DigitalWalletTokenServiceImpl internal constructor(private val clientOptio
     }
 
     override fun withRawResponse(): DigitalWalletTokenService.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): DigitalWalletTokenService =
+        DigitalWalletTokenServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun retrieve(
         params: DigitalWalletTokenRetrieveParams,
@@ -49,6 +53,13 @@ class DigitalWalletTokenServiceImpl internal constructor(private val clientOptio
         DigitalWalletTokenService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): DigitalWalletTokenService.WithRawResponse =
+            DigitalWalletTokenServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val retrieveHandler: Handler<DigitalWalletToken> =
             jsonHandler<DigitalWalletToken>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

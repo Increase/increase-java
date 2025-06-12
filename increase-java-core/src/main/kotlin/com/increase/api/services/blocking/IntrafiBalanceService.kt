@@ -3,10 +3,12 @@
 package com.increase.api.services.blocking
 
 import com.google.errorprone.annotations.MustBeClosed
+import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.intrafibalances.IntrafiBalance
 import com.increase.api.models.intrafibalances.IntrafiBalanceIntrafiBalanceParams
+import java.util.function.Consumer
 
 interface IntrafiBalanceService {
 
@@ -14,6 +16,13 @@ interface IntrafiBalanceService {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): IntrafiBalanceService
 
     /**
      * Returns the IntraFi balance for the given account. IntraFi may sweep funds to multiple banks.
@@ -54,6 +63,15 @@ interface IntrafiBalanceService {
      * A view of [IntrafiBalanceService] that provides access to raw HTTP responses for each method.
      */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): IntrafiBalanceService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /accounts/{account_id}/intrafi_balance`, but is

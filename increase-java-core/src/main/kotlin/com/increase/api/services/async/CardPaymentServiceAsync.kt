@@ -2,6 +2,7 @@
 
 package com.increase.api.services.async
 
+import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.cardpayments.CardPayment
@@ -9,6 +10,7 @@ import com.increase.api.models.cardpayments.CardPaymentListPageAsync
 import com.increase.api.models.cardpayments.CardPaymentListParams
 import com.increase.api.models.cardpayments.CardPaymentRetrieveParams
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 
 interface CardPaymentServiceAsync {
 
@@ -16,6 +18,13 @@ interface CardPaymentServiceAsync {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): CardPaymentServiceAsync
 
     /** Retrieve a Card Payment */
     fun retrieve(cardPaymentId: String): CompletableFuture<CardPayment> =
@@ -75,6 +84,15 @@ interface CardPaymentServiceAsync {
      * method.
      */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): CardPaymentServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /card_payments/{card_payment_id}`, but is otherwise

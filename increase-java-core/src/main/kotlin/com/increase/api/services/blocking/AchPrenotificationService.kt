@@ -3,6 +3,7 @@
 package com.increase.api.services.blocking
 
 import com.google.errorprone.annotations.MustBeClosed
+import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.achprenotifications.AchPrenotification
@@ -10,6 +11,7 @@ import com.increase.api.models.achprenotifications.AchPrenotificationCreateParam
 import com.increase.api.models.achprenotifications.AchPrenotificationListPage
 import com.increase.api.models.achprenotifications.AchPrenotificationListParams
 import com.increase.api.models.achprenotifications.AchPrenotificationRetrieveParams
+import java.util.function.Consumer
 
 interface AchPrenotificationService {
 
@@ -17,6 +19,13 @@ interface AchPrenotificationService {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): AchPrenotificationService
 
     /** Create an ACH Prenotification */
     fun create(params: AchPrenotificationCreateParams): AchPrenotification =
@@ -86,6 +95,15 @@ interface AchPrenotificationService {
      * method.
      */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): AchPrenotificationService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post /ach_prenotifications`, but is otherwise the same

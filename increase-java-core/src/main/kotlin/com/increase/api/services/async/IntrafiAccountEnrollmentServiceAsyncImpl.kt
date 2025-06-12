@@ -24,6 +24,7 @@ import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmen
 import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentRetrieveParams
 import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentUnenrollParams
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
 class IntrafiAccountEnrollmentServiceAsyncImpl
@@ -36,6 +37,13 @@ internal constructor(private val clientOptions: ClientOptions) :
 
     override fun withRawResponse(): IntrafiAccountEnrollmentServiceAsync.WithRawResponse =
         withRawResponse
+
+    override fun withOptions(
+        modifier: Consumer<ClientOptions.Builder>
+    ): IntrafiAccountEnrollmentServiceAsync =
+        IntrafiAccountEnrollmentServiceAsyncImpl(
+            clientOptions.toBuilder().apply(modifier::accept).build()
+        )
 
     override fun create(
         params: IntrafiAccountEnrollmentCreateParams,
@@ -69,6 +77,13 @@ internal constructor(private val clientOptions: ClientOptions) :
         IntrafiAccountEnrollmentServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): IntrafiAccountEnrollmentServiceAsync.WithRawResponse =
+            IntrafiAccountEnrollmentServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
 
         private val createHandler: Handler<IntrafiAccountEnrollment> =
             jsonHandler<IntrafiAccountEnrollment>(clientOptions.jsonMapper)

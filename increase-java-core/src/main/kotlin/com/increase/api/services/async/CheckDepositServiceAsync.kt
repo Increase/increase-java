@@ -2,6 +2,7 @@
 
 package com.increase.api.services.async
 
+import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.checkdeposits.CheckDeposit
@@ -10,6 +11,7 @@ import com.increase.api.models.checkdeposits.CheckDepositListPageAsync
 import com.increase.api.models.checkdeposits.CheckDepositListParams
 import com.increase.api.models.checkdeposits.CheckDepositRetrieveParams
 import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
 
 interface CheckDepositServiceAsync {
 
@@ -17,6 +19,13 @@ interface CheckDepositServiceAsync {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): CheckDepositServiceAsync
 
     /** Create a Check Deposit */
     fun create(params: CheckDepositCreateParams): CompletableFuture<CheckDeposit> =
@@ -86,6 +95,15 @@ interface CheckDepositServiceAsync {
      * method.
      */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): CheckDepositServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post /check_deposits`, but is otherwise the same as
