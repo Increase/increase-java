@@ -483,6 +483,9 @@ private constructor(
              */
             @JvmField val RETURNED = of("returned")
 
+            /** The physical card shipment requires attention from Increase before progressing. */
+            @JvmField val REQUIRES_ATTENTION = of("requires_attention")
+
             @JvmStatic fun of(value: String) = ShipmentStatus(JsonField.of(value))
         }
 
@@ -508,6 +511,8 @@ private constructor(
              * facility.
              */
             RETURNED,
+            /** The physical card shipment requires attention from Increase before progressing. */
+            REQUIRES_ATTENTION,
         }
 
         /**
@@ -540,6 +545,8 @@ private constructor(
              * facility.
              */
             RETURNED,
+            /** The physical card shipment requires attention from Increase before progressing. */
+            REQUIRES_ATTENTION,
             /**
              * An enum member indicating that [ShipmentStatus] was instantiated with an unknown
              * value.
@@ -563,6 +570,7 @@ private constructor(
                 REJECTED -> Value.REJECTED
                 SHIPPED -> Value.SHIPPED
                 RETURNED -> Value.RETURNED
+                REQUIRES_ATTENTION -> Value.REQUIRES_ATTENTION
                 else -> Value._UNKNOWN
             }
 
@@ -584,6 +592,7 @@ private constructor(
                 REJECTED -> Known.REJECTED
                 SHIPPED -> Known.SHIPPED
                 RETURNED -> Known.RETURNED
+                REQUIRES_ATTENTION -> Known.REQUIRES_ATTENTION
                 else -> throw IncreaseInvalidDataException("Unknown ShipmentStatus: $value")
             }
 
