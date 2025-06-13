@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.244.0 (2025-06-13)
+
+Full Changelog: [v0.243.0...v0.244.0](https://github.com/Increase/increase-java/compare/v0.243.0...v0.244.0)
+
+### Features
+
+* **api:** api update ([a5f2473](https://github.com/Increase/increase-java/commit/a5f24733af7b3db75d79175da49f70aeb4d860e6))
+* **client:** add a `withOptions` method ([3256111](https://github.com/Increase/increase-java/commit/32561113215b2b77ce89ceca014964010bdea18b))
+
 ## 0.243.0 (2025-06-12)
 
 Full Changelog: [v0.242.0...v0.243.0](https://github.com/Increase/increase-java/compare/v0.242.0...v0.243.0)
