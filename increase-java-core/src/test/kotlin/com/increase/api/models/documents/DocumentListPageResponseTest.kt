@@ -19,7 +19,7 @@ internal class DocumentListPageResponseTest {
                         .id("document_qjtqc6s4c14ve2q89izm")
                         .accountVerificationLetter(
                             Document.AccountVerificationLetter.builder()
-                                .accountNumberId("account_number_id")
+                                .accountNumberId("account_number_v18nkfqm6afpsrvy82b2")
                                 .build()
                         )
                         .category(Document.Category.FORM_1099_INT)
@@ -39,7 +39,7 @@ internal class DocumentListPageResponseTest {
                     .id("document_qjtqc6s4c14ve2q89izm")
                     .accountVerificationLetter(
                         Document.AccountVerificationLetter.builder()
-                            .accountNumberId("account_number_id")
+                            .accountNumberId("account_number_v18nkfqm6afpsrvy82b2")
                             .build()
                     )
                     .category(Document.Category.FORM_1099_INT)
@@ -63,7 +63,7 @@ internal class DocumentListPageResponseTest {
                         .id("document_qjtqc6s4c14ve2q89izm")
                         .accountVerificationLetter(
                             Document.AccountVerificationLetter.builder()
-                                .accountNumberId("account_number_id")
+                                .accountNumberId("account_number_v18nkfqm6afpsrvy82b2")
                                 .build()
                         )
                         .category(Document.Category.FORM_1099_INT)

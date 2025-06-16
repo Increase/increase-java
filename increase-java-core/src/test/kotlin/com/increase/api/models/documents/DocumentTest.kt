@@ -17,7 +17,7 @@ internal class DocumentTest {
                 .id("document_qjtqc6s4c14ve2q89izm")
                 .accountVerificationLetter(
                     Document.AccountVerificationLetter.builder()
-                        .accountNumberId("account_number_id")
+                        .accountNumberId("account_number_v18nkfqm6afpsrvy82b2")
                         .build()
                 )
                 .category(Document.Category.FORM_1099_INT)
@@ -32,7 +32,7 @@ internal class DocumentTest {
         assertThat(document.accountVerificationLetter())
             .contains(
                 Document.AccountVerificationLetter.builder()
-                    .accountNumberId("account_number_id")
+                    .accountNumberId("account_number_v18nkfqm6afpsrvy82b2")
                     .build()
             )
         assertThat(document.category()).isEqualTo(Document.Category.FORM_1099_INT)
@@ -51,7 +51,7 @@ internal class DocumentTest {
                 .id("document_qjtqc6s4c14ve2q89izm")
                 .accountVerificationLetter(
                     Document.AccountVerificationLetter.builder()
-                        .accountNumberId("account_number_id")
+                        .accountNumberId("account_number_v18nkfqm6afpsrvy82b2")
                         .build()
                 )
                 .category(Document.Category.FORM_1099_INT)
