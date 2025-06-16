@@ -939,7 +939,10 @@ internal class CardPaymentTest {
                                     .physicalCardId(null)
                                     .realTimeDecisionId(null)
                                     .terminalId("RCN5VNXS")
-                                    .type(CardPayment.Element.CardValidation.Type.CARD_VALIDATION)
+                                    .type(
+                                        CardPayment.Element.CardValidation.Type
+                                            .INBOUND_CARD_VALIDATION
+                                    )
                                     .verification(
                                         CardPayment.Element.CardValidation.Verification.builder()
                                             .cardVerificationCode(
@@ -1896,7 +1899,10 @@ internal class CardPaymentTest {
                                     .physicalCardId(null)
                                     .realTimeDecisionId(null)
                                     .terminalId("RCN5VNXS")
-                                    .type(CardPayment.Element.CardValidation.Type.CARD_VALIDATION)
+                                    .type(
+                                        CardPayment.Element.CardValidation.Type
+                                            .INBOUND_CARD_VALIDATION
+                                    )
                                     .verification(
                                         CardPayment.Element.CardValidation.Verification.builder()
                                             .cardVerificationCode(
@@ -2853,7 +2859,10 @@ internal class CardPaymentTest {
                                     .physicalCardId(null)
                                     .realTimeDecisionId(null)
                                     .terminalId("RCN5VNXS")
-                                    .type(CardPayment.Element.CardValidation.Type.CARD_VALIDATION)
+                                    .type(
+                                        CardPayment.Element.CardValidation.Type
+                                            .INBOUND_CARD_VALIDATION
+                                    )
                                     .verification(
                                         CardPayment.Element.CardValidation.Verification.builder()
                                             .cardVerificationCode(
@@ -3810,7 +3819,10 @@ internal class CardPaymentTest {
                                     .physicalCardId(null)
                                     .realTimeDecisionId(null)
                                     .terminalId("RCN5VNXS")
-                                    .type(CardPayment.Element.CardValidation.Type.CARD_VALIDATION)
+                                    .type(
+                                        CardPayment.Element.CardValidation.Type
+                                            .INBOUND_CARD_VALIDATION
+                                    )
                                     .verification(
                                         CardPayment.Element.CardValidation.Verification.builder()
                                             .cardVerificationCode(
@@ -4688,7 +4700,7 @@ internal class CardPaymentTest {
                             .physicalCardId(null)
                             .realTimeDecisionId(null)
                             .terminalId("RCN5VNXS")
-                            .type(CardPayment.Element.CardValidation.Type.CARD_VALIDATION)
+                            .type(CardPayment.Element.CardValidation.Type.INBOUND_CARD_VALIDATION)
                             .verification(
                                 CardPayment.Element.CardValidation.Verification.builder()
                                     .cardVerificationCode(
@@ -5542,7 +5554,7 @@ internal class CardPaymentTest {
                             .physicalCardId(null)
                             .realTimeDecisionId(null)
                             .terminalId("RCN5VNXS")
-                            .type(CardPayment.Element.CardValidation.Type.CARD_VALIDATION)
+                            .type(CardPayment.Element.CardValidation.Type.INBOUND_CARD_VALIDATION)
                             .verification(
                                 CardPayment.Element.CardValidation.Verification.builder()
                                     .cardVerificationCode(
@@ -6396,7 +6408,7 @@ internal class CardPaymentTest {
                             .physicalCardId(null)
                             .realTimeDecisionId(null)
                             .terminalId("RCN5VNXS")
-                            .type(CardPayment.Element.CardValidation.Type.CARD_VALIDATION)
+                            .type(CardPayment.Element.CardValidation.Type.INBOUND_CARD_VALIDATION)
                             .verification(
                                 CardPayment.Element.CardValidation.Verification.builder()
                                     .cardVerificationCode(
@@ -7250,7 +7262,7 @@ internal class CardPaymentTest {
                             .physicalCardId(null)
                             .realTimeDecisionId(null)
                             .terminalId("RCN5VNXS")
-                            .type(CardPayment.Element.CardValidation.Type.CARD_VALIDATION)
+                            .type(CardPayment.Element.CardValidation.Type.INBOUND_CARD_VALIDATION)
                             .verification(
                                 CardPayment.Element.CardValidation.Verification.builder()
                                     .cardVerificationCode(
@@ -8232,7 +8244,10 @@ internal class CardPaymentTest {
                                     .physicalCardId(null)
                                     .realTimeDecisionId(null)
                                     .terminalId("RCN5VNXS")
-                                    .type(CardPayment.Element.CardValidation.Type.CARD_VALIDATION)
+                                    .type(
+                                        CardPayment.Element.CardValidation.Type
+                                            .INBOUND_CARD_VALIDATION
+                                    )
                                     .verification(
                                         CardPayment.Element.CardValidation.Verification.builder()
                                             .cardVerificationCode(
@@ -9189,7 +9204,10 @@ internal class CardPaymentTest {
                                     .physicalCardId(null)
                                     .realTimeDecisionId(null)
                                     .terminalId("RCN5VNXS")
-                                    .type(CardPayment.Element.CardValidation.Type.CARD_VALIDATION)
+                                    .type(
+                                        CardPayment.Element.CardValidation.Type
+                                            .INBOUND_CARD_VALIDATION
+                                    )
                                     .verification(
                                         CardPayment.Element.CardValidation.Verification.builder()
                                             .cardVerificationCode(
@@ -10146,7 +10164,10 @@ internal class CardPaymentTest {
                                     .physicalCardId(null)
                                     .realTimeDecisionId(null)
                                     .terminalId("RCN5VNXS")
-                                    .type(CardPayment.Element.CardValidation.Type.CARD_VALIDATION)
+                                    .type(
+                                        CardPayment.Element.CardValidation.Type
+                                            .INBOUND_CARD_VALIDATION
+                                    )
                                     .verification(
                                         CardPayment.Element.CardValidation.Verification.builder()
                                             .cardVerificationCode(
@@ -11103,7 +11124,10 @@ internal class CardPaymentTest {
                                     .physicalCardId(null)
                                     .realTimeDecisionId(null)
                                     .terminalId("RCN5VNXS")
-                                    .type(CardPayment.Element.CardValidation.Type.CARD_VALIDATION)
+                                    .type(
+                                        CardPayment.Element.CardValidation.Type
+                                            .INBOUND_CARD_VALIDATION
+                                    )
                                     .verification(
                                         CardPayment.Element.CardValidation.Verification.builder()
                                             .cardVerificationCode(

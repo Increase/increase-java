@@ -688,10 +688,10 @@ private constructor(
             cardSettlement.getOptional("card_settlement")
 
         /**
-         * A Card Validation object. This field will be present in the JSON response if and only if
-         * `category` is equal to `card_validation`. Card Validations are requests from a merchant
-         * to verify that a card number and optionally its address and/or Card Verification Value
-         * are valid.
+         * An Inbound Card Validation object. This field will be present in the JSON response if and
+         * only if `category` is equal to `card_validation`. Inbound Card Validations are requests
+         * from a merchant to verify that a card number and optionally its address and/or Card
+         * Verification Value are valid.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -1135,10 +1135,10 @@ private constructor(
             }
 
             /**
-             * A Card Validation object. This field will be present in the JSON response if and only
-             * if `category` is equal to `card_validation`. Card Validations are requests from a
-             * merchant to verify that a card number and optionally its address and/or Card
-             * Verification Value are valid.
+             * An Inbound Card Validation object. This field will be present in the JSON response if
+             * and only if `category` is equal to `card_validation`. Inbound Card Validations are
+             * requests from a merchant to verify that a card number and optionally its address
+             * and/or Card Verification Value are valid.
              */
             fun cardValidation(cardValidation: CardValidation?) =
                 cardValidation(JsonField.ofNullable(cardValidation))
@@ -39107,10 +39107,10 @@ private constructor(
         }
 
         /**
-         * A Card Validation object. This field will be present in the JSON response if and only if
-         * `category` is equal to `card_validation`. Card Validations are requests from a merchant
-         * to verify that a card number and optionally its address and/or Card Verification Value
-         * are valid.
+         * An Inbound Card Validation object. This field will be present in the JSON response if and
+         * only if `category` is equal to `card_validation`. Inbound Card Validations are requests
+         * from a merchant to verify that a card number and optionally its address and/or Card
+         * Verification Value are valid.
          */
         class CardValidation
         private constructor(
@@ -39391,7 +39391,7 @@ private constructor(
 
             /**
              * A constant representing the object's type. For this resource it will always be
-             * `card_validation`.
+             * `inbound_card_validation`.
              *
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
@@ -40041,7 +40041,7 @@ private constructor(
 
                 /**
                  * A constant representing the object's type. For this resource it will always be
-                 * `card_validation`.
+                 * `inbound_card_validation`.
                  */
                 fun type(type: Type) = type(JsonField.of(type))
 
@@ -42326,7 +42326,7 @@ private constructor(
 
             /**
              * A constant representing the object's type. For this resource it will always be
-             * `card_validation`.
+             * `inbound_card_validation`.
              */
             class Type @JsonCreator private constructor(private val value: JsonField<String>) :
                 Enum {
@@ -42343,14 +42343,14 @@ private constructor(
 
                 companion object {
 
-                    @JvmField val CARD_VALIDATION = of("card_validation")
+                    @JvmField val INBOUND_CARD_VALIDATION = of("inbound_card_validation")
 
                     @JvmStatic fun of(value: String) = Type(JsonField.of(value))
                 }
 
                 /** An enum containing [Type]'s known values. */
                 enum class Known {
-                    CARD_VALIDATION
+                    INBOUND_CARD_VALIDATION
                 }
 
                 /**
@@ -42363,7 +42363,7 @@ private constructor(
                  * - It was constructed with an arbitrary value using the [of] method.
                  */
                 enum class Value {
-                    CARD_VALIDATION,
+                    INBOUND_CARD_VALIDATION,
                     /**
                      * An enum member indicating that [Type] was instantiated with an unknown value.
                      */
@@ -42379,7 +42379,7 @@ private constructor(
                  */
                 fun value(): Value =
                     when (this) {
-                        CARD_VALIDATION -> Value.CARD_VALIDATION
+                        INBOUND_CARD_VALIDATION -> Value.INBOUND_CARD_VALIDATION
                         else -> Value._UNKNOWN
                     }
 
@@ -42394,7 +42394,7 @@ private constructor(
                  */
                 fun known(): Known =
                     when (this) {
-                        CARD_VALIDATION -> Known.CARD_VALIDATION
+                        INBOUND_CARD_VALIDATION -> Known.INBOUND_CARD_VALIDATION
                         else -> throw IncreaseInvalidDataException("Unknown Type: $value")
                     }
 
@@ -43642,7 +43642,7 @@ private constructor(
                 /** Card Authentication: details will be under the `card_authentication` object. */
                 @JvmField val CARD_AUTHENTICATION = of("card_authentication")
 
-                /** Card Validation: details will be under the `card_validation` object. */
+                /** Inbound Card Validation: details will be under the `card_validation` object. */
                 @JvmField val CARD_VALIDATION = of("card_validation")
 
                 /** Card Decline: details will be under the `card_decline` object. */
@@ -43684,7 +43684,7 @@ private constructor(
                 CARD_AUTHORIZATION,
                 /** Card Authentication: details will be under the `card_authentication` object. */
                 CARD_AUTHENTICATION,
-                /** Card Validation: details will be under the `card_validation` object. */
+                /** Inbound Card Validation: details will be under the `card_validation` object. */
                 CARD_VALIDATION,
                 /** Card Decline: details will be under the `card_decline` object. */
                 CARD_DECLINE,
@@ -43724,7 +43724,7 @@ private constructor(
                 CARD_AUTHORIZATION,
                 /** Card Authentication: details will be under the `card_authentication` object. */
                 CARD_AUTHENTICATION,
-                /** Card Validation: details will be under the `card_validation` object. */
+                /** Inbound Card Validation: details will be under the `card_validation` object. */
                 CARD_VALIDATION,
                 /** Card Decline: details will be under the `card_decline` object. */
                 CARD_DECLINE,
