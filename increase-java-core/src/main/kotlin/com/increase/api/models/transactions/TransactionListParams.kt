@@ -571,12 +571,10 @@ private constructor(
                 @JvmField val SWIFT_TRANSFER_INTENTION = of("swift_transfer_intention")
 
                 /**
-                 * Outbound Card Push Transfer Acceptance: details will be under the
-                 * `outbound_card_push_transfer_acceptance` object.
+                 * Card Push Transfer Acceptance: details will be under the
+                 * `card_push_transfer_acceptance` object.
                  */
-                @JvmField
-                val OUTBOUND_CARD_PUSH_TRANSFER_ACCEPTANCE =
-                    of("outbound_card_push_transfer_acceptance")
+                @JvmField val CARD_PUSH_TRANSFER_ACCEPTANCE = of("card_push_transfer_acceptance")
 
                 /** The Transaction was made for an undocumented or deprecated reason. */
                 @JvmField val OTHER = of("other")
@@ -702,10 +700,10 @@ private constructor(
                  */
                 SWIFT_TRANSFER_INTENTION,
                 /**
-                 * Outbound Card Push Transfer Acceptance: details will be under the
-                 * `outbound_card_push_transfer_acceptance` object.
+                 * Card Push Transfer Acceptance: details will be under the
+                 * `card_push_transfer_acceptance` object.
                  */
-                OUTBOUND_CARD_PUSH_TRANSFER_ACCEPTANCE,
+                CARD_PUSH_TRANSFER_ACCEPTANCE,
                 /** The Transaction was made for an undocumented or deprecated reason. */
                 OTHER,
             }
@@ -836,10 +834,10 @@ private constructor(
                  */
                 SWIFT_TRANSFER_INTENTION,
                 /**
-                 * Outbound Card Push Transfer Acceptance: details will be under the
-                 * `outbound_card_push_transfer_acceptance` object.
+                 * Card Push Transfer Acceptance: details will be under the
+                 * `card_push_transfer_acceptance` object.
                  */
-                OUTBOUND_CARD_PUSH_TRANSFER_ACCEPTANCE,
+                CARD_PUSH_TRANSFER_ACCEPTANCE,
                 /** The Transaction was made for an undocumented or deprecated reason. */
                 OTHER,
                 /** An enum member indicating that [In] was instantiated with an unknown value. */
@@ -889,8 +887,7 @@ private constructor(
                     SAMPLE_FUNDS -> Value.SAMPLE_FUNDS
                     WIRE_TRANSFER_INTENTION -> Value.WIRE_TRANSFER_INTENTION
                     SWIFT_TRANSFER_INTENTION -> Value.SWIFT_TRANSFER_INTENTION
-                    OUTBOUND_CARD_PUSH_TRANSFER_ACCEPTANCE ->
-                        Value.OUTBOUND_CARD_PUSH_TRANSFER_ACCEPTANCE
+                    CARD_PUSH_TRANSFER_ACCEPTANCE -> Value.CARD_PUSH_TRANSFER_ACCEPTANCE
                     OTHER -> Value.OTHER
                     else -> Value._UNKNOWN
                 }
@@ -940,8 +937,7 @@ private constructor(
                     SAMPLE_FUNDS -> Known.SAMPLE_FUNDS
                     WIRE_TRANSFER_INTENTION -> Known.WIRE_TRANSFER_INTENTION
                     SWIFT_TRANSFER_INTENTION -> Known.SWIFT_TRANSFER_INTENTION
-                    OUTBOUND_CARD_PUSH_TRANSFER_ACCEPTANCE ->
-                        Known.OUTBOUND_CARD_PUSH_TRANSFER_ACCEPTANCE
+                    CARD_PUSH_TRANSFER_ACCEPTANCE -> Known.CARD_PUSH_TRANSFER_ACCEPTANCE
                     OTHER -> Known.OTHER
                     else -> throw IncreaseInvalidDataException("Unknown In: $value")
                 }

@@ -78,6 +78,12 @@ internal class TransactionTest {
                                 .transactionId("transaction_uyrp7fld2ium70oa7oi")
                                 .build()
                         )
+                        .cardPushTransferAcceptance(
+                            Transaction.Source.CardPushTransferAcceptance.builder()
+                                .amount(100L)
+                                .transferId("outbound_card_push_transfer_e0z9rdpamraczh4tvwye")
+                                .build()
+                        )
                         .cardRefund(
                             Transaction.Source.CardRefund.builder()
                                 .id("card_refund_imgc2xwplh6t4r3gn16e")
@@ -780,12 +786,6 @@ internal class TransactionTest {
                                 .build()
                         )
                         .other(JsonValue.from(mapOf<String, Any>()))
-                        .outboundCardPushTransferAcceptance(
-                            Transaction.Source.OutboundCardPushTransferAcceptance.builder()
-                                .amount(100L)
-                                .transferId("outbound_card_push_transfer_e0z9rdpamraczh4tvwye")
-                                .build()
-                        )
                         .realTimePaymentsTransferAcknowledgement(
                             Transaction.Source.RealTimePaymentsTransferAcknowledgement.builder()
                                 .amount(100L)
@@ -878,6 +878,12 @@ internal class TransactionTest {
                             .explanation("The card dispute was lost.")
                             .lostAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                             .transactionId("transaction_uyrp7fld2ium70oa7oi")
+                            .build()
+                    )
+                    .cardPushTransferAcceptance(
+                        Transaction.Source.CardPushTransferAcceptance.builder()
+                            .amount(100L)
+                            .transferId("outbound_card_push_transfer_e0z9rdpamraczh4tvwye")
                             .build()
                     )
                     .cardRefund(
@@ -1536,12 +1542,6 @@ internal class TransactionTest {
                             .build()
                     )
                     .other(JsonValue.from(mapOf<String, Any>()))
-                    .outboundCardPushTransferAcceptance(
-                        Transaction.Source.OutboundCardPushTransferAcceptance.builder()
-                            .amount(100L)
-                            .transferId("outbound_card_push_transfer_e0z9rdpamraczh4tvwye")
-                            .build()
-                    )
                     .realTimePaymentsTransferAcknowledgement(
                         Transaction.Source.RealTimePaymentsTransferAcknowledgement.builder()
                             .amount(100L)
@@ -1638,6 +1638,12 @@ internal class TransactionTest {
                                 .explanation("The card dispute was lost.")
                                 .lostAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                                 .transactionId("transaction_uyrp7fld2ium70oa7oi")
+                                .build()
+                        )
+                        .cardPushTransferAcceptance(
+                            Transaction.Source.CardPushTransferAcceptance.builder()
+                                .amount(100L)
+                                .transferId("outbound_card_push_transfer_e0z9rdpamraczh4tvwye")
                                 .build()
                         )
                         .cardRefund(
@@ -2342,12 +2348,6 @@ internal class TransactionTest {
                                 .build()
                         )
                         .other(JsonValue.from(mapOf<String, Any>()))
-                        .outboundCardPushTransferAcceptance(
-                            Transaction.Source.OutboundCardPushTransferAcceptance.builder()
-                                .amount(100L)
-                                .transferId("outbound_card_push_transfer_e0z9rdpamraczh4tvwye")
-                                .build()
-                        )
                         .realTimePaymentsTransferAcknowledgement(
                             Transaction.Source.RealTimePaymentsTransferAcknowledgement.builder()
                                 .amount(100L)

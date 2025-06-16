@@ -709,19 +709,31 @@ private constructor(
             /** Occurs whenever an OAuth Connection is deactivated. */
             @JvmField val OAUTH_CONNECTION_DEACTIVATED = of("oauth_connection.deactivated")
 
-            /** Occurs whenever an Outbound Card Push Transfer is created. */
+            /** Occurs whenever a Card Push Transfer is created. */
             @JvmField
             val OUTBOUND_CARD_PUSH_TRANSFER_CREATED = of("outbound_card_push_transfer.created")
 
-            /** Occurs whenever an Outbound Card Push Transfer is updated. */
+            /** Occurs whenever a Card Push Transfer is updated. */
             @JvmField
             val OUTBOUND_CARD_PUSH_TRANSFER_UPDATED = of("outbound_card_push_transfer.updated")
 
-            /** Occurs whenever an Outbound Card Validation is created. */
+            /** Occurs whenever a Card Validation is created. */
             @JvmField val OUTBOUND_CARD_VALIDATION_CREATED = of("outbound_card_validation.created")
 
-            /** Occurs whenever an Outbound Card Validation is updated. */
+            /** Occurs whenever a Card Validation is updated. */
             @JvmField val OUTBOUND_CARD_VALIDATION_UPDATED = of("outbound_card_validation.updated")
+
+            /** Occurs whenever a Card Push Transfer is created. */
+            @JvmField val CARD_PUSH_TRANSFER_CREATED = of("card_push_transfer.created")
+
+            /** Occurs whenever a Card Push Transfer is updated. */
+            @JvmField val CARD_PUSH_TRANSFER_UPDATED = of("card_push_transfer.updated")
+
+            /** Occurs whenever a Card Validation is created. */
+            @JvmField val CARD_VALIDATION_CREATED = of("card_validation.created")
+
+            /** Occurs whenever a Card Validation is updated. */
+            @JvmField val CARD_VALIDATION_UPDATED = of("card_validation.updated")
 
             /** Occurs whenever a Pending Transaction is created. */
             @JvmField val PENDING_TRANSACTION_CREATED = of("pending_transaction.created")
@@ -958,14 +970,22 @@ private constructor(
             OAUTH_CONNECTION_CREATED,
             /** Occurs whenever an OAuth Connection is deactivated. */
             OAUTH_CONNECTION_DEACTIVATED,
-            /** Occurs whenever an Outbound Card Push Transfer is created. */
+            /** Occurs whenever a Card Push Transfer is created. */
             OUTBOUND_CARD_PUSH_TRANSFER_CREATED,
-            /** Occurs whenever an Outbound Card Push Transfer is updated. */
+            /** Occurs whenever a Card Push Transfer is updated. */
             OUTBOUND_CARD_PUSH_TRANSFER_UPDATED,
-            /** Occurs whenever an Outbound Card Validation is created. */
+            /** Occurs whenever a Card Validation is created. */
             OUTBOUND_CARD_VALIDATION_CREATED,
-            /** Occurs whenever an Outbound Card Validation is updated. */
+            /** Occurs whenever a Card Validation is updated. */
             OUTBOUND_CARD_VALIDATION_UPDATED,
+            /** Occurs whenever a Card Push Transfer is created. */
+            CARD_PUSH_TRANSFER_CREATED,
+            /** Occurs whenever a Card Push Transfer is updated. */
+            CARD_PUSH_TRANSFER_UPDATED,
+            /** Occurs whenever a Card Validation is created. */
+            CARD_VALIDATION_CREATED,
+            /** Occurs whenever a Card Validation is updated. */
+            CARD_VALIDATION_UPDATED,
             /** Occurs whenever a Pending Transaction is created. */
             PENDING_TRANSACTION_CREATED,
             /** Occurs whenever a Pending Transaction is updated. */
@@ -1167,14 +1187,22 @@ private constructor(
             OAUTH_CONNECTION_CREATED,
             /** Occurs whenever an OAuth Connection is deactivated. */
             OAUTH_CONNECTION_DEACTIVATED,
-            /** Occurs whenever an Outbound Card Push Transfer is created. */
+            /** Occurs whenever a Card Push Transfer is created. */
             OUTBOUND_CARD_PUSH_TRANSFER_CREATED,
-            /** Occurs whenever an Outbound Card Push Transfer is updated. */
+            /** Occurs whenever a Card Push Transfer is updated. */
             OUTBOUND_CARD_PUSH_TRANSFER_UPDATED,
-            /** Occurs whenever an Outbound Card Validation is created. */
+            /** Occurs whenever a Card Validation is created. */
             OUTBOUND_CARD_VALIDATION_CREATED,
-            /** Occurs whenever an Outbound Card Validation is updated. */
+            /** Occurs whenever a Card Validation is updated. */
             OUTBOUND_CARD_VALIDATION_UPDATED,
+            /** Occurs whenever a Card Push Transfer is created. */
+            CARD_PUSH_TRANSFER_CREATED,
+            /** Occurs whenever a Card Push Transfer is updated. */
+            CARD_PUSH_TRANSFER_UPDATED,
+            /** Occurs whenever a Card Validation is created. */
+            CARD_VALIDATION_CREATED,
+            /** Occurs whenever a Card Validation is updated. */
+            CARD_VALIDATION_UPDATED,
             /** Occurs whenever a Pending Transaction is created. */
             PENDING_TRANSACTION_CREATED,
             /** Occurs whenever a Pending Transaction is updated. */
@@ -1318,6 +1346,10 @@ private constructor(
                 OUTBOUND_CARD_PUSH_TRANSFER_UPDATED -> Value.OUTBOUND_CARD_PUSH_TRANSFER_UPDATED
                 OUTBOUND_CARD_VALIDATION_CREATED -> Value.OUTBOUND_CARD_VALIDATION_CREATED
                 OUTBOUND_CARD_VALIDATION_UPDATED -> Value.OUTBOUND_CARD_VALIDATION_UPDATED
+                CARD_PUSH_TRANSFER_CREATED -> Value.CARD_PUSH_TRANSFER_CREATED
+                CARD_PUSH_TRANSFER_UPDATED -> Value.CARD_PUSH_TRANSFER_UPDATED
+                CARD_VALIDATION_CREATED -> Value.CARD_VALIDATION_CREATED
+                CARD_VALIDATION_UPDATED -> Value.CARD_VALIDATION_UPDATED
                 PENDING_TRANSACTION_CREATED -> Value.PENDING_TRANSACTION_CREATED
                 PENDING_TRANSACTION_UPDATED -> Value.PENDING_TRANSACTION_UPDATED
                 PHYSICAL_CARD_CREATED -> Value.PHYSICAL_CARD_CREATED
@@ -1433,6 +1465,10 @@ private constructor(
                 OUTBOUND_CARD_PUSH_TRANSFER_UPDATED -> Known.OUTBOUND_CARD_PUSH_TRANSFER_UPDATED
                 OUTBOUND_CARD_VALIDATION_CREATED -> Known.OUTBOUND_CARD_VALIDATION_CREATED
                 OUTBOUND_CARD_VALIDATION_UPDATED -> Known.OUTBOUND_CARD_VALIDATION_UPDATED
+                CARD_PUSH_TRANSFER_CREATED -> Known.CARD_PUSH_TRANSFER_CREATED
+                CARD_PUSH_TRANSFER_UPDATED -> Known.CARD_PUSH_TRANSFER_UPDATED
+                CARD_VALIDATION_CREATED -> Known.CARD_VALIDATION_CREATED
+                CARD_VALIDATION_UPDATED -> Known.CARD_VALIDATION_UPDATED
                 PENDING_TRANSACTION_CREATED -> Known.PENDING_TRANSACTION_CREATED
                 PENDING_TRANSACTION_UPDATED -> Known.PENDING_TRANSACTION_UPDATED
                 PHYSICAL_CARD_CREATED -> Known.PHYSICAL_CARD_CREATED

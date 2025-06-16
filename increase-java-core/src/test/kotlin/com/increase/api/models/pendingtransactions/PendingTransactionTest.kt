@@ -157,6 +157,12 @@ internal class PendingTransactionTest {
                                 )
                                 .build()
                         )
+                        .cardPushTransferInstruction(
+                            PendingTransaction.Source.CardPushTransferInstruction.builder()
+                                .amount(100L)
+                                .transferId("outbound_card_push_transfer_e0z9rdpamraczh4tvwye")
+                                .build()
+                        )
                         .category(PendingTransaction.Source.Category.ACH_TRANSFER_INSTRUCTION)
                         .checkDepositInstruction(
                             PendingTransaction.Source.CheckDepositInstruction.builder()
@@ -203,12 +209,6 @@ internal class PendingTransactionTest {
                                 .build()
                         )
                         .other(JsonValue.from(mapOf<String, Any>()))
-                        .outboundCardPushTransferInstruction(
-                            PendingTransaction.Source.OutboundCardPushTransferInstruction.builder()
-                                .amount(100L)
-                                .transferId("outbound_card_push_transfer_e0z9rdpamraczh4tvwye")
-                                .build()
-                        )
                         .realTimePaymentsTransferInstruction(
                             PendingTransaction.Source.RealTimePaymentsTransferInstruction.builder()
                                 .amount(100L)
@@ -373,6 +373,12 @@ internal class PendingTransactionTest {
                             )
                             .build()
                     )
+                    .cardPushTransferInstruction(
+                        PendingTransaction.Source.CardPushTransferInstruction.builder()
+                            .amount(100L)
+                            .transferId("outbound_card_push_transfer_e0z9rdpamraczh4tvwye")
+                            .build()
+                    )
                     .category(PendingTransaction.Source.Category.ACH_TRANSFER_INSTRUCTION)
                     .checkDepositInstruction(
                         PendingTransaction.Source.CheckDepositInstruction.builder()
@@ -416,12 +422,6 @@ internal class PendingTransactionTest {
                             .build()
                     )
                     .other(JsonValue.from(mapOf<String, Any>()))
-                    .outboundCardPushTransferInstruction(
-                        PendingTransaction.Source.OutboundCardPushTransferInstruction.builder()
-                            .amount(100L)
-                            .transferId("outbound_card_push_transfer_e0z9rdpamraczh4tvwye")
-                            .build()
-                    )
                     .realTimePaymentsTransferInstruction(
                         PendingTransaction.Source.RealTimePaymentsTransferInstruction.builder()
                             .amount(100L)
@@ -596,6 +596,12 @@ internal class PendingTransactionTest {
                                 )
                                 .build()
                         )
+                        .cardPushTransferInstruction(
+                            PendingTransaction.Source.CardPushTransferInstruction.builder()
+                                .amount(100L)
+                                .transferId("outbound_card_push_transfer_e0z9rdpamraczh4tvwye")
+                                .build()
+                        )
                         .category(PendingTransaction.Source.Category.ACH_TRANSFER_INSTRUCTION)
                         .checkDepositInstruction(
                             PendingTransaction.Source.CheckDepositInstruction.builder()
@@ -642,12 +648,6 @@ internal class PendingTransactionTest {
                                 .build()
                         )
                         .other(JsonValue.from(mapOf<String, Any>()))
-                        .outboundCardPushTransferInstruction(
-                            PendingTransaction.Source.OutboundCardPushTransferInstruction.builder()
-                                .amount(100L)
-                                .transferId("outbound_card_push_transfer_e0z9rdpamraczh4tvwye")
-                                .build()
-                        )
                         .realTimePaymentsTransferInstruction(
                             PendingTransaction.Source.RealTimePaymentsTransferInstruction.builder()
                                 .amount(100L)
