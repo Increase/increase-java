@@ -1077,7 +1077,7 @@ internal class CardPaymentListPageResponseTest {
                                             .terminalId("RCN5VNXS")
                                             .type(
                                                 CardPayment.Element.CardValidation.Type
-                                                    .CARD_VALIDATION
+                                                    .INBOUND_CARD_VALIDATION
                                             )
                                             .verification(
                                                 CardPayment.Element.CardValidation.Verification
@@ -2174,7 +2174,7 @@ internal class CardPaymentListPageResponseTest {
                                             .terminalId("RCN5VNXS")
                                             .type(
                                                 CardPayment.Element.CardValidation.Type
-                                                    .CARD_VALIDATION
+                                                    .INBOUND_CARD_VALIDATION
                                             )
                                             .verification(
                                                 CardPayment.Element.CardValidation.Verification
@@ -3271,7 +3271,7 @@ internal class CardPaymentListPageResponseTest {
                                             .terminalId("RCN5VNXS")
                                             .type(
                                                 CardPayment.Element.CardValidation.Type
-                                                    .CARD_VALIDATION
+                                                    .INBOUND_CARD_VALIDATION
                                             )
                                             .verification(
                                                 CardPayment.Element.CardValidation.Verification
@@ -4368,7 +4368,7 @@ internal class CardPaymentListPageResponseTest {
                                             .terminalId("RCN5VNXS")
                                             .type(
                                                 CardPayment.Element.CardValidation.Type
-                                                    .CARD_VALIDATION
+                                                    .INBOUND_CARD_VALIDATION
                                             )
                                             .verification(
                                                 CardPayment.Element.CardValidation.Verification
@@ -5424,7 +5424,8 @@ internal class CardPaymentListPageResponseTest {
                                         .realTimeDecisionId(null)
                                         .terminalId("RCN5VNXS")
                                         .type(
-                                            CardPayment.Element.CardValidation.Type.CARD_VALIDATION
+                                            CardPayment.Element.CardValidation.Type
+                                                .INBOUND_CARD_VALIDATION
                                         )
                                         .verification(
                                             CardPayment.Element.CardValidation.Verification
@@ -6450,7 +6451,8 @@ internal class CardPaymentListPageResponseTest {
                                         .realTimeDecisionId(null)
                                         .terminalId("RCN5VNXS")
                                         .type(
-                                            CardPayment.Element.CardValidation.Type.CARD_VALIDATION
+                                            CardPayment.Element.CardValidation.Type
+                                                .INBOUND_CARD_VALIDATION
                                         )
                                         .verification(
                                             CardPayment.Element.CardValidation.Verification
@@ -7476,7 +7478,8 @@ internal class CardPaymentListPageResponseTest {
                                         .realTimeDecisionId(null)
                                         .terminalId("RCN5VNXS")
                                         .type(
-                                            CardPayment.Element.CardValidation.Type.CARD_VALIDATION
+                                            CardPayment.Element.CardValidation.Type
+                                                .INBOUND_CARD_VALIDATION
                                         )
                                         .verification(
                                             CardPayment.Element.CardValidation.Verification
@@ -8502,7 +8505,8 @@ internal class CardPaymentListPageResponseTest {
                                         .realTimeDecisionId(null)
                                         .terminalId("RCN5VNXS")
                                         .type(
-                                            CardPayment.Element.CardValidation.Type.CARD_VALIDATION
+                                            CardPayment.Element.CardValidation.Type
+                                                .INBOUND_CARD_VALIDATION
                                         )
                                         .verification(
                                             CardPayment.Element.CardValidation.Verification
@@ -9629,7 +9633,7 @@ internal class CardPaymentListPageResponseTest {
                                             .terminalId("RCN5VNXS")
                                             .type(
                                                 CardPayment.Element.CardValidation.Type
-                                                    .CARD_VALIDATION
+                                                    .INBOUND_CARD_VALIDATION
                                             )
                                             .verification(
                                                 CardPayment.Element.CardValidation.Verification
@@ -10726,7 +10730,7 @@ internal class CardPaymentListPageResponseTest {
                                             .terminalId("RCN5VNXS")
                                             .type(
                                                 CardPayment.Element.CardValidation.Type
-                                                    .CARD_VALIDATION
+                                                    .INBOUND_CARD_VALIDATION
                                             )
                                             .verification(
                                                 CardPayment.Element.CardValidation.Verification
@@ -11823,7 +11827,7 @@ internal class CardPaymentListPageResponseTest {
                                             .terminalId("RCN5VNXS")
                                             .type(
                                                 CardPayment.Element.CardValidation.Type
-                                                    .CARD_VALIDATION
+                                                    .INBOUND_CARD_VALIDATION
                                             )
                                             .verification(
                                                 CardPayment.Element.CardValidation.Verification
@@ -12920,7 +12924,7 @@ internal class CardPaymentListPageResponseTest {
                                             .terminalId("RCN5VNXS")
                                             .type(
                                                 CardPayment.Element.CardValidation.Type
-                                                    .CARD_VALIDATION
+                                                    .INBOUND_CARD_VALIDATION
                                             )
                                             .verification(
                                                 CardPayment.Element.CardValidation.Verification

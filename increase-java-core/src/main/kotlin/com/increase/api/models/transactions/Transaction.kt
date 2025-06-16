@@ -873,6 +873,7 @@ private constructor(
         private val achTransferReturn: JsonField<AchTransferReturn>,
         private val cardDisputeAcceptance: JsonField<CardDisputeAcceptance>,
         private val cardDisputeLoss: JsonField<CardDisputeLoss>,
+        private val cardPushTransferAcceptance: JsonField<CardPushTransferAcceptance>,
         private val cardRefund: JsonField<CardRefund>,
         private val cardRevenuePayment: JsonField<CardRevenuePayment>,
         private val cardSettlement: JsonField<CardSettlement>,
@@ -897,8 +898,6 @@ private constructor(
         private val interestPayment: JsonField<InterestPayment>,
         private val internalSource: JsonField<InternalSource>,
         private val other: JsonValue,
-        private val outboundCardPushTransferAcceptance:
-            JsonField<OutboundCardPushTransferAcceptance>,
         private val realTimePaymentsTransferAcknowledgement:
             JsonField<RealTimePaymentsTransferAcknowledgement>,
         private val sampleFunds: JsonField<SampleFunds>,
@@ -927,6 +926,9 @@ private constructor(
             @JsonProperty("card_dispute_loss")
             @ExcludeMissing
             cardDisputeLoss: JsonField<CardDisputeLoss> = JsonMissing.of(),
+            @JsonProperty("card_push_transfer_acceptance")
+            @ExcludeMissing
+            cardPushTransferAcceptance: JsonField<CardPushTransferAcceptance> = JsonMissing.of(),
             @JsonProperty("card_refund")
             @ExcludeMissing
             cardRefund: JsonField<CardRefund> = JsonMissing.of(),
@@ -994,10 +996,6 @@ private constructor(
             @ExcludeMissing
             internalSource: JsonField<InternalSource> = JsonMissing.of(),
             @JsonProperty("other") @ExcludeMissing other: JsonValue = JsonMissing.of(),
-            @JsonProperty("outbound_card_push_transfer_acceptance")
-            @ExcludeMissing
-            outboundCardPushTransferAcceptance: JsonField<OutboundCardPushTransferAcceptance> =
-                JsonMissing.of(),
             @JsonProperty("real_time_payments_transfer_acknowledgement")
             @ExcludeMissing
             realTimePaymentsTransferAcknowledgement:
@@ -1019,6 +1017,7 @@ private constructor(
             achTransferReturn,
             cardDisputeAcceptance,
             cardDisputeLoss,
+            cardPushTransferAcceptance,
             cardRefund,
             cardRevenuePayment,
             cardSettlement,
@@ -1040,7 +1039,6 @@ private constructor(
             interestPayment,
             internalSource,
             other,
-            outboundCardPushTransferAcceptance,
             realTimePaymentsTransferAcknowledgement,
             sampleFunds,
             swiftTransferIntention,
@@ -1118,6 +1116,18 @@ private constructor(
          */
         fun cardDisputeLoss(): Optional<CardDisputeLoss> =
             cardDisputeLoss.getOptional("card_dispute_loss")
+
+        /**
+         * A Card Push Transfer Acceptance object. This field will be present in the JSON response
+         * if and only if `category` is equal to `card_push_transfer_acceptance`. A Card Push
+         * Transfer Acceptance is created when an Outbound Card Push Transfer sent from Increase is
+         * accepted by the receiving bank.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun cardPushTransferAcceptance(): Optional<CardPushTransferAcceptance> =
+            cardPushTransferAcceptance.getOptional("card_push_transfer_acceptance")
 
         /**
          * A Card Refund object. This field will be present in the JSON response if and only if
@@ -1366,18 +1376,6 @@ private constructor(
         @JsonProperty("other") @ExcludeMissing fun _other(): JsonValue = other
 
         /**
-         * An Outbound Card Push Transfer Acceptance object. This field will be present in the JSON
-         * response if and only if `category` is equal to `outbound_card_push_transfer_acceptance`.
-         * An Outbound Card Push Transfer Acceptance is created when an Outbound Card Push Transfer
-         * sent from Increase is accepted by the receiving bank.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun outboundCardPushTransferAcceptance(): Optional<OutboundCardPushTransferAcceptance> =
-            outboundCardPushTransferAcceptance.getOptional("outbound_card_push_transfer_acceptance")
-
-        /**
          * A Real-Time Payments Transfer Acknowledgement object. This field will be present in the
          * JSON response if and only if `category` is equal to
          * `real_time_payments_transfer_acknowledgement`. A Real-Time Payments Transfer
@@ -1484,6 +1482,17 @@ private constructor(
         @JsonProperty("card_dispute_loss")
         @ExcludeMissing
         fun _cardDisputeLoss(): JsonField<CardDisputeLoss> = cardDisputeLoss
+
+        /**
+         * Returns the raw JSON value of [cardPushTransferAcceptance].
+         *
+         * Unlike [cardPushTransferAcceptance], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("card_push_transfer_acceptance")
+        @ExcludeMissing
+        fun _cardPushTransferAcceptance(): JsonField<CardPushTransferAcceptance> =
+            cardPushTransferAcceptance
 
         /**
          * Returns the raw JSON value of [cardRefund].
@@ -1688,17 +1697,6 @@ private constructor(
         fun _internalSource(): JsonField<InternalSource> = internalSource
 
         /**
-         * Returns the raw JSON value of [outboundCardPushTransferAcceptance].
-         *
-         * Unlike [outboundCardPushTransferAcceptance], this method doesn't throw if the JSON field
-         * has an unexpected type.
-         */
-        @JsonProperty("outbound_card_push_transfer_acceptance")
-        @ExcludeMissing
-        fun _outboundCardPushTransferAcceptance(): JsonField<OutboundCardPushTransferAcceptance> =
-            outboundCardPushTransferAcceptance
-
-        /**
          * Returns the raw JSON value of [realTimePaymentsTransferAcknowledgement].
          *
          * Unlike [realTimePaymentsTransferAcknowledgement], this method doesn't throw if the JSON
@@ -1764,6 +1762,7 @@ private constructor(
              * .achTransferReturn()
              * .cardDisputeAcceptance()
              * .cardDisputeLoss()
+             * .cardPushTransferAcceptance()
              * .cardRefund()
              * .cardRevenuePayment()
              * .cardSettlement()
@@ -1785,7 +1784,6 @@ private constructor(
              * .interestPayment()
              * .internalSource()
              * .other()
-             * .outboundCardPushTransferAcceptance()
              * .realTimePaymentsTransferAcknowledgement()
              * .sampleFunds()
              * .swiftTransferIntention()
@@ -1804,6 +1802,7 @@ private constructor(
             private var achTransferReturn: JsonField<AchTransferReturn>? = null
             private var cardDisputeAcceptance: JsonField<CardDisputeAcceptance>? = null
             private var cardDisputeLoss: JsonField<CardDisputeLoss>? = null
+            private var cardPushTransferAcceptance: JsonField<CardPushTransferAcceptance>? = null
             private var cardRefund: JsonField<CardRefund>? = null
             private var cardRevenuePayment: JsonField<CardRevenuePayment>? = null
             private var cardSettlement: JsonField<CardSettlement>? = null
@@ -1833,9 +1832,6 @@ private constructor(
             private var interestPayment: JsonField<InterestPayment>? = null
             private var internalSource: JsonField<InternalSource>? = null
             private var other: JsonValue? = null
-            private var outboundCardPushTransferAcceptance:
-                JsonField<OutboundCardPushTransferAcceptance>? =
-                null
             private var realTimePaymentsTransferAcknowledgement:
                 JsonField<RealTimePaymentsTransferAcknowledgement>? =
                 null
@@ -1852,6 +1848,7 @@ private constructor(
                 achTransferReturn = source.achTransferReturn
                 cardDisputeAcceptance = source.cardDisputeAcceptance
                 cardDisputeLoss = source.cardDisputeLoss
+                cardPushTransferAcceptance = source.cardPushTransferAcceptance
                 cardRefund = source.cardRefund
                 cardRevenuePayment = source.cardRevenuePayment
                 cardSettlement = source.cardSettlement
@@ -1875,7 +1872,6 @@ private constructor(
                 interestPayment = source.interestPayment
                 internalSource = source.internalSource
                 other = source.other
-                outboundCardPushTransferAcceptance = source.outboundCardPushTransferAcceptance
                 realTimePaymentsTransferAcknowledgement =
                     source.realTimePaymentsTransferAcknowledgement
                 sampleFunds = source.sampleFunds
@@ -2044,6 +2040,35 @@ private constructor(
             fun cardDisputeLoss(cardDisputeLoss: JsonField<CardDisputeLoss>) = apply {
                 this.cardDisputeLoss = cardDisputeLoss
             }
+
+            /**
+             * A Card Push Transfer Acceptance object. This field will be present in the JSON
+             * response if and only if `category` is equal to `card_push_transfer_acceptance`. A
+             * Card Push Transfer Acceptance is created when an Outbound Card Push Transfer sent
+             * from Increase is accepted by the receiving bank.
+             */
+            fun cardPushTransferAcceptance(
+                cardPushTransferAcceptance: CardPushTransferAcceptance?
+            ) = cardPushTransferAcceptance(JsonField.ofNullable(cardPushTransferAcceptance))
+
+            /**
+             * Alias for calling [Builder.cardPushTransferAcceptance] with
+             * `cardPushTransferAcceptance.orElse(null)`.
+             */
+            fun cardPushTransferAcceptance(
+                cardPushTransferAcceptance: Optional<CardPushTransferAcceptance>
+            ) = cardPushTransferAcceptance(cardPushTransferAcceptance.getOrNull())
+
+            /**
+             * Sets [Builder.cardPushTransferAcceptance] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.cardPushTransferAcceptance] with a well-typed
+             * [CardPushTransferAcceptance] value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
+             */
+            fun cardPushTransferAcceptance(
+                cardPushTransferAcceptance: JsonField<CardPushTransferAcceptance>
+            ) = apply { this.cardPushTransferAcceptance = cardPushTransferAcceptance }
 
             /**
              * A Card Refund object. This field will be present in the JSON response if and only if
@@ -2604,41 +2629,6 @@ private constructor(
             fun other(other: JsonValue) = apply { this.other = other }
 
             /**
-             * An Outbound Card Push Transfer Acceptance object. This field will be present in the
-             * JSON response if and only if `category` is equal to
-             * `outbound_card_push_transfer_acceptance`. An Outbound Card Push Transfer Acceptance
-             * is created when an Outbound Card Push Transfer sent from Increase is accepted by the
-             * receiving bank.
-             */
-            fun outboundCardPushTransferAcceptance(
-                outboundCardPushTransferAcceptance: OutboundCardPushTransferAcceptance?
-            ) =
-                outboundCardPushTransferAcceptance(
-                    JsonField.ofNullable(outboundCardPushTransferAcceptance)
-                )
-
-            /**
-             * Alias for calling [Builder.outboundCardPushTransferAcceptance] with
-             * `outboundCardPushTransferAcceptance.orElse(null)`.
-             */
-            fun outboundCardPushTransferAcceptance(
-                outboundCardPushTransferAcceptance: Optional<OutboundCardPushTransferAcceptance>
-            ) = outboundCardPushTransferAcceptance(outboundCardPushTransferAcceptance.getOrNull())
-
-            /**
-             * Sets [Builder.outboundCardPushTransferAcceptance] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.outboundCardPushTransferAcceptance] with a
-             * well-typed [OutboundCardPushTransferAcceptance] value instead. This method is
-             * primarily for setting the field to an undocumented or not yet supported value.
-             */
-            fun outboundCardPushTransferAcceptance(
-                outboundCardPushTransferAcceptance: JsonField<OutboundCardPushTransferAcceptance>
-            ) = apply {
-                this.outboundCardPushTransferAcceptance = outboundCardPushTransferAcceptance
-            }
-
-            /**
              * A Real-Time Payments Transfer Acknowledgement object. This field will be present in
              * the JSON response if and only if `category` is equal to
              * `real_time_payments_transfer_acknowledgement`. A Real-Time Payments Transfer
@@ -2787,6 +2777,7 @@ private constructor(
              * .achTransferReturn()
              * .cardDisputeAcceptance()
              * .cardDisputeLoss()
+             * .cardPushTransferAcceptance()
              * .cardRefund()
              * .cardRevenuePayment()
              * .cardSettlement()
@@ -2808,7 +2799,6 @@ private constructor(
              * .interestPayment()
              * .internalSource()
              * .other()
-             * .outboundCardPushTransferAcceptance()
              * .realTimePaymentsTransferAcknowledgement()
              * .sampleFunds()
              * .swiftTransferIntention()
@@ -2825,6 +2815,7 @@ private constructor(
                     checkRequired("achTransferReturn", achTransferReturn),
                     checkRequired("cardDisputeAcceptance", cardDisputeAcceptance),
                     checkRequired("cardDisputeLoss", cardDisputeLoss),
+                    checkRequired("cardPushTransferAcceptance", cardPushTransferAcceptance),
                     checkRequired("cardRefund", cardRefund),
                     checkRequired("cardRevenuePayment", cardRevenuePayment),
                     checkRequired("cardSettlement", cardSettlement),
@@ -2859,10 +2850,6 @@ private constructor(
                     checkRequired("internalSource", internalSource),
                     checkRequired("other", other),
                     checkRequired(
-                        "outboundCardPushTransferAcceptance",
-                        outboundCardPushTransferAcceptance,
-                    ),
-                    checkRequired(
                         "realTimePaymentsTransferAcknowledgement",
                         realTimePaymentsTransferAcknowledgement,
                     ),
@@ -2886,6 +2873,7 @@ private constructor(
             achTransferReturn().ifPresent { it.validate() }
             cardDisputeAcceptance().ifPresent { it.validate() }
             cardDisputeLoss().ifPresent { it.validate() }
+            cardPushTransferAcceptance().ifPresent { it.validate() }
             cardRefund().ifPresent { it.validate() }
             cardRevenuePayment().ifPresent { it.validate() }
             cardSettlement().ifPresent { it.validate() }
@@ -2906,7 +2894,6 @@ private constructor(
             inboundWireTransferReversal().ifPresent { it.validate() }
             interestPayment().ifPresent { it.validate() }
             internalSource().ifPresent { it.validate() }
-            outboundCardPushTransferAcceptance().ifPresent { it.validate() }
             realTimePaymentsTransferAcknowledgement().ifPresent { it.validate() }
             sampleFunds().ifPresent { it.validate() }
             swiftTransferIntention().ifPresent { it.validate() }
@@ -2936,6 +2923,7 @@ private constructor(
                 (achTransferReturn.asKnown().getOrNull()?.validity() ?: 0) +
                 (cardDisputeAcceptance.asKnown().getOrNull()?.validity() ?: 0) +
                 (cardDisputeLoss.asKnown().getOrNull()?.validity() ?: 0) +
+                (cardPushTransferAcceptance.asKnown().getOrNull()?.validity() ?: 0) +
                 (cardRefund.asKnown().getOrNull()?.validity() ?: 0) +
                 (cardRevenuePayment.asKnown().getOrNull()?.validity() ?: 0) +
                 (cardSettlement.asKnown().getOrNull()?.validity() ?: 0) +
@@ -2957,7 +2945,6 @@ private constructor(
                 (inboundWireTransferReversal.asKnown().getOrNull()?.validity() ?: 0) +
                 (interestPayment.asKnown().getOrNull()?.validity() ?: 0) +
                 (internalSource.asKnown().getOrNull()?.validity() ?: 0) +
-                (outboundCardPushTransferAcceptance.asKnown().getOrNull()?.validity() ?: 0) +
                 (realTimePaymentsTransferAcknowledgement.asKnown().getOrNull()?.validity() ?: 0) +
                 (sampleFunds.asKnown().getOrNull()?.validity() ?: 0) +
                 (swiftTransferIntention.asKnown().getOrNull()?.validity() ?: 0) +
@@ -6402,6 +6389,222 @@ private constructor(
 
             override fun toString() =
                 "CardDisputeLoss{cardDisputeId=$cardDisputeId, explanation=$explanation, lostAt=$lostAt, transactionId=$transactionId, additionalProperties=$additionalProperties}"
+        }
+
+        /**
+         * A Card Push Transfer Acceptance object. This field will be present in the JSON response
+         * if and only if `category` is equal to `card_push_transfer_acceptance`. A Card Push
+         * Transfer Acceptance is created when an Outbound Card Push Transfer sent from Increase is
+         * accepted by the receiving bank.
+         */
+        class CardPushTransferAcceptance
+        private constructor(
+            private val amount: JsonField<Long>,
+            private val transferId: JsonField<String>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
+                @JsonProperty("transfer_id")
+                @ExcludeMissing
+                transferId: JsonField<String> = JsonMissing.of(),
+            ) : this(amount, transferId, mutableMapOf())
+
+            /**
+             * The transfer amount in USD cents.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun amount(): Long = amount.getRequired("amount")
+
+            /**
+             * The identifier of the Card Push Transfer that led to this Transaction.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun transferId(): String = transferId.getRequired("transfer_id")
+
+            /**
+             * Returns the raw JSON value of [amount].
+             *
+             * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
+
+            /**
+             * Returns the raw JSON value of [transferId].
+             *
+             * Unlike [transferId], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("transfer_id")
+            @ExcludeMissing
+            fun _transferId(): JsonField<String> = transferId
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of
+                 * [CardPushTransferAcceptance].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .amount()
+                 * .transferId()
+                 * ```
+                 */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [CardPushTransferAcceptance]. */
+            class Builder internal constructor() {
+
+                private var amount: JsonField<Long>? = null
+                private var transferId: JsonField<String>? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(cardPushTransferAcceptance: CardPushTransferAcceptance) = apply {
+                    amount = cardPushTransferAcceptance.amount
+                    transferId = cardPushTransferAcceptance.transferId
+                    additionalProperties =
+                        cardPushTransferAcceptance.additionalProperties.toMutableMap()
+                }
+
+                /** The transfer amount in USD cents. */
+                fun amount(amount: Long) = amount(JsonField.of(amount))
+
+                /**
+                 * Sets [Builder.amount] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.amount] with a well-typed [Long] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+
+                /** The identifier of the Card Push Transfer that led to this Transaction. */
+                fun transferId(transferId: String) = transferId(JsonField.of(transferId))
+
+                /**
+                 * Sets [Builder.transferId] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.transferId] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun transferId(transferId: JsonField<String>) = apply {
+                    this.transferId = transferId
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [CardPushTransferAcceptance].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .amount()
+                 * .transferId()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
+                fun build(): CardPushTransferAcceptance =
+                    CardPushTransferAcceptance(
+                        checkRequired("amount", amount),
+                        checkRequired("transferId", transferId),
+                        additionalProperties.toMutableMap(),
+                    )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): CardPushTransferAcceptance = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                amount()
+                transferId()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                (if (amount.asKnown().isPresent) 1 else 0) +
+                    (if (transferId.asKnown().isPresent) 1 else 0)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return /* spotless:off */ other is CardPushTransferAcceptance && amount == other.amount && transferId == other.transferId && additionalProperties == other.additionalProperties /* spotless:on */
+            }
+
+            /* spotless:off */
+            private val hashCode: Int by lazy { Objects.hash(amount, transferId, additionalProperties) }
+            /* spotless:on */
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "CardPushTransferAcceptance{amount=$amount, transferId=$transferId, additionalProperties=$additionalProperties}"
         }
 
         /**
@@ -26372,12 +26575,10 @@ private constructor(
                 @JvmField val SWIFT_TRANSFER_INTENTION = of("swift_transfer_intention")
 
                 /**
-                 * Outbound Card Push Transfer Acceptance: details will be under the
-                 * `outbound_card_push_transfer_acceptance` object.
+                 * Card Push Transfer Acceptance: details will be under the
+                 * `card_push_transfer_acceptance` object.
                  */
-                @JvmField
-                val OUTBOUND_CARD_PUSH_TRANSFER_ACCEPTANCE =
-                    of("outbound_card_push_transfer_acceptance")
+                @JvmField val CARD_PUSH_TRANSFER_ACCEPTANCE = of("card_push_transfer_acceptance")
 
                 /** The Transaction was made for an undocumented or deprecated reason. */
                 @JvmField val OTHER = of("other")
@@ -26503,10 +26704,10 @@ private constructor(
                  */
                 SWIFT_TRANSFER_INTENTION,
                 /**
-                 * Outbound Card Push Transfer Acceptance: details will be under the
-                 * `outbound_card_push_transfer_acceptance` object.
+                 * Card Push Transfer Acceptance: details will be under the
+                 * `card_push_transfer_acceptance` object.
                  */
-                OUTBOUND_CARD_PUSH_TRANSFER_ACCEPTANCE,
+                CARD_PUSH_TRANSFER_ACCEPTANCE,
                 /** The Transaction was made for an undocumented or deprecated reason. */
                 OTHER,
             }
@@ -26637,10 +26838,10 @@ private constructor(
                  */
                 SWIFT_TRANSFER_INTENTION,
                 /**
-                 * Outbound Card Push Transfer Acceptance: details will be under the
-                 * `outbound_card_push_transfer_acceptance` object.
+                 * Card Push Transfer Acceptance: details will be under the
+                 * `card_push_transfer_acceptance` object.
                  */
-                OUTBOUND_CARD_PUSH_TRANSFER_ACCEPTANCE,
+                CARD_PUSH_TRANSFER_ACCEPTANCE,
                 /** The Transaction was made for an undocumented or deprecated reason. */
                 OTHER,
                 /**
@@ -26692,8 +26893,7 @@ private constructor(
                     SAMPLE_FUNDS -> Value.SAMPLE_FUNDS
                     WIRE_TRANSFER_INTENTION -> Value.WIRE_TRANSFER_INTENTION
                     SWIFT_TRANSFER_INTENTION -> Value.SWIFT_TRANSFER_INTENTION
-                    OUTBOUND_CARD_PUSH_TRANSFER_ACCEPTANCE ->
-                        Value.OUTBOUND_CARD_PUSH_TRANSFER_ACCEPTANCE
+                    CARD_PUSH_TRANSFER_ACCEPTANCE -> Value.CARD_PUSH_TRANSFER_ACCEPTANCE
                     OTHER -> Value.OTHER
                     else -> Value._UNKNOWN
                 }
@@ -26743,8 +26943,7 @@ private constructor(
                     SAMPLE_FUNDS -> Known.SAMPLE_FUNDS
                     WIRE_TRANSFER_INTENTION -> Known.WIRE_TRANSFER_INTENTION
                     SWIFT_TRANSFER_INTENTION -> Known.SWIFT_TRANSFER_INTENTION
-                    OUTBOUND_CARD_PUSH_TRANSFER_ACCEPTANCE ->
-                        Known.OUTBOUND_CARD_PUSH_TRANSFER_ACCEPTANCE
+                    CARD_PUSH_TRANSFER_ACCEPTANCE -> Known.CARD_PUSH_TRANSFER_ACCEPTANCE
                     OTHER -> Known.OTHER
                     else -> throw IncreaseInvalidDataException("Unknown Category: $value")
                 }
@@ -37274,226 +37473,6 @@ private constructor(
         }
 
         /**
-         * An Outbound Card Push Transfer Acceptance object. This field will be present in the JSON
-         * response if and only if `category` is equal to `outbound_card_push_transfer_acceptance`.
-         * An Outbound Card Push Transfer Acceptance is created when an Outbound Card Push Transfer
-         * sent from Increase is accepted by the receiving bank.
-         */
-        class OutboundCardPushTransferAcceptance
-        private constructor(
-            private val amount: JsonField<Long>,
-            private val transferId: JsonField<String>,
-            private val additionalProperties: MutableMap<String, JsonValue>,
-        ) {
-
-            @JsonCreator
-            private constructor(
-                @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
-                @JsonProperty("transfer_id")
-                @ExcludeMissing
-                transferId: JsonField<String> = JsonMissing.of(),
-            ) : this(amount, transferId, mutableMapOf())
-
-            /**
-             * The transfer amount in USD cents.
-             *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
-             */
-            fun amount(): Long = amount.getRequired("amount")
-
-            /**
-             * The identifier of the Outbound Card Push Transfer that led to this Transaction.
-             *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
-             */
-            fun transferId(): String = transferId.getRequired("transfer_id")
-
-            /**
-             * Returns the raw JSON value of [amount].
-             *
-             * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
-
-            /**
-             * Returns the raw JSON value of [transferId].
-             *
-             * Unlike [transferId], this method doesn't throw if the JSON field has an unexpected
-             * type.
-             */
-            @JsonProperty("transfer_id")
-            @ExcludeMissing
-            fun _transferId(): JsonField<String> = transferId
-
-            @JsonAnySetter
-            private fun putAdditionalProperty(key: String, value: JsonValue) {
-                additionalProperties.put(key, value)
-            }
-
-            @JsonAnyGetter
-            @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> =
-                Collections.unmodifiableMap(additionalProperties)
-
-            fun toBuilder() = Builder().from(this)
-
-            companion object {
-
-                /**
-                 * Returns a mutable builder for constructing an instance of
-                 * [OutboundCardPushTransferAcceptance].
-                 *
-                 * The following fields are required:
-                 * ```java
-                 * .amount()
-                 * .transferId()
-                 * ```
-                 */
-                @JvmStatic fun builder() = Builder()
-            }
-
-            /** A builder for [OutboundCardPushTransferAcceptance]. */
-            class Builder internal constructor() {
-
-                private var amount: JsonField<Long>? = null
-                private var transferId: JsonField<String>? = null
-                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                @JvmSynthetic
-                internal fun from(
-                    outboundCardPushTransferAcceptance: OutboundCardPushTransferAcceptance
-                ) = apply {
-                    amount = outboundCardPushTransferAcceptance.amount
-                    transferId = outboundCardPushTransferAcceptance.transferId
-                    additionalProperties =
-                        outboundCardPushTransferAcceptance.additionalProperties.toMutableMap()
-                }
-
-                /** The transfer amount in USD cents. */
-                fun amount(amount: Long) = amount(JsonField.of(amount))
-
-                /**
-                 * Sets [Builder.amount] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.amount] with a well-typed [Long] value instead.
-                 * This method is primarily for setting the field to an undocumented or not yet
-                 * supported value.
-                 */
-                fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
-
-                /**
-                 * The identifier of the Outbound Card Push Transfer that led to this Transaction.
-                 */
-                fun transferId(transferId: String) = transferId(JsonField.of(transferId))
-
-                /**
-                 * Sets [Builder.transferId] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.transferId] with a well-typed [String] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun transferId(transferId: JsonField<String>) = apply {
-                    this.transferId = transferId
-                }
-
-                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                    this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
-                }
-
-                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    additionalProperties.put(key, value)
-                }
-
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                    apply {
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
-
-                fun removeAdditionalProperty(key: String) = apply {
-                    additionalProperties.remove(key)
-                }
-
-                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
-
-                /**
-                 * Returns an immutable instance of [OutboundCardPushTransferAcceptance].
-                 *
-                 * Further updates to this [Builder] will not mutate the returned instance.
-                 *
-                 * The following fields are required:
-                 * ```java
-                 * .amount()
-                 * .transferId()
-                 * ```
-                 *
-                 * @throws IllegalStateException if any required field is unset.
-                 */
-                fun build(): OutboundCardPushTransferAcceptance =
-                    OutboundCardPushTransferAcceptance(
-                        checkRequired("amount", amount),
-                        checkRequired("transferId", transferId),
-                        additionalProperties.toMutableMap(),
-                    )
-            }
-
-            private var validated: Boolean = false
-
-            fun validate(): OutboundCardPushTransferAcceptance = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                amount()
-                transferId()
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: IncreaseInvalidDataException) {
-                    false
-                }
-
-            /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
-             *
-             * Used for best match union deserialization.
-             */
-            @JvmSynthetic
-            internal fun validity(): Int =
-                (if (amount.asKnown().isPresent) 1 else 0) +
-                    (if (transferId.asKnown().isPresent) 1 else 0)
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return /* spotless:off */ other is OutboundCardPushTransferAcceptance && amount == other.amount && transferId == other.transferId && additionalProperties == other.additionalProperties /* spotless:on */
-            }
-
-            /* spotless:off */
-            private val hashCode: Int by lazy { Objects.hash(amount, transferId, additionalProperties) }
-            /* spotless:on */
-
-            override fun hashCode(): Int = hashCode
-
-            override fun toString() =
-                "OutboundCardPushTransferAcceptance{amount=$amount, transferId=$transferId, additionalProperties=$additionalProperties}"
-        }
-
-        /**
          * A Real-Time Payments Transfer Acknowledgement object. This field will be present in the
          * JSON response if and only if `category` is equal to
          * `real_time_payments_transfer_acknowledgement`. A Real-Time Payments Transfer
@@ -38575,17 +38554,17 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Source && accountTransferIntention == other.accountTransferIntention && achTransferIntention == other.achTransferIntention && achTransferRejection == other.achTransferRejection && achTransferReturn == other.achTransferReturn && cardDisputeAcceptance == other.cardDisputeAcceptance && cardDisputeLoss == other.cardDisputeLoss && cardRefund == other.cardRefund && cardRevenuePayment == other.cardRevenuePayment && cardSettlement == other.cardSettlement && cashbackPayment == other.cashbackPayment && category == other.category && checkDepositAcceptance == other.checkDepositAcceptance && checkDepositReturn == other.checkDepositReturn && checkTransferDeposit == other.checkTransferDeposit && feePayment == other.feePayment && inboundAchTransfer == other.inboundAchTransfer && inboundAchTransferReturnIntention == other.inboundAchTransferReturnIntention && inboundCheckAdjustment == other.inboundCheckAdjustment && inboundCheckDepositReturnIntention == other.inboundCheckDepositReturnIntention && inboundRealTimePaymentsTransferConfirmation == other.inboundRealTimePaymentsTransferConfirmation && inboundRealTimePaymentsTransferDecline == other.inboundRealTimePaymentsTransferDecline && inboundWireReversal == other.inboundWireReversal && inboundWireTransfer == other.inboundWireTransfer && inboundWireTransferReversal == other.inboundWireTransferReversal && interestPayment == other.interestPayment && internalSource == other.internalSource && this.other == other.other && outboundCardPushTransferAcceptance == other.outboundCardPushTransferAcceptance && realTimePaymentsTransferAcknowledgement == other.realTimePaymentsTransferAcknowledgement && sampleFunds == other.sampleFunds && swiftTransferIntention == other.swiftTransferIntention && wireTransferIntention == other.wireTransferIntention && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Source && accountTransferIntention == other.accountTransferIntention && achTransferIntention == other.achTransferIntention && achTransferRejection == other.achTransferRejection && achTransferReturn == other.achTransferReturn && cardDisputeAcceptance == other.cardDisputeAcceptance && cardDisputeLoss == other.cardDisputeLoss && cardPushTransferAcceptance == other.cardPushTransferAcceptance && cardRefund == other.cardRefund && cardRevenuePayment == other.cardRevenuePayment && cardSettlement == other.cardSettlement && cashbackPayment == other.cashbackPayment && category == other.category && checkDepositAcceptance == other.checkDepositAcceptance && checkDepositReturn == other.checkDepositReturn && checkTransferDeposit == other.checkTransferDeposit && feePayment == other.feePayment && inboundAchTransfer == other.inboundAchTransfer && inboundAchTransferReturnIntention == other.inboundAchTransferReturnIntention && inboundCheckAdjustment == other.inboundCheckAdjustment && inboundCheckDepositReturnIntention == other.inboundCheckDepositReturnIntention && inboundRealTimePaymentsTransferConfirmation == other.inboundRealTimePaymentsTransferConfirmation && inboundRealTimePaymentsTransferDecline == other.inboundRealTimePaymentsTransferDecline && inboundWireReversal == other.inboundWireReversal && inboundWireTransfer == other.inboundWireTransfer && inboundWireTransferReversal == other.inboundWireTransferReversal && interestPayment == other.interestPayment && internalSource == other.internalSource && this.other == other.other && realTimePaymentsTransferAcknowledgement == other.realTimePaymentsTransferAcknowledgement && sampleFunds == other.sampleFunds && swiftTransferIntention == other.swiftTransferIntention && wireTransferIntention == other.wireTransferIntention && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(accountTransferIntention, achTransferIntention, achTransferRejection, achTransferReturn, cardDisputeAcceptance, cardDisputeLoss, cardRefund, cardRevenuePayment, cardSettlement, cashbackPayment, category, checkDepositAcceptance, checkDepositReturn, checkTransferDeposit, feePayment, inboundAchTransfer, inboundAchTransferReturnIntention, inboundCheckAdjustment, inboundCheckDepositReturnIntention, inboundRealTimePaymentsTransferConfirmation, inboundRealTimePaymentsTransferDecline, inboundWireReversal, inboundWireTransfer, inboundWireTransferReversal, interestPayment, internalSource, other, outboundCardPushTransferAcceptance, realTimePaymentsTransferAcknowledgement, sampleFunds, swiftTransferIntention, wireTransferIntention, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(accountTransferIntention, achTransferIntention, achTransferRejection, achTransferReturn, cardDisputeAcceptance, cardDisputeLoss, cardPushTransferAcceptance, cardRefund, cardRevenuePayment, cardSettlement, cashbackPayment, category, checkDepositAcceptance, checkDepositReturn, checkTransferDeposit, feePayment, inboundAchTransfer, inboundAchTransferReturnIntention, inboundCheckAdjustment, inboundCheckDepositReturnIntention, inboundRealTimePaymentsTransferConfirmation, inboundRealTimePaymentsTransferDecline, inboundWireReversal, inboundWireTransfer, inboundWireTransferReversal, interestPayment, internalSource, other, realTimePaymentsTransferAcknowledgement, sampleFunds, swiftTransferIntention, wireTransferIntention, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Source{accountTransferIntention=$accountTransferIntention, achTransferIntention=$achTransferIntention, achTransferRejection=$achTransferRejection, achTransferReturn=$achTransferReturn, cardDisputeAcceptance=$cardDisputeAcceptance, cardDisputeLoss=$cardDisputeLoss, cardRefund=$cardRefund, cardRevenuePayment=$cardRevenuePayment, cardSettlement=$cardSettlement, cashbackPayment=$cashbackPayment, category=$category, checkDepositAcceptance=$checkDepositAcceptance, checkDepositReturn=$checkDepositReturn, checkTransferDeposit=$checkTransferDeposit, feePayment=$feePayment, inboundAchTransfer=$inboundAchTransfer, inboundAchTransferReturnIntention=$inboundAchTransferReturnIntention, inboundCheckAdjustment=$inboundCheckAdjustment, inboundCheckDepositReturnIntention=$inboundCheckDepositReturnIntention, inboundRealTimePaymentsTransferConfirmation=$inboundRealTimePaymentsTransferConfirmation, inboundRealTimePaymentsTransferDecline=$inboundRealTimePaymentsTransferDecline, inboundWireReversal=$inboundWireReversal, inboundWireTransfer=$inboundWireTransfer, inboundWireTransferReversal=$inboundWireTransferReversal, interestPayment=$interestPayment, internalSource=$internalSource, other=$other, outboundCardPushTransferAcceptance=$outboundCardPushTransferAcceptance, realTimePaymentsTransferAcknowledgement=$realTimePaymentsTransferAcknowledgement, sampleFunds=$sampleFunds, swiftTransferIntention=$swiftTransferIntention, wireTransferIntention=$wireTransferIntention, additionalProperties=$additionalProperties}"
+            "Source{accountTransferIntention=$accountTransferIntention, achTransferIntention=$achTransferIntention, achTransferRejection=$achTransferRejection, achTransferReturn=$achTransferReturn, cardDisputeAcceptance=$cardDisputeAcceptance, cardDisputeLoss=$cardDisputeLoss, cardPushTransferAcceptance=$cardPushTransferAcceptance, cardRefund=$cardRefund, cardRevenuePayment=$cardRevenuePayment, cardSettlement=$cardSettlement, cashbackPayment=$cashbackPayment, category=$category, checkDepositAcceptance=$checkDepositAcceptance, checkDepositReturn=$checkDepositReturn, checkTransferDeposit=$checkTransferDeposit, feePayment=$feePayment, inboundAchTransfer=$inboundAchTransfer, inboundAchTransferReturnIntention=$inboundAchTransferReturnIntention, inboundCheckAdjustment=$inboundCheckAdjustment, inboundCheckDepositReturnIntention=$inboundCheckDepositReturnIntention, inboundRealTimePaymentsTransferConfirmation=$inboundRealTimePaymentsTransferConfirmation, inboundRealTimePaymentsTransferDecline=$inboundRealTimePaymentsTransferDecline, inboundWireReversal=$inboundWireReversal, inboundWireTransfer=$inboundWireTransfer, inboundWireTransferReversal=$inboundWireTransferReversal, interestPayment=$interestPayment, internalSource=$internalSource, other=$other, realTimePaymentsTransferAcknowledgement=$realTimePaymentsTransferAcknowledgement, sampleFunds=$sampleFunds, swiftTransferIntention=$swiftTransferIntention, wireTransferIntention=$wireTransferIntention, additionalProperties=$additionalProperties}"
     }
 
     /**
