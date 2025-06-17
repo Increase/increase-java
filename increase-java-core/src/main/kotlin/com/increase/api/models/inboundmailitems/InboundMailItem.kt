@@ -11,7 +11,9 @@ import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
+import com.increase.api.core.checkKnown
 import com.increase.api.core.checkRequired
+import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Collections
@@ -23,6 +25,7 @@ import kotlin.jvm.optionals.getOrNull
 class InboundMailItem
 private constructor(
     private val id: JsonField<String>,
+    private val checks: JsonField<List<Check>>,
     private val createdAt: JsonField<OffsetDateTime>,
     private val fileId: JsonField<String>,
     private val lockboxId: JsonField<String>,
@@ -36,6 +39,7 @@ private constructor(
     @JsonCreator
     private constructor(
         @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("checks") @ExcludeMissing checks: JsonField<List<Check>> = JsonMissing.of(),
         @JsonProperty("created_at")
         @ExcludeMissing
         createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
@@ -51,6 +55,7 @@ private constructor(
         @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
     ) : this(
         id,
+        checks,
         createdAt,
         fileId,
         lockboxId,
@@ -68,6 +73,14 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun id(): String = id.getRequired("id")
+
+    /**
+     * The checks in the mail item.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun checks(): List<Check> = checks.getRequired("checks")
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Inbound Mail Item
@@ -135,6 +148,13 @@ private constructor(
      * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+
+    /**
+     * Returns the raw JSON value of [checks].
+     *
+     * Unlike [checks], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("checks") @ExcludeMissing fun _checks(): JsonField<List<Check>> = checks
 
     /**
      * Returns the raw JSON value of [createdAt].
@@ -211,6 +231,7 @@ private constructor(
          * The following fields are required:
          * ```java
          * .id()
+         * .checks()
          * .createdAt()
          * .fileId()
          * .lockboxId()
@@ -227,6 +248,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var id: JsonField<String>? = null
+        private var checks: JsonField<MutableList<Check>>? = null
         private var createdAt: JsonField<OffsetDateTime>? = null
         private var fileId: JsonField<String>? = null
         private var lockboxId: JsonField<String>? = null
@@ -239,6 +261,7 @@ private constructor(
         @JvmSynthetic
         internal fun from(inboundMailItem: InboundMailItem) = apply {
             id = inboundMailItem.id
+            checks = inboundMailItem.checks.map { it.toMutableList() }
             createdAt = inboundMailItem.createdAt
             fileId = inboundMailItem.fileId
             lockboxId = inboundMailItem.lockboxId
@@ -259,6 +282,32 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun id(id: JsonField<String>) = apply { this.id = id }
+
+        /** The checks in the mail item. */
+        fun checks(checks: List<Check>) = checks(JsonField.of(checks))
+
+        /**
+         * Sets [Builder.checks] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.checks] with a well-typed `List<Check>` value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun checks(checks: JsonField<List<Check>>) = apply {
+            this.checks = checks.map { it.toMutableList() }
+        }
+
+        /**
+         * Adds a single [Check] to [checks].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addCheck(check: Check) = apply {
+            checks =
+                (checks ?: JsonField.of(mutableListOf())).also {
+                    checkKnown("checks", it).add(check)
+                }
+        }
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Inbound Mail
@@ -394,6 +443,7 @@ private constructor(
          * The following fields are required:
          * ```java
          * .id()
+         * .checks()
          * .createdAt()
          * .fileId()
          * .lockboxId()
@@ -408,6 +458,7 @@ private constructor(
         fun build(): InboundMailItem =
             InboundMailItem(
                 checkRequired("id", id),
+                checkRequired("checks", checks).map { it.toImmutable() },
                 checkRequired("createdAt", createdAt),
                 checkRequired("fileId", fileId),
                 checkRequired("lockboxId", lockboxId),
@@ -427,6 +478,7 @@ private constructor(
         }
 
         id()
+        checks().forEach { it.validate() }
         createdAt()
         fileId()
         lockboxId()
@@ -453,6 +505,7 @@ private constructor(
     @JvmSynthetic
     internal fun validity(): Int =
         (if (id.asKnown().isPresent) 1 else 0) +
+            (checks.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
             (if (fileId.asKnown().isPresent) 1 else 0) +
             (if (lockboxId.asKnown().isPresent) 1 else 0) +
@@ -460,6 +513,255 @@ private constructor(
             (rejectionReason.asKnown().getOrNull()?.validity() ?: 0) +
             (status.asKnown().getOrNull()?.validity() ?: 0) +
             (type.asKnown().getOrNull()?.validity() ?: 0)
+
+    /** Inbound Mail Item Checks represent the checks in an Inbound Mail Item. */
+    class Check
+    private constructor(
+        private val amount: JsonField<Long>,
+        private val backFileId: JsonField<String>,
+        private val frontFileId: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("back_file_id")
+            @ExcludeMissing
+            backFileId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("front_file_id")
+            @ExcludeMissing
+            frontFileId: JsonField<String> = JsonMissing.of(),
+        ) : this(amount, backFileId, frontFileId, mutableMapOf())
+
+        /**
+         * The amount of the check.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun amount(): Long = amount.getRequired("amount")
+
+        /**
+         * The identifier for the File containing the back of the check.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun backFileId(): Optional<String> = backFileId.getOptional("back_file_id")
+
+        /**
+         * The identifier for the File containing the front of the check.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun frontFileId(): Optional<String> = frontFileId.getOptional("front_file_id")
+
+        /**
+         * Returns the raw JSON value of [amount].
+         *
+         * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
+
+        /**
+         * Returns the raw JSON value of [backFileId].
+         *
+         * Unlike [backFileId], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("back_file_id")
+        @ExcludeMissing
+        fun _backFileId(): JsonField<String> = backFileId
+
+        /**
+         * Returns the raw JSON value of [frontFileId].
+         *
+         * Unlike [frontFileId], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("front_file_id")
+        @ExcludeMissing
+        fun _frontFileId(): JsonField<String> = frontFileId
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [Check].
+             *
+             * The following fields are required:
+             * ```java
+             * .amount()
+             * .backFileId()
+             * .frontFileId()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Check]. */
+        class Builder internal constructor() {
+
+            private var amount: JsonField<Long>? = null
+            private var backFileId: JsonField<String>? = null
+            private var frontFileId: JsonField<String>? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(check: Check) = apply {
+                amount = check.amount
+                backFileId = check.backFileId
+                frontFileId = check.frontFileId
+                additionalProperties = check.additionalProperties.toMutableMap()
+            }
+
+            /** The amount of the check. */
+            fun amount(amount: Long) = amount(JsonField.of(amount))
+
+            /**
+             * Sets [Builder.amount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+
+            /** The identifier for the File containing the back of the check. */
+            fun backFileId(backFileId: String?) = backFileId(JsonField.ofNullable(backFileId))
+
+            /** Alias for calling [Builder.backFileId] with `backFileId.orElse(null)`. */
+            fun backFileId(backFileId: Optional<String>) = backFileId(backFileId.getOrNull())
+
+            /**
+             * Sets [Builder.backFileId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.backFileId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun backFileId(backFileId: JsonField<String>) = apply { this.backFileId = backFileId }
+
+            /** The identifier for the File containing the front of the check. */
+            fun frontFileId(frontFileId: String?) = frontFileId(JsonField.ofNullable(frontFileId))
+
+            /** Alias for calling [Builder.frontFileId] with `frontFileId.orElse(null)`. */
+            fun frontFileId(frontFileId: Optional<String>) = frontFileId(frontFileId.getOrNull())
+
+            /**
+             * Sets [Builder.frontFileId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.frontFileId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun frontFileId(frontFileId: JsonField<String>) = apply {
+                this.frontFileId = frontFileId
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Check].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .amount()
+             * .backFileId()
+             * .frontFileId()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): Check =
+                Check(
+                    checkRequired("amount", amount),
+                    checkRequired("backFileId", backFileId),
+                    checkRequired("frontFileId", frontFileId),
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Check = apply {
+            if (validated) {
+                return@apply
+            }
+
+            amount()
+            backFileId()
+            frontFileId()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (amount.asKnown().isPresent) 1 else 0) +
+                (if (backFileId.asKnown().isPresent) 1 else 0) +
+                (if (frontFileId.asKnown().isPresent) 1 else 0)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is Check && amount == other.amount && backFileId == other.backFileId && frontFileId == other.frontFileId && additionalProperties == other.additionalProperties /* spotless:on */
+        }
+
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(amount, backFileId, frontFileId, additionalProperties) }
+        /* spotless:on */
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Check{amount=$amount, backFileId=$backFileId, frontFileId=$frontFileId, additionalProperties=$additionalProperties}"
+    }
 
     /** If the mail item has been rejected, why it was rejected. */
     class RejectionReason @JsonCreator private constructor(private val value: JsonField<String>) :
@@ -881,15 +1183,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is InboundMailItem && id == other.id && createdAt == other.createdAt && fileId == other.fileId && lockboxId == other.lockboxId && recipientName == other.recipientName && rejectionReason == other.rejectionReason && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is InboundMailItem && id == other.id && checks == other.checks && createdAt == other.createdAt && fileId == other.fileId && lockboxId == other.lockboxId && recipientName == other.recipientName && rejectionReason == other.rejectionReason && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, createdAt, fileId, lockboxId, recipientName, rejectionReason, status, type, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, checks, createdAt, fileId, lockboxId, recipientName, rejectionReason, status, type, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "InboundMailItem{id=$id, createdAt=$createdAt, fileId=$fileId, lockboxId=$lockboxId, recipientName=$recipientName, rejectionReason=$rejectionReason, status=$status, type=$type, additionalProperties=$additionalProperties}"
+        "InboundMailItem{id=$id, checks=$checks, createdAt=$createdAt, fileId=$fileId, lockboxId=$lockboxId, recipientName=$recipientName, rejectionReason=$rejectionReason, status=$status, type=$type, additionalProperties=$additionalProperties}"
 }
