@@ -12,9 +12,11 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.Params
+import com.increase.api.core.checkKnown
 import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
+import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Collections
 import java.util.Objects
@@ -1124,6 +1126,7 @@ private constructor(
         private val recipientName: JsonField<String>,
         private val attachmentFileId: JsonField<String>,
         private val note: JsonField<String>,
+        private val payee: JsonField<List<Payee>>,
         private val returnAddress: JsonField<ReturnAddress>,
         private val shippingMethod: JsonField<ShippingMethod>,
         private val signatureText: JsonField<String>,
@@ -1143,6 +1146,7 @@ private constructor(
             @ExcludeMissing
             attachmentFileId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("note") @ExcludeMissing note: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("payee") @ExcludeMissing payee: JsonField<List<Payee>> = JsonMissing.of(),
             @JsonProperty("return_address")
             @ExcludeMissing
             returnAddress: JsonField<ReturnAddress> = JsonMissing.of(),
@@ -1158,6 +1162,7 @@ private constructor(
             recipientName,
             attachmentFileId,
             note,
+            payee,
             returnAddress,
             shippingMethod,
             signatureText,
@@ -1206,6 +1211,15 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun note(): Optional<String> = note.getOptional("note")
+
+        /**
+         * The payee of the check. This will be printed on the top-left portion of the check and
+         * defaults to the return address if unspecified.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun payee(): Optional<List<Payee>> = payee.getOptional("payee")
 
         /**
          * The return address to be printed on the check. If omitted this will default to an
@@ -1280,6 +1294,13 @@ private constructor(
         @JsonProperty("note") @ExcludeMissing fun _note(): JsonField<String> = note
 
         /**
+         * Returns the raw JSON value of [payee].
+         *
+         * Unlike [payee], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("payee") @ExcludeMissing fun _payee(): JsonField<List<Payee>> = payee
+
+        /**
          * Returns the raw JSON value of [returnAddress].
          *
          * Unlike [returnAddress], this method doesn't throw if the JSON field has an unexpected
@@ -1344,6 +1365,7 @@ private constructor(
             private var recipientName: JsonField<String>? = null
             private var attachmentFileId: JsonField<String> = JsonMissing.of()
             private var note: JsonField<String> = JsonMissing.of()
+            private var payee: JsonField<MutableList<Payee>>? = null
             private var returnAddress: JsonField<ReturnAddress> = JsonMissing.of()
             private var shippingMethod: JsonField<ShippingMethod> = JsonMissing.of()
             private var signatureText: JsonField<String> = JsonMissing.of()
@@ -1356,6 +1378,7 @@ private constructor(
                 recipientName = physicalCheck.recipientName
                 attachmentFileId = physicalCheck.attachmentFileId
                 note = physicalCheck.note
+                payee = physicalCheck.payee.map { it.toMutableList() }
                 returnAddress = physicalCheck.returnAddress
                 shippingMethod = physicalCheck.shippingMethod
                 signatureText = physicalCheck.signatureText
@@ -1433,6 +1456,35 @@ private constructor(
              * value.
              */
             fun note(note: JsonField<String>) = apply { this.note = note }
+
+            /**
+             * The payee of the check. This will be printed on the top-left portion of the check and
+             * defaults to the return address if unspecified.
+             */
+            fun payee(payee: List<Payee>) = payee(JsonField.of(payee))
+
+            /**
+             * Sets [Builder.payee] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.payee] with a well-typed `List<Payee>` value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun payee(payee: JsonField<List<Payee>>) = apply {
+                this.payee = payee.map { it.toMutableList() }
+            }
+
+            /**
+             * Adds a single [Payee] to [Builder.payee].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
+            fun addPayee(payee: Payee) = apply {
+                this.payee =
+                    (this.payee ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("payee", it).add(payee)
+                    }
+            }
 
             /**
              * The return address to be printed on the check. If omitted this will default to an
@@ -1527,6 +1579,7 @@ private constructor(
                     checkRequired("recipientName", recipientName),
                     attachmentFileId,
                     note,
+                    (payee ?: JsonMissing.of()).map { it.toImmutable() },
                     returnAddress,
                     shippingMethod,
                     signatureText,
@@ -1546,6 +1599,7 @@ private constructor(
             recipientName()
             attachmentFileId()
             note()
+            payee().ifPresent { it.forEach { it.validate() } }
             returnAddress().ifPresent { it.validate() }
             shippingMethod().ifPresent { it.validate() }
             signatureText()
@@ -1573,6 +1627,7 @@ private constructor(
                 (if (recipientName.asKnown().isPresent) 1 else 0) +
                 (if (attachmentFileId.asKnown().isPresent) 1 else 0) +
                 (if (note.asKnown().isPresent) 1 else 0) +
+                (payee.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
                 (returnAddress.asKnown().getOrNull()?.validity() ?: 0) +
                 (shippingMethod.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (signatureText.asKnown().isPresent) 1 else 0)
@@ -1892,6 +1947,169 @@ private constructor(
 
             override fun toString() =
                 "MailingAddress{city=$city, line1=$line1, postalCode=$postalCode, state=$state, line2=$line2, additionalProperties=$additionalProperties}"
+        }
+
+        class Payee
+        private constructor(
+            private val contents: JsonField<String>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("contents")
+                @ExcludeMissing
+                contents: JsonField<String> = JsonMissing.of()
+            ) : this(contents, mutableMapOf())
+
+            /**
+             * The contents of the line.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun contents(): String = contents.getRequired("contents")
+
+            /**
+             * Returns the raw JSON value of [contents].
+             *
+             * Unlike [contents], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("contents") @ExcludeMissing fun _contents(): JsonField<String> = contents
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of [Payee].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .contents()
+                 * ```
+                 */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [Payee]. */
+            class Builder internal constructor() {
+
+                private var contents: JsonField<String>? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(payee: Payee) = apply {
+                    contents = payee.contents
+                    additionalProperties = payee.additionalProperties.toMutableMap()
+                }
+
+                /** The contents of the line. */
+                fun contents(contents: String) = contents(JsonField.of(contents))
+
+                /**
+                 * Sets [Builder.contents] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.contents] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun contents(contents: JsonField<String>) = apply { this.contents = contents }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [Payee].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .contents()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
+                fun build(): Payee =
+                    Payee(checkRequired("contents", contents), additionalProperties.toMutableMap())
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): Payee = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                contents()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int = (if (contents.asKnown().isPresent) 1 else 0)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return /* spotless:off */ other is Payee && contents == other.contents && additionalProperties == other.additionalProperties /* spotless:on */
+            }
+
+            /* spotless:off */
+            private val hashCode: Int by lazy { Objects.hash(contents, additionalProperties) }
+            /* spotless:on */
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "Payee{contents=$contents, additionalProperties=$additionalProperties}"
         }
 
         /**
@@ -2398,17 +2616,17 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is PhysicalCheck && mailingAddress == other.mailingAddress && memo == other.memo && recipientName == other.recipientName && attachmentFileId == other.attachmentFileId && note == other.note && returnAddress == other.returnAddress && shippingMethod == other.shippingMethod && signatureText == other.signatureText && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is PhysicalCheck && mailingAddress == other.mailingAddress && memo == other.memo && recipientName == other.recipientName && attachmentFileId == other.attachmentFileId && note == other.note && payee == other.payee && returnAddress == other.returnAddress && shippingMethod == other.shippingMethod && signatureText == other.signatureText && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(mailingAddress, memo, recipientName, attachmentFileId, note, returnAddress, shippingMethod, signatureText, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(mailingAddress, memo, recipientName, attachmentFileId, note, payee, returnAddress, shippingMethod, signatureText, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "PhysicalCheck{mailingAddress=$mailingAddress, memo=$memo, recipientName=$recipientName, attachmentFileId=$attachmentFileId, note=$note, returnAddress=$returnAddress, shippingMethod=$shippingMethod, signatureText=$signatureText, additionalProperties=$additionalProperties}"
+            "PhysicalCheck{mailingAddress=$mailingAddress, memo=$memo, recipientName=$recipientName, attachmentFileId=$attachmentFileId, note=$note, payee=$payee, returnAddress=$returnAddress, shippingMethod=$shippingMethod, signatureText=$signatureText, additionalProperties=$additionalProperties}"
     }
 
     /**

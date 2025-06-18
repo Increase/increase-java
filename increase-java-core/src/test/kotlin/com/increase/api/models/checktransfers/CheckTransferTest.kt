@@ -75,6 +75,19 @@ internal class CheckTransferTest {
                         )
                         .memo("Invoice 29582")
                         .note(null)
+                        .payee(
+                            listOf(
+                                CheckTransfer.PhysicalCheck.Payee.builder()
+                                    .contents("Ian Crease")
+                                    .build(),
+                                CheckTransfer.PhysicalCheck.Payee.builder()
+                                    .contents("33 Liberty Street")
+                                    .build(),
+                                CheckTransfer.PhysicalCheck.Payee.builder()
+                                    .contents("New York, NY 10045")
+                                    .build(),
+                            )
+                        )
                         .recipientName("Ian Crease")
                         .returnAddress(
                             CheckTransfer.PhysicalCheck.ReturnAddress.builder()
@@ -203,6 +216,19 @@ internal class CheckTransferTest {
                     )
                     .memo("Invoice 29582")
                     .note(null)
+                    .payee(
+                        listOf(
+                            CheckTransfer.PhysicalCheck.Payee.builder()
+                                .contents("Ian Crease")
+                                .build(),
+                            CheckTransfer.PhysicalCheck.Payee.builder()
+                                .contents("33 Liberty Street")
+                                .build(),
+                            CheckTransfer.PhysicalCheck.Payee.builder()
+                                .contents("New York, NY 10045")
+                                .build(),
+                        )
+                    )
                     .recipientName("Ian Crease")
                     .returnAddress(
                         CheckTransfer.PhysicalCheck.ReturnAddress.builder()
@@ -330,6 +356,19 @@ internal class CheckTransferTest {
                         )
                         .memo("Invoice 29582")
                         .note(null)
+                        .payee(
+                            listOf(
+                                CheckTransfer.PhysicalCheck.Payee.builder()
+                                    .contents("Ian Crease")
+                                    .build(),
+                                CheckTransfer.PhysicalCheck.Payee.builder()
+                                    .contents("33 Liberty Street")
+                                    .build(),
+                                CheckTransfer.PhysicalCheck.Payee.builder()
+                                    .contents("New York, NY 10045")
+                                    .build(),
+                            )
+                        )
                         .recipientName("Ian Crease")
                         .returnAddress(
                             CheckTransfer.PhysicalCheck.ReturnAddress.builder()

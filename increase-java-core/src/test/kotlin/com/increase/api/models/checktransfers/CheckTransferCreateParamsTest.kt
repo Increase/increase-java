@@ -30,6 +30,11 @@ internal class CheckTransferCreateParamsTest {
                     .recipientName("Ian Crease")
                     .attachmentFileId("attachment_file_id")
                     .note("x")
+                    .addPayee(
+                        CheckTransferCreateParams.PhysicalCheck.Payee.builder()
+                            .contents("x")
+                            .build()
+                    )
                     .returnAddress(
                         CheckTransferCreateParams.PhysicalCheck.ReturnAddress.builder()
                             .city("x")
@@ -75,6 +80,11 @@ internal class CheckTransferCreateParamsTest {
                         .recipientName("Ian Crease")
                         .attachmentFileId("attachment_file_id")
                         .note("x")
+                        .addPayee(
+                            CheckTransferCreateParams.PhysicalCheck.Payee.builder()
+                                .contents("x")
+                                .build()
+                        )
                         .returnAddress(
                             CheckTransferCreateParams.PhysicalCheck.ReturnAddress.builder()
                                 .city("x")
@@ -121,6 +131,11 @@ internal class CheckTransferCreateParamsTest {
                     .recipientName("Ian Crease")
                     .attachmentFileId("attachment_file_id")
                     .note("x")
+                    .addPayee(
+                        CheckTransferCreateParams.PhysicalCheck.Payee.builder()
+                            .contents("x")
+                            .build()
+                    )
                     .returnAddress(
                         CheckTransferCreateParams.PhysicalCheck.ReturnAddress.builder()
                             .city("x")
