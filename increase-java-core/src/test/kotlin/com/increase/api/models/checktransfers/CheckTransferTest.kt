@@ -75,15 +75,15 @@ internal class CheckTransferTest {
                         )
                         .memo("Invoice 29582")
                         .note(null)
-                        .payee(
+                        .payer(
                             listOf(
-                                CheckTransfer.PhysicalCheck.Payee.builder()
+                                CheckTransfer.PhysicalCheck.Payer.builder()
                                     .contents("Ian Crease")
                                     .build(),
-                                CheckTransfer.PhysicalCheck.Payee.builder()
+                                CheckTransfer.PhysicalCheck.Payer.builder()
                                     .contents("33 Liberty Street")
                                     .build(),
-                                CheckTransfer.PhysicalCheck.Payee.builder()
+                                CheckTransfer.PhysicalCheck.Payer.builder()
                                     .contents("New York, NY 10045")
                                     .build(),
                             )
@@ -216,15 +216,15 @@ internal class CheckTransferTest {
                     )
                     .memo("Invoice 29582")
                     .note(null)
-                    .payee(
+                    .payer(
                         listOf(
-                            CheckTransfer.PhysicalCheck.Payee.builder()
+                            CheckTransfer.PhysicalCheck.Payer.builder()
                                 .contents("Ian Crease")
                                 .build(),
-                            CheckTransfer.PhysicalCheck.Payee.builder()
+                            CheckTransfer.PhysicalCheck.Payer.builder()
                                 .contents("33 Liberty Street")
                                 .build(),
-                            CheckTransfer.PhysicalCheck.Payee.builder()
+                            CheckTransfer.PhysicalCheck.Payer.builder()
                                 .contents("New York, NY 10045")
                                 .build(),
                         )
@@ -356,15 +356,15 @@ internal class CheckTransferTest {
                         )
                         .memo("Invoice 29582")
                         .note(null)
-                        .payee(
+                        .payer(
                             listOf(
-                                CheckTransfer.PhysicalCheck.Payee.builder()
+                                CheckTransfer.PhysicalCheck.Payer.builder()
                                     .contents("Ian Crease")
                                     .build(),
-                                CheckTransfer.PhysicalCheck.Payee.builder()
+                                CheckTransfer.PhysicalCheck.Payer.builder()
                                     .contents("33 Liberty Street")
                                     .build(),
-                                CheckTransfer.PhysicalCheck.Payee.builder()
+                                CheckTransfer.PhysicalCheck.Payer.builder()
                                     .contents("New York, NY 10045")
                                     .build(),
                             )
