@@ -1214,7 +1214,8 @@ private constructor(
 
         /**
          * The payee of the check. This will be printed on the top-left portion of the check and
-         * defaults to the return address if unspecified.
+         * defaults to the return address if unspecified. This should be an array of up to 4
+         * elements, each of which represents a line of the payee.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -1459,7 +1460,8 @@ private constructor(
 
             /**
              * The payee of the check. This will be printed on the top-left portion of the check and
-             * defaults to the return address if unspecified.
+             * defaults to the return address if unspecified. This should be an array of up to 4
+             * elements, each of which represents a line of the payee.
              */
             fun payee(payee: List<Payee>) = payee(JsonField.of(payee))
 
