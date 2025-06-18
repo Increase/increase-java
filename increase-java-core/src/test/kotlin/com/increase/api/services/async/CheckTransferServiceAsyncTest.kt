@@ -44,8 +44,8 @@ internal class CheckTransferServiceAsyncTest {
                             .recipientName("Ian Crease")
                             .attachmentFileId("attachment_file_id")
                             .note("x")
-                            .addPayee(
-                                CheckTransferCreateParams.PhysicalCheck.Payee.builder()
+                            .addPayer(
+                                CheckTransferCreateParams.PhysicalCheck.Payer.builder()
                                     .contents("x")
                                     .build()
                             )
