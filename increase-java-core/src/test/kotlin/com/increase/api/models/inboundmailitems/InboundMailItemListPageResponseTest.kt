@@ -17,6 +17,20 @@ internal class InboundMailItemListPageResponseTest {
                 .addData(
                     InboundMailItem.builder()
                         .id("inbound_mail_item_q6rrg7mmqpplx80zceev")
+                        .addCheck(
+                            InboundMailItem.Check.builder()
+                                .amount(1750L)
+                                .backFileId("file_makxrc67oh9l6sg7w9yc")
+                                .frontFileId("file_makxrc67oh9l6sg7w9yc")
+                                .build()
+                        )
+                        .addCheck(
+                            InboundMailItem.Check.builder()
+                                .amount(1750L)
+                                .backFileId("file_makxrc67oh9l6sg7w9yc")
+                                .frontFileId("file_makxrc67oh9l6sg7w9yc")
+                                .build()
+                        )
                         .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                         .fileId("file_makxrc67oh9l6sg7w9yc")
                         .lockboxId("lockbox_3xt21ok13q19advds4t5")
@@ -33,6 +47,20 @@ internal class InboundMailItemListPageResponseTest {
             .containsExactly(
                 InboundMailItem.builder()
                     .id("inbound_mail_item_q6rrg7mmqpplx80zceev")
+                    .addCheck(
+                        InboundMailItem.Check.builder()
+                            .amount(1750L)
+                            .backFileId("file_makxrc67oh9l6sg7w9yc")
+                            .frontFileId("file_makxrc67oh9l6sg7w9yc")
+                            .build()
+                    )
+                    .addCheck(
+                        InboundMailItem.Check.builder()
+                            .amount(1750L)
+                            .backFileId("file_makxrc67oh9l6sg7w9yc")
+                            .frontFileId("file_makxrc67oh9l6sg7w9yc")
+                            .build()
+                    )
                     .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                     .fileId("file_makxrc67oh9l6sg7w9yc")
                     .lockboxId("lockbox_3xt21ok13q19advds4t5")
@@ -53,6 +81,20 @@ internal class InboundMailItemListPageResponseTest {
                 .addData(
                     InboundMailItem.builder()
                         .id("inbound_mail_item_q6rrg7mmqpplx80zceev")
+                        .addCheck(
+                            InboundMailItem.Check.builder()
+                                .amount(1750L)
+                                .backFileId("file_makxrc67oh9l6sg7w9yc")
+                                .frontFileId("file_makxrc67oh9l6sg7w9yc")
+                                .build()
+                        )
+                        .addCheck(
+                            InboundMailItem.Check.builder()
+                                .amount(1750L)
+                                .backFileId("file_makxrc67oh9l6sg7w9yc")
+                                .frontFileId("file_makxrc67oh9l6sg7w9yc")
+                                .build()
+                        )
                         .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                         .fileId("file_makxrc67oh9l6sg7w9yc")
                         .lockboxId("lockbox_3xt21ok13q19advds4t5")

@@ -985,6 +985,12 @@ private constructor(
             val REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT_UPDATED =
                 of("real_time_payments_request_for_payment.updated")
 
+            /** Occurs whenever a Swift Transfer is created. */
+            @JvmField val SWIFT_TRANSFER_CREATED = of("swift_transfer.created")
+
+            /** Occurs whenever a Swift Transfer is updated. */
+            @JvmField val SWIFT_TRANSFER_UPDATED = of("swift_transfer.updated")
+
             /** Occurs whenever a Transaction is created. */
             @JvmField val TRANSACTION_CREATED = of("transaction.created")
 
@@ -1199,6 +1205,10 @@ private constructor(
             REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT_CREATED,
             /** Occurs whenever a Real-Time Payments Request for Payment is updated. */
             REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT_UPDATED,
+            /** Occurs whenever a Swift Transfer is created. */
+            SWIFT_TRANSFER_CREATED,
+            /** Occurs whenever a Swift Transfer is updated. */
+            SWIFT_TRANSFER_UPDATED,
             /** Occurs whenever a Transaction is created. */
             TRANSACTION_CREATED,
             /** Occurs whenever a Wire Drawdown Request is created. */
@@ -1416,6 +1426,10 @@ private constructor(
             REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT_CREATED,
             /** Occurs whenever a Real-Time Payments Request for Payment is updated. */
             REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT_UPDATED,
+            /** Occurs whenever a Swift Transfer is created. */
+            SWIFT_TRANSFER_CREATED,
+            /** Occurs whenever a Swift Transfer is updated. */
+            SWIFT_TRANSFER_UPDATED,
             /** Occurs whenever a Transaction is created. */
             TRANSACTION_CREATED,
             /** Occurs whenever a Wire Drawdown Request is created. */
@@ -1542,6 +1556,8 @@ private constructor(
                     Value.REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT_CREATED
                 REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT_UPDATED ->
                     Value.REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT_UPDATED
+                SWIFT_TRANSFER_CREATED -> Value.SWIFT_TRANSFER_CREATED
+                SWIFT_TRANSFER_UPDATED -> Value.SWIFT_TRANSFER_UPDATED
                 TRANSACTION_CREATED -> Value.TRANSACTION_CREATED
                 WIRE_DRAWDOWN_REQUEST_CREATED -> Value.WIRE_DRAWDOWN_REQUEST_CREATED
                 WIRE_DRAWDOWN_REQUEST_UPDATED -> Value.WIRE_DRAWDOWN_REQUEST_UPDATED
@@ -1661,6 +1677,8 @@ private constructor(
                     Known.REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT_CREATED
                 REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT_UPDATED ->
                     Known.REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT_UPDATED
+                SWIFT_TRANSFER_CREATED -> Known.SWIFT_TRANSFER_CREATED
+                SWIFT_TRANSFER_UPDATED -> Known.SWIFT_TRANSFER_UPDATED
                 TRANSACTION_CREATED -> Known.TRANSACTION_CREATED
                 WIRE_DRAWDOWN_REQUEST_CREATED -> Known.WIRE_DRAWDOWN_REQUEST_CREATED
                 WIRE_DRAWDOWN_REQUEST_UPDATED -> Known.WIRE_DRAWDOWN_REQUEST_UPDATED
