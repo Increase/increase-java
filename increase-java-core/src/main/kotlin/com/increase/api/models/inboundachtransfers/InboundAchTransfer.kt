@@ -339,10 +339,10 @@ private constructor(
      * A subhash containing information about when and how the transfer settled at the Federal
      * Reserve.
      *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun settlement(): Optional<Settlement> = settlement.getOptional("settlement")
+    fun settlement(): Settlement = settlement.getRequired("settlement")
 
     /**
      * The Standard Entry Class (SEC) code of the transfer.
@@ -1096,10 +1096,7 @@ private constructor(
          * A subhash containing information about when and how the transfer settled at the Federal
          * Reserve.
          */
-        fun settlement(settlement: Settlement?) = settlement(JsonField.ofNullable(settlement))
-
-        /** Alias for calling [Builder.settlement] with `settlement.orElse(null)`. */
-        fun settlement(settlement: Optional<Settlement>) = settlement(settlement.getOrNull())
+        fun settlement(settlement: Settlement) = settlement(JsonField.of(settlement))
 
         /**
          * Sets [Builder.settlement] to an arbitrary JSON value.
@@ -1311,7 +1308,7 @@ private constructor(
         originatorRoutingNumber()
         receiverIdNumber()
         receiverName()
-        settlement().ifPresent { it.validate() }
+        settlement().validate()
         standardEntryClassCode().validate()
         status().validate()
         traceNumber()
