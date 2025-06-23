@@ -54,9 +54,6 @@ internal class InboundAchTransferListPageResponseTest {
                         )
                         .direction(InboundAchTransfer.Direction.CREDIT)
                         .effectiveDate(LocalDate.parse("2023-04-02"))
-                        .expectedSettlementSchedule(
-                            InboundAchTransfer.ExpectedSettlementSchedule.SAME_DAY
-                        )
                         .internationalAddenda(
                             InboundAchTransfer.InternationalAddenda.builder()
                                 .destinationCountryCode("destination_country_code")
@@ -141,6 +138,14 @@ internal class InboundAchTransferListPageResponseTest {
                         .originatorRoutingNumber("101050001")
                         .receiverIdNumber(null)
                         .receiverName("Ian Crease")
+                        .settlement(
+                            InboundAchTransfer.Settlement.builder()
+                                .settledAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                .settlementSchedule(
+                                    InboundAchTransfer.Settlement.SettlementSchedule.SAME_DAY
+                                )
+                                .build()
+                        )
                         .standardEntryClassCode(
                             InboundAchTransfer.StandardEntryClassCode.INTERNET_INITIATED
                         )
@@ -199,9 +204,6 @@ internal class InboundAchTransferListPageResponseTest {
                     )
                     .direction(InboundAchTransfer.Direction.CREDIT)
                     .effectiveDate(LocalDate.parse("2023-04-02"))
-                    .expectedSettlementSchedule(
-                        InboundAchTransfer.ExpectedSettlementSchedule.SAME_DAY
-                    )
                     .internationalAddenda(
                         InboundAchTransfer.InternationalAddenda.builder()
                             .destinationCountryCode("destination_country_code")
@@ -286,6 +288,14 @@ internal class InboundAchTransferListPageResponseTest {
                     .originatorRoutingNumber("101050001")
                     .receiverIdNumber(null)
                     .receiverName("Ian Crease")
+                    .settlement(
+                        InboundAchTransfer.Settlement.builder()
+                            .settledAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                            .settlementSchedule(
+                                InboundAchTransfer.Settlement.SettlementSchedule.SAME_DAY
+                            )
+                            .build()
+                    )
                     .standardEntryClassCode(
                         InboundAchTransfer.StandardEntryClassCode.INTERNET_INITIATED
                     )
@@ -348,9 +358,6 @@ internal class InboundAchTransferListPageResponseTest {
                         )
                         .direction(InboundAchTransfer.Direction.CREDIT)
                         .effectiveDate(LocalDate.parse("2023-04-02"))
-                        .expectedSettlementSchedule(
-                            InboundAchTransfer.ExpectedSettlementSchedule.SAME_DAY
-                        )
                         .internationalAddenda(
                             InboundAchTransfer.InternationalAddenda.builder()
                                 .destinationCountryCode("destination_country_code")
@@ -435,6 +442,14 @@ internal class InboundAchTransferListPageResponseTest {
                         .originatorRoutingNumber("101050001")
                         .receiverIdNumber(null)
                         .receiverName("Ian Crease")
+                        .settlement(
+                            InboundAchTransfer.Settlement.builder()
+                                .settledAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                .settlementSchedule(
+                                    InboundAchTransfer.Settlement.SettlementSchedule.SAME_DAY
+                                )
+                                .build()
+                        )
                         .standardEntryClassCode(
                             InboundAchTransfer.StandardEntryClassCode.INTERNET_INITIATED
                         )

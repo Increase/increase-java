@@ -50,7 +50,6 @@ internal class InboundAchTransferTest {
                 )
                 .direction(InboundAchTransfer.Direction.CREDIT)
                 .effectiveDate(LocalDate.parse("2023-04-02"))
-                .expectedSettlementSchedule(InboundAchTransfer.ExpectedSettlementSchedule.SAME_DAY)
                 .internationalAddenda(
                     InboundAchTransfer.InternationalAddenda.builder()
                         .destinationCountryCode("destination_country_code")
@@ -132,6 +131,14 @@ internal class InboundAchTransferTest {
                 .originatorRoutingNumber("101050001")
                 .receiverIdNumber(null)
                 .receiverName("Ian Crease")
+                .settlement(
+                    InboundAchTransfer.Settlement.builder()
+                        .settledAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .settlementSchedule(
+                            InboundAchTransfer.Settlement.SettlementSchedule.SAME_DAY
+                        )
+                        .build()
+                )
                 .standardEntryClassCode(
                     InboundAchTransfer.StandardEntryClassCode.INTERNET_INITIATED
                 )
@@ -188,8 +195,6 @@ internal class InboundAchTransferTest {
             )
         assertThat(inboundAchTransfer.direction()).isEqualTo(InboundAchTransfer.Direction.CREDIT)
         assertThat(inboundAchTransfer.effectiveDate()).isEqualTo(LocalDate.parse("2023-04-02"))
-        assertThat(inboundAchTransfer.expectedSettlementSchedule())
-            .isEqualTo(InboundAchTransfer.ExpectedSettlementSchedule.SAME_DAY)
         assertThat(inboundAchTransfer.internationalAddenda())
             .contains(
                 InboundAchTransfer.InternationalAddenda.builder()
@@ -272,6 +277,13 @@ internal class InboundAchTransferTest {
         assertThat(inboundAchTransfer.originatorRoutingNumber()).isEqualTo("101050001")
         assertThat(inboundAchTransfer.receiverIdNumber()).isEmpty
         assertThat(inboundAchTransfer.receiverName()).contains("Ian Crease")
+        assertThat(inboundAchTransfer.settlement())
+            .contains(
+                InboundAchTransfer.Settlement.builder()
+                    .settledAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                    .settlementSchedule(InboundAchTransfer.Settlement.SettlementSchedule.SAME_DAY)
+                    .build()
+            )
         assertThat(inboundAchTransfer.standardEntryClassCode())
             .isEqualTo(InboundAchTransfer.StandardEntryClassCode.INTERNET_INITIATED)
         assertThat(inboundAchTransfer.status()).isEqualTo(InboundAchTransfer.Status.ACCEPTED)
@@ -328,7 +340,6 @@ internal class InboundAchTransferTest {
                 )
                 .direction(InboundAchTransfer.Direction.CREDIT)
                 .effectiveDate(LocalDate.parse("2023-04-02"))
-                .expectedSettlementSchedule(InboundAchTransfer.ExpectedSettlementSchedule.SAME_DAY)
                 .internationalAddenda(
                     InboundAchTransfer.InternationalAddenda.builder()
                         .destinationCountryCode("destination_country_code")
@@ -410,6 +421,14 @@ internal class InboundAchTransferTest {
                 .originatorRoutingNumber("101050001")
                 .receiverIdNumber(null)
                 .receiverName("Ian Crease")
+                .settlement(
+                    InboundAchTransfer.Settlement.builder()
+                        .settledAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .settlementSchedule(
+                            InboundAchTransfer.Settlement.SettlementSchedule.SAME_DAY
+                        )
+                        .build()
+                )
                 .standardEntryClassCode(
                     InboundAchTransfer.StandardEntryClassCode.INTERNET_INITIATED
                 )
