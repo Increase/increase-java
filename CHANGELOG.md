@@ -1,5 +1,29 @@
 # Changelog
 
+## 0.248.0 (2025-06-23)
+
+Full Changelog: [v0.247.0...v0.248.0](https://github.com/Increase/increase-java/compare/v0.247.0...v0.248.0)
+
+### Features
+
+* **api:** api update ([9a03992](https://github.com/Increase/increase-java/commit/9a03992eedd2f074bf2a93ad8c956fb9ed3d9bef))
+* **api:** api update ([363cee7](https://github.com/Increase/increase-java/commit/363cee7c443766b0a4f315776b7d9ccfd0d7d41f))
+* **api:** api update ([157653f](https://github.com/Increase/increase-java/commit/157653f6ecfea90f0347555224938a87069d665a))
+* **api:** api update ([d908dea](https://github.com/Increase/increase-java/commit/d908dead3c741530df5c9f6a429e72ba392ae842))
+* **api:** api update ([df6a686](https://github.com/Increase/increase-java/commit/df6a68607b029709b4fef7920731871027c24105))
+* **api:** api update ([4ad3e86](https://github.com/Increase/increase-java/commit/4ad3e867b0866a9015c9e83cb1ea0968c1443761))
+* **api:** api update ([4e4c8ca](https://github.com/Increase/increase-java/commit/4e4c8cac07ab6c02580c8bd007561332eff9cb4d))
+
+
+### Bug Fixes
+
+* **client:** bump max requests per host to max requests (5 -&gt; 64) ([95c8544](https://github.com/Increase/increase-java/commit/95c8544e0c3daeaa5edf57029f4233d9165b23b5))
+
+
+### Chores
+
+* **ci:** enable for pull requests ([fbaca5d](https://github.com/Increase/increase-java/commit/fbaca5d8f16a9a52cb486dff999653507cda5869))
+
 ## 0.247.0 (2025-06-16)
 
 Full Changelog: [v0.246.0...v0.247.0](https://github.com/Increase/increase-java/compare/v0.246.0...v0.247.0)
