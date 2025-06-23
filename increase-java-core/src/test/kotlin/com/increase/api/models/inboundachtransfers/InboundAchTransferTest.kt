@@ -278,7 +278,7 @@ internal class InboundAchTransferTest {
         assertThat(inboundAchTransfer.receiverIdNumber()).isEmpty
         assertThat(inboundAchTransfer.receiverName()).contains("Ian Crease")
         assertThat(inboundAchTransfer.settlement())
-            .contains(
+            .isEqualTo(
                 InboundAchTransfer.Settlement.builder()
                     .settledAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                     .settlementSchedule(InboundAchTransfer.Settlement.SettlementSchedule.SAME_DAY)
