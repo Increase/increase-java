@@ -31,6 +31,11 @@ internal class DocumentServiceTest {
                             .balanceDate(LocalDate.parse("2024-12-31"))
                             .build()
                     )
+                    .fundingInstructions(
+                        DocumentCreateParams.FundingInstructions.builder()
+                            .accountNumberId("account_number_id")
+                            .build()
+                    )
                     .build()
             )
 

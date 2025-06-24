@@ -18,6 +18,11 @@ internal class DocumentCreateParamsTest {
                     .balanceDate(LocalDate.parse("2024-12-31"))
                     .build()
             )
+            .fundingInstructions(
+                DocumentCreateParams.FundingInstructions.builder()
+                    .accountNumberId("account_number_id")
+                    .build()
+            )
             .build()
     }
 
@@ -32,6 +37,11 @@ internal class DocumentCreateParamsTest {
                         .balanceDate(LocalDate.parse("2024-12-31"))
                         .build()
                 )
+                .fundingInstructions(
+                    DocumentCreateParams.FundingInstructions.builder()
+                        .accountNumberId("account_number_id")
+                        .build()
+                )
                 .build()
 
         val body = params._body()
@@ -43,6 +53,12 @@ internal class DocumentCreateParamsTest {
                 DocumentCreateParams.AccountVerificationLetter.builder()
                     .accountNumberId("account_number_v18nkfqm6afpsrvy82b2")
                     .balanceDate(LocalDate.parse("2024-12-31"))
+                    .build()
+            )
+        assertThat(body.fundingInstructions())
+            .contains(
+                DocumentCreateParams.FundingInstructions.builder()
+                    .accountNumberId("account_number_id")
                     .build()
             )
     }
