@@ -6769,6 +6769,9 @@ private constructor(
                     /** The given CVV2 did not match the card's value. */
                     @JvmField val CVV2_MISMATCH = of("cvv2_mismatch")
 
+                    /** The given PIN did not match the card's value. */
+                    @JvmField val PIN_MISMATCH = of("pin_mismatch")
+
                     /**
                      * The given expiration date did not match the card's value. Only applies when a
                      * CVV2 is present.
@@ -6833,6 +6836,8 @@ private constructor(
                     INSUFFICIENT_FUNDS,
                     /** The given CVV2 did not match the card's value. */
                     CVV2_MISMATCH,
+                    /** The given PIN did not match the card's value. */
+                    PIN_MISMATCH,
                     /**
                      * The given expiration date did not match the card's value. Only applies when a
                      * CVV2 is present.
@@ -6892,6 +6897,8 @@ private constructor(
                     INSUFFICIENT_FUNDS,
                     /** The given CVV2 did not match the card's value. */
                     CVV2_MISMATCH,
+                    /** The given PIN did not match the card's value. */
+                    PIN_MISMATCH,
                     /**
                      * The given expiration date did not match the card's value. Only applies when a
                      * CVV2 is present.
@@ -6947,6 +6954,7 @@ private constructor(
                         GROUP_LOCKED -> Value.GROUP_LOCKED
                         INSUFFICIENT_FUNDS -> Value.INSUFFICIENT_FUNDS
                         CVV2_MISMATCH -> Value.CVV2_MISMATCH
+                        PIN_MISMATCH -> Value.PIN_MISMATCH
                         CARD_EXPIRATION_MISMATCH -> Value.CARD_EXPIRATION_MISMATCH
                         TRANSACTION_NOT_ALLOWED -> Value.TRANSACTION_NOT_ALLOWED
                         BREACHES_LIMIT -> Value.BREACHES_LIMIT
@@ -6979,6 +6987,7 @@ private constructor(
                         GROUP_LOCKED -> Known.GROUP_LOCKED
                         INSUFFICIENT_FUNDS -> Known.INSUFFICIENT_FUNDS
                         CVV2_MISMATCH -> Known.CVV2_MISMATCH
+                        PIN_MISMATCH -> Known.PIN_MISMATCH
                         CARD_EXPIRATION_MISMATCH -> Known.CARD_EXPIRATION_MISMATCH
                         TRANSACTION_NOT_ALLOWED -> Known.TRANSACTION_NOT_ALLOWED
                         BREACHES_LIMIT -> Known.BREACHES_LIMIT
