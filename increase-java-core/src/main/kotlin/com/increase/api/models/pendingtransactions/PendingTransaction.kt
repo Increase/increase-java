@@ -6434,6 +6434,15 @@ private constructor(
                      */
                     @JvmField val REFUND = of("refund")
 
+                    /**
+                     * Cash disbursement transactions are used to withdraw cash from an ATM or a
+                     * point of sale.
+                     */
+                    @JvmField val CASH_DISBURSEMENT = of("cash_disbursement")
+
+                    /** The processing category is unknown. */
+                    @JvmField val UNKNOWN = of("unknown")
+
                     @JvmStatic fun of(value: String) = ProcessingCategory(JsonField.of(value))
                 }
 
@@ -6466,6 +6475,13 @@ private constructor(
                      * authorization, where funds are credited to the cardholder.
                      */
                     REFUND,
+                    /**
+                     * Cash disbursement transactions are used to withdraw cash from an ATM or a
+                     * point of sale.
+                     */
+                    CASH_DISBURSEMENT,
+                    /** The processing category is unknown. */
+                    UNKNOWN,
                 }
 
                 /**
@@ -6508,6 +6524,13 @@ private constructor(
                      */
                     REFUND,
                     /**
+                     * Cash disbursement transactions are used to withdraw cash from an ATM or a
+                     * point of sale.
+                     */
+                    CASH_DISBURSEMENT,
+                    /** The processing category is unknown. */
+                    UNKNOWN,
+                    /**
                      * An enum member indicating that [ProcessingCategory] was instantiated with an
                      * unknown value.
                      */
@@ -6530,6 +6553,8 @@ private constructor(
                         PURCHASE -> Value.PURCHASE
                         QUASI_CASH -> Value.QUASI_CASH
                         REFUND -> Value.REFUND
+                        CASH_DISBURSEMENT -> Value.CASH_DISBURSEMENT
+                        UNKNOWN -> Value.UNKNOWN
                         else -> Value._UNKNOWN
                     }
 
@@ -6551,6 +6576,8 @@ private constructor(
                         PURCHASE -> Known.PURCHASE
                         QUASI_CASH -> Known.QUASI_CASH
                         REFUND -> Known.REFUND
+                        CASH_DISBURSEMENT -> Known.CASH_DISBURSEMENT
+                        UNKNOWN -> Known.UNKNOWN
                         else ->
                             throw IncreaseInvalidDataException("Unknown ProcessingCategory: $value")
                     }
