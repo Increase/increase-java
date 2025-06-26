@@ -32,6 +32,7 @@ internal class WireTransferServiceAsyncTest {
                     .beneficiaryAddressLine2("New York")
                     .beneficiaryAddressLine3("NY 10045")
                     .externalAccountId("external_account_id")
+                    .inboundWireDrawdownRequestId("inbound_wire_drawdown_request_id")
                     .originatorAddressLine1("x")
                     .originatorAddressLine2("x")
                     .originatorAddressLine3("x")
