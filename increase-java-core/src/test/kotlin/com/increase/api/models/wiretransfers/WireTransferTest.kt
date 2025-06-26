@@ -55,6 +55,7 @@ internal class WireTransferTest {
                 .currency(WireTransfer.Currency.USD)
                 .externalAccountId("external_account_ukk55lr923a3ac0pp7iv")
                 .idempotencyKey(null)
+                .inboundWireDrawdownRequestId(null)
                 .messageToRecipient("Message to recipient")
                 .network(WireTransfer.Network.WIRE)
                 .originatorAddressLine1(null)
@@ -144,6 +145,7 @@ internal class WireTransferTest {
         assertThat(wireTransfer.externalAccountId())
             .contains("external_account_ukk55lr923a3ac0pp7iv")
         assertThat(wireTransfer.idempotencyKey()).isEmpty
+        assertThat(wireTransfer.inboundWireDrawdownRequestId()).isEmpty
         assertThat(wireTransfer.messageToRecipient()).contains("Message to recipient")
         assertThat(wireTransfer.network()).isEqualTo(WireTransfer.Network.WIRE)
         assertThat(wireTransfer.originatorAddressLine1()).isEmpty
@@ -238,6 +240,7 @@ internal class WireTransferTest {
                 .currency(WireTransfer.Currency.USD)
                 .externalAccountId("external_account_ukk55lr923a3ac0pp7iv")
                 .idempotencyKey(null)
+                .inboundWireDrawdownRequestId(null)
                 .messageToRecipient("Message to recipient")
                 .network(WireTransfer.Network.WIRE)
                 .originatorAddressLine1(null)

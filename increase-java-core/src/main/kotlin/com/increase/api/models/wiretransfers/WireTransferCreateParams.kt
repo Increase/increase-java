@@ -101,6 +101,14 @@ private constructor(
     fun externalAccountId(): Optional<String> = body.externalAccountId()
 
     /**
+     * The ID of an Inbound Wire Drawdown Request in response to which this transfer is being sent.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun inboundWireDrawdownRequestId(): Optional<String> = body.inboundWireDrawdownRequestId()
+
+    /**
      * The originator's address line 1. This is only necessary if you're transferring from a
      * commingled account. Otherwise, we'll use the associated entity's details.
      *
@@ -228,6 +236,14 @@ private constructor(
      * type.
      */
     fun _externalAccountId(): JsonField<String> = body._externalAccountId()
+
+    /**
+     * Returns the raw JSON value of [inboundWireDrawdownRequestId].
+     *
+     * Unlike [inboundWireDrawdownRequestId], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    fun _inboundWireDrawdownRequestId(): JsonField<String> = body._inboundWireDrawdownRequestId()
 
     /**
      * Returns the raw JSON value of [originatorAddressLine1].
@@ -468,6 +484,25 @@ private constructor(
          */
         fun externalAccountId(externalAccountId: JsonField<String>) = apply {
             body.externalAccountId(externalAccountId)
+        }
+
+        /**
+         * The ID of an Inbound Wire Drawdown Request in response to which this transfer is being
+         * sent.
+         */
+        fun inboundWireDrawdownRequestId(inboundWireDrawdownRequestId: String) = apply {
+            body.inboundWireDrawdownRequestId(inboundWireDrawdownRequestId)
+        }
+
+        /**
+         * Sets [Builder.inboundWireDrawdownRequestId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.inboundWireDrawdownRequestId] with a well-typed [String]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun inboundWireDrawdownRequestId(inboundWireDrawdownRequestId: JsonField<String>) = apply {
+            body.inboundWireDrawdownRequestId(inboundWireDrawdownRequestId)
         }
 
         /**
@@ -750,6 +785,7 @@ private constructor(
         private val beneficiaryAddressLine2: JsonField<String>,
         private val beneficiaryAddressLine3: JsonField<String>,
         private val externalAccountId: JsonField<String>,
+        private val inboundWireDrawdownRequestId: JsonField<String>,
         private val originatorAddressLine1: JsonField<String>,
         private val originatorAddressLine2: JsonField<String>,
         private val originatorAddressLine3: JsonField<String>,
@@ -787,6 +823,9 @@ private constructor(
             @JsonProperty("external_account_id")
             @ExcludeMissing
             externalAccountId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("inbound_wire_drawdown_request_id")
+            @ExcludeMissing
+            inboundWireDrawdownRequestId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("originator_address_line1")
             @ExcludeMissing
             originatorAddressLine1: JsonField<String> = JsonMissing.of(),
@@ -818,6 +857,7 @@ private constructor(
             beneficiaryAddressLine2,
             beneficiaryAddressLine3,
             externalAccountId,
+            inboundWireDrawdownRequestId,
             originatorAddressLine1,
             originatorAddressLine2,
             originatorAddressLine3,
@@ -904,6 +944,16 @@ private constructor(
          */
         fun externalAccountId(): Optional<String> =
             externalAccountId.getOptional("external_account_id")
+
+        /**
+         * The ID of an Inbound Wire Drawdown Request in response to which this transfer is being
+         * sent.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun inboundWireDrawdownRequestId(): Optional<String> =
+            inboundWireDrawdownRequestId.getOptional("inbound_wire_drawdown_request_id")
 
         /**
          * The originator's address line 1. This is only necessary if you're transferring from a
@@ -1055,6 +1105,16 @@ private constructor(
         fun _externalAccountId(): JsonField<String> = externalAccountId
 
         /**
+         * Returns the raw JSON value of [inboundWireDrawdownRequestId].
+         *
+         * Unlike [inboundWireDrawdownRequestId], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("inbound_wire_drawdown_request_id")
+        @ExcludeMissing
+        fun _inboundWireDrawdownRequestId(): JsonField<String> = inboundWireDrawdownRequestId
+
+        /**
          * Returns the raw JSON value of [originatorAddressLine1].
          *
          * Unlike [originatorAddressLine1], this method doesn't throw if the JSON field has an
@@ -1164,6 +1224,7 @@ private constructor(
             private var beneficiaryAddressLine2: JsonField<String> = JsonMissing.of()
             private var beneficiaryAddressLine3: JsonField<String> = JsonMissing.of()
             private var externalAccountId: JsonField<String> = JsonMissing.of()
+            private var inboundWireDrawdownRequestId: JsonField<String> = JsonMissing.of()
             private var originatorAddressLine1: JsonField<String> = JsonMissing.of()
             private var originatorAddressLine2: JsonField<String> = JsonMissing.of()
             private var originatorAddressLine3: JsonField<String> = JsonMissing.of()
@@ -1184,6 +1245,7 @@ private constructor(
                 beneficiaryAddressLine2 = body.beneficiaryAddressLine2
                 beneficiaryAddressLine3 = body.beneficiaryAddressLine3
                 externalAccountId = body.externalAccountId
+                inboundWireDrawdownRequestId = body.inboundWireDrawdownRequestId
                 originatorAddressLine1 = body.originatorAddressLine1
                 originatorAddressLine2 = body.originatorAddressLine2
                 originatorAddressLine3 = body.originatorAddressLine3
@@ -1324,6 +1386,25 @@ private constructor(
             fun externalAccountId(externalAccountId: JsonField<String>) = apply {
                 this.externalAccountId = externalAccountId
             }
+
+            /**
+             * The ID of an Inbound Wire Drawdown Request in response to which this transfer is
+             * being sent.
+             */
+            fun inboundWireDrawdownRequestId(inboundWireDrawdownRequestId: String) =
+                inboundWireDrawdownRequestId(JsonField.of(inboundWireDrawdownRequestId))
+
+            /**
+             * Sets [Builder.inboundWireDrawdownRequestId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.inboundWireDrawdownRequestId] with a well-typed
+             * [String] value instead. This method is primarily for setting the field to an
+             * undocumented or not yet supported value.
+             */
+            fun inboundWireDrawdownRequestId(inboundWireDrawdownRequestId: JsonField<String>) =
+                apply {
+                    this.inboundWireDrawdownRequestId = inboundWireDrawdownRequestId
+                }
 
             /**
              * The originator's address line 1. This is only necessary if you're transferring from a
@@ -1489,6 +1570,7 @@ private constructor(
                     beneficiaryAddressLine2,
                     beneficiaryAddressLine3,
                     externalAccountId,
+                    inboundWireDrawdownRequestId,
                     originatorAddressLine1,
                     originatorAddressLine2,
                     originatorAddressLine3,
@@ -1516,6 +1598,7 @@ private constructor(
             beneficiaryAddressLine2()
             beneficiaryAddressLine3()
             externalAccountId()
+            inboundWireDrawdownRequestId()
             originatorAddressLine1()
             originatorAddressLine2()
             originatorAddressLine3()
@@ -1551,6 +1634,7 @@ private constructor(
                 (if (beneficiaryAddressLine2.asKnown().isPresent) 1 else 0) +
                 (if (beneficiaryAddressLine3.asKnown().isPresent) 1 else 0) +
                 (if (externalAccountId.asKnown().isPresent) 1 else 0) +
+                (if (inboundWireDrawdownRequestId.asKnown().isPresent) 1 else 0) +
                 (if (originatorAddressLine1.asKnown().isPresent) 1 else 0) +
                 (if (originatorAddressLine2.asKnown().isPresent) 1 else 0) +
                 (if (originatorAddressLine3.asKnown().isPresent) 1 else 0) +
@@ -1564,17 +1648,17 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Body && accountId == other.accountId && amount == other.amount && beneficiaryName == other.beneficiaryName && messageToRecipient == other.messageToRecipient && accountNumber == other.accountNumber && beneficiaryAddressLine1 == other.beneficiaryAddressLine1 && beneficiaryAddressLine2 == other.beneficiaryAddressLine2 && beneficiaryAddressLine3 == other.beneficiaryAddressLine3 && externalAccountId == other.externalAccountId && originatorAddressLine1 == other.originatorAddressLine1 && originatorAddressLine2 == other.originatorAddressLine2 && originatorAddressLine3 == other.originatorAddressLine3 && originatorName == other.originatorName && requireApproval == other.requireApproval && routingNumber == other.routingNumber && sourceAccountNumberId == other.sourceAccountNumberId && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && accountId == other.accountId && amount == other.amount && beneficiaryName == other.beneficiaryName && messageToRecipient == other.messageToRecipient && accountNumber == other.accountNumber && beneficiaryAddressLine1 == other.beneficiaryAddressLine1 && beneficiaryAddressLine2 == other.beneficiaryAddressLine2 && beneficiaryAddressLine3 == other.beneficiaryAddressLine3 && externalAccountId == other.externalAccountId && inboundWireDrawdownRequestId == other.inboundWireDrawdownRequestId && originatorAddressLine1 == other.originatorAddressLine1 && originatorAddressLine2 == other.originatorAddressLine2 && originatorAddressLine3 == other.originatorAddressLine3 && originatorName == other.originatorName && requireApproval == other.requireApproval && routingNumber == other.routingNumber && sourceAccountNumberId == other.sourceAccountNumberId && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(accountId, amount, beneficiaryName, messageToRecipient, accountNumber, beneficiaryAddressLine1, beneficiaryAddressLine2, beneficiaryAddressLine3, externalAccountId, originatorAddressLine1, originatorAddressLine2, originatorAddressLine3, originatorName, requireApproval, routingNumber, sourceAccountNumberId, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(accountId, amount, beneficiaryName, messageToRecipient, accountNumber, beneficiaryAddressLine1, beneficiaryAddressLine2, beneficiaryAddressLine3, externalAccountId, inboundWireDrawdownRequestId, originatorAddressLine1, originatorAddressLine2, originatorAddressLine3, originatorName, requireApproval, routingNumber, sourceAccountNumberId, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{accountId=$accountId, amount=$amount, beneficiaryName=$beneficiaryName, messageToRecipient=$messageToRecipient, accountNumber=$accountNumber, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, externalAccountId=$externalAccountId, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, requireApproval=$requireApproval, routingNumber=$routingNumber, sourceAccountNumberId=$sourceAccountNumberId, additionalProperties=$additionalProperties}"
+            "Body{accountId=$accountId, amount=$amount, beneficiaryName=$beneficiaryName, messageToRecipient=$messageToRecipient, accountNumber=$accountNumber, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, externalAccountId=$externalAccountId, inboundWireDrawdownRequestId=$inboundWireDrawdownRequestId, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, requireApproval=$requireApproval, routingNumber=$routingNumber, sourceAccountNumberId=$sourceAccountNumberId, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
