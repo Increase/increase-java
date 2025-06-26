@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.252.1 (2025-06-26)
+
+Full Changelog: [v0.252.0...v0.252.1](https://github.com/Increase/increase-java/compare/v0.252.0...v0.252.1)
+
+### Bug Fixes
+
+* **ci:** release-doctor — report correct token name ([ae9efc2](https://github.com/Increase/increase-java/commit/ae9efc2f4bebb375890165943fd261c17332e9f0))
+
 ## 0.252.0 (2025-06-26)
 
 Full Changelog: [v0.251.0...v0.252.0](https://github.com/Increase/increase-java/compare/v0.251.0...v0.252.0)
