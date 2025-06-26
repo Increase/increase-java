@@ -41,6 +41,7 @@ private constructor(
     private val currency: JsonField<Currency>,
     private val externalAccountId: JsonField<String>,
     private val idempotencyKey: JsonField<String>,
+    private val inboundWireDrawdownRequestId: JsonField<String>,
     private val messageToRecipient: JsonField<String>,
     private val network: JsonField<Network>,
     private val originatorAddressLine1: JsonField<String>,
@@ -95,6 +96,9 @@ private constructor(
         @JsonProperty("idempotency_key")
         @ExcludeMissing
         idempotencyKey: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("inbound_wire_drawdown_request_id")
+        @ExcludeMissing
+        inboundWireDrawdownRequestId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("message_to_recipient")
         @ExcludeMissing
         messageToRecipient: JsonField<String> = JsonMissing.of(),
@@ -145,6 +149,7 @@ private constructor(
         currency,
         externalAccountId,
         idempotencyKey,
+        inboundWireDrawdownRequestId,
         messageToRecipient,
         network,
         originatorAddressLine1,
@@ -290,6 +295,15 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun idempotencyKey(): Optional<String> = idempotencyKey.getOptional("idempotency_key")
+
+    /**
+     * The ID of an Inbound Wire Drawdown Request in response to which this transfer was sent.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun inboundWireDrawdownRequestId(): Optional<String> =
+        inboundWireDrawdownRequestId.getOptional("inbound_wire_drawdown_request_id")
 
     /**
      * The message that will show on the recipient's bank statement.
@@ -541,6 +555,16 @@ private constructor(
     fun _idempotencyKey(): JsonField<String> = idempotencyKey
 
     /**
+     * Returns the raw JSON value of [inboundWireDrawdownRequestId].
+     *
+     * Unlike [inboundWireDrawdownRequestId], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    @JsonProperty("inbound_wire_drawdown_request_id")
+    @ExcludeMissing
+    fun _inboundWireDrawdownRequestId(): JsonField<String> = inboundWireDrawdownRequestId
+
+    /**
      * Returns the raw JSON value of [messageToRecipient].
      *
      * Unlike [messageToRecipient], this method doesn't throw if the JSON field has an unexpected
@@ -698,6 +722,7 @@ private constructor(
          * .currency()
          * .externalAccountId()
          * .idempotencyKey()
+         * .inboundWireDrawdownRequestId()
          * .messageToRecipient()
          * .network()
          * .originatorAddressLine1()
@@ -735,6 +760,7 @@ private constructor(
         private var currency: JsonField<Currency>? = null
         private var externalAccountId: JsonField<String>? = null
         private var idempotencyKey: JsonField<String>? = null
+        private var inboundWireDrawdownRequestId: JsonField<String>? = null
         private var messageToRecipient: JsonField<String>? = null
         private var network: JsonField<Network>? = null
         private var originatorAddressLine1: JsonField<String>? = null
@@ -768,6 +794,7 @@ private constructor(
             currency = wireTransfer.currency
             externalAccountId = wireTransfer.externalAccountId
             idempotencyKey = wireTransfer.idempotencyKey
+            inboundWireDrawdownRequestId = wireTransfer.inboundWireDrawdownRequestId
             messageToRecipient = wireTransfer.messageToRecipient
             network = wireTransfer.network
             originatorAddressLine1 = wireTransfer.originatorAddressLine1
@@ -1043,6 +1070,30 @@ private constructor(
          */
         fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
             this.idempotencyKey = idempotencyKey
+        }
+
+        /**
+         * The ID of an Inbound Wire Drawdown Request in response to which this transfer was sent.
+         */
+        fun inboundWireDrawdownRequestId(inboundWireDrawdownRequestId: String?) =
+            inboundWireDrawdownRequestId(JsonField.ofNullable(inboundWireDrawdownRequestId))
+
+        /**
+         * Alias for calling [Builder.inboundWireDrawdownRequestId] with
+         * `inboundWireDrawdownRequestId.orElse(null)`.
+         */
+        fun inboundWireDrawdownRequestId(inboundWireDrawdownRequestId: Optional<String>) =
+            inboundWireDrawdownRequestId(inboundWireDrawdownRequestId.getOrNull())
+
+        /**
+         * Sets [Builder.inboundWireDrawdownRequestId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.inboundWireDrawdownRequestId] with a well-typed [String]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun inboundWireDrawdownRequestId(inboundWireDrawdownRequestId: JsonField<String>) = apply {
+            this.inboundWireDrawdownRequestId = inboundWireDrawdownRequestId
         }
 
         /** The message that will show on the recipient's bank statement. */
@@ -1340,6 +1391,7 @@ private constructor(
          * .currency()
          * .externalAccountId()
          * .idempotencyKey()
+         * .inboundWireDrawdownRequestId()
          * .messageToRecipient()
          * .network()
          * .originatorAddressLine1()
@@ -1375,6 +1427,7 @@ private constructor(
                 checkRequired("currency", currency),
                 checkRequired("externalAccountId", externalAccountId),
                 checkRequired("idempotencyKey", idempotencyKey),
+                checkRequired("inboundWireDrawdownRequestId", inboundWireDrawdownRequestId),
                 checkRequired("messageToRecipient", messageToRecipient),
                 checkRequired("network", network),
                 checkRequired("originatorAddressLine1", originatorAddressLine1),
@@ -1415,6 +1468,7 @@ private constructor(
         currency().validate()
         externalAccountId()
         idempotencyKey()
+        inboundWireDrawdownRequestId()
         messageToRecipient()
         network().validate()
         originatorAddressLine1()
@@ -1462,6 +1516,7 @@ private constructor(
             (currency.asKnown().getOrNull()?.validity() ?: 0) +
             (if (externalAccountId.asKnown().isPresent) 1 else 0) +
             (if (idempotencyKey.asKnown().isPresent) 1 else 0) +
+            (if (inboundWireDrawdownRequestId.asKnown().isPresent) 1 else 0) +
             (if (messageToRecipient.asKnown().isPresent) 1 else 0) +
             (network.asKnown().getOrNull()?.validity() ?: 0) +
             (if (originatorAddressLine1.asKnown().isPresent) 1 else 0) +
@@ -4687,15 +4742,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is WireTransfer && id == other.id && accountId == other.accountId && accountNumber == other.accountNumber && amount == other.amount && approval == other.approval && beneficiaryAddressLine1 == other.beneficiaryAddressLine1 && beneficiaryAddressLine2 == other.beneficiaryAddressLine2 && beneficiaryAddressLine3 == other.beneficiaryAddressLine3 && beneficiaryName == other.beneficiaryName && cancellation == other.cancellation && createdAt == other.createdAt && createdBy == other.createdBy && currency == other.currency && externalAccountId == other.externalAccountId && idempotencyKey == other.idempotencyKey && messageToRecipient == other.messageToRecipient && network == other.network && originatorAddressLine1 == other.originatorAddressLine1 && originatorAddressLine2 == other.originatorAddressLine2 && originatorAddressLine3 == other.originatorAddressLine3 && originatorName == other.originatorName && pendingTransactionId == other.pendingTransactionId && reversal == other.reversal && routingNumber == other.routingNumber && sourceAccountNumberId == other.sourceAccountNumberId && status == other.status && submission == other.submission && transactionId == other.transactionId && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is WireTransfer && id == other.id && accountId == other.accountId && accountNumber == other.accountNumber && amount == other.amount && approval == other.approval && beneficiaryAddressLine1 == other.beneficiaryAddressLine1 && beneficiaryAddressLine2 == other.beneficiaryAddressLine2 && beneficiaryAddressLine3 == other.beneficiaryAddressLine3 && beneficiaryName == other.beneficiaryName && cancellation == other.cancellation && createdAt == other.createdAt && createdBy == other.createdBy && currency == other.currency && externalAccountId == other.externalAccountId && idempotencyKey == other.idempotencyKey && inboundWireDrawdownRequestId == other.inboundWireDrawdownRequestId && messageToRecipient == other.messageToRecipient && network == other.network && originatorAddressLine1 == other.originatorAddressLine1 && originatorAddressLine2 == other.originatorAddressLine2 && originatorAddressLine3 == other.originatorAddressLine3 && originatorName == other.originatorName && pendingTransactionId == other.pendingTransactionId && reversal == other.reversal && routingNumber == other.routingNumber && sourceAccountNumberId == other.sourceAccountNumberId && status == other.status && submission == other.submission && transactionId == other.transactionId && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, accountId, accountNumber, amount, approval, beneficiaryAddressLine1, beneficiaryAddressLine2, beneficiaryAddressLine3, beneficiaryName, cancellation, createdAt, createdBy, currency, externalAccountId, idempotencyKey, messageToRecipient, network, originatorAddressLine1, originatorAddressLine2, originatorAddressLine3, originatorName, pendingTransactionId, reversal, routingNumber, sourceAccountNumberId, status, submission, transactionId, type, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, accountId, accountNumber, amount, approval, beneficiaryAddressLine1, beneficiaryAddressLine2, beneficiaryAddressLine3, beneficiaryName, cancellation, createdAt, createdBy, currency, externalAccountId, idempotencyKey, inboundWireDrawdownRequestId, messageToRecipient, network, originatorAddressLine1, originatorAddressLine2, originatorAddressLine3, originatorName, pendingTransactionId, reversal, routingNumber, sourceAccountNumberId, status, submission, transactionId, type, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "WireTransfer{id=$id, accountId=$accountId, accountNumber=$accountNumber, amount=$amount, approval=$approval, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, beneficiaryName=$beneficiaryName, cancellation=$cancellation, createdAt=$createdAt, createdBy=$createdBy, currency=$currency, externalAccountId=$externalAccountId, idempotencyKey=$idempotencyKey, messageToRecipient=$messageToRecipient, network=$network, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, pendingTransactionId=$pendingTransactionId, reversal=$reversal, routingNumber=$routingNumber, sourceAccountNumberId=$sourceAccountNumberId, status=$status, submission=$submission, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
+        "WireTransfer{id=$id, accountId=$accountId, accountNumber=$accountNumber, amount=$amount, approval=$approval, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, beneficiaryName=$beneficiaryName, cancellation=$cancellation, createdAt=$createdAt, createdBy=$createdBy, currency=$currency, externalAccountId=$externalAccountId, idempotencyKey=$idempotencyKey, inboundWireDrawdownRequestId=$inboundWireDrawdownRequestId, messageToRecipient=$messageToRecipient, network=$network, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, pendingTransactionId=$pendingTransactionId, reversal=$reversal, routingNumber=$routingNumber, sourceAccountNumberId=$sourceAccountNumberId, status=$status, submission=$submission, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
 }
