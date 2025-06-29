@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.252.2 (2025-06-29)
+
+Full Changelog: [v0.252.1...v0.252.2](https://github.com/Increase/increase-java/compare/v0.252.1...v0.252.2)
+
+### Bug Fixes
+
+* **client:** don't close client on `withOptions` usage when original is gc'd ([5bcf0ce](https://github.com/Increase/increase-java/commit/5bcf0ce9fcb950f29613864724db85a28facbc33))
+
+
+### Chores
+
+* **ci:** only run for pushes and fork pull requests ([49e15b2](https://github.com/Increase/increase-java/commit/49e15b2971fe231fbeae7cdb0cc8ade76ea26f03))
+
 ## 0.252.1 (2025-06-26)
 
 Full Changelog: [v0.252.0...v0.252.1](https://github.com/Increase/increase-java/compare/v0.252.0...v0.252.1)
