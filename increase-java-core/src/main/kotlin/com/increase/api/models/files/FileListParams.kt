@@ -685,6 +685,9 @@ private constructor(
                 /** Funding instructions. */
                 @JvmField val FUNDING_INSTRUCTIONS = of("funding_instructions")
 
+                /** A Hold Harmless Letter. */
+                @JvmField val HOLD_HARMLESS_LETTER = of("hold_harmless_letter")
+
                 @JvmStatic fun of(value: String) = In(JsonField.of(value))
             }
 
@@ -768,6 +771,8 @@ private constructor(
                 ACCOUNT_VERIFICATION_LETTER,
                 /** Funding instructions. */
                 FUNDING_INSTRUCTIONS,
+                /** A Hold Harmless Letter. */
+                HOLD_HARMLESS_LETTER,
             }
 
             /**
@@ -858,6 +863,8 @@ private constructor(
                 ACCOUNT_VERIFICATION_LETTER,
                 /** Funding instructions. */
                 FUNDING_INSTRUCTIONS,
+                /** A Hold Harmless Letter. */
+                HOLD_HARMLESS_LETTER,
                 /** An enum member indicating that [In] was instantiated with an unknown value. */
                 _UNKNOWN,
             }
@@ -899,6 +906,7 @@ private constructor(
                         Value.PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION
                     ACCOUNT_VERIFICATION_LETTER -> Value.ACCOUNT_VERIFICATION_LETTER
                     FUNDING_INSTRUCTIONS -> Value.FUNDING_INSTRUCTIONS
+                    HOLD_HARMLESS_LETTER -> Value.HOLD_HARMLESS_LETTER
                     else -> Value._UNKNOWN
                 }
 
@@ -941,6 +949,7 @@ private constructor(
                         Known.PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION
                     ACCOUNT_VERIFICATION_LETTER -> Known.ACCOUNT_VERIFICATION_LETTER
                     FUNDING_INSTRUCTIONS -> Known.FUNDING_INSTRUCTIONS
+                    HOLD_HARMLESS_LETTER -> Known.HOLD_HARMLESS_LETTER
                     else -> throw IncreaseInvalidDataException("Unknown In: $value")
                 }
 
