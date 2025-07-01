@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.253.0 (2025-07-01)
+
+Full Changelog: [v0.252.2...v0.253.0](https://github.com/Increase/increase-java/compare/v0.252.2...v0.253.0)
+
+### Features
+
+* **api:** api update ([c5a5480](https://github.com/Increase/increase-java/commit/c5a5480830ed974f1c8088455241bb39199e6328))
+
+
+### Refactors
+
+* **internal:** minor `ClientOptionsTest` change ([85bbfae](https://github.com/Increase/increase-java/commit/85bbfae841f457d8cd5bf118fdcc99196f7280fe))
+
 ## 0.252.2 (2025-06-29)
 
 Full Changelog: [v0.252.1...v0.252.2](https://github.com/Increase/increase-java/compare/v0.252.1...v0.252.2)
