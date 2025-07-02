@@ -463,12 +463,6 @@ private constructor(
              */
             @JvmField val INSUFFICIENT_FUNDS = of("insufficient_funds")
 
-            /**
-             * The originating financial institution asked for this transfer to be returned. The
-             * receiving bank is complying with the request. The Nacha return code is R06.
-             */
-            @JvmField val RETURNED_PER_ODFI_REQUEST = of("returned_per_odfi_request")
-
             /** The customer no longer authorizes this transaction. The Nacha return code is R07. */
             @JvmField
             val AUTHORIZATION_REVOKED_BY_CUSTOMER = of("authorization_revoked_by_customer")
@@ -526,11 +520,6 @@ private constructor(
              * debits. The Nacha return code is R01.
              */
             INSUFFICIENT_FUNDS,
-            /**
-             * The originating financial institution asked for this transfer to be returned. The
-             * receiving bank is complying with the request. The Nacha return code is R06.
-             */
-            RETURNED_PER_ODFI_REQUEST,
             /** The customer no longer authorizes this transaction. The Nacha return code is R07. */
             AUTHORIZATION_REVOKED_BY_CUSTOMER,
             /**
@@ -578,11 +567,6 @@ private constructor(
              * debits. The Nacha return code is R01.
              */
             INSUFFICIENT_FUNDS,
-            /**
-             * The originating financial institution asked for this transfer to be returned. The
-             * receiving bank is complying with the request. The Nacha return code is R06.
-             */
-            RETURNED_PER_ODFI_REQUEST,
             /** The customer no longer authorizes this transaction. The Nacha return code is R07. */
             AUTHORIZATION_REVOKED_BY_CUSTOMER,
             /**
@@ -627,7 +611,6 @@ private constructor(
         fun value(): Value =
             when (this) {
                 INSUFFICIENT_FUNDS -> Value.INSUFFICIENT_FUNDS
-                RETURNED_PER_ODFI_REQUEST -> Value.RETURNED_PER_ODFI_REQUEST
                 AUTHORIZATION_REVOKED_BY_CUSTOMER -> Value.AUTHORIZATION_REVOKED_BY_CUSTOMER
                 PAYMENT_STOPPED -> Value.PAYMENT_STOPPED
                 CUSTOMER_ADVISED_UNAUTHORIZED_IMPROPER_INELIGIBLE_OR_INCOMPLETE ->
@@ -655,7 +638,6 @@ private constructor(
         fun known(): Known =
             when (this) {
                 INSUFFICIENT_FUNDS -> Known.INSUFFICIENT_FUNDS
-                RETURNED_PER_ODFI_REQUEST -> Known.RETURNED_PER_ODFI_REQUEST
                 AUTHORIZATION_REVOKED_BY_CUSTOMER -> Known.AUTHORIZATION_REVOKED_BY_CUSTOMER
                 PAYMENT_STOPPED -> Known.PAYMENT_STOPPED
                 CUSTOMER_ADVISED_UNAUTHORIZED_IMPROPER_INELIGIBLE_OR_INCOMPLETE ->
