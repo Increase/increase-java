@@ -46,6 +46,7 @@ internal class PhysicalCardServiceAsyncTest {
                                     .build()
                             )
                             .method(PhysicalCardCreateParams.Shipment.Method.USPS)
+                            .schedule(PhysicalCardCreateParams.Shipment.Schedule.NEXT_DAY)
                             .build()
                     )
                     .physicalCardProfileId("physical_card_profile_id")
