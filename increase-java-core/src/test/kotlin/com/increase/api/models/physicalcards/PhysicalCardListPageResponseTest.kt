@@ -41,6 +41,7 @@ internal class PhysicalCardListPageResponseTest {
                                         .build()
                                 )
                                 .method(PhysicalCard.Shipment.Method.USPS)
+                                .schedule(PhysicalCard.Shipment.Schedule.NEXT_DAY)
                                 .status(PhysicalCard.Shipment.Status.SHIPPED)
                                 .tracking(
                                     PhysicalCard.Shipment.Tracking.builder()
@@ -102,6 +103,7 @@ internal class PhysicalCardListPageResponseTest {
                                     .build()
                             )
                             .method(PhysicalCard.Shipment.Method.USPS)
+                            .schedule(PhysicalCard.Shipment.Schedule.NEXT_DAY)
                             .status(PhysicalCard.Shipment.Status.SHIPPED)
                             .tracking(
                                 PhysicalCard.Shipment.Tracking.builder()
@@ -165,6 +167,7 @@ internal class PhysicalCardListPageResponseTest {
                                         .build()
                                 )
                                 .method(PhysicalCard.Shipment.Method.USPS)
+                                .schedule(PhysicalCard.Shipment.Schedule.NEXT_DAY)
                                 .status(PhysicalCard.Shipment.Status.SHIPPED)
                                 .tracking(
                                     PhysicalCard.Shipment.Tracking.builder()
