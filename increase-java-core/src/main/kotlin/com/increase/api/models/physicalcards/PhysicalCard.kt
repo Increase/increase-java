@@ -718,6 +718,7 @@ private constructor(
     private constructor(
         private val address: JsonField<Address>,
         private val method: JsonField<Method>,
+        private val schedule: JsonField<Schedule>,
         private val status: JsonField<Status>,
         private val tracking: JsonField<Tracking>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -727,11 +728,14 @@ private constructor(
         private constructor(
             @JsonProperty("address") @ExcludeMissing address: JsonField<Address> = JsonMissing.of(),
             @JsonProperty("method") @ExcludeMissing method: JsonField<Method> = JsonMissing.of(),
+            @JsonProperty("schedule")
+            @ExcludeMissing
+            schedule: JsonField<Schedule> = JsonMissing.of(),
             @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
             @JsonProperty("tracking")
             @ExcludeMissing
             tracking: JsonField<Tracking> = JsonMissing.of(),
-        ) : this(address, method, status, tracking, mutableMapOf())
+        ) : this(address, method, schedule, status, tracking, mutableMapOf())
 
         /**
          * The location to where the card's packing label is addressed.
@@ -748,6 +752,17 @@ private constructor(
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun method(): Method = method.getRequired("method")
+
+        /**
+         * When this physical card should be produced by the card printer. The default timeline is
+         * the day after the card printer receives the order, except for `FEDEX_PRIORITY_OVERNIGHT`
+         * cards, which default to `SAME_DAY`. To use faster production methods, please reach out to
+         * [support@increase.com](mailto:support@increase.com).
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun schedule(): Schedule = schedule.getRequired("schedule")
 
         /**
          * The status of this shipment.
@@ -778,6 +793,13 @@ private constructor(
          * Unlike [method], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("method") @ExcludeMissing fun _method(): JsonField<Method> = method
+
+        /**
+         * Returns the raw JSON value of [schedule].
+         *
+         * Unlike [schedule], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("schedule") @ExcludeMissing fun _schedule(): JsonField<Schedule> = schedule
 
         /**
          * Returns the raw JSON value of [status].
@@ -814,6 +836,7 @@ private constructor(
              * ```java
              * .address()
              * .method()
+             * .schedule()
              * .status()
              * .tracking()
              * ```
@@ -826,6 +849,7 @@ private constructor(
 
             private var address: JsonField<Address>? = null
             private var method: JsonField<Method>? = null
+            private var schedule: JsonField<Schedule>? = null
             private var status: JsonField<Status>? = null
             private var tracking: JsonField<Tracking>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -834,6 +858,7 @@ private constructor(
             internal fun from(shipment: Shipment) = apply {
                 address = shipment.address
                 method = shipment.method
+                schedule = shipment.schedule
                 status = shipment.status
                 tracking = shipment.tracking
                 additionalProperties = shipment.additionalProperties.toMutableMap()
@@ -862,6 +887,24 @@ private constructor(
              * supported value.
              */
             fun method(method: JsonField<Method>) = apply { this.method = method }
+
+            /**
+             * When this physical card should be produced by the card printer. The default timeline
+             * is the day after the card printer receives the order, except for
+             * `FEDEX_PRIORITY_OVERNIGHT` cards, which default to `SAME_DAY`. To use faster
+             * production methods, please reach out to
+             * [support@increase.com](mailto:support@increase.com).
+             */
+            fun schedule(schedule: Schedule) = schedule(JsonField.of(schedule))
+
+            /**
+             * Sets [Builder.schedule] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.schedule] with a well-typed [Schedule] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun schedule(schedule: JsonField<Schedule>) = apply { this.schedule = schedule }
 
             /** The status of this shipment. */
             fun status(status: Status) = status(JsonField.of(status))
@@ -918,6 +961,7 @@ private constructor(
              * ```java
              * .address()
              * .method()
+             * .schedule()
              * .status()
              * .tracking()
              * ```
@@ -928,6 +972,7 @@ private constructor(
                 Shipment(
                     checkRequired("address", address),
                     checkRequired("method", method),
+                    checkRequired("schedule", schedule),
                     checkRequired("status", status),
                     checkRequired("tracking", tracking),
                     additionalProperties.toMutableMap(),
@@ -943,6 +988,7 @@ private constructor(
 
             address().validate()
             method().validate()
+            schedule().validate()
             status().validate()
             tracking().ifPresent { it.validate() }
             validated = true
@@ -966,6 +1012,7 @@ private constructor(
         internal fun validity(): Int =
             (address.asKnown().getOrNull()?.validity() ?: 0) +
                 (method.asKnown().getOrNull()?.validity() ?: 0) +
+                (schedule.asKnown().getOrNull()?.validity() ?: 0) +
                 (status.asKnown().getOrNull()?.validity() ?: 0) +
                 (tracking.asKnown().getOrNull()?.validity() ?: 0)
 
@@ -1505,6 +1552,172 @@ private constructor(
                 }
 
                 return /* spotless:off */ other is Method && value == other.value /* spotless:on */
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
+
+        /**
+         * When this physical card should be produced by the card printer. The default timeline is
+         * the day after the card printer receives the order, except for `FEDEX_PRIORITY_OVERNIGHT`
+         * cards, which default to `SAME_DAY`. To use faster production methods, please reach out to
+         * [support@increase.com](mailto:support@increase.com).
+         */
+        class Schedule @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                /**
+                 * The physical card will be shipped one business day after the order is received by
+                 * the card printer. A card that is submitted to Increase on a Monday evening
+                 * (Pacific Time) will ship out on Wednesday.
+                 */
+                @JvmField val NEXT_DAY = of("next_day")
+
+                /**
+                 * The physical card will be shipped on the same business day that the order is
+                 * received by the card printer. A card that is submitted to Increase on a Monday
+                 * evening (Pacific Time) will ship out on Tuesday.
+                 */
+                @JvmField val SAME_DAY = of("same_day")
+
+                @JvmStatic fun of(value: String) = Schedule(JsonField.of(value))
+            }
+
+            /** An enum containing [Schedule]'s known values. */
+            enum class Known {
+                /**
+                 * The physical card will be shipped one business day after the order is received by
+                 * the card printer. A card that is submitted to Increase on a Monday evening
+                 * (Pacific Time) will ship out on Wednesday.
+                 */
+                NEXT_DAY,
+                /**
+                 * The physical card will be shipped on the same business day that the order is
+                 * received by the card printer. A card that is submitted to Increase on a Monday
+                 * evening (Pacific Time) will ship out on Tuesday.
+                 */
+                SAME_DAY,
+            }
+
+            /**
+             * An enum containing [Schedule]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [Schedule] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                /**
+                 * The physical card will be shipped one business day after the order is received by
+                 * the card printer. A card that is submitted to Increase on a Monday evening
+                 * (Pacific Time) will ship out on Wednesday.
+                 */
+                NEXT_DAY,
+                /**
+                 * The physical card will be shipped on the same business day that the order is
+                 * received by the card printer. A card that is submitted to Increase on a Monday
+                 * evening (Pacific Time) will ship out on Tuesday.
+                 */
+                SAME_DAY,
+                /**
+                 * An enum member indicating that [Schedule] was instantiated with an unknown value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    NEXT_DAY -> Value.NEXT_DAY
+                    SAME_DAY -> Value.SAME_DAY
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    NEXT_DAY -> Known.NEXT_DAY
+                    SAME_DAY -> Known.SAME_DAY
+                    else -> throw IncreaseInvalidDataException("Unknown Schedule: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    IncreaseInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            fun validate(): Schedule = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return /* spotless:off */ other is Schedule && value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -2679,17 +2892,17 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Shipment && address == other.address && method == other.method && status == other.status && tracking == other.tracking && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Shipment && address == other.address && method == other.method && schedule == other.schedule && status == other.status && tracking == other.tracking && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(address, method, status, tracking, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(address, method, schedule, status, tracking, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Shipment{address=$address, method=$method, status=$status, tracking=$tracking, additionalProperties=$additionalProperties}"
+            "Shipment{address=$address, method=$method, schedule=$schedule, status=$status, tracking=$tracking, additionalProperties=$additionalProperties}"
     }
 
     /** The status of the Physical Card. */
