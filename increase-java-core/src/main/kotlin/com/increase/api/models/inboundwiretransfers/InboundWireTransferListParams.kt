@@ -25,6 +25,7 @@ private constructor(
     private val cursor: String?,
     private val limit: Long?,
     private val status: Status?,
+    private val wireDrawdownRequestId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -44,6 +45,9 @@ private constructor(
     fun limit(): Optional<Long> = Optional.ofNullable(limit)
 
     fun status(): Optional<Status> = Optional.ofNullable(status)
+
+    /** Filter Inbound Wire Transfers to ones belonging to the specified Wire Drawdown Request. */
+    fun wireDrawdownRequestId(): Optional<String> = Optional.ofNullable(wireDrawdownRequestId)
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
@@ -71,6 +75,7 @@ private constructor(
         private var cursor: String? = null
         private var limit: Long? = null
         private var status: Status? = null
+        private var wireDrawdownRequestId: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
@@ -82,6 +87,7 @@ private constructor(
             cursor = inboundWireTransferListParams.cursor
             limit = inboundWireTransferListParams.limit
             status = inboundWireTransferListParams.status
+            wireDrawdownRequestId = inboundWireTransferListParams.wireDrawdownRequestId
             additionalHeaders = inboundWireTransferListParams.additionalHeaders.toBuilder()
             additionalQueryParams = inboundWireTransferListParams.additionalQueryParams.toBuilder()
         }
@@ -131,6 +137,20 @@ private constructor(
 
         /** Alias for calling [Builder.status] with `status.orElse(null)`. */
         fun status(status: Optional<Status>) = status(status.getOrNull())
+
+        /**
+         * Filter Inbound Wire Transfers to ones belonging to the specified Wire Drawdown Request.
+         */
+        fun wireDrawdownRequestId(wireDrawdownRequestId: String?) = apply {
+            this.wireDrawdownRequestId = wireDrawdownRequestId
+        }
+
+        /**
+         * Alias for calling [Builder.wireDrawdownRequestId] with
+         * `wireDrawdownRequestId.orElse(null)`.
+         */
+        fun wireDrawdownRequestId(wireDrawdownRequestId: Optional<String>) =
+            wireDrawdownRequestId(wireDrawdownRequestId.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -243,6 +263,7 @@ private constructor(
                 cursor,
                 limit,
                 status,
+                wireDrawdownRequestId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -290,6 +311,7 @@ private constructor(
                         }
                     }
                 }
+                wireDrawdownRequestId?.let { put("wire_drawdown_request_id", it) }
                 putAll(additionalQueryParams)
             }
             .build()
@@ -754,11 +776,11 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is InboundWireTransferListParams && accountId == other.accountId && accountNumberId == other.accountNumberId && createdAt == other.createdAt && cursor == other.cursor && limit == other.limit && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return /* spotless:off */ other is InboundWireTransferListParams && accountId == other.accountId && accountNumberId == other.accountNumberId && createdAt == other.createdAt && cursor == other.cursor && limit == other.limit && status == other.status && wireDrawdownRequestId == other.wireDrawdownRequestId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, accountNumberId, createdAt, cursor, limit, status, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, accountNumberId, createdAt, cursor, limit, status, wireDrawdownRequestId, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "InboundWireTransferListParams{accountId=$accountId, accountNumberId=$accountNumberId, createdAt=$createdAt, cursor=$cursor, limit=$limit, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "InboundWireTransferListParams{accountId=$accountId, accountNumberId=$accountNumberId, createdAt=$createdAt, cursor=$cursor, limit=$limit, status=$status, wireDrawdownRequestId=$wireDrawdownRequestId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

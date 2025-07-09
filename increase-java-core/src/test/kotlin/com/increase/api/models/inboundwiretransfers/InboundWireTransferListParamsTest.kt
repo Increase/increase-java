@@ -29,6 +29,7 @@ internal class InboundWireTransferListParamsTest {
                     .addIn(InboundWireTransferListParams.Status.In.PENDING)
                     .build()
             )
+            .wireDrawdownRequestId("wire_drawdown_request_id")
             .build()
     }
 
@@ -53,6 +54,7 @@ internal class InboundWireTransferListParamsTest {
                         .addIn(InboundWireTransferListParams.Status.In.PENDING)
                         .build()
                 )
+                .wireDrawdownRequestId("wire_drawdown_request_id")
                 .build()
 
         val queryParams = params._queryParams()
@@ -69,6 +71,7 @@ internal class InboundWireTransferListParamsTest {
                     .put("cursor", "cursor")
                     .put("limit", "1")
                     .put("status.in", listOf("pending").joinToString(","))
+                    .put("wire_drawdown_request_id", "wire_drawdown_request_id")
                     .build()
             )
     }
