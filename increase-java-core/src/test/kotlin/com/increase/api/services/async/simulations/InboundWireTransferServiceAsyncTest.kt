@@ -40,6 +40,7 @@ internal class InboundWireTransferServiceAsyncTest {
                     .originatorToBeneficiaryInformationLine3("x")
                     .originatorToBeneficiaryInformationLine4("x")
                     .senderReference("x")
+                    .wireDrawdownRequestId("wire_drawdown_request_id")
                     .build()
             )
 

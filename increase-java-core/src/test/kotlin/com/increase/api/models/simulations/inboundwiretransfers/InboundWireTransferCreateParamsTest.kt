@@ -27,6 +27,7 @@ internal class InboundWireTransferCreateParamsTest {
             .originatorToBeneficiaryInformationLine3("x")
             .originatorToBeneficiaryInformationLine4("x")
             .senderReference("x")
+            .wireDrawdownRequestId("wire_drawdown_request_id")
             .build()
     }
 
@@ -51,6 +52,7 @@ internal class InboundWireTransferCreateParamsTest {
                 .originatorToBeneficiaryInformationLine3("x")
                 .originatorToBeneficiaryInformationLine4("x")
                 .senderReference("x")
+                .wireDrawdownRequestId("wire_drawdown_request_id")
                 .build()
 
         val body = params._body()
@@ -72,6 +74,7 @@ internal class InboundWireTransferCreateParamsTest {
         assertThat(body.originatorToBeneficiaryInformationLine3()).contains("x")
         assertThat(body.originatorToBeneficiaryInformationLine4()).contains("x")
         assertThat(body.senderReference()).contains("x")
+        assertThat(body.wireDrawdownRequestId()).contains("wire_drawdown_request_id")
     }
 
     @Test

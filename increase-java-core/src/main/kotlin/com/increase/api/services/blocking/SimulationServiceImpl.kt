@@ -55,6 +55,8 @@ import com.increase.api.services.blocking.simulations.ProgramService
 import com.increase.api.services.blocking.simulations.ProgramServiceImpl
 import com.increase.api.services.blocking.simulations.RealTimePaymentsTransferService
 import com.increase.api.services.blocking.simulations.RealTimePaymentsTransferServiceImpl
+import com.increase.api.services.blocking.simulations.WireDrawdownRequestService
+import com.increase.api.services.blocking.simulations.WireDrawdownRequestServiceImpl
 import com.increase.api.services.blocking.simulations.WireTransferService
 import com.increase.api.services.blocking.simulations.WireTransferServiceImpl
 import java.util.function.Consumer
@@ -126,6 +128,10 @@ class SimulationServiceImpl internal constructor(private val clientOptions: Clie
 
     private val inboundWireTransfers: InboundWireTransferService by lazy {
         InboundWireTransferServiceImpl(clientOptions)
+    }
+
+    private val wireDrawdownRequests: WireDrawdownRequestService by lazy {
+        WireDrawdownRequestServiceImpl(clientOptions)
     }
 
     private val inboundWireDrawdownRequests: InboundWireDrawdownRequestService by lazy {
@@ -204,6 +210,8 @@ class SimulationServiceImpl internal constructor(private val clientOptions: Clie
     override fun wireTransfers(): WireTransferService = wireTransfers
 
     override fun inboundWireTransfers(): InboundWireTransferService = inboundWireTransfers
+
+    override fun wireDrawdownRequests(): WireDrawdownRequestService = wireDrawdownRequests
 
     override fun inboundWireDrawdownRequests(): InboundWireDrawdownRequestService =
         inboundWireDrawdownRequests
@@ -301,6 +309,10 @@ class SimulationServiceImpl internal constructor(private val clientOptions: Clie
             InboundWireTransferServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val wireDrawdownRequests: WireDrawdownRequestService.WithRawResponse by lazy {
+            WireDrawdownRequestServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         private val inboundWireDrawdownRequests:
             InboundWireDrawdownRequestService.WithRawResponse by lazy {
             InboundWireDrawdownRequestServiceImpl.WithRawResponseImpl(clientOptions)
@@ -391,6 +403,9 @@ class SimulationServiceImpl internal constructor(private val clientOptions: Clie
 
         override fun inboundWireTransfers(): InboundWireTransferService.WithRawResponse =
             inboundWireTransfers
+
+        override fun wireDrawdownRequests(): WireDrawdownRequestService.WithRawResponse =
+            wireDrawdownRequests
 
         override fun inboundWireDrawdownRequests():
             InboundWireDrawdownRequestService.WithRawResponse = inboundWireDrawdownRequests
