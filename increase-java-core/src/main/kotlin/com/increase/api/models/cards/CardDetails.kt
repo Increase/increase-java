@@ -23,6 +23,7 @@ private constructor(
     private val cardId: JsonField<String>,
     private val expirationMonth: JsonField<Long>,
     private val expirationYear: JsonField<Long>,
+    private val pin: JsonField<String>,
     private val primaryAccountNumber: JsonField<String>,
     private val type: JsonField<Type>,
     private val verificationCode: JsonField<String>,
@@ -38,6 +39,7 @@ private constructor(
         @JsonProperty("expiration_year")
         @ExcludeMissing
         expirationYear: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("pin") @ExcludeMissing pin: JsonField<String> = JsonMissing.of(),
         @JsonProperty("primary_account_number")
         @ExcludeMissing
         primaryAccountNumber: JsonField<String> = JsonMissing.of(),
@@ -49,6 +51,7 @@ private constructor(
         cardId,
         expirationMonth,
         expirationYear,
+        pin,
         primaryAccountNumber,
         type,
         verificationCode,
@@ -78,6 +81,14 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun expirationYear(): Long = expirationYear.getRequired("expiration_year")
+
+    /**
+     * The 4-digit PIN for the card, for use with ATMs.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun pin(): String = pin.getRequired("pin")
 
     /**
      * The card number.
@@ -131,6 +142,13 @@ private constructor(
     fun _expirationYear(): JsonField<Long> = expirationYear
 
     /**
+     * Returns the raw JSON value of [pin].
+     *
+     * Unlike [pin], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("pin") @ExcludeMissing fun _pin(): JsonField<String> = pin
+
+    /**
      * Returns the raw JSON value of [primaryAccountNumber].
      *
      * Unlike [primaryAccountNumber], this method doesn't throw if the JSON field has an unexpected
@@ -179,6 +197,7 @@ private constructor(
          * .cardId()
          * .expirationMonth()
          * .expirationYear()
+         * .pin()
          * .primaryAccountNumber()
          * .type()
          * .verificationCode()
@@ -193,6 +212,7 @@ private constructor(
         private var cardId: JsonField<String>? = null
         private var expirationMonth: JsonField<Long>? = null
         private var expirationYear: JsonField<Long>? = null
+        private var pin: JsonField<String>? = null
         private var primaryAccountNumber: JsonField<String>? = null
         private var type: JsonField<Type>? = null
         private var verificationCode: JsonField<String>? = null
@@ -203,6 +223,7 @@ private constructor(
             cardId = cardDetails.cardId
             expirationMonth = cardDetails.expirationMonth
             expirationYear = cardDetails.expirationYear
+            pin = cardDetails.pin
             primaryAccountNumber = cardDetails.primaryAccountNumber
             type = cardDetails.type
             verificationCode = cardDetails.verificationCode
@@ -247,6 +268,17 @@ private constructor(
         fun expirationYear(expirationYear: JsonField<Long>) = apply {
             this.expirationYear = expirationYear
         }
+
+        /** The 4-digit PIN for the card, for use with ATMs. */
+        fun pin(pin: String) = pin(JsonField.of(pin))
+
+        /**
+         * Sets [Builder.pin] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.pin] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun pin(pin: JsonField<String>) = apply { this.pin = pin }
 
         /** The card number. */
         fun primaryAccountNumber(primaryAccountNumber: String) =
@@ -324,6 +356,7 @@ private constructor(
          * .cardId()
          * .expirationMonth()
          * .expirationYear()
+         * .pin()
          * .primaryAccountNumber()
          * .type()
          * .verificationCode()
@@ -336,6 +369,7 @@ private constructor(
                 checkRequired("cardId", cardId),
                 checkRequired("expirationMonth", expirationMonth),
                 checkRequired("expirationYear", expirationYear),
+                checkRequired("pin", pin),
                 checkRequired("primaryAccountNumber", primaryAccountNumber),
                 checkRequired("type", type),
                 checkRequired("verificationCode", verificationCode),
@@ -353,6 +387,7 @@ private constructor(
         cardId()
         expirationMonth()
         expirationYear()
+        pin()
         primaryAccountNumber()
         type().validate()
         verificationCode()
@@ -377,6 +412,7 @@ private constructor(
         (if (cardId.asKnown().isPresent) 1 else 0) +
             (if (expirationMonth.asKnown().isPresent) 1 else 0) +
             (if (expirationYear.asKnown().isPresent) 1 else 0) +
+            (if (pin.asKnown().isPresent) 1 else 0) +
             (if (primaryAccountNumber.asKnown().isPresent) 1 else 0) +
             (type.asKnown().getOrNull()?.validity() ?: 0) +
             (if (verificationCode.asKnown().isPresent) 1 else 0)
@@ -511,15 +547,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is CardDetails && cardId == other.cardId && expirationMonth == other.expirationMonth && expirationYear == other.expirationYear && primaryAccountNumber == other.primaryAccountNumber && type == other.type && verificationCode == other.verificationCode && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is CardDetails && cardId == other.cardId && expirationMonth == other.expirationMonth && expirationYear == other.expirationYear && pin == other.pin && primaryAccountNumber == other.primaryAccountNumber && type == other.type && verificationCode == other.verificationCode && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(cardId, expirationMonth, expirationYear, primaryAccountNumber, type, verificationCode, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(cardId, expirationMonth, expirationYear, pin, primaryAccountNumber, type, verificationCode, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "CardDetails{cardId=$cardId, expirationMonth=$expirationMonth, expirationYear=$expirationYear, primaryAccountNumber=$primaryAccountNumber, type=$type, verificationCode=$verificationCode, additionalProperties=$additionalProperties}"
+        "CardDetails{cardId=$cardId, expirationMonth=$expirationMonth, expirationYear=$expirationYear, pin=$pin, primaryAccountNumber=$primaryAccountNumber, type=$type, verificationCode=$verificationCode, additionalProperties=$additionalProperties}"
 }
