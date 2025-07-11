@@ -24,6 +24,7 @@ internal class ProgramServiceTest {
             programService.create(
                 ProgramCreateParams.builder()
                     .name("For Benefit Of")
+                    .bank(ProgramCreateParams.Bank.BLUE_RIDGE_BANK)
                     .reserveAccountId("reserve_account_id")
                     .build()
             )

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
@@ -18,6 +19,7 @@ import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /**
  * Simulates a [Program](#programs) being created in your group. By default, your group has one
@@ -40,6 +42,14 @@ private constructor(
     fun name(): String = body.name()
 
     /**
+     * The bank for the program's accounts, defaults to First Internet Bank.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun bank(): Optional<Bank> = body.bank()
+
+    /**
      * The identifier of the Account the Program should be added to is for.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -53,6 +63,13 @@ private constructor(
      * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _name(): JsonField<String> = body._name()
+
+    /**
+     * Returns the raw JSON value of [bank].
+     *
+     * Unlike [bank], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _bank(): JsonField<Bank> = body._bank()
 
     /**
      * Returns the raw JSON value of [reserveAccountId].
@@ -103,6 +120,7 @@ private constructor(
          * This is generally only useful if you are already constructing the body separately.
          * Otherwise, it's more convenient to use the top-level setters instead:
          * - [name]
+         * - [bank]
          * - [reserveAccountId]
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -117,6 +135,17 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun name(name: JsonField<String>) = apply { body.name(name) }
+
+        /** The bank for the program's accounts, defaults to First Internet Bank. */
+        fun bank(bank: Bank) = apply { body.bank(bank) }
+
+        /**
+         * Sets [Builder.bank] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.bank] with a well-typed [Bank] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun bank(bank: JsonField<Bank>) = apply { body.bank(bank) }
 
         /** The identifier of the Account the Program should be added to is for. */
         fun reserveAccountId(reserveAccountId: String) = apply {
@@ -280,6 +309,7 @@ private constructor(
     class Body
     private constructor(
         private val name: JsonField<String>,
+        private val bank: JsonField<Bank>,
         private val reserveAccountId: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -287,10 +317,11 @@ private constructor(
         @JsonCreator
         private constructor(
             @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("bank") @ExcludeMissing bank: JsonField<Bank> = JsonMissing.of(),
             @JsonProperty("reserve_account_id")
             @ExcludeMissing
             reserveAccountId: JsonField<String> = JsonMissing.of(),
-        ) : this(name, reserveAccountId, mutableMapOf())
+        ) : this(name, bank, reserveAccountId, mutableMapOf())
 
         /**
          * The name of the program being added.
@@ -299,6 +330,14 @@ private constructor(
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun name(): String = name.getRequired("name")
+
+        /**
+         * The bank for the program's accounts, defaults to First Internet Bank.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun bank(): Optional<Bank> = bank.getOptional("bank")
 
         /**
          * The identifier of the Account the Program should be added to is for.
@@ -315,6 +354,13 @@ private constructor(
          * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+
+        /**
+         * Returns the raw JSON value of [bank].
+         *
+         * Unlike [bank], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("bank") @ExcludeMissing fun _bank(): JsonField<Bank> = bank
 
         /**
          * Returns the raw JSON value of [reserveAccountId].
@@ -355,12 +401,14 @@ private constructor(
         class Builder internal constructor() {
 
             private var name: JsonField<String>? = null
+            private var bank: JsonField<Bank> = JsonMissing.of()
             private var reserveAccountId: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(body: Body) = apply {
                 name = body.name
+                bank = body.bank
                 reserveAccountId = body.reserveAccountId
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
@@ -376,6 +424,18 @@ private constructor(
              * value.
              */
             fun name(name: JsonField<String>) = apply { this.name = name }
+
+            /** The bank for the program's accounts, defaults to First Internet Bank. */
+            fun bank(bank: Bank) = bank(JsonField.of(bank))
+
+            /**
+             * Sets [Builder.bank] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.bank] with a well-typed [Bank] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun bank(bank: JsonField<Bank>) = apply { this.bank = bank }
 
             /** The identifier of the Account the Program should be added to is for. */
             fun reserveAccountId(reserveAccountId: String) =
@@ -426,6 +486,7 @@ private constructor(
             fun build(): Body =
                 Body(
                     checkRequired("name", name),
+                    bank,
                     reserveAccountId,
                     additionalProperties.toMutableMap(),
                 )
@@ -439,6 +500,7 @@ private constructor(
             }
 
             name()
+            bank().ifPresent { it.validate() }
             reserveAccountId()
             validated = true
         }
@@ -460,6 +522,7 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             (if (name.asKnown().isPresent) 1 else 0) +
+                (bank.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (reserveAccountId.asKnown().isPresent) 1 else 0)
 
         override fun equals(other: Any?): Boolean {
@@ -467,17 +530,178 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Body && name == other.name && reserveAccountId == other.reserveAccountId && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && name == other.name && bank == other.bank && reserveAccountId == other.reserveAccountId && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(name, reserveAccountId, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(name, bank, reserveAccountId, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{name=$name, reserveAccountId=$reserveAccountId, additionalProperties=$additionalProperties}"
+            "Body{name=$name, bank=$bank, reserveAccountId=$reserveAccountId, additionalProperties=$additionalProperties}"
+    }
+
+    /** The bank for the program's accounts, defaults to First Internet Bank. */
+    class Bank @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            /** Blue Ridge Bank, N.A. */
+            @JvmField val BLUE_RIDGE_BANK = of("blue_ridge_bank")
+
+            /** Core Bank */
+            @JvmField val CORE_BANK = of("core_bank")
+
+            /** First Internet Bank of Indiana */
+            @JvmField val FIRST_INTERNET_BANK = of("first_internet_bank")
+
+            /** Global Innovations Bank */
+            @JvmField val GLOBAL_INNOVATIONS_BANK = of("global_innovations_bank")
+
+            /** Grasshopper Bank */
+            @JvmField val GRASSHOPPER_BANK = of("grasshopper_bank")
+
+            @JvmStatic fun of(value: String) = Bank(JsonField.of(value))
+        }
+
+        /** An enum containing [Bank]'s known values. */
+        enum class Known {
+            /** Blue Ridge Bank, N.A. */
+            BLUE_RIDGE_BANK,
+            /** Core Bank */
+            CORE_BANK,
+            /** First Internet Bank of Indiana */
+            FIRST_INTERNET_BANK,
+            /** Global Innovations Bank */
+            GLOBAL_INNOVATIONS_BANK,
+            /** Grasshopper Bank */
+            GRASSHOPPER_BANK,
+        }
+
+        /**
+         * An enum containing [Bank]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [Bank] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            /** Blue Ridge Bank, N.A. */
+            BLUE_RIDGE_BANK,
+            /** Core Bank */
+            CORE_BANK,
+            /** First Internet Bank of Indiana */
+            FIRST_INTERNET_BANK,
+            /** Global Innovations Bank */
+            GLOBAL_INNOVATIONS_BANK,
+            /** Grasshopper Bank */
+            GRASSHOPPER_BANK,
+            /** An enum member indicating that [Bank] was instantiated with an unknown value. */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                BLUE_RIDGE_BANK -> Value.BLUE_RIDGE_BANK
+                CORE_BANK -> Value.CORE_BANK
+                FIRST_INTERNET_BANK -> Value.FIRST_INTERNET_BANK
+                GLOBAL_INNOVATIONS_BANK -> Value.GLOBAL_INNOVATIONS_BANK
+                GRASSHOPPER_BANK -> Value.GRASSHOPPER_BANK
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                BLUE_RIDGE_BANK -> Known.BLUE_RIDGE_BANK
+                CORE_BANK -> Known.CORE_BANK
+                FIRST_INTERNET_BANK -> Known.FIRST_INTERNET_BANK
+                GLOBAL_INNOVATIONS_BANK -> Known.GLOBAL_INNOVATIONS_BANK
+                GRASSHOPPER_BANK -> Known.GRASSHOPPER_BANK
+                else -> throw IncreaseInvalidDataException("Unknown Bank: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws IncreaseInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow {
+                IncreaseInvalidDataException("Value is not a String")
+            }
+
+        private var validated: Boolean = false
+
+        fun validate(): Bank = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is Bank && value == other.value /* spotless:on */
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
     }
 
     override fun equals(other: Any?): Boolean {
