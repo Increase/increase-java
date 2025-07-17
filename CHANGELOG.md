@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.261.1 (2025-07-17)
+
+Full Changelog: [v0.261.0...v0.261.1](https://github.com/Increase/increase-java/compare/v0.261.0...v0.261.1)
+
+### Bug Fixes
+
+* **client:** ensure error handling always occurs ([82faed8](https://github.com/Increase/increase-java/commit/82faed8125f96e02e9c20d989d41bb50942df037))
+
+
+### Chores
+
+* **ci:** bump `actions/setup-java` to v4 ([90bded8](https://github.com/Increase/increase-java/commit/90bded87bd08864097d705f9a05f8d52735f54c7))
+* **internal:** allow running specific example from cli ([9ac4855](https://github.com/Increase/increase-java/commit/9ac4855ae6f2fbe7d7a82a7e10b79fc9d62b631f))
+
 ## 0.261.0 (2025-07-11)
 
 Full Changelog: [v0.260.0...v0.261.0](https://github.com/Increase/increase-java/compare/v0.260.0...v0.261.0)
