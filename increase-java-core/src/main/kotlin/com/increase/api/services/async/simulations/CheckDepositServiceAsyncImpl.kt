@@ -3,14 +3,14 @@
 package com.increase.api.services.async.simulations
 
 import com.increase.api.core.ClientOptions
-import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.checkRequired
+import com.increase.api.core.handlers.errorBodyHandler
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
-import com.increase.api.core.handlers.withErrorHandler
 import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
+import com.increase.api.core.http.HttpResponse
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.json
@@ -60,7 +60,8 @@ class CheckDepositServiceAsyncImpl internal constructor(private val clientOption
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         CheckDepositServiceAsync.WithRawResponse {
 
-        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<HttpResponse> =
+            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
@@ -70,7 +71,7 @@ class CheckDepositServiceAsyncImpl internal constructor(private val clientOption
             )
 
         private val rejectHandler: Handler<CheckDeposit> =
-            jsonHandler<CheckDeposit>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<CheckDeposit>(clientOptions.jsonMapper)
 
         override fun reject(
             params: CheckDepositRejectParams,
@@ -96,7 +97,7 @@ class CheckDepositServiceAsyncImpl internal constructor(private val clientOption
             return request
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
-                    response.parseable {
+                    errorHandler.handle(response).parseable {
                         response
                             .use { rejectHandler.handle(it) }
                             .also {
@@ -109,7 +110,7 @@ class CheckDepositServiceAsyncImpl internal constructor(private val clientOption
         }
 
         private val returnHandler: Handler<CheckDeposit> =
-            jsonHandler<CheckDeposit>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<CheckDeposit>(clientOptions.jsonMapper)
 
         override fun return_(
             params: CheckDepositReturnParams,
@@ -135,7 +136,7 @@ class CheckDepositServiceAsyncImpl internal constructor(private val clientOption
             return request
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
-                    response.parseable {
+                    errorHandler.handle(response).parseable {
                         response
                             .use { returnHandler.handle(it) }
                             .also {
@@ -148,7 +149,7 @@ class CheckDepositServiceAsyncImpl internal constructor(private val clientOption
         }
 
         private val submitHandler: Handler<CheckDeposit> =
-            jsonHandler<CheckDeposit>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<CheckDeposit>(clientOptions.jsonMapper)
 
         override fun submit(
             params: CheckDepositSubmitParams,
@@ -174,7 +175,7 @@ class CheckDepositServiceAsyncImpl internal constructor(private val clientOption
             return request
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
-                    response.parseable {
+                    errorHandler.handle(response).parseable {
                         response
                             .use { submitHandler.handle(it) }
                             .also {

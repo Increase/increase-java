@@ -3,14 +3,14 @@
 package com.increase.api.services.async.simulations
 
 import com.increase.api.core.ClientOptions
-import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.checkRequired
+import com.increase.api.core.handlers.errorBodyHandler
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
-import com.increase.api.core.handlers.withErrorHandler
 import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
+import com.increase.api.core.http.HttpResponse
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.json
@@ -46,7 +46,8 @@ internal constructor(private val clientOptions: ClientOptions) : InboundFundsHol
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         InboundFundsHoldServiceAsync.WithRawResponse {
 
-        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<HttpResponse> =
+            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
@@ -57,7 +58,6 @@ internal constructor(private val clientOptions: ClientOptions) : InboundFundsHol
 
         private val releaseHandler: Handler<InboundFundsHoldReleaseResponse> =
             jsonHandler<InboundFundsHoldReleaseResponse>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
 
         override fun release(
             params: InboundFundsHoldReleaseParams,
@@ -83,7 +83,7 @@ internal constructor(private val clientOptions: ClientOptions) : InboundFundsHol
             return request
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
-                    response.parseable {
+                    errorHandler.handle(response).parseable {
                         response
                             .use { releaseHandler.handle(it) }
                             .also {

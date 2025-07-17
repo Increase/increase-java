@@ -3,14 +3,14 @@
 package com.increase.api.services.blocking
 
 import com.increase.api.core.ClientOptions
-import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.checkRequired
+import com.increase.api.core.handlers.errorBodyHandler
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
-import com.increase.api.core.handlers.withErrorHandler
 import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
+import com.increase.api.core.http.HttpResponse
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.json
@@ -63,7 +63,8 @@ internal constructor(private val clientOptions: ClientOptions) : WireDrawdownReq
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         WireDrawdownRequestService.WithRawResponse {
 
-        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<HttpResponse> =
+            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
@@ -74,7 +75,6 @@ internal constructor(private val clientOptions: ClientOptions) : WireDrawdownReq
 
         private val createHandler: Handler<WireDrawdownRequest> =
             jsonHandler<WireDrawdownRequest>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
 
         override fun create(
             params: WireDrawdownRequestCreateParams,
@@ -90,7 +90,7 @@ internal constructor(private val clientOptions: ClientOptions) : WireDrawdownReq
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { createHandler.handle(it) }
                     .also {
@@ -103,7 +103,6 @@ internal constructor(private val clientOptions: ClientOptions) : WireDrawdownReq
 
         private val retrieveHandler: Handler<WireDrawdownRequest> =
             jsonHandler<WireDrawdownRequest>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
 
         override fun retrieve(
             params: WireDrawdownRequestRetrieveParams,
@@ -121,7 +120,7 @@ internal constructor(private val clientOptions: ClientOptions) : WireDrawdownReq
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { retrieveHandler.handle(it) }
                     .also {
@@ -134,7 +133,6 @@ internal constructor(private val clientOptions: ClientOptions) : WireDrawdownReq
 
         private val listHandler: Handler<WireDrawdownRequestListPageResponse> =
             jsonHandler<WireDrawdownRequestListPageResponse>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
 
         override fun list(
             params: WireDrawdownRequestListParams,
@@ -149,7 +147,7 @@ internal constructor(private val clientOptions: ClientOptions) : WireDrawdownReq
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { listHandler.handle(it) }
                     .also {

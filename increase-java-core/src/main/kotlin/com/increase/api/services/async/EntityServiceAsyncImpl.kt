@@ -3,14 +3,14 @@
 package com.increase.api.services.async
 
 import com.increase.api.core.ClientOptions
-import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.checkRequired
+import com.increase.api.core.handlers.errorBodyHandler
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
-import com.increase.api.core.handlers.withErrorHandler
 import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
+import com.increase.api.core.http.HttpResponse
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.json
@@ -120,7 +120,8 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         EntityServiceAsync.WithRawResponse {
 
-        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<HttpResponse> =
+            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
@@ -129,8 +130,7 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val createHandler: Handler<Entity> =
-            jsonHandler<Entity>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val createHandler: Handler<Entity> = jsonHandler<Entity>(clientOptions.jsonMapper)
 
         override fun create(
             params: EntityCreateParams,
@@ -148,7 +148,7 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
             return request
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
-                    response.parseable {
+                    errorHandler.handle(response).parseable {
                         response
                             .use { createHandler.handle(it) }
                             .also {
@@ -160,8 +160,7 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 }
         }
 
-        private val retrieveHandler: Handler<Entity> =
-            jsonHandler<Entity>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val retrieveHandler: Handler<Entity> = jsonHandler<Entity>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: EntityRetrieveParams,
@@ -181,7 +180,7 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
             return request
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
-                    response.parseable {
+                    errorHandler.handle(response).parseable {
                         response
                             .use { retrieveHandler.handle(it) }
                             .also {
@@ -195,7 +194,6 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
 
         private val listHandler: Handler<EntityListPageResponse> =
             jsonHandler<EntityListPageResponse>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
 
         override fun list(
             params: EntityListParams,
@@ -212,7 +210,7 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
             return request
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
-                    response.parseable {
+                    errorHandler.handle(response).parseable {
                         response
                             .use { listHandler.handle(it) }
                             .also {
@@ -232,8 +230,7 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 }
         }
 
-        private val archiveHandler: Handler<Entity> =
-            jsonHandler<Entity>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val archiveHandler: Handler<Entity> = jsonHandler<Entity>(clientOptions.jsonMapper)
 
         override fun archive(
             params: EntityArchiveParams,
@@ -254,7 +251,7 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
             return request
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
-                    response.parseable {
+                    errorHandler.handle(response).parseable {
                         response
                             .use { archiveHandler.handle(it) }
                             .also {
@@ -267,7 +264,7 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
         }
 
         private val archiveBeneficialOwnerHandler: Handler<Entity> =
-            jsonHandler<Entity>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<Entity>(clientOptions.jsonMapper)
 
         override fun archiveBeneficialOwner(
             params: EntityArchiveBeneficialOwnerParams,
@@ -288,7 +285,7 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
             return request
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
-                    response.parseable {
+                    errorHandler.handle(response).parseable {
                         response
                             .use { archiveBeneficialOwnerHandler.handle(it) }
                             .also {
@@ -300,8 +297,7 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 }
         }
 
-        private val confirmHandler: Handler<Entity> =
-            jsonHandler<Entity>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val confirmHandler: Handler<Entity> = jsonHandler<Entity>(clientOptions.jsonMapper)
 
         override fun confirm(
             params: EntityConfirmParams,
@@ -322,7 +318,7 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
             return request
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
-                    response.parseable {
+                    errorHandler.handle(response).parseable {
                         response
                             .use { confirmHandler.handle(it) }
                             .also {
@@ -335,7 +331,7 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
         }
 
         private val createBeneficialOwnerHandler: Handler<Entity> =
-            jsonHandler<Entity>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<Entity>(clientOptions.jsonMapper)
 
         override fun createBeneficialOwner(
             params: EntityCreateBeneficialOwnerParams,
@@ -356,7 +352,7 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
             return request
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
-                    response.parseable {
+                    errorHandler.handle(response).parseable {
                         response
                             .use { createBeneficialOwnerHandler.handle(it) }
                             .also {
@@ -369,7 +365,7 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
         }
 
         private val updateAddressHandler: Handler<Entity> =
-            jsonHandler<Entity>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<Entity>(clientOptions.jsonMapper)
 
         override fun updateAddress(
             params: EntityUpdateAddressParams,
@@ -390,7 +386,7 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
             return request
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
-                    response.parseable {
+                    errorHandler.handle(response).parseable {
                         response
                             .use { updateAddressHandler.handle(it) }
                             .also {
@@ -403,7 +399,7 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
         }
 
         private val updateBeneficialOwnerAddressHandler: Handler<Entity> =
-            jsonHandler<Entity>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<Entity>(clientOptions.jsonMapper)
 
         override fun updateBeneficialOwnerAddress(
             params: EntityUpdateBeneficialOwnerAddressParams,
@@ -428,7 +424,7 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
             return request
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
-                    response.parseable {
+                    errorHandler.handle(response).parseable {
                         response
                             .use { updateBeneficialOwnerAddressHandler.handle(it) }
                             .also {
@@ -441,7 +437,7 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
         }
 
         private val updateIndustryCodeHandler: Handler<Entity> =
-            jsonHandler<Entity>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<Entity>(clientOptions.jsonMapper)
 
         override fun updateIndustryCode(
             params: EntityUpdateIndustryCodeParams,
@@ -462,7 +458,7 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
             return request
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
-                    response.parseable {
+                    errorHandler.handle(response).parseable {
                         response
                             .use { updateIndustryCodeHandler.handle(it) }
                             .also {

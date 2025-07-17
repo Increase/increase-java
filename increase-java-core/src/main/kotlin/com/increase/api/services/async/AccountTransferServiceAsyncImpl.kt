@@ -3,14 +3,14 @@
 package com.increase.api.services.async
 
 import com.increase.api.core.ClientOptions
-import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.checkRequired
+import com.increase.api.core.handlers.errorBodyHandler
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
-import com.increase.api.core.handlers.withErrorHandler
 import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
+import com.increase.api.core.http.HttpResponse
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.json
@@ -80,7 +80,8 @@ internal constructor(private val clientOptions: ClientOptions) : AccountTransfer
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         AccountTransferServiceAsync.WithRawResponse {
 
-        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<HttpResponse> =
+            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
@@ -90,7 +91,7 @@ internal constructor(private val clientOptions: ClientOptions) : AccountTransfer
             )
 
         private val createHandler: Handler<AccountTransfer> =
-            jsonHandler<AccountTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<AccountTransfer>(clientOptions.jsonMapper)
 
         override fun create(
             params: AccountTransferCreateParams,
@@ -108,7 +109,7 @@ internal constructor(private val clientOptions: ClientOptions) : AccountTransfer
             return request
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
-                    response.parseable {
+                    errorHandler.handle(response).parseable {
                         response
                             .use { createHandler.handle(it) }
                             .also {
@@ -121,7 +122,7 @@ internal constructor(private val clientOptions: ClientOptions) : AccountTransfer
         }
 
         private val retrieveHandler: Handler<AccountTransfer> =
-            jsonHandler<AccountTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<AccountTransfer>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: AccountTransferRetrieveParams,
@@ -141,7 +142,7 @@ internal constructor(private val clientOptions: ClientOptions) : AccountTransfer
             return request
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
-                    response.parseable {
+                    errorHandler.handle(response).parseable {
                         response
                             .use { retrieveHandler.handle(it) }
                             .also {
@@ -155,7 +156,6 @@ internal constructor(private val clientOptions: ClientOptions) : AccountTransfer
 
         private val listHandler: Handler<AccountTransferListPageResponse> =
             jsonHandler<AccountTransferListPageResponse>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
 
         override fun list(
             params: AccountTransferListParams,
@@ -172,7 +172,7 @@ internal constructor(private val clientOptions: ClientOptions) : AccountTransfer
             return request
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
-                    response.parseable {
+                    errorHandler.handle(response).parseable {
                         response
                             .use { listHandler.handle(it) }
                             .also {
@@ -193,7 +193,7 @@ internal constructor(private val clientOptions: ClientOptions) : AccountTransfer
         }
 
         private val approveHandler: Handler<AccountTransfer> =
-            jsonHandler<AccountTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<AccountTransfer>(clientOptions.jsonMapper)
 
         override fun approve(
             params: AccountTransferApproveParams,
@@ -214,7 +214,7 @@ internal constructor(private val clientOptions: ClientOptions) : AccountTransfer
             return request
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
-                    response.parseable {
+                    errorHandler.handle(response).parseable {
                         response
                             .use { approveHandler.handle(it) }
                             .also {
@@ -227,7 +227,7 @@ internal constructor(private val clientOptions: ClientOptions) : AccountTransfer
         }
 
         private val cancelHandler: Handler<AccountTransfer> =
-            jsonHandler<AccountTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<AccountTransfer>(clientOptions.jsonMapper)
 
         override fun cancel(
             params: AccountTransferCancelParams,
@@ -248,7 +248,7 @@ internal constructor(private val clientOptions: ClientOptions) : AccountTransfer
             return request
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
-                    response.parseable {
+                    errorHandler.handle(response).parseable {
                         response
                             .use { cancelHandler.handle(it) }
                             .also {

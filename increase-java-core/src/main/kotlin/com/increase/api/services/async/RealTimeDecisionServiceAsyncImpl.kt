@@ -3,14 +3,14 @@
 package com.increase.api.services.async
 
 import com.increase.api.core.ClientOptions
-import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.checkRequired
+import com.increase.api.core.handlers.errorBodyHandler
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
-import com.increase.api.core.handlers.withErrorHandler
 import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
+import com.increase.api.core.http.HttpResponse
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.json
@@ -54,7 +54,8 @@ internal constructor(private val clientOptions: ClientOptions) : RealTimeDecisio
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         RealTimeDecisionServiceAsync.WithRawResponse {
 
-        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<HttpResponse> =
+            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
@@ -64,7 +65,7 @@ internal constructor(private val clientOptions: ClientOptions) : RealTimeDecisio
             )
 
         private val retrieveHandler: Handler<RealTimeDecision> =
-            jsonHandler<RealTimeDecision>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<RealTimeDecision>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: RealTimeDecisionRetrieveParams,
@@ -84,7 +85,7 @@ internal constructor(private val clientOptions: ClientOptions) : RealTimeDecisio
             return request
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
-                    response.parseable {
+                    errorHandler.handle(response).parseable {
                         response
                             .use { retrieveHandler.handle(it) }
                             .also {
@@ -97,7 +98,7 @@ internal constructor(private val clientOptions: ClientOptions) : RealTimeDecisio
         }
 
         private val actionHandler: Handler<RealTimeDecision> =
-            jsonHandler<RealTimeDecision>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<RealTimeDecision>(clientOptions.jsonMapper)
 
         override fun action(
             params: RealTimeDecisionActionParams,
@@ -118,7 +119,7 @@ internal constructor(private val clientOptions: ClientOptions) : RealTimeDecisio
             return request
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
-                    response.parseable {
+                    errorHandler.handle(response).parseable {
                         response
                             .use { actionHandler.handle(it) }
                             .also {

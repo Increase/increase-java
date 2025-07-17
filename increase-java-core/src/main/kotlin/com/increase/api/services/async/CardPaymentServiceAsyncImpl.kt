@@ -3,14 +3,14 @@
 package com.increase.api.services.async
 
 import com.increase.api.core.ClientOptions
-import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.checkRequired
+import com.increase.api.core.handlers.errorBodyHandler
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
-import com.increase.api.core.handlers.withErrorHandler
 import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
+import com.increase.api.core.http.HttpResponse
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.parseable
@@ -53,7 +53,8 @@ class CardPaymentServiceAsyncImpl internal constructor(private val clientOptions
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         CardPaymentServiceAsync.WithRawResponse {
 
-        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<HttpResponse> =
+            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
@@ -63,7 +64,7 @@ class CardPaymentServiceAsyncImpl internal constructor(private val clientOptions
             )
 
         private val retrieveHandler: Handler<CardPayment> =
-            jsonHandler<CardPayment>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<CardPayment>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: CardPaymentRetrieveParams,
@@ -83,7 +84,7 @@ class CardPaymentServiceAsyncImpl internal constructor(private val clientOptions
             return request
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
-                    response.parseable {
+                    errorHandler.handle(response).parseable {
                         response
                             .use { retrieveHandler.handle(it) }
                             .also {
@@ -97,7 +98,6 @@ class CardPaymentServiceAsyncImpl internal constructor(private val clientOptions
 
         private val listHandler: Handler<CardPaymentListPageResponse> =
             jsonHandler<CardPaymentListPageResponse>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
 
         override fun list(
             params: CardPaymentListParams,
@@ -114,7 +114,7 @@ class CardPaymentServiceAsyncImpl internal constructor(private val clientOptions
             return request
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
-                    response.parseable {
+                    errorHandler.handle(response).parseable {
                         response
                             .use { listHandler.handle(it) }
                             .also {

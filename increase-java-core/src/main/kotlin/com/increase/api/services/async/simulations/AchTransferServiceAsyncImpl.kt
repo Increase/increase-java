@@ -3,14 +3,14 @@
 package com.increase.api.services.async.simulations
 
 import com.increase.api.core.ClientOptions
-import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.checkRequired
+import com.increase.api.core.handlers.errorBodyHandler
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
-import com.increase.api.core.handlers.withErrorHandler
 import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
+import com.increase.api.core.http.HttpResponse
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.json
@@ -78,7 +78,8 @@ class AchTransferServiceAsyncImpl internal constructor(private val clientOptions
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         AchTransferServiceAsync.WithRawResponse {
 
-        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<HttpResponse> =
+            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
@@ -88,7 +89,7 @@ class AchTransferServiceAsyncImpl internal constructor(private val clientOptions
             )
 
         private val acknowledgeHandler: Handler<AchTransfer> =
-            jsonHandler<AchTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<AchTransfer>(clientOptions.jsonMapper)
 
         override fun acknowledge(
             params: AchTransferAcknowledgeParams,
@@ -114,7 +115,7 @@ class AchTransferServiceAsyncImpl internal constructor(private val clientOptions
             return request
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
-                    response.parseable {
+                    errorHandler.handle(response).parseable {
                         response
                             .use { acknowledgeHandler.handle(it) }
                             .also {
@@ -127,7 +128,7 @@ class AchTransferServiceAsyncImpl internal constructor(private val clientOptions
         }
 
         private val createNotificationOfChangeHandler: Handler<AchTransfer> =
-            jsonHandler<AchTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<AchTransfer>(clientOptions.jsonMapper)
 
         override fun createNotificationOfChange(
             params: AchTransferCreateNotificationOfChangeParams,
@@ -153,7 +154,7 @@ class AchTransferServiceAsyncImpl internal constructor(private val clientOptions
             return request
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
-                    response.parseable {
+                    errorHandler.handle(response).parseable {
                         response
                             .use { createNotificationOfChangeHandler.handle(it) }
                             .also {
@@ -166,7 +167,7 @@ class AchTransferServiceAsyncImpl internal constructor(private val clientOptions
         }
 
         private val returnHandler: Handler<AchTransfer> =
-            jsonHandler<AchTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<AchTransfer>(clientOptions.jsonMapper)
 
         override fun return_(
             params: AchTransferReturnParams,
@@ -187,7 +188,7 @@ class AchTransferServiceAsyncImpl internal constructor(private val clientOptions
             return request
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
-                    response.parseable {
+                    errorHandler.handle(response).parseable {
                         response
                             .use { returnHandler.handle(it) }
                             .also {
@@ -200,7 +201,7 @@ class AchTransferServiceAsyncImpl internal constructor(private val clientOptions
         }
 
         private val settleHandler: Handler<AchTransfer> =
-            jsonHandler<AchTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<AchTransfer>(clientOptions.jsonMapper)
 
         override fun settle(
             params: AchTransferSettleParams,
@@ -221,7 +222,7 @@ class AchTransferServiceAsyncImpl internal constructor(private val clientOptions
             return request
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
-                    response.parseable {
+                    errorHandler.handle(response).parseable {
                         response
                             .use { settleHandler.handle(it) }
                             .also {
@@ -234,7 +235,7 @@ class AchTransferServiceAsyncImpl internal constructor(private val clientOptions
         }
 
         private val submitHandler: Handler<AchTransfer> =
-            jsonHandler<AchTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<AchTransfer>(clientOptions.jsonMapper)
 
         override fun submit(
             params: AchTransferSubmitParams,
@@ -255,7 +256,7 @@ class AchTransferServiceAsyncImpl internal constructor(private val clientOptions
             return request
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
-                    response.parseable {
+                    errorHandler.handle(response).parseable {
                         response
                             .use { submitHandler.handle(it) }
                             .also {
