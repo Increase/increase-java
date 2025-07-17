@@ -3,14 +3,14 @@
 package com.increase.api.services.async
 
 import com.increase.api.core.ClientOptions
-import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.checkRequired
+import com.increase.api.core.handlers.errorBodyHandler
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
-import com.increase.api.core.handlers.withErrorHandler
 import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
+import com.increase.api.core.http.HttpResponse
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.json
@@ -79,7 +79,8 @@ class CardServiceAsyncImpl internal constructor(private val clientOptions: Clien
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         CardServiceAsync.WithRawResponse {
 
-        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<HttpResponse> =
+            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
@@ -88,8 +89,7 @@ class CardServiceAsyncImpl internal constructor(private val clientOptions: Clien
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val createHandler: Handler<Card> =
-            jsonHandler<Card>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val createHandler: Handler<Card> = jsonHandler<Card>(clientOptions.jsonMapper)
 
         override fun create(
             params: CardCreateParams,
@@ -107,7 +107,7 @@ class CardServiceAsyncImpl internal constructor(private val clientOptions: Clien
             return request
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
-                    response.parseable {
+                    errorHandler.handle(response).parseable {
                         response
                             .use { createHandler.handle(it) }
                             .also {
@@ -119,8 +119,7 @@ class CardServiceAsyncImpl internal constructor(private val clientOptions: Clien
                 }
         }
 
-        private val retrieveHandler: Handler<Card> =
-            jsonHandler<Card>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val retrieveHandler: Handler<Card> = jsonHandler<Card>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: CardRetrieveParams,
@@ -140,7 +139,7 @@ class CardServiceAsyncImpl internal constructor(private val clientOptions: Clien
             return request
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
-                    response.parseable {
+                    errorHandler.handle(response).parseable {
                         response
                             .use { retrieveHandler.handle(it) }
                             .also {
@@ -152,8 +151,7 @@ class CardServiceAsyncImpl internal constructor(private val clientOptions: Clien
                 }
         }
 
-        private val updateHandler: Handler<Card> =
-            jsonHandler<Card>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val updateHandler: Handler<Card> = jsonHandler<Card>(clientOptions.jsonMapper)
 
         override fun update(
             params: CardUpdateParams,
@@ -174,7 +172,7 @@ class CardServiceAsyncImpl internal constructor(private val clientOptions: Clien
             return request
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
-                    response.parseable {
+                    errorHandler.handle(response).parseable {
                         response
                             .use { updateHandler.handle(it) }
                             .also {
@@ -188,7 +186,6 @@ class CardServiceAsyncImpl internal constructor(private val clientOptions: Clien
 
         private val listHandler: Handler<CardListPageResponse> =
             jsonHandler<CardListPageResponse>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
 
         override fun list(
             params: CardListParams,
@@ -205,7 +202,7 @@ class CardServiceAsyncImpl internal constructor(private val clientOptions: Clien
             return request
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
-                    response.parseable {
+                    errorHandler.handle(response).parseable {
                         response
                             .use { listHandler.handle(it) }
                             .also {
@@ -226,7 +223,7 @@ class CardServiceAsyncImpl internal constructor(private val clientOptions: Clien
         }
 
         private val detailsHandler: Handler<CardDetails> =
-            jsonHandler<CardDetails>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<CardDetails>(clientOptions.jsonMapper)
 
         override fun details(
             params: CardDetailsParams,
@@ -246,7 +243,7 @@ class CardServiceAsyncImpl internal constructor(private val clientOptions: Clien
             return request
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
-                    response.parseable {
+                    errorHandler.handle(response).parseable {
                         response
                             .use { detailsHandler.handle(it) }
                             .also {

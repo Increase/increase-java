@@ -3,14 +3,14 @@
 package com.increase.api.services.async
 
 import com.increase.api.core.ClientOptions
-import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.checkRequired
+import com.increase.api.core.handlers.errorBodyHandler
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
-import com.increase.api.core.handlers.withErrorHandler
 import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
+import com.increase.api.core.http.HttpResponse
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.json
@@ -62,7 +62,8 @@ class DocumentServiceAsyncImpl internal constructor(private val clientOptions: C
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         DocumentServiceAsync.WithRawResponse {
 
-        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<HttpResponse> =
+            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
@@ -72,7 +73,7 @@ class DocumentServiceAsyncImpl internal constructor(private val clientOptions: C
             )
 
         private val createHandler: Handler<Document> =
-            jsonHandler<Document>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<Document>(clientOptions.jsonMapper)
 
         override fun create(
             params: DocumentCreateParams,
@@ -90,7 +91,7 @@ class DocumentServiceAsyncImpl internal constructor(private val clientOptions: C
             return request
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
-                    response.parseable {
+                    errorHandler.handle(response).parseable {
                         response
                             .use { createHandler.handle(it) }
                             .also {
@@ -103,7 +104,7 @@ class DocumentServiceAsyncImpl internal constructor(private val clientOptions: C
         }
 
         private val retrieveHandler: Handler<Document> =
-            jsonHandler<Document>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<Document>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: DocumentRetrieveParams,
@@ -123,7 +124,7 @@ class DocumentServiceAsyncImpl internal constructor(private val clientOptions: C
             return request
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
-                    response.parseable {
+                    errorHandler.handle(response).parseable {
                         response
                             .use { retrieveHandler.handle(it) }
                             .also {
@@ -137,7 +138,6 @@ class DocumentServiceAsyncImpl internal constructor(private val clientOptions: C
 
         private val listHandler: Handler<DocumentListPageResponse> =
             jsonHandler<DocumentListPageResponse>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
 
         override fun list(
             params: DocumentListParams,
@@ -154,7 +154,7 @@ class DocumentServiceAsyncImpl internal constructor(private val clientOptions: C
             return request
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
-                    response.parseable {
+                    errorHandler.handle(response).parseable {
                         response
                             .use { listHandler.handle(it) }
                             .also {

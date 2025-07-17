@@ -3,14 +3,14 @@
 package com.increase.api.services.blocking
 
 import com.increase.api.core.ClientOptions
-import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.checkRequired
+import com.increase.api.core.handlers.errorBodyHandler
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
-import com.increase.api.core.handlers.withErrorHandler
 import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
+import com.increase.api.core.http.HttpResponse
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.json
@@ -77,7 +77,8 @@ class AccountTransferServiceImpl internal constructor(private val clientOptions:
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         AccountTransferService.WithRawResponse {
 
-        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<HttpResponse> =
+            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
@@ -87,7 +88,7 @@ class AccountTransferServiceImpl internal constructor(private val clientOptions:
             )
 
         private val createHandler: Handler<AccountTransfer> =
-            jsonHandler<AccountTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<AccountTransfer>(clientOptions.jsonMapper)
 
         override fun create(
             params: AccountTransferCreateParams,
@@ -103,7 +104,7 @@ class AccountTransferServiceImpl internal constructor(private val clientOptions:
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { createHandler.handle(it) }
                     .also {
@@ -115,7 +116,7 @@ class AccountTransferServiceImpl internal constructor(private val clientOptions:
         }
 
         private val retrieveHandler: Handler<AccountTransfer> =
-            jsonHandler<AccountTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<AccountTransfer>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: AccountTransferRetrieveParams,
@@ -133,7 +134,7 @@ class AccountTransferServiceImpl internal constructor(private val clientOptions:
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { retrieveHandler.handle(it) }
                     .also {
@@ -146,7 +147,6 @@ class AccountTransferServiceImpl internal constructor(private val clientOptions:
 
         private val listHandler: Handler<AccountTransferListPageResponse> =
             jsonHandler<AccountTransferListPageResponse>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
 
         override fun list(
             params: AccountTransferListParams,
@@ -161,7 +161,7 @@ class AccountTransferServiceImpl internal constructor(private val clientOptions:
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { listHandler.handle(it) }
                     .also {
@@ -180,7 +180,7 @@ class AccountTransferServiceImpl internal constructor(private val clientOptions:
         }
 
         private val approveHandler: Handler<AccountTransfer> =
-            jsonHandler<AccountTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<AccountTransfer>(clientOptions.jsonMapper)
 
         override fun approve(
             params: AccountTransferApproveParams,
@@ -199,7 +199,7 @@ class AccountTransferServiceImpl internal constructor(private val clientOptions:
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { approveHandler.handle(it) }
                     .also {
@@ -211,7 +211,7 @@ class AccountTransferServiceImpl internal constructor(private val clientOptions:
         }
 
         private val cancelHandler: Handler<AccountTransfer> =
-            jsonHandler<AccountTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<AccountTransfer>(clientOptions.jsonMapper)
 
         override fun cancel(
             params: AccountTransferCancelParams,
@@ -230,7 +230,7 @@ class AccountTransferServiceImpl internal constructor(private val clientOptions:
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { cancelHandler.handle(it) }
                     .also {

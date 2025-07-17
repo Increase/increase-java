@@ -3,14 +3,14 @@
 package com.increase.api.services.async
 
 import com.increase.api.core.ClientOptions
-import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.checkRequired
+import com.increase.api.core.handlers.errorBodyHandler
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
-import com.increase.api.core.handlers.withErrorHandler
 import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
+import com.increase.api.core.http.HttpResponse
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.json
@@ -70,7 +70,8 @@ class PhysicalCardServiceAsyncImpl internal constructor(private val clientOption
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         PhysicalCardServiceAsync.WithRawResponse {
 
-        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<HttpResponse> =
+            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
@@ -80,7 +81,7 @@ class PhysicalCardServiceAsyncImpl internal constructor(private val clientOption
             )
 
         private val createHandler: Handler<PhysicalCard> =
-            jsonHandler<PhysicalCard>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<PhysicalCard>(clientOptions.jsonMapper)
 
         override fun create(
             params: PhysicalCardCreateParams,
@@ -98,7 +99,7 @@ class PhysicalCardServiceAsyncImpl internal constructor(private val clientOption
             return request
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
-                    response.parseable {
+                    errorHandler.handle(response).parseable {
                         response
                             .use { createHandler.handle(it) }
                             .also {
@@ -111,7 +112,7 @@ class PhysicalCardServiceAsyncImpl internal constructor(private val clientOption
         }
 
         private val retrieveHandler: Handler<PhysicalCard> =
-            jsonHandler<PhysicalCard>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<PhysicalCard>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: PhysicalCardRetrieveParams,
@@ -131,7 +132,7 @@ class PhysicalCardServiceAsyncImpl internal constructor(private val clientOption
             return request
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
-                    response.parseable {
+                    errorHandler.handle(response).parseable {
                         response
                             .use { retrieveHandler.handle(it) }
                             .also {
@@ -144,7 +145,7 @@ class PhysicalCardServiceAsyncImpl internal constructor(private val clientOption
         }
 
         private val updateHandler: Handler<PhysicalCard> =
-            jsonHandler<PhysicalCard>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<PhysicalCard>(clientOptions.jsonMapper)
 
         override fun update(
             params: PhysicalCardUpdateParams,
@@ -165,7 +166,7 @@ class PhysicalCardServiceAsyncImpl internal constructor(private val clientOption
             return request
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
-                    response.parseable {
+                    errorHandler.handle(response).parseable {
                         response
                             .use { updateHandler.handle(it) }
                             .also {
@@ -179,7 +180,6 @@ class PhysicalCardServiceAsyncImpl internal constructor(private val clientOption
 
         private val listHandler: Handler<PhysicalCardListPageResponse> =
             jsonHandler<PhysicalCardListPageResponse>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
 
         override fun list(
             params: PhysicalCardListParams,
@@ -196,7 +196,7 @@ class PhysicalCardServiceAsyncImpl internal constructor(private val clientOption
             return request
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
-                    response.parseable {
+                    errorHandler.handle(response).parseable {
                         response
                             .use { listHandler.handle(it) }
                             .also {
