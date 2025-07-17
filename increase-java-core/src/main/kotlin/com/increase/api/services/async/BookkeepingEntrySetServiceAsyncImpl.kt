@@ -3,14 +3,14 @@
 package com.increase.api.services.async
 
 import com.increase.api.core.ClientOptions
-import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.checkRequired
+import com.increase.api.core.handlers.errorBodyHandler
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
-import com.increase.api.core.handlers.withErrorHandler
 import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
+import com.increase.api.core.http.HttpResponse
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.json
@@ -67,7 +67,8 @@ internal constructor(private val clientOptions: ClientOptions) : BookkeepingEntr
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         BookkeepingEntrySetServiceAsync.WithRawResponse {
 
-        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<HttpResponse> =
+            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
@@ -78,7 +79,6 @@ internal constructor(private val clientOptions: ClientOptions) : BookkeepingEntr
 
         private val createHandler: Handler<BookkeepingEntrySet> =
             jsonHandler<BookkeepingEntrySet>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
 
         override fun create(
             params: BookkeepingEntrySetCreateParams,
@@ -96,7 +96,7 @@ internal constructor(private val clientOptions: ClientOptions) : BookkeepingEntr
             return request
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
-                    response.parseable {
+                    errorHandler.handle(response).parseable {
                         response
                             .use { createHandler.handle(it) }
                             .also {
@@ -110,7 +110,6 @@ internal constructor(private val clientOptions: ClientOptions) : BookkeepingEntr
 
         private val retrieveHandler: Handler<BookkeepingEntrySet> =
             jsonHandler<BookkeepingEntrySet>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
 
         override fun retrieve(
             params: BookkeepingEntrySetRetrieveParams,
@@ -130,7 +129,7 @@ internal constructor(private val clientOptions: ClientOptions) : BookkeepingEntr
             return request
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
-                    response.parseable {
+                    errorHandler.handle(response).parseable {
                         response
                             .use { retrieveHandler.handle(it) }
                             .also {
@@ -144,7 +143,6 @@ internal constructor(private val clientOptions: ClientOptions) : BookkeepingEntr
 
         private val listHandler: Handler<BookkeepingEntrySetListPageResponse> =
             jsonHandler<BookkeepingEntrySetListPageResponse>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
 
         override fun list(
             params: BookkeepingEntrySetListParams,
@@ -161,7 +159,7 @@ internal constructor(private val clientOptions: ClientOptions) : BookkeepingEntr
             return request
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
-                    response.parseable {
+                    errorHandler.handle(response).parseable {
                         response
                             .use { listHandler.handle(it) }
                             .also {

@@ -86,8 +86,62 @@ internal class ErrorHandlingTest {
     }
 
     @Test
+    fun accountsCreate400WithRawResponse() {
+        val accountService = client.accounts().withRawResponse()
+        stubFor(
+            post(anyUrl())
+                .willReturn(
+                    status(400).withHeader(HEADER_NAME, HEADER_VALUE).withBody(ERROR_JSON_BYTES)
+                )
+        )
+
+        val e =
+            assertThrows<BadRequestException> {
+                accountService.create(
+                    AccountCreateParams.builder()
+                        .name("New Account!")
+                        .entityId("entity_n8y8tnk2p9339ti393yi")
+                        .informationalEntityId("informational_entity_id")
+                        .programId("program_i2v2os4mwza1oetokh9i")
+                        .build()
+                )
+            }
+
+        assertThat(e.statusCode()).isEqualTo(400)
+        assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
+        assertThat(e.body()).isEqualTo(ERROR_JSON)
+    }
+
+    @Test
     fun accountsCreate401() {
         val accountService = client.accounts()
+        stubFor(
+            post(anyUrl())
+                .willReturn(
+                    status(401).withHeader(HEADER_NAME, HEADER_VALUE).withBody(ERROR_JSON_BYTES)
+                )
+        )
+
+        val e =
+            assertThrows<UnauthorizedException> {
+                accountService.create(
+                    AccountCreateParams.builder()
+                        .name("New Account!")
+                        .entityId("entity_n8y8tnk2p9339ti393yi")
+                        .informationalEntityId("informational_entity_id")
+                        .programId("program_i2v2os4mwza1oetokh9i")
+                        .build()
+                )
+            }
+
+        assertThat(e.statusCode()).isEqualTo(401)
+        assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
+        assertThat(e.body()).isEqualTo(ERROR_JSON)
+    }
+
+    @Test
+    fun accountsCreate401WithRawResponse() {
+        val accountService = client.accounts().withRawResponse()
         stubFor(
             post(anyUrl())
                 .willReturn(
@@ -140,8 +194,62 @@ internal class ErrorHandlingTest {
     }
 
     @Test
+    fun accountsCreate403WithRawResponse() {
+        val accountService = client.accounts().withRawResponse()
+        stubFor(
+            post(anyUrl())
+                .willReturn(
+                    status(403).withHeader(HEADER_NAME, HEADER_VALUE).withBody(ERROR_JSON_BYTES)
+                )
+        )
+
+        val e =
+            assertThrows<PermissionDeniedException> {
+                accountService.create(
+                    AccountCreateParams.builder()
+                        .name("New Account!")
+                        .entityId("entity_n8y8tnk2p9339ti393yi")
+                        .informationalEntityId("informational_entity_id")
+                        .programId("program_i2v2os4mwza1oetokh9i")
+                        .build()
+                )
+            }
+
+        assertThat(e.statusCode()).isEqualTo(403)
+        assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
+        assertThat(e.body()).isEqualTo(ERROR_JSON)
+    }
+
+    @Test
     fun accountsCreate404() {
         val accountService = client.accounts()
+        stubFor(
+            post(anyUrl())
+                .willReturn(
+                    status(404).withHeader(HEADER_NAME, HEADER_VALUE).withBody(ERROR_JSON_BYTES)
+                )
+        )
+
+        val e =
+            assertThrows<NotFoundException> {
+                accountService.create(
+                    AccountCreateParams.builder()
+                        .name("New Account!")
+                        .entityId("entity_n8y8tnk2p9339ti393yi")
+                        .informationalEntityId("informational_entity_id")
+                        .programId("program_i2v2os4mwza1oetokh9i")
+                        .build()
+                )
+            }
+
+        assertThat(e.statusCode()).isEqualTo(404)
+        assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
+        assertThat(e.body()).isEqualTo(ERROR_JSON)
+    }
+
+    @Test
+    fun accountsCreate404WithRawResponse() {
+        val accountService = client.accounts().withRawResponse()
         stubFor(
             post(anyUrl())
                 .willReturn(
@@ -194,8 +302,62 @@ internal class ErrorHandlingTest {
     }
 
     @Test
+    fun accountsCreate422WithRawResponse() {
+        val accountService = client.accounts().withRawResponse()
+        stubFor(
+            post(anyUrl())
+                .willReturn(
+                    status(422).withHeader(HEADER_NAME, HEADER_VALUE).withBody(ERROR_JSON_BYTES)
+                )
+        )
+
+        val e =
+            assertThrows<UnprocessableEntityException> {
+                accountService.create(
+                    AccountCreateParams.builder()
+                        .name("New Account!")
+                        .entityId("entity_n8y8tnk2p9339ti393yi")
+                        .informationalEntityId("informational_entity_id")
+                        .programId("program_i2v2os4mwza1oetokh9i")
+                        .build()
+                )
+            }
+
+        assertThat(e.statusCode()).isEqualTo(422)
+        assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
+        assertThat(e.body()).isEqualTo(ERROR_JSON)
+    }
+
+    @Test
     fun accountsCreate429() {
         val accountService = client.accounts()
+        stubFor(
+            post(anyUrl())
+                .willReturn(
+                    status(429).withHeader(HEADER_NAME, HEADER_VALUE).withBody(ERROR_JSON_BYTES)
+                )
+        )
+
+        val e =
+            assertThrows<RateLimitException> {
+                accountService.create(
+                    AccountCreateParams.builder()
+                        .name("New Account!")
+                        .entityId("entity_n8y8tnk2p9339ti393yi")
+                        .informationalEntityId("informational_entity_id")
+                        .programId("program_i2v2os4mwza1oetokh9i")
+                        .build()
+                )
+            }
+
+        assertThat(e.statusCode()).isEqualTo(429)
+        assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
+        assertThat(e.body()).isEqualTo(ERROR_JSON)
+    }
+
+    @Test
+    fun accountsCreate429WithRawResponse() {
+        val accountService = client.accounts().withRawResponse()
         stubFor(
             post(anyUrl())
                 .willReturn(
@@ -248,8 +410,62 @@ internal class ErrorHandlingTest {
     }
 
     @Test
+    fun accountsCreate500WithRawResponse() {
+        val accountService = client.accounts().withRawResponse()
+        stubFor(
+            post(anyUrl())
+                .willReturn(
+                    status(500).withHeader(HEADER_NAME, HEADER_VALUE).withBody(ERROR_JSON_BYTES)
+                )
+        )
+
+        val e =
+            assertThrows<InternalServerException> {
+                accountService.create(
+                    AccountCreateParams.builder()
+                        .name("New Account!")
+                        .entityId("entity_n8y8tnk2p9339ti393yi")
+                        .informationalEntityId("informational_entity_id")
+                        .programId("program_i2v2os4mwza1oetokh9i")
+                        .build()
+                )
+            }
+
+        assertThat(e.statusCode()).isEqualTo(500)
+        assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
+        assertThat(e.body()).isEqualTo(ERROR_JSON)
+    }
+
+    @Test
     fun accountsCreate999() {
         val accountService = client.accounts()
+        stubFor(
+            post(anyUrl())
+                .willReturn(
+                    status(999).withHeader(HEADER_NAME, HEADER_VALUE).withBody(ERROR_JSON_BYTES)
+                )
+        )
+
+        val e =
+            assertThrows<UnexpectedStatusCodeException> {
+                accountService.create(
+                    AccountCreateParams.builder()
+                        .name("New Account!")
+                        .entityId("entity_n8y8tnk2p9339ti393yi")
+                        .informationalEntityId("informational_entity_id")
+                        .programId("program_i2v2os4mwza1oetokh9i")
+                        .build()
+                )
+            }
+
+        assertThat(e.statusCode()).isEqualTo(999)
+        assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
+        assertThat(e.body()).isEqualTo(ERROR_JSON)
+    }
+
+    @Test
+    fun accountsCreate999WithRawResponse() {
+        val accountService = client.accounts().withRawResponse()
         stubFor(
             post(anyUrl())
                 .willReturn(

@@ -3,13 +3,13 @@
 package com.increase.api.services.async.simulations
 
 import com.increase.api.core.ClientOptions
-import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
+import com.increase.api.core.handlers.errorBodyHandler
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
-import com.increase.api.core.handlers.withErrorHandler
 import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
+import com.increase.api.core.http.HttpResponse
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.json
@@ -46,7 +46,8 @@ internal constructor(private val clientOptions: ClientOptions) : InboundAchTrans
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         InboundAchTransferServiceAsync.WithRawResponse {
 
-        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<HttpResponse> =
+            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
@@ -56,7 +57,7 @@ internal constructor(private val clientOptions: ClientOptions) : InboundAchTrans
             )
 
         private val createHandler: Handler<InboundAchTransfer> =
-            jsonHandler<InboundAchTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<InboundAchTransfer>(clientOptions.jsonMapper)
 
         override fun create(
             params: InboundAchTransferCreateParams,
@@ -74,7 +75,7 @@ internal constructor(private val clientOptions: ClientOptions) : InboundAchTrans
             return request
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
-                    response.parseable {
+                    errorHandler.handle(response).parseable {
                         response
                             .use { createHandler.handle(it) }
                             .also {

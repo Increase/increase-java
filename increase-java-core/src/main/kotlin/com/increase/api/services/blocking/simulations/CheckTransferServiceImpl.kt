@@ -3,14 +3,14 @@
 package com.increase.api.services.blocking.simulations
 
 import com.increase.api.core.ClientOptions
-import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.checkRequired
+import com.increase.api.core.handlers.errorBodyHandler
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
-import com.increase.api.core.handlers.withErrorHandler
 import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
+import com.increase.api.core.http.HttpResponse
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.json
@@ -43,7 +43,8 @@ class CheckTransferServiceImpl internal constructor(private val clientOptions: C
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         CheckTransferService.WithRawResponse {
 
-        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<HttpResponse> =
+            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
@@ -53,7 +54,7 @@ class CheckTransferServiceImpl internal constructor(private val clientOptions: C
             )
 
         private val mailHandler: Handler<CheckTransfer> =
-            jsonHandler<CheckTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<CheckTransfer>(clientOptions.jsonMapper)
 
         override fun mail(
             params: CheckTransferMailParams,
@@ -72,7 +73,7 @@ class CheckTransferServiceImpl internal constructor(private val clientOptions: C
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { mailHandler.handle(it) }
                     .also {

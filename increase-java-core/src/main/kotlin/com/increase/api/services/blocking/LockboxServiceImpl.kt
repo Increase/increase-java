@@ -3,14 +3,14 @@
 package com.increase.api.services.blocking
 
 import com.increase.api.core.ClientOptions
-import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.checkRequired
+import com.increase.api.core.handlers.errorBodyHandler
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
-import com.increase.api.core.handlers.withErrorHandler
 import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
+import com.increase.api.core.http.HttpResponse
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.json
@@ -57,7 +57,8 @@ class LockboxServiceImpl internal constructor(private val clientOptions: ClientO
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         LockboxService.WithRawResponse {
 
-        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<HttpResponse> =
+            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
@@ -66,8 +67,7 @@ class LockboxServiceImpl internal constructor(private val clientOptions: ClientO
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val createHandler: Handler<Lockbox> =
-            jsonHandler<Lockbox>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val createHandler: Handler<Lockbox> = jsonHandler<Lockbox>(clientOptions.jsonMapper)
 
         override fun create(
             params: LockboxCreateParams,
@@ -83,7 +83,7 @@ class LockboxServiceImpl internal constructor(private val clientOptions: ClientO
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { createHandler.handle(it) }
                     .also {
@@ -95,7 +95,7 @@ class LockboxServiceImpl internal constructor(private val clientOptions: ClientO
         }
 
         private val retrieveHandler: Handler<Lockbox> =
-            jsonHandler<Lockbox>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<Lockbox>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: LockboxRetrieveParams,
@@ -113,7 +113,7 @@ class LockboxServiceImpl internal constructor(private val clientOptions: ClientO
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { retrieveHandler.handle(it) }
                     .also {
@@ -124,8 +124,7 @@ class LockboxServiceImpl internal constructor(private val clientOptions: ClientO
             }
         }
 
-        private val updateHandler: Handler<Lockbox> =
-            jsonHandler<Lockbox>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val updateHandler: Handler<Lockbox> = jsonHandler<Lockbox>(clientOptions.jsonMapper)
 
         override fun update(
             params: LockboxUpdateParams,
@@ -144,7 +143,7 @@ class LockboxServiceImpl internal constructor(private val clientOptions: ClientO
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { updateHandler.handle(it) }
                     .also {
@@ -157,7 +156,6 @@ class LockboxServiceImpl internal constructor(private val clientOptions: ClientO
 
         private val listHandler: Handler<LockboxListPageResponse> =
             jsonHandler<LockboxListPageResponse>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
 
         override fun list(
             params: LockboxListParams,
@@ -172,7 +170,7 @@ class LockboxServiceImpl internal constructor(private val clientOptions: ClientO
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { listHandler.handle(it) }
                     .also {

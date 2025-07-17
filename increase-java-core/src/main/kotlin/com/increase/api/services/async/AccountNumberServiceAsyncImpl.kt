@@ -3,14 +3,14 @@
 package com.increase.api.services.async
 
 import com.increase.api.core.ClientOptions
-import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.checkRequired
+import com.increase.api.core.handlers.errorBodyHandler
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
-import com.increase.api.core.handlers.withErrorHandler
 import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
+import com.increase.api.core.http.HttpResponse
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.json
@@ -70,7 +70,8 @@ class AccountNumberServiceAsyncImpl internal constructor(private val clientOptio
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         AccountNumberServiceAsync.WithRawResponse {
 
-        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<HttpResponse> =
+            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
@@ -80,7 +81,7 @@ class AccountNumberServiceAsyncImpl internal constructor(private val clientOptio
             )
 
         private val createHandler: Handler<AccountNumber> =
-            jsonHandler<AccountNumber>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<AccountNumber>(clientOptions.jsonMapper)
 
         override fun create(
             params: AccountNumberCreateParams,
@@ -98,7 +99,7 @@ class AccountNumberServiceAsyncImpl internal constructor(private val clientOptio
             return request
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
-                    response.parseable {
+                    errorHandler.handle(response).parseable {
                         response
                             .use { createHandler.handle(it) }
                             .also {
@@ -111,7 +112,7 @@ class AccountNumberServiceAsyncImpl internal constructor(private val clientOptio
         }
 
         private val retrieveHandler: Handler<AccountNumber> =
-            jsonHandler<AccountNumber>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<AccountNumber>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: AccountNumberRetrieveParams,
@@ -131,7 +132,7 @@ class AccountNumberServiceAsyncImpl internal constructor(private val clientOptio
             return request
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
-                    response.parseable {
+                    errorHandler.handle(response).parseable {
                         response
                             .use { retrieveHandler.handle(it) }
                             .also {
@@ -144,7 +145,7 @@ class AccountNumberServiceAsyncImpl internal constructor(private val clientOptio
         }
 
         private val updateHandler: Handler<AccountNumber> =
-            jsonHandler<AccountNumber>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<AccountNumber>(clientOptions.jsonMapper)
 
         override fun update(
             params: AccountNumberUpdateParams,
@@ -165,7 +166,7 @@ class AccountNumberServiceAsyncImpl internal constructor(private val clientOptio
             return request
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
-                    response.parseable {
+                    errorHandler.handle(response).parseable {
                         response
                             .use { updateHandler.handle(it) }
                             .also {
@@ -179,7 +180,6 @@ class AccountNumberServiceAsyncImpl internal constructor(private val clientOptio
 
         private val listHandler: Handler<AccountNumberListPageResponse> =
             jsonHandler<AccountNumberListPageResponse>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
 
         override fun list(
             params: AccountNumberListParams,
@@ -196,7 +196,7 @@ class AccountNumberServiceAsyncImpl internal constructor(private val clientOptio
             return request
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
-                    response.parseable {
+                    errorHandler.handle(response).parseable {
                         response
                             .use { listHandler.handle(it) }
                             .also {
