@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.263.0 (2025-07-21)
+
+Full Changelog: [v0.262.0...v0.263.0](https://github.com/Increase/increase-java/compare/v0.262.0...v0.263.0)
+
+### Features
+
+* **api:** api update ([146db20](https://github.com/Increase/increase-java/commit/146db20ddc3179d3fb7193c446f6584a8776d5a1))
+* **client:** add https config options ([f22db91](https://github.com/Increase/increase-java/commit/f22db91567decbc8fd08b957e4ec01052675a570))
+* **client:** allow configuring env via system properties ([13c25db](https://github.com/Increase/increase-java/commit/13c25dba41aaaacdc7a1c166fe3e3e827fd43089))
+* **client:** allow setting additional multipart body props ([15bb03f](https://github.com/Increase/increase-java/commit/15bb03f8234293bd936c2ae617ade816a005e9c7))
+
+
+### Chores
+
+* **internal:** refactor delegating from client to options ([3dec230](https://github.com/Increase/increase-java/commit/3dec2305506bb528f5ab6b8258b0f23431a72765))
+
 ## 0.262.0 (2025-07-18)
 
 Full Changelog: [v0.261.1...v0.262.0](https://github.com/Increase/increase-java/compare/v0.261.1...v0.262.0)
