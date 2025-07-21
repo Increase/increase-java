@@ -246,9 +246,15 @@ private constructor(
         fun timeout(): Timeout = timeout
 
         fun fromEnv() = apply {
-            System.getenv("INCREASE_BASE_URL")?.let { baseUrl(it) }
-            System.getenv("INCREASE_API_KEY")?.let { apiKey(it) }
-            System.getenv("INCREASE_WEBHOOK_SECRET")?.let { webhookSecret(it) }
+            (System.getProperty("increase.baseUrl") ?: System.getenv("INCREASE_BASE_URL"))?.let {
+                baseUrl(it)
+            }
+            (System.getProperty("increase.apiKey") ?: System.getenv("INCREASE_API_KEY"))?.let {
+                apiKey(it)
+            }
+            (System.getProperty("increase.webhookSecret")
+                    ?: System.getenv("INCREASE_WEBHOOK_SECRET"))
+                ?.let { webhookSecret(it) }
         }
 
         /**
