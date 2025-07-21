@@ -225,7 +225,6 @@ internal class EntityServiceTest {
                                     .confirmedNoUsTaxId(true)
                                     .build()
                             )
-                            .name("x")
                             .build()
                     )
                     .naturalPerson(

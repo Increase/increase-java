@@ -188,7 +188,6 @@ internal class EntityCreateParamsTest {
                             .confirmedNoUsTaxId(true)
                             .build()
                     )
-                    .name("x")
                     .build()
             )
             .naturalPerson(
@@ -586,7 +585,6 @@ internal class EntityCreateParamsTest {
                                 .confirmedNoUsTaxId(true)
                                 .build()
                         )
-                        .name("x")
                         .build()
                 )
                 .naturalPerson(
@@ -979,7 +977,6 @@ internal class EntityCreateParamsTest {
                             .confirmedNoUsTaxId(true)
                             .build()
                     )
-                    .name("x")
                     .build()
             )
         assertThat(body.naturalPerson())
