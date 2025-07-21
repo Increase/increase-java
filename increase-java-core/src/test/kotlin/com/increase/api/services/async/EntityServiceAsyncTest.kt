@@ -225,7 +225,6 @@ internal class EntityServiceAsyncTest {
                                     .confirmedNoUsTaxId(true)
                                     .build()
                             )
-                            .name("x")
                             .build()
                     )
                     .naturalPerson(
