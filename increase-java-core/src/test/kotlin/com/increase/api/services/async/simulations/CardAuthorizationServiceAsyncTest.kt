@@ -28,7 +28,6 @@ internal class CardAuthorizationServiceAsyncTest {
                     .cardId("card_oubs0hwk5rn6knuecxg2")
                     .declineReason(CardAuthorizationCreateParams.DeclineReason.ACCOUNT_CLOSED)
                     .digitalWalletTokenId("digital_wallet_token_id")
-                    .direction(CardAuthorizationCreateParams.Direction.SETTLEMENT)
                     .eventSubscriptionId("event_subscription_001dzz0r20rcdxgb013zqb8m04g")
                     .merchantAcceptorId("5665270011000168")
                     .merchantCategoryCode("5734")
@@ -51,6 +50,14 @@ internal class CardAuthorizationServiceAsyncTest {
                     )
                     .networkRiskScore(0L)
                     .physicalCardId("physical_card_id")
+                    .processingCategory(
+                        CardAuthorizationCreateParams.ProcessingCategory.builder()
+                            .category(
+                                CardAuthorizationCreateParams.ProcessingCategory.Category
+                                    .ACCOUNT_FUNDING
+                            )
+                            .build()
+                    )
                     .terminalId("x")
                     .build()
             )
