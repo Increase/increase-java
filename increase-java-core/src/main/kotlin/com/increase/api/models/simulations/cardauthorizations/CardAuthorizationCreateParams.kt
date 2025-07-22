@@ -78,15 +78,6 @@ private constructor(
     fun digitalWalletTokenId(): Optional<String> = body.digitalWalletTokenId()
 
     /**
-     * The direction describes the direction the funds will move, either from the cardholder to the
-     * merchant or from the merchant to the cardholder.
-     *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun direction(): Optional<Direction> = body.direction()
-
-    /**
      * The identifier of the Event Subscription to use. If provided, will override the default real
      * time event subscription. Because you can only create one real time decision event
      * subscription, you can use this field to route events to any specified event subscription for
@@ -173,6 +164,15 @@ private constructor(
     fun physicalCardId(): Optional<String> = body.physicalCardId()
 
     /**
+     * Fields specific to a specific type of authorization, such as Automatic Fuel Dispensers,
+     * Refund Authorizations, or Cash Disbursements.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun processingCategory(): Optional<ProcessingCategory> = body.processingCategory()
+
+    /**
      * The terminal identifier (commonly abbreviated as TID) of the terminal the card is transacting
      * with.
      *
@@ -217,13 +217,6 @@ private constructor(
      * type.
      */
     fun _digitalWalletTokenId(): JsonField<String> = body._digitalWalletTokenId()
-
-    /**
-     * Returns the raw JSON value of [direction].
-     *
-     * Unlike [direction], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    fun _direction(): JsonField<Direction> = body._direction()
 
     /**
      * Returns the raw JSON value of [eventSubscriptionId].
@@ -299,6 +292,14 @@ private constructor(
      * Unlike [physicalCardId], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _physicalCardId(): JsonField<String> = body._physicalCardId()
+
+    /**
+     * Returns the raw JSON value of [processingCategory].
+     *
+     * Unlike [processingCategory], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _processingCategory(): JsonField<ProcessingCategory> = body._processingCategory()
 
     /**
      * Returns the raw JSON value of [terminalId].
@@ -429,21 +430,6 @@ private constructor(
         fun digitalWalletTokenId(digitalWalletTokenId: JsonField<String>) = apply {
             body.digitalWalletTokenId(digitalWalletTokenId)
         }
-
-        /**
-         * The direction describes the direction the funds will move, either from the cardholder to
-         * the merchant or from the merchant to the cardholder.
-         */
-        fun direction(direction: Direction) = apply { body.direction(direction) }
-
-        /**
-         * Sets [Builder.direction] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.direction] with a well-typed [Direction] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
-         */
-        fun direction(direction: JsonField<Direction>) = apply { body.direction(direction) }
 
         /**
          * The identifier of the Event Subscription to use. If provided, will override the default
@@ -614,6 +600,25 @@ private constructor(
         }
 
         /**
+         * Fields specific to a specific type of authorization, such as Automatic Fuel Dispensers,
+         * Refund Authorizations, or Cash Disbursements.
+         */
+        fun processingCategory(processingCategory: ProcessingCategory) = apply {
+            body.processingCategory(processingCategory)
+        }
+
+        /**
+         * Sets [Builder.processingCategory] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.processingCategory] with a well-typed
+         * [ProcessingCategory] value instead. This method is primarily for setting the field to an
+         * undocumented or not yet supported value.
+         */
+        fun processingCategory(processingCategory: JsonField<ProcessingCategory>) = apply {
+            body.processingCategory(processingCategory)
+        }
+
+        /**
          * The terminal identifier (commonly abbreviated as TID) of the terminal the card is
          * transacting with.
          */
@@ -778,7 +783,6 @@ private constructor(
         private val cardId: JsonField<String>,
         private val declineReason: JsonField<DeclineReason>,
         private val digitalWalletTokenId: JsonField<String>,
-        private val direction: JsonField<Direction>,
         private val eventSubscriptionId: JsonField<String>,
         private val merchantAcceptorId: JsonField<String>,
         private val merchantCategoryCode: JsonField<String>,
@@ -789,6 +793,7 @@ private constructor(
         private val networkDetails: JsonField<NetworkDetails>,
         private val networkRiskScore: JsonField<Long>,
         private val physicalCardId: JsonField<String>,
+        private val processingCategory: JsonField<ProcessingCategory>,
         private val terminalId: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -806,9 +811,6 @@ private constructor(
             @JsonProperty("digital_wallet_token_id")
             @ExcludeMissing
             digitalWalletTokenId: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("direction")
-            @ExcludeMissing
-            direction: JsonField<Direction> = JsonMissing.of(),
             @JsonProperty("event_subscription_id")
             @ExcludeMissing
             eventSubscriptionId: JsonField<String> = JsonMissing.of(),
@@ -839,6 +841,9 @@ private constructor(
             @JsonProperty("physical_card_id")
             @ExcludeMissing
             physicalCardId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("processing_category")
+            @ExcludeMissing
+            processingCategory: JsonField<ProcessingCategory> = JsonMissing.of(),
             @JsonProperty("terminal_id")
             @ExcludeMissing
             terminalId: JsonField<String> = JsonMissing.of(),
@@ -848,7 +853,6 @@ private constructor(
             cardId,
             declineReason,
             digitalWalletTokenId,
-            direction,
             eventSubscriptionId,
             merchantAcceptorId,
             merchantCategoryCode,
@@ -859,6 +863,7 @@ private constructor(
             networkDetails,
             networkRiskScore,
             physicalCardId,
+            processingCategory,
             terminalId,
             mutableMapOf(),
         )
@@ -905,15 +910,6 @@ private constructor(
          */
         fun digitalWalletTokenId(): Optional<String> =
             digitalWalletTokenId.getOptional("digital_wallet_token_id")
-
-        /**
-         * The direction describes the direction the funds will move, either from the cardholder to
-         * the merchant or from the merchant to the cardholder.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun direction(): Optional<Direction> = direction.getOptional("direction")
 
         /**
          * The identifier of the Event Subscription to use. If provided, will override the default
@@ -1007,6 +1003,16 @@ private constructor(
         fun physicalCardId(): Optional<String> = physicalCardId.getOptional("physical_card_id")
 
         /**
+         * Fields specific to a specific type of authorization, such as Automatic Fuel Dispensers,
+         * Refund Authorizations, or Cash Disbursements.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun processingCategory(): Optional<ProcessingCategory> =
+            processingCategory.getOptional("processing_category")
+
+        /**
          * The terminal identifier (commonly abbreviated as TID) of the terminal the card is
          * transacting with.
          *
@@ -1058,15 +1064,6 @@ private constructor(
         @JsonProperty("digital_wallet_token_id")
         @ExcludeMissing
         fun _digitalWalletTokenId(): JsonField<String> = digitalWalletTokenId
-
-        /**
-         * Returns the raw JSON value of [direction].
-         *
-         * Unlike [direction], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("direction")
-        @ExcludeMissing
-        fun _direction(): JsonField<Direction> = direction
 
         /**
          * Returns the raw JSON value of [eventSubscriptionId].
@@ -1169,6 +1166,16 @@ private constructor(
         fun _physicalCardId(): JsonField<String> = physicalCardId
 
         /**
+         * Returns the raw JSON value of [processingCategory].
+         *
+         * Unlike [processingCategory], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("processing_category")
+        @ExcludeMissing
+        fun _processingCategory(): JsonField<ProcessingCategory> = processingCategory
+
+        /**
          * Returns the raw JSON value of [terminalId].
          *
          * Unlike [terminalId], this method doesn't throw if the JSON field has an unexpected type.
@@ -1210,7 +1217,6 @@ private constructor(
             private var cardId: JsonField<String> = JsonMissing.of()
             private var declineReason: JsonField<DeclineReason> = JsonMissing.of()
             private var digitalWalletTokenId: JsonField<String> = JsonMissing.of()
-            private var direction: JsonField<Direction> = JsonMissing.of()
             private var eventSubscriptionId: JsonField<String> = JsonMissing.of()
             private var merchantAcceptorId: JsonField<String> = JsonMissing.of()
             private var merchantCategoryCode: JsonField<String> = JsonMissing.of()
@@ -1221,6 +1227,7 @@ private constructor(
             private var networkDetails: JsonField<NetworkDetails> = JsonMissing.of()
             private var networkRiskScore: JsonField<Long> = JsonMissing.of()
             private var physicalCardId: JsonField<String> = JsonMissing.of()
+            private var processingCategory: JsonField<ProcessingCategory> = JsonMissing.of()
             private var terminalId: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -1231,7 +1238,6 @@ private constructor(
                 cardId = body.cardId
                 declineReason = body.declineReason
                 digitalWalletTokenId = body.digitalWalletTokenId
-                direction = body.direction
                 eventSubscriptionId = body.eventSubscriptionId
                 merchantAcceptorId = body.merchantAcceptorId
                 merchantCategoryCode = body.merchantCategoryCode
@@ -1242,6 +1248,7 @@ private constructor(
                 networkDetails = body.networkDetails
                 networkRiskScore = body.networkRiskScore
                 physicalCardId = body.physicalCardId
+                processingCategory = body.processingCategory
                 terminalId = body.terminalId
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
@@ -1317,21 +1324,6 @@ private constructor(
             fun digitalWalletTokenId(digitalWalletTokenId: JsonField<String>) = apply {
                 this.digitalWalletTokenId = digitalWalletTokenId
             }
-
-            /**
-             * The direction describes the direction the funds will move, either from the cardholder
-             * to the merchant or from the merchant to the cardholder.
-             */
-            fun direction(direction: Direction) = direction(JsonField.of(direction))
-
-            /**
-             * Sets [Builder.direction] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.direction] with a well-typed [Direction] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun direction(direction: JsonField<Direction>) = apply { this.direction = direction }
 
             /**
              * The identifier of the Event Subscription to use. If provided, will override the
@@ -1496,6 +1488,24 @@ private constructor(
             }
 
             /**
+             * Fields specific to a specific type of authorization, such as Automatic Fuel
+             * Dispensers, Refund Authorizations, or Cash Disbursements.
+             */
+            fun processingCategory(processingCategory: ProcessingCategory) =
+                processingCategory(JsonField.of(processingCategory))
+
+            /**
+             * Sets [Builder.processingCategory] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.processingCategory] with a well-typed
+             * [ProcessingCategory] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun processingCategory(processingCategory: JsonField<ProcessingCategory>) = apply {
+                this.processingCategory = processingCategory
+            }
+
+            /**
              * The terminal identifier (commonly abbreviated as TID) of the terminal the card is
              * transacting with.
              */
@@ -1548,7 +1558,6 @@ private constructor(
                     cardId,
                     declineReason,
                     digitalWalletTokenId,
-                    direction,
                     eventSubscriptionId,
                     merchantAcceptorId,
                     merchantCategoryCode,
@@ -1559,6 +1568,7 @@ private constructor(
                     networkDetails,
                     networkRiskScore,
                     physicalCardId,
+                    processingCategory,
                     terminalId,
                     additionalProperties.toMutableMap(),
                 )
@@ -1576,7 +1586,6 @@ private constructor(
             cardId()
             declineReason().ifPresent { it.validate() }
             digitalWalletTokenId()
-            direction().ifPresent { it.validate() }
             eventSubscriptionId()
             merchantAcceptorId()
             merchantCategoryCode()
@@ -1587,6 +1596,7 @@ private constructor(
             networkDetails().ifPresent { it.validate() }
             networkRiskScore()
             physicalCardId()
+            processingCategory().ifPresent { it.validate() }
             terminalId()
             validated = true
         }
@@ -1612,7 +1622,6 @@ private constructor(
                 (if (cardId.asKnown().isPresent) 1 else 0) +
                 (declineReason.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (digitalWalletTokenId.asKnown().isPresent) 1 else 0) +
-                (direction.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (eventSubscriptionId.asKnown().isPresent) 1 else 0) +
                 (if (merchantAcceptorId.asKnown().isPresent) 1 else 0) +
                 (if (merchantCategoryCode.asKnown().isPresent) 1 else 0) +
@@ -1623,6 +1632,7 @@ private constructor(
                 (networkDetails.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (networkRiskScore.asKnown().isPresent) 1 else 0) +
                 (if (physicalCardId.asKnown().isPresent) 1 else 0) +
+                (processingCategory.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (terminalId.asKnown().isPresent) 1 else 0)
 
         override fun equals(other: Any?): Boolean {
@@ -1630,17 +1640,17 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Body && amount == other.amount && authenticatedCardPaymentId == other.authenticatedCardPaymentId && cardId == other.cardId && declineReason == other.declineReason && digitalWalletTokenId == other.digitalWalletTokenId && direction == other.direction && eventSubscriptionId == other.eventSubscriptionId && merchantAcceptorId == other.merchantAcceptorId && merchantCategoryCode == other.merchantCategoryCode && merchantCity == other.merchantCity && merchantCountry == other.merchantCountry && merchantDescriptor == other.merchantDescriptor && merchantState == other.merchantState && networkDetails == other.networkDetails && networkRiskScore == other.networkRiskScore && physicalCardId == other.physicalCardId && terminalId == other.terminalId && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && amount == other.amount && authenticatedCardPaymentId == other.authenticatedCardPaymentId && cardId == other.cardId && declineReason == other.declineReason && digitalWalletTokenId == other.digitalWalletTokenId && eventSubscriptionId == other.eventSubscriptionId && merchantAcceptorId == other.merchantAcceptorId && merchantCategoryCode == other.merchantCategoryCode && merchantCity == other.merchantCity && merchantCountry == other.merchantCountry && merchantDescriptor == other.merchantDescriptor && merchantState == other.merchantState && networkDetails == other.networkDetails && networkRiskScore == other.networkRiskScore && physicalCardId == other.physicalCardId && processingCategory == other.processingCategory && terminalId == other.terminalId && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(amount, authenticatedCardPaymentId, cardId, declineReason, digitalWalletTokenId, direction, eventSubscriptionId, merchantAcceptorId, merchantCategoryCode, merchantCity, merchantCountry, merchantDescriptor, merchantState, networkDetails, networkRiskScore, physicalCardId, terminalId, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(amount, authenticatedCardPaymentId, cardId, declineReason, digitalWalletTokenId, eventSubscriptionId, merchantAcceptorId, merchantCategoryCode, merchantCity, merchantCountry, merchantDescriptor, merchantState, networkDetails, networkRiskScore, physicalCardId, processingCategory, terminalId, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{amount=$amount, authenticatedCardPaymentId=$authenticatedCardPaymentId, cardId=$cardId, declineReason=$declineReason, digitalWalletTokenId=$digitalWalletTokenId, direction=$direction, eventSubscriptionId=$eventSubscriptionId, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantState=$merchantState, networkDetails=$networkDetails, networkRiskScore=$networkRiskScore, physicalCardId=$physicalCardId, terminalId=$terminalId, additionalProperties=$additionalProperties}"
+            "Body{amount=$amount, authenticatedCardPaymentId=$authenticatedCardPaymentId, cardId=$cardId, declineReason=$declineReason, digitalWalletTokenId=$digitalWalletTokenId, eventSubscriptionId=$eventSubscriptionId, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantState=$merchantState, networkDetails=$networkDetails, networkRiskScore=$networkRiskScore, physicalCardId=$physicalCardId, processingCategory=$processingCategory, terminalId=$terminalId, additionalProperties=$additionalProperties}"
     }
 
     /** Forces a card decline with a specific reason. No real time decision will be sent. */
@@ -1969,154 +1979,6 @@ private constructor(
             }
 
             return /* spotless:off */ other is DeclineReason && value == other.value /* spotless:on */
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-    }
-
-    /**
-     * The direction describes the direction the funds will move, either from the cardholder to the
-     * merchant or from the merchant to the cardholder.
-     */
-    class Direction @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
-
-        /**
-         * Returns this class instance's raw value.
-         *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
-         */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        companion object {
-
-            /** A regular card authorization where funds are debited from the cardholder. */
-            @JvmField val SETTLEMENT = of("settlement")
-
-            /**
-             * A refund card authorization, sometimes referred to as a credit voucher authorization,
-             * where funds are credited to the cardholder.
-             */
-            @JvmField val REFUND = of("refund")
-
-            @JvmStatic fun of(value: String) = Direction(JsonField.of(value))
-        }
-
-        /** An enum containing [Direction]'s known values. */
-        enum class Known {
-            /** A regular card authorization where funds are debited from the cardholder. */
-            SETTLEMENT,
-            /**
-             * A refund card authorization, sometimes referred to as a credit voucher authorization,
-             * where funds are credited to the cardholder.
-             */
-            REFUND,
-        }
-
-        /**
-         * An enum containing [Direction]'s known values, as well as an [_UNKNOWN] member.
-         *
-         * An instance of [Direction] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
-         * - It was constructed with an arbitrary value using the [of] method.
-         */
-        enum class Value {
-            /** A regular card authorization where funds are debited from the cardholder. */
-            SETTLEMENT,
-            /**
-             * A refund card authorization, sometimes referred to as a credit voucher authorization,
-             * where funds are credited to the cardholder.
-             */
-            REFUND,
-            /**
-             * An enum member indicating that [Direction] was instantiated with an unknown value.
-             */
-            _UNKNOWN,
-        }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
-         *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
-         */
-        fun value(): Value =
-            when (this) {
-                SETTLEMENT -> Value.SETTLEMENT
-                REFUND -> Value.REFUND
-                else -> Value._UNKNOWN
-            }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value.
-         *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
-         *
-         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
-         *   member.
-         */
-        fun known(): Known =
-            when (this) {
-                SETTLEMENT -> Known.SETTLEMENT
-                REFUND -> Known.REFUND
-                else -> throw IncreaseInvalidDataException("Unknown Direction: $value")
-            }
-
-        /**
-         * Returns this class instance's primitive wire representation.
-         *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
-         *
-         * @throws IncreaseInvalidDataException if this class instance's value does not have the
-         *   expected primitive type.
-         */
-        fun asString(): String =
-            _value().asString().orElseThrow {
-                IncreaseInvalidDataException("Value is not a String")
-            }
-
-        private var validated: Boolean = false
-
-        fun validate(): Direction = apply {
-            if (validated) {
-                return@apply
-            }
-
-            known()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: IncreaseInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return /* spotless:off */ other is Direction && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -2679,6 +2541,417 @@ private constructor(
 
         override fun toString() =
             "NetworkDetails{visa=$visa, additionalProperties=$additionalProperties}"
+    }
+
+    /**
+     * Fields specific to a specific type of authorization, such as Automatic Fuel Dispensers,
+     * Refund Authorizations, or Cash Disbursements.
+     */
+    class ProcessingCategory
+    private constructor(
+        private val category: JsonField<Category>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("category")
+            @ExcludeMissing
+            category: JsonField<Category> = JsonMissing.of()
+        ) : this(category, mutableMapOf())
+
+        /**
+         * The processing category describes the intent behind the authorization, such as whether it
+         * was used for bill payments or an automatic fuel dispenser.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun category(): Category = category.getRequired("category")
+
+        /**
+         * Returns the raw JSON value of [category].
+         *
+         * Unlike [category], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("category") @ExcludeMissing fun _category(): JsonField<Category> = category
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [ProcessingCategory].
+             *
+             * The following fields are required:
+             * ```java
+             * .category()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [ProcessingCategory]. */
+        class Builder internal constructor() {
+
+            private var category: JsonField<Category>? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(processingCategory: ProcessingCategory) = apply {
+                category = processingCategory.category
+                additionalProperties = processingCategory.additionalProperties.toMutableMap()
+            }
+
+            /**
+             * The processing category describes the intent behind the authorization, such as
+             * whether it was used for bill payments or an automatic fuel dispenser.
+             */
+            fun category(category: Category) = category(JsonField.of(category))
+
+            /**
+             * Sets [Builder.category] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.category] with a well-typed [Category] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun category(category: JsonField<Category>) = apply { this.category = category }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [ProcessingCategory].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .category()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): ProcessingCategory =
+                ProcessingCategory(
+                    checkRequired("category", category),
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): ProcessingCategory = apply {
+            if (validated) {
+                return@apply
+            }
+
+            category().validate()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int = (category.asKnown().getOrNull()?.validity() ?: 0)
+
+        /**
+         * The processing category describes the intent behind the authorization, such as whether it
+         * was used for bill payments or an automatic fuel dispenser.
+         */
+        class Category @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                /**
+                 * Account funding transactions are transactions used to e.g., fund an account or
+                 * transfer funds between accounts.
+                 */
+                @JvmField val ACCOUNT_FUNDING = of("account_funding")
+
+                /**
+                 * Automatic fuel dispenser authorizations occur when a card is used at a gas pump,
+                 * prior to the actual transaction amount being known. They are followed by an
+                 * advice message that updates the amount of the pending transaction.
+                 */
+                @JvmField val AUTOMATIC_FUEL_DISPENSER = of("automatic_fuel_dispenser")
+
+                /** A transaction used to pay a bill. */
+                @JvmField val BILL_PAYMENT = of("bill_payment")
+
+                /** Original credit transactions are used to send money to a cardholder. */
+                @JvmField val ORIGINAL_CREDIT = of("original_credit")
+
+                /** A regular purchase. */
+                @JvmField val PURCHASE = of("purchase")
+
+                /**
+                 * Quasi-cash transactions represent purchases of items which may be convertible to
+                 * cash.
+                 */
+                @JvmField val QUASI_CASH = of("quasi_cash")
+
+                /**
+                 * A refund card authorization, sometimes referred to as a credit voucher
+                 * authorization, where funds are credited to the cardholder.
+                 */
+                @JvmField val REFUND = of("refund")
+
+                /**
+                 * Cash disbursement transactions are used to withdraw cash from an ATM or a point
+                 * of sale.
+                 */
+                @JvmField val CASH_DISBURSEMENT = of("cash_disbursement")
+
+                @JvmStatic fun of(value: String) = Category(JsonField.of(value))
+            }
+
+            /** An enum containing [Category]'s known values. */
+            enum class Known {
+                /**
+                 * Account funding transactions are transactions used to e.g., fund an account or
+                 * transfer funds between accounts.
+                 */
+                ACCOUNT_FUNDING,
+                /**
+                 * Automatic fuel dispenser authorizations occur when a card is used at a gas pump,
+                 * prior to the actual transaction amount being known. They are followed by an
+                 * advice message that updates the amount of the pending transaction.
+                 */
+                AUTOMATIC_FUEL_DISPENSER,
+                /** A transaction used to pay a bill. */
+                BILL_PAYMENT,
+                /** Original credit transactions are used to send money to a cardholder. */
+                ORIGINAL_CREDIT,
+                /** A regular purchase. */
+                PURCHASE,
+                /**
+                 * Quasi-cash transactions represent purchases of items which may be convertible to
+                 * cash.
+                 */
+                QUASI_CASH,
+                /**
+                 * A refund card authorization, sometimes referred to as a credit voucher
+                 * authorization, where funds are credited to the cardholder.
+                 */
+                REFUND,
+                /**
+                 * Cash disbursement transactions are used to withdraw cash from an ATM or a point
+                 * of sale.
+                 */
+                CASH_DISBURSEMENT,
+            }
+
+            /**
+             * An enum containing [Category]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [Category] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                /**
+                 * Account funding transactions are transactions used to e.g., fund an account or
+                 * transfer funds between accounts.
+                 */
+                ACCOUNT_FUNDING,
+                /**
+                 * Automatic fuel dispenser authorizations occur when a card is used at a gas pump,
+                 * prior to the actual transaction amount being known. They are followed by an
+                 * advice message that updates the amount of the pending transaction.
+                 */
+                AUTOMATIC_FUEL_DISPENSER,
+                /** A transaction used to pay a bill. */
+                BILL_PAYMENT,
+                /** Original credit transactions are used to send money to a cardholder. */
+                ORIGINAL_CREDIT,
+                /** A regular purchase. */
+                PURCHASE,
+                /**
+                 * Quasi-cash transactions represent purchases of items which may be convertible to
+                 * cash.
+                 */
+                QUASI_CASH,
+                /**
+                 * A refund card authorization, sometimes referred to as a credit voucher
+                 * authorization, where funds are credited to the cardholder.
+                 */
+                REFUND,
+                /**
+                 * Cash disbursement transactions are used to withdraw cash from an ATM or a point
+                 * of sale.
+                 */
+                CASH_DISBURSEMENT,
+                /**
+                 * An enum member indicating that [Category] was instantiated with an unknown value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    ACCOUNT_FUNDING -> Value.ACCOUNT_FUNDING
+                    AUTOMATIC_FUEL_DISPENSER -> Value.AUTOMATIC_FUEL_DISPENSER
+                    BILL_PAYMENT -> Value.BILL_PAYMENT
+                    ORIGINAL_CREDIT -> Value.ORIGINAL_CREDIT
+                    PURCHASE -> Value.PURCHASE
+                    QUASI_CASH -> Value.QUASI_CASH
+                    REFUND -> Value.REFUND
+                    CASH_DISBURSEMENT -> Value.CASH_DISBURSEMENT
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    ACCOUNT_FUNDING -> Known.ACCOUNT_FUNDING
+                    AUTOMATIC_FUEL_DISPENSER -> Known.AUTOMATIC_FUEL_DISPENSER
+                    BILL_PAYMENT -> Known.BILL_PAYMENT
+                    ORIGINAL_CREDIT -> Known.ORIGINAL_CREDIT
+                    PURCHASE -> Known.PURCHASE
+                    QUASI_CASH -> Known.QUASI_CASH
+                    REFUND -> Known.REFUND
+                    CASH_DISBURSEMENT -> Known.CASH_DISBURSEMENT
+                    else -> throw IncreaseInvalidDataException("Unknown Category: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    IncreaseInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            fun validate(): Category = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return /* spotless:off */ other is Category && value == other.value /* spotless:on */
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is ProcessingCategory && category == other.category && additionalProperties == other.additionalProperties /* spotless:on */
+        }
+
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(category, additionalProperties) }
+        /* spotless:on */
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "ProcessingCategory{category=$category, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
