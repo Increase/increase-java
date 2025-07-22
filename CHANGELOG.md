@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.265.0 (2025-07-22)
+
+Full Changelog: [v0.264.0...v0.265.0](https://github.com/Increase/increase-java/compare/v0.264.0...v0.265.0)
+
+### Features
+
+* **api:** api update ([2e242ef](https://github.com/Increase/increase-java/commit/2e242ef5f7daaa7585e95eca727655bf8f3d20ef))
+* **api:** api update ([568351c](https://github.com/Increase/increase-java/commit/568351c2a6089f37ba721cf6f92f4b23fc43ce2c))
+* **client:** add `{QueryParams,Headers}#put(String, JsonValue)` methods ([eb5e260](https://github.com/Increase/increase-java/commit/eb5e260b07b4c3490a5a3de3d8f2bb70e78683c2))
+
 ## 0.264.0 (2025-07-21)
 
 Full Changelog: [v0.263.0...v0.264.0](https://github.com/Increase/increase-java/compare/v0.263.0...v0.264.0)
