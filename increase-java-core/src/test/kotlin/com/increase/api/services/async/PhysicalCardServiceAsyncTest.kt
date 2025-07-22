@@ -40,6 +40,7 @@ internal class PhysicalCardServiceAsyncTest {
                                     .name("Ian Crease")
                                     .postalCode("10045")
                                     .state("NY")
+                                    .country("x")
                                     .line2("Unit 2")
                                     .line3("x")
                                     .phoneNumber("x")
