@@ -1020,6 +1020,7 @@ private constructor(
         class Address
         private constructor(
             private val city: JsonField<String>,
+            private val country: JsonField<String>,
             private val line1: JsonField<String>,
             private val line2: JsonField<String>,
             private val line3: JsonField<String>,
@@ -1032,6 +1033,9 @@ private constructor(
             @JsonCreator
             private constructor(
                 @JsonProperty("city") @ExcludeMissing city: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("country")
+                @ExcludeMissing
+                country: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("line1") @ExcludeMissing line1: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("line2") @ExcludeMissing line2: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("line3") @ExcludeMissing line3: JsonField<String> = JsonMissing.of(),
@@ -1040,7 +1044,7 @@ private constructor(
                 @ExcludeMissing
                 postalCode: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("state") @ExcludeMissing state: JsonField<String> = JsonMissing.of(),
-            ) : this(city, line1, line2, line3, name, postalCode, state, mutableMapOf())
+            ) : this(city, country, line1, line2, line3, name, postalCode, state, mutableMapOf())
 
             /**
              * The city of the shipping address.
@@ -1050,6 +1054,15 @@ private constructor(
              *   value).
              */
             fun city(): String = city.getRequired("city")
+
+            /**
+             * The country of the shipping address.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun country(): String = country.getRequired("country")
 
             /**
              * The first line of the shipping address.
@@ -1095,7 +1108,7 @@ private constructor(
             fun postalCode(): String = postalCode.getRequired("postal_code")
 
             /**
-             * The US state of the shipping address.
+             * The state of the shipping address.
              *
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
@@ -1109,6 +1122,13 @@ private constructor(
              * Unlike [city], this method doesn't throw if the JSON field has an unexpected type.
              */
             @JsonProperty("city") @ExcludeMissing fun _city(): JsonField<String> = city
+
+            /**
+             * Returns the raw JSON value of [country].
+             *
+             * Unlike [country], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("country") @ExcludeMissing fun _country(): JsonField<String> = country
 
             /**
              * Returns the raw JSON value of [line1].
@@ -1175,6 +1195,7 @@ private constructor(
                  * The following fields are required:
                  * ```java
                  * .city()
+                 * .country()
                  * .line1()
                  * .line2()
                  * .line3()
@@ -1190,6 +1211,7 @@ private constructor(
             class Builder internal constructor() {
 
                 private var city: JsonField<String>? = null
+                private var country: JsonField<String>? = null
                 private var line1: JsonField<String>? = null
                 private var line2: JsonField<String>? = null
                 private var line3: JsonField<String>? = null
@@ -1201,6 +1223,7 @@ private constructor(
                 @JvmSynthetic
                 internal fun from(address: Address) = apply {
                     city = address.city
+                    country = address.country
                     line1 = address.line1
                     line2 = address.line2
                     line3 = address.line3
@@ -1221,6 +1244,18 @@ private constructor(
                  * supported value.
                  */
                 fun city(city: JsonField<String>) = apply { this.city = city }
+
+                /** The country of the shipping address. */
+                fun country(country: String) = country(JsonField.of(country))
+
+                /**
+                 * Sets [Builder.country] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.country] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun country(country: JsonField<String>) = apply { this.country = country }
 
                 /** The first line of the shipping address. */
                 fun line1(line1: String) = line1(JsonField.of(line1))
@@ -1290,7 +1325,7 @@ private constructor(
                     this.postalCode = postalCode
                 }
 
-                /** The US state of the shipping address. */
+                /** The state of the shipping address. */
                 fun state(state: String) = state(JsonField.of(state))
 
                 /**
@@ -1332,6 +1367,7 @@ private constructor(
                  * The following fields are required:
                  * ```java
                  * .city()
+                 * .country()
                  * .line1()
                  * .line2()
                  * .line3()
@@ -1345,6 +1381,7 @@ private constructor(
                 fun build(): Address =
                     Address(
                         checkRequired("city", city),
+                        checkRequired("country", country),
                         checkRequired("line1", line1),
                         checkRequired("line2", line2),
                         checkRequired("line3", line3),
@@ -1363,6 +1400,7 @@ private constructor(
                 }
 
                 city()
+                country()
                 line1()
                 line2()
                 line3()
@@ -1389,6 +1427,7 @@ private constructor(
             @JvmSynthetic
             internal fun validity(): Int =
                 (if (city.asKnown().isPresent) 1 else 0) +
+                    (if (country.asKnown().isPresent) 1 else 0) +
                     (if (line1.asKnown().isPresent) 1 else 0) +
                     (if (line2.asKnown().isPresent) 1 else 0) +
                     (if (line3.asKnown().isPresent) 1 else 0) +
@@ -1401,17 +1440,17 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is Address && city == other.city && line1 == other.line1 && line2 == other.line2 && line3 == other.line3 && name == other.name && postalCode == other.postalCode && state == other.state && additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is Address && city == other.city && country == other.country && line1 == other.line1 && line2 == other.line2 && line3 == other.line3 && name == other.name && postalCode == other.postalCode && state == other.state && additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             /* spotless:off */
-            private val hashCode: Int by lazy { Objects.hash(city, line1, line2, line3, name, postalCode, state, additionalProperties) }
+            private val hashCode: Int by lazy { Objects.hash(city, country, line1, line2, line3, name, postalCode, state, additionalProperties) }
             /* spotless:on */
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "Address{city=$city, line1=$line1, line2=$line2, line3=$line3, name=$name, postalCode=$postalCode, state=$state, additionalProperties=$additionalProperties}"
+                "Address{city=$city, country=$country, line1=$line1, line2=$line2, line3=$line3, name=$name, postalCode=$postalCode, state=$state, additionalProperties=$additionalProperties}"
         }
 
         /** The shipping method. */
@@ -1429,7 +1468,7 @@ private constructor(
 
             companion object {
 
-                /** USPS Post with tracking. */
+                /** USPS Post. */
                 @JvmField val USPS = of("usps")
 
                 /** FedEx Priority Overnight, no signature. */
@@ -1438,17 +1477,22 @@ private constructor(
                 /** FedEx 2-day. */
                 @JvmField val FEDEX_2_DAY = of("fedex_2_day")
 
+                /** DHL Worldwide Express, international shipping only. */
+                @JvmField val DHL_WORLDWIDE_EXPRESS = of("dhl_worldwide_express")
+
                 @JvmStatic fun of(value: String) = Method(JsonField.of(value))
             }
 
             /** An enum containing [Method]'s known values. */
             enum class Known {
-                /** USPS Post with tracking. */
+                /** USPS Post. */
                 USPS,
                 /** FedEx Priority Overnight, no signature. */
                 FEDEX_PRIORITY_OVERNIGHT,
                 /** FedEx 2-day. */
                 FEDEX_2_DAY,
+                /** DHL Worldwide Express, international shipping only. */
+                DHL_WORLDWIDE_EXPRESS,
             }
 
             /**
@@ -1461,12 +1505,14 @@ private constructor(
              * - It was constructed with an arbitrary value using the [of] method.
              */
             enum class Value {
-                /** USPS Post with tracking. */
+                /** USPS Post. */
                 USPS,
                 /** FedEx Priority Overnight, no signature. */
                 FEDEX_PRIORITY_OVERNIGHT,
                 /** FedEx 2-day. */
                 FEDEX_2_DAY,
+                /** DHL Worldwide Express, international shipping only. */
+                DHL_WORLDWIDE_EXPRESS,
                 /**
                  * An enum member indicating that [Method] was instantiated with an unknown value.
                  */
@@ -1485,6 +1531,7 @@ private constructor(
                     USPS -> Value.USPS
                     FEDEX_PRIORITY_OVERNIGHT -> Value.FEDEX_PRIORITY_OVERNIGHT
                     FEDEX_2_DAY -> Value.FEDEX_2_DAY
+                    DHL_WORLDWIDE_EXPRESS -> Value.DHL_WORLDWIDE_EXPRESS
                     else -> Value._UNKNOWN
                 }
 
@@ -1502,6 +1549,7 @@ private constructor(
                     USPS -> Known.USPS
                     FEDEX_PRIORITY_OVERNIGHT -> Known.FEDEX_PRIORITY_OVERNIGHT
                     FEDEX_2_DAY -> Known.FEDEX_2_DAY
+                    DHL_WORLDWIDE_EXPRESS -> Known.DHL_WORLDWIDE_EXPRESS
                     else -> throw IncreaseInvalidDataException("Unknown Method: $value")
                 }
 

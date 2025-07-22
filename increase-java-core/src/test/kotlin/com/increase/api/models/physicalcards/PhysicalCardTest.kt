@@ -27,6 +27,7 @@ internal class PhysicalCardTest {
                         .address(
                             PhysicalCard.Shipment.Address.builder()
                                 .city("New York")
+                                .country("US")
                                 .line1("33 Liberty Street")
                                 .line2("Unit 2")
                                 .line3(null)
@@ -80,6 +81,7 @@ internal class PhysicalCardTest {
                     .address(
                         PhysicalCard.Shipment.Address.builder()
                             .city("New York")
+                            .country("US")
                             .line1("33 Liberty Street")
                             .line2("Unit 2")
                             .line3(null)
@@ -135,6 +137,7 @@ internal class PhysicalCardTest {
                         .address(
                             PhysicalCard.Shipment.Address.builder()
                                 .city("New York")
+                                .country("US")
                                 .line1("33 Liberty Street")
                                 .line2("Unit 2")
                                 .line3(null)
