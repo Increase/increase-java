@@ -154,7 +154,7 @@ interface CheckTransferService {
     fun cancel(checkTransferId: String, requestOptions: RequestOptions): CheckTransfer =
         cancel(checkTransferId, CheckTransferCancelParams.none(), requestOptions)
 
-    /** Request a stop payment on a Check Transfer */
+    /** Stop payment on a Check Transfer */
     fun stopPayment(checkTransferId: String): CheckTransfer =
         stopPayment(checkTransferId, CheckTransferStopPaymentParams.none())
 
