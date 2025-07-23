@@ -95,7 +95,7 @@ import com.increase.api.client.okhttp.IncreaseOkHttpClient;
 
 IncreaseClient client = IncreaseOkHttpClient.builder()
     // Configures using the `increase.apiKey`, `increase.webhookSecret` and `increase.baseUrl` system properties
-    Or configures using the `INCREASE_API_KEY`, `INCREASE_WEBHOOK_SECRET` and `INCREASE_BASE_URL` environment variables
+    // Or configures using the `INCREASE_API_KEY`, `INCREASE_WEBHOOK_SECRET` and `INCREASE_BASE_URL` environment variables
     .fromEnv()
     .apiKey("My API Key")
     .build();
