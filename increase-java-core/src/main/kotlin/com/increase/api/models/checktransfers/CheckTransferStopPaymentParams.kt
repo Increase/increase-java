@@ -20,7 +20,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Request a stop payment on a Check Transfer */
+/** Stop payment on a Check Transfer */
 class CheckTransferStopPaymentParams
 private constructor(
     private val checkTransferId: String?,
