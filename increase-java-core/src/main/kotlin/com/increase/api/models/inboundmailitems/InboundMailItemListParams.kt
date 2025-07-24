@@ -33,8 +33,10 @@ private constructor(
     /** Filter Inbound Mail Items to ones sent to the provided Lockbox. */
     fun lockboxId(): Optional<String> = Optional.ofNullable(lockboxId)
 
+    /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
 
+    /** Additional query param to send with the request. */
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
     fun toBuilder() = Builder().from(this)
@@ -283,6 +285,7 @@ private constructor(
          */
         fun onOrBefore(): Optional<OffsetDateTime> = Optional.ofNullable(onOrBefore)
 
+        /** Query params to send with the request. */
         fun _additionalProperties(): QueryParams = additionalProperties
 
         fun toBuilder() = Builder().from(this)

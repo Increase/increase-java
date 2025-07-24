@@ -26,10 +26,13 @@ private constructor(
     /** The identifier of the Wire Transfer you wish to submit. */
     fun wireTransferId(): Optional<String> = Optional.ofNullable(wireTransferId)
 
+    /** Additional body properties to send with the request. */
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
+    /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
 
+    /** Additional query param to send with the request. */
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
     fun toBuilder() = Builder().from(this)
