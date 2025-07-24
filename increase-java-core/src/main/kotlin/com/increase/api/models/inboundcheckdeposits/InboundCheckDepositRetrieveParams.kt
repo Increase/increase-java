@@ -20,8 +20,10 @@ private constructor(
     /** The identifier of the Inbound Check Deposit to get details for. */
     fun inboundCheckDepositId(): Optional<String> = Optional.ofNullable(inboundCheckDepositId)
 
+    /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
 
+    /** Additional query param to send with the request. */
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
     fun toBuilder() = Builder().from(this)

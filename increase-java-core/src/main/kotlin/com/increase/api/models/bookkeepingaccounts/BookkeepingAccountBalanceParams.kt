@@ -26,8 +26,10 @@ private constructor(
     /** The moment to query the balance at. If not set, returns the current balances. */
     fun atTime(): Optional<OffsetDateTime> = Optional.ofNullable(atTime)
 
+    /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
 
+    /** Additional query param to send with the request. */
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
     fun toBuilder() = Builder().from(this)

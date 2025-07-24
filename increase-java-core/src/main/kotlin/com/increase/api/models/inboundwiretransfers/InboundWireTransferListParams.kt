@@ -49,8 +49,10 @@ private constructor(
     /** Filter Inbound Wire Transfers to ones belonging to the specified Wire Drawdown Request. */
     fun wireDrawdownRequestId(): Optional<String> = Optional.ofNullable(wireDrawdownRequestId)
 
+    /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
 
+    /** Additional query param to send with the request. */
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
     fun toBuilder() = Builder().from(this)
@@ -347,6 +349,7 @@ private constructor(
          */
         fun onOrBefore(): Optional<OffsetDateTime> = Optional.ofNullable(onOrBefore)
 
+        /** Query params to send with the request. */
         fun _additionalProperties(): QueryParams = additionalProperties
 
         fun toBuilder() = Builder().from(this)
@@ -497,6 +500,7 @@ private constructor(
          */
         fun in_(): Optional<List<In>> = Optional.ofNullable(in_)
 
+        /** Query params to send with the request. */
         fun _additionalProperties(): QueryParams = additionalProperties
 
         fun toBuilder() = Builder().from(this)

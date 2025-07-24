@@ -23,10 +23,13 @@ private constructor(
     /** The identifier of the Account to close. The account must have a zero balance. */
     fun accountId(): Optional<String> = Optional.ofNullable(accountId)
 
+    /** Additional body properties to send with the request. */
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
+    /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
 
+    /** Additional query param to send with the request. */
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
     fun toBuilder() = Builder().from(this)
