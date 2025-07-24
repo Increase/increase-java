@@ -20,8 +20,10 @@ private constructor(
     /** The identifier of the Inbound Wire Transfer to get details for. */
     fun inboundWireTransferId(): Optional<String> = Optional.ofNullable(inboundWireTransferId)
 
+    /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
 
+    /** Additional query param to send with the request. */
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
     fun toBuilder() = Builder().from(this)

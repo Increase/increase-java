@@ -20,8 +20,10 @@ private constructor(
     /** The identifier of the ACH Prenotification to retrieve. */
     fun achPrenotificationId(): Optional<String> = Optional.ofNullable(achPrenotificationId)
 
+    /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
 
+    /** Additional query param to send with the request. */
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
     fun toBuilder() = Builder().from(this)
