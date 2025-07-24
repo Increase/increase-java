@@ -12,7 +12,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executor
 import kotlin.jvm.optionals.getOrNull
 
-/** @see [AccountTransferServiceAsync.list] */
+/** @see AccountTransferServiceAsync.list */
 class AccountTransferListPageAsync
 private constructor(
     private val service: AccountTransferServiceAsync,
@@ -24,7 +24,7 @@ private constructor(
     /**
      * Delegates to [AccountTransferListPageResponse], but gracefully handles missing data.
      *
-     * @see [AccountTransferListPageResponse.data]
+     * @see AccountTransferListPageResponse.data
      */
     fun data(): List<AccountTransfer> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
@@ -32,7 +32,7 @@ private constructor(
     /**
      * Delegates to [AccountTransferListPageResponse], but gracefully handles missing data.
      *
-     * @see [AccountTransferListPageResponse.nextCursor]
+     * @see AccountTransferListPageResponse.nextCursor
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 

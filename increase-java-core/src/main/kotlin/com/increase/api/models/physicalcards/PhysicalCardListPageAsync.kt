@@ -12,7 +12,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executor
 import kotlin.jvm.optionals.getOrNull
 
-/** @see [PhysicalCardServiceAsync.list] */
+/** @see PhysicalCardServiceAsync.list */
 class PhysicalCardListPageAsync
 private constructor(
     private val service: PhysicalCardServiceAsync,
@@ -24,14 +24,14 @@ private constructor(
     /**
      * Delegates to [PhysicalCardListPageResponse], but gracefully handles missing data.
      *
-     * @see [PhysicalCardListPageResponse.data]
+     * @see PhysicalCardListPageResponse.data
      */
     fun data(): List<PhysicalCard> = response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
      * Delegates to [PhysicalCardListPageResponse], but gracefully handles missing data.
      *
-     * @see [PhysicalCardListPageResponse.nextCursor]
+     * @see PhysicalCardListPageResponse.nextCursor
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 

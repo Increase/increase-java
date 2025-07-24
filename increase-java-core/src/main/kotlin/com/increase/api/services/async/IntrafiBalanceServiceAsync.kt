@@ -31,7 +31,7 @@ interface IntrafiBalanceServiceAsync {
     fun intrafiBalance(accountId: String): CompletableFuture<IntrafiBalance> =
         intrafiBalance(accountId, IntrafiBalanceIntrafiBalanceParams.none())
 
-    /** @see [intrafiBalance] */
+    /** @see intrafiBalance */
     fun intrafiBalance(
         accountId: String,
         params: IntrafiBalanceIntrafiBalanceParams = IntrafiBalanceIntrafiBalanceParams.none(),
@@ -39,24 +39,24 @@ interface IntrafiBalanceServiceAsync {
     ): CompletableFuture<IntrafiBalance> =
         intrafiBalance(params.toBuilder().accountId(accountId).build(), requestOptions)
 
-    /** @see [intrafiBalance] */
+    /** @see intrafiBalance */
     fun intrafiBalance(
         accountId: String,
         params: IntrafiBalanceIntrafiBalanceParams = IntrafiBalanceIntrafiBalanceParams.none(),
     ): CompletableFuture<IntrafiBalance> = intrafiBalance(accountId, params, RequestOptions.none())
 
-    /** @see [intrafiBalance] */
+    /** @see intrafiBalance */
     fun intrafiBalance(
         params: IntrafiBalanceIntrafiBalanceParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<IntrafiBalance>
 
-    /** @see [intrafiBalance] */
+    /** @see intrafiBalance */
     fun intrafiBalance(
         params: IntrafiBalanceIntrafiBalanceParams
     ): CompletableFuture<IntrafiBalance> = intrafiBalance(params, RequestOptions.none())
 
-    /** @see [intrafiBalance] */
+    /** @see intrafiBalance */
     fun intrafiBalance(
         accountId: String,
         requestOptions: RequestOptions,
@@ -85,7 +85,7 @@ interface IntrafiBalanceServiceAsync {
         fun intrafiBalance(accountId: String): CompletableFuture<HttpResponseFor<IntrafiBalance>> =
             intrafiBalance(accountId, IntrafiBalanceIntrafiBalanceParams.none())
 
-        /** @see [intrafiBalance] */
+        /** @see intrafiBalance */
         fun intrafiBalance(
             accountId: String,
             params: IntrafiBalanceIntrafiBalanceParams = IntrafiBalanceIntrafiBalanceParams.none(),
@@ -93,26 +93,26 @@ interface IntrafiBalanceServiceAsync {
         ): CompletableFuture<HttpResponseFor<IntrafiBalance>> =
             intrafiBalance(params.toBuilder().accountId(accountId).build(), requestOptions)
 
-        /** @see [intrafiBalance] */
+        /** @see intrafiBalance */
         fun intrafiBalance(
             accountId: String,
             params: IntrafiBalanceIntrafiBalanceParams = IntrafiBalanceIntrafiBalanceParams.none(),
         ): CompletableFuture<HttpResponseFor<IntrafiBalance>> =
             intrafiBalance(accountId, params, RequestOptions.none())
 
-        /** @see [intrafiBalance] */
+        /** @see intrafiBalance */
         fun intrafiBalance(
             params: IntrafiBalanceIntrafiBalanceParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<IntrafiBalance>>
 
-        /** @see [intrafiBalance] */
+        /** @see intrafiBalance */
         fun intrafiBalance(
             params: IntrafiBalanceIntrafiBalanceParams
         ): CompletableFuture<HttpResponseFor<IntrafiBalance>> =
             intrafiBalance(params, RequestOptions.none())
 
-        /** @see [intrafiBalance] */
+        /** @see intrafiBalance */
         fun intrafiBalance(
             accountId: String,
             requestOptions: RequestOptions,

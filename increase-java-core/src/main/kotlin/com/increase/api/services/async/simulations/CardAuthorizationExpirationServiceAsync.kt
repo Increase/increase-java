@@ -30,7 +30,7 @@ interface CardAuthorizationExpirationServiceAsync {
     fun create(params: CardAuthorizationExpirationCreateParams): CompletableFuture<CardPayment> =
         create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: CardAuthorizationExpirationCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -59,7 +59,7 @@ interface CardAuthorizationExpirationServiceAsync {
             params: CardAuthorizationExpirationCreateParams
         ): CompletableFuture<HttpResponseFor<CardPayment>> = create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         fun create(
             params: CardAuthorizationExpirationCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),

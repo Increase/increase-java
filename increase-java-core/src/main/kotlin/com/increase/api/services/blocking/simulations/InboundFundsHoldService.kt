@@ -31,7 +31,7 @@ interface InboundFundsHoldService {
     fun release(inboundFundsHoldId: String): InboundFundsHoldReleaseResponse =
         release(inboundFundsHoldId, InboundFundsHoldReleaseParams.none())
 
-    /** @see [release] */
+    /** @see release */
     fun release(
         inboundFundsHoldId: String,
         params: InboundFundsHoldReleaseParams = InboundFundsHoldReleaseParams.none(),
@@ -39,23 +39,23 @@ interface InboundFundsHoldService {
     ): InboundFundsHoldReleaseResponse =
         release(params.toBuilder().inboundFundsHoldId(inboundFundsHoldId).build(), requestOptions)
 
-    /** @see [release] */
+    /** @see release */
     fun release(
         inboundFundsHoldId: String,
         params: InboundFundsHoldReleaseParams = InboundFundsHoldReleaseParams.none(),
     ): InboundFundsHoldReleaseResponse = release(inboundFundsHoldId, params, RequestOptions.none())
 
-    /** @see [release] */
+    /** @see release */
     fun release(
         params: InboundFundsHoldReleaseParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundFundsHoldReleaseResponse
 
-    /** @see [release] */
+    /** @see release */
     fun release(params: InboundFundsHoldReleaseParams): InboundFundsHoldReleaseResponse =
         release(params, RequestOptions.none())
 
-    /** @see [release] */
+    /** @see release */
     fun release(
         inboundFundsHoldId: String,
         requestOptions: RequestOptions,
@@ -86,7 +86,7 @@ interface InboundFundsHoldService {
         fun release(inboundFundsHoldId: String): HttpResponseFor<InboundFundsHoldReleaseResponse> =
             release(inboundFundsHoldId, InboundFundsHoldReleaseParams.none())
 
-        /** @see [release] */
+        /** @see release */
         @MustBeClosed
         fun release(
             inboundFundsHoldId: String,
@@ -98,7 +98,7 @@ interface InboundFundsHoldService {
                 requestOptions,
             )
 
-        /** @see [release] */
+        /** @see release */
         @MustBeClosed
         fun release(
             inboundFundsHoldId: String,
@@ -106,20 +106,20 @@ interface InboundFundsHoldService {
         ): HttpResponseFor<InboundFundsHoldReleaseResponse> =
             release(inboundFundsHoldId, params, RequestOptions.none())
 
-        /** @see [release] */
+        /** @see release */
         @MustBeClosed
         fun release(
             params: InboundFundsHoldReleaseParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InboundFundsHoldReleaseResponse>
 
-        /** @see [release] */
+        /** @see release */
         @MustBeClosed
         fun release(
             params: InboundFundsHoldReleaseParams
         ): HttpResponseFor<InboundFundsHoldReleaseResponse> = release(params, RequestOptions.none())
 
-        /** @see [release] */
+        /** @see release */
         @MustBeClosed
         fun release(
             inboundFundsHoldId: String,

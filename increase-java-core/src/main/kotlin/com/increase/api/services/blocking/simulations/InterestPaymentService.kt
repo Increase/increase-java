@@ -31,7 +31,7 @@ interface InterestPaymentService {
     fun create(params: InterestPaymentCreateParams): Transaction =
         create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: InterestPaymentCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -60,7 +60,7 @@ interface InterestPaymentService {
         fun create(params: InterestPaymentCreateParams): HttpResponseFor<Transaction> =
             create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         @MustBeClosed
         fun create(
             params: InterestPaymentCreateParams,

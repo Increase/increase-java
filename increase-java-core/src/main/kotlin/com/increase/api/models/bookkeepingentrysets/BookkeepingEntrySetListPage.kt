@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** @see [BookkeepingEntrySetService.list] */
+/** @see BookkeepingEntrySetService.list */
 class BookkeepingEntrySetListPage
 private constructor(
     private val service: BookkeepingEntrySetService,
@@ -21,7 +21,7 @@ private constructor(
     /**
      * Delegates to [BookkeepingEntrySetListPageResponse], but gracefully handles missing data.
      *
-     * @see [BookkeepingEntrySetListPageResponse.data]
+     * @see BookkeepingEntrySetListPageResponse.data
      */
     fun data(): List<BookkeepingEntrySet> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
@@ -29,7 +29,7 @@ private constructor(
     /**
      * Delegates to [BookkeepingEntrySetListPageResponse], but gracefully handles missing data.
      *
-     * @see [BookkeepingEntrySetListPageResponse.nextCursor]
+     * @see BookkeepingEntrySetListPageResponse.nextCursor
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 

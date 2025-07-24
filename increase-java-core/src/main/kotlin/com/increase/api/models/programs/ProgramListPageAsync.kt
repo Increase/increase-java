@@ -12,7 +12,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executor
 import kotlin.jvm.optionals.getOrNull
 
-/** @see [ProgramServiceAsync.list] */
+/** @see ProgramServiceAsync.list */
 class ProgramListPageAsync
 private constructor(
     private val service: ProgramServiceAsync,
@@ -24,14 +24,14 @@ private constructor(
     /**
      * Delegates to [ProgramListPageResponse], but gracefully handles missing data.
      *
-     * @see [ProgramListPageResponse.data]
+     * @see ProgramListPageResponse.data
      */
     fun data(): List<Program> = response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
      * Delegates to [ProgramListPageResponse], but gracefully handles missing data.
      *
-     * @see [ProgramListPageResponse.nextCursor]
+     * @see ProgramListPageResponse.nextCursor
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 

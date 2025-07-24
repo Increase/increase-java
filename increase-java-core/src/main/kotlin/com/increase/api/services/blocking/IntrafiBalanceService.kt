@@ -31,7 +31,7 @@ interface IntrafiBalanceService {
     fun intrafiBalance(accountId: String): IntrafiBalance =
         intrafiBalance(accountId, IntrafiBalanceIntrafiBalanceParams.none())
 
-    /** @see [intrafiBalance] */
+    /** @see intrafiBalance */
     fun intrafiBalance(
         accountId: String,
         params: IntrafiBalanceIntrafiBalanceParams = IntrafiBalanceIntrafiBalanceParams.none(),
@@ -39,23 +39,23 @@ interface IntrafiBalanceService {
     ): IntrafiBalance =
         intrafiBalance(params.toBuilder().accountId(accountId).build(), requestOptions)
 
-    /** @see [intrafiBalance] */
+    /** @see intrafiBalance */
     fun intrafiBalance(
         accountId: String,
         params: IntrafiBalanceIntrafiBalanceParams = IntrafiBalanceIntrafiBalanceParams.none(),
     ): IntrafiBalance = intrafiBalance(accountId, params, RequestOptions.none())
 
-    /** @see [intrafiBalance] */
+    /** @see intrafiBalance */
     fun intrafiBalance(
         params: IntrafiBalanceIntrafiBalanceParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): IntrafiBalance
 
-    /** @see [intrafiBalance] */
+    /** @see intrafiBalance */
     fun intrafiBalance(params: IntrafiBalanceIntrafiBalanceParams): IntrafiBalance =
         intrafiBalance(params, RequestOptions.none())
 
-    /** @see [intrafiBalance] */
+    /** @see intrafiBalance */
     fun intrafiBalance(accountId: String, requestOptions: RequestOptions): IntrafiBalance =
         intrafiBalance(accountId, IntrafiBalanceIntrafiBalanceParams.none(), requestOptions)
 
@@ -81,7 +81,7 @@ interface IntrafiBalanceService {
         fun intrafiBalance(accountId: String): HttpResponseFor<IntrafiBalance> =
             intrafiBalance(accountId, IntrafiBalanceIntrafiBalanceParams.none())
 
-        /** @see [intrafiBalance] */
+        /** @see intrafiBalance */
         @MustBeClosed
         fun intrafiBalance(
             accountId: String,
@@ -90,7 +90,7 @@ interface IntrafiBalanceService {
         ): HttpResponseFor<IntrafiBalance> =
             intrafiBalance(params.toBuilder().accountId(accountId).build(), requestOptions)
 
-        /** @see [intrafiBalance] */
+        /** @see intrafiBalance */
         @MustBeClosed
         fun intrafiBalance(
             accountId: String,
@@ -98,20 +98,20 @@ interface IntrafiBalanceService {
         ): HttpResponseFor<IntrafiBalance> =
             intrafiBalance(accountId, params, RequestOptions.none())
 
-        /** @see [intrafiBalance] */
+        /** @see intrafiBalance */
         @MustBeClosed
         fun intrafiBalance(
             params: IntrafiBalanceIntrafiBalanceParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<IntrafiBalance>
 
-        /** @see [intrafiBalance] */
+        /** @see intrafiBalance */
         @MustBeClosed
         fun intrafiBalance(
             params: IntrafiBalanceIntrafiBalanceParams
         ): HttpResponseFor<IntrafiBalance> = intrafiBalance(params, RequestOptions.none())
 
-        /** @see [intrafiBalance] */
+        /** @see intrafiBalance */
         @MustBeClosed
         fun intrafiBalance(
             accountId: String,

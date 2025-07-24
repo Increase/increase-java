@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** @see [InboundWireDrawdownRequestService.list] */
+/** @see InboundWireDrawdownRequestService.list */
 class InboundWireDrawdownRequestListPage
 private constructor(
     private val service: InboundWireDrawdownRequestService,
@@ -22,7 +22,7 @@ private constructor(
      * Delegates to [InboundWireDrawdownRequestListPageResponse], but gracefully handles missing
      * data.
      *
-     * @see [InboundWireDrawdownRequestListPageResponse.data]
+     * @see InboundWireDrawdownRequestListPageResponse.data
      */
     fun data(): List<InboundWireDrawdownRequest> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
@@ -31,7 +31,7 @@ private constructor(
      * Delegates to [InboundWireDrawdownRequestListPageResponse], but gracefully handles missing
      * data.
      *
-     * @see [InboundWireDrawdownRequestListPageResponse.nextCursor]
+     * @see InboundWireDrawdownRequestListPageResponse.nextCursor
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 

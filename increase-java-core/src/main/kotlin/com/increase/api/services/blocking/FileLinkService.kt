@@ -27,7 +27,7 @@ interface FileLinkService {
     /** Create a File Link */
     fun create(params: FileLinkCreateParams): FileLink = create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: FileLinkCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -51,7 +51,7 @@ interface FileLinkService {
         fun create(params: FileLinkCreateParams): HttpResponseFor<FileLink> =
             create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         @MustBeClosed
         fun create(
             params: FileLinkCreateParams,

@@ -12,7 +12,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executor
 import kotlin.jvm.optionals.getOrNull
 
-/** @see [BookkeepingAccountServiceAsync.list] */
+/** @see BookkeepingAccountServiceAsync.list */
 class BookkeepingAccountListPageAsync
 private constructor(
     private val service: BookkeepingAccountServiceAsync,
@@ -24,7 +24,7 @@ private constructor(
     /**
      * Delegates to [BookkeepingAccountListPageResponse], but gracefully handles missing data.
      *
-     * @see [BookkeepingAccountListPageResponse.data]
+     * @see BookkeepingAccountListPageResponse.data
      */
     fun data(): List<BookkeepingAccount> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
@@ -32,7 +32,7 @@ private constructor(
     /**
      * Delegates to [BookkeepingAccountListPageResponse], but gracefully handles missing data.
      *
-     * @see [BookkeepingAccountListPageResponse.nextCursor]
+     * @see BookkeepingAccountListPageResponse.nextCursor
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 

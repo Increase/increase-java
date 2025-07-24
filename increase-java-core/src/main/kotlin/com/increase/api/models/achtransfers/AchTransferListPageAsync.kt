@@ -12,7 +12,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executor
 import kotlin.jvm.optionals.getOrNull
 
-/** @see [AchTransferServiceAsync.list] */
+/** @see AchTransferServiceAsync.list */
 class AchTransferListPageAsync
 private constructor(
     private val service: AchTransferServiceAsync,
@@ -24,14 +24,14 @@ private constructor(
     /**
      * Delegates to [AchTransferListPageResponse], but gracefully handles missing data.
      *
-     * @see [AchTransferListPageResponse.data]
+     * @see AchTransferListPageResponse.data
      */
     fun data(): List<AchTransfer> = response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
      * Delegates to [AchTransferListPageResponse], but gracefully handles missing data.
      *
-     * @see [AchTransferListPageResponse.nextCursor]
+     * @see AchTransferListPageResponse.nextCursor
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 

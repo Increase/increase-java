@@ -37,7 +37,7 @@ interface EntityService {
     /** Create an Entity */
     fun create(params: EntityCreateParams): Entity = create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: EntityCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -46,75 +46,75 @@ interface EntityService {
     /** Retrieve an Entity */
     fun retrieve(entityId: String): Entity = retrieve(entityId, EntityRetrieveParams.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         entityId: String,
         params: EntityRetrieveParams = EntityRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Entity = retrieve(params.toBuilder().entityId(entityId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         entityId: String,
         params: EntityRetrieveParams = EntityRetrieveParams.none(),
     ): Entity = retrieve(entityId, params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: EntityRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Entity
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(params: EntityRetrieveParams): Entity = retrieve(params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(entityId: String, requestOptions: RequestOptions): Entity =
         retrieve(entityId, EntityRetrieveParams.none(), requestOptions)
 
     /** List Entities */
     fun list(): EntityListPage = list(EntityListParams.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: EntityListParams = EntityListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): EntityListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(params: EntityListParams = EntityListParams.none()): EntityListPage =
         list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): EntityListPage =
         list(EntityListParams.none(), requestOptions)
 
     /** Archive an Entity */
     fun archive(entityId: String): Entity = archive(entityId, EntityArchiveParams.none())
 
-    /** @see [archive] */
+    /** @see archive */
     fun archive(
         entityId: String,
         params: EntityArchiveParams = EntityArchiveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Entity = archive(params.toBuilder().entityId(entityId).build(), requestOptions)
 
-    /** @see [archive] */
+    /** @see archive */
     fun archive(
         entityId: String,
         params: EntityArchiveParams = EntityArchiveParams.none(),
     ): Entity = archive(entityId, params, RequestOptions.none())
 
-    /** @see [archive] */
+    /** @see archive */
     fun archive(
         params: EntityArchiveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Entity
 
-    /** @see [archive] */
+    /** @see archive */
     fun archive(params: EntityArchiveParams): Entity = archive(params, RequestOptions.none())
 
-    /** @see [archive] */
+    /** @see archive */
     fun archive(entityId: String, requestOptions: RequestOptions): Entity =
         archive(entityId, EntityArchiveParams.none(), requestOptions)
 
@@ -124,7 +124,7 @@ interface EntityService {
         params: EntityArchiveBeneficialOwnerParams,
     ): Entity = archiveBeneficialOwner(entityId, params, RequestOptions.none())
 
-    /** @see [archiveBeneficialOwner] */
+    /** @see archiveBeneficialOwner */
     fun archiveBeneficialOwner(
         entityId: String,
         params: EntityArchiveBeneficialOwnerParams,
@@ -132,11 +132,11 @@ interface EntityService {
     ): Entity =
         archiveBeneficialOwner(params.toBuilder().entityId(entityId).build(), requestOptions)
 
-    /** @see [archiveBeneficialOwner] */
+    /** @see archiveBeneficialOwner */
     fun archiveBeneficialOwner(params: EntityArchiveBeneficialOwnerParams): Entity =
         archiveBeneficialOwner(params, RequestOptions.none())
 
-    /** @see [archiveBeneficialOwner] */
+    /** @see archiveBeneficialOwner */
     fun archiveBeneficialOwner(
         params: EntityArchiveBeneficialOwnerParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -149,29 +149,29 @@ interface EntityService {
      */
     fun confirm(entityId: String): Entity = confirm(entityId, EntityConfirmParams.none())
 
-    /** @see [confirm] */
+    /** @see confirm */
     fun confirm(
         entityId: String,
         params: EntityConfirmParams = EntityConfirmParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Entity = confirm(params.toBuilder().entityId(entityId).build(), requestOptions)
 
-    /** @see [confirm] */
+    /** @see confirm */
     fun confirm(
         entityId: String,
         params: EntityConfirmParams = EntityConfirmParams.none(),
     ): Entity = confirm(entityId, params, RequestOptions.none())
 
-    /** @see [confirm] */
+    /** @see confirm */
     fun confirm(
         params: EntityConfirmParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Entity
 
-    /** @see [confirm] */
+    /** @see confirm */
     fun confirm(params: EntityConfirmParams): Entity = confirm(params, RequestOptions.none())
 
-    /** @see [confirm] */
+    /** @see confirm */
     fun confirm(entityId: String, requestOptions: RequestOptions): Entity =
         confirm(entityId, EntityConfirmParams.none(), requestOptions)
 
@@ -179,18 +179,18 @@ interface EntityService {
     fun createBeneficialOwner(entityId: String, params: EntityCreateBeneficialOwnerParams): Entity =
         createBeneficialOwner(entityId, params, RequestOptions.none())
 
-    /** @see [createBeneficialOwner] */
+    /** @see createBeneficialOwner */
     fun createBeneficialOwner(
         entityId: String,
         params: EntityCreateBeneficialOwnerParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Entity = createBeneficialOwner(params.toBuilder().entityId(entityId).build(), requestOptions)
 
-    /** @see [createBeneficialOwner] */
+    /** @see createBeneficialOwner */
     fun createBeneficialOwner(params: EntityCreateBeneficialOwnerParams): Entity =
         createBeneficialOwner(params, RequestOptions.none())
 
-    /** @see [createBeneficialOwner] */
+    /** @see createBeneficialOwner */
     fun createBeneficialOwner(
         params: EntityCreateBeneficialOwnerParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -200,18 +200,18 @@ interface EntityService {
     fun updateAddress(entityId: String, params: EntityUpdateAddressParams): Entity =
         updateAddress(entityId, params, RequestOptions.none())
 
-    /** @see [updateAddress] */
+    /** @see updateAddress */
     fun updateAddress(
         entityId: String,
         params: EntityUpdateAddressParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Entity = updateAddress(params.toBuilder().entityId(entityId).build(), requestOptions)
 
-    /** @see [updateAddress] */
+    /** @see updateAddress */
     fun updateAddress(params: EntityUpdateAddressParams): Entity =
         updateAddress(params, RequestOptions.none())
 
-    /** @see [updateAddress] */
+    /** @see updateAddress */
     fun updateAddress(
         params: EntityUpdateAddressParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -223,7 +223,7 @@ interface EntityService {
         params: EntityUpdateBeneficialOwnerAddressParams,
     ): Entity = updateBeneficialOwnerAddress(entityId, params, RequestOptions.none())
 
-    /** @see [updateBeneficialOwnerAddress] */
+    /** @see updateBeneficialOwnerAddress */
     fun updateBeneficialOwnerAddress(
         entityId: String,
         params: EntityUpdateBeneficialOwnerAddressParams,
@@ -231,11 +231,11 @@ interface EntityService {
     ): Entity =
         updateBeneficialOwnerAddress(params.toBuilder().entityId(entityId).build(), requestOptions)
 
-    /** @see [updateBeneficialOwnerAddress] */
+    /** @see updateBeneficialOwnerAddress */
     fun updateBeneficialOwnerAddress(params: EntityUpdateBeneficialOwnerAddressParams): Entity =
         updateBeneficialOwnerAddress(params, RequestOptions.none())
 
-    /** @see [updateBeneficialOwnerAddress] */
+    /** @see updateBeneficialOwnerAddress */
     fun updateBeneficialOwnerAddress(
         params: EntityUpdateBeneficialOwnerAddressParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -245,18 +245,18 @@ interface EntityService {
     fun updateIndustryCode(entityId: String, params: EntityUpdateIndustryCodeParams): Entity =
         updateIndustryCode(entityId, params, RequestOptions.none())
 
-    /** @see [updateIndustryCode] */
+    /** @see updateIndustryCode */
     fun updateIndustryCode(
         entityId: String,
         params: EntityUpdateIndustryCodeParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Entity = updateIndustryCode(params.toBuilder().entityId(entityId).build(), requestOptions)
 
-    /** @see [updateIndustryCode] */
+    /** @see updateIndustryCode */
     fun updateIndustryCode(params: EntityUpdateIndustryCodeParams): Entity =
         updateIndustryCode(params, RequestOptions.none())
 
-    /** @see [updateIndustryCode] */
+    /** @see updateIndustryCode */
     fun updateIndustryCode(
         params: EntityUpdateIndustryCodeParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -280,7 +280,7 @@ interface EntityService {
         fun create(params: EntityCreateParams): HttpResponseFor<Entity> =
             create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         @MustBeClosed
         fun create(
             params: EntityCreateParams,
@@ -295,7 +295,7 @@ interface EntityService {
         fun retrieve(entityId: String): HttpResponseFor<Entity> =
             retrieve(entityId, EntityRetrieveParams.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             entityId: String,
@@ -304,26 +304,26 @@ interface EntityService {
         ): HttpResponseFor<Entity> =
             retrieve(params.toBuilder().entityId(entityId).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             entityId: String,
             params: EntityRetrieveParams = EntityRetrieveParams.none(),
         ): HttpResponseFor<Entity> = retrieve(entityId, params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: EntityRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Entity>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(params: EntityRetrieveParams): HttpResponseFor<Entity> =
             retrieve(params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(entityId: String, requestOptions: RequestOptions): HttpResponseFor<Entity> =
             retrieve(entityId, EntityRetrieveParams.none(), requestOptions)
@@ -334,20 +334,20 @@ interface EntityService {
          */
         @MustBeClosed fun list(): HttpResponseFor<EntityListPage> = list(EntityListParams.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             params: EntityListParams = EntityListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<EntityListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             params: EntityListParams = EntityListParams.none()
         ): HttpResponseFor<EntityListPage> = list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<EntityListPage> =
             list(EntityListParams.none(), requestOptions)
@@ -360,7 +360,7 @@ interface EntityService {
         fun archive(entityId: String): HttpResponseFor<Entity> =
             archive(entityId, EntityArchiveParams.none())
 
-        /** @see [archive] */
+        /** @see archive */
         @MustBeClosed
         fun archive(
             entityId: String,
@@ -369,26 +369,26 @@ interface EntityService {
         ): HttpResponseFor<Entity> =
             archive(params.toBuilder().entityId(entityId).build(), requestOptions)
 
-        /** @see [archive] */
+        /** @see archive */
         @MustBeClosed
         fun archive(
             entityId: String,
             params: EntityArchiveParams = EntityArchiveParams.none(),
         ): HttpResponseFor<Entity> = archive(entityId, params, RequestOptions.none())
 
-        /** @see [archive] */
+        /** @see archive */
         @MustBeClosed
         fun archive(
             params: EntityArchiveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Entity>
 
-        /** @see [archive] */
+        /** @see archive */
         @MustBeClosed
         fun archive(params: EntityArchiveParams): HttpResponseFor<Entity> =
             archive(params, RequestOptions.none())
 
-        /** @see [archive] */
+        /** @see archive */
         @MustBeClosed
         fun archive(entityId: String, requestOptions: RequestOptions): HttpResponseFor<Entity> =
             archive(entityId, EntityArchiveParams.none(), requestOptions)
@@ -403,7 +403,7 @@ interface EntityService {
             params: EntityArchiveBeneficialOwnerParams,
         ): HttpResponseFor<Entity> = archiveBeneficialOwner(entityId, params, RequestOptions.none())
 
-        /** @see [archiveBeneficialOwner] */
+        /** @see archiveBeneficialOwner */
         @MustBeClosed
         fun archiveBeneficialOwner(
             entityId: String,
@@ -412,13 +412,13 @@ interface EntityService {
         ): HttpResponseFor<Entity> =
             archiveBeneficialOwner(params.toBuilder().entityId(entityId).build(), requestOptions)
 
-        /** @see [archiveBeneficialOwner] */
+        /** @see archiveBeneficialOwner */
         @MustBeClosed
         fun archiveBeneficialOwner(
             params: EntityArchiveBeneficialOwnerParams
         ): HttpResponseFor<Entity> = archiveBeneficialOwner(params, RequestOptions.none())
 
-        /** @see [archiveBeneficialOwner] */
+        /** @see archiveBeneficialOwner */
         @MustBeClosed
         fun archiveBeneficialOwner(
             params: EntityArchiveBeneficialOwnerParams,
@@ -433,7 +433,7 @@ interface EntityService {
         fun confirm(entityId: String): HttpResponseFor<Entity> =
             confirm(entityId, EntityConfirmParams.none())
 
-        /** @see [confirm] */
+        /** @see confirm */
         @MustBeClosed
         fun confirm(
             entityId: String,
@@ -442,26 +442,26 @@ interface EntityService {
         ): HttpResponseFor<Entity> =
             confirm(params.toBuilder().entityId(entityId).build(), requestOptions)
 
-        /** @see [confirm] */
+        /** @see confirm */
         @MustBeClosed
         fun confirm(
             entityId: String,
             params: EntityConfirmParams = EntityConfirmParams.none(),
         ): HttpResponseFor<Entity> = confirm(entityId, params, RequestOptions.none())
 
-        /** @see [confirm] */
+        /** @see confirm */
         @MustBeClosed
         fun confirm(
             params: EntityConfirmParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Entity>
 
-        /** @see [confirm] */
+        /** @see confirm */
         @MustBeClosed
         fun confirm(params: EntityConfirmParams): HttpResponseFor<Entity> =
             confirm(params, RequestOptions.none())
 
-        /** @see [confirm] */
+        /** @see confirm */
         @MustBeClosed
         fun confirm(entityId: String, requestOptions: RequestOptions): HttpResponseFor<Entity> =
             confirm(entityId, EntityConfirmParams.none(), requestOptions)
@@ -476,7 +476,7 @@ interface EntityService {
             params: EntityCreateBeneficialOwnerParams,
         ): HttpResponseFor<Entity> = createBeneficialOwner(entityId, params, RequestOptions.none())
 
-        /** @see [createBeneficialOwner] */
+        /** @see createBeneficialOwner */
         @MustBeClosed
         fun createBeneficialOwner(
             entityId: String,
@@ -485,13 +485,13 @@ interface EntityService {
         ): HttpResponseFor<Entity> =
             createBeneficialOwner(params.toBuilder().entityId(entityId).build(), requestOptions)
 
-        /** @see [createBeneficialOwner] */
+        /** @see createBeneficialOwner */
         @MustBeClosed
         fun createBeneficialOwner(
             params: EntityCreateBeneficialOwnerParams
         ): HttpResponseFor<Entity> = createBeneficialOwner(params, RequestOptions.none())
 
-        /** @see [createBeneficialOwner] */
+        /** @see createBeneficialOwner */
         @MustBeClosed
         fun createBeneficialOwner(
             params: EntityCreateBeneficialOwnerParams,
@@ -508,7 +508,7 @@ interface EntityService {
             params: EntityUpdateAddressParams,
         ): HttpResponseFor<Entity> = updateAddress(entityId, params, RequestOptions.none())
 
-        /** @see [updateAddress] */
+        /** @see updateAddress */
         @MustBeClosed
         fun updateAddress(
             entityId: String,
@@ -517,12 +517,12 @@ interface EntityService {
         ): HttpResponseFor<Entity> =
             updateAddress(params.toBuilder().entityId(entityId).build(), requestOptions)
 
-        /** @see [updateAddress] */
+        /** @see updateAddress */
         @MustBeClosed
         fun updateAddress(params: EntityUpdateAddressParams): HttpResponseFor<Entity> =
             updateAddress(params, RequestOptions.none())
 
-        /** @see [updateAddress] */
+        /** @see updateAddress */
         @MustBeClosed
         fun updateAddress(
             params: EntityUpdateAddressParams,
@@ -541,7 +541,7 @@ interface EntityService {
         ): HttpResponseFor<Entity> =
             updateBeneficialOwnerAddress(entityId, params, RequestOptions.none())
 
-        /** @see [updateBeneficialOwnerAddress] */
+        /** @see updateBeneficialOwnerAddress */
         @MustBeClosed
         fun updateBeneficialOwnerAddress(
             entityId: String,
@@ -553,13 +553,13 @@ interface EntityService {
                 requestOptions,
             )
 
-        /** @see [updateBeneficialOwnerAddress] */
+        /** @see updateBeneficialOwnerAddress */
         @MustBeClosed
         fun updateBeneficialOwnerAddress(
             params: EntityUpdateBeneficialOwnerAddressParams
         ): HttpResponseFor<Entity> = updateBeneficialOwnerAddress(params, RequestOptions.none())
 
-        /** @see [updateBeneficialOwnerAddress] */
+        /** @see updateBeneficialOwnerAddress */
         @MustBeClosed
         fun updateBeneficialOwnerAddress(
             params: EntityUpdateBeneficialOwnerAddressParams,
@@ -576,7 +576,7 @@ interface EntityService {
             params: EntityUpdateIndustryCodeParams,
         ): HttpResponseFor<Entity> = updateIndustryCode(entityId, params, RequestOptions.none())
 
-        /** @see [updateIndustryCode] */
+        /** @see updateIndustryCode */
         @MustBeClosed
         fun updateIndustryCode(
             entityId: String,
@@ -585,12 +585,12 @@ interface EntityService {
         ): HttpResponseFor<Entity> =
             updateIndustryCode(params.toBuilder().entityId(entityId).build(), requestOptions)
 
-        /** @see [updateIndustryCode] */
+        /** @see updateIndustryCode */
         @MustBeClosed
         fun updateIndustryCode(params: EntityUpdateIndustryCodeParams): HttpResponseFor<Entity> =
             updateIndustryCode(params, RequestOptions.none())
 
-        /** @see [updateIndustryCode] */
+        /** @see updateIndustryCode */
         @MustBeClosed
         fun updateIndustryCode(
             params: EntityUpdateIndustryCodeParams,

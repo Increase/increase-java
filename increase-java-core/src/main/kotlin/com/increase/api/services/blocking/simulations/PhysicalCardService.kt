@@ -34,7 +34,7 @@ interface PhysicalCardService {
         params: PhysicalCardAdvanceShipmentParams,
     ): PhysicalCard = advanceShipment(physicalCardId, params, RequestOptions.none())
 
-    /** @see [advanceShipment] */
+    /** @see advanceShipment */
     fun advanceShipment(
         physicalCardId: String,
         params: PhysicalCardAdvanceShipmentParams,
@@ -42,11 +42,11 @@ interface PhysicalCardService {
     ): PhysicalCard =
         advanceShipment(params.toBuilder().physicalCardId(physicalCardId).build(), requestOptions)
 
-    /** @see [advanceShipment] */
+    /** @see advanceShipment */
     fun advanceShipment(params: PhysicalCardAdvanceShipmentParams): PhysicalCard =
         advanceShipment(params, RequestOptions.none())
 
-    /** @see [advanceShipment] */
+    /** @see advanceShipment */
     fun advanceShipment(
         params: PhysicalCardAdvanceShipmentParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -61,7 +61,7 @@ interface PhysicalCardService {
         params: PhysicalCardTrackingUpdatesParams,
     ): PhysicalCard = trackingUpdates(physicalCardId, params, RequestOptions.none())
 
-    /** @see [trackingUpdates] */
+    /** @see trackingUpdates */
     fun trackingUpdates(
         physicalCardId: String,
         params: PhysicalCardTrackingUpdatesParams,
@@ -69,11 +69,11 @@ interface PhysicalCardService {
     ): PhysicalCard =
         trackingUpdates(params.toBuilder().physicalCardId(physicalCardId).build(), requestOptions)
 
-    /** @see [trackingUpdates] */
+    /** @see trackingUpdates */
     fun trackingUpdates(params: PhysicalCardTrackingUpdatesParams): PhysicalCard =
         trackingUpdates(params, RequestOptions.none())
 
-    /** @see [trackingUpdates] */
+    /** @see trackingUpdates */
     fun trackingUpdates(
         params: PhysicalCardTrackingUpdatesParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -105,7 +105,7 @@ interface PhysicalCardService {
         ): HttpResponseFor<PhysicalCard> =
             advanceShipment(physicalCardId, params, RequestOptions.none())
 
-        /** @see [advanceShipment] */
+        /** @see advanceShipment */
         @MustBeClosed
         fun advanceShipment(
             physicalCardId: String,
@@ -117,13 +117,13 @@ interface PhysicalCardService {
                 requestOptions,
             )
 
-        /** @see [advanceShipment] */
+        /** @see advanceShipment */
         @MustBeClosed
         fun advanceShipment(
             params: PhysicalCardAdvanceShipmentParams
         ): HttpResponseFor<PhysicalCard> = advanceShipment(params, RequestOptions.none())
 
-        /** @see [advanceShipment] */
+        /** @see advanceShipment */
         @MustBeClosed
         fun advanceShipment(
             params: PhysicalCardAdvanceShipmentParams,
@@ -142,7 +142,7 @@ interface PhysicalCardService {
         ): HttpResponseFor<PhysicalCard> =
             trackingUpdates(physicalCardId, params, RequestOptions.none())
 
-        /** @see [trackingUpdates] */
+        /** @see trackingUpdates */
         @MustBeClosed
         fun trackingUpdates(
             physicalCardId: String,
@@ -154,13 +154,13 @@ interface PhysicalCardService {
                 requestOptions,
             )
 
-        /** @see [trackingUpdates] */
+        /** @see trackingUpdates */
         @MustBeClosed
         fun trackingUpdates(
             params: PhysicalCardTrackingUpdatesParams
         ): HttpResponseFor<PhysicalCard> = trackingUpdates(params, RequestOptions.none())
 
-        /** @see [trackingUpdates] */
+        /** @see trackingUpdates */
         @MustBeClosed
         fun trackingUpdates(
             params: PhysicalCardTrackingUpdatesParams,

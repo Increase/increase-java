@@ -30,7 +30,7 @@ interface TransactionService {
     fun retrieve(transactionId: String): Transaction =
         retrieve(transactionId, TransactionRetrieveParams.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         transactionId: String,
         params: TransactionRetrieveParams = TransactionRetrieveParams.none(),
@@ -38,40 +38,40 @@ interface TransactionService {
     ): Transaction =
         retrieve(params.toBuilder().transactionId(transactionId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         transactionId: String,
         params: TransactionRetrieveParams = TransactionRetrieveParams.none(),
     ): Transaction = retrieve(transactionId, params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: TransactionRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Transaction
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(params: TransactionRetrieveParams): Transaction =
         retrieve(params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(transactionId: String, requestOptions: RequestOptions): Transaction =
         retrieve(transactionId, TransactionRetrieveParams.none(), requestOptions)
 
     /** List Transactions */
     fun list(): TransactionListPage = list(TransactionListParams.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: TransactionListParams = TransactionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): TransactionListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(params: TransactionListParams = TransactionListParams.none()): TransactionListPage =
         list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): TransactionListPage =
         list(TransactionListParams.none(), requestOptions)
 
@@ -97,7 +97,7 @@ interface TransactionService {
         fun retrieve(transactionId: String): HttpResponseFor<Transaction> =
             retrieve(transactionId, TransactionRetrieveParams.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             transactionId: String,
@@ -106,26 +106,26 @@ interface TransactionService {
         ): HttpResponseFor<Transaction> =
             retrieve(params.toBuilder().transactionId(transactionId).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             transactionId: String,
             params: TransactionRetrieveParams = TransactionRetrieveParams.none(),
         ): HttpResponseFor<Transaction> = retrieve(transactionId, params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: TransactionRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Transaction>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(params: TransactionRetrieveParams): HttpResponseFor<Transaction> =
             retrieve(params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             transactionId: String,
@@ -140,20 +140,20 @@ interface TransactionService {
         @MustBeClosed
         fun list(): HttpResponseFor<TransactionListPage> = list(TransactionListParams.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             params: TransactionListParams = TransactionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<TransactionListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             params: TransactionListParams = TransactionListParams.none()
         ): HttpResponseFor<TransactionListPage> = list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<TransactionListPage> =
             list(TransactionListParams.none(), requestOptions)

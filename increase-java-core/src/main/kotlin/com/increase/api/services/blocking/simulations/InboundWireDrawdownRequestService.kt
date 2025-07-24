@@ -28,7 +28,7 @@ interface InboundWireDrawdownRequestService {
     fun create(params: InboundWireDrawdownRequestCreateParams): InboundWireDrawdownRequest =
         create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: InboundWireDrawdownRequestCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -58,7 +58,7 @@ interface InboundWireDrawdownRequestService {
             params: InboundWireDrawdownRequestCreateParams
         ): HttpResponseFor<InboundWireDrawdownRequest> = create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         @MustBeClosed
         fun create(
             params: InboundWireDrawdownRequestCreateParams,

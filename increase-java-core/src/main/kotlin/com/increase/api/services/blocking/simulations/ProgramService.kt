@@ -31,7 +31,7 @@ interface ProgramService {
      */
     fun create(params: ProgramCreateParams): Program = create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: ProgramCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -55,7 +55,7 @@ interface ProgramService {
         fun create(params: ProgramCreateParams): HttpResponseFor<Program> =
             create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         @MustBeClosed
         fun create(
             params: ProgramCreateParams,

@@ -30,7 +30,7 @@ interface CardPaymentServiceAsync {
     fun retrieve(cardPaymentId: String): CompletableFuture<CardPayment> =
         retrieve(cardPaymentId, CardPaymentRetrieveParams.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         cardPaymentId: String,
         params: CardPaymentRetrieveParams = CardPaymentRetrieveParams.none(),
@@ -38,23 +38,23 @@ interface CardPaymentServiceAsync {
     ): CompletableFuture<CardPayment> =
         retrieve(params.toBuilder().cardPaymentId(cardPaymentId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         cardPaymentId: String,
         params: CardPaymentRetrieveParams = CardPaymentRetrieveParams.none(),
     ): CompletableFuture<CardPayment> = retrieve(cardPaymentId, params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: CardPaymentRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CardPayment>
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(params: CardPaymentRetrieveParams): CompletableFuture<CardPayment> =
         retrieve(params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         cardPaymentId: String,
         requestOptions: RequestOptions,
@@ -64,18 +64,18 @@ interface CardPaymentServiceAsync {
     /** List Card Payments */
     fun list(): CompletableFuture<CardPaymentListPageAsync> = list(CardPaymentListParams.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: CardPaymentListParams = CardPaymentListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CardPaymentListPageAsync>
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: CardPaymentListParams = CardPaymentListParams.none()
     ): CompletableFuture<CardPaymentListPageAsync> = list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): CompletableFuture<CardPaymentListPageAsync> =
         list(CardPaymentListParams.none(), requestOptions)
 
@@ -101,7 +101,7 @@ interface CardPaymentServiceAsync {
         fun retrieve(cardPaymentId: String): CompletableFuture<HttpResponseFor<CardPayment>> =
             retrieve(cardPaymentId, CardPaymentRetrieveParams.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             cardPaymentId: String,
             params: CardPaymentRetrieveParams = CardPaymentRetrieveParams.none(),
@@ -109,25 +109,25 @@ interface CardPaymentServiceAsync {
         ): CompletableFuture<HttpResponseFor<CardPayment>> =
             retrieve(params.toBuilder().cardPaymentId(cardPaymentId).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             cardPaymentId: String,
             params: CardPaymentRetrieveParams = CardPaymentRetrieveParams.none(),
         ): CompletableFuture<HttpResponseFor<CardPayment>> =
             retrieve(cardPaymentId, params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             params: CardPaymentRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<CardPayment>>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             params: CardPaymentRetrieveParams
         ): CompletableFuture<HttpResponseFor<CardPayment>> = retrieve(params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             cardPaymentId: String,
             requestOptions: RequestOptions,
@@ -141,19 +141,19 @@ interface CardPaymentServiceAsync {
         fun list(): CompletableFuture<HttpResponseFor<CardPaymentListPageAsync>> =
             list(CardPaymentListParams.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: CardPaymentListParams = CardPaymentListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<CardPaymentListPageAsync>>
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: CardPaymentListParams = CardPaymentListParams.none()
         ): CompletableFuture<HttpResponseFor<CardPaymentListPageAsync>> =
             list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             requestOptions: RequestOptions
         ): CompletableFuture<HttpResponseFor<CardPaymentListPageAsync>> =

@@ -33,7 +33,7 @@ interface WireTransferService {
     fun reverse(wireTransferId: String): WireTransfer =
         reverse(wireTransferId, WireTransferReverseParams.none())
 
-    /** @see [reverse] */
+    /** @see reverse */
     fun reverse(
         wireTransferId: String,
         params: WireTransferReverseParams = WireTransferReverseParams.none(),
@@ -41,23 +41,23 @@ interface WireTransferService {
     ): WireTransfer =
         reverse(params.toBuilder().wireTransferId(wireTransferId).build(), requestOptions)
 
-    /** @see [reverse] */
+    /** @see reverse */
     fun reverse(
         wireTransferId: String,
         params: WireTransferReverseParams = WireTransferReverseParams.none(),
     ): WireTransfer = reverse(wireTransferId, params, RequestOptions.none())
 
-    /** @see [reverse] */
+    /** @see reverse */
     fun reverse(
         params: WireTransferReverseParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): WireTransfer
 
-    /** @see [reverse] */
+    /** @see reverse */
     fun reverse(params: WireTransferReverseParams): WireTransfer =
         reverse(params, RequestOptions.none())
 
-    /** @see [reverse] */
+    /** @see reverse */
     fun reverse(wireTransferId: String, requestOptions: RequestOptions): WireTransfer =
         reverse(wireTransferId, WireTransferReverseParams.none(), requestOptions)
 
@@ -68,7 +68,7 @@ interface WireTransferService {
     fun submit(wireTransferId: String): WireTransfer =
         submit(wireTransferId, WireTransferSubmitParams.none())
 
-    /** @see [submit] */
+    /** @see submit */
     fun submit(
         wireTransferId: String,
         params: WireTransferSubmitParams = WireTransferSubmitParams.none(),
@@ -76,23 +76,23 @@ interface WireTransferService {
     ): WireTransfer =
         submit(params.toBuilder().wireTransferId(wireTransferId).build(), requestOptions)
 
-    /** @see [submit] */
+    /** @see submit */
     fun submit(
         wireTransferId: String,
         params: WireTransferSubmitParams = WireTransferSubmitParams.none(),
     ): WireTransfer = submit(wireTransferId, params, RequestOptions.none())
 
-    /** @see [submit] */
+    /** @see submit */
     fun submit(
         params: WireTransferSubmitParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): WireTransfer
 
-    /** @see [submit] */
+    /** @see submit */
     fun submit(params: WireTransferSubmitParams): WireTransfer =
         submit(params, RequestOptions.none())
 
-    /** @see [submit] */
+    /** @see submit */
     fun submit(wireTransferId: String, requestOptions: RequestOptions): WireTransfer =
         submit(wireTransferId, WireTransferSubmitParams.none(), requestOptions)
 
@@ -119,7 +119,7 @@ interface WireTransferService {
         fun reverse(wireTransferId: String): HttpResponseFor<WireTransfer> =
             reverse(wireTransferId, WireTransferReverseParams.none())
 
-        /** @see [reverse] */
+        /** @see reverse */
         @MustBeClosed
         fun reverse(
             wireTransferId: String,
@@ -128,26 +128,26 @@ interface WireTransferService {
         ): HttpResponseFor<WireTransfer> =
             reverse(params.toBuilder().wireTransferId(wireTransferId).build(), requestOptions)
 
-        /** @see [reverse] */
+        /** @see reverse */
         @MustBeClosed
         fun reverse(
             wireTransferId: String,
             params: WireTransferReverseParams = WireTransferReverseParams.none(),
         ): HttpResponseFor<WireTransfer> = reverse(wireTransferId, params, RequestOptions.none())
 
-        /** @see [reverse] */
+        /** @see reverse */
         @MustBeClosed
         fun reverse(
             params: WireTransferReverseParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<WireTransfer>
 
-        /** @see [reverse] */
+        /** @see reverse */
         @MustBeClosed
         fun reverse(params: WireTransferReverseParams): HttpResponseFor<WireTransfer> =
             reverse(params, RequestOptions.none())
 
-        /** @see [reverse] */
+        /** @see reverse */
         @MustBeClosed
         fun reverse(
             wireTransferId: String,
@@ -164,7 +164,7 @@ interface WireTransferService {
         fun submit(wireTransferId: String): HttpResponseFor<WireTransfer> =
             submit(wireTransferId, WireTransferSubmitParams.none())
 
-        /** @see [submit] */
+        /** @see submit */
         @MustBeClosed
         fun submit(
             wireTransferId: String,
@@ -173,26 +173,26 @@ interface WireTransferService {
         ): HttpResponseFor<WireTransfer> =
             submit(params.toBuilder().wireTransferId(wireTransferId).build(), requestOptions)
 
-        /** @see [submit] */
+        /** @see submit */
         @MustBeClosed
         fun submit(
             wireTransferId: String,
             params: WireTransferSubmitParams = WireTransferSubmitParams.none(),
         ): HttpResponseFor<WireTransfer> = submit(wireTransferId, params, RequestOptions.none())
 
-        /** @see [submit] */
+        /** @see submit */
         @MustBeClosed
         fun submit(
             params: WireTransferSubmitParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<WireTransfer>
 
-        /** @see [submit] */
+        /** @see submit */
         @MustBeClosed
         fun submit(params: WireTransferSubmitParams): HttpResponseFor<WireTransfer> =
             submit(params, RequestOptions.none())
 
-        /** @see [submit] */
+        /** @see submit */
         @MustBeClosed
         fun submit(
             wireTransferId: String,

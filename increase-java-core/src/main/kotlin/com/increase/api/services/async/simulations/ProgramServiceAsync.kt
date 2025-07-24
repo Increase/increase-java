@@ -32,7 +32,7 @@ interface ProgramServiceAsync {
     fun create(params: ProgramCreateParams): CompletableFuture<Program> =
         create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: ProgramCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -59,7 +59,7 @@ interface ProgramServiceAsync {
         fun create(params: ProgramCreateParams): CompletableFuture<HttpResponseFor<Program>> =
             create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         fun create(
             params: ProgramCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),

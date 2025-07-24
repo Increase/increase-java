@@ -34,7 +34,7 @@ interface InboundCheckDepositService {
     fun create(params: InboundCheckDepositCreateParams): InboundCheckDeposit =
         create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: InboundCheckDepositCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -63,7 +63,7 @@ interface InboundCheckDepositService {
         fun create(params: InboundCheckDepositCreateParams): HttpResponseFor<InboundCheckDeposit> =
             create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         @MustBeClosed
         fun create(
             params: InboundCheckDepositCreateParams,

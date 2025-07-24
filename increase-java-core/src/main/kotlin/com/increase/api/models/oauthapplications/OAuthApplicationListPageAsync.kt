@@ -12,7 +12,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executor
 import kotlin.jvm.optionals.getOrNull
 
-/** @see [OAuthApplicationServiceAsync.list] */
+/** @see OAuthApplicationServiceAsync.list */
 class OAuthApplicationListPageAsync
 private constructor(
     private val service: OAuthApplicationServiceAsync,
@@ -24,7 +24,7 @@ private constructor(
     /**
      * Delegates to [OAuthApplicationListPageResponse], but gracefully handles missing data.
      *
-     * @see [OAuthApplicationListPageResponse.data]
+     * @see OAuthApplicationListPageResponse.data
      */
     fun data(): List<OAuthApplication> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
@@ -32,7 +32,7 @@ private constructor(
     /**
      * Delegates to [OAuthApplicationListPageResponse], but gracefully handles missing data.
      *
-     * @see [OAuthApplicationListPageResponse.nextCursor]
+     * @see OAuthApplicationListPageResponse.nextCursor
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 

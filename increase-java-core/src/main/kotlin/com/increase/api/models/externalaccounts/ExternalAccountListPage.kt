@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** @see [ExternalAccountService.list] */
+/** @see ExternalAccountService.list */
 class ExternalAccountListPage
 private constructor(
     private val service: ExternalAccountService,
@@ -21,7 +21,7 @@ private constructor(
     /**
      * Delegates to [ExternalAccountListPageResponse], but gracefully handles missing data.
      *
-     * @see [ExternalAccountListPageResponse.data]
+     * @see ExternalAccountListPageResponse.data
      */
     fun data(): List<ExternalAccount> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
@@ -29,7 +29,7 @@ private constructor(
     /**
      * Delegates to [ExternalAccountListPageResponse], but gracefully handles missing data.
      *
-     * @see [ExternalAccountListPageResponse.nextCursor]
+     * @see ExternalAccountListPageResponse.nextCursor
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 

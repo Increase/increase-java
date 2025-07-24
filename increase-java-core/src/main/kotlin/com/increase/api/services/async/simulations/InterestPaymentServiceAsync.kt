@@ -31,7 +31,7 @@ interface InterestPaymentServiceAsync {
     fun create(params: InterestPaymentCreateParams): CompletableFuture<Transaction> =
         create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: InterestPaymentCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -60,7 +60,7 @@ interface InterestPaymentServiceAsync {
             params: InterestPaymentCreateParams
         ): CompletableFuture<HttpResponseFor<Transaction>> = create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         fun create(
             params: InterestPaymentCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),

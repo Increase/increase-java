@@ -30,7 +30,7 @@ interface OAuthApplicationService {
     fun retrieve(oauthApplicationId: String): OAuthApplication =
         retrieve(oauthApplicationId, OAuthApplicationRetrieveParams.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         oauthApplicationId: String,
         params: OAuthApplicationRetrieveParams = OAuthApplicationRetrieveParams.none(),
@@ -38,41 +38,41 @@ interface OAuthApplicationService {
     ): OAuthApplication =
         retrieve(params.toBuilder().oauthApplicationId(oauthApplicationId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         oauthApplicationId: String,
         params: OAuthApplicationRetrieveParams = OAuthApplicationRetrieveParams.none(),
     ): OAuthApplication = retrieve(oauthApplicationId, params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: OAuthApplicationRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): OAuthApplication
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(params: OAuthApplicationRetrieveParams): OAuthApplication =
         retrieve(params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(oauthApplicationId: String, requestOptions: RequestOptions): OAuthApplication =
         retrieve(oauthApplicationId, OAuthApplicationRetrieveParams.none(), requestOptions)
 
     /** List OAuth Applications */
     fun list(): OAuthApplicationListPage = list(OAuthApplicationListParams.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: OAuthApplicationListParams = OAuthApplicationListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): OAuthApplicationListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: OAuthApplicationListParams = OAuthApplicationListParams.none()
     ): OAuthApplicationListPage = list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): OAuthApplicationListPage =
         list(OAuthApplicationListParams.none(), requestOptions)
 
@@ -99,7 +99,7 @@ interface OAuthApplicationService {
         fun retrieve(oauthApplicationId: String): HttpResponseFor<OAuthApplication> =
             retrieve(oauthApplicationId, OAuthApplicationRetrieveParams.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             oauthApplicationId: String,
@@ -111,7 +111,7 @@ interface OAuthApplicationService {
                 requestOptions,
             )
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             oauthApplicationId: String,
@@ -119,19 +119,19 @@ interface OAuthApplicationService {
         ): HttpResponseFor<OAuthApplication> =
             retrieve(oauthApplicationId, params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: OAuthApplicationRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<OAuthApplication>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(params: OAuthApplicationRetrieveParams): HttpResponseFor<OAuthApplication> =
             retrieve(params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             oauthApplicationId: String,
@@ -147,20 +147,20 @@ interface OAuthApplicationService {
         fun list(): HttpResponseFor<OAuthApplicationListPage> =
             list(OAuthApplicationListParams.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             params: OAuthApplicationListParams = OAuthApplicationListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<OAuthApplicationListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             params: OAuthApplicationListParams = OAuthApplicationListParams.none()
         ): HttpResponseFor<OAuthApplicationListPage> = list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<OAuthApplicationListPage> =
             list(OAuthApplicationListParams.none(), requestOptions)

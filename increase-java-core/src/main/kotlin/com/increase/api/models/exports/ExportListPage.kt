@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** @see [ExportService.list] */
+/** @see ExportService.list */
 class ExportListPage
 private constructor(
     private val service: ExportService,
@@ -21,14 +21,14 @@ private constructor(
     /**
      * Delegates to [ExportListPageResponse], but gracefully handles missing data.
      *
-     * @see [ExportListPageResponse.data]
+     * @see ExportListPageResponse.data
      */
     fun data(): List<Export> = response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
      * Delegates to [ExportListPageResponse], but gracefully handles missing data.
      *
-     * @see [ExportListPageResponse.nextCursor]
+     * @see ExportListPageResponse.nextCursor
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 

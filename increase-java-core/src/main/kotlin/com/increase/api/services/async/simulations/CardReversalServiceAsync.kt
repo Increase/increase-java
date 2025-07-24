@@ -32,7 +32,7 @@ interface CardReversalServiceAsync {
     fun create(params: CardReversalCreateParams): CompletableFuture<CardPayment> =
         create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: CardReversalCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -61,7 +61,7 @@ interface CardReversalServiceAsync {
             params: CardReversalCreateParams
         ): CompletableFuture<HttpResponseFor<CardPayment>> = create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         fun create(
             params: CardReversalCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),

@@ -12,7 +12,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executor
 import kotlin.jvm.optionals.getOrNull
 
-/** @see [InboundCheckDepositServiceAsync.list] */
+/** @see InboundCheckDepositServiceAsync.list */
 class InboundCheckDepositListPageAsync
 private constructor(
     private val service: InboundCheckDepositServiceAsync,
@@ -24,7 +24,7 @@ private constructor(
     /**
      * Delegates to [InboundCheckDepositListPageResponse], but gracefully handles missing data.
      *
-     * @see [InboundCheckDepositListPageResponse.data]
+     * @see InboundCheckDepositListPageResponse.data
      */
     fun data(): List<InboundCheckDeposit> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
@@ -32,7 +32,7 @@ private constructor(
     /**
      * Delegates to [InboundCheckDepositListPageResponse], but gracefully handles missing data.
      *
-     * @see [InboundCheckDepositListPageResponse.nextCursor]
+     * @see InboundCheckDepositListPageResponse.nextCursor
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 

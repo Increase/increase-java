@@ -31,7 +31,7 @@ interface WireDrawdownRequestServiceAsync {
     fun create(params: WireDrawdownRequestCreateParams): CompletableFuture<WireDrawdownRequest> =
         create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: WireDrawdownRequestCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -41,7 +41,7 @@ interface WireDrawdownRequestServiceAsync {
     fun retrieve(wireDrawdownRequestId: String): CompletableFuture<WireDrawdownRequest> =
         retrieve(wireDrawdownRequestId, WireDrawdownRequestRetrieveParams.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         wireDrawdownRequestId: String,
         params: WireDrawdownRequestRetrieveParams = WireDrawdownRequestRetrieveParams.none(),
@@ -52,25 +52,25 @@ interface WireDrawdownRequestServiceAsync {
             requestOptions,
         )
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         wireDrawdownRequestId: String,
         params: WireDrawdownRequestRetrieveParams = WireDrawdownRequestRetrieveParams.none(),
     ): CompletableFuture<WireDrawdownRequest> =
         retrieve(wireDrawdownRequestId, params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: WireDrawdownRequestRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<WireDrawdownRequest>
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: WireDrawdownRequestRetrieveParams
     ): CompletableFuture<WireDrawdownRequest> = retrieve(params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         wireDrawdownRequestId: String,
         requestOptions: RequestOptions,
@@ -81,18 +81,18 @@ interface WireDrawdownRequestServiceAsync {
     fun list(): CompletableFuture<WireDrawdownRequestListPageAsync> =
         list(WireDrawdownRequestListParams.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: WireDrawdownRequestListParams = WireDrawdownRequestListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<WireDrawdownRequestListPageAsync>
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: WireDrawdownRequestListParams = WireDrawdownRequestListParams.none()
     ): CompletableFuture<WireDrawdownRequestListPageAsync> = list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): CompletableFuture<WireDrawdownRequestListPageAsync> =
         list(WireDrawdownRequestListParams.none(), requestOptions)
 
@@ -120,7 +120,7 @@ interface WireDrawdownRequestServiceAsync {
         ): CompletableFuture<HttpResponseFor<WireDrawdownRequest>> =
             create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         fun create(
             params: WireDrawdownRequestCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
@@ -135,7 +135,7 @@ interface WireDrawdownRequestServiceAsync {
         ): CompletableFuture<HttpResponseFor<WireDrawdownRequest>> =
             retrieve(wireDrawdownRequestId, WireDrawdownRequestRetrieveParams.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             wireDrawdownRequestId: String,
             params: WireDrawdownRequestRetrieveParams = WireDrawdownRequestRetrieveParams.none(),
@@ -146,26 +146,26 @@ interface WireDrawdownRequestServiceAsync {
                 requestOptions,
             )
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             wireDrawdownRequestId: String,
             params: WireDrawdownRequestRetrieveParams = WireDrawdownRequestRetrieveParams.none(),
         ): CompletableFuture<HttpResponseFor<WireDrawdownRequest>> =
             retrieve(wireDrawdownRequestId, params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             params: WireDrawdownRequestRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<WireDrawdownRequest>>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             params: WireDrawdownRequestRetrieveParams
         ): CompletableFuture<HttpResponseFor<WireDrawdownRequest>> =
             retrieve(params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             wireDrawdownRequestId: String,
             requestOptions: RequestOptions,
@@ -183,19 +183,19 @@ interface WireDrawdownRequestServiceAsync {
         fun list(): CompletableFuture<HttpResponseFor<WireDrawdownRequestListPageAsync>> =
             list(WireDrawdownRequestListParams.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: WireDrawdownRequestListParams = WireDrawdownRequestListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<WireDrawdownRequestListPageAsync>>
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: WireDrawdownRequestListParams = WireDrawdownRequestListParams.none()
         ): CompletableFuture<HttpResponseFor<WireDrawdownRequestListPageAsync>> =
             list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             requestOptions: RequestOptions
         ): CompletableFuture<HttpResponseFor<WireDrawdownRequestListPageAsync>> =

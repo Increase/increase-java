@@ -30,7 +30,7 @@ interface CardPurchaseSupplementServiceAsync {
     fun retrieve(cardPurchaseSupplementId: String): CompletableFuture<CardPurchaseSupplement> =
         retrieve(cardPurchaseSupplementId, CardPurchaseSupplementRetrieveParams.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         cardPurchaseSupplementId: String,
         params: CardPurchaseSupplementRetrieveParams = CardPurchaseSupplementRetrieveParams.none(),
@@ -41,25 +41,25 @@ interface CardPurchaseSupplementServiceAsync {
             requestOptions,
         )
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         cardPurchaseSupplementId: String,
         params: CardPurchaseSupplementRetrieveParams = CardPurchaseSupplementRetrieveParams.none(),
     ): CompletableFuture<CardPurchaseSupplement> =
         retrieve(cardPurchaseSupplementId, params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: CardPurchaseSupplementRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CardPurchaseSupplement>
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: CardPurchaseSupplementRetrieveParams
     ): CompletableFuture<CardPurchaseSupplement> = retrieve(params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         cardPurchaseSupplementId: String,
         requestOptions: RequestOptions,
@@ -74,18 +74,18 @@ interface CardPurchaseSupplementServiceAsync {
     fun list(): CompletableFuture<CardPurchaseSupplementListPageAsync> =
         list(CardPurchaseSupplementListParams.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: CardPurchaseSupplementListParams = CardPurchaseSupplementListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CardPurchaseSupplementListPageAsync>
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: CardPurchaseSupplementListParams = CardPurchaseSupplementListParams.none()
     ): CompletableFuture<CardPurchaseSupplementListPageAsync> = list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         requestOptions: RequestOptions
     ): CompletableFuture<CardPurchaseSupplementListPageAsync> =
@@ -116,7 +116,7 @@ interface CardPurchaseSupplementServiceAsync {
         ): CompletableFuture<HttpResponseFor<CardPurchaseSupplement>> =
             retrieve(cardPurchaseSupplementId, CardPurchaseSupplementRetrieveParams.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             cardPurchaseSupplementId: String,
             params: CardPurchaseSupplementRetrieveParams =
@@ -128,7 +128,7 @@ interface CardPurchaseSupplementServiceAsync {
                 requestOptions,
             )
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             cardPurchaseSupplementId: String,
             params: CardPurchaseSupplementRetrieveParams =
@@ -136,19 +136,19 @@ interface CardPurchaseSupplementServiceAsync {
         ): CompletableFuture<HttpResponseFor<CardPurchaseSupplement>> =
             retrieve(cardPurchaseSupplementId, params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             params: CardPurchaseSupplementRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<CardPurchaseSupplement>>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             params: CardPurchaseSupplementRetrieveParams
         ): CompletableFuture<HttpResponseFor<CardPurchaseSupplement>> =
             retrieve(params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             cardPurchaseSupplementId: String,
             requestOptions: RequestOptions,
@@ -166,19 +166,19 @@ interface CardPurchaseSupplementServiceAsync {
         fun list(): CompletableFuture<HttpResponseFor<CardPurchaseSupplementListPageAsync>> =
             list(CardPurchaseSupplementListParams.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: CardPurchaseSupplementListParams = CardPurchaseSupplementListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<CardPurchaseSupplementListPageAsync>>
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: CardPurchaseSupplementListParams = CardPurchaseSupplementListParams.none()
         ): CompletableFuture<HttpResponseFor<CardPurchaseSupplementListPageAsync>> =
             list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             requestOptions: RequestOptions
         ): CompletableFuture<HttpResponseFor<CardPurchaseSupplementListPageAsync>> =

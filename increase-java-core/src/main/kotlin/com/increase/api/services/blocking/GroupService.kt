@@ -27,17 +27,17 @@ interface GroupService {
     /** Returns details for the currently authenticated Group. */
     fun retrieve(): Group = retrieve(GroupRetrieveParams.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: GroupRetrieveParams = GroupRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Group
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(params: GroupRetrieveParams = GroupRetrieveParams.none()): Group =
         retrieve(params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(requestOptions: RequestOptions): Group =
         retrieve(GroupRetrieveParams.none(), requestOptions)
 
@@ -57,20 +57,20 @@ interface GroupService {
          */
         @MustBeClosed fun retrieve(): HttpResponseFor<Group> = retrieve(GroupRetrieveParams.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: GroupRetrieveParams = GroupRetrieveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Group>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: GroupRetrieveParams = GroupRetrieveParams.none()
         ): HttpResponseFor<Group> = retrieve(params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(requestOptions: RequestOptions): HttpResponseFor<Group> =
             retrieve(GroupRetrieveParams.none(), requestOptions)

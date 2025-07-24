@@ -34,7 +34,7 @@ interface InboundRealTimePaymentsTransferService {
         params: InboundRealTimePaymentsTransferCreateParams
     ): InboundRealTimePaymentsTransfer = create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: InboundRealTimePaymentsTransferCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -64,7 +64,7 @@ interface InboundRealTimePaymentsTransferService {
             params: InboundRealTimePaymentsTransferCreateParams
         ): HttpResponseFor<InboundRealTimePaymentsTransfer> = create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         @MustBeClosed
         fun create(
             params: InboundRealTimePaymentsTransferCreateParams,

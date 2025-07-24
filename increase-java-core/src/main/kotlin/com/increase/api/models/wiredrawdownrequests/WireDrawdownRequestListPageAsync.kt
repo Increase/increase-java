@@ -12,7 +12,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executor
 import kotlin.jvm.optionals.getOrNull
 
-/** @see [WireDrawdownRequestServiceAsync.list] */
+/** @see WireDrawdownRequestServiceAsync.list */
 class WireDrawdownRequestListPageAsync
 private constructor(
     private val service: WireDrawdownRequestServiceAsync,
@@ -24,7 +24,7 @@ private constructor(
     /**
      * Delegates to [WireDrawdownRequestListPageResponse], but gracefully handles missing data.
      *
-     * @see [WireDrawdownRequestListPageResponse.data]
+     * @see WireDrawdownRequestListPageResponse.data
      */
     fun data(): List<WireDrawdownRequest> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
@@ -32,7 +32,7 @@ private constructor(
     /**
      * Delegates to [WireDrawdownRequestListPageResponse], but gracefully handles missing data.
      *
-     * @see [WireDrawdownRequestListPageResponse.nextCursor]
+     * @see WireDrawdownRequestListPageResponse.nextCursor
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 

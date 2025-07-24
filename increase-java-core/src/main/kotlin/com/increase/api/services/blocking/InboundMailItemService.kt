@@ -30,7 +30,7 @@ interface InboundMailItemService {
     fun retrieve(inboundMailItemId: String): InboundMailItem =
         retrieve(inboundMailItemId, InboundMailItemRetrieveParams.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         inboundMailItemId: String,
         params: InboundMailItemRetrieveParams = InboundMailItemRetrieveParams.none(),
@@ -38,41 +38,41 @@ interface InboundMailItemService {
     ): InboundMailItem =
         retrieve(params.toBuilder().inboundMailItemId(inboundMailItemId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         inboundMailItemId: String,
         params: InboundMailItemRetrieveParams = InboundMailItemRetrieveParams.none(),
     ): InboundMailItem = retrieve(inboundMailItemId, params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: InboundMailItemRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundMailItem
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(params: InboundMailItemRetrieveParams): InboundMailItem =
         retrieve(params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(inboundMailItemId: String, requestOptions: RequestOptions): InboundMailItem =
         retrieve(inboundMailItemId, InboundMailItemRetrieveParams.none(), requestOptions)
 
     /** List Inbound Mail Items */
     fun list(): InboundMailItemListPage = list(InboundMailItemListParams.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: InboundMailItemListParams = InboundMailItemListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundMailItemListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: InboundMailItemListParams = InboundMailItemListParams.none()
     ): InboundMailItemListPage = list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): InboundMailItemListPage =
         list(InboundMailItemListParams.none(), requestOptions)
 
@@ -99,7 +99,7 @@ interface InboundMailItemService {
         fun retrieve(inboundMailItemId: String): HttpResponseFor<InboundMailItem> =
             retrieve(inboundMailItemId, InboundMailItemRetrieveParams.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             inboundMailItemId: String,
@@ -111,7 +111,7 @@ interface InboundMailItemService {
                 requestOptions,
             )
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             inboundMailItemId: String,
@@ -119,19 +119,19 @@ interface InboundMailItemService {
         ): HttpResponseFor<InboundMailItem> =
             retrieve(inboundMailItemId, params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: InboundMailItemRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InboundMailItem>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(params: InboundMailItemRetrieveParams): HttpResponseFor<InboundMailItem> =
             retrieve(params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             inboundMailItemId: String,
@@ -147,20 +147,20 @@ interface InboundMailItemService {
         fun list(): HttpResponseFor<InboundMailItemListPage> =
             list(InboundMailItemListParams.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             params: InboundMailItemListParams = InboundMailItemListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InboundMailItemListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             params: InboundMailItemListParams = InboundMailItemListParams.none()
         ): HttpResponseFor<InboundMailItemListPage> = list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<InboundMailItemListPage> =
             list(InboundMailItemListParams.none(), requestOptions)

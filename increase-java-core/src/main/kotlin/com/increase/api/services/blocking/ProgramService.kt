@@ -29,46 +29,46 @@ interface ProgramService {
     /** Retrieve a Program */
     fun retrieve(programId: String): Program = retrieve(programId, ProgramRetrieveParams.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         programId: String,
         params: ProgramRetrieveParams = ProgramRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Program = retrieve(params.toBuilder().programId(programId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         programId: String,
         params: ProgramRetrieveParams = ProgramRetrieveParams.none(),
     ): Program = retrieve(programId, params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: ProgramRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Program
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(params: ProgramRetrieveParams): Program = retrieve(params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(programId: String, requestOptions: RequestOptions): Program =
         retrieve(programId, ProgramRetrieveParams.none(), requestOptions)
 
     /** List Programs */
     fun list(): ProgramListPage = list(ProgramListParams.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: ProgramListParams = ProgramListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ProgramListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(params: ProgramListParams = ProgramListParams.none()): ProgramListPage =
         list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): ProgramListPage =
         list(ProgramListParams.none(), requestOptions)
 
@@ -90,7 +90,7 @@ interface ProgramService {
         fun retrieve(programId: String): HttpResponseFor<Program> =
             retrieve(programId, ProgramRetrieveParams.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             programId: String,
@@ -99,26 +99,26 @@ interface ProgramService {
         ): HttpResponseFor<Program> =
             retrieve(params.toBuilder().programId(programId).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             programId: String,
             params: ProgramRetrieveParams = ProgramRetrieveParams.none(),
         ): HttpResponseFor<Program> = retrieve(programId, params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: ProgramRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Program>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(params: ProgramRetrieveParams): HttpResponseFor<Program> =
             retrieve(params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(programId: String, requestOptions: RequestOptions): HttpResponseFor<Program> =
             retrieve(programId, ProgramRetrieveParams.none(), requestOptions)
@@ -129,20 +129,20 @@ interface ProgramService {
          */
         @MustBeClosed fun list(): HttpResponseFor<ProgramListPage> = list(ProgramListParams.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             params: ProgramListParams = ProgramListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ProgramListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             params: ProgramListParams = ProgramListParams.none()
         ): HttpResponseFor<ProgramListPage> = list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<ProgramListPage> =
             list(ProgramListParams.none(), requestOptions)

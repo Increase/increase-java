@@ -34,7 +34,7 @@ interface FileService {
      */
     fun create(params: FileCreateParams): File = create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: FileCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -43,44 +43,44 @@ interface FileService {
     /** Retrieve a File */
     fun retrieve(fileId: String): File = retrieve(fileId, FileRetrieveParams.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         fileId: String,
         params: FileRetrieveParams = FileRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): File = retrieve(params.toBuilder().fileId(fileId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(fileId: String, params: FileRetrieveParams = FileRetrieveParams.none()): File =
         retrieve(fileId, params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: FileRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): File
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(params: FileRetrieveParams): File = retrieve(params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(fileId: String, requestOptions: RequestOptions): File =
         retrieve(fileId, FileRetrieveParams.none(), requestOptions)
 
     /** List Files */
     fun list(): FileListPage = list(FileListParams.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: FileListParams = FileListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): FileListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(params: FileListParams = FileListParams.none()): FileListPage =
         list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): FileListPage =
         list(FileListParams.none(), requestOptions)
 
@@ -102,7 +102,7 @@ interface FileService {
         fun create(params: FileCreateParams): HttpResponseFor<File> =
             create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         @MustBeClosed
         fun create(
             params: FileCreateParams,
@@ -117,7 +117,7 @@ interface FileService {
         fun retrieve(fileId: String): HttpResponseFor<File> =
             retrieve(fileId, FileRetrieveParams.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             fileId: String,
@@ -126,26 +126,26 @@ interface FileService {
         ): HttpResponseFor<File> =
             retrieve(params.toBuilder().fileId(fileId).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             fileId: String,
             params: FileRetrieveParams = FileRetrieveParams.none(),
         ): HttpResponseFor<File> = retrieve(fileId, params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: FileRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<File>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(params: FileRetrieveParams): HttpResponseFor<File> =
             retrieve(params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(fileId: String, requestOptions: RequestOptions): HttpResponseFor<File> =
             retrieve(fileId, FileRetrieveParams.none(), requestOptions)
@@ -156,19 +156,19 @@ interface FileService {
          */
         @MustBeClosed fun list(): HttpResponseFor<FileListPage> = list(FileListParams.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             params: FileListParams = FileListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<FileListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(params: FileListParams = FileListParams.none()): HttpResponseFor<FileListPage> =
             list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<FileListPage> =
             list(FileListParams.none(), requestOptions)

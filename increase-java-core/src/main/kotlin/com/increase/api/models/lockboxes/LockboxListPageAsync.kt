@@ -12,7 +12,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executor
 import kotlin.jvm.optionals.getOrNull
 
-/** @see [LockboxServiceAsync.list] */
+/** @see LockboxServiceAsync.list */
 class LockboxListPageAsync
 private constructor(
     private val service: LockboxServiceAsync,
@@ -24,14 +24,14 @@ private constructor(
     /**
      * Delegates to [LockboxListPageResponse], but gracefully handles missing data.
      *
-     * @see [LockboxListPageResponse.data]
+     * @see LockboxListPageResponse.data
      */
     fun data(): List<Lockbox> = response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
      * Delegates to [LockboxListPageResponse], but gracefully handles missing data.
      *
-     * @see [LockboxListPageResponse.nextCursor]
+     * @see LockboxListPageResponse.nextCursor
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 

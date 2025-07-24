@@ -33,7 +33,7 @@ interface BookkeepingAccountService {
     fun create(params: BookkeepingAccountCreateParams): BookkeepingAccount =
         create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: BookkeepingAccountCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -45,7 +45,7 @@ interface BookkeepingAccountService {
         params: BookkeepingAccountUpdateParams,
     ): BookkeepingAccount = update(bookkeepingAccountId, params, RequestOptions.none())
 
-    /** @see [update] */
+    /** @see update */
     fun update(
         bookkeepingAccountId: String,
         params: BookkeepingAccountUpdateParams,
@@ -56,11 +56,11 @@ interface BookkeepingAccountService {
             requestOptions,
         )
 
-    /** @see [update] */
+    /** @see update */
     fun update(params: BookkeepingAccountUpdateParams): BookkeepingAccount =
         update(params, RequestOptions.none())
 
-    /** @see [update] */
+    /** @see update */
     fun update(
         params: BookkeepingAccountUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -69,18 +69,18 @@ interface BookkeepingAccountService {
     /** List Bookkeeping Accounts */
     fun list(): BookkeepingAccountListPage = list(BookkeepingAccountListParams.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: BookkeepingAccountListParams = BookkeepingAccountListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BookkeepingAccountListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: BookkeepingAccountListParams = BookkeepingAccountListParams.none()
     ): BookkeepingAccountListPage = list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): BookkeepingAccountListPage =
         list(BookkeepingAccountListParams.none(), requestOptions)
 
@@ -88,7 +88,7 @@ interface BookkeepingAccountService {
     fun balance(bookkeepingAccountId: String): BookkeepingBalanceLookup =
         balance(bookkeepingAccountId, BookkeepingAccountBalanceParams.none())
 
-    /** @see [balance] */
+    /** @see balance */
     fun balance(
         bookkeepingAccountId: String,
         params: BookkeepingAccountBalanceParams = BookkeepingAccountBalanceParams.none(),
@@ -99,23 +99,23 @@ interface BookkeepingAccountService {
             requestOptions,
         )
 
-    /** @see [balance] */
+    /** @see balance */
     fun balance(
         bookkeepingAccountId: String,
         params: BookkeepingAccountBalanceParams = BookkeepingAccountBalanceParams.none(),
     ): BookkeepingBalanceLookup = balance(bookkeepingAccountId, params, RequestOptions.none())
 
-    /** @see [balance] */
+    /** @see balance */
     fun balance(
         params: BookkeepingAccountBalanceParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BookkeepingBalanceLookup
 
-    /** @see [balance] */
+    /** @see balance */
     fun balance(params: BookkeepingAccountBalanceParams): BookkeepingBalanceLookup =
         balance(params, RequestOptions.none())
 
-    /** @see [balance] */
+    /** @see balance */
     fun balance(
         bookkeepingAccountId: String,
         requestOptions: RequestOptions,
@@ -145,7 +145,7 @@ interface BookkeepingAccountService {
         fun create(params: BookkeepingAccountCreateParams): HttpResponseFor<BookkeepingAccount> =
             create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         @MustBeClosed
         fun create(
             params: BookkeepingAccountCreateParams,
@@ -163,7 +163,7 @@ interface BookkeepingAccountService {
         ): HttpResponseFor<BookkeepingAccount> =
             update(bookkeepingAccountId, params, RequestOptions.none())
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         fun update(
             bookkeepingAccountId: String,
@@ -175,12 +175,12 @@ interface BookkeepingAccountService {
                 requestOptions,
             )
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         fun update(params: BookkeepingAccountUpdateParams): HttpResponseFor<BookkeepingAccount> =
             update(params, RequestOptions.none())
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         fun update(
             params: BookkeepingAccountUpdateParams,
@@ -195,20 +195,20 @@ interface BookkeepingAccountService {
         fun list(): HttpResponseFor<BookkeepingAccountListPage> =
             list(BookkeepingAccountListParams.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             params: BookkeepingAccountListParams = BookkeepingAccountListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BookkeepingAccountListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             params: BookkeepingAccountListParams = BookkeepingAccountListParams.none()
         ): HttpResponseFor<BookkeepingAccountListPage> = list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<BookkeepingAccountListPage> =
             list(BookkeepingAccountListParams.none(), requestOptions)
@@ -222,7 +222,7 @@ interface BookkeepingAccountService {
         fun balance(bookkeepingAccountId: String): HttpResponseFor<BookkeepingBalanceLookup> =
             balance(bookkeepingAccountId, BookkeepingAccountBalanceParams.none())
 
-        /** @see [balance] */
+        /** @see balance */
         @MustBeClosed
         fun balance(
             bookkeepingAccountId: String,
@@ -234,7 +234,7 @@ interface BookkeepingAccountService {
                 requestOptions,
             )
 
-        /** @see [balance] */
+        /** @see balance */
         @MustBeClosed
         fun balance(
             bookkeepingAccountId: String,
@@ -242,20 +242,20 @@ interface BookkeepingAccountService {
         ): HttpResponseFor<BookkeepingBalanceLookup> =
             balance(bookkeepingAccountId, params, RequestOptions.none())
 
-        /** @see [balance] */
+        /** @see balance */
         @MustBeClosed
         fun balance(
             params: BookkeepingAccountBalanceParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BookkeepingBalanceLookup>
 
-        /** @see [balance] */
+        /** @see balance */
         @MustBeClosed
         fun balance(
             params: BookkeepingAccountBalanceParams
         ): HttpResponseFor<BookkeepingBalanceLookup> = balance(params, RequestOptions.none())
 
-        /** @see [balance] */
+        /** @see balance */
         @MustBeClosed
         fun balance(
             bookkeepingAccountId: String,

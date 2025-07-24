@@ -28,7 +28,7 @@ interface OAuthTokenServiceAsync {
     fun create(params: OAuthTokenCreateParams): CompletableFuture<OAuthToken> =
         create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: OAuthTokenCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -56,7 +56,7 @@ interface OAuthTokenServiceAsync {
         fun create(params: OAuthTokenCreateParams): CompletableFuture<HttpResponseFor<OAuthToken>> =
             create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         fun create(
             params: OAuthTokenCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),

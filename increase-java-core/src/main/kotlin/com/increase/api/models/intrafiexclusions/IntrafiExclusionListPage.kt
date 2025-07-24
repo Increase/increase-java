@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** @see [IntrafiExclusionService.list] */
+/** @see IntrafiExclusionService.list */
 class IntrafiExclusionListPage
 private constructor(
     private val service: IntrafiExclusionService,
@@ -21,7 +21,7 @@ private constructor(
     /**
      * Delegates to [IntrafiExclusionListPageResponse], but gracefully handles missing data.
      *
-     * @see [IntrafiExclusionListPageResponse.data]
+     * @see IntrafiExclusionListPageResponse.data
      */
     fun data(): List<IntrafiExclusion> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
@@ -29,7 +29,7 @@ private constructor(
     /**
      * Delegates to [IntrafiExclusionListPageResponse], but gracefully handles missing data.
      *
-     * @see [IntrafiExclusionListPageResponse.nextCursor]
+     * @see IntrafiExclusionListPageResponse.nextCursor
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 

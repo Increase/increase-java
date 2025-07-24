@@ -12,7 +12,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executor
 import kotlin.jvm.optionals.getOrNull
 
-/** @see [CheckTransferServiceAsync.list] */
+/** @see CheckTransferServiceAsync.list */
 class CheckTransferListPageAsync
 private constructor(
     private val service: CheckTransferServiceAsync,
@@ -24,7 +24,7 @@ private constructor(
     /**
      * Delegates to [CheckTransferListPageResponse], but gracefully handles missing data.
      *
-     * @see [CheckTransferListPageResponse.data]
+     * @see CheckTransferListPageResponse.data
      */
     fun data(): List<CheckTransfer> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
@@ -32,7 +32,7 @@ private constructor(
     /**
      * Delegates to [CheckTransferListPageResponse], but gracefully handles missing data.
      *
-     * @see [CheckTransferListPageResponse.nextCursor]
+     * @see CheckTransferListPageResponse.nextCursor
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 

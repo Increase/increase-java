@@ -33,7 +33,7 @@ interface RoutingNumberServiceAsync {
     fun list(params: RoutingNumberListParams): CompletableFuture<RoutingNumberListPageAsync> =
         list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: RoutingNumberListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -63,7 +63,7 @@ interface RoutingNumberServiceAsync {
         ): CompletableFuture<HttpResponseFor<RoutingNumberListPageAsync>> =
             list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: RoutingNumberListParams,
             requestOptions: RequestOptions = RequestOptions.none(),

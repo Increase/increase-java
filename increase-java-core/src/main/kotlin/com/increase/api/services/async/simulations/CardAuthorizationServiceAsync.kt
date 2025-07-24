@@ -36,7 +36,7 @@ interface CardAuthorizationServiceAsync {
         params: CardAuthorizationCreateParams
     ): CompletableFuture<CardAuthorizationCreateResponse> = create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: CardAuthorizationCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -66,7 +66,7 @@ interface CardAuthorizationServiceAsync {
         ): CompletableFuture<HttpResponseFor<CardAuthorizationCreateResponse>> =
             create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         fun create(
             params: CardAuthorizationCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),

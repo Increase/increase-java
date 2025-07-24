@@ -12,7 +12,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executor
 import kotlin.jvm.optionals.getOrNull
 
-/** @see [DocumentServiceAsync.list] */
+/** @see DocumentServiceAsync.list */
 class DocumentListPageAsync
 private constructor(
     private val service: DocumentServiceAsync,
@@ -24,14 +24,14 @@ private constructor(
     /**
      * Delegates to [DocumentListPageResponse], but gracefully handles missing data.
      *
-     * @see [DocumentListPageResponse.data]
+     * @see DocumentListPageResponse.data
      */
     fun data(): List<Document> = response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
      * Delegates to [DocumentListPageResponse], but gracefully handles missing data.
      *
-     * @see [DocumentListPageResponse.nextCursor]
+     * @see DocumentListPageResponse.nextCursor
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 

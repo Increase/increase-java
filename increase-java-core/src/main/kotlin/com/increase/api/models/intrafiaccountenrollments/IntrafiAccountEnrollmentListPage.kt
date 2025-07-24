@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** @see [IntrafiAccountEnrollmentService.list] */
+/** @see IntrafiAccountEnrollmentService.list */
 class IntrafiAccountEnrollmentListPage
 private constructor(
     private val service: IntrafiAccountEnrollmentService,
@@ -21,7 +21,7 @@ private constructor(
     /**
      * Delegates to [IntrafiAccountEnrollmentListPageResponse], but gracefully handles missing data.
      *
-     * @see [IntrafiAccountEnrollmentListPageResponse.data]
+     * @see IntrafiAccountEnrollmentListPageResponse.data
      */
     fun data(): List<IntrafiAccountEnrollment> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
@@ -29,7 +29,7 @@ private constructor(
     /**
      * Delegates to [IntrafiAccountEnrollmentListPageResponse], but gracefully handles missing data.
      *
-     * @see [IntrafiAccountEnrollmentListPageResponse.nextCursor]
+     * @see IntrafiAccountEnrollmentListPageResponse.nextCursor
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 
