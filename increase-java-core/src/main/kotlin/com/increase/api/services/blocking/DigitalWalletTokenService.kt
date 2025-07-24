@@ -30,7 +30,7 @@ interface DigitalWalletTokenService {
     fun retrieve(digitalWalletTokenId: String): DigitalWalletToken =
         retrieve(digitalWalletTokenId, DigitalWalletTokenRetrieveParams.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         digitalWalletTokenId: String,
         params: DigitalWalletTokenRetrieveParams = DigitalWalletTokenRetrieveParams.none(),
@@ -41,41 +41,41 @@ interface DigitalWalletTokenService {
             requestOptions,
         )
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         digitalWalletTokenId: String,
         params: DigitalWalletTokenRetrieveParams = DigitalWalletTokenRetrieveParams.none(),
     ): DigitalWalletToken = retrieve(digitalWalletTokenId, params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: DigitalWalletTokenRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): DigitalWalletToken
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(params: DigitalWalletTokenRetrieveParams): DigitalWalletToken =
         retrieve(params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(digitalWalletTokenId: String, requestOptions: RequestOptions): DigitalWalletToken =
         retrieve(digitalWalletTokenId, DigitalWalletTokenRetrieveParams.none(), requestOptions)
 
     /** List Digital Wallet Tokens */
     fun list(): DigitalWalletTokenListPage = list(DigitalWalletTokenListParams.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: DigitalWalletTokenListParams = DigitalWalletTokenListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): DigitalWalletTokenListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: DigitalWalletTokenListParams = DigitalWalletTokenListParams.none()
     ): DigitalWalletTokenListPage = list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): DigitalWalletTokenListPage =
         list(DigitalWalletTokenListParams.none(), requestOptions)
 
@@ -102,7 +102,7 @@ interface DigitalWalletTokenService {
         fun retrieve(digitalWalletTokenId: String): HttpResponseFor<DigitalWalletToken> =
             retrieve(digitalWalletTokenId, DigitalWalletTokenRetrieveParams.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             digitalWalletTokenId: String,
@@ -114,7 +114,7 @@ interface DigitalWalletTokenService {
                 requestOptions,
             )
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             digitalWalletTokenId: String,
@@ -122,20 +122,20 @@ interface DigitalWalletTokenService {
         ): HttpResponseFor<DigitalWalletToken> =
             retrieve(digitalWalletTokenId, params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: DigitalWalletTokenRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<DigitalWalletToken>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: DigitalWalletTokenRetrieveParams
         ): HttpResponseFor<DigitalWalletToken> = retrieve(params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             digitalWalletTokenId: String,
@@ -151,20 +151,20 @@ interface DigitalWalletTokenService {
         fun list(): HttpResponseFor<DigitalWalletTokenListPage> =
             list(DigitalWalletTokenListParams.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             params: DigitalWalletTokenListParams = DigitalWalletTokenListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<DigitalWalletTokenListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             params: DigitalWalletTokenListParams = DigitalWalletTokenListParams.none()
         ): HttpResponseFor<DigitalWalletTokenListPage> = list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<DigitalWalletTokenListPage> =
             list(DigitalWalletTokenListParams.none(), requestOptions)

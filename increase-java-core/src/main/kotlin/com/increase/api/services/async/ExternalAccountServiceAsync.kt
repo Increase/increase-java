@@ -32,7 +32,7 @@ interface ExternalAccountServiceAsync {
     fun create(params: ExternalAccountCreateParams): CompletableFuture<ExternalAccount> =
         create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: ExternalAccountCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -42,7 +42,7 @@ interface ExternalAccountServiceAsync {
     fun retrieve(externalAccountId: String): CompletableFuture<ExternalAccount> =
         retrieve(externalAccountId, ExternalAccountRetrieveParams.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         externalAccountId: String,
         params: ExternalAccountRetrieveParams = ExternalAccountRetrieveParams.none(),
@@ -50,24 +50,24 @@ interface ExternalAccountServiceAsync {
     ): CompletableFuture<ExternalAccount> =
         retrieve(params.toBuilder().externalAccountId(externalAccountId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         externalAccountId: String,
         params: ExternalAccountRetrieveParams = ExternalAccountRetrieveParams.none(),
     ): CompletableFuture<ExternalAccount> =
         retrieve(externalAccountId, params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: ExternalAccountRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ExternalAccount>
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(params: ExternalAccountRetrieveParams): CompletableFuture<ExternalAccount> =
         retrieve(params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         externalAccountId: String,
         requestOptions: RequestOptions,
@@ -78,7 +78,7 @@ interface ExternalAccountServiceAsync {
     fun update(externalAccountId: String): CompletableFuture<ExternalAccount> =
         update(externalAccountId, ExternalAccountUpdateParams.none())
 
-    /** @see [update] */
+    /** @see update */
     fun update(
         externalAccountId: String,
         params: ExternalAccountUpdateParams = ExternalAccountUpdateParams.none(),
@@ -86,23 +86,23 @@ interface ExternalAccountServiceAsync {
     ): CompletableFuture<ExternalAccount> =
         update(params.toBuilder().externalAccountId(externalAccountId).build(), requestOptions)
 
-    /** @see [update] */
+    /** @see update */
     fun update(
         externalAccountId: String,
         params: ExternalAccountUpdateParams = ExternalAccountUpdateParams.none(),
     ): CompletableFuture<ExternalAccount> = update(externalAccountId, params, RequestOptions.none())
 
-    /** @see [update] */
+    /** @see update */
     fun update(
         params: ExternalAccountUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ExternalAccount>
 
-    /** @see [update] */
+    /** @see update */
     fun update(params: ExternalAccountUpdateParams): CompletableFuture<ExternalAccount> =
         update(params, RequestOptions.none())
 
-    /** @see [update] */
+    /** @see update */
     fun update(
         externalAccountId: String,
         requestOptions: RequestOptions,
@@ -113,18 +113,18 @@ interface ExternalAccountServiceAsync {
     fun list(): CompletableFuture<ExternalAccountListPageAsync> =
         list(ExternalAccountListParams.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: ExternalAccountListParams = ExternalAccountListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ExternalAccountListPageAsync>
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: ExternalAccountListParams = ExternalAccountListParams.none()
     ): CompletableFuture<ExternalAccountListPageAsync> = list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): CompletableFuture<ExternalAccountListPageAsync> =
         list(ExternalAccountListParams.none(), requestOptions)
 
@@ -152,7 +152,7 @@ interface ExternalAccountServiceAsync {
         ): CompletableFuture<HttpResponseFor<ExternalAccount>> =
             create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         fun create(
             params: ExternalAccountCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
@@ -167,7 +167,7 @@ interface ExternalAccountServiceAsync {
         ): CompletableFuture<HttpResponseFor<ExternalAccount>> =
             retrieve(externalAccountId, ExternalAccountRetrieveParams.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             externalAccountId: String,
             params: ExternalAccountRetrieveParams = ExternalAccountRetrieveParams.none(),
@@ -178,26 +178,26 @@ interface ExternalAccountServiceAsync {
                 requestOptions,
             )
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             externalAccountId: String,
             params: ExternalAccountRetrieveParams = ExternalAccountRetrieveParams.none(),
         ): CompletableFuture<HttpResponseFor<ExternalAccount>> =
             retrieve(externalAccountId, params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             params: ExternalAccountRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<ExternalAccount>>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             params: ExternalAccountRetrieveParams
         ): CompletableFuture<HttpResponseFor<ExternalAccount>> =
             retrieve(params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             externalAccountId: String,
             requestOptions: RequestOptions,
@@ -211,7 +211,7 @@ interface ExternalAccountServiceAsync {
         fun update(externalAccountId: String): CompletableFuture<HttpResponseFor<ExternalAccount>> =
             update(externalAccountId, ExternalAccountUpdateParams.none())
 
-        /** @see [update] */
+        /** @see update */
         fun update(
             externalAccountId: String,
             params: ExternalAccountUpdateParams = ExternalAccountUpdateParams.none(),
@@ -219,26 +219,26 @@ interface ExternalAccountServiceAsync {
         ): CompletableFuture<HttpResponseFor<ExternalAccount>> =
             update(params.toBuilder().externalAccountId(externalAccountId).build(), requestOptions)
 
-        /** @see [update] */
+        /** @see update */
         fun update(
             externalAccountId: String,
             params: ExternalAccountUpdateParams = ExternalAccountUpdateParams.none(),
         ): CompletableFuture<HttpResponseFor<ExternalAccount>> =
             update(externalAccountId, params, RequestOptions.none())
 
-        /** @see [update] */
+        /** @see update */
         fun update(
             params: ExternalAccountUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<ExternalAccount>>
 
-        /** @see [update] */
+        /** @see update */
         fun update(
             params: ExternalAccountUpdateParams
         ): CompletableFuture<HttpResponseFor<ExternalAccount>> =
             update(params, RequestOptions.none())
 
-        /** @see [update] */
+        /** @see update */
         fun update(
             externalAccountId: String,
             requestOptions: RequestOptions,
@@ -252,19 +252,19 @@ interface ExternalAccountServiceAsync {
         fun list(): CompletableFuture<HttpResponseFor<ExternalAccountListPageAsync>> =
             list(ExternalAccountListParams.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: ExternalAccountListParams = ExternalAccountListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<ExternalAccountListPageAsync>>
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: ExternalAccountListParams = ExternalAccountListParams.none()
         ): CompletableFuture<HttpResponseFor<ExternalAccountListPageAsync>> =
             list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             requestOptions: RequestOptions
         ): CompletableFuture<HttpResponseFor<ExternalAccountListPageAsync>> =

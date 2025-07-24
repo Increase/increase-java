@@ -32,7 +32,7 @@ interface EventSubscriptionService {
     fun create(params: EventSubscriptionCreateParams): EventSubscription =
         create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: EventSubscriptionCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -42,7 +42,7 @@ interface EventSubscriptionService {
     fun retrieve(eventSubscriptionId: String): EventSubscription =
         retrieve(eventSubscriptionId, EventSubscriptionRetrieveParams.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         eventSubscriptionId: String,
         params: EventSubscriptionRetrieveParams = EventSubscriptionRetrieveParams.none(),
@@ -53,23 +53,23 @@ interface EventSubscriptionService {
             requestOptions,
         )
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         eventSubscriptionId: String,
         params: EventSubscriptionRetrieveParams = EventSubscriptionRetrieveParams.none(),
     ): EventSubscription = retrieve(eventSubscriptionId, params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: EventSubscriptionRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): EventSubscription
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(params: EventSubscriptionRetrieveParams): EventSubscription =
         retrieve(params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(eventSubscriptionId: String, requestOptions: RequestOptions): EventSubscription =
         retrieve(eventSubscriptionId, EventSubscriptionRetrieveParams.none(), requestOptions)
 
@@ -77,7 +77,7 @@ interface EventSubscriptionService {
     fun update(eventSubscriptionId: String): EventSubscription =
         update(eventSubscriptionId, EventSubscriptionUpdateParams.none())
 
-    /** @see [update] */
+    /** @see update */
     fun update(
         eventSubscriptionId: String,
         params: EventSubscriptionUpdateParams = EventSubscriptionUpdateParams.none(),
@@ -85,41 +85,41 @@ interface EventSubscriptionService {
     ): EventSubscription =
         update(params.toBuilder().eventSubscriptionId(eventSubscriptionId).build(), requestOptions)
 
-    /** @see [update] */
+    /** @see update */
     fun update(
         eventSubscriptionId: String,
         params: EventSubscriptionUpdateParams = EventSubscriptionUpdateParams.none(),
     ): EventSubscription = update(eventSubscriptionId, params, RequestOptions.none())
 
-    /** @see [update] */
+    /** @see update */
     fun update(
         params: EventSubscriptionUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): EventSubscription
 
-    /** @see [update] */
+    /** @see update */
     fun update(params: EventSubscriptionUpdateParams): EventSubscription =
         update(params, RequestOptions.none())
 
-    /** @see [update] */
+    /** @see update */
     fun update(eventSubscriptionId: String, requestOptions: RequestOptions): EventSubscription =
         update(eventSubscriptionId, EventSubscriptionUpdateParams.none(), requestOptions)
 
     /** List Event Subscriptions */
     fun list(): EventSubscriptionListPage = list(EventSubscriptionListParams.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: EventSubscriptionListParams = EventSubscriptionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): EventSubscriptionListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: EventSubscriptionListParams = EventSubscriptionListParams.none()
     ): EventSubscriptionListPage = list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): EventSubscriptionListPage =
         list(EventSubscriptionListParams.none(), requestOptions)
 
@@ -146,7 +146,7 @@ interface EventSubscriptionService {
         fun create(params: EventSubscriptionCreateParams): HttpResponseFor<EventSubscription> =
             create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         @MustBeClosed
         fun create(
             params: EventSubscriptionCreateParams,
@@ -161,7 +161,7 @@ interface EventSubscriptionService {
         fun retrieve(eventSubscriptionId: String): HttpResponseFor<EventSubscription> =
             retrieve(eventSubscriptionId, EventSubscriptionRetrieveParams.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             eventSubscriptionId: String,
@@ -173,7 +173,7 @@ interface EventSubscriptionService {
                 requestOptions,
             )
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             eventSubscriptionId: String,
@@ -181,19 +181,19 @@ interface EventSubscriptionService {
         ): HttpResponseFor<EventSubscription> =
             retrieve(eventSubscriptionId, params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: EventSubscriptionRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<EventSubscription>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(params: EventSubscriptionRetrieveParams): HttpResponseFor<EventSubscription> =
             retrieve(params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             eventSubscriptionId: String,
@@ -209,7 +209,7 @@ interface EventSubscriptionService {
         fun update(eventSubscriptionId: String): HttpResponseFor<EventSubscription> =
             update(eventSubscriptionId, EventSubscriptionUpdateParams.none())
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         fun update(
             eventSubscriptionId: String,
@@ -221,7 +221,7 @@ interface EventSubscriptionService {
                 requestOptions,
             )
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         fun update(
             eventSubscriptionId: String,
@@ -229,19 +229,19 @@ interface EventSubscriptionService {
         ): HttpResponseFor<EventSubscription> =
             update(eventSubscriptionId, params, RequestOptions.none())
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         fun update(
             params: EventSubscriptionUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<EventSubscription>
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         fun update(params: EventSubscriptionUpdateParams): HttpResponseFor<EventSubscription> =
             update(params, RequestOptions.none())
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         fun update(
             eventSubscriptionId: String,
@@ -257,20 +257,20 @@ interface EventSubscriptionService {
         fun list(): HttpResponseFor<EventSubscriptionListPage> =
             list(EventSubscriptionListParams.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             params: EventSubscriptionListParams = EventSubscriptionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<EventSubscriptionListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             params: EventSubscriptionListParams = EventSubscriptionListParams.none()
         ): HttpResponseFor<EventSubscriptionListPage> = list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<EventSubscriptionListPage> =
             list(EventSubscriptionListParams.none(), requestOptions)

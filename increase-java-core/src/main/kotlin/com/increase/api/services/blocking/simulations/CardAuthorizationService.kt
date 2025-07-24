@@ -35,7 +35,7 @@ interface CardAuthorizationService {
     fun create(params: CardAuthorizationCreateParams): CardAuthorizationCreateResponse =
         create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: CardAuthorizationCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -65,7 +65,7 @@ interface CardAuthorizationService {
             params: CardAuthorizationCreateParams
         ): HttpResponseFor<CardAuthorizationCreateResponse> = create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         @MustBeClosed
         fun create(
             params: CardAuthorizationCreateParams,

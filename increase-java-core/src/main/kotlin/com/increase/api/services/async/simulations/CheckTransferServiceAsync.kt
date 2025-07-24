@@ -32,7 +32,7 @@ interface CheckTransferServiceAsync {
     fun mail(checkTransferId: String): CompletableFuture<CheckTransfer> =
         mail(checkTransferId, CheckTransferMailParams.none())
 
-    /** @see [mail] */
+    /** @see mail */
     fun mail(
         checkTransferId: String,
         params: CheckTransferMailParams = CheckTransferMailParams.none(),
@@ -40,23 +40,23 @@ interface CheckTransferServiceAsync {
     ): CompletableFuture<CheckTransfer> =
         mail(params.toBuilder().checkTransferId(checkTransferId).build(), requestOptions)
 
-    /** @see [mail] */
+    /** @see mail */
     fun mail(
         checkTransferId: String,
         params: CheckTransferMailParams = CheckTransferMailParams.none(),
     ): CompletableFuture<CheckTransfer> = mail(checkTransferId, params, RequestOptions.none())
 
-    /** @see [mail] */
+    /** @see mail */
     fun mail(
         params: CheckTransferMailParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CheckTransfer>
 
-    /** @see [mail] */
+    /** @see mail */
     fun mail(params: CheckTransferMailParams): CompletableFuture<CheckTransfer> =
         mail(params, RequestOptions.none())
 
-    /** @see [mail] */
+    /** @see mail */
     fun mail(
         checkTransferId: String,
         requestOptions: RequestOptions,
@@ -86,7 +86,7 @@ interface CheckTransferServiceAsync {
         fun mail(checkTransferId: String): CompletableFuture<HttpResponseFor<CheckTransfer>> =
             mail(checkTransferId, CheckTransferMailParams.none())
 
-        /** @see [mail] */
+        /** @see mail */
         fun mail(
             checkTransferId: String,
             params: CheckTransferMailParams = CheckTransferMailParams.none(),
@@ -94,25 +94,25 @@ interface CheckTransferServiceAsync {
         ): CompletableFuture<HttpResponseFor<CheckTransfer>> =
             mail(params.toBuilder().checkTransferId(checkTransferId).build(), requestOptions)
 
-        /** @see [mail] */
+        /** @see mail */
         fun mail(
             checkTransferId: String,
             params: CheckTransferMailParams = CheckTransferMailParams.none(),
         ): CompletableFuture<HttpResponseFor<CheckTransfer>> =
             mail(checkTransferId, params, RequestOptions.none())
 
-        /** @see [mail] */
+        /** @see mail */
         fun mail(
             params: CheckTransferMailParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<CheckTransfer>>
 
-        /** @see [mail] */
+        /** @see mail */
         fun mail(
             params: CheckTransferMailParams
         ): CompletableFuture<HttpResponseFor<CheckTransfer>> = mail(params, RequestOptions.none())
 
-        /** @see [mail] */
+        /** @see mail */
         fun mail(
             checkTransferId: String,
             requestOptions: RequestOptions,

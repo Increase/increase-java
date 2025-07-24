@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** @see [InboundMailItemService.list] */
+/** @see InboundMailItemService.list */
 class InboundMailItemListPage
 private constructor(
     private val service: InboundMailItemService,
@@ -21,7 +21,7 @@ private constructor(
     /**
      * Delegates to [InboundMailItemListPageResponse], but gracefully handles missing data.
      *
-     * @see [InboundMailItemListPageResponse.data]
+     * @see InboundMailItemListPageResponse.data
      */
     fun data(): List<InboundMailItem> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
@@ -29,7 +29,7 @@ private constructor(
     /**
      * Delegates to [InboundMailItemListPageResponse], but gracefully handles missing data.
      *
-     * @see [InboundMailItemListPageResponse.nextCursor]
+     * @see InboundMailItemListPageResponse.nextCursor
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 

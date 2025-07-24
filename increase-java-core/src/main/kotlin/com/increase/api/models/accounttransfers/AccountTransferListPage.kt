@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** @see [AccountTransferService.list] */
+/** @see AccountTransferService.list */
 class AccountTransferListPage
 private constructor(
     private val service: AccountTransferService,
@@ -21,7 +21,7 @@ private constructor(
     /**
      * Delegates to [AccountTransferListPageResponse], but gracefully handles missing data.
      *
-     * @see [AccountTransferListPageResponse.data]
+     * @see AccountTransferListPageResponse.data
      */
     fun data(): List<AccountTransfer> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
@@ -29,7 +29,7 @@ private constructor(
     /**
      * Delegates to [AccountTransferListPageResponse], but gracefully handles missing data.
      *
-     * @see [AccountTransferListPageResponse.nextCursor]
+     * @see AccountTransferListPageResponse.nextCursor
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 

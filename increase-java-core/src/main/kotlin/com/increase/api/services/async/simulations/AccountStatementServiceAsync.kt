@@ -31,7 +31,7 @@ interface AccountStatementServiceAsync {
     fun create(params: AccountStatementCreateParams): CompletableFuture<AccountStatement> =
         create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: AccountStatementCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -61,7 +61,7 @@ interface AccountStatementServiceAsync {
         ): CompletableFuture<HttpResponseFor<AccountStatement>> =
             create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         fun create(
             params: AccountStatementCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),

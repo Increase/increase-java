@@ -34,7 +34,7 @@ interface InboundRealTimePaymentsTransferServiceAsync {
         params: InboundRealTimePaymentsTransferCreateParams
     ): CompletableFuture<InboundRealTimePaymentsTransfer> = create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: InboundRealTimePaymentsTransferCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -64,7 +64,7 @@ interface InboundRealTimePaymentsTransferServiceAsync {
         ): CompletableFuture<HttpResponseFor<InboundRealTimePaymentsTransfer>> =
             create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         fun create(
             params: InboundRealTimePaymentsTransferCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),

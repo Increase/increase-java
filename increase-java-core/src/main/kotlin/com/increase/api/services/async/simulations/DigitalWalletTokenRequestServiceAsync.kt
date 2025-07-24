@@ -32,7 +32,7 @@ interface DigitalWalletTokenRequestServiceAsync {
     ): CompletableFuture<DigitalWalletTokenRequestCreateResponse> =
         create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: DigitalWalletTokenRequestCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -62,7 +62,7 @@ interface DigitalWalletTokenRequestServiceAsync {
         ): CompletableFuture<HttpResponseFor<DigitalWalletTokenRequestCreateResponse>> =
             create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         fun create(
             params: DigitalWalletTokenRequestCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),

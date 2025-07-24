@@ -30,7 +30,7 @@ interface CardPaymentService {
     fun retrieve(cardPaymentId: String): CardPayment =
         retrieve(cardPaymentId, CardPaymentRetrieveParams.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         cardPaymentId: String,
         params: CardPaymentRetrieveParams = CardPaymentRetrieveParams.none(),
@@ -38,40 +38,40 @@ interface CardPaymentService {
     ): CardPayment =
         retrieve(params.toBuilder().cardPaymentId(cardPaymentId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         cardPaymentId: String,
         params: CardPaymentRetrieveParams = CardPaymentRetrieveParams.none(),
     ): CardPayment = retrieve(cardPaymentId, params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: CardPaymentRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CardPayment
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(params: CardPaymentRetrieveParams): CardPayment =
         retrieve(params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(cardPaymentId: String, requestOptions: RequestOptions): CardPayment =
         retrieve(cardPaymentId, CardPaymentRetrieveParams.none(), requestOptions)
 
     /** List Card Payments */
     fun list(): CardPaymentListPage = list(CardPaymentListParams.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: CardPaymentListParams = CardPaymentListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CardPaymentListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(params: CardPaymentListParams = CardPaymentListParams.none()): CardPaymentListPage =
         list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): CardPaymentListPage =
         list(CardPaymentListParams.none(), requestOptions)
 
@@ -97,7 +97,7 @@ interface CardPaymentService {
         fun retrieve(cardPaymentId: String): HttpResponseFor<CardPayment> =
             retrieve(cardPaymentId, CardPaymentRetrieveParams.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             cardPaymentId: String,
@@ -106,26 +106,26 @@ interface CardPaymentService {
         ): HttpResponseFor<CardPayment> =
             retrieve(params.toBuilder().cardPaymentId(cardPaymentId).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             cardPaymentId: String,
             params: CardPaymentRetrieveParams = CardPaymentRetrieveParams.none(),
         ): HttpResponseFor<CardPayment> = retrieve(cardPaymentId, params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: CardPaymentRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CardPayment>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(params: CardPaymentRetrieveParams): HttpResponseFor<CardPayment> =
             retrieve(params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             cardPaymentId: String,
@@ -140,20 +140,20 @@ interface CardPaymentService {
         @MustBeClosed
         fun list(): HttpResponseFor<CardPaymentListPage> = list(CardPaymentListParams.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             params: CardPaymentListParams = CardPaymentListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CardPaymentListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             params: CardPaymentListParams = CardPaymentListParams.none()
         ): HttpResponseFor<CardPaymentListPage> = list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<CardPaymentListPage> =
             list(CardPaymentListParams.none(), requestOptions)

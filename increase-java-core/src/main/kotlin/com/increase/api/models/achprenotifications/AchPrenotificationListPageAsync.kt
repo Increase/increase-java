@@ -12,7 +12,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executor
 import kotlin.jvm.optionals.getOrNull
 
-/** @see [AchPrenotificationServiceAsync.list] */
+/** @see AchPrenotificationServiceAsync.list */
 class AchPrenotificationListPageAsync
 private constructor(
     private val service: AchPrenotificationServiceAsync,
@@ -24,7 +24,7 @@ private constructor(
     /**
      * Delegates to [AchPrenotificationListPageResponse], but gracefully handles missing data.
      *
-     * @see [AchPrenotificationListPageResponse.data]
+     * @see AchPrenotificationListPageResponse.data
      */
     fun data(): List<AchPrenotification> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
@@ -32,7 +32,7 @@ private constructor(
     /**
      * Delegates to [AchPrenotificationListPageResponse], but gracefully handles missing data.
      *
-     * @see [AchPrenotificationListPageResponse.nextCursor]
+     * @see AchPrenotificationListPageResponse.nextCursor
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 

@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** @see [AccountNumberService.list] */
+/** @see AccountNumberService.list */
 class AccountNumberListPage
 private constructor(
     private val service: AccountNumberService,
@@ -21,7 +21,7 @@ private constructor(
     /**
      * Delegates to [AccountNumberListPageResponse], but gracefully handles missing data.
      *
-     * @see [AccountNumberListPageResponse.data]
+     * @see AccountNumberListPageResponse.data
      */
     fun data(): List<AccountNumber> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
@@ -29,7 +29,7 @@ private constructor(
     /**
      * Delegates to [AccountNumberListPageResponse], but gracefully handles missing data.
      *
-     * @see [AccountNumberListPageResponse.nextCursor]
+     * @see AccountNumberListPageResponse.nextCursor
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 

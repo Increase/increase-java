@@ -30,7 +30,7 @@ interface CardPurchaseSupplementService {
     fun retrieve(cardPurchaseSupplementId: String): CardPurchaseSupplement =
         retrieve(cardPurchaseSupplementId, CardPurchaseSupplementRetrieveParams.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         cardPurchaseSupplementId: String,
         params: CardPurchaseSupplementRetrieveParams = CardPurchaseSupplementRetrieveParams.none(),
@@ -41,23 +41,23 @@ interface CardPurchaseSupplementService {
             requestOptions,
         )
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         cardPurchaseSupplementId: String,
         params: CardPurchaseSupplementRetrieveParams = CardPurchaseSupplementRetrieveParams.none(),
     ): CardPurchaseSupplement = retrieve(cardPurchaseSupplementId, params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: CardPurchaseSupplementRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CardPurchaseSupplement
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(params: CardPurchaseSupplementRetrieveParams): CardPurchaseSupplement =
         retrieve(params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         cardPurchaseSupplementId: String,
         requestOptions: RequestOptions,
@@ -71,18 +71,18 @@ interface CardPurchaseSupplementService {
     /** List Card Purchase Supplements */
     fun list(): CardPurchaseSupplementListPage = list(CardPurchaseSupplementListParams.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: CardPurchaseSupplementListParams = CardPurchaseSupplementListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CardPurchaseSupplementListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: CardPurchaseSupplementListParams = CardPurchaseSupplementListParams.none()
     ): CardPurchaseSupplementListPage = list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): CardPurchaseSupplementListPage =
         list(CardPurchaseSupplementListParams.none(), requestOptions)
 
@@ -110,7 +110,7 @@ interface CardPurchaseSupplementService {
         fun retrieve(cardPurchaseSupplementId: String): HttpResponseFor<CardPurchaseSupplement> =
             retrieve(cardPurchaseSupplementId, CardPurchaseSupplementRetrieveParams.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             cardPurchaseSupplementId: String,
@@ -123,7 +123,7 @@ interface CardPurchaseSupplementService {
                 requestOptions,
             )
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             cardPurchaseSupplementId: String,
@@ -132,20 +132,20 @@ interface CardPurchaseSupplementService {
         ): HttpResponseFor<CardPurchaseSupplement> =
             retrieve(cardPurchaseSupplementId, params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: CardPurchaseSupplementRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CardPurchaseSupplement>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: CardPurchaseSupplementRetrieveParams
         ): HttpResponseFor<CardPurchaseSupplement> = retrieve(params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             cardPurchaseSupplementId: String,
@@ -165,20 +165,20 @@ interface CardPurchaseSupplementService {
         fun list(): HttpResponseFor<CardPurchaseSupplementListPage> =
             list(CardPurchaseSupplementListParams.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             params: CardPurchaseSupplementListParams = CardPurchaseSupplementListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CardPurchaseSupplementListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             params: CardPurchaseSupplementListParams = CardPurchaseSupplementListParams.none()
         ): HttpResponseFor<CardPurchaseSupplementListPage> = list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<CardPurchaseSupplementListPage> =
             list(CardPurchaseSupplementListParams.none(), requestOptions)

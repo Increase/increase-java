@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** @see [InboundCheckDepositService.list] */
+/** @see InboundCheckDepositService.list */
 class InboundCheckDepositListPage
 private constructor(
     private val service: InboundCheckDepositService,
@@ -21,7 +21,7 @@ private constructor(
     /**
      * Delegates to [InboundCheckDepositListPageResponse], but gracefully handles missing data.
      *
-     * @see [InboundCheckDepositListPageResponse.data]
+     * @see InboundCheckDepositListPageResponse.data
      */
     fun data(): List<InboundCheckDeposit> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
@@ -29,7 +29,7 @@ private constructor(
     /**
      * Delegates to [InboundCheckDepositListPageResponse], but gracefully handles missing data.
      *
-     * @see [InboundCheckDepositListPageResponse.nextCursor]
+     * @see InboundCheckDepositListPageResponse.nextCursor
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 

@@ -31,7 +31,7 @@ interface InboundWireDrawdownRequestServiceAsync {
         params: InboundWireDrawdownRequestCreateParams
     ): CompletableFuture<InboundWireDrawdownRequest> = create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: InboundWireDrawdownRequestCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -61,7 +61,7 @@ interface InboundWireDrawdownRequestServiceAsync {
         ): CompletableFuture<HttpResponseFor<InboundWireDrawdownRequest>> =
             create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         fun create(
             params: InboundWireDrawdownRequestCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),

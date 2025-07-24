@@ -28,7 +28,7 @@ interface DocumentServiceAsync {
     fun create(params: DocumentCreateParams): CompletableFuture<Document> =
         create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: DocumentCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -55,7 +55,7 @@ interface DocumentServiceAsync {
         fun create(params: DocumentCreateParams): CompletableFuture<HttpResponseFor<Document>> =
             create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         fun create(
             params: DocumentCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),

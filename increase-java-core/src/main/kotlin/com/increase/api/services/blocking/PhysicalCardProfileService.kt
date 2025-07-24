@@ -33,7 +33,7 @@ interface PhysicalCardProfileService {
     fun create(params: PhysicalCardProfileCreateParams): PhysicalCardProfile =
         create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: PhysicalCardProfileCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -43,7 +43,7 @@ interface PhysicalCardProfileService {
     fun retrieve(physicalCardProfileId: String): PhysicalCardProfile =
         retrieve(physicalCardProfileId, PhysicalCardProfileRetrieveParams.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         physicalCardProfileId: String,
         params: PhysicalCardProfileRetrieveParams = PhysicalCardProfileRetrieveParams.none(),
@@ -54,23 +54,23 @@ interface PhysicalCardProfileService {
             requestOptions,
         )
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         physicalCardProfileId: String,
         params: PhysicalCardProfileRetrieveParams = PhysicalCardProfileRetrieveParams.none(),
     ): PhysicalCardProfile = retrieve(physicalCardProfileId, params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: PhysicalCardProfileRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PhysicalCardProfile
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(params: PhysicalCardProfileRetrieveParams): PhysicalCardProfile =
         retrieve(params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         physicalCardProfileId: String,
         requestOptions: RequestOptions,
@@ -80,18 +80,18 @@ interface PhysicalCardProfileService {
     /** List Physical Card Profiles */
     fun list(): PhysicalCardProfileListPage = list(PhysicalCardProfileListParams.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: PhysicalCardProfileListParams = PhysicalCardProfileListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PhysicalCardProfileListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: PhysicalCardProfileListParams = PhysicalCardProfileListParams.none()
     ): PhysicalCardProfileListPage = list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): PhysicalCardProfileListPage =
         list(PhysicalCardProfileListParams.none(), requestOptions)
 
@@ -99,7 +99,7 @@ interface PhysicalCardProfileService {
     fun archive(physicalCardProfileId: String): PhysicalCardProfile =
         archive(physicalCardProfileId, PhysicalCardProfileArchiveParams.none())
 
-    /** @see [archive] */
+    /** @see archive */
     fun archive(
         physicalCardProfileId: String,
         params: PhysicalCardProfileArchiveParams = PhysicalCardProfileArchiveParams.none(),
@@ -110,23 +110,23 @@ interface PhysicalCardProfileService {
             requestOptions,
         )
 
-    /** @see [archive] */
+    /** @see archive */
     fun archive(
         physicalCardProfileId: String,
         params: PhysicalCardProfileArchiveParams = PhysicalCardProfileArchiveParams.none(),
     ): PhysicalCardProfile = archive(physicalCardProfileId, params, RequestOptions.none())
 
-    /** @see [archive] */
+    /** @see archive */
     fun archive(
         params: PhysicalCardProfileArchiveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PhysicalCardProfile
 
-    /** @see [archive] */
+    /** @see archive */
     fun archive(params: PhysicalCardProfileArchiveParams): PhysicalCardProfile =
         archive(params, RequestOptions.none())
 
-    /** @see [archive] */
+    /** @see archive */
     fun archive(
         physicalCardProfileId: String,
         requestOptions: RequestOptions,
@@ -137,7 +137,7 @@ interface PhysicalCardProfileService {
     fun clone(physicalCardProfileId: String): PhysicalCardProfile =
         clone(physicalCardProfileId, PhysicalCardProfileCloneParams.none())
 
-    /** @see [clone] */
+    /** @see clone */
     fun clone(
         physicalCardProfileId: String,
         params: PhysicalCardProfileCloneParams = PhysicalCardProfileCloneParams.none(),
@@ -148,23 +148,23 @@ interface PhysicalCardProfileService {
             requestOptions,
         )
 
-    /** @see [clone] */
+    /** @see clone */
     fun clone(
         physicalCardProfileId: String,
         params: PhysicalCardProfileCloneParams = PhysicalCardProfileCloneParams.none(),
     ): PhysicalCardProfile = clone(physicalCardProfileId, params, RequestOptions.none())
 
-    /** @see [clone] */
+    /** @see clone */
     fun clone(
         params: PhysicalCardProfileCloneParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PhysicalCardProfile
 
-    /** @see [clone] */
+    /** @see clone */
     fun clone(params: PhysicalCardProfileCloneParams): PhysicalCardProfile =
         clone(params, RequestOptions.none())
 
-    /** @see [clone] */
+    /** @see clone */
     fun clone(physicalCardProfileId: String, requestOptions: RequestOptions): PhysicalCardProfile =
         clone(physicalCardProfileId, PhysicalCardProfileCloneParams.none(), requestOptions)
 
@@ -191,7 +191,7 @@ interface PhysicalCardProfileService {
         fun create(params: PhysicalCardProfileCreateParams): HttpResponseFor<PhysicalCardProfile> =
             create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         @MustBeClosed
         fun create(
             params: PhysicalCardProfileCreateParams,
@@ -206,7 +206,7 @@ interface PhysicalCardProfileService {
         fun retrieve(physicalCardProfileId: String): HttpResponseFor<PhysicalCardProfile> =
             retrieve(physicalCardProfileId, PhysicalCardProfileRetrieveParams.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             physicalCardProfileId: String,
@@ -218,7 +218,7 @@ interface PhysicalCardProfileService {
                 requestOptions,
             )
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             physicalCardProfileId: String,
@@ -226,20 +226,20 @@ interface PhysicalCardProfileService {
         ): HttpResponseFor<PhysicalCardProfile> =
             retrieve(physicalCardProfileId, params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: PhysicalCardProfileRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PhysicalCardProfile>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: PhysicalCardProfileRetrieveParams
         ): HttpResponseFor<PhysicalCardProfile> = retrieve(params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             physicalCardProfileId: String,
@@ -259,20 +259,20 @@ interface PhysicalCardProfileService {
         fun list(): HttpResponseFor<PhysicalCardProfileListPage> =
             list(PhysicalCardProfileListParams.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             params: PhysicalCardProfileListParams = PhysicalCardProfileListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PhysicalCardProfileListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             params: PhysicalCardProfileListParams = PhysicalCardProfileListParams.none()
         ): HttpResponseFor<PhysicalCardProfileListPage> = list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<PhysicalCardProfileListPage> =
             list(PhysicalCardProfileListParams.none(), requestOptions)
@@ -286,7 +286,7 @@ interface PhysicalCardProfileService {
         fun archive(physicalCardProfileId: String): HttpResponseFor<PhysicalCardProfile> =
             archive(physicalCardProfileId, PhysicalCardProfileArchiveParams.none())
 
-        /** @see [archive] */
+        /** @see archive */
         @MustBeClosed
         fun archive(
             physicalCardProfileId: String,
@@ -298,7 +298,7 @@ interface PhysicalCardProfileService {
                 requestOptions,
             )
 
-        /** @see [archive] */
+        /** @see archive */
         @MustBeClosed
         fun archive(
             physicalCardProfileId: String,
@@ -306,20 +306,20 @@ interface PhysicalCardProfileService {
         ): HttpResponseFor<PhysicalCardProfile> =
             archive(physicalCardProfileId, params, RequestOptions.none())
 
-        /** @see [archive] */
+        /** @see archive */
         @MustBeClosed
         fun archive(
             params: PhysicalCardProfileArchiveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PhysicalCardProfile>
 
-        /** @see [archive] */
+        /** @see archive */
         @MustBeClosed
         fun archive(
             params: PhysicalCardProfileArchiveParams
         ): HttpResponseFor<PhysicalCardProfile> = archive(params, RequestOptions.none())
 
-        /** @see [archive] */
+        /** @see archive */
         @MustBeClosed
         fun archive(
             physicalCardProfileId: String,
@@ -336,7 +336,7 @@ interface PhysicalCardProfileService {
         fun clone(physicalCardProfileId: String): HttpResponseFor<PhysicalCardProfile> =
             clone(physicalCardProfileId, PhysicalCardProfileCloneParams.none())
 
-        /** @see [clone] */
+        /** @see clone */
         @MustBeClosed
         fun clone(
             physicalCardProfileId: String,
@@ -348,7 +348,7 @@ interface PhysicalCardProfileService {
                 requestOptions,
             )
 
-        /** @see [clone] */
+        /** @see clone */
         @MustBeClosed
         fun clone(
             physicalCardProfileId: String,
@@ -356,19 +356,19 @@ interface PhysicalCardProfileService {
         ): HttpResponseFor<PhysicalCardProfile> =
             clone(physicalCardProfileId, params, RequestOptions.none())
 
-        /** @see [clone] */
+        /** @see clone */
         @MustBeClosed
         fun clone(
             params: PhysicalCardProfileCloneParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PhysicalCardProfile>
 
-        /** @see [clone] */
+        /** @see clone */
         @MustBeClosed
         fun clone(params: PhysicalCardProfileCloneParams): HttpResponseFor<PhysicalCardProfile> =
             clone(params, RequestOptions.none())
 
-        /** @see [clone] */
+        /** @see clone */
         @MustBeClosed
         fun clone(
             physicalCardProfileId: String,

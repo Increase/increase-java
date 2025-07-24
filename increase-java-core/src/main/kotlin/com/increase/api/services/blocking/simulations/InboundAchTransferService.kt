@@ -38,7 +38,7 @@ interface InboundAchTransferService {
     fun create(params: InboundAchTransferCreateParams): InboundAchTransfer =
         create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: InboundAchTransferCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -67,7 +67,7 @@ interface InboundAchTransferService {
         fun create(params: InboundAchTransferCreateParams): HttpResponseFor<InboundAchTransfer> =
             create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         @MustBeClosed
         fun create(
             params: InboundAchTransferCreateParams,

@@ -33,7 +33,7 @@ interface BookkeepingAccountServiceAsync {
     fun create(params: BookkeepingAccountCreateParams): CompletableFuture<BookkeepingAccount> =
         create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: BookkeepingAccountCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -46,7 +46,7 @@ interface BookkeepingAccountServiceAsync {
     ): CompletableFuture<BookkeepingAccount> =
         update(bookkeepingAccountId, params, RequestOptions.none())
 
-    /** @see [update] */
+    /** @see update */
     fun update(
         bookkeepingAccountId: String,
         params: BookkeepingAccountUpdateParams,
@@ -57,11 +57,11 @@ interface BookkeepingAccountServiceAsync {
             requestOptions,
         )
 
-    /** @see [update] */
+    /** @see update */
     fun update(params: BookkeepingAccountUpdateParams): CompletableFuture<BookkeepingAccount> =
         update(params, RequestOptions.none())
 
-    /** @see [update] */
+    /** @see update */
     fun update(
         params: BookkeepingAccountUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -71,18 +71,18 @@ interface BookkeepingAccountServiceAsync {
     fun list(): CompletableFuture<BookkeepingAccountListPageAsync> =
         list(BookkeepingAccountListParams.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: BookkeepingAccountListParams = BookkeepingAccountListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<BookkeepingAccountListPageAsync>
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: BookkeepingAccountListParams = BookkeepingAccountListParams.none()
     ): CompletableFuture<BookkeepingAccountListPageAsync> = list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): CompletableFuture<BookkeepingAccountListPageAsync> =
         list(BookkeepingAccountListParams.none(), requestOptions)
 
@@ -90,7 +90,7 @@ interface BookkeepingAccountServiceAsync {
     fun balance(bookkeepingAccountId: String): CompletableFuture<BookkeepingBalanceLookup> =
         balance(bookkeepingAccountId, BookkeepingAccountBalanceParams.none())
 
-    /** @see [balance] */
+    /** @see balance */
     fun balance(
         bookkeepingAccountId: String,
         params: BookkeepingAccountBalanceParams = BookkeepingAccountBalanceParams.none(),
@@ -101,25 +101,25 @@ interface BookkeepingAccountServiceAsync {
             requestOptions,
         )
 
-    /** @see [balance] */
+    /** @see balance */
     fun balance(
         bookkeepingAccountId: String,
         params: BookkeepingAccountBalanceParams = BookkeepingAccountBalanceParams.none(),
     ): CompletableFuture<BookkeepingBalanceLookup> =
         balance(bookkeepingAccountId, params, RequestOptions.none())
 
-    /** @see [balance] */
+    /** @see balance */
     fun balance(
         params: BookkeepingAccountBalanceParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<BookkeepingBalanceLookup>
 
-    /** @see [balance] */
+    /** @see balance */
     fun balance(
         params: BookkeepingAccountBalanceParams
     ): CompletableFuture<BookkeepingBalanceLookup> = balance(params, RequestOptions.none())
 
-    /** @see [balance] */
+    /** @see balance */
     fun balance(
         bookkeepingAccountId: String,
         requestOptions: RequestOptions,
@@ -150,7 +150,7 @@ interface BookkeepingAccountServiceAsync {
         ): CompletableFuture<HttpResponseFor<BookkeepingAccount>> =
             create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         fun create(
             params: BookkeepingAccountCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
@@ -166,7 +166,7 @@ interface BookkeepingAccountServiceAsync {
         ): CompletableFuture<HttpResponseFor<BookkeepingAccount>> =
             update(bookkeepingAccountId, params, RequestOptions.none())
 
-        /** @see [update] */
+        /** @see update */
         fun update(
             bookkeepingAccountId: String,
             params: BookkeepingAccountUpdateParams,
@@ -177,13 +177,13 @@ interface BookkeepingAccountServiceAsync {
                 requestOptions,
             )
 
-        /** @see [update] */
+        /** @see update */
         fun update(
             params: BookkeepingAccountUpdateParams
         ): CompletableFuture<HttpResponseFor<BookkeepingAccount>> =
             update(params, RequestOptions.none())
 
-        /** @see [update] */
+        /** @see update */
         fun update(
             params: BookkeepingAccountUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
@@ -196,19 +196,19 @@ interface BookkeepingAccountServiceAsync {
         fun list(): CompletableFuture<HttpResponseFor<BookkeepingAccountListPageAsync>> =
             list(BookkeepingAccountListParams.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: BookkeepingAccountListParams = BookkeepingAccountListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<BookkeepingAccountListPageAsync>>
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: BookkeepingAccountListParams = BookkeepingAccountListParams.none()
         ): CompletableFuture<HttpResponseFor<BookkeepingAccountListPageAsync>> =
             list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             requestOptions: RequestOptions
         ): CompletableFuture<HttpResponseFor<BookkeepingAccountListPageAsync>> =
@@ -224,7 +224,7 @@ interface BookkeepingAccountServiceAsync {
         ): CompletableFuture<HttpResponseFor<BookkeepingBalanceLookup>> =
             balance(bookkeepingAccountId, BookkeepingAccountBalanceParams.none())
 
-        /** @see [balance] */
+        /** @see balance */
         fun balance(
             bookkeepingAccountId: String,
             params: BookkeepingAccountBalanceParams = BookkeepingAccountBalanceParams.none(),
@@ -235,26 +235,26 @@ interface BookkeepingAccountServiceAsync {
                 requestOptions,
             )
 
-        /** @see [balance] */
+        /** @see balance */
         fun balance(
             bookkeepingAccountId: String,
             params: BookkeepingAccountBalanceParams = BookkeepingAccountBalanceParams.none(),
         ): CompletableFuture<HttpResponseFor<BookkeepingBalanceLookup>> =
             balance(bookkeepingAccountId, params, RequestOptions.none())
 
-        /** @see [balance] */
+        /** @see balance */
         fun balance(
             params: BookkeepingAccountBalanceParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<BookkeepingBalanceLookup>>
 
-        /** @see [balance] */
+        /** @see balance */
         fun balance(
             params: BookkeepingAccountBalanceParams
         ): CompletableFuture<HttpResponseFor<BookkeepingBalanceLookup>> =
             balance(params, RequestOptions.none())
 
-        /** @see [balance] */
+        /** @see balance */
         fun balance(
             bookkeepingAccountId: String,
             requestOptions: RequestOptions,

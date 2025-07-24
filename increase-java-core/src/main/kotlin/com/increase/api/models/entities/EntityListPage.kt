@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** @see [EntityService.list] */
+/** @see EntityService.list */
 class EntityListPage
 private constructor(
     private val service: EntityService,
@@ -21,14 +21,14 @@ private constructor(
     /**
      * Delegates to [EntityListPageResponse], but gracefully handles missing data.
      *
-     * @see [EntityListPageResponse.data]
+     * @see EntityListPageResponse.data
      */
     fun data(): List<Entity> = response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
      * Delegates to [EntityListPageResponse], but gracefully handles missing data.
      *
-     * @see [EntityListPageResponse.nextCursor]
+     * @see EntityListPageResponse.nextCursor
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 

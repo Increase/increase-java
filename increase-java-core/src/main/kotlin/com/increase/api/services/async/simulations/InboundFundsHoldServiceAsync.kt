@@ -31,7 +31,7 @@ interface InboundFundsHoldServiceAsync {
     fun release(inboundFundsHoldId: String): CompletableFuture<InboundFundsHoldReleaseResponse> =
         release(inboundFundsHoldId, InboundFundsHoldReleaseParams.none())
 
-    /** @see [release] */
+    /** @see release */
     fun release(
         inboundFundsHoldId: String,
         params: InboundFundsHoldReleaseParams = InboundFundsHoldReleaseParams.none(),
@@ -39,25 +39,25 @@ interface InboundFundsHoldServiceAsync {
     ): CompletableFuture<InboundFundsHoldReleaseResponse> =
         release(params.toBuilder().inboundFundsHoldId(inboundFundsHoldId).build(), requestOptions)
 
-    /** @see [release] */
+    /** @see release */
     fun release(
         inboundFundsHoldId: String,
         params: InboundFundsHoldReleaseParams = InboundFundsHoldReleaseParams.none(),
     ): CompletableFuture<InboundFundsHoldReleaseResponse> =
         release(inboundFundsHoldId, params, RequestOptions.none())
 
-    /** @see [release] */
+    /** @see release */
     fun release(
         params: InboundFundsHoldReleaseParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<InboundFundsHoldReleaseResponse>
 
-    /** @see [release] */
+    /** @see release */
     fun release(
         params: InboundFundsHoldReleaseParams
     ): CompletableFuture<InboundFundsHoldReleaseResponse> = release(params, RequestOptions.none())
 
-    /** @see [release] */
+    /** @see release */
     fun release(
         inboundFundsHoldId: String,
         requestOptions: RequestOptions,
@@ -89,7 +89,7 @@ interface InboundFundsHoldServiceAsync {
         ): CompletableFuture<HttpResponseFor<InboundFundsHoldReleaseResponse>> =
             release(inboundFundsHoldId, InboundFundsHoldReleaseParams.none())
 
-        /** @see [release] */
+        /** @see release */
         fun release(
             inboundFundsHoldId: String,
             params: InboundFundsHoldReleaseParams = InboundFundsHoldReleaseParams.none(),
@@ -100,26 +100,26 @@ interface InboundFundsHoldServiceAsync {
                 requestOptions,
             )
 
-        /** @see [release] */
+        /** @see release */
         fun release(
             inboundFundsHoldId: String,
             params: InboundFundsHoldReleaseParams = InboundFundsHoldReleaseParams.none(),
         ): CompletableFuture<HttpResponseFor<InboundFundsHoldReleaseResponse>> =
             release(inboundFundsHoldId, params, RequestOptions.none())
 
-        /** @see [release] */
+        /** @see release */
         fun release(
             params: InboundFundsHoldReleaseParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<InboundFundsHoldReleaseResponse>>
 
-        /** @see [release] */
+        /** @see release */
         fun release(
             params: InboundFundsHoldReleaseParams
         ): CompletableFuture<HttpResponseFor<InboundFundsHoldReleaseResponse>> =
             release(params, RequestOptions.none())
 
-        /** @see [release] */
+        /** @see release */
         fun release(
             inboundFundsHoldId: String,
             requestOptions: RequestOptions,

@@ -31,7 +31,7 @@ interface AccountStatementService {
     fun create(params: AccountStatementCreateParams): AccountStatement =
         create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: AccountStatementCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -60,7 +60,7 @@ interface AccountStatementService {
         fun create(params: AccountStatementCreateParams): HttpResponseFor<AccountStatement> =
             create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         @MustBeClosed
         fun create(
             params: AccountStatementCreateParams,

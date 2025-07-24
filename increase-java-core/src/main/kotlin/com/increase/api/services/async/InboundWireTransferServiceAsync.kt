@@ -31,7 +31,7 @@ interface InboundWireTransferServiceAsync {
     fun retrieve(inboundWireTransferId: String): CompletableFuture<InboundWireTransfer> =
         retrieve(inboundWireTransferId, InboundWireTransferRetrieveParams.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         inboundWireTransferId: String,
         params: InboundWireTransferRetrieveParams = InboundWireTransferRetrieveParams.none(),
@@ -42,25 +42,25 @@ interface InboundWireTransferServiceAsync {
             requestOptions,
         )
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         inboundWireTransferId: String,
         params: InboundWireTransferRetrieveParams = InboundWireTransferRetrieveParams.none(),
     ): CompletableFuture<InboundWireTransfer> =
         retrieve(inboundWireTransferId, params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: InboundWireTransferRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<InboundWireTransfer>
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: InboundWireTransferRetrieveParams
     ): CompletableFuture<InboundWireTransfer> = retrieve(params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         inboundWireTransferId: String,
         requestOptions: RequestOptions,
@@ -71,18 +71,18 @@ interface InboundWireTransferServiceAsync {
     fun list(): CompletableFuture<InboundWireTransferListPageAsync> =
         list(InboundWireTransferListParams.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: InboundWireTransferListParams = InboundWireTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<InboundWireTransferListPageAsync>
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: InboundWireTransferListParams = InboundWireTransferListParams.none()
     ): CompletableFuture<InboundWireTransferListPageAsync> = list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): CompletableFuture<InboundWireTransferListPageAsync> =
         list(InboundWireTransferListParams.none(), requestOptions)
 
@@ -93,7 +93,7 @@ interface InboundWireTransferServiceAsync {
     ): CompletableFuture<InboundWireTransfer> =
         reverse(inboundWireTransferId, params, RequestOptions.none())
 
-    /** @see [reverse] */
+    /** @see reverse */
     fun reverse(
         inboundWireTransferId: String,
         params: InboundWireTransferReverseParams,
@@ -104,11 +104,11 @@ interface InboundWireTransferServiceAsync {
             requestOptions,
         )
 
-    /** @see [reverse] */
+    /** @see reverse */
     fun reverse(params: InboundWireTransferReverseParams): CompletableFuture<InboundWireTransfer> =
         reverse(params, RequestOptions.none())
 
-    /** @see [reverse] */
+    /** @see reverse */
     fun reverse(
         params: InboundWireTransferReverseParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -138,7 +138,7 @@ interface InboundWireTransferServiceAsync {
         ): CompletableFuture<HttpResponseFor<InboundWireTransfer>> =
             retrieve(inboundWireTransferId, InboundWireTransferRetrieveParams.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             inboundWireTransferId: String,
             params: InboundWireTransferRetrieveParams = InboundWireTransferRetrieveParams.none(),
@@ -149,26 +149,26 @@ interface InboundWireTransferServiceAsync {
                 requestOptions,
             )
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             inboundWireTransferId: String,
             params: InboundWireTransferRetrieveParams = InboundWireTransferRetrieveParams.none(),
         ): CompletableFuture<HttpResponseFor<InboundWireTransfer>> =
             retrieve(inboundWireTransferId, params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             params: InboundWireTransferRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<InboundWireTransfer>>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             params: InboundWireTransferRetrieveParams
         ): CompletableFuture<HttpResponseFor<InboundWireTransfer>> =
             retrieve(params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             inboundWireTransferId: String,
             requestOptions: RequestOptions,
@@ -186,19 +186,19 @@ interface InboundWireTransferServiceAsync {
         fun list(): CompletableFuture<HttpResponseFor<InboundWireTransferListPageAsync>> =
             list(InboundWireTransferListParams.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: InboundWireTransferListParams = InboundWireTransferListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<InboundWireTransferListPageAsync>>
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: InboundWireTransferListParams = InboundWireTransferListParams.none()
         ): CompletableFuture<HttpResponseFor<InboundWireTransferListPageAsync>> =
             list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             requestOptions: RequestOptions
         ): CompletableFuture<HttpResponseFor<InboundWireTransferListPageAsync>> =
@@ -215,7 +215,7 @@ interface InboundWireTransferServiceAsync {
         ): CompletableFuture<HttpResponseFor<InboundWireTransfer>> =
             reverse(inboundWireTransferId, params, RequestOptions.none())
 
-        /** @see [reverse] */
+        /** @see reverse */
         fun reverse(
             inboundWireTransferId: String,
             params: InboundWireTransferReverseParams,
@@ -226,13 +226,13 @@ interface InboundWireTransferServiceAsync {
                 requestOptions,
             )
 
-        /** @see [reverse] */
+        /** @see reverse */
         fun reverse(
             params: InboundWireTransferReverseParams
         ): CompletableFuture<HttpResponseFor<InboundWireTransfer>> =
             reverse(params, RequestOptions.none())
 
-        /** @see [reverse] */
+        /** @see reverse */
         fun reverse(
             params: InboundWireTransferReverseParams,
             requestOptions: RequestOptions = RequestOptions.none(),

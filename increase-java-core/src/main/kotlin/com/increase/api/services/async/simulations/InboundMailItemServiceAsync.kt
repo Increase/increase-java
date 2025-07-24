@@ -31,7 +31,7 @@ interface InboundMailItemServiceAsync {
     fun create(params: InboundMailItemCreateParams): CompletableFuture<InboundMailItem> =
         create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: InboundMailItemCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -61,7 +61,7 @@ interface InboundMailItemServiceAsync {
         ): CompletableFuture<HttpResponseFor<InboundMailItem>> =
             create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         fun create(
             params: InboundMailItemCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),

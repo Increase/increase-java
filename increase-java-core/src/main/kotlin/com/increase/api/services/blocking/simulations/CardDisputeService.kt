@@ -33,17 +33,17 @@ interface CardDisputeService {
     fun action(cardDisputeId: String, params: CardDisputeActionParams): CardDispute =
         action(cardDisputeId, params, RequestOptions.none())
 
-    /** @see [action] */
+    /** @see action */
     fun action(
         cardDisputeId: String,
         params: CardDisputeActionParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CardDispute = action(params.toBuilder().cardDisputeId(cardDisputeId).build(), requestOptions)
 
-    /** @see [action] */
+    /** @see action */
     fun action(params: CardDisputeActionParams): CardDispute = action(params, RequestOptions.none())
 
-    /** @see [action] */
+    /** @see action */
     fun action(
         params: CardDisputeActionParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -74,7 +74,7 @@ interface CardDisputeService {
             params: CardDisputeActionParams,
         ): HttpResponseFor<CardDispute> = action(cardDisputeId, params, RequestOptions.none())
 
-        /** @see [action] */
+        /** @see action */
         @MustBeClosed
         fun action(
             cardDisputeId: String,
@@ -83,12 +83,12 @@ interface CardDisputeService {
         ): HttpResponseFor<CardDispute> =
             action(params.toBuilder().cardDisputeId(cardDisputeId).build(), requestOptions)
 
-        /** @see [action] */
+        /** @see action */
         @MustBeClosed
         fun action(params: CardDisputeActionParams): HttpResponseFor<CardDispute> =
             action(params, RequestOptions.none())
 
-        /** @see [action] */
+        /** @see action */
         @MustBeClosed
         fun action(
             params: CardDisputeActionParams,

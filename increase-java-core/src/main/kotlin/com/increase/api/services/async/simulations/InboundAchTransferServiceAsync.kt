@@ -38,7 +38,7 @@ interface InboundAchTransferServiceAsync {
     fun create(params: InboundAchTransferCreateParams): CompletableFuture<InboundAchTransfer> =
         create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: InboundAchTransferCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -68,7 +68,7 @@ interface InboundAchTransferServiceAsync {
         ): CompletableFuture<HttpResponseFor<InboundAchTransfer>> =
             create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         fun create(
             params: InboundAchTransferCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),

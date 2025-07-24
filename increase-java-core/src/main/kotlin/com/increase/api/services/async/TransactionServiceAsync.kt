@@ -30,7 +30,7 @@ interface TransactionServiceAsync {
     fun retrieve(transactionId: String): CompletableFuture<Transaction> =
         retrieve(transactionId, TransactionRetrieveParams.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         transactionId: String,
         params: TransactionRetrieveParams = TransactionRetrieveParams.none(),
@@ -38,23 +38,23 @@ interface TransactionServiceAsync {
     ): CompletableFuture<Transaction> =
         retrieve(params.toBuilder().transactionId(transactionId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         transactionId: String,
         params: TransactionRetrieveParams = TransactionRetrieveParams.none(),
     ): CompletableFuture<Transaction> = retrieve(transactionId, params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: TransactionRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Transaction>
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(params: TransactionRetrieveParams): CompletableFuture<Transaction> =
         retrieve(params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         transactionId: String,
         requestOptions: RequestOptions,
@@ -64,18 +64,18 @@ interface TransactionServiceAsync {
     /** List Transactions */
     fun list(): CompletableFuture<TransactionListPageAsync> = list(TransactionListParams.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: TransactionListParams = TransactionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<TransactionListPageAsync>
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: TransactionListParams = TransactionListParams.none()
     ): CompletableFuture<TransactionListPageAsync> = list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): CompletableFuture<TransactionListPageAsync> =
         list(TransactionListParams.none(), requestOptions)
 
@@ -101,7 +101,7 @@ interface TransactionServiceAsync {
         fun retrieve(transactionId: String): CompletableFuture<HttpResponseFor<Transaction>> =
             retrieve(transactionId, TransactionRetrieveParams.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             transactionId: String,
             params: TransactionRetrieveParams = TransactionRetrieveParams.none(),
@@ -109,25 +109,25 @@ interface TransactionServiceAsync {
         ): CompletableFuture<HttpResponseFor<Transaction>> =
             retrieve(params.toBuilder().transactionId(transactionId).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             transactionId: String,
             params: TransactionRetrieveParams = TransactionRetrieveParams.none(),
         ): CompletableFuture<HttpResponseFor<Transaction>> =
             retrieve(transactionId, params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             params: TransactionRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<Transaction>>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             params: TransactionRetrieveParams
         ): CompletableFuture<HttpResponseFor<Transaction>> = retrieve(params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             transactionId: String,
             requestOptions: RequestOptions,
@@ -141,19 +141,19 @@ interface TransactionServiceAsync {
         fun list(): CompletableFuture<HttpResponseFor<TransactionListPageAsync>> =
             list(TransactionListParams.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: TransactionListParams = TransactionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<TransactionListPageAsync>>
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: TransactionListParams = TransactionListParams.none()
         ): CompletableFuture<HttpResponseFor<TransactionListPageAsync>> =
             list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             requestOptions: RequestOptions
         ): CompletableFuture<HttpResponseFor<TransactionListPageAsync>> =

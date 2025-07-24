@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** @see [DeclinedTransactionService.list] */
+/** @see DeclinedTransactionService.list */
 class DeclinedTransactionListPage
 private constructor(
     private val service: DeclinedTransactionService,
@@ -21,7 +21,7 @@ private constructor(
     /**
      * Delegates to [DeclinedTransactionListPageResponse], but gracefully handles missing data.
      *
-     * @see [DeclinedTransactionListPageResponse.data]
+     * @see DeclinedTransactionListPageResponse.data
      */
     fun data(): List<DeclinedTransaction> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
@@ -29,7 +29,7 @@ private constructor(
     /**
      * Delegates to [DeclinedTransactionListPageResponse], but gracefully handles missing data.
      *
-     * @see [DeclinedTransactionListPageResponse.nextCursor]
+     * @see DeclinedTransactionListPageResponse.nextCursor
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 

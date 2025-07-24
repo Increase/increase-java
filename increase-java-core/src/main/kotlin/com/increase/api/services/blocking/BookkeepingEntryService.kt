@@ -30,7 +30,7 @@ interface BookkeepingEntryService {
     fun retrieve(bookkeepingEntryId: String): BookkeepingEntry =
         retrieve(bookkeepingEntryId, BookkeepingEntryRetrieveParams.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         bookkeepingEntryId: String,
         params: BookkeepingEntryRetrieveParams = BookkeepingEntryRetrieveParams.none(),
@@ -38,41 +38,41 @@ interface BookkeepingEntryService {
     ): BookkeepingEntry =
         retrieve(params.toBuilder().bookkeepingEntryId(bookkeepingEntryId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         bookkeepingEntryId: String,
         params: BookkeepingEntryRetrieveParams = BookkeepingEntryRetrieveParams.none(),
     ): BookkeepingEntry = retrieve(bookkeepingEntryId, params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: BookkeepingEntryRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BookkeepingEntry
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(params: BookkeepingEntryRetrieveParams): BookkeepingEntry =
         retrieve(params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(bookkeepingEntryId: String, requestOptions: RequestOptions): BookkeepingEntry =
         retrieve(bookkeepingEntryId, BookkeepingEntryRetrieveParams.none(), requestOptions)
 
     /** List Bookkeeping Entries */
     fun list(): BookkeepingEntryListPage = list(BookkeepingEntryListParams.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: BookkeepingEntryListParams = BookkeepingEntryListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BookkeepingEntryListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: BookkeepingEntryListParams = BookkeepingEntryListParams.none()
     ): BookkeepingEntryListPage = list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): BookkeepingEntryListPage =
         list(BookkeepingEntryListParams.none(), requestOptions)
 
@@ -99,7 +99,7 @@ interface BookkeepingEntryService {
         fun retrieve(bookkeepingEntryId: String): HttpResponseFor<BookkeepingEntry> =
             retrieve(bookkeepingEntryId, BookkeepingEntryRetrieveParams.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             bookkeepingEntryId: String,
@@ -111,7 +111,7 @@ interface BookkeepingEntryService {
                 requestOptions,
             )
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             bookkeepingEntryId: String,
@@ -119,19 +119,19 @@ interface BookkeepingEntryService {
         ): HttpResponseFor<BookkeepingEntry> =
             retrieve(bookkeepingEntryId, params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: BookkeepingEntryRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BookkeepingEntry>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(params: BookkeepingEntryRetrieveParams): HttpResponseFor<BookkeepingEntry> =
             retrieve(params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             bookkeepingEntryId: String,
@@ -147,20 +147,20 @@ interface BookkeepingEntryService {
         fun list(): HttpResponseFor<BookkeepingEntryListPage> =
             list(BookkeepingEntryListParams.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             params: BookkeepingEntryListParams = BookkeepingEntryListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BookkeepingEntryListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             params: BookkeepingEntryListParams = BookkeepingEntryListParams.none()
         ): HttpResponseFor<BookkeepingEntryListPage> = list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<BookkeepingEntryListPage> =
             list(BookkeepingEntryListParams.none(), requestOptions)

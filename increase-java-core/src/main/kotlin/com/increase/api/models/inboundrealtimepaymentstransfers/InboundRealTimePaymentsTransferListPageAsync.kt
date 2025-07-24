@@ -12,7 +12,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executor
 import kotlin.jvm.optionals.getOrNull
 
-/** @see [InboundRealTimePaymentsTransferServiceAsync.list] */
+/** @see InboundRealTimePaymentsTransferServiceAsync.list */
 class InboundRealTimePaymentsTransferListPageAsync
 private constructor(
     private val service: InboundRealTimePaymentsTransferServiceAsync,
@@ -25,7 +25,7 @@ private constructor(
      * Delegates to [InboundRealTimePaymentsTransferListPageResponse], but gracefully handles
      * missing data.
      *
-     * @see [InboundRealTimePaymentsTransferListPageResponse.data]
+     * @see InboundRealTimePaymentsTransferListPageResponse.data
      */
     fun data(): List<InboundRealTimePaymentsTransfer> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
@@ -34,7 +34,7 @@ private constructor(
      * Delegates to [InboundRealTimePaymentsTransferListPageResponse], but gracefully handles
      * missing data.
      *
-     * @see [InboundRealTimePaymentsTransferListPageResponse.nextCursor]
+     * @see InboundRealTimePaymentsTransferListPageResponse.nextCursor
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 

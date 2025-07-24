@@ -30,7 +30,7 @@ interface SupplementalDocumentService {
     fun create(params: SupplementalDocumentCreateParams): EntitySupplementalDocument =
         create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: SupplementalDocumentCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -40,7 +40,7 @@ interface SupplementalDocumentService {
     fun list(params: SupplementalDocumentListParams): SupplementalDocumentListPage =
         list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: SupplementalDocumentListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -70,7 +70,7 @@ interface SupplementalDocumentService {
             params: SupplementalDocumentCreateParams
         ): HttpResponseFor<EntitySupplementalDocument> = create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         @MustBeClosed
         fun create(
             params: SupplementalDocumentCreateParams,
@@ -86,7 +86,7 @@ interface SupplementalDocumentService {
             params: SupplementalDocumentListParams
         ): HttpResponseFor<SupplementalDocumentListPage> = list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             params: SupplementalDocumentListParams,

@@ -31,7 +31,7 @@ interface InboundMailItemService {
     fun create(params: InboundMailItemCreateParams): InboundMailItem =
         create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: InboundMailItemCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -60,7 +60,7 @@ interface InboundMailItemService {
         fun create(params: InboundMailItemCreateParams): HttpResponseFor<InboundMailItem> =
             create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         @MustBeClosed
         fun create(
             params: InboundMailItemCreateParams,

@@ -34,7 +34,7 @@ interface RealTimePaymentsTransferServiceAsync {
         params: RealTimePaymentsTransferCreateParams
     ): CompletableFuture<RealTimePaymentsTransfer> = create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: RealTimePaymentsTransferCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -44,7 +44,7 @@ interface RealTimePaymentsTransferServiceAsync {
     fun retrieve(realTimePaymentsTransferId: String): CompletableFuture<RealTimePaymentsTransfer> =
         retrieve(realTimePaymentsTransferId, RealTimePaymentsTransferRetrieveParams.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         realTimePaymentsTransferId: String,
         params: RealTimePaymentsTransferRetrieveParams =
@@ -56,7 +56,7 @@ interface RealTimePaymentsTransferServiceAsync {
             requestOptions,
         )
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         realTimePaymentsTransferId: String,
         params: RealTimePaymentsTransferRetrieveParams =
@@ -64,18 +64,18 @@ interface RealTimePaymentsTransferServiceAsync {
     ): CompletableFuture<RealTimePaymentsTransfer> =
         retrieve(realTimePaymentsTransferId, params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: RealTimePaymentsTransferRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<RealTimePaymentsTransfer>
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: RealTimePaymentsTransferRetrieveParams
     ): CompletableFuture<RealTimePaymentsTransfer> = retrieve(params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         realTimePaymentsTransferId: String,
         requestOptions: RequestOptions,
@@ -90,19 +90,19 @@ interface RealTimePaymentsTransferServiceAsync {
     fun list(): CompletableFuture<RealTimePaymentsTransferListPageAsync> =
         list(RealTimePaymentsTransferListParams.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: RealTimePaymentsTransferListParams = RealTimePaymentsTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<RealTimePaymentsTransferListPageAsync>
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: RealTimePaymentsTransferListParams = RealTimePaymentsTransferListParams.none()
     ): CompletableFuture<RealTimePaymentsTransferListPageAsync> =
         list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         requestOptions: RequestOptions
     ): CompletableFuture<RealTimePaymentsTransferListPageAsync> =
@@ -112,7 +112,7 @@ interface RealTimePaymentsTransferServiceAsync {
     fun approve(realTimePaymentsTransferId: String): CompletableFuture<RealTimePaymentsTransfer> =
         approve(realTimePaymentsTransferId, RealTimePaymentsTransferApproveParams.none())
 
-    /** @see [approve] */
+    /** @see approve */
     fun approve(
         realTimePaymentsTransferId: String,
         params: RealTimePaymentsTransferApproveParams =
@@ -124,25 +124,25 @@ interface RealTimePaymentsTransferServiceAsync {
             requestOptions,
         )
 
-    /** @see [approve] */
+    /** @see approve */
     fun approve(
         realTimePaymentsTransferId: String,
         params: RealTimePaymentsTransferApproveParams = RealTimePaymentsTransferApproveParams.none(),
     ): CompletableFuture<RealTimePaymentsTransfer> =
         approve(realTimePaymentsTransferId, params, RequestOptions.none())
 
-    /** @see [approve] */
+    /** @see approve */
     fun approve(
         params: RealTimePaymentsTransferApproveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<RealTimePaymentsTransfer>
 
-    /** @see [approve] */
+    /** @see approve */
     fun approve(
         params: RealTimePaymentsTransferApproveParams
     ): CompletableFuture<RealTimePaymentsTransfer> = approve(params, RequestOptions.none())
 
-    /** @see [approve] */
+    /** @see approve */
     fun approve(
         realTimePaymentsTransferId: String,
         requestOptions: RequestOptions,
@@ -157,7 +157,7 @@ interface RealTimePaymentsTransferServiceAsync {
     fun cancel(realTimePaymentsTransferId: String): CompletableFuture<RealTimePaymentsTransfer> =
         cancel(realTimePaymentsTransferId, RealTimePaymentsTransferCancelParams.none())
 
-    /** @see [cancel] */
+    /** @see cancel */
     fun cancel(
         realTimePaymentsTransferId: String,
         params: RealTimePaymentsTransferCancelParams = RealTimePaymentsTransferCancelParams.none(),
@@ -168,25 +168,25 @@ interface RealTimePaymentsTransferServiceAsync {
             requestOptions,
         )
 
-    /** @see [cancel] */
+    /** @see cancel */
     fun cancel(
         realTimePaymentsTransferId: String,
         params: RealTimePaymentsTransferCancelParams = RealTimePaymentsTransferCancelParams.none(),
     ): CompletableFuture<RealTimePaymentsTransfer> =
         cancel(realTimePaymentsTransferId, params, RequestOptions.none())
 
-    /** @see [cancel] */
+    /** @see cancel */
     fun cancel(
         params: RealTimePaymentsTransferCancelParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<RealTimePaymentsTransfer>
 
-    /** @see [cancel] */
+    /** @see cancel */
     fun cancel(
         params: RealTimePaymentsTransferCancelParams
     ): CompletableFuture<RealTimePaymentsTransfer> = cancel(params, RequestOptions.none())
 
-    /** @see [cancel] */
+    /** @see cancel */
     fun cancel(
         realTimePaymentsTransferId: String,
         requestOptions: RequestOptions,
@@ -221,7 +221,7 @@ interface RealTimePaymentsTransferServiceAsync {
         ): CompletableFuture<HttpResponseFor<RealTimePaymentsTransfer>> =
             create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         fun create(
             params: RealTimePaymentsTransferCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
@@ -237,7 +237,7 @@ interface RealTimePaymentsTransferServiceAsync {
         ): CompletableFuture<HttpResponseFor<RealTimePaymentsTransfer>> =
             retrieve(realTimePaymentsTransferId, RealTimePaymentsTransferRetrieveParams.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             realTimePaymentsTransferId: String,
             params: RealTimePaymentsTransferRetrieveParams =
@@ -249,7 +249,7 @@ interface RealTimePaymentsTransferServiceAsync {
                 requestOptions,
             )
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             realTimePaymentsTransferId: String,
             params: RealTimePaymentsTransferRetrieveParams =
@@ -257,19 +257,19 @@ interface RealTimePaymentsTransferServiceAsync {
         ): CompletableFuture<HttpResponseFor<RealTimePaymentsTransfer>> =
             retrieve(realTimePaymentsTransferId, params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             params: RealTimePaymentsTransferRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<RealTimePaymentsTransfer>>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             params: RealTimePaymentsTransferRetrieveParams
         ): CompletableFuture<HttpResponseFor<RealTimePaymentsTransfer>> =
             retrieve(params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             realTimePaymentsTransferId: String,
             requestOptions: RequestOptions,
@@ -287,19 +287,19 @@ interface RealTimePaymentsTransferServiceAsync {
         fun list(): CompletableFuture<HttpResponseFor<RealTimePaymentsTransferListPageAsync>> =
             list(RealTimePaymentsTransferListParams.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: RealTimePaymentsTransferListParams = RealTimePaymentsTransferListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<RealTimePaymentsTransferListPageAsync>>
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: RealTimePaymentsTransferListParams = RealTimePaymentsTransferListParams.none()
         ): CompletableFuture<HttpResponseFor<RealTimePaymentsTransferListPageAsync>> =
             list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             requestOptions: RequestOptions
         ): CompletableFuture<HttpResponseFor<RealTimePaymentsTransferListPageAsync>> =
@@ -315,7 +315,7 @@ interface RealTimePaymentsTransferServiceAsync {
         ): CompletableFuture<HttpResponseFor<RealTimePaymentsTransfer>> =
             approve(realTimePaymentsTransferId, RealTimePaymentsTransferApproveParams.none())
 
-        /** @see [approve] */
+        /** @see approve */
         fun approve(
             realTimePaymentsTransferId: String,
             params: RealTimePaymentsTransferApproveParams =
@@ -327,7 +327,7 @@ interface RealTimePaymentsTransferServiceAsync {
                 requestOptions,
             )
 
-        /** @see [approve] */
+        /** @see approve */
         fun approve(
             realTimePaymentsTransferId: String,
             params: RealTimePaymentsTransferApproveParams =
@@ -335,19 +335,19 @@ interface RealTimePaymentsTransferServiceAsync {
         ): CompletableFuture<HttpResponseFor<RealTimePaymentsTransfer>> =
             approve(realTimePaymentsTransferId, params, RequestOptions.none())
 
-        /** @see [approve] */
+        /** @see approve */
         fun approve(
             params: RealTimePaymentsTransferApproveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<RealTimePaymentsTransfer>>
 
-        /** @see [approve] */
+        /** @see approve */
         fun approve(
             params: RealTimePaymentsTransferApproveParams
         ): CompletableFuture<HttpResponseFor<RealTimePaymentsTransfer>> =
             approve(params, RequestOptions.none())
 
-        /** @see [approve] */
+        /** @see approve */
         fun approve(
             realTimePaymentsTransferId: String,
             requestOptions: RequestOptions,
@@ -368,7 +368,7 @@ interface RealTimePaymentsTransferServiceAsync {
         ): CompletableFuture<HttpResponseFor<RealTimePaymentsTransfer>> =
             cancel(realTimePaymentsTransferId, RealTimePaymentsTransferCancelParams.none())
 
-        /** @see [cancel] */
+        /** @see cancel */
         fun cancel(
             realTimePaymentsTransferId: String,
             params: RealTimePaymentsTransferCancelParams =
@@ -380,7 +380,7 @@ interface RealTimePaymentsTransferServiceAsync {
                 requestOptions,
             )
 
-        /** @see [cancel] */
+        /** @see cancel */
         fun cancel(
             realTimePaymentsTransferId: String,
             params: RealTimePaymentsTransferCancelParams =
@@ -388,19 +388,19 @@ interface RealTimePaymentsTransferServiceAsync {
         ): CompletableFuture<HttpResponseFor<RealTimePaymentsTransfer>> =
             cancel(realTimePaymentsTransferId, params, RequestOptions.none())
 
-        /** @see [cancel] */
+        /** @see cancel */
         fun cancel(
             params: RealTimePaymentsTransferCancelParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<RealTimePaymentsTransfer>>
 
-        /** @see [cancel] */
+        /** @see cancel */
         fun cancel(
             params: RealTimePaymentsTransferCancelParams
         ): CompletableFuture<HttpResponseFor<RealTimePaymentsTransfer>> =
             cancel(params, RequestOptions.none())
 
-        /** @see [cancel] */
+        /** @see cancel */
         fun cancel(
             realTimePaymentsTransferId: String,
             requestOptions: RequestOptions,

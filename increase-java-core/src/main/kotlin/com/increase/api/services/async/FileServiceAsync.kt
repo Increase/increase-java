@@ -35,7 +35,7 @@ interface FileServiceAsync {
     fun create(params: FileCreateParams): CompletableFuture<File> =
         create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: FileCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -45,47 +45,47 @@ interface FileServiceAsync {
     fun retrieve(fileId: String): CompletableFuture<File> =
         retrieve(fileId, FileRetrieveParams.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         fileId: String,
         params: FileRetrieveParams = FileRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<File> = retrieve(params.toBuilder().fileId(fileId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         fileId: String,
         params: FileRetrieveParams = FileRetrieveParams.none(),
     ): CompletableFuture<File> = retrieve(fileId, params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: FileRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<File>
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(params: FileRetrieveParams): CompletableFuture<File> =
         retrieve(params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(fileId: String, requestOptions: RequestOptions): CompletableFuture<File> =
         retrieve(fileId, FileRetrieveParams.none(), requestOptions)
 
     /** List Files */
     fun list(): CompletableFuture<FileListPageAsync> = list(FileListParams.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: FileListParams = FileListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<FileListPageAsync>
 
-    /** @see [list] */
+    /** @see list */
     fun list(params: FileListParams = FileListParams.none()): CompletableFuture<FileListPageAsync> =
         list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): CompletableFuture<FileListPageAsync> =
         list(FileListParams.none(), requestOptions)
 
@@ -106,7 +106,7 @@ interface FileServiceAsync {
         fun create(params: FileCreateParams): CompletableFuture<HttpResponseFor<File>> =
             create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         fun create(
             params: FileCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
@@ -119,7 +119,7 @@ interface FileServiceAsync {
         fun retrieve(fileId: String): CompletableFuture<HttpResponseFor<File>> =
             retrieve(fileId, FileRetrieveParams.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             fileId: String,
             params: FileRetrieveParams = FileRetrieveParams.none(),
@@ -127,24 +127,24 @@ interface FileServiceAsync {
         ): CompletableFuture<HttpResponseFor<File>> =
             retrieve(params.toBuilder().fileId(fileId).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             fileId: String,
             params: FileRetrieveParams = FileRetrieveParams.none(),
         ): CompletableFuture<HttpResponseFor<File>> =
             retrieve(fileId, params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             params: FileRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<File>>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(params: FileRetrieveParams): CompletableFuture<HttpResponseFor<File>> =
             retrieve(params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             fileId: String,
             requestOptions: RequestOptions,
@@ -158,19 +158,19 @@ interface FileServiceAsync {
         fun list(): CompletableFuture<HttpResponseFor<FileListPageAsync>> =
             list(FileListParams.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: FileListParams = FileListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<FileListPageAsync>>
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: FileListParams = FileListParams.none()
         ): CompletableFuture<HttpResponseFor<FileListPageAsync>> =
             list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             requestOptions: RequestOptions
         ): CompletableFuture<HttpResponseFor<FileListPageAsync>> =

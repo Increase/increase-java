@@ -32,7 +32,7 @@ interface CardFuelConfirmationService {
     fun create(params: CardFuelConfirmationCreateParams): CardPayment =
         create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: CardFuelConfirmationCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -61,7 +61,7 @@ interface CardFuelConfirmationService {
         fun create(params: CardFuelConfirmationCreateParams): HttpResponseFor<CardPayment> =
             create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         @MustBeClosed
         fun create(
             params: CardFuelConfirmationCreateParams,

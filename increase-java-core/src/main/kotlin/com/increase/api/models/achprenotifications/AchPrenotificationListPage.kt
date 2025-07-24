@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** @see [AchPrenotificationService.list] */
+/** @see AchPrenotificationService.list */
 class AchPrenotificationListPage
 private constructor(
     private val service: AchPrenotificationService,
@@ -21,7 +21,7 @@ private constructor(
     /**
      * Delegates to [AchPrenotificationListPageResponse], but gracefully handles missing data.
      *
-     * @see [AchPrenotificationListPageResponse.data]
+     * @see AchPrenotificationListPageResponse.data
      */
     fun data(): List<AchPrenotification> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
@@ -29,7 +29,7 @@ private constructor(
     /**
      * Delegates to [AchPrenotificationListPageResponse], but gracefully handles missing data.
      *
-     * @see [AchPrenotificationListPageResponse.nextCursor]
+     * @see AchPrenotificationListPageResponse.nextCursor
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 

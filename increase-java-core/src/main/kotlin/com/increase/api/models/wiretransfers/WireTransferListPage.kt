@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** @see [WireTransferService.list] */
+/** @see WireTransferService.list */
 class WireTransferListPage
 private constructor(
     private val service: WireTransferService,
@@ -21,14 +21,14 @@ private constructor(
     /**
      * Delegates to [WireTransferListPageResponse], but gracefully handles missing data.
      *
-     * @see [WireTransferListPageResponse.data]
+     * @see WireTransferListPageResponse.data
      */
     fun data(): List<WireTransfer> = response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
      * Delegates to [WireTransferListPageResponse], but gracefully handles missing data.
      *
-     * @see [WireTransferListPageResponse.nextCursor]
+     * @see WireTransferListPageResponse.nextCursor
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 

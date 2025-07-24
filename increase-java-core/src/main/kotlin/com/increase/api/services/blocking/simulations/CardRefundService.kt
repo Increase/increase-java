@@ -30,7 +30,7 @@ interface CardRefundService {
      */
     fun create(params: CardRefundCreateParams): Transaction = create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: CardRefundCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -56,7 +56,7 @@ interface CardRefundService {
         fun create(params: CardRefundCreateParams): HttpResponseFor<Transaction> =
             create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         @MustBeClosed
         fun create(
             params: CardRefundCreateParams,

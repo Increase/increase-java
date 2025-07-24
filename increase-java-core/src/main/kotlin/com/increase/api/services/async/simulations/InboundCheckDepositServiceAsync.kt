@@ -34,7 +34,7 @@ interface InboundCheckDepositServiceAsync {
     fun create(params: InboundCheckDepositCreateParams): CompletableFuture<InboundCheckDeposit> =
         create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: InboundCheckDepositCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -64,7 +64,7 @@ interface InboundCheckDepositServiceAsync {
         ): CompletableFuture<HttpResponseFor<InboundCheckDeposit>> =
             create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         fun create(
             params: InboundCheckDepositCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),

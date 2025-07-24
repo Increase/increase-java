@@ -28,7 +28,7 @@ interface CardAuthorizationExpirationService {
     fun create(params: CardAuthorizationExpirationCreateParams): CardPayment =
         create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: CardAuthorizationExpirationCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -57,7 +57,7 @@ interface CardAuthorizationExpirationService {
         fun create(params: CardAuthorizationExpirationCreateParams): HttpResponseFor<CardPayment> =
             create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         @MustBeClosed
         fun create(
             params: CardAuthorizationExpirationCreateParams,

@@ -32,7 +32,7 @@ interface IntrafiExclusionService {
     fun create(params: IntrafiExclusionCreateParams): IntrafiExclusion =
         create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: IntrafiExclusionCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -42,7 +42,7 @@ interface IntrafiExclusionService {
     fun retrieve(intrafiExclusionId: String): IntrafiExclusion =
         retrieve(intrafiExclusionId, IntrafiExclusionRetrieveParams.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         intrafiExclusionId: String,
         params: IntrafiExclusionRetrieveParams = IntrafiExclusionRetrieveParams.none(),
@@ -50,41 +50,41 @@ interface IntrafiExclusionService {
     ): IntrafiExclusion =
         retrieve(params.toBuilder().intrafiExclusionId(intrafiExclusionId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         intrafiExclusionId: String,
         params: IntrafiExclusionRetrieveParams = IntrafiExclusionRetrieveParams.none(),
     ): IntrafiExclusion = retrieve(intrafiExclusionId, params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: IntrafiExclusionRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): IntrafiExclusion
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(params: IntrafiExclusionRetrieveParams): IntrafiExclusion =
         retrieve(params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(intrafiExclusionId: String, requestOptions: RequestOptions): IntrafiExclusion =
         retrieve(intrafiExclusionId, IntrafiExclusionRetrieveParams.none(), requestOptions)
 
     /** List IntraFi Exclusions */
     fun list(): IntrafiExclusionListPage = list(IntrafiExclusionListParams.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: IntrafiExclusionListParams = IntrafiExclusionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): IntrafiExclusionListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: IntrafiExclusionListParams = IntrafiExclusionListParams.none()
     ): IntrafiExclusionListPage = list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): IntrafiExclusionListPage =
         list(IntrafiExclusionListParams.none(), requestOptions)
 
@@ -92,7 +92,7 @@ interface IntrafiExclusionService {
     fun archive(intrafiExclusionId: String): IntrafiExclusion =
         archive(intrafiExclusionId, IntrafiExclusionArchiveParams.none())
 
-    /** @see [archive] */
+    /** @see archive */
     fun archive(
         intrafiExclusionId: String,
         params: IntrafiExclusionArchiveParams = IntrafiExclusionArchiveParams.none(),
@@ -100,23 +100,23 @@ interface IntrafiExclusionService {
     ): IntrafiExclusion =
         archive(params.toBuilder().intrafiExclusionId(intrafiExclusionId).build(), requestOptions)
 
-    /** @see [archive] */
+    /** @see archive */
     fun archive(
         intrafiExclusionId: String,
         params: IntrafiExclusionArchiveParams = IntrafiExclusionArchiveParams.none(),
     ): IntrafiExclusion = archive(intrafiExclusionId, params, RequestOptions.none())
 
-    /** @see [archive] */
+    /** @see archive */
     fun archive(
         params: IntrafiExclusionArchiveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): IntrafiExclusion
 
-    /** @see [archive] */
+    /** @see archive */
     fun archive(params: IntrafiExclusionArchiveParams): IntrafiExclusion =
         archive(params, RequestOptions.none())
 
-    /** @see [archive] */
+    /** @see archive */
     fun archive(intrafiExclusionId: String, requestOptions: RequestOptions): IntrafiExclusion =
         archive(intrafiExclusionId, IntrafiExclusionArchiveParams.none(), requestOptions)
 
@@ -143,7 +143,7 @@ interface IntrafiExclusionService {
         fun create(params: IntrafiExclusionCreateParams): HttpResponseFor<IntrafiExclusion> =
             create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         @MustBeClosed
         fun create(
             params: IntrafiExclusionCreateParams,
@@ -158,7 +158,7 @@ interface IntrafiExclusionService {
         fun retrieve(intrafiExclusionId: String): HttpResponseFor<IntrafiExclusion> =
             retrieve(intrafiExclusionId, IntrafiExclusionRetrieveParams.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             intrafiExclusionId: String,
@@ -170,7 +170,7 @@ interface IntrafiExclusionService {
                 requestOptions,
             )
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             intrafiExclusionId: String,
@@ -178,19 +178,19 @@ interface IntrafiExclusionService {
         ): HttpResponseFor<IntrafiExclusion> =
             retrieve(intrafiExclusionId, params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: IntrafiExclusionRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<IntrafiExclusion>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(params: IntrafiExclusionRetrieveParams): HttpResponseFor<IntrafiExclusion> =
             retrieve(params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             intrafiExclusionId: String,
@@ -206,20 +206,20 @@ interface IntrafiExclusionService {
         fun list(): HttpResponseFor<IntrafiExclusionListPage> =
             list(IntrafiExclusionListParams.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             params: IntrafiExclusionListParams = IntrafiExclusionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<IntrafiExclusionListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             params: IntrafiExclusionListParams = IntrafiExclusionListParams.none()
         ): HttpResponseFor<IntrafiExclusionListPage> = list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<IntrafiExclusionListPage> =
             list(IntrafiExclusionListParams.none(), requestOptions)
@@ -233,7 +233,7 @@ interface IntrafiExclusionService {
         fun archive(intrafiExclusionId: String): HttpResponseFor<IntrafiExclusion> =
             archive(intrafiExclusionId, IntrafiExclusionArchiveParams.none())
 
-        /** @see [archive] */
+        /** @see archive */
         @MustBeClosed
         fun archive(
             intrafiExclusionId: String,
@@ -245,7 +245,7 @@ interface IntrafiExclusionService {
                 requestOptions,
             )
 
-        /** @see [archive] */
+        /** @see archive */
         @MustBeClosed
         fun archive(
             intrafiExclusionId: String,
@@ -253,19 +253,19 @@ interface IntrafiExclusionService {
         ): HttpResponseFor<IntrafiExclusion> =
             archive(intrafiExclusionId, params, RequestOptions.none())
 
-        /** @see [archive] */
+        /** @see archive */
         @MustBeClosed
         fun archive(
             params: IntrafiExclusionArchiveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<IntrafiExclusion>
 
-        /** @see [archive] */
+        /** @see archive */
         @MustBeClosed
         fun archive(params: IntrafiExclusionArchiveParams): HttpResponseFor<IntrafiExclusion> =
             archive(params, RequestOptions.none())
 
-        /** @see [archive] */
+        /** @see archive */
         @MustBeClosed
         fun archive(
             intrafiExclusionId: String,

@@ -30,7 +30,7 @@ interface DocumentService {
     /** Create a Document */
     fun create(params: DocumentCreateParams): Document = create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: DocumentCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -39,46 +39,46 @@ interface DocumentService {
     /** Retrieve a Document */
     fun retrieve(documentId: String): Document = retrieve(documentId, DocumentRetrieveParams.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         documentId: String,
         params: DocumentRetrieveParams = DocumentRetrieveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Document = retrieve(params.toBuilder().documentId(documentId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         documentId: String,
         params: DocumentRetrieveParams = DocumentRetrieveParams.none(),
     ): Document = retrieve(documentId, params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: DocumentRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Document
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(params: DocumentRetrieveParams): Document = retrieve(params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(documentId: String, requestOptions: RequestOptions): Document =
         retrieve(documentId, DocumentRetrieveParams.none(), requestOptions)
 
     /** List Documents */
     fun list(): DocumentListPage = list(DocumentListParams.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: DocumentListParams = DocumentListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): DocumentListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(params: DocumentListParams = DocumentListParams.none()): DocumentListPage =
         list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): DocumentListPage =
         list(DocumentListParams.none(), requestOptions)
 
@@ -100,7 +100,7 @@ interface DocumentService {
         fun create(params: DocumentCreateParams): HttpResponseFor<Document> =
             create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         @MustBeClosed
         fun create(
             params: DocumentCreateParams,
@@ -115,7 +115,7 @@ interface DocumentService {
         fun retrieve(documentId: String): HttpResponseFor<Document> =
             retrieve(documentId, DocumentRetrieveParams.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             documentId: String,
@@ -124,26 +124,26 @@ interface DocumentService {
         ): HttpResponseFor<Document> =
             retrieve(params.toBuilder().documentId(documentId).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             documentId: String,
             params: DocumentRetrieveParams = DocumentRetrieveParams.none(),
         ): HttpResponseFor<Document> = retrieve(documentId, params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: DocumentRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Document>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(params: DocumentRetrieveParams): HttpResponseFor<Document> =
             retrieve(params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             documentId: String,
@@ -158,20 +158,20 @@ interface DocumentService {
         @MustBeClosed
         fun list(): HttpResponseFor<DocumentListPage> = list(DocumentListParams.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             params: DocumentListParams = DocumentListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<DocumentListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             params: DocumentListParams = DocumentListParams.none()
         ): HttpResponseFor<DocumentListPage> = list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<DocumentListPage> =
             list(DocumentListParams.none(), requestOptions)

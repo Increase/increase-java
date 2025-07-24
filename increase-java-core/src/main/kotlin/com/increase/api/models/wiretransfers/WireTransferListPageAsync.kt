@@ -12,7 +12,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executor
 import kotlin.jvm.optionals.getOrNull
 
-/** @see [WireTransferServiceAsync.list] */
+/** @see WireTransferServiceAsync.list */
 class WireTransferListPageAsync
 private constructor(
     private val service: WireTransferServiceAsync,
@@ -24,14 +24,14 @@ private constructor(
     /**
      * Delegates to [WireTransferListPageResponse], but gracefully handles missing data.
      *
-     * @see [WireTransferListPageResponse.data]
+     * @see WireTransferListPageResponse.data
      */
     fun data(): List<WireTransfer> = response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
      * Delegates to [WireTransferListPageResponse], but gracefully handles missing data.
      *
-     * @see [WireTransferListPageResponse.nextCursor]
+     * @see WireTransferListPageResponse.nextCursor
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 
