@@ -28,7 +28,7 @@ interface WireDrawdownRequestServiceAsync {
     fun refuse(wireDrawdownRequestId: String): CompletableFuture<WireDrawdownRequest> =
         refuse(wireDrawdownRequestId, WireDrawdownRequestRefuseParams.none())
 
-    /** @see [refuse] */
+    /** @see refuse */
     fun refuse(
         wireDrawdownRequestId: String,
         params: WireDrawdownRequestRefuseParams = WireDrawdownRequestRefuseParams.none(),
@@ -39,24 +39,24 @@ interface WireDrawdownRequestServiceAsync {
             requestOptions,
         )
 
-    /** @see [refuse] */
+    /** @see refuse */
     fun refuse(
         wireDrawdownRequestId: String,
         params: WireDrawdownRequestRefuseParams = WireDrawdownRequestRefuseParams.none(),
     ): CompletableFuture<WireDrawdownRequest> =
         refuse(wireDrawdownRequestId, params, RequestOptions.none())
 
-    /** @see [refuse] */
+    /** @see refuse */
     fun refuse(
         params: WireDrawdownRequestRefuseParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<WireDrawdownRequest>
 
-    /** @see [refuse] */
+    /** @see refuse */
     fun refuse(params: WireDrawdownRequestRefuseParams): CompletableFuture<WireDrawdownRequest> =
         refuse(params, RequestOptions.none())
 
-    /** @see [refuse] */
+    /** @see refuse */
     fun refuse(
         wireDrawdownRequestId: String,
         requestOptions: RequestOptions,
@@ -88,7 +88,7 @@ interface WireDrawdownRequestServiceAsync {
         ): CompletableFuture<HttpResponseFor<WireDrawdownRequest>> =
             refuse(wireDrawdownRequestId, WireDrawdownRequestRefuseParams.none())
 
-        /** @see [refuse] */
+        /** @see refuse */
         fun refuse(
             wireDrawdownRequestId: String,
             params: WireDrawdownRequestRefuseParams = WireDrawdownRequestRefuseParams.none(),
@@ -99,26 +99,26 @@ interface WireDrawdownRequestServiceAsync {
                 requestOptions,
             )
 
-        /** @see [refuse] */
+        /** @see refuse */
         fun refuse(
             wireDrawdownRequestId: String,
             params: WireDrawdownRequestRefuseParams = WireDrawdownRequestRefuseParams.none(),
         ): CompletableFuture<HttpResponseFor<WireDrawdownRequest>> =
             refuse(wireDrawdownRequestId, params, RequestOptions.none())
 
-        /** @see [refuse] */
+        /** @see refuse */
         fun refuse(
             params: WireDrawdownRequestRefuseParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<WireDrawdownRequest>>
 
-        /** @see [refuse] */
+        /** @see refuse */
         fun refuse(
             params: WireDrawdownRequestRefuseParams
         ): CompletableFuture<HttpResponseFor<WireDrawdownRequest>> =
             refuse(params, RequestOptions.none())
 
-        /** @see [refuse] */
+        /** @see refuse */
         fun refuse(
             wireDrawdownRequestId: String,
             requestOptions: RequestOptions,

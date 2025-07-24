@@ -12,7 +12,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executor
 import kotlin.jvm.optionals.getOrNull
 
-/** @see [RoutingNumberServiceAsync.list] */
+/** @see RoutingNumberServiceAsync.list */
 class RoutingNumberListPageAsync
 private constructor(
     private val service: RoutingNumberServiceAsync,
@@ -24,7 +24,7 @@ private constructor(
     /**
      * Delegates to [RoutingNumberListPageResponse], but gracefully handles missing data.
      *
-     * @see [RoutingNumberListPageResponse.data]
+     * @see RoutingNumberListPageResponse.data
      */
     fun data(): List<RoutingNumberListResponse> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
@@ -32,7 +32,7 @@ private constructor(
     /**
      * Delegates to [RoutingNumberListPageResponse], but gracefully handles missing data.
      *
-     * @see [RoutingNumberListPageResponse.nextCursor]
+     * @see RoutingNumberListPageResponse.nextCursor
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 

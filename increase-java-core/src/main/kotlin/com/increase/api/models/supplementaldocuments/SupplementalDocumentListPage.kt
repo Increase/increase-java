@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** @see [SupplementalDocumentService.list] */
+/** @see SupplementalDocumentService.list */
 class SupplementalDocumentListPage
 private constructor(
     private val service: SupplementalDocumentService,
@@ -21,7 +21,7 @@ private constructor(
     /**
      * Delegates to [SupplementalDocumentListPageResponse], but gracefully handles missing data.
      *
-     * @see [SupplementalDocumentListPageResponse.data]
+     * @see SupplementalDocumentListPageResponse.data
      */
     fun data(): List<EntitySupplementalDocument> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
@@ -29,7 +29,7 @@ private constructor(
     /**
      * Delegates to [SupplementalDocumentListPageResponse], but gracefully handles missing data.
      *
-     * @see [SupplementalDocumentListPageResponse.nextCursor]
+     * @see SupplementalDocumentListPageResponse.nextCursor
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 

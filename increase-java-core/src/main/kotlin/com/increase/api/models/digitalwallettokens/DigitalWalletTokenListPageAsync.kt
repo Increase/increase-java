@@ -12,7 +12,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executor
 import kotlin.jvm.optionals.getOrNull
 
-/** @see [DigitalWalletTokenServiceAsync.list] */
+/** @see DigitalWalletTokenServiceAsync.list */
 class DigitalWalletTokenListPageAsync
 private constructor(
     private val service: DigitalWalletTokenServiceAsync,
@@ -24,7 +24,7 @@ private constructor(
     /**
      * Delegates to [DigitalWalletTokenListPageResponse], but gracefully handles missing data.
      *
-     * @see [DigitalWalletTokenListPageResponse.data]
+     * @see DigitalWalletTokenListPageResponse.data
      */
     fun data(): List<DigitalWalletToken> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
@@ -32,7 +32,7 @@ private constructor(
     /**
      * Delegates to [DigitalWalletTokenListPageResponse], but gracefully handles missing data.
      *
-     * @see [DigitalWalletTokenListPageResponse.nextCursor]
+     * @see DigitalWalletTokenListPageResponse.nextCursor
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 

@@ -12,7 +12,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executor
 import kotlin.jvm.optionals.getOrNull
 
-/** @see [EventSubscriptionServiceAsync.list] */
+/** @see EventSubscriptionServiceAsync.list */
 class EventSubscriptionListPageAsync
 private constructor(
     private val service: EventSubscriptionServiceAsync,
@@ -24,7 +24,7 @@ private constructor(
     /**
      * Delegates to [EventSubscriptionListPageResponse], but gracefully handles missing data.
      *
-     * @see [EventSubscriptionListPageResponse.data]
+     * @see EventSubscriptionListPageResponse.data
      */
     fun data(): List<EventSubscription> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
@@ -32,7 +32,7 @@ private constructor(
     /**
      * Delegates to [EventSubscriptionListPageResponse], but gracefully handles missing data.
      *
-     * @see [EventSubscriptionListPageResponse.nextCursor]
+     * @see EventSubscriptionListPageResponse.nextCursor
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 

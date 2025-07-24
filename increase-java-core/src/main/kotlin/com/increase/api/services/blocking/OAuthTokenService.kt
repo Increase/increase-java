@@ -27,7 +27,7 @@ interface OAuthTokenService {
     /** Create an OAuth Token */
     fun create(params: OAuthTokenCreateParams): OAuthToken = create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: OAuthTokenCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -53,7 +53,7 @@ interface OAuthTokenService {
         fun create(params: OAuthTokenCreateParams): HttpResponseFor<OAuthToken> =
             create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         @MustBeClosed
         fun create(
             params: OAuthTokenCreateParams,

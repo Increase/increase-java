@@ -35,7 +35,7 @@ interface CardDisputeServiceAsync {
         params: CardDisputeActionParams,
     ): CompletableFuture<CardDispute> = action(cardDisputeId, params, RequestOptions.none())
 
-    /** @see [action] */
+    /** @see action */
     fun action(
         cardDisputeId: String,
         params: CardDisputeActionParams,
@@ -43,11 +43,11 @@ interface CardDisputeServiceAsync {
     ): CompletableFuture<CardDispute> =
         action(params.toBuilder().cardDisputeId(cardDisputeId).build(), requestOptions)
 
-    /** @see [action] */
+    /** @see action */
     fun action(params: CardDisputeActionParams): CompletableFuture<CardDispute> =
         action(params, RequestOptions.none())
 
-    /** @see [action] */
+    /** @see action */
     fun action(
         params: CardDisputeActionParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -79,7 +79,7 @@ interface CardDisputeServiceAsync {
         ): CompletableFuture<HttpResponseFor<CardDispute>> =
             action(cardDisputeId, params, RequestOptions.none())
 
-        /** @see [action] */
+        /** @see action */
         fun action(
             cardDisputeId: String,
             params: CardDisputeActionParams,
@@ -87,12 +87,12 @@ interface CardDisputeServiceAsync {
         ): CompletableFuture<HttpResponseFor<CardDispute>> =
             action(params.toBuilder().cardDisputeId(cardDisputeId).build(), requestOptions)
 
-        /** @see [action] */
+        /** @see action */
         fun action(
             params: CardDisputeActionParams
         ): CompletableFuture<HttpResponseFor<CardDispute>> = action(params, RequestOptions.none())
 
-        /** @see [action] */
+        /** @see action */
         fun action(
             params: CardDisputeActionParams,
             requestOptions: RequestOptions = RequestOptions.none(),

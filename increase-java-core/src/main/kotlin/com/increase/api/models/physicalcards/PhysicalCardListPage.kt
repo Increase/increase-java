@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** @see [PhysicalCardService.list] */
+/** @see PhysicalCardService.list */
 class PhysicalCardListPage
 private constructor(
     private val service: PhysicalCardService,
@@ -21,14 +21,14 @@ private constructor(
     /**
      * Delegates to [PhysicalCardListPageResponse], but gracefully handles missing data.
      *
-     * @see [PhysicalCardListPageResponse.data]
+     * @see PhysicalCardListPageResponse.data
      */
     fun data(): List<PhysicalCard> = response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
      * Delegates to [PhysicalCardListPageResponse], but gracefully handles missing data.
      *
-     * @see [PhysicalCardListPageResponse.nextCursor]
+     * @see PhysicalCardListPageResponse.nextCursor
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 

@@ -31,7 +31,7 @@ interface CardIncrementServiceAsync {
     fun create(params: CardIncrementCreateParams): CompletableFuture<CardPayment> =
         create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: CardIncrementCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -60,7 +60,7 @@ interface CardIncrementServiceAsync {
             params: CardIncrementCreateParams
         ): CompletableFuture<HttpResponseFor<CardPayment>> = create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         fun create(
             params: CardIncrementCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),

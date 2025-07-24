@@ -30,7 +30,7 @@ interface OAuthConnectionService {
     fun retrieve(oauthConnectionId: String): OAuthConnection =
         retrieve(oauthConnectionId, OAuthConnectionRetrieveParams.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         oauthConnectionId: String,
         params: OAuthConnectionRetrieveParams = OAuthConnectionRetrieveParams.none(),
@@ -38,41 +38,41 @@ interface OAuthConnectionService {
     ): OAuthConnection =
         retrieve(params.toBuilder().oauthConnectionId(oauthConnectionId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         oauthConnectionId: String,
         params: OAuthConnectionRetrieveParams = OAuthConnectionRetrieveParams.none(),
     ): OAuthConnection = retrieve(oauthConnectionId, params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: OAuthConnectionRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): OAuthConnection
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(params: OAuthConnectionRetrieveParams): OAuthConnection =
         retrieve(params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(oauthConnectionId: String, requestOptions: RequestOptions): OAuthConnection =
         retrieve(oauthConnectionId, OAuthConnectionRetrieveParams.none(), requestOptions)
 
     /** List OAuth Connections */
     fun list(): OAuthConnectionListPage = list(OAuthConnectionListParams.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: OAuthConnectionListParams = OAuthConnectionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): OAuthConnectionListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: OAuthConnectionListParams = OAuthConnectionListParams.none()
     ): OAuthConnectionListPage = list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): OAuthConnectionListPage =
         list(OAuthConnectionListParams.none(), requestOptions)
 
@@ -99,7 +99,7 @@ interface OAuthConnectionService {
         fun retrieve(oauthConnectionId: String): HttpResponseFor<OAuthConnection> =
             retrieve(oauthConnectionId, OAuthConnectionRetrieveParams.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             oauthConnectionId: String,
@@ -111,7 +111,7 @@ interface OAuthConnectionService {
                 requestOptions,
             )
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             oauthConnectionId: String,
@@ -119,19 +119,19 @@ interface OAuthConnectionService {
         ): HttpResponseFor<OAuthConnection> =
             retrieve(oauthConnectionId, params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: OAuthConnectionRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<OAuthConnection>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(params: OAuthConnectionRetrieveParams): HttpResponseFor<OAuthConnection> =
             retrieve(params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             oauthConnectionId: String,
@@ -147,20 +147,20 @@ interface OAuthConnectionService {
         fun list(): HttpResponseFor<OAuthConnectionListPage> =
             list(OAuthConnectionListParams.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             params: OAuthConnectionListParams = OAuthConnectionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<OAuthConnectionListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             params: OAuthConnectionListParams = OAuthConnectionListParams.none()
         ): HttpResponseFor<OAuthConnectionListPage> = list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<OAuthConnectionListPage> =
             list(OAuthConnectionListParams.none(), requestOptions)

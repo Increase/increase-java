@@ -12,7 +12,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executor
 import kotlin.jvm.optionals.getOrNull
 
-/** @see [CardPurchaseSupplementServiceAsync.list] */
+/** @see CardPurchaseSupplementServiceAsync.list */
 class CardPurchaseSupplementListPageAsync
 private constructor(
     private val service: CardPurchaseSupplementServiceAsync,
@@ -24,7 +24,7 @@ private constructor(
     /**
      * Delegates to [CardPurchaseSupplementListPageResponse], but gracefully handles missing data.
      *
-     * @see [CardPurchaseSupplementListPageResponse.data]
+     * @see CardPurchaseSupplementListPageResponse.data
      */
     fun data(): List<CardPurchaseSupplement> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
@@ -32,7 +32,7 @@ private constructor(
     /**
      * Delegates to [CardPurchaseSupplementListPageResponse], but gracefully handles missing data.
      *
-     * @see [CardPurchaseSupplementListPageResponse.nextCursor]
+     * @see CardPurchaseSupplementListPageResponse.nextCursor
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 

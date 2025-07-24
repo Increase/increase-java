@@ -32,7 +32,7 @@ interface IntrafiExclusionServiceAsync {
     fun create(params: IntrafiExclusionCreateParams): CompletableFuture<IntrafiExclusion> =
         create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: IntrafiExclusionCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -42,7 +42,7 @@ interface IntrafiExclusionServiceAsync {
     fun retrieve(intrafiExclusionId: String): CompletableFuture<IntrafiExclusion> =
         retrieve(intrafiExclusionId, IntrafiExclusionRetrieveParams.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         intrafiExclusionId: String,
         params: IntrafiExclusionRetrieveParams = IntrafiExclusionRetrieveParams.none(),
@@ -50,24 +50,24 @@ interface IntrafiExclusionServiceAsync {
     ): CompletableFuture<IntrafiExclusion> =
         retrieve(params.toBuilder().intrafiExclusionId(intrafiExclusionId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         intrafiExclusionId: String,
         params: IntrafiExclusionRetrieveParams = IntrafiExclusionRetrieveParams.none(),
     ): CompletableFuture<IntrafiExclusion> =
         retrieve(intrafiExclusionId, params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: IntrafiExclusionRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<IntrafiExclusion>
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(params: IntrafiExclusionRetrieveParams): CompletableFuture<IntrafiExclusion> =
         retrieve(params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         intrafiExclusionId: String,
         requestOptions: RequestOptions,
@@ -78,18 +78,18 @@ interface IntrafiExclusionServiceAsync {
     fun list(): CompletableFuture<IntrafiExclusionListPageAsync> =
         list(IntrafiExclusionListParams.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: IntrafiExclusionListParams = IntrafiExclusionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<IntrafiExclusionListPageAsync>
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: IntrafiExclusionListParams = IntrafiExclusionListParams.none()
     ): CompletableFuture<IntrafiExclusionListPageAsync> = list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): CompletableFuture<IntrafiExclusionListPageAsync> =
         list(IntrafiExclusionListParams.none(), requestOptions)
 
@@ -97,7 +97,7 @@ interface IntrafiExclusionServiceAsync {
     fun archive(intrafiExclusionId: String): CompletableFuture<IntrafiExclusion> =
         archive(intrafiExclusionId, IntrafiExclusionArchiveParams.none())
 
-    /** @see [archive] */
+    /** @see archive */
     fun archive(
         intrafiExclusionId: String,
         params: IntrafiExclusionArchiveParams = IntrafiExclusionArchiveParams.none(),
@@ -105,24 +105,24 @@ interface IntrafiExclusionServiceAsync {
     ): CompletableFuture<IntrafiExclusion> =
         archive(params.toBuilder().intrafiExclusionId(intrafiExclusionId).build(), requestOptions)
 
-    /** @see [archive] */
+    /** @see archive */
     fun archive(
         intrafiExclusionId: String,
         params: IntrafiExclusionArchiveParams = IntrafiExclusionArchiveParams.none(),
     ): CompletableFuture<IntrafiExclusion> =
         archive(intrafiExclusionId, params, RequestOptions.none())
 
-    /** @see [archive] */
+    /** @see archive */
     fun archive(
         params: IntrafiExclusionArchiveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<IntrafiExclusion>
 
-    /** @see [archive] */
+    /** @see archive */
     fun archive(params: IntrafiExclusionArchiveParams): CompletableFuture<IntrafiExclusion> =
         archive(params, RequestOptions.none())
 
-    /** @see [archive] */
+    /** @see archive */
     fun archive(
         intrafiExclusionId: String,
         requestOptions: RequestOptions,
@@ -153,7 +153,7 @@ interface IntrafiExclusionServiceAsync {
         ): CompletableFuture<HttpResponseFor<IntrafiExclusion>> =
             create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         fun create(
             params: IntrafiExclusionCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
@@ -168,7 +168,7 @@ interface IntrafiExclusionServiceAsync {
         ): CompletableFuture<HttpResponseFor<IntrafiExclusion>> =
             retrieve(intrafiExclusionId, IntrafiExclusionRetrieveParams.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             intrafiExclusionId: String,
             params: IntrafiExclusionRetrieveParams = IntrafiExclusionRetrieveParams.none(),
@@ -179,26 +179,26 @@ interface IntrafiExclusionServiceAsync {
                 requestOptions,
             )
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             intrafiExclusionId: String,
             params: IntrafiExclusionRetrieveParams = IntrafiExclusionRetrieveParams.none(),
         ): CompletableFuture<HttpResponseFor<IntrafiExclusion>> =
             retrieve(intrafiExclusionId, params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             params: IntrafiExclusionRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<IntrafiExclusion>>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             params: IntrafiExclusionRetrieveParams
         ): CompletableFuture<HttpResponseFor<IntrafiExclusion>> =
             retrieve(params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             intrafiExclusionId: String,
             requestOptions: RequestOptions,
@@ -212,19 +212,19 @@ interface IntrafiExclusionServiceAsync {
         fun list(): CompletableFuture<HttpResponseFor<IntrafiExclusionListPageAsync>> =
             list(IntrafiExclusionListParams.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: IntrafiExclusionListParams = IntrafiExclusionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<IntrafiExclusionListPageAsync>>
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: IntrafiExclusionListParams = IntrafiExclusionListParams.none()
         ): CompletableFuture<HttpResponseFor<IntrafiExclusionListPageAsync>> =
             list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             requestOptions: RequestOptions
         ): CompletableFuture<HttpResponseFor<IntrafiExclusionListPageAsync>> =
@@ -240,7 +240,7 @@ interface IntrafiExclusionServiceAsync {
         ): CompletableFuture<HttpResponseFor<IntrafiExclusion>> =
             archive(intrafiExclusionId, IntrafiExclusionArchiveParams.none())
 
-        /** @see [archive] */
+        /** @see archive */
         fun archive(
             intrafiExclusionId: String,
             params: IntrafiExclusionArchiveParams = IntrafiExclusionArchiveParams.none(),
@@ -251,26 +251,26 @@ interface IntrafiExclusionServiceAsync {
                 requestOptions,
             )
 
-        /** @see [archive] */
+        /** @see archive */
         fun archive(
             intrafiExclusionId: String,
             params: IntrafiExclusionArchiveParams = IntrafiExclusionArchiveParams.none(),
         ): CompletableFuture<HttpResponseFor<IntrafiExclusion>> =
             archive(intrafiExclusionId, params, RequestOptions.none())
 
-        /** @see [archive] */
+        /** @see archive */
         fun archive(
             params: IntrafiExclusionArchiveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<IntrafiExclusion>>
 
-        /** @see [archive] */
+        /** @see archive */
         fun archive(
             params: IntrafiExclusionArchiveParams
         ): CompletableFuture<HttpResponseFor<IntrafiExclusion>> =
             archive(params, RequestOptions.none())
 
-        /** @see [archive] */
+        /** @see archive */
         fun archive(
             intrafiExclusionId: String,
             requestOptions: RequestOptions,

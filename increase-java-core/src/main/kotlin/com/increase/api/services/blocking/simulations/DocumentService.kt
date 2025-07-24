@@ -27,7 +27,7 @@ interface DocumentService {
     /** Simulates an tax document being created for an account. */
     fun create(params: DocumentCreateParams): Document = create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: DocumentCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -51,7 +51,7 @@ interface DocumentService {
         fun create(params: DocumentCreateParams): HttpResponseFor<Document> =
             create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         @MustBeClosed
         fun create(
             params: DocumentCreateParams,

@@ -30,7 +30,7 @@ interface ProgramServiceAsync {
     fun retrieve(programId: String): CompletableFuture<Program> =
         retrieve(programId, ProgramRetrieveParams.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         programId: String,
         params: ProgramRetrieveParams = ProgramRetrieveParams.none(),
@@ -38,41 +38,41 @@ interface ProgramServiceAsync {
     ): CompletableFuture<Program> =
         retrieve(params.toBuilder().programId(programId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         programId: String,
         params: ProgramRetrieveParams = ProgramRetrieveParams.none(),
     ): CompletableFuture<Program> = retrieve(programId, params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: ProgramRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Program>
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(params: ProgramRetrieveParams): CompletableFuture<Program> =
         retrieve(params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(programId: String, requestOptions: RequestOptions): CompletableFuture<Program> =
         retrieve(programId, ProgramRetrieveParams.none(), requestOptions)
 
     /** List Programs */
     fun list(): CompletableFuture<ProgramListPageAsync> = list(ProgramListParams.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: ProgramListParams = ProgramListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ProgramListPageAsync>
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: ProgramListParams = ProgramListParams.none()
     ): CompletableFuture<ProgramListPageAsync> = list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): CompletableFuture<ProgramListPageAsync> =
         list(ProgramListParams.none(), requestOptions)
 
@@ -97,7 +97,7 @@ interface ProgramServiceAsync {
         fun retrieve(programId: String): CompletableFuture<HttpResponseFor<Program>> =
             retrieve(programId, ProgramRetrieveParams.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             programId: String,
             params: ProgramRetrieveParams = ProgramRetrieveParams.none(),
@@ -105,24 +105,24 @@ interface ProgramServiceAsync {
         ): CompletableFuture<HttpResponseFor<Program>> =
             retrieve(params.toBuilder().programId(programId).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             programId: String,
             params: ProgramRetrieveParams = ProgramRetrieveParams.none(),
         ): CompletableFuture<HttpResponseFor<Program>> =
             retrieve(programId, params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             params: ProgramRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<Program>>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(params: ProgramRetrieveParams): CompletableFuture<HttpResponseFor<Program>> =
             retrieve(params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             programId: String,
             requestOptions: RequestOptions,
@@ -136,19 +136,19 @@ interface ProgramServiceAsync {
         fun list(): CompletableFuture<HttpResponseFor<ProgramListPageAsync>> =
             list(ProgramListParams.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: ProgramListParams = ProgramListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<ProgramListPageAsync>>
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: ProgramListParams = ProgramListParams.none()
         ): CompletableFuture<HttpResponseFor<ProgramListPageAsync>> =
             list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             requestOptions: RequestOptions
         ): CompletableFuture<HttpResponseFor<ProgramListPageAsync>> =

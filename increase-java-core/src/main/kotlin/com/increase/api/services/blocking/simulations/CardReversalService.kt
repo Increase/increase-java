@@ -32,7 +32,7 @@ interface CardReversalService {
     fun create(params: CardReversalCreateParams): CardPayment =
         create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: CardReversalCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -60,7 +60,7 @@ interface CardReversalService {
         fun create(params: CardReversalCreateParams): HttpResponseFor<CardPayment> =
             create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         @MustBeClosed
         fun create(
             params: CardReversalCreateParams,

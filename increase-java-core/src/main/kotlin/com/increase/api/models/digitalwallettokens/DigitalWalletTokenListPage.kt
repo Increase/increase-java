@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** @see [DigitalWalletTokenService.list] */
+/** @see DigitalWalletTokenService.list */
 class DigitalWalletTokenListPage
 private constructor(
     private val service: DigitalWalletTokenService,
@@ -21,7 +21,7 @@ private constructor(
     /**
      * Delegates to [DigitalWalletTokenListPageResponse], but gracefully handles missing data.
      *
-     * @see [DigitalWalletTokenListPageResponse.data]
+     * @see DigitalWalletTokenListPageResponse.data
      */
     fun data(): List<DigitalWalletToken> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
@@ -29,7 +29,7 @@ private constructor(
     /**
      * Delegates to [DigitalWalletTokenListPageResponse], but gracefully handles missing data.
      *
-     * @see [DigitalWalletTokenListPageResponse.nextCursor]
+     * @see DigitalWalletTokenListPageResponse.nextCursor
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 

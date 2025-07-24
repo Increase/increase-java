@@ -33,7 +33,7 @@ interface AchTransferServiceAsync {
     fun create(params: AchTransferCreateParams): CompletableFuture<AchTransfer> =
         create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: AchTransferCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -43,7 +43,7 @@ interface AchTransferServiceAsync {
     fun retrieve(achTransferId: String): CompletableFuture<AchTransfer> =
         retrieve(achTransferId, AchTransferRetrieveParams.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         achTransferId: String,
         params: AchTransferRetrieveParams = AchTransferRetrieveParams.none(),
@@ -51,23 +51,23 @@ interface AchTransferServiceAsync {
     ): CompletableFuture<AchTransfer> =
         retrieve(params.toBuilder().achTransferId(achTransferId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         achTransferId: String,
         params: AchTransferRetrieveParams = AchTransferRetrieveParams.none(),
     ): CompletableFuture<AchTransfer> = retrieve(achTransferId, params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: AchTransferRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AchTransfer>
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(params: AchTransferRetrieveParams): CompletableFuture<AchTransfer> =
         retrieve(params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         achTransferId: String,
         requestOptions: RequestOptions,
@@ -77,18 +77,18 @@ interface AchTransferServiceAsync {
     /** List ACH Transfers */
     fun list(): CompletableFuture<AchTransferListPageAsync> = list(AchTransferListParams.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: AchTransferListParams = AchTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AchTransferListPageAsync>
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: AchTransferListParams = AchTransferListParams.none()
     ): CompletableFuture<AchTransferListPageAsync> = list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): CompletableFuture<AchTransferListPageAsync> =
         list(AchTransferListParams.none(), requestOptions)
 
@@ -96,7 +96,7 @@ interface AchTransferServiceAsync {
     fun approve(achTransferId: String): CompletableFuture<AchTransfer> =
         approve(achTransferId, AchTransferApproveParams.none())
 
-    /** @see [approve] */
+    /** @see approve */
     fun approve(
         achTransferId: String,
         params: AchTransferApproveParams = AchTransferApproveParams.none(),
@@ -104,23 +104,23 @@ interface AchTransferServiceAsync {
     ): CompletableFuture<AchTransfer> =
         approve(params.toBuilder().achTransferId(achTransferId).build(), requestOptions)
 
-    /** @see [approve] */
+    /** @see approve */
     fun approve(
         achTransferId: String,
         params: AchTransferApproveParams = AchTransferApproveParams.none(),
     ): CompletableFuture<AchTransfer> = approve(achTransferId, params, RequestOptions.none())
 
-    /** @see [approve] */
+    /** @see approve */
     fun approve(
         params: AchTransferApproveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AchTransfer>
 
-    /** @see [approve] */
+    /** @see approve */
     fun approve(params: AchTransferApproveParams): CompletableFuture<AchTransfer> =
         approve(params, RequestOptions.none())
 
-    /** @see [approve] */
+    /** @see approve */
     fun approve(
         achTransferId: String,
         requestOptions: RequestOptions,
@@ -131,7 +131,7 @@ interface AchTransferServiceAsync {
     fun cancel(achTransferId: String): CompletableFuture<AchTransfer> =
         cancel(achTransferId, AchTransferCancelParams.none())
 
-    /** @see [cancel] */
+    /** @see cancel */
     fun cancel(
         achTransferId: String,
         params: AchTransferCancelParams = AchTransferCancelParams.none(),
@@ -139,23 +139,23 @@ interface AchTransferServiceAsync {
     ): CompletableFuture<AchTransfer> =
         cancel(params.toBuilder().achTransferId(achTransferId).build(), requestOptions)
 
-    /** @see [cancel] */
+    /** @see cancel */
     fun cancel(
         achTransferId: String,
         params: AchTransferCancelParams = AchTransferCancelParams.none(),
     ): CompletableFuture<AchTransfer> = cancel(achTransferId, params, RequestOptions.none())
 
-    /** @see [cancel] */
+    /** @see cancel */
     fun cancel(
         params: AchTransferCancelParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AchTransfer>
 
-    /** @see [cancel] */
+    /** @see cancel */
     fun cancel(params: AchTransferCancelParams): CompletableFuture<AchTransfer> =
         cancel(params, RequestOptions.none())
 
-    /** @see [cancel] */
+    /** @see cancel */
     fun cancel(
         achTransferId: String,
         requestOptions: RequestOptions,
@@ -185,7 +185,7 @@ interface AchTransferServiceAsync {
             params: AchTransferCreateParams
         ): CompletableFuture<HttpResponseFor<AchTransfer>> = create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         fun create(
             params: AchTransferCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
@@ -198,7 +198,7 @@ interface AchTransferServiceAsync {
         fun retrieve(achTransferId: String): CompletableFuture<HttpResponseFor<AchTransfer>> =
             retrieve(achTransferId, AchTransferRetrieveParams.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             achTransferId: String,
             params: AchTransferRetrieveParams = AchTransferRetrieveParams.none(),
@@ -206,25 +206,25 @@ interface AchTransferServiceAsync {
         ): CompletableFuture<HttpResponseFor<AchTransfer>> =
             retrieve(params.toBuilder().achTransferId(achTransferId).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             achTransferId: String,
             params: AchTransferRetrieveParams = AchTransferRetrieveParams.none(),
         ): CompletableFuture<HttpResponseFor<AchTransfer>> =
             retrieve(achTransferId, params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             params: AchTransferRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<AchTransfer>>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             params: AchTransferRetrieveParams
         ): CompletableFuture<HttpResponseFor<AchTransfer>> = retrieve(params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             achTransferId: String,
             requestOptions: RequestOptions,
@@ -238,19 +238,19 @@ interface AchTransferServiceAsync {
         fun list(): CompletableFuture<HttpResponseFor<AchTransferListPageAsync>> =
             list(AchTransferListParams.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: AchTransferListParams = AchTransferListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<AchTransferListPageAsync>>
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: AchTransferListParams = AchTransferListParams.none()
         ): CompletableFuture<HttpResponseFor<AchTransferListPageAsync>> =
             list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             requestOptions: RequestOptions
         ): CompletableFuture<HttpResponseFor<AchTransferListPageAsync>> =
@@ -263,7 +263,7 @@ interface AchTransferServiceAsync {
         fun approve(achTransferId: String): CompletableFuture<HttpResponseFor<AchTransfer>> =
             approve(achTransferId, AchTransferApproveParams.none())
 
-        /** @see [approve] */
+        /** @see approve */
         fun approve(
             achTransferId: String,
             params: AchTransferApproveParams = AchTransferApproveParams.none(),
@@ -271,25 +271,25 @@ interface AchTransferServiceAsync {
         ): CompletableFuture<HttpResponseFor<AchTransfer>> =
             approve(params.toBuilder().achTransferId(achTransferId).build(), requestOptions)
 
-        /** @see [approve] */
+        /** @see approve */
         fun approve(
             achTransferId: String,
             params: AchTransferApproveParams = AchTransferApproveParams.none(),
         ): CompletableFuture<HttpResponseFor<AchTransfer>> =
             approve(achTransferId, params, RequestOptions.none())
 
-        /** @see [approve] */
+        /** @see approve */
         fun approve(
             params: AchTransferApproveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<AchTransfer>>
 
-        /** @see [approve] */
+        /** @see approve */
         fun approve(
             params: AchTransferApproveParams
         ): CompletableFuture<HttpResponseFor<AchTransfer>> = approve(params, RequestOptions.none())
 
-        /** @see [approve] */
+        /** @see approve */
         fun approve(
             achTransferId: String,
             requestOptions: RequestOptions,
@@ -303,7 +303,7 @@ interface AchTransferServiceAsync {
         fun cancel(achTransferId: String): CompletableFuture<HttpResponseFor<AchTransfer>> =
             cancel(achTransferId, AchTransferCancelParams.none())
 
-        /** @see [cancel] */
+        /** @see cancel */
         fun cancel(
             achTransferId: String,
             params: AchTransferCancelParams = AchTransferCancelParams.none(),
@@ -311,25 +311,25 @@ interface AchTransferServiceAsync {
         ): CompletableFuture<HttpResponseFor<AchTransfer>> =
             cancel(params.toBuilder().achTransferId(achTransferId).build(), requestOptions)
 
-        /** @see [cancel] */
+        /** @see cancel */
         fun cancel(
             achTransferId: String,
             params: AchTransferCancelParams = AchTransferCancelParams.none(),
         ): CompletableFuture<HttpResponseFor<AchTransfer>> =
             cancel(achTransferId, params, RequestOptions.none())
 
-        /** @see [cancel] */
+        /** @see cancel */
         fun cancel(
             params: AchTransferCancelParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<AchTransfer>>
 
-        /** @see [cancel] */
+        /** @see cancel */
         fun cancel(
             params: AchTransferCancelParams
         ): CompletableFuture<HttpResponseFor<AchTransfer>> = cancel(params, RequestOptions.none())
 
-        /** @see [cancel] */
+        /** @see cancel */
         fun cancel(
             achTransferId: String,
             requestOptions: RequestOptions,

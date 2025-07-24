@@ -31,7 +31,7 @@ interface SupplementalDocumentServiceAsync {
         params: SupplementalDocumentCreateParams
     ): CompletableFuture<EntitySupplementalDocument> = create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: SupplementalDocumentCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -42,7 +42,7 @@ interface SupplementalDocumentServiceAsync {
         params: SupplementalDocumentListParams
     ): CompletableFuture<SupplementalDocumentListPageAsync> = list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: SupplementalDocumentListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -72,7 +72,7 @@ interface SupplementalDocumentServiceAsync {
         ): CompletableFuture<HttpResponseFor<EntitySupplementalDocument>> =
             create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         fun create(
             params: SupplementalDocumentCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
@@ -87,7 +87,7 @@ interface SupplementalDocumentServiceAsync {
         ): CompletableFuture<HttpResponseFor<SupplementalDocumentListPageAsync>> =
             list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: SupplementalDocumentListParams,
             requestOptions: RequestOptions = RequestOptions.none(),

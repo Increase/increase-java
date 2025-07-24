@@ -37,7 +37,7 @@ interface PendingTransactionService {
     fun create(params: PendingTransactionCreateParams): PendingTransaction =
         create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: PendingTransactionCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -47,7 +47,7 @@ interface PendingTransactionService {
     fun retrieve(pendingTransactionId: String): PendingTransaction =
         retrieve(pendingTransactionId, PendingTransactionRetrieveParams.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         pendingTransactionId: String,
         params: PendingTransactionRetrieveParams = PendingTransactionRetrieveParams.none(),
@@ -58,41 +58,41 @@ interface PendingTransactionService {
             requestOptions,
         )
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         pendingTransactionId: String,
         params: PendingTransactionRetrieveParams = PendingTransactionRetrieveParams.none(),
     ): PendingTransaction = retrieve(pendingTransactionId, params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: PendingTransactionRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PendingTransaction
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(params: PendingTransactionRetrieveParams): PendingTransaction =
         retrieve(params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(pendingTransactionId: String, requestOptions: RequestOptions): PendingTransaction =
         retrieve(pendingTransactionId, PendingTransactionRetrieveParams.none(), requestOptions)
 
     /** List Pending Transactions */
     fun list(): PendingTransactionListPage = list(PendingTransactionListParams.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: PendingTransactionListParams = PendingTransactionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PendingTransactionListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: PendingTransactionListParams = PendingTransactionListParams.none()
     ): PendingTransactionListPage = list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): PendingTransactionListPage =
         list(PendingTransactionListParams.none(), requestOptions)
 
@@ -104,7 +104,7 @@ interface PendingTransactionService {
     fun release(pendingTransactionId: String): PendingTransaction =
         release(pendingTransactionId, PendingTransactionReleaseParams.none())
 
-    /** @see [release] */
+    /** @see release */
     fun release(
         pendingTransactionId: String,
         params: PendingTransactionReleaseParams = PendingTransactionReleaseParams.none(),
@@ -115,23 +115,23 @@ interface PendingTransactionService {
             requestOptions,
         )
 
-    /** @see [release] */
+    /** @see release */
     fun release(
         pendingTransactionId: String,
         params: PendingTransactionReleaseParams = PendingTransactionReleaseParams.none(),
     ): PendingTransaction = release(pendingTransactionId, params, RequestOptions.none())
 
-    /** @see [release] */
+    /** @see release */
     fun release(
         params: PendingTransactionReleaseParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PendingTransaction
 
-    /** @see [release] */
+    /** @see release */
     fun release(params: PendingTransactionReleaseParams): PendingTransaction =
         release(params, RequestOptions.none())
 
-    /** @see [release] */
+    /** @see release */
     fun release(pendingTransactionId: String, requestOptions: RequestOptions): PendingTransaction =
         release(pendingTransactionId, PendingTransactionReleaseParams.none(), requestOptions)
 
@@ -158,7 +158,7 @@ interface PendingTransactionService {
         fun create(params: PendingTransactionCreateParams): HttpResponseFor<PendingTransaction> =
             create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         @MustBeClosed
         fun create(
             params: PendingTransactionCreateParams,
@@ -173,7 +173,7 @@ interface PendingTransactionService {
         fun retrieve(pendingTransactionId: String): HttpResponseFor<PendingTransaction> =
             retrieve(pendingTransactionId, PendingTransactionRetrieveParams.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             pendingTransactionId: String,
@@ -185,7 +185,7 @@ interface PendingTransactionService {
                 requestOptions,
             )
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             pendingTransactionId: String,
@@ -193,20 +193,20 @@ interface PendingTransactionService {
         ): HttpResponseFor<PendingTransaction> =
             retrieve(pendingTransactionId, params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: PendingTransactionRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PendingTransaction>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: PendingTransactionRetrieveParams
         ): HttpResponseFor<PendingTransaction> = retrieve(params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             pendingTransactionId: String,
@@ -222,20 +222,20 @@ interface PendingTransactionService {
         fun list(): HttpResponseFor<PendingTransactionListPage> =
             list(PendingTransactionListParams.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             params: PendingTransactionListParams = PendingTransactionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PendingTransactionListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             params: PendingTransactionListParams = PendingTransactionListParams.none()
         ): HttpResponseFor<PendingTransactionListPage> = list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<PendingTransactionListPage> =
             list(PendingTransactionListParams.none(), requestOptions)
@@ -249,7 +249,7 @@ interface PendingTransactionService {
         fun release(pendingTransactionId: String): HttpResponseFor<PendingTransaction> =
             release(pendingTransactionId, PendingTransactionReleaseParams.none())
 
-        /** @see [release] */
+        /** @see release */
         @MustBeClosed
         fun release(
             pendingTransactionId: String,
@@ -261,7 +261,7 @@ interface PendingTransactionService {
                 requestOptions,
             )
 
-        /** @see [release] */
+        /** @see release */
         @MustBeClosed
         fun release(
             pendingTransactionId: String,
@@ -269,19 +269,19 @@ interface PendingTransactionService {
         ): HttpResponseFor<PendingTransaction> =
             release(pendingTransactionId, params, RequestOptions.none())
 
-        /** @see [release] */
+        /** @see release */
         @MustBeClosed
         fun release(
             params: PendingTransactionReleaseParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PendingTransaction>
 
-        /** @see [release] */
+        /** @see release */
         @MustBeClosed
         fun release(params: PendingTransactionReleaseParams): HttpResponseFor<PendingTransaction> =
             release(params, RequestOptions.none())
 
-        /** @see [release] */
+        /** @see release */
         @MustBeClosed
         fun release(
             pendingTransactionId: String,

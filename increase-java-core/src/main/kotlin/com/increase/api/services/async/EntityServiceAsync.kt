@@ -38,7 +38,7 @@ interface EntityServiceAsync {
     fun create(params: EntityCreateParams): CompletableFuture<Entity> =
         create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: EntityCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -48,7 +48,7 @@ interface EntityServiceAsync {
     fun retrieve(entityId: String): CompletableFuture<Entity> =
         retrieve(entityId, EntityRetrieveParams.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         entityId: String,
         params: EntityRetrieveParams = EntityRetrieveParams.none(),
@@ -56,41 +56,41 @@ interface EntityServiceAsync {
     ): CompletableFuture<Entity> =
         retrieve(params.toBuilder().entityId(entityId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         entityId: String,
         params: EntityRetrieveParams = EntityRetrieveParams.none(),
     ): CompletableFuture<Entity> = retrieve(entityId, params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: EntityRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Entity>
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(params: EntityRetrieveParams): CompletableFuture<Entity> =
         retrieve(params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(entityId: String, requestOptions: RequestOptions): CompletableFuture<Entity> =
         retrieve(entityId, EntityRetrieveParams.none(), requestOptions)
 
     /** List Entities */
     fun list(): CompletableFuture<EntityListPageAsync> = list(EntityListParams.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: EntityListParams = EntityListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<EntityListPageAsync>
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: EntityListParams = EntityListParams.none()
     ): CompletableFuture<EntityListPageAsync> = list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): CompletableFuture<EntityListPageAsync> =
         list(EntityListParams.none(), requestOptions)
 
@@ -98,7 +98,7 @@ interface EntityServiceAsync {
     fun archive(entityId: String): CompletableFuture<Entity> =
         archive(entityId, EntityArchiveParams.none())
 
-    /** @see [archive] */
+    /** @see archive */
     fun archive(
         entityId: String,
         params: EntityArchiveParams = EntityArchiveParams.none(),
@@ -106,23 +106,23 @@ interface EntityServiceAsync {
     ): CompletableFuture<Entity> =
         archive(params.toBuilder().entityId(entityId).build(), requestOptions)
 
-    /** @see [archive] */
+    /** @see archive */
     fun archive(
         entityId: String,
         params: EntityArchiveParams = EntityArchiveParams.none(),
     ): CompletableFuture<Entity> = archive(entityId, params, RequestOptions.none())
 
-    /** @see [archive] */
+    /** @see archive */
     fun archive(
         params: EntityArchiveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Entity>
 
-    /** @see [archive] */
+    /** @see archive */
     fun archive(params: EntityArchiveParams): CompletableFuture<Entity> =
         archive(params, RequestOptions.none())
 
-    /** @see [archive] */
+    /** @see archive */
     fun archive(entityId: String, requestOptions: RequestOptions): CompletableFuture<Entity> =
         archive(entityId, EntityArchiveParams.none(), requestOptions)
 
@@ -132,7 +132,7 @@ interface EntityServiceAsync {
         params: EntityArchiveBeneficialOwnerParams,
     ): CompletableFuture<Entity> = archiveBeneficialOwner(entityId, params, RequestOptions.none())
 
-    /** @see [archiveBeneficialOwner] */
+    /** @see archiveBeneficialOwner */
     fun archiveBeneficialOwner(
         entityId: String,
         params: EntityArchiveBeneficialOwnerParams,
@@ -140,12 +140,12 @@ interface EntityServiceAsync {
     ): CompletableFuture<Entity> =
         archiveBeneficialOwner(params.toBuilder().entityId(entityId).build(), requestOptions)
 
-    /** @see [archiveBeneficialOwner] */
+    /** @see archiveBeneficialOwner */
     fun archiveBeneficialOwner(
         params: EntityArchiveBeneficialOwnerParams
     ): CompletableFuture<Entity> = archiveBeneficialOwner(params, RequestOptions.none())
 
-    /** @see [archiveBeneficialOwner] */
+    /** @see archiveBeneficialOwner */
     fun archiveBeneficialOwner(
         params: EntityArchiveBeneficialOwnerParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -159,7 +159,7 @@ interface EntityServiceAsync {
     fun confirm(entityId: String): CompletableFuture<Entity> =
         confirm(entityId, EntityConfirmParams.none())
 
-    /** @see [confirm] */
+    /** @see confirm */
     fun confirm(
         entityId: String,
         params: EntityConfirmParams = EntityConfirmParams.none(),
@@ -167,23 +167,23 @@ interface EntityServiceAsync {
     ): CompletableFuture<Entity> =
         confirm(params.toBuilder().entityId(entityId).build(), requestOptions)
 
-    /** @see [confirm] */
+    /** @see confirm */
     fun confirm(
         entityId: String,
         params: EntityConfirmParams = EntityConfirmParams.none(),
     ): CompletableFuture<Entity> = confirm(entityId, params, RequestOptions.none())
 
-    /** @see [confirm] */
+    /** @see confirm */
     fun confirm(
         params: EntityConfirmParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Entity>
 
-    /** @see [confirm] */
+    /** @see confirm */
     fun confirm(params: EntityConfirmParams): CompletableFuture<Entity> =
         confirm(params, RequestOptions.none())
 
-    /** @see [confirm] */
+    /** @see confirm */
     fun confirm(entityId: String, requestOptions: RequestOptions): CompletableFuture<Entity> =
         confirm(entityId, EntityConfirmParams.none(), requestOptions)
 
@@ -193,7 +193,7 @@ interface EntityServiceAsync {
         params: EntityCreateBeneficialOwnerParams,
     ): CompletableFuture<Entity> = createBeneficialOwner(entityId, params, RequestOptions.none())
 
-    /** @see [createBeneficialOwner] */
+    /** @see createBeneficialOwner */
     fun createBeneficialOwner(
         entityId: String,
         params: EntityCreateBeneficialOwnerParams,
@@ -201,12 +201,12 @@ interface EntityServiceAsync {
     ): CompletableFuture<Entity> =
         createBeneficialOwner(params.toBuilder().entityId(entityId).build(), requestOptions)
 
-    /** @see [createBeneficialOwner] */
+    /** @see createBeneficialOwner */
     fun createBeneficialOwner(
         params: EntityCreateBeneficialOwnerParams
     ): CompletableFuture<Entity> = createBeneficialOwner(params, RequestOptions.none())
 
-    /** @see [createBeneficialOwner] */
+    /** @see createBeneficialOwner */
     fun createBeneficialOwner(
         params: EntityCreateBeneficialOwnerParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -218,7 +218,7 @@ interface EntityServiceAsync {
         params: EntityUpdateAddressParams,
     ): CompletableFuture<Entity> = updateAddress(entityId, params, RequestOptions.none())
 
-    /** @see [updateAddress] */
+    /** @see updateAddress */
     fun updateAddress(
         entityId: String,
         params: EntityUpdateAddressParams,
@@ -226,11 +226,11 @@ interface EntityServiceAsync {
     ): CompletableFuture<Entity> =
         updateAddress(params.toBuilder().entityId(entityId).build(), requestOptions)
 
-    /** @see [updateAddress] */
+    /** @see updateAddress */
     fun updateAddress(params: EntityUpdateAddressParams): CompletableFuture<Entity> =
         updateAddress(params, RequestOptions.none())
 
-    /** @see [updateAddress] */
+    /** @see updateAddress */
     fun updateAddress(
         params: EntityUpdateAddressParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -243,7 +243,7 @@ interface EntityServiceAsync {
     ): CompletableFuture<Entity> =
         updateBeneficialOwnerAddress(entityId, params, RequestOptions.none())
 
-    /** @see [updateBeneficialOwnerAddress] */
+    /** @see updateBeneficialOwnerAddress */
     fun updateBeneficialOwnerAddress(
         entityId: String,
         params: EntityUpdateBeneficialOwnerAddressParams,
@@ -251,12 +251,12 @@ interface EntityServiceAsync {
     ): CompletableFuture<Entity> =
         updateBeneficialOwnerAddress(params.toBuilder().entityId(entityId).build(), requestOptions)
 
-    /** @see [updateBeneficialOwnerAddress] */
+    /** @see updateBeneficialOwnerAddress */
     fun updateBeneficialOwnerAddress(
         params: EntityUpdateBeneficialOwnerAddressParams
     ): CompletableFuture<Entity> = updateBeneficialOwnerAddress(params, RequestOptions.none())
 
-    /** @see [updateBeneficialOwnerAddress] */
+    /** @see updateBeneficialOwnerAddress */
     fun updateBeneficialOwnerAddress(
         params: EntityUpdateBeneficialOwnerAddressParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -268,7 +268,7 @@ interface EntityServiceAsync {
         params: EntityUpdateIndustryCodeParams,
     ): CompletableFuture<Entity> = updateIndustryCode(entityId, params, RequestOptions.none())
 
-    /** @see [updateIndustryCode] */
+    /** @see updateIndustryCode */
     fun updateIndustryCode(
         entityId: String,
         params: EntityUpdateIndustryCodeParams,
@@ -276,11 +276,11 @@ interface EntityServiceAsync {
     ): CompletableFuture<Entity> =
         updateIndustryCode(params.toBuilder().entityId(entityId).build(), requestOptions)
 
-    /** @see [updateIndustryCode] */
+    /** @see updateIndustryCode */
     fun updateIndustryCode(params: EntityUpdateIndustryCodeParams): CompletableFuture<Entity> =
         updateIndustryCode(params, RequestOptions.none())
 
-    /** @see [updateIndustryCode] */
+    /** @see updateIndustryCode */
     fun updateIndustryCode(
         params: EntityUpdateIndustryCodeParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -307,7 +307,7 @@ interface EntityServiceAsync {
         fun create(params: EntityCreateParams): CompletableFuture<HttpResponseFor<Entity>> =
             create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         fun create(
             params: EntityCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
@@ -320,7 +320,7 @@ interface EntityServiceAsync {
         fun retrieve(entityId: String): CompletableFuture<HttpResponseFor<Entity>> =
             retrieve(entityId, EntityRetrieveParams.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             entityId: String,
             params: EntityRetrieveParams = EntityRetrieveParams.none(),
@@ -328,24 +328,24 @@ interface EntityServiceAsync {
         ): CompletableFuture<HttpResponseFor<Entity>> =
             retrieve(params.toBuilder().entityId(entityId).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             entityId: String,
             params: EntityRetrieveParams = EntityRetrieveParams.none(),
         ): CompletableFuture<HttpResponseFor<Entity>> =
             retrieve(entityId, params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             params: EntityRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<Entity>>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(params: EntityRetrieveParams): CompletableFuture<HttpResponseFor<Entity>> =
             retrieve(params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             entityId: String,
             requestOptions: RequestOptions,
@@ -359,19 +359,19 @@ interface EntityServiceAsync {
         fun list(): CompletableFuture<HttpResponseFor<EntityListPageAsync>> =
             list(EntityListParams.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: EntityListParams = EntityListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<EntityListPageAsync>>
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: EntityListParams = EntityListParams.none()
         ): CompletableFuture<HttpResponseFor<EntityListPageAsync>> =
             list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             requestOptions: RequestOptions
         ): CompletableFuture<HttpResponseFor<EntityListPageAsync>> =
@@ -384,7 +384,7 @@ interface EntityServiceAsync {
         fun archive(entityId: String): CompletableFuture<HttpResponseFor<Entity>> =
             archive(entityId, EntityArchiveParams.none())
 
-        /** @see [archive] */
+        /** @see archive */
         fun archive(
             entityId: String,
             params: EntityArchiveParams = EntityArchiveParams.none(),
@@ -392,24 +392,24 @@ interface EntityServiceAsync {
         ): CompletableFuture<HttpResponseFor<Entity>> =
             archive(params.toBuilder().entityId(entityId).build(), requestOptions)
 
-        /** @see [archive] */
+        /** @see archive */
         fun archive(
             entityId: String,
             params: EntityArchiveParams = EntityArchiveParams.none(),
         ): CompletableFuture<HttpResponseFor<Entity>> =
             archive(entityId, params, RequestOptions.none())
 
-        /** @see [archive] */
+        /** @see archive */
         fun archive(
             params: EntityArchiveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<Entity>>
 
-        /** @see [archive] */
+        /** @see archive */
         fun archive(params: EntityArchiveParams): CompletableFuture<HttpResponseFor<Entity>> =
             archive(params, RequestOptions.none())
 
-        /** @see [archive] */
+        /** @see archive */
         fun archive(
             entityId: String,
             requestOptions: RequestOptions,
@@ -426,7 +426,7 @@ interface EntityServiceAsync {
         ): CompletableFuture<HttpResponseFor<Entity>> =
             archiveBeneficialOwner(entityId, params, RequestOptions.none())
 
-        /** @see [archiveBeneficialOwner] */
+        /** @see archiveBeneficialOwner */
         fun archiveBeneficialOwner(
             entityId: String,
             params: EntityArchiveBeneficialOwnerParams,
@@ -434,13 +434,13 @@ interface EntityServiceAsync {
         ): CompletableFuture<HttpResponseFor<Entity>> =
             archiveBeneficialOwner(params.toBuilder().entityId(entityId).build(), requestOptions)
 
-        /** @see [archiveBeneficialOwner] */
+        /** @see archiveBeneficialOwner */
         fun archiveBeneficialOwner(
             params: EntityArchiveBeneficialOwnerParams
         ): CompletableFuture<HttpResponseFor<Entity>> =
             archiveBeneficialOwner(params, RequestOptions.none())
 
-        /** @see [archiveBeneficialOwner] */
+        /** @see archiveBeneficialOwner */
         fun archiveBeneficialOwner(
             params: EntityArchiveBeneficialOwnerParams,
             requestOptions: RequestOptions = RequestOptions.none(),
@@ -453,7 +453,7 @@ interface EntityServiceAsync {
         fun confirm(entityId: String): CompletableFuture<HttpResponseFor<Entity>> =
             confirm(entityId, EntityConfirmParams.none())
 
-        /** @see [confirm] */
+        /** @see confirm */
         fun confirm(
             entityId: String,
             params: EntityConfirmParams = EntityConfirmParams.none(),
@@ -461,24 +461,24 @@ interface EntityServiceAsync {
         ): CompletableFuture<HttpResponseFor<Entity>> =
             confirm(params.toBuilder().entityId(entityId).build(), requestOptions)
 
-        /** @see [confirm] */
+        /** @see confirm */
         fun confirm(
             entityId: String,
             params: EntityConfirmParams = EntityConfirmParams.none(),
         ): CompletableFuture<HttpResponseFor<Entity>> =
             confirm(entityId, params, RequestOptions.none())
 
-        /** @see [confirm] */
+        /** @see confirm */
         fun confirm(
             params: EntityConfirmParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<Entity>>
 
-        /** @see [confirm] */
+        /** @see confirm */
         fun confirm(params: EntityConfirmParams): CompletableFuture<HttpResponseFor<Entity>> =
             confirm(params, RequestOptions.none())
 
-        /** @see [confirm] */
+        /** @see confirm */
         fun confirm(
             entityId: String,
             requestOptions: RequestOptions,
@@ -495,7 +495,7 @@ interface EntityServiceAsync {
         ): CompletableFuture<HttpResponseFor<Entity>> =
             createBeneficialOwner(entityId, params, RequestOptions.none())
 
-        /** @see [createBeneficialOwner] */
+        /** @see createBeneficialOwner */
         fun createBeneficialOwner(
             entityId: String,
             params: EntityCreateBeneficialOwnerParams,
@@ -503,13 +503,13 @@ interface EntityServiceAsync {
         ): CompletableFuture<HttpResponseFor<Entity>> =
             createBeneficialOwner(params.toBuilder().entityId(entityId).build(), requestOptions)
 
-        /** @see [createBeneficialOwner] */
+        /** @see createBeneficialOwner */
         fun createBeneficialOwner(
             params: EntityCreateBeneficialOwnerParams
         ): CompletableFuture<HttpResponseFor<Entity>> =
             createBeneficialOwner(params, RequestOptions.none())
 
-        /** @see [createBeneficialOwner] */
+        /** @see createBeneficialOwner */
         fun createBeneficialOwner(
             params: EntityCreateBeneficialOwnerParams,
             requestOptions: RequestOptions = RequestOptions.none(),
@@ -525,7 +525,7 @@ interface EntityServiceAsync {
         ): CompletableFuture<HttpResponseFor<Entity>> =
             updateAddress(entityId, params, RequestOptions.none())
 
-        /** @see [updateAddress] */
+        /** @see updateAddress */
         fun updateAddress(
             entityId: String,
             params: EntityUpdateAddressParams,
@@ -533,12 +533,12 @@ interface EntityServiceAsync {
         ): CompletableFuture<HttpResponseFor<Entity>> =
             updateAddress(params.toBuilder().entityId(entityId).build(), requestOptions)
 
-        /** @see [updateAddress] */
+        /** @see updateAddress */
         fun updateAddress(
             params: EntityUpdateAddressParams
         ): CompletableFuture<HttpResponseFor<Entity>> = updateAddress(params, RequestOptions.none())
 
-        /** @see [updateAddress] */
+        /** @see updateAddress */
         fun updateAddress(
             params: EntityUpdateAddressParams,
             requestOptions: RequestOptions = RequestOptions.none(),
@@ -555,7 +555,7 @@ interface EntityServiceAsync {
         ): CompletableFuture<HttpResponseFor<Entity>> =
             updateBeneficialOwnerAddress(entityId, params, RequestOptions.none())
 
-        /** @see [updateBeneficialOwnerAddress] */
+        /** @see updateBeneficialOwnerAddress */
         fun updateBeneficialOwnerAddress(
             entityId: String,
             params: EntityUpdateBeneficialOwnerAddressParams,
@@ -566,13 +566,13 @@ interface EntityServiceAsync {
                 requestOptions,
             )
 
-        /** @see [updateBeneficialOwnerAddress] */
+        /** @see updateBeneficialOwnerAddress */
         fun updateBeneficialOwnerAddress(
             params: EntityUpdateBeneficialOwnerAddressParams
         ): CompletableFuture<HttpResponseFor<Entity>> =
             updateBeneficialOwnerAddress(params, RequestOptions.none())
 
-        /** @see [updateBeneficialOwnerAddress] */
+        /** @see updateBeneficialOwnerAddress */
         fun updateBeneficialOwnerAddress(
             params: EntityUpdateBeneficialOwnerAddressParams,
             requestOptions: RequestOptions = RequestOptions.none(),
@@ -588,7 +588,7 @@ interface EntityServiceAsync {
         ): CompletableFuture<HttpResponseFor<Entity>> =
             updateIndustryCode(entityId, params, RequestOptions.none())
 
-        /** @see [updateIndustryCode] */
+        /** @see updateIndustryCode */
         fun updateIndustryCode(
             entityId: String,
             params: EntityUpdateIndustryCodeParams,
@@ -596,13 +596,13 @@ interface EntityServiceAsync {
         ): CompletableFuture<HttpResponseFor<Entity>> =
             updateIndustryCode(params.toBuilder().entityId(entityId).build(), requestOptions)
 
-        /** @see [updateIndustryCode] */
+        /** @see updateIndustryCode */
         fun updateIndustryCode(
             params: EntityUpdateIndustryCodeParams
         ): CompletableFuture<HttpResponseFor<Entity>> =
             updateIndustryCode(params, RequestOptions.none())
 
-        /** @see [updateIndustryCode] */
+        /** @see updateIndustryCode */
         fun updateIndustryCode(
             params: EntityUpdateIndustryCodeParams,
             requestOptions: RequestOptions = RequestOptions.none(),

@@ -31,7 +31,7 @@ interface ExportServiceAsync {
     fun create(params: ExportCreateParams): CompletableFuture<Export> =
         create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: ExportCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -41,7 +41,7 @@ interface ExportServiceAsync {
     fun retrieve(exportId: String): CompletableFuture<Export> =
         retrieve(exportId, ExportRetrieveParams.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         exportId: String,
         params: ExportRetrieveParams = ExportRetrieveParams.none(),
@@ -49,41 +49,41 @@ interface ExportServiceAsync {
     ): CompletableFuture<Export> =
         retrieve(params.toBuilder().exportId(exportId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         exportId: String,
         params: ExportRetrieveParams = ExportRetrieveParams.none(),
     ): CompletableFuture<Export> = retrieve(exportId, params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: ExportRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Export>
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(params: ExportRetrieveParams): CompletableFuture<Export> =
         retrieve(params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(exportId: String, requestOptions: RequestOptions): CompletableFuture<Export> =
         retrieve(exportId, ExportRetrieveParams.none(), requestOptions)
 
     /** List Exports */
     fun list(): CompletableFuture<ExportListPageAsync> = list(ExportListParams.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: ExportListParams = ExportListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ExportListPageAsync>
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: ExportListParams = ExportListParams.none()
     ): CompletableFuture<ExportListPageAsync> = list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): CompletableFuture<ExportListPageAsync> =
         list(ExportListParams.none(), requestOptions)
 
@@ -108,7 +108,7 @@ interface ExportServiceAsync {
         fun create(params: ExportCreateParams): CompletableFuture<HttpResponseFor<Export>> =
             create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         fun create(
             params: ExportCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
@@ -121,7 +121,7 @@ interface ExportServiceAsync {
         fun retrieve(exportId: String): CompletableFuture<HttpResponseFor<Export>> =
             retrieve(exportId, ExportRetrieveParams.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             exportId: String,
             params: ExportRetrieveParams = ExportRetrieveParams.none(),
@@ -129,24 +129,24 @@ interface ExportServiceAsync {
         ): CompletableFuture<HttpResponseFor<Export>> =
             retrieve(params.toBuilder().exportId(exportId).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             exportId: String,
             params: ExportRetrieveParams = ExportRetrieveParams.none(),
         ): CompletableFuture<HttpResponseFor<Export>> =
             retrieve(exportId, params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             params: ExportRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<Export>>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(params: ExportRetrieveParams): CompletableFuture<HttpResponseFor<Export>> =
             retrieve(params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             exportId: String,
             requestOptions: RequestOptions,
@@ -160,19 +160,19 @@ interface ExportServiceAsync {
         fun list(): CompletableFuture<HttpResponseFor<ExportListPageAsync>> =
             list(ExportListParams.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: ExportListParams = ExportListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<ExportListPageAsync>>
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: ExportListParams = ExportListParams.none()
         ): CompletableFuture<HttpResponseFor<ExportListPageAsync>> =
             list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             requestOptions: RequestOptions
         ): CompletableFuture<HttpResponseFor<ExportListPageAsync>> =

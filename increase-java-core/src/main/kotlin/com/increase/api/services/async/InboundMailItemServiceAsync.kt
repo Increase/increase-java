@@ -30,7 +30,7 @@ interface InboundMailItemServiceAsync {
     fun retrieve(inboundMailItemId: String): CompletableFuture<InboundMailItem> =
         retrieve(inboundMailItemId, InboundMailItemRetrieveParams.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         inboundMailItemId: String,
         params: InboundMailItemRetrieveParams = InboundMailItemRetrieveParams.none(),
@@ -38,24 +38,24 @@ interface InboundMailItemServiceAsync {
     ): CompletableFuture<InboundMailItem> =
         retrieve(params.toBuilder().inboundMailItemId(inboundMailItemId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         inboundMailItemId: String,
         params: InboundMailItemRetrieveParams = InboundMailItemRetrieveParams.none(),
     ): CompletableFuture<InboundMailItem> =
         retrieve(inboundMailItemId, params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: InboundMailItemRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<InboundMailItem>
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(params: InboundMailItemRetrieveParams): CompletableFuture<InboundMailItem> =
         retrieve(params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         inboundMailItemId: String,
         requestOptions: RequestOptions,
@@ -66,18 +66,18 @@ interface InboundMailItemServiceAsync {
     fun list(): CompletableFuture<InboundMailItemListPageAsync> =
         list(InboundMailItemListParams.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: InboundMailItemListParams = InboundMailItemListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<InboundMailItemListPageAsync>
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: InboundMailItemListParams = InboundMailItemListParams.none()
     ): CompletableFuture<InboundMailItemListPageAsync> = list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): CompletableFuture<InboundMailItemListPageAsync> =
         list(InboundMailItemListParams.none(), requestOptions)
 
@@ -105,7 +105,7 @@ interface InboundMailItemServiceAsync {
         ): CompletableFuture<HttpResponseFor<InboundMailItem>> =
             retrieve(inboundMailItemId, InboundMailItemRetrieveParams.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             inboundMailItemId: String,
             params: InboundMailItemRetrieveParams = InboundMailItemRetrieveParams.none(),
@@ -116,26 +116,26 @@ interface InboundMailItemServiceAsync {
                 requestOptions,
             )
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             inboundMailItemId: String,
             params: InboundMailItemRetrieveParams = InboundMailItemRetrieveParams.none(),
         ): CompletableFuture<HttpResponseFor<InboundMailItem>> =
             retrieve(inboundMailItemId, params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             params: InboundMailItemRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<InboundMailItem>>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             params: InboundMailItemRetrieveParams
         ): CompletableFuture<HttpResponseFor<InboundMailItem>> =
             retrieve(params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             inboundMailItemId: String,
             requestOptions: RequestOptions,
@@ -149,19 +149,19 @@ interface InboundMailItemServiceAsync {
         fun list(): CompletableFuture<HttpResponseFor<InboundMailItemListPageAsync>> =
             list(InboundMailItemListParams.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: InboundMailItemListParams = InboundMailItemListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<InboundMailItemListPageAsync>>
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: InboundMailItemListParams = InboundMailItemListParams.none()
         ): CompletableFuture<HttpResponseFor<InboundMailItemListPageAsync>> =
             list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             requestOptions: RequestOptions
         ): CompletableFuture<HttpResponseFor<InboundMailItemListPageAsync>> =

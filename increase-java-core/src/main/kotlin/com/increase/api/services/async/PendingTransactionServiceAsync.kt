@@ -37,7 +37,7 @@ interface PendingTransactionServiceAsync {
     fun create(params: PendingTransactionCreateParams): CompletableFuture<PendingTransaction> =
         create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: PendingTransactionCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -47,7 +47,7 @@ interface PendingTransactionServiceAsync {
     fun retrieve(pendingTransactionId: String): CompletableFuture<PendingTransaction> =
         retrieve(pendingTransactionId, PendingTransactionRetrieveParams.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         pendingTransactionId: String,
         params: PendingTransactionRetrieveParams = PendingTransactionRetrieveParams.none(),
@@ -58,24 +58,24 @@ interface PendingTransactionServiceAsync {
             requestOptions,
         )
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         pendingTransactionId: String,
         params: PendingTransactionRetrieveParams = PendingTransactionRetrieveParams.none(),
     ): CompletableFuture<PendingTransaction> =
         retrieve(pendingTransactionId, params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: PendingTransactionRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PendingTransaction>
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(params: PendingTransactionRetrieveParams): CompletableFuture<PendingTransaction> =
         retrieve(params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         pendingTransactionId: String,
         requestOptions: RequestOptions,
@@ -86,18 +86,18 @@ interface PendingTransactionServiceAsync {
     fun list(): CompletableFuture<PendingTransactionListPageAsync> =
         list(PendingTransactionListParams.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: PendingTransactionListParams = PendingTransactionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PendingTransactionListPageAsync>
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: PendingTransactionListParams = PendingTransactionListParams.none()
     ): CompletableFuture<PendingTransactionListPageAsync> = list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): CompletableFuture<PendingTransactionListPageAsync> =
         list(PendingTransactionListParams.none(), requestOptions)
 
@@ -109,7 +109,7 @@ interface PendingTransactionServiceAsync {
     fun release(pendingTransactionId: String): CompletableFuture<PendingTransaction> =
         release(pendingTransactionId, PendingTransactionReleaseParams.none())
 
-    /** @see [release] */
+    /** @see release */
     fun release(
         pendingTransactionId: String,
         params: PendingTransactionReleaseParams = PendingTransactionReleaseParams.none(),
@@ -120,24 +120,24 @@ interface PendingTransactionServiceAsync {
             requestOptions,
         )
 
-    /** @see [release] */
+    /** @see release */
     fun release(
         pendingTransactionId: String,
         params: PendingTransactionReleaseParams = PendingTransactionReleaseParams.none(),
     ): CompletableFuture<PendingTransaction> =
         release(pendingTransactionId, params, RequestOptions.none())
 
-    /** @see [release] */
+    /** @see release */
     fun release(
         params: PendingTransactionReleaseParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PendingTransaction>
 
-    /** @see [release] */
+    /** @see release */
     fun release(params: PendingTransactionReleaseParams): CompletableFuture<PendingTransaction> =
         release(params, RequestOptions.none())
 
-    /** @see [release] */
+    /** @see release */
     fun release(
         pendingTransactionId: String,
         requestOptions: RequestOptions,
@@ -168,7 +168,7 @@ interface PendingTransactionServiceAsync {
         ): CompletableFuture<HttpResponseFor<PendingTransaction>> =
             create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         fun create(
             params: PendingTransactionCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
@@ -183,7 +183,7 @@ interface PendingTransactionServiceAsync {
         ): CompletableFuture<HttpResponseFor<PendingTransaction>> =
             retrieve(pendingTransactionId, PendingTransactionRetrieveParams.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             pendingTransactionId: String,
             params: PendingTransactionRetrieveParams = PendingTransactionRetrieveParams.none(),
@@ -194,26 +194,26 @@ interface PendingTransactionServiceAsync {
                 requestOptions,
             )
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             pendingTransactionId: String,
             params: PendingTransactionRetrieveParams = PendingTransactionRetrieveParams.none(),
         ): CompletableFuture<HttpResponseFor<PendingTransaction>> =
             retrieve(pendingTransactionId, params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             params: PendingTransactionRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<PendingTransaction>>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             params: PendingTransactionRetrieveParams
         ): CompletableFuture<HttpResponseFor<PendingTransaction>> =
             retrieve(params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             pendingTransactionId: String,
             requestOptions: RequestOptions,
@@ -227,19 +227,19 @@ interface PendingTransactionServiceAsync {
         fun list(): CompletableFuture<HttpResponseFor<PendingTransactionListPageAsync>> =
             list(PendingTransactionListParams.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: PendingTransactionListParams = PendingTransactionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<PendingTransactionListPageAsync>>
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: PendingTransactionListParams = PendingTransactionListParams.none()
         ): CompletableFuture<HttpResponseFor<PendingTransactionListPageAsync>> =
             list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             requestOptions: RequestOptions
         ): CompletableFuture<HttpResponseFor<PendingTransactionListPageAsync>> =
@@ -255,7 +255,7 @@ interface PendingTransactionServiceAsync {
         ): CompletableFuture<HttpResponseFor<PendingTransaction>> =
             release(pendingTransactionId, PendingTransactionReleaseParams.none())
 
-        /** @see [release] */
+        /** @see release */
         fun release(
             pendingTransactionId: String,
             params: PendingTransactionReleaseParams = PendingTransactionReleaseParams.none(),
@@ -266,26 +266,26 @@ interface PendingTransactionServiceAsync {
                 requestOptions,
             )
 
-        /** @see [release] */
+        /** @see release */
         fun release(
             pendingTransactionId: String,
             params: PendingTransactionReleaseParams = PendingTransactionReleaseParams.none(),
         ): CompletableFuture<HttpResponseFor<PendingTransaction>> =
             release(pendingTransactionId, params, RequestOptions.none())
 
-        /** @see [release] */
+        /** @see release */
         fun release(
             params: PendingTransactionReleaseParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<PendingTransaction>>
 
-        /** @see [release] */
+        /** @see release */
         fun release(
             params: PendingTransactionReleaseParams
         ): CompletableFuture<HttpResponseFor<PendingTransaction>> =
             release(params, RequestOptions.none())
 
-        /** @see [release] */
+        /** @see release */
         fun release(
             pendingTransactionId: String,
             requestOptions: RequestOptions,

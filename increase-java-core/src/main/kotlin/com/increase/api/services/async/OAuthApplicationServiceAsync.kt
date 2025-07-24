@@ -30,7 +30,7 @@ interface OAuthApplicationServiceAsync {
     fun retrieve(oauthApplicationId: String): CompletableFuture<OAuthApplication> =
         retrieve(oauthApplicationId, OAuthApplicationRetrieveParams.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         oauthApplicationId: String,
         params: OAuthApplicationRetrieveParams = OAuthApplicationRetrieveParams.none(),
@@ -38,24 +38,24 @@ interface OAuthApplicationServiceAsync {
     ): CompletableFuture<OAuthApplication> =
         retrieve(params.toBuilder().oauthApplicationId(oauthApplicationId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         oauthApplicationId: String,
         params: OAuthApplicationRetrieveParams = OAuthApplicationRetrieveParams.none(),
     ): CompletableFuture<OAuthApplication> =
         retrieve(oauthApplicationId, params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: OAuthApplicationRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<OAuthApplication>
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(params: OAuthApplicationRetrieveParams): CompletableFuture<OAuthApplication> =
         retrieve(params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         oauthApplicationId: String,
         requestOptions: RequestOptions,
@@ -66,18 +66,18 @@ interface OAuthApplicationServiceAsync {
     fun list(): CompletableFuture<OAuthApplicationListPageAsync> =
         list(OAuthApplicationListParams.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: OAuthApplicationListParams = OAuthApplicationListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<OAuthApplicationListPageAsync>
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: OAuthApplicationListParams = OAuthApplicationListParams.none()
     ): CompletableFuture<OAuthApplicationListPageAsync> = list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): CompletableFuture<OAuthApplicationListPageAsync> =
         list(OAuthApplicationListParams.none(), requestOptions)
 
@@ -105,7 +105,7 @@ interface OAuthApplicationServiceAsync {
         ): CompletableFuture<HttpResponseFor<OAuthApplication>> =
             retrieve(oauthApplicationId, OAuthApplicationRetrieveParams.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             oauthApplicationId: String,
             params: OAuthApplicationRetrieveParams = OAuthApplicationRetrieveParams.none(),
@@ -116,26 +116,26 @@ interface OAuthApplicationServiceAsync {
                 requestOptions,
             )
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             oauthApplicationId: String,
             params: OAuthApplicationRetrieveParams = OAuthApplicationRetrieveParams.none(),
         ): CompletableFuture<HttpResponseFor<OAuthApplication>> =
             retrieve(oauthApplicationId, params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             params: OAuthApplicationRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<OAuthApplication>>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             params: OAuthApplicationRetrieveParams
         ): CompletableFuture<HttpResponseFor<OAuthApplication>> =
             retrieve(params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             oauthApplicationId: String,
             requestOptions: RequestOptions,
@@ -149,19 +149,19 @@ interface OAuthApplicationServiceAsync {
         fun list(): CompletableFuture<HttpResponseFor<OAuthApplicationListPageAsync>> =
             list(OAuthApplicationListParams.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: OAuthApplicationListParams = OAuthApplicationListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<OAuthApplicationListPageAsync>>
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: OAuthApplicationListParams = OAuthApplicationListParams.none()
         ): CompletableFuture<HttpResponseFor<OAuthApplicationListPageAsync>> =
             list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             requestOptions: RequestOptions
         ): CompletableFuture<HttpResponseFor<OAuthApplicationListPageAsync>> =

@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** @see [CardDisputeService.list] */
+/** @see CardDisputeService.list */
 class CardDisputeListPage
 private constructor(
     private val service: CardDisputeService,
@@ -21,14 +21,14 @@ private constructor(
     /**
      * Delegates to [CardDisputeListPageResponse], but gracefully handles missing data.
      *
-     * @see [CardDisputeListPageResponse.data]
+     * @see CardDisputeListPageResponse.data
      */
     fun data(): List<CardDispute> = response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
      * Delegates to [CardDisputeListPageResponse], but gracefully handles missing data.
      *
-     * @see [CardDisputeListPageResponse.nextCursor]
+     * @see CardDisputeListPageResponse.nextCursor
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 

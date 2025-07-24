@@ -12,7 +12,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executor
 import kotlin.jvm.optionals.getOrNull
 
-/** @see [IntrafiAccountEnrollmentServiceAsync.list] */
+/** @see IntrafiAccountEnrollmentServiceAsync.list */
 class IntrafiAccountEnrollmentListPageAsync
 private constructor(
     private val service: IntrafiAccountEnrollmentServiceAsync,
@@ -24,7 +24,7 @@ private constructor(
     /**
      * Delegates to [IntrafiAccountEnrollmentListPageResponse], but gracefully handles missing data.
      *
-     * @see [IntrafiAccountEnrollmentListPageResponse.data]
+     * @see IntrafiAccountEnrollmentListPageResponse.data
      */
     fun data(): List<IntrafiAccountEnrollment> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
@@ -32,7 +32,7 @@ private constructor(
     /**
      * Delegates to [IntrafiAccountEnrollmentListPageResponse], but gracefully handles missing data.
      *
-     * @see [IntrafiAccountEnrollmentListPageResponse.nextCursor]
+     * @see IntrafiAccountEnrollmentListPageResponse.nextCursor
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 

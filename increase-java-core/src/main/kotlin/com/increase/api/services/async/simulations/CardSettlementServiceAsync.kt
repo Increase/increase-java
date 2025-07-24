@@ -33,7 +33,7 @@ interface CardSettlementServiceAsync {
     fun create(params: CardSettlementCreateParams): CompletableFuture<Transaction> =
         create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: CardSettlementCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -62,7 +62,7 @@ interface CardSettlementServiceAsync {
             params: CardSettlementCreateParams
         ): CompletableFuture<HttpResponseFor<Transaction>> = create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         fun create(
             params: CardSettlementCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),

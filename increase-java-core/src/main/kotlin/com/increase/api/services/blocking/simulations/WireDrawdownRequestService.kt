@@ -28,7 +28,7 @@ interface WireDrawdownRequestService {
     fun refuse(wireDrawdownRequestId: String): WireDrawdownRequest =
         refuse(wireDrawdownRequestId, WireDrawdownRequestRefuseParams.none())
 
-    /** @see [refuse] */
+    /** @see refuse */
     fun refuse(
         wireDrawdownRequestId: String,
         params: WireDrawdownRequestRefuseParams = WireDrawdownRequestRefuseParams.none(),
@@ -39,23 +39,23 @@ interface WireDrawdownRequestService {
             requestOptions,
         )
 
-    /** @see [refuse] */
+    /** @see refuse */
     fun refuse(
         wireDrawdownRequestId: String,
         params: WireDrawdownRequestRefuseParams = WireDrawdownRequestRefuseParams.none(),
     ): WireDrawdownRequest = refuse(wireDrawdownRequestId, params, RequestOptions.none())
 
-    /** @see [refuse] */
+    /** @see refuse */
     fun refuse(
         params: WireDrawdownRequestRefuseParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): WireDrawdownRequest
 
-    /** @see [refuse] */
+    /** @see refuse */
     fun refuse(params: WireDrawdownRequestRefuseParams): WireDrawdownRequest =
         refuse(params, RequestOptions.none())
 
-    /** @see [refuse] */
+    /** @see refuse */
     fun refuse(wireDrawdownRequestId: String, requestOptions: RequestOptions): WireDrawdownRequest =
         refuse(wireDrawdownRequestId, WireDrawdownRequestRefuseParams.none(), requestOptions)
 
@@ -83,7 +83,7 @@ interface WireDrawdownRequestService {
         fun refuse(wireDrawdownRequestId: String): HttpResponseFor<WireDrawdownRequest> =
             refuse(wireDrawdownRequestId, WireDrawdownRequestRefuseParams.none())
 
-        /** @see [refuse] */
+        /** @see refuse */
         @MustBeClosed
         fun refuse(
             wireDrawdownRequestId: String,
@@ -95,7 +95,7 @@ interface WireDrawdownRequestService {
                 requestOptions,
             )
 
-        /** @see [refuse] */
+        /** @see refuse */
         @MustBeClosed
         fun refuse(
             wireDrawdownRequestId: String,
@@ -103,19 +103,19 @@ interface WireDrawdownRequestService {
         ): HttpResponseFor<WireDrawdownRequest> =
             refuse(wireDrawdownRequestId, params, RequestOptions.none())
 
-        /** @see [refuse] */
+        /** @see refuse */
         @MustBeClosed
         fun refuse(
             params: WireDrawdownRequestRefuseParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<WireDrawdownRequest>
 
-        /** @see [refuse] */
+        /** @see refuse */
         @MustBeClosed
         fun refuse(params: WireDrawdownRequestRefuseParams): HttpResponseFor<WireDrawdownRequest> =
             refuse(params, RequestOptions.none())
 
-        /** @see [refuse] */
+        /** @see refuse */
         @MustBeClosed
         fun refuse(
             wireDrawdownRequestId: String,

@@ -33,7 +33,7 @@ interface RoutingNumberService {
     fun list(params: RoutingNumberListParams): RoutingNumberListPage =
         list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: RoutingNumberListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -61,7 +61,7 @@ interface RoutingNumberService {
         fun list(params: RoutingNumberListParams): HttpResponseFor<RoutingNumberListPage> =
             list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             params: RoutingNumberListParams,

@@ -30,7 +30,7 @@ interface DigitalWalletTokenServiceAsync {
     fun retrieve(digitalWalletTokenId: String): CompletableFuture<DigitalWalletToken> =
         retrieve(digitalWalletTokenId, DigitalWalletTokenRetrieveParams.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         digitalWalletTokenId: String,
         params: DigitalWalletTokenRetrieveParams = DigitalWalletTokenRetrieveParams.none(),
@@ -41,24 +41,24 @@ interface DigitalWalletTokenServiceAsync {
             requestOptions,
         )
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         digitalWalletTokenId: String,
         params: DigitalWalletTokenRetrieveParams = DigitalWalletTokenRetrieveParams.none(),
     ): CompletableFuture<DigitalWalletToken> =
         retrieve(digitalWalletTokenId, params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: DigitalWalletTokenRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<DigitalWalletToken>
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(params: DigitalWalletTokenRetrieveParams): CompletableFuture<DigitalWalletToken> =
         retrieve(params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         digitalWalletTokenId: String,
         requestOptions: RequestOptions,
@@ -69,18 +69,18 @@ interface DigitalWalletTokenServiceAsync {
     fun list(): CompletableFuture<DigitalWalletTokenListPageAsync> =
         list(DigitalWalletTokenListParams.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: DigitalWalletTokenListParams = DigitalWalletTokenListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<DigitalWalletTokenListPageAsync>
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: DigitalWalletTokenListParams = DigitalWalletTokenListParams.none()
     ): CompletableFuture<DigitalWalletTokenListPageAsync> = list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): CompletableFuture<DigitalWalletTokenListPageAsync> =
         list(DigitalWalletTokenListParams.none(), requestOptions)
 
@@ -108,7 +108,7 @@ interface DigitalWalletTokenServiceAsync {
         ): CompletableFuture<HttpResponseFor<DigitalWalletToken>> =
             retrieve(digitalWalletTokenId, DigitalWalletTokenRetrieveParams.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             digitalWalletTokenId: String,
             params: DigitalWalletTokenRetrieveParams = DigitalWalletTokenRetrieveParams.none(),
@@ -119,26 +119,26 @@ interface DigitalWalletTokenServiceAsync {
                 requestOptions,
             )
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             digitalWalletTokenId: String,
             params: DigitalWalletTokenRetrieveParams = DigitalWalletTokenRetrieveParams.none(),
         ): CompletableFuture<HttpResponseFor<DigitalWalletToken>> =
             retrieve(digitalWalletTokenId, params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             params: DigitalWalletTokenRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<DigitalWalletToken>>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             params: DigitalWalletTokenRetrieveParams
         ): CompletableFuture<HttpResponseFor<DigitalWalletToken>> =
             retrieve(params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             digitalWalletTokenId: String,
             requestOptions: RequestOptions,
@@ -152,19 +152,19 @@ interface DigitalWalletTokenServiceAsync {
         fun list(): CompletableFuture<HttpResponseFor<DigitalWalletTokenListPageAsync>> =
             list(DigitalWalletTokenListParams.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: DigitalWalletTokenListParams = DigitalWalletTokenListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<DigitalWalletTokenListPageAsync>>
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: DigitalWalletTokenListParams = DigitalWalletTokenListParams.none()
         ): CompletableFuture<HttpResponseFor<DigitalWalletTokenListPageAsync>> =
             list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             requestOptions: RequestOptions
         ): CompletableFuture<HttpResponseFor<DigitalWalletTokenListPageAsync>> =

@@ -32,7 +32,7 @@ interface InboundCheckDepositService {
     fun retrieve(inboundCheckDepositId: String): InboundCheckDeposit =
         retrieve(inboundCheckDepositId, InboundCheckDepositRetrieveParams.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         inboundCheckDepositId: String,
         params: InboundCheckDepositRetrieveParams = InboundCheckDepositRetrieveParams.none(),
@@ -43,23 +43,23 @@ interface InboundCheckDepositService {
             requestOptions,
         )
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         inboundCheckDepositId: String,
         params: InboundCheckDepositRetrieveParams = InboundCheckDepositRetrieveParams.none(),
     ): InboundCheckDeposit = retrieve(inboundCheckDepositId, params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: InboundCheckDepositRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundCheckDeposit
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(params: InboundCheckDepositRetrieveParams): InboundCheckDeposit =
         retrieve(params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         inboundCheckDepositId: String,
         requestOptions: RequestOptions,
@@ -69,18 +69,18 @@ interface InboundCheckDepositService {
     /** List Inbound Check Deposits */
     fun list(): InboundCheckDepositListPage = list(InboundCheckDepositListParams.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: InboundCheckDepositListParams = InboundCheckDepositListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundCheckDepositListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: InboundCheckDepositListParams = InboundCheckDepositListParams.none()
     ): InboundCheckDepositListPage = list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): InboundCheckDepositListPage =
         list(InboundCheckDepositListParams.none(), requestOptions)
 
@@ -88,7 +88,7 @@ interface InboundCheckDepositService {
     fun decline(inboundCheckDepositId: String): InboundCheckDeposit =
         decline(inboundCheckDepositId, InboundCheckDepositDeclineParams.none())
 
-    /** @see [decline] */
+    /** @see decline */
     fun decline(
         inboundCheckDepositId: String,
         params: InboundCheckDepositDeclineParams = InboundCheckDepositDeclineParams.none(),
@@ -99,23 +99,23 @@ interface InboundCheckDepositService {
             requestOptions,
         )
 
-    /** @see [decline] */
+    /** @see decline */
     fun decline(
         inboundCheckDepositId: String,
         params: InboundCheckDepositDeclineParams = InboundCheckDepositDeclineParams.none(),
     ): InboundCheckDeposit = decline(inboundCheckDepositId, params, RequestOptions.none())
 
-    /** @see [decline] */
+    /** @see decline */
     fun decline(
         params: InboundCheckDepositDeclineParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundCheckDeposit
 
-    /** @see [decline] */
+    /** @see decline */
     fun decline(params: InboundCheckDepositDeclineParams): InboundCheckDeposit =
         decline(params, RequestOptions.none())
 
-    /** @see [decline] */
+    /** @see decline */
     fun decline(
         inboundCheckDepositId: String,
         requestOptions: RequestOptions,
@@ -128,7 +128,7 @@ interface InboundCheckDepositService {
         params: InboundCheckDepositReturnParams,
     ): InboundCheckDeposit = return_(inboundCheckDepositId, params, RequestOptions.none())
 
-    /** @see [return_] */
+    /** @see return\_ */
     fun return_(
         inboundCheckDepositId: String,
         params: InboundCheckDepositReturnParams,
@@ -139,11 +139,11 @@ interface InboundCheckDepositService {
             requestOptions,
         )
 
-    /** @see [return_] */
+    /** @see return\_ */
     fun return_(params: InboundCheckDepositReturnParams): InboundCheckDeposit =
         return_(params, RequestOptions.none())
 
-    /** @see [return_] */
+    /** @see return\_ */
     fun return_(
         params: InboundCheckDepositReturnParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -172,7 +172,7 @@ interface InboundCheckDepositService {
         fun retrieve(inboundCheckDepositId: String): HttpResponseFor<InboundCheckDeposit> =
             retrieve(inboundCheckDepositId, InboundCheckDepositRetrieveParams.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             inboundCheckDepositId: String,
@@ -184,7 +184,7 @@ interface InboundCheckDepositService {
                 requestOptions,
             )
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             inboundCheckDepositId: String,
@@ -192,20 +192,20 @@ interface InboundCheckDepositService {
         ): HttpResponseFor<InboundCheckDeposit> =
             retrieve(inboundCheckDepositId, params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: InboundCheckDepositRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InboundCheckDeposit>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: InboundCheckDepositRetrieveParams
         ): HttpResponseFor<InboundCheckDeposit> = retrieve(params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             inboundCheckDepositId: String,
@@ -225,20 +225,20 @@ interface InboundCheckDepositService {
         fun list(): HttpResponseFor<InboundCheckDepositListPage> =
             list(InboundCheckDepositListParams.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             params: InboundCheckDepositListParams = InboundCheckDepositListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InboundCheckDepositListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             params: InboundCheckDepositListParams = InboundCheckDepositListParams.none()
         ): HttpResponseFor<InboundCheckDepositListPage> = list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<InboundCheckDepositListPage> =
             list(InboundCheckDepositListParams.none(), requestOptions)
@@ -252,7 +252,7 @@ interface InboundCheckDepositService {
         fun decline(inboundCheckDepositId: String): HttpResponseFor<InboundCheckDeposit> =
             decline(inboundCheckDepositId, InboundCheckDepositDeclineParams.none())
 
-        /** @see [decline] */
+        /** @see decline */
         @MustBeClosed
         fun decline(
             inboundCheckDepositId: String,
@@ -264,7 +264,7 @@ interface InboundCheckDepositService {
                 requestOptions,
             )
 
-        /** @see [decline] */
+        /** @see decline */
         @MustBeClosed
         fun decline(
             inboundCheckDepositId: String,
@@ -272,20 +272,20 @@ interface InboundCheckDepositService {
         ): HttpResponseFor<InboundCheckDeposit> =
             decline(inboundCheckDepositId, params, RequestOptions.none())
 
-        /** @see [decline] */
+        /** @see decline */
         @MustBeClosed
         fun decline(
             params: InboundCheckDepositDeclineParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InboundCheckDeposit>
 
-        /** @see [decline] */
+        /** @see decline */
         @MustBeClosed
         fun decline(
             params: InboundCheckDepositDeclineParams
         ): HttpResponseFor<InboundCheckDeposit> = decline(params, RequestOptions.none())
 
-        /** @see [decline] */
+        /** @see decline */
         @MustBeClosed
         fun decline(
             inboundCheckDepositId: String,
@@ -305,7 +305,7 @@ interface InboundCheckDepositService {
         ): HttpResponseFor<InboundCheckDeposit> =
             return_(inboundCheckDepositId, params, RequestOptions.none())
 
-        /** @see [return_] */
+        /** @see return\_ */
         @MustBeClosed
         fun return_(
             inboundCheckDepositId: String,
@@ -317,12 +317,12 @@ interface InboundCheckDepositService {
                 requestOptions,
             )
 
-        /** @see [return_] */
+        /** @see return\_ */
         @MustBeClosed
         fun return_(params: InboundCheckDepositReturnParams): HttpResponseFor<InboundCheckDeposit> =
             return_(params, RequestOptions.none())
 
-        /** @see [return_] */
+        /** @see return\_ */
         @MustBeClosed
         fun return_(
             params: InboundCheckDepositReturnParams,

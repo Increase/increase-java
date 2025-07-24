@@ -32,7 +32,7 @@ interface RealTimePaymentsTransferServiceAsync {
     fun complete(realTimePaymentsTransferId: String): CompletableFuture<RealTimePaymentsTransfer> =
         complete(realTimePaymentsTransferId, RealTimePaymentsTransferCompleteParams.none())
 
-    /** @see [complete] */
+    /** @see complete */
     fun complete(
         realTimePaymentsTransferId: String,
         params: RealTimePaymentsTransferCompleteParams =
@@ -44,7 +44,7 @@ interface RealTimePaymentsTransferServiceAsync {
             requestOptions,
         )
 
-    /** @see [complete] */
+    /** @see complete */
     fun complete(
         realTimePaymentsTransferId: String,
         params: RealTimePaymentsTransferCompleteParams =
@@ -52,18 +52,18 @@ interface RealTimePaymentsTransferServiceAsync {
     ): CompletableFuture<RealTimePaymentsTransfer> =
         complete(realTimePaymentsTransferId, params, RequestOptions.none())
 
-    /** @see [complete] */
+    /** @see complete */
     fun complete(
         params: RealTimePaymentsTransferCompleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<RealTimePaymentsTransfer>
 
-    /** @see [complete] */
+    /** @see complete */
     fun complete(
         params: RealTimePaymentsTransferCompleteParams
     ): CompletableFuture<RealTimePaymentsTransfer> = complete(params, RequestOptions.none())
 
-    /** @see [complete] */
+    /** @see complete */
     fun complete(
         realTimePaymentsTransferId: String,
         requestOptions: RequestOptions,
@@ -99,7 +99,7 @@ interface RealTimePaymentsTransferServiceAsync {
         ): CompletableFuture<HttpResponseFor<RealTimePaymentsTransfer>> =
             complete(realTimePaymentsTransferId, RealTimePaymentsTransferCompleteParams.none())
 
-        /** @see [complete] */
+        /** @see complete */
         fun complete(
             realTimePaymentsTransferId: String,
             params: RealTimePaymentsTransferCompleteParams =
@@ -111,7 +111,7 @@ interface RealTimePaymentsTransferServiceAsync {
                 requestOptions,
             )
 
-        /** @see [complete] */
+        /** @see complete */
         fun complete(
             realTimePaymentsTransferId: String,
             params: RealTimePaymentsTransferCompleteParams =
@@ -119,19 +119,19 @@ interface RealTimePaymentsTransferServiceAsync {
         ): CompletableFuture<HttpResponseFor<RealTimePaymentsTransfer>> =
             complete(realTimePaymentsTransferId, params, RequestOptions.none())
 
-        /** @see [complete] */
+        /** @see complete */
         fun complete(
             params: RealTimePaymentsTransferCompleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<RealTimePaymentsTransfer>>
 
-        /** @see [complete] */
+        /** @see complete */
         fun complete(
             params: RealTimePaymentsTransferCompleteParams
         ): CompletableFuture<HttpResponseFor<RealTimePaymentsTransfer>> =
             complete(params, RequestOptions.none())
 
-        /** @see [complete] */
+        /** @see complete */
         fun complete(
             realTimePaymentsTransferId: String,
             requestOptions: RequestOptions,

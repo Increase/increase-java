@@ -30,7 +30,7 @@ interface CardDisputeService {
     /** Create a Card Dispute */
     fun create(params: CardDisputeCreateParams): CardDispute = create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: CardDisputeCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -40,7 +40,7 @@ interface CardDisputeService {
     fun retrieve(cardDisputeId: String): CardDispute =
         retrieve(cardDisputeId, CardDisputeRetrieveParams.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         cardDisputeId: String,
         params: CardDisputeRetrieveParams = CardDisputeRetrieveParams.none(),
@@ -48,40 +48,40 @@ interface CardDisputeService {
     ): CardDispute =
         retrieve(params.toBuilder().cardDisputeId(cardDisputeId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         cardDisputeId: String,
         params: CardDisputeRetrieveParams = CardDisputeRetrieveParams.none(),
     ): CardDispute = retrieve(cardDisputeId, params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: CardDisputeRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CardDispute
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(params: CardDisputeRetrieveParams): CardDispute =
         retrieve(params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(cardDisputeId: String, requestOptions: RequestOptions): CardDispute =
         retrieve(cardDisputeId, CardDisputeRetrieveParams.none(), requestOptions)
 
     /** List Card Disputes */
     fun list(): CardDisputeListPage = list(CardDisputeListParams.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: CardDisputeListParams = CardDisputeListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CardDisputeListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(params: CardDisputeListParams = CardDisputeListParams.none()): CardDisputeListPage =
         list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): CardDisputeListPage =
         list(CardDisputeListParams.none(), requestOptions)
 
@@ -107,7 +107,7 @@ interface CardDisputeService {
         fun create(params: CardDisputeCreateParams): HttpResponseFor<CardDispute> =
             create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         @MustBeClosed
         fun create(
             params: CardDisputeCreateParams,
@@ -122,7 +122,7 @@ interface CardDisputeService {
         fun retrieve(cardDisputeId: String): HttpResponseFor<CardDispute> =
             retrieve(cardDisputeId, CardDisputeRetrieveParams.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             cardDisputeId: String,
@@ -131,26 +131,26 @@ interface CardDisputeService {
         ): HttpResponseFor<CardDispute> =
             retrieve(params.toBuilder().cardDisputeId(cardDisputeId).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             cardDisputeId: String,
             params: CardDisputeRetrieveParams = CardDisputeRetrieveParams.none(),
         ): HttpResponseFor<CardDispute> = retrieve(cardDisputeId, params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: CardDisputeRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CardDispute>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(params: CardDisputeRetrieveParams): HttpResponseFor<CardDispute> =
             retrieve(params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             cardDisputeId: String,
@@ -165,20 +165,20 @@ interface CardDisputeService {
         @MustBeClosed
         fun list(): HttpResponseFor<CardDisputeListPage> = list(CardDisputeListParams.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             params: CardDisputeListParams = CardDisputeListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CardDisputeListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             params: CardDisputeListParams = CardDisputeListParams.none()
         ): HttpResponseFor<CardDisputeListPage> = list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<CardDisputeListPage> =
             list(CardDisputeListParams.none(), requestOptions)

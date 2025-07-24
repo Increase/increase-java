@@ -33,7 +33,7 @@ interface WireTransferServiceAsync {
     fun reverse(wireTransferId: String): CompletableFuture<WireTransfer> =
         reverse(wireTransferId, WireTransferReverseParams.none())
 
-    /** @see [reverse] */
+    /** @see reverse */
     fun reverse(
         wireTransferId: String,
         params: WireTransferReverseParams = WireTransferReverseParams.none(),
@@ -41,23 +41,23 @@ interface WireTransferServiceAsync {
     ): CompletableFuture<WireTransfer> =
         reverse(params.toBuilder().wireTransferId(wireTransferId).build(), requestOptions)
 
-    /** @see [reverse] */
+    /** @see reverse */
     fun reverse(
         wireTransferId: String,
         params: WireTransferReverseParams = WireTransferReverseParams.none(),
     ): CompletableFuture<WireTransfer> = reverse(wireTransferId, params, RequestOptions.none())
 
-    /** @see [reverse] */
+    /** @see reverse */
     fun reverse(
         params: WireTransferReverseParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<WireTransfer>
 
-    /** @see [reverse] */
+    /** @see reverse */
     fun reverse(params: WireTransferReverseParams): CompletableFuture<WireTransfer> =
         reverse(params, RequestOptions.none())
 
-    /** @see [reverse] */
+    /** @see reverse */
     fun reverse(
         wireTransferId: String,
         requestOptions: RequestOptions,
@@ -71,7 +71,7 @@ interface WireTransferServiceAsync {
     fun submit(wireTransferId: String): CompletableFuture<WireTransfer> =
         submit(wireTransferId, WireTransferSubmitParams.none())
 
-    /** @see [submit] */
+    /** @see submit */
     fun submit(
         wireTransferId: String,
         params: WireTransferSubmitParams = WireTransferSubmitParams.none(),
@@ -79,23 +79,23 @@ interface WireTransferServiceAsync {
     ): CompletableFuture<WireTransfer> =
         submit(params.toBuilder().wireTransferId(wireTransferId).build(), requestOptions)
 
-    /** @see [submit] */
+    /** @see submit */
     fun submit(
         wireTransferId: String,
         params: WireTransferSubmitParams = WireTransferSubmitParams.none(),
     ): CompletableFuture<WireTransfer> = submit(wireTransferId, params, RequestOptions.none())
 
-    /** @see [submit] */
+    /** @see submit */
     fun submit(
         params: WireTransferSubmitParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<WireTransfer>
 
-    /** @see [submit] */
+    /** @see submit */
     fun submit(params: WireTransferSubmitParams): CompletableFuture<WireTransfer> =
         submit(params, RequestOptions.none())
 
-    /** @see [submit] */
+    /** @see submit */
     fun submit(
         wireTransferId: String,
         requestOptions: RequestOptions,
@@ -125,7 +125,7 @@ interface WireTransferServiceAsync {
         fun reverse(wireTransferId: String): CompletableFuture<HttpResponseFor<WireTransfer>> =
             reverse(wireTransferId, WireTransferReverseParams.none())
 
-        /** @see [reverse] */
+        /** @see reverse */
         fun reverse(
             wireTransferId: String,
             params: WireTransferReverseParams = WireTransferReverseParams.none(),
@@ -133,25 +133,25 @@ interface WireTransferServiceAsync {
         ): CompletableFuture<HttpResponseFor<WireTransfer>> =
             reverse(params.toBuilder().wireTransferId(wireTransferId).build(), requestOptions)
 
-        /** @see [reverse] */
+        /** @see reverse */
         fun reverse(
             wireTransferId: String,
             params: WireTransferReverseParams = WireTransferReverseParams.none(),
         ): CompletableFuture<HttpResponseFor<WireTransfer>> =
             reverse(wireTransferId, params, RequestOptions.none())
 
-        /** @see [reverse] */
+        /** @see reverse */
         fun reverse(
             params: WireTransferReverseParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<WireTransfer>>
 
-        /** @see [reverse] */
+        /** @see reverse */
         fun reverse(
             params: WireTransferReverseParams
         ): CompletableFuture<HttpResponseFor<WireTransfer>> = reverse(params, RequestOptions.none())
 
-        /** @see [reverse] */
+        /** @see reverse */
         fun reverse(
             wireTransferId: String,
             requestOptions: RequestOptions,
@@ -166,7 +166,7 @@ interface WireTransferServiceAsync {
         fun submit(wireTransferId: String): CompletableFuture<HttpResponseFor<WireTransfer>> =
             submit(wireTransferId, WireTransferSubmitParams.none())
 
-        /** @see [submit] */
+        /** @see submit */
         fun submit(
             wireTransferId: String,
             params: WireTransferSubmitParams = WireTransferSubmitParams.none(),
@@ -174,25 +174,25 @@ interface WireTransferServiceAsync {
         ): CompletableFuture<HttpResponseFor<WireTransfer>> =
             submit(params.toBuilder().wireTransferId(wireTransferId).build(), requestOptions)
 
-        /** @see [submit] */
+        /** @see submit */
         fun submit(
             wireTransferId: String,
             params: WireTransferSubmitParams = WireTransferSubmitParams.none(),
         ): CompletableFuture<HttpResponseFor<WireTransfer>> =
             submit(wireTransferId, params, RequestOptions.none())
 
-        /** @see [submit] */
+        /** @see submit */
         fun submit(
             params: WireTransferSubmitParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<WireTransfer>>
 
-        /** @see [submit] */
+        /** @see submit */
         fun submit(
             params: WireTransferSubmitParams
         ): CompletableFuture<HttpResponseFor<WireTransfer>> = submit(params, RequestOptions.none())
 
-        /** @see [submit] */
+        /** @see submit */
         fun submit(
             wireTransferId: String,
             requestOptions: RequestOptions,

@@ -32,7 +32,7 @@ interface PhysicalCardService {
     fun create(params: PhysicalCardCreateParams): PhysicalCard =
         create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: PhysicalCardCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -42,7 +42,7 @@ interface PhysicalCardService {
     fun retrieve(physicalCardId: String): PhysicalCard =
         retrieve(physicalCardId, PhysicalCardRetrieveParams.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         physicalCardId: String,
         params: PhysicalCardRetrieveParams = PhysicalCardRetrieveParams.none(),
@@ -50,23 +50,23 @@ interface PhysicalCardService {
     ): PhysicalCard =
         retrieve(params.toBuilder().physicalCardId(physicalCardId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         physicalCardId: String,
         params: PhysicalCardRetrieveParams = PhysicalCardRetrieveParams.none(),
     ): PhysicalCard = retrieve(physicalCardId, params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: PhysicalCardRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PhysicalCard
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(params: PhysicalCardRetrieveParams): PhysicalCard =
         retrieve(params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(physicalCardId: String, requestOptions: RequestOptions): PhysicalCard =
         retrieve(physicalCardId, PhysicalCardRetrieveParams.none(), requestOptions)
 
@@ -74,7 +74,7 @@ interface PhysicalCardService {
     fun update(physicalCardId: String, params: PhysicalCardUpdateParams): PhysicalCard =
         update(physicalCardId, params, RequestOptions.none())
 
-    /** @see [update] */
+    /** @see update */
     fun update(
         physicalCardId: String,
         params: PhysicalCardUpdateParams,
@@ -82,11 +82,11 @@ interface PhysicalCardService {
     ): PhysicalCard =
         update(params.toBuilder().physicalCardId(physicalCardId).build(), requestOptions)
 
-    /** @see [update] */
+    /** @see update */
     fun update(params: PhysicalCardUpdateParams): PhysicalCard =
         update(params, RequestOptions.none())
 
-    /** @see [update] */
+    /** @see update */
     fun update(
         params: PhysicalCardUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -95,17 +95,17 @@ interface PhysicalCardService {
     /** List Physical Cards */
     fun list(): PhysicalCardListPage = list(PhysicalCardListParams.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: PhysicalCardListParams = PhysicalCardListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PhysicalCardListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(params: PhysicalCardListParams = PhysicalCardListParams.none()): PhysicalCardListPage =
         list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): PhysicalCardListPage =
         list(PhysicalCardListParams.none(), requestOptions)
 
@@ -131,7 +131,7 @@ interface PhysicalCardService {
         fun create(params: PhysicalCardCreateParams): HttpResponseFor<PhysicalCard> =
             create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         @MustBeClosed
         fun create(
             params: PhysicalCardCreateParams,
@@ -146,7 +146,7 @@ interface PhysicalCardService {
         fun retrieve(physicalCardId: String): HttpResponseFor<PhysicalCard> =
             retrieve(physicalCardId, PhysicalCardRetrieveParams.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             physicalCardId: String,
@@ -155,26 +155,26 @@ interface PhysicalCardService {
         ): HttpResponseFor<PhysicalCard> =
             retrieve(params.toBuilder().physicalCardId(physicalCardId).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             physicalCardId: String,
             params: PhysicalCardRetrieveParams = PhysicalCardRetrieveParams.none(),
         ): HttpResponseFor<PhysicalCard> = retrieve(physicalCardId, params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: PhysicalCardRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PhysicalCard>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(params: PhysicalCardRetrieveParams): HttpResponseFor<PhysicalCard> =
             retrieve(params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             physicalCardId: String,
@@ -192,7 +192,7 @@ interface PhysicalCardService {
             params: PhysicalCardUpdateParams,
         ): HttpResponseFor<PhysicalCard> = update(physicalCardId, params, RequestOptions.none())
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         fun update(
             physicalCardId: String,
@@ -201,12 +201,12 @@ interface PhysicalCardService {
         ): HttpResponseFor<PhysicalCard> =
             update(params.toBuilder().physicalCardId(physicalCardId).build(), requestOptions)
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         fun update(params: PhysicalCardUpdateParams): HttpResponseFor<PhysicalCard> =
             update(params, RequestOptions.none())
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         fun update(
             params: PhysicalCardUpdateParams,
@@ -220,20 +220,20 @@ interface PhysicalCardService {
         @MustBeClosed
         fun list(): HttpResponseFor<PhysicalCardListPage> = list(PhysicalCardListParams.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             params: PhysicalCardListParams = PhysicalCardListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PhysicalCardListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             params: PhysicalCardListParams = PhysicalCardListParams.none()
         ): HttpResponseFor<PhysicalCardListPage> = list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<PhysicalCardListPage> =
             list(PhysicalCardListParams.none(), requestOptions)

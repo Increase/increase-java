@@ -33,7 +33,7 @@ interface PhysicalCardProfileServiceAsync {
     fun create(params: PhysicalCardProfileCreateParams): CompletableFuture<PhysicalCardProfile> =
         create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: PhysicalCardProfileCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -43,7 +43,7 @@ interface PhysicalCardProfileServiceAsync {
     fun retrieve(physicalCardProfileId: String): CompletableFuture<PhysicalCardProfile> =
         retrieve(physicalCardProfileId, PhysicalCardProfileRetrieveParams.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         physicalCardProfileId: String,
         params: PhysicalCardProfileRetrieveParams = PhysicalCardProfileRetrieveParams.none(),
@@ -54,25 +54,25 @@ interface PhysicalCardProfileServiceAsync {
             requestOptions,
         )
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         physicalCardProfileId: String,
         params: PhysicalCardProfileRetrieveParams = PhysicalCardProfileRetrieveParams.none(),
     ): CompletableFuture<PhysicalCardProfile> =
         retrieve(physicalCardProfileId, params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: PhysicalCardProfileRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PhysicalCardProfile>
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: PhysicalCardProfileRetrieveParams
     ): CompletableFuture<PhysicalCardProfile> = retrieve(params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         physicalCardProfileId: String,
         requestOptions: RequestOptions,
@@ -83,18 +83,18 @@ interface PhysicalCardProfileServiceAsync {
     fun list(): CompletableFuture<PhysicalCardProfileListPageAsync> =
         list(PhysicalCardProfileListParams.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: PhysicalCardProfileListParams = PhysicalCardProfileListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PhysicalCardProfileListPageAsync>
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: PhysicalCardProfileListParams = PhysicalCardProfileListParams.none()
     ): CompletableFuture<PhysicalCardProfileListPageAsync> = list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): CompletableFuture<PhysicalCardProfileListPageAsync> =
         list(PhysicalCardProfileListParams.none(), requestOptions)
 
@@ -102,7 +102,7 @@ interface PhysicalCardProfileServiceAsync {
     fun archive(physicalCardProfileId: String): CompletableFuture<PhysicalCardProfile> =
         archive(physicalCardProfileId, PhysicalCardProfileArchiveParams.none())
 
-    /** @see [archive] */
+    /** @see archive */
     fun archive(
         physicalCardProfileId: String,
         params: PhysicalCardProfileArchiveParams = PhysicalCardProfileArchiveParams.none(),
@@ -113,24 +113,24 @@ interface PhysicalCardProfileServiceAsync {
             requestOptions,
         )
 
-    /** @see [archive] */
+    /** @see archive */
     fun archive(
         physicalCardProfileId: String,
         params: PhysicalCardProfileArchiveParams = PhysicalCardProfileArchiveParams.none(),
     ): CompletableFuture<PhysicalCardProfile> =
         archive(physicalCardProfileId, params, RequestOptions.none())
 
-    /** @see [archive] */
+    /** @see archive */
     fun archive(
         params: PhysicalCardProfileArchiveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PhysicalCardProfile>
 
-    /** @see [archive] */
+    /** @see archive */
     fun archive(params: PhysicalCardProfileArchiveParams): CompletableFuture<PhysicalCardProfile> =
         archive(params, RequestOptions.none())
 
-    /** @see [archive] */
+    /** @see archive */
     fun archive(
         physicalCardProfileId: String,
         requestOptions: RequestOptions,
@@ -141,7 +141,7 @@ interface PhysicalCardProfileServiceAsync {
     fun clone(physicalCardProfileId: String): CompletableFuture<PhysicalCardProfile> =
         clone(physicalCardProfileId, PhysicalCardProfileCloneParams.none())
 
-    /** @see [clone] */
+    /** @see clone */
     fun clone(
         physicalCardProfileId: String,
         params: PhysicalCardProfileCloneParams = PhysicalCardProfileCloneParams.none(),
@@ -152,24 +152,24 @@ interface PhysicalCardProfileServiceAsync {
             requestOptions,
         )
 
-    /** @see [clone] */
+    /** @see clone */
     fun clone(
         physicalCardProfileId: String,
         params: PhysicalCardProfileCloneParams = PhysicalCardProfileCloneParams.none(),
     ): CompletableFuture<PhysicalCardProfile> =
         clone(physicalCardProfileId, params, RequestOptions.none())
 
-    /** @see [clone] */
+    /** @see clone */
     fun clone(
         params: PhysicalCardProfileCloneParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PhysicalCardProfile>
 
-    /** @see [clone] */
+    /** @see clone */
     fun clone(params: PhysicalCardProfileCloneParams): CompletableFuture<PhysicalCardProfile> =
         clone(params, RequestOptions.none())
 
-    /** @see [clone] */
+    /** @see clone */
     fun clone(
         physicalCardProfileId: String,
         requestOptions: RequestOptions,
@@ -200,7 +200,7 @@ interface PhysicalCardProfileServiceAsync {
         ): CompletableFuture<HttpResponseFor<PhysicalCardProfile>> =
             create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         fun create(
             params: PhysicalCardProfileCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
@@ -215,7 +215,7 @@ interface PhysicalCardProfileServiceAsync {
         ): CompletableFuture<HttpResponseFor<PhysicalCardProfile>> =
             retrieve(physicalCardProfileId, PhysicalCardProfileRetrieveParams.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             physicalCardProfileId: String,
             params: PhysicalCardProfileRetrieveParams = PhysicalCardProfileRetrieveParams.none(),
@@ -226,26 +226,26 @@ interface PhysicalCardProfileServiceAsync {
                 requestOptions,
             )
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             physicalCardProfileId: String,
             params: PhysicalCardProfileRetrieveParams = PhysicalCardProfileRetrieveParams.none(),
         ): CompletableFuture<HttpResponseFor<PhysicalCardProfile>> =
             retrieve(physicalCardProfileId, params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             params: PhysicalCardProfileRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<PhysicalCardProfile>>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             params: PhysicalCardProfileRetrieveParams
         ): CompletableFuture<HttpResponseFor<PhysicalCardProfile>> =
             retrieve(params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             physicalCardProfileId: String,
             requestOptions: RequestOptions,
@@ -263,19 +263,19 @@ interface PhysicalCardProfileServiceAsync {
         fun list(): CompletableFuture<HttpResponseFor<PhysicalCardProfileListPageAsync>> =
             list(PhysicalCardProfileListParams.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: PhysicalCardProfileListParams = PhysicalCardProfileListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<PhysicalCardProfileListPageAsync>>
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: PhysicalCardProfileListParams = PhysicalCardProfileListParams.none()
         ): CompletableFuture<HttpResponseFor<PhysicalCardProfileListPageAsync>> =
             list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             requestOptions: RequestOptions
         ): CompletableFuture<HttpResponseFor<PhysicalCardProfileListPageAsync>> =
@@ -291,7 +291,7 @@ interface PhysicalCardProfileServiceAsync {
         ): CompletableFuture<HttpResponseFor<PhysicalCardProfile>> =
             archive(physicalCardProfileId, PhysicalCardProfileArchiveParams.none())
 
-        /** @see [archive] */
+        /** @see archive */
         fun archive(
             physicalCardProfileId: String,
             params: PhysicalCardProfileArchiveParams = PhysicalCardProfileArchiveParams.none(),
@@ -302,26 +302,26 @@ interface PhysicalCardProfileServiceAsync {
                 requestOptions,
             )
 
-        /** @see [archive] */
+        /** @see archive */
         fun archive(
             physicalCardProfileId: String,
             params: PhysicalCardProfileArchiveParams = PhysicalCardProfileArchiveParams.none(),
         ): CompletableFuture<HttpResponseFor<PhysicalCardProfile>> =
             archive(physicalCardProfileId, params, RequestOptions.none())
 
-        /** @see [archive] */
+        /** @see archive */
         fun archive(
             params: PhysicalCardProfileArchiveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<PhysicalCardProfile>>
 
-        /** @see [archive] */
+        /** @see archive */
         fun archive(
             params: PhysicalCardProfileArchiveParams
         ): CompletableFuture<HttpResponseFor<PhysicalCardProfile>> =
             archive(params, RequestOptions.none())
 
-        /** @see [archive] */
+        /** @see archive */
         fun archive(
             physicalCardProfileId: String,
             requestOptions: RequestOptions,
@@ -338,7 +338,7 @@ interface PhysicalCardProfileServiceAsync {
         ): CompletableFuture<HttpResponseFor<PhysicalCardProfile>> =
             clone(physicalCardProfileId, PhysicalCardProfileCloneParams.none())
 
-        /** @see [clone] */
+        /** @see clone */
         fun clone(
             physicalCardProfileId: String,
             params: PhysicalCardProfileCloneParams = PhysicalCardProfileCloneParams.none(),
@@ -349,26 +349,26 @@ interface PhysicalCardProfileServiceAsync {
                 requestOptions,
             )
 
-        /** @see [clone] */
+        /** @see clone */
         fun clone(
             physicalCardProfileId: String,
             params: PhysicalCardProfileCloneParams = PhysicalCardProfileCloneParams.none(),
         ): CompletableFuture<HttpResponseFor<PhysicalCardProfile>> =
             clone(physicalCardProfileId, params, RequestOptions.none())
 
-        /** @see [clone] */
+        /** @see clone */
         fun clone(
             params: PhysicalCardProfileCloneParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<PhysicalCardProfile>>
 
-        /** @see [clone] */
+        /** @see clone */
         fun clone(
             params: PhysicalCardProfileCloneParams
         ): CompletableFuture<HttpResponseFor<PhysicalCardProfile>> =
             clone(params, RequestOptions.none())
 
-        /** @see [clone] */
+        /** @see clone */
         fun clone(
             physicalCardProfileId: String,
             requestOptions: RequestOptions,

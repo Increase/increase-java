@@ -28,7 +28,7 @@ interface InboundWireTransferService {
     fun create(params: InboundWireTransferCreateParams): InboundWireTransfer =
         create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: InboundWireTransferCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -57,7 +57,7 @@ interface InboundWireTransferService {
         fun create(params: InboundWireTransferCreateParams): HttpResponseFor<InboundWireTransfer> =
             create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         @MustBeClosed
         fun create(
             params: InboundWireTransferCreateParams,

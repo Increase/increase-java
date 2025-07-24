@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** @see [CheckDepositService.list] */
+/** @see CheckDepositService.list */
 class CheckDepositListPage
 private constructor(
     private val service: CheckDepositService,
@@ -21,14 +21,14 @@ private constructor(
     /**
      * Delegates to [CheckDepositListPageResponse], but gracefully handles missing data.
      *
-     * @see [CheckDepositListPageResponse.data]
+     * @see CheckDepositListPageResponse.data
      */
     fun data(): List<CheckDeposit> = response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
      * Delegates to [CheckDepositListPageResponse], but gracefully handles missing data.
      *
-     * @see [CheckDepositListPageResponse.nextCursor]
+     * @see CheckDepositListPageResponse.nextCursor
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 

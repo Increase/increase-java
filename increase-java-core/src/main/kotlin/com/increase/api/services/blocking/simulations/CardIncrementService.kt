@@ -31,7 +31,7 @@ interface CardIncrementService {
     fun create(params: CardIncrementCreateParams): CardPayment =
         create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: CardIncrementCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -59,7 +59,7 @@ interface CardIncrementService {
         fun create(params: CardIncrementCreateParams): HttpResponseFor<CardPayment> =
             create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         @MustBeClosed
         fun create(
             params: CardIncrementCreateParams,

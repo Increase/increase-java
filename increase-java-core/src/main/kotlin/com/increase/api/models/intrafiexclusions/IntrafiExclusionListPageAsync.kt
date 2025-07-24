@@ -12,7 +12,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executor
 import kotlin.jvm.optionals.getOrNull
 
-/** @see [IntrafiExclusionServiceAsync.list] */
+/** @see IntrafiExclusionServiceAsync.list */
 class IntrafiExclusionListPageAsync
 private constructor(
     private val service: IntrafiExclusionServiceAsync,
@@ -24,7 +24,7 @@ private constructor(
     /**
      * Delegates to [IntrafiExclusionListPageResponse], but gracefully handles missing data.
      *
-     * @see [IntrafiExclusionListPageResponse.data]
+     * @see IntrafiExclusionListPageResponse.data
      */
     fun data(): List<IntrafiExclusion> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
@@ -32,7 +32,7 @@ private constructor(
     /**
      * Delegates to [IntrafiExclusionListPageResponse], but gracefully handles missing data.
      *
-     * @see [IntrafiExclusionListPageResponse.nextCursor]
+     * @see IntrafiExclusionListPageResponse.nextCursor
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 

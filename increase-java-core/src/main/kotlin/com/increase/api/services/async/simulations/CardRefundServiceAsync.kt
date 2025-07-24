@@ -31,7 +31,7 @@ interface CardRefundServiceAsync {
     fun create(params: CardRefundCreateParams): CompletableFuture<Transaction> =
         create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: CardRefundCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -60,7 +60,7 @@ interface CardRefundServiceAsync {
             params: CardRefundCreateParams
         ): CompletableFuture<HttpResponseFor<Transaction>> = create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         fun create(
             params: CardRefundCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),

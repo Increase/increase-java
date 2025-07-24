@@ -28,7 +28,7 @@ interface InboundWireTransferServiceAsync {
     fun create(params: InboundWireTransferCreateParams): CompletableFuture<InboundWireTransfer> =
         create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: InboundWireTransferCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -58,7 +58,7 @@ interface InboundWireTransferServiceAsync {
         ): CompletableFuture<HttpResponseFor<InboundWireTransfer>> =
             create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         fun create(
             params: InboundWireTransferCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),

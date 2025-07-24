@@ -30,7 +30,7 @@ interface BookkeepingEntryServiceAsync {
     fun retrieve(bookkeepingEntryId: String): CompletableFuture<BookkeepingEntry> =
         retrieve(bookkeepingEntryId, BookkeepingEntryRetrieveParams.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         bookkeepingEntryId: String,
         params: BookkeepingEntryRetrieveParams = BookkeepingEntryRetrieveParams.none(),
@@ -38,24 +38,24 @@ interface BookkeepingEntryServiceAsync {
     ): CompletableFuture<BookkeepingEntry> =
         retrieve(params.toBuilder().bookkeepingEntryId(bookkeepingEntryId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         bookkeepingEntryId: String,
         params: BookkeepingEntryRetrieveParams = BookkeepingEntryRetrieveParams.none(),
     ): CompletableFuture<BookkeepingEntry> =
         retrieve(bookkeepingEntryId, params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: BookkeepingEntryRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<BookkeepingEntry>
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(params: BookkeepingEntryRetrieveParams): CompletableFuture<BookkeepingEntry> =
         retrieve(params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         bookkeepingEntryId: String,
         requestOptions: RequestOptions,
@@ -66,18 +66,18 @@ interface BookkeepingEntryServiceAsync {
     fun list(): CompletableFuture<BookkeepingEntryListPageAsync> =
         list(BookkeepingEntryListParams.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: BookkeepingEntryListParams = BookkeepingEntryListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<BookkeepingEntryListPageAsync>
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: BookkeepingEntryListParams = BookkeepingEntryListParams.none()
     ): CompletableFuture<BookkeepingEntryListPageAsync> = list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): CompletableFuture<BookkeepingEntryListPageAsync> =
         list(BookkeepingEntryListParams.none(), requestOptions)
 
@@ -105,7 +105,7 @@ interface BookkeepingEntryServiceAsync {
         ): CompletableFuture<HttpResponseFor<BookkeepingEntry>> =
             retrieve(bookkeepingEntryId, BookkeepingEntryRetrieveParams.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             bookkeepingEntryId: String,
             params: BookkeepingEntryRetrieveParams = BookkeepingEntryRetrieveParams.none(),
@@ -116,26 +116,26 @@ interface BookkeepingEntryServiceAsync {
                 requestOptions,
             )
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             bookkeepingEntryId: String,
             params: BookkeepingEntryRetrieveParams = BookkeepingEntryRetrieveParams.none(),
         ): CompletableFuture<HttpResponseFor<BookkeepingEntry>> =
             retrieve(bookkeepingEntryId, params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             params: BookkeepingEntryRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<BookkeepingEntry>>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             params: BookkeepingEntryRetrieveParams
         ): CompletableFuture<HttpResponseFor<BookkeepingEntry>> =
             retrieve(params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             bookkeepingEntryId: String,
             requestOptions: RequestOptions,
@@ -149,19 +149,19 @@ interface BookkeepingEntryServiceAsync {
         fun list(): CompletableFuture<HttpResponseFor<BookkeepingEntryListPageAsync>> =
             list(BookkeepingEntryListParams.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: BookkeepingEntryListParams = BookkeepingEntryListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<BookkeepingEntryListPageAsync>>
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: BookkeepingEntryListParams = BookkeepingEntryListParams.none()
         ): CompletableFuture<HttpResponseFor<BookkeepingEntryListPageAsync>> =
             list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             requestOptions: RequestOptions
         ): CompletableFuture<HttpResponseFor<BookkeepingEntryListPageAsync>> =

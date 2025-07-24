@@ -28,7 +28,7 @@ interface FileLinkServiceAsync {
     fun create(params: FileLinkCreateParams): CompletableFuture<FileLink> =
         create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: FileLinkCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -55,7 +55,7 @@ interface FileLinkServiceAsync {
         fun create(params: FileLinkCreateParams): CompletableFuture<HttpResponseFor<FileLink>> =
             create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         fun create(
             params: FileLinkCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),

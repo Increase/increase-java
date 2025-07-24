@@ -29,7 +29,7 @@ interface DigitalWalletTokenRequestService {
         params: DigitalWalletTokenRequestCreateParams
     ): DigitalWalletTokenRequestCreateResponse = create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: DigitalWalletTokenRequestCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -60,7 +60,7 @@ interface DigitalWalletTokenRequestService {
         ): HttpResponseFor<DigitalWalletTokenRequestCreateResponse> =
             create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         @MustBeClosed
         fun create(
             params: DigitalWalletTokenRequestCreateParams,

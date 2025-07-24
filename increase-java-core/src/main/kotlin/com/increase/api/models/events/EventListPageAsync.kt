@@ -12,7 +12,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.concurrent.Executor
 import kotlin.jvm.optionals.getOrNull
 
-/** @see [EventServiceAsync.list] */
+/** @see EventServiceAsync.list */
 class EventListPageAsync
 private constructor(
     private val service: EventServiceAsync,
@@ -24,14 +24,14 @@ private constructor(
     /**
      * Delegates to [EventListPageResponse], but gracefully handles missing data.
      *
-     * @see [EventListPageResponse.data]
+     * @see EventListPageResponse.data
      */
     fun data(): List<Event> = response._data().getOptional("data").getOrNull() ?: emptyList()
 
     /**
      * Delegates to [EventListPageResponse], but gracefully handles missing data.
      *
-     * @see [EventListPageResponse.nextCursor]
+     * @see EventListPageResponse.nextCursor
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 

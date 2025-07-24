@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** @see [InboundAchTransferService.list] */
+/** @see InboundAchTransferService.list */
 class InboundAchTransferListPage
 private constructor(
     private val service: InboundAchTransferService,
@@ -21,7 +21,7 @@ private constructor(
     /**
      * Delegates to [InboundAchTransferListPageResponse], but gracefully handles missing data.
      *
-     * @see [InboundAchTransferListPageResponse.data]
+     * @see InboundAchTransferListPageResponse.data
      */
     fun data(): List<InboundAchTransfer> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
@@ -29,7 +29,7 @@ private constructor(
     /**
      * Delegates to [InboundAchTransferListPageResponse], but gracefully handles missing data.
      *
-     * @see [InboundAchTransferListPageResponse.nextCursor]
+     * @see InboundAchTransferListPageResponse.nextCursor
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 

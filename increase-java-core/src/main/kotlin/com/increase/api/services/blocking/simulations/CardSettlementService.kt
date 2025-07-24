@@ -33,7 +33,7 @@ interface CardSettlementService {
     fun create(params: CardSettlementCreateParams): Transaction =
         create(params, RequestOptions.none())
 
-    /** @see [create] */
+    /** @see create */
     fun create(
         params: CardSettlementCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -61,7 +61,7 @@ interface CardSettlementService {
         fun create(params: CardSettlementCreateParams): HttpResponseFor<Transaction> =
             create(params, RequestOptions.none())
 
-        /** @see [create] */
+        /** @see create */
         @MustBeClosed
         fun create(
             params: CardSettlementCreateParams,

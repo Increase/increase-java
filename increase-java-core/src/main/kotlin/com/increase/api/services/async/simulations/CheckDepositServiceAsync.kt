@@ -33,7 +33,7 @@ interface CheckDepositServiceAsync {
     fun reject(checkDepositId: String): CompletableFuture<CheckDeposit> =
         reject(checkDepositId, CheckDepositRejectParams.none())
 
-    /** @see [reject] */
+    /** @see reject */
     fun reject(
         checkDepositId: String,
         params: CheckDepositRejectParams = CheckDepositRejectParams.none(),
@@ -41,23 +41,23 @@ interface CheckDepositServiceAsync {
     ): CompletableFuture<CheckDeposit> =
         reject(params.toBuilder().checkDepositId(checkDepositId).build(), requestOptions)
 
-    /** @see [reject] */
+    /** @see reject */
     fun reject(
         checkDepositId: String,
         params: CheckDepositRejectParams = CheckDepositRejectParams.none(),
     ): CompletableFuture<CheckDeposit> = reject(checkDepositId, params, RequestOptions.none())
 
-    /** @see [reject] */
+    /** @see reject */
     fun reject(
         params: CheckDepositRejectParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CheckDeposit>
 
-    /** @see [reject] */
+    /** @see reject */
     fun reject(params: CheckDepositRejectParams): CompletableFuture<CheckDeposit> =
         reject(params, RequestOptions.none())
 
-    /** @see [reject] */
+    /** @see reject */
     fun reject(
         checkDepositId: String,
         requestOptions: RequestOptions,
@@ -71,7 +71,7 @@ interface CheckDepositServiceAsync {
     fun return_(checkDepositId: String): CompletableFuture<CheckDeposit> =
         return_(checkDepositId, CheckDepositReturnParams.none())
 
-    /** @see [return_] */
+    /** @see return\_ */
     fun return_(
         checkDepositId: String,
         params: CheckDepositReturnParams = CheckDepositReturnParams.none(),
@@ -79,23 +79,23 @@ interface CheckDepositServiceAsync {
     ): CompletableFuture<CheckDeposit> =
         return_(params.toBuilder().checkDepositId(checkDepositId).build(), requestOptions)
 
-    /** @see [return_] */
+    /** @see return\_ */
     fun return_(
         checkDepositId: String,
         params: CheckDepositReturnParams = CheckDepositReturnParams.none(),
     ): CompletableFuture<CheckDeposit> = return_(checkDepositId, params, RequestOptions.none())
 
-    /** @see [return_] */
+    /** @see return\_ */
     fun return_(
         params: CheckDepositReturnParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CheckDeposit>
 
-    /** @see [return_] */
+    /** @see return\_ */
     fun return_(params: CheckDepositReturnParams): CompletableFuture<CheckDeposit> =
         return_(params, RequestOptions.none())
 
-    /** @see [return_] */
+    /** @see return\_ */
     fun return_(
         checkDepositId: String,
         requestOptions: RequestOptions,
@@ -109,7 +109,7 @@ interface CheckDepositServiceAsync {
     fun submit(checkDepositId: String): CompletableFuture<CheckDeposit> =
         submit(checkDepositId, CheckDepositSubmitParams.none())
 
-    /** @see [submit] */
+    /** @see submit */
     fun submit(
         checkDepositId: String,
         params: CheckDepositSubmitParams = CheckDepositSubmitParams.none(),
@@ -117,23 +117,23 @@ interface CheckDepositServiceAsync {
     ): CompletableFuture<CheckDeposit> =
         submit(params.toBuilder().checkDepositId(checkDepositId).build(), requestOptions)
 
-    /** @see [submit] */
+    /** @see submit */
     fun submit(
         checkDepositId: String,
         params: CheckDepositSubmitParams = CheckDepositSubmitParams.none(),
     ): CompletableFuture<CheckDeposit> = submit(checkDepositId, params, RequestOptions.none())
 
-    /** @see [submit] */
+    /** @see submit */
     fun submit(
         params: CheckDepositSubmitParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CheckDeposit>
 
-    /** @see [submit] */
+    /** @see submit */
     fun submit(params: CheckDepositSubmitParams): CompletableFuture<CheckDeposit> =
         submit(params, RequestOptions.none())
 
-    /** @see [submit] */
+    /** @see submit */
     fun submit(
         checkDepositId: String,
         requestOptions: RequestOptions,
@@ -163,7 +163,7 @@ interface CheckDepositServiceAsync {
         fun reject(checkDepositId: String): CompletableFuture<HttpResponseFor<CheckDeposit>> =
             reject(checkDepositId, CheckDepositRejectParams.none())
 
-        /** @see [reject] */
+        /** @see reject */
         fun reject(
             checkDepositId: String,
             params: CheckDepositRejectParams = CheckDepositRejectParams.none(),
@@ -171,25 +171,25 @@ interface CheckDepositServiceAsync {
         ): CompletableFuture<HttpResponseFor<CheckDeposit>> =
             reject(params.toBuilder().checkDepositId(checkDepositId).build(), requestOptions)
 
-        /** @see [reject] */
+        /** @see reject */
         fun reject(
             checkDepositId: String,
             params: CheckDepositRejectParams = CheckDepositRejectParams.none(),
         ): CompletableFuture<HttpResponseFor<CheckDeposit>> =
             reject(checkDepositId, params, RequestOptions.none())
 
-        /** @see [reject] */
+        /** @see reject */
         fun reject(
             params: CheckDepositRejectParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<CheckDeposit>>
 
-        /** @see [reject] */
+        /** @see reject */
         fun reject(
             params: CheckDepositRejectParams
         ): CompletableFuture<HttpResponseFor<CheckDeposit>> = reject(params, RequestOptions.none())
 
-        /** @see [reject] */
+        /** @see reject */
         fun reject(
             checkDepositId: String,
             requestOptions: RequestOptions,
@@ -204,7 +204,7 @@ interface CheckDepositServiceAsync {
         fun return_(checkDepositId: String): CompletableFuture<HttpResponseFor<CheckDeposit>> =
             return_(checkDepositId, CheckDepositReturnParams.none())
 
-        /** @see [return_] */
+        /** @see return\_ */
         fun return_(
             checkDepositId: String,
             params: CheckDepositReturnParams = CheckDepositReturnParams.none(),
@@ -212,25 +212,25 @@ interface CheckDepositServiceAsync {
         ): CompletableFuture<HttpResponseFor<CheckDeposit>> =
             return_(params.toBuilder().checkDepositId(checkDepositId).build(), requestOptions)
 
-        /** @see [return_] */
+        /** @see return\_ */
         fun return_(
             checkDepositId: String,
             params: CheckDepositReturnParams = CheckDepositReturnParams.none(),
         ): CompletableFuture<HttpResponseFor<CheckDeposit>> =
             return_(checkDepositId, params, RequestOptions.none())
 
-        /** @see [return_] */
+        /** @see return\_ */
         fun return_(
             params: CheckDepositReturnParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<CheckDeposit>>
 
-        /** @see [return_] */
+        /** @see return\_ */
         fun return_(
             params: CheckDepositReturnParams
         ): CompletableFuture<HttpResponseFor<CheckDeposit>> = return_(params, RequestOptions.none())
 
-        /** @see [return_] */
+        /** @see return\_ */
         fun return_(
             checkDepositId: String,
             requestOptions: RequestOptions,
@@ -245,7 +245,7 @@ interface CheckDepositServiceAsync {
         fun submit(checkDepositId: String): CompletableFuture<HttpResponseFor<CheckDeposit>> =
             submit(checkDepositId, CheckDepositSubmitParams.none())
 
-        /** @see [submit] */
+        /** @see submit */
         fun submit(
             checkDepositId: String,
             params: CheckDepositSubmitParams = CheckDepositSubmitParams.none(),
@@ -253,25 +253,25 @@ interface CheckDepositServiceAsync {
         ): CompletableFuture<HttpResponseFor<CheckDeposit>> =
             submit(params.toBuilder().checkDepositId(checkDepositId).build(), requestOptions)
 
-        /** @see [submit] */
+        /** @see submit */
         fun submit(
             checkDepositId: String,
             params: CheckDepositSubmitParams = CheckDepositSubmitParams.none(),
         ): CompletableFuture<HttpResponseFor<CheckDeposit>> =
             submit(checkDepositId, params, RequestOptions.none())
 
-        /** @see [submit] */
+        /** @see submit */
         fun submit(
             params: CheckDepositSubmitParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<CheckDeposit>>
 
-        /** @see [submit] */
+        /** @see submit */
         fun submit(
             params: CheckDepositSubmitParams
         ): CompletableFuture<HttpResponseFor<CheckDeposit>> = submit(params, RequestOptions.none())
 
-        /** @see [submit] */
+        /** @see submit */
         fun submit(
             checkDepositId: String,
             requestOptions: RequestOptions,

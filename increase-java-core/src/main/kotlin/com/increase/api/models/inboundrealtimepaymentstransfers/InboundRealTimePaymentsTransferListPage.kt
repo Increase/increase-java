@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** @see [InboundRealTimePaymentsTransferService.list] */
+/** @see InboundRealTimePaymentsTransferService.list */
 class InboundRealTimePaymentsTransferListPage
 private constructor(
     private val service: InboundRealTimePaymentsTransferService,
@@ -22,7 +22,7 @@ private constructor(
      * Delegates to [InboundRealTimePaymentsTransferListPageResponse], but gracefully handles
      * missing data.
      *
-     * @see [InboundRealTimePaymentsTransferListPageResponse.data]
+     * @see InboundRealTimePaymentsTransferListPageResponse.data
      */
     fun data(): List<InboundRealTimePaymentsTransfer> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
@@ -31,7 +31,7 @@ private constructor(
      * Delegates to [InboundRealTimePaymentsTransferListPageResponse], but gracefully handles
      * missing data.
      *
-     * @see [InboundRealTimePaymentsTransferListPageResponse.nextCursor]
+     * @see InboundRealTimePaymentsTransferListPageResponse.nextCursor
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 

@@ -30,7 +30,7 @@ interface OAuthConnectionServiceAsync {
     fun retrieve(oauthConnectionId: String): CompletableFuture<OAuthConnection> =
         retrieve(oauthConnectionId, OAuthConnectionRetrieveParams.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         oauthConnectionId: String,
         params: OAuthConnectionRetrieveParams = OAuthConnectionRetrieveParams.none(),
@@ -38,24 +38,24 @@ interface OAuthConnectionServiceAsync {
     ): CompletableFuture<OAuthConnection> =
         retrieve(params.toBuilder().oauthConnectionId(oauthConnectionId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         oauthConnectionId: String,
         params: OAuthConnectionRetrieveParams = OAuthConnectionRetrieveParams.none(),
     ): CompletableFuture<OAuthConnection> =
         retrieve(oauthConnectionId, params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: OAuthConnectionRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<OAuthConnection>
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(params: OAuthConnectionRetrieveParams): CompletableFuture<OAuthConnection> =
         retrieve(params, RequestOptions.none())
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         oauthConnectionId: String,
         requestOptions: RequestOptions,
@@ -66,18 +66,18 @@ interface OAuthConnectionServiceAsync {
     fun list(): CompletableFuture<OAuthConnectionListPageAsync> =
         list(OAuthConnectionListParams.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: OAuthConnectionListParams = OAuthConnectionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<OAuthConnectionListPageAsync>
 
-    /** @see [list] */
+    /** @see list */
     fun list(
         params: OAuthConnectionListParams = OAuthConnectionListParams.none()
     ): CompletableFuture<OAuthConnectionListPageAsync> = list(params, RequestOptions.none())
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): CompletableFuture<OAuthConnectionListPageAsync> =
         list(OAuthConnectionListParams.none(), requestOptions)
 
@@ -105,7 +105,7 @@ interface OAuthConnectionServiceAsync {
         ): CompletableFuture<HttpResponseFor<OAuthConnection>> =
             retrieve(oauthConnectionId, OAuthConnectionRetrieveParams.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             oauthConnectionId: String,
             params: OAuthConnectionRetrieveParams = OAuthConnectionRetrieveParams.none(),
@@ -116,26 +116,26 @@ interface OAuthConnectionServiceAsync {
                 requestOptions,
             )
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             oauthConnectionId: String,
             params: OAuthConnectionRetrieveParams = OAuthConnectionRetrieveParams.none(),
         ): CompletableFuture<HttpResponseFor<OAuthConnection>> =
             retrieve(oauthConnectionId, params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             params: OAuthConnectionRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<OAuthConnection>>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             params: OAuthConnectionRetrieveParams
         ): CompletableFuture<HttpResponseFor<OAuthConnection>> =
             retrieve(params, RequestOptions.none())
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         fun retrieve(
             oauthConnectionId: String,
             requestOptions: RequestOptions,
@@ -149,19 +149,19 @@ interface OAuthConnectionServiceAsync {
         fun list(): CompletableFuture<HttpResponseFor<OAuthConnectionListPageAsync>> =
             list(OAuthConnectionListParams.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: OAuthConnectionListParams = OAuthConnectionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<OAuthConnectionListPageAsync>>
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             params: OAuthConnectionListParams = OAuthConnectionListParams.none()
         ): CompletableFuture<HttpResponseFor<OAuthConnectionListPageAsync>> =
             list(params, RequestOptions.none())
 
-        /** @see [list] */
+        /** @see list */
         fun list(
             requestOptions: RequestOptions
         ): CompletableFuture<HttpResponseFor<OAuthConnectionListPageAsync>> =

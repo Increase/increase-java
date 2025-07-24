@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** @see [OAuthConnectionService.list] */
+/** @see OAuthConnectionService.list */
 class OAuthConnectionListPage
 private constructor(
     private val service: OAuthConnectionService,
@@ -21,7 +21,7 @@ private constructor(
     /**
      * Delegates to [OAuthConnectionListPageResponse], but gracefully handles missing data.
      *
-     * @see [OAuthConnectionListPageResponse.data]
+     * @see OAuthConnectionListPageResponse.data
      */
     fun data(): List<OAuthConnection> =
         response._data().getOptional("data").getOrNull() ?: emptyList()
@@ -29,7 +29,7 @@ private constructor(
     /**
      * Delegates to [OAuthConnectionListPageResponse], but gracefully handles missing data.
      *
-     * @see [OAuthConnectionListPageResponse.nextCursor]
+     * @see OAuthConnectionListPageResponse.nextCursor
      */
     fun nextCursor(): Optional<String> = response._nextCursor().getOptional("next_cursor")
 

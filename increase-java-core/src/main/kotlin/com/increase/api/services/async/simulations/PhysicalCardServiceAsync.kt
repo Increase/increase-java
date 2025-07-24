@@ -35,7 +35,7 @@ interface PhysicalCardServiceAsync {
     ): CompletableFuture<PhysicalCard> =
         advanceShipment(physicalCardId, params, RequestOptions.none())
 
-    /** @see [advanceShipment] */
+    /** @see advanceShipment */
     fun advanceShipment(
         physicalCardId: String,
         params: PhysicalCardAdvanceShipmentParams,
@@ -43,12 +43,12 @@ interface PhysicalCardServiceAsync {
     ): CompletableFuture<PhysicalCard> =
         advanceShipment(params.toBuilder().physicalCardId(physicalCardId).build(), requestOptions)
 
-    /** @see [advanceShipment] */
+    /** @see advanceShipment */
     fun advanceShipment(
         params: PhysicalCardAdvanceShipmentParams
     ): CompletableFuture<PhysicalCard> = advanceShipment(params, RequestOptions.none())
 
-    /** @see [advanceShipment] */
+    /** @see advanceShipment */
     fun advanceShipment(
         params: PhysicalCardAdvanceShipmentParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -64,7 +64,7 @@ interface PhysicalCardServiceAsync {
     ): CompletableFuture<PhysicalCard> =
         trackingUpdates(physicalCardId, params, RequestOptions.none())
 
-    /** @see [trackingUpdates] */
+    /** @see trackingUpdates */
     fun trackingUpdates(
         physicalCardId: String,
         params: PhysicalCardTrackingUpdatesParams,
@@ -72,12 +72,12 @@ interface PhysicalCardServiceAsync {
     ): CompletableFuture<PhysicalCard> =
         trackingUpdates(params.toBuilder().physicalCardId(physicalCardId).build(), requestOptions)
 
-    /** @see [trackingUpdates] */
+    /** @see trackingUpdates */
     fun trackingUpdates(
         params: PhysicalCardTrackingUpdatesParams
     ): CompletableFuture<PhysicalCard> = trackingUpdates(params, RequestOptions.none())
 
-    /** @see [trackingUpdates] */
+    /** @see trackingUpdates */
     fun trackingUpdates(
         params: PhysicalCardTrackingUpdatesParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -109,7 +109,7 @@ interface PhysicalCardServiceAsync {
         ): CompletableFuture<HttpResponseFor<PhysicalCard>> =
             advanceShipment(physicalCardId, params, RequestOptions.none())
 
-        /** @see [advanceShipment] */
+        /** @see advanceShipment */
         fun advanceShipment(
             physicalCardId: String,
             params: PhysicalCardAdvanceShipmentParams,
@@ -120,13 +120,13 @@ interface PhysicalCardServiceAsync {
                 requestOptions,
             )
 
-        /** @see [advanceShipment] */
+        /** @see advanceShipment */
         fun advanceShipment(
             params: PhysicalCardAdvanceShipmentParams
         ): CompletableFuture<HttpResponseFor<PhysicalCard>> =
             advanceShipment(params, RequestOptions.none())
 
-        /** @see [advanceShipment] */
+        /** @see advanceShipment */
         fun advanceShipment(
             params: PhysicalCardAdvanceShipmentParams,
             requestOptions: RequestOptions = RequestOptions.none(),
@@ -143,7 +143,7 @@ interface PhysicalCardServiceAsync {
         ): CompletableFuture<HttpResponseFor<PhysicalCard>> =
             trackingUpdates(physicalCardId, params, RequestOptions.none())
 
-        /** @see [trackingUpdates] */
+        /** @see trackingUpdates */
         fun trackingUpdates(
             physicalCardId: String,
             params: PhysicalCardTrackingUpdatesParams,
@@ -154,13 +154,13 @@ interface PhysicalCardServiceAsync {
                 requestOptions,
             )
 
-        /** @see [trackingUpdates] */
+        /** @see trackingUpdates */
         fun trackingUpdates(
             params: PhysicalCardTrackingUpdatesParams
         ): CompletableFuture<HttpResponseFor<PhysicalCard>> =
             trackingUpdates(params, RequestOptions.none())
 
-        /** @see [trackingUpdates] */
+        /** @see trackingUpdates */
         fun trackingUpdates(
             params: PhysicalCardTrackingUpdatesParams,
             requestOptions: RequestOptions = RequestOptions.none(),
