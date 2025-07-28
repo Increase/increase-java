@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.266.1 (2025-07-28)
+
+Full Changelog: [v0.266.0...v0.266.1](https://github.com/Increase/increase-java/compare/v0.266.0...v0.266.1)
+
+### Bug Fixes
+
+* **client:** some bad `_additionalBodyProperties` serialization ([4460cdc](https://github.com/Increase/increase-java/commit/4460cdc369dfbd69ebf1e364f3dbae08698010b2))
+
+
+### Chores
+
+* **internal:** remove unnecessary `[...]` in `[@see](https://github.com/see)` ([f9b79eb](https://github.com/Increase/increase-java/commit/f9b79ebc61e8d6fe9fc2c2ee2f9e70dffc2611ad))
+
+
+### Documentation
+
+* more code comments ([68f5533](https://github.com/Increase/increase-java/commit/68f5533bf7f13aba48372c441cca27dee53ca50a))
+
 ## 0.266.0 (2025-07-23)
 
 Full Changelog: [v0.265.0...v0.266.0](https://github.com/Increase/increase-java/compare/v0.265.0...v0.266.0)
