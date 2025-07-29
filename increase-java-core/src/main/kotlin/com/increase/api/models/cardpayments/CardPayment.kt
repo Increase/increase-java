@@ -17001,6 +17001,8 @@ private constructor(
             private val networkIdentifiers: JsonField<NetworkIdentifiers>,
             private val networkRiskScore: JsonField<Long>,
             private val pendingTransactionId: JsonField<String>,
+            private val presentmentAmount: JsonField<Long>,
+            private val presentmentCurrency: JsonField<String>,
             private val realTimeDecisionId: JsonField<String>,
             private val type: JsonField<Type>,
             private val updatedAuthorizationAmount: JsonField<Long>,
@@ -17032,6 +17034,12 @@ private constructor(
                 @JsonProperty("pending_transaction_id")
                 @ExcludeMissing
                 pendingTransactionId: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("presentment_amount")
+                @ExcludeMissing
+                presentmentAmount: JsonField<Long> = JsonMissing.of(),
+                @JsonProperty("presentment_currency")
+                @ExcludeMissing
+                presentmentCurrency: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("real_time_decision_id")
                 @ExcludeMissing
                 realTimeDecisionId: JsonField<String> = JsonMissing.of(),
@@ -17049,6 +17057,8 @@ private constructor(
                 networkIdentifiers,
                 networkRiskScore,
                 pendingTransactionId,
+                presentmentAmount,
+                presentmentCurrency,
                 realTimeDecisionId,
                 type,
                 updatedAuthorizationAmount,
@@ -17141,6 +17151,27 @@ private constructor(
              */
             fun pendingTransactionId(): Optional<String> =
                 pendingTransactionId.getOptional("pending_transaction_id")
+
+            /**
+             * The amount of this increment in the minor unit of the transaction's presentment
+             * currency.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun presentmentAmount(): Long = presentmentAmount.getRequired("presentment_amount")
+
+            /**
+             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
+             * presentment currency.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun presentmentCurrency(): String =
+                presentmentCurrency.getRequired("presentment_currency")
 
             /**
              * The identifier of the Real-Time Decision sent to approve or decline this incremental
@@ -17255,6 +17286,26 @@ private constructor(
             fun _pendingTransactionId(): JsonField<String> = pendingTransactionId
 
             /**
+             * Returns the raw JSON value of [presentmentAmount].
+             *
+             * Unlike [presentmentAmount], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("presentment_amount")
+            @ExcludeMissing
+            fun _presentmentAmount(): JsonField<Long> = presentmentAmount
+
+            /**
+             * Returns the raw JSON value of [presentmentCurrency].
+             *
+             * Unlike [presentmentCurrency], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("presentment_currency")
+            @ExcludeMissing
+            fun _presentmentCurrency(): JsonField<String> = presentmentCurrency
+
+            /**
              * Returns the raw JSON value of [realTimeDecisionId].
              *
              * Unlike [realTimeDecisionId], this method doesn't throw if the JSON field has an
@@ -17309,6 +17360,8 @@ private constructor(
                  * .networkIdentifiers()
                  * .networkRiskScore()
                  * .pendingTransactionId()
+                 * .presentmentAmount()
+                 * .presentmentCurrency()
                  * .realTimeDecisionId()
                  * .type()
                  * .updatedAuthorizationAmount()
@@ -17329,6 +17382,8 @@ private constructor(
                 private var networkIdentifiers: JsonField<NetworkIdentifiers>? = null
                 private var networkRiskScore: JsonField<Long>? = null
                 private var pendingTransactionId: JsonField<String>? = null
+                private var presentmentAmount: JsonField<Long>? = null
+                private var presentmentCurrency: JsonField<String>? = null
                 private var realTimeDecisionId: JsonField<String>? = null
                 private var type: JsonField<Type>? = null
                 private var updatedAuthorizationAmount: JsonField<Long>? = null
@@ -17345,6 +17400,8 @@ private constructor(
                     networkIdentifiers = cardIncrement.networkIdentifiers
                     networkRiskScore = cardIncrement.networkRiskScore
                     pendingTransactionId = cardIncrement.pendingTransactionId
+                    presentmentAmount = cardIncrement.presentmentAmount
+                    presentmentCurrency = cardIncrement.presentmentCurrency
                     realTimeDecisionId = cardIncrement.realTimeDecisionId
                     type = cardIncrement.type
                     updatedAuthorizationAmount = cardIncrement.updatedAuthorizationAmount
@@ -17508,6 +17565,42 @@ private constructor(
                 }
 
                 /**
+                 * The amount of this increment in the minor unit of the transaction's presentment
+                 * currency.
+                 */
+                fun presentmentAmount(presentmentAmount: Long) =
+                    presentmentAmount(JsonField.of(presentmentAmount))
+
+                /**
+                 * Sets [Builder.presentmentAmount] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.presentmentAmount] with a well-typed [Long]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun presentmentAmount(presentmentAmount: JsonField<Long>) = apply {
+                    this.presentmentAmount = presentmentAmount
+                }
+
+                /**
+                 * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
+                 * presentment currency.
+                 */
+                fun presentmentCurrency(presentmentCurrency: String) =
+                    presentmentCurrency(JsonField.of(presentmentCurrency))
+
+                /**
+                 * Sets [Builder.presentmentCurrency] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.presentmentCurrency] with a well-typed [String]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun presentmentCurrency(presentmentCurrency: JsonField<String>) = apply {
+                    this.presentmentCurrency = presentmentCurrency
+                }
+
+                /**
                  * The identifier of the Real-Time Decision sent to approve or decline this
                  * incremental authorization.
                  */
@@ -17604,6 +17697,8 @@ private constructor(
                  * .networkIdentifiers()
                  * .networkRiskScore()
                  * .pendingTransactionId()
+                 * .presentmentAmount()
+                 * .presentmentCurrency()
                  * .realTimeDecisionId()
                  * .type()
                  * .updatedAuthorizationAmount()
@@ -17622,6 +17717,8 @@ private constructor(
                         checkRequired("networkIdentifiers", networkIdentifiers),
                         checkRequired("networkRiskScore", networkRiskScore),
                         checkRequired("pendingTransactionId", pendingTransactionId),
+                        checkRequired("presentmentAmount", presentmentAmount),
+                        checkRequired("presentmentCurrency", presentmentCurrency),
                         checkRequired("realTimeDecisionId", realTimeDecisionId),
                         checkRequired("type", type),
                         checkRequired("updatedAuthorizationAmount", updatedAuthorizationAmount),
@@ -17645,6 +17742,8 @@ private constructor(
                 networkIdentifiers().validate()
                 networkRiskScore()
                 pendingTransactionId()
+                presentmentAmount()
+                presentmentCurrency()
                 realTimeDecisionId()
                 type().validate()
                 updatedAuthorizationAmount()
@@ -17676,6 +17775,8 @@ private constructor(
                     (networkIdentifiers.asKnown().getOrNull()?.validity() ?: 0) +
                     (if (networkRiskScore.asKnown().isPresent) 1 else 0) +
                     (if (pendingTransactionId.asKnown().isPresent) 1 else 0) +
+                    (if (presentmentAmount.asKnown().isPresent) 1 else 0) +
+                    (if (presentmentCurrency.asKnown().isPresent) 1 else 0) +
                     (if (realTimeDecisionId.asKnown().isPresent) 1 else 0) +
                     (type.asKnown().getOrNull()?.validity() ?: 0) +
                     (if (updatedAuthorizationAmount.asKnown().isPresent) 1 else 0)
@@ -18564,17 +18665,17 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is CardIncrement && id == other.id && actioner == other.actioner && amount == other.amount && cardAuthorizationId == other.cardAuthorizationId && currency == other.currency && network == other.network && networkIdentifiers == other.networkIdentifiers && networkRiskScore == other.networkRiskScore && pendingTransactionId == other.pendingTransactionId && realTimeDecisionId == other.realTimeDecisionId && type == other.type && updatedAuthorizationAmount == other.updatedAuthorizationAmount && additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is CardIncrement && id == other.id && actioner == other.actioner && amount == other.amount && cardAuthorizationId == other.cardAuthorizationId && currency == other.currency && network == other.network && networkIdentifiers == other.networkIdentifiers && networkRiskScore == other.networkRiskScore && pendingTransactionId == other.pendingTransactionId && presentmentAmount == other.presentmentAmount && presentmentCurrency == other.presentmentCurrency && realTimeDecisionId == other.realTimeDecisionId && type == other.type && updatedAuthorizationAmount == other.updatedAuthorizationAmount && additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             /* spotless:off */
-            private val hashCode: Int by lazy { Objects.hash(id, actioner, amount, cardAuthorizationId, currency, network, networkIdentifiers, networkRiskScore, pendingTransactionId, realTimeDecisionId, type, updatedAuthorizationAmount, additionalProperties) }
+            private val hashCode: Int by lazy { Objects.hash(id, actioner, amount, cardAuthorizationId, currency, network, networkIdentifiers, networkRiskScore, pendingTransactionId, presentmentAmount, presentmentCurrency, realTimeDecisionId, type, updatedAuthorizationAmount, additionalProperties) }
             /* spotless:on */
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "CardIncrement{id=$id, actioner=$actioner, amount=$amount, cardAuthorizationId=$cardAuthorizationId, currency=$currency, network=$network, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, pendingTransactionId=$pendingTransactionId, realTimeDecisionId=$realTimeDecisionId, type=$type, updatedAuthorizationAmount=$updatedAuthorizationAmount, additionalProperties=$additionalProperties}"
+                "CardIncrement{id=$id, actioner=$actioner, amount=$amount, cardAuthorizationId=$cardAuthorizationId, currency=$currency, network=$network, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, pendingTransactionId=$pendingTransactionId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, realTimeDecisionId=$realTimeDecisionId, type=$type, updatedAuthorizationAmount=$updatedAuthorizationAmount, additionalProperties=$additionalProperties}"
         }
 
         /**
