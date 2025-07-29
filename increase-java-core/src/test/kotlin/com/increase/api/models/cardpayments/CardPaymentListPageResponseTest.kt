@@ -434,6 +434,7 @@ internal class CardPaymentListPageResponseTest {
                                             .direction(
                                                 CardPayment.Element.CardDecline.Direction.SETTLEMENT
                                             )
+                                            .incrementedCardAuthorizationId(null)
                                             .merchantAcceptorId("5665270011000168")
                                             .merchantCategoryCode("5734")
                                             .merchantCity("New York")
@@ -1881,6 +1882,7 @@ internal class CardPaymentListPageResponseTest {
                                             .direction(
                                                 CardPayment.Element.CardDecline.Direction.SETTLEMENT
                                             )
+                                            .incrementedCardAuthorizationId(null)
                                             .merchantAcceptorId("5665270011000168")
                                             .merchantCategoryCode("5734")
                                             .merchantCity("New York")
@@ -3328,6 +3330,7 @@ internal class CardPaymentListPageResponseTest {
                                             .direction(
                                                 CardPayment.Element.CardDecline.Direction.SETTLEMENT
                                             )
+                                            .incrementedCardAuthorizationId(null)
                                             .merchantAcceptorId("5665270011000168")
                                             .merchantCategoryCode("5734")
                                             .merchantCity("New York")
@@ -4775,6 +4778,7 @@ internal class CardPaymentListPageResponseTest {
                                             .direction(
                                                 CardPayment.Element.CardDecline.Direction.SETTLEMENT
                                             )
+                                            .incrementedCardAuthorizationId(null)
                                             .merchantAcceptorId("5665270011000168")
                                             .merchantCategoryCode("5734")
                                             .merchantCity("New York")
@@ -6233,6 +6237,7 @@ internal class CardPaymentListPageResponseTest {
                                         .direction(
                                             CardPayment.Element.CardDecline.Direction.SETTLEMENT
                                         )
+                                        .incrementedCardAuthorizationId(null)
                                         .merchantAcceptorId("5665270011000168")
                                         .merchantCategoryCode("5734")
                                         .merchantCity("New York")
@@ -7609,6 +7614,7 @@ internal class CardPaymentListPageResponseTest {
                                         .direction(
                                             CardPayment.Element.CardDecline.Direction.SETTLEMENT
                                         )
+                                        .incrementedCardAuthorizationId(null)
                                         .merchantAcceptorId("5665270011000168")
                                         .merchantCategoryCode("5734")
                                         .merchantCity("New York")
@@ -8985,6 +8991,7 @@ internal class CardPaymentListPageResponseTest {
                                         .direction(
                                             CardPayment.Element.CardDecline.Direction.SETTLEMENT
                                         )
+                                        .incrementedCardAuthorizationId(null)
                                         .merchantAcceptorId("5665270011000168")
                                         .merchantCategoryCode("5734")
                                         .merchantCity("New York")
@@ -10361,6 +10368,7 @@ internal class CardPaymentListPageResponseTest {
                                         .direction(
                                             CardPayment.Element.CardDecline.Direction.SETTLEMENT
                                         )
+                                        .incrementedCardAuthorizationId(null)
                                         .merchantAcceptorId("5665270011000168")
                                         .merchantCategoryCode("5734")
                                         .merchantCity("New York")
@@ -11786,6 +11794,7 @@ internal class CardPaymentListPageResponseTest {
                                             .direction(
                                                 CardPayment.Element.CardDecline.Direction.SETTLEMENT
                                             )
+                                            .incrementedCardAuthorizationId(null)
                                             .merchantAcceptorId("5665270011000168")
                                             .merchantCategoryCode("5734")
                                             .merchantCity("New York")
@@ -13233,6 +13242,7 @@ internal class CardPaymentListPageResponseTest {
                                             .direction(
                                                 CardPayment.Element.CardDecline.Direction.SETTLEMENT
                                             )
+                                            .incrementedCardAuthorizationId(null)
                                             .merchantAcceptorId("5665270011000168")
                                             .merchantCategoryCode("5734")
                                             .merchantCity("New York")
@@ -14680,6 +14690,7 @@ internal class CardPaymentListPageResponseTest {
                                             .direction(
                                                 CardPayment.Element.CardDecline.Direction.SETTLEMENT
                                             )
+                                            .incrementedCardAuthorizationId(null)
                                             .merchantAcceptorId("5665270011000168")
                                             .merchantCategoryCode("5734")
                                             .merchantCity("New York")
@@ -16127,6 +16138,7 @@ internal class CardPaymentListPageResponseTest {
                                             .direction(
                                                 CardPayment.Element.CardDecline.Direction.SETTLEMENT
                                             )
+                                            .incrementedCardAuthorizationId(null)
                                             .merchantAcceptorId("5665270011000168")
                                             .merchantCategoryCode("5734")
                                             .merchantCity("New York")
