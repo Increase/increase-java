@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.267.0 (2025-07-29)
+
+Full Changelog: [v0.266.1...v0.267.0](https://github.com/Increase/increase-java/compare/v0.266.1...v0.267.0)
+
+### Features
+
+* add retryable exception ([3beee7e](https://github.com/Increase/increase-java/commit/3beee7ef2b430fa43401ca77cd488246b66d86a0))
+* **api:** api update ([2fb6b19](https://github.com/Increase/increase-java/commit/2fb6b195347be42452c7a477f8f1568b6ff3d239))
+* **client:** ensure compat with proguard ([2a0df21](https://github.com/Increase/increase-java/commit/2a0df215d33f5f1dc05482171f2ed77a507f4f8c))
+
 ## 0.266.1 (2025-07-28)
 
 Full Changelog: [v0.266.0...v0.266.1](https://github.com/Increase/increase-java/compare/v0.266.0...v0.266.1)
