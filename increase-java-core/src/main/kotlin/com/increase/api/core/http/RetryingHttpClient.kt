@@ -3,6 +3,7 @@ package com.increase.api.core.http
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.checkRequired
 import com.increase.api.errors.IncreaseIoException
+import com.increase.api.errors.IncreaseRetryableException
 import java.io.IOException
 import java.time.Clock
 import java.time.Duration
@@ -176,9 +177,10 @@ private constructor(
     }
 
     private fun shouldRetry(throwable: Throwable): Boolean =
-        // Only retry IOException and IncreaseIoException, other exceptions are not intended to be
-        // retried.
-        throwable is IOException || throwable is IncreaseIoException
+        // Only retry known retryable exceptions, other exceptions are not intended to be retried.
+        throwable is IOException ||
+            throwable is IncreaseIoException ||
+            throwable is IncreaseRetryableException
 
     private fun getRetryBackoffDuration(retries: Int, response: HttpResponse?): Duration {
         // About the Retry-After header:
