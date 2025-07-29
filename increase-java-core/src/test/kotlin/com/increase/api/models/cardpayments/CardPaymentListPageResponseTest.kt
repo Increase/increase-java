@@ -721,7 +721,9 @@ internal class CardPaymentListPageResponseTest {
                                             .pendingTransactionId(
                                                 "pending_transaction_k1sfetcau2qbvjbzgju4"
                                             )
+                                            .presentmentCurrency("USD")
                                             .reversalAmount(20L)
+                                            .reversalPresentmentAmount(20L)
                                             .reversalReason(
                                                 CardPayment.Element.CardReversal.ReversalReason
                                                     .REVERSED_BY_CUSTOMER
@@ -731,6 +733,7 @@ internal class CardPaymentListPageResponseTest {
                                                 CardPayment.Element.CardReversal.Type.CARD_REVERSAL
                                             )
                                             .updatedAuthorizationAmount(80L)
+                                            .updatedAuthorizationPresentmentAmount(80L)
                                             .build()
                                     )
                                     .cardSettlement(
@@ -1818,7 +1821,9 @@ internal class CardPaymentListPageResponseTest {
                                             .pendingTransactionId(
                                                 "pending_transaction_k1sfetcau2qbvjbzgju4"
                                             )
+                                            .presentmentCurrency("USD")
                                             .reversalAmount(20L)
+                                            .reversalPresentmentAmount(20L)
                                             .reversalReason(
                                                 CardPayment.Element.CardReversal.ReversalReason
                                                     .REVERSED_BY_CUSTOMER
@@ -1828,6 +1833,7 @@ internal class CardPaymentListPageResponseTest {
                                                 CardPayment.Element.CardReversal.Type.CARD_REVERSAL
                                             )
                                             .updatedAuthorizationAmount(80L)
+                                            .updatedAuthorizationPresentmentAmount(80L)
                                             .build()
                                     )
                                     .cardSettlement(
@@ -2915,7 +2921,9 @@ internal class CardPaymentListPageResponseTest {
                                             .pendingTransactionId(
                                                 "pending_transaction_k1sfetcau2qbvjbzgju4"
                                             )
+                                            .presentmentCurrency("USD")
                                             .reversalAmount(20L)
+                                            .reversalPresentmentAmount(20L)
                                             .reversalReason(
                                                 CardPayment.Element.CardReversal.ReversalReason
                                                     .REVERSED_BY_CUSTOMER
@@ -2925,6 +2933,7 @@ internal class CardPaymentListPageResponseTest {
                                                 CardPayment.Element.CardReversal.Type.CARD_REVERSAL
                                             )
                                             .updatedAuthorizationAmount(80L)
+                                            .updatedAuthorizationPresentmentAmount(80L)
                                             .build()
                                     )
                                     .cardSettlement(
@@ -4012,7 +4021,9 @@ internal class CardPaymentListPageResponseTest {
                                             .pendingTransactionId(
                                                 "pending_transaction_k1sfetcau2qbvjbzgju4"
                                             )
+                                            .presentmentCurrency("USD")
                                             .reversalAmount(20L)
+                                            .reversalPresentmentAmount(20L)
                                             .reversalReason(
                                                 CardPayment.Element.CardReversal.ReversalReason
                                                     .REVERSED_BY_CUSTOMER
@@ -4022,6 +4033,7 @@ internal class CardPaymentListPageResponseTest {
                                                 CardPayment.Element.CardReversal.Type.CARD_REVERSAL
                                             )
                                             .updatedAuthorizationAmount(80L)
+                                            .updatedAuthorizationPresentmentAmount(80L)
                                             .build()
                                     )
                                     .cardSettlement(
@@ -5091,7 +5103,9 @@ internal class CardPaymentListPageResponseTest {
                                         .pendingTransactionId(
                                             "pending_transaction_k1sfetcau2qbvjbzgju4"
                                         )
+                                        .presentmentCurrency("USD")
                                         .reversalAmount(20L)
+                                        .reversalPresentmentAmount(20L)
                                         .reversalReason(
                                             CardPayment.Element.CardReversal.ReversalReason
                                                 .REVERSED_BY_CUSTOMER
@@ -5099,6 +5113,7 @@ internal class CardPaymentListPageResponseTest {
                                         .terminalId("RCN5VNXS")
                                         .type(CardPayment.Element.CardReversal.Type.CARD_REVERSAL)
                                         .updatedAuthorizationAmount(80L)
+                                        .updatedAuthorizationPresentmentAmount(80L)
                                         .build()
                                 )
                                 .cardSettlement(
@@ -6118,7 +6133,9 @@ internal class CardPaymentListPageResponseTest {
                                         .pendingTransactionId(
                                             "pending_transaction_k1sfetcau2qbvjbzgju4"
                                         )
+                                        .presentmentCurrency("USD")
                                         .reversalAmount(20L)
+                                        .reversalPresentmentAmount(20L)
                                         .reversalReason(
                                             CardPayment.Element.CardReversal.ReversalReason
                                                 .REVERSED_BY_CUSTOMER
@@ -6126,6 +6143,7 @@ internal class CardPaymentListPageResponseTest {
                                         .terminalId("RCN5VNXS")
                                         .type(CardPayment.Element.CardReversal.Type.CARD_REVERSAL)
                                         .updatedAuthorizationAmount(80L)
+                                        .updatedAuthorizationPresentmentAmount(80L)
                                         .build()
                                 )
                                 .cardSettlement(
@@ -7145,7 +7163,9 @@ internal class CardPaymentListPageResponseTest {
                                         .pendingTransactionId(
                                             "pending_transaction_k1sfetcau2qbvjbzgju4"
                                         )
+                                        .presentmentCurrency("USD")
                                         .reversalAmount(20L)
+                                        .reversalPresentmentAmount(20L)
                                         .reversalReason(
                                             CardPayment.Element.CardReversal.ReversalReason
                                                 .REVERSED_BY_CUSTOMER
@@ -7153,6 +7173,7 @@ internal class CardPaymentListPageResponseTest {
                                         .terminalId("RCN5VNXS")
                                         .type(CardPayment.Element.CardReversal.Type.CARD_REVERSAL)
                                         .updatedAuthorizationAmount(80L)
+                                        .updatedAuthorizationPresentmentAmount(80L)
                                         .build()
                                 )
                                 .cardSettlement(
@@ -8172,7 +8193,9 @@ internal class CardPaymentListPageResponseTest {
                                         .pendingTransactionId(
                                             "pending_transaction_k1sfetcau2qbvjbzgju4"
                                         )
+                                        .presentmentCurrency("USD")
                                         .reversalAmount(20L)
+                                        .reversalPresentmentAmount(20L)
                                         .reversalReason(
                                             CardPayment.Element.CardReversal.ReversalReason
                                                 .REVERSED_BY_CUSTOMER
@@ -8180,6 +8203,7 @@ internal class CardPaymentListPageResponseTest {
                                         .terminalId("RCN5VNXS")
                                         .type(CardPayment.Element.CardReversal.Type.CARD_REVERSAL)
                                         .updatedAuthorizationAmount(80L)
+                                        .updatedAuthorizationPresentmentAmount(80L)
                                         .build()
                                 )
                                 .cardSettlement(
@@ -9277,7 +9301,9 @@ internal class CardPaymentListPageResponseTest {
                                             .pendingTransactionId(
                                                 "pending_transaction_k1sfetcau2qbvjbzgju4"
                                             )
+                                            .presentmentCurrency("USD")
                                             .reversalAmount(20L)
+                                            .reversalPresentmentAmount(20L)
                                             .reversalReason(
                                                 CardPayment.Element.CardReversal.ReversalReason
                                                     .REVERSED_BY_CUSTOMER
@@ -9287,6 +9313,7 @@ internal class CardPaymentListPageResponseTest {
                                                 CardPayment.Element.CardReversal.Type.CARD_REVERSAL
                                             )
                                             .updatedAuthorizationAmount(80L)
+                                            .updatedAuthorizationPresentmentAmount(80L)
                                             .build()
                                     )
                                     .cardSettlement(
@@ -10374,7 +10401,9 @@ internal class CardPaymentListPageResponseTest {
                                             .pendingTransactionId(
                                                 "pending_transaction_k1sfetcau2qbvjbzgju4"
                                             )
+                                            .presentmentCurrency("USD")
                                             .reversalAmount(20L)
+                                            .reversalPresentmentAmount(20L)
                                             .reversalReason(
                                                 CardPayment.Element.CardReversal.ReversalReason
                                                     .REVERSED_BY_CUSTOMER
@@ -10384,6 +10413,7 @@ internal class CardPaymentListPageResponseTest {
                                                 CardPayment.Element.CardReversal.Type.CARD_REVERSAL
                                             )
                                             .updatedAuthorizationAmount(80L)
+                                            .updatedAuthorizationPresentmentAmount(80L)
                                             .build()
                                     )
                                     .cardSettlement(
@@ -11471,7 +11501,9 @@ internal class CardPaymentListPageResponseTest {
                                             .pendingTransactionId(
                                                 "pending_transaction_k1sfetcau2qbvjbzgju4"
                                             )
+                                            .presentmentCurrency("USD")
                                             .reversalAmount(20L)
+                                            .reversalPresentmentAmount(20L)
                                             .reversalReason(
                                                 CardPayment.Element.CardReversal.ReversalReason
                                                     .REVERSED_BY_CUSTOMER
@@ -11481,6 +11513,7 @@ internal class CardPaymentListPageResponseTest {
                                                 CardPayment.Element.CardReversal.Type.CARD_REVERSAL
                                             )
                                             .updatedAuthorizationAmount(80L)
+                                            .updatedAuthorizationPresentmentAmount(80L)
                                             .build()
                                     )
                                     .cardSettlement(
@@ -12568,7 +12601,9 @@ internal class CardPaymentListPageResponseTest {
                                             .pendingTransactionId(
                                                 "pending_transaction_k1sfetcau2qbvjbzgju4"
                                             )
+                                            .presentmentCurrency("USD")
                                             .reversalAmount(20L)
+                                            .reversalPresentmentAmount(20L)
                                             .reversalReason(
                                                 CardPayment.Element.CardReversal.ReversalReason
                                                     .REVERSED_BY_CUSTOMER
@@ -12578,6 +12613,7 @@ internal class CardPaymentListPageResponseTest {
                                                 CardPayment.Element.CardReversal.Type.CARD_REVERSAL
                                             )
                                             .updatedAuthorizationAmount(80L)
+                                            .updatedAuthorizationPresentmentAmount(80L)
                                             .build()
                                     )
                                     .cardSettlement(
