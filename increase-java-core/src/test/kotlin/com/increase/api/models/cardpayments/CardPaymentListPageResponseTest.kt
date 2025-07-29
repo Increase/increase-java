@@ -420,6 +420,8 @@ internal class CardPaymentListPageResponseTest {
                                             .pendingTransactionId(
                                                 "pending_transaction_k1sfetcau2qbvjbzgju4"
                                             )
+                                            .presentmentAmount(20L)
+                                            .presentmentCurrency("USD")
                                             .realTimeDecisionId(null)
                                             .type(
                                                 CardPayment.Element.CardIncrement.Type
@@ -1520,6 +1522,8 @@ internal class CardPaymentListPageResponseTest {
                                             .pendingTransactionId(
                                                 "pending_transaction_k1sfetcau2qbvjbzgju4"
                                             )
+                                            .presentmentAmount(20L)
+                                            .presentmentCurrency("USD")
                                             .realTimeDecisionId(null)
                                             .type(
                                                 CardPayment.Element.CardIncrement.Type
@@ -2620,6 +2624,8 @@ internal class CardPaymentListPageResponseTest {
                                             .pendingTransactionId(
                                                 "pending_transaction_k1sfetcau2qbvjbzgju4"
                                             )
+                                            .presentmentAmount(20L)
+                                            .presentmentCurrency("USD")
                                             .realTimeDecisionId(null)
                                             .type(
                                                 CardPayment.Element.CardIncrement.Type
@@ -3720,6 +3726,8 @@ internal class CardPaymentListPageResponseTest {
                                             .pendingTransactionId(
                                                 "pending_transaction_k1sfetcau2qbvjbzgju4"
                                             )
+                                            .presentmentAmount(20L)
+                                            .presentmentCurrency("USD")
                                             .realTimeDecisionId(null)
                                             .type(
                                                 CardPayment.Element.CardIncrement.Type
@@ -4824,6 +4832,8 @@ internal class CardPaymentListPageResponseTest {
                                         .pendingTransactionId(
                                             "pending_transaction_k1sfetcau2qbvjbzgju4"
                                         )
+                                        .presentmentAmount(20L)
+                                        .presentmentCurrency("USD")
                                         .realTimeDecisionId(null)
                                         .type(CardPayment.Element.CardIncrement.Type.CARD_INCREMENT)
                                         .updatedAuthorizationAmount(120L)
@@ -5854,6 +5864,8 @@ internal class CardPaymentListPageResponseTest {
                                         .pendingTransactionId(
                                             "pending_transaction_k1sfetcau2qbvjbzgju4"
                                         )
+                                        .presentmentAmount(20L)
+                                        .presentmentCurrency("USD")
                                         .realTimeDecisionId(null)
                                         .type(CardPayment.Element.CardIncrement.Type.CARD_INCREMENT)
                                         .updatedAuthorizationAmount(120L)
@@ -6884,6 +6896,8 @@ internal class CardPaymentListPageResponseTest {
                                         .pendingTransactionId(
                                             "pending_transaction_k1sfetcau2qbvjbzgju4"
                                         )
+                                        .presentmentAmount(20L)
+                                        .presentmentCurrency("USD")
                                         .realTimeDecisionId(null)
                                         .type(CardPayment.Element.CardIncrement.Type.CARD_INCREMENT)
                                         .updatedAuthorizationAmount(120L)
@@ -7914,6 +7928,8 @@ internal class CardPaymentListPageResponseTest {
                                         .pendingTransactionId(
                                             "pending_transaction_k1sfetcau2qbvjbzgju4"
                                         )
+                                        .presentmentAmount(20L)
+                                        .presentmentCurrency("USD")
                                         .realTimeDecisionId(null)
                                         .type(CardPayment.Element.CardIncrement.Type.CARD_INCREMENT)
                                         .updatedAuthorizationAmount(120L)
@@ -9000,6 +9016,8 @@ internal class CardPaymentListPageResponseTest {
                                             .pendingTransactionId(
                                                 "pending_transaction_k1sfetcau2qbvjbzgju4"
                                             )
+                                            .presentmentAmount(20L)
+                                            .presentmentCurrency("USD")
                                             .realTimeDecisionId(null)
                                             .type(
                                                 CardPayment.Element.CardIncrement.Type
@@ -10100,6 +10118,8 @@ internal class CardPaymentListPageResponseTest {
                                             .pendingTransactionId(
                                                 "pending_transaction_k1sfetcau2qbvjbzgju4"
                                             )
+                                            .presentmentAmount(20L)
+                                            .presentmentCurrency("USD")
                                             .realTimeDecisionId(null)
                                             .type(
                                                 CardPayment.Element.CardIncrement.Type
@@ -11200,6 +11220,8 @@ internal class CardPaymentListPageResponseTest {
                                             .pendingTransactionId(
                                                 "pending_transaction_k1sfetcau2qbvjbzgju4"
                                             )
+                                            .presentmentAmount(20L)
+                                            .presentmentCurrency("USD")
                                             .realTimeDecisionId(null)
                                             .type(
                                                 CardPayment.Element.CardIncrement.Type
@@ -12300,6 +12322,8 @@ internal class CardPaymentListPageResponseTest {
                                             .pendingTransactionId(
                                                 "pending_transaction_k1sfetcau2qbvjbzgju4"
                                             )
+                                            .presentmentAmount(20L)
+                                            .presentmentCurrency("USD")
                                             .realTimeDecisionId(null)
                                             .type(
                                                 CardPayment.Element.CardIncrement.Type
