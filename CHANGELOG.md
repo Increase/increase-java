@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.269.1 (2025-07-31)
+
+Full Changelog: [v0.269.0...v0.269.1](https://github.com/Increase/increase-java/compare/v0.269.0...v0.269.1)
+
+### Bug Fixes
+
+* **client:** r8 support ([554f5f0](https://github.com/Increase/increase-java/commit/554f5f062658e3cf3a090f6c57d72bc512d70d35))
+
 ## 0.269.0 (2025-07-29)
 
 Full Changelog: [v0.268.0...v0.269.0](https://github.com/Increase/increase-java/compare/v0.268.0...v0.269.0)
