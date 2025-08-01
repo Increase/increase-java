@@ -4048,16 +4048,31 @@ private constructor(
 
             companion object {
 
-                /** The Public Entity is a Municipality. */
+                /** A municipality. */
                 @JvmField val MUNICIPALITY = of("municipality")
+
+                /** A state agency. */
+                @JvmField val STATE_AGENCY = of("state_agency")
+
+                /** A state government. */
+                @JvmField val STATE_GOVERNMENT = of("state_government")
+
+                /** A federal agency. */
+                @JvmField val FEDERAL_AGENCY = of("federal_agency")
 
                 @JvmStatic fun of(value: String) = Category(JsonField.of(value))
             }
 
             /** An enum containing [Category]'s known values. */
             enum class Known {
-                /** The Public Entity is a Municipality. */
-                MUNICIPALITY
+                /** A municipality. */
+                MUNICIPALITY,
+                /** A state agency. */
+                STATE_AGENCY,
+                /** A state government. */
+                STATE_GOVERNMENT,
+                /** A federal agency. */
+                FEDERAL_AGENCY,
             }
 
             /**
@@ -4070,8 +4085,14 @@ private constructor(
              * - It was constructed with an arbitrary value using the [of] method.
              */
             enum class Value {
-                /** The Public Entity is a Municipality. */
+                /** A municipality. */
                 MUNICIPALITY,
+                /** A state agency. */
+                STATE_AGENCY,
+                /** A state government. */
+                STATE_GOVERNMENT,
+                /** A federal agency. */
+                FEDERAL_AGENCY,
                 /**
                  * An enum member indicating that [Category] was instantiated with an unknown value.
                  */
@@ -4088,6 +4109,9 @@ private constructor(
             fun value(): Value =
                 when (this) {
                     MUNICIPALITY -> Value.MUNICIPALITY
+                    STATE_AGENCY -> Value.STATE_AGENCY
+                    STATE_GOVERNMENT -> Value.STATE_GOVERNMENT
+                    FEDERAL_AGENCY -> Value.FEDERAL_AGENCY
                     else -> Value._UNKNOWN
                 }
 
@@ -4103,6 +4127,9 @@ private constructor(
             fun known(): Known =
                 when (this) {
                     MUNICIPALITY -> Known.MUNICIPALITY
+                    STATE_AGENCY -> Known.STATE_AGENCY
+                    STATE_GOVERNMENT -> Known.STATE_GOVERNMENT
+                    FEDERAL_AGENCY -> Known.FEDERAL_AGENCY
                     else -> throw IncreaseInvalidDataException("Unknown Category: $value")
                 }
 
