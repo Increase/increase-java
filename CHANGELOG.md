@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.270.0 (2025-08-01)
+
+Full Changelog: [v0.269.1...v0.270.0](https://github.com/Increase/increase-java/compare/v0.269.1...v0.270.0)
+
+### Features
+
+* **api:** api update ([ab10429](https://github.com/Increase/increase-java/commit/ab10429feedbc8de84ac0c9eb08a3482d00b3d06))
+
+
+### Chores
+
+* **internal:** bump ci test timeout ([c3b0780](https://github.com/Increase/increase-java/commit/c3b07807f85589ec57ba5aca72af6a562c055302))
+* **internal:** reduce proguard ci logging ([a59e157](https://github.com/Increase/increase-java/commit/a59e157b126aa9e7b40388a75f39b55fb75362bb))
+
 ## 0.269.1 (2025-07-31)
 
 Full Changelog: [v0.269.0...v0.269.1](https://github.com/Increase/increase-java/compare/v0.269.0...v0.269.1)
