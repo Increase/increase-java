@@ -108,6 +108,7 @@ internal class PhysicalCardProfileServiceTest {
                             .line2("x")
                             .build()
                     )
+                    .programId("program_id")
                     .build()
             )
 
