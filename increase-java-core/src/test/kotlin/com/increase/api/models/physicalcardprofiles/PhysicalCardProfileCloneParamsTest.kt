@@ -18,6 +18,7 @@ internal class PhysicalCardProfileCloneParamsTest {
             .frontText(
                 PhysicalCardProfileCloneParams.FrontText.builder().line1("x").line2("x").build()
             )
+            .programId("program_id")
             .build()
     }
 
@@ -45,6 +46,7 @@ internal class PhysicalCardProfileCloneParamsTest {
                 .frontText(
                     PhysicalCardProfileCloneParams.FrontText.builder().line1("x").line2("x").build()
                 )
+                .programId("program_id")
                 .build()
 
         val body = params._body()
@@ -57,6 +59,7 @@ internal class PhysicalCardProfileCloneParamsTest {
             .contains(
                 PhysicalCardProfileCloneParams.FrontText.builder().line1("x").line2("x").build()
             )
+        assertThat(body.programId()).contains("program_id")
     }
 
     @Test
