@@ -18,7 +18,7 @@ tasks.withType<JavaCompile>().configureEach {
 
 application {
     // Use `./gradlew :increase-java-example:run` to run `Main`
-    // Use `./gradlew :increase-java-example:run -Dexample=Something` to run `SomethingExample`
+    // Use `./gradlew :increase-java-example:run -Pexample=Something` to run `SomethingExample`
     mainClass = "com.increase.api.example.${
         if (project.hasProperty("example"))
             "${project.property("example")}Example"
