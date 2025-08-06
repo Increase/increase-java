@@ -873,6 +873,7 @@ private constructor(
         private val achTransferRejection: JsonField<AchTransferRejection>,
         private val achTransferReturn: JsonField<AchTransferReturn>,
         private val cardDisputeAcceptance: JsonField<CardDisputeAcceptance>,
+        private val cardDisputeFinancial: JsonField<CardDisputeFinancial>,
         private val cardDisputeLoss: JsonField<CardDisputeLoss>,
         private val cardPushTransferAcceptance: JsonField<CardPushTransferAcceptance>,
         private val cardRefund: JsonField<CardRefund>,
@@ -924,6 +925,9 @@ private constructor(
             @JsonProperty("card_dispute_acceptance")
             @ExcludeMissing
             cardDisputeAcceptance: JsonField<CardDisputeAcceptance> = JsonMissing.of(),
+            @JsonProperty("card_dispute_financial")
+            @ExcludeMissing
+            cardDisputeFinancial: JsonField<CardDisputeFinancial> = JsonMissing.of(),
             @JsonProperty("card_dispute_loss")
             @ExcludeMissing
             cardDisputeLoss: JsonField<CardDisputeLoss> = JsonMissing.of(),
@@ -1017,6 +1021,7 @@ private constructor(
             achTransferRejection,
             achTransferReturn,
             cardDisputeAcceptance,
+            cardDisputeFinancial,
             cardDisputeLoss,
             cardPushTransferAcceptance,
             cardRefund,
@@ -1106,6 +1111,17 @@ private constructor(
          */
         fun cardDisputeAcceptance(): Optional<CardDisputeAcceptance> =
             cardDisputeAcceptance.getOptional("card_dispute_acceptance")
+
+        /**
+         * A Card Dispute Financial object. This field will be present in the JSON response if and
+         * only if `category` is equal to `card_dispute_financial`. Financial event related to a
+         * Card Dispute.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun cardDisputeFinancial(): Optional<CardDisputeFinancial> =
+            cardDisputeFinancial.getOptional("card_dispute_financial")
 
         /**
          * A Card Dispute Loss object. This field will be present in the JSON response if and only
@@ -1475,6 +1491,16 @@ private constructor(
         fun _cardDisputeAcceptance(): JsonField<CardDisputeAcceptance> = cardDisputeAcceptance
 
         /**
+         * Returns the raw JSON value of [cardDisputeFinancial].
+         *
+         * Unlike [cardDisputeFinancial], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("card_dispute_financial")
+        @ExcludeMissing
+        fun _cardDisputeFinancial(): JsonField<CardDisputeFinancial> = cardDisputeFinancial
+
+        /**
          * Returns the raw JSON value of [cardDisputeLoss].
          *
          * Unlike [cardDisputeLoss], this method doesn't throw if the JSON field has an unexpected
@@ -1762,6 +1788,7 @@ private constructor(
              * .achTransferRejection()
              * .achTransferReturn()
              * .cardDisputeAcceptance()
+             * .cardDisputeFinancial()
              * .cardDisputeLoss()
              * .cardPushTransferAcceptance()
              * .cardRefund()
@@ -1802,6 +1829,7 @@ private constructor(
             private var achTransferRejection: JsonField<AchTransferRejection>? = null
             private var achTransferReturn: JsonField<AchTransferReturn>? = null
             private var cardDisputeAcceptance: JsonField<CardDisputeAcceptance>? = null
+            private var cardDisputeFinancial: JsonField<CardDisputeFinancial>? = null
             private var cardDisputeLoss: JsonField<CardDisputeLoss>? = null
             private var cardPushTransferAcceptance: JsonField<CardPushTransferAcceptance>? = null
             private var cardRefund: JsonField<CardRefund>? = null
@@ -1848,6 +1876,7 @@ private constructor(
                 achTransferRejection = source.achTransferRejection
                 achTransferReturn = source.achTransferReturn
                 cardDisputeAcceptance = source.cardDisputeAcceptance
+                cardDisputeFinancial = source.cardDisputeFinancial
                 cardDisputeLoss = source.cardDisputeLoss
                 cardPushTransferAcceptance = source.cardPushTransferAcceptance
                 cardRefund = source.cardRefund
@@ -2017,6 +2046,33 @@ private constructor(
             fun cardDisputeAcceptance(cardDisputeAcceptance: JsonField<CardDisputeAcceptance>) =
                 apply {
                     this.cardDisputeAcceptance = cardDisputeAcceptance
+                }
+
+            /**
+             * A Card Dispute Financial object. This field will be present in the JSON response if
+             * and only if `category` is equal to `card_dispute_financial`. Financial event related
+             * to a Card Dispute.
+             */
+            fun cardDisputeFinancial(cardDisputeFinancial: CardDisputeFinancial?) =
+                cardDisputeFinancial(JsonField.ofNullable(cardDisputeFinancial))
+
+            /**
+             * Alias for calling [Builder.cardDisputeFinancial] with
+             * `cardDisputeFinancial.orElse(null)`.
+             */
+            fun cardDisputeFinancial(cardDisputeFinancial: Optional<CardDisputeFinancial>) =
+                cardDisputeFinancial(cardDisputeFinancial.getOrNull())
+
+            /**
+             * Sets [Builder.cardDisputeFinancial] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.cardDisputeFinancial] with a well-typed
+             * [CardDisputeFinancial] value instead. This method is primarily for setting the field
+             * to an undocumented or not yet supported value.
+             */
+            fun cardDisputeFinancial(cardDisputeFinancial: JsonField<CardDisputeFinancial>) =
+                apply {
+                    this.cardDisputeFinancial = cardDisputeFinancial
                 }
 
             /**
@@ -2777,6 +2833,7 @@ private constructor(
              * .achTransferRejection()
              * .achTransferReturn()
              * .cardDisputeAcceptance()
+             * .cardDisputeFinancial()
              * .cardDisputeLoss()
              * .cardPushTransferAcceptance()
              * .cardRefund()
@@ -2815,6 +2872,7 @@ private constructor(
                     checkRequired("achTransferRejection", achTransferRejection),
                     checkRequired("achTransferReturn", achTransferReturn),
                     checkRequired("cardDisputeAcceptance", cardDisputeAcceptance),
+                    checkRequired("cardDisputeFinancial", cardDisputeFinancial),
                     checkRequired("cardDisputeLoss", cardDisputeLoss),
                     checkRequired("cardPushTransferAcceptance", cardPushTransferAcceptance),
                     checkRequired("cardRefund", cardRefund),
@@ -2873,6 +2931,7 @@ private constructor(
             achTransferRejection().ifPresent { it.validate() }
             achTransferReturn().ifPresent { it.validate() }
             cardDisputeAcceptance().ifPresent { it.validate() }
+            cardDisputeFinancial().ifPresent { it.validate() }
             cardDisputeLoss().ifPresent { it.validate() }
             cardPushTransferAcceptance().ifPresent { it.validate() }
             cardRefund().ifPresent { it.validate() }
@@ -2923,6 +2982,7 @@ private constructor(
                 (achTransferRejection.asKnown().getOrNull()?.validity() ?: 0) +
                 (achTransferReturn.asKnown().getOrNull()?.validity() ?: 0) +
                 (cardDisputeAcceptance.asKnown().getOrNull()?.validity() ?: 0) +
+                (cardDisputeFinancial.asKnown().getOrNull()?.validity() ?: 0) +
                 (cardDisputeLoss.asKnown().getOrNull()?.validity() ?: 0) +
                 (cardPushTransferAcceptance.asKnown().getOrNull()?.validity() ?: 0) +
                 (cardRefund.asKnown().getOrNull()?.validity() ?: 0) +
@@ -6075,6 +6135,845 @@ private constructor(
 
             override fun toString() =
                 "CardDisputeAcceptance{acceptedAt=$acceptedAt, cardDisputeId=$cardDisputeId, transactionId=$transactionId, additionalProperties=$additionalProperties}"
+        }
+
+        /**
+         * A Card Dispute Financial object. This field will be present in the JSON response if and
+         * only if `category` is equal to `card_dispute_financial`. Financial event related to a
+         * Card Dispute.
+         */
+        class CardDisputeFinancial
+        private constructor(
+            private val amount: JsonField<Long>,
+            private val cardDisputeId: JsonField<String>,
+            private val network: JsonField<Network>,
+            private val transactionId: JsonField<String>,
+            private val visa: JsonField<Visa>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
+                @JsonProperty("card_dispute_id")
+                @ExcludeMissing
+                cardDisputeId: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("network")
+                @ExcludeMissing
+                network: JsonField<Network> = JsonMissing.of(),
+                @JsonProperty("transaction_id")
+                @ExcludeMissing
+                transactionId: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("visa") @ExcludeMissing visa: JsonField<Visa> = JsonMissing.of(),
+            ) : this(amount, cardDisputeId, network, transactionId, visa, mutableMapOf())
+
+            /**
+             * The amount of the financial event.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun amount(): Long = amount.getRequired("amount")
+
+            /**
+             * The identifier of the Card Dispute the financial event is associated with.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun cardDisputeId(): String = cardDisputeId.getRequired("card_dispute_id")
+
+            /**
+             * The network that the Card Dispute is associated with.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun network(): Network = network.getRequired("network")
+
+            /**
+             * The identifier of the Transaction that was created to credit or debit the disputed
+             * funds to or from your account.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun transactionId(): String = transactionId.getRequired("transaction_id")
+
+            /**
+             * Information for events related to card dispute for card payments processed over
+             * Visa's network. This field will be present in the JSON response if and only if
+             * `network` is equal to `visa`.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun visa(): Optional<Visa> = visa.getOptional("visa")
+
+            /**
+             * Returns the raw JSON value of [amount].
+             *
+             * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
+
+            /**
+             * Returns the raw JSON value of [cardDisputeId].
+             *
+             * Unlike [cardDisputeId], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("card_dispute_id")
+            @ExcludeMissing
+            fun _cardDisputeId(): JsonField<String> = cardDisputeId
+
+            /**
+             * Returns the raw JSON value of [network].
+             *
+             * Unlike [network], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("network") @ExcludeMissing fun _network(): JsonField<Network> = network
+
+            /**
+             * Returns the raw JSON value of [transactionId].
+             *
+             * Unlike [transactionId], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("transaction_id")
+            @ExcludeMissing
+            fun _transactionId(): JsonField<String> = transactionId
+
+            /**
+             * Returns the raw JSON value of [visa].
+             *
+             * Unlike [visa], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("visa") @ExcludeMissing fun _visa(): JsonField<Visa> = visa
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of [CardDisputeFinancial].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .amount()
+                 * .cardDisputeId()
+                 * .network()
+                 * .transactionId()
+                 * .visa()
+                 * ```
+                 */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [CardDisputeFinancial]. */
+            class Builder internal constructor() {
+
+                private var amount: JsonField<Long>? = null
+                private var cardDisputeId: JsonField<String>? = null
+                private var network: JsonField<Network>? = null
+                private var transactionId: JsonField<String>? = null
+                private var visa: JsonField<Visa>? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(cardDisputeFinancial: CardDisputeFinancial) = apply {
+                    amount = cardDisputeFinancial.amount
+                    cardDisputeId = cardDisputeFinancial.cardDisputeId
+                    network = cardDisputeFinancial.network
+                    transactionId = cardDisputeFinancial.transactionId
+                    visa = cardDisputeFinancial.visa
+                    additionalProperties = cardDisputeFinancial.additionalProperties.toMutableMap()
+                }
+
+                /** The amount of the financial event. */
+                fun amount(amount: Long) = amount(JsonField.of(amount))
+
+                /**
+                 * Sets [Builder.amount] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.amount] with a well-typed [Long] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+
+                /** The identifier of the Card Dispute the financial event is associated with. */
+                fun cardDisputeId(cardDisputeId: String) =
+                    cardDisputeId(JsonField.of(cardDisputeId))
+
+                /**
+                 * Sets [Builder.cardDisputeId] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.cardDisputeId] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun cardDisputeId(cardDisputeId: JsonField<String>) = apply {
+                    this.cardDisputeId = cardDisputeId
+                }
+
+                /** The network that the Card Dispute is associated with. */
+                fun network(network: Network) = network(JsonField.of(network))
+
+                /**
+                 * Sets [Builder.network] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.network] with a well-typed [Network] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun network(network: JsonField<Network>) = apply { this.network = network }
+
+                /**
+                 * The identifier of the Transaction that was created to credit or debit the
+                 * disputed funds to or from your account.
+                 */
+                fun transactionId(transactionId: String) =
+                    transactionId(JsonField.of(transactionId))
+
+                /**
+                 * Sets [Builder.transactionId] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.transactionId] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun transactionId(transactionId: JsonField<String>) = apply {
+                    this.transactionId = transactionId
+                }
+
+                /**
+                 * Information for events related to card dispute for card payments processed over
+                 * Visa's network. This field will be present in the JSON response if and only if
+                 * `network` is equal to `visa`.
+                 */
+                fun visa(visa: Visa?) = visa(JsonField.ofNullable(visa))
+
+                /** Alias for calling [Builder.visa] with `visa.orElse(null)`. */
+                fun visa(visa: Optional<Visa>) = visa(visa.getOrNull())
+
+                /**
+                 * Sets [Builder.visa] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.visa] with a well-typed [Visa] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun visa(visa: JsonField<Visa>) = apply { this.visa = visa }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [CardDisputeFinancial].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .amount()
+                 * .cardDisputeId()
+                 * .network()
+                 * .transactionId()
+                 * .visa()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
+                fun build(): CardDisputeFinancial =
+                    CardDisputeFinancial(
+                        checkRequired("amount", amount),
+                        checkRequired("cardDisputeId", cardDisputeId),
+                        checkRequired("network", network),
+                        checkRequired("transactionId", transactionId),
+                        checkRequired("visa", visa),
+                        additionalProperties.toMutableMap(),
+                    )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): CardDisputeFinancial = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                amount()
+                cardDisputeId()
+                network().validate()
+                transactionId()
+                visa().ifPresent { it.validate() }
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                (if (amount.asKnown().isPresent) 1 else 0) +
+                    (if (cardDisputeId.asKnown().isPresent) 1 else 0) +
+                    (network.asKnown().getOrNull()?.validity() ?: 0) +
+                    (if (transactionId.asKnown().isPresent) 1 else 0) +
+                    (visa.asKnown().getOrNull()?.validity() ?: 0)
+
+            /** The network that the Card Dispute is associated with. */
+            class Network @JsonCreator private constructor(private val value: JsonField<String>) :
+                Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    /** Visa: details will be under the `visa` object. */
+                    @JvmField val VISA = of("visa")
+
+                    @JvmStatic fun of(value: String) = Network(JsonField.of(value))
+                }
+
+                /** An enum containing [Network]'s known values. */
+                enum class Known {
+                    /** Visa: details will be under the `visa` object. */
+                    VISA
+                }
+
+                /**
+                 * An enum containing [Network]'s known values, as well as an [_UNKNOWN] member.
+                 *
+                 * An instance of [Network] can contain an unknown value in a couple of cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    /** Visa: details will be under the `visa` object. */
+                    VISA,
+                    /**
+                     * An enum member indicating that [Network] was instantiated with an unknown
+                     * value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        VISA -> Value.VISA
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws IncreaseInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        VISA -> Known.VISA
+                        else -> throw IncreaseInvalidDataException("Unknown Network: $value")
+                    }
+
+                /**
+                 * Returns this class instance's primitive wire representation.
+                 *
+                 * This differs from the [toString] method because that method is primarily for
+                 * debugging and generally doesn't throw.
+                 *
+                 * @throws IncreaseInvalidDataException if this class instance's value does not have
+                 *   the expected primitive type.
+                 */
+                fun asString(): String =
+                    _value().asString().orElseThrow {
+                        IncreaseInvalidDataException("Value is not a String")
+                    }
+
+                private var validated: Boolean = false
+
+                fun validate(): Network = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return /* spotless:off */ other is Network && value == other.value /* spotless:on */
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
+
+            /**
+             * Information for events related to card dispute for card payments processed over
+             * Visa's network. This field will be present in the JSON response if and only if
+             * `network` is equal to `visa`.
+             */
+            class Visa
+            private constructor(
+                private val eventType: JsonField<EventType>,
+                private val additionalProperties: MutableMap<String, JsonValue>,
+            ) {
+
+                @JsonCreator
+                private constructor(
+                    @JsonProperty("event_type")
+                    @ExcludeMissing
+                    eventType: JsonField<EventType> = JsonMissing.of()
+                ) : this(eventType, mutableMapOf())
+
+                /**
+                 * The type of card dispute financial event.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
+                fun eventType(): EventType = eventType.getRequired("event_type")
+
+                /**
+                 * Returns the raw JSON value of [eventType].
+                 *
+                 * Unlike [eventType], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("event_type")
+                @ExcludeMissing
+                fun _eventType(): JsonField<EventType> = eventType
+
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /**
+                     * Returns a mutable builder for constructing an instance of [Visa].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .eventType()
+                     * ```
+                     */
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                /** A builder for [Visa]. */
+                class Builder internal constructor() {
+
+                    private var eventType: JsonField<EventType>? = null
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(visa: Visa) = apply {
+                        eventType = visa.eventType
+                        additionalProperties = visa.additionalProperties.toMutableMap()
+                    }
+
+                    /** The type of card dispute financial event. */
+                    fun eventType(eventType: EventType) = eventType(JsonField.of(eventType))
+
+                    /**
+                     * Sets [Builder.eventType] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.eventType] with a well-typed [EventType]
+                     * value instead. This method is primarily for setting the field to an
+                     * undocumented or not yet supported value.
+                     */
+                    fun eventType(eventType: JsonField<EventType>) = apply {
+                        this.eventType = eventType
+                    }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [Visa].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .eventType()
+                     * ```
+                     *
+                     * @throws IllegalStateException if any required field is unset.
+                     */
+                    fun build(): Visa =
+                        Visa(
+                            checkRequired("eventType", eventType),
+                            additionalProperties.toMutableMap(),
+                        )
+                }
+
+                private var validated: Boolean = false
+
+                fun validate(): Visa = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    eventType().validate()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic
+                internal fun validity(): Int = (eventType.asKnown().getOrNull()?.validity() ?: 0)
+
+                /** The type of card dispute financial event. */
+                class EventType
+                @JsonCreator
+                private constructor(private val value: JsonField<String>) : Enum {
+
+                    /**
+                     * Returns this class instance's raw value.
+                     *
+                     * This is usually only useful if this instance was deserialized from data that
+                     * doesn't match any known member, and you want to know that value. For example,
+                     * if the SDK is on an older version than the API, then the API may respond with
+                     * new members that the SDK is unaware of.
+                     */
+                    @com.fasterxml.jackson.annotation.JsonValue
+                    fun _value(): JsonField<String> = value
+
+                    companion object {
+
+                        /** The user's chargeback was submitted. */
+                        @JvmField val CHARGEBACK_SUBMITTED = of("chargeback_submitted")
+
+                        /** The user declined the merchant's request for pre-arbitration. */
+                        @JvmField
+                        val MERCHANT_PREARBITRATION_DECLINED =
+                            of("merchant_prearbitration_declined")
+
+                        /** The merchant's request for pre-arbitration was received. */
+                        @JvmField
+                        val MERCHANT_PREARBITRATION_RECEIVED =
+                            of("merchant_prearbitration_received")
+
+                        /** The transaction was represented by the merchant. */
+                        @JvmField val REPRESENTED = of("represented")
+
+                        /** The user's request for pre-arbitration was declined. */
+                        @JvmField
+                        val USER_PREARBITRATION_DECLINED = of("user_prearbitration_declined")
+
+                        /** The user's request for pre-arbitration was submitted. */
+                        @JvmField
+                        val USER_PREARBITRATION_SUBMITTED = of("user_prearbitration_submitted")
+
+                        @JvmStatic fun of(value: String) = EventType(JsonField.of(value))
+                    }
+
+                    /** An enum containing [EventType]'s known values. */
+                    enum class Known {
+                        /** The user's chargeback was submitted. */
+                        CHARGEBACK_SUBMITTED,
+                        /** The user declined the merchant's request for pre-arbitration. */
+                        MERCHANT_PREARBITRATION_DECLINED,
+                        /** The merchant's request for pre-arbitration was received. */
+                        MERCHANT_PREARBITRATION_RECEIVED,
+                        /** The transaction was represented by the merchant. */
+                        REPRESENTED,
+                        /** The user's request for pre-arbitration was declined. */
+                        USER_PREARBITRATION_DECLINED,
+                        /** The user's request for pre-arbitration was submitted. */
+                        USER_PREARBITRATION_SUBMITTED,
+                    }
+
+                    /**
+                     * An enum containing [EventType]'s known values, as well as an [_UNKNOWN]
+                     * member.
+                     *
+                     * An instance of [EventType] can contain an unknown value in a couple of cases:
+                     * - It was deserialized from data that doesn't match any known member. For
+                     *   example, if the SDK is on an older version than the API, then the API may
+                     *   respond with new members that the SDK is unaware of.
+                     * - It was constructed with an arbitrary value using the [of] method.
+                     */
+                    enum class Value {
+                        /** The user's chargeback was submitted. */
+                        CHARGEBACK_SUBMITTED,
+                        /** The user declined the merchant's request for pre-arbitration. */
+                        MERCHANT_PREARBITRATION_DECLINED,
+                        /** The merchant's request for pre-arbitration was received. */
+                        MERCHANT_PREARBITRATION_RECEIVED,
+                        /** The transaction was represented by the merchant. */
+                        REPRESENTED,
+                        /** The user's request for pre-arbitration was declined. */
+                        USER_PREARBITRATION_DECLINED,
+                        /** The user's request for pre-arbitration was submitted. */
+                        USER_PREARBITRATION_SUBMITTED,
+                        /**
+                         * An enum member indicating that [EventType] was instantiated with an
+                         * unknown value.
+                         */
+                        _UNKNOWN,
+                    }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value, or
+                     * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                     *
+                     * Use the [known] method instead if you're certain the value is always known or
+                     * if you want to throw for the unknown case.
+                     */
+                    fun value(): Value =
+                        when (this) {
+                            CHARGEBACK_SUBMITTED -> Value.CHARGEBACK_SUBMITTED
+                            MERCHANT_PREARBITRATION_DECLINED ->
+                                Value.MERCHANT_PREARBITRATION_DECLINED
+                            MERCHANT_PREARBITRATION_RECEIVED ->
+                                Value.MERCHANT_PREARBITRATION_RECEIVED
+                            REPRESENTED -> Value.REPRESENTED
+                            USER_PREARBITRATION_DECLINED -> Value.USER_PREARBITRATION_DECLINED
+                            USER_PREARBITRATION_SUBMITTED -> Value.USER_PREARBITRATION_SUBMITTED
+                            else -> Value._UNKNOWN
+                        }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value.
+                     *
+                     * Use the [value] method instead if you're uncertain the value is always known
+                     * and don't want to throw for the unknown case.
+                     *
+                     * @throws IncreaseInvalidDataException if this class instance's value is a not
+                     *   a known member.
+                     */
+                    fun known(): Known =
+                        when (this) {
+                            CHARGEBACK_SUBMITTED -> Known.CHARGEBACK_SUBMITTED
+                            MERCHANT_PREARBITRATION_DECLINED ->
+                                Known.MERCHANT_PREARBITRATION_DECLINED
+                            MERCHANT_PREARBITRATION_RECEIVED ->
+                                Known.MERCHANT_PREARBITRATION_RECEIVED
+                            REPRESENTED -> Known.REPRESENTED
+                            USER_PREARBITRATION_DECLINED -> Known.USER_PREARBITRATION_DECLINED
+                            USER_PREARBITRATION_SUBMITTED -> Known.USER_PREARBITRATION_SUBMITTED
+                            else -> throw IncreaseInvalidDataException("Unknown EventType: $value")
+                        }
+
+                    /**
+                     * Returns this class instance's primitive wire representation.
+                     *
+                     * This differs from the [toString] method because that method is primarily for
+                     * debugging and generally doesn't throw.
+                     *
+                     * @throws IncreaseInvalidDataException if this class instance's value does not
+                     *   have the expected primitive type.
+                     */
+                    fun asString(): String =
+                        _value().asString().orElseThrow {
+                            IncreaseInvalidDataException("Value is not a String")
+                        }
+
+                    private var validated: Boolean = false
+
+                    fun validate(): EventType = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        known()
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    @JvmSynthetic
+                    internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return /* spotless:off */ other is EventType && value == other.value /* spotless:on */
+                    }
+
+                    override fun hashCode() = value.hashCode()
+
+                    override fun toString() = value.toString()
+                }
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return /* spotless:off */ other is Visa && eventType == other.eventType && additionalProperties == other.additionalProperties /* spotless:on */
+                }
+
+                /* spotless:off */
+                private val hashCode: Int by lazy { Objects.hash(eventType, additionalProperties) }
+                /* spotless:on */
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() =
+                    "Visa{eventType=$eventType, additionalProperties=$additionalProperties}"
+            }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return /* spotless:off */ other is CardDisputeFinancial && amount == other.amount && cardDisputeId == other.cardDisputeId && network == other.network && transactionId == other.transactionId && visa == other.visa && additionalProperties == other.additionalProperties /* spotless:on */
+            }
+
+            /* spotless:off */
+            private val hashCode: Int by lazy { Objects.hash(amount, cardDisputeId, network, transactionId, visa, additionalProperties) }
+            /* spotless:on */
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "CardDisputeFinancial{amount=$amount, cardDisputeId=$cardDisputeId, network=$network, transactionId=$transactionId, visa=$visa, additionalProperties=$additionalProperties}"
         }
 
         /**
@@ -26451,6 +27350,12 @@ private constructor(
                  */
                 @JvmField val CARD_DISPUTE_ACCEPTANCE = of("card_dispute_acceptance")
 
+                /**
+                 * Card Dispute Financial: details will be under the `card_dispute_financial`
+                 * object.
+                 */
+                @JvmField val CARD_DISPUTE_FINANCIAL = of("card_dispute_financial")
+
                 /** Card Dispute Loss: details will be under the `card_dispute_loss` object. */
                 @JvmField val CARD_DISPUTE_LOSS = of("card_dispute_loss")
 
@@ -26613,6 +27518,11 @@ private constructor(
                  * object.
                  */
                 CARD_DISPUTE_ACCEPTANCE,
+                /**
+                 * Card Dispute Financial: details will be under the `card_dispute_financial`
+                 * object.
+                 */
+                CARD_DISPUTE_FINANCIAL,
                 /** Card Dispute Loss: details will be under the `card_dispute_loss` object. */
                 CARD_DISPUTE_LOSS,
                 /** Card Refund: details will be under the `card_refund` object. */
@@ -26747,6 +27657,11 @@ private constructor(
                  * object.
                  */
                 CARD_DISPUTE_ACCEPTANCE,
+                /**
+                 * Card Dispute Financial: details will be under the `card_dispute_financial`
+                 * object.
+                 */
+                CARD_DISPUTE_FINANCIAL,
                 /** Card Dispute Loss: details will be under the `card_dispute_loss` object. */
                 CARD_DISPUTE_LOSS,
                 /** Card Refund: details will be under the `card_refund` object. */
@@ -26866,6 +27781,7 @@ private constructor(
                     ACH_TRANSFER_RETURN -> Value.ACH_TRANSFER_RETURN
                     CASHBACK_PAYMENT -> Value.CASHBACK_PAYMENT
                     CARD_DISPUTE_ACCEPTANCE -> Value.CARD_DISPUTE_ACCEPTANCE
+                    CARD_DISPUTE_FINANCIAL -> Value.CARD_DISPUTE_FINANCIAL
                     CARD_DISPUTE_LOSS -> Value.CARD_DISPUTE_LOSS
                     CARD_REFUND -> Value.CARD_REFUND
                     CARD_SETTLEMENT -> Value.CARD_SETTLEMENT
@@ -26916,6 +27832,7 @@ private constructor(
                     ACH_TRANSFER_RETURN -> Known.ACH_TRANSFER_RETURN
                     CASHBACK_PAYMENT -> Known.CASHBACK_PAYMENT
                     CARD_DISPUTE_ACCEPTANCE -> Known.CARD_DISPUTE_ACCEPTANCE
+                    CARD_DISPUTE_FINANCIAL -> Known.CARD_DISPUTE_FINANCIAL
                     CARD_DISPUTE_LOSS -> Known.CARD_DISPUTE_LOSS
                     CARD_REFUND -> Known.CARD_REFUND
                     CARD_SETTLEMENT -> Known.CARD_SETTLEMENT
@@ -38555,17 +39472,17 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Source && accountTransferIntention == other.accountTransferIntention && achTransferIntention == other.achTransferIntention && achTransferRejection == other.achTransferRejection && achTransferReturn == other.achTransferReturn && cardDisputeAcceptance == other.cardDisputeAcceptance && cardDisputeLoss == other.cardDisputeLoss && cardPushTransferAcceptance == other.cardPushTransferAcceptance && cardRefund == other.cardRefund && cardRevenuePayment == other.cardRevenuePayment && cardSettlement == other.cardSettlement && cashbackPayment == other.cashbackPayment && category == other.category && checkDepositAcceptance == other.checkDepositAcceptance && checkDepositReturn == other.checkDepositReturn && checkTransferDeposit == other.checkTransferDeposit && feePayment == other.feePayment && inboundAchTransfer == other.inboundAchTransfer && inboundAchTransferReturnIntention == other.inboundAchTransferReturnIntention && inboundCheckAdjustment == other.inboundCheckAdjustment && inboundCheckDepositReturnIntention == other.inboundCheckDepositReturnIntention && inboundRealTimePaymentsTransferConfirmation == other.inboundRealTimePaymentsTransferConfirmation && inboundRealTimePaymentsTransferDecline == other.inboundRealTimePaymentsTransferDecline && inboundWireReversal == other.inboundWireReversal && inboundWireTransfer == other.inboundWireTransfer && inboundWireTransferReversal == other.inboundWireTransferReversal && interestPayment == other.interestPayment && internalSource == other.internalSource && this.other == other.other && realTimePaymentsTransferAcknowledgement == other.realTimePaymentsTransferAcknowledgement && sampleFunds == other.sampleFunds && swiftTransferIntention == other.swiftTransferIntention && wireTransferIntention == other.wireTransferIntention && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Source && accountTransferIntention == other.accountTransferIntention && achTransferIntention == other.achTransferIntention && achTransferRejection == other.achTransferRejection && achTransferReturn == other.achTransferReturn && cardDisputeAcceptance == other.cardDisputeAcceptance && cardDisputeFinancial == other.cardDisputeFinancial && cardDisputeLoss == other.cardDisputeLoss && cardPushTransferAcceptance == other.cardPushTransferAcceptance && cardRefund == other.cardRefund && cardRevenuePayment == other.cardRevenuePayment && cardSettlement == other.cardSettlement && cashbackPayment == other.cashbackPayment && category == other.category && checkDepositAcceptance == other.checkDepositAcceptance && checkDepositReturn == other.checkDepositReturn && checkTransferDeposit == other.checkTransferDeposit && feePayment == other.feePayment && inboundAchTransfer == other.inboundAchTransfer && inboundAchTransferReturnIntention == other.inboundAchTransferReturnIntention && inboundCheckAdjustment == other.inboundCheckAdjustment && inboundCheckDepositReturnIntention == other.inboundCheckDepositReturnIntention && inboundRealTimePaymentsTransferConfirmation == other.inboundRealTimePaymentsTransferConfirmation && inboundRealTimePaymentsTransferDecline == other.inboundRealTimePaymentsTransferDecline && inboundWireReversal == other.inboundWireReversal && inboundWireTransfer == other.inboundWireTransfer && inboundWireTransferReversal == other.inboundWireTransferReversal && interestPayment == other.interestPayment && internalSource == other.internalSource && this.other == other.other && realTimePaymentsTransferAcknowledgement == other.realTimePaymentsTransferAcknowledgement && sampleFunds == other.sampleFunds && swiftTransferIntention == other.swiftTransferIntention && wireTransferIntention == other.wireTransferIntention && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(accountTransferIntention, achTransferIntention, achTransferRejection, achTransferReturn, cardDisputeAcceptance, cardDisputeLoss, cardPushTransferAcceptance, cardRefund, cardRevenuePayment, cardSettlement, cashbackPayment, category, checkDepositAcceptance, checkDepositReturn, checkTransferDeposit, feePayment, inboundAchTransfer, inboundAchTransferReturnIntention, inboundCheckAdjustment, inboundCheckDepositReturnIntention, inboundRealTimePaymentsTransferConfirmation, inboundRealTimePaymentsTransferDecline, inboundWireReversal, inboundWireTransfer, inboundWireTransferReversal, interestPayment, internalSource, other, realTimePaymentsTransferAcknowledgement, sampleFunds, swiftTransferIntention, wireTransferIntention, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(accountTransferIntention, achTransferIntention, achTransferRejection, achTransferReturn, cardDisputeAcceptance, cardDisputeFinancial, cardDisputeLoss, cardPushTransferAcceptance, cardRefund, cardRevenuePayment, cardSettlement, cashbackPayment, category, checkDepositAcceptance, checkDepositReturn, checkTransferDeposit, feePayment, inboundAchTransfer, inboundAchTransferReturnIntention, inboundCheckAdjustment, inboundCheckDepositReturnIntention, inboundRealTimePaymentsTransferConfirmation, inboundRealTimePaymentsTransferDecline, inboundWireReversal, inboundWireTransfer, inboundWireTransferReversal, interestPayment, internalSource, other, realTimePaymentsTransferAcknowledgement, sampleFunds, swiftTransferIntention, wireTransferIntention, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Source{accountTransferIntention=$accountTransferIntention, achTransferIntention=$achTransferIntention, achTransferRejection=$achTransferRejection, achTransferReturn=$achTransferReturn, cardDisputeAcceptance=$cardDisputeAcceptance, cardDisputeLoss=$cardDisputeLoss, cardPushTransferAcceptance=$cardPushTransferAcceptance, cardRefund=$cardRefund, cardRevenuePayment=$cardRevenuePayment, cardSettlement=$cardSettlement, cashbackPayment=$cashbackPayment, category=$category, checkDepositAcceptance=$checkDepositAcceptance, checkDepositReturn=$checkDepositReturn, checkTransferDeposit=$checkTransferDeposit, feePayment=$feePayment, inboundAchTransfer=$inboundAchTransfer, inboundAchTransferReturnIntention=$inboundAchTransferReturnIntention, inboundCheckAdjustment=$inboundCheckAdjustment, inboundCheckDepositReturnIntention=$inboundCheckDepositReturnIntention, inboundRealTimePaymentsTransferConfirmation=$inboundRealTimePaymentsTransferConfirmation, inboundRealTimePaymentsTransferDecline=$inboundRealTimePaymentsTransferDecline, inboundWireReversal=$inboundWireReversal, inboundWireTransfer=$inboundWireTransfer, inboundWireTransferReversal=$inboundWireTransferReversal, interestPayment=$interestPayment, internalSource=$internalSource, other=$other, realTimePaymentsTransferAcknowledgement=$realTimePaymentsTransferAcknowledgement, sampleFunds=$sampleFunds, swiftTransferIntention=$swiftTransferIntention, wireTransferIntention=$wireTransferIntention, additionalProperties=$additionalProperties}"
+            "Source{accountTransferIntention=$accountTransferIntention, achTransferIntention=$achTransferIntention, achTransferRejection=$achTransferRejection, achTransferReturn=$achTransferReturn, cardDisputeAcceptance=$cardDisputeAcceptance, cardDisputeFinancial=$cardDisputeFinancial, cardDisputeLoss=$cardDisputeLoss, cardPushTransferAcceptance=$cardPushTransferAcceptance, cardRefund=$cardRefund, cardRevenuePayment=$cardRevenuePayment, cardSettlement=$cardSettlement, cashbackPayment=$cashbackPayment, category=$category, checkDepositAcceptance=$checkDepositAcceptance, checkDepositReturn=$checkDepositReturn, checkTransferDeposit=$checkTransferDeposit, feePayment=$feePayment, inboundAchTransfer=$inboundAchTransfer, inboundAchTransferReturnIntention=$inboundAchTransferReturnIntention, inboundCheckAdjustment=$inboundCheckAdjustment, inboundCheckDepositReturnIntention=$inboundCheckDepositReturnIntention, inboundRealTimePaymentsTransferConfirmation=$inboundRealTimePaymentsTransferConfirmation, inboundRealTimePaymentsTransferDecline=$inboundRealTimePaymentsTransferDecline, inboundWireReversal=$inboundWireReversal, inboundWireTransfer=$inboundWireTransfer, inboundWireTransferReversal=$inboundWireTransferReversal, interestPayment=$interestPayment, internalSource=$internalSource, other=$other, realTimePaymentsTransferAcknowledgement=$realTimePaymentsTransferAcknowledgement, sampleFunds=$sampleFunds, swiftTransferIntention=$swiftTransferIntention, wireTransferIntention=$wireTransferIntention, additionalProperties=$additionalProperties}"
     }
 
     /**
