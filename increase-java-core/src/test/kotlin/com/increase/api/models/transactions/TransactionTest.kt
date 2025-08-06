@@ -70,6 +70,22 @@ internal class TransactionTest {
                                 .transactionId("transaction_uyrp7fld2ium70oa7oi")
                                 .build()
                         )
+                        .cardDisputeFinancial(
+                            Transaction.Source.CardDisputeFinancial.builder()
+                                .amount(1000L)
+                                .cardDisputeId("card_dispute_h9sc95nbl1cgltpp7men")
+                                .network(Transaction.Source.CardDisputeFinancial.Network.VISA)
+                                .transactionId("transaction_uyrp7fld2ium70oa7oi")
+                                .visa(
+                                    Transaction.Source.CardDisputeFinancial.Visa.builder()
+                                        .eventType(
+                                            Transaction.Source.CardDisputeFinancial.Visa.EventType
+                                                .CHARGEBACK_SUBMITTED
+                                        )
+                                        .build()
+                                )
+                                .build()
+                        )
                         .cardDisputeLoss(
                             Transaction.Source.CardDisputeLoss.builder()
                                 .cardDisputeId("card_dispute_h9sc95nbl1cgltpp7men")
@@ -872,6 +888,22 @@ internal class TransactionTest {
                             .transactionId("transaction_uyrp7fld2ium70oa7oi")
                             .build()
                     )
+                    .cardDisputeFinancial(
+                        Transaction.Source.CardDisputeFinancial.builder()
+                            .amount(1000L)
+                            .cardDisputeId("card_dispute_h9sc95nbl1cgltpp7men")
+                            .network(Transaction.Source.CardDisputeFinancial.Network.VISA)
+                            .transactionId("transaction_uyrp7fld2ium70oa7oi")
+                            .visa(
+                                Transaction.Source.CardDisputeFinancial.Visa.builder()
+                                    .eventType(
+                                        Transaction.Source.CardDisputeFinancial.Visa.EventType
+                                            .CHARGEBACK_SUBMITTED
+                                    )
+                                    .build()
+                            )
+                            .build()
+                    )
                     .cardDisputeLoss(
                         Transaction.Source.CardDisputeLoss.builder()
                             .cardDisputeId("card_dispute_h9sc95nbl1cgltpp7men")
@@ -1630,6 +1662,22 @@ internal class TransactionTest {
                                 .acceptedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                                 .cardDisputeId("card_dispute_h9sc95nbl1cgltpp7men")
                                 .transactionId("transaction_uyrp7fld2ium70oa7oi")
+                                .build()
+                        )
+                        .cardDisputeFinancial(
+                            Transaction.Source.CardDisputeFinancial.builder()
+                                .amount(1000L)
+                                .cardDisputeId("card_dispute_h9sc95nbl1cgltpp7men")
+                                .network(Transaction.Source.CardDisputeFinancial.Network.VISA)
+                                .transactionId("transaction_uyrp7fld2ium70oa7oi")
+                                .visa(
+                                    Transaction.Source.CardDisputeFinancial.Visa.builder()
+                                        .eventType(
+                                            Transaction.Source.CardDisputeFinancial.Visa.EventType
+                                                .CHARGEBACK_SUBMITTED
+                                        )
+                                        .build()
+                                )
                                 .build()
                         )
                         .cardDisputeLoss(
