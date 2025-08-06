@@ -449,6 +449,12 @@ private constructor(
                  */
                 @JvmField val CARD_DISPUTE_ACCEPTANCE = of("card_dispute_acceptance")
 
+                /**
+                 * Card Dispute Financial: details will be under the `card_dispute_financial`
+                 * object.
+                 */
+                @JvmField val CARD_DISPUTE_FINANCIAL = of("card_dispute_financial")
+
                 /** Card Dispute Loss: details will be under the `card_dispute_loss` object. */
                 @JvmField val CARD_DISPUTE_LOSS = of("card_dispute_loss")
 
@@ -611,6 +617,11 @@ private constructor(
                  * object.
                  */
                 CARD_DISPUTE_ACCEPTANCE,
+                /**
+                 * Card Dispute Financial: details will be under the `card_dispute_financial`
+                 * object.
+                 */
+                CARD_DISPUTE_FINANCIAL,
                 /** Card Dispute Loss: details will be under the `card_dispute_loss` object. */
                 CARD_DISPUTE_LOSS,
                 /** Card Refund: details will be under the `card_refund` object. */
@@ -745,6 +756,11 @@ private constructor(
                  * object.
                  */
                 CARD_DISPUTE_ACCEPTANCE,
+                /**
+                 * Card Dispute Financial: details will be under the `card_dispute_financial`
+                 * object.
+                 */
+                CARD_DISPUTE_FINANCIAL,
                 /** Card Dispute Loss: details will be under the `card_dispute_loss` object. */
                 CARD_DISPUTE_LOSS,
                 /** Card Refund: details will be under the `card_refund` object. */
@@ -862,6 +878,7 @@ private constructor(
                     ACH_TRANSFER_RETURN -> Value.ACH_TRANSFER_RETURN
                     CASHBACK_PAYMENT -> Value.CASHBACK_PAYMENT
                     CARD_DISPUTE_ACCEPTANCE -> Value.CARD_DISPUTE_ACCEPTANCE
+                    CARD_DISPUTE_FINANCIAL -> Value.CARD_DISPUTE_FINANCIAL
                     CARD_DISPUTE_LOSS -> Value.CARD_DISPUTE_LOSS
                     CARD_REFUND -> Value.CARD_REFUND
                     CARD_SETTLEMENT -> Value.CARD_SETTLEMENT
@@ -912,6 +929,7 @@ private constructor(
                     ACH_TRANSFER_RETURN -> Known.ACH_TRANSFER_RETURN
                     CASHBACK_PAYMENT -> Known.CASHBACK_PAYMENT
                     CARD_DISPUTE_ACCEPTANCE -> Known.CARD_DISPUTE_ACCEPTANCE
+                    CARD_DISPUTE_FINANCIAL -> Known.CARD_DISPUTE_FINANCIAL
                     CARD_DISPUTE_LOSS -> Known.CARD_DISPUTE_LOSS
                     CARD_REFUND -> Known.CARD_REFUND
                     CARD_SETTLEMENT -> Known.CARD_SETTLEMENT
