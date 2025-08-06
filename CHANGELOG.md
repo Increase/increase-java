@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.273.0 (2025-08-06)
+
+Full Changelog: [v0.272.0...v0.273.0](https://github.com/Increase/increase-java/compare/v0.272.0...v0.273.0)
+
+### Features
+
+* **api:** api update ([eb1b597](https://github.com/Increase/increase-java/commit/eb1b597349163ef5372f2a28a54607e3239e7953))
+
+
+### Chores
+
+* **example:** fix run example comment ([fee56bf](https://github.com/Increase/increase-java/commit/fee56bf02015b7e8ac6c8a1ad789138fc1897123))
+* **internal:** add async lock helper ([207a33b](https://github.com/Increase/increase-java/commit/207a33b115a9dce3b3132b9b1bc91b799462d2e6))
+
 ## 0.272.0 (2025-08-04)
 
 Full Changelog: [v0.271.0...v0.272.0](https://github.com/Increase/increase-java/compare/v0.271.0...v0.272.0)
