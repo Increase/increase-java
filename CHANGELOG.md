@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.276.0 (2025-08-07)
+
+Full Changelog: [v0.275.0...v0.276.0](https://github.com/Increase/increase-java/compare/v0.275.0...v0.276.0)
+
+### Features
+
+* **api:** api update ([ce9dd6a](https://github.com/Increase/increase-java/commit/ce9dd6a9721868ce23f91cf3daaf5ac3193b7871))
+
+
+### Chores
+
+* increase max gradle JVM heap to 8GB ([5530b92](https://github.com/Increase/increase-java/commit/5530b9256c2d24d12744eb6b79a0d6a6471eb65f))
+
 ## 0.275.0 (2025-08-07)
 
 Full Changelog: [v0.274.0...v0.275.0](https://github.com/Increase/increase-java/compare/v0.274.0...v0.275.0)
