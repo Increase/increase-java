@@ -25,7 +25,7 @@ internal class FileListParamsTest {
             .limit(1L)
             .purpose(
                 FileListParams.Purpose.builder()
-                    .addIn(FileListParams.Purpose.In.CHECK_IMAGE_FRONT)
+                    .addIn(FileListParams.Purpose.In.CARD_DISPUTE_ATTACHMENT)
                     .build()
             )
             .build()
@@ -48,7 +48,7 @@ internal class FileListParamsTest {
                 .limit(1L)
                 .purpose(
                     FileListParams.Purpose.builder()
-                        .addIn(FileListParams.Purpose.In.CHECK_IMAGE_FRONT)
+                        .addIn(FileListParams.Purpose.In.CARD_DISPUTE_ATTACHMENT)
                         .build()
                 )
                 .build()
@@ -65,7 +65,7 @@ internal class FileListParamsTest {
                     .put("cursor", "cursor")
                     .put("idempotency_key", "x")
                     .put("limit", "1")
-                    .put("purpose.in", listOf("check_image_front").joinToString(","))
+                    .put("purpose.in", listOf("card_dispute_attachment").joinToString(","))
                     .build()
             )
     }

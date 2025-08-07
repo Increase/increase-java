@@ -651,6 +651,9 @@ private constructor(
 
         companion object {
 
+            /** A file to be attached to a Card Dispute. */
+            @JvmField val CARD_DISPUTE_ATTACHMENT = of("card_dispute_attachment")
+
             /** An image of the front of a check, used for check deposits. */
             @JvmField val CHECK_IMAGE_FRONT = of("check_image_front")
 
@@ -768,6 +771,8 @@ private constructor(
 
         /** An enum containing [Purpose]'s known values. */
         enum class Known {
+            /** A file to be attached to a Card Dispute. */
+            CARD_DISPUTE_ATTACHMENT,
             /** An image of the front of a check, used for check deposits. */
             CHECK_IMAGE_FRONT,
             /** An image of the back of a check, used for check deposits. */
@@ -860,6 +865,8 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
+            /** A file to be attached to a Card Dispute. */
+            CARD_DISPUTE_ATTACHMENT,
             /** An image of the front of a check, used for check deposits. */
             CHECK_IMAGE_FRONT,
             /** An image of the back of a check, used for check deposits. */
@@ -953,6 +960,7 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
+                CARD_DISPUTE_ATTACHMENT -> Value.CARD_DISPUTE_ATTACHMENT
                 CHECK_IMAGE_FRONT -> Value.CHECK_IMAGE_FRONT
                 CHECK_IMAGE_BACK -> Value.CHECK_IMAGE_BACK
                 PROCESSED_CHECK_IMAGE_FRONT -> Value.PROCESSED_CHECK_IMAGE_FRONT
@@ -996,6 +1004,7 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
+                CARD_DISPUTE_ATTACHMENT -> Known.CARD_DISPUTE_ATTACHMENT
                 CHECK_IMAGE_FRONT -> Known.CHECK_IMAGE_FRONT
                 CHECK_IMAGE_BACK -> Known.CHECK_IMAGE_BACK
                 PROCESSED_CHECK_IMAGE_FRONT -> Known.PROCESSED_CHECK_IMAGE_FRONT
