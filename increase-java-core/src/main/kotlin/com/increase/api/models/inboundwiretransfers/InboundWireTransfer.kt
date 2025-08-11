@@ -48,6 +48,7 @@ private constructor(
     private val senderReference: JsonField<String>,
     private val status: JsonField<Status>,
     private val type: JsonField<Type>,
+    private val wireDrawdownRequestId: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -119,6 +120,9 @@ private constructor(
         senderReference: JsonField<String> = JsonMissing.of(),
         @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
         @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+        @JsonProperty("wire_drawdown_request_id")
+        @ExcludeMissing
+        wireDrawdownRequestId: JsonField<String> = JsonMissing.of(),
     ) : this(
         id,
         accountId,
@@ -146,6 +150,7 @@ private constructor(
         senderReference,
         status,
         type,
+        wireDrawdownRequestId,
         mutableMapOf(),
     )
 
@@ -382,6 +387,15 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun type(): Type = type.getRequired("type")
+
+    /**
+     * The wire drawdown request the inbound wire transfer is fulfilling.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun wireDrawdownRequestId(): Optional<String> =
+        wireDrawdownRequestId.getOptional("wire_drawdown_request_id")
 
     /**
      * Returns the raw JSON value of [id].
@@ -622,6 +636,16 @@ private constructor(
      */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
+    /**
+     * Returns the raw JSON value of [wireDrawdownRequestId].
+     *
+     * Unlike [wireDrawdownRequestId], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("wire_drawdown_request_id")
+    @ExcludeMissing
+    fun _wireDrawdownRequestId(): JsonField<String> = wireDrawdownRequestId
+
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
         additionalProperties.put(key, value)
@@ -667,6 +691,7 @@ private constructor(
          * .senderReference()
          * .status()
          * .type()
+         * .wireDrawdownRequestId()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -701,6 +726,7 @@ private constructor(
         private var senderReference: JsonField<String>? = null
         private var status: JsonField<Status>? = null
         private var type: JsonField<Type>? = null
+        private var wireDrawdownRequestId: JsonField<String>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -736,6 +762,7 @@ private constructor(
             senderReference = inboundWireTransfer.senderReference
             status = inboundWireTransfer.status
             type = inboundWireTransfer.type
+            wireDrawdownRequestId = inboundWireTransfer.wireDrawdownRequestId
             additionalProperties = inboundWireTransfer.additionalProperties.toMutableMap()
         }
 
@@ -1271,6 +1298,28 @@ private constructor(
          */
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
+        /** The wire drawdown request the inbound wire transfer is fulfilling. */
+        fun wireDrawdownRequestId(wireDrawdownRequestId: String?) =
+            wireDrawdownRequestId(JsonField.ofNullable(wireDrawdownRequestId))
+
+        /**
+         * Alias for calling [Builder.wireDrawdownRequestId] with
+         * `wireDrawdownRequestId.orElse(null)`.
+         */
+        fun wireDrawdownRequestId(wireDrawdownRequestId: Optional<String>) =
+            wireDrawdownRequestId(wireDrawdownRequestId.getOrNull())
+
+        /**
+         * Sets [Builder.wireDrawdownRequestId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.wireDrawdownRequestId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun wireDrawdownRequestId(wireDrawdownRequestId: JsonField<String>) = apply {
+            this.wireDrawdownRequestId = wireDrawdownRequestId
+        }
+
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             putAllAdditionalProperties(additionalProperties)
@@ -1323,6 +1372,7 @@ private constructor(
          * .senderReference()
          * .status()
          * .type()
+         * .wireDrawdownRequestId()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -1370,6 +1420,7 @@ private constructor(
                 checkRequired("senderReference", senderReference),
                 checkRequired("status", status),
                 checkRequired("type", type),
+                checkRequired("wireDrawdownRequestId", wireDrawdownRequestId),
                 additionalProperties.toMutableMap(),
             )
     }
@@ -1407,6 +1458,7 @@ private constructor(
         senderReference()
         status().validate()
         type().validate()
+        wireDrawdownRequestId()
         validated = true
     }
 
@@ -1450,7 +1502,8 @@ private constructor(
             (reversal.asKnown().getOrNull()?.validity() ?: 0) +
             (if (senderReference.asKnown().isPresent) 1 else 0) +
             (status.asKnown().getOrNull()?.validity() ?: 0) +
-            (type.asKnown().getOrNull()?.validity() ?: 0)
+            (type.asKnown().getOrNull()?.validity() ?: 0) +
+            (if (wireDrawdownRequestId.asKnown().isPresent) 1 else 0)
 
     /** Information about the reversal of the inbound wire transfer if it has been reversed. */
     class Reversal
@@ -2092,15 +2145,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is InboundWireTransfer && id == other.id && accountId == other.accountId && accountNumberId == other.accountNumberId && amount == other.amount && beneficiaryAddressLine1 == other.beneficiaryAddressLine1 && beneficiaryAddressLine2 == other.beneficiaryAddressLine2 && beneficiaryAddressLine3 == other.beneficiaryAddressLine3 && beneficiaryName == other.beneficiaryName && beneficiaryReference == other.beneficiaryReference && createdAt == other.createdAt && description == other.description && inputMessageAccountabilityData == other.inputMessageAccountabilityData && originatorAddressLine1 == other.originatorAddressLine1 && originatorAddressLine2 == other.originatorAddressLine2 && originatorAddressLine3 == other.originatorAddressLine3 && originatorName == other.originatorName && originatorRoutingNumber == other.originatorRoutingNumber && originatorToBeneficiaryInformation == other.originatorToBeneficiaryInformation && originatorToBeneficiaryInformationLine1 == other.originatorToBeneficiaryInformationLine1 && originatorToBeneficiaryInformationLine2 == other.originatorToBeneficiaryInformationLine2 && originatorToBeneficiaryInformationLine3 == other.originatorToBeneficiaryInformationLine3 && originatorToBeneficiaryInformationLine4 == other.originatorToBeneficiaryInformationLine4 && reversal == other.reversal && senderReference == other.senderReference && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is InboundWireTransfer && id == other.id && accountId == other.accountId && accountNumberId == other.accountNumberId && amount == other.amount && beneficiaryAddressLine1 == other.beneficiaryAddressLine1 && beneficiaryAddressLine2 == other.beneficiaryAddressLine2 && beneficiaryAddressLine3 == other.beneficiaryAddressLine3 && beneficiaryName == other.beneficiaryName && beneficiaryReference == other.beneficiaryReference && createdAt == other.createdAt && description == other.description && inputMessageAccountabilityData == other.inputMessageAccountabilityData && originatorAddressLine1 == other.originatorAddressLine1 && originatorAddressLine2 == other.originatorAddressLine2 && originatorAddressLine3 == other.originatorAddressLine3 && originatorName == other.originatorName && originatorRoutingNumber == other.originatorRoutingNumber && originatorToBeneficiaryInformation == other.originatorToBeneficiaryInformation && originatorToBeneficiaryInformationLine1 == other.originatorToBeneficiaryInformationLine1 && originatorToBeneficiaryInformationLine2 == other.originatorToBeneficiaryInformationLine2 && originatorToBeneficiaryInformationLine3 == other.originatorToBeneficiaryInformationLine3 && originatorToBeneficiaryInformationLine4 == other.originatorToBeneficiaryInformationLine4 && reversal == other.reversal && senderReference == other.senderReference && status == other.status && type == other.type && wireDrawdownRequestId == other.wireDrawdownRequestId && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, accountId, accountNumberId, amount, beneficiaryAddressLine1, beneficiaryAddressLine2, beneficiaryAddressLine3, beneficiaryName, beneficiaryReference, createdAt, description, inputMessageAccountabilityData, originatorAddressLine1, originatorAddressLine2, originatorAddressLine3, originatorName, originatorRoutingNumber, originatorToBeneficiaryInformation, originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4, reversal, senderReference, status, type, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, accountId, accountNumberId, amount, beneficiaryAddressLine1, beneficiaryAddressLine2, beneficiaryAddressLine3, beneficiaryName, beneficiaryReference, createdAt, description, inputMessageAccountabilityData, originatorAddressLine1, originatorAddressLine2, originatorAddressLine3, originatorName, originatorRoutingNumber, originatorToBeneficiaryInformation, originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4, reversal, senderReference, status, type, wireDrawdownRequestId, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "InboundWireTransfer{id=$id, accountId=$accountId, accountNumberId=$accountNumberId, amount=$amount, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, beneficiaryName=$beneficiaryName, beneficiaryReference=$beneficiaryReference, createdAt=$createdAt, description=$description, inputMessageAccountabilityData=$inputMessageAccountabilityData, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, originatorRoutingNumber=$originatorRoutingNumber, originatorToBeneficiaryInformation=$originatorToBeneficiaryInformation, originatorToBeneficiaryInformationLine1=$originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2=$originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3=$originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4=$originatorToBeneficiaryInformationLine4, reversal=$reversal, senderReference=$senderReference, status=$status, type=$type, additionalProperties=$additionalProperties}"
+        "InboundWireTransfer{id=$id, accountId=$accountId, accountNumberId=$accountNumberId, amount=$amount, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, beneficiaryName=$beneficiaryName, beneficiaryReference=$beneficiaryReference, createdAt=$createdAt, description=$description, inputMessageAccountabilityData=$inputMessageAccountabilityData, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, originatorRoutingNumber=$originatorRoutingNumber, originatorToBeneficiaryInformation=$originatorToBeneficiaryInformation, originatorToBeneficiaryInformationLine1=$originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2=$originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3=$originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4=$originatorToBeneficiaryInformationLine4, reversal=$reversal, senderReference=$senderReference, status=$status, type=$type, wireDrawdownRequestId=$wireDrawdownRequestId, additionalProperties=$additionalProperties}"
 }
