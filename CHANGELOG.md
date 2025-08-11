@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.277.0 (2025-08-11)
+
+Full Changelog: [v0.276.0...v0.277.0](https://github.com/Increase/increase-java/compare/v0.276.0...v0.277.0)
+
+### Features
+
+* **api:** api update ([e2669eb](https://github.com/Increase/increase-java/commit/e2669eb04e125313e15fe832d7e72f5967aa683e))
+
+
+### Chores
+
+* **internal:** update comment in script ([fcf7e4b](https://github.com/Increase/increase-java/commit/fcf7e4bc77ec92c9b5c2e039fba663b52d60356a))
+* update @stainless-api/prism-cli to v5.15.0 ([471dbd9](https://github.com/Increase/increase-java/commit/471dbd93d5019390e51d4b51b30730919802f56c))
+
 ## 0.276.0 (2025-08-07)
 
 Full Changelog: [v0.275.0...v0.276.0](https://github.com/Increase/increase-java/compare/v0.275.0...v0.276.0)
