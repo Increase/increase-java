@@ -45,6 +45,7 @@ internal class InboundWireTransferTest {
                 .senderReference(null)
                 .status(InboundWireTransfer.Status.ACCEPTED)
                 .type(InboundWireTransfer.Type.INBOUND_WIRE_TRANSFER)
+                .wireDrawdownRequestId(null)
                 .build()
 
         assertThat(inboundWireTransfer.id()).isEqualTo("inbound_wire_transfer_f228m6bmhtcxjco9pwp0")
@@ -82,6 +83,7 @@ internal class InboundWireTransferTest {
         assertThat(inboundWireTransfer.status()).isEqualTo(InboundWireTransfer.Status.ACCEPTED)
         assertThat(inboundWireTransfer.type())
             .isEqualTo(InboundWireTransfer.Type.INBOUND_WIRE_TRANSFER)
+        assertThat(inboundWireTransfer.wireDrawdownRequestId()).isEmpty
     }
 
     @Test
@@ -120,6 +122,7 @@ internal class InboundWireTransferTest {
                 .senderReference(null)
                 .status(InboundWireTransfer.Status.ACCEPTED)
                 .type(InboundWireTransfer.Type.INBOUND_WIRE_TRANSFER)
+                .wireDrawdownRequestId(null)
                 .build()
 
         val roundtrippedInboundWireTransfer =
