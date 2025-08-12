@@ -820,6 +820,7 @@ internal class TransactionListPageResponseTest {
                                         .inputSequenceNumber("11023")
                                         .inputSource("B6B7HU2R")
                                         .originatorRoutingNumber(null)
+                                        .originatorToBeneficiaryInformation(null)
                                         .previousMessageInputCycleDate(
                                             LocalDate.parse("2022-02-10")
                                         )
@@ -1692,6 +1693,7 @@ internal class TransactionListPageResponseTest {
                                     .inputSequenceNumber("11023")
                                     .inputSource("B6B7HU2R")
                                     .originatorRoutingNumber(null)
+                                    .originatorToBeneficiaryInformation(null)
                                     .previousMessageInputCycleDate(LocalDate.parse("2022-02-10"))
                                     .previousMessageInputMessageAccountabilityData(
                                         "20220210MMQFMP0P000007"
@@ -2596,6 +2598,7 @@ internal class TransactionListPageResponseTest {
                                         .inputSequenceNumber("11023")
                                         .inputSource("B6B7HU2R")
                                         .originatorRoutingNumber(null)
+                                        .originatorToBeneficiaryInformation(null)
                                         .previousMessageInputCycleDate(
                                             LocalDate.parse("2022-02-10")
                                         )

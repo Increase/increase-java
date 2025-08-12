@@ -82,6 +82,9 @@ internal class WireTransferListPageResponseTest {
                                 .inputSequenceNumber("input_sequence_number")
                                 .inputSource("input_source")
                                 .originatorRoutingNumber("originator_routing_number")
+                                .originatorToBeneficiaryInformation(
+                                    "originator_to_beneficiary_information"
+                                )
                                 .previousMessageInputCycleDate(LocalDate.parse("2019-12-27"))
                                 .previousMessageInputMessageAccountabilityData(
                                     "previous_message_input_message_accountability_data"
@@ -182,6 +185,9 @@ internal class WireTransferListPageResponseTest {
                             .inputSequenceNumber("input_sequence_number")
                             .inputSource("input_source")
                             .originatorRoutingNumber("originator_routing_number")
+                            .originatorToBeneficiaryInformation(
+                                "originator_to_beneficiary_information"
+                            )
                             .previousMessageInputCycleDate(LocalDate.parse("2019-12-27"))
                             .previousMessageInputMessageAccountabilityData(
                                 "previous_message_input_message_accountability_data"
@@ -286,6 +292,9 @@ internal class WireTransferListPageResponseTest {
                                 .inputSequenceNumber("input_sequence_number")
                                 .inputSource("input_source")
                                 .originatorRoutingNumber("originator_routing_number")
+                                .originatorToBeneficiaryInformation(
+                                    "originator_to_beneficiary_information"
+                                )
                                 .previousMessageInputCycleDate(LocalDate.parse("2019-12-27"))
                                 .previousMessageInputMessageAccountabilityData(
                                     "previous_message_input_message_accountability_data"
