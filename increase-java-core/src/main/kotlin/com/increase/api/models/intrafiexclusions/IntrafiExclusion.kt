@@ -696,7 +696,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
+            return other is Status && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -821,7 +821,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
+            return other is Type && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -834,12 +834,35 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is IntrafiExclusion && id == other.id && bankName == other.bankName && createdAt == other.createdAt && entityId == other.entityId && excludedAt == other.excludedAt && fdicCertificateNumber == other.fdicCertificateNumber && idempotencyKey == other.idempotencyKey && status == other.status && submittedAt == other.submittedAt && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is IntrafiExclusion &&
+            id == other.id &&
+            bankName == other.bankName &&
+            createdAt == other.createdAt &&
+            entityId == other.entityId &&
+            excludedAt == other.excludedAt &&
+            fdicCertificateNumber == other.fdicCertificateNumber &&
+            idempotencyKey == other.idempotencyKey &&
+            status == other.status &&
+            submittedAt == other.submittedAt &&
+            type == other.type &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, bankName, createdAt, entityId, excludedAt, fdicCertificateNumber, idempotencyKey, status, submittedAt, type, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(
+            id,
+            bankName,
+            createdAt,
+            entityId,
+            excludedAt,
+            fdicCertificateNumber,
+            idempotencyKey,
+            status,
+            submittedAt,
+            type,
+            additionalProperties,
+        )
+    }
 
     override fun hashCode(): Int = hashCode
 

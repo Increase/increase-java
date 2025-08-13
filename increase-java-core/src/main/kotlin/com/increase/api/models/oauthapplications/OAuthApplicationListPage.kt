@@ -122,10 +122,13 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is OAuthApplicationListPage && service == other.service && params == other.params && response == other.response /* spotless:on */
+        return other is OAuthApplicationListPage &&
+            service == other.service &&
+            params == other.params &&
+            response == other.response
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, params, response) /* spotless:on */
+    override fun hashCode(): Int = Objects.hash(service, params, response)
 
     override fun toString() =
         "OAuthApplicationListPage{service=$service, params=$params, response=$response}"

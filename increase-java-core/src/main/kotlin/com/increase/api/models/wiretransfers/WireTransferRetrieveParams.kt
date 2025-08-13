@@ -185,10 +185,14 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is WireTransferRetrieveParams && wireTransferId == other.wireTransferId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is WireTransferRetrieveParams &&
+            wireTransferId == other.wireTransferId &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(wireTransferId, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(wireTransferId, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "WireTransferRetrieveParams{wireTransferId=$wireTransferId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

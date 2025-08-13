@@ -652,12 +652,16 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Entry && id == other.id && accountId == other.accountId && amount == other.amount && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Entry &&
+                id == other.id &&
+                accountId == other.accountId &&
+                amount == other.amount &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(id, accountId, amount, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(id, accountId, amount, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -782,7 +786,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
+            return other is Type && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -795,12 +799,29 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is BookkeepingEntrySet && id == other.id && createdAt == other.createdAt && date == other.date && entries == other.entries && idempotencyKey == other.idempotencyKey && transactionId == other.transactionId && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is BookkeepingEntrySet &&
+            id == other.id &&
+            createdAt == other.createdAt &&
+            date == other.date &&
+            entries == other.entries &&
+            idempotencyKey == other.idempotencyKey &&
+            transactionId == other.transactionId &&
+            type == other.type &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, createdAt, date, entries, idempotencyKey, transactionId, type, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(
+            id,
+            createdAt,
+            date,
+            entries,
+            idempotencyKey,
+            transactionId,
+            type,
+            additionalProperties,
+        )
+    }
 
     override fun hashCode(): Int = hashCode
 

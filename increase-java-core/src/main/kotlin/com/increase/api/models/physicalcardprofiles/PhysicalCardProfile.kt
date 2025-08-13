@@ -816,7 +816,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Creator && value == other.value /* spotless:on */
+            return other is Creator && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -995,7 +995,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
+            return other is Status && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1120,7 +1120,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
+            return other is Type && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1133,12 +1133,41 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is PhysicalCardProfile && id == other.id && backImageFileId == other.backImageFileId && carrierImageFileId == other.carrierImageFileId && contactPhone == other.contactPhone && createdAt == other.createdAt && creator == other.creator && description == other.description && frontImageFileId == other.frontImageFileId && idempotencyKey == other.idempotencyKey && isDefault == other.isDefault && programId == other.programId && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is PhysicalCardProfile &&
+            id == other.id &&
+            backImageFileId == other.backImageFileId &&
+            carrierImageFileId == other.carrierImageFileId &&
+            contactPhone == other.contactPhone &&
+            createdAt == other.createdAt &&
+            creator == other.creator &&
+            description == other.description &&
+            frontImageFileId == other.frontImageFileId &&
+            idempotencyKey == other.idempotencyKey &&
+            isDefault == other.isDefault &&
+            programId == other.programId &&
+            status == other.status &&
+            type == other.type &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, backImageFileId, carrierImageFileId, contactPhone, createdAt, creator, description, frontImageFileId, idempotencyKey, isDefault, programId, status, type, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(
+            id,
+            backImageFileId,
+            carrierImageFileId,
+            contactPhone,
+            createdAt,
+            creator,
+            description,
+            frontImageFileId,
+            idempotencyKey,
+            isDefault,
+            programId,
+            status,
+            type,
+            additionalProperties,
+        )
+    }
 
     override fun hashCode(): Int = hashCode
 

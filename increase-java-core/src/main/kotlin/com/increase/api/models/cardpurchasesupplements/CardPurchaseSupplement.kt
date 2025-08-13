@@ -1504,7 +1504,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is DiscountTreatmentCode && value == other.value /* spotless:on */
+                return other is DiscountTreatmentCode && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -1669,7 +1669,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is TaxTreatments && value == other.value /* spotless:on */
+                return other is TaxTreatments && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -1682,12 +1682,47 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Invoice && discountAmount == other.discountAmount && discountCurrency == other.discountCurrency && discountTreatmentCode == other.discountTreatmentCode && dutyTaxAmount == other.dutyTaxAmount && dutyTaxCurrency == other.dutyTaxCurrency && orderDate == other.orderDate && shippingAmount == other.shippingAmount && shippingCurrency == other.shippingCurrency && shippingDestinationCountryCode == other.shippingDestinationCountryCode && shippingDestinationPostalCode == other.shippingDestinationPostalCode && shippingSourcePostalCode == other.shippingSourcePostalCode && shippingTaxAmount == other.shippingTaxAmount && shippingTaxCurrency == other.shippingTaxCurrency && shippingTaxRate == other.shippingTaxRate && taxTreatments == other.taxTreatments && uniqueValueAddedTaxInvoiceReference == other.uniqueValueAddedTaxInvoiceReference && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Invoice &&
+                discountAmount == other.discountAmount &&
+                discountCurrency == other.discountCurrency &&
+                discountTreatmentCode == other.discountTreatmentCode &&
+                dutyTaxAmount == other.dutyTaxAmount &&
+                dutyTaxCurrency == other.dutyTaxCurrency &&
+                orderDate == other.orderDate &&
+                shippingAmount == other.shippingAmount &&
+                shippingCurrency == other.shippingCurrency &&
+                shippingDestinationCountryCode == other.shippingDestinationCountryCode &&
+                shippingDestinationPostalCode == other.shippingDestinationPostalCode &&
+                shippingSourcePostalCode == other.shippingSourcePostalCode &&
+                shippingTaxAmount == other.shippingTaxAmount &&
+                shippingTaxCurrency == other.shippingTaxCurrency &&
+                shippingTaxRate == other.shippingTaxRate &&
+                taxTreatments == other.taxTreatments &&
+                uniqueValueAddedTaxInvoiceReference == other.uniqueValueAddedTaxInvoiceReference &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(discountAmount, discountCurrency, discountTreatmentCode, dutyTaxAmount, dutyTaxCurrency, orderDate, shippingAmount, shippingCurrency, shippingDestinationCountryCode, shippingDestinationPostalCode, shippingSourcePostalCode, shippingTaxAmount, shippingTaxCurrency, shippingTaxRate, taxTreatments, uniqueValueAddedTaxInvoiceReference, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(
+                discountAmount,
+                discountCurrency,
+                discountTreatmentCode,
+                dutyTaxAmount,
+                dutyTaxCurrency,
+                orderDate,
+                shippingAmount,
+                shippingCurrency,
+                shippingDestinationCountryCode,
+                shippingDestinationPostalCode,
+                shippingSourcePostalCode,
+                shippingTaxAmount,
+                shippingTaxCurrency,
+                shippingTaxRate,
+                taxTreatments,
+                uniqueValueAddedTaxInvoiceReference,
+                additionalProperties,
+            )
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -2797,7 +2832,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is DetailIndicator && value == other.value /* spotless:on */
+                return other is DetailIndicator && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -2960,7 +2995,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is DiscountTreatmentCode && value == other.value /* spotless:on */
+                return other is DiscountTreatmentCode && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -2973,12 +3008,49 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is LineItem && id == other.id && detailIndicator == other.detailIndicator && discountAmount == other.discountAmount && discountCurrency == other.discountCurrency && discountTreatmentCode == other.discountTreatmentCode && itemCommodityCode == other.itemCommodityCode && itemDescriptor == other.itemDescriptor && itemQuantity == other.itemQuantity && productCode == other.productCode && salesTaxAmount == other.salesTaxAmount && salesTaxCurrency == other.salesTaxCurrency && salesTaxRate == other.salesTaxRate && totalAmount == other.totalAmount && totalAmountCurrency == other.totalAmountCurrency && unitCost == other.unitCost && unitCostCurrency == other.unitCostCurrency && unitOfMeasureCode == other.unitOfMeasureCode && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is LineItem &&
+                id == other.id &&
+                detailIndicator == other.detailIndicator &&
+                discountAmount == other.discountAmount &&
+                discountCurrency == other.discountCurrency &&
+                discountTreatmentCode == other.discountTreatmentCode &&
+                itemCommodityCode == other.itemCommodityCode &&
+                itemDescriptor == other.itemDescriptor &&
+                itemQuantity == other.itemQuantity &&
+                productCode == other.productCode &&
+                salesTaxAmount == other.salesTaxAmount &&
+                salesTaxCurrency == other.salesTaxCurrency &&
+                salesTaxRate == other.salesTaxRate &&
+                totalAmount == other.totalAmount &&
+                totalAmountCurrency == other.totalAmountCurrency &&
+                unitCost == other.unitCost &&
+                unitCostCurrency == other.unitCostCurrency &&
+                unitOfMeasureCode == other.unitOfMeasureCode &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(id, detailIndicator, discountAmount, discountCurrency, discountTreatmentCode, itemCommodityCode, itemDescriptor, itemQuantity, productCode, salesTaxAmount, salesTaxCurrency, salesTaxRate, totalAmount, totalAmountCurrency, unitCost, unitCostCurrency, unitOfMeasureCode, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(
+                id,
+                detailIndicator,
+                discountAmount,
+                discountCurrency,
+                discountTreatmentCode,
+                itemCommodityCode,
+                itemDescriptor,
+                itemQuantity,
+                productCode,
+                salesTaxAmount,
+                salesTaxCurrency,
+                salesTaxRate,
+                totalAmount,
+                totalAmountCurrency,
+                unitCost,
+                unitCostCurrency,
+                unitOfMeasureCode,
+                additionalProperties,
+            )
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -3103,7 +3175,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
+            return other is Type && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -3116,12 +3188,27 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is CardPurchaseSupplement && id == other.id && cardPaymentId == other.cardPaymentId && invoice == other.invoice && lineItems == other.lineItems && transactionId == other.transactionId && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is CardPurchaseSupplement &&
+            id == other.id &&
+            cardPaymentId == other.cardPaymentId &&
+            invoice == other.invoice &&
+            lineItems == other.lineItems &&
+            transactionId == other.transactionId &&
+            type == other.type &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, cardPaymentId, invoice, lineItems, transactionId, type, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(
+            id,
+            cardPaymentId,
+            invoice,
+            lineItems,
+            transactionId,
+            type,
+            additionalProperties,
+        )
+    }
 
     override fun hashCode(): Int = hashCode
 

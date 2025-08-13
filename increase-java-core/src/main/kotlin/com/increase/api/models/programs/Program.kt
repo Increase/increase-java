@@ -652,7 +652,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Bank && value == other.value /* spotless:on */
+            return other is Bank && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -774,7 +774,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
+            return other is Type && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -787,12 +787,33 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is Program && id == other.id && bank == other.bank && billingAccountId == other.billingAccountId && createdAt == other.createdAt && defaultDigitalCardProfileId == other.defaultDigitalCardProfileId && interestRate == other.interestRate && name == other.name && type == other.type && updatedAt == other.updatedAt && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is Program &&
+            id == other.id &&
+            bank == other.bank &&
+            billingAccountId == other.billingAccountId &&
+            createdAt == other.createdAt &&
+            defaultDigitalCardProfileId == other.defaultDigitalCardProfileId &&
+            interestRate == other.interestRate &&
+            name == other.name &&
+            type == other.type &&
+            updatedAt == other.updatedAt &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, bank, billingAccountId, createdAt, defaultDigitalCardProfileId, interestRate, name, type, updatedAt, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(
+            id,
+            bank,
+            billingAccountId,
+            createdAt,
+            defaultDigitalCardProfileId,
+            interestRate,
+            name,
+            type,
+            updatedAt,
+            additionalProperties,
+        )
+    }
 
     override fun hashCode(): Int = hashCode
 

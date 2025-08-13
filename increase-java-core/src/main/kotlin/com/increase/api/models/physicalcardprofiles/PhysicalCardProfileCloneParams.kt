@@ -768,12 +768,27 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Body && carrierImageFileId == other.carrierImageFileId && contactPhone == other.contactPhone && description == other.description && frontImageFileId == other.frontImageFileId && frontText == other.frontText && programId == other.programId && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Body &&
+                carrierImageFileId == other.carrierImageFileId &&
+                contactPhone == other.contactPhone &&
+                description == other.description &&
+                frontImageFileId == other.frontImageFileId &&
+                frontText == other.frontText &&
+                programId == other.programId &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(carrierImageFileId, contactPhone, description, frontImageFileId, frontText, programId, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(
+                carrierImageFileId,
+                contactPhone,
+                description,
+                frontImageFileId,
+                frontText,
+                programId,
+                additionalProperties,
+            )
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -967,12 +982,13 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is FrontText && line1 == other.line1 && line2 == other.line2 && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is FrontText &&
+                line1 == other.line1 &&
+                line2 == other.line2 &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(line1, line2, additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -985,10 +1001,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is PhysicalCardProfileCloneParams && physicalCardProfileId == other.physicalCardProfileId && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is PhysicalCardProfileCloneParams &&
+            physicalCardProfileId == other.physicalCardProfileId &&
+            body == other.body &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(physicalCardProfileId, body, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(physicalCardProfileId, body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "PhysicalCardProfileCloneParams{physicalCardProfileId=$physicalCardProfileId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

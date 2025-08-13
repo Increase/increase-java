@@ -563,12 +563,16 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Body && entries == other.entries && date == other.date && transactionId == other.transactionId && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Body &&
+                entries == other.entries &&
+                date == other.date &&
+                transactionId == other.transactionId &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(entries, date, transactionId, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(entries, date, transactionId, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -766,12 +770,13 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Entry && accountId == other.accountId && amount == other.amount && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Entry &&
+                accountId == other.accountId &&
+                amount == other.amount &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(accountId, amount, additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -784,10 +789,13 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is BookkeepingEntrySetCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is BookkeepingEntrySetCreateParams &&
+            body == other.body &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int = Objects.hash(body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "BookkeepingEntrySetCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

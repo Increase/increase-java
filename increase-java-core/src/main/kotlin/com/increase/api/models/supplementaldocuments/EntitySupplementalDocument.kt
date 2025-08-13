@@ -448,7 +448,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
+            return other is Type && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -461,12 +461,18 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is EntitySupplementalDocument && createdAt == other.createdAt && entityId == other.entityId && fileId == other.fileId && idempotencyKey == other.idempotencyKey && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is EntitySupplementalDocument &&
+            createdAt == other.createdAt &&
+            entityId == other.entityId &&
+            fileId == other.fileId &&
+            idempotencyKey == other.idempotencyKey &&
+            type == other.type &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(createdAt, entityId, fileId, idempotencyKey, type, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(createdAt, entityId, fileId, idempotencyKey, type, additionalProperties)
+    }
 
     override fun hashCode(): Int = hashCode
 

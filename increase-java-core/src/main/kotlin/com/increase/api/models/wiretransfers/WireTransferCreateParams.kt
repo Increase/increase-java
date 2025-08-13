@@ -1650,12 +1650,49 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Body && accountId == other.accountId && amount == other.amount && beneficiaryName == other.beneficiaryName && messageToRecipient == other.messageToRecipient && accountNumber == other.accountNumber && beneficiaryAddressLine1 == other.beneficiaryAddressLine1 && beneficiaryAddressLine2 == other.beneficiaryAddressLine2 && beneficiaryAddressLine3 == other.beneficiaryAddressLine3 && externalAccountId == other.externalAccountId && inboundWireDrawdownRequestId == other.inboundWireDrawdownRequestId && originatorAddressLine1 == other.originatorAddressLine1 && originatorAddressLine2 == other.originatorAddressLine2 && originatorAddressLine3 == other.originatorAddressLine3 && originatorName == other.originatorName && requireApproval == other.requireApproval && routingNumber == other.routingNumber && sourceAccountNumberId == other.sourceAccountNumberId && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Body &&
+                accountId == other.accountId &&
+                amount == other.amount &&
+                beneficiaryName == other.beneficiaryName &&
+                messageToRecipient == other.messageToRecipient &&
+                accountNumber == other.accountNumber &&
+                beneficiaryAddressLine1 == other.beneficiaryAddressLine1 &&
+                beneficiaryAddressLine2 == other.beneficiaryAddressLine2 &&
+                beneficiaryAddressLine3 == other.beneficiaryAddressLine3 &&
+                externalAccountId == other.externalAccountId &&
+                inboundWireDrawdownRequestId == other.inboundWireDrawdownRequestId &&
+                originatorAddressLine1 == other.originatorAddressLine1 &&
+                originatorAddressLine2 == other.originatorAddressLine2 &&
+                originatorAddressLine3 == other.originatorAddressLine3 &&
+                originatorName == other.originatorName &&
+                requireApproval == other.requireApproval &&
+                routingNumber == other.routingNumber &&
+                sourceAccountNumberId == other.sourceAccountNumberId &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(accountId, amount, beneficiaryName, messageToRecipient, accountNumber, beneficiaryAddressLine1, beneficiaryAddressLine2, beneficiaryAddressLine3, externalAccountId, inboundWireDrawdownRequestId, originatorAddressLine1, originatorAddressLine2, originatorAddressLine3, originatorName, requireApproval, routingNumber, sourceAccountNumberId, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(
+                accountId,
+                amount,
+                beneficiaryName,
+                messageToRecipient,
+                accountNumber,
+                beneficiaryAddressLine1,
+                beneficiaryAddressLine2,
+                beneficiaryAddressLine3,
+                externalAccountId,
+                inboundWireDrawdownRequestId,
+                originatorAddressLine1,
+                originatorAddressLine2,
+                originatorAddressLine3,
+                originatorName,
+                requireApproval,
+                routingNumber,
+                sourceAccountNumberId,
+                additionalProperties,
+            )
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -1668,10 +1705,13 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is WireTransferCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is WireTransferCreateParams &&
+            body == other.body &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int = Objects.hash(body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "WireTransferCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

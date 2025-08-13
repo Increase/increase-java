@@ -190,10 +190,14 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is OAuthApplicationRetrieveParams && oauthApplicationId == other.oauthApplicationId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is OAuthApplicationRetrieveParams &&
+            oauthApplicationId == other.oauthApplicationId &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(oauthApplicationId, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(oauthApplicationId, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "OAuthApplicationRetrieveParams{oauthApplicationId=$oauthApplicationId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

@@ -517,12 +517,16 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Body && description == other.description && recipientName == other.recipientName && status == other.status && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Body &&
+                description == other.description &&
+                recipientName == other.recipientName &&
+                status == other.status &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(description, recipientName, status, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(description, recipientName, status, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -656,7 +660,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
+            return other is Status && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -669,10 +673,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is LockboxUpdateParams && lockboxId == other.lockboxId && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is LockboxUpdateParams &&
+            lockboxId == other.lockboxId &&
+            body == other.body &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(lockboxId, body, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(lockboxId, body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "LockboxUpdateParams{lockboxId=$lockboxId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

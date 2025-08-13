@@ -695,12 +695,25 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Body && accountId == other.accountId && billingAddress == other.billingAddress && description == other.description && digitalWallet == other.digitalWallet && entityId == other.entityId && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Body &&
+                accountId == other.accountId &&
+                billingAddress == other.billingAddress &&
+                description == other.description &&
+                digitalWallet == other.digitalWallet &&
+                entityId == other.entityId &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(accountId, billingAddress, description, digitalWallet, entityId, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(
+                accountId,
+                billingAddress,
+                description,
+                digitalWallet,
+                entityId,
+                additionalProperties,
+            )
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -1002,12 +1015,18 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is BillingAddress && city == other.city && line1 == other.line1 && postalCode == other.postalCode && state == other.state && line2 == other.line2 && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is BillingAddress &&
+                city == other.city &&
+                line1 == other.line1 &&
+                postalCode == other.postalCode &&
+                state == other.state &&
+                line2 == other.line2 &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(city, line1, postalCode, state, line2, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(city, line1, postalCode, state, line2, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -1239,12 +1258,16 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is DigitalWallet && digitalCardProfileId == other.digitalCardProfileId && email == other.email && phone == other.phone && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is DigitalWallet &&
+                digitalCardProfileId == other.digitalCardProfileId &&
+                email == other.email &&
+                phone == other.phone &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(digitalCardProfileId, email, phone, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(digitalCardProfileId, email, phone, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -1257,10 +1280,13 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is CardCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is CardCreateParams &&
+            body == other.body &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int = Objects.hash(body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "CardCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

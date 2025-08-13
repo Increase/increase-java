@@ -548,7 +548,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
+            return other is Type && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -561,12 +561,29 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is FileLink && id == other.id && createdAt == other.createdAt && expiresAt == other.expiresAt && fileId == other.fileId && idempotencyKey == other.idempotencyKey && type == other.type && unauthenticatedUrl == other.unauthenticatedUrl && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is FileLink &&
+            id == other.id &&
+            createdAt == other.createdAt &&
+            expiresAt == other.expiresAt &&
+            fileId == other.fileId &&
+            idempotencyKey == other.idempotencyKey &&
+            type == other.type &&
+            unauthenticatedUrl == other.unauthenticatedUrl &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, createdAt, expiresAt, fileId, idempotencyKey, type, unauthenticatedUrl, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(
+            id,
+            createdAt,
+            expiresAt,
+            fileId,
+            idempotencyKey,
+            type,
+            unauthenticatedUrl,
+            additionalProperties,
+        )
+    }
 
     override fun hashCode(): Int = hashCode
 

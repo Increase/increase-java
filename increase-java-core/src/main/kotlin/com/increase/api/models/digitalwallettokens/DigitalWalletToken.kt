@@ -643,12 +643,12 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Cardholder && name == other.name && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Cardholder &&
+                name == other.name &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(name, additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -1124,7 +1124,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is DeviceType && value == other.value /* spotless:on */
+                return other is DeviceType && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -1137,12 +1137,17 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Device && deviceType == other.deviceType && identifier == other.identifier && ipAddress == other.ipAddress && name == other.name && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Device &&
+                deviceType == other.deviceType &&
+                identifier == other.identifier &&
+                ipAddress == other.ipAddress &&
+                name == other.name &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(deviceType, identifier, ipAddress, name, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(deviceType, identifier, ipAddress, name, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -1303,7 +1308,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
+            return other is Status && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1459,7 +1464,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is TokenRequestor && value == other.value /* spotless:on */
+            return other is TokenRequestor && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1584,7 +1589,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
+            return other is Type && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1935,7 +1940,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is Status && value == other.value /* spotless:on */
+                return other is Status && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -1948,12 +1953,13 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Update && status == other.status && timestamp == other.timestamp && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Update &&
+                status == other.status &&
+                timestamp == other.timestamp &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(status, timestamp, additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -1966,12 +1972,33 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is DigitalWalletToken && id == other.id && cardId == other.cardId && cardholder == other.cardholder && createdAt == other.createdAt && device == other.device && status == other.status && tokenRequestor == other.tokenRequestor && type == other.type && updates == other.updates && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is DigitalWalletToken &&
+            id == other.id &&
+            cardId == other.cardId &&
+            cardholder == other.cardholder &&
+            createdAt == other.createdAt &&
+            device == other.device &&
+            status == other.status &&
+            tokenRequestor == other.tokenRequestor &&
+            type == other.type &&
+            updates == other.updates &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, cardId, cardholder, createdAt, device, status, tokenRequestor, type, updates, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(
+            id,
+            cardId,
+            cardholder,
+            createdAt,
+            device,
+            status,
+            tokenRequestor,
+            type,
+            updates,
+            additionalProperties,
+        )
+    }
 
     override fun hashCode(): Int = hashCode
 

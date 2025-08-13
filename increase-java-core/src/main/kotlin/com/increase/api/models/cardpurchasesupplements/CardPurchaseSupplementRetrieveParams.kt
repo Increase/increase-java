@@ -194,10 +194,14 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is CardPurchaseSupplementRetrieveParams && cardPurchaseSupplementId == other.cardPurchaseSupplementId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is CardPurchaseSupplementRetrieveParams &&
+            cardPurchaseSupplementId == other.cardPurchaseSupplementId &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(cardPurchaseSupplementId, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(cardPurchaseSupplementId, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "CardPurchaseSupplementRetrieveParams{cardPurchaseSupplementId=$cardPurchaseSupplementId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

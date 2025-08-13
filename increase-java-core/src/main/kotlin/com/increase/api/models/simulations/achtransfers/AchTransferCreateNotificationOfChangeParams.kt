@@ -498,12 +498,15 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Body && changeCode == other.changeCode && correctedData == other.correctedData && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Body &&
+                changeCode == other.changeCode &&
+                correctedData == other.correctedData &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(changeCode, correctedData, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(changeCode, correctedData, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -870,7 +873,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ChangeCode && value == other.value /* spotless:on */
+            return other is ChangeCode && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -883,10 +886,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is AchTransferCreateNotificationOfChangeParams && achTransferId == other.achTransferId && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is AchTransferCreateNotificationOfChangeParams &&
+            achTransferId == other.achTransferId &&
+            body == other.body &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(achTransferId, body, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(achTransferId, body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "AchTransferCreateNotificationOfChangeParams{achTransferId=$achTransferId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

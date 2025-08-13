@@ -233,10 +233,16 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is RoutingNumberListParams && routingNumber == other.routingNumber && cursor == other.cursor && limit == other.limit && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is RoutingNumberListParams &&
+            routingNumber == other.routingNumber &&
+            cursor == other.cursor &&
+            limit == other.limit &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(routingNumber, cursor, limit, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(routingNumber, cursor, limit, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "RoutingNumberListParams{routingNumber=$routingNumber, cursor=$cursor, limit=$limit, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

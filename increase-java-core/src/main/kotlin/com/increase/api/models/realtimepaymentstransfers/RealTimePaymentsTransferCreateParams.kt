@@ -1191,12 +1191,37 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Body && amount == other.amount && creditorName == other.creditorName && remittanceInformation == other.remittanceInformation && sourceAccountNumberId == other.sourceAccountNumberId && debtorName == other.debtorName && destinationAccountNumber == other.destinationAccountNumber && destinationRoutingNumber == other.destinationRoutingNumber && externalAccountId == other.externalAccountId && requireApproval == other.requireApproval && ultimateCreditorName == other.ultimateCreditorName && ultimateDebtorName == other.ultimateDebtorName && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Body &&
+                amount == other.amount &&
+                creditorName == other.creditorName &&
+                remittanceInformation == other.remittanceInformation &&
+                sourceAccountNumberId == other.sourceAccountNumberId &&
+                debtorName == other.debtorName &&
+                destinationAccountNumber == other.destinationAccountNumber &&
+                destinationRoutingNumber == other.destinationRoutingNumber &&
+                externalAccountId == other.externalAccountId &&
+                requireApproval == other.requireApproval &&
+                ultimateCreditorName == other.ultimateCreditorName &&
+                ultimateDebtorName == other.ultimateDebtorName &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(amount, creditorName, remittanceInformation, sourceAccountNumberId, debtorName, destinationAccountNumber, destinationRoutingNumber, externalAccountId, requireApproval, ultimateCreditorName, ultimateDebtorName, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(
+                amount,
+                creditorName,
+                remittanceInformation,
+                sourceAccountNumberId,
+                debtorName,
+                destinationAccountNumber,
+                destinationRoutingNumber,
+                externalAccountId,
+                requireApproval,
+                ultimateCreditorName,
+                ultimateDebtorName,
+                additionalProperties,
+            )
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -1209,10 +1234,13 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is RealTimePaymentsTransferCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is RealTimePaymentsTransferCreateParams &&
+            body == other.body &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int = Objects.hash(body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "RealTimePaymentsTransferCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
