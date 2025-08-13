@@ -37,7 +37,7 @@ internal class AccountTest {
         assertThat(account.closedAt()).isEmpty
         assertThat(account.createdAt()).isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
         assertThat(account.currency()).isEqualTo(Account.Currency.USD)
-        assertThat(account.entityId()).contains("entity_n8y8tnk2p9339ti393yi")
+        assertThat(account.entityId()).isEqualTo("entity_n8y8tnk2p9339ti393yi")
         assertThat(account.idempotencyKey()).isEmpty
         assertThat(account.informationalEntityId()).isEmpty
         assertThat(account.interestAccrued()).isEqualTo("0.01")
