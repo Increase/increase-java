@@ -956,12 +956,31 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Body && accountId == other.accountId && amount == other.amount && fulfillmentMethod == other.fulfillmentMethod && sourceAccountNumberId == other.sourceAccountNumberId && checkNumber == other.checkNumber && physicalCheck == other.physicalCheck && requireApproval == other.requireApproval && thirdParty == other.thirdParty && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Body &&
+                accountId == other.accountId &&
+                amount == other.amount &&
+                fulfillmentMethod == other.fulfillmentMethod &&
+                sourceAccountNumberId == other.sourceAccountNumberId &&
+                checkNumber == other.checkNumber &&
+                physicalCheck == other.physicalCheck &&
+                requireApproval == other.requireApproval &&
+                thirdParty == other.thirdParty &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(accountId, amount, fulfillmentMethod, sourceAccountNumberId, checkNumber, physicalCheck, requireApproval, thirdParty, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(
+                accountId,
+                amount,
+                fulfillmentMethod,
+                sourceAccountNumberId,
+                checkNumber,
+                physicalCheck,
+                requireApproval,
+                thirdParty,
+                additionalProperties,
+            )
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -1108,7 +1127,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is FulfillmentMethod && value == other.value /* spotless:on */
+            return other is FulfillmentMethod && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1940,12 +1959,18 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is MailingAddress && city == other.city && line1 == other.line1 && postalCode == other.postalCode && state == other.state && line2 == other.line2 && additionalProperties == other.additionalProperties /* spotless:on */
+                return other is MailingAddress &&
+                    city == other.city &&
+                    line1 == other.line1 &&
+                    postalCode == other.postalCode &&
+                    state == other.state &&
+                    line2 == other.line2 &&
+                    additionalProperties == other.additionalProperties
             }
 
-            /* spotless:off */
-            private val hashCode: Int by lazy { Objects.hash(city, line1, postalCode, state, line2, additionalProperties) }
-            /* spotless:on */
+            private val hashCode: Int by lazy {
+                Objects.hash(city, line1, postalCode, state, line2, additionalProperties)
+            }
 
             override fun hashCode(): Int = hashCode
 
@@ -2103,12 +2128,12 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is Payer && contents == other.contents && additionalProperties == other.additionalProperties /* spotless:on */
+                return other is Payer &&
+                    contents == other.contents &&
+                    additionalProperties == other.additionalProperties
             }
 
-            /* spotless:off */
             private val hashCode: Int by lazy { Objects.hash(contents, additionalProperties) }
-            /* spotless:on */
 
             override fun hashCode(): Int = hashCode
 
@@ -2460,12 +2485,19 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is ReturnAddress && city == other.city && line1 == other.line1 && name == other.name && postalCode == other.postalCode && state == other.state && line2 == other.line2 && additionalProperties == other.additionalProperties /* spotless:on */
+                return other is ReturnAddress &&
+                    city == other.city &&
+                    line1 == other.line1 &&
+                    name == other.name &&
+                    postalCode == other.postalCode &&
+                    state == other.state &&
+                    line2 == other.line2 &&
+                    additionalProperties == other.additionalProperties
             }
 
-            /* spotless:off */
-            private val hashCode: Int by lazy { Objects.hash(city, line1, name, postalCode, state, line2, additionalProperties) }
-            /* spotless:on */
+            private val hashCode: Int by lazy {
+                Objects.hash(city, line1, name, postalCode, state, line2, additionalProperties)
+            }
 
             override fun hashCode(): Int = hashCode
 
@@ -2607,7 +2639,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is ShippingMethod && value == other.value /* spotless:on */
+                return other is ShippingMethod && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -2620,12 +2652,33 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is PhysicalCheck && mailingAddress == other.mailingAddress && memo == other.memo && recipientName == other.recipientName && attachmentFileId == other.attachmentFileId && note == other.note && payer == other.payer && returnAddress == other.returnAddress && shippingMethod == other.shippingMethod && signatureText == other.signatureText && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is PhysicalCheck &&
+                mailingAddress == other.mailingAddress &&
+                memo == other.memo &&
+                recipientName == other.recipientName &&
+                attachmentFileId == other.attachmentFileId &&
+                note == other.note &&
+                payer == other.payer &&
+                returnAddress == other.returnAddress &&
+                shippingMethod == other.shippingMethod &&
+                signatureText == other.signatureText &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(mailingAddress, memo, recipientName, attachmentFileId, note, payer, returnAddress, shippingMethod, signatureText, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(
+                mailingAddress,
+                memo,
+                recipientName,
+                attachmentFileId,
+                note,
+                payer,
+                returnAddress,
+                shippingMethod,
+                signatureText,
+                additionalProperties,
+            )
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -2779,12 +2832,12 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ThirdParty && recipientName == other.recipientName && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is ThirdParty &&
+                recipientName == other.recipientName &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(recipientName, additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -2797,10 +2850,13 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is CheckTransferCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is CheckTransferCreateParams &&
+            body == other.body &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int = Objects.hash(body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "CheckTransferCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

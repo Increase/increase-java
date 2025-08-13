@@ -182,10 +182,13 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is ProgramRetrieveParams && programId == other.programId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is ProgramRetrieveParams &&
+            programId == other.programId &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(programId, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int = Objects.hash(programId, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "ProgramRetrieveParams{programId=$programId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

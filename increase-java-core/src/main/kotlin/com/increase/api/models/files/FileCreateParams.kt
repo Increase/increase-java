@@ -562,12 +562,16 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Body && file == other.file && purpose == other.purpose && description == other.description && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Body &&
+                file == other.file &&
+                purpose == other.purpose &&
+                description == other.description &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(file, purpose, description, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(file, purpose, description, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -895,7 +899,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Purpose && value == other.value /* spotless:on */
+            return other is Purpose && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -908,10 +912,13 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is FileCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is FileCreateParams &&
+            body == other.body &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int = Objects.hash(body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "FileCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

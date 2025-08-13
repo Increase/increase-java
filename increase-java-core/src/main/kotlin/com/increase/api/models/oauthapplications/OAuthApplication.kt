@@ -530,7 +530,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
+            return other is Status && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -655,7 +655,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
+            return other is Type && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -668,12 +668,20 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is OAuthApplication && id == other.id && clientId == other.clientId && createdAt == other.createdAt && deletedAt == other.deletedAt && name == other.name && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is OAuthApplication &&
+            id == other.id &&
+            clientId == other.clientId &&
+            createdAt == other.createdAt &&
+            deletedAt == other.deletedAt &&
+            name == other.name &&
+            status == other.status &&
+            type == other.type &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, clientId, createdAt, deletedAt, name, status, type, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(id, clientId, createdAt, deletedAt, name, status, type, additionalProperties)
+    }
 
     override fun hashCode(): Int = hashCode
 

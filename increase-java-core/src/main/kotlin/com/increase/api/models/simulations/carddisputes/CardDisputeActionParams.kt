@@ -484,12 +484,15 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Body && status == other.status && explanation == other.explanation && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Body &&
+                status == other.status &&
+                explanation == other.explanation &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(status, explanation, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(status, explanation, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -668,7 +671,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
+            return other is Status && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -681,10 +684,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is CardDisputeActionParams && cardDisputeId == other.cardDisputeId && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is CardDisputeActionParams &&
+            cardDisputeId == other.cardDisputeId &&
+            body == other.body &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(cardDisputeId, body, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(cardDisputeId, body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "CardDisputeActionParams{cardDisputeId=$cardDisputeId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

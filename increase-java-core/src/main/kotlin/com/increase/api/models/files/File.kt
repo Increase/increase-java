@@ -625,7 +625,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Direction && value == other.value /* spotless:on */
+            return other is Direction && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1083,7 +1083,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Purpose && value == other.value /* spotless:on */
+            return other is Purpose && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1205,7 +1205,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
+            return other is Type && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1218,12 +1218,33 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is File && id == other.id && createdAt == other.createdAt && description == other.description && direction == other.direction && filename == other.filename && idempotencyKey == other.idempotencyKey && mimeType == other.mimeType && purpose == other.purpose && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is File &&
+            id == other.id &&
+            createdAt == other.createdAt &&
+            description == other.description &&
+            direction == other.direction &&
+            filename == other.filename &&
+            idempotencyKey == other.idempotencyKey &&
+            mimeType == other.mimeType &&
+            purpose == other.purpose &&
+            type == other.type &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, createdAt, description, direction, filename, idempotencyKey, mimeType, purpose, type, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(
+            id,
+            createdAt,
+            description,
+            direction,
+            filename,
+            idempotencyKey,
+            mimeType,
+            purpose,
+            type,
+            additionalProperties,
+        )
+    }
 
     override fun hashCode(): Int = hashCode
 

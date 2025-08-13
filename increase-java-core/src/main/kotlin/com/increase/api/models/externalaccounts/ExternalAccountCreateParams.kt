@@ -692,12 +692,25 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Body && accountNumber == other.accountNumber && description == other.description && routingNumber == other.routingNumber && accountHolder == other.accountHolder && funding == other.funding && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Body &&
+                accountNumber == other.accountNumber &&
+                description == other.description &&
+                routingNumber == other.routingNumber &&
+                accountHolder == other.accountHolder &&
+                funding == other.funding &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(accountNumber, description, routingNumber, accountHolder, funding, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(
+                accountNumber,
+                description,
+                routingNumber,
+                accountHolder,
+                funding,
+                additionalProperties,
+            )
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -844,7 +857,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is AccountHolder && value == other.value /* spotless:on */
+            return other is AccountHolder && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -987,7 +1000,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Funding && value == other.value /* spotless:on */
+            return other is Funding && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1000,10 +1013,13 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is ExternalAccountCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is ExternalAccountCreateParams &&
+            body == other.body &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int = Objects.hash(body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "ExternalAccountCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

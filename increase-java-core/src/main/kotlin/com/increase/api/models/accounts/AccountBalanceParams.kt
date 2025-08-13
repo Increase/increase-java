@@ -206,10 +206,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is AccountBalanceParams && accountId == other.accountId && atTime == other.atTime && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is AccountBalanceParams &&
+            accountId == other.accountId &&
+            atTime == other.atTime &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, atTime, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(accountId, atTime, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "AccountBalanceParams{accountId=$accountId, atTime=$atTime, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

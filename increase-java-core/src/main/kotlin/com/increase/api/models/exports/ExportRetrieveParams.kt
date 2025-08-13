@@ -178,10 +178,13 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is ExportRetrieveParams && exportId == other.exportId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is ExportRetrieveParams &&
+            exportId == other.exportId &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(exportId, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int = Objects.hash(exportId, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "ExportRetrieveParams{exportId=$exportId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

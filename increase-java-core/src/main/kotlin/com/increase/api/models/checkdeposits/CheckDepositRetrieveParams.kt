@@ -185,10 +185,14 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is CheckDepositRetrieveParams && checkDepositId == other.checkDepositId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is CheckDepositRetrieveParams &&
+            checkDepositId == other.checkDepositId &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(checkDepositId, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(checkDepositId, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "CheckDepositRetrieveParams{checkDepositId=$checkDepositId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

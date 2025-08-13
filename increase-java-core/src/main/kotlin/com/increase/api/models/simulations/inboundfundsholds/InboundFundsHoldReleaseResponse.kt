@@ -726,7 +726,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Currency && value == other.value /* spotless:on */
+            return other is Currency && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -860,7 +860,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
+            return other is Status && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -985,7 +985,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
+            return other is Type && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -998,12 +998,35 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is InboundFundsHoldReleaseResponse && id == other.id && amount == other.amount && automaticallyReleasesAt == other.automaticallyReleasesAt && createdAt == other.createdAt && currency == other.currency && heldTransactionId == other.heldTransactionId && pendingTransactionId == other.pendingTransactionId && releasedAt == other.releasedAt && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is InboundFundsHoldReleaseResponse &&
+            id == other.id &&
+            amount == other.amount &&
+            automaticallyReleasesAt == other.automaticallyReleasesAt &&
+            createdAt == other.createdAt &&
+            currency == other.currency &&
+            heldTransactionId == other.heldTransactionId &&
+            pendingTransactionId == other.pendingTransactionId &&
+            releasedAt == other.releasedAt &&
+            status == other.status &&
+            type == other.type &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, amount, automaticallyReleasesAt, createdAt, currency, heldTransactionId, pendingTransactionId, releasedAt, status, type, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(
+            id,
+            amount,
+            automaticallyReleasesAt,
+            createdAt,
+            currency,
+            heldTransactionId,
+            pendingTransactionId,
+            releasedAt,
+            status,
+            type,
+            additionalProperties,
+        )
+    }
 
     override fun hashCode(): Int = hashCode
 

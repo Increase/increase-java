@@ -198,10 +198,14 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is InboundRealTimePaymentsTransferRetrieveParams && inboundRealTimePaymentsTransferId == other.inboundRealTimePaymentsTransferId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is InboundRealTimePaymentsTransferRetrieveParams &&
+            inboundRealTimePaymentsTransferId == other.inboundRealTimePaymentsTransferId &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(inboundRealTimePaymentsTransferId, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(inboundRealTimePaymentsTransferId, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "InboundRealTimePaymentsTransferRetrieveParams{inboundRealTimePaymentsTransferId=$inboundRealTimePaymentsTransferId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

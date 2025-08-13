@@ -185,10 +185,14 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is CardDisputeRetrieveParams && cardDisputeId == other.cardDisputeId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is CardDisputeRetrieveParams &&
+            cardDisputeId == other.cardDisputeId &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(cardDisputeId, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(cardDisputeId, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "CardDisputeRetrieveParams{cardDisputeId=$cardDisputeId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

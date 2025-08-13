@@ -512,12 +512,15 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Body && address == other.address && beneficialOwnerId == other.beneficialOwnerId && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Body &&
+                address == other.address &&
+                beneficialOwnerId == other.beneficialOwnerId &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(address, beneficialOwnerId, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(address, beneficialOwnerId, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -854,12 +857,19 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Address && country == other.country && line1 == other.line1 && city == other.city && line2 == other.line2 && state == other.state && zip == other.zip && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Address &&
+                country == other.country &&
+                line1 == other.line1 &&
+                city == other.city &&
+                line2 == other.line2 &&
+                state == other.state &&
+                zip == other.zip &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(country, line1, city, line2, state, zip, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(country, line1, city, line2, state, zip, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -872,10 +882,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is EntityUpdateBeneficialOwnerAddressParams && entityId == other.entityId && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is EntityUpdateBeneficialOwnerAddressParams &&
+            entityId == other.entityId &&
+            body == other.body &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(entityId, body, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(entityId, body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "EntityUpdateBeneficialOwnerAddressParams{entityId=$entityId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
