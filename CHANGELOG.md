@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.280.0 (2025-08-13)
+
+Full Changelog: [v0.279.0...v0.280.0](https://github.com/Increase/increase-java/compare/v0.279.0...v0.280.0)
+
+### Features
+
+* **api:** api update ([c253db1](https://github.com/Increase/increase-java/commit/c253db1834a266939afda540111b3294f9a2fde7))
+
+
+### Chores
+
+* **internal:** dynamically determine included projects ([0fad6c0](https://github.com/Increase/increase-java/commit/0fad6c031f857f27dc46110debea0cf9f6729b61))
+* **internal:** format identity methods ([ef96bfd](https://github.com/Increase/increase-java/commit/ef96bfd6da05b1bad073e31054d6b37e9e0bd6fc))
+* **internal:** support passing arguments to test script ([20f4b3f](https://github.com/Increase/increase-java/commit/20f4b3fd0bdaa1a44c9ee151797ceffbea197ef4))
+
 ## 0.279.0 (2025-08-12)
 
 Full Changelog: [v0.278.0...v0.279.0](https://github.com/Increase/increase-java/compare/v0.278.0...v0.279.0)
