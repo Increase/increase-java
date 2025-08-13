@@ -137,10 +137,10 @@ private constructor(
     /**
      * The identifier for the Entity the Account belongs to.
      *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun entityId(): Optional<String> = entityId.getOptional("entity_id")
+    fun entityId(): String = entityId.getRequired("entity_id")
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -489,10 +489,7 @@ private constructor(
         fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
 
         /** The identifier for the Entity the Account belongs to. */
-        fun entityId(entityId: String?) = entityId(JsonField.ofNullable(entityId))
-
-        /** Alias for calling [Builder.entityId] with `entityId.orElse(null)`. */
-        fun entityId(entityId: Optional<String>) = entityId(entityId.getOrNull())
+        fun entityId(entityId: String) = entityId(JsonField.of(entityId))
 
         /**
          * Sets [Builder.entityId] to an arbitrary JSON value.
