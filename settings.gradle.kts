@@ -1,7 +1,14 @@
 rootProject.name = "increase-java-root"
 
-include("increase-java")
-include("increase-java-client-okhttp")
-include("increase-java-core")
-include("increase-java-proguard-test")
-include("increase-java-example")
+val projectNames = rootDir.listFiles()
+    ?.asSequence()
+    .orEmpty()
+    .filter { file ->
+        file.isDirectory &&
+        file.name.startsWith("increase-java") &&
+        file.listFiles()?.asSequence().orEmpty().any { it.name == "build.gradle.kts" }
+    }
+    .map { it.name }
+    .toList()
+println("projects: $projectNames")
+projectNames.forEach { include(it) }
