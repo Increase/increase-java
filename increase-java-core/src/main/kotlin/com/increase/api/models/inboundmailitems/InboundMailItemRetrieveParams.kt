@@ -188,10 +188,14 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is InboundMailItemRetrieveParams && inboundMailItemId == other.inboundMailItemId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is InboundMailItemRetrieveParams &&
+            inboundMailItemId == other.inboundMailItemId &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(inboundMailItemId, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(inboundMailItemId, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "InboundMailItemRetrieveParams{inboundMailItemId=$inboundMailItemId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

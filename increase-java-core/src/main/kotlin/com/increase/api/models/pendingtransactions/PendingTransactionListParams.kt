@@ -729,7 +729,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is In && value == other.value /* spotless:on */
+                return other is In && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -742,12 +742,12 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Category && in_ == other.in_ && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Category &&
+                in_ == other.in_ &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(in_, additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -914,12 +914,17 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is CreatedAt && after == other.after && before == other.before && onOrAfter == other.onOrAfter && onOrBefore == other.onOrBefore && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is CreatedAt &&
+                after == other.after &&
+                before == other.before &&
+                onOrAfter == other.onOrAfter &&
+                onOrBefore == other.onOrBefore &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(after, before, onOrAfter, onOrBefore, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(after, before, onOrAfter, onOrBefore, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -1173,7 +1178,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is In && value == other.value /* spotless:on */
+                return other is In && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -1186,12 +1191,12 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && in_ == other.in_ && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Status &&
+                in_ == other.in_ &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(in_, additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -1203,10 +1208,30 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is PendingTransactionListParams && accountId == other.accountId && category == other.category && createdAt == other.createdAt && cursor == other.cursor && limit == other.limit && routeId == other.routeId && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is PendingTransactionListParams &&
+            accountId == other.accountId &&
+            category == other.category &&
+            createdAt == other.createdAt &&
+            cursor == other.cursor &&
+            limit == other.limit &&
+            routeId == other.routeId &&
+            status == other.status &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, category, createdAt, cursor, limit, routeId, status, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(
+            accountId,
+            category,
+            createdAt,
+            cursor,
+            limit,
+            routeId,
+            status,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
         "PendingTransactionListParams{accountId=$accountId, category=$category, createdAt=$createdAt, cursor=$cursor, limit=$limit, routeId=$routeId, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

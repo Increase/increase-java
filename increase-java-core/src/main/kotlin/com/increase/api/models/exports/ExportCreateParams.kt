@@ -807,12 +807,29 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Body && category == other.category && accountStatementOfx == other.accountStatementOfx && balanceCsv == other.balanceCsv && bookkeepingAccountBalanceCsv == other.bookkeepingAccountBalanceCsv && entityCsv == other.entityCsv && transactionCsv == other.transactionCsv && vendorCsv == other.vendorCsv && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Body &&
+                category == other.category &&
+                accountStatementOfx == other.accountStatementOfx &&
+                balanceCsv == other.balanceCsv &&
+                bookkeepingAccountBalanceCsv == other.bookkeepingAccountBalanceCsv &&
+                entityCsv == other.entityCsv &&
+                transactionCsv == other.transactionCsv &&
+                vendorCsv == other.vendorCsv &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(category, accountStatementOfx, balanceCsv, bookkeepingAccountBalanceCsv, entityCsv, transactionCsv, vendorCsv, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(
+                category,
+                accountStatementOfx,
+                balanceCsv,
+                bookkeepingAccountBalanceCsv,
+                entityCsv,
+                transactionCsv,
+                vendorCsv,
+                additionalProperties,
+            )
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -991,7 +1008,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Category && value == other.value /* spotless:on */
+            return other is Category && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1459,12 +1476,17 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is CreatedAt && after == other.after && before == other.before && onOrAfter == other.onOrAfter && onOrBefore == other.onOrBefore && additionalProperties == other.additionalProperties /* spotless:on */
+                return other is CreatedAt &&
+                    after == other.after &&
+                    before == other.before &&
+                    onOrAfter == other.onOrAfter &&
+                    onOrBefore == other.onOrBefore &&
+                    additionalProperties == other.additionalProperties
             }
 
-            /* spotless:off */
-            private val hashCode: Int by lazy { Objects.hash(after, before, onOrAfter, onOrBefore, additionalProperties) }
-            /* spotless:on */
+            private val hashCode: Int by lazy {
+                Objects.hash(after, before, onOrAfter, onOrBefore, additionalProperties)
+            }
 
             override fun hashCode(): Int = hashCode
 
@@ -1477,12 +1499,15 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is AccountStatementOfx && accountId == other.accountId && createdAt == other.createdAt && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is AccountStatementOfx &&
+                accountId == other.accountId &&
+                createdAt == other.createdAt &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(accountId, createdAt, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(accountId, createdAt, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -1965,12 +1990,17 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is CreatedAt && after == other.after && before == other.before && onOrAfter == other.onOrAfter && onOrBefore == other.onOrBefore && additionalProperties == other.additionalProperties /* spotless:on */
+                return other is CreatedAt &&
+                    after == other.after &&
+                    before == other.before &&
+                    onOrAfter == other.onOrAfter &&
+                    onOrBefore == other.onOrBefore &&
+                    additionalProperties == other.additionalProperties
             }
 
-            /* spotless:off */
-            private val hashCode: Int by lazy { Objects.hash(after, before, onOrAfter, onOrBefore, additionalProperties) }
-            /* spotless:on */
+            private val hashCode: Int by lazy {
+                Objects.hash(after, before, onOrAfter, onOrBefore, additionalProperties)
+            }
 
             override fun hashCode(): Int = hashCode
 
@@ -1983,12 +2013,16 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is BalanceCsv && accountId == other.accountId && createdAt == other.createdAt && programId == other.programId && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is BalanceCsv &&
+                accountId == other.accountId &&
+                createdAt == other.createdAt &&
+                programId == other.programId &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(accountId, createdAt, programId, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(accountId, createdAt, programId, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -2454,12 +2488,17 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is CreatedAt && after == other.after && before == other.before && onOrAfter == other.onOrAfter && onOrBefore == other.onOrBefore && additionalProperties == other.additionalProperties /* spotless:on */
+                return other is CreatedAt &&
+                    after == other.after &&
+                    before == other.before &&
+                    onOrAfter == other.onOrAfter &&
+                    onOrBefore == other.onOrBefore &&
+                    additionalProperties == other.additionalProperties
             }
 
-            /* spotless:off */
-            private val hashCode: Int by lazy { Objects.hash(after, before, onOrAfter, onOrBefore, additionalProperties) }
-            /* spotless:on */
+            private val hashCode: Int by lazy {
+                Objects.hash(after, before, onOrAfter, onOrBefore, additionalProperties)
+            }
 
             override fun hashCode(): Int = hashCode
 
@@ -2472,12 +2511,15 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is BookkeepingAccountBalanceCsv && bookkeepingAccountId == other.bookkeepingAccountId && createdAt == other.createdAt && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is BookkeepingAccountBalanceCsv &&
+                bookkeepingAccountId == other.bookkeepingAccountId &&
+                createdAt == other.createdAt &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(bookkeepingAccountId, createdAt, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(bookkeepingAccountId, createdAt, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -2915,7 +2957,7 @@ private constructor(
                         return true
                     }
 
-                    return /* spotless:off */ other is In && value == other.value /* spotless:on */
+                    return other is In && value == other.value
                 }
 
                 override fun hashCode() = value.hashCode()
@@ -2928,12 +2970,12 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is Status && in_ == other.in_ && additionalProperties == other.additionalProperties /* spotless:on */
+                return other is Status &&
+                    in_ == other.in_ &&
+                    additionalProperties == other.additionalProperties
             }
 
-            /* spotless:off */
             private val hashCode: Int by lazy { Objects.hash(in_, additionalProperties) }
-            /* spotless:on */
 
             override fun hashCode(): Int = hashCode
 
@@ -2945,12 +2987,12 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is EntityCsv && status == other.status && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is EntityCsv &&
+                status == other.status &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(status, additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -3433,12 +3475,17 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is CreatedAt && after == other.after && before == other.before && onOrAfter == other.onOrAfter && onOrBefore == other.onOrBefore && additionalProperties == other.additionalProperties /* spotless:on */
+                return other is CreatedAt &&
+                    after == other.after &&
+                    before == other.before &&
+                    onOrAfter == other.onOrAfter &&
+                    onOrBefore == other.onOrBefore &&
+                    additionalProperties == other.additionalProperties
             }
 
-            /* spotless:off */
-            private val hashCode: Int by lazy { Objects.hash(after, before, onOrAfter, onOrBefore, additionalProperties) }
-            /* spotless:on */
+            private val hashCode: Int by lazy {
+                Objects.hash(after, before, onOrAfter, onOrBefore, additionalProperties)
+            }
 
             override fun hashCode(): Int = hashCode
 
@@ -3451,12 +3498,16 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is TransactionCsv && accountId == other.accountId && createdAt == other.createdAt && programId == other.programId && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is TransactionCsv &&
+                accountId == other.accountId &&
+                createdAt == other.createdAt &&
+                programId == other.programId &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(accountId, createdAt, programId, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(accountId, createdAt, programId, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -3469,10 +3520,13 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is ExportCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is ExportCreateParams &&
+            body == other.body &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int = Objects.hash(body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "ExportCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

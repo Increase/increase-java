@@ -987,12 +987,18 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is BillingAddress && city == other.city && line1 == other.line1 && line2 == other.line2 && postalCode == other.postalCode && state == other.state && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is BillingAddress &&
+                city == other.city &&
+                line1 == other.line1 &&
+                line2 == other.line2 &&
+                postalCode == other.postalCode &&
+                state == other.state &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(city, line1, line2, postalCode, state, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(city, line1, line2, postalCode, state, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -1256,12 +1262,16 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is DigitalWallet && digitalCardProfileId == other.digitalCardProfileId && email == other.email && phone == other.phone && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is DigitalWallet &&
+                digitalCardProfileId == other.digitalCardProfileId &&
+                email == other.email &&
+                phone == other.phone &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(digitalCardProfileId, email, phone, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(digitalCardProfileId, email, phone, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -1404,7 +1414,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
+            return other is Status && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1526,7 +1536,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
+            return other is Type && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1539,12 +1549,41 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is Card && id == other.id && accountId == other.accountId && billingAddress == other.billingAddress && createdAt == other.createdAt && description == other.description && digitalWallet == other.digitalWallet && entityId == other.entityId && expirationMonth == other.expirationMonth && expirationYear == other.expirationYear && idempotencyKey == other.idempotencyKey && last4 == other.last4 && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is Card &&
+            id == other.id &&
+            accountId == other.accountId &&
+            billingAddress == other.billingAddress &&
+            createdAt == other.createdAt &&
+            description == other.description &&
+            digitalWallet == other.digitalWallet &&
+            entityId == other.entityId &&
+            expirationMonth == other.expirationMonth &&
+            expirationYear == other.expirationYear &&
+            idempotencyKey == other.idempotencyKey &&
+            last4 == other.last4 &&
+            status == other.status &&
+            type == other.type &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, accountId, billingAddress, createdAt, description, digitalWallet, entityId, expirationMonth, expirationYear, idempotencyKey, last4, status, type, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(
+            id,
+            accountId,
+            billingAddress,
+            createdAt,
+            description,
+            digitalWallet,
+            entityId,
+            expirationMonth,
+            expirationYear,
+            idempotencyKey,
+            last4,
+            status,
+            type,
+            additionalProperties,
+        )
+    }
 
     override fun hashCode(): Int = hashCode
 

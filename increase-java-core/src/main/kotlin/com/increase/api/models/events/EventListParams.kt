@@ -1509,7 +1509,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is In && value == other.value /* spotless:on */
+                return other is In && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -1522,12 +1522,12 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Category && in_ == other.in_ && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Category &&
+                in_ == other.in_ &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(in_, additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -1694,12 +1694,17 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is CreatedAt && after == other.after && before == other.before && onOrAfter == other.onOrAfter && onOrBefore == other.onOrBefore && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is CreatedAt &&
+                after == other.after &&
+                before == other.before &&
+                onOrAfter == other.onOrAfter &&
+                onOrBefore == other.onOrBefore &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(after, before, onOrAfter, onOrBefore, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(after, before, onOrAfter, onOrBefore, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -1712,10 +1717,26 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is EventListParams && associatedObjectId == other.associatedObjectId && category == other.category && createdAt == other.createdAt && cursor == other.cursor && limit == other.limit && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is EventListParams &&
+            associatedObjectId == other.associatedObjectId &&
+            category == other.category &&
+            createdAt == other.createdAt &&
+            cursor == other.cursor &&
+            limit == other.limit &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(associatedObjectId, category, createdAt, cursor, limit, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(
+            associatedObjectId,
+            category,
+            createdAt,
+            cursor,
+            limit,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
         "EventListParams{associatedObjectId=$associatedObjectId, category=$category, createdAt=$createdAt, cursor=$cursor, limit=$limit, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

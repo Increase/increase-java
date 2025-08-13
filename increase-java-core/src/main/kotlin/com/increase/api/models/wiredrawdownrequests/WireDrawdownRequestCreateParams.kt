@@ -1023,12 +1023,33 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Body && accountNumberId == other.accountNumberId && amount == other.amount && creditorAddress == other.creditorAddress && creditorName == other.creditorName && debtorAccountNumber == other.debtorAccountNumber && debtorAddress == other.debtorAddress && debtorName == other.debtorName && debtorRoutingNumber == other.debtorRoutingNumber && unstructuredRemittanceInformation == other.unstructuredRemittanceInformation && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Body &&
+                accountNumberId == other.accountNumberId &&
+                amount == other.amount &&
+                creditorAddress == other.creditorAddress &&
+                creditorName == other.creditorName &&
+                debtorAccountNumber == other.debtorAccountNumber &&
+                debtorAddress == other.debtorAddress &&
+                debtorName == other.debtorName &&
+                debtorRoutingNumber == other.debtorRoutingNumber &&
+                unstructuredRemittanceInformation == other.unstructuredRemittanceInformation &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(accountNumberId, amount, creditorAddress, creditorName, debtorAccountNumber, debtorAddress, debtorName, debtorRoutingNumber, unstructuredRemittanceInformation, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(
+                accountNumberId,
+                amount,
+                creditorAddress,
+                creditorName,
+                debtorAccountNumber,
+                debtorAddress,
+                debtorName,
+                debtorRoutingNumber,
+                unstructuredRemittanceInformation,
+                additionalProperties,
+            )
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -1366,12 +1387,19 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is CreditorAddress && city == other.city && country == other.country && line1 == other.line1 && line2 == other.line2 && postalCode == other.postalCode && state == other.state && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is CreditorAddress &&
+                city == other.city &&
+                country == other.country &&
+                line1 == other.line1 &&
+                line2 == other.line2 &&
+                postalCode == other.postalCode &&
+                state == other.state &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(city, country, line1, line2, postalCode, state, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(city, country, line1, line2, postalCode, state, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -1709,12 +1737,19 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is DebtorAddress && city == other.city && country == other.country && line1 == other.line1 && line2 == other.line2 && postalCode == other.postalCode && state == other.state && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is DebtorAddress &&
+                city == other.city &&
+                country == other.country &&
+                line1 == other.line1 &&
+                line2 == other.line2 &&
+                postalCode == other.postalCode &&
+                state == other.state &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(city, country, line1, line2, postalCode, state, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(city, country, line1, line2, postalCode, state, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -1727,10 +1762,13 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is WireDrawdownRequestCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is WireDrawdownRequestCreateParams &&
+            body == other.body &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int = Objects.hash(body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "WireDrawdownRequestCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

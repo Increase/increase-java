@@ -178,10 +178,13 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is EntityRetrieveParams && entityId == other.entityId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is EntityRetrieveParams &&
+            entityId == other.entityId &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(entityId, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int = Objects.hash(entityId, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "EntityRetrieveParams{entityId=$entityId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

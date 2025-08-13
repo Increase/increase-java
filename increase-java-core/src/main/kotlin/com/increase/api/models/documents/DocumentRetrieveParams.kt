@@ -182,10 +182,14 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is DocumentRetrieveParams && documentId == other.documentId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is DocumentRetrieveParams &&
+            documentId == other.documentId &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(documentId, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(documentId, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "DocumentRetrieveParams{documentId=$documentId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

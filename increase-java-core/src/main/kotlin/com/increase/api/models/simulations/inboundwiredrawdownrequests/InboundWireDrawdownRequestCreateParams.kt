@@ -1961,12 +1961,59 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Body && amount == other.amount && beneficiaryAccountNumber == other.beneficiaryAccountNumber && beneficiaryRoutingNumber == other.beneficiaryRoutingNumber && currency == other.currency && messageToRecipient == other.messageToRecipient && originatorAccountNumber == other.originatorAccountNumber && originatorRoutingNumber == other.originatorRoutingNumber && recipientAccountNumberId == other.recipientAccountNumberId && beneficiaryAddressLine1 == other.beneficiaryAddressLine1 && beneficiaryAddressLine2 == other.beneficiaryAddressLine2 && beneficiaryAddressLine3 == other.beneficiaryAddressLine3 && beneficiaryName == other.beneficiaryName && originatorAddressLine1 == other.originatorAddressLine1 && originatorAddressLine2 == other.originatorAddressLine2 && originatorAddressLine3 == other.originatorAddressLine3 && originatorName == other.originatorName && originatorToBeneficiaryInformationLine1 == other.originatorToBeneficiaryInformationLine1 && originatorToBeneficiaryInformationLine2 == other.originatorToBeneficiaryInformationLine2 && originatorToBeneficiaryInformationLine3 == other.originatorToBeneficiaryInformationLine3 && originatorToBeneficiaryInformationLine4 == other.originatorToBeneficiaryInformationLine4 && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Body &&
+                amount == other.amount &&
+                beneficiaryAccountNumber == other.beneficiaryAccountNumber &&
+                beneficiaryRoutingNumber == other.beneficiaryRoutingNumber &&
+                currency == other.currency &&
+                messageToRecipient == other.messageToRecipient &&
+                originatorAccountNumber == other.originatorAccountNumber &&
+                originatorRoutingNumber == other.originatorRoutingNumber &&
+                recipientAccountNumberId == other.recipientAccountNumberId &&
+                beneficiaryAddressLine1 == other.beneficiaryAddressLine1 &&
+                beneficiaryAddressLine2 == other.beneficiaryAddressLine2 &&
+                beneficiaryAddressLine3 == other.beneficiaryAddressLine3 &&
+                beneficiaryName == other.beneficiaryName &&
+                originatorAddressLine1 == other.originatorAddressLine1 &&
+                originatorAddressLine2 == other.originatorAddressLine2 &&
+                originatorAddressLine3 == other.originatorAddressLine3 &&
+                originatorName == other.originatorName &&
+                originatorToBeneficiaryInformationLine1 ==
+                    other.originatorToBeneficiaryInformationLine1 &&
+                originatorToBeneficiaryInformationLine2 ==
+                    other.originatorToBeneficiaryInformationLine2 &&
+                originatorToBeneficiaryInformationLine3 ==
+                    other.originatorToBeneficiaryInformationLine3 &&
+                originatorToBeneficiaryInformationLine4 ==
+                    other.originatorToBeneficiaryInformationLine4 &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(amount, beneficiaryAccountNumber, beneficiaryRoutingNumber, currency, messageToRecipient, originatorAccountNumber, originatorRoutingNumber, recipientAccountNumberId, beneficiaryAddressLine1, beneficiaryAddressLine2, beneficiaryAddressLine3, beneficiaryName, originatorAddressLine1, originatorAddressLine2, originatorAddressLine3, originatorName, originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(
+                amount,
+                beneficiaryAccountNumber,
+                beneficiaryRoutingNumber,
+                currency,
+                messageToRecipient,
+                originatorAccountNumber,
+                originatorRoutingNumber,
+                recipientAccountNumberId,
+                beneficiaryAddressLine1,
+                beneficiaryAddressLine2,
+                beneficiaryAddressLine3,
+                beneficiaryName,
+                originatorAddressLine1,
+                originatorAddressLine2,
+                originatorAddressLine3,
+                originatorName,
+                originatorToBeneficiaryInformationLine1,
+                originatorToBeneficiaryInformationLine2,
+                originatorToBeneficiaryInformationLine3,
+                originatorToBeneficiaryInformationLine4,
+                additionalProperties,
+            )
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -1979,10 +2026,13 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is InboundWireDrawdownRequestCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is InboundWireDrawdownRequestCreateParams &&
+            body == other.body &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int = Objects.hash(body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "InboundWireDrawdownRequestCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

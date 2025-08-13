@@ -193,10 +193,14 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is DeclinedTransactionRetrieveParams && declinedTransactionId == other.declinedTransactionId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is DeclinedTransactionRetrieveParams &&
+            declinedTransactionId == other.declinedTransactionId &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(declinedTransactionId, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(declinedTransactionId, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "DeclinedTransactionRetrieveParams{declinedTransactionId=$declinedTransactionId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

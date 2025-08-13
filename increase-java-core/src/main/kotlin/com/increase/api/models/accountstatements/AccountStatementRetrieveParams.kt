@@ -190,10 +190,14 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is AccountStatementRetrieveParams && accountStatementId == other.accountStatementId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is AccountStatementRetrieveParams &&
+            accountStatementId == other.accountStatementId &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountStatementId, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(accountStatementId, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "AccountStatementRetrieveParams{accountStatementId=$accountStatementId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

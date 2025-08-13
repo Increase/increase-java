@@ -223,12 +223,13 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is PhysicalCardListPageResponse && data == other.data && nextCursor == other.nextCursor && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is PhysicalCardListPageResponse &&
+            data == other.data &&
+            nextCursor == other.nextCursor &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
     private val hashCode: Int by lazy { Objects.hash(data, nextCursor, additionalProperties) }
-    /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 

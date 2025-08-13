@@ -1227,12 +1227,19 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is CreditorAddress && city == other.city && country == other.country && line1 == other.line1 && line2 == other.line2 && postalCode == other.postalCode && state == other.state && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is CreditorAddress &&
+                city == other.city &&
+                country == other.country &&
+                line1 == other.line1 &&
+                line2 == other.line2 &&
+                postalCode == other.postalCode &&
+                state == other.state &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(city, country, line1, line2, postalCode, state, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(city, country, line1, line2, postalCode, state, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -1585,12 +1592,19 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is DebtorAddress && city == other.city && country == other.country && line1 == other.line1 && line2 == other.line2 && postalCode == other.postalCode && state == other.state && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is DebtorAddress &&
+                city == other.city &&
+                country == other.country &&
+                line1 == other.line1 &&
+                line2 == other.line2 &&
+                postalCode == other.postalCode &&
+                state == other.state &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(city, country, line1, line2, postalCode, state, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(city, country, line1, line2, postalCode, state, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -1742,7 +1756,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
+            return other is Status && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1914,12 +1928,14 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Submission && inputMessageAccountabilityData == other.inputMessageAccountabilityData && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Submission &&
+                inputMessageAccountabilityData == other.inputMessageAccountabilityData &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(inputMessageAccountabilityData, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(inputMessageAccountabilityData, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -2044,7 +2060,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
+            return other is Type && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -2057,12 +2073,49 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is WireDrawdownRequest && id == other.id && accountNumberId == other.accountNumberId && amount == other.amount && createdAt == other.createdAt && creditorAddress == other.creditorAddress && creditorName == other.creditorName && currency == other.currency && debtorAccountNumber == other.debtorAccountNumber && debtorAddress == other.debtorAddress && debtorName == other.debtorName && debtorRoutingNumber == other.debtorRoutingNumber && fulfillmentInboundWireTransferId == other.fulfillmentInboundWireTransferId && idempotencyKey == other.idempotencyKey && status == other.status && submission == other.submission && type == other.type && unstructuredRemittanceInformation == other.unstructuredRemittanceInformation && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is WireDrawdownRequest &&
+            id == other.id &&
+            accountNumberId == other.accountNumberId &&
+            amount == other.amount &&
+            createdAt == other.createdAt &&
+            creditorAddress == other.creditorAddress &&
+            creditorName == other.creditorName &&
+            currency == other.currency &&
+            debtorAccountNumber == other.debtorAccountNumber &&
+            debtorAddress == other.debtorAddress &&
+            debtorName == other.debtorName &&
+            debtorRoutingNumber == other.debtorRoutingNumber &&
+            fulfillmentInboundWireTransferId == other.fulfillmentInboundWireTransferId &&
+            idempotencyKey == other.idempotencyKey &&
+            status == other.status &&
+            submission == other.submission &&
+            type == other.type &&
+            unstructuredRemittanceInformation == other.unstructuredRemittanceInformation &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, accountNumberId, amount, createdAt, creditorAddress, creditorName, currency, debtorAccountNumber, debtorAddress, debtorName, debtorRoutingNumber, fulfillmentInboundWireTransferId, idempotencyKey, status, submission, type, unstructuredRemittanceInformation, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(
+            id,
+            accountNumberId,
+            amount,
+            createdAt,
+            creditorAddress,
+            creditorName,
+            currency,
+            debtorAccountNumber,
+            debtorAddress,
+            debtorName,
+            debtorRoutingNumber,
+            fulfillmentInboundWireTransferId,
+            idempotencyKey,
+            status,
+            submission,
+            type,
+            unstructuredRemittanceInformation,
+            additionalProperties,
+        )
+    }
 
     override fun hashCode(): Int = hashCode
 

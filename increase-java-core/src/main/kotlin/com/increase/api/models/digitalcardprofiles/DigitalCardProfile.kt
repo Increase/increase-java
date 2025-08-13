@@ -882,7 +882,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
+            return other is Status && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1110,12 +1110,14 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is TextColor && blue == other.blue && green == other.green && red == other.red && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is TextColor &&
+                blue == other.blue &&
+                green == other.green &&
+                red == other.red &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(blue, green, red, additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -1240,7 +1242,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
+            return other is Type && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1253,12 +1255,43 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is DigitalCardProfile && id == other.id && appIconFileId == other.appIconFileId && backgroundImageFileId == other.backgroundImageFileId && cardDescription == other.cardDescription && contactEmail == other.contactEmail && contactPhone == other.contactPhone && contactWebsite == other.contactWebsite && createdAt == other.createdAt && description == other.description && idempotencyKey == other.idempotencyKey && issuerName == other.issuerName && status == other.status && textColor == other.textColor && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is DigitalCardProfile &&
+            id == other.id &&
+            appIconFileId == other.appIconFileId &&
+            backgroundImageFileId == other.backgroundImageFileId &&
+            cardDescription == other.cardDescription &&
+            contactEmail == other.contactEmail &&
+            contactPhone == other.contactPhone &&
+            contactWebsite == other.contactWebsite &&
+            createdAt == other.createdAt &&
+            description == other.description &&
+            idempotencyKey == other.idempotencyKey &&
+            issuerName == other.issuerName &&
+            status == other.status &&
+            textColor == other.textColor &&
+            type == other.type &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, appIconFileId, backgroundImageFileId, cardDescription, contactEmail, contactPhone, contactWebsite, createdAt, description, idempotencyKey, issuerName, status, textColor, type, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(
+            id,
+            appIconFileId,
+            backgroundImageFileId,
+            cardDescription,
+            contactEmail,
+            contactPhone,
+            contactWebsite,
+            createdAt,
+            description,
+            idempotencyKey,
+            issuerName,
+            status,
+            textColor,
+            type,
+            additionalProperties,
+        )
+    }
 
     override fun hashCode(): Int = hashCode
 

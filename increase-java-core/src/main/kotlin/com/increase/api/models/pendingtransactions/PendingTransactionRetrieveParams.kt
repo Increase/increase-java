@@ -193,10 +193,14 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is PendingTransactionRetrieveParams && pendingTransactionId == other.pendingTransactionId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is PendingTransactionRetrieveParams &&
+            pendingTransactionId == other.pendingTransactionId &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(pendingTransactionId, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(pendingTransactionId, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "PendingTransactionRetrieveParams{pendingTransactionId=$pendingTransactionId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

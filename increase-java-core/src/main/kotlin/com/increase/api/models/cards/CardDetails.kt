@@ -534,7 +534,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
+            return other is Type && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -547,12 +547,29 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is CardDetails && cardId == other.cardId && expirationMonth == other.expirationMonth && expirationYear == other.expirationYear && pin == other.pin && primaryAccountNumber == other.primaryAccountNumber && type == other.type && verificationCode == other.verificationCode && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is CardDetails &&
+            cardId == other.cardId &&
+            expirationMonth == other.expirationMonth &&
+            expirationYear == other.expirationYear &&
+            pin == other.pin &&
+            primaryAccountNumber == other.primaryAccountNumber &&
+            type == other.type &&
+            verificationCode == other.verificationCode &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(cardId, expirationMonth, expirationYear, pin, primaryAccountNumber, type, verificationCode, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(
+            cardId,
+            expirationMonth,
+            expirationYear,
+            pin,
+            primaryAccountNumber,
+            type,
+            verificationCode,
+            additionalProperties,
+        )
+    }
 
     override fun hashCode(): Int = hashCode
 

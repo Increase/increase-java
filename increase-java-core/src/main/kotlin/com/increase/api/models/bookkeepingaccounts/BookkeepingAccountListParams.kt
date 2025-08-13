@@ -231,10 +231,16 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is BookkeepingAccountListParams && cursor == other.cursor && idempotencyKey == other.idempotencyKey && limit == other.limit && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is BookkeepingAccountListParams &&
+            cursor == other.cursor &&
+            idempotencyKey == other.idempotencyKey &&
+            limit == other.limit &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(cursor, idempotencyKey, limit, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(cursor, idempotencyKey, limit, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "BookkeepingAccountListParams{cursor=$cursor, idempotencyKey=$idempotencyKey, limit=$limit, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

@@ -1224,12 +1224,39 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Body && accountNumberId == other.accountNumberId && amount == other.amount && addenda == other.addenda && companyDescriptiveDate == other.companyDescriptiveDate && companyDiscretionaryData == other.companyDiscretionaryData && companyEntryDescription == other.companyEntryDescription && companyId == other.companyId && companyName == other.companyName && receiverIdNumber == other.receiverIdNumber && receiverName == other.receiverName && resolveAt == other.resolveAt && standardEntryClassCode == other.standardEntryClassCode && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Body &&
+                accountNumberId == other.accountNumberId &&
+                amount == other.amount &&
+                addenda == other.addenda &&
+                companyDescriptiveDate == other.companyDescriptiveDate &&
+                companyDiscretionaryData == other.companyDiscretionaryData &&
+                companyEntryDescription == other.companyEntryDescription &&
+                companyId == other.companyId &&
+                companyName == other.companyName &&
+                receiverIdNumber == other.receiverIdNumber &&
+                receiverName == other.receiverName &&
+                resolveAt == other.resolveAt &&
+                standardEntryClassCode == other.standardEntryClassCode &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(accountNumberId, amount, addenda, companyDescriptiveDate, companyDiscretionaryData, companyEntryDescription, companyId, companyName, receiverIdNumber, receiverName, resolveAt, standardEntryClassCode, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(
+                accountNumberId,
+                amount,
+                addenda,
+                companyDescriptiveDate,
+                companyDiscretionaryData,
+                companyEntryDescription,
+                companyId,
+                companyName,
+                receiverIdNumber,
+                receiverName,
+                resolveAt,
+                standardEntryClassCode,
+                additionalProperties,
+            )
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -1538,7 +1565,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is Category && value == other.value /* spotless:on */
+                return other is Category && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -1872,12 +1899,14 @@ private constructor(
                         return true
                     }
 
-                    return /* spotless:off */ other is Entry && paymentRelatedInformation == other.paymentRelatedInformation && additionalProperties == other.additionalProperties /* spotless:on */
+                    return other is Entry &&
+                        paymentRelatedInformation == other.paymentRelatedInformation &&
+                        additionalProperties == other.additionalProperties
                 }
 
-                /* spotless:off */
-                private val hashCode: Int by lazy { Objects.hash(paymentRelatedInformation, additionalProperties) }
-                /* spotless:on */
+                private val hashCode: Int by lazy {
+                    Objects.hash(paymentRelatedInformation, additionalProperties)
+                }
 
                 override fun hashCode(): Int = hashCode
 
@@ -1890,12 +1919,12 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is Freeform && entries == other.entries && additionalProperties == other.additionalProperties /* spotless:on */
+                return other is Freeform &&
+                    entries == other.entries &&
+                    additionalProperties == other.additionalProperties
             }
 
-            /* spotless:off */
             private val hashCode: Int by lazy { Objects.hash(entries, additionalProperties) }
-            /* spotless:on */
 
             override fun hashCode(): Int = hashCode
 
@@ -1908,12 +1937,13 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Addenda && category == other.category && freeform == other.freeform && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Addenda &&
+                category == other.category &&
+                freeform == other.freeform &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(category, freeform, additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -2180,7 +2210,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is StandardEntryClassCode && value == other.value /* spotless:on */
+            return other is StandardEntryClassCode && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -2193,10 +2223,13 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is InboundAchTransferCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is InboundAchTransferCreateParams &&
+            body == other.body &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int = Objects.hash(body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "InboundAchTransferCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

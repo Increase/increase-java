@@ -414,12 +414,17 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is CreatedAt && after == other.after && before == other.before && onOrAfter == other.onOrAfter && onOrBefore == other.onOrBefore && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is CreatedAt &&
+                after == other.after &&
+                before == other.before &&
+                onOrAfter == other.onOrAfter &&
+                onOrBefore == other.onOrBefore &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(after, before, onOrAfter, onOrBefore, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(after, before, onOrAfter, onOrBefore, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -432,10 +437,17 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is DigitalWalletTokenListParams && cardId == other.cardId && createdAt == other.createdAt && cursor == other.cursor && limit == other.limit && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is DigitalWalletTokenListParams &&
+            cardId == other.cardId &&
+            createdAt == other.createdAt &&
+            cursor == other.cursor &&
+            limit == other.limit &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(cardId, createdAt, cursor, limit, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(cardId, createdAt, cursor, limit, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "DigitalWalletTokenListParams{cardId=$cardId, createdAt=$createdAt, cursor=$cursor, limit=$limit, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

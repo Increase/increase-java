@@ -188,10 +188,14 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is ExternalAccountRetrieveParams && externalAccountId == other.externalAccountId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is ExternalAccountRetrieveParams &&
+            externalAccountId == other.externalAccountId &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(externalAccountId, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(externalAccountId, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "ExternalAccountRetrieveParams{externalAccountId=$externalAccountId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

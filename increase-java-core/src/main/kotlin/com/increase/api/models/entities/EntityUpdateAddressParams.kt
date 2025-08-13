@@ -413,12 +413,12 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Body && address == other.address && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Body &&
+                address == other.address &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(address, additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -723,12 +723,18 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Address && city == other.city && line1 == other.line1 && state == other.state && zip == other.zip && line2 == other.line2 && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Address &&
+                city == other.city &&
+                line1 == other.line1 &&
+                state == other.state &&
+                zip == other.zip &&
+                line2 == other.line2 &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(city, line1, state, zip, line2, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(city, line1, state, zip, line2, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -741,10 +747,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is EntityUpdateAddressParams && entityId == other.entityId && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is EntityUpdateAddressParams &&
+            entityId == other.entityId &&
+            body == other.body &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(entityId, body, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(entityId, body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "EntityUpdateAddressParams{entityId=$entityId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

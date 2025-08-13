@@ -1439,7 +1439,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
+            return other is Type && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1452,12 +1452,65 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is InboundWireDrawdownRequest && id == other.id && amount == other.amount && beneficiaryAccountNumber == other.beneficiaryAccountNumber && beneficiaryAddressLine1 == other.beneficiaryAddressLine1 && beneficiaryAddressLine2 == other.beneficiaryAddressLine2 && beneficiaryAddressLine3 == other.beneficiaryAddressLine3 && beneficiaryName == other.beneficiaryName && beneficiaryRoutingNumber == other.beneficiaryRoutingNumber && createdAt == other.createdAt && currency == other.currency && messageToRecipient == other.messageToRecipient && originatorAccountNumber == other.originatorAccountNumber && originatorAddressLine1 == other.originatorAddressLine1 && originatorAddressLine2 == other.originatorAddressLine2 && originatorAddressLine3 == other.originatorAddressLine3 && originatorName == other.originatorName && originatorRoutingNumber == other.originatorRoutingNumber && originatorToBeneficiaryInformationLine1 == other.originatorToBeneficiaryInformationLine1 && originatorToBeneficiaryInformationLine2 == other.originatorToBeneficiaryInformationLine2 && originatorToBeneficiaryInformationLine3 == other.originatorToBeneficiaryInformationLine3 && originatorToBeneficiaryInformationLine4 == other.originatorToBeneficiaryInformationLine4 && recipientAccountNumberId == other.recipientAccountNumberId && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is InboundWireDrawdownRequest &&
+            id == other.id &&
+            amount == other.amount &&
+            beneficiaryAccountNumber == other.beneficiaryAccountNumber &&
+            beneficiaryAddressLine1 == other.beneficiaryAddressLine1 &&
+            beneficiaryAddressLine2 == other.beneficiaryAddressLine2 &&
+            beneficiaryAddressLine3 == other.beneficiaryAddressLine3 &&
+            beneficiaryName == other.beneficiaryName &&
+            beneficiaryRoutingNumber == other.beneficiaryRoutingNumber &&
+            createdAt == other.createdAt &&
+            currency == other.currency &&
+            messageToRecipient == other.messageToRecipient &&
+            originatorAccountNumber == other.originatorAccountNumber &&
+            originatorAddressLine1 == other.originatorAddressLine1 &&
+            originatorAddressLine2 == other.originatorAddressLine2 &&
+            originatorAddressLine3 == other.originatorAddressLine3 &&
+            originatorName == other.originatorName &&
+            originatorRoutingNumber == other.originatorRoutingNumber &&
+            originatorToBeneficiaryInformationLine1 ==
+                other.originatorToBeneficiaryInformationLine1 &&
+            originatorToBeneficiaryInformationLine2 ==
+                other.originatorToBeneficiaryInformationLine2 &&
+            originatorToBeneficiaryInformationLine3 ==
+                other.originatorToBeneficiaryInformationLine3 &&
+            originatorToBeneficiaryInformationLine4 ==
+                other.originatorToBeneficiaryInformationLine4 &&
+            recipientAccountNumberId == other.recipientAccountNumberId &&
+            type == other.type &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, amount, beneficiaryAccountNumber, beneficiaryAddressLine1, beneficiaryAddressLine2, beneficiaryAddressLine3, beneficiaryName, beneficiaryRoutingNumber, createdAt, currency, messageToRecipient, originatorAccountNumber, originatorAddressLine1, originatorAddressLine2, originatorAddressLine3, originatorName, originatorRoutingNumber, originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4, recipientAccountNumberId, type, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(
+            id,
+            amount,
+            beneficiaryAccountNumber,
+            beneficiaryAddressLine1,
+            beneficiaryAddressLine2,
+            beneficiaryAddressLine3,
+            beneficiaryName,
+            beneficiaryRoutingNumber,
+            createdAt,
+            currency,
+            messageToRecipient,
+            originatorAccountNumber,
+            originatorAddressLine1,
+            originatorAddressLine2,
+            originatorAddressLine3,
+            originatorName,
+            originatorRoutingNumber,
+            originatorToBeneficiaryInformationLine1,
+            originatorToBeneficiaryInformationLine2,
+            originatorToBeneficiaryInformationLine3,
+            originatorToBeneficiaryInformationLine4,
+            recipientAccountNumberId,
+            type,
+            additionalProperties,
+        )
+    }
 
     override fun hashCode(): Int = hashCode
 

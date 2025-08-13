@@ -193,10 +193,14 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is DigitalCardProfileRetrieveParams && digitalCardProfileId == other.digitalCardProfileId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is DigitalCardProfileRetrieveParams &&
+            digitalCardProfileId == other.digitalCardProfileId &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(digitalCardProfileId, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(digitalCardProfileId, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "DigitalCardProfileRetrieveParams{digitalCardProfileId=$digitalCardProfileId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

@@ -479,7 +479,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is In && value == other.value /* spotless:on */
+                return other is In && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -492,12 +492,12 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && in_ == other.in_ && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Status &&
+                in_ == other.in_ &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(in_, additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -509,10 +509,24 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is OAuthConnectionListParams && cursor == other.cursor && limit == other.limit && oauthApplicationId == other.oauthApplicationId && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is OAuthConnectionListParams &&
+            cursor == other.cursor &&
+            limit == other.limit &&
+            oauthApplicationId == other.oauthApplicationId &&
+            status == other.status &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(cursor, limit, oauthApplicationId, status, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(
+            cursor,
+            limit,
+            oauthApplicationId,
+            status,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
         "OAuthConnectionListParams{cursor=$cursor, limit=$limit, oauthApplicationId=$oauthApplicationId, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

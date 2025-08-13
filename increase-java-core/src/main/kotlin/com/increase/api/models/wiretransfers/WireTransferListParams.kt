@@ -453,12 +453,17 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is CreatedAt && after == other.after && before == other.before && onOrAfter == other.onOrAfter && onOrBefore == other.onOrBefore && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is CreatedAt &&
+                after == other.after &&
+                before == other.before &&
+                onOrAfter == other.onOrAfter &&
+                onOrBefore == other.onOrBefore &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(after, before, onOrAfter, onOrBefore, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(after, before, onOrAfter, onOrBefore, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -471,10 +476,28 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is WireTransferListParams && accountId == other.accountId && createdAt == other.createdAt && cursor == other.cursor && externalAccountId == other.externalAccountId && idempotencyKey == other.idempotencyKey && limit == other.limit && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is WireTransferListParams &&
+            accountId == other.accountId &&
+            createdAt == other.createdAt &&
+            cursor == other.cursor &&
+            externalAccountId == other.externalAccountId &&
+            idempotencyKey == other.idempotencyKey &&
+            limit == other.limit &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, createdAt, cursor, externalAccountId, idempotencyKey, limit, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(
+            accountId,
+            createdAt,
+            cursor,
+            externalAccountId,
+            idempotencyKey,
+            limit,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
         "WireTransferListParams{accountId=$accountId, createdAt=$createdAt, cursor=$cursor, externalAccountId=$externalAccountId, idempotencyKey=$idempotencyKey, limit=$limit, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

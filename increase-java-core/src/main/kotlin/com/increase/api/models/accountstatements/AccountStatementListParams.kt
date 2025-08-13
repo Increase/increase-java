@@ -433,12 +433,17 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is StatementPeriodStart && after == other.after && before == other.before && onOrAfter == other.onOrAfter && onOrBefore == other.onOrBefore && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is StatementPeriodStart &&
+                after == other.after &&
+                before == other.before &&
+                onOrAfter == other.onOrAfter &&
+                onOrBefore == other.onOrBefore &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(after, before, onOrAfter, onOrBefore, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(after, before, onOrAfter, onOrBefore, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -451,10 +456,24 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is AccountStatementListParams && accountId == other.accountId && cursor == other.cursor && limit == other.limit && statementPeriodStart == other.statementPeriodStart && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is AccountStatementListParams &&
+            accountId == other.accountId &&
+            cursor == other.cursor &&
+            limit == other.limit &&
+            statementPeriodStart == other.statementPeriodStart &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, cursor, limit, statementPeriodStart, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(
+            accountId,
+            cursor,
+            limit,
+            statementPeriodStart,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
         "AccountStatementListParams{accountId=$accountId, cursor=$cursor, limit=$limit, statementPeriodStart=$statementPeriodStart, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

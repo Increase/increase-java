@@ -697,12 +697,25 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Body && category == other.category && carrierEstimatedDeliveryAt == other.carrierEstimatedDeliveryAt && city == other.city && postalCode == other.postalCode && state == other.state && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Body &&
+                category == other.category &&
+                carrierEstimatedDeliveryAt == other.carrierEstimatedDeliveryAt &&
+                city == other.city &&
+                postalCode == other.postalCode &&
+                state == other.state &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(category, carrierEstimatedDeliveryAt, city, postalCode, state, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(
+                category,
+                carrierEstimatedDeliveryAt,
+                city,
+                postalCode,
+                state,
+                additionalProperties,
+            )
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -854,7 +867,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Category && value == other.value /* spotless:on */
+            return other is Category && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -867,10 +880,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is PhysicalCardTrackingUpdatesParams && physicalCardId == other.physicalCardId && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is PhysicalCardTrackingUpdatesParams &&
+            physicalCardId == other.physicalCardId &&
+            body == other.body &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(physicalCardId, body, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(physicalCardId, body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "PhysicalCardTrackingUpdatesParams{physicalCardId=$physicalCardId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

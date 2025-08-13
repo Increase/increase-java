@@ -873,7 +873,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is DebitStatus && value == other.value /* spotless:on */
+                return other is DebitStatus && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -886,12 +886,12 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is InboundAch && debitStatus == other.debitStatus && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is InboundAch &&
+                debitStatus == other.debitStatus &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(debitStatus, additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -1183,7 +1183,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is Status && value == other.value /* spotless:on */
+                return other is Status && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -1196,12 +1196,12 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is InboundChecks && status == other.status && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is InboundChecks &&
+                status == other.status &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(status, additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -1344,7 +1344,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
+            return other is Status && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1469,7 +1469,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
+            return other is Type && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1482,12 +1482,37 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is AccountNumber && id == other.id && accountId == other.accountId && accountNumber == other.accountNumber && createdAt == other.createdAt && idempotencyKey == other.idempotencyKey && inboundAch == other.inboundAch && inboundChecks == other.inboundChecks && name == other.name && routingNumber == other.routingNumber && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is AccountNumber &&
+            id == other.id &&
+            accountId == other.accountId &&
+            accountNumber == other.accountNumber &&
+            createdAt == other.createdAt &&
+            idempotencyKey == other.idempotencyKey &&
+            inboundAch == other.inboundAch &&
+            inboundChecks == other.inboundChecks &&
+            name == other.name &&
+            routingNumber == other.routingNumber &&
+            status == other.status &&
+            type == other.type &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, accountId, accountNumber, createdAt, idempotencyKey, inboundAch, inboundChecks, name, routingNumber, status, type, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(
+            id,
+            accountId,
+            accountNumber,
+            createdAt,
+            idempotencyKey,
+            inboundAch,
+            inboundChecks,
+            name,
+            routingNumber,
+            status,
+            type,
+            additionalProperties,
+        )
+    }
 
     override fun hashCode(): Int = hashCode
 
