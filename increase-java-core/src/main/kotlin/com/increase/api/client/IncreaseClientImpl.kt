@@ -28,8 +28,14 @@ import com.increase.api.services.blocking.CardPaymentService
 import com.increase.api.services.blocking.CardPaymentServiceImpl
 import com.increase.api.services.blocking.CardPurchaseSupplementService
 import com.increase.api.services.blocking.CardPurchaseSupplementServiceImpl
+import com.increase.api.services.blocking.CardPushTransferService
+import com.increase.api.services.blocking.CardPushTransferServiceImpl
 import com.increase.api.services.blocking.CardService
 import com.increase.api.services.blocking.CardServiceImpl
+import com.increase.api.services.blocking.CardTokenService
+import com.increase.api.services.blocking.CardTokenServiceImpl
+import com.increase.api.services.blocking.CardValidationService
+import com.increase.api.services.blocking.CardValidationServiceImpl
 import com.increase.api.services.blocking.CheckDepositService
 import com.increase.api.services.blocking.CheckDepositServiceImpl
 import com.increase.api.services.blocking.CheckTransferService
@@ -313,6 +319,18 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
         IntrafiExclusionServiceImpl(clientOptionsWithUserAgent)
     }
 
+    private val cardTokens: CardTokenService by lazy {
+        CardTokenServiceImpl(clientOptionsWithUserAgent)
+    }
+
+    private val cardPushTransfers: CardPushTransferService by lazy {
+        CardPushTransferServiceImpl(clientOptionsWithUserAgent)
+    }
+
+    private val cardValidations: CardValidationService by lazy {
+        CardValidationServiceImpl(clientOptionsWithUserAgent)
+    }
+
     private val simulations: SimulationService by lazy {
         SimulationServiceImpl(clientOptionsWithUserAgent)
     }
@@ -429,6 +447,12 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
     override fun intrafiBalances(): IntrafiBalanceService = intrafiBalances
 
     override fun intrafiExclusions(): IntrafiExclusionService = intrafiExclusions
+
+    override fun cardTokens(): CardTokenService = cardTokens
+
+    override fun cardPushTransfers(): CardPushTransferService = cardPushTransfers
+
+    override fun cardValidations(): CardValidationService = cardValidations
 
     override fun simulations(): SimulationService = simulations
 
@@ -645,6 +669,18 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
             IntrafiExclusionServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val cardTokens: CardTokenService.WithRawResponse by lazy {
+            CardTokenServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val cardPushTransfers: CardPushTransferService.WithRawResponse by lazy {
+            CardPushTransferServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val cardValidations: CardValidationService.WithRawResponse by lazy {
+            CardValidationServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         private val simulations: SimulationService.WithRawResponse by lazy {
             SimulationServiceImpl.WithRawResponseImpl(clientOptions)
         }
@@ -782,6 +818,13 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
 
         override fun intrafiExclusions(): IntrafiExclusionService.WithRawResponse =
             intrafiExclusions
+
+        override fun cardTokens(): CardTokenService.WithRawResponse = cardTokens
+
+        override fun cardPushTransfers(): CardPushTransferService.WithRawResponse =
+            cardPushTransfers
+
+        override fun cardValidations(): CardValidationService.WithRawResponse = cardValidations
 
         override fun simulations(): SimulationService.WithRawResponse = simulations
     }

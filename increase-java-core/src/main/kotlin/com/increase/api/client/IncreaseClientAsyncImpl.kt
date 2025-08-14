@@ -28,8 +28,14 @@ import com.increase.api.services.async.CardPaymentServiceAsync
 import com.increase.api.services.async.CardPaymentServiceAsyncImpl
 import com.increase.api.services.async.CardPurchaseSupplementServiceAsync
 import com.increase.api.services.async.CardPurchaseSupplementServiceAsyncImpl
+import com.increase.api.services.async.CardPushTransferServiceAsync
+import com.increase.api.services.async.CardPushTransferServiceAsyncImpl
 import com.increase.api.services.async.CardServiceAsync
 import com.increase.api.services.async.CardServiceAsyncImpl
+import com.increase.api.services.async.CardTokenServiceAsync
+import com.increase.api.services.async.CardTokenServiceAsyncImpl
+import com.increase.api.services.async.CardValidationServiceAsync
+import com.increase.api.services.async.CardValidationServiceAsyncImpl
 import com.increase.api.services.async.CheckDepositServiceAsync
 import com.increase.api.services.async.CheckDepositServiceAsyncImpl
 import com.increase.api.services.async.CheckTransferServiceAsync
@@ -328,6 +334,18 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
         IntrafiExclusionServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
+    private val cardTokens: CardTokenServiceAsync by lazy {
+        CardTokenServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
+    private val cardPushTransfers: CardPushTransferServiceAsync by lazy {
+        CardPushTransferServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
+    private val cardValidations: CardValidationServiceAsync by lazy {
+        CardValidationServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
     private val simulations: SimulationServiceAsync by lazy {
         SimulationServiceAsyncImpl(clientOptionsWithUserAgent)
     }
@@ -445,6 +463,12 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
     override fun intrafiBalances(): IntrafiBalanceServiceAsync = intrafiBalances
 
     override fun intrafiExclusions(): IntrafiExclusionServiceAsync = intrafiExclusions
+
+    override fun cardTokens(): CardTokenServiceAsync = cardTokens
+
+    override fun cardPushTransfers(): CardPushTransferServiceAsync = cardPushTransfers
+
+    override fun cardValidations(): CardValidationServiceAsync = cardValidations
 
     override fun simulations(): SimulationServiceAsync = simulations
 
@@ -663,6 +687,18 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
             IntrafiExclusionServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val cardTokens: CardTokenServiceAsync.WithRawResponse by lazy {
+            CardTokenServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val cardPushTransfers: CardPushTransferServiceAsync.WithRawResponse by lazy {
+            CardPushTransferServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val cardValidations: CardValidationServiceAsync.WithRawResponse by lazy {
+            CardValidationServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         private val simulations: SimulationServiceAsync.WithRawResponse by lazy {
             SimulationServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
@@ -804,6 +840,13 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
 
         override fun intrafiExclusions(): IntrafiExclusionServiceAsync.WithRawResponse =
             intrafiExclusions
+
+        override fun cardTokens(): CardTokenServiceAsync.WithRawResponse = cardTokens
+
+        override fun cardPushTransfers(): CardPushTransferServiceAsync.WithRawResponse =
+            cardPushTransfers
+
+        override fun cardValidations(): CardValidationServiceAsync.WithRawResponse = cardValidations
 
         override fun simulations(): SimulationServiceAsync.WithRawResponse = simulations
     }

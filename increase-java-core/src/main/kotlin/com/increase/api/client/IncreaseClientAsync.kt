@@ -15,7 +15,10 @@ import com.increase.api.services.async.BookkeepingEntrySetServiceAsync
 import com.increase.api.services.async.CardDisputeServiceAsync
 import com.increase.api.services.async.CardPaymentServiceAsync
 import com.increase.api.services.async.CardPurchaseSupplementServiceAsync
+import com.increase.api.services.async.CardPushTransferServiceAsync
 import com.increase.api.services.async.CardServiceAsync
+import com.increase.api.services.async.CardTokenServiceAsync
+import com.increase.api.services.async.CardValidationServiceAsync
 import com.increase.api.services.async.CheckDepositServiceAsync
 import com.increase.api.services.async.CheckTransferServiceAsync
 import com.increase.api.services.async.DeclinedTransactionServiceAsync
@@ -195,6 +198,12 @@ interface IncreaseClientAsync {
 
     fun intrafiExclusions(): IntrafiExclusionServiceAsync
 
+    fun cardTokens(): CardTokenServiceAsync
+
+    fun cardPushTransfers(): CardPushTransferServiceAsync
+
+    fun cardValidations(): CardValidationServiceAsync
+
     fun simulations(): SimulationServiceAsync
 
     /**
@@ -326,6 +335,12 @@ interface IncreaseClientAsync {
         fun intrafiBalances(): IntrafiBalanceServiceAsync.WithRawResponse
 
         fun intrafiExclusions(): IntrafiExclusionServiceAsync.WithRawResponse
+
+        fun cardTokens(): CardTokenServiceAsync.WithRawResponse
+
+        fun cardPushTransfers(): CardPushTransferServiceAsync.WithRawResponse
+
+        fun cardValidations(): CardValidationServiceAsync.WithRawResponse
 
         fun simulations(): SimulationServiceAsync.WithRawResponse
     }

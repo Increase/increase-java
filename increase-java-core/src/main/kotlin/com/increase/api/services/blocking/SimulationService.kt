@@ -14,6 +14,7 @@ import com.increase.api.services.blocking.simulations.CardIncrementService
 import com.increase.api.services.blocking.simulations.CardRefundService
 import com.increase.api.services.blocking.simulations.CardReversalService
 import com.increase.api.services.blocking.simulations.CardSettlementService
+import com.increase.api.services.blocking.simulations.CardTokenService
 import com.increase.api.services.blocking.simulations.CheckDepositService
 import com.increase.api.services.blocking.simulations.CheckTransferService
 import com.increase.api.services.blocking.simulations.DigitalWalletTokenRequestService
@@ -103,6 +104,8 @@ interface SimulationService {
 
     fun documents(): DocumentService
 
+    fun cardTokens(): CardTokenService
+
     /** A view of [SimulationService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
 
@@ -171,5 +174,7 @@ interface SimulationService {
         fun accountStatements(): AccountStatementService.WithRawResponse
 
         fun documents(): DocumentService.WithRawResponse
+
+        fun cardTokens(): CardTokenService.WithRawResponse
     }
 }
