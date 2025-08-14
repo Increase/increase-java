@@ -15,7 +15,10 @@ import com.increase.api.services.blocking.BookkeepingEntrySetService
 import com.increase.api.services.blocking.CardDisputeService
 import com.increase.api.services.blocking.CardPaymentService
 import com.increase.api.services.blocking.CardPurchaseSupplementService
+import com.increase.api.services.blocking.CardPushTransferService
 import com.increase.api.services.blocking.CardService
+import com.increase.api.services.blocking.CardTokenService
+import com.increase.api.services.blocking.CardValidationService
 import com.increase.api.services.blocking.CheckDepositService
 import com.increase.api.services.blocking.CheckTransferService
 import com.increase.api.services.blocking.DeclinedTransactionService
@@ -198,6 +201,12 @@ interface IncreaseClient {
 
     fun intrafiExclusions(): IntrafiExclusionService
 
+    fun cardTokens(): CardTokenService
+
+    fun cardPushTransfers(): CardPushTransferService
+
+    fun cardValidations(): CardValidationService
+
     fun simulations(): SimulationService
 
     /**
@@ -325,6 +334,12 @@ interface IncreaseClient {
         fun intrafiBalances(): IntrafiBalanceService.WithRawResponse
 
         fun intrafiExclusions(): IntrafiExclusionService.WithRawResponse
+
+        fun cardTokens(): CardTokenService.WithRawResponse
+
+        fun cardPushTransfers(): CardPushTransferService.WithRawResponse
+
+        fun cardValidations(): CardValidationService.WithRawResponse
 
         fun simulations(): SimulationService.WithRawResponse
     }

@@ -100,6 +100,9 @@ internal class ProGuardCompatibilityTest {
         assertThat(client.intrafiAccountEnrollments()).isNotNull()
         assertThat(client.intrafiBalances()).isNotNull()
         assertThat(client.intrafiExclusions()).isNotNull()
+        assertThat(client.cardTokens()).isNotNull()
+        assertThat(client.cardPushTransfers()).isNotNull()
+        assertThat(client.cardValidations()).isNotNull()
         assertThat(client.simulations()).isNotNull()
     }
 
