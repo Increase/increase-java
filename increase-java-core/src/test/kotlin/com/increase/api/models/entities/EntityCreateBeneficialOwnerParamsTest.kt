@@ -19,9 +19,9 @@ internal class EntityCreateBeneficialOwnerParamsTest {
                             .address(
                                 EntityCreateBeneficialOwnerParams.BeneficialOwner.Individual.Address
                                     .builder()
+                                    .city("New York")
                                     .country("US")
                                     .line1("33 Liberty Street")
-                                    .city("New York")
                                     .line2("x")
                                     .state("NY")
                                     .zip("10045")
@@ -98,6 +98,7 @@ internal class EntityCreateBeneficialOwnerParamsTest {
                                     EntityCreateBeneficialOwnerParams.BeneficialOwner.Individual
                                         .Address
                                         .builder()
+                                        .city("New York")
                                         .country("US")
                                         .line1("33 Liberty Street")
                                         .build()
@@ -143,9 +144,9 @@ internal class EntityCreateBeneficialOwnerParamsTest {
                                     EntityCreateBeneficialOwnerParams.BeneficialOwner.Individual
                                         .Address
                                         .builder()
+                                        .city("New York")
                                         .country("US")
                                         .line1("33 Liberty Street")
-                                        .city("New York")
                                         .line2("x")
                                         .state("NY")
                                         .zip("10045")
@@ -222,9 +223,9 @@ internal class EntityCreateBeneficialOwnerParamsTest {
                             .address(
                                 EntityCreateBeneficialOwnerParams.BeneficialOwner.Individual.Address
                                     .builder()
+                                    .city("New York")
                                     .country("US")
                                     .line1("33 Liberty Street")
-                                    .city("New York")
                                     .line2("x")
                                     .state("NY")
                                     .zip("10045")
@@ -300,6 +301,7 @@ internal class EntityCreateBeneficialOwnerParamsTest {
                                     EntityCreateBeneficialOwnerParams.BeneficialOwner.Individual
                                         .Address
                                         .builder()
+                                        .city("New York")
                                         .country("US")
                                         .line1("33 Liberty Street")
                                         .build()
@@ -337,6 +339,7 @@ internal class EntityCreateBeneficialOwnerParamsTest {
                             .address(
                                 EntityCreateBeneficialOwnerParams.BeneficialOwner.Individual.Address
                                     .builder()
+                                    .city("New York")
                                     .country("US")
                                     .line1("33 Liberty Street")
                                     .build()
