@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.281.0 (2025-08-14)
+
+Full Changelog: [v0.280.0...v0.281.0](https://github.com/Increase/increase-java/compare/v0.280.0...v0.281.0)
+
+### Features
+
+* **api:** api update ([4cf2d0e](https://github.com/Increase/increase-java/commit/4cf2d0ea27d88667340a037d96d33f84f1b8b77b))
+
+
+### Performance Improvements
+
+* **internal:** make formatting faster ([98eeb9a](https://github.com/Increase/increase-java/commit/98eeb9a7a085f1b28aeeacf4a713042bbfa54b6b))
+
 ## 0.280.0 (2025-08-13)
 
 Full Changelog: [v0.279.0...v0.280.0](https://github.com/Increase/increase-java/compare/v0.279.0...v0.280.0)
