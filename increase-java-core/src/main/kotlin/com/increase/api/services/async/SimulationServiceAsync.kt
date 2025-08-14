@@ -14,6 +14,7 @@ import com.increase.api.services.async.simulations.CardIncrementServiceAsync
 import com.increase.api.services.async.simulations.CardRefundServiceAsync
 import com.increase.api.services.async.simulations.CardReversalServiceAsync
 import com.increase.api.services.async.simulations.CardSettlementServiceAsync
+import com.increase.api.services.async.simulations.CardTokenServiceAsync
 import com.increase.api.services.async.simulations.CheckDepositServiceAsync
 import com.increase.api.services.async.simulations.CheckTransferServiceAsync
 import com.increase.api.services.async.simulations.DigitalWalletTokenRequestServiceAsync
@@ -103,6 +104,8 @@ interface SimulationServiceAsync {
 
     fun documents(): DocumentServiceAsync
 
+    fun cardTokens(): CardTokenServiceAsync
+
     /**
      * A view of [SimulationServiceAsync] that provides access to raw HTTP responses for each
      * method.
@@ -174,5 +177,7 @@ interface SimulationServiceAsync {
         fun accountStatements(): AccountStatementServiceAsync.WithRawResponse
 
         fun documents(): DocumentServiceAsync.WithRawResponse
+
+        fun cardTokens(): CardTokenServiceAsync.WithRawResponse
     }
 }
