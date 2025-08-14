@@ -13,9 +13,9 @@ internal class EntityUpdateBeneficialOwnerAddressParamsTest {
             .entityId("entity_n8y8tnk2p9339ti393yi")
             .address(
                 EntityUpdateBeneficialOwnerAddressParams.Address.builder()
+                    .city("New York")
                     .country("US")
                     .line1("33 Liberty Street")
-                    .city("New York")
                     .line2("Unit 2")
                     .state("NY")
                     .zip("10045")
@@ -32,6 +32,7 @@ internal class EntityUpdateBeneficialOwnerAddressParamsTest {
                 .entityId("entity_n8y8tnk2p9339ti393yi")
                 .address(
                     EntityUpdateBeneficialOwnerAddressParams.Address.builder()
+                        .city("New York")
                         .country("US")
                         .line1("33 Liberty Street")
                         .build()
@@ -51,9 +52,9 @@ internal class EntityUpdateBeneficialOwnerAddressParamsTest {
                 .entityId("entity_n8y8tnk2p9339ti393yi")
                 .address(
                     EntityUpdateBeneficialOwnerAddressParams.Address.builder()
+                        .city("New York")
                         .country("US")
                         .line1("33 Liberty Street")
-                        .city("New York")
                         .line2("Unit 2")
                         .state("NY")
                         .zip("10045")
@@ -67,9 +68,9 @@ internal class EntityUpdateBeneficialOwnerAddressParamsTest {
         assertThat(body.address())
             .isEqualTo(
                 EntityUpdateBeneficialOwnerAddressParams.Address.builder()
+                    .city("New York")
                     .country("US")
                     .line1("33 Liberty Street")
-                    .city("New York")
                     .line2("Unit 2")
                     .state("NY")
                     .zip("10045")
@@ -86,6 +87,7 @@ internal class EntityUpdateBeneficialOwnerAddressParamsTest {
                 .entityId("entity_n8y8tnk2p9339ti393yi")
                 .address(
                     EntityUpdateBeneficialOwnerAddressParams.Address.builder()
+                        .city("New York")
                         .country("US")
                         .line1("33 Liberty Street")
                         .build()
@@ -98,6 +100,7 @@ internal class EntityUpdateBeneficialOwnerAddressParamsTest {
         assertThat(body.address())
             .isEqualTo(
                 EntityUpdateBeneficialOwnerAddressParams.Address.builder()
+                    .city("New York")
                     .country("US")
                     .line1("33 Liberty Street")
                     .build()
