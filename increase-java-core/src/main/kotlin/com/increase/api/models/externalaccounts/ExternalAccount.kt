@@ -713,6 +713,9 @@ private constructor(
             /** A savings account. */
             @JvmField val SAVINGS = of("savings")
 
+            /** A general ledger account. */
+            @JvmField val GENERAL_LEDGER = of("general_ledger")
+
             /** A different type of account. */
             @JvmField val OTHER = of("other")
 
@@ -725,6 +728,8 @@ private constructor(
             CHECKING,
             /** A savings account. */
             SAVINGS,
+            /** A general ledger account. */
+            GENERAL_LEDGER,
             /** A different type of account. */
             OTHER,
         }
@@ -743,6 +748,8 @@ private constructor(
             CHECKING,
             /** A savings account. */
             SAVINGS,
+            /** A general ledger account. */
+            GENERAL_LEDGER,
             /** A different type of account. */
             OTHER,
             /** An enum member indicating that [Funding] was instantiated with an unknown value. */
@@ -760,6 +767,7 @@ private constructor(
             when (this) {
                 CHECKING -> Value.CHECKING
                 SAVINGS -> Value.SAVINGS
+                GENERAL_LEDGER -> Value.GENERAL_LEDGER
                 OTHER -> Value.OTHER
                 else -> Value._UNKNOWN
             }
@@ -777,6 +785,7 @@ private constructor(
             when (this) {
                 CHECKING -> Known.CHECKING
                 SAVINGS -> Known.SAVINGS
+                GENERAL_LEDGER -> Known.GENERAL_LEDGER
                 OTHER -> Known.OTHER
                 else -> throw IncreaseInvalidDataException("Unknown Funding: $value")
             }
