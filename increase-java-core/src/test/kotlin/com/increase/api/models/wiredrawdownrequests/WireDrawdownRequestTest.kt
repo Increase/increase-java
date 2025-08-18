@@ -41,6 +41,7 @@ internal class WireDrawdownRequestTest {
                         .state("NY")
                         .build()
                 )
+                .debtorExternalAccountId(null)
                 .debtorName("Ian Crease")
                 .debtorRoutingNumber("101050001")
                 .fulfillmentInboundWireTransferId("inbound_wire_transfer_f228m6bmhtcxjco9pwp0")
@@ -86,6 +87,7 @@ internal class WireDrawdownRequestTest {
                     .state("NY")
                     .build()
             )
+        assertThat(wireDrawdownRequest.debtorExternalAccountId()).isEmpty
         assertThat(wireDrawdownRequest.debtorName()).isEqualTo("Ian Crease")
         assertThat(wireDrawdownRequest.debtorRoutingNumber()).isEqualTo("101050001")
         assertThat(wireDrawdownRequest.fulfillmentInboundWireTransferId())
@@ -136,6 +138,7 @@ internal class WireDrawdownRequestTest {
                         .state("NY")
                         .build()
                 )
+                .debtorExternalAccountId(null)
                 .debtorName("Ian Crease")
                 .debtorRoutingNumber("101050001")
                 .fulfillmentInboundWireTransferId("inbound_wire_transfer_f228m6bmhtcxjco9pwp0")
