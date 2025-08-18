@@ -23,7 +23,6 @@ internal class WireDrawdownRequestCreateParamsTest {
                     .build()
             )
             .creditorName("National Phonograph Company")
-            .debtorAccountNumber("987654321")
             .debtorAddress(
                 WireDrawdownRequestCreateParams.DebtorAddress.builder()
                     .city("New York")
@@ -35,8 +34,10 @@ internal class WireDrawdownRequestCreateParamsTest {
                     .build()
             )
             .debtorName("Ian Crease")
-            .debtorRoutingNumber("101050001")
             .unstructuredRemittanceInformation("Invoice 29582")
+            .debtorAccountNumber("987654321")
+            .debtorExternalAccountId("debtor_external_account_id")
+            .debtorRoutingNumber("101050001")
             .build()
     }
 
@@ -57,7 +58,6 @@ internal class WireDrawdownRequestCreateParamsTest {
                         .build()
                 )
                 .creditorName("National Phonograph Company")
-                .debtorAccountNumber("987654321")
                 .debtorAddress(
                     WireDrawdownRequestCreateParams.DebtorAddress.builder()
                         .city("New York")
@@ -69,8 +69,10 @@ internal class WireDrawdownRequestCreateParamsTest {
                         .build()
                 )
                 .debtorName("Ian Crease")
-                .debtorRoutingNumber("101050001")
                 .unstructuredRemittanceInformation("Invoice 29582")
+                .debtorAccountNumber("987654321")
+                .debtorExternalAccountId("debtor_external_account_id")
+                .debtorRoutingNumber("101050001")
                 .build()
 
         val body = params._body()
@@ -89,7 +91,6 @@ internal class WireDrawdownRequestCreateParamsTest {
                     .build()
             )
         assertThat(body.creditorName()).isEqualTo("National Phonograph Company")
-        assertThat(body.debtorAccountNumber()).isEqualTo("987654321")
         assertThat(body.debtorAddress())
             .isEqualTo(
                 WireDrawdownRequestCreateParams.DebtorAddress.builder()
@@ -102,8 +103,10 @@ internal class WireDrawdownRequestCreateParamsTest {
                     .build()
             )
         assertThat(body.debtorName()).isEqualTo("Ian Crease")
-        assertThat(body.debtorRoutingNumber()).isEqualTo("101050001")
         assertThat(body.unstructuredRemittanceInformation()).isEqualTo("Invoice 29582")
+        assertThat(body.debtorAccountNumber()).contains("987654321")
+        assertThat(body.debtorExternalAccountId()).contains("debtor_external_account_id")
+        assertThat(body.debtorRoutingNumber()).contains("101050001")
     }
 
     @Test
@@ -120,7 +123,6 @@ internal class WireDrawdownRequestCreateParamsTest {
                         .build()
                 )
                 .creditorName("National Phonograph Company")
-                .debtorAccountNumber("987654321")
                 .debtorAddress(
                     WireDrawdownRequestCreateParams.DebtorAddress.builder()
                         .city("New York")
@@ -129,7 +131,6 @@ internal class WireDrawdownRequestCreateParamsTest {
                         .build()
                 )
                 .debtorName("Ian Crease")
-                .debtorRoutingNumber("101050001")
                 .unstructuredRemittanceInformation("Invoice 29582")
                 .build()
 
@@ -146,7 +147,6 @@ internal class WireDrawdownRequestCreateParamsTest {
                     .build()
             )
         assertThat(body.creditorName()).isEqualTo("National Phonograph Company")
-        assertThat(body.debtorAccountNumber()).isEqualTo("987654321")
         assertThat(body.debtorAddress())
             .isEqualTo(
                 WireDrawdownRequestCreateParams.DebtorAddress.builder()
@@ -156,7 +156,6 @@ internal class WireDrawdownRequestCreateParamsTest {
                     .build()
             )
         assertThat(body.debtorName()).isEqualTo("Ian Crease")
-        assertThat(body.debtorRoutingNumber()).isEqualTo("101050001")
         assertThat(body.unstructuredRemittanceInformation()).isEqualTo("Invoice 29582")
     }
 }
