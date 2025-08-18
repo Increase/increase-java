@@ -36,7 +36,6 @@ internal class WireDrawdownRequestServiceTest {
                             .build()
                     )
                     .creditorName("National Phonograph Company")
-                    .debtorAccountNumber("987654321")
                     .debtorAddress(
                         WireDrawdownRequestCreateParams.DebtorAddress.builder()
                             .city("New York")
@@ -48,8 +47,10 @@ internal class WireDrawdownRequestServiceTest {
                             .build()
                     )
                     .debtorName("Ian Crease")
-                    .debtorRoutingNumber("101050001")
                     .unstructuredRemittanceInformation("Invoice 29582")
+                    .debtorAccountNumber("987654321")
+                    .debtorExternalAccountId("debtor_external_account_id")
+                    .debtorRoutingNumber("101050001")
                     .build()
             )
 
