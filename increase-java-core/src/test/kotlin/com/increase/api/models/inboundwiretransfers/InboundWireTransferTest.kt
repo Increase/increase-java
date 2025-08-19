@@ -24,8 +24,19 @@ internal class InboundWireTransferTest {
                 .beneficiaryName(null)
                 .beneficiaryReference(null)
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                .creditorAddressLine1(null)
+                .creditorAddressLine2(null)
+                .creditorAddressLine3(null)
+                .creditorName(null)
+                .debtorAddressLine1(null)
+                .debtorAddressLine2(null)
+                .debtorAddressLine3(null)
+                .debtorName(null)
                 .description("Inbound wire transfer")
+                .endToEndIdentification(null)
                 .inputMessageAccountabilityData(null)
+                .instructingAgentRoutingNumber(null)
+                .instructionIdentification(null)
                 .originatorAddressLine1(null)
                 .originatorAddressLine2(null)
                 .originatorAddressLine3(null)
@@ -45,6 +56,8 @@ internal class InboundWireTransferTest {
                 .senderReference(null)
                 .status(InboundWireTransfer.Status.ACCEPTED)
                 .type(InboundWireTransfer.Type.INBOUND_WIRE_TRANSFER)
+                .uniqueEndToEndTransactionReference(null)
+                .unstructuredRemittanceInformation(null)
                 .wireDrawdownRequestId(null)
                 .build()
 
@@ -60,8 +73,19 @@ internal class InboundWireTransferTest {
         assertThat(inboundWireTransfer.beneficiaryReference()).isEmpty
         assertThat(inboundWireTransfer.createdAt())
             .isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+        assertThat(inboundWireTransfer.creditorAddressLine1()).isEmpty
+        assertThat(inboundWireTransfer.creditorAddressLine2()).isEmpty
+        assertThat(inboundWireTransfer.creditorAddressLine3()).isEmpty
+        assertThat(inboundWireTransfer.creditorName()).isEmpty
+        assertThat(inboundWireTransfer.debtorAddressLine1()).isEmpty
+        assertThat(inboundWireTransfer.debtorAddressLine2()).isEmpty
+        assertThat(inboundWireTransfer.debtorAddressLine3()).isEmpty
+        assertThat(inboundWireTransfer.debtorName()).isEmpty
         assertThat(inboundWireTransfer.description()).isEqualTo("Inbound wire transfer")
+        assertThat(inboundWireTransfer.endToEndIdentification()).isEmpty
         assertThat(inboundWireTransfer.inputMessageAccountabilityData()).isEmpty
+        assertThat(inboundWireTransfer.instructingAgentRoutingNumber()).isEmpty
+        assertThat(inboundWireTransfer.instructionIdentification()).isEmpty
         assertThat(inboundWireTransfer.originatorAddressLine1()).isEmpty
         assertThat(inboundWireTransfer.originatorAddressLine2()).isEmpty
         assertThat(inboundWireTransfer.originatorAddressLine3()).isEmpty
@@ -83,6 +107,8 @@ internal class InboundWireTransferTest {
         assertThat(inboundWireTransfer.status()).isEqualTo(InboundWireTransfer.Status.ACCEPTED)
         assertThat(inboundWireTransfer.type())
             .isEqualTo(InboundWireTransfer.Type.INBOUND_WIRE_TRANSFER)
+        assertThat(inboundWireTransfer.uniqueEndToEndTransactionReference()).isEmpty
+        assertThat(inboundWireTransfer.unstructuredRemittanceInformation()).isEmpty
         assertThat(inboundWireTransfer.wireDrawdownRequestId()).isEmpty
     }
 
@@ -101,8 +127,19 @@ internal class InboundWireTransferTest {
                 .beneficiaryName(null)
                 .beneficiaryReference(null)
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                .creditorAddressLine1(null)
+                .creditorAddressLine2(null)
+                .creditorAddressLine3(null)
+                .creditorName(null)
+                .debtorAddressLine1(null)
+                .debtorAddressLine2(null)
+                .debtorAddressLine3(null)
+                .debtorName(null)
                 .description("Inbound wire transfer")
+                .endToEndIdentification(null)
                 .inputMessageAccountabilityData(null)
+                .instructingAgentRoutingNumber(null)
+                .instructionIdentification(null)
                 .originatorAddressLine1(null)
                 .originatorAddressLine2(null)
                 .originatorAddressLine3(null)
@@ -122,6 +159,8 @@ internal class InboundWireTransferTest {
                 .senderReference(null)
                 .status(InboundWireTransfer.Status.ACCEPTED)
                 .type(InboundWireTransfer.Type.INBOUND_WIRE_TRANSFER)
+                .uniqueEndToEndTransactionReference(null)
+                .unstructuredRemittanceInformation(null)
                 .wireDrawdownRequestId(null)
                 .build()
 
