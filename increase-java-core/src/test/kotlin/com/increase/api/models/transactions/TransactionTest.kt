@@ -820,6 +820,11 @@ internal class TransactionTest {
                                 .transferId("swift_transfer_29h21xkng03788zwd3fh")
                                 .build()
                         )
+                        .swiftTransferReturn(
+                            Transaction.Source.SwiftTransferReturn.builder()
+                                .transferId("swift_transfer_29h21xkng03788zwd3fh")
+                                .build()
+                        )
                         .wireTransferIntention(
                             Transaction.Source.WireTransferIntention.builder()
                                 .accountNumber("987654321")
@@ -1590,6 +1595,11 @@ internal class TransactionTest {
                     )
                     .swiftTransferIntention(
                         Transaction.Source.SwiftTransferIntention.builder()
+                            .transferId("swift_transfer_29h21xkng03788zwd3fh")
+                            .build()
+                    )
+                    .swiftTransferReturn(
+                        Transaction.Source.SwiftTransferReturn.builder()
                             .transferId("swift_transfer_29h21xkng03788zwd3fh")
                             .build()
                     )
@@ -2413,6 +2423,11 @@ internal class TransactionTest {
                         )
                         .swiftTransferIntention(
                             Transaction.Source.SwiftTransferIntention.builder()
+                                .transferId("swift_transfer_29h21xkng03788zwd3fh")
+                                .build()
+                        )
+                        .swiftTransferReturn(
+                            Transaction.Source.SwiftTransferReturn.builder()
                                 .transferId("swift_transfer_29h21xkng03788zwd3fh")
                                 .build()
                         )
