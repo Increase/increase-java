@@ -11,7 +11,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Approves an Real-Time Payments Transfer in a pending_approval state. */
+/** Approves a Real-Time Payments Transfer in a pending_approval state. */
 class RealTimePaymentsTransferApproveParams
 private constructor(
     private val realTimePaymentsTransferId: String?,
