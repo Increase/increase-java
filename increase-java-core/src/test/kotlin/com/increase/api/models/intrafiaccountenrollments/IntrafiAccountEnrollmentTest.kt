@@ -17,6 +17,7 @@ internal class IntrafiAccountEnrollmentTest {
                 .id("intrafi_account_enrollment_w8l97znzreopkwf2tg75")
                 .accountId("account_in71c4amph0vgo2qllky")
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                .emailAddress(null)
                 .idempotencyKey(null)
                 .intrafiId("01234abcd")
                 .status(IntrafiAccountEnrollment.Status.PENDING_ENROLLING)
@@ -28,6 +29,7 @@ internal class IntrafiAccountEnrollmentTest {
         assertThat(intrafiAccountEnrollment.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(intrafiAccountEnrollment.createdAt())
             .isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+        assertThat(intrafiAccountEnrollment.emailAddress()).isEmpty
         assertThat(intrafiAccountEnrollment.idempotencyKey()).isEmpty
         assertThat(intrafiAccountEnrollment.intrafiId()).isEqualTo("01234abcd")
         assertThat(intrafiAccountEnrollment.status())
@@ -44,6 +46,7 @@ internal class IntrafiAccountEnrollmentTest {
                 .id("intrafi_account_enrollment_w8l97znzreopkwf2tg75")
                 .accountId("account_in71c4amph0vgo2qllky")
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                .emailAddress(null)
                 .idempotencyKey(null)
                 .intrafiId("01234abcd")
                 .status(IntrafiAccountEnrollment.Status.PENDING_ENROLLING)

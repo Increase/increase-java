@@ -30,6 +30,7 @@ private constructor(
     private val amount: JsonField<Long>,
     private val approval: JsonField<Approval>,
     private val approvedInboundCheckDepositId: JsonField<String>,
+    private val balanceCheck: JsonField<BalanceCheck>,
     private val cancellation: JsonField<Cancellation>,
     private val checkNumber: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,
@@ -62,6 +63,9 @@ private constructor(
         @JsonProperty("approved_inbound_check_deposit_id")
         @ExcludeMissing
         approvedInboundCheckDepositId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("balance_check")
+        @ExcludeMissing
+        balanceCheck: JsonField<BalanceCheck> = JsonMissing.of(),
         @JsonProperty("cancellation")
         @ExcludeMissing
         cancellation: JsonField<Cancellation> = JsonMissing.of(),
@@ -112,6 +116,7 @@ private constructor(
         amount,
         approval,
         approvedInboundCheckDepositId,
+        balanceCheck,
         cancellation,
         checkNumber,
         createdAt,
@@ -182,6 +187,14 @@ private constructor(
      */
     fun approvedInboundCheckDepositId(): Optional<String> =
         approvedInboundCheckDepositId.getOptional("approved_inbound_check_deposit_id")
+
+    /**
+     * How the account's available balance should be checked.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun balanceCheck(): Optional<BalanceCheck> = balanceCheck.getOptional("balance_check")
 
     /**
      * If your account requires approvals for transfers and the transfer was not approved, this will
@@ -380,6 +393,15 @@ private constructor(
     fun _approvedInboundCheckDepositId(): JsonField<String> = approvedInboundCheckDepositId
 
     /**
+     * Returns the raw JSON value of [balanceCheck].
+     *
+     * Unlike [balanceCheck], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("balance_check")
+    @ExcludeMissing
+    fun _balanceCheck(): JsonField<BalanceCheck> = balanceCheck
+
+    /**
      * Returns the raw JSON value of [cancellation].
      *
      * Unlike [cancellation], this method doesn't throw if the JSON field has an unexpected type.
@@ -551,6 +573,7 @@ private constructor(
          * .amount()
          * .approval()
          * .approvedInboundCheckDepositId()
+         * .balanceCheck()
          * .cancellation()
          * .checkNumber()
          * .createdAt()
@@ -582,6 +605,7 @@ private constructor(
         private var amount: JsonField<Long>? = null
         private var approval: JsonField<Approval>? = null
         private var approvedInboundCheckDepositId: JsonField<String>? = null
+        private var balanceCheck: JsonField<BalanceCheck>? = null
         private var cancellation: JsonField<Cancellation>? = null
         private var checkNumber: JsonField<String>? = null
         private var createdAt: JsonField<OffsetDateTime>? = null
@@ -609,6 +633,7 @@ private constructor(
             amount = checkTransfer.amount
             approval = checkTransfer.approval
             approvedInboundCheckDepositId = checkTransfer.approvedInboundCheckDepositId
+            balanceCheck = checkTransfer.balanceCheck
             cancellation = checkTransfer.cancellation
             checkNumber = checkTransfer.checkNumber
             createdAt = checkTransfer.createdAt
@@ -720,6 +745,25 @@ private constructor(
             apply {
                 this.approvedInboundCheckDepositId = approvedInboundCheckDepositId
             }
+
+        /** How the account's available balance should be checked. */
+        fun balanceCheck(balanceCheck: BalanceCheck?) =
+            balanceCheck(JsonField.ofNullable(balanceCheck))
+
+        /** Alias for calling [Builder.balanceCheck] with `balanceCheck.orElse(null)`. */
+        fun balanceCheck(balanceCheck: Optional<BalanceCheck>) =
+            balanceCheck(balanceCheck.getOrNull())
+
+        /**
+         * Sets [Builder.balanceCheck] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.balanceCheck] with a well-typed [BalanceCheck] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun balanceCheck(balanceCheck: JsonField<BalanceCheck>) = apply {
+            this.balanceCheck = balanceCheck
+        }
 
         /**
          * If your account requires approvals for transfers and the transfer was not approved, this
@@ -1050,6 +1094,7 @@ private constructor(
          * .amount()
          * .approval()
          * .approvedInboundCheckDepositId()
+         * .balanceCheck()
          * .cancellation()
          * .checkNumber()
          * .createdAt()
@@ -1079,6 +1124,7 @@ private constructor(
                 checkRequired("amount", amount),
                 checkRequired("approval", approval),
                 checkRequired("approvedInboundCheckDepositId", approvedInboundCheckDepositId),
+                checkRequired("balanceCheck", balanceCheck),
                 checkRequired("cancellation", cancellation),
                 checkRequired("checkNumber", checkNumber),
                 checkRequired("createdAt", createdAt),
@@ -1113,6 +1159,7 @@ private constructor(
         amount()
         approval().ifPresent { it.validate() }
         approvedInboundCheckDepositId()
+        balanceCheck().ifPresent { it.validate() }
         cancellation().ifPresent { it.validate() }
         checkNumber()
         createdAt()
@@ -1154,6 +1201,7 @@ private constructor(
             (if (amount.asKnown().isPresent) 1 else 0) +
             (approval.asKnown().getOrNull()?.validity() ?: 0) +
             (if (approvedInboundCheckDepositId.asKnown().isPresent) 1 else 0) +
+            (balanceCheck.asKnown().getOrNull()?.validity() ?: 0) +
             (cancellation.asKnown().getOrNull()?.validity() ?: 0) +
             (if (checkNumber.asKnown().isPresent) 1 else 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
@@ -1393,6 +1441,158 @@ private constructor(
 
         override fun toString() =
             "Approval{approvedAt=$approvedAt, approvedBy=$approvedBy, additionalProperties=$additionalProperties}"
+    }
+
+    /** How the account's available balance should be checked. */
+    class BalanceCheck @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            /**
+             * The available balance of the account must be at least the amount of the check, and a
+             * Pending Transaction will be created for the full amount.
+             */
+            @JvmField val FULL = of("full")
+
+            /**
+             * No balance check will performed; a zero-dollar Pending Transaction will be created.
+             */
+            @JvmField val NONE = of("none")
+
+            @JvmStatic fun of(value: String) = BalanceCheck(JsonField.of(value))
+        }
+
+        /** An enum containing [BalanceCheck]'s known values. */
+        enum class Known {
+            /**
+             * The available balance of the account must be at least the amount of the check, and a
+             * Pending Transaction will be created for the full amount.
+             */
+            FULL,
+            /**
+             * No balance check will performed; a zero-dollar Pending Transaction will be created.
+             */
+            NONE,
+        }
+
+        /**
+         * An enum containing [BalanceCheck]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [BalanceCheck] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            /**
+             * The available balance of the account must be at least the amount of the check, and a
+             * Pending Transaction will be created for the full amount.
+             */
+            FULL,
+            /**
+             * No balance check will performed; a zero-dollar Pending Transaction will be created.
+             */
+            NONE,
+            /**
+             * An enum member indicating that [BalanceCheck] was instantiated with an unknown value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                FULL -> Value.FULL
+                NONE -> Value.NONE
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                FULL -> Known.FULL
+                NONE -> Known.NONE
+                else -> throw IncreaseInvalidDataException("Unknown BalanceCheck: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws IncreaseInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow {
+                IncreaseInvalidDataException("Value is not a String")
+            }
+
+        private var validated: Boolean = false
+
+        fun validate(): BalanceCheck = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is BalanceCheck && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
     }
 
     /**
@@ -7185,6 +7385,7 @@ private constructor(
             amount == other.amount &&
             approval == other.approval &&
             approvedInboundCheckDepositId == other.approvedInboundCheckDepositId &&
+            balanceCheck == other.balanceCheck &&
             cancellation == other.cancellation &&
             checkNumber == other.checkNumber &&
             createdAt == other.createdAt &&
@@ -7213,6 +7414,7 @@ private constructor(
             amount,
             approval,
             approvedInboundCheckDepositId,
+            balanceCheck,
             cancellation,
             checkNumber,
             createdAt,
@@ -7237,5 +7439,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "CheckTransfer{id=$id, accountId=$accountId, accountNumber=$accountNumber, amount=$amount, approval=$approval, approvedInboundCheckDepositId=$approvedInboundCheckDepositId, cancellation=$cancellation, checkNumber=$checkNumber, createdAt=$createdAt, createdBy=$createdBy, currency=$currency, fulfillmentMethod=$fulfillmentMethod, idempotencyKey=$idempotencyKey, mailing=$mailing, pendingTransactionId=$pendingTransactionId, physicalCheck=$physicalCheck, routingNumber=$routingNumber, sourceAccountNumberId=$sourceAccountNumberId, status=$status, stopPaymentRequest=$stopPaymentRequest, submission=$submission, thirdParty=$thirdParty, type=$type, additionalProperties=$additionalProperties}"
+        "CheckTransfer{id=$id, accountId=$accountId, accountNumber=$accountNumber, amount=$amount, approval=$approval, approvedInboundCheckDepositId=$approvedInboundCheckDepositId, balanceCheck=$balanceCheck, cancellation=$cancellation, checkNumber=$checkNumber, createdAt=$createdAt, createdBy=$createdBy, currency=$currency, fulfillmentMethod=$fulfillmentMethod, idempotencyKey=$idempotencyKey, mailing=$mailing, pendingTransactionId=$pendingTransactionId, physicalCheck=$physicalCheck, routingNumber=$routingNumber, sourceAccountNumberId=$sourceAccountNumberId, status=$status, stopPaymentRequest=$stopPaymentRequest, submission=$submission, thirdParty=$thirdParty, type=$type, additionalProperties=$additionalProperties}"
 }

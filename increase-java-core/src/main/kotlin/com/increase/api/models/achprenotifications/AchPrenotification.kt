@@ -28,6 +28,7 @@ import kotlin.jvm.optionals.getOrNull
 class AchPrenotification
 private constructor(
     private val id: JsonField<String>,
+    private val accountId: JsonField<String>,
     private val accountNumber: JsonField<String>,
     private val addendum: JsonField<String>,
     private val companyDescriptiveDate: JsonField<String>,
@@ -38,9 +39,12 @@ private constructor(
     private val creditDebitIndicator: JsonField<CreditDebitIndicator>,
     private val effectiveDate: JsonField<OffsetDateTime>,
     private val idempotencyKey: JsonField<String>,
+    private val individualId: JsonField<String>,
+    private val individualName: JsonField<String>,
     private val notificationsOfChange: JsonField<List<NotificationsOfChange>>,
     private val prenotificationReturn: JsonField<PrenotificationReturn>,
     private val routingNumber: JsonField<String>,
+    private val standardEntryClassCode: JsonField<StandardEntryClassCode>,
     private val status: JsonField<Status>,
     private val type: JsonField<Type>,
     private val additionalProperties: MutableMap<String, JsonValue>,
@@ -49,6 +53,7 @@ private constructor(
     @JsonCreator
     private constructor(
         @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("account_id") @ExcludeMissing accountId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("account_number")
         @ExcludeMissing
         accountNumber: JsonField<String> = JsonMissing.of(),
@@ -77,6 +82,12 @@ private constructor(
         @JsonProperty("idempotency_key")
         @ExcludeMissing
         idempotencyKey: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("individual_id")
+        @ExcludeMissing
+        individualId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("individual_name")
+        @ExcludeMissing
+        individualName: JsonField<String> = JsonMissing.of(),
         @JsonProperty("notifications_of_change")
         @ExcludeMissing
         notificationsOfChange: JsonField<List<NotificationsOfChange>> = JsonMissing.of(),
@@ -86,10 +97,14 @@ private constructor(
         @JsonProperty("routing_number")
         @ExcludeMissing
         routingNumber: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("standard_entry_class_code")
+        @ExcludeMissing
+        standardEntryClassCode: JsonField<StandardEntryClassCode> = JsonMissing.of(),
         @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
         @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
     ) : this(
         id,
+        accountId,
         accountNumber,
         addendum,
         companyDescriptiveDate,
@@ -100,9 +115,12 @@ private constructor(
         creditDebitIndicator,
         effectiveDate,
         idempotencyKey,
+        individualId,
+        individualName,
         notificationsOfChange,
         prenotificationReturn,
         routingNumber,
+        standardEntryClassCode,
         status,
         type,
         mutableMapOf(),
@@ -115,6 +133,14 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun id(): String = id.getRequired("id")
+
+    /**
+     * The account that sent the ACH Prenotification.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun accountId(): Optional<String> = accountId.getOptional("account_id")
 
     /**
      * The destination account number.
@@ -204,6 +230,23 @@ private constructor(
     fun idempotencyKey(): Optional<String> = idempotencyKey.getOptional("idempotency_key")
 
     /**
+     * Your identifier for the recipient.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun individualId(): Optional<String> = individualId.getOptional("individual_id")
+
+    /**
+     * The name of the recipient. This value is informational and not verified by the recipient's
+     * bank.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun individualName(): Optional<String> = individualName.getOptional("individual_name")
+
+    /**
      * If the receiving bank notifies that future transfers should use different details, this will
      * contain those details.
      *
@@ -231,6 +274,15 @@ private constructor(
     fun routingNumber(): String = routingNumber.getRequired("routing_number")
 
     /**
+     * The Standard Entry Class (SEC) code to use for the ACH Prenotification.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun standardEntryClassCode(): Optional<StandardEntryClassCode> =
+        standardEntryClassCode.getOptional("standard_entry_class_code")
+
+    /**
      * The lifecycle status of the ACH Prenotification.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
@@ -253,6 +305,13 @@ private constructor(
      * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+
+    /**
+     * Returns the raw JSON value of [accountId].
+     *
+     * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
 
     /**
      * Returns the raw JSON value of [accountNumber].
@@ -347,6 +406,24 @@ private constructor(
     fun _idempotencyKey(): JsonField<String> = idempotencyKey
 
     /**
+     * Returns the raw JSON value of [individualId].
+     *
+     * Unlike [individualId], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("individual_id")
+    @ExcludeMissing
+    fun _individualId(): JsonField<String> = individualId
+
+    /**
+     * Returns the raw JSON value of [individualName].
+     *
+     * Unlike [individualName], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("individual_name")
+    @ExcludeMissing
+    fun _individualName(): JsonField<String> = individualName
+
+    /**
      * Returns the raw JSON value of [notificationsOfChange].
      *
      * Unlike [notificationsOfChange], this method doesn't throw if the JSON field has an unexpected
@@ -374,6 +451,16 @@ private constructor(
     @JsonProperty("routing_number")
     @ExcludeMissing
     fun _routingNumber(): JsonField<String> = routingNumber
+
+    /**
+     * Returns the raw JSON value of [standardEntryClassCode].
+     *
+     * Unlike [standardEntryClassCode], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    @JsonProperty("standard_entry_class_code")
+    @ExcludeMissing
+    fun _standardEntryClassCode(): JsonField<StandardEntryClassCode> = standardEntryClassCode
 
     /**
      * Returns the raw JSON value of [status].
@@ -409,6 +496,7 @@ private constructor(
          * The following fields are required:
          * ```java
          * .id()
+         * .accountId()
          * .accountNumber()
          * .addendum()
          * .companyDescriptiveDate()
@@ -419,9 +507,12 @@ private constructor(
          * .creditDebitIndicator()
          * .effectiveDate()
          * .idempotencyKey()
+         * .individualId()
+         * .individualName()
          * .notificationsOfChange()
          * .prenotificationReturn()
          * .routingNumber()
+         * .standardEntryClassCode()
          * .status()
          * .type()
          * ```
@@ -433,6 +524,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var id: JsonField<String>? = null
+        private var accountId: JsonField<String>? = null
         private var accountNumber: JsonField<String>? = null
         private var addendum: JsonField<String>? = null
         private var companyDescriptiveDate: JsonField<String>? = null
@@ -443,9 +535,12 @@ private constructor(
         private var creditDebitIndicator: JsonField<CreditDebitIndicator>? = null
         private var effectiveDate: JsonField<OffsetDateTime>? = null
         private var idempotencyKey: JsonField<String>? = null
+        private var individualId: JsonField<String>? = null
+        private var individualName: JsonField<String>? = null
         private var notificationsOfChange: JsonField<MutableList<NotificationsOfChange>>? = null
         private var prenotificationReturn: JsonField<PrenotificationReturn>? = null
         private var routingNumber: JsonField<String>? = null
+        private var standardEntryClassCode: JsonField<StandardEntryClassCode>? = null
         private var status: JsonField<Status>? = null
         private var type: JsonField<Type>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -453,6 +548,7 @@ private constructor(
         @JvmSynthetic
         internal fun from(achPrenotification: AchPrenotification) = apply {
             id = achPrenotification.id
+            accountId = achPrenotification.accountId
             accountNumber = achPrenotification.accountNumber
             addendum = achPrenotification.addendum
             companyDescriptiveDate = achPrenotification.companyDescriptiveDate
@@ -463,10 +559,13 @@ private constructor(
             creditDebitIndicator = achPrenotification.creditDebitIndicator
             effectiveDate = achPrenotification.effectiveDate
             idempotencyKey = achPrenotification.idempotencyKey
+            individualId = achPrenotification.individualId
+            individualName = achPrenotification.individualName
             notificationsOfChange =
                 achPrenotification.notificationsOfChange.map { it.toMutableList() }
             prenotificationReturn = achPrenotification.prenotificationReturn
             routingNumber = achPrenotification.routingNumber
+            standardEntryClassCode = achPrenotification.standardEntryClassCode
             status = achPrenotification.status
             type = achPrenotification.type
             additionalProperties = achPrenotification.additionalProperties.toMutableMap()
@@ -482,6 +581,21 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun id(id: JsonField<String>) = apply { this.id = id }
+
+        /** The account that sent the ACH Prenotification. */
+        fun accountId(accountId: String?) = accountId(JsonField.ofNullable(accountId))
+
+        /** Alias for calling [Builder.accountId] with `accountId.orElse(null)`. */
+        fun accountId(accountId: Optional<String>) = accountId(accountId.getOrNull())
+
+        /**
+         * Sets [Builder.accountId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.accountId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
         /** The destination account number. */
         fun accountNumber(accountNumber: String) = accountNumber(JsonField.of(accountNumber))
@@ -671,6 +785,45 @@ private constructor(
             this.idempotencyKey = idempotencyKey
         }
 
+        /** Your identifier for the recipient. */
+        fun individualId(individualId: String?) = individualId(JsonField.ofNullable(individualId))
+
+        /** Alias for calling [Builder.individualId] with `individualId.orElse(null)`. */
+        fun individualId(individualId: Optional<String>) = individualId(individualId.getOrNull())
+
+        /**
+         * Sets [Builder.individualId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.individualId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun individualId(individualId: JsonField<String>) = apply {
+            this.individualId = individualId
+        }
+
+        /**
+         * The name of the recipient. This value is informational and not verified by the
+         * recipient's bank.
+         */
+        fun individualName(individualName: String?) =
+            individualName(JsonField.ofNullable(individualName))
+
+        /** Alias for calling [Builder.individualName] with `individualName.orElse(null)`. */
+        fun individualName(individualName: Optional<String>) =
+            individualName(individualName.getOrNull())
+
+        /**
+         * Sets [Builder.individualName] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.individualName] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun individualName(individualName: JsonField<String>) = apply {
+            this.individualName = individualName
+        }
+
         /**
          * If the receiving bank notifies that future transfers should use different details, this
          * will contain those details.
@@ -738,6 +891,29 @@ private constructor(
             this.routingNumber = routingNumber
         }
 
+        /** The Standard Entry Class (SEC) code to use for the ACH Prenotification. */
+        fun standardEntryClassCode(standardEntryClassCode: StandardEntryClassCode?) =
+            standardEntryClassCode(JsonField.ofNullable(standardEntryClassCode))
+
+        /**
+         * Alias for calling [Builder.standardEntryClassCode] with
+         * `standardEntryClassCode.orElse(null)`.
+         */
+        fun standardEntryClassCode(standardEntryClassCode: Optional<StandardEntryClassCode>) =
+            standardEntryClassCode(standardEntryClassCode.getOrNull())
+
+        /**
+         * Sets [Builder.standardEntryClassCode] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.standardEntryClassCode] with a well-typed
+         * [StandardEntryClassCode] value instead. This method is primarily for setting the field to
+         * an undocumented or not yet supported value.
+         */
+        fun standardEntryClassCode(standardEntryClassCode: JsonField<StandardEntryClassCode>) =
+            apply {
+                this.standardEntryClassCode = standardEntryClassCode
+            }
+
         /** The lifecycle status of the ACH Prenotification. */
         fun status(status: Status) = status(JsonField.of(status))
 
@@ -790,6 +966,7 @@ private constructor(
          * The following fields are required:
          * ```java
          * .id()
+         * .accountId()
          * .accountNumber()
          * .addendum()
          * .companyDescriptiveDate()
@@ -800,9 +977,12 @@ private constructor(
          * .creditDebitIndicator()
          * .effectiveDate()
          * .idempotencyKey()
+         * .individualId()
+         * .individualName()
          * .notificationsOfChange()
          * .prenotificationReturn()
          * .routingNumber()
+         * .standardEntryClassCode()
          * .status()
          * .type()
          * ```
@@ -812,6 +992,7 @@ private constructor(
         fun build(): AchPrenotification =
             AchPrenotification(
                 checkRequired("id", id),
+                checkRequired("accountId", accountId),
                 checkRequired("accountNumber", accountNumber),
                 checkRequired("addendum", addendum),
                 checkRequired("companyDescriptiveDate", companyDescriptiveDate),
@@ -822,11 +1003,14 @@ private constructor(
                 checkRequired("creditDebitIndicator", creditDebitIndicator),
                 checkRequired("effectiveDate", effectiveDate),
                 checkRequired("idempotencyKey", idempotencyKey),
+                checkRequired("individualId", individualId),
+                checkRequired("individualName", individualName),
                 checkRequired("notificationsOfChange", notificationsOfChange).map {
                     it.toImmutable()
                 },
                 checkRequired("prenotificationReturn", prenotificationReturn),
                 checkRequired("routingNumber", routingNumber),
+                checkRequired("standardEntryClassCode", standardEntryClassCode),
                 checkRequired("status", status),
                 checkRequired("type", type),
                 additionalProperties.toMutableMap(),
@@ -841,6 +1025,7 @@ private constructor(
         }
 
         id()
+        accountId()
         accountNumber()
         addendum()
         companyDescriptiveDate()
@@ -851,9 +1036,12 @@ private constructor(
         creditDebitIndicator().ifPresent { it.validate() }
         effectiveDate()
         idempotencyKey()
+        individualId()
+        individualName()
         notificationsOfChange().forEach { it.validate() }
         prenotificationReturn().ifPresent { it.validate() }
         routingNumber()
+        standardEntryClassCode().ifPresent { it.validate() }
         status().validate()
         type().validate()
         validated = true
@@ -875,6 +1063,7 @@ private constructor(
     @JvmSynthetic
     internal fun validity(): Int =
         (if (id.asKnown().isPresent) 1 else 0) +
+            (if (accountId.asKnown().isPresent) 1 else 0) +
             (if (accountNumber.asKnown().isPresent) 1 else 0) +
             (if (addendum.asKnown().isPresent) 1 else 0) +
             (if (companyDescriptiveDate.asKnown().isPresent) 1 else 0) +
@@ -885,9 +1074,12 @@ private constructor(
             (creditDebitIndicator.asKnown().getOrNull()?.validity() ?: 0) +
             (if (effectiveDate.asKnown().isPresent) 1 else 0) +
             (if (idempotencyKey.asKnown().isPresent) 1 else 0) +
+            (if (individualId.asKnown().isPresent) 1 else 0) +
+            (if (individualName.asKnown().isPresent) 1 else 0) +
             (notificationsOfChange.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
             (prenotificationReturn.asKnown().getOrNull()?.validity() ?: 0) +
             (if (routingNumber.asKnown().isPresent) 1 else 0) +
+            (standardEntryClassCode.asKnown().getOrNull()?.validity() ?: 0) +
             (status.asKnown().getOrNull()?.validity() ?: 0) +
             (type.asKnown().getOrNull()?.validity() ?: 0)
 
@@ -3151,6 +3343,165 @@ private constructor(
             "PrenotificationReturn{createdAt=$createdAt, returnReasonCode=$returnReasonCode, additionalProperties=$additionalProperties}"
     }
 
+    /** The Standard Entry Class (SEC) code to use for the ACH Prenotification. */
+    class StandardEntryClassCode
+    @JsonCreator
+    private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            /** Corporate Credit and Debit (CCD). */
+            @JvmField val CORPORATE_CREDIT_OR_DEBIT = of("corporate_credit_or_debit")
+
+            /** Corporate Trade Exchange (CTX). */
+            @JvmField val CORPORATE_TRADE_EXCHANGE = of("corporate_trade_exchange")
+
+            /** Prearranged Payments and Deposits (PPD). */
+            @JvmField val PREARRANGED_PAYMENTS_AND_DEPOSIT = of("prearranged_payments_and_deposit")
+
+            /** Internet Initiated (WEB). */
+            @JvmField val INTERNET_INITIATED = of("internet_initiated")
+
+            @JvmStatic fun of(value: String) = StandardEntryClassCode(JsonField.of(value))
+        }
+
+        /** An enum containing [StandardEntryClassCode]'s known values. */
+        enum class Known {
+            /** Corporate Credit and Debit (CCD). */
+            CORPORATE_CREDIT_OR_DEBIT,
+            /** Corporate Trade Exchange (CTX). */
+            CORPORATE_TRADE_EXCHANGE,
+            /** Prearranged Payments and Deposits (PPD). */
+            PREARRANGED_PAYMENTS_AND_DEPOSIT,
+            /** Internet Initiated (WEB). */
+            INTERNET_INITIATED,
+        }
+
+        /**
+         * An enum containing [StandardEntryClassCode]'s known values, as well as an [_UNKNOWN]
+         * member.
+         *
+         * An instance of [StandardEntryClassCode] can contain an unknown value in a couple of
+         * cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            /** Corporate Credit and Debit (CCD). */
+            CORPORATE_CREDIT_OR_DEBIT,
+            /** Corporate Trade Exchange (CTX). */
+            CORPORATE_TRADE_EXCHANGE,
+            /** Prearranged Payments and Deposits (PPD). */
+            PREARRANGED_PAYMENTS_AND_DEPOSIT,
+            /** Internet Initiated (WEB). */
+            INTERNET_INITIATED,
+            /**
+             * An enum member indicating that [StandardEntryClassCode] was instantiated with an
+             * unknown value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                CORPORATE_CREDIT_OR_DEBIT -> Value.CORPORATE_CREDIT_OR_DEBIT
+                CORPORATE_TRADE_EXCHANGE -> Value.CORPORATE_TRADE_EXCHANGE
+                PREARRANGED_PAYMENTS_AND_DEPOSIT -> Value.PREARRANGED_PAYMENTS_AND_DEPOSIT
+                INTERNET_INITIATED -> Value.INTERNET_INITIATED
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                CORPORATE_CREDIT_OR_DEBIT -> Known.CORPORATE_CREDIT_OR_DEBIT
+                CORPORATE_TRADE_EXCHANGE -> Known.CORPORATE_TRADE_EXCHANGE
+                PREARRANGED_PAYMENTS_AND_DEPOSIT -> Known.PREARRANGED_PAYMENTS_AND_DEPOSIT
+                INTERNET_INITIATED -> Known.INTERNET_INITIATED
+                else -> throw IncreaseInvalidDataException("Unknown StandardEntryClassCode: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws IncreaseInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow {
+                IncreaseInvalidDataException("Value is not a String")
+            }
+
+        private var validated: Boolean = false
+
+        fun validate(): StandardEntryClassCode = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is StandardEntryClassCode && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
     /** The lifecycle status of the ACH Prenotification. */
     class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
@@ -3435,6 +3786,7 @@ private constructor(
 
         return other is AchPrenotification &&
             id == other.id &&
+            accountId == other.accountId &&
             accountNumber == other.accountNumber &&
             addendum == other.addendum &&
             companyDescriptiveDate == other.companyDescriptiveDate &&
@@ -3445,9 +3797,12 @@ private constructor(
             creditDebitIndicator == other.creditDebitIndicator &&
             effectiveDate == other.effectiveDate &&
             idempotencyKey == other.idempotencyKey &&
+            individualId == other.individualId &&
+            individualName == other.individualName &&
             notificationsOfChange == other.notificationsOfChange &&
             prenotificationReturn == other.prenotificationReturn &&
             routingNumber == other.routingNumber &&
+            standardEntryClassCode == other.standardEntryClassCode &&
             status == other.status &&
             type == other.type &&
             additionalProperties == other.additionalProperties
@@ -3456,6 +3811,7 @@ private constructor(
     private val hashCode: Int by lazy {
         Objects.hash(
             id,
+            accountId,
             accountNumber,
             addendum,
             companyDescriptiveDate,
@@ -3466,9 +3822,12 @@ private constructor(
             creditDebitIndicator,
             effectiveDate,
             idempotencyKey,
+            individualId,
+            individualName,
             notificationsOfChange,
             prenotificationReturn,
             routingNumber,
+            standardEntryClassCode,
             status,
             type,
             additionalProperties,
@@ -3478,5 +3837,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "AchPrenotification{id=$id, accountNumber=$accountNumber, addendum=$addendum, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, createdAt=$createdAt, creditDebitIndicator=$creditDebitIndicator, effectiveDate=$effectiveDate, idempotencyKey=$idempotencyKey, notificationsOfChange=$notificationsOfChange, prenotificationReturn=$prenotificationReturn, routingNumber=$routingNumber, status=$status, type=$type, additionalProperties=$additionalProperties}"
+        "AchPrenotification{id=$id, accountId=$accountId, accountNumber=$accountNumber, addendum=$addendum, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, createdAt=$createdAt, creditDebitIndicator=$creditDebitIndicator, effectiveDate=$effectiveDate, idempotencyKey=$idempotencyKey, individualId=$individualId, individualName=$individualName, notificationsOfChange=$notificationsOfChange, prenotificationReturn=$prenotificationReturn, routingNumber=$routingNumber, standardEntryClassCode=$standardEntryClassCode, status=$status, type=$type, additionalProperties=$additionalProperties}"
 }

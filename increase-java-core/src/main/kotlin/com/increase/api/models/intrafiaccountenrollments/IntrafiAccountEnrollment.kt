@@ -31,6 +31,7 @@ private constructor(
     private val id: JsonField<String>,
     private val accountId: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,
+    private val emailAddress: JsonField<String>,
     private val idempotencyKey: JsonField<String>,
     private val intrafiId: JsonField<String>,
     private val status: JsonField<Status>,
@@ -45,13 +46,26 @@ private constructor(
         @JsonProperty("created_at")
         @ExcludeMissing
         createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("email_address")
+        @ExcludeMissing
+        emailAddress: JsonField<String> = JsonMissing.of(),
         @JsonProperty("idempotency_key")
         @ExcludeMissing
         idempotencyKey: JsonField<String> = JsonMissing.of(),
         @JsonProperty("intrafi_id") @ExcludeMissing intrafiId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
         @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
-    ) : this(id, accountId, createdAt, idempotencyKey, intrafiId, status, type, mutableMapOf())
+    ) : this(
+        id,
+        accountId,
+        createdAt,
+        emailAddress,
+        idempotencyKey,
+        intrafiId,
+        status,
+        type,
+        mutableMapOf(),
+    )
 
     /**
      * The identifier of this enrollment at IntraFi.
@@ -77,6 +91,14 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
+
+    /**
+     * The contact email for the account owner, to be shared with IntraFi.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun emailAddress(): Optional<String> = emailAddress.getOptional("email_address")
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -139,6 +161,15 @@ private constructor(
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /**
+     * Returns the raw JSON value of [emailAddress].
+     *
+     * Unlike [emailAddress], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("email_address")
+    @ExcludeMissing
+    fun _emailAddress(): JsonField<String> = emailAddress
+
+    /**
      * Returns the raw JSON value of [idempotencyKey].
      *
      * Unlike [idempotencyKey], this method doesn't throw if the JSON field has an unexpected type.
@@ -190,6 +221,7 @@ private constructor(
          * .id()
          * .accountId()
          * .createdAt()
+         * .emailAddress()
          * .idempotencyKey()
          * .intrafiId()
          * .status()
@@ -205,6 +237,7 @@ private constructor(
         private var id: JsonField<String>? = null
         private var accountId: JsonField<String>? = null
         private var createdAt: JsonField<OffsetDateTime>? = null
+        private var emailAddress: JsonField<String>? = null
         private var idempotencyKey: JsonField<String>? = null
         private var intrafiId: JsonField<String>? = null
         private var status: JsonField<Status>? = null
@@ -216,6 +249,7 @@ private constructor(
             id = intrafiAccountEnrollment.id
             accountId = intrafiAccountEnrollment.accountId
             createdAt = intrafiAccountEnrollment.createdAt
+            emailAddress = intrafiAccountEnrollment.emailAddress
             idempotencyKey = intrafiAccountEnrollment.idempotencyKey
             intrafiId = intrafiAccountEnrollment.intrafiId
             status = intrafiAccountEnrollment.status
@@ -260,6 +294,23 @@ private constructor(
          * supported value.
          */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+
+        /** The contact email for the account owner, to be shared with IntraFi. */
+        fun emailAddress(emailAddress: String?) = emailAddress(JsonField.ofNullable(emailAddress))
+
+        /** Alias for calling [Builder.emailAddress] with `emailAddress.orElse(null)`. */
+        fun emailAddress(emailAddress: Optional<String>) = emailAddress(emailAddress.getOrNull())
+
+        /**
+         * Sets [Builder.emailAddress] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.emailAddress] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun emailAddress(emailAddress: JsonField<String>) = apply {
+            this.emailAddress = emailAddress
+        }
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -356,6 +407,7 @@ private constructor(
          * .id()
          * .accountId()
          * .createdAt()
+         * .emailAddress()
          * .idempotencyKey()
          * .intrafiId()
          * .status()
@@ -369,6 +421,7 @@ private constructor(
                 checkRequired("id", id),
                 checkRequired("accountId", accountId),
                 checkRequired("createdAt", createdAt),
+                checkRequired("emailAddress", emailAddress),
                 checkRequired("idempotencyKey", idempotencyKey),
                 checkRequired("intrafiId", intrafiId),
                 checkRequired("status", status),
@@ -387,6 +440,7 @@ private constructor(
         id()
         accountId()
         createdAt()
+        emailAddress()
         idempotencyKey()
         intrafiId()
         status().validate()
@@ -412,6 +466,7 @@ private constructor(
         (if (id.asKnown().isPresent) 1 else 0) +
             (if (accountId.asKnown().isPresent) 1 else 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
+            (if (emailAddress.asKnown().isPresent) 1 else 0) +
             (if (idempotencyKey.asKnown().isPresent) 1 else 0) +
             (if (intrafiId.asKnown().isPresent) 1 else 0) +
             (status.asKnown().getOrNull()?.validity() ?: 0) +
@@ -715,6 +770,7 @@ private constructor(
             id == other.id &&
             accountId == other.accountId &&
             createdAt == other.createdAt &&
+            emailAddress == other.emailAddress &&
             idempotencyKey == other.idempotencyKey &&
             intrafiId == other.intrafiId &&
             status == other.status &&
@@ -727,6 +783,7 @@ private constructor(
             id,
             accountId,
             createdAt,
+            emailAddress,
             idempotencyKey,
             intrafiId,
             status,
@@ -738,5 +795,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "IntrafiAccountEnrollment{id=$id, accountId=$accountId, createdAt=$createdAt, idempotencyKey=$idempotencyKey, intrafiId=$intrafiId, status=$status, type=$type, additionalProperties=$additionalProperties}"
+        "IntrafiAccountEnrollment{id=$id, accountId=$accountId, createdAt=$createdAt, emailAddress=$emailAddress, idempotencyKey=$idempotencyKey, intrafiId=$intrafiId, status=$status, type=$type, additionalProperties=$additionalProperties}"
 }
