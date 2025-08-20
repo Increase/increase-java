@@ -9,7 +9,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve sensitive details for a Card */
+/**
+ * Sensitive details for a Card include the primary account number, expiry, card verification code,
+ * and PIN.
+ */
 class CardDetailsParams
 private constructor(
     private val cardId: String?,

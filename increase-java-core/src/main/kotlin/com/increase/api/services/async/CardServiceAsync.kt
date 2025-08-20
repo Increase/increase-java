@@ -6,9 +6,11 @@ import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.cards.Card
+import com.increase.api.models.cards.CardCreateDetailsIframeParams
 import com.increase.api.models.cards.CardCreateParams
 import com.increase.api.models.cards.CardDetails
 import com.increase.api.models.cards.CardDetailsParams
+import com.increase.api.models.cards.CardIframeUrl
 import com.increase.api.models.cards.CardListPageAsync
 import com.increase.api.models.cards.CardListParams
 import com.increase.api.models.cards.CardRetrieveParams
@@ -118,7 +120,49 @@ interface CardServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<CardListPageAsync> =
         list(CardListParams.none(), requestOptions)
 
-    /** Retrieve sensitive details for a Card */
+    /**
+     * Create an iframe URL for a Card to display the card details. More details about styling and
+     * usage can be found in the [documentation](/documentation/embedded-card-component).
+     */
+    fun createDetailsIframe(cardId: String): CompletableFuture<CardIframeUrl> =
+        createDetailsIframe(cardId, CardCreateDetailsIframeParams.none())
+
+    /** @see createDetailsIframe */
+    fun createDetailsIframe(
+        cardId: String,
+        params: CardCreateDetailsIframeParams = CardCreateDetailsIframeParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<CardIframeUrl> =
+        createDetailsIframe(params.toBuilder().cardId(cardId).build(), requestOptions)
+
+    /** @see createDetailsIframe */
+    fun createDetailsIframe(
+        cardId: String,
+        params: CardCreateDetailsIframeParams = CardCreateDetailsIframeParams.none(),
+    ): CompletableFuture<CardIframeUrl> = createDetailsIframe(cardId, params, RequestOptions.none())
+
+    /** @see createDetailsIframe */
+    fun createDetailsIframe(
+        params: CardCreateDetailsIframeParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<CardIframeUrl>
+
+    /** @see createDetailsIframe */
+    fun createDetailsIframe(
+        params: CardCreateDetailsIframeParams
+    ): CompletableFuture<CardIframeUrl> = createDetailsIframe(params, RequestOptions.none())
+
+    /** @see createDetailsIframe */
+    fun createDetailsIframe(
+        cardId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<CardIframeUrl> =
+        createDetailsIframe(cardId, CardCreateDetailsIframeParams.none(), requestOptions)
+
+    /**
+     * Sensitive details for a Card include the primary account number, expiry, card verification
+     * code, and PIN.
+     */
     fun details(cardId: String): CompletableFuture<CardDetails> =
         details(cardId, CardDetailsParams.none())
 
@@ -274,6 +318,47 @@ interface CardServiceAsync {
             requestOptions: RequestOptions
         ): CompletableFuture<HttpResponseFor<CardListPageAsync>> =
             list(CardListParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post /cards/{card_id}/create_details_iframe`, but is
+         * otherwise the same as [CardServiceAsync.createDetailsIframe].
+         */
+        fun createDetailsIframe(cardId: String): CompletableFuture<HttpResponseFor<CardIframeUrl>> =
+            createDetailsIframe(cardId, CardCreateDetailsIframeParams.none())
+
+        /** @see createDetailsIframe */
+        fun createDetailsIframe(
+            cardId: String,
+            params: CardCreateDetailsIframeParams = CardCreateDetailsIframeParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<CardIframeUrl>> =
+            createDetailsIframe(params.toBuilder().cardId(cardId).build(), requestOptions)
+
+        /** @see createDetailsIframe */
+        fun createDetailsIframe(
+            cardId: String,
+            params: CardCreateDetailsIframeParams = CardCreateDetailsIframeParams.none(),
+        ): CompletableFuture<HttpResponseFor<CardIframeUrl>> =
+            createDetailsIframe(cardId, params, RequestOptions.none())
+
+        /** @see createDetailsIframe */
+        fun createDetailsIframe(
+            params: CardCreateDetailsIframeParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<CardIframeUrl>>
+
+        /** @see createDetailsIframe */
+        fun createDetailsIframe(
+            params: CardCreateDetailsIframeParams
+        ): CompletableFuture<HttpResponseFor<CardIframeUrl>> =
+            createDetailsIframe(params, RequestOptions.none())
+
+        /** @see createDetailsIframe */
+        fun createDetailsIframe(
+            cardId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<CardIframeUrl>> =
+            createDetailsIframe(cardId, CardCreateDetailsIframeParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /cards/{card_id}/details`, but is otherwise the same
