@@ -4,6 +4,7 @@ package com.increase.api.services.blocking
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
+import com.increase.api.models.cards.CardCreateDetailsIframeParams
 import com.increase.api.models.cards.CardCreateParams
 import com.increase.api.models.cards.CardUpdateParams
 import org.junit.jupiter.api.Test
@@ -113,6 +114,26 @@ internal class CardServiceTest {
         val page = cardService.list()
 
         page.response().validate()
+    }
+
+    @Test
+    fun createDetailsIframe() {
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val cardService = client.cards()
+
+        val cardIframeUrl =
+            cardService.createDetailsIframe(
+                CardCreateDetailsIframeParams.builder()
+                    .cardId("card_oubs0hwk5rn6knuecxg2")
+                    .physicalCardId("physical_card_id")
+                    .build()
+            )
+
+        cardIframeUrl.validate()
     }
 
     @Test
