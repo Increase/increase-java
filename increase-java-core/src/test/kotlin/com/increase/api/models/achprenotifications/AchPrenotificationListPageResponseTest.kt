@@ -17,6 +17,7 @@ internal class AchPrenotificationListPageResponseTest {
                 .addData(
                     AchPrenotification.builder()
                         .id("ach_prenotification_ubjf9qqsxl3obbcn1u34")
+                        .accountId(null)
                         .accountNumber("987654321")
                         .addendum(null)
                         .companyDescriptiveDate(null)
@@ -27,6 +28,8 @@ internal class AchPrenotificationListPageResponseTest {
                         .creditDebitIndicator(null)
                         .effectiveDate(null)
                         .idempotencyKey(null)
+                        .individualId(null)
+                        .individualName(null)
                         .addNotificationsOfChange(
                             AchPrenotification.NotificationsOfChange.builder()
                                 .changeCode(
@@ -47,6 +50,7 @@ internal class AchPrenotificationListPageResponseTest {
                                 .build()
                         )
                         .routingNumber("101050001")
+                        .standardEntryClassCode(null)
                         .status(AchPrenotification.Status.SUBMITTED)
                         .type(AchPrenotification.Type.ACH_PRENOTIFICATION)
                         .build()
@@ -58,6 +62,7 @@ internal class AchPrenotificationListPageResponseTest {
             .containsExactly(
                 AchPrenotification.builder()
                     .id("ach_prenotification_ubjf9qqsxl3obbcn1u34")
+                    .accountId(null)
                     .accountNumber("987654321")
                     .addendum(null)
                     .companyDescriptiveDate(null)
@@ -68,6 +73,8 @@ internal class AchPrenotificationListPageResponseTest {
                     .creditDebitIndicator(null)
                     .effectiveDate(null)
                     .idempotencyKey(null)
+                    .individualId(null)
+                    .individualName(null)
                     .addNotificationsOfChange(
                         AchPrenotification.NotificationsOfChange.builder()
                             .changeCode(
@@ -88,6 +95,7 @@ internal class AchPrenotificationListPageResponseTest {
                             .build()
                     )
                     .routingNumber("101050001")
+                    .standardEntryClassCode(null)
                     .status(AchPrenotification.Status.SUBMITTED)
                     .type(AchPrenotification.Type.ACH_PRENOTIFICATION)
                     .build()
@@ -103,6 +111,7 @@ internal class AchPrenotificationListPageResponseTest {
                 .addData(
                     AchPrenotification.builder()
                         .id("ach_prenotification_ubjf9qqsxl3obbcn1u34")
+                        .accountId(null)
                         .accountNumber("987654321")
                         .addendum(null)
                         .companyDescriptiveDate(null)
@@ -113,6 +122,8 @@ internal class AchPrenotificationListPageResponseTest {
                         .creditDebitIndicator(null)
                         .effectiveDate(null)
                         .idempotencyKey(null)
+                        .individualId(null)
+                        .individualName(null)
                         .addNotificationsOfChange(
                             AchPrenotification.NotificationsOfChange.builder()
                                 .changeCode(
@@ -133,6 +144,7 @@ internal class AchPrenotificationListPageResponseTest {
                                 .build()
                         )
                         .routingNumber("101050001")
+                        .standardEntryClassCode(null)
                         .status(AchPrenotification.Status.SUBMITTED)
                         .type(AchPrenotification.Type.ACH_PRENOTIFICATION)
                         .build()
