@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.291.0 (2025-08-20)
+
+Full Changelog: [v0.290.0...v0.291.0](https://github.com/Increase/increase-java/compare/v0.290.0...v0.291.0)
+
+### Features
+
+* **api:** api update ([b36e5a2](https://github.com/Increase/increase-java/commit/b36e5a298e285fa6e7817b5b499498fde431f662))
+
+
+### Chores
+
+* **client:** refactor closing / shutdown ([d60429a](https://github.com/Increase/increase-java/commit/d60429a7493712e18d4fdd9f9ef3764b277dced6))
+* **internal:** support running formatters directly ([320f9b0](https://github.com/Increase/increase-java/commit/320f9b0aeffa6ef5328d578e725d6dddb5d034c0))
+
 ## 0.290.0 (2025-08-20)
 
 Full Changelog: [v0.289.1...v0.290.0](https://github.com/Increase/increase-java/compare/v0.289.1...v0.290.0)
