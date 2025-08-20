@@ -904,6 +904,7 @@ private constructor(
             JsonField<RealTimePaymentsTransferAcknowledgement>,
         private val sampleFunds: JsonField<SampleFunds>,
         private val swiftTransferIntention: JsonField<SwiftTransferIntention>,
+        private val swiftTransferReturn: JsonField<SwiftTransferReturn>,
         private val wireTransferIntention: JsonField<WireTransferIntention>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -1012,6 +1013,9 @@ private constructor(
             @JsonProperty("swift_transfer_intention")
             @ExcludeMissing
             swiftTransferIntention: JsonField<SwiftTransferIntention> = JsonMissing.of(),
+            @JsonProperty("swift_transfer_return")
+            @ExcludeMissing
+            swiftTransferReturn: JsonField<SwiftTransferReturn> = JsonMissing.of(),
             @JsonProperty("wire_transfer_intention")
             @ExcludeMissing
             wireTransferIntention: JsonField<WireTransferIntention> = JsonMissing.of(),
@@ -1048,6 +1052,7 @@ private constructor(
             realTimePaymentsTransferAcknowledgement,
             sampleFunds,
             swiftTransferIntention,
+            swiftTransferReturn,
             wireTransferIntention,
             mutableMapOf(),
         )
@@ -1429,6 +1434,17 @@ private constructor(
             swiftTransferIntention.getOptional("swift_transfer_intention")
 
         /**
+         * A Swift Transfer Return object. This field will be present in the JSON response if and
+         * only if `category` is equal to `swift_transfer_return`. A Swift Transfer Return is
+         * created when a Swift Transfer is returned by the receiving bank.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun swiftTransferReturn(): Optional<SwiftTransferReturn> =
+            swiftTransferReturn.getOptional("swift_transfer_return")
+
+        /**
          * A Wire Transfer Intention object. This field will be present in the JSON response if and
          * only if `category` is equal to `wire_transfer_intention`. A Wire Transfer initiated via
          * Increase and sent to a different bank.
@@ -1755,6 +1771,16 @@ private constructor(
         fun _swiftTransferIntention(): JsonField<SwiftTransferIntention> = swiftTransferIntention
 
         /**
+         * Returns the raw JSON value of [swiftTransferReturn].
+         *
+         * Unlike [swiftTransferReturn], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("swift_transfer_return")
+        @ExcludeMissing
+        fun _swiftTransferReturn(): JsonField<SwiftTransferReturn> = swiftTransferReturn
+
+        /**
          * Returns the raw JSON value of [wireTransferIntention].
          *
          * Unlike [wireTransferIntention], this method doesn't throw if the JSON field has an
@@ -1815,6 +1841,7 @@ private constructor(
              * .realTimePaymentsTransferAcknowledgement()
              * .sampleFunds()
              * .swiftTransferIntention()
+             * .swiftTransferReturn()
              * .wireTransferIntention()
              * ```
              */
@@ -1866,6 +1893,7 @@ private constructor(
                 null
             private var sampleFunds: JsonField<SampleFunds>? = null
             private var swiftTransferIntention: JsonField<SwiftTransferIntention>? = null
+            private var swiftTransferReturn: JsonField<SwiftTransferReturn>? = null
             private var wireTransferIntention: JsonField<WireTransferIntention>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -1906,6 +1934,7 @@ private constructor(
                     source.realTimePaymentsTransferAcknowledgement
                 sampleFunds = source.sampleFunds
                 swiftTransferIntention = source.swiftTransferIntention
+                swiftTransferReturn = source.swiftTransferReturn
                 wireTransferIntention = source.wireTransferIntention
                 additionalProperties = source.additionalProperties.toMutableMap()
             }
@@ -2776,6 +2805,32 @@ private constructor(
                 }
 
             /**
+             * A Swift Transfer Return object. This field will be present in the JSON response if
+             * and only if `category` is equal to `swift_transfer_return`. A Swift Transfer Return
+             * is created when a Swift Transfer is returned by the receiving bank.
+             */
+            fun swiftTransferReturn(swiftTransferReturn: SwiftTransferReturn?) =
+                swiftTransferReturn(JsonField.ofNullable(swiftTransferReturn))
+
+            /**
+             * Alias for calling [Builder.swiftTransferReturn] with
+             * `swiftTransferReturn.orElse(null)`.
+             */
+            fun swiftTransferReturn(swiftTransferReturn: Optional<SwiftTransferReturn>) =
+                swiftTransferReturn(swiftTransferReturn.getOrNull())
+
+            /**
+             * Sets [Builder.swiftTransferReturn] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.swiftTransferReturn] with a well-typed
+             * [SwiftTransferReturn] value instead. This method is primarily for setting the field
+             * to an undocumented or not yet supported value.
+             */
+            fun swiftTransferReturn(swiftTransferReturn: JsonField<SwiftTransferReturn>) = apply {
+                this.swiftTransferReturn = swiftTransferReturn
+            }
+
+            /**
              * A Wire Transfer Intention object. This field will be present in the JSON response if
              * and only if `category` is equal to `wire_transfer_intention`. A Wire Transfer
              * initiated via Increase and sent to a different bank.
@@ -2860,6 +2915,7 @@ private constructor(
              * .realTimePaymentsTransferAcknowledgement()
              * .sampleFunds()
              * .swiftTransferIntention()
+             * .swiftTransferReturn()
              * .wireTransferIntention()
              * ```
              *
@@ -2914,6 +2970,7 @@ private constructor(
                     ),
                     checkRequired("sampleFunds", sampleFunds),
                     checkRequired("swiftTransferIntention", swiftTransferIntention),
+                    checkRequired("swiftTransferReturn", swiftTransferReturn),
                     checkRequired("wireTransferIntention", wireTransferIntention),
                     additionalProperties.toMutableMap(),
                 )
@@ -2957,6 +3014,7 @@ private constructor(
             realTimePaymentsTransferAcknowledgement().ifPresent { it.validate() }
             sampleFunds().ifPresent { it.validate() }
             swiftTransferIntention().ifPresent { it.validate() }
+            swiftTransferReturn().ifPresent { it.validate() }
             wireTransferIntention().ifPresent { it.validate() }
             validated = true
         }
@@ -3009,6 +3067,7 @@ private constructor(
                 (realTimePaymentsTransferAcknowledgement.asKnown().getOrNull()?.validity() ?: 0) +
                 (sampleFunds.asKnown().getOrNull()?.validity() ?: 0) +
                 (swiftTransferIntention.asKnown().getOrNull()?.validity() ?: 0) +
+                (swiftTransferReturn.asKnown().getOrNull()?.validity() ?: 0) +
                 (wireTransferIntention.asKnown().getOrNull()?.validity() ?: 0)
 
         /**
@@ -28015,6 +28074,11 @@ private constructor(
                 @JvmField val SWIFT_TRANSFER_INTENTION = of("swift_transfer_intention")
 
                 /**
+                 * Swift Transfer Return: details will be under the `swift_transfer_return` object.
+                 */
+                @JvmField val SWIFT_TRANSFER_RETURN = of("swift_transfer_return")
+
+                /**
                  * Card Push Transfer Acceptance: details will be under the
                  * `card_push_transfer_acceptance` object.
                  */
@@ -28148,6 +28212,10 @@ private constructor(
                  * object.
                  */
                 SWIFT_TRANSFER_INTENTION,
+                /**
+                 * Swift Transfer Return: details will be under the `swift_transfer_return` object.
+                 */
+                SWIFT_TRANSFER_RETURN,
                 /**
                  * Card Push Transfer Acceptance: details will be under the
                  * `card_push_transfer_acceptance` object.
@@ -28288,6 +28356,10 @@ private constructor(
                  */
                 SWIFT_TRANSFER_INTENTION,
                 /**
+                 * Swift Transfer Return: details will be under the `swift_transfer_return` object.
+                 */
+                SWIFT_TRANSFER_RETURN,
+                /**
                  * Card Push Transfer Acceptance: details will be under the
                  * `card_push_transfer_acceptance` object.
                  */
@@ -28344,6 +28416,7 @@ private constructor(
                     SAMPLE_FUNDS -> Value.SAMPLE_FUNDS
                     WIRE_TRANSFER_INTENTION -> Value.WIRE_TRANSFER_INTENTION
                     SWIFT_TRANSFER_INTENTION -> Value.SWIFT_TRANSFER_INTENTION
+                    SWIFT_TRANSFER_RETURN -> Value.SWIFT_TRANSFER_RETURN
                     CARD_PUSH_TRANSFER_ACCEPTANCE -> Value.CARD_PUSH_TRANSFER_ACCEPTANCE
                     OTHER -> Value.OTHER
                     else -> Value._UNKNOWN
@@ -28395,6 +28468,7 @@ private constructor(
                     SAMPLE_FUNDS -> Known.SAMPLE_FUNDS
                     WIRE_TRANSFER_INTENTION -> Known.WIRE_TRANSFER_INTENTION
                     SWIFT_TRANSFER_INTENTION -> Known.SWIFT_TRANSFER_INTENTION
+                    SWIFT_TRANSFER_RETURN -> Known.SWIFT_TRANSFER_RETURN
                     CARD_PUSH_TRANSFER_ACCEPTANCE -> Known.CARD_PUSH_TRANSFER_ACCEPTANCE
                     OTHER -> Known.OTHER
                     else -> throw IncreaseInvalidDataException("Unknown Category: $value")
@@ -39981,6 +40055,181 @@ private constructor(
         }
 
         /**
+         * A Swift Transfer Return object. This field will be present in the JSON response if and
+         * only if `category` is equal to `swift_transfer_return`. A Swift Transfer Return is
+         * created when a Swift Transfer is returned by the receiving bank.
+         */
+        class SwiftTransferReturn
+        private constructor(
+            private val transferId: JsonField<String>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("transfer_id")
+                @ExcludeMissing
+                transferId: JsonField<String> = JsonMissing.of()
+            ) : this(transferId, mutableMapOf())
+
+            /**
+             * The identifier of the Swift Transfer that led to this Transaction.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun transferId(): String = transferId.getRequired("transfer_id")
+
+            /**
+             * Returns the raw JSON value of [transferId].
+             *
+             * Unlike [transferId], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("transfer_id")
+            @ExcludeMissing
+            fun _transferId(): JsonField<String> = transferId
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of [SwiftTransferReturn].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .transferId()
+                 * ```
+                 */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [SwiftTransferReturn]. */
+            class Builder internal constructor() {
+
+                private var transferId: JsonField<String>? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(swiftTransferReturn: SwiftTransferReturn) = apply {
+                    transferId = swiftTransferReturn.transferId
+                    additionalProperties = swiftTransferReturn.additionalProperties.toMutableMap()
+                }
+
+                /** The identifier of the Swift Transfer that led to this Transaction. */
+                fun transferId(transferId: String) = transferId(JsonField.of(transferId))
+
+                /**
+                 * Sets [Builder.transferId] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.transferId] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun transferId(transferId: JsonField<String>) = apply {
+                    this.transferId = transferId
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [SwiftTransferReturn].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .transferId()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
+                fun build(): SwiftTransferReturn =
+                    SwiftTransferReturn(
+                        checkRequired("transferId", transferId),
+                        additionalProperties.toMutableMap(),
+                    )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): SwiftTransferReturn = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                transferId()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int = (if (transferId.asKnown().isPresent) 1 else 0)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is SwiftTransferReturn &&
+                    transferId == other.transferId &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy { Objects.hash(transferId, additionalProperties) }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "SwiftTransferReturn{transferId=$transferId, additionalProperties=$additionalProperties}"
+        }
+
+        /**
          * A Wire Transfer Intention object. This field will be present in the JSON response if and
          * only if `category` is equal to `wire_transfer_intention`. A Wire Transfer initiated via
          * Increase and sent to a different bank.
@@ -40391,6 +40640,7 @@ private constructor(
                     other.realTimePaymentsTransferAcknowledgement &&
                 sampleFunds == other.sampleFunds &&
                 swiftTransferIntention == other.swiftTransferIntention &&
+                swiftTransferReturn == other.swiftTransferReturn &&
                 wireTransferIntention == other.wireTransferIntention &&
                 additionalProperties == other.additionalProperties
         }
@@ -40429,6 +40679,7 @@ private constructor(
                 realTimePaymentsTransferAcknowledgement,
                 sampleFunds,
                 swiftTransferIntention,
+                swiftTransferReturn,
                 wireTransferIntention,
                 additionalProperties,
             )
@@ -40437,7 +40688,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Source{accountTransferIntention=$accountTransferIntention, achTransferIntention=$achTransferIntention, achTransferRejection=$achTransferRejection, achTransferReturn=$achTransferReturn, cardDisputeAcceptance=$cardDisputeAcceptance, cardDisputeFinancial=$cardDisputeFinancial, cardDisputeLoss=$cardDisputeLoss, cardPushTransferAcceptance=$cardPushTransferAcceptance, cardRefund=$cardRefund, cardRevenuePayment=$cardRevenuePayment, cardSettlement=$cardSettlement, cashbackPayment=$cashbackPayment, category=$category, checkDepositAcceptance=$checkDepositAcceptance, checkDepositReturn=$checkDepositReturn, checkTransferDeposit=$checkTransferDeposit, feePayment=$feePayment, inboundAchTransfer=$inboundAchTransfer, inboundAchTransferReturnIntention=$inboundAchTransferReturnIntention, inboundCheckAdjustment=$inboundCheckAdjustment, inboundCheckDepositReturnIntention=$inboundCheckDepositReturnIntention, inboundRealTimePaymentsTransferConfirmation=$inboundRealTimePaymentsTransferConfirmation, inboundRealTimePaymentsTransferDecline=$inboundRealTimePaymentsTransferDecline, inboundWireReversal=$inboundWireReversal, inboundWireTransfer=$inboundWireTransfer, inboundWireTransferReversal=$inboundWireTransferReversal, interestPayment=$interestPayment, internalSource=$internalSource, other=$other, realTimePaymentsTransferAcknowledgement=$realTimePaymentsTransferAcknowledgement, sampleFunds=$sampleFunds, swiftTransferIntention=$swiftTransferIntention, wireTransferIntention=$wireTransferIntention, additionalProperties=$additionalProperties}"
+            "Source{accountTransferIntention=$accountTransferIntention, achTransferIntention=$achTransferIntention, achTransferRejection=$achTransferRejection, achTransferReturn=$achTransferReturn, cardDisputeAcceptance=$cardDisputeAcceptance, cardDisputeFinancial=$cardDisputeFinancial, cardDisputeLoss=$cardDisputeLoss, cardPushTransferAcceptance=$cardPushTransferAcceptance, cardRefund=$cardRefund, cardRevenuePayment=$cardRevenuePayment, cardSettlement=$cardSettlement, cashbackPayment=$cashbackPayment, category=$category, checkDepositAcceptance=$checkDepositAcceptance, checkDepositReturn=$checkDepositReturn, checkTransferDeposit=$checkTransferDeposit, feePayment=$feePayment, inboundAchTransfer=$inboundAchTransfer, inboundAchTransferReturnIntention=$inboundAchTransferReturnIntention, inboundCheckAdjustment=$inboundCheckAdjustment, inboundCheckDepositReturnIntention=$inboundCheckDepositReturnIntention, inboundRealTimePaymentsTransferConfirmation=$inboundRealTimePaymentsTransferConfirmation, inboundRealTimePaymentsTransferDecline=$inboundRealTimePaymentsTransferDecline, inboundWireReversal=$inboundWireReversal, inboundWireTransfer=$inboundWireTransfer, inboundWireTransferReversal=$inboundWireTransferReversal, interestPayment=$interestPayment, internalSource=$internalSource, other=$other, realTimePaymentsTransferAcknowledgement=$realTimePaymentsTransferAcknowledgement, sampleFunds=$sampleFunds, swiftTransferIntention=$swiftTransferIntention, swiftTransferReturn=$swiftTransferReturn, wireTransferIntention=$wireTransferIntention, additionalProperties=$additionalProperties}"
     }
 
     /**
