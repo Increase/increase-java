@@ -11,7 +11,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Cancels an Real-Time Payments Transfer in a pending_approval state. */
+/** Cancels a Real-Time Payments Transfer in a pending_approval state. */
 class RealTimePaymentsTransferCancelParams
 private constructor(
     private val realTimePaymentsTransferId: String?,

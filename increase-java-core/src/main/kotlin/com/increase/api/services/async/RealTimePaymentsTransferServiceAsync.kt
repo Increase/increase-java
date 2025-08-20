@@ -108,7 +108,7 @@ interface RealTimePaymentsTransferServiceAsync {
     ): CompletableFuture<RealTimePaymentsTransferListPageAsync> =
         list(RealTimePaymentsTransferListParams.none(), requestOptions)
 
-    /** Approves an Real-Time Payments Transfer in a pending_approval state. */
+    /** Approves a Real-Time Payments Transfer in a pending_approval state. */
     fun approve(realTimePaymentsTransferId: String): CompletableFuture<RealTimePaymentsTransfer> =
         approve(realTimePaymentsTransferId, RealTimePaymentsTransferApproveParams.none())
 
@@ -153,7 +153,7 @@ interface RealTimePaymentsTransferServiceAsync {
             requestOptions,
         )
 
-    /** Cancels an Real-Time Payments Transfer in a pending_approval state. */
+    /** Cancels a Real-Time Payments Transfer in a pending_approval state. */
     fun cancel(realTimePaymentsTransferId: String): CompletableFuture<RealTimePaymentsTransfer> =
         cancel(realTimePaymentsTransferId, RealTimePaymentsTransferCancelParams.none())
 
