@@ -6,6 +6,7 @@ import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
 import com.increase.api.core.JsonValue
 import com.increase.api.models.exports.ExportCreateParams
+import java.time.LocalDate
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -26,6 +27,12 @@ internal class ExportServiceAsyncTest {
             exportServiceAsync.create(
                 ExportCreateParams.builder()
                     .category(ExportCreateParams.Category.TRANSACTION_CSV)
+                    .accountStatementBai2(
+                        ExportCreateParams.AccountStatementBai2.builder()
+                            .accountId("account_id")
+                            .effectiveDate(LocalDate.parse("2019-12-27"))
+                            .build()
+                    )
                     .accountStatementOfx(
                         ExportCreateParams.AccountStatementOfx.builder()
                             .accountId("account_id")

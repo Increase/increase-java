@@ -497,6 +497,12 @@ private constructor(
              */
             @JvmField val ACCOUNT_STATEMENT_OFX = of("account_statement_ofx")
 
+            /**
+             * Export a BAI2 file of transactions and balances for a given date and optional
+             * Account.
+             */
+            @JvmField val ACCOUNT_STATEMENT_BAI2 = of("account_statement_bai2")
+
             /** Export a CSV of all transactions for a given time range. */
             @JvmField val TRANSACTION_CSV = of("transaction_csv")
 
@@ -528,6 +534,11 @@ private constructor(
              * time range and Account.
              */
             ACCOUNT_STATEMENT_OFX,
+            /**
+             * Export a BAI2 file of transactions and balances for a given date and optional
+             * Account.
+             */
+            ACCOUNT_STATEMENT_BAI2,
             /** Export a CSV of all transactions for a given time range. */
             TRANSACTION_CSV,
             /** Export a CSV of account balances for the dates in a given range. */
@@ -560,6 +571,11 @@ private constructor(
              * time range and Account.
              */
             ACCOUNT_STATEMENT_OFX,
+            /**
+             * Export a BAI2 file of transactions and balances for a given date and optional
+             * Account.
+             */
+            ACCOUNT_STATEMENT_BAI2,
             /** Export a CSV of all transactions for a given time range. */
             TRANSACTION_CSV,
             /** Export a CSV of account balances for the dates in a given range. */
@@ -589,6 +605,7 @@ private constructor(
         fun value(): Value =
             when (this) {
                 ACCOUNT_STATEMENT_OFX -> Value.ACCOUNT_STATEMENT_OFX
+                ACCOUNT_STATEMENT_BAI2 -> Value.ACCOUNT_STATEMENT_BAI2
                 TRANSACTION_CSV -> Value.TRANSACTION_CSV
                 BALANCE_CSV -> Value.BALANCE_CSV
                 BOOKKEEPING_ACCOUNT_BALANCE_CSV -> Value.BOOKKEEPING_ACCOUNT_BALANCE_CSV
@@ -610,6 +627,7 @@ private constructor(
         fun known(): Known =
             when (this) {
                 ACCOUNT_STATEMENT_OFX -> Known.ACCOUNT_STATEMENT_OFX
+                ACCOUNT_STATEMENT_BAI2 -> Known.ACCOUNT_STATEMENT_BAI2
                 TRANSACTION_CSV -> Known.TRANSACTION_CSV
                 BALANCE_CSV -> Known.BALANCE_CSV
                 BOOKKEEPING_ACCOUNT_BALANCE_CSV -> Known.BOOKKEEPING_ACCOUNT_BALANCE_CSV
