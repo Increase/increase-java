@@ -3,6 +3,7 @@
 package com.increase.api.models.exports
 
 import com.increase.api.core.JsonValue
+import java.time.LocalDate
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -13,6 +14,12 @@ internal class ExportCreateParamsTest {
     fun create() {
         ExportCreateParams.builder()
             .category(ExportCreateParams.Category.TRANSACTION_CSV)
+            .accountStatementBai2(
+                ExportCreateParams.AccountStatementBai2.builder()
+                    .accountId("account_id")
+                    .effectiveDate(LocalDate.parse("2019-12-27"))
+                    .build()
+            )
             .accountStatementOfx(
                 ExportCreateParams.AccountStatementOfx.builder()
                     .accountId("account_id")
@@ -85,6 +92,12 @@ internal class ExportCreateParamsTest {
         val params =
             ExportCreateParams.builder()
                 .category(ExportCreateParams.Category.TRANSACTION_CSV)
+                .accountStatementBai2(
+                    ExportCreateParams.AccountStatementBai2.builder()
+                        .accountId("account_id")
+                        .effectiveDate(LocalDate.parse("2019-12-27"))
+                        .build()
+                )
                 .accountStatementOfx(
                     ExportCreateParams.AccountStatementOfx.builder()
                         .accountId("account_id")
@@ -154,6 +167,13 @@ internal class ExportCreateParamsTest {
         val body = params._body()
 
         assertThat(body.category()).isEqualTo(ExportCreateParams.Category.TRANSACTION_CSV)
+        assertThat(body.accountStatementBai2())
+            .contains(
+                ExportCreateParams.AccountStatementBai2.builder()
+                    .accountId("account_id")
+                    .effectiveDate(LocalDate.parse("2019-12-27"))
+                    .build()
+            )
         assertThat(body.accountStatementOfx())
             .contains(
                 ExportCreateParams.AccountStatementOfx.builder()
