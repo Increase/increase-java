@@ -28,6 +28,7 @@ private constructor(
     private val id: JsonField<String>,
     private val acceptance: JsonField<Acceptance>,
     private val accountId: JsonField<String>,
+    private val cardTokenId: JsonField<String>,
     private val cardholderFirstName: JsonField<String>,
     private val cardholderLastName: JsonField<String>,
     private val cardholderMiddleName: JsonField<String>,
@@ -55,6 +56,9 @@ private constructor(
         @ExcludeMissing
         acceptance: JsonField<Acceptance> = JsonMissing.of(),
         @JsonProperty("account_id") @ExcludeMissing accountId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("card_token_id")
+        @ExcludeMissing
+        cardTokenId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("cardholder_first_name")
         @ExcludeMissing
         cardholderFirstName: JsonField<String> = JsonMissing.of(),
@@ -104,6 +108,7 @@ private constructor(
         id,
         acceptance,
         accountId,
+        cardTokenId,
         cardholderFirstName,
         cardholderLastName,
         cardholderMiddleName,
@@ -147,6 +152,14 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun accountId(): String = accountId.getRequired("account_id")
+
+    /**
+     * The ID of the Card Token that was used to validate the card.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun cardTokenId(): String = cardTokenId.getRequired("card_token_id")
 
     /**
      * The cardholder's first name.
@@ -318,6 +331,15 @@ private constructor(
      * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
+
+    /**
+     * Returns the raw JSON value of [cardTokenId].
+     *
+     * Unlike [cardTokenId], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("card_token_id")
+    @ExcludeMissing
+    fun _cardTokenId(): JsonField<String> = cardTokenId
 
     /**
      * Returns the raw JSON value of [cardholderFirstName].
@@ -494,6 +516,7 @@ private constructor(
          * .id()
          * .acceptance()
          * .accountId()
+         * .cardTokenId()
          * .cardholderFirstName()
          * .cardholderLastName()
          * .cardholderMiddleName()
@@ -522,6 +545,7 @@ private constructor(
         private var id: JsonField<String>? = null
         private var acceptance: JsonField<Acceptance>? = null
         private var accountId: JsonField<String>? = null
+        private var cardTokenId: JsonField<String>? = null
         private var cardholderFirstName: JsonField<String>? = null
         private var cardholderLastName: JsonField<String>? = null
         private var cardholderMiddleName: JsonField<String>? = null
@@ -546,6 +570,7 @@ private constructor(
             id = cardValidation.id
             acceptance = cardValidation.acceptance
             accountId = cardValidation.accountId
+            cardTokenId = cardValidation.cardTokenId
             cardholderFirstName = cardValidation.cardholderFirstName
             cardholderLastName = cardValidation.cardholderLastName
             cardholderMiddleName = cardValidation.cardholderMiddleName
@@ -606,6 +631,18 @@ private constructor(
          * value.
          */
         fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
+
+        /** The ID of the Card Token that was used to validate the card. */
+        fun cardTokenId(cardTokenId: String) = cardTokenId(JsonField.of(cardTokenId))
+
+        /**
+         * Sets [Builder.cardTokenId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.cardTokenId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun cardTokenId(cardTokenId: JsonField<String>) = apply { this.cardTokenId = cardTokenId }
 
         /** The cardholder's first name. */
         fun cardholderFirstName(cardholderFirstName: String?) =
@@ -936,6 +973,7 @@ private constructor(
          * .id()
          * .acceptance()
          * .accountId()
+         * .cardTokenId()
          * .cardholderFirstName()
          * .cardholderLastName()
          * .cardholderMiddleName()
@@ -962,6 +1000,7 @@ private constructor(
                 checkRequired("id", id),
                 checkRequired("acceptance", acceptance),
                 checkRequired("accountId", accountId),
+                checkRequired("cardTokenId", cardTokenId),
                 checkRequired("cardholderFirstName", cardholderFirstName),
                 checkRequired("cardholderLastName", cardholderLastName),
                 checkRequired("cardholderMiddleName", cardholderMiddleName),
@@ -993,6 +1032,7 @@ private constructor(
         id()
         acceptance().ifPresent { it.validate() }
         accountId()
+        cardTokenId()
         cardholderFirstName()
         cardholderLastName()
         cardholderMiddleName()
@@ -1031,6 +1071,7 @@ private constructor(
         (if (id.asKnown().isPresent) 1 else 0) +
             (acceptance.asKnown().getOrNull()?.validity() ?: 0) +
             (if (accountId.asKnown().isPresent) 1 else 0) +
+            (if (cardTokenId.asKnown().isPresent) 1 else 0) +
             (if (cardholderFirstName.asKnown().isPresent) 1 else 0) +
             (if (cardholderLastName.asKnown().isPresent) 1 else 0) +
             (if (cardholderMiddleName.asKnown().isPresent) 1 else 0) +
@@ -5204,6 +5245,7 @@ private constructor(
             id == other.id &&
             acceptance == other.acceptance &&
             accountId == other.accountId &&
+            cardTokenId == other.cardTokenId &&
             cardholderFirstName == other.cardholderFirstName &&
             cardholderLastName == other.cardholderLastName &&
             cardholderMiddleName == other.cardholderMiddleName &&
@@ -5229,6 +5271,7 @@ private constructor(
             id,
             acceptance,
             accountId,
+            cardTokenId,
             cardholderFirstName,
             cardholderLastName,
             cardholderMiddleName,
@@ -5253,5 +5296,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "CardValidation{id=$id, acceptance=$acceptance, accountId=$accountId, cardholderFirstName=$cardholderFirstName, cardholderLastName=$cardholderLastName, cardholderMiddleName=$cardholderMiddleName, cardholderPostalCode=$cardholderPostalCode, cardholderStreetAddress=$cardholderStreetAddress, createdAt=$createdAt, createdBy=$createdBy, decline=$decline, idempotencyKey=$idempotencyKey, merchantCategoryCode=$merchantCategoryCode, merchantCityName=$merchantCityName, merchantName=$merchantName, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, status=$status, submission=$submission, type=$type, additionalProperties=$additionalProperties}"
+        "CardValidation{id=$id, acceptance=$acceptance, accountId=$accountId, cardTokenId=$cardTokenId, cardholderFirstName=$cardholderFirstName, cardholderLastName=$cardholderLastName, cardholderMiddleName=$cardholderMiddleName, cardholderPostalCode=$cardholderPostalCode, cardholderStreetAddress=$cardholderStreetAddress, createdAt=$createdAt, createdBy=$createdBy, decline=$decline, idempotencyKey=$idempotencyKey, merchantCategoryCode=$merchantCategoryCode, merchantCityName=$merchantCityName, merchantName=$merchantName, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, status=$status, submission=$submission, type=$type, additionalProperties=$additionalProperties}"
 }

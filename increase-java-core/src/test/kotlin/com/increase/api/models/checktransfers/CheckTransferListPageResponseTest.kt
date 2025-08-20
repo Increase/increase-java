@@ -27,6 +27,7 @@ internal class CheckTransferListPageResponseTest {
                                 .build()
                         )
                         .approvedInboundCheckDepositId("inbound_check_deposit_zoshvqybq0cjjm31mra")
+                        .balanceCheck(null)
                         .cancellation(
                             CheckTransfer.Cancellation.builder()
                                 .canceledAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -178,6 +179,7 @@ internal class CheckTransferListPageResponseTest {
                             .build()
                     )
                     .approvedInboundCheckDepositId("inbound_check_deposit_zoshvqybq0cjjm31mra")
+                    .balanceCheck(null)
                     .cancellation(
                         CheckTransfer.Cancellation.builder()
                             .canceledAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -329,6 +331,7 @@ internal class CheckTransferListPageResponseTest {
                                 .build()
                         )
                         .approvedInboundCheckDepositId("inbound_check_deposit_zoshvqybq0cjjm31mra")
+                        .balanceCheck(null)
                         .cancellation(
                             CheckTransfer.Cancellation.builder()
                                 .canceledAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))

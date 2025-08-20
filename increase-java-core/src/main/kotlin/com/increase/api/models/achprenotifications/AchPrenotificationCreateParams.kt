@@ -31,7 +31,7 @@ private constructor(
 ) : Params {
 
     /**
-     * The Increase identifier for the account that will send the transfer.
+     * The Increase identifier for the account that will send the ACH Prenotification.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -64,7 +64,7 @@ private constructor(
     fun addendum(): Optional<String> = body.addendum()
 
     /**
-     * The description of the date of the transfer.
+     * The description of the date of the ACH Prenotification.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -72,7 +72,7 @@ private constructor(
     fun companyDescriptiveDate(): Optional<String> = body.companyDescriptiveDate()
 
     /**
-     * The data you choose to associate with the transfer.
+     * The data you choose to associate with the ACH Prenotification.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -80,7 +80,7 @@ private constructor(
     fun companyDiscretionaryData(): Optional<String> = body.companyDiscretionaryData()
 
     /**
-     * The description of the transfer you wish to be shown to the recipient.
+     * The description you wish to be shown to the recipient.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -104,7 +104,8 @@ private constructor(
     fun creditDebitIndicator(): Optional<CreditDebitIndicator> = body.creditDebitIndicator()
 
     /**
-     * The transfer effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+     * The ACH Prenotification effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+     * format.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -112,7 +113,7 @@ private constructor(
     fun effectiveDate(): Optional<LocalDate> = body.effectiveDate()
 
     /**
-     * Your identifier for the transfer recipient.
+     * Your identifier for the recipient.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -120,8 +121,8 @@ private constructor(
     fun individualId(): Optional<String> = body.individualId()
 
     /**
-     * The name of the transfer recipient. This value is information and not verified by the
-     * recipient's bank.
+     * The name of therecipient. This value is informational and not verified by the recipient's
+     * bank.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -287,7 +288,7 @@ private constructor(
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
-        /** The Increase identifier for the account that will send the transfer. */
+        /** The Increase identifier for the account that will send the ACH Prenotification. */
         fun accountId(accountId: String) = apply { body.accountId(accountId) }
 
         /**
@@ -341,7 +342,7 @@ private constructor(
          */
         fun addendum(addendum: JsonField<String>) = apply { body.addendum(addendum) }
 
-        /** The description of the date of the transfer. */
+        /** The description of the date of the ACH Prenotification. */
         fun companyDescriptiveDate(companyDescriptiveDate: String) = apply {
             body.companyDescriptiveDate(companyDescriptiveDate)
         }
@@ -357,7 +358,7 @@ private constructor(
             body.companyDescriptiveDate(companyDescriptiveDate)
         }
 
-        /** The data you choose to associate with the transfer. */
+        /** The data you choose to associate with the ACH Prenotification. */
         fun companyDiscretionaryData(companyDiscretionaryData: String) = apply {
             body.companyDiscretionaryData(companyDiscretionaryData)
         }
@@ -373,7 +374,7 @@ private constructor(
             body.companyDiscretionaryData(companyDiscretionaryData)
         }
 
-        /** The description of the transfer you wish to be shown to the recipient. */
+        /** The description you wish to be shown to the recipient. */
         fun companyEntryDescription(companyEntryDescription: String) = apply {
             body.companyEntryDescription(companyEntryDescription)
         }
@@ -418,7 +419,8 @@ private constructor(
         }
 
         /**
-         * The transfer effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+         * The ACH Prenotification effective date in
+         * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
          */
         fun effectiveDate(effectiveDate: LocalDate) = apply { body.effectiveDate(effectiveDate) }
 
@@ -433,7 +435,7 @@ private constructor(
             body.effectiveDate(effectiveDate)
         }
 
-        /** Your identifier for the transfer recipient. */
+        /** Your identifier for the recipient. */
         fun individualId(individualId: String) = apply { body.individualId(individualId) }
 
         /**
@@ -448,8 +450,8 @@ private constructor(
         }
 
         /**
-         * The name of the transfer recipient. This value is information and not verified by the
-         * recipient's bank.
+         * The name of therecipient. This value is informational and not verified by the recipient's
+         * bank.
          */
         fun individualName(individualName: String) = apply { body.individualName(individualName) }
 
@@ -703,7 +705,7 @@ private constructor(
         )
 
         /**
-         * The Increase identifier for the account that will send the transfer.
+         * The Increase identifier for the account that will send the ACH Prenotification.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -736,7 +738,7 @@ private constructor(
         fun addendum(): Optional<String> = addendum.getOptional("addendum")
 
         /**
-         * The description of the date of the transfer.
+         * The description of the date of the ACH Prenotification.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -745,7 +747,7 @@ private constructor(
             companyDescriptiveDate.getOptional("company_descriptive_date")
 
         /**
-         * The data you choose to associate with the transfer.
+         * The data you choose to associate with the ACH Prenotification.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -754,7 +756,7 @@ private constructor(
             companyDiscretionaryData.getOptional("company_discretionary_data")
 
         /**
-         * The description of the transfer you wish to be shown to the recipient.
+         * The description you wish to be shown to the recipient.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -780,7 +782,8 @@ private constructor(
             creditDebitIndicator.getOptional("credit_debit_indicator")
 
         /**
-         * The transfer effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+         * The ACH Prenotification effective date in
+         * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -788,7 +791,7 @@ private constructor(
         fun effectiveDate(): Optional<LocalDate> = effectiveDate.getOptional("effective_date")
 
         /**
-         * Your identifier for the transfer recipient.
+         * Your identifier for the recipient.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -796,8 +799,8 @@ private constructor(
         fun individualId(): Optional<String> = individualId.getOptional("individual_id")
 
         /**
-         * The name of the transfer recipient. This value is information and not verified by the
-         * recipient's bank.
+         * The name of therecipient. This value is informational and not verified by the recipient's
+         * bank.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -999,7 +1002,7 @@ private constructor(
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
-            /** The Increase identifier for the account that will send the transfer. */
+            /** The Increase identifier for the account that will send the ACH Prenotification. */
             fun accountId(accountId: String) = accountId(JsonField.of(accountId))
 
             /**
@@ -1054,7 +1057,7 @@ private constructor(
              */
             fun addendum(addendum: JsonField<String>) = apply { this.addendum = addendum }
 
-            /** The description of the date of the transfer. */
+            /** The description of the date of the ACH Prenotification. */
             fun companyDescriptiveDate(companyDescriptiveDate: String) =
                 companyDescriptiveDate(JsonField.of(companyDescriptiveDate))
 
@@ -1069,7 +1072,7 @@ private constructor(
                 this.companyDescriptiveDate = companyDescriptiveDate
             }
 
-            /** The data you choose to associate with the transfer. */
+            /** The data you choose to associate with the ACH Prenotification. */
             fun companyDiscretionaryData(companyDiscretionaryData: String) =
                 companyDiscretionaryData(JsonField.of(companyDiscretionaryData))
 
@@ -1084,7 +1087,7 @@ private constructor(
                 this.companyDiscretionaryData = companyDiscretionaryData
             }
 
-            /** The description of the transfer you wish to be shown to the recipient. */
+            /** The description you wish to be shown to the recipient. */
             fun companyEntryDescription(companyEntryDescription: String) =
                 companyEntryDescription(JsonField.of(companyEntryDescription))
 
@@ -1130,8 +1133,8 @@ private constructor(
                 }
 
             /**
-             * The transfer effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-             * format.
+             * The ACH Prenotification effective date in
+             * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
              */
             fun effectiveDate(effectiveDate: LocalDate) = effectiveDate(JsonField.of(effectiveDate))
 
@@ -1146,7 +1149,7 @@ private constructor(
                 this.effectiveDate = effectiveDate
             }
 
-            /** Your identifier for the transfer recipient. */
+            /** Your identifier for the recipient. */
             fun individualId(individualId: String) = individualId(JsonField.of(individualId))
 
             /**
@@ -1161,7 +1164,7 @@ private constructor(
             }
 
             /**
-             * The name of the transfer recipient. This value is information and not verified by the
+             * The name of therecipient. This value is informational and not verified by the
              * recipient's bank.
              */
             fun individualName(individualName: String) =
