@@ -18,6 +18,7 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
+import java.time.LocalDate
 import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
@@ -39,6 +40,14 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun category(): Category = body.category()
+
+    /**
+     * Options for the created export. Required if `category` is equal to `account_statement_bai2`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun accountStatementBai2(): Optional<AccountStatementBai2> = body.accountStatementBai2()
 
     /**
      * Options for the created export. Required if `category` is equal to `account_statement_ofx`.
@@ -91,6 +100,14 @@ private constructor(
      * Unlike [category], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _category(): JsonField<Category> = body._category()
+
+    /**
+     * Returns the raw JSON value of [accountStatementBai2].
+     *
+     * Unlike [accountStatementBai2], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _accountStatementBai2(): JsonField<AccountStatementBai2> = body._accountStatementBai2()
 
     /**
      * Returns the raw JSON value of [accountStatementOfx].
@@ -173,10 +190,10 @@ private constructor(
          * This is generally only useful if you are already constructing the body separately.
          * Otherwise, it's more convenient to use the top-level setters instead:
          * - [category]
+         * - [accountStatementBai2]
          * - [accountStatementOfx]
          * - [balanceCsv]
          * - [bookkeepingAccountBalanceCsv]
-         * - [entityCsv]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -192,6 +209,25 @@ private constructor(
          * value.
          */
         fun category(category: JsonField<Category>) = apply { body.category(category) }
+
+        /**
+         * Options for the created export. Required if `category` is equal to
+         * `account_statement_bai2`.
+         */
+        fun accountStatementBai2(accountStatementBai2: AccountStatementBai2) = apply {
+            body.accountStatementBai2(accountStatementBai2)
+        }
+
+        /**
+         * Sets [Builder.accountStatementBai2] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.accountStatementBai2] with a well-typed
+         * [AccountStatementBai2] value instead. This method is primarily for setting the field to
+         * an undocumented or not yet supported value.
+         */
+        fun accountStatementBai2(accountStatementBai2: JsonField<AccountStatementBai2>) = apply {
+            body.accountStatementBai2(accountStatementBai2)
+        }
 
         /**
          * Options for the created export. Required if `category` is equal to
@@ -420,6 +456,7 @@ private constructor(
     class Body
     private constructor(
         private val category: JsonField<Category>,
+        private val accountStatementBai2: JsonField<AccountStatementBai2>,
         private val accountStatementOfx: JsonField<AccountStatementOfx>,
         private val balanceCsv: JsonField<BalanceCsv>,
         private val bookkeepingAccountBalanceCsv: JsonField<BookkeepingAccountBalanceCsv>,
@@ -434,6 +471,9 @@ private constructor(
             @JsonProperty("category")
             @ExcludeMissing
             category: JsonField<Category> = JsonMissing.of(),
+            @JsonProperty("account_statement_bai2")
+            @ExcludeMissing
+            accountStatementBai2: JsonField<AccountStatementBai2> = JsonMissing.of(),
             @JsonProperty("account_statement_ofx")
             @ExcludeMissing
             accountStatementOfx: JsonField<AccountStatementOfx> = JsonMissing.of(),
@@ -453,6 +493,7 @@ private constructor(
             @JsonProperty("vendor_csv") @ExcludeMissing vendorCsv: JsonValue = JsonMissing.of(),
         ) : this(
             category,
+            accountStatementBai2,
             accountStatementOfx,
             balanceCsv,
             bookkeepingAccountBalanceCsv,
@@ -469,6 +510,16 @@ private constructor(
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun category(): Category = category.getRequired("category")
+
+        /**
+         * Options for the created export. Required if `category` is equal to
+         * `account_statement_bai2`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun accountStatementBai2(): Optional<AccountStatementBai2> =
+            accountStatementBai2.getOptional("account_statement_bai2")
 
         /**
          * Options for the created export. Required if `category` is equal to
@@ -524,6 +575,16 @@ private constructor(
          * Unlike [category], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("category") @ExcludeMissing fun _category(): JsonField<Category> = category
+
+        /**
+         * Returns the raw JSON value of [accountStatementBai2].
+         *
+         * Unlike [accountStatementBai2], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("account_statement_bai2")
+        @ExcludeMissing
+        fun _accountStatementBai2(): JsonField<AccountStatementBai2> = accountStatementBai2
 
         /**
          * Returns the raw JSON value of [accountStatementOfx].
@@ -603,6 +664,7 @@ private constructor(
         class Builder internal constructor() {
 
             private var category: JsonField<Category>? = null
+            private var accountStatementBai2: JsonField<AccountStatementBai2> = JsonMissing.of()
             private var accountStatementOfx: JsonField<AccountStatementOfx> = JsonMissing.of()
             private var balanceCsv: JsonField<BalanceCsv> = JsonMissing.of()
             private var bookkeepingAccountBalanceCsv: JsonField<BookkeepingAccountBalanceCsv> =
@@ -615,6 +677,7 @@ private constructor(
             @JvmSynthetic
             internal fun from(body: Body) = apply {
                 category = body.category
+                accountStatementBai2 = body.accountStatementBai2
                 accountStatementOfx = body.accountStatementOfx
                 balanceCsv = body.balanceCsv
                 bookkeepingAccountBalanceCsv = body.bookkeepingAccountBalanceCsv
@@ -635,6 +698,25 @@ private constructor(
              * supported value.
              */
             fun category(category: JsonField<Category>) = apply { this.category = category }
+
+            /**
+             * Options for the created export. Required if `category` is equal to
+             * `account_statement_bai2`.
+             */
+            fun accountStatementBai2(accountStatementBai2: AccountStatementBai2) =
+                accountStatementBai2(JsonField.of(accountStatementBai2))
+
+            /**
+             * Sets [Builder.accountStatementBai2] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.accountStatementBai2] with a well-typed
+             * [AccountStatementBai2] value instead. This method is primarily for setting the field
+             * to an undocumented or not yet supported value.
+             */
+            fun accountStatementBai2(accountStatementBai2: JsonField<AccountStatementBai2>) =
+                apply {
+                    this.accountStatementBai2 = accountStatementBai2
+                }
 
             /**
              * Options for the created export. Required if `category` is equal to
@@ -753,6 +835,7 @@ private constructor(
             fun build(): Body =
                 Body(
                     checkRequired("category", category),
+                    accountStatementBai2,
                     accountStatementOfx,
                     balanceCsv,
                     bookkeepingAccountBalanceCsv,
@@ -771,6 +854,7 @@ private constructor(
             }
 
             category().validate()
+            accountStatementBai2().ifPresent { it.validate() }
             accountStatementOfx().ifPresent { it.validate() }
             balanceCsv().ifPresent { it.validate() }
             bookkeepingAccountBalanceCsv().ifPresent { it.validate() }
@@ -796,6 +880,7 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             (category.asKnown().getOrNull()?.validity() ?: 0) +
+                (accountStatementBai2.asKnown().getOrNull()?.validity() ?: 0) +
                 (accountStatementOfx.asKnown().getOrNull()?.validity() ?: 0) +
                 (balanceCsv.asKnown().getOrNull()?.validity() ?: 0) +
                 (bookkeepingAccountBalanceCsv.asKnown().getOrNull()?.validity() ?: 0) +
@@ -809,6 +894,7 @@ private constructor(
 
             return other is Body &&
                 category == other.category &&
+                accountStatementBai2 == other.accountStatementBai2 &&
                 accountStatementOfx == other.accountStatementOfx &&
                 balanceCsv == other.balanceCsv &&
                 bookkeepingAccountBalanceCsv == other.bookkeepingAccountBalanceCsv &&
@@ -821,6 +907,7 @@ private constructor(
         private val hashCode: Int by lazy {
             Objects.hash(
                 category,
+                accountStatementBai2,
                 accountStatementOfx,
                 balanceCsv,
                 bookkeepingAccountBalanceCsv,
@@ -834,7 +921,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{category=$category, accountStatementOfx=$accountStatementOfx, balanceCsv=$balanceCsv, bookkeepingAccountBalanceCsv=$bookkeepingAccountBalanceCsv, entityCsv=$entityCsv, transactionCsv=$transactionCsv, vendorCsv=$vendorCsv, additionalProperties=$additionalProperties}"
+            "Body{category=$category, accountStatementBai2=$accountStatementBai2, accountStatementOfx=$accountStatementOfx, balanceCsv=$balanceCsv, bookkeepingAccountBalanceCsv=$bookkeepingAccountBalanceCsv, entityCsv=$entityCsv, transactionCsv=$transactionCsv, vendorCsv=$vendorCsv, additionalProperties=$additionalProperties}"
     }
 
     /** The type of Export to create. */
@@ -857,6 +944,12 @@ private constructor(
              * time range and Account.
              */
             @JvmField val ACCOUNT_STATEMENT_OFX = of("account_statement_ofx")
+
+            /**
+             * Export a BAI2 file of transactions and balances for a given date and optional
+             * Account.
+             */
+            @JvmField val ACCOUNT_STATEMENT_BAI2 = of("account_statement_bai2")
 
             /** Export a CSV of all transactions for a given time range. */
             @JvmField val TRANSACTION_CSV = of("transaction_csv")
@@ -883,6 +976,11 @@ private constructor(
              * time range and Account.
              */
             ACCOUNT_STATEMENT_OFX,
+            /**
+             * Export a BAI2 file of transactions and balances for a given date and optional
+             * Account.
+             */
+            ACCOUNT_STATEMENT_BAI2,
             /** Export a CSV of all transactions for a given time range. */
             TRANSACTION_CSV,
             /** Export a CSV of account balances for the dates in a given range. */
@@ -910,6 +1008,11 @@ private constructor(
              * time range and Account.
              */
             ACCOUNT_STATEMENT_OFX,
+            /**
+             * Export a BAI2 file of transactions and balances for a given date and optional
+             * Account.
+             */
+            ACCOUNT_STATEMENT_BAI2,
             /** Export a CSV of all transactions for a given time range. */
             TRANSACTION_CSV,
             /** Export a CSV of account balances for the dates in a given range. */
@@ -934,6 +1037,7 @@ private constructor(
         fun value(): Value =
             when (this) {
                 ACCOUNT_STATEMENT_OFX -> Value.ACCOUNT_STATEMENT_OFX
+                ACCOUNT_STATEMENT_BAI2 -> Value.ACCOUNT_STATEMENT_BAI2
                 TRANSACTION_CSV -> Value.TRANSACTION_CSV
                 BALANCE_CSV -> Value.BALANCE_CSV
                 BOOKKEEPING_ACCOUNT_BALANCE_CSV -> Value.BOOKKEEPING_ACCOUNT_BALANCE_CSV
@@ -954,6 +1058,7 @@ private constructor(
         fun known(): Known =
             when (this) {
                 ACCOUNT_STATEMENT_OFX -> Known.ACCOUNT_STATEMENT_OFX
+                ACCOUNT_STATEMENT_BAI2 -> Known.ACCOUNT_STATEMENT_BAI2
                 TRANSACTION_CSV -> Known.TRANSACTION_CSV
                 BALANCE_CSV -> Known.BALANCE_CSV
                 BOOKKEEPING_ACCOUNT_BALANCE_CSV -> Known.BOOKKEEPING_ACCOUNT_BALANCE_CSV
@@ -1014,6 +1119,207 @@ private constructor(
         override fun hashCode() = value.hashCode()
 
         override fun toString() = value.toString()
+    }
+
+    /**
+     * Options for the created export. Required if `category` is equal to `account_statement_bai2`.
+     */
+    class AccountStatementBai2
+    private constructor(
+        private val accountId: JsonField<String>,
+        private val effectiveDate: JsonField<LocalDate>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("account_id")
+            @ExcludeMissing
+            accountId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("effective_date")
+            @ExcludeMissing
+            effectiveDate: JsonField<LocalDate> = JsonMissing.of(),
+        ) : this(accountId, effectiveDate, mutableMapOf())
+
+        /**
+         * The Account to create a BAI2 report for. If not provided, all open accounts will be
+         * included.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun accountId(): Optional<String> = accountId.getOptional("account_id")
+
+        /**
+         * The date to create a BAI2 report for. If not provided, the current date will be used. The
+         * timezone is UTC. If the current date is used, the report will include intraday balances,
+         * otherwise it will include end-of-day balances for the provided date.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun effectiveDate(): Optional<LocalDate> = effectiveDate.getOptional("effective_date")
+
+        /**
+         * Returns the raw JSON value of [accountId].
+         *
+         * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
+
+        /**
+         * Returns the raw JSON value of [effectiveDate].
+         *
+         * Unlike [effectiveDate], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("effective_date")
+        @ExcludeMissing
+        fun _effectiveDate(): JsonField<LocalDate> = effectiveDate
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [AccountStatementBai2]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [AccountStatementBai2]. */
+        class Builder internal constructor() {
+
+            private var accountId: JsonField<String> = JsonMissing.of()
+            private var effectiveDate: JsonField<LocalDate> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(accountStatementBai2: AccountStatementBai2) = apply {
+                accountId = accountStatementBai2.accountId
+                effectiveDate = accountStatementBai2.effectiveDate
+                additionalProperties = accountStatementBai2.additionalProperties.toMutableMap()
+            }
+
+            /**
+             * The Account to create a BAI2 report for. If not provided, all open accounts will be
+             * included.
+             */
+            fun accountId(accountId: String) = accountId(JsonField.of(accountId))
+
+            /**
+             * Sets [Builder.accountId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.accountId] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
+
+            /**
+             * The date to create a BAI2 report for. If not provided, the current date will be used.
+             * The timezone is UTC. If the current date is used, the report will include intraday
+             * balances, otherwise it will include end-of-day balances for the provided date.
+             */
+            fun effectiveDate(effectiveDate: LocalDate) = effectiveDate(JsonField.of(effectiveDate))
+
+            /**
+             * Sets [Builder.effectiveDate] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.effectiveDate] with a well-typed [LocalDate] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun effectiveDate(effectiveDate: JsonField<LocalDate>) = apply {
+                this.effectiveDate = effectiveDate
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [AccountStatementBai2].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): AccountStatementBai2 =
+                AccountStatementBai2(accountId, effectiveDate, additionalProperties.toMutableMap())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): AccountStatementBai2 = apply {
+            if (validated) {
+                return@apply
+            }
+
+            accountId()
+            effectiveDate()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (accountId.asKnown().isPresent) 1 else 0) +
+                (if (effectiveDate.asKnown().isPresent) 1 else 0)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is AccountStatementBai2 &&
+                accountId == other.accountId &&
+                effectiveDate == other.effectiveDate &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(accountId, effectiveDate, additionalProperties)
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "AccountStatementBai2{accountId=$accountId, effectiveDate=$effectiveDate, additionalProperties=$additionalProperties}"
     }
 
     /**
