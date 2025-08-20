@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.289.1 (2025-08-20)
+
+Full Changelog: [v0.289.0...v0.289.1](https://github.com/Increase/increase-java/compare/v0.289.0...v0.289.1)
+
+### Bug Fixes
+
+* **client:** ensure correct binary content type ([3f0018a](https://github.com/Increase/increase-java/commit/3f0018aacd63a0925f71acaac851cc80b43a22dd))
+
+
+### Chores
+
+* **client:** rename parameter ([3f0018a](https://github.com/Increase/increase-java/commit/3f0018aacd63a0925f71acaac851cc80b43a22dd))
+
 ## 0.289.0 (2025-08-20)
 
 Full Changelog: [v0.288.0...v0.289.0](https://github.com/Increase/increase-java/compare/v0.288.0...v0.289.0)
