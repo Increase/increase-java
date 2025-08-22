@@ -112,6 +112,7 @@ internal class ProGuardCompatibilityTest {
         val account =
             Account.builder()
                 .id("account_in71c4amph0vgo2qllky")
+                .accountRevenueRate(null)
                 .bank(Account.Bank.FIRST_INTERNET_BANK)
                 .closedAt(null)
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
