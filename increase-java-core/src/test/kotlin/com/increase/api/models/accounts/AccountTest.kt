@@ -16,6 +16,7 @@ internal class AccountTest {
         val account =
             Account.builder()
                 .id("account_in71c4amph0vgo2qllky")
+                .accountRevenueRate(null)
                 .bank(Account.Bank.FIRST_INTERNET_BANK)
                 .closedAt(null)
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
@@ -33,6 +34,7 @@ internal class AccountTest {
                 .build()
 
         assertThat(account.id()).isEqualTo("account_in71c4amph0vgo2qllky")
+        assertThat(account.accountRevenueRate()).isEmpty
         assertThat(account.bank()).isEqualTo(Account.Bank.FIRST_INTERNET_BANK)
         assertThat(account.closedAt()).isEmpty
         assertThat(account.createdAt()).isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
@@ -55,6 +57,7 @@ internal class AccountTest {
         val account =
             Account.builder()
                 .id("account_in71c4amph0vgo2qllky")
+                .accountRevenueRate(null)
                 .bank(Account.Bank.FIRST_INTERNET_BANK)
                 .closedAt(null)
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
