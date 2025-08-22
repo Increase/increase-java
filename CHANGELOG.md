@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.295.1 (2025-08-22)
+
+Full Changelog: [v0.295.0...v0.295.1](https://github.com/Increase/increase-java/compare/v0.295.0...v0.295.1)
+
+### Bug Fixes
+
+* update singularization rules ([691c68b](https://github.com/Increase/increase-java/commit/691c68be2e3d95cc503a0684b2fee6c86618b9c8))
+
 ## 0.295.0 (2025-08-22)
 
 Full Changelog: [v0.294.0...v0.295.0](https://github.com/Increase/increase-java/compare/v0.294.0...v0.295.0)
