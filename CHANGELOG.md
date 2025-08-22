@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.294.0 (2025-08-22)
+
+Full Changelog: [v0.293.0...v0.294.0](https://github.com/Increase/increase-java/compare/v0.293.0...v0.294.0)
+
+### Features
+
+* **api:** api update ([f6a6892](https://github.com/Increase/increase-java/commit/f6a689264b9fbef8052eeea4d068c0d08e4efeee))
+
+
+### Chores
+
+* **ci:** reduce log noise ([7684281](https://github.com/Increase/increase-java/commit/7684281d84a9af40ca280becd0d11b2dff3967df))
+* remove memory upper bound from publishing step ([77667b5](https://github.com/Increase/increase-java/commit/77667b5392e79ce9e86b02db52e674a8a0ffa693))
+
 ## 0.293.0 (2025-08-21)
 
 Full Changelog: [v0.292.0...v0.293.0](https://github.com/Increase/increase-java/compare/v0.292.0...v0.293.0)
