@@ -780,35 +780,6 @@ internal class TransactionListPageResponseTest {
                                         )
                                         .build()
                                 )
-                                .inboundRealTimePaymentsTransferDecline(
-                                    Transaction.Source.InboundRealTimePaymentsTransferDecline
-                                        .builder()
-                                        .amount(100L)
-                                        .creditorName("Ian Crease")
-                                        .currency(
-                                            Transaction.Source
-                                                .InboundRealTimePaymentsTransferDecline
-                                                .Currency
-                                                .USD
-                                        )
-                                        .debtorAccountNumber("987654321")
-                                        .debtorName("National Phonograph Company")
-                                        .debtorRoutingNumber("101050001")
-                                        .reason(
-                                            Transaction.Source
-                                                .InboundRealTimePaymentsTransferDecline
-                                                .Reason
-                                                .ACCOUNT_NUMBER_DISABLED
-                                        )
-                                        .remittanceInformation("Invoice 29582")
-                                        .transactionIdentification(
-                                            "20220501234567891T1BSLZO01745013025"
-                                        )
-                                        .transferId(
-                                            "inbound_real_time_payments_transfer_63hlz498vcxg644hcrzr"
-                                        )
-                                        .build()
-                                )
                                 .inboundWireReversal(
                                     Transaction.Source.InboundWireReversal.builder()
                                         .amount(12345L)
@@ -1650,32 +1621,6 @@ internal class TransactionListPageResponseTest {
                                     .debtorAccountNumber("987654321")
                                     .debtorName("National Phonograph Company")
                                     .debtorRoutingNumber("101050001")
-                                    .remittanceInformation("Invoice 29582")
-                                    .transactionIdentification(
-                                        "20220501234567891T1BSLZO01745013025"
-                                    )
-                                    .transferId(
-                                        "inbound_real_time_payments_transfer_63hlz498vcxg644hcrzr"
-                                    )
-                                    .build()
-                            )
-                            .inboundRealTimePaymentsTransferDecline(
-                                Transaction.Source.InboundRealTimePaymentsTransferDecline.builder()
-                                    .amount(100L)
-                                    .creditorName("Ian Crease")
-                                    .currency(
-                                        Transaction.Source.InboundRealTimePaymentsTransferDecline
-                                            .Currency
-                                            .USD
-                                    )
-                                    .debtorAccountNumber("987654321")
-                                    .debtorName("National Phonograph Company")
-                                    .debtorRoutingNumber("101050001")
-                                    .reason(
-                                        Transaction.Source.InboundRealTimePaymentsTransferDecline
-                                            .Reason
-                                            .ACCOUNT_NUMBER_DISABLED
-                                    )
                                     .remittanceInformation("Invoice 29582")
                                     .transactionIdentification(
                                         "20220501234567891T1BSLZO01745013025"
@@ -2555,35 +2500,6 @@ internal class TransactionListPageResponseTest {
                                         .debtorAccountNumber("987654321")
                                         .debtorName("National Phonograph Company")
                                         .debtorRoutingNumber("101050001")
-                                        .remittanceInformation("Invoice 29582")
-                                        .transactionIdentification(
-                                            "20220501234567891T1BSLZO01745013025"
-                                        )
-                                        .transferId(
-                                            "inbound_real_time_payments_transfer_63hlz498vcxg644hcrzr"
-                                        )
-                                        .build()
-                                )
-                                .inboundRealTimePaymentsTransferDecline(
-                                    Transaction.Source.InboundRealTimePaymentsTransferDecline
-                                        .builder()
-                                        .amount(100L)
-                                        .creditorName("Ian Crease")
-                                        .currency(
-                                            Transaction.Source
-                                                .InboundRealTimePaymentsTransferDecline
-                                                .Currency
-                                                .USD
-                                        )
-                                        .debtorAccountNumber("987654321")
-                                        .debtorName("National Phonograph Company")
-                                        .debtorRoutingNumber("101050001")
-                                        .reason(
-                                            Transaction.Source
-                                                .InboundRealTimePaymentsTransferDecline
-                                                .Reason
-                                                .ACCOUNT_NUMBER_DISABLED
-                                        )
                                         .remittanceInformation("Invoice 29582")
                                         .transactionIdentification(
                                             "20220501234567891T1BSLZO01745013025"

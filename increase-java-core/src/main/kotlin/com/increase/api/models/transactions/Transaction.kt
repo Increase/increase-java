@@ -892,8 +892,6 @@ private constructor(
             JsonField<InboundCheckDepositReturnIntention>,
         private val inboundRealTimePaymentsTransferConfirmation:
             JsonField<InboundRealTimePaymentsTransferConfirmation>,
-        private val inboundRealTimePaymentsTransferDecline:
-            JsonField<InboundRealTimePaymentsTransferDecline>,
         private val inboundWireReversal: JsonField<InboundWireReversal>,
         private val inboundWireTransfer: JsonField<InboundWireTransfer>,
         private val inboundWireTransferReversal: JsonField<InboundWireTransferReversal>,
@@ -981,11 +979,6 @@ private constructor(
             inboundRealTimePaymentsTransferConfirmation:
                 JsonField<InboundRealTimePaymentsTransferConfirmation> =
                 JsonMissing.of(),
-            @JsonProperty("inbound_real_time_payments_transfer_decline")
-            @ExcludeMissing
-            inboundRealTimePaymentsTransferDecline:
-                JsonField<InboundRealTimePaymentsTransferDecline> =
-                JsonMissing.of(),
             @JsonProperty("inbound_wire_reversal")
             @ExcludeMissing
             inboundWireReversal: JsonField<InboundWireReversal> = JsonMissing.of(),
@@ -1042,7 +1035,6 @@ private constructor(
             inboundCheckAdjustment,
             inboundCheckDepositReturnIntention,
             inboundRealTimePaymentsTransferConfirmation,
-            inboundRealTimePaymentsTransferDecline,
             inboundWireReversal,
             inboundWireTransfer,
             inboundWireTransferReversal,
@@ -1316,20 +1308,6 @@ private constructor(
             Optional<InboundRealTimePaymentsTransferConfirmation> =
             inboundRealTimePaymentsTransferConfirmation.getOptional(
                 "inbound_real_time_payments_transfer_confirmation"
-            )
-
-        /**
-         * An Inbound Real-Time Payments Transfer Decline object. This field will be present in the
-         * JSON response if and only if `category` is equal to
-         * `inbound_real_time_payments_transfer_decline`.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun inboundRealTimePaymentsTransferDecline():
-            Optional<InboundRealTimePaymentsTransferDecline> =
-            inboundRealTimePaymentsTransferDecline.getOptional(
-                "inbound_real_time_payments_transfer_decline"
             )
 
         /**
@@ -1677,18 +1655,6 @@ private constructor(
             inboundRealTimePaymentsTransferConfirmation
 
         /**
-         * Returns the raw JSON value of [inboundRealTimePaymentsTransferDecline].
-         *
-         * Unlike [inboundRealTimePaymentsTransferDecline], this method doesn't throw if the JSON
-         * field has an unexpected type.
-         */
-        @JsonProperty("inbound_real_time_payments_transfer_decline")
-        @ExcludeMissing
-        fun _inboundRealTimePaymentsTransferDecline():
-            JsonField<InboundRealTimePaymentsTransferDecline> =
-            inboundRealTimePaymentsTransferDecline
-
-        /**
          * Returns the raw JSON value of [inboundWireReversal].
          *
          * Unlike [inboundWireReversal], this method doesn't throw if the JSON field has an
@@ -1831,7 +1797,6 @@ private constructor(
              * .inboundCheckAdjustment()
              * .inboundCheckDepositReturnIntention()
              * .inboundRealTimePaymentsTransferConfirmation()
-             * .inboundRealTimePaymentsTransferDecline()
              * .inboundWireReversal()
              * .inboundWireTransfer()
              * .inboundWireTransferReversal()
@@ -1879,9 +1844,6 @@ private constructor(
             private var inboundRealTimePaymentsTransferConfirmation:
                 JsonField<InboundRealTimePaymentsTransferConfirmation>? =
                 null
-            private var inboundRealTimePaymentsTransferDecline:
-                JsonField<InboundRealTimePaymentsTransferDecline>? =
-                null
             private var inboundWireReversal: JsonField<InboundWireReversal>? = null
             private var inboundWireTransfer: JsonField<InboundWireTransfer>? = null
             private var inboundWireTransferReversal: JsonField<InboundWireTransferReversal>? = null
@@ -1922,8 +1884,6 @@ private constructor(
                 inboundCheckDepositReturnIntention = source.inboundCheckDepositReturnIntention
                 inboundRealTimePaymentsTransferConfirmation =
                     source.inboundRealTimePaymentsTransferConfirmation
-                inboundRealTimePaymentsTransferDecline =
-                    source.inboundRealTimePaymentsTransferDecline
                 inboundWireReversal = source.inboundWireReversal
                 inboundWireTransfer = source.inboundWireTransfer
                 inboundWireTransferReversal = source.inboundWireTransferReversal
@@ -2541,44 +2501,6 @@ private constructor(
             }
 
             /**
-             * An Inbound Real-Time Payments Transfer Decline object. This field will be present in
-             * the JSON response if and only if `category` is equal to
-             * `inbound_real_time_payments_transfer_decline`.
-             */
-            fun inboundRealTimePaymentsTransferDecline(
-                inboundRealTimePaymentsTransferDecline: InboundRealTimePaymentsTransferDecline?
-            ) =
-                inboundRealTimePaymentsTransferDecline(
-                    JsonField.ofNullable(inboundRealTimePaymentsTransferDecline)
-                )
-
-            /**
-             * Alias for calling [Builder.inboundRealTimePaymentsTransferDecline] with
-             * `inboundRealTimePaymentsTransferDecline.orElse(null)`.
-             */
-            fun inboundRealTimePaymentsTransferDecline(
-                inboundRealTimePaymentsTransferDecline:
-                    Optional<InboundRealTimePaymentsTransferDecline>
-            ) =
-                inboundRealTimePaymentsTransferDecline(
-                    inboundRealTimePaymentsTransferDecline.getOrNull()
-                )
-
-            /**
-             * Sets [Builder.inboundRealTimePaymentsTransferDecline] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.inboundRealTimePaymentsTransferDecline] with a
-             * well-typed [InboundRealTimePaymentsTransferDecline] value instead. This method is
-             * primarily for setting the field to an undocumented or not yet supported value.
-             */
-            fun inboundRealTimePaymentsTransferDecline(
-                inboundRealTimePaymentsTransferDecline:
-                    JsonField<InboundRealTimePaymentsTransferDecline>
-            ) = apply {
-                this.inboundRealTimePaymentsTransferDecline = inboundRealTimePaymentsTransferDecline
-            }
-
-            /**
              * An Inbound Wire Reversal object. This field will be present in the JSON response if
              * and only if `category` is equal to `inbound_wire_reversal`. An Inbound Wire Reversal
              * represents a reversal of a wire transfer that was initiated via Increase. The other
@@ -2905,7 +2827,6 @@ private constructor(
              * .inboundCheckAdjustment()
              * .inboundCheckDepositReturnIntention()
              * .inboundRealTimePaymentsTransferConfirmation()
-             * .inboundRealTimePaymentsTransferDecline()
              * .inboundWireReversal()
              * .inboundWireTransfer()
              * .inboundWireTransferReversal()
@@ -2954,10 +2875,6 @@ private constructor(
                         "inboundRealTimePaymentsTransferConfirmation",
                         inboundRealTimePaymentsTransferConfirmation,
                     ),
-                    checkRequired(
-                        "inboundRealTimePaymentsTransferDecline",
-                        inboundRealTimePaymentsTransferDecline,
-                    ),
                     checkRequired("inboundWireReversal", inboundWireReversal),
                     checkRequired("inboundWireTransfer", inboundWireTransfer),
                     checkRequired("inboundWireTransferReversal", inboundWireTransferReversal),
@@ -3005,7 +2922,6 @@ private constructor(
             inboundCheckAdjustment().ifPresent { it.validate() }
             inboundCheckDepositReturnIntention().ifPresent { it.validate() }
             inboundRealTimePaymentsTransferConfirmation().ifPresent { it.validate() }
-            inboundRealTimePaymentsTransferDecline().ifPresent { it.validate() }
             inboundWireReversal().ifPresent { it.validate() }
             inboundWireTransfer().ifPresent { it.validate() }
             inboundWireTransferReversal().ifPresent { it.validate() }
@@ -3058,7 +2974,6 @@ private constructor(
                 (inboundCheckDepositReturnIntention.asKnown().getOrNull()?.validity() ?: 0) +
                 (inboundRealTimePaymentsTransferConfirmation.asKnown().getOrNull()?.validity()
                     ?: 0) +
-                (inboundRealTimePaymentsTransferDecline.asKnown().getOrNull()?.validity() ?: 0) +
                 (inboundWireReversal.asKnown().getOrNull()?.validity() ?: 0) +
                 (inboundWireTransfer.asKnown().getOrNull()?.validity() ?: 0) +
                 (inboundWireTransferReversal.asKnown().getOrNull()?.validity() ?: 0) +
@@ -28020,14 +27935,6 @@ private constructor(
                     of("inbound_real_time_payments_transfer_confirmation")
 
                 /**
-                 * Inbound Real-Time Payments Transfer Decline: details will be under the
-                 * `inbound_real_time_payments_transfer_decline` object.
-                 */
-                @JvmField
-                val INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE =
-                    of("inbound_real_time_payments_transfer_decline")
-
-                /**
                  * Inbound Wire Reversal: details will be under the `inbound_wire_reversal` object.
                  */
                 @JvmField val INBOUND_WIRE_REVERSAL = of("inbound_wire_reversal")
@@ -28173,11 +28080,6 @@ private constructor(
                  */
                 INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION,
                 /**
-                 * Inbound Real-Time Payments Transfer Decline: details will be under the
-                 * `inbound_real_time_payments_transfer_decline` object.
-                 */
-                INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE,
-                /**
                  * Inbound Wire Reversal: details will be under the `inbound_wire_reversal` object.
                  */
                 INBOUND_WIRE_REVERSAL,
@@ -28316,11 +28218,6 @@ private constructor(
                  */
                 INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION,
                 /**
-                 * Inbound Real-Time Payments Transfer Decline: details will be under the
-                 * `inbound_real_time_payments_transfer_decline` object.
-                 */
-                INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE,
-                /**
                  * Inbound Wire Reversal: details will be under the `inbound_wire_reversal` object.
                  */
                 INBOUND_WIRE_REVERSAL,
@@ -28404,8 +28301,6 @@ private constructor(
                     INBOUND_CHECK_ADJUSTMENT -> Value.INBOUND_CHECK_ADJUSTMENT
                     INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION ->
                         Value.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION
-                    INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE ->
-                        Value.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE
                     INBOUND_WIRE_REVERSAL -> Value.INBOUND_WIRE_REVERSAL
                     INBOUND_WIRE_TRANSFER -> Value.INBOUND_WIRE_TRANSFER
                     INBOUND_WIRE_TRANSFER_REVERSAL -> Value.INBOUND_WIRE_TRANSFER_REVERSAL
@@ -28456,8 +28351,6 @@ private constructor(
                     INBOUND_CHECK_ADJUSTMENT -> Known.INBOUND_CHECK_ADJUSTMENT
                     INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION ->
                         Known.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION
-                    INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE ->
-                        Known.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE
                     INBOUND_WIRE_REVERSAL -> Known.INBOUND_WIRE_REVERSAL
                     INBOUND_WIRE_TRANSFER -> Known.INBOUND_WIRE_TRANSFER
                     INBOUND_WIRE_TRANSFER_REVERSAL -> Known.INBOUND_WIRE_TRANSFER_REVERSAL
@@ -34492,984 +34385,6 @@ private constructor(
         }
 
         /**
-         * An Inbound Real-Time Payments Transfer Decline object. This field will be present in the
-         * JSON response if and only if `category` is equal to
-         * `inbound_real_time_payments_transfer_decline`.
-         */
-        class InboundRealTimePaymentsTransferDecline
-        private constructor(
-            private val amount: JsonField<Long>,
-            private val creditorName: JsonField<String>,
-            private val currency: JsonField<Currency>,
-            private val debtorAccountNumber: JsonField<String>,
-            private val debtorName: JsonField<String>,
-            private val debtorRoutingNumber: JsonField<String>,
-            private val reason: JsonField<Reason>,
-            private val remittanceInformation: JsonField<String>,
-            private val transactionIdentification: JsonField<String>,
-            private val transferId: JsonField<String>,
-            private val additionalProperties: MutableMap<String, JsonValue>,
-        ) {
-
-            @JsonCreator
-            private constructor(
-                @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
-                @JsonProperty("creditor_name")
-                @ExcludeMissing
-                creditorName: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("currency")
-                @ExcludeMissing
-                currency: JsonField<Currency> = JsonMissing.of(),
-                @JsonProperty("debtor_account_number")
-                @ExcludeMissing
-                debtorAccountNumber: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("debtor_name")
-                @ExcludeMissing
-                debtorName: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("debtor_routing_number")
-                @ExcludeMissing
-                debtorRoutingNumber: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("reason")
-                @ExcludeMissing
-                reason: JsonField<Reason> = JsonMissing.of(),
-                @JsonProperty("remittance_information")
-                @ExcludeMissing
-                remittanceInformation: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("transaction_identification")
-                @ExcludeMissing
-                transactionIdentification: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("transfer_id")
-                @ExcludeMissing
-                transferId: JsonField<String> = JsonMissing.of(),
-            ) : this(
-                amount,
-                creditorName,
-                currency,
-                debtorAccountNumber,
-                debtorName,
-                debtorRoutingNumber,
-                reason,
-                remittanceInformation,
-                transactionIdentification,
-                transferId,
-                mutableMapOf(),
-            )
-
-            /**
-             * The declined amount in the minor unit of the destination account currency. For
-             * dollars, for example, this is cents.
-             *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
-             */
-            fun amount(): Long = amount.getRequired("amount")
-
-            /**
-             * The name the sender of the transfer specified as the recipient of the transfer.
-             *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
-             */
-            fun creditorName(): String = creditorName.getRequired("creditor_name")
-
-            /**
-             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code of the declined
-             * transfer's currency. This will always be "USD" for a Real-Time Payments transfer.
-             *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
-             */
-            fun currency(): Currency = currency.getRequired("currency")
-
-            /**
-             * The account number of the account that sent the transfer.
-             *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
-             */
-            fun debtorAccountNumber(): String =
-                debtorAccountNumber.getRequired("debtor_account_number")
-
-            /**
-             * The name provided by the sender of the transfer.
-             *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
-             */
-            fun debtorName(): String = debtorName.getRequired("debtor_name")
-
-            /**
-             * The routing number of the account that sent the transfer.
-             *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
-             */
-            fun debtorRoutingNumber(): String =
-                debtorRoutingNumber.getRequired("debtor_routing_number")
-
-            /**
-             * Why the transfer was declined.
-             *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
-             */
-            fun reason(): Reason = reason.getRequired("reason")
-
-            /**
-             * Additional information included with the transfer.
-             *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
-             *   if the server responded with an unexpected value).
-             */
-            fun remittanceInformation(): Optional<String> =
-                remittanceInformation.getOptional("remittance_information")
-
-            /**
-             * The Real-Time Payments network identification of the declined transfer.
-             *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
-             */
-            fun transactionIdentification(): String =
-                transactionIdentification.getRequired("transaction_identification")
-
-            /**
-             * The identifier of the Real-Time Payments Transfer that led to this Transaction.
-             *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
-             */
-            fun transferId(): String = transferId.getRequired("transfer_id")
-
-            /**
-             * Returns the raw JSON value of [amount].
-             *
-             * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
-
-            /**
-             * Returns the raw JSON value of [creditorName].
-             *
-             * Unlike [creditorName], this method doesn't throw if the JSON field has an unexpected
-             * type.
-             */
-            @JsonProperty("creditor_name")
-            @ExcludeMissing
-            fun _creditorName(): JsonField<String> = creditorName
-
-            /**
-             * Returns the raw JSON value of [currency].
-             *
-             * Unlike [currency], this method doesn't throw if the JSON field has an unexpected
-             * type.
-             */
-            @JsonProperty("currency")
-            @ExcludeMissing
-            fun _currency(): JsonField<Currency> = currency
-
-            /**
-             * Returns the raw JSON value of [debtorAccountNumber].
-             *
-             * Unlike [debtorAccountNumber], this method doesn't throw if the JSON field has an
-             * unexpected type.
-             */
-            @JsonProperty("debtor_account_number")
-            @ExcludeMissing
-            fun _debtorAccountNumber(): JsonField<String> = debtorAccountNumber
-
-            /**
-             * Returns the raw JSON value of [debtorName].
-             *
-             * Unlike [debtorName], this method doesn't throw if the JSON field has an unexpected
-             * type.
-             */
-            @JsonProperty("debtor_name")
-            @ExcludeMissing
-            fun _debtorName(): JsonField<String> = debtorName
-
-            /**
-             * Returns the raw JSON value of [debtorRoutingNumber].
-             *
-             * Unlike [debtorRoutingNumber], this method doesn't throw if the JSON field has an
-             * unexpected type.
-             */
-            @JsonProperty("debtor_routing_number")
-            @ExcludeMissing
-            fun _debtorRoutingNumber(): JsonField<String> = debtorRoutingNumber
-
-            /**
-             * Returns the raw JSON value of [reason].
-             *
-             * Unlike [reason], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("reason") @ExcludeMissing fun _reason(): JsonField<Reason> = reason
-
-            /**
-             * Returns the raw JSON value of [remittanceInformation].
-             *
-             * Unlike [remittanceInformation], this method doesn't throw if the JSON field has an
-             * unexpected type.
-             */
-            @JsonProperty("remittance_information")
-            @ExcludeMissing
-            fun _remittanceInformation(): JsonField<String> = remittanceInformation
-
-            /**
-             * Returns the raw JSON value of [transactionIdentification].
-             *
-             * Unlike [transactionIdentification], this method doesn't throw if the JSON field has
-             * an unexpected type.
-             */
-            @JsonProperty("transaction_identification")
-            @ExcludeMissing
-            fun _transactionIdentification(): JsonField<String> = transactionIdentification
-
-            /**
-             * Returns the raw JSON value of [transferId].
-             *
-             * Unlike [transferId], this method doesn't throw if the JSON field has an unexpected
-             * type.
-             */
-            @JsonProperty("transfer_id")
-            @ExcludeMissing
-            fun _transferId(): JsonField<String> = transferId
-
-            @JsonAnySetter
-            private fun putAdditionalProperty(key: String, value: JsonValue) {
-                additionalProperties.put(key, value)
-            }
-
-            @JsonAnyGetter
-            @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> =
-                Collections.unmodifiableMap(additionalProperties)
-
-            fun toBuilder() = Builder().from(this)
-
-            companion object {
-
-                /**
-                 * Returns a mutable builder for constructing an instance of
-                 * [InboundRealTimePaymentsTransferDecline].
-                 *
-                 * The following fields are required:
-                 * ```java
-                 * .amount()
-                 * .creditorName()
-                 * .currency()
-                 * .debtorAccountNumber()
-                 * .debtorName()
-                 * .debtorRoutingNumber()
-                 * .reason()
-                 * .remittanceInformation()
-                 * .transactionIdentification()
-                 * .transferId()
-                 * ```
-                 */
-                @JvmStatic fun builder() = Builder()
-            }
-
-            /** A builder for [InboundRealTimePaymentsTransferDecline]. */
-            class Builder internal constructor() {
-
-                private var amount: JsonField<Long>? = null
-                private var creditorName: JsonField<String>? = null
-                private var currency: JsonField<Currency>? = null
-                private var debtorAccountNumber: JsonField<String>? = null
-                private var debtorName: JsonField<String>? = null
-                private var debtorRoutingNumber: JsonField<String>? = null
-                private var reason: JsonField<Reason>? = null
-                private var remittanceInformation: JsonField<String>? = null
-                private var transactionIdentification: JsonField<String>? = null
-                private var transferId: JsonField<String>? = null
-                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                @JvmSynthetic
-                internal fun from(
-                    inboundRealTimePaymentsTransferDecline: InboundRealTimePaymentsTransferDecline
-                ) = apply {
-                    amount = inboundRealTimePaymentsTransferDecline.amount
-                    creditorName = inboundRealTimePaymentsTransferDecline.creditorName
-                    currency = inboundRealTimePaymentsTransferDecline.currency
-                    debtorAccountNumber = inboundRealTimePaymentsTransferDecline.debtorAccountNumber
-                    debtorName = inboundRealTimePaymentsTransferDecline.debtorName
-                    debtorRoutingNumber = inboundRealTimePaymentsTransferDecline.debtorRoutingNumber
-                    reason = inboundRealTimePaymentsTransferDecline.reason
-                    remittanceInformation =
-                        inboundRealTimePaymentsTransferDecline.remittanceInformation
-                    transactionIdentification =
-                        inboundRealTimePaymentsTransferDecline.transactionIdentification
-                    transferId = inboundRealTimePaymentsTransferDecline.transferId
-                    additionalProperties =
-                        inboundRealTimePaymentsTransferDecline.additionalProperties.toMutableMap()
-                }
-
-                /**
-                 * The declined amount in the minor unit of the destination account currency. For
-                 * dollars, for example, this is cents.
-                 */
-                fun amount(amount: Long) = amount(JsonField.of(amount))
-
-                /**
-                 * Sets [Builder.amount] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.amount] with a well-typed [Long] value instead.
-                 * This method is primarily for setting the field to an undocumented or not yet
-                 * supported value.
-                 */
-                fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
-
-                /**
-                 * The name the sender of the transfer specified as the recipient of the transfer.
-                 */
-                fun creditorName(creditorName: String) = creditorName(JsonField.of(creditorName))
-
-                /**
-                 * Sets [Builder.creditorName] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.creditorName] with a well-typed [String] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun creditorName(creditorName: JsonField<String>) = apply {
-                    this.creditorName = creditorName
-                }
-
-                /**
-                 * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code of the declined
-                 * transfer's currency. This will always be "USD" for a Real-Time Payments transfer.
-                 */
-                fun currency(currency: Currency) = currency(JsonField.of(currency))
-
-                /**
-                 * Sets [Builder.currency] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.currency] with a well-typed [Currency] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
-
-                /** The account number of the account that sent the transfer. */
-                fun debtorAccountNumber(debtorAccountNumber: String) =
-                    debtorAccountNumber(JsonField.of(debtorAccountNumber))
-
-                /**
-                 * Sets [Builder.debtorAccountNumber] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.debtorAccountNumber] with a well-typed [String]
-                 * value instead. This method is primarily for setting the field to an undocumented
-                 * or not yet supported value.
-                 */
-                fun debtorAccountNumber(debtorAccountNumber: JsonField<String>) = apply {
-                    this.debtorAccountNumber = debtorAccountNumber
-                }
-
-                /** The name provided by the sender of the transfer. */
-                fun debtorName(debtorName: String) = debtorName(JsonField.of(debtorName))
-
-                /**
-                 * Sets [Builder.debtorName] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.debtorName] with a well-typed [String] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun debtorName(debtorName: JsonField<String>) = apply {
-                    this.debtorName = debtorName
-                }
-
-                /** The routing number of the account that sent the transfer. */
-                fun debtorRoutingNumber(debtorRoutingNumber: String) =
-                    debtorRoutingNumber(JsonField.of(debtorRoutingNumber))
-
-                /**
-                 * Sets [Builder.debtorRoutingNumber] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.debtorRoutingNumber] with a well-typed [String]
-                 * value instead. This method is primarily for setting the field to an undocumented
-                 * or not yet supported value.
-                 */
-                fun debtorRoutingNumber(debtorRoutingNumber: JsonField<String>) = apply {
-                    this.debtorRoutingNumber = debtorRoutingNumber
-                }
-
-                /** Why the transfer was declined. */
-                fun reason(reason: Reason) = reason(JsonField.of(reason))
-
-                /**
-                 * Sets [Builder.reason] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.reason] with a well-typed [Reason] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun reason(reason: JsonField<Reason>) = apply { this.reason = reason }
-
-                /** Additional information included with the transfer. */
-                fun remittanceInformation(remittanceInformation: String?) =
-                    remittanceInformation(JsonField.ofNullable(remittanceInformation))
-
-                /**
-                 * Alias for calling [Builder.remittanceInformation] with
-                 * `remittanceInformation.orElse(null)`.
-                 */
-                fun remittanceInformation(remittanceInformation: Optional<String>) =
-                    remittanceInformation(remittanceInformation.getOrNull())
-
-                /**
-                 * Sets [Builder.remittanceInformation] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.remittanceInformation] with a well-typed
-                 * [String] value instead. This method is primarily for setting the field to an
-                 * undocumented or not yet supported value.
-                 */
-                fun remittanceInformation(remittanceInformation: JsonField<String>) = apply {
-                    this.remittanceInformation = remittanceInformation
-                }
-
-                /** The Real-Time Payments network identification of the declined transfer. */
-                fun transactionIdentification(transactionIdentification: String) =
-                    transactionIdentification(JsonField.of(transactionIdentification))
-
-                /**
-                 * Sets [Builder.transactionIdentification] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.transactionIdentification] with a well-typed
-                 * [String] value instead. This method is primarily for setting the field to an
-                 * undocumented or not yet supported value.
-                 */
-                fun transactionIdentification(transactionIdentification: JsonField<String>) =
-                    apply {
-                        this.transactionIdentification = transactionIdentification
-                    }
-
-                /**
-                 * The identifier of the Real-Time Payments Transfer that led to this Transaction.
-                 */
-                fun transferId(transferId: String) = transferId(JsonField.of(transferId))
-
-                /**
-                 * Sets [Builder.transferId] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.transferId] with a well-typed [String] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun transferId(transferId: JsonField<String>) = apply {
-                    this.transferId = transferId
-                }
-
-                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                    this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
-                }
-
-                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    additionalProperties.put(key, value)
-                }
-
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                    apply {
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
-
-                fun removeAdditionalProperty(key: String) = apply {
-                    additionalProperties.remove(key)
-                }
-
-                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
-
-                /**
-                 * Returns an immutable instance of [InboundRealTimePaymentsTransferDecline].
-                 *
-                 * Further updates to this [Builder] will not mutate the returned instance.
-                 *
-                 * The following fields are required:
-                 * ```java
-                 * .amount()
-                 * .creditorName()
-                 * .currency()
-                 * .debtorAccountNumber()
-                 * .debtorName()
-                 * .debtorRoutingNumber()
-                 * .reason()
-                 * .remittanceInformation()
-                 * .transactionIdentification()
-                 * .transferId()
-                 * ```
-                 *
-                 * @throws IllegalStateException if any required field is unset.
-                 */
-                fun build(): InboundRealTimePaymentsTransferDecline =
-                    InboundRealTimePaymentsTransferDecline(
-                        checkRequired("amount", amount),
-                        checkRequired("creditorName", creditorName),
-                        checkRequired("currency", currency),
-                        checkRequired("debtorAccountNumber", debtorAccountNumber),
-                        checkRequired("debtorName", debtorName),
-                        checkRequired("debtorRoutingNumber", debtorRoutingNumber),
-                        checkRequired("reason", reason),
-                        checkRequired("remittanceInformation", remittanceInformation),
-                        checkRequired("transactionIdentification", transactionIdentification),
-                        checkRequired("transferId", transferId),
-                        additionalProperties.toMutableMap(),
-                    )
-            }
-
-            private var validated: Boolean = false
-
-            fun validate(): InboundRealTimePaymentsTransferDecline = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                amount()
-                creditorName()
-                currency().validate()
-                debtorAccountNumber()
-                debtorName()
-                debtorRoutingNumber()
-                reason().validate()
-                remittanceInformation()
-                transactionIdentification()
-                transferId()
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: IncreaseInvalidDataException) {
-                    false
-                }
-
-            /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
-             *
-             * Used for best match union deserialization.
-             */
-            @JvmSynthetic
-            internal fun validity(): Int =
-                (if (amount.asKnown().isPresent) 1 else 0) +
-                    (if (creditorName.asKnown().isPresent) 1 else 0) +
-                    (currency.asKnown().getOrNull()?.validity() ?: 0) +
-                    (if (debtorAccountNumber.asKnown().isPresent) 1 else 0) +
-                    (if (debtorName.asKnown().isPresent) 1 else 0) +
-                    (if (debtorRoutingNumber.asKnown().isPresent) 1 else 0) +
-                    (reason.asKnown().getOrNull()?.validity() ?: 0) +
-                    (if (remittanceInformation.asKnown().isPresent) 1 else 0) +
-                    (if (transactionIdentification.asKnown().isPresent) 1 else 0) +
-                    (if (transferId.asKnown().isPresent) 1 else 0)
-
-            /**
-             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code of the declined
-             * transfer's currency. This will always be "USD" for a Real-Time Payments transfer.
-             */
-            class Currency @JsonCreator private constructor(private val value: JsonField<String>) :
-                Enum {
-
-                /**
-                 * Returns this class instance's raw value.
-                 *
-                 * This is usually only useful if this instance was deserialized from data that
-                 * doesn't match any known member, and you want to know that value. For example, if
-                 * the SDK is on an older version than the API, then the API may respond with new
-                 * members that the SDK is unaware of.
-                 */
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-                companion object {
-
-                    /** Canadian Dollar (CAD) */
-                    @JvmField val CAD = of("CAD")
-
-                    /** Swiss Franc (CHF) */
-                    @JvmField val CHF = of("CHF")
-
-                    /** Euro (EUR) */
-                    @JvmField val EUR = of("EUR")
-
-                    /** British Pound (GBP) */
-                    @JvmField val GBP = of("GBP")
-
-                    /** Japanese Yen (JPY) */
-                    @JvmField val JPY = of("JPY")
-
-                    /** US Dollar (USD) */
-                    @JvmField val USD = of("USD")
-
-                    @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
-                }
-
-                /** An enum containing [Currency]'s known values. */
-                enum class Known {
-                    /** Canadian Dollar (CAD) */
-                    CAD,
-                    /** Swiss Franc (CHF) */
-                    CHF,
-                    /** Euro (EUR) */
-                    EUR,
-                    /** British Pound (GBP) */
-                    GBP,
-                    /** Japanese Yen (JPY) */
-                    JPY,
-                    /** US Dollar (USD) */
-                    USD,
-                }
-
-                /**
-                 * An enum containing [Currency]'s known values, as well as an [_UNKNOWN] member.
-                 *
-                 * An instance of [Currency] can contain an unknown value in a couple of cases:
-                 * - It was deserialized from data that doesn't match any known member. For example,
-                 *   if the SDK is on an older version than the API, then the API may respond with
-                 *   new members that the SDK is unaware of.
-                 * - It was constructed with an arbitrary value using the [of] method.
-                 */
-                enum class Value {
-                    /** Canadian Dollar (CAD) */
-                    CAD,
-                    /** Swiss Franc (CHF) */
-                    CHF,
-                    /** Euro (EUR) */
-                    EUR,
-                    /** British Pound (GBP) */
-                    GBP,
-                    /** Japanese Yen (JPY) */
-                    JPY,
-                    /** US Dollar (USD) */
-                    USD,
-                    /**
-                     * An enum member indicating that [Currency] was instantiated with an unknown
-                     * value.
-                     */
-                    _UNKNOWN,
-                }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value, or
-                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-                 *
-                 * Use the [known] method instead if you're certain the value is always known or if
-                 * you want to throw for the unknown case.
-                 */
-                fun value(): Value =
-                    when (this) {
-                        CAD -> Value.CAD
-                        CHF -> Value.CHF
-                        EUR -> Value.EUR
-                        GBP -> Value.GBP
-                        JPY -> Value.JPY
-                        USD -> Value.USD
-                        else -> Value._UNKNOWN
-                    }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value.
-                 *
-                 * Use the [value] method instead if you're uncertain the value is always known and
-                 * don't want to throw for the unknown case.
-                 *
-                 * @throws IncreaseInvalidDataException if this class instance's value is a not a
-                 *   known member.
-                 */
-                fun known(): Known =
-                    when (this) {
-                        CAD -> Known.CAD
-                        CHF -> Known.CHF
-                        EUR -> Known.EUR
-                        GBP -> Known.GBP
-                        JPY -> Known.JPY
-                        USD -> Known.USD
-                        else -> throw IncreaseInvalidDataException("Unknown Currency: $value")
-                    }
-
-                /**
-                 * Returns this class instance's primitive wire representation.
-                 *
-                 * This differs from the [toString] method because that method is primarily for
-                 * debugging and generally doesn't throw.
-                 *
-                 * @throws IncreaseInvalidDataException if this class instance's value does not have
-                 *   the expected primitive type.
-                 */
-                fun asString(): String =
-                    _value().asString().orElseThrow {
-                        IncreaseInvalidDataException("Value is not a String")
-                    }
-
-                private var validated: Boolean = false
-
-                fun validate(): Currency = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    known()
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: IncreaseInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is Currency && value == other.value
-                }
-
-                override fun hashCode() = value.hashCode()
-
-                override fun toString() = value.toString()
-            }
-
-            /** Why the transfer was declined. */
-            class Reason @JsonCreator private constructor(private val value: JsonField<String>) :
-                Enum {
-
-                /**
-                 * Returns this class instance's raw value.
-                 *
-                 * This is usually only useful if this instance was deserialized from data that
-                 * doesn't match any known member, and you want to know that value. For example, if
-                 * the SDK is on an older version than the API, then the API may respond with new
-                 * members that the SDK is unaware of.
-                 */
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-                companion object {
-
-                    /** The account number is canceled. */
-                    @JvmField val ACCOUNT_NUMBER_CANCELED = of("account_number_canceled")
-
-                    /** The account number is disabled. */
-                    @JvmField val ACCOUNT_NUMBER_DISABLED = of("account_number_disabled")
-
-                    /** Your account is restricted. */
-                    @JvmField val ACCOUNT_RESTRICTED = of("account_restricted")
-
-                    /** Your account is inactive. */
-                    @JvmField val GROUP_LOCKED = of("group_locked")
-
-                    /** The account's entity is not active. */
-                    @JvmField val ENTITY_NOT_ACTIVE = of("entity_not_active")
-
-                    /** Your account is not enabled to receive Real-Time Payments transfers. */
-                    @JvmField
-                    val REAL_TIME_PAYMENTS_NOT_ENABLED = of("real_time_payments_not_enabled")
-
-                    @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
-                }
-
-                /** An enum containing [Reason]'s known values. */
-                enum class Known {
-                    /** The account number is canceled. */
-                    ACCOUNT_NUMBER_CANCELED,
-                    /** The account number is disabled. */
-                    ACCOUNT_NUMBER_DISABLED,
-                    /** Your account is restricted. */
-                    ACCOUNT_RESTRICTED,
-                    /** Your account is inactive. */
-                    GROUP_LOCKED,
-                    /** The account's entity is not active. */
-                    ENTITY_NOT_ACTIVE,
-                    /** Your account is not enabled to receive Real-Time Payments transfers. */
-                    REAL_TIME_PAYMENTS_NOT_ENABLED,
-                }
-
-                /**
-                 * An enum containing [Reason]'s known values, as well as an [_UNKNOWN] member.
-                 *
-                 * An instance of [Reason] can contain an unknown value in a couple of cases:
-                 * - It was deserialized from data that doesn't match any known member. For example,
-                 *   if the SDK is on an older version than the API, then the API may respond with
-                 *   new members that the SDK is unaware of.
-                 * - It was constructed with an arbitrary value using the [of] method.
-                 */
-                enum class Value {
-                    /** The account number is canceled. */
-                    ACCOUNT_NUMBER_CANCELED,
-                    /** The account number is disabled. */
-                    ACCOUNT_NUMBER_DISABLED,
-                    /** Your account is restricted. */
-                    ACCOUNT_RESTRICTED,
-                    /** Your account is inactive. */
-                    GROUP_LOCKED,
-                    /** The account's entity is not active. */
-                    ENTITY_NOT_ACTIVE,
-                    /** Your account is not enabled to receive Real-Time Payments transfers. */
-                    REAL_TIME_PAYMENTS_NOT_ENABLED,
-                    /**
-                     * An enum member indicating that [Reason] was instantiated with an unknown
-                     * value.
-                     */
-                    _UNKNOWN,
-                }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value, or
-                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-                 *
-                 * Use the [known] method instead if you're certain the value is always known or if
-                 * you want to throw for the unknown case.
-                 */
-                fun value(): Value =
-                    when (this) {
-                        ACCOUNT_NUMBER_CANCELED -> Value.ACCOUNT_NUMBER_CANCELED
-                        ACCOUNT_NUMBER_DISABLED -> Value.ACCOUNT_NUMBER_DISABLED
-                        ACCOUNT_RESTRICTED -> Value.ACCOUNT_RESTRICTED
-                        GROUP_LOCKED -> Value.GROUP_LOCKED
-                        ENTITY_NOT_ACTIVE -> Value.ENTITY_NOT_ACTIVE
-                        REAL_TIME_PAYMENTS_NOT_ENABLED -> Value.REAL_TIME_PAYMENTS_NOT_ENABLED
-                        else -> Value._UNKNOWN
-                    }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value.
-                 *
-                 * Use the [value] method instead if you're uncertain the value is always known and
-                 * don't want to throw for the unknown case.
-                 *
-                 * @throws IncreaseInvalidDataException if this class instance's value is a not a
-                 *   known member.
-                 */
-                fun known(): Known =
-                    when (this) {
-                        ACCOUNT_NUMBER_CANCELED -> Known.ACCOUNT_NUMBER_CANCELED
-                        ACCOUNT_NUMBER_DISABLED -> Known.ACCOUNT_NUMBER_DISABLED
-                        ACCOUNT_RESTRICTED -> Known.ACCOUNT_RESTRICTED
-                        GROUP_LOCKED -> Known.GROUP_LOCKED
-                        ENTITY_NOT_ACTIVE -> Known.ENTITY_NOT_ACTIVE
-                        REAL_TIME_PAYMENTS_NOT_ENABLED -> Known.REAL_TIME_PAYMENTS_NOT_ENABLED
-                        else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
-                    }
-
-                /**
-                 * Returns this class instance's primitive wire representation.
-                 *
-                 * This differs from the [toString] method because that method is primarily for
-                 * debugging and generally doesn't throw.
-                 *
-                 * @throws IncreaseInvalidDataException if this class instance's value does not have
-                 *   the expected primitive type.
-                 */
-                fun asString(): String =
-                    _value().asString().orElseThrow {
-                        IncreaseInvalidDataException("Value is not a String")
-                    }
-
-                private var validated: Boolean = false
-
-                fun validate(): Reason = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    known()
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: IncreaseInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is Reason && value == other.value
-                }
-
-                override fun hashCode() = value.hashCode()
-
-                override fun toString() = value.toString()
-            }
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is InboundRealTimePaymentsTransferDecline &&
-                    amount == other.amount &&
-                    creditorName == other.creditorName &&
-                    currency == other.currency &&
-                    debtorAccountNumber == other.debtorAccountNumber &&
-                    debtorName == other.debtorName &&
-                    debtorRoutingNumber == other.debtorRoutingNumber &&
-                    reason == other.reason &&
-                    remittanceInformation == other.remittanceInformation &&
-                    transactionIdentification == other.transactionIdentification &&
-                    transferId == other.transferId &&
-                    additionalProperties == other.additionalProperties
-            }
-
-            private val hashCode: Int by lazy {
-                Objects.hash(
-                    amount,
-                    creditorName,
-                    currency,
-                    debtorAccountNumber,
-                    debtorName,
-                    debtorRoutingNumber,
-                    reason,
-                    remittanceInformation,
-                    transactionIdentification,
-                    transferId,
-                    additionalProperties,
-                )
-            }
-
-            override fun hashCode(): Int = hashCode
-
-            override fun toString() =
-                "InboundRealTimePaymentsTransferDecline{amount=$amount, creditorName=$creditorName, currency=$currency, debtorAccountNumber=$debtorAccountNumber, debtorName=$debtorName, debtorRoutingNumber=$debtorRoutingNumber, reason=$reason, remittanceInformation=$remittanceInformation, transactionIdentification=$transactionIdentification, transferId=$transferId, additionalProperties=$additionalProperties}"
-        }
-
-        /**
          * An Inbound Wire Reversal object. This field will be present in the JSON response if and
          * only if `category` is equal to `inbound_wire_reversal`. An Inbound Wire Reversal
          * represents a reversal of a wire transfer that was initiated via Increase. The other bank
@@ -40453,8 +39368,6 @@ private constructor(
                 inboundCheckDepositReturnIntention == other.inboundCheckDepositReturnIntention &&
                 inboundRealTimePaymentsTransferConfirmation ==
                     other.inboundRealTimePaymentsTransferConfirmation &&
-                inboundRealTimePaymentsTransferDecline ==
-                    other.inboundRealTimePaymentsTransferDecline &&
                 inboundWireReversal == other.inboundWireReversal &&
                 inboundWireTransfer == other.inboundWireTransfer &&
                 inboundWireTransferReversal == other.inboundWireTransferReversal &&
@@ -40494,7 +39407,6 @@ private constructor(
                 inboundCheckAdjustment,
                 inboundCheckDepositReturnIntention,
                 inboundRealTimePaymentsTransferConfirmation,
-                inboundRealTimePaymentsTransferDecline,
                 inboundWireReversal,
                 inboundWireTransfer,
                 inboundWireTransferReversal,
@@ -40513,7 +39425,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Source{accountTransferIntention=$accountTransferIntention, achTransferIntention=$achTransferIntention, achTransferRejection=$achTransferRejection, achTransferReturn=$achTransferReturn, cardDisputeAcceptance=$cardDisputeAcceptance, cardDisputeFinancial=$cardDisputeFinancial, cardDisputeLoss=$cardDisputeLoss, cardPushTransferAcceptance=$cardPushTransferAcceptance, cardRefund=$cardRefund, cardRevenuePayment=$cardRevenuePayment, cardSettlement=$cardSettlement, cashbackPayment=$cashbackPayment, category=$category, checkDepositAcceptance=$checkDepositAcceptance, checkDepositReturn=$checkDepositReturn, checkTransferDeposit=$checkTransferDeposit, feePayment=$feePayment, inboundAchTransfer=$inboundAchTransfer, inboundAchTransferReturnIntention=$inboundAchTransferReturnIntention, inboundCheckAdjustment=$inboundCheckAdjustment, inboundCheckDepositReturnIntention=$inboundCheckDepositReturnIntention, inboundRealTimePaymentsTransferConfirmation=$inboundRealTimePaymentsTransferConfirmation, inboundRealTimePaymentsTransferDecline=$inboundRealTimePaymentsTransferDecline, inboundWireReversal=$inboundWireReversal, inboundWireTransfer=$inboundWireTransfer, inboundWireTransferReversal=$inboundWireTransferReversal, interestPayment=$interestPayment, internalSource=$internalSource, other=$other, realTimePaymentsTransferAcknowledgement=$realTimePaymentsTransferAcknowledgement, sampleFunds=$sampleFunds, swiftTransferIntention=$swiftTransferIntention, swiftTransferReturn=$swiftTransferReturn, wireTransferIntention=$wireTransferIntention, additionalProperties=$additionalProperties}"
+            "Source{accountTransferIntention=$accountTransferIntention, achTransferIntention=$achTransferIntention, achTransferRejection=$achTransferRejection, achTransferReturn=$achTransferReturn, cardDisputeAcceptance=$cardDisputeAcceptance, cardDisputeFinancial=$cardDisputeFinancial, cardDisputeLoss=$cardDisputeLoss, cardPushTransferAcceptance=$cardPushTransferAcceptance, cardRefund=$cardRefund, cardRevenuePayment=$cardRevenuePayment, cardSettlement=$cardSettlement, cashbackPayment=$cashbackPayment, category=$category, checkDepositAcceptance=$checkDepositAcceptance, checkDepositReturn=$checkDepositReturn, checkTransferDeposit=$checkTransferDeposit, feePayment=$feePayment, inboundAchTransfer=$inboundAchTransfer, inboundAchTransferReturnIntention=$inboundAchTransferReturnIntention, inboundCheckAdjustment=$inboundCheckAdjustment, inboundCheckDepositReturnIntention=$inboundCheckDepositReturnIntention, inboundRealTimePaymentsTransferConfirmation=$inboundRealTimePaymentsTransferConfirmation, inboundWireReversal=$inboundWireReversal, inboundWireTransfer=$inboundWireTransfer, inboundWireTransferReversal=$inboundWireTransferReversal, interestPayment=$interestPayment, internalSource=$internalSource, other=$other, realTimePaymentsTransferAcknowledgement=$realTimePaymentsTransferAcknowledgement, sampleFunds=$sampleFunds, swiftTransferIntention=$swiftTransferIntention, swiftTransferReturn=$swiftTransferReturn, wireTransferIntention=$wireTransferIntention, additionalProperties=$additionalProperties}"
     }
 
     /**
