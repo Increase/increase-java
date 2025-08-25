@@ -24,4 +24,19 @@ internal class WireDrawdownRequestServiceTest {
 
         wireDrawdownRequest.validate()
     }
+
+    @Test
+    fun submit() {
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val wireDrawdownRequestService = client.simulations().wireDrawdownRequests()
+
+        val wireDrawdownRequest =
+            wireDrawdownRequestService.submit("wire_drawdown_request_q6lmocus3glo0lr2bfv3")
+
+        wireDrawdownRequest.validate()
+    }
 }

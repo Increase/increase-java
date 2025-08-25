@@ -6,6 +6,7 @@ import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.simulations.wiredrawdownrequests.WireDrawdownRequestRefuseParams
+import com.increase.api.models.simulations.wiredrawdownrequests.WireDrawdownRequestSubmitParams
 import com.increase.api.models.wiredrawdownrequests.WireDrawdownRequest
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -62,6 +63,45 @@ interface WireDrawdownRequestServiceAsync {
         requestOptions: RequestOptions,
     ): CompletableFuture<WireDrawdownRequest> =
         refuse(wireDrawdownRequestId, WireDrawdownRequestRefuseParams.none(), requestOptions)
+
+    /** Simulates a Wire Drawdown Request being submitted to Fedwire. */
+    fun submit(wireDrawdownRequestId: String): CompletableFuture<WireDrawdownRequest> =
+        submit(wireDrawdownRequestId, WireDrawdownRequestSubmitParams.none())
+
+    /** @see submit */
+    fun submit(
+        wireDrawdownRequestId: String,
+        params: WireDrawdownRequestSubmitParams = WireDrawdownRequestSubmitParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<WireDrawdownRequest> =
+        submit(
+            params.toBuilder().wireDrawdownRequestId(wireDrawdownRequestId).build(),
+            requestOptions,
+        )
+
+    /** @see submit */
+    fun submit(
+        wireDrawdownRequestId: String,
+        params: WireDrawdownRequestSubmitParams = WireDrawdownRequestSubmitParams.none(),
+    ): CompletableFuture<WireDrawdownRequest> =
+        submit(wireDrawdownRequestId, params, RequestOptions.none())
+
+    /** @see submit */
+    fun submit(
+        params: WireDrawdownRequestSubmitParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<WireDrawdownRequest>
+
+    /** @see submit */
+    fun submit(params: WireDrawdownRequestSubmitParams): CompletableFuture<WireDrawdownRequest> =
+        submit(params, RequestOptions.none())
+
+    /** @see submit */
+    fun submit(
+        wireDrawdownRequestId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<WireDrawdownRequest> =
+        submit(wireDrawdownRequestId, WireDrawdownRequestSubmitParams.none(), requestOptions)
 
     /**
      * A view of [WireDrawdownRequestServiceAsync] that provides access to raw HTTP responses for
@@ -124,5 +164,52 @@ interface WireDrawdownRequestServiceAsync {
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<WireDrawdownRequest>> =
             refuse(wireDrawdownRequestId, WireDrawdownRequestRefuseParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post
+         * /simulations/wire_drawdown_requests/{wire_drawdown_request_id}/submit`, but is otherwise
+         * the same as [WireDrawdownRequestServiceAsync.submit].
+         */
+        fun submit(
+            wireDrawdownRequestId: String
+        ): CompletableFuture<HttpResponseFor<WireDrawdownRequest>> =
+            submit(wireDrawdownRequestId, WireDrawdownRequestSubmitParams.none())
+
+        /** @see submit */
+        fun submit(
+            wireDrawdownRequestId: String,
+            params: WireDrawdownRequestSubmitParams = WireDrawdownRequestSubmitParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<WireDrawdownRequest>> =
+            submit(
+                params.toBuilder().wireDrawdownRequestId(wireDrawdownRequestId).build(),
+                requestOptions,
+            )
+
+        /** @see submit */
+        fun submit(
+            wireDrawdownRequestId: String,
+            params: WireDrawdownRequestSubmitParams = WireDrawdownRequestSubmitParams.none(),
+        ): CompletableFuture<HttpResponseFor<WireDrawdownRequest>> =
+            submit(wireDrawdownRequestId, params, RequestOptions.none())
+
+        /** @see submit */
+        fun submit(
+            params: WireDrawdownRequestSubmitParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<WireDrawdownRequest>>
+
+        /** @see submit */
+        fun submit(
+            params: WireDrawdownRequestSubmitParams
+        ): CompletableFuture<HttpResponseFor<WireDrawdownRequest>> =
+            submit(params, RequestOptions.none())
+
+        /** @see submit */
+        fun submit(
+            wireDrawdownRequestId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<WireDrawdownRequest>> =
+            submit(wireDrawdownRequestId, WireDrawdownRequestSubmitParams.none(), requestOptions)
     }
 }
