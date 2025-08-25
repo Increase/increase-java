@@ -17,6 +17,7 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.simulations.wiredrawdownrequests.WireDrawdownRequestRefuseParams
+import com.increase.api.models.simulations.wiredrawdownrequests.WireDrawdownRequestSubmitParams
 import com.increase.api.models.wiredrawdownrequests.WireDrawdownRequest
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -45,6 +46,13 @@ internal constructor(private val clientOptions: ClientOptions) : WireDrawdownReq
     ): CompletableFuture<WireDrawdownRequest> =
         // post /simulations/wire_drawdown_requests/{wire_drawdown_request_id}/refuse
         withRawResponse().refuse(params, requestOptions).thenApply { it.parse() }
+
+    override fun submit(
+        params: WireDrawdownRequestSubmitParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<WireDrawdownRequest> =
+        // post /simulations/wire_drawdown_requests/{wire_drawdown_request_id}/submit
+        withRawResponse().submit(params, requestOptions).thenApply { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         WireDrawdownRequestServiceAsync.WithRawResponse {
@@ -89,6 +97,45 @@ internal constructor(private val clientOptions: ClientOptions) : WireDrawdownReq
                     errorHandler.handle(response).parseable {
                         response
                             .use { refuseHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val submitHandler: Handler<WireDrawdownRequest> =
+            jsonHandler<WireDrawdownRequest>(clientOptions.jsonMapper)
+
+        override fun submit(
+            params: WireDrawdownRequestSubmitParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<WireDrawdownRequest>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("wireDrawdownRequestId", params.wireDrawdownRequestId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "simulations",
+                        "wire_drawdown_requests",
+                        params._pathParam(0),
+                        "submit",
+                    )
+                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { submitHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()

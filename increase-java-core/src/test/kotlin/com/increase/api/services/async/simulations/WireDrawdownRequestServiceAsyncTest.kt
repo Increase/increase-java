@@ -25,4 +25,20 @@ internal class WireDrawdownRequestServiceAsyncTest {
         val wireDrawdownRequest = wireDrawdownRequestFuture.get()
         wireDrawdownRequest.validate()
     }
+
+    @Test
+    fun submit() {
+        val client =
+            IncreaseOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val wireDrawdownRequestServiceAsync = client.simulations().wireDrawdownRequests()
+
+        val wireDrawdownRequestFuture =
+            wireDrawdownRequestServiceAsync.submit("wire_drawdown_request_q6lmocus3glo0lr2bfv3")
+
+        val wireDrawdownRequest = wireDrawdownRequestFuture.get()
+        wireDrawdownRequest.validate()
+    }
 }
