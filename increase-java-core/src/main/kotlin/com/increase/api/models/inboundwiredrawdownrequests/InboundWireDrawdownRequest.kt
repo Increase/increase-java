@@ -28,27 +28,25 @@ class InboundWireDrawdownRequest
 private constructor(
     private val id: JsonField<String>,
     private val amount: JsonField<Long>,
-    private val beneficiaryAccountNumber: JsonField<String>,
-    private val beneficiaryAddressLine1: JsonField<String>,
-    private val beneficiaryAddressLine2: JsonField<String>,
-    private val beneficiaryAddressLine3: JsonField<String>,
-    private val beneficiaryName: JsonField<String>,
-    private val beneficiaryRoutingNumber: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,
+    private val creditorAccountNumber: JsonField<String>,
+    private val creditorAddressLine1: JsonField<String>,
+    private val creditorAddressLine2: JsonField<String>,
+    private val creditorAddressLine3: JsonField<String>,
+    private val creditorName: JsonField<String>,
+    private val creditorRoutingNumber: JsonField<String>,
     private val currency: JsonField<String>,
-    private val messageToRecipient: JsonField<String>,
-    private val originatorAccountNumber: JsonField<String>,
-    private val originatorAddressLine1: JsonField<String>,
-    private val originatorAddressLine2: JsonField<String>,
-    private val originatorAddressLine3: JsonField<String>,
-    private val originatorName: JsonField<String>,
-    private val originatorRoutingNumber: JsonField<String>,
-    private val originatorToBeneficiaryInformationLine1: JsonField<String>,
-    private val originatorToBeneficiaryInformationLine2: JsonField<String>,
-    private val originatorToBeneficiaryInformationLine3: JsonField<String>,
-    private val originatorToBeneficiaryInformationLine4: JsonField<String>,
+    private val debtorAddressLine1: JsonField<String>,
+    private val debtorAddressLine2: JsonField<String>,
+    private val debtorAddressLine3: JsonField<String>,
+    private val debtorName: JsonField<String>,
+    private val endToEndIdentification: JsonField<String>,
+    private val inputMessageAccountabilityData: JsonField<String>,
+    private val instructionIdentification: JsonField<String>,
     private val recipientAccountNumberId: JsonField<String>,
     private val type: JsonField<Type>,
+    private val uniqueEndToEndTransactionReference: JsonField<String>,
+    private val unstructuredRemittanceInformation: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -56,89 +54,81 @@ private constructor(
     private constructor(
         @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
         @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
-        @JsonProperty("beneficiary_account_number")
-        @ExcludeMissing
-        beneficiaryAccountNumber: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("beneficiary_address_line1")
-        @ExcludeMissing
-        beneficiaryAddressLine1: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("beneficiary_address_line2")
-        @ExcludeMissing
-        beneficiaryAddressLine2: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("beneficiary_address_line3")
-        @ExcludeMissing
-        beneficiaryAddressLine3: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("beneficiary_name")
-        @ExcludeMissing
-        beneficiaryName: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("beneficiary_routing_number")
-        @ExcludeMissing
-        beneficiaryRoutingNumber: JsonField<String> = JsonMissing.of(),
         @JsonProperty("created_at")
         @ExcludeMissing
         createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("creditor_account_number")
+        @ExcludeMissing
+        creditorAccountNumber: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("creditor_address_line1")
+        @ExcludeMissing
+        creditorAddressLine1: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("creditor_address_line2")
+        @ExcludeMissing
+        creditorAddressLine2: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("creditor_address_line3")
+        @ExcludeMissing
+        creditorAddressLine3: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("creditor_name")
+        @ExcludeMissing
+        creditorName: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("creditor_routing_number")
+        @ExcludeMissing
+        creditorRoutingNumber: JsonField<String> = JsonMissing.of(),
         @JsonProperty("currency") @ExcludeMissing currency: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("message_to_recipient")
+        @JsonProperty("debtor_address_line1")
         @ExcludeMissing
-        messageToRecipient: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("originator_account_number")
+        debtorAddressLine1: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("debtor_address_line2")
         @ExcludeMissing
-        originatorAccountNumber: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("originator_address_line1")
+        debtorAddressLine2: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("debtor_address_line3")
         @ExcludeMissing
-        originatorAddressLine1: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("originator_address_line2")
+        debtorAddressLine3: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("debtor_name")
         @ExcludeMissing
-        originatorAddressLine2: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("originator_address_line3")
+        debtorName: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("end_to_end_identification")
         @ExcludeMissing
-        originatorAddressLine3: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("originator_name")
+        endToEndIdentification: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("input_message_accountability_data")
         @ExcludeMissing
-        originatorName: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("originator_routing_number")
+        inputMessageAccountabilityData: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("instruction_identification")
         @ExcludeMissing
-        originatorRoutingNumber: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("originator_to_beneficiary_information_line1")
-        @ExcludeMissing
-        originatorToBeneficiaryInformationLine1: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("originator_to_beneficiary_information_line2")
-        @ExcludeMissing
-        originatorToBeneficiaryInformationLine2: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("originator_to_beneficiary_information_line3")
-        @ExcludeMissing
-        originatorToBeneficiaryInformationLine3: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("originator_to_beneficiary_information_line4")
-        @ExcludeMissing
-        originatorToBeneficiaryInformationLine4: JsonField<String> = JsonMissing.of(),
+        instructionIdentification: JsonField<String> = JsonMissing.of(),
         @JsonProperty("recipient_account_number_id")
         @ExcludeMissing
         recipientAccountNumberId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+        @JsonProperty("unique_end_to_end_transaction_reference")
+        @ExcludeMissing
+        uniqueEndToEndTransactionReference: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("unstructured_remittance_information")
+        @ExcludeMissing
+        unstructuredRemittanceInformation: JsonField<String> = JsonMissing.of(),
     ) : this(
         id,
         amount,
-        beneficiaryAccountNumber,
-        beneficiaryAddressLine1,
-        beneficiaryAddressLine2,
-        beneficiaryAddressLine3,
-        beneficiaryName,
-        beneficiaryRoutingNumber,
         createdAt,
+        creditorAccountNumber,
+        creditorAddressLine1,
+        creditorAddressLine2,
+        creditorAddressLine3,
+        creditorName,
+        creditorRoutingNumber,
         currency,
-        messageToRecipient,
-        originatorAccountNumber,
-        originatorAddressLine1,
-        originatorAddressLine2,
-        originatorAddressLine3,
-        originatorName,
-        originatorRoutingNumber,
-        originatorToBeneficiaryInformationLine1,
-        originatorToBeneficiaryInformationLine2,
-        originatorToBeneficiaryInformationLine3,
-        originatorToBeneficiaryInformationLine4,
+        debtorAddressLine1,
+        debtorAddressLine2,
+        debtorAddressLine3,
+        debtorName,
+        endToEndIdentification,
+        inputMessageAccountabilityData,
+        instructionIdentification,
         recipientAccountNumberId,
         type,
+        uniqueEndToEndTransactionReference,
+        unstructuredRemittanceInformation,
         mutableMapOf(),
     )
 
@@ -159,59 +149,6 @@ private constructor(
     fun amount(): Long = amount.getRequired("amount")
 
     /**
-     * The drawdown request's beneficiary's account number.
-     *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
-    fun beneficiaryAccountNumber(): String =
-        beneficiaryAccountNumber.getRequired("beneficiary_account_number")
-
-    /**
-     * Line 1 of the drawdown request's beneficiary's address.
-     *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun beneficiaryAddressLine1(): Optional<String> =
-        beneficiaryAddressLine1.getOptional("beneficiary_address_line1")
-
-    /**
-     * Line 2 of the drawdown request's beneficiary's address.
-     *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun beneficiaryAddressLine2(): Optional<String> =
-        beneficiaryAddressLine2.getOptional("beneficiary_address_line2")
-
-    /**
-     * Line 3 of the drawdown request's beneficiary's address.
-     *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun beneficiaryAddressLine3(): Optional<String> =
-        beneficiaryAddressLine3.getOptional("beneficiary_address_line3")
-
-    /**
-     * The drawdown request's beneficiary's name.
-     *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun beneficiaryName(): Optional<String> = beneficiaryName.getOptional("beneficiary_name")
-
-    /**
-     * The drawdown request's beneficiary's routing number.
-     *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
-    fun beneficiaryRoutingNumber(): String =
-        beneficiaryRoutingNumber.getRequired("beneficiary_routing_number")
-
-    /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the inbound
      * wire drawdown requested was created.
      *
@@ -219,6 +156,59 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
+
+    /**
+     * The creditor's account number.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun creditorAccountNumber(): String =
+        creditorAccountNumber.getRequired("creditor_account_number")
+
+    /**
+     * A free-form address field set by the sender.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun creditorAddressLine1(): Optional<String> =
+        creditorAddressLine1.getOptional("creditor_address_line1")
+
+    /**
+     * A free-form address field set by the sender.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun creditorAddressLine2(): Optional<String> =
+        creditorAddressLine2.getOptional("creditor_address_line2")
+
+    /**
+     * A free-form address field set by the sender.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun creditorAddressLine3(): Optional<String> =
+        creditorAddressLine3.getOptional("creditor_address_line3")
+
+    /**
+     * A name set by the sender.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun creditorName(): Optional<String> = creditorName.getOptional("creditor_name")
+
+    /**
+     * The creditor's routing number.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun creditorRoutingNumber(): String =
+        creditorRoutingNumber.getRequired("creditor_routing_number")
 
     /**
      * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the amount being requested.
@@ -230,110 +220,68 @@ private constructor(
     fun currency(): String = currency.getRequired("currency")
 
     /**
-     * A message from the drawdown request's originator.
+     * A free-form address field set by the sender.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun messageToRecipient(): Optional<String> =
-        messageToRecipient.getOptional("message_to_recipient")
+    fun debtorAddressLine1(): Optional<String> =
+        debtorAddressLine1.getOptional("debtor_address_line1")
 
     /**
-     * The drawdown request's originator's account number.
+     * A free-form address field set by the sender.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun originatorAccountNumber(): Optional<String> =
-        originatorAccountNumber.getOptional("originator_account_number")
+    fun debtorAddressLine2(): Optional<String> =
+        debtorAddressLine2.getOptional("debtor_address_line2")
 
     /**
-     * Line 1 of the drawdown request's originator's address.
+     * A free-form address field set by the sender.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun originatorAddressLine1(): Optional<String> =
-        originatorAddressLine1.getOptional("originator_address_line1")
+    fun debtorAddressLine3(): Optional<String> =
+        debtorAddressLine3.getOptional("debtor_address_line3")
 
     /**
-     * Line 2 of the drawdown request's originator's address.
+     * A name set by the sender.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun originatorAddressLine2(): Optional<String> =
-        originatorAddressLine2.getOptional("originator_address_line2")
+    fun debtorName(): Optional<String> = debtorName.getOptional("debtor_name")
 
     /**
-     * Line 3 of the drawdown request's originator's address.
+     * A free-form reference string set by the sender, to help identify the drawdown request.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun originatorAddressLine3(): Optional<String> =
-        originatorAddressLine3.getOptional("originator_address_line3")
+    fun endToEndIdentification(): Optional<String> =
+        endToEndIdentification.getOptional("end_to_end_identification")
 
     /**
-     * The drawdown request's originator's name.
+     * A unique identifier available to the originating and receiving banks, commonly abbreviated as
+     * IMAD. It is created when the wire is submitted to the Fedwire service and is helpful when
+     * debugging wires with the originating bank.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun originatorName(): Optional<String> = originatorName.getOptional("originator_name")
+    fun inputMessageAccountabilityData(): Optional<String> =
+        inputMessageAccountabilityData.getOptional("input_message_accountability_data")
 
     /**
-     * The drawdown request's originator's routing number.
-     *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
-    fun originatorRoutingNumber(): String =
-        originatorRoutingNumber.getRequired("originator_routing_number")
-
-    /**
-     * Line 1 of the information conveyed from the originator of the message to the beneficiary.
+     * The sending bank's identifier for the drawdown request.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun originatorToBeneficiaryInformationLine1(): Optional<String> =
-        originatorToBeneficiaryInformationLine1.getOptional(
-            "originator_to_beneficiary_information_line1"
-        )
-
-    /**
-     * Line 2 of the information conveyed from the originator of the message to the beneficiary.
-     *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun originatorToBeneficiaryInformationLine2(): Optional<String> =
-        originatorToBeneficiaryInformationLine2.getOptional(
-            "originator_to_beneficiary_information_line2"
-        )
-
-    /**
-     * Line 3 of the information conveyed from the originator of the message to the beneficiary.
-     *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun originatorToBeneficiaryInformationLine3(): Optional<String> =
-        originatorToBeneficiaryInformationLine3.getOptional(
-            "originator_to_beneficiary_information_line3"
-        )
-
-    /**
-     * Line 4 of the information conveyed from the originator of the message to the beneficiary.
-     *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun originatorToBeneficiaryInformationLine4(): Optional<String> =
-        originatorToBeneficiaryInformationLine4.getOptional(
-            "originator_to_beneficiary_information_line4"
-        )
+    fun instructionIdentification(): Optional<String> =
+        instructionIdentification.getOptional("instruction_identification")
 
     /**
      * The Account Number from which the recipient of this request is being requested to send funds.
@@ -354,6 +302,26 @@ private constructor(
     fun type(): Type = type.getRequired("type")
 
     /**
+     * The Unique End-to-end Transaction Reference
+     * ([UETR](https://www.swift.com/payments/what-unique-end-end-transaction-reference-uetr)) of
+     * the drawdown request.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun uniqueEndToEndTransactionReference(): Optional<String> =
+        uniqueEndToEndTransactionReference.getOptional("unique_end_to_end_transaction_reference")
+
+    /**
+     * A free-form message set by the sender.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun unstructuredRemittanceInformation(): Optional<String> =
+        unstructuredRemittanceInformation.getOptional("unstructured_remittance_information")
+
+    /**
      * Returns the raw JSON value of [id].
      *
      * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
@@ -368,65 +336,6 @@ private constructor(
     @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
     /**
-     * Returns the raw JSON value of [beneficiaryAccountNumber].
-     *
-     * Unlike [beneficiaryAccountNumber], this method doesn't throw if the JSON field has an
-     * unexpected type.
-     */
-    @JsonProperty("beneficiary_account_number")
-    @ExcludeMissing
-    fun _beneficiaryAccountNumber(): JsonField<String> = beneficiaryAccountNumber
-
-    /**
-     * Returns the raw JSON value of [beneficiaryAddressLine1].
-     *
-     * Unlike [beneficiaryAddressLine1], this method doesn't throw if the JSON field has an
-     * unexpected type.
-     */
-    @JsonProperty("beneficiary_address_line1")
-    @ExcludeMissing
-    fun _beneficiaryAddressLine1(): JsonField<String> = beneficiaryAddressLine1
-
-    /**
-     * Returns the raw JSON value of [beneficiaryAddressLine2].
-     *
-     * Unlike [beneficiaryAddressLine2], this method doesn't throw if the JSON field has an
-     * unexpected type.
-     */
-    @JsonProperty("beneficiary_address_line2")
-    @ExcludeMissing
-    fun _beneficiaryAddressLine2(): JsonField<String> = beneficiaryAddressLine2
-
-    /**
-     * Returns the raw JSON value of [beneficiaryAddressLine3].
-     *
-     * Unlike [beneficiaryAddressLine3], this method doesn't throw if the JSON field has an
-     * unexpected type.
-     */
-    @JsonProperty("beneficiary_address_line3")
-    @ExcludeMissing
-    fun _beneficiaryAddressLine3(): JsonField<String> = beneficiaryAddressLine3
-
-    /**
-     * Returns the raw JSON value of [beneficiaryName].
-     *
-     * Unlike [beneficiaryName], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("beneficiary_name")
-    @ExcludeMissing
-    fun _beneficiaryName(): JsonField<String> = beneficiaryName
-
-    /**
-     * Returns the raw JSON value of [beneficiaryRoutingNumber].
-     *
-     * Unlike [beneficiaryRoutingNumber], this method doesn't throw if the JSON field has an
-     * unexpected type.
-     */
-    @JsonProperty("beneficiary_routing_number")
-    @ExcludeMissing
-    fun _beneficiaryRoutingNumber(): JsonField<String> = beneficiaryRoutingNumber
-
-    /**
      * Returns the raw JSON value of [createdAt].
      *
      * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
@@ -436,6 +345,65 @@ private constructor(
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /**
+     * Returns the raw JSON value of [creditorAccountNumber].
+     *
+     * Unlike [creditorAccountNumber], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("creditor_account_number")
+    @ExcludeMissing
+    fun _creditorAccountNumber(): JsonField<String> = creditorAccountNumber
+
+    /**
+     * Returns the raw JSON value of [creditorAddressLine1].
+     *
+     * Unlike [creditorAddressLine1], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("creditor_address_line1")
+    @ExcludeMissing
+    fun _creditorAddressLine1(): JsonField<String> = creditorAddressLine1
+
+    /**
+     * Returns the raw JSON value of [creditorAddressLine2].
+     *
+     * Unlike [creditorAddressLine2], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("creditor_address_line2")
+    @ExcludeMissing
+    fun _creditorAddressLine2(): JsonField<String> = creditorAddressLine2
+
+    /**
+     * Returns the raw JSON value of [creditorAddressLine3].
+     *
+     * Unlike [creditorAddressLine3], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("creditor_address_line3")
+    @ExcludeMissing
+    fun _creditorAddressLine3(): JsonField<String> = creditorAddressLine3
+
+    /**
+     * Returns the raw JSON value of [creditorName].
+     *
+     * Unlike [creditorName], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("creditor_name")
+    @ExcludeMissing
+    fun _creditorName(): JsonField<String> = creditorName
+
+    /**
+     * Returns the raw JSON value of [creditorRoutingNumber].
+     *
+     * Unlike [creditorRoutingNumber], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("creditor_routing_number")
+    @ExcludeMissing
+    fun _creditorRoutingNumber(): JsonField<String> = creditorRoutingNumber
+
+    /**
      * Returns the raw JSON value of [currency].
      *
      * Unlike [currency], this method doesn't throw if the JSON field has an unexpected type.
@@ -443,117 +411,71 @@ private constructor(
     @JsonProperty("currency") @ExcludeMissing fun _currency(): JsonField<String> = currency
 
     /**
-     * Returns the raw JSON value of [messageToRecipient].
+     * Returns the raw JSON value of [debtorAddressLine1].
      *
-     * Unlike [messageToRecipient], this method doesn't throw if the JSON field has an unexpected
+     * Unlike [debtorAddressLine1], this method doesn't throw if the JSON field has an unexpected
      * type.
      */
-    @JsonProperty("message_to_recipient")
+    @JsonProperty("debtor_address_line1")
     @ExcludeMissing
-    fun _messageToRecipient(): JsonField<String> = messageToRecipient
+    fun _debtorAddressLine1(): JsonField<String> = debtorAddressLine1
 
     /**
-     * Returns the raw JSON value of [originatorAccountNumber].
+     * Returns the raw JSON value of [debtorAddressLine2].
      *
-     * Unlike [originatorAccountNumber], this method doesn't throw if the JSON field has an
+     * Unlike [debtorAddressLine2], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("debtor_address_line2")
+    @ExcludeMissing
+    fun _debtorAddressLine2(): JsonField<String> = debtorAddressLine2
+
+    /**
+     * Returns the raw JSON value of [debtorAddressLine3].
+     *
+     * Unlike [debtorAddressLine3], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("debtor_address_line3")
+    @ExcludeMissing
+    fun _debtorAddressLine3(): JsonField<String> = debtorAddressLine3
+
+    /**
+     * Returns the raw JSON value of [debtorName].
+     *
+     * Unlike [debtorName], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("debtor_name") @ExcludeMissing fun _debtorName(): JsonField<String> = debtorName
+
+    /**
+     * Returns the raw JSON value of [endToEndIdentification].
+     *
+     * Unlike [endToEndIdentification], this method doesn't throw if the JSON field has an
      * unexpected type.
      */
-    @JsonProperty("originator_account_number")
+    @JsonProperty("end_to_end_identification")
     @ExcludeMissing
-    fun _originatorAccountNumber(): JsonField<String> = originatorAccountNumber
+    fun _endToEndIdentification(): JsonField<String> = endToEndIdentification
 
     /**
-     * Returns the raw JSON value of [originatorAddressLine1].
+     * Returns the raw JSON value of [inputMessageAccountabilityData].
      *
-     * Unlike [originatorAddressLine1], this method doesn't throw if the JSON field has an
+     * Unlike [inputMessageAccountabilityData], this method doesn't throw if the JSON field has an
      * unexpected type.
      */
-    @JsonProperty("originator_address_line1")
+    @JsonProperty("input_message_accountability_data")
     @ExcludeMissing
-    fun _originatorAddressLine1(): JsonField<String> = originatorAddressLine1
+    fun _inputMessageAccountabilityData(): JsonField<String> = inputMessageAccountabilityData
 
     /**
-     * Returns the raw JSON value of [originatorAddressLine2].
+     * Returns the raw JSON value of [instructionIdentification].
      *
-     * Unlike [originatorAddressLine2], this method doesn't throw if the JSON field has an
+     * Unlike [instructionIdentification], this method doesn't throw if the JSON field has an
      * unexpected type.
      */
-    @JsonProperty("originator_address_line2")
+    @JsonProperty("instruction_identification")
     @ExcludeMissing
-    fun _originatorAddressLine2(): JsonField<String> = originatorAddressLine2
-
-    /**
-     * Returns the raw JSON value of [originatorAddressLine3].
-     *
-     * Unlike [originatorAddressLine3], this method doesn't throw if the JSON field has an
-     * unexpected type.
-     */
-    @JsonProperty("originator_address_line3")
-    @ExcludeMissing
-    fun _originatorAddressLine3(): JsonField<String> = originatorAddressLine3
-
-    /**
-     * Returns the raw JSON value of [originatorName].
-     *
-     * Unlike [originatorName], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("originator_name")
-    @ExcludeMissing
-    fun _originatorName(): JsonField<String> = originatorName
-
-    /**
-     * Returns the raw JSON value of [originatorRoutingNumber].
-     *
-     * Unlike [originatorRoutingNumber], this method doesn't throw if the JSON field has an
-     * unexpected type.
-     */
-    @JsonProperty("originator_routing_number")
-    @ExcludeMissing
-    fun _originatorRoutingNumber(): JsonField<String> = originatorRoutingNumber
-
-    /**
-     * Returns the raw JSON value of [originatorToBeneficiaryInformationLine1].
-     *
-     * Unlike [originatorToBeneficiaryInformationLine1], this method doesn't throw if the JSON field
-     * has an unexpected type.
-     */
-    @JsonProperty("originator_to_beneficiary_information_line1")
-    @ExcludeMissing
-    fun _originatorToBeneficiaryInformationLine1(): JsonField<String> =
-        originatorToBeneficiaryInformationLine1
-
-    /**
-     * Returns the raw JSON value of [originatorToBeneficiaryInformationLine2].
-     *
-     * Unlike [originatorToBeneficiaryInformationLine2], this method doesn't throw if the JSON field
-     * has an unexpected type.
-     */
-    @JsonProperty("originator_to_beneficiary_information_line2")
-    @ExcludeMissing
-    fun _originatorToBeneficiaryInformationLine2(): JsonField<String> =
-        originatorToBeneficiaryInformationLine2
-
-    /**
-     * Returns the raw JSON value of [originatorToBeneficiaryInformationLine3].
-     *
-     * Unlike [originatorToBeneficiaryInformationLine3], this method doesn't throw if the JSON field
-     * has an unexpected type.
-     */
-    @JsonProperty("originator_to_beneficiary_information_line3")
-    @ExcludeMissing
-    fun _originatorToBeneficiaryInformationLine3(): JsonField<String> =
-        originatorToBeneficiaryInformationLine3
-
-    /**
-     * Returns the raw JSON value of [originatorToBeneficiaryInformationLine4].
-     *
-     * Unlike [originatorToBeneficiaryInformationLine4], this method doesn't throw if the JSON field
-     * has an unexpected type.
-     */
-    @JsonProperty("originator_to_beneficiary_information_line4")
-    @ExcludeMissing
-    fun _originatorToBeneficiaryInformationLine4(): JsonField<String> =
-        originatorToBeneficiaryInformationLine4
+    fun _instructionIdentification(): JsonField<String> = instructionIdentification
 
     /**
      * Returns the raw JSON value of [recipientAccountNumberId].
@@ -571,6 +493,27 @@ private constructor(
      * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
+
+    /**
+     * Returns the raw JSON value of [uniqueEndToEndTransactionReference].
+     *
+     * Unlike [uniqueEndToEndTransactionReference], this method doesn't throw if the JSON field has
+     * an unexpected type.
+     */
+    @JsonProperty("unique_end_to_end_transaction_reference")
+    @ExcludeMissing
+    fun _uniqueEndToEndTransactionReference(): JsonField<String> =
+        uniqueEndToEndTransactionReference
+
+    /**
+     * Returns the raw JSON value of [unstructuredRemittanceInformation].
+     *
+     * Unlike [unstructuredRemittanceInformation], this method doesn't throw if the JSON field has
+     * an unexpected type.
+     */
+    @JsonProperty("unstructured_remittance_information")
+    @ExcludeMissing
+    fun _unstructuredRemittanceInformation(): JsonField<String> = unstructuredRemittanceInformation
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -593,27 +536,25 @@ private constructor(
          * ```java
          * .id()
          * .amount()
-         * .beneficiaryAccountNumber()
-         * .beneficiaryAddressLine1()
-         * .beneficiaryAddressLine2()
-         * .beneficiaryAddressLine3()
-         * .beneficiaryName()
-         * .beneficiaryRoutingNumber()
          * .createdAt()
+         * .creditorAccountNumber()
+         * .creditorAddressLine1()
+         * .creditorAddressLine2()
+         * .creditorAddressLine3()
+         * .creditorName()
+         * .creditorRoutingNumber()
          * .currency()
-         * .messageToRecipient()
-         * .originatorAccountNumber()
-         * .originatorAddressLine1()
-         * .originatorAddressLine2()
-         * .originatorAddressLine3()
-         * .originatorName()
-         * .originatorRoutingNumber()
-         * .originatorToBeneficiaryInformationLine1()
-         * .originatorToBeneficiaryInformationLine2()
-         * .originatorToBeneficiaryInformationLine3()
-         * .originatorToBeneficiaryInformationLine4()
+         * .debtorAddressLine1()
+         * .debtorAddressLine2()
+         * .debtorAddressLine3()
+         * .debtorName()
+         * .endToEndIdentification()
+         * .inputMessageAccountabilityData()
+         * .instructionIdentification()
          * .recipientAccountNumberId()
          * .type()
+         * .uniqueEndToEndTransactionReference()
+         * .unstructuredRemittanceInformation()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -624,58 +565,53 @@ private constructor(
 
         private var id: JsonField<String>? = null
         private var amount: JsonField<Long>? = null
-        private var beneficiaryAccountNumber: JsonField<String>? = null
-        private var beneficiaryAddressLine1: JsonField<String>? = null
-        private var beneficiaryAddressLine2: JsonField<String>? = null
-        private var beneficiaryAddressLine3: JsonField<String>? = null
-        private var beneficiaryName: JsonField<String>? = null
-        private var beneficiaryRoutingNumber: JsonField<String>? = null
         private var createdAt: JsonField<OffsetDateTime>? = null
+        private var creditorAccountNumber: JsonField<String>? = null
+        private var creditorAddressLine1: JsonField<String>? = null
+        private var creditorAddressLine2: JsonField<String>? = null
+        private var creditorAddressLine3: JsonField<String>? = null
+        private var creditorName: JsonField<String>? = null
+        private var creditorRoutingNumber: JsonField<String>? = null
         private var currency: JsonField<String>? = null
-        private var messageToRecipient: JsonField<String>? = null
-        private var originatorAccountNumber: JsonField<String>? = null
-        private var originatorAddressLine1: JsonField<String>? = null
-        private var originatorAddressLine2: JsonField<String>? = null
-        private var originatorAddressLine3: JsonField<String>? = null
-        private var originatorName: JsonField<String>? = null
-        private var originatorRoutingNumber: JsonField<String>? = null
-        private var originatorToBeneficiaryInformationLine1: JsonField<String>? = null
-        private var originatorToBeneficiaryInformationLine2: JsonField<String>? = null
-        private var originatorToBeneficiaryInformationLine3: JsonField<String>? = null
-        private var originatorToBeneficiaryInformationLine4: JsonField<String>? = null
+        private var debtorAddressLine1: JsonField<String>? = null
+        private var debtorAddressLine2: JsonField<String>? = null
+        private var debtorAddressLine3: JsonField<String>? = null
+        private var debtorName: JsonField<String>? = null
+        private var endToEndIdentification: JsonField<String>? = null
+        private var inputMessageAccountabilityData: JsonField<String>? = null
+        private var instructionIdentification: JsonField<String>? = null
         private var recipientAccountNumberId: JsonField<String>? = null
         private var type: JsonField<Type>? = null
+        private var uniqueEndToEndTransactionReference: JsonField<String>? = null
+        private var unstructuredRemittanceInformation: JsonField<String>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(inboundWireDrawdownRequest: InboundWireDrawdownRequest) = apply {
             id = inboundWireDrawdownRequest.id
             amount = inboundWireDrawdownRequest.amount
-            beneficiaryAccountNumber = inboundWireDrawdownRequest.beneficiaryAccountNumber
-            beneficiaryAddressLine1 = inboundWireDrawdownRequest.beneficiaryAddressLine1
-            beneficiaryAddressLine2 = inboundWireDrawdownRequest.beneficiaryAddressLine2
-            beneficiaryAddressLine3 = inboundWireDrawdownRequest.beneficiaryAddressLine3
-            beneficiaryName = inboundWireDrawdownRequest.beneficiaryName
-            beneficiaryRoutingNumber = inboundWireDrawdownRequest.beneficiaryRoutingNumber
             createdAt = inboundWireDrawdownRequest.createdAt
+            creditorAccountNumber = inboundWireDrawdownRequest.creditorAccountNumber
+            creditorAddressLine1 = inboundWireDrawdownRequest.creditorAddressLine1
+            creditorAddressLine2 = inboundWireDrawdownRequest.creditorAddressLine2
+            creditorAddressLine3 = inboundWireDrawdownRequest.creditorAddressLine3
+            creditorName = inboundWireDrawdownRequest.creditorName
+            creditorRoutingNumber = inboundWireDrawdownRequest.creditorRoutingNumber
             currency = inboundWireDrawdownRequest.currency
-            messageToRecipient = inboundWireDrawdownRequest.messageToRecipient
-            originatorAccountNumber = inboundWireDrawdownRequest.originatorAccountNumber
-            originatorAddressLine1 = inboundWireDrawdownRequest.originatorAddressLine1
-            originatorAddressLine2 = inboundWireDrawdownRequest.originatorAddressLine2
-            originatorAddressLine3 = inboundWireDrawdownRequest.originatorAddressLine3
-            originatorName = inboundWireDrawdownRequest.originatorName
-            originatorRoutingNumber = inboundWireDrawdownRequest.originatorRoutingNumber
-            originatorToBeneficiaryInformationLine1 =
-                inboundWireDrawdownRequest.originatorToBeneficiaryInformationLine1
-            originatorToBeneficiaryInformationLine2 =
-                inboundWireDrawdownRequest.originatorToBeneficiaryInformationLine2
-            originatorToBeneficiaryInformationLine3 =
-                inboundWireDrawdownRequest.originatorToBeneficiaryInformationLine3
-            originatorToBeneficiaryInformationLine4 =
-                inboundWireDrawdownRequest.originatorToBeneficiaryInformationLine4
+            debtorAddressLine1 = inboundWireDrawdownRequest.debtorAddressLine1
+            debtorAddressLine2 = inboundWireDrawdownRequest.debtorAddressLine2
+            debtorAddressLine3 = inboundWireDrawdownRequest.debtorAddressLine3
+            debtorName = inboundWireDrawdownRequest.debtorName
+            endToEndIdentification = inboundWireDrawdownRequest.endToEndIdentification
+            inputMessageAccountabilityData =
+                inboundWireDrawdownRequest.inputMessageAccountabilityData
+            instructionIdentification = inboundWireDrawdownRequest.instructionIdentification
             recipientAccountNumberId = inboundWireDrawdownRequest.recipientAccountNumberId
             type = inboundWireDrawdownRequest.type
+            uniqueEndToEndTransactionReference =
+                inboundWireDrawdownRequest.uniqueEndToEndTransactionReference
+            unstructuredRemittanceInformation =
+                inboundWireDrawdownRequest.unstructuredRemittanceInformation
             additionalProperties = inboundWireDrawdownRequest.additionalProperties.toMutableMap()
         }
 
@@ -701,121 +637,6 @@ private constructor(
          */
         fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
-        /** The drawdown request's beneficiary's account number. */
-        fun beneficiaryAccountNumber(beneficiaryAccountNumber: String) =
-            beneficiaryAccountNumber(JsonField.of(beneficiaryAccountNumber))
-
-        /**
-         * Sets [Builder.beneficiaryAccountNumber] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.beneficiaryAccountNumber] with a well-typed [String]
-         * value instead. This method is primarily for setting the field to an undocumented or not
-         * yet supported value.
-         */
-        fun beneficiaryAccountNumber(beneficiaryAccountNumber: JsonField<String>) = apply {
-            this.beneficiaryAccountNumber = beneficiaryAccountNumber
-        }
-
-        /** Line 1 of the drawdown request's beneficiary's address. */
-        fun beneficiaryAddressLine1(beneficiaryAddressLine1: String?) =
-            beneficiaryAddressLine1(JsonField.ofNullable(beneficiaryAddressLine1))
-
-        /**
-         * Alias for calling [Builder.beneficiaryAddressLine1] with
-         * `beneficiaryAddressLine1.orElse(null)`.
-         */
-        fun beneficiaryAddressLine1(beneficiaryAddressLine1: Optional<String>) =
-            beneficiaryAddressLine1(beneficiaryAddressLine1.getOrNull())
-
-        /**
-         * Sets [Builder.beneficiaryAddressLine1] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.beneficiaryAddressLine1] with a well-typed [String]
-         * value instead. This method is primarily for setting the field to an undocumented or not
-         * yet supported value.
-         */
-        fun beneficiaryAddressLine1(beneficiaryAddressLine1: JsonField<String>) = apply {
-            this.beneficiaryAddressLine1 = beneficiaryAddressLine1
-        }
-
-        /** Line 2 of the drawdown request's beneficiary's address. */
-        fun beneficiaryAddressLine2(beneficiaryAddressLine2: String?) =
-            beneficiaryAddressLine2(JsonField.ofNullable(beneficiaryAddressLine2))
-
-        /**
-         * Alias for calling [Builder.beneficiaryAddressLine2] with
-         * `beneficiaryAddressLine2.orElse(null)`.
-         */
-        fun beneficiaryAddressLine2(beneficiaryAddressLine2: Optional<String>) =
-            beneficiaryAddressLine2(beneficiaryAddressLine2.getOrNull())
-
-        /**
-         * Sets [Builder.beneficiaryAddressLine2] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.beneficiaryAddressLine2] with a well-typed [String]
-         * value instead. This method is primarily for setting the field to an undocumented or not
-         * yet supported value.
-         */
-        fun beneficiaryAddressLine2(beneficiaryAddressLine2: JsonField<String>) = apply {
-            this.beneficiaryAddressLine2 = beneficiaryAddressLine2
-        }
-
-        /** Line 3 of the drawdown request's beneficiary's address. */
-        fun beneficiaryAddressLine3(beneficiaryAddressLine3: String?) =
-            beneficiaryAddressLine3(JsonField.ofNullable(beneficiaryAddressLine3))
-
-        /**
-         * Alias for calling [Builder.beneficiaryAddressLine3] with
-         * `beneficiaryAddressLine3.orElse(null)`.
-         */
-        fun beneficiaryAddressLine3(beneficiaryAddressLine3: Optional<String>) =
-            beneficiaryAddressLine3(beneficiaryAddressLine3.getOrNull())
-
-        /**
-         * Sets [Builder.beneficiaryAddressLine3] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.beneficiaryAddressLine3] with a well-typed [String]
-         * value instead. This method is primarily for setting the field to an undocumented or not
-         * yet supported value.
-         */
-        fun beneficiaryAddressLine3(beneficiaryAddressLine3: JsonField<String>) = apply {
-            this.beneficiaryAddressLine3 = beneficiaryAddressLine3
-        }
-
-        /** The drawdown request's beneficiary's name. */
-        fun beneficiaryName(beneficiaryName: String?) =
-            beneficiaryName(JsonField.ofNullable(beneficiaryName))
-
-        /** Alias for calling [Builder.beneficiaryName] with `beneficiaryName.orElse(null)`. */
-        fun beneficiaryName(beneficiaryName: Optional<String>) =
-            beneficiaryName(beneficiaryName.getOrNull())
-
-        /**
-         * Sets [Builder.beneficiaryName] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.beneficiaryName] with a well-typed [String] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun beneficiaryName(beneficiaryName: JsonField<String>) = apply {
-            this.beneficiaryName = beneficiaryName
-        }
-
-        /** The drawdown request's beneficiary's routing number. */
-        fun beneficiaryRoutingNumber(beneficiaryRoutingNumber: String) =
-            beneficiaryRoutingNumber(JsonField.of(beneficiaryRoutingNumber))
-
-        /**
-         * Sets [Builder.beneficiaryRoutingNumber] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.beneficiaryRoutingNumber] with a well-typed [String]
-         * value instead. This method is primarily for setting the field to an undocumented or not
-         * yet supported value.
-         */
-        fun beneficiaryRoutingNumber(beneficiaryRoutingNumber: JsonField<String>) = apply {
-            this.beneficiaryRoutingNumber = beneficiaryRoutingNumber
-        }
-
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the inbound
          * wire drawdown requested was created.
@@ -831,6 +652,119 @@ private constructor(
          */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
+        /** The creditor's account number. */
+        fun creditorAccountNumber(creditorAccountNumber: String) =
+            creditorAccountNumber(JsonField.of(creditorAccountNumber))
+
+        /**
+         * Sets [Builder.creditorAccountNumber] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.creditorAccountNumber] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun creditorAccountNumber(creditorAccountNumber: JsonField<String>) = apply {
+            this.creditorAccountNumber = creditorAccountNumber
+        }
+
+        /** A free-form address field set by the sender. */
+        fun creditorAddressLine1(creditorAddressLine1: String?) =
+            creditorAddressLine1(JsonField.ofNullable(creditorAddressLine1))
+
+        /**
+         * Alias for calling [Builder.creditorAddressLine1] with
+         * `creditorAddressLine1.orElse(null)`.
+         */
+        fun creditorAddressLine1(creditorAddressLine1: Optional<String>) =
+            creditorAddressLine1(creditorAddressLine1.getOrNull())
+
+        /**
+         * Sets [Builder.creditorAddressLine1] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.creditorAddressLine1] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun creditorAddressLine1(creditorAddressLine1: JsonField<String>) = apply {
+            this.creditorAddressLine1 = creditorAddressLine1
+        }
+
+        /** A free-form address field set by the sender. */
+        fun creditorAddressLine2(creditorAddressLine2: String?) =
+            creditorAddressLine2(JsonField.ofNullable(creditorAddressLine2))
+
+        /**
+         * Alias for calling [Builder.creditorAddressLine2] with
+         * `creditorAddressLine2.orElse(null)`.
+         */
+        fun creditorAddressLine2(creditorAddressLine2: Optional<String>) =
+            creditorAddressLine2(creditorAddressLine2.getOrNull())
+
+        /**
+         * Sets [Builder.creditorAddressLine2] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.creditorAddressLine2] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun creditorAddressLine2(creditorAddressLine2: JsonField<String>) = apply {
+            this.creditorAddressLine2 = creditorAddressLine2
+        }
+
+        /** A free-form address field set by the sender. */
+        fun creditorAddressLine3(creditorAddressLine3: String?) =
+            creditorAddressLine3(JsonField.ofNullable(creditorAddressLine3))
+
+        /**
+         * Alias for calling [Builder.creditorAddressLine3] with
+         * `creditorAddressLine3.orElse(null)`.
+         */
+        fun creditorAddressLine3(creditorAddressLine3: Optional<String>) =
+            creditorAddressLine3(creditorAddressLine3.getOrNull())
+
+        /**
+         * Sets [Builder.creditorAddressLine3] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.creditorAddressLine3] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun creditorAddressLine3(creditorAddressLine3: JsonField<String>) = apply {
+            this.creditorAddressLine3 = creditorAddressLine3
+        }
+
+        /** A name set by the sender. */
+        fun creditorName(creditorName: String?) = creditorName(JsonField.ofNullable(creditorName))
+
+        /** Alias for calling [Builder.creditorName] with `creditorName.orElse(null)`. */
+        fun creditorName(creditorName: Optional<String>) = creditorName(creditorName.getOrNull())
+
+        /**
+         * Sets [Builder.creditorName] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.creditorName] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun creditorName(creditorName: JsonField<String>) = apply {
+            this.creditorName = creditorName
+        }
+
+        /** The creditor's routing number. */
+        fun creditorRoutingNumber(creditorRoutingNumber: String) =
+            creditorRoutingNumber(JsonField.of(creditorRoutingNumber))
+
+        /**
+         * Sets [Builder.creditorRoutingNumber] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.creditorRoutingNumber] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun creditorRoutingNumber(creditorRoutingNumber: JsonField<String>) = apply {
+            this.creditorRoutingNumber = creditorRoutingNumber
+        }
+
         /**
          * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the amount being
          * requested. Will always be "USD".
@@ -845,283 +779,155 @@ private constructor(
          */
         fun currency(currency: JsonField<String>) = apply { this.currency = currency }
 
-        /** A message from the drawdown request's originator. */
-        fun messageToRecipient(messageToRecipient: String?) =
-            messageToRecipient(JsonField.ofNullable(messageToRecipient))
+        /** A free-form address field set by the sender. */
+        fun debtorAddressLine1(debtorAddressLine1: String?) =
+            debtorAddressLine1(JsonField.ofNullable(debtorAddressLine1))
 
         /**
-         * Alias for calling [Builder.messageToRecipient] with `messageToRecipient.orElse(null)`.
+         * Alias for calling [Builder.debtorAddressLine1] with `debtorAddressLine1.orElse(null)`.
          */
-        fun messageToRecipient(messageToRecipient: Optional<String>) =
-            messageToRecipient(messageToRecipient.getOrNull())
+        fun debtorAddressLine1(debtorAddressLine1: Optional<String>) =
+            debtorAddressLine1(debtorAddressLine1.getOrNull())
 
         /**
-         * Sets [Builder.messageToRecipient] to an arbitrary JSON value.
+         * Sets [Builder.debtorAddressLine1] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.messageToRecipient] with a well-typed [String] value
+         * You should usually call [Builder.debtorAddressLine1] with a well-typed [String] value
          * instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun messageToRecipient(messageToRecipient: JsonField<String>) = apply {
-            this.messageToRecipient = messageToRecipient
+        fun debtorAddressLine1(debtorAddressLine1: JsonField<String>) = apply {
+            this.debtorAddressLine1 = debtorAddressLine1
         }
 
-        /** The drawdown request's originator's account number. */
-        fun originatorAccountNumber(originatorAccountNumber: String?) =
-            originatorAccountNumber(JsonField.ofNullable(originatorAccountNumber))
+        /** A free-form address field set by the sender. */
+        fun debtorAddressLine2(debtorAddressLine2: String?) =
+            debtorAddressLine2(JsonField.ofNullable(debtorAddressLine2))
 
         /**
-         * Alias for calling [Builder.originatorAccountNumber] with
-         * `originatorAccountNumber.orElse(null)`.
+         * Alias for calling [Builder.debtorAddressLine2] with `debtorAddressLine2.orElse(null)`.
          */
-        fun originatorAccountNumber(originatorAccountNumber: Optional<String>) =
-            originatorAccountNumber(originatorAccountNumber.getOrNull())
+        fun debtorAddressLine2(debtorAddressLine2: Optional<String>) =
+            debtorAddressLine2(debtorAddressLine2.getOrNull())
 
         /**
-         * Sets [Builder.originatorAccountNumber] to an arbitrary JSON value.
+         * Sets [Builder.debtorAddressLine2] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.originatorAccountNumber] with a well-typed [String]
+         * You should usually call [Builder.debtorAddressLine2] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun debtorAddressLine2(debtorAddressLine2: JsonField<String>) = apply {
+            this.debtorAddressLine2 = debtorAddressLine2
+        }
+
+        /** A free-form address field set by the sender. */
+        fun debtorAddressLine3(debtorAddressLine3: String?) =
+            debtorAddressLine3(JsonField.ofNullable(debtorAddressLine3))
+
+        /**
+         * Alias for calling [Builder.debtorAddressLine3] with `debtorAddressLine3.orElse(null)`.
+         */
+        fun debtorAddressLine3(debtorAddressLine3: Optional<String>) =
+            debtorAddressLine3(debtorAddressLine3.getOrNull())
+
+        /**
+         * Sets [Builder.debtorAddressLine3] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.debtorAddressLine3] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun debtorAddressLine3(debtorAddressLine3: JsonField<String>) = apply {
+            this.debtorAddressLine3 = debtorAddressLine3
+        }
+
+        /** A name set by the sender. */
+        fun debtorName(debtorName: String?) = debtorName(JsonField.ofNullable(debtorName))
+
+        /** Alias for calling [Builder.debtorName] with `debtorName.orElse(null)`. */
+        fun debtorName(debtorName: Optional<String>) = debtorName(debtorName.getOrNull())
+
+        /**
+         * Sets [Builder.debtorName] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.debtorName] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun debtorName(debtorName: JsonField<String>) = apply { this.debtorName = debtorName }
+
+        /**
+         * A free-form reference string set by the sender, to help identify the drawdown request.
+         */
+        fun endToEndIdentification(endToEndIdentification: String?) =
+            endToEndIdentification(JsonField.ofNullable(endToEndIdentification))
+
+        /**
+         * Alias for calling [Builder.endToEndIdentification] with
+         * `endToEndIdentification.orElse(null)`.
+         */
+        fun endToEndIdentification(endToEndIdentification: Optional<String>) =
+            endToEndIdentification(endToEndIdentification.getOrNull())
+
+        /**
+         * Sets [Builder.endToEndIdentification] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.endToEndIdentification] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun endToEndIdentification(endToEndIdentification: JsonField<String>) = apply {
+            this.endToEndIdentification = endToEndIdentification
+        }
+
+        /**
+         * A unique identifier available to the originating and receiving banks, commonly
+         * abbreviated as IMAD. It is created when the wire is submitted to the Fedwire service and
+         * is helpful when debugging wires with the originating bank.
+         */
+        fun inputMessageAccountabilityData(inputMessageAccountabilityData: String?) =
+            inputMessageAccountabilityData(JsonField.ofNullable(inputMessageAccountabilityData))
+
+        /**
+         * Alias for calling [Builder.inputMessageAccountabilityData] with
+         * `inputMessageAccountabilityData.orElse(null)`.
+         */
+        fun inputMessageAccountabilityData(inputMessageAccountabilityData: Optional<String>) =
+            inputMessageAccountabilityData(inputMessageAccountabilityData.getOrNull())
+
+        /**
+         * Sets [Builder.inputMessageAccountabilityData] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.inputMessageAccountabilityData] with a well-typed
+         * [String] value instead. This method is primarily for setting the field to an undocumented
+         * or not yet supported value.
+         */
+        fun inputMessageAccountabilityData(inputMessageAccountabilityData: JsonField<String>) =
+            apply {
+                this.inputMessageAccountabilityData = inputMessageAccountabilityData
+            }
+
+        /** The sending bank's identifier for the drawdown request. */
+        fun instructionIdentification(instructionIdentification: String?) =
+            instructionIdentification(JsonField.ofNullable(instructionIdentification))
+
+        /**
+         * Alias for calling [Builder.instructionIdentification] with
+         * `instructionIdentification.orElse(null)`.
+         */
+        fun instructionIdentification(instructionIdentification: Optional<String>) =
+            instructionIdentification(instructionIdentification.getOrNull())
+
+        /**
+         * Sets [Builder.instructionIdentification] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.instructionIdentification] with a well-typed [String]
          * value instead. This method is primarily for setting the field to an undocumented or not
          * yet supported value.
          */
-        fun originatorAccountNumber(originatorAccountNumber: JsonField<String>) = apply {
-            this.originatorAccountNumber = originatorAccountNumber
-        }
-
-        /** Line 1 of the drawdown request's originator's address. */
-        fun originatorAddressLine1(originatorAddressLine1: String?) =
-            originatorAddressLine1(JsonField.ofNullable(originatorAddressLine1))
-
-        /**
-         * Alias for calling [Builder.originatorAddressLine1] with
-         * `originatorAddressLine1.orElse(null)`.
-         */
-        fun originatorAddressLine1(originatorAddressLine1: Optional<String>) =
-            originatorAddressLine1(originatorAddressLine1.getOrNull())
-
-        /**
-         * Sets [Builder.originatorAddressLine1] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.originatorAddressLine1] with a well-typed [String] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun originatorAddressLine1(originatorAddressLine1: JsonField<String>) = apply {
-            this.originatorAddressLine1 = originatorAddressLine1
-        }
-
-        /** Line 2 of the drawdown request's originator's address. */
-        fun originatorAddressLine2(originatorAddressLine2: String?) =
-            originatorAddressLine2(JsonField.ofNullable(originatorAddressLine2))
-
-        /**
-         * Alias for calling [Builder.originatorAddressLine2] with
-         * `originatorAddressLine2.orElse(null)`.
-         */
-        fun originatorAddressLine2(originatorAddressLine2: Optional<String>) =
-            originatorAddressLine2(originatorAddressLine2.getOrNull())
-
-        /**
-         * Sets [Builder.originatorAddressLine2] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.originatorAddressLine2] with a well-typed [String] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun originatorAddressLine2(originatorAddressLine2: JsonField<String>) = apply {
-            this.originatorAddressLine2 = originatorAddressLine2
-        }
-
-        /** Line 3 of the drawdown request's originator's address. */
-        fun originatorAddressLine3(originatorAddressLine3: String?) =
-            originatorAddressLine3(JsonField.ofNullable(originatorAddressLine3))
-
-        /**
-         * Alias for calling [Builder.originatorAddressLine3] with
-         * `originatorAddressLine3.orElse(null)`.
-         */
-        fun originatorAddressLine3(originatorAddressLine3: Optional<String>) =
-            originatorAddressLine3(originatorAddressLine3.getOrNull())
-
-        /**
-         * Sets [Builder.originatorAddressLine3] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.originatorAddressLine3] with a well-typed [String] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun originatorAddressLine3(originatorAddressLine3: JsonField<String>) = apply {
-            this.originatorAddressLine3 = originatorAddressLine3
-        }
-
-        /** The drawdown request's originator's name. */
-        fun originatorName(originatorName: String?) =
-            originatorName(JsonField.ofNullable(originatorName))
-
-        /** Alias for calling [Builder.originatorName] with `originatorName.orElse(null)`. */
-        fun originatorName(originatorName: Optional<String>) =
-            originatorName(originatorName.getOrNull())
-
-        /**
-         * Sets [Builder.originatorName] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.originatorName] with a well-typed [String] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun originatorName(originatorName: JsonField<String>) = apply {
-            this.originatorName = originatorName
-        }
-
-        /** The drawdown request's originator's routing number. */
-        fun originatorRoutingNumber(originatorRoutingNumber: String) =
-            originatorRoutingNumber(JsonField.of(originatorRoutingNumber))
-
-        /**
-         * Sets [Builder.originatorRoutingNumber] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.originatorRoutingNumber] with a well-typed [String]
-         * value instead. This method is primarily for setting the field to an undocumented or not
-         * yet supported value.
-         */
-        fun originatorRoutingNumber(originatorRoutingNumber: JsonField<String>) = apply {
-            this.originatorRoutingNumber = originatorRoutingNumber
-        }
-
-        /**
-         * Line 1 of the information conveyed from the originator of the message to the beneficiary.
-         */
-        fun originatorToBeneficiaryInformationLine1(
-            originatorToBeneficiaryInformationLine1: String?
-        ) =
-            originatorToBeneficiaryInformationLine1(
-                JsonField.ofNullable(originatorToBeneficiaryInformationLine1)
-            )
-
-        /**
-         * Alias for calling [Builder.originatorToBeneficiaryInformationLine1] with
-         * `originatorToBeneficiaryInformationLine1.orElse(null)`.
-         */
-        fun originatorToBeneficiaryInformationLine1(
-            originatorToBeneficiaryInformationLine1: Optional<String>
-        ) =
-            originatorToBeneficiaryInformationLine1(
-                originatorToBeneficiaryInformationLine1.getOrNull()
-            )
-
-        /**
-         * Sets [Builder.originatorToBeneficiaryInformationLine1] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.originatorToBeneficiaryInformationLine1] with a
-         * well-typed [String] value instead. This method is primarily for setting the field to an
-         * undocumented or not yet supported value.
-         */
-        fun originatorToBeneficiaryInformationLine1(
-            originatorToBeneficiaryInformationLine1: JsonField<String>
-        ) = apply {
-            this.originatorToBeneficiaryInformationLine1 = originatorToBeneficiaryInformationLine1
-        }
-
-        /**
-         * Line 2 of the information conveyed from the originator of the message to the beneficiary.
-         */
-        fun originatorToBeneficiaryInformationLine2(
-            originatorToBeneficiaryInformationLine2: String?
-        ) =
-            originatorToBeneficiaryInformationLine2(
-                JsonField.ofNullable(originatorToBeneficiaryInformationLine2)
-            )
-
-        /**
-         * Alias for calling [Builder.originatorToBeneficiaryInformationLine2] with
-         * `originatorToBeneficiaryInformationLine2.orElse(null)`.
-         */
-        fun originatorToBeneficiaryInformationLine2(
-            originatorToBeneficiaryInformationLine2: Optional<String>
-        ) =
-            originatorToBeneficiaryInformationLine2(
-                originatorToBeneficiaryInformationLine2.getOrNull()
-            )
-
-        /**
-         * Sets [Builder.originatorToBeneficiaryInformationLine2] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.originatorToBeneficiaryInformationLine2] with a
-         * well-typed [String] value instead. This method is primarily for setting the field to an
-         * undocumented or not yet supported value.
-         */
-        fun originatorToBeneficiaryInformationLine2(
-            originatorToBeneficiaryInformationLine2: JsonField<String>
-        ) = apply {
-            this.originatorToBeneficiaryInformationLine2 = originatorToBeneficiaryInformationLine2
-        }
-
-        /**
-         * Line 3 of the information conveyed from the originator of the message to the beneficiary.
-         */
-        fun originatorToBeneficiaryInformationLine3(
-            originatorToBeneficiaryInformationLine3: String?
-        ) =
-            originatorToBeneficiaryInformationLine3(
-                JsonField.ofNullable(originatorToBeneficiaryInformationLine3)
-            )
-
-        /**
-         * Alias for calling [Builder.originatorToBeneficiaryInformationLine3] with
-         * `originatorToBeneficiaryInformationLine3.orElse(null)`.
-         */
-        fun originatorToBeneficiaryInformationLine3(
-            originatorToBeneficiaryInformationLine3: Optional<String>
-        ) =
-            originatorToBeneficiaryInformationLine3(
-                originatorToBeneficiaryInformationLine3.getOrNull()
-            )
-
-        /**
-         * Sets [Builder.originatorToBeneficiaryInformationLine3] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.originatorToBeneficiaryInformationLine3] with a
-         * well-typed [String] value instead. This method is primarily for setting the field to an
-         * undocumented or not yet supported value.
-         */
-        fun originatorToBeneficiaryInformationLine3(
-            originatorToBeneficiaryInformationLine3: JsonField<String>
-        ) = apply {
-            this.originatorToBeneficiaryInformationLine3 = originatorToBeneficiaryInformationLine3
-        }
-
-        /**
-         * Line 4 of the information conveyed from the originator of the message to the beneficiary.
-         */
-        fun originatorToBeneficiaryInformationLine4(
-            originatorToBeneficiaryInformationLine4: String?
-        ) =
-            originatorToBeneficiaryInformationLine4(
-                JsonField.ofNullable(originatorToBeneficiaryInformationLine4)
-            )
-
-        /**
-         * Alias for calling [Builder.originatorToBeneficiaryInformationLine4] with
-         * `originatorToBeneficiaryInformationLine4.orElse(null)`.
-         */
-        fun originatorToBeneficiaryInformationLine4(
-            originatorToBeneficiaryInformationLine4: Optional<String>
-        ) =
-            originatorToBeneficiaryInformationLine4(
-                originatorToBeneficiaryInformationLine4.getOrNull()
-            )
-
-        /**
-         * Sets [Builder.originatorToBeneficiaryInformationLine4] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.originatorToBeneficiaryInformationLine4] with a
-         * well-typed [String] value instead. This method is primarily for setting the field to an
-         * undocumented or not yet supported value.
-         */
-        fun originatorToBeneficiaryInformationLine4(
-            originatorToBeneficiaryInformationLine4: JsonField<String>
-        ) = apply {
-            this.originatorToBeneficiaryInformationLine4 = originatorToBeneficiaryInformationLine4
+        fun instructionIdentification(instructionIdentification: JsonField<String>) = apply {
+            this.instructionIdentification = instructionIdentification
         }
 
         /**
@@ -1156,6 +962,59 @@ private constructor(
          */
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
+        /**
+         * The Unique End-to-end Transaction Reference
+         * ([UETR](https://www.swift.com/payments/what-unique-end-end-transaction-reference-uetr))
+         * of the drawdown request.
+         */
+        fun uniqueEndToEndTransactionReference(uniqueEndToEndTransactionReference: String?) =
+            uniqueEndToEndTransactionReference(
+                JsonField.ofNullable(uniqueEndToEndTransactionReference)
+            )
+
+        /**
+         * Alias for calling [Builder.uniqueEndToEndTransactionReference] with
+         * `uniqueEndToEndTransactionReference.orElse(null)`.
+         */
+        fun uniqueEndToEndTransactionReference(
+            uniqueEndToEndTransactionReference: Optional<String>
+        ) = uniqueEndToEndTransactionReference(uniqueEndToEndTransactionReference.getOrNull())
+
+        /**
+         * Sets [Builder.uniqueEndToEndTransactionReference] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.uniqueEndToEndTransactionReference] with a well-typed
+         * [String] value instead. This method is primarily for setting the field to an undocumented
+         * or not yet supported value.
+         */
+        fun uniqueEndToEndTransactionReference(
+            uniqueEndToEndTransactionReference: JsonField<String>
+        ) = apply { this.uniqueEndToEndTransactionReference = uniqueEndToEndTransactionReference }
+
+        /** A free-form message set by the sender. */
+        fun unstructuredRemittanceInformation(unstructuredRemittanceInformation: String?) =
+            unstructuredRemittanceInformation(
+                JsonField.ofNullable(unstructuredRemittanceInformation)
+            )
+
+        /**
+         * Alias for calling [Builder.unstructuredRemittanceInformation] with
+         * `unstructuredRemittanceInformation.orElse(null)`.
+         */
+        fun unstructuredRemittanceInformation(unstructuredRemittanceInformation: Optional<String>) =
+            unstructuredRemittanceInformation(unstructuredRemittanceInformation.getOrNull())
+
+        /**
+         * Sets [Builder.unstructuredRemittanceInformation] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.unstructuredRemittanceInformation] with a well-typed
+         * [String] value instead. This method is primarily for setting the field to an undocumented
+         * or not yet supported value.
+         */
+        fun unstructuredRemittanceInformation(
+            unstructuredRemittanceInformation: JsonField<String>
+        ) = apply { this.unstructuredRemittanceInformation = unstructuredRemittanceInformation }
+
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             putAllAdditionalProperties(additionalProperties)
@@ -1184,27 +1043,25 @@ private constructor(
          * ```java
          * .id()
          * .amount()
-         * .beneficiaryAccountNumber()
-         * .beneficiaryAddressLine1()
-         * .beneficiaryAddressLine2()
-         * .beneficiaryAddressLine3()
-         * .beneficiaryName()
-         * .beneficiaryRoutingNumber()
          * .createdAt()
+         * .creditorAccountNumber()
+         * .creditorAddressLine1()
+         * .creditorAddressLine2()
+         * .creditorAddressLine3()
+         * .creditorName()
+         * .creditorRoutingNumber()
          * .currency()
-         * .messageToRecipient()
-         * .originatorAccountNumber()
-         * .originatorAddressLine1()
-         * .originatorAddressLine2()
-         * .originatorAddressLine3()
-         * .originatorName()
-         * .originatorRoutingNumber()
-         * .originatorToBeneficiaryInformationLine1()
-         * .originatorToBeneficiaryInformationLine2()
-         * .originatorToBeneficiaryInformationLine3()
-         * .originatorToBeneficiaryInformationLine4()
+         * .debtorAddressLine1()
+         * .debtorAddressLine2()
+         * .debtorAddressLine3()
+         * .debtorName()
+         * .endToEndIdentification()
+         * .inputMessageAccountabilityData()
+         * .instructionIdentification()
          * .recipientAccountNumberId()
          * .type()
+         * .uniqueEndToEndTransactionReference()
+         * .unstructuredRemittanceInformation()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -1213,39 +1070,31 @@ private constructor(
             InboundWireDrawdownRequest(
                 checkRequired("id", id),
                 checkRequired("amount", amount),
-                checkRequired("beneficiaryAccountNumber", beneficiaryAccountNumber),
-                checkRequired("beneficiaryAddressLine1", beneficiaryAddressLine1),
-                checkRequired("beneficiaryAddressLine2", beneficiaryAddressLine2),
-                checkRequired("beneficiaryAddressLine3", beneficiaryAddressLine3),
-                checkRequired("beneficiaryName", beneficiaryName),
-                checkRequired("beneficiaryRoutingNumber", beneficiaryRoutingNumber),
                 checkRequired("createdAt", createdAt),
+                checkRequired("creditorAccountNumber", creditorAccountNumber),
+                checkRequired("creditorAddressLine1", creditorAddressLine1),
+                checkRequired("creditorAddressLine2", creditorAddressLine2),
+                checkRequired("creditorAddressLine3", creditorAddressLine3),
+                checkRequired("creditorName", creditorName),
+                checkRequired("creditorRoutingNumber", creditorRoutingNumber),
                 checkRequired("currency", currency),
-                checkRequired("messageToRecipient", messageToRecipient),
-                checkRequired("originatorAccountNumber", originatorAccountNumber),
-                checkRequired("originatorAddressLine1", originatorAddressLine1),
-                checkRequired("originatorAddressLine2", originatorAddressLine2),
-                checkRequired("originatorAddressLine3", originatorAddressLine3),
-                checkRequired("originatorName", originatorName),
-                checkRequired("originatorRoutingNumber", originatorRoutingNumber),
-                checkRequired(
-                    "originatorToBeneficiaryInformationLine1",
-                    originatorToBeneficiaryInformationLine1,
-                ),
-                checkRequired(
-                    "originatorToBeneficiaryInformationLine2",
-                    originatorToBeneficiaryInformationLine2,
-                ),
-                checkRequired(
-                    "originatorToBeneficiaryInformationLine3",
-                    originatorToBeneficiaryInformationLine3,
-                ),
-                checkRequired(
-                    "originatorToBeneficiaryInformationLine4",
-                    originatorToBeneficiaryInformationLine4,
-                ),
+                checkRequired("debtorAddressLine1", debtorAddressLine1),
+                checkRequired("debtorAddressLine2", debtorAddressLine2),
+                checkRequired("debtorAddressLine3", debtorAddressLine3),
+                checkRequired("debtorName", debtorName),
+                checkRequired("endToEndIdentification", endToEndIdentification),
+                checkRequired("inputMessageAccountabilityData", inputMessageAccountabilityData),
+                checkRequired("instructionIdentification", instructionIdentification),
                 checkRequired("recipientAccountNumberId", recipientAccountNumberId),
                 checkRequired("type", type),
+                checkRequired(
+                    "uniqueEndToEndTransactionReference",
+                    uniqueEndToEndTransactionReference,
+                ),
+                checkRequired(
+                    "unstructuredRemittanceInformation",
+                    unstructuredRemittanceInformation,
+                ),
                 additionalProperties.toMutableMap(),
             )
     }
@@ -1259,27 +1108,25 @@ private constructor(
 
         id()
         amount()
-        beneficiaryAccountNumber()
-        beneficiaryAddressLine1()
-        beneficiaryAddressLine2()
-        beneficiaryAddressLine3()
-        beneficiaryName()
-        beneficiaryRoutingNumber()
         createdAt()
+        creditorAccountNumber()
+        creditorAddressLine1()
+        creditorAddressLine2()
+        creditorAddressLine3()
+        creditorName()
+        creditorRoutingNumber()
         currency()
-        messageToRecipient()
-        originatorAccountNumber()
-        originatorAddressLine1()
-        originatorAddressLine2()
-        originatorAddressLine3()
-        originatorName()
-        originatorRoutingNumber()
-        originatorToBeneficiaryInformationLine1()
-        originatorToBeneficiaryInformationLine2()
-        originatorToBeneficiaryInformationLine3()
-        originatorToBeneficiaryInformationLine4()
+        debtorAddressLine1()
+        debtorAddressLine2()
+        debtorAddressLine3()
+        debtorName()
+        endToEndIdentification()
+        inputMessageAccountabilityData()
+        instructionIdentification()
         recipientAccountNumberId()
         type().validate()
+        uniqueEndToEndTransactionReference()
+        unstructuredRemittanceInformation()
         validated = true
     }
 
@@ -1300,27 +1147,25 @@ private constructor(
     internal fun validity(): Int =
         (if (id.asKnown().isPresent) 1 else 0) +
             (if (amount.asKnown().isPresent) 1 else 0) +
-            (if (beneficiaryAccountNumber.asKnown().isPresent) 1 else 0) +
-            (if (beneficiaryAddressLine1.asKnown().isPresent) 1 else 0) +
-            (if (beneficiaryAddressLine2.asKnown().isPresent) 1 else 0) +
-            (if (beneficiaryAddressLine3.asKnown().isPresent) 1 else 0) +
-            (if (beneficiaryName.asKnown().isPresent) 1 else 0) +
-            (if (beneficiaryRoutingNumber.asKnown().isPresent) 1 else 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
+            (if (creditorAccountNumber.asKnown().isPresent) 1 else 0) +
+            (if (creditorAddressLine1.asKnown().isPresent) 1 else 0) +
+            (if (creditorAddressLine2.asKnown().isPresent) 1 else 0) +
+            (if (creditorAddressLine3.asKnown().isPresent) 1 else 0) +
+            (if (creditorName.asKnown().isPresent) 1 else 0) +
+            (if (creditorRoutingNumber.asKnown().isPresent) 1 else 0) +
             (if (currency.asKnown().isPresent) 1 else 0) +
-            (if (messageToRecipient.asKnown().isPresent) 1 else 0) +
-            (if (originatorAccountNumber.asKnown().isPresent) 1 else 0) +
-            (if (originatorAddressLine1.asKnown().isPresent) 1 else 0) +
-            (if (originatorAddressLine2.asKnown().isPresent) 1 else 0) +
-            (if (originatorAddressLine3.asKnown().isPresent) 1 else 0) +
-            (if (originatorName.asKnown().isPresent) 1 else 0) +
-            (if (originatorRoutingNumber.asKnown().isPresent) 1 else 0) +
-            (if (originatorToBeneficiaryInformationLine1.asKnown().isPresent) 1 else 0) +
-            (if (originatorToBeneficiaryInformationLine2.asKnown().isPresent) 1 else 0) +
-            (if (originatorToBeneficiaryInformationLine3.asKnown().isPresent) 1 else 0) +
-            (if (originatorToBeneficiaryInformationLine4.asKnown().isPresent) 1 else 0) +
+            (if (debtorAddressLine1.asKnown().isPresent) 1 else 0) +
+            (if (debtorAddressLine2.asKnown().isPresent) 1 else 0) +
+            (if (debtorAddressLine3.asKnown().isPresent) 1 else 0) +
+            (if (debtorName.asKnown().isPresent) 1 else 0) +
+            (if (endToEndIdentification.asKnown().isPresent) 1 else 0) +
+            (if (inputMessageAccountabilityData.asKnown().isPresent) 1 else 0) +
+            (if (instructionIdentification.asKnown().isPresent) 1 else 0) +
             (if (recipientAccountNumberId.asKnown().isPresent) 1 else 0) +
-            (type.asKnown().getOrNull()?.validity() ?: 0)
+            (type.asKnown().getOrNull()?.validity() ?: 0) +
+            (if (uniqueEndToEndTransactionReference.asKnown().isPresent) 1 else 0) +
+            (if (unstructuredRemittanceInformation.asKnown().isPresent) 1 else 0)
 
     /**
      * A constant representing the object's type. For this resource it will always be
@@ -1455,31 +1300,25 @@ private constructor(
         return other is InboundWireDrawdownRequest &&
             id == other.id &&
             amount == other.amount &&
-            beneficiaryAccountNumber == other.beneficiaryAccountNumber &&
-            beneficiaryAddressLine1 == other.beneficiaryAddressLine1 &&
-            beneficiaryAddressLine2 == other.beneficiaryAddressLine2 &&
-            beneficiaryAddressLine3 == other.beneficiaryAddressLine3 &&
-            beneficiaryName == other.beneficiaryName &&
-            beneficiaryRoutingNumber == other.beneficiaryRoutingNumber &&
             createdAt == other.createdAt &&
+            creditorAccountNumber == other.creditorAccountNumber &&
+            creditorAddressLine1 == other.creditorAddressLine1 &&
+            creditorAddressLine2 == other.creditorAddressLine2 &&
+            creditorAddressLine3 == other.creditorAddressLine3 &&
+            creditorName == other.creditorName &&
+            creditorRoutingNumber == other.creditorRoutingNumber &&
             currency == other.currency &&
-            messageToRecipient == other.messageToRecipient &&
-            originatorAccountNumber == other.originatorAccountNumber &&
-            originatorAddressLine1 == other.originatorAddressLine1 &&
-            originatorAddressLine2 == other.originatorAddressLine2 &&
-            originatorAddressLine3 == other.originatorAddressLine3 &&
-            originatorName == other.originatorName &&
-            originatorRoutingNumber == other.originatorRoutingNumber &&
-            originatorToBeneficiaryInformationLine1 ==
-                other.originatorToBeneficiaryInformationLine1 &&
-            originatorToBeneficiaryInformationLine2 ==
-                other.originatorToBeneficiaryInformationLine2 &&
-            originatorToBeneficiaryInformationLine3 ==
-                other.originatorToBeneficiaryInformationLine3 &&
-            originatorToBeneficiaryInformationLine4 ==
-                other.originatorToBeneficiaryInformationLine4 &&
+            debtorAddressLine1 == other.debtorAddressLine1 &&
+            debtorAddressLine2 == other.debtorAddressLine2 &&
+            debtorAddressLine3 == other.debtorAddressLine3 &&
+            debtorName == other.debtorName &&
+            endToEndIdentification == other.endToEndIdentification &&
+            inputMessageAccountabilityData == other.inputMessageAccountabilityData &&
+            instructionIdentification == other.instructionIdentification &&
             recipientAccountNumberId == other.recipientAccountNumberId &&
             type == other.type &&
+            uniqueEndToEndTransactionReference == other.uniqueEndToEndTransactionReference &&
+            unstructuredRemittanceInformation == other.unstructuredRemittanceInformation &&
             additionalProperties == other.additionalProperties
     }
 
@@ -1487,27 +1326,25 @@ private constructor(
         Objects.hash(
             id,
             amount,
-            beneficiaryAccountNumber,
-            beneficiaryAddressLine1,
-            beneficiaryAddressLine2,
-            beneficiaryAddressLine3,
-            beneficiaryName,
-            beneficiaryRoutingNumber,
             createdAt,
+            creditorAccountNumber,
+            creditorAddressLine1,
+            creditorAddressLine2,
+            creditorAddressLine3,
+            creditorName,
+            creditorRoutingNumber,
             currency,
-            messageToRecipient,
-            originatorAccountNumber,
-            originatorAddressLine1,
-            originatorAddressLine2,
-            originatorAddressLine3,
-            originatorName,
-            originatorRoutingNumber,
-            originatorToBeneficiaryInformationLine1,
-            originatorToBeneficiaryInformationLine2,
-            originatorToBeneficiaryInformationLine3,
-            originatorToBeneficiaryInformationLine4,
+            debtorAddressLine1,
+            debtorAddressLine2,
+            debtorAddressLine3,
+            debtorName,
+            endToEndIdentification,
+            inputMessageAccountabilityData,
+            instructionIdentification,
             recipientAccountNumberId,
             type,
+            uniqueEndToEndTransactionReference,
+            unstructuredRemittanceInformation,
             additionalProperties,
         )
     }
@@ -1515,5 +1352,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "InboundWireDrawdownRequest{id=$id, amount=$amount, beneficiaryAccountNumber=$beneficiaryAccountNumber, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, beneficiaryName=$beneficiaryName, beneficiaryRoutingNumber=$beneficiaryRoutingNumber, createdAt=$createdAt, currency=$currency, messageToRecipient=$messageToRecipient, originatorAccountNumber=$originatorAccountNumber, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, originatorRoutingNumber=$originatorRoutingNumber, originatorToBeneficiaryInformationLine1=$originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2=$originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3=$originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4=$originatorToBeneficiaryInformationLine4, recipientAccountNumberId=$recipientAccountNumberId, type=$type, additionalProperties=$additionalProperties}"
+        "InboundWireDrawdownRequest{id=$id, amount=$amount, createdAt=$createdAt, creditorAccountNumber=$creditorAccountNumber, creditorAddressLine1=$creditorAddressLine1, creditorAddressLine2=$creditorAddressLine2, creditorAddressLine3=$creditorAddressLine3, creditorName=$creditorName, creditorRoutingNumber=$creditorRoutingNumber, currency=$currency, debtorAddressLine1=$debtorAddressLine1, debtorAddressLine2=$debtorAddressLine2, debtorAddressLine3=$debtorAddressLine3, debtorName=$debtorName, endToEndIdentification=$endToEndIdentification, inputMessageAccountabilityData=$inputMessageAccountabilityData, instructionIdentification=$instructionIdentification, recipientAccountNumberId=$recipientAccountNumberId, type=$type, uniqueEndToEndTransactionReference=$uniqueEndToEndTransactionReference, unstructuredRemittanceInformation=$unstructuredRemittanceInformation, additionalProperties=$additionalProperties}"
 }
