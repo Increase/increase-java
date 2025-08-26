@@ -368,6 +368,7 @@ internal class TransactionTest {
                                 .merchantName("AMAZON.COM")
                                 .merchantPostalCode("10045")
                                 .merchantState("NY")
+                                .network(Transaction.Source.CardSettlement.Network.VISA)
                                 .networkIdentifiers(
                                     Transaction.Source.CardSettlement.NetworkIdentifiers.builder()
                                         .acquirerBusinessId("69650702")
@@ -1151,6 +1152,7 @@ internal class TransactionTest {
                             .merchantName("AMAZON.COM")
                             .merchantPostalCode("10045")
                             .merchantState("NY")
+                            .network(Transaction.Source.CardSettlement.Network.VISA)
                             .networkIdentifiers(
                                 Transaction.Source.CardSettlement.NetworkIdentifiers.builder()
                                     .acquirerBusinessId("69650702")
@@ -1927,6 +1929,7 @@ internal class TransactionTest {
                                 .merchantName("AMAZON.COM")
                                 .merchantPostalCode("10045")
                                 .merchantState("NY")
+                                .network(Transaction.Source.CardSettlement.Network.VISA)
                                 .networkIdentifiers(
                                     Transaction.Source.CardSettlement.NetworkIdentifiers.builder()
                                         .acquirerBusinessId("69650702")
