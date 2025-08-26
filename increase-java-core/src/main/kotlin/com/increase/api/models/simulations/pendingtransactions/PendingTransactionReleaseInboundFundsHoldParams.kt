@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.increase.api.models.simulations.inboundfundsholds
+package com.increase.api.models.simulations.pendingtransactions
 
 import com.increase.api.core.JsonValue
 import com.increase.api.core.Params
@@ -13,18 +13,21 @@ import kotlin.jvm.optionals.getOrNull
 
 /**
  * This endpoint simulates immediately releasing an Inbound Funds Hold, which might be created as a
- * result of e.g., an ACH debit.
+ * result of, for example, an ACH debit.
  */
-class InboundFundsHoldReleaseParams
+class PendingTransactionReleaseInboundFundsHoldParams
 private constructor(
-    private val inboundFundsHoldId: String?,
+    private val pendingTransactionId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
     private val additionalBodyProperties: Map<String, JsonValue>,
 ) : Params {
 
-    /** The inbound funds hold to release. */
-    fun inboundFundsHoldId(): Optional<String> = Optional.ofNullable(inboundFundsHoldId)
+    /**
+     * The pending transaction to release. The pending transaction must have a `inbound_funds_hold`
+     * source.
+     */
+    fun pendingTransactionId(): Optional<String> = Optional.ofNullable(pendingTransactionId)
 
     /** Additional body properties to send with the request. */
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
@@ -39,42 +42,53 @@ private constructor(
 
     companion object {
 
-        @JvmStatic fun none(): InboundFundsHoldReleaseParams = builder().build()
+        @JvmStatic fun none(): PendingTransactionReleaseInboundFundsHoldParams = builder().build()
 
         /**
          * Returns a mutable builder for constructing an instance of
-         * [InboundFundsHoldReleaseParams].
+         * [PendingTransactionReleaseInboundFundsHoldParams].
          */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [InboundFundsHoldReleaseParams]. */
+    /** A builder for [PendingTransactionReleaseInboundFundsHoldParams]. */
     class Builder internal constructor() {
 
-        private var inboundFundsHoldId: String? = null
+        private var pendingTransactionId: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(inboundFundsHoldReleaseParams: InboundFundsHoldReleaseParams) = apply {
-            inboundFundsHoldId = inboundFundsHoldReleaseParams.inboundFundsHoldId
-            additionalHeaders = inboundFundsHoldReleaseParams.additionalHeaders.toBuilder()
-            additionalQueryParams = inboundFundsHoldReleaseParams.additionalQueryParams.toBuilder()
+        internal fun from(
+            pendingTransactionReleaseInboundFundsHoldParams:
+                PendingTransactionReleaseInboundFundsHoldParams
+        ) = apply {
+            pendingTransactionId =
+                pendingTransactionReleaseInboundFundsHoldParams.pendingTransactionId
+            additionalHeaders =
+                pendingTransactionReleaseInboundFundsHoldParams.additionalHeaders.toBuilder()
+            additionalQueryParams =
+                pendingTransactionReleaseInboundFundsHoldParams.additionalQueryParams.toBuilder()
             additionalBodyProperties =
-                inboundFundsHoldReleaseParams.additionalBodyProperties.toMutableMap()
-        }
-
-        /** The inbound funds hold to release. */
-        fun inboundFundsHoldId(inboundFundsHoldId: String?) = apply {
-            this.inboundFundsHoldId = inboundFundsHoldId
+                pendingTransactionReleaseInboundFundsHoldParams.additionalBodyProperties
+                    .toMutableMap()
         }
 
         /**
-         * Alias for calling [Builder.inboundFundsHoldId] with `inboundFundsHoldId.orElse(null)`.
+         * The pending transaction to release. The pending transaction must have a
+         * `inbound_funds_hold` source.
          */
-        fun inboundFundsHoldId(inboundFundsHoldId: Optional<String>) =
-            inboundFundsHoldId(inboundFundsHoldId.getOrNull())
+        fun pendingTransactionId(pendingTransactionId: String?) = apply {
+            this.pendingTransactionId = pendingTransactionId
+        }
+
+        /**
+         * Alias for calling [Builder.pendingTransactionId] with
+         * `pendingTransactionId.orElse(null)`.
+         */
+        fun pendingTransactionId(pendingTransactionId: Optional<String>) =
+            pendingTransactionId(pendingTransactionId.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -197,13 +211,13 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [InboundFundsHoldReleaseParams].
+         * Returns an immutable instance of [PendingTransactionReleaseInboundFundsHoldParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): InboundFundsHoldReleaseParams =
-            InboundFundsHoldReleaseParams(
-                inboundFundsHoldId,
+        fun build(): PendingTransactionReleaseInboundFundsHoldParams =
+            PendingTransactionReleaseInboundFundsHoldParams(
+                pendingTransactionId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
                 additionalBodyProperties.toImmutable(),
@@ -215,7 +229,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> inboundFundsHoldId ?: ""
+            0 -> pendingTransactionId ?: ""
             else -> ""
         }
 
@@ -228,8 +242,8 @@ private constructor(
             return true
         }
 
-        return other is InboundFundsHoldReleaseParams &&
-            inboundFundsHoldId == other.inboundFundsHoldId &&
+        return other is PendingTransactionReleaseInboundFundsHoldParams &&
+            pendingTransactionId == other.pendingTransactionId &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams &&
             additionalBodyProperties == other.additionalBodyProperties
@@ -237,12 +251,12 @@ private constructor(
 
     override fun hashCode(): Int =
         Objects.hash(
-            inboundFundsHoldId,
+            pendingTransactionId,
             additionalHeaders,
             additionalQueryParams,
             additionalBodyProperties,
         )
 
     override fun toString() =
-        "InboundFundsHoldReleaseParams{inboundFundsHoldId=$inboundFundsHoldId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "PendingTransactionReleaseInboundFundsHoldParams{pendingTransactionId=$pendingTransactionId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }
