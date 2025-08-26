@@ -39,8 +39,6 @@ import com.increase.api.services.blocking.simulations.InboundAchTransferService
 import com.increase.api.services.blocking.simulations.InboundAchTransferServiceImpl
 import com.increase.api.services.blocking.simulations.InboundCheckDepositService
 import com.increase.api.services.blocking.simulations.InboundCheckDepositServiceImpl
-import com.increase.api.services.blocking.simulations.InboundFundsHoldService
-import com.increase.api.services.blocking.simulations.InboundFundsHoldServiceImpl
 import com.increase.api.services.blocking.simulations.InboundMailItemService
 import com.increase.api.services.blocking.simulations.InboundMailItemServiceImpl
 import com.increase.api.services.blocking.simulations.InboundRealTimePaymentsTransferService
@@ -51,6 +49,8 @@ import com.increase.api.services.blocking.simulations.InboundWireTransferService
 import com.increase.api.services.blocking.simulations.InboundWireTransferServiceImpl
 import com.increase.api.services.blocking.simulations.InterestPaymentService
 import com.increase.api.services.blocking.simulations.InterestPaymentServiceImpl
+import com.increase.api.services.blocking.simulations.PendingTransactionService
+import com.increase.api.services.blocking.simulations.PendingTransactionServiceImpl
 import com.increase.api.services.blocking.simulations.PhysicalCardService
 import com.increase.api.services.blocking.simulations.PhysicalCardServiceImpl
 import com.increase.api.services.blocking.simulations.ProgramService
@@ -110,8 +110,8 @@ class SimulationServiceImpl internal constructor(private val clientOptions: Clie
         DigitalWalletTokenRequestServiceImpl(clientOptions)
     }
 
-    private val inboundFundsHolds: InboundFundsHoldService by lazy {
-        InboundFundsHoldServiceImpl(clientOptions)
+    private val pendingTransactions: PendingTransactionService by lazy {
+        PendingTransactionServiceImpl(clientOptions)
     }
 
     private val accountTransfers: AccountTransferService by lazy {
@@ -203,7 +203,7 @@ class SimulationServiceImpl internal constructor(private val clientOptions: Clie
     override fun digitalWalletTokenRequests(): DigitalWalletTokenRequestService =
         digitalWalletTokenRequests
 
-    override fun inboundFundsHolds(): InboundFundsHoldService = inboundFundsHolds
+    override fun pendingTransactions(): PendingTransactionService = pendingTransactions
 
     override fun accountTransfers(): AccountTransferService = accountTransfers
 
@@ -291,8 +291,8 @@ class SimulationServiceImpl internal constructor(private val clientOptions: Clie
             DigitalWalletTokenRequestServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
-        private val inboundFundsHolds: InboundFundsHoldService.WithRawResponse by lazy {
-            InboundFundsHoldServiceImpl.WithRawResponseImpl(clientOptions)
+        private val pendingTransactions: PendingTransactionService.WithRawResponse by lazy {
+            PendingTransactionServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
         private val accountTransfers: AccountTransferService.WithRawResponse by lazy {
@@ -399,8 +399,8 @@ class SimulationServiceImpl internal constructor(private val clientOptions: Clie
         override fun digitalWalletTokenRequests():
             DigitalWalletTokenRequestService.WithRawResponse = digitalWalletTokenRequests
 
-        override fun inboundFundsHolds(): InboundFundsHoldService.WithRawResponse =
-            inboundFundsHolds
+        override fun pendingTransactions(): PendingTransactionService.WithRawResponse =
+            pendingTransactions
 
         override fun accountTransfers(): AccountTransferService.WithRawResponse = accountTransfers
 

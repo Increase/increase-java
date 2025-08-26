@@ -21,12 +21,12 @@ import com.increase.api.services.blocking.simulations.DigitalWalletTokenRequestS
 import com.increase.api.services.blocking.simulations.DocumentService
 import com.increase.api.services.blocking.simulations.InboundAchTransferService
 import com.increase.api.services.blocking.simulations.InboundCheckDepositService
-import com.increase.api.services.blocking.simulations.InboundFundsHoldService
 import com.increase.api.services.blocking.simulations.InboundMailItemService
 import com.increase.api.services.blocking.simulations.InboundRealTimePaymentsTransferService
 import com.increase.api.services.blocking.simulations.InboundWireDrawdownRequestService
 import com.increase.api.services.blocking.simulations.InboundWireTransferService
 import com.increase.api.services.blocking.simulations.InterestPaymentService
+import com.increase.api.services.blocking.simulations.PendingTransactionService
 import com.increase.api.services.blocking.simulations.PhysicalCardService
 import com.increase.api.services.blocking.simulations.ProgramService
 import com.increase.api.services.blocking.simulations.RealTimePaymentsTransferService
@@ -70,7 +70,7 @@ interface SimulationService {
 
     fun digitalWalletTokenRequests(): DigitalWalletTokenRequestService
 
-    fun inboundFundsHolds(): InboundFundsHoldService
+    fun pendingTransactions(): PendingTransactionService
 
     fun accountTransfers(): AccountTransferService
 
@@ -140,7 +140,7 @@ interface SimulationService {
 
         fun digitalWalletTokenRequests(): DigitalWalletTokenRequestService.WithRawResponse
 
-        fun inboundFundsHolds(): InboundFundsHoldService.WithRawResponse
+        fun pendingTransactions(): PendingTransactionService.WithRawResponse
 
         fun accountTransfers(): AccountTransferService.WithRawResponse
 

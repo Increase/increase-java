@@ -16,65 +16,68 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
-import com.increase.api.models.simulations.inboundfundsholds.InboundFundsHoldReleaseParams
-import com.increase.api.models.simulations.inboundfundsholds.InboundFundsHoldReleaseResponse
+import com.increase.api.models.pendingtransactions.PendingTransaction
+import com.increase.api.models.simulations.pendingtransactions.PendingTransactionReleaseInboundFundsHoldParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
-class InboundFundsHoldServiceAsyncImpl
-internal constructor(private val clientOptions: ClientOptions) : InboundFundsHoldServiceAsync {
+class PendingTransactionServiceAsyncImpl
+internal constructor(private val clientOptions: ClientOptions) : PendingTransactionServiceAsync {
 
-    private val withRawResponse: InboundFundsHoldServiceAsync.WithRawResponse by lazy {
+    private val withRawResponse: PendingTransactionServiceAsync.WithRawResponse by lazy {
         WithRawResponseImpl(clientOptions)
     }
 
-    override fun withRawResponse(): InboundFundsHoldServiceAsync.WithRawResponse = withRawResponse
+    override fun withRawResponse(): PendingTransactionServiceAsync.WithRawResponse = withRawResponse
 
     override fun withOptions(
         modifier: Consumer<ClientOptions.Builder>
-    ): InboundFundsHoldServiceAsync =
-        InboundFundsHoldServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
+    ): PendingTransactionServiceAsync =
+        PendingTransactionServiceAsyncImpl(
+            clientOptions.toBuilder().apply(modifier::accept).build()
+        )
 
-    override fun release(
-        params: InboundFundsHoldReleaseParams,
+    override fun releaseInboundFundsHold(
+        params: PendingTransactionReleaseInboundFundsHoldParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<InboundFundsHoldReleaseResponse> =
-        // post /simulations/inbound_funds_holds/{inbound_funds_hold_id}/release
-        withRawResponse().release(params, requestOptions).thenApply { it.parse() }
+    ): CompletableFuture<PendingTransaction> =
+        // post
+        // /simulations/pending_transactions/{pending_transaction_id}/release_inbound_funds_hold
+        withRawResponse().releaseInboundFundsHold(params, requestOptions).thenApply { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
-        InboundFundsHoldServiceAsync.WithRawResponse {
+        PendingTransactionServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<HttpResponse> =
             errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
-        ): InboundFundsHoldServiceAsync.WithRawResponse =
-            InboundFundsHoldServiceAsyncImpl.WithRawResponseImpl(
+        ): PendingTransactionServiceAsync.WithRawResponse =
+            PendingTransactionServiceAsyncImpl.WithRawResponseImpl(
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val releaseHandler: Handler<InboundFundsHoldReleaseResponse> =
-            jsonHandler<InboundFundsHoldReleaseResponse>(clientOptions.jsonMapper)
+        private val releaseInboundFundsHoldHandler: Handler<PendingTransaction> =
+            jsonHandler<PendingTransaction>(clientOptions.jsonMapper)
 
-        override fun release(
-            params: InboundFundsHoldReleaseParams,
+        override fun releaseInboundFundsHold(
+            params: PendingTransactionReleaseInboundFundsHoldParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<InboundFundsHoldReleaseResponse>> {
+        ): CompletableFuture<HttpResponseFor<PendingTransaction>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
-            checkRequired("inboundFundsHoldId", params.inboundFundsHoldId().getOrNull())
+            checkRequired("pendingTransactionId", params.pendingTransactionId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
                     .addPathSegments(
                         "simulations",
-                        "inbound_funds_holds",
+                        "pending_transactions",
                         params._pathParam(0),
-                        "release",
+                        "release_inbound_funds_hold",
                     )
                     .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
@@ -85,7 +88,7 @@ internal constructor(private val clientOptions: ClientOptions) : InboundFundsHol
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
                         response
-                            .use { releaseHandler.handle(it) }
+                            .use { releaseInboundFundsHoldHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
