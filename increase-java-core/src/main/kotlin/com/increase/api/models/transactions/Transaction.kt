@@ -34593,22 +34593,20 @@ private constructor(
             /**
              * The Fedwire cycle date for the wire transfer that is being reversed by this message.
              *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
              */
-            fun previousMessageInputCycleDate(): LocalDate =
-                previousMessageInputCycleDate.getRequired("previous_message_input_cycle_date")
+            fun previousMessageInputCycleDate(): Optional<LocalDate> =
+                previousMessageInputCycleDate.getOptional("previous_message_input_cycle_date")
 
             /**
              * The Fedwire transaction identifier for the wire transfer that was reversed.
              *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
              */
-            fun previousMessageInputMessageAccountabilityData(): String =
-                previousMessageInputMessageAccountabilityData.getRequired(
+            fun previousMessageInputMessageAccountabilityData(): Optional<String> =
+                previousMessageInputMessageAccountabilityData.getOptional(
                     "previous_message_input_message_accountability_data"
                 )
 
@@ -34627,12 +34625,11 @@ private constructor(
             /**
              * The Fedwire input source identifier for the wire transfer that was reversed.
              *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
              */
-            fun previousMessageInputSource(): String =
-                previousMessageInputSource.getRequired("previous_message_input_source")
+            fun previousMessageInputSource(): Optional<String> =
+                previousMessageInputSource.getOptional("previous_message_input_source")
 
             /**
              * Information included in the wire reversal for the receiving financial institution.
@@ -35159,8 +35156,18 @@ private constructor(
                  * The Fedwire cycle date for the wire transfer that is being reversed by this
                  * message.
                  */
-                fun previousMessageInputCycleDate(previousMessageInputCycleDate: LocalDate) =
-                    previousMessageInputCycleDate(JsonField.of(previousMessageInputCycleDate))
+                fun previousMessageInputCycleDate(previousMessageInputCycleDate: LocalDate?) =
+                    previousMessageInputCycleDate(
+                        JsonField.ofNullable(previousMessageInputCycleDate)
+                    )
+
+                /**
+                 * Alias for calling [Builder.previousMessageInputCycleDate] with
+                 * `previousMessageInputCycleDate.orElse(null)`.
+                 */
+                fun previousMessageInputCycleDate(
+                    previousMessageInputCycleDate: Optional<LocalDate>
+                ) = previousMessageInputCycleDate(previousMessageInputCycleDate.getOrNull())
 
                 /**
                  * Sets [Builder.previousMessageInputCycleDate] to an arbitrary JSON value.
@@ -35175,10 +35182,21 @@ private constructor(
 
                 /** The Fedwire transaction identifier for the wire transfer that was reversed. */
                 fun previousMessageInputMessageAccountabilityData(
-                    previousMessageInputMessageAccountabilityData: String
+                    previousMessageInputMessageAccountabilityData: String?
                 ) =
                     previousMessageInputMessageAccountabilityData(
-                        JsonField.of(previousMessageInputMessageAccountabilityData)
+                        JsonField.ofNullable(previousMessageInputMessageAccountabilityData)
+                    )
+
+                /**
+                 * Alias for calling [Builder.previousMessageInputMessageAccountabilityData] with
+                 * `previousMessageInputMessageAccountabilityData.orElse(null)`.
+                 */
+                fun previousMessageInputMessageAccountabilityData(
+                    previousMessageInputMessageAccountabilityData: Optional<String>
+                ) =
+                    previousMessageInputMessageAccountabilityData(
+                        previousMessageInputMessageAccountabilityData.getOrNull()
                     )
 
                 /**
@@ -35216,8 +35234,15 @@ private constructor(
                 }
 
                 /** The Fedwire input source identifier for the wire transfer that was reversed. */
-                fun previousMessageInputSource(previousMessageInputSource: String) =
-                    previousMessageInputSource(JsonField.of(previousMessageInputSource))
+                fun previousMessageInputSource(previousMessageInputSource: String?) =
+                    previousMessageInputSource(JsonField.ofNullable(previousMessageInputSource))
+
+                /**
+                 * Alias for calling [Builder.previousMessageInputSource] with
+                 * `previousMessageInputSource.orElse(null)`.
+                 */
+                fun previousMessageInputSource(previousMessageInputSource: Optional<String>) =
+                    previousMessageInputSource(previousMessageInputSource.getOrNull())
 
                 /**
                  * Sets [Builder.previousMessageInputSource] to an arbitrary JSON value.
