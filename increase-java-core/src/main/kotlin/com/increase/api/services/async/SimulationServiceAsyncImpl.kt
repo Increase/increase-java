@@ -39,8 +39,6 @@ import com.increase.api.services.async.simulations.InboundAchTransferServiceAsyn
 import com.increase.api.services.async.simulations.InboundAchTransferServiceAsyncImpl
 import com.increase.api.services.async.simulations.InboundCheckDepositServiceAsync
 import com.increase.api.services.async.simulations.InboundCheckDepositServiceAsyncImpl
-import com.increase.api.services.async.simulations.InboundFundsHoldServiceAsync
-import com.increase.api.services.async.simulations.InboundFundsHoldServiceAsyncImpl
 import com.increase.api.services.async.simulations.InboundMailItemServiceAsync
 import com.increase.api.services.async.simulations.InboundMailItemServiceAsyncImpl
 import com.increase.api.services.async.simulations.InboundRealTimePaymentsTransferServiceAsync
@@ -51,6 +49,8 @@ import com.increase.api.services.async.simulations.InboundWireTransferServiceAsy
 import com.increase.api.services.async.simulations.InboundWireTransferServiceAsyncImpl
 import com.increase.api.services.async.simulations.InterestPaymentServiceAsync
 import com.increase.api.services.async.simulations.InterestPaymentServiceAsyncImpl
+import com.increase.api.services.async.simulations.PendingTransactionServiceAsync
+import com.increase.api.services.async.simulations.PendingTransactionServiceAsyncImpl
 import com.increase.api.services.async.simulations.PhysicalCardServiceAsync
 import com.increase.api.services.async.simulations.PhysicalCardServiceAsyncImpl
 import com.increase.api.services.async.simulations.ProgramServiceAsync
@@ -114,8 +114,8 @@ class SimulationServiceAsyncImpl internal constructor(private val clientOptions:
         DigitalWalletTokenRequestServiceAsyncImpl(clientOptions)
     }
 
-    private val inboundFundsHolds: InboundFundsHoldServiceAsync by lazy {
-        InboundFundsHoldServiceAsyncImpl(clientOptions)
+    private val pendingTransactions: PendingTransactionServiceAsync by lazy {
+        PendingTransactionServiceAsyncImpl(clientOptions)
     }
 
     private val accountTransfers: AccountTransferServiceAsync by lazy {
@@ -212,7 +212,7 @@ class SimulationServiceAsyncImpl internal constructor(private val clientOptions:
     override fun digitalWalletTokenRequests(): DigitalWalletTokenRequestServiceAsync =
         digitalWalletTokenRequests
 
-    override fun inboundFundsHolds(): InboundFundsHoldServiceAsync = inboundFundsHolds
+    override fun pendingTransactions(): PendingTransactionServiceAsync = pendingTransactions
 
     override fun accountTransfers(): AccountTransferServiceAsync = accountTransfers
 
@@ -301,8 +301,8 @@ class SimulationServiceAsyncImpl internal constructor(private val clientOptions:
             DigitalWalletTokenRequestServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
-        private val inboundFundsHolds: InboundFundsHoldServiceAsync.WithRawResponse by lazy {
-            InboundFundsHoldServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        private val pendingTransactions: PendingTransactionServiceAsync.WithRawResponse by lazy {
+            PendingTransactionServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
         private val accountTransfers: AccountTransferServiceAsync.WithRawResponse by lazy {
@@ -410,8 +410,8 @@ class SimulationServiceAsyncImpl internal constructor(private val clientOptions:
         override fun digitalWalletTokenRequests():
             DigitalWalletTokenRequestServiceAsync.WithRawResponse = digitalWalletTokenRequests
 
-        override fun inboundFundsHolds(): InboundFundsHoldServiceAsync.WithRawResponse =
-            inboundFundsHolds
+        override fun pendingTransactions(): PendingTransactionServiceAsync.WithRawResponse =
+            pendingTransactions
 
         override fun accountTransfers(): AccountTransferServiceAsync.WithRawResponse =
             accountTransfers

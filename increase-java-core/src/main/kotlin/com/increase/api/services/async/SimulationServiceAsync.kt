@@ -21,12 +21,12 @@ import com.increase.api.services.async.simulations.DigitalWalletTokenRequestServ
 import com.increase.api.services.async.simulations.DocumentServiceAsync
 import com.increase.api.services.async.simulations.InboundAchTransferServiceAsync
 import com.increase.api.services.async.simulations.InboundCheckDepositServiceAsync
-import com.increase.api.services.async.simulations.InboundFundsHoldServiceAsync
 import com.increase.api.services.async.simulations.InboundMailItemServiceAsync
 import com.increase.api.services.async.simulations.InboundRealTimePaymentsTransferServiceAsync
 import com.increase.api.services.async.simulations.InboundWireDrawdownRequestServiceAsync
 import com.increase.api.services.async.simulations.InboundWireTransferServiceAsync
 import com.increase.api.services.async.simulations.InterestPaymentServiceAsync
+import com.increase.api.services.async.simulations.PendingTransactionServiceAsync
 import com.increase.api.services.async.simulations.PhysicalCardServiceAsync
 import com.increase.api.services.async.simulations.ProgramServiceAsync
 import com.increase.api.services.async.simulations.RealTimePaymentsTransferServiceAsync
@@ -70,7 +70,7 @@ interface SimulationServiceAsync {
 
     fun digitalWalletTokenRequests(): DigitalWalletTokenRequestServiceAsync
 
-    fun inboundFundsHolds(): InboundFundsHoldServiceAsync
+    fun pendingTransactions(): PendingTransactionServiceAsync
 
     fun accountTransfers(): AccountTransferServiceAsync
 
@@ -143,7 +143,7 @@ interface SimulationServiceAsync {
 
         fun digitalWalletTokenRequests(): DigitalWalletTokenRequestServiceAsync.WithRawResponse
 
-        fun inboundFundsHolds(): InboundFundsHoldServiceAsync.WithRawResponse
+        fun pendingTransactions(): PendingTransactionServiceAsync.WithRawResponse
 
         fun accountTransfers(): AccountTransferServiceAsync.WithRawResponse
 
