@@ -73,30 +73,16 @@ internal class WireTransferListPageResponseTest {
                             WireTransfer.Reversal.builder()
                                 .amount(0L)
                                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .debtorRoutingNumber("debtor_routing_number")
                                 .description("description")
-                                .financialInstitutionToFinancialInstitutionInformation(
-                                    "financial_institution_to_financial_institution_information"
-                                )
                                 .inputCycleDate(LocalDate.parse("2019-12-27"))
                                 .inputMessageAccountabilityData("input_message_accountability_data")
                                 .inputSequenceNumber("input_sequence_number")
                                 .inputSource("input_source")
-                                .originatorRoutingNumber("originator_routing_number")
-                                .originatorToBeneficiaryInformation(
-                                    "originator_to_beneficiary_information"
+                                .instructionIdentification("instruction_identification")
+                                .returnReasonAdditionalInformation(
+                                    "return_reason_additional_information"
                                 )
-                                .previousMessageInputCycleDate(LocalDate.parse("2019-12-27"))
-                                .previousMessageInputMessageAccountabilityData(
-                                    "previous_message_input_message_accountability_data"
-                                )
-                                .previousMessageInputSequenceNumber(
-                                    "previous_message_input_sequence_number"
-                                )
-                                .previousMessageInputSource("previous_message_input_source")
-                                .receiverFinancialInstitutionInformation(
-                                    "receiver_financial_institution_information"
-                                )
-                                .senderReference("sender_reference")
                                 .transactionId("transaction_id")
                                 .wireTransferId("wire_transfer_id")
                                 .build()
@@ -176,30 +162,16 @@ internal class WireTransferListPageResponseTest {
                         WireTransfer.Reversal.builder()
                             .amount(0L)
                             .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .debtorRoutingNumber("debtor_routing_number")
                             .description("description")
-                            .financialInstitutionToFinancialInstitutionInformation(
-                                "financial_institution_to_financial_institution_information"
-                            )
                             .inputCycleDate(LocalDate.parse("2019-12-27"))
                             .inputMessageAccountabilityData("input_message_accountability_data")
                             .inputSequenceNumber("input_sequence_number")
                             .inputSource("input_source")
-                            .originatorRoutingNumber("originator_routing_number")
-                            .originatorToBeneficiaryInformation(
-                                "originator_to_beneficiary_information"
+                            .instructionIdentification("instruction_identification")
+                            .returnReasonAdditionalInformation(
+                                "return_reason_additional_information"
                             )
-                            .previousMessageInputCycleDate(LocalDate.parse("2019-12-27"))
-                            .previousMessageInputMessageAccountabilityData(
-                                "previous_message_input_message_accountability_data"
-                            )
-                            .previousMessageInputSequenceNumber(
-                                "previous_message_input_sequence_number"
-                            )
-                            .previousMessageInputSource("previous_message_input_source")
-                            .receiverFinancialInstitutionInformation(
-                                "receiver_financial_institution_information"
-                            )
-                            .senderReference("sender_reference")
                             .transactionId("transaction_id")
                             .wireTransferId("wire_transfer_id")
                             .build()
@@ -283,30 +255,16 @@ internal class WireTransferListPageResponseTest {
                             WireTransfer.Reversal.builder()
                                 .amount(0L)
                                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .debtorRoutingNumber("debtor_routing_number")
                                 .description("description")
-                                .financialInstitutionToFinancialInstitutionInformation(
-                                    "financial_institution_to_financial_institution_information"
-                                )
                                 .inputCycleDate(LocalDate.parse("2019-12-27"))
                                 .inputMessageAccountabilityData("input_message_accountability_data")
                                 .inputSequenceNumber("input_sequence_number")
                                 .inputSource("input_source")
-                                .originatorRoutingNumber("originator_routing_number")
-                                .originatorToBeneficiaryInformation(
-                                    "originator_to_beneficiary_information"
+                                .instructionIdentification("instruction_identification")
+                                .returnReasonAdditionalInformation(
+                                    "return_reason_additional_information"
                                 )
-                                .previousMessageInputCycleDate(LocalDate.parse("2019-12-27"))
-                                .previousMessageInputMessageAccountabilityData(
-                                    "previous_message_input_message_accountability_data"
-                                )
-                                .previousMessageInputSequenceNumber(
-                                    "previous_message_input_sequence_number"
-                                )
-                                .previousMessageInputSource("previous_message_input_source")
-                                .receiverFinancialInstitutionInformation(
-                                    "receiver_financial_institution_information"
-                                )
-                                .senderReference("sender_reference")
                                 .transactionId("transaction_id")
                                 .wireTransferId("wire_transfer_id")
                                 .build()
