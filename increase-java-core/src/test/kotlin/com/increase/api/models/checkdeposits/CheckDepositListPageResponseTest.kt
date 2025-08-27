@@ -67,7 +67,6 @@ internal class CheckDepositListPageResponseTest {
                         .idempotencyKey(null)
                         .inboundFundsHold(
                             CheckDeposit.InboundFundsHold.builder()
-                                .id("id")
                                 .amount(0L)
                                 .automaticallyReleasesAt(
                                     OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
@@ -144,7 +143,6 @@ internal class CheckDepositListPageResponseTest {
                     .idempotencyKey(null)
                     .inboundFundsHold(
                         CheckDeposit.InboundFundsHold.builder()
-                            .id("id")
                             .amount(0L)
                             .automaticallyReleasesAt(
                                 OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
@@ -226,7 +224,6 @@ internal class CheckDepositListPageResponseTest {
                         .idempotencyKey(null)
                         .inboundFundsHold(
                             CheckDeposit.InboundFundsHold.builder()
-                                .id("id")
                                 .amount(0L)
                                 .automaticallyReleasesAt(
                                     OffsetDateTime.parse("2019-12-27T18:11:19.117Z")

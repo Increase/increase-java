@@ -98,7 +98,6 @@ internal class AchTransferListPageResponseTest {
                         .idempotencyKey(null)
                         .inboundFundsHold(
                             AchTransfer.InboundFundsHold.builder()
-                                .id("id")
                                 .amount(0L)
                                 .automaticallyReleasesAt(
                                     OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
@@ -261,7 +260,6 @@ internal class AchTransferListPageResponseTest {
                     .idempotencyKey(null)
                     .inboundFundsHold(
                         AchTransfer.InboundFundsHold.builder()
-                            .id("id")
                             .amount(0L)
                             .automaticallyReleasesAt(
                                 OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
@@ -424,7 +422,6 @@ internal class AchTransferListPageResponseTest {
                         .idempotencyKey(null)
                         .inboundFundsHold(
                             AchTransfer.InboundFundsHold.builder()
-                                .id("id")
                                 .amount(0L)
                                 .automaticallyReleasesAt(
                                     OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
