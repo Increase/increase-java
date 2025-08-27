@@ -625,7 +625,6 @@ internal class CardAuthorizationCreateResponseTest {
                                 )
                                 .inboundFundsHold(
                                     PendingTransaction.Source.InboundFundsHold.builder()
-                                        .id("inbound_funds_hold_9vuasmywdo7xb3zt4071")
                                         .amount(100L)
                                         .automaticallyReleasesAt(
                                             OffsetDateTime.parse("2020-01-31T23:59:59Z")
@@ -1282,7 +1281,6 @@ internal class CardAuthorizationCreateResponseTest {
                             )
                             .inboundFundsHold(
                                 PendingTransaction.Source.InboundFundsHold.builder()
-                                    .id("inbound_funds_hold_9vuasmywdo7xb3zt4071")
                                     .amount(100L)
                                     .automaticallyReleasesAt(
                                         OffsetDateTime.parse("2020-01-31T23:59:59Z")
@@ -1958,7 +1956,6 @@ internal class CardAuthorizationCreateResponseTest {
                                 )
                                 .inboundFundsHold(
                                     PendingTransaction.Source.InboundFundsHold.builder()
-                                        .id("inbound_funds_hold_9vuasmywdo7xb3zt4071")
                                         .amount(100L)
                                         .automaticallyReleasesAt(
                                             OffsetDateTime.parse("2020-01-31T23:59:59Z")
