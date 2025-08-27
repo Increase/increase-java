@@ -26,6 +26,13 @@ internal class TransactionTest {
                 .routeType(Transaction.RouteType.ACCOUNT_NUMBER)
                 .source(
                     Transaction.Source.builder()
+                        .accountRevenuePayment(
+                            Transaction.Source.AccountRevenuePayment.builder()
+                                .accruedOnAccountId("account_in71c4amph0vgo2qllky")
+                                .periodEnd(OffsetDateTime.parse("2025-08-31T23:59:59Z"))
+                                .periodStart(OffsetDateTime.parse("2025-08-01T00:00:00Z"))
+                                .build()
+                        )
                         .accountTransferIntention(
                             Transaction.Source.AccountTransferIntention.builder()
                                 .amount(100L)
@@ -818,6 +825,13 @@ internal class TransactionTest {
         assertThat(transaction.source())
             .isEqualTo(
                 Transaction.Source.builder()
+                    .accountRevenuePayment(
+                        Transaction.Source.AccountRevenuePayment.builder()
+                            .accruedOnAccountId("account_in71c4amph0vgo2qllky")
+                            .periodEnd(OffsetDateTime.parse("2025-08-31T23:59:59Z"))
+                            .periodStart(OffsetDateTime.parse("2025-08-01T00:00:00Z"))
+                            .build()
+                    )
                     .accountTransferIntention(
                         Transaction.Source.AccountTransferIntention.builder()
                             .amount(100L)
@@ -1573,6 +1587,13 @@ internal class TransactionTest {
                 .routeType(Transaction.RouteType.ACCOUNT_NUMBER)
                 .source(
                     Transaction.Source.builder()
+                        .accountRevenuePayment(
+                            Transaction.Source.AccountRevenuePayment.builder()
+                                .accruedOnAccountId("account_in71c4amph0vgo2qllky")
+                                .periodEnd(OffsetDateTime.parse("2025-08-31T23:59:59Z"))
+                                .periodStart(OffsetDateTime.parse("2025-08-01T00:00:00Z"))
+                                .build()
+                        )
                         .accountTransferIntention(
                             Transaction.Source.AccountTransferIntention.builder()
                                 .amount(100L)

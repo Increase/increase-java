@@ -110,6 +110,7 @@ private constructor(
     /**
      * The account revenue rate currently being earned on the account, as a string containing a
      * decimal number. For example, a 1% account revenue rate would be represented as "0.01".
+     * Account revenue is a type of non-interest income accrued on the account.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -463,6 +464,7 @@ private constructor(
         /**
          * The account revenue rate currently being earned on the account, as a string containing a
          * decimal number. For example, a 1% account revenue rate would be represented as "0.01".
+         * Account revenue is a type of non-interest income accrued on the account.
          */
         fun accountRevenueRate(accountRevenueRate: String?) =
             accountRevenueRate(JsonField.ofNullable(accountRevenueRate))
