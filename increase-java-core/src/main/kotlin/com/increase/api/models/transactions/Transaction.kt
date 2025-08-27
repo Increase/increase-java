@@ -868,6 +868,7 @@ private constructor(
      */
     class Source
     private constructor(
+        private val accountRevenuePayment: JsonField<AccountRevenuePayment>,
         private val accountTransferIntention: JsonField<AccountTransferIntention>,
         private val achTransferIntention: JsonField<AchTransferIntention>,
         private val achTransferRejection: JsonField<AchTransferRejection>,
@@ -909,6 +910,9 @@ private constructor(
 
         @JsonCreator
         private constructor(
+            @JsonProperty("account_revenue_payment")
+            @ExcludeMissing
+            accountRevenuePayment: JsonField<AccountRevenuePayment> = JsonMissing.of(),
             @JsonProperty("account_transfer_intention")
             @ExcludeMissing
             accountTransferIntention: JsonField<AccountTransferIntention> = JsonMissing.of(),
@@ -1013,6 +1017,7 @@ private constructor(
             @ExcludeMissing
             wireTransferIntention: JsonField<WireTransferIntention> = JsonMissing.of(),
         ) : this(
+            accountRevenuePayment,
             accountTransferIntention,
             achTransferIntention,
             achTransferRejection,
@@ -1048,6 +1053,18 @@ private constructor(
             wireTransferIntention,
             mutableMapOf(),
         )
+
+        /**
+         * An Account Revenue Payment object. This field will be present in the JSON response if and
+         * only if `category` is equal to `account_revenue_payment`. A Account Revenue Payment
+         * represents a payment made to an account from the bank. Account revenue is a type of
+         * non-interest income.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun accountRevenuePayment(): Optional<AccountRevenuePayment> =
+            accountRevenuePayment.getOptional("account_revenue_payment")
 
         /**
          * An Account Transfer Intention object. This field will be present in the JSON response if
@@ -1434,6 +1451,16 @@ private constructor(
             wireTransferIntention.getOptional("wire_transfer_intention")
 
         /**
+         * Returns the raw JSON value of [accountRevenuePayment].
+         *
+         * Unlike [accountRevenuePayment], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("account_revenue_payment")
+        @ExcludeMissing
+        fun _accountRevenuePayment(): JsonField<AccountRevenuePayment> = accountRevenuePayment
+
+        /**
          * Returns the raw JSON value of [accountTransferIntention].
          *
          * Unlike [accountTransferIntention], this method doesn't throw if the JSON field has an
@@ -1775,6 +1802,7 @@ private constructor(
              *
              * The following fields are required:
              * ```java
+             * .accountRevenuePayment()
              * .accountTransferIntention()
              * .achTransferIntention()
              * .achTransferRejection()
@@ -1816,6 +1844,7 @@ private constructor(
         /** A builder for [Source]. */
         class Builder internal constructor() {
 
+            private var accountRevenuePayment: JsonField<AccountRevenuePayment>? = null
             private var accountTransferIntention: JsonField<AccountTransferIntention>? = null
             private var achTransferIntention: JsonField<AchTransferIntention>? = null
             private var achTransferRejection: JsonField<AchTransferRejection>? = null
@@ -1861,6 +1890,7 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(source: Source) = apply {
+                accountRevenuePayment = source.accountRevenuePayment
                 accountTransferIntention = source.accountTransferIntention
                 achTransferIntention = source.achTransferIntention
                 achTransferRejection = source.achTransferRejection
@@ -1898,6 +1928,34 @@ private constructor(
                 wireTransferIntention = source.wireTransferIntention
                 additionalProperties = source.additionalProperties.toMutableMap()
             }
+
+            /**
+             * An Account Revenue Payment object. This field will be present in the JSON response if
+             * and only if `category` is equal to `account_revenue_payment`. A Account Revenue
+             * Payment represents a payment made to an account from the bank. Account revenue is a
+             * type of non-interest income.
+             */
+            fun accountRevenuePayment(accountRevenuePayment: AccountRevenuePayment?) =
+                accountRevenuePayment(JsonField.ofNullable(accountRevenuePayment))
+
+            /**
+             * Alias for calling [Builder.accountRevenuePayment] with
+             * `accountRevenuePayment.orElse(null)`.
+             */
+            fun accountRevenuePayment(accountRevenuePayment: Optional<AccountRevenuePayment>) =
+                accountRevenuePayment(accountRevenuePayment.getOrNull())
+
+            /**
+             * Sets [Builder.accountRevenuePayment] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.accountRevenuePayment] with a well-typed
+             * [AccountRevenuePayment] value instead. This method is primarily for setting the field
+             * to an undocumented or not yet supported value.
+             */
+            fun accountRevenuePayment(accountRevenuePayment: JsonField<AccountRevenuePayment>) =
+                apply {
+                    this.accountRevenuePayment = accountRevenuePayment
+                }
 
             /**
              * An Account Transfer Intention object. This field will be present in the JSON response
@@ -2805,6 +2863,7 @@ private constructor(
              *
              * The following fields are required:
              * ```java
+             * .accountRevenuePayment()
              * .accountTransferIntention()
              * .achTransferIntention()
              * .achTransferRejection()
@@ -2844,6 +2903,7 @@ private constructor(
              */
             fun build(): Source =
                 Source(
+                    checkRequired("accountRevenuePayment", accountRevenuePayment),
                     checkRequired("accountTransferIntention", accountTransferIntention),
                     checkRequired("achTransferIntention", achTransferIntention),
                     checkRequired("achTransferRejection", achTransferRejection),
@@ -2900,6 +2960,7 @@ private constructor(
                 return@apply
             }
 
+            accountRevenuePayment().ifPresent { it.validate() }
             accountTransferIntention().ifPresent { it.validate() }
             achTransferIntention().ifPresent { it.validate() }
             achTransferRejection().ifPresent { it.validate() }
@@ -2951,7 +3012,8 @@ private constructor(
          */
         @JvmSynthetic
         internal fun validity(): Int =
-            (accountTransferIntention.asKnown().getOrNull()?.validity() ?: 0) +
+            (accountRevenuePayment.asKnown().getOrNull()?.validity() ?: 0) +
+                (accountTransferIntention.asKnown().getOrNull()?.validity() ?: 0) +
                 (achTransferIntention.asKnown().getOrNull()?.validity() ?: 0) +
                 (achTransferRejection.asKnown().getOrNull()?.validity() ?: 0) +
                 (achTransferReturn.asKnown().getOrNull()?.validity() ?: 0) +
@@ -2984,6 +3046,279 @@ private constructor(
                 (swiftTransferIntention.asKnown().getOrNull()?.validity() ?: 0) +
                 (swiftTransferReturn.asKnown().getOrNull()?.validity() ?: 0) +
                 (wireTransferIntention.asKnown().getOrNull()?.validity() ?: 0)
+
+        /**
+         * An Account Revenue Payment object. This field will be present in the JSON response if and
+         * only if `category` is equal to `account_revenue_payment`. A Account Revenue Payment
+         * represents a payment made to an account from the bank. Account revenue is a type of
+         * non-interest income.
+         */
+        class AccountRevenuePayment
+        private constructor(
+            private val accruedOnAccountId: JsonField<String>,
+            private val periodEnd: JsonField<OffsetDateTime>,
+            private val periodStart: JsonField<OffsetDateTime>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("accrued_on_account_id")
+                @ExcludeMissing
+                accruedOnAccountId: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("period_end")
+                @ExcludeMissing
+                periodEnd: JsonField<OffsetDateTime> = JsonMissing.of(),
+                @JsonProperty("period_start")
+                @ExcludeMissing
+                periodStart: JsonField<OffsetDateTime> = JsonMissing.of(),
+            ) : this(accruedOnAccountId, periodEnd, periodStart, mutableMapOf())
+
+            /**
+             * The account on which the account revenue was accrued.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun accruedOnAccountId(): String =
+                accruedOnAccountId.getRequired("accrued_on_account_id")
+
+            /**
+             * The end of the period for which this transaction paid account revenue.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun periodEnd(): OffsetDateTime = periodEnd.getRequired("period_end")
+
+            /**
+             * The start of the period for which this transaction paid account revenue.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun periodStart(): OffsetDateTime = periodStart.getRequired("period_start")
+
+            /**
+             * Returns the raw JSON value of [accruedOnAccountId].
+             *
+             * Unlike [accruedOnAccountId], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("accrued_on_account_id")
+            @ExcludeMissing
+            fun _accruedOnAccountId(): JsonField<String> = accruedOnAccountId
+
+            /**
+             * Returns the raw JSON value of [periodEnd].
+             *
+             * Unlike [periodEnd], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("period_end")
+            @ExcludeMissing
+            fun _periodEnd(): JsonField<OffsetDateTime> = periodEnd
+
+            /**
+             * Returns the raw JSON value of [periodStart].
+             *
+             * Unlike [periodStart], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("period_start")
+            @ExcludeMissing
+            fun _periodStart(): JsonField<OffsetDateTime> = periodStart
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of
+                 * [AccountRevenuePayment].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .accruedOnAccountId()
+                 * .periodEnd()
+                 * .periodStart()
+                 * ```
+                 */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [AccountRevenuePayment]. */
+            class Builder internal constructor() {
+
+                private var accruedOnAccountId: JsonField<String>? = null
+                private var periodEnd: JsonField<OffsetDateTime>? = null
+                private var periodStart: JsonField<OffsetDateTime>? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(accountRevenuePayment: AccountRevenuePayment) = apply {
+                    accruedOnAccountId = accountRevenuePayment.accruedOnAccountId
+                    periodEnd = accountRevenuePayment.periodEnd
+                    periodStart = accountRevenuePayment.periodStart
+                    additionalProperties = accountRevenuePayment.additionalProperties.toMutableMap()
+                }
+
+                /** The account on which the account revenue was accrued. */
+                fun accruedOnAccountId(accruedOnAccountId: String) =
+                    accruedOnAccountId(JsonField.of(accruedOnAccountId))
+
+                /**
+                 * Sets [Builder.accruedOnAccountId] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.accruedOnAccountId] with a well-typed [String]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun accruedOnAccountId(accruedOnAccountId: JsonField<String>) = apply {
+                    this.accruedOnAccountId = accruedOnAccountId
+                }
+
+                /** The end of the period for which this transaction paid account revenue. */
+                fun periodEnd(periodEnd: OffsetDateTime) = periodEnd(JsonField.of(periodEnd))
+
+                /**
+                 * Sets [Builder.periodEnd] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.periodEnd] with a well-typed [OffsetDateTime]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun periodEnd(periodEnd: JsonField<OffsetDateTime>) = apply {
+                    this.periodEnd = periodEnd
+                }
+
+                /** The start of the period for which this transaction paid account revenue. */
+                fun periodStart(periodStart: OffsetDateTime) =
+                    periodStart(JsonField.of(periodStart))
+
+                /**
+                 * Sets [Builder.periodStart] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.periodStart] with a well-typed [OffsetDateTime]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun periodStart(periodStart: JsonField<OffsetDateTime>) = apply {
+                    this.periodStart = periodStart
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [AccountRevenuePayment].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .accruedOnAccountId()
+                 * .periodEnd()
+                 * .periodStart()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
+                fun build(): AccountRevenuePayment =
+                    AccountRevenuePayment(
+                        checkRequired("accruedOnAccountId", accruedOnAccountId),
+                        checkRequired("periodEnd", periodEnd),
+                        checkRequired("periodStart", periodStart),
+                        additionalProperties.toMutableMap(),
+                    )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): AccountRevenuePayment = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                accruedOnAccountId()
+                periodEnd()
+                periodStart()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                (if (accruedOnAccountId.asKnown().isPresent) 1 else 0) +
+                    (if (periodEnd.asKnown().isPresent) 1 else 0) +
+                    (if (periodStart.asKnown().isPresent) 1 else 0)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is AccountRevenuePayment &&
+                    accruedOnAccountId == other.accruedOnAccountId &&
+                    periodEnd == other.periodEnd &&
+                    periodStart == other.periodStart &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy {
+                Objects.hash(accruedOnAccountId, periodEnd, periodStart, additionalProperties)
+            }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "AccountRevenuePayment{accruedOnAccountId=$accruedOnAccountId, periodEnd=$periodEnd, periodStart=$periodStart, additionalProperties=$additionalProperties}"
+        }
 
         /**
          * An Account Transfer Intention object. This field will be present in the JSON response if
@@ -28162,6 +28497,12 @@ private constructor(
                  */
                 @JvmField val CARD_PUSH_TRANSFER_ACCEPTANCE = of("card_push_transfer_acceptance")
 
+                /**
+                 * Account Revenue Payment: details will be under the `account_revenue_payment`
+                 * object.
+                 */
+                @JvmField val ACCOUNT_REVENUE_PAYMENT = of("account_revenue_payment")
+
                 /** The Transaction was made for an undocumented or deprecated reason. */
                 @JvmField val OTHER = of("other")
 
@@ -28294,6 +28635,11 @@ private constructor(
                  * `card_push_transfer_acceptance` object.
                  */
                 CARD_PUSH_TRANSFER_ACCEPTANCE,
+                /**
+                 * Account Revenue Payment: details will be under the `account_revenue_payment`
+                 * object.
+                 */
+                ACCOUNT_REVENUE_PAYMENT,
                 /** The Transaction was made for an undocumented or deprecated reason. */
                 OTHER,
             }
@@ -28432,6 +28778,11 @@ private constructor(
                  * `card_push_transfer_acceptance` object.
                  */
                 CARD_PUSH_TRANSFER_ACCEPTANCE,
+                /**
+                 * Account Revenue Payment: details will be under the `account_revenue_payment`
+                 * object.
+                 */
+                ACCOUNT_REVENUE_PAYMENT,
                 /** The Transaction was made for an undocumented or deprecated reason. */
                 OTHER,
                 /**
@@ -28484,6 +28835,7 @@ private constructor(
                     SWIFT_TRANSFER_INTENTION -> Value.SWIFT_TRANSFER_INTENTION
                     SWIFT_TRANSFER_RETURN -> Value.SWIFT_TRANSFER_RETURN
                     CARD_PUSH_TRANSFER_ACCEPTANCE -> Value.CARD_PUSH_TRANSFER_ACCEPTANCE
+                    ACCOUNT_REVENUE_PAYMENT -> Value.ACCOUNT_REVENUE_PAYMENT
                     OTHER -> Value.OTHER
                     else -> Value._UNKNOWN
                 }
@@ -28534,6 +28886,7 @@ private constructor(
                     SWIFT_TRANSFER_INTENTION -> Known.SWIFT_TRANSFER_INTENTION
                     SWIFT_TRANSFER_RETURN -> Known.SWIFT_TRANSFER_RETURN
                     CARD_PUSH_TRANSFER_ACCEPTANCE -> Known.CARD_PUSH_TRANSFER_ACCEPTANCE
+                    ACCOUNT_REVENUE_PAYMENT -> Known.ACCOUNT_REVENUE_PAYMENT
                     OTHER -> Known.OTHER
                     else -> throw IncreaseInvalidDataException("Unknown Category: $value")
                 }
@@ -39112,6 +39465,7 @@ private constructor(
             }
 
             return other is Source &&
+                accountRevenuePayment == other.accountRevenuePayment &&
                 accountTransferIntention == other.accountTransferIntention &&
                 achTransferIntention == other.achTransferIntention &&
                 achTransferRejection == other.achTransferRejection &&
@@ -39152,6 +39506,7 @@ private constructor(
 
         private val hashCode: Int by lazy {
             Objects.hash(
+                accountRevenuePayment,
                 accountTransferIntention,
                 achTransferIntention,
                 achTransferRejection,
@@ -39192,7 +39547,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Source{accountTransferIntention=$accountTransferIntention, achTransferIntention=$achTransferIntention, achTransferRejection=$achTransferRejection, achTransferReturn=$achTransferReturn, cardDisputeAcceptance=$cardDisputeAcceptance, cardDisputeFinancial=$cardDisputeFinancial, cardDisputeLoss=$cardDisputeLoss, cardPushTransferAcceptance=$cardPushTransferAcceptance, cardRefund=$cardRefund, cardRevenuePayment=$cardRevenuePayment, cardSettlement=$cardSettlement, cashbackPayment=$cashbackPayment, category=$category, checkDepositAcceptance=$checkDepositAcceptance, checkDepositReturn=$checkDepositReturn, checkTransferDeposit=$checkTransferDeposit, feePayment=$feePayment, inboundAchTransfer=$inboundAchTransfer, inboundAchTransferReturnIntention=$inboundAchTransferReturnIntention, inboundCheckAdjustment=$inboundCheckAdjustment, inboundCheckDepositReturnIntention=$inboundCheckDepositReturnIntention, inboundRealTimePaymentsTransferConfirmation=$inboundRealTimePaymentsTransferConfirmation, inboundWireReversal=$inboundWireReversal, inboundWireTransfer=$inboundWireTransfer, inboundWireTransferReversal=$inboundWireTransferReversal, interestPayment=$interestPayment, internalSource=$internalSource, other=$other, realTimePaymentsTransferAcknowledgement=$realTimePaymentsTransferAcknowledgement, sampleFunds=$sampleFunds, swiftTransferIntention=$swiftTransferIntention, swiftTransferReturn=$swiftTransferReturn, wireTransferIntention=$wireTransferIntention, additionalProperties=$additionalProperties}"
+            "Source{accountRevenuePayment=$accountRevenuePayment, accountTransferIntention=$accountTransferIntention, achTransferIntention=$achTransferIntention, achTransferRejection=$achTransferRejection, achTransferReturn=$achTransferReturn, cardDisputeAcceptance=$cardDisputeAcceptance, cardDisputeFinancial=$cardDisputeFinancial, cardDisputeLoss=$cardDisputeLoss, cardPushTransferAcceptance=$cardPushTransferAcceptance, cardRefund=$cardRefund, cardRevenuePayment=$cardRevenuePayment, cardSettlement=$cardSettlement, cashbackPayment=$cashbackPayment, category=$category, checkDepositAcceptance=$checkDepositAcceptance, checkDepositReturn=$checkDepositReturn, checkTransferDeposit=$checkTransferDeposit, feePayment=$feePayment, inboundAchTransfer=$inboundAchTransfer, inboundAchTransferReturnIntention=$inboundAchTransferReturnIntention, inboundCheckAdjustment=$inboundCheckAdjustment, inboundCheckDepositReturnIntention=$inboundCheckDepositReturnIntention, inboundRealTimePaymentsTransferConfirmation=$inboundRealTimePaymentsTransferConfirmation, inboundWireReversal=$inboundWireReversal, inboundWireTransfer=$inboundWireTransfer, inboundWireTransferReversal=$inboundWireTransferReversal, interestPayment=$interestPayment, internalSource=$internalSource, other=$other, realTimePaymentsTransferAcknowledgement=$realTimePaymentsTransferAcknowledgement, sampleFunds=$sampleFunds, swiftTransferIntention=$swiftTransferIntention, swiftTransferReturn=$swiftTransferReturn, wireTransferIntention=$wireTransferIntention, additionalProperties=$additionalProperties}"
     }
 
     /**
