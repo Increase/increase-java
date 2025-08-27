@@ -5046,7 +5046,6 @@ private constructor(
      */
     class InboundFundsHold
     private constructor(
-        private val id: JsonField<String>,
         private val amount: JsonField<Long>,
         private val automaticallyReleasesAt: JsonField<OffsetDateTime>,
         private val createdAt: JsonField<OffsetDateTime>,
@@ -5061,7 +5060,6 @@ private constructor(
 
         @JsonCreator
         private constructor(
-            @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
             @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
             @JsonProperty("automatically_releases_at")
             @ExcludeMissing
@@ -5084,7 +5082,6 @@ private constructor(
             @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
             @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
         ) : this(
-            id,
             amount,
             automaticallyReleasesAt,
             createdAt,
@@ -5096,14 +5093,6 @@ private constructor(
             type,
             mutableMapOf(),
         )
-
-        /**
-         * The Inbound Funds Hold identifier.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun id(): String = id.getRequired("id")
 
         /**
          * The held amount in the minor unit of the account's currency. For dollars, for example,
@@ -5183,13 +5172,6 @@ private constructor(
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun type(): Type = type.getRequired("type")
-
-        /**
-         * Returns the raw JSON value of [id].
-         *
-         * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
         /**
          * Returns the raw JSON value of [amount].
@@ -5286,7 +5268,6 @@ private constructor(
              *
              * The following fields are required:
              * ```java
-             * .id()
              * .amount()
              * .automaticallyReleasesAt()
              * .createdAt()
@@ -5304,7 +5285,6 @@ private constructor(
         /** A builder for [InboundFundsHold]. */
         class Builder internal constructor() {
 
-            private var id: JsonField<String>? = null
             private var amount: JsonField<Long>? = null
             private var automaticallyReleasesAt: JsonField<OffsetDateTime>? = null
             private var createdAt: JsonField<OffsetDateTime>? = null
@@ -5318,7 +5298,6 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(inboundFundsHold: InboundFundsHold) = apply {
-                id = inboundFundsHold.id
                 amount = inboundFundsHold.amount
                 automaticallyReleasesAt = inboundFundsHold.automaticallyReleasesAt
                 createdAt = inboundFundsHold.createdAt
@@ -5330,18 +5309,6 @@ private constructor(
                 type = inboundFundsHold.type
                 additionalProperties = inboundFundsHold.additionalProperties.toMutableMap()
             }
-
-            /** The Inbound Funds Hold identifier. */
-            fun id(id: String) = id(JsonField.of(id))
-
-            /**
-             * Sets [Builder.id] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.id] with a well-typed [String] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
-             */
-            fun id(id: JsonField<String>) = apply { this.id = id }
 
             /**
              * The held amount in the minor unit of the account's currency. For dollars, for
@@ -5523,7 +5490,6 @@ private constructor(
              *
              * The following fields are required:
              * ```java
-             * .id()
              * .amount()
              * .automaticallyReleasesAt()
              * .createdAt()
@@ -5539,7 +5505,6 @@ private constructor(
              */
             fun build(): InboundFundsHold =
                 InboundFundsHold(
-                    checkRequired("id", id),
                     checkRequired("amount", amount),
                     checkRequired("automaticallyReleasesAt", automaticallyReleasesAt),
                     checkRequired("createdAt", createdAt),
@@ -5560,7 +5525,6 @@ private constructor(
                 return@apply
             }
 
-            id()
             amount()
             automaticallyReleasesAt()
             createdAt()
@@ -5589,8 +5553,7 @@ private constructor(
          */
         @JvmSynthetic
         internal fun validity(): Int =
-            (if (id.asKnown().isPresent) 1 else 0) +
-                (if (amount.asKnown().isPresent) 1 else 0) +
+            (if (amount.asKnown().isPresent) 1 else 0) +
                 (if (automaticallyReleasesAt.asKnown().isPresent) 1 else 0) +
                 (if (createdAt.asKnown().isPresent) 1 else 0) +
                 (currency.asKnown().getOrNull()?.validity() ?: 0) +
@@ -6040,7 +6003,6 @@ private constructor(
             }
 
             return other is InboundFundsHold &&
-                id == other.id &&
                 amount == other.amount &&
                 automaticallyReleasesAt == other.automaticallyReleasesAt &&
                 createdAt == other.createdAt &&
@@ -6055,7 +6017,6 @@ private constructor(
 
         private val hashCode: Int by lazy {
             Objects.hash(
-                id,
                 amount,
                 automaticallyReleasesAt,
                 createdAt,
@@ -6072,7 +6033,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "InboundFundsHold{id=$id, amount=$amount, automaticallyReleasesAt=$automaticallyReleasesAt, createdAt=$createdAt, currency=$currency, heldTransactionId=$heldTransactionId, pendingTransactionId=$pendingTransactionId, releasedAt=$releasedAt, status=$status, type=$type, additionalProperties=$additionalProperties}"
+            "InboundFundsHold{amount=$amount, automaticallyReleasesAt=$automaticallyReleasesAt, createdAt=$createdAt, currency=$currency, heldTransactionId=$heldTransactionId, pendingTransactionId=$pendingTransactionId, releasedAt=$releasedAt, status=$status, type=$type, additionalProperties=$additionalProperties}"
     }
 
     /** The transfer's network. */
