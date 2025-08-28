@@ -142,7 +142,10 @@ interface AchTransferServiceAsync {
      * transfer must first have a `status` of `pending_submission` or `submitted`. For convenience,
      * if the transfer is in `status`: `pending_submission`, the simulation will also submit the
      * transfer. Without this simulation the transfer will eventually settle on its own following
-     * the same Federal Reserve timeline as in production.
+     * the same Federal Reserve timeline as in production. Additionally, you can specify the
+     * behavior of the inbound funds hold that is created when the ACH Transfer is settled. If no
+     * behavior is specified, the inbound funds hold will be released immediately in order for the
+     * funds to be available for use.
      */
     fun settle(achTransferId: String): CompletableFuture<AchTransfer> =
         settle(achTransferId, AchTransferSettleParams.none())
