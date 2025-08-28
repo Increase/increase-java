@@ -31,8 +31,12 @@ internal class TransactionListPageResponseTest {
                                 .accountRevenuePayment(
                                     Transaction.Source.AccountRevenuePayment.builder()
                                         .accruedOnAccountId("account_in71c4amph0vgo2qllky")
-                                        .periodEnd(OffsetDateTime.parse("2025-08-31T23:59:59Z"))
-                                        .periodStart(OffsetDateTime.parse("2025-08-01T00:00:00Z"))
+                                        .periodEnd(
+                                            OffsetDateTime.parse("2025-06-30T23:59:59+00:00")
+                                        )
+                                        .periodStart(
+                                            OffsetDateTime.parse("2025-06-01T00:00:00+00:00")
+                                        )
                                         .build()
                                 )
                                 .accountTransferIntention(
@@ -370,8 +374,12 @@ internal class TransactionListPageResponseTest {
                                         .currency(
                                             Transaction.Source.CardRevenuePayment.Currency.USD
                                         )
-                                        .periodEnd(OffsetDateTime.parse("2025-08-31T23:59:59Z"))
-                                        .periodStart(OffsetDateTime.parse("2025-08-01T00:00:00Z"))
+                                        .periodEnd(
+                                            OffsetDateTime.parse("2025-06-30T23:59:59+00:00")
+                                        )
+                                        .periodStart(
+                                            OffsetDateTime.parse("2025-06-01T00:00:00+00:00")
+                                        )
                                         .transactedOnAccountId("account_in71c4amph0vgo2qllky")
                                         .build()
                                 )
@@ -642,8 +650,12 @@ internal class TransactionListPageResponseTest {
                                         .accruedOnCardId("card_oubs0hwk5rn6knuecxg2")
                                         .amount(100L)
                                         .currency(Transaction.Source.CashbackPayment.Currency.USD)
-                                        .periodEnd(OffsetDateTime.parse("2025-08-31T23:59:59Z"))
-                                        .periodStart(OffsetDateTime.parse("2025-08-01T00:00:00Z"))
+                                        .periodEnd(
+                                            OffsetDateTime.parse("2025-06-30T23:59:59+00:00")
+                                        )
+                                        .periodStart(
+                                            OffsetDateTime.parse("2025-06-01T00:00:00+00:00")
+                                        )
                                         .build()
                                 )
                                 .category(Transaction.Source.Category.INBOUND_ACH_TRANSFER)
@@ -837,8 +849,12 @@ internal class TransactionListPageResponseTest {
                                         .accruedOnAccountId("account_in71c4amph0vgo2qllky")
                                         .amount(100L)
                                         .currency(Transaction.Source.InterestPayment.Currency.USD)
-                                        .periodEnd(OffsetDateTime.parse("2025-08-31T23:59:59Z"))
-                                        .periodStart(OffsetDateTime.parse("2025-08-01T00:00:00Z"))
+                                        .periodEnd(
+                                            OffsetDateTime.parse("2025-06-30T23:59:59+00:00")
+                                        )
+                                        .periodStart(
+                                            OffsetDateTime.parse("2025-06-01T00:00:00+00:00")
+                                        )
                                         .build()
                                 )
                                 .internalSource(
@@ -911,8 +927,8 @@ internal class TransactionListPageResponseTest {
                             .accountRevenuePayment(
                                 Transaction.Source.AccountRevenuePayment.builder()
                                     .accruedOnAccountId("account_in71c4amph0vgo2qllky")
-                                    .periodEnd(OffsetDateTime.parse("2025-08-31T23:59:59Z"))
-                                    .periodStart(OffsetDateTime.parse("2025-08-01T00:00:00Z"))
+                                    .periodEnd(OffsetDateTime.parse("2025-06-30T23:59:59+00:00"))
+                                    .periodStart(OffsetDateTime.parse("2025-06-01T00:00:00+00:00"))
                                     .build()
                             )
                             .accountTransferIntention(
@@ -1236,8 +1252,8 @@ internal class TransactionListPageResponseTest {
                                 Transaction.Source.CardRevenuePayment.builder()
                                     .amount(100L)
                                     .currency(Transaction.Source.CardRevenuePayment.Currency.USD)
-                                    .periodEnd(OffsetDateTime.parse("2025-08-31T23:59:59Z"))
-                                    .periodStart(OffsetDateTime.parse("2025-08-01T00:00:00Z"))
+                                    .periodEnd(OffsetDateTime.parse("2025-06-30T23:59:59+00:00"))
+                                    .periodStart(OffsetDateTime.parse("2025-06-01T00:00:00+00:00"))
                                     .transactedOnAccountId("account_in71c4amph0vgo2qllky")
                                     .build()
                             )
@@ -1493,8 +1509,8 @@ internal class TransactionListPageResponseTest {
                                     .accruedOnCardId("card_oubs0hwk5rn6knuecxg2")
                                     .amount(100L)
                                     .currency(Transaction.Source.CashbackPayment.Currency.USD)
-                                    .periodEnd(OffsetDateTime.parse("2025-08-31T23:59:59Z"))
-                                    .periodStart(OffsetDateTime.parse("2025-08-01T00:00:00Z"))
+                                    .periodEnd(OffsetDateTime.parse("2025-06-30T23:59:59+00:00"))
+                                    .periodStart(OffsetDateTime.parse("2025-06-01T00:00:00+00:00"))
                                     .build()
                             )
                             .category(Transaction.Source.Category.INBOUND_ACH_TRANSFER)
@@ -1685,8 +1701,8 @@ internal class TransactionListPageResponseTest {
                                     .accruedOnAccountId("account_in71c4amph0vgo2qllky")
                                     .amount(100L)
                                     .currency(Transaction.Source.InterestPayment.Currency.USD)
-                                    .periodEnd(OffsetDateTime.parse("2025-08-31T23:59:59Z"))
-                                    .periodStart(OffsetDateTime.parse("2025-08-01T00:00:00Z"))
+                                    .periodEnd(OffsetDateTime.parse("2025-06-30T23:59:59+00:00"))
+                                    .periodStart(OffsetDateTime.parse("2025-06-01T00:00:00+00:00"))
                                     .build()
                             )
                             .internalSource(
@@ -1758,8 +1774,12 @@ internal class TransactionListPageResponseTest {
                                 .accountRevenuePayment(
                                     Transaction.Source.AccountRevenuePayment.builder()
                                         .accruedOnAccountId("account_in71c4amph0vgo2qllky")
-                                        .periodEnd(OffsetDateTime.parse("2025-08-31T23:59:59Z"))
-                                        .periodStart(OffsetDateTime.parse("2025-08-01T00:00:00Z"))
+                                        .periodEnd(
+                                            OffsetDateTime.parse("2025-06-30T23:59:59+00:00")
+                                        )
+                                        .periodStart(
+                                            OffsetDateTime.parse("2025-06-01T00:00:00+00:00")
+                                        )
                                         .build()
                                 )
                                 .accountTransferIntention(
@@ -2097,8 +2117,12 @@ internal class TransactionListPageResponseTest {
                                         .currency(
                                             Transaction.Source.CardRevenuePayment.Currency.USD
                                         )
-                                        .periodEnd(OffsetDateTime.parse("2025-08-31T23:59:59Z"))
-                                        .periodStart(OffsetDateTime.parse("2025-08-01T00:00:00Z"))
+                                        .periodEnd(
+                                            OffsetDateTime.parse("2025-06-30T23:59:59+00:00")
+                                        )
+                                        .periodStart(
+                                            OffsetDateTime.parse("2025-06-01T00:00:00+00:00")
+                                        )
                                         .transactedOnAccountId("account_in71c4amph0vgo2qllky")
                                         .build()
                                 )
@@ -2369,8 +2393,12 @@ internal class TransactionListPageResponseTest {
                                         .accruedOnCardId("card_oubs0hwk5rn6knuecxg2")
                                         .amount(100L)
                                         .currency(Transaction.Source.CashbackPayment.Currency.USD)
-                                        .periodEnd(OffsetDateTime.parse("2025-08-31T23:59:59Z"))
-                                        .periodStart(OffsetDateTime.parse("2025-08-01T00:00:00Z"))
+                                        .periodEnd(
+                                            OffsetDateTime.parse("2025-06-30T23:59:59+00:00")
+                                        )
+                                        .periodStart(
+                                            OffsetDateTime.parse("2025-06-01T00:00:00+00:00")
+                                        )
                                         .build()
                                 )
                                 .category(Transaction.Source.Category.INBOUND_ACH_TRANSFER)
@@ -2564,8 +2592,12 @@ internal class TransactionListPageResponseTest {
                                         .accruedOnAccountId("account_in71c4amph0vgo2qllky")
                                         .amount(100L)
                                         .currency(Transaction.Source.InterestPayment.Currency.USD)
-                                        .periodEnd(OffsetDateTime.parse("2025-08-31T23:59:59Z"))
-                                        .periodStart(OffsetDateTime.parse("2025-08-01T00:00:00Z"))
+                                        .periodEnd(
+                                            OffsetDateTime.parse("2025-06-30T23:59:59+00:00")
+                                        )
+                                        .periodStart(
+                                            OffsetDateTime.parse("2025-06-01T00:00:00+00:00")
+                                        )
                                         .build()
                                 )
                                 .internalSource(
