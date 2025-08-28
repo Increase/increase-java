@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.304.0 (2025-08-28)
+
+Full Changelog: [v0.303.0...v0.304.0](https://github.com/Increase/increase-java/compare/v0.303.0...v0.304.0)
+
+### Features
+
+* **api:** api update ([eed960f](https://github.com/Increase/increase-java/commit/eed960f335ee050a6eeb5bb30c5bdf0c1d1a63f5))
+
 ## 0.303.0 (2025-08-27)
 
 Full Changelog: [v0.302.0...v0.303.0](https://github.com/Increase/increase-java/compare/v0.302.0...v0.303.0)
