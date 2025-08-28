@@ -2,11 +2,20 @@
 
 package com.increase.api.models.simulations.achtransfers
 
+import com.fasterxml.jackson.annotation.JsonAnyGetter
+import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonProperty
+import com.increase.api.core.Enum
+import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.Params
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
-import com.increase.api.core.toImmutable
+import com.increase.api.errors.IncreaseInvalidDataException
+import java.util.Collections
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
@@ -16,21 +25,42 @@ import kotlin.jvm.optionals.getOrNull
  * transfer must first have a `status` of `pending_submission` or `submitted`. For convenience, if
  * the transfer is in `status`: `pending_submission`, the simulation will also submit the transfer.
  * Without this simulation the transfer will eventually settle on its own following the same Federal
- * Reserve timeline as in production.
+ * Reserve timeline as in production. Additionally, you can specify the behavior of the inbound
+ * funds hold that is created when the ACH Transfer is settled. If no behavior is specified, the
+ * inbound funds hold will be released immediately in order for the funds to be available for use.
  */
 class AchTransferSettleParams
 private constructor(
     private val achTransferId: String?,
+    private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) : Params {
 
     /** The identifier of the ACH Transfer you wish to become settled. */
     fun achTransferId(): Optional<String> = Optional.ofNullable(achTransferId)
 
-    /** Additional body properties to send with the request. */
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    /**
+     * The behavior of the inbound funds hold that is created when the ACH Transfer is settled. If
+     * no behavior is specified, the inbound funds hold will be released immediately in order for
+     * the funds to be available for use.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun inboundFundsHoldBehavior(): Optional<InboundFundsHoldBehavior> =
+        body.inboundFundsHoldBehavior()
+
+    /**
+     * Returns the raw JSON value of [inboundFundsHoldBehavior].
+     *
+     * Unlike [inboundFundsHoldBehavior], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    fun _inboundFundsHoldBehavior(): JsonField<InboundFundsHoldBehavior> =
+        body._inboundFundsHoldBehavior()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -52,17 +82,16 @@ private constructor(
     class Builder internal constructor() {
 
         private var achTransferId: String? = null
+        private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(achTransferSettleParams: AchTransferSettleParams) = apply {
             achTransferId = achTransferSettleParams.achTransferId
+            body = achTransferSettleParams.body.toBuilder()
             additionalHeaders = achTransferSettleParams.additionalHeaders.toBuilder()
             additionalQueryParams = achTransferSettleParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                achTransferSettleParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The identifier of the ACH Transfer you wish to become settled. */
@@ -71,6 +100,54 @@ private constructor(
         /** Alias for calling [Builder.achTransferId] with `achTransferId.orElse(null)`. */
         fun achTransferId(achTransferId: Optional<String>) =
             achTransferId(achTransferId.getOrNull())
+
+        /**
+         * Sets the entire request body.
+         *
+         * This is generally only useful if you are already constructing the body separately.
+         * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [inboundFundsHoldBehavior]
+         */
+        fun body(body: Body) = apply { this.body = body.toBuilder() }
+
+        /**
+         * The behavior of the inbound funds hold that is created when the ACH Transfer is settled.
+         * If no behavior is specified, the inbound funds hold will be released immediately in order
+         * for the funds to be available for use.
+         */
+        fun inboundFundsHoldBehavior(inboundFundsHoldBehavior: InboundFundsHoldBehavior) = apply {
+            body.inboundFundsHoldBehavior(inboundFundsHoldBehavior)
+        }
+
+        /**
+         * Sets [Builder.inboundFundsHoldBehavior] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.inboundFundsHoldBehavior] with a well-typed
+         * [InboundFundsHoldBehavior] value instead. This method is primarily for setting the field
+         * to an undocumented or not yet supported value.
+         */
+        fun inboundFundsHoldBehavior(
+            inboundFundsHoldBehavior: JsonField<InboundFundsHoldBehavior>
+        ) = apply { body.inboundFundsHoldBehavior(inboundFundsHoldBehavior) }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -170,28 +247,6 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
-        }
-
         /**
          * Returns an immutable instance of [AchTransferSettleParams].
          *
@@ -200,14 +255,13 @@ private constructor(
         fun build(): AchTransferSettleParams =
             AchTransferSettleParams(
                 achTransferId,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
-    fun _body(): Optional<Map<String, JsonValue>> =
-        Optional.ofNullable(additionalBodyProperties.ifEmpty { null })
+    fun _body(): Body = body
 
     fun _pathParam(index: Int): String =
         when (index) {
@@ -219,6 +273,313 @@ private constructor(
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
+    class Body
+    private constructor(
+        private val inboundFundsHoldBehavior: JsonField<InboundFundsHoldBehavior>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("inbound_funds_hold_behavior")
+            @ExcludeMissing
+            inboundFundsHoldBehavior: JsonField<InboundFundsHoldBehavior> = JsonMissing.of()
+        ) : this(inboundFundsHoldBehavior, mutableMapOf())
+
+        /**
+         * The behavior of the inbound funds hold that is created when the ACH Transfer is settled.
+         * If no behavior is specified, the inbound funds hold will be released immediately in order
+         * for the funds to be available for use.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun inboundFundsHoldBehavior(): Optional<InboundFundsHoldBehavior> =
+            inboundFundsHoldBehavior.getOptional("inbound_funds_hold_behavior")
+
+        /**
+         * Returns the raw JSON value of [inboundFundsHoldBehavior].
+         *
+         * Unlike [inboundFundsHoldBehavior], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("inbound_funds_hold_behavior")
+        @ExcludeMissing
+        fun _inboundFundsHoldBehavior(): JsonField<InboundFundsHoldBehavior> =
+            inboundFundsHoldBehavior
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [Body]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Body]. */
+        class Builder internal constructor() {
+
+            private var inboundFundsHoldBehavior: JsonField<InboundFundsHoldBehavior> =
+                JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(body: Body) = apply {
+                inboundFundsHoldBehavior = body.inboundFundsHoldBehavior
+                additionalProperties = body.additionalProperties.toMutableMap()
+            }
+
+            /**
+             * The behavior of the inbound funds hold that is created when the ACH Transfer is
+             * settled. If no behavior is specified, the inbound funds hold will be released
+             * immediately in order for the funds to be available for use.
+             */
+            fun inboundFundsHoldBehavior(inboundFundsHoldBehavior: InboundFundsHoldBehavior) =
+                inboundFundsHoldBehavior(JsonField.of(inboundFundsHoldBehavior))
+
+            /**
+             * Sets [Builder.inboundFundsHoldBehavior] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.inboundFundsHoldBehavior] with a well-typed
+             * [InboundFundsHoldBehavior] value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
+             */
+            fun inboundFundsHoldBehavior(
+                inboundFundsHoldBehavior: JsonField<InboundFundsHoldBehavior>
+            ) = apply { this.inboundFundsHoldBehavior = inboundFundsHoldBehavior }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Body].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): Body = Body(inboundFundsHoldBehavior, additionalProperties.toMutableMap())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Body = apply {
+            if (validated) {
+                return@apply
+            }
+
+            inboundFundsHoldBehavior().ifPresent { it.validate() }
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (inboundFundsHoldBehavior.asKnown().getOrNull()?.validity() ?: 0)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Body &&
+                inboundFundsHoldBehavior == other.inboundFundsHoldBehavior &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(inboundFundsHoldBehavior, additionalProperties)
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Body{inboundFundsHoldBehavior=$inboundFundsHoldBehavior, additionalProperties=$additionalProperties}"
+    }
+
+    /**
+     * The behavior of the inbound funds hold that is created when the ACH Transfer is settled. If
+     * no behavior is specified, the inbound funds hold will be released immediately in order for
+     * the funds to be available for use.
+     */
+    class InboundFundsHoldBehavior
+    @JsonCreator
+    private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            /** Release the inbound funds hold immediately. */
+            @JvmField val RELEASE_IMMEDIATELY = of("release_immediately")
+
+            /** Release the inbound funds hold on the default schedule. */
+            @JvmField val RELEASE_ON_DEFAULT_SCHEDULE = of("release_on_default_schedule")
+
+            @JvmStatic fun of(value: String) = InboundFundsHoldBehavior(JsonField.of(value))
+        }
+
+        /** An enum containing [InboundFundsHoldBehavior]'s known values. */
+        enum class Known {
+            /** Release the inbound funds hold immediately. */
+            RELEASE_IMMEDIATELY,
+            /** Release the inbound funds hold on the default schedule. */
+            RELEASE_ON_DEFAULT_SCHEDULE,
+        }
+
+        /**
+         * An enum containing [InboundFundsHoldBehavior]'s known values, as well as an [_UNKNOWN]
+         * member.
+         *
+         * An instance of [InboundFundsHoldBehavior] can contain an unknown value in a couple of
+         * cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            /** Release the inbound funds hold immediately. */
+            RELEASE_IMMEDIATELY,
+            /** Release the inbound funds hold on the default schedule. */
+            RELEASE_ON_DEFAULT_SCHEDULE,
+            /**
+             * An enum member indicating that [InboundFundsHoldBehavior] was instantiated with an
+             * unknown value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                RELEASE_IMMEDIATELY -> Value.RELEASE_IMMEDIATELY
+                RELEASE_ON_DEFAULT_SCHEDULE -> Value.RELEASE_ON_DEFAULT_SCHEDULE
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                RELEASE_IMMEDIATELY -> Known.RELEASE_IMMEDIATELY
+                RELEASE_ON_DEFAULT_SCHEDULE -> Known.RELEASE_ON_DEFAULT_SCHEDULE
+                else ->
+                    throw IncreaseInvalidDataException("Unknown InboundFundsHoldBehavior: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws IncreaseInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow {
+                IncreaseInvalidDataException("Value is not a String")
+            }
+
+        private var validated: Boolean = false
+
+        fun validate(): InboundFundsHoldBehavior = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is InboundFundsHoldBehavior && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) {
             return true
@@ -226,19 +587,14 @@ private constructor(
 
         return other is AchTransferSettleParams &&
             achTransferId == other.achTransferId &&
+            body == other.body &&
             additionalHeaders == other.additionalHeaders &&
-            additionalQueryParams == other.additionalQueryParams &&
-            additionalBodyProperties == other.additionalBodyProperties
+            additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(
-            achTransferId,
-            additionalHeaders,
-            additionalQueryParams,
-            additionalBodyProperties,
-        )
+        Objects.hash(achTransferId, body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "AchTransferSettleParams{achTransferId=$achTransferId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "AchTransferSettleParams{achTransferId=$achTransferId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }
