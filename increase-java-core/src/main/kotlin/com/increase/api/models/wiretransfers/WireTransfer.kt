@@ -3236,6 +3236,8 @@ private constructor(
         private val inputSource: JsonField<String>,
         private val instructionIdentification: JsonField<String>,
         private val returnReasonAdditionalInformation: JsonField<String>,
+        private val returnReasonCode: JsonField<String>,
+        private val returnReasonCodeDescription: JsonField<String>,
         private val transactionId: JsonField<String>,
         private val wireTransferId: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -3271,6 +3273,12 @@ private constructor(
             @JsonProperty("return_reason_additional_information")
             @ExcludeMissing
             returnReasonAdditionalInformation: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("return_reason_code")
+            @ExcludeMissing
+            returnReasonCode: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("return_reason_code_description")
+            @ExcludeMissing
+            returnReasonCodeDescription: JsonField<String> = JsonMissing.of(),
             @JsonProperty("transaction_id")
             @ExcludeMissing
             transactionId: JsonField<String> = JsonMissing.of(),
@@ -3288,6 +3296,8 @@ private constructor(
             inputSource,
             instructionIdentification,
             returnReasonAdditionalInformation,
+            returnReasonCode,
+            returnReasonCodeDescription,
             transactionId,
             wireTransferId,
             mutableMapOf(),
@@ -3378,6 +3388,26 @@ private constructor(
          */
         fun returnReasonAdditionalInformation(): Optional<String> =
             returnReasonAdditionalInformation.getOptional("return_reason_additional_information")
+
+        /**
+         * A code provided by the sending bank giving a reason for the reversal. It will generally
+         * be one of the codes defined in the ISO20022 `ExternalReturnReason1Code` code set, but
+         * this is not enforced by the network.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun returnReasonCode(): Optional<String> =
+            returnReasonCode.getOptional("return_reason_code")
+
+        /**
+         * An Increase-generated description of the `return_reason_code`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun returnReasonCodeDescription(): Optional<String> =
+            returnReasonCodeDescription.getOptional("return_reason_code_description")
 
         /**
          * The ID for the Transaction associated with the transfer reversal.
@@ -3491,6 +3521,26 @@ private constructor(
             returnReasonAdditionalInformation
 
         /**
+         * Returns the raw JSON value of [returnReasonCode].
+         *
+         * Unlike [returnReasonCode], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("return_reason_code")
+        @ExcludeMissing
+        fun _returnReasonCode(): JsonField<String> = returnReasonCode
+
+        /**
+         * Returns the raw JSON value of [returnReasonCodeDescription].
+         *
+         * Unlike [returnReasonCodeDescription], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("return_reason_code_description")
+        @ExcludeMissing
+        fun _returnReasonCodeDescription(): JsonField<String> = returnReasonCodeDescription
+
+        /**
          * Returns the raw JSON value of [transactionId].
          *
          * Unlike [transactionId], this method doesn't throw if the JSON field has an unexpected
@@ -3539,6 +3589,8 @@ private constructor(
              * .inputSource()
              * .instructionIdentification()
              * .returnReasonAdditionalInformation()
+             * .returnReasonCode()
+             * .returnReasonCodeDescription()
              * .transactionId()
              * .wireTransferId()
              * ```
@@ -3559,6 +3611,8 @@ private constructor(
             private var inputSource: JsonField<String>? = null
             private var instructionIdentification: JsonField<String>? = null
             private var returnReasonAdditionalInformation: JsonField<String>? = null
+            private var returnReasonCode: JsonField<String>? = null
+            private var returnReasonCodeDescription: JsonField<String>? = null
             private var transactionId: JsonField<String>? = null
             private var wireTransferId: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -3575,6 +3629,8 @@ private constructor(
                 inputSource = reversal.inputSource
                 instructionIdentification = reversal.instructionIdentification
                 returnReasonAdditionalInformation = reversal.returnReasonAdditionalInformation
+                returnReasonCode = reversal.returnReasonCode
+                returnReasonCodeDescription = reversal.returnReasonCodeDescription
                 transactionId = reversal.transactionId
                 wireTransferId = reversal.wireTransferId
                 additionalProperties = reversal.additionalProperties.toMutableMap()
@@ -3755,6 +3811,54 @@ private constructor(
                 returnReasonAdditionalInformation: JsonField<String>
             ) = apply { this.returnReasonAdditionalInformation = returnReasonAdditionalInformation }
 
+            /**
+             * A code provided by the sending bank giving a reason for the reversal. It will
+             * generally be one of the codes defined in the ISO20022 `ExternalReturnReason1Code`
+             * code set, but this is not enforced by the network.
+             */
+            fun returnReasonCode(returnReasonCode: String?) =
+                returnReasonCode(JsonField.ofNullable(returnReasonCode))
+
+            /**
+             * Alias for calling [Builder.returnReasonCode] with `returnReasonCode.orElse(null)`.
+             */
+            fun returnReasonCode(returnReasonCode: Optional<String>) =
+                returnReasonCode(returnReasonCode.getOrNull())
+
+            /**
+             * Sets [Builder.returnReasonCode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.returnReasonCode] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun returnReasonCode(returnReasonCode: JsonField<String>) = apply {
+                this.returnReasonCode = returnReasonCode
+            }
+
+            /** An Increase-generated description of the `return_reason_code`. */
+            fun returnReasonCodeDescription(returnReasonCodeDescription: String?) =
+                returnReasonCodeDescription(JsonField.ofNullable(returnReasonCodeDescription))
+
+            /**
+             * Alias for calling [Builder.returnReasonCodeDescription] with
+             * `returnReasonCodeDescription.orElse(null)`.
+             */
+            fun returnReasonCodeDescription(returnReasonCodeDescription: Optional<String>) =
+                returnReasonCodeDescription(returnReasonCodeDescription.getOrNull())
+
+            /**
+             * Sets [Builder.returnReasonCodeDescription] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.returnReasonCodeDescription] with a well-typed
+             * [String] value instead. This method is primarily for setting the field to an
+             * undocumented or not yet supported value.
+             */
+            fun returnReasonCodeDescription(returnReasonCodeDescription: JsonField<String>) =
+                apply {
+                    this.returnReasonCodeDescription = returnReasonCodeDescription
+                }
+
             /** The ID for the Transaction associated with the transfer reversal. */
             fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
 
@@ -3820,6 +3924,8 @@ private constructor(
              * .inputSource()
              * .instructionIdentification()
              * .returnReasonAdditionalInformation()
+             * .returnReasonCode()
+             * .returnReasonCodeDescription()
              * .transactionId()
              * .wireTransferId()
              * ```
@@ -3841,6 +3947,8 @@ private constructor(
                         "returnReasonAdditionalInformation",
                         returnReasonAdditionalInformation,
                     ),
+                    checkRequired("returnReasonCode", returnReasonCode),
+                    checkRequired("returnReasonCodeDescription", returnReasonCodeDescription),
                     checkRequired("transactionId", transactionId),
                     checkRequired("wireTransferId", wireTransferId),
                     additionalProperties.toMutableMap(),
@@ -3864,6 +3972,8 @@ private constructor(
             inputSource()
             instructionIdentification()
             returnReasonAdditionalInformation()
+            returnReasonCode()
+            returnReasonCodeDescription()
             transactionId()
             wireTransferId()
             validated = true
@@ -3895,6 +4005,8 @@ private constructor(
                 (if (inputSource.asKnown().isPresent) 1 else 0) +
                 (if (instructionIdentification.asKnown().isPresent) 1 else 0) +
                 (if (returnReasonAdditionalInformation.asKnown().isPresent) 1 else 0) +
+                (if (returnReasonCode.asKnown().isPresent) 1 else 0) +
+                (if (returnReasonCodeDescription.asKnown().isPresent) 1 else 0) +
                 (if (transactionId.asKnown().isPresent) 1 else 0) +
                 (if (wireTransferId.asKnown().isPresent) 1 else 0)
 
@@ -3914,6 +4026,8 @@ private constructor(
                 inputSource == other.inputSource &&
                 instructionIdentification == other.instructionIdentification &&
                 returnReasonAdditionalInformation == other.returnReasonAdditionalInformation &&
+                returnReasonCode == other.returnReasonCode &&
+                returnReasonCodeDescription == other.returnReasonCodeDescription &&
                 transactionId == other.transactionId &&
                 wireTransferId == other.wireTransferId &&
                 additionalProperties == other.additionalProperties
@@ -3931,6 +4045,8 @@ private constructor(
                 inputSource,
                 instructionIdentification,
                 returnReasonAdditionalInformation,
+                returnReasonCode,
+                returnReasonCodeDescription,
                 transactionId,
                 wireTransferId,
                 additionalProperties,
@@ -3940,7 +4056,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Reversal{amount=$amount, createdAt=$createdAt, debtorRoutingNumber=$debtorRoutingNumber, description=$description, inputCycleDate=$inputCycleDate, inputMessageAccountabilityData=$inputMessageAccountabilityData, inputSequenceNumber=$inputSequenceNumber, inputSource=$inputSource, instructionIdentification=$instructionIdentification, returnReasonAdditionalInformation=$returnReasonAdditionalInformation, transactionId=$transactionId, wireTransferId=$wireTransferId, additionalProperties=$additionalProperties}"
+            "Reversal{amount=$amount, createdAt=$createdAt, debtorRoutingNumber=$debtorRoutingNumber, description=$description, inputCycleDate=$inputCycleDate, inputMessageAccountabilityData=$inputMessageAccountabilityData, inputSequenceNumber=$inputSequenceNumber, inputSource=$inputSource, instructionIdentification=$instructionIdentification, returnReasonAdditionalInformation=$returnReasonAdditionalInformation, returnReasonCode=$returnReasonCode, returnReasonCodeDescription=$returnReasonCodeDescription, transactionId=$transactionId, wireTransferId=$wireTransferId, additionalProperties=$additionalProperties}"
     }
 
     /** The lifecycle status of the transfer. */
