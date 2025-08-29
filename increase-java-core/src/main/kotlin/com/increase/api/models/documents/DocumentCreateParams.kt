@@ -39,7 +39,8 @@ private constructor(
     fun category(): Category = body.category()
 
     /**
-     * An account verification letter.
+     * An account verification letter. Required if and only if `category` is
+     * `account_verification_letter`.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -48,7 +49,7 @@ private constructor(
         body.accountVerificationLetter()
 
     /**
-     * Funding instructions.
+     * Funding instructions. Required if and only if `category` is `funding_instructions`.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -139,7 +140,10 @@ private constructor(
          */
         fun category(category: JsonField<Category>) = apply { body.category(category) }
 
-        /** An account verification letter. */
+        /**
+         * An account verification letter. Required if and only if `category` is
+         * `account_verification_letter`.
+         */
         fun accountVerificationLetter(accountVerificationLetter: AccountVerificationLetter) =
             apply {
                 body.accountVerificationLetter(accountVerificationLetter)
@@ -156,7 +160,7 @@ private constructor(
             accountVerificationLetter: JsonField<AccountVerificationLetter>
         ) = apply { body.accountVerificationLetter(accountVerificationLetter) }
 
-        /** Funding instructions. */
+        /** Funding instructions. Required if and only if `category` is `funding_instructions`. */
         fun fundingInstructions(fundingInstructions: FundingInstructions) = apply {
             body.fundingInstructions(fundingInstructions)
         }
@@ -345,7 +349,8 @@ private constructor(
         fun category(): Category = category.getRequired("category")
 
         /**
-         * An account verification letter.
+         * An account verification letter. Required if and only if `category` is
+         * `account_verification_letter`.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -354,7 +359,7 @@ private constructor(
             accountVerificationLetter.getOptional("account_verification_letter")
 
         /**
-         * Funding instructions.
+         * Funding instructions. Required if and only if `category` is `funding_instructions`.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -444,7 +449,10 @@ private constructor(
              */
             fun category(category: JsonField<Category>) = apply { this.category = category }
 
-            /** An account verification letter. */
+            /**
+             * An account verification letter. Required if and only if `category` is
+             * `account_verification_letter`.
+             */
             fun accountVerificationLetter(accountVerificationLetter: AccountVerificationLetter) =
                 accountVerificationLetter(JsonField.of(accountVerificationLetter))
 
@@ -459,7 +467,9 @@ private constructor(
                 accountVerificationLetter: JsonField<AccountVerificationLetter>
             ) = apply { this.accountVerificationLetter = accountVerificationLetter }
 
-            /** Funding instructions. */
+            /**
+             * Funding instructions. Required if and only if `category` is `funding_instructions`.
+             */
             fun fundingInstructions(fundingInstructions: FundingInstructions) =
                 fundingInstructions(JsonField.of(fundingInstructions))
 
@@ -708,7 +718,10 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    /** An account verification letter. */
+    /**
+     * An account verification letter. Required if and only if `category` is
+     * `account_verification_letter`.
+     */
     class AccountVerificationLetter
     private constructor(
         private val accountNumberId: JsonField<String>,
@@ -921,7 +934,7 @@ private constructor(
             "AccountVerificationLetter{accountNumberId=$accountNumberId, balanceDate=$balanceDate, additionalProperties=$additionalProperties}"
     }
 
-    /** Funding instructions. */
+    /** Funding instructions. Required if and only if `category` is `funding_instructions`. */
     class FundingInstructions
     private constructor(
         private val accountNumberId: JsonField<String>,
