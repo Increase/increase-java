@@ -83,6 +83,8 @@ internal class WireTransferListPageResponseTest {
                                 .returnReasonAdditionalInformation(
                                     "return_reason_additional_information"
                                 )
+                                .returnReasonCode("return_reason_code")
+                                .returnReasonCodeDescription("return_reason_code_description")
                                 .transactionId("transaction_id")
                                 .wireTransferId("wire_transfer_id")
                                 .build()
@@ -172,6 +174,8 @@ internal class WireTransferListPageResponseTest {
                             .returnReasonAdditionalInformation(
                                 "return_reason_additional_information"
                             )
+                            .returnReasonCode("return_reason_code")
+                            .returnReasonCodeDescription("return_reason_code_description")
                             .transactionId("transaction_id")
                             .wireTransferId("wire_transfer_id")
                             .build()
@@ -265,6 +269,8 @@ internal class WireTransferListPageResponseTest {
                                 .returnReasonAdditionalInformation(
                                     "return_reason_additional_information"
                                 )
+                                .returnReasonCode("return_reason_code")
+                                .returnReasonCodeDescription("return_reason_code_description")
                                 .transactionId("transaction_id")
                                 .wireTransferId("wire_transfer_id")
                                 .build()
