@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
@@ -17,6 +18,8 @@ import com.increase.api.core.http.QueryParams
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Collections
 import java.util.Objects
+import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /**
  * Simulates an Inbound Check Deposit against your account. This imitates someone depositing a check
@@ -57,6 +60,16 @@ private constructor(
     fun checkNumber(): String = body.checkNumber()
 
     /**
+     * Simulate the outcome of
+     * [payee name checking](https://increase.com/documentation/positive-pay#payee-name-mismatches).
+     * Defaults to `not_evaluated`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun payeeNameAnalysis(): Optional<PayeeNameAnalysis> = body.payeeNameAnalysis()
+
+    /**
      * Returns the raw JSON value of [accountNumberId].
      *
      * Unlike [accountNumberId], this method doesn't throw if the JSON field has an unexpected type.
@@ -76,6 +89,14 @@ private constructor(
      * Unlike [checkNumber], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _checkNumber(): JsonField<String> = body._checkNumber()
+
+    /**
+     * Returns the raw JSON value of [payeeNameAnalysis].
+     *
+     * Unlike [payeeNameAnalysis], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _payeeNameAnalysis(): JsonField<PayeeNameAnalysis> = body._payeeNameAnalysis()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -127,6 +148,7 @@ private constructor(
          * - [accountNumberId]
          * - [amount]
          * - [checkNumber]
+         * - [payeeNameAnalysis]
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
@@ -168,6 +190,26 @@ private constructor(
          * value.
          */
         fun checkNumber(checkNumber: JsonField<String>) = apply { body.checkNumber(checkNumber) }
+
+        /**
+         * Simulate the outcome of
+         * [payee name checking](https://increase.com/documentation/positive-pay#payee-name-mismatches).
+         * Defaults to `not_evaluated`.
+         */
+        fun payeeNameAnalysis(payeeNameAnalysis: PayeeNameAnalysis) = apply {
+            body.payeeNameAnalysis(payeeNameAnalysis)
+        }
+
+        /**
+         * Sets [Builder.payeeNameAnalysis] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.payeeNameAnalysis] with a well-typed [PayeeNameAnalysis]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun payeeNameAnalysis(payeeNameAnalysis: JsonField<PayeeNameAnalysis>) = apply {
+            body.payeeNameAnalysis(payeeNameAnalysis)
+        }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -319,6 +361,7 @@ private constructor(
         private val accountNumberId: JsonField<String>,
         private val amount: JsonField<Long>,
         private val checkNumber: JsonField<String>,
+        private val payeeNameAnalysis: JsonField<PayeeNameAnalysis>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -331,7 +374,10 @@ private constructor(
             @JsonProperty("check_number")
             @ExcludeMissing
             checkNumber: JsonField<String> = JsonMissing.of(),
-        ) : this(accountNumberId, amount, checkNumber, mutableMapOf())
+            @JsonProperty("payee_name_analysis")
+            @ExcludeMissing
+            payeeNameAnalysis: JsonField<PayeeNameAnalysis> = JsonMissing.of(),
+        ) : this(accountNumberId, amount, checkNumber, payeeNameAnalysis, mutableMapOf())
 
         /**
          * The identifier of the Account Number the Inbound Check Deposit will be against.
@@ -358,6 +404,17 @@ private constructor(
         fun checkNumber(): String = checkNumber.getRequired("check_number")
 
         /**
+         * Simulate the outcome of
+         * [payee name checking](https://increase.com/documentation/positive-pay#payee-name-mismatches).
+         * Defaults to `not_evaluated`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun payeeNameAnalysis(): Optional<PayeeNameAnalysis> =
+            payeeNameAnalysis.getOptional("payee_name_analysis")
+
+        /**
          * Returns the raw JSON value of [accountNumberId].
          *
          * Unlike [accountNumberId], this method doesn't throw if the JSON field has an unexpected
@@ -382,6 +439,16 @@ private constructor(
         @JsonProperty("check_number")
         @ExcludeMissing
         fun _checkNumber(): JsonField<String> = checkNumber
+
+        /**
+         * Returns the raw JSON value of [payeeNameAnalysis].
+         *
+         * Unlike [payeeNameAnalysis], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("payee_name_analysis")
+        @ExcludeMissing
+        fun _payeeNameAnalysis(): JsonField<PayeeNameAnalysis> = payeeNameAnalysis
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -416,6 +483,7 @@ private constructor(
             private var accountNumberId: JsonField<String>? = null
             private var amount: JsonField<Long>? = null
             private var checkNumber: JsonField<String>? = null
+            private var payeeNameAnalysis: JsonField<PayeeNameAnalysis> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -423,6 +491,7 @@ private constructor(
                 accountNumberId = body.accountNumberId
                 amount = body.amount
                 checkNumber = body.checkNumber
+                payeeNameAnalysis = body.payeeNameAnalysis
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
@@ -467,6 +536,25 @@ private constructor(
                 this.checkNumber = checkNumber
             }
 
+            /**
+             * Simulate the outcome of
+             * [payee name checking](https://increase.com/documentation/positive-pay#payee-name-mismatches).
+             * Defaults to `not_evaluated`.
+             */
+            fun payeeNameAnalysis(payeeNameAnalysis: PayeeNameAnalysis) =
+                payeeNameAnalysis(JsonField.of(payeeNameAnalysis))
+
+            /**
+             * Sets [Builder.payeeNameAnalysis] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.payeeNameAnalysis] with a well-typed
+             * [PayeeNameAnalysis] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun payeeNameAnalysis(payeeNameAnalysis: JsonField<PayeeNameAnalysis>) = apply {
+                this.payeeNameAnalysis = payeeNameAnalysis
+            }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
@@ -505,6 +593,7 @@ private constructor(
                     checkRequired("accountNumberId", accountNumberId),
                     checkRequired("amount", amount),
                     checkRequired("checkNumber", checkNumber),
+                    payeeNameAnalysis,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -519,6 +608,7 @@ private constructor(
             accountNumberId()
             amount()
             checkNumber()
+            payeeNameAnalysis().ifPresent { it.validate() }
             validated = true
         }
 
@@ -540,7 +630,8 @@ private constructor(
         internal fun validity(): Int =
             (if (accountNumberId.asKnown().isPresent) 1 else 0) +
                 (if (amount.asKnown().isPresent) 1 else 0) +
-                (if (checkNumber.asKnown().isPresent) 1 else 0)
+                (if (checkNumber.asKnown().isPresent) 1 else 0) +
+                (payeeNameAnalysis.asKnown().getOrNull()?.validity() ?: 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -551,17 +642,175 @@ private constructor(
                 accountNumberId == other.accountNumberId &&
                 amount == other.amount &&
                 checkNumber == other.checkNumber &&
+                payeeNameAnalysis == other.payeeNameAnalysis &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(accountNumberId, amount, checkNumber, additionalProperties)
+            Objects.hash(
+                accountNumberId,
+                amount,
+                checkNumber,
+                payeeNameAnalysis,
+                additionalProperties,
+            )
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{accountNumberId=$accountNumberId, amount=$amount, checkNumber=$checkNumber, additionalProperties=$additionalProperties}"
+            "Body{accountNumberId=$accountNumberId, amount=$amount, checkNumber=$checkNumber, payeeNameAnalysis=$payeeNameAnalysis, additionalProperties=$additionalProperties}"
+    }
+
+    /**
+     * Simulate the outcome of
+     * [payee name checking](https://increase.com/documentation/positive-pay#payee-name-mismatches).
+     * Defaults to `not_evaluated`.
+     */
+    class PayeeNameAnalysis @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            /** The details on the check match the recipient name of the check transfer. */
+            @JvmField val NAME_MATCHES = of("name_matches")
+
+            /** The details on the check do not match the recipient name of the check transfer. */
+            @JvmField val DOES_NOT_MATCH = of("does_not_match")
+
+            /** The payee name analysis was not evaluated. */
+            @JvmField val NOT_EVALUATED = of("not_evaluated")
+
+            @JvmStatic fun of(value: String) = PayeeNameAnalysis(JsonField.of(value))
+        }
+
+        /** An enum containing [PayeeNameAnalysis]'s known values. */
+        enum class Known {
+            /** The details on the check match the recipient name of the check transfer. */
+            NAME_MATCHES,
+            /** The details on the check do not match the recipient name of the check transfer. */
+            DOES_NOT_MATCH,
+            /** The payee name analysis was not evaluated. */
+            NOT_EVALUATED,
+        }
+
+        /**
+         * An enum containing [PayeeNameAnalysis]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [PayeeNameAnalysis] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            /** The details on the check match the recipient name of the check transfer. */
+            NAME_MATCHES,
+            /** The details on the check do not match the recipient name of the check transfer. */
+            DOES_NOT_MATCH,
+            /** The payee name analysis was not evaluated. */
+            NOT_EVALUATED,
+            /**
+             * An enum member indicating that [PayeeNameAnalysis] was instantiated with an unknown
+             * value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                NAME_MATCHES -> Value.NAME_MATCHES
+                DOES_NOT_MATCH -> Value.DOES_NOT_MATCH
+                NOT_EVALUATED -> Value.NOT_EVALUATED
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                NAME_MATCHES -> Known.NAME_MATCHES
+                DOES_NOT_MATCH -> Known.DOES_NOT_MATCH
+                NOT_EVALUATED -> Known.NOT_EVALUATED
+                else -> throw IncreaseInvalidDataException("Unknown PayeeNameAnalysis: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws IncreaseInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow {
+                IncreaseInvalidDataException("Value is not a String")
+            }
+
+        private var validated: Boolean = false
+
+        fun validate(): PayeeNameAnalysis = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is PayeeNameAnalysis && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
     }
 
     override fun equals(other: Any?): Boolean {
