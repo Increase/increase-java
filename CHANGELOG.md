@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.311.1 (2025-09-03)
+
+Full Changelog: [v0.311.0...v0.311.1](https://github.com/Increase/increase-java/compare/v0.311.0...v0.311.1)
+
+### Bug Fixes
+
+* **ci:** use java-version 21 for publish step ([26b6bc7](https://github.com/Increase/increase-java/commit/26b6bc714133b9820ca9295d7f96fe62efa6e2a1))
+
 ## 0.311.0 (2025-08-29)
 
 Full Changelog: [v0.310.0...v0.311.0](https://github.com/Increase/increase-java/compare/v0.310.0...v0.311.0)
