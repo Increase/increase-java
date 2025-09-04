@@ -69,6 +69,24 @@ private constructor(
     fun programId(): String = body.programId()
 
     /**
+     * A reference ID provided by the fulfillment provider for the card stock used. Only used if
+     * you've ordered card stock separately.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun cardStockReference(): Optional<String> = body.cardStockReference()
+
+    /**
+     * A reference ID provided by the fulfillment provider for the carrier stock used. Only used if
+     * you've ordered carrier stock separately.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun carrierStockReference(): Optional<String> = body.carrierStockReference()
+
+    /**
      * Text printed on the front of the card. Reach out to
      * [support@increase.com](mailto:support@increase.com) for more information.
      *
@@ -113,6 +131,22 @@ private constructor(
      * Unlike [programId], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _programId(): JsonField<String> = body._programId()
+
+    /**
+     * Returns the raw JSON value of [cardStockReference].
+     *
+     * Unlike [cardStockReference], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _cardStockReference(): JsonField<String> = body._cardStockReference()
+
+    /**
+     * Returns the raw JSON value of [carrierStockReference].
+     *
+     * Unlike [carrierStockReference], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _carrierStockReference(): JsonField<String> = body._carrierStockReference()
 
     /**
      * Returns the raw JSON value of [frontText].
@@ -248,6 +282,44 @@ private constructor(
          * value.
          */
         fun programId(programId: JsonField<String>) = apply { body.programId(programId) }
+
+        /**
+         * A reference ID provided by the fulfillment provider for the card stock used. Only used if
+         * you've ordered card stock separately.
+         */
+        fun cardStockReference(cardStockReference: String) = apply {
+            body.cardStockReference(cardStockReference)
+        }
+
+        /**
+         * Sets [Builder.cardStockReference] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.cardStockReference] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun cardStockReference(cardStockReference: JsonField<String>) = apply {
+            body.cardStockReference(cardStockReference)
+        }
+
+        /**
+         * A reference ID provided by the fulfillment provider for the carrier stock used. Only used
+         * if you've ordered carrier stock separately.
+         */
+        fun carrierStockReference(carrierStockReference: String) = apply {
+            body.carrierStockReference(carrierStockReference)
+        }
+
+        /**
+         * Sets [Builder.carrierStockReference] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.carrierStockReference] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun carrierStockReference(carrierStockReference: JsonField<String>) = apply {
+            body.carrierStockReference(carrierStockReference)
+        }
 
         /**
          * Text printed on the front of the card. Reach out to
@@ -418,6 +490,8 @@ private constructor(
         private val description: JsonField<String>,
         private val frontImageFileId: JsonField<String>,
         private val programId: JsonField<String>,
+        private val cardStockReference: JsonField<String>,
+        private val carrierStockReference: JsonField<String>,
         private val frontText: JsonField<FrontText>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -439,6 +513,12 @@ private constructor(
             @JsonProperty("program_id")
             @ExcludeMissing
             programId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("card_stock_reference")
+            @ExcludeMissing
+            cardStockReference: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("carrier_stock_reference")
+            @ExcludeMissing
+            carrierStockReference: JsonField<String> = JsonMissing.of(),
             @JsonProperty("front_text")
             @ExcludeMissing
             frontText: JsonField<FrontText> = JsonMissing.of(),
@@ -448,6 +528,8 @@ private constructor(
             description,
             frontImageFileId,
             programId,
+            cardStockReference,
+            carrierStockReference,
             frontText,
             mutableMapOf(),
         )
@@ -491,6 +573,26 @@ private constructor(
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun programId(): String = programId.getRequired("program_id")
+
+        /**
+         * A reference ID provided by the fulfillment provider for the card stock used. Only used if
+         * you've ordered card stock separately.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun cardStockReference(): Optional<String> =
+            cardStockReference.getOptional("card_stock_reference")
+
+        /**
+         * A reference ID provided by the fulfillment provider for the carrier stock used. Only used
+         * if you've ordered carrier stock separately.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun carrierStockReference(): Optional<String> =
+            carrierStockReference.getOptional("carrier_stock_reference")
 
         /**
          * Text printed on the front of the card. Reach out to
@@ -548,6 +650,26 @@ private constructor(
         @JsonProperty("program_id") @ExcludeMissing fun _programId(): JsonField<String> = programId
 
         /**
+         * Returns the raw JSON value of [cardStockReference].
+         *
+         * Unlike [cardStockReference], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("card_stock_reference")
+        @ExcludeMissing
+        fun _cardStockReference(): JsonField<String> = cardStockReference
+
+        /**
+         * Returns the raw JSON value of [carrierStockReference].
+         *
+         * Unlike [carrierStockReference], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("carrier_stock_reference")
+        @ExcludeMissing
+        fun _carrierStockReference(): JsonField<String> = carrierStockReference
+
+        /**
          * Returns the raw JSON value of [frontText].
          *
          * Unlike [frontText], this method doesn't throw if the JSON field has an unexpected type.
@@ -593,6 +715,8 @@ private constructor(
             private var description: JsonField<String>? = null
             private var frontImageFileId: JsonField<String>? = null
             private var programId: JsonField<String>? = null
+            private var cardStockReference: JsonField<String> = JsonMissing.of()
+            private var carrierStockReference: JsonField<String> = JsonMissing.of()
             private var frontText: JsonField<FrontText> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -603,6 +727,8 @@ private constructor(
                 description = body.description
                 frontImageFileId = body.frontImageFileId
                 programId = body.programId
+                cardStockReference = body.cardStockReference
+                carrierStockReference = body.carrierStockReference
                 frontText = body.frontText
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
@@ -678,6 +804,42 @@ private constructor(
             fun programId(programId: JsonField<String>) = apply { this.programId = programId }
 
             /**
+             * A reference ID provided by the fulfillment provider for the card stock used. Only
+             * used if you've ordered card stock separately.
+             */
+            fun cardStockReference(cardStockReference: String) =
+                cardStockReference(JsonField.of(cardStockReference))
+
+            /**
+             * Sets [Builder.cardStockReference] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.cardStockReference] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun cardStockReference(cardStockReference: JsonField<String>) = apply {
+                this.cardStockReference = cardStockReference
+            }
+
+            /**
+             * A reference ID provided by the fulfillment provider for the carrier stock used. Only
+             * used if you've ordered carrier stock separately.
+             */
+            fun carrierStockReference(carrierStockReference: String) =
+                carrierStockReference(JsonField.of(carrierStockReference))
+
+            /**
+             * Sets [Builder.carrierStockReference] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.carrierStockReference] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun carrierStockReference(carrierStockReference: JsonField<String>) = apply {
+                this.carrierStockReference = carrierStockReference
+            }
+
+            /**
              * Text printed on the front of the card. Reach out to
              * [support@increase.com](mailto:support@increase.com) for more information.
              */
@@ -734,6 +896,8 @@ private constructor(
                     checkRequired("description", description),
                     checkRequired("frontImageFileId", frontImageFileId),
                     checkRequired("programId", programId),
+                    cardStockReference,
+                    carrierStockReference,
                     frontText,
                     additionalProperties.toMutableMap(),
                 )
@@ -751,6 +915,8 @@ private constructor(
             description()
             frontImageFileId()
             programId()
+            cardStockReference()
+            carrierStockReference()
             frontText().ifPresent { it.validate() }
             validated = true
         }
@@ -776,6 +942,8 @@ private constructor(
                 (if (description.asKnown().isPresent) 1 else 0) +
                 (if (frontImageFileId.asKnown().isPresent) 1 else 0) +
                 (if (programId.asKnown().isPresent) 1 else 0) +
+                (if (cardStockReference.asKnown().isPresent) 1 else 0) +
+                (if (carrierStockReference.asKnown().isPresent) 1 else 0) +
                 (frontText.asKnown().getOrNull()?.validity() ?: 0)
 
         override fun equals(other: Any?): Boolean {
@@ -789,6 +957,8 @@ private constructor(
                 description == other.description &&
                 frontImageFileId == other.frontImageFileId &&
                 programId == other.programId &&
+                cardStockReference == other.cardStockReference &&
+                carrierStockReference == other.carrierStockReference &&
                 frontText == other.frontText &&
                 additionalProperties == other.additionalProperties
         }
@@ -800,6 +970,8 @@ private constructor(
                 description,
                 frontImageFileId,
                 programId,
+                cardStockReference,
+                carrierStockReference,
                 frontText,
                 additionalProperties,
             )
@@ -808,7 +980,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{carrierImageFileId=$carrierImageFileId, contactPhone=$contactPhone, description=$description, frontImageFileId=$frontImageFileId, programId=$programId, frontText=$frontText, additionalProperties=$additionalProperties}"
+            "Body{carrierImageFileId=$carrierImageFileId, contactPhone=$contactPhone, description=$description, frontImageFileId=$frontImageFileId, programId=$programId, cardStockReference=$cardStockReference, carrierStockReference=$carrierStockReference, frontText=$frontText, additionalProperties=$additionalProperties}"
     }
 
     /**
