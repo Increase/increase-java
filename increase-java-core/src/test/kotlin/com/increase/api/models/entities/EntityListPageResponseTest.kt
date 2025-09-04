@@ -158,6 +158,12 @@ internal class EntityListPageResponseTest {
                                 .name("name")
                                 .build()
                         )
+                        .riskRating(
+                            Entity.RiskRating.builder()
+                                .ratedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .rating(Entity.RiskRating.Rating.LOW)
+                                .build()
+                        )
                         .status(Entity.Status.ACTIVE)
                         .structure(Entity.Structure.CORPORATION)
                         .addSupplementalDocument(
@@ -397,6 +403,12 @@ internal class EntityListPageResponseTest {
                                     .build()
                             )
                             .name("name")
+                            .build()
+                    )
+                    .riskRating(
+                        Entity.RiskRating.builder()
+                            .ratedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .rating(Entity.RiskRating.Rating.LOW)
                             .build()
                     )
                     .status(Entity.Status.ACTIVE)
@@ -641,6 +653,12 @@ internal class EntityListPageResponseTest {
                                         .build()
                                 )
                                 .name("name")
+                                .build()
+                        )
+                        .riskRating(
+                            Entity.RiskRating.builder()
+                                .ratedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .rating(Entity.RiskRating.Rating.LOW)
                                 .build()
                         )
                         .status(Entity.Status.ACTIVE)

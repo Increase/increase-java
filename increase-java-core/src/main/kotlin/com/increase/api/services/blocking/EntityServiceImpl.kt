@@ -29,6 +29,7 @@ import com.increase.api.models.entities.EntityRetrieveParams
 import com.increase.api.models.entities.EntityUpdateAddressParams
 import com.increase.api.models.entities.EntityUpdateBeneficialOwnerAddressParams
 import com.increase.api.models.entities.EntityUpdateIndustryCodeParams
+import com.increase.api.models.entities.EntityUpdateParams
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -51,6 +52,10 @@ class EntityServiceImpl internal constructor(private val clientOptions: ClientOp
     override fun retrieve(params: EntityRetrieveParams, requestOptions: RequestOptions): Entity =
         // get /entities/{entity_id}
         withRawResponse().retrieve(params, requestOptions).parse()
+
+    override fun update(params: EntityUpdateParams, requestOptions: RequestOptions): Entity =
+        // patch /entities/{entity_id}
+        withRawResponse().update(params, requestOptions).parse()
 
     override fun list(params: EntityListParams, requestOptions: RequestOptions): EntityListPage =
         // get /entities
@@ -160,6 +165,36 @@ class EntityServiceImpl internal constructor(private val clientOptions: ClientOp
             return errorHandler.handle(response).parseable {
                 response
                     .use { retrieveHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val updateHandler: Handler<Entity> = jsonHandler<Entity>(clientOptions.jsonMapper)
+
+        override fun update(
+            params: EntityUpdateParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<Entity> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("entityId", params.entityId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.PATCH)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("entities", params._pathParam(0))
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { updateHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()
