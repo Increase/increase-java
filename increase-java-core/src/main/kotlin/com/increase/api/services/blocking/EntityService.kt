@@ -18,6 +18,7 @@ import com.increase.api.models.entities.EntityRetrieveParams
 import com.increase.api.models.entities.EntityUpdateAddressParams
 import com.increase.api.models.entities.EntityUpdateBeneficialOwnerAddressParams
 import com.increase.api.models.entities.EntityUpdateIndustryCodeParams
+import com.increase.api.models.entities.EntityUpdateParams
 import java.util.function.Consumer
 
 interface EntityService {
@@ -71,6 +72,33 @@ interface EntityService {
     /** @see retrieve */
     fun retrieve(entityId: String, requestOptions: RequestOptions): Entity =
         retrieve(entityId, EntityRetrieveParams.none(), requestOptions)
+
+    /** Update an Entity */
+    fun update(entityId: String): Entity = update(entityId, EntityUpdateParams.none())
+
+    /** @see update */
+    fun update(
+        entityId: String,
+        params: EntityUpdateParams = EntityUpdateParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): Entity = update(params.toBuilder().entityId(entityId).build(), requestOptions)
+
+    /** @see update */
+    fun update(entityId: String, params: EntityUpdateParams = EntityUpdateParams.none()): Entity =
+        update(entityId, params, RequestOptions.none())
+
+    /** @see update */
+    fun update(
+        params: EntityUpdateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): Entity
+
+    /** @see update */
+    fun update(params: EntityUpdateParams): Entity = update(params, RequestOptions.none())
+
+    /** @see update */
+    fun update(entityId: String, requestOptions: RequestOptions): Entity =
+        update(entityId, EntityUpdateParams.none(), requestOptions)
 
     /** List Entities */
     fun list(): EntityListPage = list(EntityListParams.none())
@@ -327,6 +355,47 @@ interface EntityService {
         @MustBeClosed
         fun retrieve(entityId: String, requestOptions: RequestOptions): HttpResponseFor<Entity> =
             retrieve(entityId, EntityRetrieveParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `patch /entities/{entity_id}`, but is otherwise the same
+         * as [EntityService.update].
+         */
+        @MustBeClosed
+        fun update(entityId: String): HttpResponseFor<Entity> =
+            update(entityId, EntityUpdateParams.none())
+
+        /** @see update */
+        @MustBeClosed
+        fun update(
+            entityId: String,
+            params: EntityUpdateParams = EntityUpdateParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Entity> =
+            update(params.toBuilder().entityId(entityId).build(), requestOptions)
+
+        /** @see update */
+        @MustBeClosed
+        fun update(
+            entityId: String,
+            params: EntityUpdateParams = EntityUpdateParams.none(),
+        ): HttpResponseFor<Entity> = update(entityId, params, RequestOptions.none())
+
+        /** @see update */
+        @MustBeClosed
+        fun update(
+            params: EntityUpdateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Entity>
+
+        /** @see update */
+        @MustBeClosed
+        fun update(params: EntityUpdateParams): HttpResponseFor<Entity> =
+            update(params, RequestOptions.none())
+
+        /** @see update */
+        @MustBeClosed
+        fun update(entityId: String, requestOptions: RequestOptions): HttpResponseFor<Entity> =
+            update(entityId, EntityUpdateParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /entities`, but is otherwise the same as
