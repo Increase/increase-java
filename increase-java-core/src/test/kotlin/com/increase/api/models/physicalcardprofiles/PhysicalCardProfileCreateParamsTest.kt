@@ -15,6 +15,8 @@ internal class PhysicalCardProfileCreateParamsTest {
             .description("My Card Profile")
             .frontImageFileId("file_o6aex13wm1jcc36sgcj1")
             .programId("program_i2v2os4mwza1oetokh9i")
+            .cardStockReference("x")
+            .carrierStockReference("x")
             .frontText(
                 PhysicalCardProfileCreateParams.FrontText.builder().line1("x").line2("x").build()
             )
@@ -30,6 +32,8 @@ internal class PhysicalCardProfileCreateParamsTest {
                 .description("My Card Profile")
                 .frontImageFileId("file_o6aex13wm1jcc36sgcj1")
                 .programId("program_i2v2os4mwza1oetokh9i")
+                .cardStockReference("x")
+                .carrierStockReference("x")
                 .frontText(
                     PhysicalCardProfileCreateParams.FrontText.builder()
                         .line1("x")
@@ -45,6 +49,8 @@ internal class PhysicalCardProfileCreateParamsTest {
         assertThat(body.description()).isEqualTo("My Card Profile")
         assertThat(body.frontImageFileId()).isEqualTo("file_o6aex13wm1jcc36sgcj1")
         assertThat(body.programId()).isEqualTo("program_i2v2os4mwza1oetokh9i")
+        assertThat(body.cardStockReference()).contains("x")
+        assertThat(body.carrierStockReference()).contains("x")
         assertThat(body.frontText())
             .contains(
                 PhysicalCardProfileCreateParams.FrontText.builder().line1("x").line2("x").build()
