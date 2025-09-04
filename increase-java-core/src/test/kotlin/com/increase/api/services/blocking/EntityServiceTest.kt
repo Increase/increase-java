@@ -11,6 +11,7 @@ import com.increase.api.models.entities.EntityCreateParams
 import com.increase.api.models.entities.EntityUpdateAddressParams
 import com.increase.api.models.entities.EntityUpdateBeneficialOwnerAddressParams
 import com.increase.api.models.entities.EntityUpdateIndustryCodeParams
+import com.increase.api.models.entities.EntityUpdateParams
 import java.time.LocalDate
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Test
@@ -280,6 +281,12 @@ internal class EntityServiceTest {
                             .confirmedNoUsTaxId(true)
                             .build()
                     )
+                    .riskRating(
+                        EntityCreateParams.RiskRating.builder()
+                            .ratedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .rating(EntityCreateParams.RiskRating.Rating.LOW)
+                            .build()
+                    )
                     .addSupplementalDocument(
                         EntityCreateParams.SupplementalDocument.builder()
                             .fileId("file_makxrc67oh9l6sg7w9yc")
@@ -457,6 +464,37 @@ internal class EntityServiceTest {
         val entityService = client.entities()
 
         val entity = entityService.retrieve("entity_n8y8tnk2p9339ti393yi")
+
+        entity.validate()
+    }
+
+    @Test
+    fun update() {
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val entityService = client.entities()
+
+        val entity =
+            entityService.update(
+                EntityUpdateParams.builder()
+                    .entityId("entity_n8y8tnk2p9339ti393yi")
+                    .riskRating(
+                        EntityUpdateParams.RiskRating.builder()
+                            .ratedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                            .rating(EntityUpdateParams.RiskRating.Rating.LOW)
+                            .build()
+                    )
+                    .thirdPartyVerification(
+                        EntityUpdateParams.ThirdPartyVerification.builder()
+                            .reference("x")
+                            .vendor(EntityUpdateParams.ThirdPartyVerification.Vendor.ALLOY)
+                            .build()
+                    )
+                    .build()
+            )
 
         entity.validate()
     }

@@ -17,6 +17,7 @@ import com.increase.api.models.entities.EntityRetrieveParams
 import com.increase.api.models.entities.EntityUpdateAddressParams
 import com.increase.api.models.entities.EntityUpdateBeneficialOwnerAddressParams
 import com.increase.api.models.entities.EntityUpdateIndustryCodeParams
+import com.increase.api.models.entities.EntityUpdateParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -75,6 +76,38 @@ interface EntityServiceAsync {
     /** @see retrieve */
     fun retrieve(entityId: String, requestOptions: RequestOptions): CompletableFuture<Entity> =
         retrieve(entityId, EntityRetrieveParams.none(), requestOptions)
+
+    /** Update an Entity */
+    fun update(entityId: String): CompletableFuture<Entity> =
+        update(entityId, EntityUpdateParams.none())
+
+    /** @see update */
+    fun update(
+        entityId: String,
+        params: EntityUpdateParams = EntityUpdateParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Entity> =
+        update(params.toBuilder().entityId(entityId).build(), requestOptions)
+
+    /** @see update */
+    fun update(
+        entityId: String,
+        params: EntityUpdateParams = EntityUpdateParams.none(),
+    ): CompletableFuture<Entity> = update(entityId, params, RequestOptions.none())
+
+    /** @see update */
+    fun update(
+        params: EntityUpdateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Entity>
+
+    /** @see update */
+    fun update(params: EntityUpdateParams): CompletableFuture<Entity> =
+        update(params, RequestOptions.none())
+
+    /** @see update */
+    fun update(entityId: String, requestOptions: RequestOptions): CompletableFuture<Entity> =
+        update(entityId, EntityUpdateParams.none(), requestOptions)
 
     /** List Entities */
     fun list(): CompletableFuture<EntityListPageAsync> = list(EntityListParams.none())
@@ -351,6 +384,45 @@ interface EntityServiceAsync {
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<Entity>> =
             retrieve(entityId, EntityRetrieveParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `patch /entities/{entity_id}`, but is otherwise the same
+         * as [EntityServiceAsync.update].
+         */
+        fun update(entityId: String): CompletableFuture<HttpResponseFor<Entity>> =
+            update(entityId, EntityUpdateParams.none())
+
+        /** @see update */
+        fun update(
+            entityId: String,
+            params: EntityUpdateParams = EntityUpdateParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<Entity>> =
+            update(params.toBuilder().entityId(entityId).build(), requestOptions)
+
+        /** @see update */
+        fun update(
+            entityId: String,
+            params: EntityUpdateParams = EntityUpdateParams.none(),
+        ): CompletableFuture<HttpResponseFor<Entity>> =
+            update(entityId, params, RequestOptions.none())
+
+        /** @see update */
+        fun update(
+            params: EntityUpdateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<Entity>>
+
+        /** @see update */
+        fun update(params: EntityUpdateParams): CompletableFuture<HttpResponseFor<Entity>> =
+            update(params, RequestOptions.none())
+
+        /** @see update */
+        fun update(
+            entityId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<Entity>> =
+            update(entityId, EntityUpdateParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /entities`, but is otherwise the same as
