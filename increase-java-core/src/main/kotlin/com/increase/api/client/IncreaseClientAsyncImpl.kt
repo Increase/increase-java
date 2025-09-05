@@ -143,6 +143,10 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
         AccountNumberServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
+    private val accountTransfers: AccountTransferServiceAsync by lazy {
+        AccountTransferServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
     private val cards: CardServiceAsync by lazy { CardServiceAsyncImpl(clientOptionsWithUserAgent) }
 
     private val cardPayments: CardPaymentServiceAsync by lazy {
@@ -183,10 +187,6 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
 
     private val declinedTransactions: DeclinedTransactionServiceAsync by lazy {
         DeclinedTransactionServiceAsyncImpl(clientOptionsWithUserAgent)
-    }
-
-    private val accountTransfers: AccountTransferServiceAsync by lazy {
-        AccountTransferServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
     private val achTransfers: AchTransferServiceAsync by lazy {
@@ -365,6 +365,8 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
 
     override fun accountNumbers(): AccountNumberServiceAsync = accountNumbers
 
+    override fun accountTransfers(): AccountTransferServiceAsync = accountTransfers
+
     override fun cards(): CardServiceAsync = cards
 
     override fun cardPayments(): CardPaymentServiceAsync = cardPayments
@@ -387,8 +389,6 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
     override fun pendingTransactions(): PendingTransactionServiceAsync = pendingTransactions
 
     override fun declinedTransactions(): DeclinedTransactionServiceAsync = declinedTransactions
-
-    override fun accountTransfers(): AccountTransferServiceAsync = accountTransfers
 
     override fun achTransfers(): AchTransferServiceAsync = achTransfers
 
@@ -491,6 +491,10 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
             AccountNumberServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val accountTransfers: AccountTransferServiceAsync.WithRawResponse by lazy {
+            AccountTransferServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         private val cards: CardServiceAsync.WithRawResponse by lazy {
             CardServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
@@ -534,10 +538,6 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
 
         private val declinedTransactions: DeclinedTransactionServiceAsync.WithRawResponse by lazy {
             DeclinedTransactionServiceAsyncImpl.WithRawResponseImpl(clientOptions)
-        }
-
-        private val accountTransfers: AccountTransferServiceAsync.WithRawResponse by lazy {
-            AccountTransferServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
         private val achTransfers: AchTransferServiceAsync.WithRawResponse by lazy {
@@ -720,6 +720,9 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
 
         override fun accountNumbers(): AccountNumberServiceAsync.WithRawResponse = accountNumbers
 
+        override fun accountTransfers(): AccountTransferServiceAsync.WithRawResponse =
+            accountTransfers
+
         override fun cards(): CardServiceAsync.WithRawResponse = cards
 
         override fun cardPayments(): CardPaymentServiceAsync.WithRawResponse = cardPayments
@@ -747,9 +750,6 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
 
         override fun declinedTransactions(): DeclinedTransactionServiceAsync.WithRawResponse =
             declinedTransactions
-
-        override fun accountTransfers(): AccountTransferServiceAsync.WithRawResponse =
-            accountTransfers
 
         override fun achTransfers(): AchTransferServiceAsync.WithRawResponse = achTransfers
 

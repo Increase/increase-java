@@ -50,6 +50,8 @@ interface SimulationServiceAsync {
 
     fun interestPayments(): InterestPaymentServiceAsync
 
+    fun accountTransfers(): AccountTransferServiceAsync
+
     fun cardAuthorizations(): CardAuthorizationServiceAsync
 
     fun cardAuthorizationExpirations(): CardAuthorizationExpirationServiceAsync
@@ -71,8 +73,6 @@ interface SimulationServiceAsync {
     fun digitalWalletTokenRequests(): DigitalWalletTokenRequestServiceAsync
 
     fun pendingTransactions(): PendingTransactionServiceAsync
-
-    fun accountTransfers(): AccountTransferServiceAsync
 
     fun achTransfers(): AchTransferServiceAsync
 
@@ -123,6 +123,8 @@ interface SimulationServiceAsync {
 
         fun interestPayments(): InterestPaymentServiceAsync.WithRawResponse
 
+        fun accountTransfers(): AccountTransferServiceAsync.WithRawResponse
+
         fun cardAuthorizations(): CardAuthorizationServiceAsync.WithRawResponse
 
         fun cardAuthorizationExpirations(): CardAuthorizationExpirationServiceAsync.WithRawResponse
@@ -144,8 +146,6 @@ interface SimulationServiceAsync {
         fun digitalWalletTokenRequests(): DigitalWalletTokenRequestServiceAsync.WithRawResponse
 
         fun pendingTransactions(): PendingTransactionServiceAsync.WithRawResponse
-
-        fun accountTransfers(): AccountTransferServiceAsync.WithRawResponse
 
         fun achTransfers(): AchTransferServiceAsync.WithRawResponse
 
