@@ -74,6 +74,10 @@ class SimulationServiceImpl internal constructor(private val clientOptions: Clie
         InterestPaymentServiceImpl(clientOptions)
     }
 
+    private val accountTransfers: AccountTransferService by lazy {
+        AccountTransferServiceImpl(clientOptions)
+    }
+
     private val cardAuthorizations: CardAuthorizationService by lazy {
         CardAuthorizationServiceImpl(clientOptions)
     }
@@ -112,10 +116,6 @@ class SimulationServiceImpl internal constructor(private val clientOptions: Clie
 
     private val pendingTransactions: PendingTransactionService by lazy {
         PendingTransactionServiceImpl(clientOptions)
-    }
-
-    private val accountTransfers: AccountTransferService by lazy {
-        AccountTransferServiceImpl(clientOptions)
     }
 
     private val achTransfers: AchTransferService by lazy { AchTransferServiceImpl(clientOptions) }
@@ -181,6 +181,8 @@ class SimulationServiceImpl internal constructor(private val clientOptions: Clie
 
     override fun interestPayments(): InterestPaymentService = interestPayments
 
+    override fun accountTransfers(): AccountTransferService = accountTransfers
+
     override fun cardAuthorizations(): CardAuthorizationService = cardAuthorizations
 
     override fun cardAuthorizationExpirations(): CardAuthorizationExpirationService =
@@ -204,8 +206,6 @@ class SimulationServiceImpl internal constructor(private val clientOptions: Clie
         digitalWalletTokenRequests
 
     override fun pendingTransactions(): PendingTransactionService = pendingTransactions
-
-    override fun accountTransfers(): AccountTransferService = accountTransfers
 
     override fun achTransfers(): AchTransferService = achTransfers
 
@@ -247,6 +247,10 @@ class SimulationServiceImpl internal constructor(private val clientOptions: Clie
 
         private val interestPayments: InterestPaymentService.WithRawResponse by lazy {
             InterestPaymentServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val accountTransfers: AccountTransferService.WithRawResponse by lazy {
+            AccountTransferServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
         private val cardAuthorizations: CardAuthorizationService.WithRawResponse by lazy {
@@ -293,10 +297,6 @@ class SimulationServiceImpl internal constructor(private val clientOptions: Clie
 
         private val pendingTransactions: PendingTransactionService.WithRawResponse by lazy {
             PendingTransactionServiceImpl.WithRawResponseImpl(clientOptions)
-        }
-
-        private val accountTransfers: AccountTransferService.WithRawResponse by lazy {
-            AccountTransferServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
         private val achTransfers: AchTransferService.WithRawResponse by lazy {
@@ -375,6 +375,8 @@ class SimulationServiceImpl internal constructor(private val clientOptions: Clie
 
         override fun interestPayments(): InterestPaymentService.WithRawResponse = interestPayments
 
+        override fun accountTransfers(): AccountTransferService.WithRawResponse = accountTransfers
+
         override fun cardAuthorizations(): CardAuthorizationService.WithRawResponse =
             cardAuthorizations
 
@@ -401,8 +403,6 @@ class SimulationServiceImpl internal constructor(private val clientOptions: Clie
 
         override fun pendingTransactions(): PendingTransactionService.WithRawResponse =
             pendingTransactions
-
-        override fun accountTransfers(): AccountTransferService.WithRawResponse = accountTransfers
 
         override fun achTransfers(): AchTransferService.WithRawResponse = achTransfers
 
