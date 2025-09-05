@@ -35,7 +35,8 @@ private constructor(
     fun entityId(): Optional<String> = Optional.ofNullable(entityId)
 
     /**
-     * Details of the corporation entity to update.
+     * Details of the corporation entity to update. If you specify this parameter and the entity is
+     * not a corporation, the request will fail.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -43,7 +44,8 @@ private constructor(
     fun corporation(): Optional<Corporation> = body.corporation()
 
     /**
-     * Details of the government authority entity to update.
+     * Details of the government authority entity to update. If you specify this parameter and the
+     * entity is not a government authority, the request will fail.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -51,7 +53,8 @@ private constructor(
     fun governmentAuthority(): Optional<GovernmentAuthority> = body.governmentAuthority()
 
     /**
-     * Details of the natural person entity to update.
+     * Details of the natural person entity to update. If you specify this parameter and the entity
+     * is not a natural person, the request will fail.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -77,7 +80,8 @@ private constructor(
     fun thirdPartyVerification(): Optional<ThirdPartyVerification> = body.thirdPartyVerification()
 
     /**
-     * Details of the trust entity to update.
+     * Details of the trust entity to update. If you specify this parameter and the entity is not a
+     * trust, the request will fail.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -183,7 +187,10 @@ private constructor(
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
-        /** Details of the corporation entity to update. */
+        /**
+         * Details of the corporation entity to update. If you specify this parameter and the entity
+         * is not a corporation, the request will fail.
+         */
         fun corporation(corporation: Corporation) = apply { body.corporation(corporation) }
 
         /**
@@ -197,7 +204,10 @@ private constructor(
             body.corporation(corporation)
         }
 
-        /** Details of the government authority entity to update. */
+        /**
+         * Details of the government authority entity to update. If you specify this parameter and
+         * the entity is not a government authority, the request will fail.
+         */
         fun governmentAuthority(governmentAuthority: GovernmentAuthority) = apply {
             body.governmentAuthority(governmentAuthority)
         }
@@ -213,7 +223,10 @@ private constructor(
             body.governmentAuthority(governmentAuthority)
         }
 
-        /** Details of the natural person entity to update. */
+        /**
+         * Details of the natural person entity to update. If you specify this parameter and the
+         * entity is not a natural person, the request will fail.
+         */
         fun naturalPerson(naturalPerson: NaturalPerson) = apply {
             body.naturalPerson(naturalPerson)
         }
@@ -264,7 +277,10 @@ private constructor(
                 body.thirdPartyVerification(thirdPartyVerification)
             }
 
-        /** Details of the trust entity to update. */
+        /**
+         * Details of the trust entity to update. If you specify this parameter and the entity is
+         * not a trust, the request will fail.
+         */
         fun trust(trust: Trust) = apply { body.trust(trust) }
 
         /**
@@ -458,7 +474,8 @@ private constructor(
         )
 
         /**
-         * Details of the corporation entity to update.
+         * Details of the corporation entity to update. If you specify this parameter and the entity
+         * is not a corporation, the request will fail.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -466,7 +483,8 @@ private constructor(
         fun corporation(): Optional<Corporation> = corporation.getOptional("corporation")
 
         /**
-         * Details of the government authority entity to update.
+         * Details of the government authority entity to update. If you specify this parameter and
+         * the entity is not a government authority, the request will fail.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -475,7 +493,8 @@ private constructor(
             governmentAuthority.getOptional("government_authority")
 
         /**
-         * Details of the natural person entity to update.
+         * Details of the natural person entity to update. If you specify this parameter and the
+         * entity is not a natural person, the request will fail.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -502,7 +521,8 @@ private constructor(
             thirdPartyVerification.getOptional("third_party_verification")
 
         /**
-         * Details of the trust entity to update.
+         * Details of the trust entity to update. If you specify this parameter and the entity is
+         * not a trust, the request will fail.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -604,7 +624,10 @@ private constructor(
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
-            /** Details of the corporation entity to update. */
+            /**
+             * Details of the corporation entity to update. If you specify this parameter and the
+             * entity is not a corporation, the request will fail.
+             */
             fun corporation(corporation: Corporation) = corporation(JsonField.of(corporation))
 
             /**
@@ -618,7 +641,10 @@ private constructor(
                 this.corporation = corporation
             }
 
-            /** Details of the government authority entity to update. */
+            /**
+             * Details of the government authority entity to update. If you specify this parameter
+             * and the entity is not a government authority, the request will fail.
+             */
             fun governmentAuthority(governmentAuthority: GovernmentAuthority) =
                 governmentAuthority(JsonField.of(governmentAuthority))
 
@@ -633,7 +659,10 @@ private constructor(
                 this.governmentAuthority = governmentAuthority
             }
 
-            /** Details of the natural person entity to update. */
+            /**
+             * Details of the natural person entity to update. If you specify this parameter and the
+             * entity is not a natural person, the request will fail.
+             */
             fun naturalPerson(naturalPerson: NaturalPerson) =
                 naturalPerson(JsonField.of(naturalPerson))
 
@@ -684,7 +713,10 @@ private constructor(
                     this.thirdPartyVerification = thirdPartyVerification
                 }
 
-            /** Details of the trust entity to update. */
+            /**
+             * Details of the trust entity to update. If you specify this parameter and the entity
+             * is not a trust, the request will fail.
+             */
             fun trust(trust: Trust) = trust(JsonField.of(trust))
 
             /**
@@ -804,7 +836,10 @@ private constructor(
             "Body{corporation=$corporation, governmentAuthority=$governmentAuthority, naturalPerson=$naturalPerson, riskRating=$riskRating, thirdPartyVerification=$thirdPartyVerification, trust=$trust, additionalProperties=$additionalProperties}"
     }
 
-    /** Details of the corporation entity to update. */
+    /**
+     * Details of the corporation entity to update. If you specify this parameter and the entity is
+     * not a corporation, the request will fail.
+     */
     class Corporation
     private constructor(
         private val name: JsonField<String>,
@@ -945,7 +980,10 @@ private constructor(
             "Corporation{name=$name, additionalProperties=$additionalProperties}"
     }
 
-    /** Details of the government authority entity to update. */
+    /**
+     * Details of the government authority entity to update. If you specify this parameter and the
+     * entity is not a government authority, the request will fail.
+     */
     class GovernmentAuthority
     private constructor(
         private val name: JsonField<String>,
@@ -1087,7 +1125,10 @@ private constructor(
             "GovernmentAuthority{name=$name, additionalProperties=$additionalProperties}"
     }
 
-    /** Details of the natural person entity to update. */
+    /**
+     * Details of the natural person entity to update. If you specify this parameter and the entity
+     * is not a natural person, the request will fail.
+     */
     class NaturalPerson
     private constructor(
         private val name: JsonField<String>,
@@ -1930,7 +1971,10 @@ private constructor(
             "ThirdPartyVerification{reference=$reference, vendor=$vendor, additionalProperties=$additionalProperties}"
     }
 
-    /** Details of the trust entity to update. */
+    /**
+     * Details of the trust entity to update. If you specify this parameter and the entity is not a
+     * trust, the request will fail.
+     */
     class Trust
     private constructor(
         private val name: JsonField<String>,
