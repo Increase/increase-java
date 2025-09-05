@@ -12,6 +12,9 @@ internal class EntityUpdateParamsTest {
     fun create() {
         EntityUpdateParams.builder()
             .entityId("entity_n8y8tnk2p9339ti393yi")
+            .corporation(EntityUpdateParams.Corporation.builder().name("x").build())
+            .governmentAuthority(EntityUpdateParams.GovernmentAuthority.builder().name("x").build())
+            .naturalPerson(EntityUpdateParams.NaturalPerson.builder().name("x").build())
             .riskRating(
                 EntityUpdateParams.RiskRating.builder()
                     .ratedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
@@ -24,6 +27,7 @@ internal class EntityUpdateParamsTest {
                     .vendor(EntityUpdateParams.ThirdPartyVerification.Vendor.ALLOY)
                     .build()
             )
+            .trust(EntityUpdateParams.Trust.builder().name("x").build())
             .build()
     }
 
@@ -41,6 +45,11 @@ internal class EntityUpdateParamsTest {
         val params =
             EntityUpdateParams.builder()
                 .entityId("entity_n8y8tnk2p9339ti393yi")
+                .corporation(EntityUpdateParams.Corporation.builder().name("x").build())
+                .governmentAuthority(
+                    EntityUpdateParams.GovernmentAuthority.builder().name("x").build()
+                )
+                .naturalPerson(EntityUpdateParams.NaturalPerson.builder().name("x").build())
                 .riskRating(
                     EntityUpdateParams.RiskRating.builder()
                         .ratedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
@@ -53,10 +62,17 @@ internal class EntityUpdateParamsTest {
                         .vendor(EntityUpdateParams.ThirdPartyVerification.Vendor.ALLOY)
                         .build()
                 )
+                .trust(EntityUpdateParams.Trust.builder().name("x").build())
                 .build()
 
         val body = params._body()
 
+        assertThat(body.corporation())
+            .contains(EntityUpdateParams.Corporation.builder().name("x").build())
+        assertThat(body.governmentAuthority())
+            .contains(EntityUpdateParams.GovernmentAuthority.builder().name("x").build())
+        assertThat(body.naturalPerson())
+            .contains(EntityUpdateParams.NaturalPerson.builder().name("x").build())
         assertThat(body.riskRating())
             .contains(
                 EntityUpdateParams.RiskRating.builder()
@@ -71,6 +87,7 @@ internal class EntityUpdateParamsTest {
                     .vendor(EntityUpdateParams.ThirdPartyVerification.Vendor.ALLOY)
                     .build()
             )
+        assertThat(body.trust()).contains(EntityUpdateParams.Trust.builder().name("x").build())
     }
 
     @Test

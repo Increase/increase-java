@@ -481,6 +481,11 @@ internal class EntityServiceTest {
             entityService.update(
                 EntityUpdateParams.builder()
                     .entityId("entity_n8y8tnk2p9339ti393yi")
+                    .corporation(EntityUpdateParams.Corporation.builder().name("x").build())
+                    .governmentAuthority(
+                        EntityUpdateParams.GovernmentAuthority.builder().name("x").build()
+                    )
+                    .naturalPerson(EntityUpdateParams.NaturalPerson.builder().name("x").build())
                     .riskRating(
                         EntityUpdateParams.RiskRating.builder()
                             .ratedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
@@ -493,6 +498,7 @@ internal class EntityServiceTest {
                             .vendor(EntityUpdateParams.ThirdPartyVerification.Vendor.ALLOY)
                             .build()
                     )
+                    .trust(EntityUpdateParams.Trust.builder().name("x").build())
                     .build()
             )
 
