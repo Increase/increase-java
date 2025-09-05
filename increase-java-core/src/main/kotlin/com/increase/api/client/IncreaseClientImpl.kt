@@ -139,6 +139,10 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
         AccountNumberServiceImpl(clientOptionsWithUserAgent)
     }
 
+    private val accountTransfers: AccountTransferService by lazy {
+        AccountTransferServiceImpl(clientOptionsWithUserAgent)
+    }
+
     private val cards: CardService by lazy { CardServiceImpl(clientOptionsWithUserAgent) }
 
     private val cardPayments: CardPaymentService by lazy {
@@ -179,10 +183,6 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
 
     private val declinedTransactions: DeclinedTransactionService by lazy {
         DeclinedTransactionServiceImpl(clientOptionsWithUserAgent)
-    }
-
-    private val accountTransfers: AccountTransferService by lazy {
-        AccountTransferServiceImpl(clientOptionsWithUserAgent)
     }
 
     private val achTransfers: AchTransferService by lazy {
@@ -346,6 +346,8 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
 
     override fun accountNumbers(): AccountNumberService = accountNumbers
 
+    override fun accountTransfers(): AccountTransferService = accountTransfers
+
     override fun cards(): CardService = cards
 
     override fun cardPayments(): CardPaymentService = cardPayments
@@ -367,8 +369,6 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
     override fun pendingTransactions(): PendingTransactionService = pendingTransactions
 
     override fun declinedTransactions(): DeclinedTransactionService = declinedTransactions
-
-    override fun accountTransfers(): AccountTransferService = accountTransfers
 
     override fun achTransfers(): AchTransferService = achTransfers
 
@@ -469,6 +469,10 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
             AccountNumberServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val accountTransfers: AccountTransferService.WithRawResponse by lazy {
+            AccountTransferServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         private val cards: CardService.WithRawResponse by lazy {
             CardServiceImpl.WithRawResponseImpl(clientOptions)
         }
@@ -511,10 +515,6 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
 
         private val declinedTransactions: DeclinedTransactionService.WithRawResponse by lazy {
             DeclinedTransactionServiceImpl.WithRawResponseImpl(clientOptions)
-        }
-
-        private val accountTransfers: AccountTransferService.WithRawResponse by lazy {
-            AccountTransferServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
         private val achTransfers: AchTransferService.WithRawResponse by lazy {
@@ -696,6 +696,8 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
 
         override fun accountNumbers(): AccountNumberService.WithRawResponse = accountNumbers
 
+        override fun accountTransfers(): AccountTransferService.WithRawResponse = accountTransfers
+
         override fun cards(): CardService.WithRawResponse = cards
 
         override fun cardPayments(): CardPaymentService.WithRawResponse = cardPayments
@@ -723,8 +725,6 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
 
         override fun declinedTransactions(): DeclinedTransactionService.WithRawResponse =
             declinedTransactions
-
-        override fun accountTransfers(): AccountTransferService.WithRawResponse = accountTransfers
 
         override fun achTransfers(): AchTransferService.WithRawResponse = achTransfers
 

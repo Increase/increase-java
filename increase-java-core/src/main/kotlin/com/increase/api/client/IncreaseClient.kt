@@ -100,6 +100,8 @@ interface IncreaseClient {
 
     fun accountNumbers(): AccountNumberService
 
+    fun accountTransfers(): AccountTransferService
+
     fun cards(): CardService
 
     fun cardPayments(): CardPaymentService
@@ -121,8 +123,6 @@ interface IncreaseClient {
     fun pendingTransactions(): PendingTransactionService
 
     fun declinedTransactions(): DeclinedTransactionService
-
-    fun accountTransfers(): AccountTransferService
 
     fun achTransfers(): AchTransferService
 
@@ -233,6 +233,8 @@ interface IncreaseClient {
 
         fun accountNumbers(): AccountNumberService.WithRawResponse
 
+        fun accountTransfers(): AccountTransferService.WithRawResponse
+
         fun cards(): CardService.WithRawResponse
 
         fun cardPayments(): CardPaymentService.WithRawResponse
@@ -254,8 +256,6 @@ interface IncreaseClient {
         fun pendingTransactions(): PendingTransactionService.WithRawResponse
 
         fun declinedTransactions(): DeclinedTransactionService.WithRawResponse
-
-        fun accountTransfers(): AccountTransferService.WithRawResponse
 
         fun achTransfers(): AchTransferService.WithRawResponse
 

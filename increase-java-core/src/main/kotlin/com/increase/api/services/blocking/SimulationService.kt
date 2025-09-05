@@ -50,6 +50,8 @@ interface SimulationService {
 
     fun interestPayments(): InterestPaymentService
 
+    fun accountTransfers(): AccountTransferService
+
     fun cardAuthorizations(): CardAuthorizationService
 
     fun cardAuthorizationExpirations(): CardAuthorizationExpirationService
@@ -71,8 +73,6 @@ interface SimulationService {
     fun digitalWalletTokenRequests(): DigitalWalletTokenRequestService
 
     fun pendingTransactions(): PendingTransactionService
-
-    fun accountTransfers(): AccountTransferService
 
     fun achTransfers(): AchTransferService
 
@@ -120,6 +120,8 @@ interface SimulationService {
 
         fun interestPayments(): InterestPaymentService.WithRawResponse
 
+        fun accountTransfers(): AccountTransferService.WithRawResponse
+
         fun cardAuthorizations(): CardAuthorizationService.WithRawResponse
 
         fun cardAuthorizationExpirations(): CardAuthorizationExpirationService.WithRawResponse
@@ -141,8 +143,6 @@ interface SimulationService {
         fun digitalWalletTokenRequests(): DigitalWalletTokenRequestService.WithRawResponse
 
         fun pendingTransactions(): PendingTransactionService.WithRawResponse
-
-        fun accountTransfers(): AccountTransferService.WithRawResponse
 
         fun achTransfers(): AchTransferService.WithRawResponse
 

@@ -100,6 +100,8 @@ interface IncreaseClientAsync {
 
     fun accountNumbers(): AccountNumberServiceAsync
 
+    fun accountTransfers(): AccountTransferServiceAsync
+
     fun cards(): CardServiceAsync
 
     fun cardPayments(): CardPaymentServiceAsync
@@ -121,8 +123,6 @@ interface IncreaseClientAsync {
     fun pendingTransactions(): PendingTransactionServiceAsync
 
     fun declinedTransactions(): DeclinedTransactionServiceAsync
-
-    fun accountTransfers(): AccountTransferServiceAsync
 
     fun achTransfers(): AchTransferServiceAsync
 
@@ -237,6 +237,8 @@ interface IncreaseClientAsync {
 
         fun accountNumbers(): AccountNumberServiceAsync.WithRawResponse
 
+        fun accountTransfers(): AccountTransferServiceAsync.WithRawResponse
+
         fun cards(): CardServiceAsync.WithRawResponse
 
         fun cardPayments(): CardPaymentServiceAsync.WithRawResponse
@@ -258,8 +260,6 @@ interface IncreaseClientAsync {
         fun pendingTransactions(): PendingTransactionServiceAsync.WithRawResponse
 
         fun declinedTransactions(): DeclinedTransactionServiceAsync.WithRawResponse
-
-        fun accountTransfers(): AccountTransferServiceAsync.WithRawResponse
 
         fun achTransfers(): AchTransferServiceAsync.WithRawResponse
 
