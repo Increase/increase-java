@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
@@ -69,6 +70,14 @@ private constructor(
     fun programId(): String = body.programId()
 
     /**
+     * The color of the text on the back of the card. Defaults to "black".
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun backColor(): Optional<BackColor> = body.backColor()
+
+    /**
      * A reference ID provided by the fulfillment provider for the card stock used. Only used if
      * you've ordered card stock separately.
      *
@@ -85,6 +94,14 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun carrierStockReference(): Optional<String> = body.carrierStockReference()
+
+    /**
+     * The color of the design on the front of the card. Defaults to "black".
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun frontColor(): Optional<FrontColor> = body.frontColor()
 
     /**
      * Text printed on the front of the card. Reach out to
@@ -133,6 +150,13 @@ private constructor(
     fun _programId(): JsonField<String> = body._programId()
 
     /**
+     * Returns the raw JSON value of [backColor].
+     *
+     * Unlike [backColor], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _backColor(): JsonField<BackColor> = body._backColor()
+
+    /**
      * Returns the raw JSON value of [cardStockReference].
      *
      * Unlike [cardStockReference], this method doesn't throw if the JSON field has an unexpected
@@ -147,6 +171,13 @@ private constructor(
      * type.
      */
     fun _carrierStockReference(): JsonField<String> = body._carrierStockReference()
+
+    /**
+     * Returns the raw JSON value of [frontColor].
+     *
+     * Unlike [frontColor], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _frontColor(): JsonField<FrontColor> = body._frontColor()
 
     /**
      * Returns the raw JSON value of [frontText].
@@ -283,6 +314,18 @@ private constructor(
          */
         fun programId(programId: JsonField<String>) = apply { body.programId(programId) }
 
+        /** The color of the text on the back of the card. Defaults to "black". */
+        fun backColor(backColor: BackColor) = apply { body.backColor(backColor) }
+
+        /**
+         * Sets [Builder.backColor] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.backColor] with a well-typed [BackColor] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun backColor(backColor: JsonField<BackColor>) = apply { body.backColor(backColor) }
+
         /**
          * A reference ID provided by the fulfillment provider for the card stock used. Only used if
          * you've ordered card stock separately.
@@ -320,6 +363,18 @@ private constructor(
         fun carrierStockReference(carrierStockReference: JsonField<String>) = apply {
             body.carrierStockReference(carrierStockReference)
         }
+
+        /** The color of the design on the front of the card. Defaults to "black". */
+        fun frontColor(frontColor: FrontColor) = apply { body.frontColor(frontColor) }
+
+        /**
+         * Sets [Builder.frontColor] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.frontColor] with a well-typed [FrontColor] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun frontColor(frontColor: JsonField<FrontColor>) = apply { body.frontColor(frontColor) }
 
         /**
          * Text printed on the front of the card. Reach out to
@@ -490,8 +545,10 @@ private constructor(
         private val description: JsonField<String>,
         private val frontImageFileId: JsonField<String>,
         private val programId: JsonField<String>,
+        private val backColor: JsonField<BackColor>,
         private val cardStockReference: JsonField<String>,
         private val carrierStockReference: JsonField<String>,
+        private val frontColor: JsonField<FrontColor>,
         private val frontText: JsonField<FrontText>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -513,12 +570,18 @@ private constructor(
             @JsonProperty("program_id")
             @ExcludeMissing
             programId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("back_color")
+            @ExcludeMissing
+            backColor: JsonField<BackColor> = JsonMissing.of(),
             @JsonProperty("card_stock_reference")
             @ExcludeMissing
             cardStockReference: JsonField<String> = JsonMissing.of(),
             @JsonProperty("carrier_stock_reference")
             @ExcludeMissing
             carrierStockReference: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("front_color")
+            @ExcludeMissing
+            frontColor: JsonField<FrontColor> = JsonMissing.of(),
             @JsonProperty("front_text")
             @ExcludeMissing
             frontText: JsonField<FrontText> = JsonMissing.of(),
@@ -528,8 +591,10 @@ private constructor(
             description,
             frontImageFileId,
             programId,
+            backColor,
             cardStockReference,
             carrierStockReference,
+            frontColor,
             frontText,
             mutableMapOf(),
         )
@@ -575,6 +640,14 @@ private constructor(
         fun programId(): String = programId.getRequired("program_id")
 
         /**
+         * The color of the text on the back of the card. Defaults to "black".
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun backColor(): Optional<BackColor> = backColor.getOptional("back_color")
+
+        /**
          * A reference ID provided by the fulfillment provider for the card stock used. Only used if
          * you've ordered card stock separately.
          *
@@ -593,6 +666,14 @@ private constructor(
          */
         fun carrierStockReference(): Optional<String> =
             carrierStockReference.getOptional("carrier_stock_reference")
+
+        /**
+         * The color of the design on the front of the card. Defaults to "black".
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun frontColor(): Optional<FrontColor> = frontColor.getOptional("front_color")
 
         /**
          * Text printed on the front of the card. Reach out to
@@ -650,6 +731,15 @@ private constructor(
         @JsonProperty("program_id") @ExcludeMissing fun _programId(): JsonField<String> = programId
 
         /**
+         * Returns the raw JSON value of [backColor].
+         *
+         * Unlike [backColor], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("back_color")
+        @ExcludeMissing
+        fun _backColor(): JsonField<BackColor> = backColor
+
+        /**
          * Returns the raw JSON value of [cardStockReference].
          *
          * Unlike [cardStockReference], this method doesn't throw if the JSON field has an
@@ -668,6 +758,15 @@ private constructor(
         @JsonProperty("carrier_stock_reference")
         @ExcludeMissing
         fun _carrierStockReference(): JsonField<String> = carrierStockReference
+
+        /**
+         * Returns the raw JSON value of [frontColor].
+         *
+         * Unlike [frontColor], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("front_color")
+        @ExcludeMissing
+        fun _frontColor(): JsonField<FrontColor> = frontColor
 
         /**
          * Returns the raw JSON value of [frontText].
@@ -715,8 +814,10 @@ private constructor(
             private var description: JsonField<String>? = null
             private var frontImageFileId: JsonField<String>? = null
             private var programId: JsonField<String>? = null
+            private var backColor: JsonField<BackColor> = JsonMissing.of()
             private var cardStockReference: JsonField<String> = JsonMissing.of()
             private var carrierStockReference: JsonField<String> = JsonMissing.of()
+            private var frontColor: JsonField<FrontColor> = JsonMissing.of()
             private var frontText: JsonField<FrontText> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -727,8 +828,10 @@ private constructor(
                 description = body.description
                 frontImageFileId = body.frontImageFileId
                 programId = body.programId
+                backColor = body.backColor
                 cardStockReference = body.cardStockReference
                 carrierStockReference = body.carrierStockReference
+                frontColor = body.frontColor
                 frontText = body.frontText
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
@@ -803,6 +906,18 @@ private constructor(
              */
             fun programId(programId: JsonField<String>) = apply { this.programId = programId }
 
+            /** The color of the text on the back of the card. Defaults to "black". */
+            fun backColor(backColor: BackColor) = backColor(JsonField.of(backColor))
+
+            /**
+             * Sets [Builder.backColor] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.backColor] with a well-typed [BackColor] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun backColor(backColor: JsonField<BackColor>) = apply { this.backColor = backColor }
+
             /**
              * A reference ID provided by the fulfillment provider for the card stock used. Only
              * used if you've ordered card stock separately.
@@ -837,6 +952,20 @@ private constructor(
              */
             fun carrierStockReference(carrierStockReference: JsonField<String>) = apply {
                 this.carrierStockReference = carrierStockReference
+            }
+
+            /** The color of the design on the front of the card. Defaults to "black". */
+            fun frontColor(frontColor: FrontColor) = frontColor(JsonField.of(frontColor))
+
+            /**
+             * Sets [Builder.frontColor] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.frontColor] with a well-typed [FrontColor] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun frontColor(frontColor: JsonField<FrontColor>) = apply {
+                this.frontColor = frontColor
             }
 
             /**
@@ -896,8 +1025,10 @@ private constructor(
                     checkRequired("description", description),
                     checkRequired("frontImageFileId", frontImageFileId),
                     checkRequired("programId", programId),
+                    backColor,
                     cardStockReference,
                     carrierStockReference,
+                    frontColor,
                     frontText,
                     additionalProperties.toMutableMap(),
                 )
@@ -915,8 +1046,10 @@ private constructor(
             description()
             frontImageFileId()
             programId()
+            backColor().ifPresent { it.validate() }
             cardStockReference()
             carrierStockReference()
+            frontColor().ifPresent { it.validate() }
             frontText().ifPresent { it.validate() }
             validated = true
         }
@@ -942,8 +1075,10 @@ private constructor(
                 (if (description.asKnown().isPresent) 1 else 0) +
                 (if (frontImageFileId.asKnown().isPresent) 1 else 0) +
                 (if (programId.asKnown().isPresent) 1 else 0) +
+                (backColor.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (cardStockReference.asKnown().isPresent) 1 else 0) +
                 (if (carrierStockReference.asKnown().isPresent) 1 else 0) +
+                (frontColor.asKnown().getOrNull()?.validity() ?: 0) +
                 (frontText.asKnown().getOrNull()?.validity() ?: 0)
 
         override fun equals(other: Any?): Boolean {
@@ -957,8 +1092,10 @@ private constructor(
                 description == other.description &&
                 frontImageFileId == other.frontImageFileId &&
                 programId == other.programId &&
+                backColor == other.backColor &&
                 cardStockReference == other.cardStockReference &&
                 carrierStockReference == other.carrierStockReference &&
+                frontColor == other.frontColor &&
                 frontText == other.frontText &&
                 additionalProperties == other.additionalProperties
         }
@@ -970,8 +1107,10 @@ private constructor(
                 description,
                 frontImageFileId,
                 programId,
+                backColor,
                 cardStockReference,
                 carrierStockReference,
+                frontColor,
                 frontText,
                 additionalProperties,
             )
@@ -980,7 +1119,279 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{carrierImageFileId=$carrierImageFileId, contactPhone=$contactPhone, description=$description, frontImageFileId=$frontImageFileId, programId=$programId, cardStockReference=$cardStockReference, carrierStockReference=$carrierStockReference, frontText=$frontText, additionalProperties=$additionalProperties}"
+            "Body{carrierImageFileId=$carrierImageFileId, contactPhone=$contactPhone, description=$description, frontImageFileId=$frontImageFileId, programId=$programId, backColor=$backColor, cardStockReference=$cardStockReference, carrierStockReference=$carrierStockReference, frontColor=$frontColor, frontText=$frontText, additionalProperties=$additionalProperties}"
+    }
+
+    /** The color of the text on the back of the card. Defaults to "black". */
+    class BackColor @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            /** Black personalization color. */
+            @JvmField val BLACK = of("black")
+
+            /** White personalization color. */
+            @JvmField val WHITE = of("white")
+
+            @JvmStatic fun of(value: String) = BackColor(JsonField.of(value))
+        }
+
+        /** An enum containing [BackColor]'s known values. */
+        enum class Known {
+            /** Black personalization color. */
+            BLACK,
+            /** White personalization color. */
+            WHITE,
+        }
+
+        /**
+         * An enum containing [BackColor]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [BackColor] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            /** Black personalization color. */
+            BLACK,
+            /** White personalization color. */
+            WHITE,
+            /**
+             * An enum member indicating that [BackColor] was instantiated with an unknown value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                BLACK -> Value.BLACK
+                WHITE -> Value.WHITE
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                BLACK -> Known.BLACK
+                WHITE -> Known.WHITE
+                else -> throw IncreaseInvalidDataException("Unknown BackColor: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws IncreaseInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow {
+                IncreaseInvalidDataException("Value is not a String")
+            }
+
+        private var validated: Boolean = false
+
+        fun validate(): BackColor = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is BackColor && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
+    /** The color of the design on the front of the card. Defaults to "black". */
+    class FrontColor @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            /** Black personalization color. */
+            @JvmField val BLACK = of("black")
+
+            /** White personalization color. */
+            @JvmField val WHITE = of("white")
+
+            @JvmStatic fun of(value: String) = FrontColor(JsonField.of(value))
+        }
+
+        /** An enum containing [FrontColor]'s known values. */
+        enum class Known {
+            /** Black personalization color. */
+            BLACK,
+            /** White personalization color. */
+            WHITE,
+        }
+
+        /**
+         * An enum containing [FrontColor]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [FrontColor] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            /** Black personalization color. */
+            BLACK,
+            /** White personalization color. */
+            WHITE,
+            /**
+             * An enum member indicating that [FrontColor] was instantiated with an unknown value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                BLACK -> Value.BLACK
+                WHITE -> Value.WHITE
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                BLACK -> Known.BLACK
+                WHITE -> Known.WHITE
+                else -> throw IncreaseInvalidDataException("Unknown FrontColor: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws IncreaseInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow {
+                IncreaseInvalidDataException("Value is not a String")
+            }
+
+        private var validated: Boolean = false
+
+        fun validate(): FrontColor = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is FrontColor && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
     }
 
     /**

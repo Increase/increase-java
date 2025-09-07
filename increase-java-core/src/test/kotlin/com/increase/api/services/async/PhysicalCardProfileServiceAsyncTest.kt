@@ -29,8 +29,10 @@ internal class PhysicalCardProfileServiceAsyncTest {
                     .description("My Card Profile")
                     .frontImageFileId("file_o6aex13wm1jcc36sgcj1")
                     .programId("program_i2v2os4mwza1oetokh9i")
+                    .backColor(PhysicalCardProfileCreateParams.BackColor.BLACK)
                     .cardStockReference("x")
                     .carrierStockReference("x")
+                    .frontColor(PhysicalCardProfileCreateParams.FrontColor.BLACK)
                     .frontText(
                         PhysicalCardProfileCreateParams.FrontText.builder()
                             .line1("x")
