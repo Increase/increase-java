@@ -492,6 +492,7 @@ internal class EntityServiceTest {
                                     .line2("Unit 2")
                                     .build()
                             )
+                            .industryCode("x")
                             .name("x")
                             .build()
                     )
