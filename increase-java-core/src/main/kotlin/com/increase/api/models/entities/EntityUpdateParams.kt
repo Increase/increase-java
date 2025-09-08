@@ -843,6 +843,7 @@ private constructor(
     class Corporation
     private constructor(
         private val address: JsonField<Address>,
+        private val industryCode: JsonField<String>,
         private val name: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -850,8 +851,11 @@ private constructor(
         @JsonCreator
         private constructor(
             @JsonProperty("address") @ExcludeMissing address: JsonField<Address> = JsonMissing.of(),
+            @JsonProperty("industry_code")
+            @ExcludeMissing
+            industryCode: JsonField<String> = JsonMissing.of(),
             @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
-        ) : this(address, name, mutableMapOf())
+        ) : this(address, industryCode, name, mutableMapOf())
 
         /**
          * The entity's physical address. Mail receiving locations like PO Boxes and PMB's are
@@ -861,6 +865,17 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun address(): Optional<Address> = address.getOptional("address")
+
+        /**
+         * The North American Industry Classification System (NAICS) code for the corporation's
+         * primary line of business. This is a number, like `5132` for `Software Publishers`. A full
+         * list of classification codes is available
+         * [here](https://increase.com/documentation/data-dictionary#north-american-industry-classification-system-codes).
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun industryCode(): Optional<String> = industryCode.getOptional("industry_code")
 
         /**
          * The legal name of the corporation.
@@ -876,6 +891,16 @@ private constructor(
          * Unlike [address], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("address") @ExcludeMissing fun _address(): JsonField<Address> = address
+
+        /**
+         * Returns the raw JSON value of [industryCode].
+         *
+         * Unlike [industryCode], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("industry_code")
+        @ExcludeMissing
+        fun _industryCode(): JsonField<String> = industryCode
 
         /**
          * Returns the raw JSON value of [name].
@@ -906,12 +931,14 @@ private constructor(
         class Builder internal constructor() {
 
             private var address: JsonField<Address> = JsonMissing.of()
+            private var industryCode: JsonField<String> = JsonMissing.of()
             private var name: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(corporation: Corporation) = apply {
                 address = corporation.address
+                industryCode = corporation.industryCode
                 name = corporation.name
                 additionalProperties = corporation.additionalProperties.toMutableMap()
             }
@@ -930,6 +957,25 @@ private constructor(
              * supported value.
              */
             fun address(address: JsonField<Address>) = apply { this.address = address }
+
+            /**
+             * The North American Industry Classification System (NAICS) code for the corporation's
+             * primary line of business. This is a number, like `5132` for `Software Publishers`. A
+             * full list of classification codes is available
+             * [here](https://increase.com/documentation/data-dictionary#north-american-industry-classification-system-codes).
+             */
+            fun industryCode(industryCode: String) = industryCode(JsonField.of(industryCode))
+
+            /**
+             * Sets [Builder.industryCode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.industryCode] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun industryCode(industryCode: JsonField<String>) = apply {
+                this.industryCode = industryCode
+            }
 
             /** The legal name of the corporation. */
             fun name(name: String) = name(JsonField.of(name))
@@ -968,7 +1014,7 @@ private constructor(
              * Further updates to this [Builder] will not mutate the returned instance.
              */
             fun build(): Corporation =
-                Corporation(address, name, additionalProperties.toMutableMap())
+                Corporation(address, industryCode, name, additionalProperties.toMutableMap())
         }
 
         private var validated: Boolean = false
@@ -979,6 +1025,7 @@ private constructor(
             }
 
             address().ifPresent { it.validate() }
+            industryCode()
             name()
             validated = true
         }
@@ -1000,6 +1047,7 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             (address.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (industryCode.asKnown().isPresent) 1 else 0) +
                 (if (name.asKnown().isPresent) 1 else 0)
 
         /**
@@ -1332,16 +1380,19 @@ private constructor(
 
             return other is Corporation &&
                 address == other.address &&
+                industryCode == other.industryCode &&
                 name == other.name &&
                 additionalProperties == other.additionalProperties
         }
 
-        private val hashCode: Int by lazy { Objects.hash(address, name, additionalProperties) }
+        private val hashCode: Int by lazy {
+            Objects.hash(address, industryCode, name, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Corporation{address=$address, name=$name, additionalProperties=$additionalProperties}"
+            "Corporation{address=$address, industryCode=$industryCode, name=$name, additionalProperties=$additionalProperties}"
     }
 
     /**
