@@ -27,6 +27,7 @@ internal class EntityUpdateParamsTest {
                     .name("x")
                     .build()
             )
+            .detailsConfirmedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
             .governmentAuthority(
                 EntityUpdateParams.GovernmentAuthority.builder()
                     .address(
@@ -113,6 +114,7 @@ internal class EntityUpdateParamsTest {
                         .name("x")
                         .build()
                 )
+                .detailsConfirmedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .governmentAuthority(
                     EntityUpdateParams.GovernmentAuthority.builder()
                         .address(
@@ -187,6 +189,8 @@ internal class EntityUpdateParamsTest {
                     .name("x")
                     .build()
             )
+        assertThat(body.detailsConfirmedAt())
+            .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(body.governmentAuthority())
             .contains(
                 EntityUpdateParams.GovernmentAuthority.builder()
