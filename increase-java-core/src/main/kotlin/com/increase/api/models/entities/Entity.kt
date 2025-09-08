@@ -224,8 +224,8 @@ private constructor(
         supplementalDocuments.getRequired("supplemental_documents")
 
     /**
-     * A reference to data stored in a third-party verification service. Your integration may or may
-     * not use this field.
+     * If you are using a third-party service for identity verification, you can use this field to
+     * associate this Entity with the identifier that represents them in that service.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -708,8 +708,8 @@ private constructor(
         }
 
         /**
-         * A reference to data stored in a third-party verification service. Your integration may or
-         * may not use this field.
+         * If you are using a third-party service for identity verification, you can use this field
+         * to associate this Entity with the identifier that represents them in that service.
          */
         fun thirdPartyVerification(thirdPartyVerification: ThirdPartyVerification?) =
             thirdPartyVerification(JsonField.ofNullable(thirdPartyVerification))
@@ -6775,13 +6775,13 @@ private constructor(
 
             companion object {
 
-                /** Low */
+                /** Minimal risk of involvement in financial crime. */
                 @JvmField val LOW = of("low")
 
-                /** Medium */
+                /** Moderate risk of involvement in financial crime. */
                 @JvmField val MEDIUM = of("medium")
 
-                /** High */
+                /** Elevated risk of involvement in financial crime. */
                 @JvmField val HIGH = of("high")
 
                 @JvmStatic fun of(value: String) = Rating(JsonField.of(value))
@@ -6789,11 +6789,11 @@ private constructor(
 
             /** An enum containing [Rating]'s known values. */
             enum class Known {
-                /** Low */
+                /** Minimal risk of involvement in financial crime. */
                 LOW,
-                /** Medium */
+                /** Moderate risk of involvement in financial crime. */
                 MEDIUM,
-                /** High */
+                /** Elevated risk of involvement in financial crime. */
                 HIGH,
             }
 
@@ -6807,11 +6807,11 @@ private constructor(
              * - It was constructed with an arbitrary value using the [of] method.
              */
             enum class Value {
-                /** Low */
+                /** Minimal risk of involvement in financial crime. */
                 LOW,
-                /** Medium */
+                /** Moderate risk of involvement in financial crime. */
                 MEDIUM,
-                /** High */
+                /** Elevated risk of involvement in financial crime. */
                 HIGH,
                 /**
                  * An enum member indicating that [Rating] was instantiated with an unknown value.
@@ -7231,8 +7231,8 @@ private constructor(
     }
 
     /**
-     * A reference to data stored in a third-party verification service. Your integration may or may
-     * not use this field.
+     * If you are using a third-party service for identity verification, you can use this field to
+     * associate this Entity with the identifier that represents them in that service.
      */
     class ThirdPartyVerification
     private constructor(
