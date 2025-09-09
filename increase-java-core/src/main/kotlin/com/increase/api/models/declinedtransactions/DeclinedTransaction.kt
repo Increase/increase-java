@@ -10751,20 +10751,21 @@ private constructor(
 
                         companion object {
 
-                            /** No address was provided in the authorization request. */
+                            /** No address information was provided in the authorization request. */
                             @JvmField val NOT_CHECKED = of("not_checked")
 
-                            /** Postal code matches, but the street address was not verified. */
-                            @JvmField
-                            val POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED =
-                                of("postal_code_match_address_not_checked")
-
-                            /** Postal code matches, but the street address does not match. */
+                            /**
+                             * Postal code matches, but the street address does not match or was not
+                             * provided.
+                             */
                             @JvmField
                             val POSTAL_CODE_MATCH_ADDRESS_NO_MATCH =
                                 of("postal_code_match_address_no_match")
 
-                            /** Postal code does not match, but the street address matches. */
+                            /**
+                             * Postal code does not match, but the street address matches or was not
+                             * provided.
+                             */
                             @JvmField
                             val POSTAL_CODE_NO_MATCH_ADDRESS_MATCH =
                                 of("postal_code_no_match_address_match")
@@ -10775,23 +10776,40 @@ private constructor(
                             /** Postal code and street address do not match. */
                             @JvmField val NO_MATCH = of("no_match")
 
+                            /**
+                             * Postal code matches, but the street address was not verified.
+                             * (deprecated)
+                             */
+                            @JvmField
+                            val POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED =
+                                of("postal_code_match_address_not_checked")
+
                             @JvmStatic fun of(value: String) = Result(JsonField.of(value))
                         }
 
                         /** An enum containing [Result]'s known values. */
                         enum class Known {
-                            /** No address was provided in the authorization request. */
+                            /** No address information was provided in the authorization request. */
                             NOT_CHECKED,
-                            /** Postal code matches, but the street address was not verified. */
-                            POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED,
-                            /** Postal code matches, but the street address does not match. */
+                            /**
+                             * Postal code matches, but the street address does not match or was not
+                             * provided.
+                             */
                             POSTAL_CODE_MATCH_ADDRESS_NO_MATCH,
-                            /** Postal code does not match, but the street address matches. */
+                            /**
+                             * Postal code does not match, but the street address matches or was not
+                             * provided.
+                             */
                             POSTAL_CODE_NO_MATCH_ADDRESS_MATCH,
                             /** Postal code and street address match. */
                             MATCH,
                             /** Postal code and street address do not match. */
                             NO_MATCH,
+                            /**
+                             * Postal code matches, but the street address was not verified.
+                             * (deprecated)
+                             */
+                            POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED,
                         }
 
                         /**
@@ -10806,18 +10824,27 @@ private constructor(
                          * - It was constructed with an arbitrary value using the [of] method.
                          */
                         enum class Value {
-                            /** No address was provided in the authorization request. */
+                            /** No address information was provided in the authorization request. */
                             NOT_CHECKED,
-                            /** Postal code matches, but the street address was not verified. */
-                            POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED,
-                            /** Postal code matches, but the street address does not match. */
+                            /**
+                             * Postal code matches, but the street address does not match or was not
+                             * provided.
+                             */
                             POSTAL_CODE_MATCH_ADDRESS_NO_MATCH,
-                            /** Postal code does not match, but the street address matches. */
+                            /**
+                             * Postal code does not match, but the street address matches or was not
+                             * provided.
+                             */
                             POSTAL_CODE_NO_MATCH_ADDRESS_MATCH,
                             /** Postal code and street address match. */
                             MATCH,
                             /** Postal code and street address do not match. */
                             NO_MATCH,
+                            /**
+                             * Postal code matches, but the street address was not verified.
+                             * (deprecated)
+                             */
+                            POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED,
                             /**
                              * An enum member indicating that [Result] was instantiated with an
                              * unknown value.
@@ -10835,14 +10862,14 @@ private constructor(
                         fun value(): Value =
                             when (this) {
                                 NOT_CHECKED -> Value.NOT_CHECKED
-                                POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED ->
-                                    Value.POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED
                                 POSTAL_CODE_MATCH_ADDRESS_NO_MATCH ->
                                     Value.POSTAL_CODE_MATCH_ADDRESS_NO_MATCH
                                 POSTAL_CODE_NO_MATCH_ADDRESS_MATCH ->
                                     Value.POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
                                 MATCH -> Value.MATCH
                                 NO_MATCH -> Value.NO_MATCH
+                                POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED ->
+                                    Value.POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED
                                 else -> Value._UNKNOWN
                             }
 
@@ -10858,14 +10885,14 @@ private constructor(
                         fun known(): Known =
                             when (this) {
                                 NOT_CHECKED -> Known.NOT_CHECKED
-                                POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED ->
-                                    Known.POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED
                                 POSTAL_CODE_MATCH_ADDRESS_NO_MATCH ->
                                     Known.POSTAL_CODE_MATCH_ADDRESS_NO_MATCH
                                 POSTAL_CODE_NO_MATCH_ADDRESS_MATCH ->
                                     Known.POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
                                 MATCH -> Known.MATCH
                                 NO_MATCH -> Known.NO_MATCH
+                                POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED ->
+                                    Known.POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED
                                 else -> throw IncreaseInvalidDataException("Unknown Result: $value")
                             }
 
