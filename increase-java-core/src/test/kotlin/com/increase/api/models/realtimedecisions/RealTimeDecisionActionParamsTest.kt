@@ -24,6 +24,36 @@ internal class RealTimeDecisionActionParamsTest {
             .cardAuthorization(
                 RealTimeDecisionActionParams.CardAuthorization.builder()
                     .decision(RealTimeDecisionActionParams.CardAuthorization.Decision.APPROVE)
+                    .approval(
+                        RealTimeDecisionActionParams.CardAuthorization.Approval.builder()
+                            .cardholderAddressVerificationResult(
+                                RealTimeDecisionActionParams.CardAuthorization.Approval
+                                    .CardholderAddressVerificationResult
+                                    .builder()
+                                    .line1(
+                                        RealTimeDecisionActionParams.CardAuthorization.Approval
+                                            .CardholderAddressVerificationResult
+                                            .Line1
+                                            .MATCH
+                                    )
+                                    .postalCode(
+                                        RealTimeDecisionActionParams.CardAuthorization.Approval
+                                            .CardholderAddressVerificationResult
+                                            .PostalCode
+                                            .NO_MATCH
+                                    )
+                                    .build()
+                            )
+                            .build()
+                    )
+                    .decline(
+                        RealTimeDecisionActionParams.CardAuthorization.Decline.builder()
+                            .reason(
+                                RealTimeDecisionActionParams.CardAuthorization.Decline.Reason
+                                    .INSUFFICIENT_FUNDS
+                            )
+                            .build()
+                    )
                     .declineReason(
                         RealTimeDecisionActionParams.CardAuthorization.DeclineReason
                             .INSUFFICIENT_FUNDS
@@ -91,6 +121,36 @@ internal class RealTimeDecisionActionParamsTest {
                 .cardAuthorization(
                     RealTimeDecisionActionParams.CardAuthorization.builder()
                         .decision(RealTimeDecisionActionParams.CardAuthorization.Decision.APPROVE)
+                        .approval(
+                            RealTimeDecisionActionParams.CardAuthorization.Approval.builder()
+                                .cardholderAddressVerificationResult(
+                                    RealTimeDecisionActionParams.CardAuthorization.Approval
+                                        .CardholderAddressVerificationResult
+                                        .builder()
+                                        .line1(
+                                            RealTimeDecisionActionParams.CardAuthorization.Approval
+                                                .CardholderAddressVerificationResult
+                                                .Line1
+                                                .MATCH
+                                        )
+                                        .postalCode(
+                                            RealTimeDecisionActionParams.CardAuthorization.Approval
+                                                .CardholderAddressVerificationResult
+                                                .PostalCode
+                                                .NO_MATCH
+                                        )
+                                        .build()
+                                )
+                                .build()
+                        )
+                        .decline(
+                            RealTimeDecisionActionParams.CardAuthorization.Decline.builder()
+                                .reason(
+                                    RealTimeDecisionActionParams.CardAuthorization.Decline.Reason
+                                        .INSUFFICIENT_FUNDS
+                                )
+                                .build()
+                        )
                         .declineReason(
                             RealTimeDecisionActionParams.CardAuthorization.DeclineReason
                                 .INSUFFICIENT_FUNDS
@@ -146,6 +206,36 @@ internal class RealTimeDecisionActionParamsTest {
             .contains(
                 RealTimeDecisionActionParams.CardAuthorization.builder()
                     .decision(RealTimeDecisionActionParams.CardAuthorization.Decision.APPROVE)
+                    .approval(
+                        RealTimeDecisionActionParams.CardAuthorization.Approval.builder()
+                            .cardholderAddressVerificationResult(
+                                RealTimeDecisionActionParams.CardAuthorization.Approval
+                                    .CardholderAddressVerificationResult
+                                    .builder()
+                                    .line1(
+                                        RealTimeDecisionActionParams.CardAuthorization.Approval
+                                            .CardholderAddressVerificationResult
+                                            .Line1
+                                            .MATCH
+                                    )
+                                    .postalCode(
+                                        RealTimeDecisionActionParams.CardAuthorization.Approval
+                                            .CardholderAddressVerificationResult
+                                            .PostalCode
+                                            .NO_MATCH
+                                    )
+                                    .build()
+                            )
+                            .build()
+                    )
+                    .decline(
+                        RealTimeDecisionActionParams.CardAuthorization.Decline.builder()
+                            .reason(
+                                RealTimeDecisionActionParams.CardAuthorization.Decline.Reason
+                                    .INSUFFICIENT_FUNDS
+                            )
+                            .build()
+                    )
                     .declineReason(
                         RealTimeDecisionActionParams.CardAuthorization.DeclineReason
                             .INSUFFICIENT_FUNDS

@@ -1419,6 +1419,8 @@ private constructor(
     class CardAuthorization
     private constructor(
         private val decision: JsonField<Decision>,
+        private val approval: JsonField<Approval>,
+        private val decline: JsonField<Decline>,
         private val declineReason: JsonField<DeclineReason>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -1428,10 +1430,14 @@ private constructor(
             @JsonProperty("decision")
             @ExcludeMissing
             decision: JsonField<Decision> = JsonMissing.of(),
+            @JsonProperty("approval")
+            @ExcludeMissing
+            approval: JsonField<Approval> = JsonMissing.of(),
+            @JsonProperty("decline") @ExcludeMissing decline: JsonField<Decline> = JsonMissing.of(),
             @JsonProperty("decline_reason")
             @ExcludeMissing
             declineReason: JsonField<DeclineReason> = JsonMissing.of(),
-        ) : this(decision, declineReason, mutableMapOf())
+        ) : this(decision, approval, decline, declineReason, mutableMapOf())
 
         /**
          * Whether the card authorization should be approved or declined.
@@ -1442,8 +1448,28 @@ private constructor(
         fun decision(): Decision = decision.getRequired("decision")
 
         /**
+         * If your application approves the authorization, this contains metadata about your
+         * decision to approve. Your response here is advisory to the acquiring bank. The bank may
+         * choose to reverse the authorization if you approve the transaction but indicate the
+         * address does not match.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun approval(): Optional<Approval> = approval.getOptional("approval")
+
+        /**
+         * If your application declines the authorization, this contains details about the decline.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun decline(): Optional<Decline> = decline.getOptional("decline")
+
+        /**
          * The reason the card authorization was declined. This translates to a specific decline
-         * code that is sent to the card network.
+         * code that is sent to the card network. This field is deprecated, please transition to
+         * using the `decline` object as this field will be removed in a future release.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -1456,6 +1482,20 @@ private constructor(
          * Unlike [decision], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("decision") @ExcludeMissing fun _decision(): JsonField<Decision> = decision
+
+        /**
+         * Returns the raw JSON value of [approval].
+         *
+         * Unlike [approval], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("approval") @ExcludeMissing fun _approval(): JsonField<Approval> = approval
+
+        /**
+         * Returns the raw JSON value of [decline].
+         *
+         * Unlike [decline], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("decline") @ExcludeMissing fun _decline(): JsonField<Decline> = decline
 
         /**
          * Returns the raw JSON value of [declineReason].
@@ -1496,12 +1536,16 @@ private constructor(
         class Builder internal constructor() {
 
             private var decision: JsonField<Decision>? = null
+            private var approval: JsonField<Approval> = JsonMissing.of()
+            private var decline: JsonField<Decline> = JsonMissing.of()
             private var declineReason: JsonField<DeclineReason> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(cardAuthorization: CardAuthorization) = apply {
                 decision = cardAuthorization.decision
+                approval = cardAuthorization.approval
+                decline = cardAuthorization.decline
                 declineReason = cardAuthorization.declineReason
                 additionalProperties = cardAuthorization.additionalProperties.toMutableMap()
             }
@@ -1519,8 +1563,41 @@ private constructor(
             fun decision(decision: JsonField<Decision>) = apply { this.decision = decision }
 
             /**
+             * If your application approves the authorization, this contains metadata about your
+             * decision to approve. Your response here is advisory to the acquiring bank. The bank
+             * may choose to reverse the authorization if you approve the transaction but indicate
+             * the address does not match.
+             */
+            fun approval(approval: Approval) = approval(JsonField.of(approval))
+
+            /**
+             * Sets [Builder.approval] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.approval] with a well-typed [Approval] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun approval(approval: JsonField<Approval>) = apply { this.approval = approval }
+
+            /**
+             * If your application declines the authorization, this contains details about the
+             * decline.
+             */
+            fun decline(decline: Decline) = decline(JsonField.of(decline))
+
+            /**
+             * Sets [Builder.decline] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.decline] with a well-typed [Decline] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun decline(decline: JsonField<Decline>) = apply { this.decline = decline }
+
+            /**
              * The reason the card authorization was declined. This translates to a specific decline
-             * code that is sent to the card network.
+             * code that is sent to the card network. This field is deprecated, please transition to
+             * using the `decline` object as this field will be removed in a future release.
              */
             fun declineReason(declineReason: DeclineReason) =
                 declineReason(JsonField.of(declineReason))
@@ -1570,6 +1647,8 @@ private constructor(
             fun build(): CardAuthorization =
                 CardAuthorization(
                     checkRequired("decision", decision),
+                    approval,
+                    decline,
                     declineReason,
                     additionalProperties.toMutableMap(),
                 )
@@ -1583,6 +1662,8 @@ private constructor(
             }
 
             decision().validate()
+            approval().ifPresent { it.validate() }
+            decline().ifPresent { it.validate() }
             declineReason().ifPresent { it.validate() }
             validated = true
         }
@@ -1604,6 +1685,8 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             (decision.asKnown().getOrNull()?.validity() ?: 0) +
+                (approval.asKnown().getOrNull()?.validity() ?: 0) +
+                (decline.asKnown().getOrNull()?.validity() ?: 0) +
                 (declineReason.asKnown().getOrNull()?.validity() ?: 0)
 
         /** Whether the card authorization should be approved or declined. */
@@ -1744,8 +1827,1161 @@ private constructor(
         }
 
         /**
+         * If your application approves the authorization, this contains metadata about your
+         * decision to approve. Your response here is advisory to the acquiring bank. The bank may
+         * choose to reverse the authorization if you approve the transaction but indicate the
+         * address does not match.
+         */
+        class Approval
+        private constructor(
+            private val cardholderAddressVerificationResult:
+                JsonField<CardholderAddressVerificationResult>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("cardholder_address_verification_result")
+                @ExcludeMissing
+                cardholderAddressVerificationResult:
+                    JsonField<CardholderAddressVerificationResult> =
+                    JsonMissing.of()
+            ) : this(cardholderAddressVerificationResult, mutableMapOf())
+
+            /**
+             * Your decisions on whether or not each provided address component is a match. Your
+             * response here is evaluated against the customer's provided `postal_code` and `line1`,
+             * and an appropriate network response is generated. For example, if you would like to
+             * approve all transactions for a given card, you can submit `match` for both
+             * `postal_code` and `line1` and Increase will generate an approval with an Address
+             * Verification System (AVS) code that will match all of the available address
+             * information, or will report that no check was performed if no address information is
+             * available. If you do not provide a response, the address verification result will be
+             * calculated by Increase using the available address information available on the card.
+             * If none is available, Increase will report that no check was performed.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun cardholderAddressVerificationResult():
+                Optional<CardholderAddressVerificationResult> =
+                cardholderAddressVerificationResult.getOptional(
+                    "cardholder_address_verification_result"
+                )
+
+            /**
+             * Returns the raw JSON value of [cardholderAddressVerificationResult].
+             *
+             * Unlike [cardholderAddressVerificationResult], this method doesn't throw if the JSON
+             * field has an unexpected type.
+             */
+            @JsonProperty("cardholder_address_verification_result")
+            @ExcludeMissing
+            fun _cardholderAddressVerificationResult():
+                JsonField<CardholderAddressVerificationResult> = cardholderAddressVerificationResult
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /** Returns a mutable builder for constructing an instance of [Approval]. */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [Approval]. */
+            class Builder internal constructor() {
+
+                private var cardholderAddressVerificationResult:
+                    JsonField<CardholderAddressVerificationResult> =
+                    JsonMissing.of()
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(approval: Approval) = apply {
+                    cardholderAddressVerificationResult =
+                        approval.cardholderAddressVerificationResult
+                    additionalProperties = approval.additionalProperties.toMutableMap()
+                }
+
+                /**
+                 * Your decisions on whether or not each provided address component is a match. Your
+                 * response here is evaluated against the customer's provided `postal_code` and
+                 * `line1`, and an appropriate network response is generated. For example, if you
+                 * would like to approve all transactions for a given card, you can submit `match`
+                 * for both `postal_code` and `line1` and Increase will generate an approval with an
+                 * Address Verification System (AVS) code that will match all of the available
+                 * address information, or will report that no check was performed if no address
+                 * information is available. If you do not provide a response, the address
+                 * verification result will be calculated by Increase using the available address
+                 * information available on the card. If none is available, Increase will report
+                 * that no check was performed.
+                 */
+                fun cardholderAddressVerificationResult(
+                    cardholderAddressVerificationResult: CardholderAddressVerificationResult
+                ) =
+                    cardholderAddressVerificationResult(
+                        JsonField.of(cardholderAddressVerificationResult)
+                    )
+
+                /**
+                 * Sets [Builder.cardholderAddressVerificationResult] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.cardholderAddressVerificationResult] with a
+                 * well-typed [CardholderAddressVerificationResult] value instead. This method is
+                 * primarily for setting the field to an undocumented or not yet supported value.
+                 */
+                fun cardholderAddressVerificationResult(
+                    cardholderAddressVerificationResult:
+                        JsonField<CardholderAddressVerificationResult>
+                ) = apply {
+                    this.cardholderAddressVerificationResult = cardholderAddressVerificationResult
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [Approval].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 */
+                fun build(): Approval =
+                    Approval(
+                        cardholderAddressVerificationResult,
+                        additionalProperties.toMutableMap(),
+                    )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): Approval = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                cardholderAddressVerificationResult().ifPresent { it.validate() }
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                (cardholderAddressVerificationResult.asKnown().getOrNull()?.validity() ?: 0)
+
+            /**
+             * Your decisions on whether or not each provided address component is a match. Your
+             * response here is evaluated against the customer's provided `postal_code` and `line1`,
+             * and an appropriate network response is generated. For example, if you would like to
+             * approve all transactions for a given card, you can submit `match` for both
+             * `postal_code` and `line1` and Increase will generate an approval with an Address
+             * Verification System (AVS) code that will match all of the available address
+             * information, or will report that no check was performed if no address information is
+             * available. If you do not provide a response, the address verification result will be
+             * calculated by Increase using the available address information available on the card.
+             * If none is available, Increase will report that no check was performed.
+             */
+            class CardholderAddressVerificationResult
+            private constructor(
+                private val line1: JsonField<Line1>,
+                private val postalCode: JsonField<PostalCode>,
+                private val additionalProperties: MutableMap<String, JsonValue>,
+            ) {
+
+                @JsonCreator
+                private constructor(
+                    @JsonProperty("line1")
+                    @ExcludeMissing
+                    line1: JsonField<Line1> = JsonMissing.of(),
+                    @JsonProperty("postal_code")
+                    @ExcludeMissing
+                    postalCode: JsonField<PostalCode> = JsonMissing.of(),
+                ) : this(line1, postalCode, mutableMapOf())
+
+                /**
+                 * Your decision on the address line of the provided address.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
+                fun line1(): Line1 = line1.getRequired("line1")
+
+                /**
+                 * Your decision on the postal code of the provided address.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
+                fun postalCode(): PostalCode = postalCode.getRequired("postal_code")
+
+                /**
+                 * Returns the raw JSON value of [line1].
+                 *
+                 * Unlike [line1], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<Line1> = line1
+
+                /**
+                 * Returns the raw JSON value of [postalCode].
+                 *
+                 * Unlike [postalCode], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
+                @JsonProperty("postal_code")
+                @ExcludeMissing
+                fun _postalCode(): JsonField<PostalCode> = postalCode
+
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /**
+                     * Returns a mutable builder for constructing an instance of
+                     * [CardholderAddressVerificationResult].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .line1()
+                     * .postalCode()
+                     * ```
+                     */
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                /** A builder for [CardholderAddressVerificationResult]. */
+                class Builder internal constructor() {
+
+                    private var line1: JsonField<Line1>? = null
+                    private var postalCode: JsonField<PostalCode>? = null
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(
+                        cardholderAddressVerificationResult: CardholderAddressVerificationResult
+                    ) = apply {
+                        line1 = cardholderAddressVerificationResult.line1
+                        postalCode = cardholderAddressVerificationResult.postalCode
+                        additionalProperties =
+                            cardholderAddressVerificationResult.additionalProperties.toMutableMap()
+                    }
+
+                    /** Your decision on the address line of the provided address. */
+                    fun line1(line1: Line1) = line1(JsonField.of(line1))
+
+                    /**
+                     * Sets [Builder.line1] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.line1] with a well-typed [Line1] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun line1(line1: JsonField<Line1>) = apply { this.line1 = line1 }
+
+                    /** Your decision on the postal code of the provided address. */
+                    fun postalCode(postalCode: PostalCode) = postalCode(JsonField.of(postalCode))
+
+                    /**
+                     * Sets [Builder.postalCode] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.postalCode] with a well-typed [PostalCode]
+                     * value instead. This method is primarily for setting the field to an
+                     * undocumented or not yet supported value.
+                     */
+                    fun postalCode(postalCode: JsonField<PostalCode>) = apply {
+                        this.postalCode = postalCode
+                    }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [CardholderAddressVerificationResult].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .line1()
+                     * .postalCode()
+                     * ```
+                     *
+                     * @throws IllegalStateException if any required field is unset.
+                     */
+                    fun build(): CardholderAddressVerificationResult =
+                        CardholderAddressVerificationResult(
+                            checkRequired("line1", line1),
+                            checkRequired("postalCode", postalCode),
+                            additionalProperties.toMutableMap(),
+                        )
+                }
+
+                private var validated: Boolean = false
+
+                fun validate(): CardholderAddressVerificationResult = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    line1().validate()
+                    postalCode().validate()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic
+                internal fun validity(): Int =
+                    (line1.asKnown().getOrNull()?.validity() ?: 0) +
+                        (postalCode.asKnown().getOrNull()?.validity() ?: 0)
+
+                /** Your decision on the address line of the provided address. */
+                class Line1 @JsonCreator private constructor(private val value: JsonField<String>) :
+                    Enum {
+
+                    /**
+                     * Returns this class instance's raw value.
+                     *
+                     * This is usually only useful if this instance was deserialized from data that
+                     * doesn't match any known member, and you want to know that value. For example,
+                     * if the SDK is on an older version than the API, then the API may respond with
+                     * new members that the SDK is unaware of.
+                     */
+                    @com.fasterxml.jackson.annotation.JsonValue
+                    fun _value(): JsonField<String> = value
+
+                    companion object {
+
+                        /**
+                         * The cardholder address verification result matches the address provided
+                         * by the merchant.
+                         */
+                        @JvmField val MATCH = of("match")
+
+                        /**
+                         * The cardholder address verification result does not match the address
+                         * provided by the merchant.
+                         */
+                        @JvmField val NO_MATCH = of("no_match")
+
+                        @JvmStatic fun of(value: String) = Line1(JsonField.of(value))
+                    }
+
+                    /** An enum containing [Line1]'s known values. */
+                    enum class Known {
+                        /**
+                         * The cardholder address verification result matches the address provided
+                         * by the merchant.
+                         */
+                        MATCH,
+                        /**
+                         * The cardholder address verification result does not match the address
+                         * provided by the merchant.
+                         */
+                        NO_MATCH,
+                    }
+
+                    /**
+                     * An enum containing [Line1]'s known values, as well as an [_UNKNOWN] member.
+                     *
+                     * An instance of [Line1] can contain an unknown value in a couple of cases:
+                     * - It was deserialized from data that doesn't match any known member. For
+                     *   example, if the SDK is on an older version than the API, then the API may
+                     *   respond with new members that the SDK is unaware of.
+                     * - It was constructed with an arbitrary value using the [of] method.
+                     */
+                    enum class Value {
+                        /**
+                         * The cardholder address verification result matches the address provided
+                         * by the merchant.
+                         */
+                        MATCH,
+                        /**
+                         * The cardholder address verification result does not match the address
+                         * provided by the merchant.
+                         */
+                        NO_MATCH,
+                        /**
+                         * An enum member indicating that [Line1] was instantiated with an unknown
+                         * value.
+                         */
+                        _UNKNOWN,
+                    }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value, or
+                     * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                     *
+                     * Use the [known] method instead if you're certain the value is always known or
+                     * if you want to throw for the unknown case.
+                     */
+                    fun value(): Value =
+                        when (this) {
+                            MATCH -> Value.MATCH
+                            NO_MATCH -> Value.NO_MATCH
+                            else -> Value._UNKNOWN
+                        }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value.
+                     *
+                     * Use the [value] method instead if you're uncertain the value is always known
+                     * and don't want to throw for the unknown case.
+                     *
+                     * @throws IncreaseInvalidDataException if this class instance's value is a not
+                     *   a known member.
+                     */
+                    fun known(): Known =
+                        when (this) {
+                            MATCH -> Known.MATCH
+                            NO_MATCH -> Known.NO_MATCH
+                            else -> throw IncreaseInvalidDataException("Unknown Line1: $value")
+                        }
+
+                    /**
+                     * Returns this class instance's primitive wire representation.
+                     *
+                     * This differs from the [toString] method because that method is primarily for
+                     * debugging and generally doesn't throw.
+                     *
+                     * @throws IncreaseInvalidDataException if this class instance's value does not
+                     *   have the expected primitive type.
+                     */
+                    fun asString(): String =
+                        _value().asString().orElseThrow {
+                            IncreaseInvalidDataException("Value is not a String")
+                        }
+
+                    private var validated: Boolean = false
+
+                    fun validate(): Line1 = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        known()
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    @JvmSynthetic
+                    internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is Line1 && value == other.value
+                    }
+
+                    override fun hashCode() = value.hashCode()
+
+                    override fun toString() = value.toString()
+                }
+
+                /** Your decision on the postal code of the provided address. */
+                class PostalCode
+                @JsonCreator
+                private constructor(private val value: JsonField<String>) : Enum {
+
+                    /**
+                     * Returns this class instance's raw value.
+                     *
+                     * This is usually only useful if this instance was deserialized from data that
+                     * doesn't match any known member, and you want to know that value. For example,
+                     * if the SDK is on an older version than the API, then the API may respond with
+                     * new members that the SDK is unaware of.
+                     */
+                    @com.fasterxml.jackson.annotation.JsonValue
+                    fun _value(): JsonField<String> = value
+
+                    companion object {
+
+                        /**
+                         * The cardholder address verification result matches the address provided
+                         * by the merchant.
+                         */
+                        @JvmField val MATCH = of("match")
+
+                        /**
+                         * The cardholder address verification result does not match the address
+                         * provided by the merchant.
+                         */
+                        @JvmField val NO_MATCH = of("no_match")
+
+                        @JvmStatic fun of(value: String) = PostalCode(JsonField.of(value))
+                    }
+
+                    /** An enum containing [PostalCode]'s known values. */
+                    enum class Known {
+                        /**
+                         * The cardholder address verification result matches the address provided
+                         * by the merchant.
+                         */
+                        MATCH,
+                        /**
+                         * The cardholder address verification result does not match the address
+                         * provided by the merchant.
+                         */
+                        NO_MATCH,
+                    }
+
+                    /**
+                     * An enum containing [PostalCode]'s known values, as well as an [_UNKNOWN]
+                     * member.
+                     *
+                     * An instance of [PostalCode] can contain an unknown value in a couple of
+                     * cases:
+                     * - It was deserialized from data that doesn't match any known member. For
+                     *   example, if the SDK is on an older version than the API, then the API may
+                     *   respond with new members that the SDK is unaware of.
+                     * - It was constructed with an arbitrary value using the [of] method.
+                     */
+                    enum class Value {
+                        /**
+                         * The cardholder address verification result matches the address provided
+                         * by the merchant.
+                         */
+                        MATCH,
+                        /**
+                         * The cardholder address verification result does not match the address
+                         * provided by the merchant.
+                         */
+                        NO_MATCH,
+                        /**
+                         * An enum member indicating that [PostalCode] was instantiated with an
+                         * unknown value.
+                         */
+                        _UNKNOWN,
+                    }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value, or
+                     * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                     *
+                     * Use the [known] method instead if you're certain the value is always known or
+                     * if you want to throw for the unknown case.
+                     */
+                    fun value(): Value =
+                        when (this) {
+                            MATCH -> Value.MATCH
+                            NO_MATCH -> Value.NO_MATCH
+                            else -> Value._UNKNOWN
+                        }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value.
+                     *
+                     * Use the [value] method instead if you're uncertain the value is always known
+                     * and don't want to throw for the unknown case.
+                     *
+                     * @throws IncreaseInvalidDataException if this class instance's value is a not
+                     *   a known member.
+                     */
+                    fun known(): Known =
+                        when (this) {
+                            MATCH -> Known.MATCH
+                            NO_MATCH -> Known.NO_MATCH
+                            else -> throw IncreaseInvalidDataException("Unknown PostalCode: $value")
+                        }
+
+                    /**
+                     * Returns this class instance's primitive wire representation.
+                     *
+                     * This differs from the [toString] method because that method is primarily for
+                     * debugging and generally doesn't throw.
+                     *
+                     * @throws IncreaseInvalidDataException if this class instance's value does not
+                     *   have the expected primitive type.
+                     */
+                    fun asString(): String =
+                        _value().asString().orElseThrow {
+                            IncreaseInvalidDataException("Value is not a String")
+                        }
+
+                    private var validated: Boolean = false
+
+                    fun validate(): PostalCode = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        known()
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    @JvmSynthetic
+                    internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is PostalCode && value == other.value
+                    }
+
+                    override fun hashCode() = value.hashCode()
+
+                    override fun toString() = value.toString()
+                }
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is CardholderAddressVerificationResult &&
+                        line1 == other.line1 &&
+                        postalCode == other.postalCode &&
+                        additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy {
+                    Objects.hash(line1, postalCode, additionalProperties)
+                }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() =
+                    "CardholderAddressVerificationResult{line1=$line1, postalCode=$postalCode, additionalProperties=$additionalProperties}"
+            }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Approval &&
+                    cardholderAddressVerificationResult ==
+                        other.cardholderAddressVerificationResult &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy {
+                Objects.hash(cardholderAddressVerificationResult, additionalProperties)
+            }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "Approval{cardholderAddressVerificationResult=$cardholderAddressVerificationResult, additionalProperties=$additionalProperties}"
+        }
+
+        /**
+         * If your application declines the authorization, this contains details about the decline.
+         */
+        class Decline
+        private constructor(
+            private val reason: JsonField<Reason>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("reason") @ExcludeMissing reason: JsonField<Reason> = JsonMissing.of()
+            ) : this(reason, mutableMapOf())
+
+            /**
+             * The reason the card authorization was declined. This translates to a specific decline
+             * code that is sent to the card network.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun reason(): Reason = reason.getRequired("reason")
+
+            /**
+             * Returns the raw JSON value of [reason].
+             *
+             * Unlike [reason], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("reason") @ExcludeMissing fun _reason(): JsonField<Reason> = reason
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of [Decline].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .reason()
+                 * ```
+                 */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [Decline]. */
+            class Builder internal constructor() {
+
+                private var reason: JsonField<Reason>? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(decline: Decline) = apply {
+                    reason = decline.reason
+                    additionalProperties = decline.additionalProperties.toMutableMap()
+                }
+
+                /**
+                 * The reason the card authorization was declined. This translates to a specific
+                 * decline code that is sent to the card network.
+                 */
+                fun reason(reason: Reason) = reason(JsonField.of(reason))
+
+                /**
+                 * Sets [Builder.reason] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.reason] with a well-typed [Reason] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun reason(reason: JsonField<Reason>) = apply { this.reason = reason }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [Decline].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .reason()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
+                fun build(): Decline =
+                    Decline(checkRequired("reason", reason), additionalProperties.toMutableMap())
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): Decline = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                reason().validate()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int = (reason.asKnown().getOrNull()?.validity() ?: 0)
+
+            /**
+             * The reason the card authorization was declined. This translates to a specific decline
+             * code that is sent to the card network.
+             */
+            class Reason @JsonCreator private constructor(private val value: JsonField<String>) :
+                Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    /**
+                     * The cardholder does not have sufficient funds to cover the transaction. The
+                     * merchant may attempt to process the transaction again.
+                     */
+                    @JvmField val INSUFFICIENT_FUNDS = of("insufficient_funds")
+
+                    /**
+                     * This type of transaction is not allowed for this card. This transaction
+                     * should not be retried.
+                     */
+                    @JvmField val TRANSACTION_NEVER_ALLOWED = of("transaction_never_allowed")
+
+                    /**
+                     * The transaction amount exceeds the cardholder's approval limit. The merchant
+                     * may attempt to process the transaction again.
+                     */
+                    @JvmField val EXCEEDS_APPROVAL_LIMIT = of("exceeds_approval_limit")
+
+                    /**
+                     * The card has been temporarily disabled or not yet activated. The merchant may
+                     * attempt to process the transaction again.
+                     */
+                    @JvmField val CARD_TEMPORARILY_DISABLED = of("card_temporarily_disabled")
+
+                    /**
+                     * The transaction is suspected to be fraudulent. The merchant may attempt to
+                     * process the transaction again.
+                     */
+                    @JvmField val SUSPECTED_FRAUD = of("suspected_fraud")
+
+                    /**
+                     * The transaction was declined for another reason. The merchant may attempt to
+                     * process the transaction again. This should be used sparingly.
+                     */
+                    @JvmField val OTHER = of("other")
+
+                    @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
+                }
+
+                /** An enum containing [Reason]'s known values. */
+                enum class Known {
+                    /**
+                     * The cardholder does not have sufficient funds to cover the transaction. The
+                     * merchant may attempt to process the transaction again.
+                     */
+                    INSUFFICIENT_FUNDS,
+                    /**
+                     * This type of transaction is not allowed for this card. This transaction
+                     * should not be retried.
+                     */
+                    TRANSACTION_NEVER_ALLOWED,
+                    /**
+                     * The transaction amount exceeds the cardholder's approval limit. The merchant
+                     * may attempt to process the transaction again.
+                     */
+                    EXCEEDS_APPROVAL_LIMIT,
+                    /**
+                     * The card has been temporarily disabled or not yet activated. The merchant may
+                     * attempt to process the transaction again.
+                     */
+                    CARD_TEMPORARILY_DISABLED,
+                    /**
+                     * The transaction is suspected to be fraudulent. The merchant may attempt to
+                     * process the transaction again.
+                     */
+                    SUSPECTED_FRAUD,
+                    /**
+                     * The transaction was declined for another reason. The merchant may attempt to
+                     * process the transaction again. This should be used sparingly.
+                     */
+                    OTHER,
+                }
+
+                /**
+                 * An enum containing [Reason]'s known values, as well as an [_UNKNOWN] member.
+                 *
+                 * An instance of [Reason] can contain an unknown value in a couple of cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    /**
+                     * The cardholder does not have sufficient funds to cover the transaction. The
+                     * merchant may attempt to process the transaction again.
+                     */
+                    INSUFFICIENT_FUNDS,
+                    /**
+                     * This type of transaction is not allowed for this card. This transaction
+                     * should not be retried.
+                     */
+                    TRANSACTION_NEVER_ALLOWED,
+                    /**
+                     * The transaction amount exceeds the cardholder's approval limit. The merchant
+                     * may attempt to process the transaction again.
+                     */
+                    EXCEEDS_APPROVAL_LIMIT,
+                    /**
+                     * The card has been temporarily disabled or not yet activated. The merchant may
+                     * attempt to process the transaction again.
+                     */
+                    CARD_TEMPORARILY_DISABLED,
+                    /**
+                     * The transaction is suspected to be fraudulent. The merchant may attempt to
+                     * process the transaction again.
+                     */
+                    SUSPECTED_FRAUD,
+                    /**
+                     * The transaction was declined for another reason. The merchant may attempt to
+                     * process the transaction again. This should be used sparingly.
+                     */
+                    OTHER,
+                    /**
+                     * An enum member indicating that [Reason] was instantiated with an unknown
+                     * value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        INSUFFICIENT_FUNDS -> Value.INSUFFICIENT_FUNDS
+                        TRANSACTION_NEVER_ALLOWED -> Value.TRANSACTION_NEVER_ALLOWED
+                        EXCEEDS_APPROVAL_LIMIT -> Value.EXCEEDS_APPROVAL_LIMIT
+                        CARD_TEMPORARILY_DISABLED -> Value.CARD_TEMPORARILY_DISABLED
+                        SUSPECTED_FRAUD -> Value.SUSPECTED_FRAUD
+                        OTHER -> Value.OTHER
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws IncreaseInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        INSUFFICIENT_FUNDS -> Known.INSUFFICIENT_FUNDS
+                        TRANSACTION_NEVER_ALLOWED -> Known.TRANSACTION_NEVER_ALLOWED
+                        EXCEEDS_APPROVAL_LIMIT -> Known.EXCEEDS_APPROVAL_LIMIT
+                        CARD_TEMPORARILY_DISABLED -> Known.CARD_TEMPORARILY_DISABLED
+                        SUSPECTED_FRAUD -> Known.SUSPECTED_FRAUD
+                        OTHER -> Known.OTHER
+                        else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
+                    }
+
+                /**
+                 * Returns this class instance's primitive wire representation.
+                 *
+                 * This differs from the [toString] method because that method is primarily for
+                 * debugging and generally doesn't throw.
+                 *
+                 * @throws IncreaseInvalidDataException if this class instance's value does not have
+                 *   the expected primitive type.
+                 */
+                fun asString(): String =
+                    _value().asString().orElseThrow {
+                        IncreaseInvalidDataException("Value is not a String")
+                    }
+
+                private var validated: Boolean = false
+
+                fun validate(): Reason = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Reason && value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Decline &&
+                    reason == other.reason &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy { Objects.hash(reason, additionalProperties) }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "Decline{reason=$reason, additionalProperties=$additionalProperties}"
+        }
+
+        /**
          * The reason the card authorization was declined. This translates to a specific decline
-         * code that is sent to the card network.
+         * code that is sent to the card network. This field is deprecated, please transition to
+         * using the `decline` object as this field will be removed in a future release.
          */
         class DeclineReason @JsonCreator private constructor(private val value: JsonField<String>) :
             Enum {
@@ -1981,18 +3217,20 @@ private constructor(
 
             return other is CardAuthorization &&
                 decision == other.decision &&
+                approval == other.approval &&
+                decline == other.decline &&
                 declineReason == other.declineReason &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(decision, declineReason, additionalProperties)
+            Objects.hash(decision, approval, decline, declineReason, additionalProperties)
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "CardAuthorization{decision=$decision, declineReason=$declineReason, additionalProperties=$additionalProperties}"
+            "CardAuthorization{decision=$decision, approval=$approval, decline=$decline, declineReason=$declineReason, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -2021,6 +3259,9 @@ private constructor(
         fun result(): Result = result.getRequired("result")
 
         /**
+         * If your application was able to deliver the one-time passcode, this contains metadata
+         * about the delivery. Exactly one of `phone` or `email` must be provided.
+         *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
@@ -2093,6 +3334,10 @@ private constructor(
              */
             fun result(result: JsonField<Result>) = apply { this.result = result }
 
+            /**
+             * If your application was able to deliver the one-time passcode, this contains metadata
+             * about the delivery. Exactly one of `phone` or `email` must be provided.
+             */
             fun success(success: Success) = success(JsonField.of(success))
 
             /**
@@ -2316,6 +3561,10 @@ private constructor(
             override fun toString() = value.toString()
         }
 
+        /**
+         * If your application was able to deliver the one-time passcode, this contains metadata
+         * about the delivery. Exactly one of `phone` or `email` must be provided.
+         */
         class Success
         private constructor(
             private val email: JsonField<String>,
