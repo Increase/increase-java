@@ -54,10 +54,6 @@ internal class RealTimeDecisionActionParamsTest {
                             )
                             .build()
                     )
-                    .declineReason(
-                        RealTimeDecisionActionParams.CardAuthorization.DeclineReason
-                            .INSUFFICIENT_FUNDS
-                    )
                     .build()
             )
             .digitalWalletAuthentication(
@@ -151,10 +147,6 @@ internal class RealTimeDecisionActionParamsTest {
                                 )
                                 .build()
                         )
-                        .declineReason(
-                            RealTimeDecisionActionParams.CardAuthorization.DeclineReason
-                                .INSUFFICIENT_FUNDS
-                        )
                         .build()
                 )
                 .digitalWalletAuthentication(
@@ -235,10 +227,6 @@ internal class RealTimeDecisionActionParamsTest {
                                     .INSUFFICIENT_FUNDS
                             )
                             .build()
-                    )
-                    .declineReason(
-                        RealTimeDecisionActionParams.CardAuthorization.DeclineReason
-                            .INSUFFICIENT_FUNDS
                     )
                     .build()
             )
