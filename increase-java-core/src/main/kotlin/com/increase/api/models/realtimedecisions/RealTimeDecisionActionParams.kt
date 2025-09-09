@@ -1421,7 +1421,6 @@ private constructor(
         private val decision: JsonField<Decision>,
         private val approval: JsonField<Approval>,
         private val decline: JsonField<Decline>,
-        private val declineReason: JsonField<DeclineReason>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -1434,10 +1433,7 @@ private constructor(
             @ExcludeMissing
             approval: JsonField<Approval> = JsonMissing.of(),
             @JsonProperty("decline") @ExcludeMissing decline: JsonField<Decline> = JsonMissing.of(),
-            @JsonProperty("decline_reason")
-            @ExcludeMissing
-            declineReason: JsonField<DeclineReason> = JsonMissing.of(),
-        ) : this(decision, approval, decline, declineReason, mutableMapOf())
+        ) : this(decision, approval, decline, mutableMapOf())
 
         /**
          * Whether the card authorization should be approved or declined.
@@ -1467,16 +1463,6 @@ private constructor(
         fun decline(): Optional<Decline> = decline.getOptional("decline")
 
         /**
-         * The reason the card authorization was declined. This translates to a specific decline
-         * code that is sent to the card network. This field is deprecated, please transition to
-         * using the `decline` object as this field will be removed in a future release.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun declineReason(): Optional<DeclineReason> = declineReason.getOptional("decline_reason")
-
-        /**
          * Returns the raw JSON value of [decision].
          *
          * Unlike [decision], this method doesn't throw if the JSON field has an unexpected type.
@@ -1496,16 +1482,6 @@ private constructor(
          * Unlike [decline], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("decline") @ExcludeMissing fun _decline(): JsonField<Decline> = decline
-
-        /**
-         * Returns the raw JSON value of [declineReason].
-         *
-         * Unlike [declineReason], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("decline_reason")
-        @ExcludeMissing
-        fun _declineReason(): JsonField<DeclineReason> = declineReason
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -1538,7 +1514,6 @@ private constructor(
             private var decision: JsonField<Decision>? = null
             private var approval: JsonField<Approval> = JsonMissing.of()
             private var decline: JsonField<Decline> = JsonMissing.of()
-            private var declineReason: JsonField<DeclineReason> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -1546,7 +1521,6 @@ private constructor(
                 decision = cardAuthorization.decision
                 approval = cardAuthorization.approval
                 decline = cardAuthorization.decline
-                declineReason = cardAuthorization.declineReason
                 additionalProperties = cardAuthorization.additionalProperties.toMutableMap()
             }
 
@@ -1594,25 +1568,6 @@ private constructor(
              */
             fun decline(decline: JsonField<Decline>) = apply { this.decline = decline }
 
-            /**
-             * The reason the card authorization was declined. This translates to a specific decline
-             * code that is sent to the card network. This field is deprecated, please transition to
-             * using the `decline` object as this field will be removed in a future release.
-             */
-            fun declineReason(declineReason: DeclineReason) =
-                declineReason(JsonField.of(declineReason))
-
-            /**
-             * Sets [Builder.declineReason] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.declineReason] with a well-typed [DeclineReason]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
-             */
-            fun declineReason(declineReason: JsonField<DeclineReason>) = apply {
-                this.declineReason = declineReason
-            }
-
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
@@ -1649,7 +1604,6 @@ private constructor(
                     checkRequired("decision", decision),
                     approval,
                     decline,
-                    declineReason,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -1664,7 +1618,6 @@ private constructor(
             decision().validate()
             approval().ifPresent { it.validate() }
             decline().ifPresent { it.validate() }
-            declineReason().ifPresent { it.validate() }
             validated = true
         }
 
@@ -1686,8 +1639,7 @@ private constructor(
         internal fun validity(): Int =
             (decision.asKnown().getOrNull()?.validity() ?: 0) +
                 (approval.asKnown().getOrNull()?.validity() ?: 0) +
-                (decline.asKnown().getOrNull()?.validity() ?: 0) +
-                (declineReason.asKnown().getOrNull()?.validity() ?: 0)
+                (decline.asKnown().getOrNull()?.validity() ?: 0)
 
         /** Whether the card authorization should be approved or declined. */
         class Decision @JsonCreator private constructor(private val value: JsonField<String>) :
@@ -2978,238 +2930,6 @@ private constructor(
                 "Decline{reason=$reason, additionalProperties=$additionalProperties}"
         }
 
-        /**
-         * The reason the card authorization was declined. This translates to a specific decline
-         * code that is sent to the card network. This field is deprecated, please transition to
-         * using the `decline` object as this field will be removed in a future release.
-         */
-        class DeclineReason @JsonCreator private constructor(private val value: JsonField<String>) :
-            Enum {
-
-            /**
-             * Returns this class instance's raw value.
-             *
-             * This is usually only useful if this instance was deserialized from data that doesn't
-             * match any known member, and you want to know that value. For example, if the SDK is
-             * on an older version than the API, then the API may respond with new members that the
-             * SDK is unaware of.
-             */
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-            companion object {
-
-                /**
-                 * The cardholder does not have sufficient funds to cover the transaction. The
-                 * merchant may attempt to process the transaction again.
-                 */
-                @JvmField val INSUFFICIENT_FUNDS = of("insufficient_funds")
-
-                /**
-                 * This type of transaction is not allowed for this card. This transaction should
-                 * not be retried.
-                 */
-                @JvmField val TRANSACTION_NEVER_ALLOWED = of("transaction_never_allowed")
-
-                /**
-                 * The transaction amount exceeds the cardholder's approval limit. The merchant may
-                 * attempt to process the transaction again.
-                 */
-                @JvmField val EXCEEDS_APPROVAL_LIMIT = of("exceeds_approval_limit")
-
-                /**
-                 * The card has been temporarily disabled or not yet activated. The merchant may
-                 * attempt to process the transaction again.
-                 */
-                @JvmField val CARD_TEMPORARILY_DISABLED = of("card_temporarily_disabled")
-
-                /**
-                 * The transaction is suspected to be fraudulent. The merchant may attempt to
-                 * process the transaction again.
-                 */
-                @JvmField val SUSPECTED_FRAUD = of("suspected_fraud")
-
-                /**
-                 * The transaction was declined for another reason. The merchant may attempt to
-                 * process the transaction again. This should be used sparingly.
-                 */
-                @JvmField val OTHER = of("other")
-
-                @JvmStatic fun of(value: String) = DeclineReason(JsonField.of(value))
-            }
-
-            /** An enum containing [DeclineReason]'s known values. */
-            enum class Known {
-                /**
-                 * The cardholder does not have sufficient funds to cover the transaction. The
-                 * merchant may attempt to process the transaction again.
-                 */
-                INSUFFICIENT_FUNDS,
-                /**
-                 * This type of transaction is not allowed for this card. This transaction should
-                 * not be retried.
-                 */
-                TRANSACTION_NEVER_ALLOWED,
-                /**
-                 * The transaction amount exceeds the cardholder's approval limit. The merchant may
-                 * attempt to process the transaction again.
-                 */
-                EXCEEDS_APPROVAL_LIMIT,
-                /**
-                 * The card has been temporarily disabled or not yet activated. The merchant may
-                 * attempt to process the transaction again.
-                 */
-                CARD_TEMPORARILY_DISABLED,
-                /**
-                 * The transaction is suspected to be fraudulent. The merchant may attempt to
-                 * process the transaction again.
-                 */
-                SUSPECTED_FRAUD,
-                /**
-                 * The transaction was declined for another reason. The merchant may attempt to
-                 * process the transaction again. This should be used sparingly.
-                 */
-                OTHER,
-            }
-
-            /**
-             * An enum containing [DeclineReason]'s known values, as well as an [_UNKNOWN] member.
-             *
-             * An instance of [DeclineReason] can contain an unknown value in a couple of cases:
-             * - It was deserialized from data that doesn't match any known member. For example, if
-             *   the SDK is on an older version than the API, then the API may respond with new
-             *   members that the SDK is unaware of.
-             * - It was constructed with an arbitrary value using the [of] method.
-             */
-            enum class Value {
-                /**
-                 * The cardholder does not have sufficient funds to cover the transaction. The
-                 * merchant may attempt to process the transaction again.
-                 */
-                INSUFFICIENT_FUNDS,
-                /**
-                 * This type of transaction is not allowed for this card. This transaction should
-                 * not be retried.
-                 */
-                TRANSACTION_NEVER_ALLOWED,
-                /**
-                 * The transaction amount exceeds the cardholder's approval limit. The merchant may
-                 * attempt to process the transaction again.
-                 */
-                EXCEEDS_APPROVAL_LIMIT,
-                /**
-                 * The card has been temporarily disabled or not yet activated. The merchant may
-                 * attempt to process the transaction again.
-                 */
-                CARD_TEMPORARILY_DISABLED,
-                /**
-                 * The transaction is suspected to be fraudulent. The merchant may attempt to
-                 * process the transaction again.
-                 */
-                SUSPECTED_FRAUD,
-                /**
-                 * The transaction was declined for another reason. The merchant may attempt to
-                 * process the transaction again. This should be used sparingly.
-                 */
-                OTHER,
-                /**
-                 * An enum member indicating that [DeclineReason] was instantiated with an unknown
-                 * value.
-                 */
-                _UNKNOWN,
-            }
-
-            /**
-             * Returns an enum member corresponding to this class instance's value, or
-             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-             *
-             * Use the [known] method instead if you're certain the value is always known or if you
-             * want to throw for the unknown case.
-             */
-            fun value(): Value =
-                when (this) {
-                    INSUFFICIENT_FUNDS -> Value.INSUFFICIENT_FUNDS
-                    TRANSACTION_NEVER_ALLOWED -> Value.TRANSACTION_NEVER_ALLOWED
-                    EXCEEDS_APPROVAL_LIMIT -> Value.EXCEEDS_APPROVAL_LIMIT
-                    CARD_TEMPORARILY_DISABLED -> Value.CARD_TEMPORARILY_DISABLED
-                    SUSPECTED_FRAUD -> Value.SUSPECTED_FRAUD
-                    OTHER -> Value.OTHER
-                    else -> Value._UNKNOWN
-                }
-
-            /**
-             * Returns an enum member corresponding to this class instance's value.
-             *
-             * Use the [value] method instead if you're uncertain the value is always known and
-             * don't want to throw for the unknown case.
-             *
-             * @throws IncreaseInvalidDataException if this class instance's value is a not a known
-             *   member.
-             */
-            fun known(): Known =
-                when (this) {
-                    INSUFFICIENT_FUNDS -> Known.INSUFFICIENT_FUNDS
-                    TRANSACTION_NEVER_ALLOWED -> Known.TRANSACTION_NEVER_ALLOWED
-                    EXCEEDS_APPROVAL_LIMIT -> Known.EXCEEDS_APPROVAL_LIMIT
-                    CARD_TEMPORARILY_DISABLED -> Known.CARD_TEMPORARILY_DISABLED
-                    SUSPECTED_FRAUD -> Known.SUSPECTED_FRAUD
-                    OTHER -> Known.OTHER
-                    else -> throw IncreaseInvalidDataException("Unknown DeclineReason: $value")
-                }
-
-            /**
-             * Returns this class instance's primitive wire representation.
-             *
-             * This differs from the [toString] method because that method is primarily for
-             * debugging and generally doesn't throw.
-             *
-             * @throws IncreaseInvalidDataException if this class instance's value does not have the
-             *   expected primitive type.
-             */
-            fun asString(): String =
-                _value().asString().orElseThrow {
-                    IncreaseInvalidDataException("Value is not a String")
-                }
-
-            private var validated: Boolean = false
-
-            fun validate(): DeclineReason = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                known()
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: IncreaseInvalidDataException) {
-                    false
-                }
-
-            /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
-             *
-             * Used for best match union deserialization.
-             */
-            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is DeclineReason && value == other.value
-            }
-
-            override fun hashCode() = value.hashCode()
-
-            override fun toString() = value.toString()
-        }
-
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
@@ -3219,18 +2939,17 @@ private constructor(
                 decision == other.decision &&
                 approval == other.approval &&
                 decline == other.decline &&
-                declineReason == other.declineReason &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(decision, approval, decline, declineReason, additionalProperties)
+            Objects.hash(decision, approval, decline, additionalProperties)
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "CardAuthorization{decision=$decision, approval=$approval, decline=$decline, declineReason=$declineReason, additionalProperties=$additionalProperties}"
+            "CardAuthorization{decision=$decision, approval=$approval, decline=$decline, additionalProperties=$additionalProperties}"
     }
 
     /**

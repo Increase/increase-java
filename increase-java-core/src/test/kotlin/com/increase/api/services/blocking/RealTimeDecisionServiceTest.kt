@@ -92,10 +92,6 @@ internal class RealTimeDecisionServiceTest {
                                     )
                                     .build()
                             )
-                            .declineReason(
-                                RealTimeDecisionActionParams.CardAuthorization.DeclineReason
-                                    .INSUFFICIENT_FUNDS
-                            )
                             .build()
                     )
                     .digitalWalletAuthentication(
