@@ -295,6 +295,11 @@ internal class PendingTransactionListPageResponseTest {
                                         .transferId("check_transfer_30b43acfu9vw8fyc4f5")
                                         .build()
                                 )
+                                .fedNowTransferInstruction(
+                                    PendingTransaction.Source.FedNowTransferInstruction.builder()
+                                        .transferId("fed_now_transfer_nb1hjm6cgsdf3or5u2fh")
+                                        .build()
+                                )
                                 .inboundFundsHold(
                                     PendingTransaction.Source.InboundFundsHold.builder()
                                         .amount(100L)
@@ -628,6 +633,11 @@ internal class PendingTransactionListPageResponseTest {
                                             .USD
                                     )
                                     .transferId("check_transfer_30b43acfu9vw8fyc4f5")
+                                    .build()
+                            )
+                            .fedNowTransferInstruction(
+                                PendingTransaction.Source.FedNowTransferInstruction.builder()
+                                    .transferId("fed_now_transfer_nb1hjm6cgsdf3or5u2fh")
                                     .build()
                             )
                             .inboundFundsHold(
@@ -974,6 +984,11 @@ internal class PendingTransactionListPageResponseTest {
                                                 .USD
                                         )
                                         .transferId("check_transfer_30b43acfu9vw8fyc4f5")
+                                        .build()
+                                )
+                                .fedNowTransferInstruction(
+                                    PendingTransaction.Source.FedNowTransferInstruction.builder()
+                                        .transferId("fed_now_transfer_nb1hjm6cgsdf3or5u2fh")
                                         .build()
                                 )
                                 .inboundFundsHold(

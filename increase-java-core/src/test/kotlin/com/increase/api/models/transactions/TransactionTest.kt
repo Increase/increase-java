@@ -635,6 +635,11 @@ internal class TransactionTest {
                                 )
                                 .build()
                         )
+                        .fedNowTransferAcknowledgement(
+                            Transaction.Source.FedNowTransferAcknowledgement.builder()
+                                .transferId("fed_now_transfer_nb1hjm6cgsdf3or5u2fh")
+                                .build()
+                        )
                         .feePayment(
                             Transaction.Source.FeePayment.builder()
                                 .amount(100L)
@@ -1397,6 +1402,11 @@ internal class TransactionTest {
                             .type(
                                 Transaction.Source.CheckTransferDeposit.Type.CHECK_TRANSFER_DEPOSIT
                             )
+                            .build()
+                    )
+                    .fedNowTransferAcknowledgement(
+                        Transaction.Source.FedNowTransferAcknowledgement.builder()
+                            .transferId("fed_now_transfer_nb1hjm6cgsdf3or5u2fh")
                             .build()
                     )
                     .feePayment(
@@ -2198,6 +2208,11 @@ internal class TransactionTest {
                                     Transaction.Source.CheckTransferDeposit.Type
                                         .CHECK_TRANSFER_DEPOSIT
                                 )
+                                .build()
+                        )
+                        .fedNowTransferAcknowledgement(
+                            Transaction.Source.FedNowTransferAcknowledgement.builder()
+                                .transferId("fed_now_transfer_nb1hjm6cgsdf3or5u2fh")
                                 .build()
                         )
                         .feePayment(
