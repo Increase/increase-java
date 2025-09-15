@@ -270,8 +270,8 @@ internal class PendingTransactionTest {
                                 .transferId("check_transfer_30b43acfu9vw8fyc4f5")
                                 .build()
                         )
-                        .fedNowTransferInstruction(
-                            PendingTransaction.Source.FedNowTransferInstruction.builder()
+                        .fednowTransferInstruction(
+                            PendingTransaction.Source.FednowTransferInstruction.builder()
                                 .transferId("fed_now_transfer_nb1hjm6cgsdf3or5u2fh")
                                 .build()
                         )
@@ -576,8 +576,8 @@ internal class PendingTransactionTest {
                             .transferId("check_transfer_30b43acfu9vw8fyc4f5")
                             .build()
                     )
-                    .fedNowTransferInstruction(
-                        PendingTransaction.Source.FedNowTransferInstruction.builder()
+                    .fednowTransferInstruction(
+                        PendingTransaction.Source.FednowTransferInstruction.builder()
                             .transferId("fed_now_transfer_nb1hjm6cgsdf3or5u2fh")
                             .build()
                     )
@@ -889,8 +889,8 @@ internal class PendingTransactionTest {
                                 .transferId("check_transfer_30b43acfu9vw8fyc4f5")
                                 .build()
                         )
-                        .fedNowTransferInstruction(
-                            PendingTransaction.Source.FedNowTransferInstruction.builder()
+                        .fednowTransferInstruction(
+                            PendingTransaction.Source.FednowTransferInstruction.builder()
                                 .transferId("fed_now_transfer_nb1hjm6cgsdf3or5u2fh")
                                 .build()
                         )
