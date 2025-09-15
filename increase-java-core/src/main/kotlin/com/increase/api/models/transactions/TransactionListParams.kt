@@ -482,10 +482,10 @@ private constructor(
 
                 /**
                  * FedNow Transfer Acknowledgement: details will be under the
-                 * `fed_now_transfer_acknowledgement` object.
+                 * `fednow_transfer_acknowledgement` object.
                  */
                 @JvmField
-                val FED_NOW_TRANSFER_ACKNOWLEDGEMENT = of("fed_now_transfer_acknowledgement")
+                val FEDNOW_TRANSFER_ACKNOWLEDGEMENT = of("fednow_transfer_acknowledgement")
 
                 /**
                  * Check Transfer Deposit: details will be under the `check_transfer_deposit`
@@ -653,9 +653,9 @@ private constructor(
                 CHECK_DEPOSIT_RETURN,
                 /**
                  * FedNow Transfer Acknowledgement: details will be under the
-                 * `fed_now_transfer_acknowledgement` object.
+                 * `fednow_transfer_acknowledgement` object.
                  */
-                FED_NOW_TRANSFER_ACKNOWLEDGEMENT,
+                FEDNOW_TRANSFER_ACKNOWLEDGEMENT,
                 /**
                  * Check Transfer Deposit: details will be under the `check_transfer_deposit`
                  * object.
@@ -801,9 +801,9 @@ private constructor(
                 CHECK_DEPOSIT_RETURN,
                 /**
                  * FedNow Transfer Acknowledgement: details will be under the
-                 * `fed_now_transfer_acknowledgement` object.
+                 * `fednow_transfer_acknowledgement` object.
                  */
-                FED_NOW_TRANSFER_ACKNOWLEDGEMENT,
+                FEDNOW_TRANSFER_ACKNOWLEDGEMENT,
                 /**
                  * Check Transfer Deposit: details will be under the `check_transfer_deposit`
                  * object.
@@ -913,7 +913,7 @@ private constructor(
                     CARD_REVENUE_PAYMENT -> Value.CARD_REVENUE_PAYMENT
                     CHECK_DEPOSIT_ACCEPTANCE -> Value.CHECK_DEPOSIT_ACCEPTANCE
                     CHECK_DEPOSIT_RETURN -> Value.CHECK_DEPOSIT_RETURN
-                    FED_NOW_TRANSFER_ACKNOWLEDGEMENT -> Value.FED_NOW_TRANSFER_ACKNOWLEDGEMENT
+                    FEDNOW_TRANSFER_ACKNOWLEDGEMENT -> Value.FEDNOW_TRANSFER_ACKNOWLEDGEMENT
                     CHECK_TRANSFER_DEPOSIT -> Value.CHECK_TRANSFER_DEPOSIT
                     FEE_PAYMENT -> Value.FEE_PAYMENT
                     INBOUND_ACH_TRANSFER -> Value.INBOUND_ACH_TRANSFER
@@ -965,7 +965,7 @@ private constructor(
                     CARD_REVENUE_PAYMENT -> Known.CARD_REVENUE_PAYMENT
                     CHECK_DEPOSIT_ACCEPTANCE -> Known.CHECK_DEPOSIT_ACCEPTANCE
                     CHECK_DEPOSIT_RETURN -> Known.CHECK_DEPOSIT_RETURN
-                    FED_NOW_TRANSFER_ACKNOWLEDGEMENT -> Known.FED_NOW_TRANSFER_ACKNOWLEDGEMENT
+                    FEDNOW_TRANSFER_ACKNOWLEDGEMENT -> Known.FEDNOW_TRANSFER_ACKNOWLEDGEMENT
                     CHECK_TRANSFER_DEPOSIT -> Known.CHECK_TRANSFER_DEPOSIT
                     FEE_PAYMENT -> Known.FEE_PAYMENT
                     INBOUND_ACH_TRANSFER -> Known.INBOUND_ACH_TRANSFER
