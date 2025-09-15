@@ -704,8 +704,8 @@ internal class TransactionListPageResponseTest {
                                         )
                                         .build()
                                 )
-                                .fedNowTransferAcknowledgement(
-                                    Transaction.Source.FedNowTransferAcknowledgement.builder()
+                                .fednowTransferAcknowledgement(
+                                    Transaction.Source.FednowTransferAcknowledgement.builder()
                                         .transferId("fed_now_transfer_nb1hjm6cgsdf3or5u2fh")
                                         .build()
                                 )
@@ -1564,8 +1564,8 @@ internal class TransactionListPageResponseTest {
                                     )
                                     .build()
                             )
-                            .fedNowTransferAcknowledgement(
-                                Transaction.Source.FedNowTransferAcknowledgement.builder()
+                            .fednowTransferAcknowledgement(
+                                Transaction.Source.FednowTransferAcknowledgement.builder()
                                     .transferId("fed_now_transfer_nb1hjm6cgsdf3or5u2fh")
                                     .build()
                             )
@@ -2461,8 +2461,8 @@ internal class TransactionListPageResponseTest {
                                         )
                                         .build()
                                 )
-                                .fedNowTransferAcknowledgement(
-                                    Transaction.Source.FedNowTransferAcknowledgement.builder()
+                                .fednowTransferAcknowledgement(
+                                    Transaction.Source.FednowTransferAcknowledgement.builder()
                                         .transferId("fed_now_transfer_nb1hjm6cgsdf3or5u2fh")
                                         .build()
                                 )
