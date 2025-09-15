@@ -272,7 +272,7 @@ internal class PendingTransactionTest {
                         )
                         .fednowTransferInstruction(
                             PendingTransaction.Source.FednowTransferInstruction.builder()
-                                .transferId("fed_now_transfer_nb1hjm6cgsdf3or5u2fh")
+                                .transferId("fednow_transfer_4i0mptrdu1mueg1196bg")
                                 .build()
                         )
                         .inboundFundsHold(
@@ -578,7 +578,7 @@ internal class PendingTransactionTest {
                     )
                     .fednowTransferInstruction(
                         PendingTransaction.Source.FednowTransferInstruction.builder()
-                            .transferId("fed_now_transfer_nb1hjm6cgsdf3or5u2fh")
+                            .transferId("fednow_transfer_4i0mptrdu1mueg1196bg")
                             .build()
                     )
                     .inboundFundsHold(
@@ -891,7 +891,7 @@ internal class PendingTransactionTest {
                         )
                         .fednowTransferInstruction(
                             PendingTransaction.Source.FednowTransferInstruction.builder()
-                                .transferId("fed_now_transfer_nb1hjm6cgsdf3or5u2fh")
+                                .transferId("fednow_transfer_4i0mptrdu1mueg1196bg")
                                 .build()
                         )
                         .inboundFundsHold(
