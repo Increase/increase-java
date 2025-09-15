@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.323.1 (2025-09-15)
+
+Full Changelog: [v0.323.0...v0.323.1](https://github.com/Increase/increase-java/compare/v0.323.0...v0.323.1)
+
+### Bug Fixes
+
+* **client:** incorrect `getPackageVersion` impl ([e1a6691](https://github.com/Increase/increase-java/commit/e1a6691913137060a826e6eae7b0c4954db9234d))
+
 ## 0.323.0 (2025-09-12)
 
 Full Changelog: [v0.322.0...v0.323.0](https://github.com/Increase/increase-java/compare/v0.322.0...v0.323.0)
