@@ -5,6 +5,7 @@ package com.increase.api.services.blocking
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.models.wiretransfers.WireTransferCreateParams
+import java.time.LocalDate
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -26,7 +27,6 @@ internal class WireTransferServiceTest {
                     .accountId("account_in71c4amph0vgo2qllky")
                     .amount(100L)
                     .beneficiaryName("Ian Crease")
-                    .messageToRecipient("New account transfer")
                     .accountNumber("987654321")
                     .beneficiaryAddressLine1("33 Liberty Street")
                     .beneficiaryAddressLine2("New York")
@@ -37,6 +37,23 @@ internal class WireTransferServiceTest {
                     .originatorAddressLine2("x")
                     .originatorAddressLine3("x")
                     .originatorName("x")
+                    .remittance(
+                        WireTransferCreateParams.Remittance.builder()
+                            .category(WireTransferCreateParams.Remittance.Category.UNSTRUCTURED)
+                            .tax(
+                                WireTransferCreateParams.Remittance.Tax.builder()
+                                    .date(LocalDate.parse("2019-12-27"))
+                                    .identificationNumber("xxxxxxxxx")
+                                    .typeCode("xxxxx")
+                                    .build()
+                            )
+                            .unstructured(
+                                WireTransferCreateParams.Remittance.Unstructured.builder()
+                                    .message("New account transfer")
+                                    .build()
+                            )
+                            .build()
+                    )
                     .requireApproval(true)
                     .routingNumber("101050001")
                     .sourceAccountNumberId("source_account_number_id")

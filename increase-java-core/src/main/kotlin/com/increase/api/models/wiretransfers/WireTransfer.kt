@@ -49,6 +49,7 @@ private constructor(
     private val originatorAddressLine3: JsonField<String>,
     private val originatorName: JsonField<String>,
     private val pendingTransactionId: JsonField<String>,
+    private val remittance: JsonField<Remittance>,
     private val reversal: JsonField<Reversal>,
     private val routingNumber: JsonField<String>,
     private val sourceAccountNumberId: JsonField<String>,
@@ -118,6 +119,9 @@ private constructor(
         @JsonProperty("pending_transaction_id")
         @ExcludeMissing
         pendingTransactionId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("remittance")
+        @ExcludeMissing
+        remittance: JsonField<Remittance> = JsonMissing.of(),
         @JsonProperty("reversal") @ExcludeMissing reversal: JsonField<Reversal> = JsonMissing.of(),
         @JsonProperty("routing_number")
         @ExcludeMissing
@@ -157,6 +161,7 @@ private constructor(
         originatorAddressLine3,
         originatorName,
         pendingTransactionId,
+        remittance,
         reversal,
         routingNumber,
         sourceAccountNumberId,
@@ -308,11 +313,10 @@ private constructor(
     /**
      * The message that will show on the recipient's bank statement.
      *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun messageToRecipient(): Optional<String> =
-        messageToRecipient.getOptional("message_to_recipient")
+    fun messageToRecipient(): String = messageToRecipient.getRequired("message_to_recipient")
 
     /**
      * The transfer's network.
@@ -368,6 +372,14 @@ private constructor(
      */
     fun pendingTransactionId(): Optional<String> =
         pendingTransactionId.getOptional("pending_transaction_id")
+
+    /**
+     * Remittance information sent with the wire transfer.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun remittance(): Optional<Remittance> = remittance.getOptional("remittance")
 
     /**
      * If your transfer is reversed, this will contain details of the reversal.
@@ -631,6 +643,15 @@ private constructor(
     fun _pendingTransactionId(): JsonField<String> = pendingTransactionId
 
     /**
+     * Returns the raw JSON value of [remittance].
+     *
+     * Unlike [remittance], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("remittance")
+    @ExcludeMissing
+    fun _remittance(): JsonField<Remittance> = remittance
+
+    /**
      * Returns the raw JSON value of [reversal].
      *
      * Unlike [reversal], this method doesn't throw if the JSON field has an unexpected type.
@@ -730,6 +751,7 @@ private constructor(
          * .originatorAddressLine3()
          * .originatorName()
          * .pendingTransactionId()
+         * .remittance()
          * .reversal()
          * .routingNumber()
          * .sourceAccountNumberId()
@@ -768,6 +790,7 @@ private constructor(
         private var originatorAddressLine3: JsonField<String>? = null
         private var originatorName: JsonField<String>? = null
         private var pendingTransactionId: JsonField<String>? = null
+        private var remittance: JsonField<Remittance>? = null
         private var reversal: JsonField<Reversal>? = null
         private var routingNumber: JsonField<String>? = null
         private var sourceAccountNumberId: JsonField<String>? = null
@@ -802,6 +825,7 @@ private constructor(
             originatorAddressLine3 = wireTransfer.originatorAddressLine3
             originatorName = wireTransfer.originatorName
             pendingTransactionId = wireTransfer.pendingTransactionId
+            remittance = wireTransfer.remittance
             reversal = wireTransfer.reversal
             routingNumber = wireTransfer.routingNumber
             sourceAccountNumberId = wireTransfer.sourceAccountNumberId
@@ -1097,14 +1121,8 @@ private constructor(
         }
 
         /** The message that will show on the recipient's bank statement. */
-        fun messageToRecipient(messageToRecipient: String?) =
-            messageToRecipient(JsonField.ofNullable(messageToRecipient))
-
-        /**
-         * Alias for calling [Builder.messageToRecipient] with `messageToRecipient.orElse(null)`.
-         */
-        fun messageToRecipient(messageToRecipient: Optional<String>) =
-            messageToRecipient(messageToRecipient.getOrNull())
+        fun messageToRecipient(messageToRecipient: String) =
+            messageToRecipient(JsonField.of(messageToRecipient))
 
         /**
          * Sets [Builder.messageToRecipient] to an arbitrary JSON value.
@@ -1239,6 +1257,21 @@ private constructor(
         fun pendingTransactionId(pendingTransactionId: JsonField<String>) = apply {
             this.pendingTransactionId = pendingTransactionId
         }
+
+        /** Remittance information sent with the wire transfer. */
+        fun remittance(remittance: Remittance?) = remittance(JsonField.ofNullable(remittance))
+
+        /** Alias for calling [Builder.remittance] with `remittance.orElse(null)`. */
+        fun remittance(remittance: Optional<Remittance>) = remittance(remittance.getOrNull())
+
+        /**
+         * Sets [Builder.remittance] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.remittance] with a well-typed [Remittance] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun remittance(remittance: JsonField<Remittance>) = apply { this.remittance = remittance }
 
         /** If your transfer is reversed, this will contain details of the reversal. */
         fun reversal(reversal: Reversal?) = reversal(JsonField.ofNullable(reversal))
@@ -1399,6 +1432,7 @@ private constructor(
          * .originatorAddressLine3()
          * .originatorName()
          * .pendingTransactionId()
+         * .remittance()
          * .reversal()
          * .routingNumber()
          * .sourceAccountNumberId()
@@ -1435,6 +1469,7 @@ private constructor(
                 checkRequired("originatorAddressLine3", originatorAddressLine3),
                 checkRequired("originatorName", originatorName),
                 checkRequired("pendingTransactionId", pendingTransactionId),
+                checkRequired("remittance", remittance),
                 checkRequired("reversal", reversal),
                 checkRequired("routingNumber", routingNumber),
                 checkRequired("sourceAccountNumberId", sourceAccountNumberId),
@@ -1476,6 +1511,7 @@ private constructor(
         originatorAddressLine3()
         originatorName()
         pendingTransactionId()
+        remittance().ifPresent { it.validate() }
         reversal().ifPresent { it.validate() }
         routingNumber()
         sourceAccountNumberId()
@@ -1524,6 +1560,7 @@ private constructor(
             (if (originatorAddressLine3.asKnown().isPresent) 1 else 0) +
             (if (originatorName.asKnown().isPresent) 1 else 0) +
             (if (pendingTransactionId.asKnown().isPresent) 1 else 0) +
+            (remittance.asKnown().getOrNull()?.validity() ?: 0) +
             (reversal.asKnown().getOrNull()?.validity() ?: 0) +
             (if (routingNumber.asKnown().isPresent) 1 else 0) +
             (if (sourceAccountNumberId.asKnown().isPresent) 1 else 0) +
@@ -3223,6 +3260,844 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** Remittance information sent with the wire transfer. */
+    class Remittance
+    private constructor(
+        private val category: JsonField<Category>,
+        private val tax: JsonField<Tax>,
+        private val unstructured: JsonField<Unstructured>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("category")
+            @ExcludeMissing
+            category: JsonField<Category> = JsonMissing.of(),
+            @JsonProperty("tax") @ExcludeMissing tax: JsonField<Tax> = JsonMissing.of(),
+            @JsonProperty("unstructured")
+            @ExcludeMissing
+            unstructured: JsonField<Unstructured> = JsonMissing.of(),
+        ) : this(category, tax, unstructured, mutableMapOf())
+
+        /**
+         * The type of remittance information being passed.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun category(): Category = category.getRequired("category")
+
+        /**
+         * Internal Revenue Service (IRS) tax repayment information. Required if `category` is equal
+         * to `tax`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun tax(): Optional<Tax> = tax.getOptional("tax")
+
+        /**
+         * Unstructured remittance information. Required if `category` is equal to `unstructured`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun unstructured(): Optional<Unstructured> = unstructured.getOptional("unstructured")
+
+        /**
+         * Returns the raw JSON value of [category].
+         *
+         * Unlike [category], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("category") @ExcludeMissing fun _category(): JsonField<Category> = category
+
+        /**
+         * Returns the raw JSON value of [tax].
+         *
+         * Unlike [tax], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("tax") @ExcludeMissing fun _tax(): JsonField<Tax> = tax
+
+        /**
+         * Returns the raw JSON value of [unstructured].
+         *
+         * Unlike [unstructured], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("unstructured")
+        @ExcludeMissing
+        fun _unstructured(): JsonField<Unstructured> = unstructured
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [Remittance].
+             *
+             * The following fields are required:
+             * ```java
+             * .category()
+             * .tax()
+             * .unstructured()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Remittance]. */
+        class Builder internal constructor() {
+
+            private var category: JsonField<Category>? = null
+            private var tax: JsonField<Tax>? = null
+            private var unstructured: JsonField<Unstructured>? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(remittance: Remittance) = apply {
+                category = remittance.category
+                tax = remittance.tax
+                unstructured = remittance.unstructured
+                additionalProperties = remittance.additionalProperties.toMutableMap()
+            }
+
+            /** The type of remittance information being passed. */
+            fun category(category: Category) = category(JsonField.of(category))
+
+            /**
+             * Sets [Builder.category] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.category] with a well-typed [Category] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun category(category: JsonField<Category>) = apply { this.category = category }
+
+            /**
+             * Internal Revenue Service (IRS) tax repayment information. Required if `category` is
+             * equal to `tax`.
+             */
+            fun tax(tax: Tax?) = tax(JsonField.ofNullable(tax))
+
+            /** Alias for calling [Builder.tax] with `tax.orElse(null)`. */
+            fun tax(tax: Optional<Tax>) = tax(tax.getOrNull())
+
+            /**
+             * Sets [Builder.tax] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.tax] with a well-typed [Tax] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun tax(tax: JsonField<Tax>) = apply { this.tax = tax }
+
+            /**
+             * Unstructured remittance information. Required if `category` is equal to
+             * `unstructured`.
+             */
+            fun unstructured(unstructured: Unstructured?) =
+                unstructured(JsonField.ofNullable(unstructured))
+
+            /** Alias for calling [Builder.unstructured] with `unstructured.orElse(null)`. */
+            fun unstructured(unstructured: Optional<Unstructured>) =
+                unstructured(unstructured.getOrNull())
+
+            /**
+             * Sets [Builder.unstructured] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.unstructured] with a well-typed [Unstructured] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun unstructured(unstructured: JsonField<Unstructured>) = apply {
+                this.unstructured = unstructured
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Remittance].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .category()
+             * .tax()
+             * .unstructured()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): Remittance =
+                Remittance(
+                    checkRequired("category", category),
+                    checkRequired("tax", tax),
+                    checkRequired("unstructured", unstructured),
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Remittance = apply {
+            if (validated) {
+                return@apply
+            }
+
+            category().validate()
+            tax().ifPresent { it.validate() }
+            unstructured().ifPresent { it.validate() }
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (category.asKnown().getOrNull()?.validity() ?: 0) +
+                (tax.asKnown().getOrNull()?.validity() ?: 0) +
+                (unstructured.asKnown().getOrNull()?.validity() ?: 0)
+
+        /** The type of remittance information being passed. */
+        class Category @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                /** The wire transfer contains unstructured remittance information. */
+                @JvmField val UNSTRUCTURED = of("unstructured")
+
+                /**
+                 * The wire transfer is for tax payment purposes to the Internal Revenue Service
+                 * (IRS).
+                 */
+                @JvmField val TAX = of("tax")
+
+                @JvmStatic fun of(value: String) = Category(JsonField.of(value))
+            }
+
+            /** An enum containing [Category]'s known values. */
+            enum class Known {
+                /** The wire transfer contains unstructured remittance information. */
+                UNSTRUCTURED,
+                /**
+                 * The wire transfer is for tax payment purposes to the Internal Revenue Service
+                 * (IRS).
+                 */
+                TAX,
+            }
+
+            /**
+             * An enum containing [Category]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [Category] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                /** The wire transfer contains unstructured remittance information. */
+                UNSTRUCTURED,
+                /**
+                 * The wire transfer is for tax payment purposes to the Internal Revenue Service
+                 * (IRS).
+                 */
+                TAX,
+                /**
+                 * An enum member indicating that [Category] was instantiated with an unknown value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    UNSTRUCTURED -> Value.UNSTRUCTURED
+                    TAX -> Value.TAX
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    UNSTRUCTURED -> Known.UNSTRUCTURED
+                    TAX -> Known.TAX
+                    else -> throw IncreaseInvalidDataException("Unknown Category: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    IncreaseInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            fun validate(): Category = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Category && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
+
+        /**
+         * Internal Revenue Service (IRS) tax repayment information. Required if `category` is equal
+         * to `tax`.
+         */
+        class Tax
+        private constructor(
+            private val date: JsonField<LocalDate>,
+            private val identificationNumber: JsonField<String>,
+            private val typeCode: JsonField<String>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("date") @ExcludeMissing date: JsonField<LocalDate> = JsonMissing.of(),
+                @JsonProperty("identification_number")
+                @ExcludeMissing
+                identificationNumber: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("type_code")
+                @ExcludeMissing
+                typeCode: JsonField<String> = JsonMissing.of(),
+            ) : this(date, identificationNumber, typeCode, mutableMapOf())
+
+            /**
+             * The month and year the tax payment is for, in YYYY-MM-DD format. The day is ignored.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun date(): LocalDate = date.getRequired("date")
+
+            /**
+             * The 9-digit Tax Identification Number (TIN) or Employer Identification Number (EIN).
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun identificationNumber(): String =
+                identificationNumber.getRequired("identification_number")
+
+            /**
+             * The 5-character tax type code.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun typeCode(): String = typeCode.getRequired("type_code")
+
+            /**
+             * Returns the raw JSON value of [date].
+             *
+             * Unlike [date], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("date") @ExcludeMissing fun _date(): JsonField<LocalDate> = date
+
+            /**
+             * Returns the raw JSON value of [identificationNumber].
+             *
+             * Unlike [identificationNumber], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("identification_number")
+            @ExcludeMissing
+            fun _identificationNumber(): JsonField<String> = identificationNumber
+
+            /**
+             * Returns the raw JSON value of [typeCode].
+             *
+             * Unlike [typeCode], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("type_code") @ExcludeMissing fun _typeCode(): JsonField<String> = typeCode
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of [Tax].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .date()
+                 * .identificationNumber()
+                 * .typeCode()
+                 * ```
+                 */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [Tax]. */
+            class Builder internal constructor() {
+
+                private var date: JsonField<LocalDate>? = null
+                private var identificationNumber: JsonField<String>? = null
+                private var typeCode: JsonField<String>? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(tax: Tax) = apply {
+                    date = tax.date
+                    identificationNumber = tax.identificationNumber
+                    typeCode = tax.typeCode
+                    additionalProperties = tax.additionalProperties.toMutableMap()
+                }
+
+                /**
+                 * The month and year the tax payment is for, in YYYY-MM-DD format. The day is
+                 * ignored.
+                 */
+                fun date(date: LocalDate) = date(JsonField.of(date))
+
+                /**
+                 * Sets [Builder.date] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.date] with a well-typed [LocalDate] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun date(date: JsonField<LocalDate>) = apply { this.date = date }
+
+                /**
+                 * The 9-digit Tax Identification Number (TIN) or Employer Identification Number
+                 * (EIN).
+                 */
+                fun identificationNumber(identificationNumber: String) =
+                    identificationNumber(JsonField.of(identificationNumber))
+
+                /**
+                 * Sets [Builder.identificationNumber] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.identificationNumber] with a well-typed [String]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun identificationNumber(identificationNumber: JsonField<String>) = apply {
+                    this.identificationNumber = identificationNumber
+                }
+
+                /** The 5-character tax type code. */
+                fun typeCode(typeCode: String) = typeCode(JsonField.of(typeCode))
+
+                /**
+                 * Sets [Builder.typeCode] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.typeCode] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun typeCode(typeCode: JsonField<String>) = apply { this.typeCode = typeCode }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [Tax].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .date()
+                 * .identificationNumber()
+                 * .typeCode()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
+                fun build(): Tax =
+                    Tax(
+                        checkRequired("date", date),
+                        checkRequired("identificationNumber", identificationNumber),
+                        checkRequired("typeCode", typeCode),
+                        additionalProperties.toMutableMap(),
+                    )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): Tax = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                date()
+                identificationNumber()
+                typeCode()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                (if (date.asKnown().isPresent) 1 else 0) +
+                    (if (identificationNumber.asKnown().isPresent) 1 else 0) +
+                    (if (typeCode.asKnown().isPresent) 1 else 0)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Tax &&
+                    date == other.date &&
+                    identificationNumber == other.identificationNumber &&
+                    typeCode == other.typeCode &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy {
+                Objects.hash(date, identificationNumber, typeCode, additionalProperties)
+            }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "Tax{date=$date, identificationNumber=$identificationNumber, typeCode=$typeCode, additionalProperties=$additionalProperties}"
+        }
+
+        /**
+         * Unstructured remittance information. Required if `category` is equal to `unstructured`.
+         */
+        class Unstructured
+        private constructor(
+            private val message: JsonField<String>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("message")
+                @ExcludeMissing
+                message: JsonField<String> = JsonMissing.of()
+            ) : this(message, mutableMapOf())
+
+            /**
+             * The message to the beneficiary.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun message(): String = message.getRequired("message")
+
+            /**
+             * Returns the raw JSON value of [message].
+             *
+             * Unlike [message], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("message") @ExcludeMissing fun _message(): JsonField<String> = message
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of [Unstructured].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .message()
+                 * ```
+                 */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [Unstructured]. */
+            class Builder internal constructor() {
+
+                private var message: JsonField<String>? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(unstructured: Unstructured) = apply {
+                    message = unstructured.message
+                    additionalProperties = unstructured.additionalProperties.toMutableMap()
+                }
+
+                /** The message to the beneficiary. */
+                fun message(message: String) = message(JsonField.of(message))
+
+                /**
+                 * Sets [Builder.message] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.message] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun message(message: JsonField<String>) = apply { this.message = message }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [Unstructured].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .message()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
+                fun build(): Unstructured =
+                    Unstructured(
+                        checkRequired("message", message),
+                        additionalProperties.toMutableMap(),
+                    )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): Unstructured = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                message()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = (if (message.asKnown().isPresent) 1 else 0)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Unstructured &&
+                    message == other.message &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy { Objects.hash(message, additionalProperties) }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "Unstructured{message=$message, additionalProperties=$additionalProperties}"
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Remittance &&
+                category == other.category &&
+                tax == other.tax &&
+                unstructured == other.unstructured &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(category, tax, unstructured, additionalProperties)
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Remittance{category=$category, tax=$tax, unstructured=$unstructured, additionalProperties=$additionalProperties}"
+    }
+
     /** If your transfer is reversed, this will contain details of the reversal. */
     class Reversal
     private constructor(
@@ -4626,6 +5501,7 @@ private constructor(
             originatorAddressLine3 == other.originatorAddressLine3 &&
             originatorName == other.originatorName &&
             pendingTransactionId == other.pendingTransactionId &&
+            remittance == other.remittance &&
             reversal == other.reversal &&
             routingNumber == other.routingNumber &&
             sourceAccountNumberId == other.sourceAccountNumberId &&
@@ -4661,6 +5537,7 @@ private constructor(
             originatorAddressLine3,
             originatorName,
             pendingTransactionId,
+            remittance,
             reversal,
             routingNumber,
             sourceAccountNumberId,
@@ -4675,5 +5552,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "WireTransfer{id=$id, accountId=$accountId, accountNumber=$accountNumber, amount=$amount, approval=$approval, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, beneficiaryName=$beneficiaryName, cancellation=$cancellation, createdAt=$createdAt, createdBy=$createdBy, currency=$currency, externalAccountId=$externalAccountId, idempotencyKey=$idempotencyKey, inboundWireDrawdownRequestId=$inboundWireDrawdownRequestId, messageToRecipient=$messageToRecipient, network=$network, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, pendingTransactionId=$pendingTransactionId, reversal=$reversal, routingNumber=$routingNumber, sourceAccountNumberId=$sourceAccountNumberId, status=$status, submission=$submission, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
+        "WireTransfer{id=$id, accountId=$accountId, accountNumber=$accountNumber, amount=$amount, approval=$approval, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, beneficiaryName=$beneficiaryName, cancellation=$cancellation, createdAt=$createdAt, createdBy=$createdBy, currency=$currency, externalAccountId=$externalAccountId, idempotencyKey=$idempotencyKey, inboundWireDrawdownRequestId=$inboundWireDrawdownRequestId, messageToRecipient=$messageToRecipient, network=$network, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, pendingTransactionId=$pendingTransactionId, remittance=$remittance, reversal=$reversal, routingNumber=$routingNumber, sourceAccountNumberId=$sourceAccountNumberId, status=$status, submission=$submission, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
 }
