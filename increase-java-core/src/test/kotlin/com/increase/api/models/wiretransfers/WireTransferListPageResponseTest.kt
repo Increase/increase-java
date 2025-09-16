@@ -69,6 +69,23 @@ internal class WireTransferListPageResponseTest {
                         .originatorAddressLine3(null)
                         .originatorName(null)
                         .pendingTransactionId(null)
+                        .remittance(
+                            WireTransfer.Remittance.builder()
+                                .category(WireTransfer.Remittance.Category.UNSTRUCTURED)
+                                .tax(
+                                    WireTransfer.Remittance.Tax.builder()
+                                        .date(LocalDate.parse("2019-12-27"))
+                                        .identificationNumber("identification_number")
+                                        .typeCode("type_code")
+                                        .build()
+                                )
+                                .unstructured(
+                                    WireTransfer.Remittance.Unstructured.builder()
+                                        .message("Payment for invoice 12345")
+                                        .build()
+                                )
+                                .build()
+                        )
                         .reversal(
                             WireTransfer.Reversal.builder()
                                 .amount(0L)
@@ -160,6 +177,23 @@ internal class WireTransferListPageResponseTest {
                     .originatorAddressLine3(null)
                     .originatorName(null)
                     .pendingTransactionId(null)
+                    .remittance(
+                        WireTransfer.Remittance.builder()
+                            .category(WireTransfer.Remittance.Category.UNSTRUCTURED)
+                            .tax(
+                                WireTransfer.Remittance.Tax.builder()
+                                    .date(LocalDate.parse("2019-12-27"))
+                                    .identificationNumber("identification_number")
+                                    .typeCode("type_code")
+                                    .build()
+                            )
+                            .unstructured(
+                                WireTransfer.Remittance.Unstructured.builder()
+                                    .message("Payment for invoice 12345")
+                                    .build()
+                            )
+                            .build()
+                    )
                     .reversal(
                         WireTransfer.Reversal.builder()
                             .amount(0L)
@@ -255,6 +289,23 @@ internal class WireTransferListPageResponseTest {
                         .originatorAddressLine3(null)
                         .originatorName(null)
                         .pendingTransactionId(null)
+                        .remittance(
+                            WireTransfer.Remittance.builder()
+                                .category(WireTransfer.Remittance.Category.UNSTRUCTURED)
+                                .tax(
+                                    WireTransfer.Remittance.Tax.builder()
+                                        .date(LocalDate.parse("2019-12-27"))
+                                        .identificationNumber("identification_number")
+                                        .typeCode("type_code")
+                                        .build()
+                                )
+                                .unstructured(
+                                    WireTransfer.Remittance.Unstructured.builder()
+                                        .message("Payment for invoice 12345")
+                                        .build()
+                                )
+                                .build()
+                        )
                         .reversal(
                             WireTransfer.Reversal.builder()
                                 .amount(0L)
