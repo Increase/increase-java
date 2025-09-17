@@ -12,7 +12,6 @@ import com.increase.api.services.blocking.AchTransferService
 import com.increase.api.services.blocking.BookkeepingAccountService
 import com.increase.api.services.blocking.BookkeepingEntryService
 import com.increase.api.services.blocking.BookkeepingEntrySetService
-import com.increase.api.services.blocking.CardDisputeService
 import com.increase.api.services.blocking.CardPaymentService
 import com.increase.api.services.blocking.CardPurchaseSupplementService
 import com.increase.api.services.blocking.CardPushTransferService
@@ -107,8 +106,6 @@ interface IncreaseClient {
     fun cardPayments(): CardPaymentService
 
     fun cardPurchaseSupplements(): CardPurchaseSupplementService
-
-    fun cardDisputes(): CardDisputeService
 
     fun physicalCards(): PhysicalCardService
 
@@ -240,8 +237,6 @@ interface IncreaseClient {
         fun cardPayments(): CardPaymentService.WithRawResponse
 
         fun cardPurchaseSupplements(): CardPurchaseSupplementService.WithRawResponse
-
-        fun cardDisputes(): CardDisputeService.WithRawResponse
 
         fun physicalCards(): PhysicalCardService.WithRawResponse
 

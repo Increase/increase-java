@@ -8,7 +8,6 @@ import com.increase.api.services.blocking.simulations.AccountTransferService
 import com.increase.api.services.blocking.simulations.AchTransferService
 import com.increase.api.services.blocking.simulations.CardAuthorizationExpirationService
 import com.increase.api.services.blocking.simulations.CardAuthorizationService
-import com.increase.api.services.blocking.simulations.CardDisputeService
 import com.increase.api.services.blocking.simulations.CardFuelConfirmationService
 import com.increase.api.services.blocking.simulations.CardIncrementService
 import com.increase.api.services.blocking.simulations.CardRefundService
@@ -65,8 +64,6 @@ interface SimulationService {
     fun cardFuelConfirmations(): CardFuelConfirmationService
 
     fun cardRefunds(): CardRefundService
-
-    fun cardDisputes(): CardDisputeService
 
     fun physicalCards(): PhysicalCardService
 
@@ -135,8 +132,6 @@ interface SimulationService {
         fun cardFuelConfirmations(): CardFuelConfirmationService.WithRawResponse
 
         fun cardRefunds(): CardRefundService.WithRawResponse
-
-        fun cardDisputes(): CardDisputeService.WithRawResponse
 
         fun physicalCards(): PhysicalCardService.WithRawResponse
 
