@@ -552,6 +552,12 @@ private constructor(
             /** Occurs whenever an Inbound Check Deposit is updated. */
             @JvmField val INBOUND_CHECK_DEPOSIT_UPDATED = of("inbound_check_deposit.updated")
 
+            /** Occurs whenever an Inbound FedNow Transfer is created. */
+            @JvmField val INBOUND_FEDNOW_TRANSFER_CREATED = of("inbound_fednow_transfer.created")
+
+            /** Occurs whenever an Inbound FedNow Transfer is updated. */
+            @JvmField val INBOUND_FEDNOW_TRANSFER_UPDATED = of("inbound_fednow_transfer.updated")
+
             /** Occurs whenever an Inbound Mail Item is created. */
             @JvmField val INBOUND_MAIL_ITEM_CREATED = of("inbound_mail_item.created")
 
@@ -857,6 +863,10 @@ private constructor(
             INBOUND_CHECK_DEPOSIT_CREATED,
             /** Occurs whenever an Inbound Check Deposit is updated. */
             INBOUND_CHECK_DEPOSIT_UPDATED,
+            /** Occurs whenever an Inbound FedNow Transfer is created. */
+            INBOUND_FEDNOW_TRANSFER_CREATED,
+            /** Occurs whenever an Inbound FedNow Transfer is updated. */
+            INBOUND_FEDNOW_TRANSFER_UPDATED,
             /** Occurs whenever an Inbound Mail Item is created. */
             INBOUND_MAIL_ITEM_CREATED,
             /** Occurs whenever an Inbound Mail Item is updated. */
@@ -1089,6 +1099,10 @@ private constructor(
             INBOUND_CHECK_DEPOSIT_CREATED,
             /** Occurs whenever an Inbound Check Deposit is updated. */
             INBOUND_CHECK_DEPOSIT_UPDATED,
+            /** Occurs whenever an Inbound FedNow Transfer is created. */
+            INBOUND_FEDNOW_TRANSFER_CREATED,
+            /** Occurs whenever an Inbound FedNow Transfer is updated. */
+            INBOUND_FEDNOW_TRANSFER_UPDATED,
             /** Occurs whenever an Inbound Mail Item is created. */
             INBOUND_MAIL_ITEM_CREATED,
             /** Occurs whenever an Inbound Mail Item is updated. */
@@ -1268,6 +1282,8 @@ private constructor(
                 INBOUND_ACH_TRANSFER_RETURN_UPDATED -> Value.INBOUND_ACH_TRANSFER_RETURN_UPDATED
                 INBOUND_CHECK_DEPOSIT_CREATED -> Value.INBOUND_CHECK_DEPOSIT_CREATED
                 INBOUND_CHECK_DEPOSIT_UPDATED -> Value.INBOUND_CHECK_DEPOSIT_UPDATED
+                INBOUND_FEDNOW_TRANSFER_CREATED -> Value.INBOUND_FEDNOW_TRANSFER_CREATED
+                INBOUND_FEDNOW_TRANSFER_UPDATED -> Value.INBOUND_FEDNOW_TRANSFER_UPDATED
                 INBOUND_MAIL_ITEM_CREATED -> Value.INBOUND_MAIL_ITEM_CREATED
                 INBOUND_MAIL_ITEM_UPDATED -> Value.INBOUND_MAIL_ITEM_UPDATED
                 INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CREATED ->
@@ -1395,6 +1411,8 @@ private constructor(
                 INBOUND_ACH_TRANSFER_RETURN_UPDATED -> Known.INBOUND_ACH_TRANSFER_RETURN_UPDATED
                 INBOUND_CHECK_DEPOSIT_CREATED -> Known.INBOUND_CHECK_DEPOSIT_CREATED
                 INBOUND_CHECK_DEPOSIT_UPDATED -> Known.INBOUND_CHECK_DEPOSIT_UPDATED
+                INBOUND_FEDNOW_TRANSFER_CREATED -> Known.INBOUND_FEDNOW_TRANSFER_CREATED
+                INBOUND_FEDNOW_TRANSFER_UPDATED -> Known.INBOUND_FEDNOW_TRANSFER_UPDATED
                 INBOUND_MAIL_ITEM_CREATED -> Known.INBOUND_MAIL_ITEM_CREATED
                 INBOUND_MAIL_ITEM_UPDATED -> Known.INBOUND_MAIL_ITEM_UPDATED
                 INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CREATED ->
