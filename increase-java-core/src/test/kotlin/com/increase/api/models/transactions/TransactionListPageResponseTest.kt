@@ -81,14 +81,12 @@ internal class TransactionListPageResponseTest {
                                 .cardDisputeAcceptance(
                                     Transaction.Source.CardDisputeAcceptance.builder()
                                         .acceptedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                                        .cardDisputeId("card_dispute_h9sc95nbl1cgltpp7men")
                                         .transactionId("transaction_uyrp7fld2ium70oa7oi")
                                         .build()
                                 )
                                 .cardDisputeFinancial(
                                     Transaction.Source.CardDisputeFinancial.builder()
                                         .amount(1000L)
-                                        .cardDisputeId("card_dispute_h9sc95nbl1cgltpp7men")
                                         .network(
                                             Transaction.Source.CardDisputeFinancial.Network.VISA
                                         )
@@ -106,7 +104,6 @@ internal class TransactionListPageResponseTest {
                                 )
                                 .cardDisputeLoss(
                                     Transaction.Source.CardDisputeLoss.builder()
-                                        .cardDisputeId("card_dispute_h9sc95nbl1cgltpp7men")
                                         .explanation("The card dispute was lost.")
                                         .lostAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                                         .transactionId("transaction_uyrp7fld2ium70oa7oi")
@@ -985,14 +982,12 @@ internal class TransactionListPageResponseTest {
                             .cardDisputeAcceptance(
                                 Transaction.Source.CardDisputeAcceptance.builder()
                                     .acceptedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                                    .cardDisputeId("card_dispute_h9sc95nbl1cgltpp7men")
                                     .transactionId("transaction_uyrp7fld2ium70oa7oi")
                                     .build()
                             )
                             .cardDisputeFinancial(
                                 Transaction.Source.CardDisputeFinancial.builder()
                                     .amount(1000L)
-                                    .cardDisputeId("card_dispute_h9sc95nbl1cgltpp7men")
                                     .network(Transaction.Source.CardDisputeFinancial.Network.VISA)
                                     .transactionId("transaction_uyrp7fld2ium70oa7oi")
                                     .visa(
@@ -1008,7 +1003,6 @@ internal class TransactionListPageResponseTest {
                             )
                             .cardDisputeLoss(
                                 Transaction.Source.CardDisputeLoss.builder()
-                                    .cardDisputeId("card_dispute_h9sc95nbl1cgltpp7men")
                                     .explanation("The card dispute was lost.")
                                     .lostAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                                     .transactionId("transaction_uyrp7fld2ium70oa7oi")
@@ -1848,14 +1842,12 @@ internal class TransactionListPageResponseTest {
                                 .cardDisputeAcceptance(
                                     Transaction.Source.CardDisputeAcceptance.builder()
                                         .acceptedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                                        .cardDisputeId("card_dispute_h9sc95nbl1cgltpp7men")
                                         .transactionId("transaction_uyrp7fld2ium70oa7oi")
                                         .build()
                                 )
                                 .cardDisputeFinancial(
                                     Transaction.Source.CardDisputeFinancial.builder()
                                         .amount(1000L)
-                                        .cardDisputeId("card_dispute_h9sc95nbl1cgltpp7men")
                                         .network(
                                             Transaction.Source.CardDisputeFinancial.Network.VISA
                                         )
@@ -1873,7 +1865,6 @@ internal class TransactionListPageResponseTest {
                                 )
                                 .cardDisputeLoss(
                                     Transaction.Source.CardDisputeLoss.builder()
-                                        .cardDisputeId("card_dispute_h9sc95nbl1cgltpp7men")
                                         .explanation("The card dispute was lost.")
                                         .lostAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                                         .transactionId("transaction_uyrp7fld2ium70oa7oi")

@@ -22,8 +22,6 @@ import com.increase.api.services.async.BookkeepingEntryServiceAsync
 import com.increase.api.services.async.BookkeepingEntryServiceAsyncImpl
 import com.increase.api.services.async.BookkeepingEntrySetServiceAsync
 import com.increase.api.services.async.BookkeepingEntrySetServiceAsyncImpl
-import com.increase.api.services.async.CardDisputeServiceAsync
-import com.increase.api.services.async.CardDisputeServiceAsyncImpl
 import com.increase.api.services.async.CardPaymentServiceAsync
 import com.increase.api.services.async.CardPaymentServiceAsyncImpl
 import com.increase.api.services.async.CardPurchaseSupplementServiceAsync
@@ -155,10 +153,6 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
 
     private val cardPurchaseSupplements: CardPurchaseSupplementServiceAsync by lazy {
         CardPurchaseSupplementServiceAsyncImpl(clientOptionsWithUserAgent)
-    }
-
-    private val cardDisputes: CardDisputeServiceAsync by lazy {
-        CardDisputeServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
     private val physicalCards: PhysicalCardServiceAsync by lazy {
@@ -374,8 +368,6 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
     override fun cardPurchaseSupplements(): CardPurchaseSupplementServiceAsync =
         cardPurchaseSupplements
 
-    override fun cardDisputes(): CardDisputeServiceAsync = cardDisputes
-
     override fun physicalCards(): PhysicalCardServiceAsync = physicalCards
 
     override fun digitalCardProfiles(): DigitalCardProfileServiceAsync = digitalCardProfiles
@@ -506,10 +498,6 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
         private val cardPurchaseSupplements:
             CardPurchaseSupplementServiceAsync.WithRawResponse by lazy {
             CardPurchaseSupplementServiceAsyncImpl.WithRawResponseImpl(clientOptions)
-        }
-
-        private val cardDisputes: CardDisputeServiceAsync.WithRawResponse by lazy {
-            CardDisputeServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
         private val physicalCards: PhysicalCardServiceAsync.WithRawResponse by lazy {
@@ -729,8 +717,6 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
 
         override fun cardPurchaseSupplements(): CardPurchaseSupplementServiceAsync.WithRawResponse =
             cardPurchaseSupplements
-
-        override fun cardDisputes(): CardDisputeServiceAsync.WithRawResponse = cardDisputes
 
         override fun physicalCards(): PhysicalCardServiceAsync.WithRawResponse = physicalCards
 
