@@ -892,6 +892,7 @@ private constructor(
         private val inboundCheckAdjustment: JsonField<InboundCheckAdjustment>,
         private val inboundCheckDepositReturnIntention:
             JsonField<InboundCheckDepositReturnIntention>,
+        private val inboundFednowTransferConfirmation: JsonField<InboundFednowTransferConfirmation>,
         private val inboundRealTimePaymentsTransferConfirmation:
             JsonField<InboundRealTimePaymentsTransferConfirmation>,
         private val inboundWireReversal: JsonField<InboundWireReversal>,
@@ -983,6 +984,10 @@ private constructor(
             @ExcludeMissing
             inboundCheckDepositReturnIntention: JsonField<InboundCheckDepositReturnIntention> =
                 JsonMissing.of(),
+            @JsonProperty("inbound_fednow_transfer_confirmation")
+            @ExcludeMissing
+            inboundFednowTransferConfirmation: JsonField<InboundFednowTransferConfirmation> =
+                JsonMissing.of(),
             @JsonProperty("inbound_real_time_payments_transfer_confirmation")
             @ExcludeMissing
             inboundRealTimePaymentsTransferConfirmation:
@@ -1045,6 +1050,7 @@ private constructor(
             inboundAchTransferReturnIntention,
             inboundCheckAdjustment,
             inboundCheckDepositReturnIntention,
+            inboundFednowTransferConfirmation,
             inboundRealTimePaymentsTransferConfirmation,
             inboundWireReversal,
             inboundWireTransfer,
@@ -1328,6 +1334,18 @@ private constructor(
          */
         fun inboundCheckDepositReturnIntention(): Optional<InboundCheckDepositReturnIntention> =
             inboundCheckDepositReturnIntention.getOptional("inbound_check_deposit_return_intention")
+
+        /**
+         * An Inbound FedNow Transfer Confirmation object. This field will be present in the JSON
+         * response if and only if `category` is equal to `inbound_fednow_transfer_confirmation`. An
+         * Inbound FedNow Transfer Confirmation is created when a FedNow transfer is initiated at
+         * another bank and received by Increase.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun inboundFednowTransferConfirmation(): Optional<InboundFednowTransferConfirmation> =
+            inboundFednowTransferConfirmation.getOptional("inbound_fednow_transfer_confirmation")
 
         /**
          * An Inbound Real-Time Payments Transfer Confirmation object. This field will be present in
@@ -1699,6 +1717,17 @@ private constructor(
             inboundCheckDepositReturnIntention
 
         /**
+         * Returns the raw JSON value of [inboundFednowTransferConfirmation].
+         *
+         * Unlike [inboundFednowTransferConfirmation], this method doesn't throw if the JSON field
+         * has an unexpected type.
+         */
+        @JsonProperty("inbound_fednow_transfer_confirmation")
+        @ExcludeMissing
+        fun _inboundFednowTransferConfirmation(): JsonField<InboundFednowTransferConfirmation> =
+            inboundFednowTransferConfirmation
+
+        /**
          * Returns the raw JSON value of [inboundRealTimePaymentsTransferConfirmation].
          *
          * Unlike [inboundRealTimePaymentsTransferConfirmation], this method doesn't throw if the
@@ -1854,6 +1883,7 @@ private constructor(
              * .inboundAchTransferReturnIntention()
              * .inboundCheckAdjustment()
              * .inboundCheckDepositReturnIntention()
+             * .inboundFednowTransferConfirmation()
              * .inboundRealTimePaymentsTransferConfirmation()
              * .inboundWireReversal()
              * .inboundWireTransfer()
@@ -1902,6 +1932,9 @@ private constructor(
             private var inboundCheckDepositReturnIntention:
                 JsonField<InboundCheckDepositReturnIntention>? =
                 null
+            private var inboundFednowTransferConfirmation:
+                JsonField<InboundFednowTransferConfirmation>? =
+                null
             private var inboundRealTimePaymentsTransferConfirmation:
                 JsonField<InboundRealTimePaymentsTransferConfirmation>? =
                 null
@@ -1945,6 +1978,7 @@ private constructor(
                 inboundAchTransferReturnIntention = source.inboundAchTransferReturnIntention
                 inboundCheckAdjustment = source.inboundCheckAdjustment
                 inboundCheckDepositReturnIntention = source.inboundCheckDepositReturnIntention
+                inboundFednowTransferConfirmation = source.inboundFednowTransferConfirmation
                 inboundRealTimePaymentsTransferConfirmation =
                     source.inboundRealTimePaymentsTransferConfirmation
                 inboundWireReversal = source.inboundWireReversal
@@ -2578,6 +2612,38 @@ private constructor(
             }
 
             /**
+             * An Inbound FedNow Transfer Confirmation object. This field will be present in the
+             * JSON response if and only if `category` is equal to
+             * `inbound_fednow_transfer_confirmation`. An Inbound FedNow Transfer Confirmation is
+             * created when a FedNow transfer is initiated at another bank and received by Increase.
+             */
+            fun inboundFednowTransferConfirmation(
+                inboundFednowTransferConfirmation: InboundFednowTransferConfirmation?
+            ) =
+                inboundFednowTransferConfirmation(
+                    JsonField.ofNullable(inboundFednowTransferConfirmation)
+                )
+
+            /**
+             * Alias for calling [Builder.inboundFednowTransferConfirmation] with
+             * `inboundFednowTransferConfirmation.orElse(null)`.
+             */
+            fun inboundFednowTransferConfirmation(
+                inboundFednowTransferConfirmation: Optional<InboundFednowTransferConfirmation>
+            ) = inboundFednowTransferConfirmation(inboundFednowTransferConfirmation.getOrNull())
+
+            /**
+             * Sets [Builder.inboundFednowTransferConfirmation] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.inboundFednowTransferConfirmation] with a well-typed
+             * [InboundFednowTransferConfirmation] value instead. This method is primarily for
+             * setting the field to an undocumented or not yet supported value.
+             */
+            fun inboundFednowTransferConfirmation(
+                inboundFednowTransferConfirmation: JsonField<InboundFednowTransferConfirmation>
+            ) = apply { this.inboundFednowTransferConfirmation = inboundFednowTransferConfirmation }
+
+            /**
              * An Inbound Real-Time Payments Transfer Confirmation object. This field will be
              * present in the JSON response if and only if `category` is equal to
              * `inbound_real_time_payments_transfer_confirmation`. An Inbound Real-Time Payments
@@ -2948,6 +3014,7 @@ private constructor(
              * .inboundAchTransferReturnIntention()
              * .inboundCheckAdjustment()
              * .inboundCheckDepositReturnIntention()
+             * .inboundFednowTransferConfirmation()
              * .inboundRealTimePaymentsTransferConfirmation()
              * .inboundWireReversal()
              * .inboundWireTransfer()
@@ -2994,6 +3061,10 @@ private constructor(
                     checkRequired(
                         "inboundCheckDepositReturnIntention",
                         inboundCheckDepositReturnIntention,
+                    ),
+                    checkRequired(
+                        "inboundFednowTransferConfirmation",
+                        inboundFednowTransferConfirmation,
                     ),
                     checkRequired(
                         "inboundRealTimePaymentsTransferConfirmation",
@@ -3047,6 +3118,7 @@ private constructor(
             inboundAchTransferReturnIntention().ifPresent { it.validate() }
             inboundCheckAdjustment().ifPresent { it.validate() }
             inboundCheckDepositReturnIntention().ifPresent { it.validate() }
+            inboundFednowTransferConfirmation().ifPresent { it.validate() }
             inboundRealTimePaymentsTransferConfirmation().ifPresent { it.validate() }
             inboundWireReversal().ifPresent { it.validate() }
             inboundWireTransfer().ifPresent { it.validate() }
@@ -3100,6 +3172,7 @@ private constructor(
                 (inboundAchTransferReturnIntention.asKnown().getOrNull()?.validity() ?: 0) +
                 (inboundCheckAdjustment.asKnown().getOrNull()?.validity() ?: 0) +
                 (inboundCheckDepositReturnIntention.asKnown().getOrNull()?.validity() ?: 0) +
+                (inboundFednowTransferConfirmation.asKnown().getOrNull()?.validity() ?: 0) +
                 (inboundRealTimePaymentsTransferConfirmation.asKnown().getOrNull()?.validity()
                     ?: 0) +
                 (inboundWireReversal.asKnown().getOrNull()?.validity() ?: 0) +
@@ -28506,6 +28579,14 @@ private constructor(
                 @JvmField val INBOUND_CHECK_ADJUSTMENT = of("inbound_check_adjustment")
 
                 /**
+                 * Inbound FedNow Transfer Confirmation: details will be under the
+                 * `inbound_fednow_transfer_confirmation` object.
+                 */
+                @JvmField
+                val INBOUND_FEDNOW_TRANSFER_CONFIRMATION =
+                    of("inbound_fednow_transfer_confirmation")
+
+                /**
                  * Inbound Real-Time Payments Transfer Confirmation: details will be under the
                  * `inbound_real_time_payments_transfer_confirmation` object.
                  */
@@ -28665,6 +28746,11 @@ private constructor(
                  */
                 INBOUND_CHECK_ADJUSTMENT,
                 /**
+                 * Inbound FedNow Transfer Confirmation: details will be under the
+                 * `inbound_fednow_transfer_confirmation` object.
+                 */
+                INBOUND_FEDNOW_TRANSFER_CONFIRMATION,
+                /**
                  * Inbound Real-Time Payments Transfer Confirmation: details will be under the
                  * `inbound_real_time_payments_transfer_confirmation` object.
                  */
@@ -28813,6 +28899,11 @@ private constructor(
                  */
                 INBOUND_CHECK_ADJUSTMENT,
                 /**
+                 * Inbound FedNow Transfer Confirmation: details will be under the
+                 * `inbound_fednow_transfer_confirmation` object.
+                 */
+                INBOUND_FEDNOW_TRANSFER_CONFIRMATION,
+                /**
                  * Inbound Real-Time Payments Transfer Confirmation: details will be under the
                  * `inbound_real_time_payments_transfer_confirmation` object.
                  */
@@ -28905,6 +28996,8 @@ private constructor(
                     INBOUND_CHECK_DEPOSIT_RETURN_INTENTION ->
                         Value.INBOUND_CHECK_DEPOSIT_RETURN_INTENTION
                     INBOUND_CHECK_ADJUSTMENT -> Value.INBOUND_CHECK_ADJUSTMENT
+                    INBOUND_FEDNOW_TRANSFER_CONFIRMATION ->
+                        Value.INBOUND_FEDNOW_TRANSFER_CONFIRMATION
                     INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION ->
                         Value.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION
                     INBOUND_WIRE_REVERSAL -> Value.INBOUND_WIRE_REVERSAL
@@ -28957,6 +29050,8 @@ private constructor(
                     INBOUND_CHECK_DEPOSIT_RETURN_INTENTION ->
                         Known.INBOUND_CHECK_DEPOSIT_RETURN_INTENTION
                     INBOUND_CHECK_ADJUSTMENT -> Known.INBOUND_CHECK_ADJUSTMENT
+                    INBOUND_FEDNOW_TRANSFER_CONFIRMATION ->
+                        Known.INBOUND_FEDNOW_TRANSFER_CONFIRMATION
                     INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION ->
                         Known.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION
                     INBOUND_WIRE_REVERSAL -> Known.INBOUND_WIRE_REVERSAL
@@ -34403,6 +34498,186 @@ private constructor(
 
             override fun toString() =
                 "InboundCheckDepositReturnIntention{inboundCheckDepositId=$inboundCheckDepositId, transferId=$transferId, additionalProperties=$additionalProperties}"
+        }
+
+        /**
+         * An Inbound FedNow Transfer Confirmation object. This field will be present in the JSON
+         * response if and only if `category` is equal to `inbound_fednow_transfer_confirmation`. An
+         * Inbound FedNow Transfer Confirmation is created when a FedNow transfer is initiated at
+         * another bank and received by Increase.
+         */
+        class InboundFednowTransferConfirmation
+        private constructor(
+            private val transferId: JsonField<String>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("transfer_id")
+                @ExcludeMissing
+                transferId: JsonField<String> = JsonMissing.of()
+            ) : this(transferId, mutableMapOf())
+
+            /**
+             * The identifier of the FedNow Transfer that led to this Transaction.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun transferId(): String = transferId.getRequired("transfer_id")
+
+            /**
+             * Returns the raw JSON value of [transferId].
+             *
+             * Unlike [transferId], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("transfer_id")
+            @ExcludeMissing
+            fun _transferId(): JsonField<String> = transferId
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of
+                 * [InboundFednowTransferConfirmation].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .transferId()
+                 * ```
+                 */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [InboundFednowTransferConfirmation]. */
+            class Builder internal constructor() {
+
+                private var transferId: JsonField<String>? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(
+                    inboundFednowTransferConfirmation: InboundFednowTransferConfirmation
+                ) = apply {
+                    transferId = inboundFednowTransferConfirmation.transferId
+                    additionalProperties =
+                        inboundFednowTransferConfirmation.additionalProperties.toMutableMap()
+                }
+
+                /** The identifier of the FedNow Transfer that led to this Transaction. */
+                fun transferId(transferId: String) = transferId(JsonField.of(transferId))
+
+                /**
+                 * Sets [Builder.transferId] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.transferId] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun transferId(transferId: JsonField<String>) = apply {
+                    this.transferId = transferId
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [InboundFednowTransferConfirmation].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .transferId()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
+                fun build(): InboundFednowTransferConfirmation =
+                    InboundFednowTransferConfirmation(
+                        checkRequired("transferId", transferId),
+                        additionalProperties.toMutableMap(),
+                    )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): InboundFednowTransferConfirmation = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                transferId()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int = (if (transferId.asKnown().isPresent) 1 else 0)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is InboundFednowTransferConfirmation &&
+                    transferId == other.transferId &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy { Objects.hash(transferId, additionalProperties) }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "InboundFednowTransferConfirmation{transferId=$transferId, additionalProperties=$additionalProperties}"
         }
 
         /**
@@ -39882,6 +40157,7 @@ private constructor(
                 inboundAchTransferReturnIntention == other.inboundAchTransferReturnIntention &&
                 inboundCheckAdjustment == other.inboundCheckAdjustment &&
                 inboundCheckDepositReturnIntention == other.inboundCheckDepositReturnIntention &&
+                inboundFednowTransferConfirmation == other.inboundFednowTransferConfirmation &&
                 inboundRealTimePaymentsTransferConfirmation ==
                     other.inboundRealTimePaymentsTransferConfirmation &&
                 inboundWireReversal == other.inboundWireReversal &&
@@ -39924,6 +40200,7 @@ private constructor(
                 inboundAchTransferReturnIntention,
                 inboundCheckAdjustment,
                 inboundCheckDepositReturnIntention,
+                inboundFednowTransferConfirmation,
                 inboundRealTimePaymentsTransferConfirmation,
                 inboundWireReversal,
                 inboundWireTransfer,
@@ -39943,7 +40220,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Source{accountRevenuePayment=$accountRevenuePayment, accountTransferIntention=$accountTransferIntention, achTransferIntention=$achTransferIntention, achTransferRejection=$achTransferRejection, achTransferReturn=$achTransferReturn, cardDisputeAcceptance=$cardDisputeAcceptance, cardDisputeFinancial=$cardDisputeFinancial, cardDisputeLoss=$cardDisputeLoss, cardPushTransferAcceptance=$cardPushTransferAcceptance, cardRefund=$cardRefund, cardRevenuePayment=$cardRevenuePayment, cardSettlement=$cardSettlement, cashbackPayment=$cashbackPayment, category=$category, checkDepositAcceptance=$checkDepositAcceptance, checkDepositReturn=$checkDepositReturn, checkTransferDeposit=$checkTransferDeposit, fednowTransferAcknowledgement=$fednowTransferAcknowledgement, feePayment=$feePayment, inboundAchTransfer=$inboundAchTransfer, inboundAchTransferReturnIntention=$inboundAchTransferReturnIntention, inboundCheckAdjustment=$inboundCheckAdjustment, inboundCheckDepositReturnIntention=$inboundCheckDepositReturnIntention, inboundRealTimePaymentsTransferConfirmation=$inboundRealTimePaymentsTransferConfirmation, inboundWireReversal=$inboundWireReversal, inboundWireTransfer=$inboundWireTransfer, inboundWireTransferReversal=$inboundWireTransferReversal, interestPayment=$interestPayment, internalSource=$internalSource, other=$other, realTimePaymentsTransferAcknowledgement=$realTimePaymentsTransferAcknowledgement, sampleFunds=$sampleFunds, swiftTransferIntention=$swiftTransferIntention, swiftTransferReturn=$swiftTransferReturn, wireTransferIntention=$wireTransferIntention, additionalProperties=$additionalProperties}"
+            "Source{accountRevenuePayment=$accountRevenuePayment, accountTransferIntention=$accountTransferIntention, achTransferIntention=$achTransferIntention, achTransferRejection=$achTransferRejection, achTransferReturn=$achTransferReturn, cardDisputeAcceptance=$cardDisputeAcceptance, cardDisputeFinancial=$cardDisputeFinancial, cardDisputeLoss=$cardDisputeLoss, cardPushTransferAcceptance=$cardPushTransferAcceptance, cardRefund=$cardRefund, cardRevenuePayment=$cardRevenuePayment, cardSettlement=$cardSettlement, cashbackPayment=$cashbackPayment, category=$category, checkDepositAcceptance=$checkDepositAcceptance, checkDepositReturn=$checkDepositReturn, checkTransferDeposit=$checkTransferDeposit, fednowTransferAcknowledgement=$fednowTransferAcknowledgement, feePayment=$feePayment, inboundAchTransfer=$inboundAchTransfer, inboundAchTransferReturnIntention=$inboundAchTransferReturnIntention, inboundCheckAdjustment=$inboundCheckAdjustment, inboundCheckDepositReturnIntention=$inboundCheckDepositReturnIntention, inboundFednowTransferConfirmation=$inboundFednowTransferConfirmation, inboundRealTimePaymentsTransferConfirmation=$inboundRealTimePaymentsTransferConfirmation, inboundWireReversal=$inboundWireReversal, inboundWireTransfer=$inboundWireTransfer, inboundWireTransferReversal=$inboundWireTransferReversal, interestPayment=$interestPayment, internalSource=$internalSource, other=$other, realTimePaymentsTransferAcknowledgement=$realTimePaymentsTransferAcknowledgement, sampleFunds=$sampleFunds, swiftTransferIntention=$swiftTransferIntention, swiftTransferReturn=$swiftTransferReturn, wireTransferIntention=$wireTransferIntention, additionalProperties=$additionalProperties}"
     }
 
     /**
