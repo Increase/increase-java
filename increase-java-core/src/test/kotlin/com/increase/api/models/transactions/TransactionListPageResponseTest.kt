@@ -782,6 +782,11 @@ internal class TransactionListPageResponseTest {
                                         .transferId("check_transfer_30b43acfu9vw8fyc4f5")
                                         .build()
                                 )
+                                .inboundFednowTransferConfirmation(
+                                    Transaction.Source.InboundFednowTransferConfirmation.builder()
+                                        .transferId("inbound_fednow_transfer_ctxxbc07oh5ke5w1hk20")
+                                        .build()
+                                )
                                 .inboundRealTimePaymentsTransferConfirmation(
                                     Transaction.Source.InboundRealTimePaymentsTransferConfirmation
                                         .builder()
@@ -1639,6 +1644,11 @@ internal class TransactionListPageResponseTest {
                                         "inbound_check_deposit_zoshvqybq0cjjm31mra"
                                     )
                                     .transferId("check_transfer_30b43acfu9vw8fyc4f5")
+                                    .build()
+                            )
+                            .inboundFednowTransferConfirmation(
+                                Transaction.Source.InboundFednowTransferConfirmation.builder()
+                                    .transferId("inbound_fednow_transfer_ctxxbc07oh5ke5w1hk20")
                                     .build()
                             )
                             .inboundRealTimePaymentsTransferConfirmation(
@@ -2537,6 +2547,11 @@ internal class TransactionListPageResponseTest {
                                             "inbound_check_deposit_zoshvqybq0cjjm31mra"
                                         )
                                         .transferId("check_transfer_30b43acfu9vw8fyc4f5")
+                                        .build()
+                                )
+                                .inboundFednowTransferConfirmation(
+                                    Transaction.Source.InboundFednowTransferConfirmation.builder()
+                                        .transferId("inbound_fednow_transfer_ctxxbc07oh5ke5w1hk20")
                                         .build()
                                 )
                                 .inboundRealTimePaymentsTransferConfirmation(

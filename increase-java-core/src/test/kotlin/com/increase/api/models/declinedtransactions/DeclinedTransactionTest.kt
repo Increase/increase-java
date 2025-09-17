@@ -258,6 +258,15 @@ internal class DeclinedTransactionTest {
                                 .rejectedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                                 .build()
                         )
+                        .inboundFednowTransferDecline(
+                            DeclinedTransaction.Source.InboundFednowTransferDecline.builder()
+                                .reason(
+                                    DeclinedTransaction.Source.InboundFednowTransferDecline.Reason
+                                        .ACCOUNT_NUMBER_DISABLED
+                                )
+                                .transferId("inbound_fednow_transfer_ctxxbc07oh5ke5w1hk20")
+                                .build()
+                        )
                         .inboundRealTimePaymentsTransferDecline(
                             DeclinedTransaction.Source.InboundRealTimePaymentsTransferDecline
                                 .builder()
@@ -531,6 +540,15 @@ internal class DeclinedTransactionTest {
                                     .INCOMPLETE_IMAGE
                             )
                             .rejectedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                            .build()
+                    )
+                    .inboundFednowTransferDecline(
+                        DeclinedTransaction.Source.InboundFednowTransferDecline.builder()
+                            .reason(
+                                DeclinedTransaction.Source.InboundFednowTransferDecline.Reason
+                                    .ACCOUNT_NUMBER_DISABLED
+                            )
+                            .transferId("inbound_fednow_transfer_ctxxbc07oh5ke5w1hk20")
                             .build()
                     )
                     .inboundRealTimePaymentsTransferDecline(
@@ -817,6 +835,15 @@ internal class DeclinedTransactionTest {
                                         .INCOMPLETE_IMAGE
                                 )
                                 .rejectedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                .build()
+                        )
+                        .inboundFednowTransferDecline(
+                            DeclinedTransaction.Source.InboundFednowTransferDecline.builder()
+                                .reason(
+                                    DeclinedTransaction.Source.InboundFednowTransferDecline.Reason
+                                        .ACCOUNT_NUMBER_DISABLED
+                                )
+                                .transferId("inbound_fednow_transfer_ctxxbc07oh5ke5w1hk20")
                                 .build()
                         )
                         .inboundRealTimePaymentsTransferDecline(
