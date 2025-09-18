@@ -14,6 +14,7 @@ internal class RoutingNumberListResponseTest {
         val routingNumberListResponse =
             RoutingNumberListResponse.builder()
                 .achTransfers(RoutingNumberListResponse.AchTransfers.SUPPORTED)
+                .fednowTransfers(RoutingNumberListResponse.FednowTransfers.SUPPORTED)
                 .name("First Bank of the United States")
                 .realTimePaymentsTransfers(
                     RoutingNumberListResponse.RealTimePaymentsTransfers.SUPPORTED
@@ -25,6 +26,8 @@ internal class RoutingNumberListResponseTest {
 
         assertThat(routingNumberListResponse.achTransfers())
             .isEqualTo(RoutingNumberListResponse.AchTransfers.SUPPORTED)
+        assertThat(routingNumberListResponse.fednowTransfers())
+            .isEqualTo(RoutingNumberListResponse.FednowTransfers.SUPPORTED)
         assertThat(routingNumberListResponse.name()).isEqualTo("First Bank of the United States")
         assertThat(routingNumberListResponse.realTimePaymentsTransfers())
             .isEqualTo(RoutingNumberListResponse.RealTimePaymentsTransfers.SUPPORTED)
@@ -41,6 +44,7 @@ internal class RoutingNumberListResponseTest {
         val routingNumberListResponse =
             RoutingNumberListResponse.builder()
                 .achTransfers(RoutingNumberListResponse.AchTransfers.SUPPORTED)
+                .fednowTransfers(RoutingNumberListResponse.FednowTransfers.SUPPORTED)
                 .name("First Bank of the United States")
                 .realTimePaymentsTransfers(
                     RoutingNumberListResponse.RealTimePaymentsTransfers.SUPPORTED
