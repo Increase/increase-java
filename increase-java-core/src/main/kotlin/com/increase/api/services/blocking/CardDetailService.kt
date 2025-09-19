@@ -27,7 +27,7 @@ interface CardDetailService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): CardDetailService
 
-    /** Update a Card's Details */
+    /** Update a Card's PIN */
     fun update(cardId: String, params: CardDetailUpdateParams): CardDetails =
         update(cardId, params, RequestOptions.none())
 
