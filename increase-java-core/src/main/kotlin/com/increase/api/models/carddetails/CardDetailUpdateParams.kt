@@ -20,7 +20,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Update a Card's Details */
+/** Update a Card's PIN */
 class CardDetailUpdateParams
 private constructor(
     private val cardId: String?,

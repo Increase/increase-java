@@ -27,7 +27,7 @@ interface CardDetailServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): CardDetailServiceAsync
 
-    /** Update a Card's Details */
+    /** Update a Card's PIN */
     fun update(cardId: String, params: CardDetailUpdateParams): CompletableFuture<CardDetails> =
         update(cardId, params, RequestOptions.none())
 

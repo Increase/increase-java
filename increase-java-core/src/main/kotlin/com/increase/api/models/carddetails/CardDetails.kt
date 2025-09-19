@@ -17,7 +17,12 @@ import java.util.Collections
 import java.util.Objects
 import kotlin.jvm.optionals.getOrNull
 
-/** An object containing the sensitive details (card number, CVC, etc) for a Card. */
+/**
+ * An object containing the sensitive details (card number, CVC, PIN, etc) for a Card. These details
+ * are not included in the Card object. If you'd prefer to never access these details directly, you
+ * can use the [embedded iframe](/documentation/embedded-card-component) to display the information
+ * to your users.
+ */
 class CardDetails
 private constructor(
     private val cardId: JsonField<String>,
