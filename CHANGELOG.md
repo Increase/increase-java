@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.332.0 (2025-09-19)
+
+Full Changelog: [v0.331.0...v0.332.0](https://github.com/Increase/increase-java/compare/v0.331.0...v0.332.0)
+
+### Features
+
+* **api:** api update ([754b269](https://github.com/Increase/increase-java/commit/754b2695831ca2b9d96552479be756bb1824e4a3))
+* **api:** api update ([afa92a3](https://github.com/Increase/increase-java/commit/afa92a3e8ff77106c78b4201c7b75b709d3f177b))
+* **client:** expose sleeper option ([42e0af4](https://github.com/Increase/increase-java/commit/42e0af4be43e8108563e40081422505320c5caf6))
+
+
+### Bug Fixes
+
+* **client:** ensure single timer is created per client ([42e0af4](https://github.com/Increase/increase-java/commit/42e0af4be43e8108563e40081422505320c5caf6))
+
+
+### Chores
+
+* improve formatter performance ([0795a95](https://github.com/Increase/increase-java/commit/0795a9506c0f7734ec77df11f4613e16d972f7dc))
+
 ## 0.331.0 (2025-09-19)
 
 Full Changelog: [v0.330.0...v0.331.0](https://github.com/Increase/increase-java/compare/v0.330.0...v0.331.0)
