@@ -1803,14 +1803,9 @@ private constructor(
             /**
              * Your decisions on whether or not each provided address component is a match. Your
              * response here is evaluated against the customer's provided `postal_code` and `line1`,
-             * and an appropriate network response is generated. For example, if you would like to
-             * approve all transactions for a given card, you can submit `match` for both
-             * `postal_code` and `line1` and Increase will generate an approval with an Address
-             * Verification System (AVS) code that will match all of the available address
-             * information, or will report that no check was performed if no address information is
-             * available. If you do not provide a response, the address verification result will be
-             * calculated by Increase using the available address information available on the card.
-             * If none is available, Increase will report that no check was performed.
+             * and an appropriate network response is generated. For more information, see our
+             * [Address Verification System Codes and Overrides](https://increase.com/documentation/address-verification-system-codes-and-overrides)
+             * guide.
              *
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
@@ -1868,15 +1863,10 @@ private constructor(
                 /**
                  * Your decisions on whether or not each provided address component is a match. Your
                  * response here is evaluated against the customer's provided `postal_code` and
-                 * `line1`, and an appropriate network response is generated. For example, if you
-                 * would like to approve all transactions for a given card, you can submit `match`
-                 * for both `postal_code` and `line1` and Increase will generate an approval with an
-                 * Address Verification System (AVS) code that will match all of the available
-                 * address information, or will report that no check was performed if no address
-                 * information is available. If you do not provide a response, the address
-                 * verification result will be calculated by Increase using the available address
-                 * information available on the card. If none is available, Increase will report
-                 * that no check was performed.
+                 * `line1`, and an appropriate network response is generated. For more information,
+                 * see our
+                 * [Address Verification System Codes and Overrides](https://increase.com/documentation/address-verification-system-codes-and-overrides)
+                 * guide.
                  */
                 fun cardholderAddressVerificationResult(
                     cardholderAddressVerificationResult: CardholderAddressVerificationResult
@@ -1965,14 +1955,9 @@ private constructor(
             /**
              * Your decisions on whether or not each provided address component is a match. Your
              * response here is evaluated against the customer's provided `postal_code` and `line1`,
-             * and an appropriate network response is generated. For example, if you would like to
-             * approve all transactions for a given card, you can submit `match` for both
-             * `postal_code` and `line1` and Increase will generate an approval with an Address
-             * Verification System (AVS) code that will match all of the available address
-             * information, or will report that no check was performed if no address information is
-             * available. If you do not provide a response, the address verification result will be
-             * calculated by Increase using the available address information available on the card.
-             * If none is available, Increase will report that no check was performed.
+             * and an appropriate network response is generated. For more information, see our
+             * [Address Verification System Codes and Overrides](https://increase.com/documentation/address-verification-system-codes-and-overrides)
+             * guide.
              */
             class CardholderAddressVerificationResult
             private constructor(
