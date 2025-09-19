@@ -4,7 +4,6 @@ package com.increase.api.services.async
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
-import com.increase.api.models.cards.CardCreateDetailsIframeParams
 import com.increase.api.models.cards.CardCreateParams
 import com.increase.api.models.cards.CardUpdateParams
 import org.junit.jupiter.api.Test
@@ -97,6 +96,7 @@ internal class CardServiceAsyncTest {
                             .build()
                     )
                     .entityId("entity_id")
+                    .pin("xxxx")
                     .status(CardUpdateParams.Status.ACTIVE)
                     .build()
             )
@@ -118,41 +118,5 @@ internal class CardServiceAsyncTest {
 
         val page = pageFuture.get()
         page.response().validate()
-    }
-
-    @Test
-    fun createDetailsIframe() {
-        val client =
-            IncreaseOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
-        val cardServiceAsync = client.cards()
-
-        val cardIframeUrlFuture =
-            cardServiceAsync.createDetailsIframe(
-                CardCreateDetailsIframeParams.builder()
-                    .cardId("card_oubs0hwk5rn6knuecxg2")
-                    .physicalCardId("physical_card_id")
-                    .build()
-            )
-
-        val cardIframeUrl = cardIframeUrlFuture.get()
-        cardIframeUrl.validate()
-    }
-
-    @Test
-    fun details() {
-        val client =
-            IncreaseOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
-        val cardServiceAsync = client.cards()
-
-        val cardDetailsFuture = cardServiceAsync.details("card_oubs0hwk5rn6knuecxg2")
-
-        val cardDetails = cardDetailsFuture.get()
-        cardDetails.validate()
     }
 }

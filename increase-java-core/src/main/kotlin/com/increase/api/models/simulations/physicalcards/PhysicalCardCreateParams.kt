@@ -26,7 +26,7 @@ import kotlin.jvm.optionals.getOrNull
  * This endpoint allows you to simulate receiving a tracking update for a Physical Card, to simulate
  * the progress of a shipment.
  */
-class PhysicalCardTrackingUpdatesParams
+class PhysicalCardCreateParams
 private constructor(
     private val physicalCardId: String?,
     private val body: Body,
@@ -128,8 +128,7 @@ private constructor(
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of
-         * [PhysicalCardTrackingUpdatesParams].
+         * Returns a mutable builder for constructing an instance of [PhysicalCardCreateParams].
          *
          * The following fields are required:
          * ```java
@@ -139,7 +138,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [PhysicalCardTrackingUpdatesParams]. */
+    /** A builder for [PhysicalCardCreateParams]. */
     class Builder internal constructor() {
 
         private var physicalCardId: String? = null
@@ -148,14 +147,12 @@ private constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
-        internal fun from(physicalCardTrackingUpdatesParams: PhysicalCardTrackingUpdatesParams) =
-            apply {
-                physicalCardId = physicalCardTrackingUpdatesParams.physicalCardId
-                body = physicalCardTrackingUpdatesParams.body.toBuilder()
-                additionalHeaders = physicalCardTrackingUpdatesParams.additionalHeaders.toBuilder()
-                additionalQueryParams =
-                    physicalCardTrackingUpdatesParams.additionalQueryParams.toBuilder()
-            }
+        internal fun from(physicalCardCreateParams: PhysicalCardCreateParams) = apply {
+            physicalCardId = physicalCardCreateParams.physicalCardId
+            body = physicalCardCreateParams.body.toBuilder()
+            additionalHeaders = physicalCardCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = physicalCardCreateParams.additionalQueryParams.toBuilder()
+        }
 
         /** The Physical Card you would like to action. */
         fun physicalCardId(physicalCardId: String?) = apply { this.physicalCardId = physicalCardId }
@@ -362,7 +359,7 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [PhysicalCardTrackingUpdatesParams].
+         * Returns an immutable instance of [PhysicalCardCreateParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          *
@@ -373,8 +370,8 @@ private constructor(
          *
          * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): PhysicalCardTrackingUpdatesParams =
-            PhysicalCardTrackingUpdatesParams(
+        fun build(): PhysicalCardCreateParams =
+            PhysicalCardCreateParams(
                 physicalCardId,
                 body.build(),
                 additionalHeaders.build(),
@@ -880,7 +877,7 @@ private constructor(
             return true
         }
 
-        return other is PhysicalCardTrackingUpdatesParams &&
+        return other is PhysicalCardCreateParams &&
             physicalCardId == other.physicalCardId &&
             body == other.body &&
             additionalHeaders == other.additionalHeaders &&
@@ -891,5 +888,5 @@ private constructor(
         Objects.hash(physicalCardId, body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "PhysicalCardTrackingUpdatesParams{physicalCardId=$physicalCardId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "PhysicalCardCreateParams{physicalCardId=$physicalCardId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }
