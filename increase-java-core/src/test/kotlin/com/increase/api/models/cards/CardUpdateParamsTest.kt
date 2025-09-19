@@ -29,6 +29,7 @@ internal class CardUpdateParamsTest {
                     .build()
             )
             .entityId("entity_id")
+            .pin("xxxx")
             .status(CardUpdateParams.Status.ACTIVE)
             .build()
     }
@@ -65,6 +66,7 @@ internal class CardUpdateParamsTest {
                         .build()
                 )
                 .entityId("entity_id")
+                .pin("xxxx")
                 .status(CardUpdateParams.Status.ACTIVE)
                 .build()
 
@@ -90,6 +92,7 @@ internal class CardUpdateParamsTest {
                     .build()
             )
         assertThat(body.entityId()).contains("entity_id")
+        assertThat(body.pin()).contains("xxxx")
         assertThat(body.status()).contains(CardUpdateParams.Status.ACTIVE)
     }
 
