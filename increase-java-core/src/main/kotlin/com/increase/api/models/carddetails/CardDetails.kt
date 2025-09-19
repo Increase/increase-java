@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.increase.api.models.cards
+package com.increase.api.models.carddetails
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
@@ -17,7 +17,7 @@ import java.util.Collections
 import java.util.Objects
 import kotlin.jvm.optionals.getOrNull
 
-/** An object containing the sensitive details (card number, cvc, etc) for a Card. */
+/** An object containing the sensitive details (card number, CVC, etc) for a Card. */
 class CardDetails
 private constructor(
     private val cardId: JsonField<String>,

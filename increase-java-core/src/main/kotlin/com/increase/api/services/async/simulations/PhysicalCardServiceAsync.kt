@@ -7,7 +7,7 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.physicalcards.PhysicalCard
 import com.increase.api.models.simulations.physicalcards.PhysicalCardAdvanceShipmentParams
-import com.increase.api.models.simulations.physicalcards.PhysicalCardTrackingUpdatesParams
+import com.increase.api.models.simulations.physicalcards.PhysicalCardCreateParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -24,6 +24,33 @@ interface PhysicalCardServiceAsync {
      * The original service is not modified.
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): PhysicalCardServiceAsync
+
+    /**
+     * This endpoint allows you to simulate receiving a tracking update for a Physical Card, to
+     * simulate the progress of a shipment.
+     */
+    fun create(
+        physicalCardId: String,
+        params: PhysicalCardCreateParams,
+    ): CompletableFuture<PhysicalCard> = create(physicalCardId, params, RequestOptions.none())
+
+    /** @see create */
+    fun create(
+        physicalCardId: String,
+        params: PhysicalCardCreateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<PhysicalCard> =
+        create(params.toBuilder().physicalCardId(physicalCardId).build(), requestOptions)
+
+    /** @see create */
+    fun create(params: PhysicalCardCreateParams): CompletableFuture<PhysicalCard> =
+        create(params, RequestOptions.none())
+
+    /** @see create */
+    fun create(
+        params: PhysicalCardCreateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<PhysicalCard>
 
     /**
      * This endpoint allows you to simulate advancing the shipment status of a Physical Card, to
@@ -55,35 +82,6 @@ interface PhysicalCardServiceAsync {
     ): CompletableFuture<PhysicalCard>
 
     /**
-     * This endpoint allows you to simulate receiving a tracking update for a Physical Card, to
-     * simulate the progress of a shipment.
-     */
-    fun trackingUpdates(
-        physicalCardId: String,
-        params: PhysicalCardTrackingUpdatesParams,
-    ): CompletableFuture<PhysicalCard> =
-        trackingUpdates(physicalCardId, params, RequestOptions.none())
-
-    /** @see trackingUpdates */
-    fun trackingUpdates(
-        physicalCardId: String,
-        params: PhysicalCardTrackingUpdatesParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PhysicalCard> =
-        trackingUpdates(params.toBuilder().physicalCardId(physicalCardId).build(), requestOptions)
-
-    /** @see trackingUpdates */
-    fun trackingUpdates(
-        params: PhysicalCardTrackingUpdatesParams
-    ): CompletableFuture<PhysicalCard> = trackingUpdates(params, RequestOptions.none())
-
-    /** @see trackingUpdates */
-    fun trackingUpdates(
-        params: PhysicalCardTrackingUpdatesParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PhysicalCard>
-
-    /**
      * A view of [PhysicalCardServiceAsync] that provides access to raw HTTP responses for each
      * method.
      */
@@ -97,6 +95,36 @@ interface PhysicalCardServiceAsync {
         fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): PhysicalCardServiceAsync.WithRawResponse
+
+        /**
+         * Returns a raw HTTP response for `post
+         * /simulations/physical_cards/{physical_card_id}/tracking_updates`, but is otherwise the
+         * same as [PhysicalCardServiceAsync.create].
+         */
+        fun create(
+            physicalCardId: String,
+            params: PhysicalCardCreateParams,
+        ): CompletableFuture<HttpResponseFor<PhysicalCard>> =
+            create(physicalCardId, params, RequestOptions.none())
+
+        /** @see create */
+        fun create(
+            physicalCardId: String,
+            params: PhysicalCardCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<PhysicalCard>> =
+            create(params.toBuilder().physicalCardId(physicalCardId).build(), requestOptions)
+
+        /** @see create */
+        fun create(
+            params: PhysicalCardCreateParams
+        ): CompletableFuture<HttpResponseFor<PhysicalCard>> = create(params, RequestOptions.none())
+
+        /** @see create */
+        fun create(
+            params: PhysicalCardCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<PhysicalCard>>
 
         /**
          * Returns a raw HTTP response for `post
@@ -129,40 +157,6 @@ interface PhysicalCardServiceAsync {
         /** @see advanceShipment */
         fun advanceShipment(
             params: PhysicalCardAdvanceShipmentParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PhysicalCard>>
-
-        /**
-         * Returns a raw HTTP response for `post
-         * /simulations/physical_cards/{physical_card_id}/tracking_updates`, but is otherwise the
-         * same as [PhysicalCardServiceAsync.trackingUpdates].
-         */
-        fun trackingUpdates(
-            physicalCardId: String,
-            params: PhysicalCardTrackingUpdatesParams,
-        ): CompletableFuture<HttpResponseFor<PhysicalCard>> =
-            trackingUpdates(physicalCardId, params, RequestOptions.none())
-
-        /** @see trackingUpdates */
-        fun trackingUpdates(
-            physicalCardId: String,
-            params: PhysicalCardTrackingUpdatesParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PhysicalCard>> =
-            trackingUpdates(
-                params.toBuilder().physicalCardId(physicalCardId).build(),
-                requestOptions,
-            )
-
-        /** @see trackingUpdates */
-        fun trackingUpdates(
-            params: PhysicalCardTrackingUpdatesParams
-        ): CompletableFuture<HttpResponseFor<PhysicalCard>> =
-            trackingUpdates(params, RequestOptions.none())
-
-        /** @see trackingUpdates */
-        fun trackingUpdates(
-            params: PhysicalCardTrackingUpdatesParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<PhysicalCard>>
     }
