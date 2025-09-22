@@ -1272,6 +1272,13 @@ internal class CardPaymentListPageResponseTest {
                                                     )
                                                     .build()
                                             )
+                                            .surcharge(
+                                                CardPayment.Element.CardSettlement.Surcharge
+                                                    .builder()
+                                                    .amount(0L)
+                                                    .presentmentAmount(0L)
+                                                    .build()
+                                            )
                                             .transactionId("transaction_uyrp7fld2ium70oa7oi")
                                             .type(
                                                 CardPayment.Element.CardSettlement.Type
@@ -2721,6 +2728,13 @@ internal class CardPaymentListPageResponseTest {
                                                             )
                                                             .build()
                                                     )
+                                                    .build()
+                                            )
+                                            .surcharge(
+                                                CardPayment.Element.CardSettlement.Surcharge
+                                                    .builder()
+                                                    .amount(0L)
+                                                    .presentmentAmount(0L)
                                                     .build()
                                             )
                                             .transactionId("transaction_uyrp7fld2ium70oa7oi")
@@ -4174,6 +4188,13 @@ internal class CardPaymentListPageResponseTest {
                                                     )
                                                     .build()
                                             )
+                                            .surcharge(
+                                                CardPayment.Element.CardSettlement.Surcharge
+                                                    .builder()
+                                                    .amount(0L)
+                                                    .presentmentAmount(0L)
+                                                    .build()
+                                            )
                                             .transactionId("transaction_uyrp7fld2ium70oa7oi")
                                             .type(
                                                 CardPayment.Element.CardSettlement.Type
@@ -5625,6 +5646,13 @@ internal class CardPaymentListPageResponseTest {
                                                     )
                                                     .build()
                                             )
+                                            .surcharge(
+                                                CardPayment.Element.CardSettlement.Surcharge
+                                                    .builder()
+                                                    .amount(0L)
+                                                    .presentmentAmount(0L)
+                                                    .build()
+                                            )
                                             .transactionId("transaction_uyrp7fld2ium70oa7oi")
                                             .type(
                                                 CardPayment.Element.CardSettlement.Type
@@ -7037,6 +7065,12 @@ internal class CardPaymentListPageResponseTest {
                                                 )
                                                 .build()
                                         )
+                                        .surcharge(
+                                            CardPayment.Element.CardSettlement.Surcharge.builder()
+                                                .amount(0L)
+                                                .presentmentAmount(0L)
+                                                .build()
+                                        )
                                         .transactionId("transaction_uyrp7fld2ium70oa7oi")
                                         .type(
                                             CardPayment.Element.CardSettlement.Type.CARD_SETTLEMENT
@@ -8413,6 +8447,12 @@ internal class CardPaymentListPageResponseTest {
                                                         )
                                                         .build()
                                                 )
+                                                .build()
+                                        )
+                                        .surcharge(
+                                            CardPayment.Element.CardSettlement.Surcharge.builder()
+                                                .amount(0L)
+                                                .presentmentAmount(0L)
                                                 .build()
                                         )
                                         .transactionId("transaction_uyrp7fld2ium70oa7oi")
@@ -9793,6 +9833,12 @@ internal class CardPaymentListPageResponseTest {
                                                 )
                                                 .build()
                                         )
+                                        .surcharge(
+                                            CardPayment.Element.CardSettlement.Surcharge.builder()
+                                                .amount(0L)
+                                                .presentmentAmount(0L)
+                                                .build()
+                                        )
                                         .transactionId("transaction_uyrp7fld2ium70oa7oi")
                                         .type(
                                             CardPayment.Element.CardSettlement.Type.CARD_SETTLEMENT
@@ -11169,6 +11215,12 @@ internal class CardPaymentListPageResponseTest {
                                                         )
                                                         .build()
                                                 )
+                                                .build()
+                                        )
+                                        .surcharge(
+                                            CardPayment.Element.CardSettlement.Surcharge.builder()
+                                                .amount(0L)
+                                                .presentmentAmount(0L)
                                                 .build()
                                         )
                                         .transactionId("transaction_uyrp7fld2ium70oa7oi")
@@ -12648,6 +12700,13 @@ internal class CardPaymentListPageResponseTest {
                                                     )
                                                     .build()
                                             )
+                                            .surcharge(
+                                                CardPayment.Element.CardSettlement.Surcharge
+                                                    .builder()
+                                                    .amount(0L)
+                                                    .presentmentAmount(0L)
+                                                    .build()
+                                            )
                                             .transactionId("transaction_uyrp7fld2ium70oa7oi")
                                             .type(
                                                 CardPayment.Element.CardSettlement.Type
@@ -14097,6 +14156,13 @@ internal class CardPaymentListPageResponseTest {
                                                             )
                                                             .build()
                                                     )
+                                                    .build()
+                                            )
+                                            .surcharge(
+                                                CardPayment.Element.CardSettlement.Surcharge
+                                                    .builder()
+                                                    .amount(0L)
+                                                    .presentmentAmount(0L)
                                                     .build()
                                             )
                                             .transactionId("transaction_uyrp7fld2ium70oa7oi")
@@ -15550,6 +15616,13 @@ internal class CardPaymentListPageResponseTest {
                                                     )
                                                     .build()
                                             )
+                                            .surcharge(
+                                                CardPayment.Element.CardSettlement.Surcharge
+                                                    .builder()
+                                                    .amount(0L)
+                                                    .presentmentAmount(0L)
+                                                    .build()
+                                            )
                                             .transactionId("transaction_uyrp7fld2ium70oa7oi")
                                             .type(
                                                 CardPayment.Element.CardSettlement.Type
@@ -16999,6 +17072,13 @@ internal class CardPaymentListPageResponseTest {
                                                             )
                                                             .build()
                                                     )
+                                                    .build()
+                                            )
+                                            .surcharge(
+                                                CardPayment.Element.CardSettlement.Surcharge
+                                                    .builder()
+                                                    .amount(0L)
+                                                    .presentmentAmount(0L)
                                                     .build()
                                             )
                                             .transactionId("transaction_uyrp7fld2ium70oa7oi")
