@@ -697,11 +697,11 @@ internal class CardPaymentListPageResponseTest {
                                             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                                             .cashback(
                                                 CardPayment.Element.CardRefund.Cashback.builder()
-                                                    .amount("-16699")
+                                                    .amount("0.137465")
                                                     .currency(
                                                         CardPayment.Element.CardRefund.Cashback
                                                             .Currency
-                                                            .CAD
+                                                            .USD
                                                     )
                                                     .build()
                                             )
@@ -1007,11 +1007,11 @@ internal class CardPaymentListPageResponseTest {
                                             .cashback(
                                                 CardPayment.Element.CardSettlement.Cashback
                                                     .builder()
-                                                    .amount("-16699")
+                                                    .amount("0.137465")
                                                     .currency(
                                                         CardPayment.Element.CardSettlement.Cashback
                                                             .Currency
-                                                            .CAD
+                                                            .USD
                                                     )
                                                     .build()
                                             )
@@ -2148,11 +2148,11 @@ internal class CardPaymentListPageResponseTest {
                                             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                                             .cashback(
                                                 CardPayment.Element.CardRefund.Cashback.builder()
-                                                    .amount("-16699")
+                                                    .amount("0.137465")
                                                     .currency(
                                                         CardPayment.Element.CardRefund.Cashback
                                                             .Currency
-                                                            .CAD
+                                                            .USD
                                                     )
                                                     .build()
                                             )
@@ -2458,11 +2458,11 @@ internal class CardPaymentListPageResponseTest {
                                             .cashback(
                                                 CardPayment.Element.CardSettlement.Cashback
                                                     .builder()
-                                                    .amount("-16699")
+                                                    .amount("0.137465")
                                                     .currency(
                                                         CardPayment.Element.CardSettlement.Cashback
                                                             .Currency
-                                                            .CAD
+                                                            .USD
                                                     )
                                                     .build()
                                             )
@@ -3599,11 +3599,11 @@ internal class CardPaymentListPageResponseTest {
                                             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                                             .cashback(
                                                 CardPayment.Element.CardRefund.Cashback.builder()
-                                                    .amount("-16699")
+                                                    .amount("0.137465")
                                                     .currency(
                                                         CardPayment.Element.CardRefund.Cashback
                                                             .Currency
-                                                            .CAD
+                                                            .USD
                                                     )
                                                     .build()
                                             )
@@ -3909,11 +3909,11 @@ internal class CardPaymentListPageResponseTest {
                                             .cashback(
                                                 CardPayment.Element.CardSettlement.Cashback
                                                     .builder()
-                                                    .amount("-16699")
+                                                    .amount("0.137465")
                                                     .currency(
                                                         CardPayment.Element.CardSettlement.Cashback
                                                             .Currency
-                                                            .CAD
+                                                            .USD
                                                     )
                                                     .build()
                                             )
@@ -5050,11 +5050,11 @@ internal class CardPaymentListPageResponseTest {
                                             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                                             .cashback(
                                                 CardPayment.Element.CardRefund.Cashback.builder()
-                                                    .amount("-16699")
+                                                    .amount("0.137465")
                                                     .currency(
                                                         CardPayment.Element.CardRefund.Cashback
                                                             .Currency
-                                                            .CAD
+                                                            .USD
                                                     )
                                                     .build()
                                             )
@@ -5360,11 +5360,11 @@ internal class CardPaymentListPageResponseTest {
                                             .cashback(
                                                 CardPayment.Element.CardSettlement.Cashback
                                                     .builder()
-                                                    .amount("-16699")
+                                                    .amount("0.137465")
                                                     .currency(
                                                         CardPayment.Element.CardSettlement.Cashback
                                                             .Currency
-                                                            .CAD
+                                                            .USD
                                                     )
                                                     .build()
                                             )
@@ -6501,10 +6501,10 @@ internal class CardPaymentListPageResponseTest {
                                         .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                                         .cashback(
                                             CardPayment.Element.CardRefund.Cashback.builder()
-                                                .amount("-16699")
+                                                .amount("0.137465")
                                                 .currency(
                                                     CardPayment.Element.CardRefund.Cashback.Currency
-                                                        .CAD
+                                                        .USD
                                                 )
                                                 .build()
                                         )
@@ -6789,11 +6789,11 @@ internal class CardPaymentListPageResponseTest {
                                         .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                                         .cashback(
                                             CardPayment.Element.CardSettlement.Cashback.builder()
-                                                .amount("-16699")
+                                                .amount("0.137465")
                                                 .currency(
                                                     CardPayment.Element.CardSettlement.Cashback
                                                         .Currency
-                                                        .CAD
+                                                        .USD
                                                 )
                                                 .build()
                                         )
@@ -7879,10 +7879,10 @@ internal class CardPaymentListPageResponseTest {
                                         .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                                         .cashback(
                                             CardPayment.Element.CardRefund.Cashback.builder()
-                                                .amount("-16699")
+                                                .amount("0.137465")
                                                 .currency(
                                                     CardPayment.Element.CardRefund.Cashback.Currency
-                                                        .CAD
+                                                        .USD
                                                 )
                                                 .build()
                                         )
@@ -8167,11 +8167,11 @@ internal class CardPaymentListPageResponseTest {
                                         .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                                         .cashback(
                                             CardPayment.Element.CardSettlement.Cashback.builder()
-                                                .amount("-16699")
+                                                .amount("0.137465")
                                                 .currency(
                                                     CardPayment.Element.CardSettlement.Cashback
                                                         .Currency
-                                                        .CAD
+                                                        .USD
                                                 )
                                                 .build()
                                         )
@@ -9257,10 +9257,10 @@ internal class CardPaymentListPageResponseTest {
                                         .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                                         .cashback(
                                             CardPayment.Element.CardRefund.Cashback.builder()
-                                                .amount("-16699")
+                                                .amount("0.137465")
                                                 .currency(
                                                     CardPayment.Element.CardRefund.Cashback.Currency
-                                                        .CAD
+                                                        .USD
                                                 )
                                                 .build()
                                         )
@@ -9545,11 +9545,11 @@ internal class CardPaymentListPageResponseTest {
                                         .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                                         .cashback(
                                             CardPayment.Element.CardSettlement.Cashback.builder()
-                                                .amount("-16699")
+                                                .amount("0.137465")
                                                 .currency(
                                                     CardPayment.Element.CardSettlement.Cashback
                                                         .Currency
-                                                        .CAD
+                                                        .USD
                                                 )
                                                 .build()
                                         )
@@ -10635,10 +10635,10 @@ internal class CardPaymentListPageResponseTest {
                                         .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                                         .cashback(
                                             CardPayment.Element.CardRefund.Cashback.builder()
-                                                .amount("-16699")
+                                                .amount("0.137465")
                                                 .currency(
                                                     CardPayment.Element.CardRefund.Cashback.Currency
-                                                        .CAD
+                                                        .USD
                                                 )
                                                 .build()
                                         )
@@ -10923,11 +10923,11 @@ internal class CardPaymentListPageResponseTest {
                                         .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                                         .cashback(
                                             CardPayment.Element.CardSettlement.Cashback.builder()
-                                                .amount("-16699")
+                                                .amount("0.137465")
                                                 .currency(
                                                     CardPayment.Element.CardSettlement.Cashback
                                                         .Currency
-                                                        .CAD
+                                                        .USD
                                                 )
                                                 .build()
                                         )
@@ -12073,11 +12073,11 @@ internal class CardPaymentListPageResponseTest {
                                             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                                             .cashback(
                                                 CardPayment.Element.CardRefund.Cashback.builder()
-                                                    .amount("-16699")
+                                                    .amount("0.137465")
                                                     .currency(
                                                         CardPayment.Element.CardRefund.Cashback
                                                             .Currency
-                                                            .CAD
+                                                            .USD
                                                     )
                                                     .build()
                                             )
@@ -12383,11 +12383,11 @@ internal class CardPaymentListPageResponseTest {
                                             .cashback(
                                                 CardPayment.Element.CardSettlement.Cashback
                                                     .builder()
-                                                    .amount("-16699")
+                                                    .amount("0.137465")
                                                     .currency(
                                                         CardPayment.Element.CardSettlement.Cashback
                                                             .Currency
-                                                            .CAD
+                                                            .USD
                                                     )
                                                     .build()
                                             )
@@ -13524,11 +13524,11 @@ internal class CardPaymentListPageResponseTest {
                                             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                                             .cashback(
                                                 CardPayment.Element.CardRefund.Cashback.builder()
-                                                    .amount("-16699")
+                                                    .amount("0.137465")
                                                     .currency(
                                                         CardPayment.Element.CardRefund.Cashback
                                                             .Currency
-                                                            .CAD
+                                                            .USD
                                                     )
                                                     .build()
                                             )
@@ -13834,11 +13834,11 @@ internal class CardPaymentListPageResponseTest {
                                             .cashback(
                                                 CardPayment.Element.CardSettlement.Cashback
                                                     .builder()
-                                                    .amount("-16699")
+                                                    .amount("0.137465")
                                                     .currency(
                                                         CardPayment.Element.CardSettlement.Cashback
                                                             .Currency
-                                                            .CAD
+                                                            .USD
                                                     )
                                                     .build()
                                             )
@@ -14975,11 +14975,11 @@ internal class CardPaymentListPageResponseTest {
                                             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                                             .cashback(
                                                 CardPayment.Element.CardRefund.Cashback.builder()
-                                                    .amount("-16699")
+                                                    .amount("0.137465")
                                                     .currency(
                                                         CardPayment.Element.CardRefund.Cashback
                                                             .Currency
-                                                            .CAD
+                                                            .USD
                                                     )
                                                     .build()
                                             )
@@ -15285,11 +15285,11 @@ internal class CardPaymentListPageResponseTest {
                                             .cashback(
                                                 CardPayment.Element.CardSettlement.Cashback
                                                     .builder()
-                                                    .amount("-16699")
+                                                    .amount("0.137465")
                                                     .currency(
                                                         CardPayment.Element.CardSettlement.Cashback
                                                             .Currency
-                                                            .CAD
+                                                            .USD
                                                     )
                                                     .build()
                                             )
@@ -16426,11 +16426,11 @@ internal class CardPaymentListPageResponseTest {
                                             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                                             .cashback(
                                                 CardPayment.Element.CardRefund.Cashback.builder()
-                                                    .amount("-16699")
+                                                    .amount("0.137465")
                                                     .currency(
                                                         CardPayment.Element.CardRefund.Cashback
                                                             .Currency
-                                                            .CAD
+                                                            .USD
                                                     )
                                                     .build()
                                             )
@@ -16736,11 +16736,11 @@ internal class CardPaymentListPageResponseTest {
                                             .cashback(
                                                 CardPayment.Element.CardSettlement.Cashback
                                                     .builder()
-                                                    .amount("-16699")
+                                                    .amount("0.137465")
                                                     .currency(
                                                         CardPayment.Element.CardSettlement.Cashback
                                                             .Currency
-                                                            .CAD
+                                                            .USD
                                                     )
                                                     .build()
                                             )

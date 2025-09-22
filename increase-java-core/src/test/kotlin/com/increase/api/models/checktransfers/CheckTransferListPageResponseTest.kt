@@ -22,16 +22,16 @@ internal class CheckTransferListPageResponseTest {
                         .amount(1000L)
                         .approval(
                             CheckTransfer.Approval.builder()
-                                .approvedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .approvedBy("approved_by")
+                                .approvedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                .approvedBy(null)
                                 .build()
                         )
                         .approvedInboundCheckDepositId("inbound_check_deposit_zoshvqybq0cjjm31mra")
                         .balanceCheck(null)
                         .cancellation(
                             CheckTransfer.Cancellation.builder()
-                                .canceledAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .canceledBy("canceled_by")
+                                .canceledAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                .canceledBy(null)
                                 .build()
                         )
                         .checkNumber("123")
@@ -128,8 +128,8 @@ internal class CheckTransferListPageResponseTest {
                                 .reason(
                                     CheckTransfer.StopPaymentRequest.Reason.MAIL_DELIVERY_FAILED
                                 )
-                                .requestedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .transferId("transfer_id")
+                                .requestedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                .transferId("check_transfer_30b43acfu9vw8fyc4f5")
                                 .type(
                                     CheckTransfer.StopPaymentRequest.Type
                                         .CHECK_TRANSFER_STOP_PAYMENT_REQUEST
@@ -174,16 +174,16 @@ internal class CheckTransferListPageResponseTest {
                     .amount(1000L)
                     .approval(
                         CheckTransfer.Approval.builder()
-                            .approvedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .approvedBy("approved_by")
+                            .approvedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                            .approvedBy(null)
                             .build()
                     )
                     .approvedInboundCheckDepositId("inbound_check_deposit_zoshvqybq0cjjm31mra")
                     .balanceCheck(null)
                     .cancellation(
                         CheckTransfer.Cancellation.builder()
-                            .canceledAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .canceledBy("canceled_by")
+                            .canceledAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                            .canceledBy(null)
                             .build()
                     )
                     .checkNumber("123")
@@ -278,8 +278,8 @@ internal class CheckTransferListPageResponseTest {
                     .stopPaymentRequest(
                         CheckTransfer.StopPaymentRequest.builder()
                             .reason(CheckTransfer.StopPaymentRequest.Reason.MAIL_DELIVERY_FAILED)
-                            .requestedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .transferId("transfer_id")
+                            .requestedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                            .transferId("check_transfer_30b43acfu9vw8fyc4f5")
                             .type(
                                 CheckTransfer.StopPaymentRequest.Type
                                     .CHECK_TRANSFER_STOP_PAYMENT_REQUEST
@@ -326,16 +326,16 @@ internal class CheckTransferListPageResponseTest {
                         .amount(1000L)
                         .approval(
                             CheckTransfer.Approval.builder()
-                                .approvedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .approvedBy("approved_by")
+                                .approvedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                .approvedBy(null)
                                 .build()
                         )
                         .approvedInboundCheckDepositId("inbound_check_deposit_zoshvqybq0cjjm31mra")
                         .balanceCheck(null)
                         .cancellation(
                             CheckTransfer.Cancellation.builder()
-                                .canceledAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .canceledBy("canceled_by")
+                                .canceledAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                .canceledBy(null)
                                 .build()
                         )
                         .checkNumber("123")
@@ -432,8 +432,8 @@ internal class CheckTransferListPageResponseTest {
                                 .reason(
                                     CheckTransfer.StopPaymentRequest.Reason.MAIL_DELIVERY_FAILED
                                 )
-                                .requestedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .transferId("transfer_id")
+                                .requestedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                .transferId("check_transfer_30b43acfu9vw8fyc4f5")
                                 .type(
                                     CheckTransfer.StopPaymentRequest.Type
                                         .CHECK_TRANSFER_STOP_PAYMENT_REQUEST

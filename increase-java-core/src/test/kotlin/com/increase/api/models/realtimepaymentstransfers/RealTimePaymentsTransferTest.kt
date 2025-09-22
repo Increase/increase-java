@@ -24,14 +24,14 @@ internal class RealTimePaymentsTransferTest {
                 .amount(100L)
                 .approval(
                     RealTimePaymentsTransfer.Approval.builder()
-                        .approvedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .approvedBy("approved_by")
+                        .approvedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .approvedBy(null)
                         .build()
                 )
                 .cancellation(
                     RealTimePaymentsTransfer.Cancellation.builder()
-                        .canceledAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .canceledBy("canceled_by")
+                        .canceledAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .canceledBy(null)
                         .build()
                 )
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
@@ -65,11 +65,11 @@ internal class RealTimePaymentsTransferTest {
                 .pendingTransactionId(null)
                 .rejection(
                     RealTimePaymentsTransfer.Rejection.builder()
-                        .rejectReasonAdditionalInformation("reject_reason_additional_information")
+                        .rejectReasonAdditionalInformation(null)
                         .rejectReasonCode(
                             RealTimePaymentsTransfer.Rejection.RejectReasonCode.ACCOUNT_CLOSED
                         )
-                        .rejectedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .rejectedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                         .build()
                 )
                 .remittanceInformation("Invoice 29582")
@@ -100,15 +100,15 @@ internal class RealTimePaymentsTransferTest {
         assertThat(realTimePaymentsTransfer.approval())
             .contains(
                 RealTimePaymentsTransfer.Approval.builder()
-                    .approvedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .approvedBy("approved_by")
+                    .approvedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                    .approvedBy(null)
                     .build()
             )
         assertThat(realTimePaymentsTransfer.cancellation())
             .contains(
                 RealTimePaymentsTransfer.Cancellation.builder()
-                    .canceledAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .canceledBy("canceled_by")
+                    .canceledAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                    .canceledBy(null)
                     .build()
             )
         assertThat(realTimePaymentsTransfer.createdAt())
@@ -146,11 +146,11 @@ internal class RealTimePaymentsTransferTest {
         assertThat(realTimePaymentsTransfer.rejection())
             .contains(
                 RealTimePaymentsTransfer.Rejection.builder()
-                    .rejectReasonAdditionalInformation("reject_reason_additional_information")
+                    .rejectReasonAdditionalInformation(null)
                     .rejectReasonCode(
                         RealTimePaymentsTransfer.Rejection.RejectReasonCode.ACCOUNT_CLOSED
                     )
-                    .rejectedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .rejectedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                     .build()
             )
         assertThat(realTimePaymentsTransfer.remittanceInformation()).isEqualTo("Invoice 29582")
@@ -188,14 +188,14 @@ internal class RealTimePaymentsTransferTest {
                 .amount(100L)
                 .approval(
                     RealTimePaymentsTransfer.Approval.builder()
-                        .approvedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .approvedBy("approved_by")
+                        .approvedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .approvedBy(null)
                         .build()
                 )
                 .cancellation(
                     RealTimePaymentsTransfer.Cancellation.builder()
-                        .canceledAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .canceledBy("canceled_by")
+                        .canceledAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .canceledBy(null)
                         .build()
                 )
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
@@ -229,11 +229,11 @@ internal class RealTimePaymentsTransferTest {
                 .pendingTransactionId(null)
                 .rejection(
                     RealTimePaymentsTransfer.Rejection.builder()
-                        .rejectReasonAdditionalInformation("reject_reason_additional_information")
+                        .rejectReasonAdditionalInformation(null)
                         .rejectReasonCode(
                             RealTimePaymentsTransfer.Rejection.RejectReasonCode.ACCOUNT_CLOSED
                         )
-                        .rejectedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .rejectedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                         .build()
                 )
                 .remittanceInformation("Invoice 29582")
