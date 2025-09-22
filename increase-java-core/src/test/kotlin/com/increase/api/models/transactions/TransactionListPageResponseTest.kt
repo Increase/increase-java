@@ -636,6 +636,12 @@ internal class TransactionListPageResponseTest {
                                                 )
                                                 .build()
                                         )
+                                        .surcharge(
+                                            Transaction.Source.CardSettlement.Surcharge.builder()
+                                                .amount(0L)
+                                                .presentmentAmount(0L)
+                                                .build()
+                                        )
                                         .transactionId("transaction_uyrp7fld2ium70oa7oi")
                                         .type(
                                             Transaction.Source.CardSettlement.Type.CARD_SETTLEMENT
@@ -1504,6 +1510,12 @@ internal class TransactionListPageResponseTest {
                                                     )
                                                     .build()
                                             )
+                                            .build()
+                                    )
+                                    .surcharge(
+                                        Transaction.Source.CardSettlement.Surcharge.builder()
+                                            .amount(0L)
+                                            .presentmentAmount(0L)
                                             .build()
                                     )
                                     .transactionId("transaction_uyrp7fld2ium70oa7oi")
@@ -2395,6 +2407,12 @@ internal class TransactionListPageResponseTest {
                                                         )
                                                         .build()
                                                 )
+                                                .build()
+                                        )
+                                        .surcharge(
+                                            Transaction.Source.CardSettlement.Surcharge.builder()
+                                                .amount(0L)
+                                                .presentmentAmount(0L)
                                                 .build()
                                         )
                                         .transactionId("transaction_uyrp7fld2ium70oa7oi")
