@@ -111,9 +111,9 @@ internal class TransactionTest {
                                 .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                                 .cashback(
                                     Transaction.Source.CardRefund.Cashback.builder()
-                                        .amount("-16699")
+                                        .amount("0.137465")
                                         .currency(
-                                            Transaction.Source.CardRefund.Cashback.Currency.CAD
+                                            Transaction.Source.CardRefund.Cashback.Currency.USD
                                         )
                                         .build()
                                 )
@@ -348,9 +348,9 @@ internal class TransactionTest {
                                 .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                                 .cashback(
                                     Transaction.Source.CardSettlement.Cashback.builder()
-                                        .amount("-16699")
+                                        .amount("0.137465")
                                         .currency(
-                                            Transaction.Source.CardSettlement.Cashback.Currency.CAD
+                                            Transaction.Source.CardSettlement.Cashback.Currency.USD
                                         )
                                         .build()
                                 )
@@ -919,8 +919,8 @@ internal class TransactionTest {
                             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                             .cashback(
                                 Transaction.Source.CardRefund.Cashback.builder()
-                                    .amount("-16699")
-                                    .currency(Transaction.Source.CardRefund.Cashback.Currency.CAD)
+                                    .amount("0.137465")
+                                    .currency(Transaction.Source.CardRefund.Cashback.Currency.USD)
                                     .build()
                             )
                             .currency(Transaction.Source.CardRefund.Currency.USD)
@@ -1141,9 +1141,9 @@ internal class TransactionTest {
                             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                             .cashback(
                                 Transaction.Source.CardSettlement.Cashback.builder()
-                                    .amount("-16699")
+                                    .amount("0.137465")
                                     .currency(
-                                        Transaction.Source.CardSettlement.Cashback.Currency.CAD
+                                        Transaction.Source.CardSettlement.Cashback.Currency.USD
                                     )
                                     .build()
                             )
@@ -1690,9 +1690,9 @@ internal class TransactionTest {
                                 .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                                 .cashback(
                                     Transaction.Source.CardRefund.Cashback.builder()
-                                        .amount("-16699")
+                                        .amount("0.137465")
                                         .currency(
-                                            Transaction.Source.CardRefund.Cashback.Currency.CAD
+                                            Transaction.Source.CardRefund.Cashback.Currency.USD
                                         )
                                         .build()
                                 )
@@ -1927,9 +1927,9 @@ internal class TransactionTest {
                                 .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                                 .cashback(
                                     Transaction.Source.CardSettlement.Cashback.builder()
-                                        .amount("-16699")
+                                        .amount("0.137465")
                                         .currency(
-                                            Transaction.Source.CardSettlement.Cashback.Currency.CAD
+                                            Transaction.Source.CardSettlement.Cashback.Currency.USD
                                         )
                                         .build()
                                 )

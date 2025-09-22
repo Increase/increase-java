@@ -42,10 +42,10 @@ internal class AchPrenotificationListPageResponseTest {
                         )
                         .prenotificationReturn(
                             AchPrenotification.PrenotificationReturn.builder()
-                                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                                 .returnReasonCode(
                                     AchPrenotification.PrenotificationReturn.ReturnReasonCode
-                                        .INSUFFICIENT_FUND
+                                        .CORPORATE_CUSTOMER_ADVISED_NOT_AUTHORIZED
                                 )
                                 .build()
                         )
@@ -87,10 +87,10 @@ internal class AchPrenotificationListPageResponseTest {
                     )
                     .prenotificationReturn(
                         AchPrenotification.PrenotificationReturn.builder()
-                            .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                             .returnReasonCode(
                                 AchPrenotification.PrenotificationReturn.ReturnReasonCode
-                                    .INSUFFICIENT_FUND
+                                    .CORPORATE_CUSTOMER_ADVISED_NOT_AUTHORIZED
                             )
                             .build()
                     )
@@ -136,10 +136,10 @@ internal class AchPrenotificationListPageResponseTest {
                         )
                         .prenotificationReturn(
                             AchPrenotification.PrenotificationReturn.builder()
-                                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                                 .returnReasonCode(
                                     AchPrenotification.PrenotificationReturn.ReturnReasonCode
-                                        .INSUFFICIENT_FUND
+                                        .CORPORATE_CUSTOMER_ADVISED_NOT_AUTHORIZED
                                 )
                                 .build()
                         )

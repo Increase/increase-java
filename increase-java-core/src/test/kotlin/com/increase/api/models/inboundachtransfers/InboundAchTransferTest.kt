@@ -52,68 +52,58 @@ internal class InboundAchTransferTest {
                 .effectiveDate(LocalDate.parse("2023-04-02"))
                 .internationalAddenda(
                     InboundAchTransfer.InternationalAddenda.builder()
-                        .destinationCountryCode("destination_country_code")
-                        .destinationCurrencyCode("destination_currency_code")
+                        .destinationCountryCode("US")
+                        .destinationCurrencyCode("USD")
                         .foreignExchangeIndicator(
                             InboundAchTransfer.InternationalAddenda.ForeignExchangeIndicator
-                                .FIXED_TO_VARIABLE
+                                .FIXED_TO_FIXED
                         )
-                        .foreignExchangeReference("foreign_exchange_reference")
+                        .foreignExchangeReference(null)
                         .foreignExchangeReferenceIndicator(
                             InboundAchTransfer.InternationalAddenda
                                 .ForeignExchangeReferenceIndicator
-                                .FOREIGN_EXCHANGE_RATE
+                                .BLANK
                         )
-                        .foreignPaymentAmount(0L)
-                        .foreignTraceNumber("foreign_trace_number")
+                        .foreignPaymentAmount(199L)
+                        .foreignTraceNumber(null)
                         .internationalTransactionTypeCode(
                             InboundAchTransfer.InternationalAddenda.InternationalTransactionTypeCode
-                                .ANNUITY
+                                .INTERNET_INITIATED
                         )
-                        .originatingCurrencyCode("originating_currency_code")
-                        .originatingDepositoryFinancialInstitutionBranchCountry(
-                            "originating_depository_financial_institution_branch_country"
-                        )
-                        .originatingDepositoryFinancialInstitutionId(
-                            "originating_depository_financial_institution_id"
-                        )
+                        .originatingCurrencyCode("USD")
+                        .originatingDepositoryFinancialInstitutionBranchCountry("US")
+                        .originatingDepositoryFinancialInstitutionId("091000019")
                         .originatingDepositoryFinancialInstitutionIdQualifier(
                             InboundAchTransfer.InternationalAddenda
                                 .OriginatingDepositoryFinancialInstitutionIdQualifier
                                 .NATIONAL_CLEARING_SYSTEM_NUMBER
                         )
-                        .originatingDepositoryFinancialInstitutionName(
-                            "originating_depository_financial_institution_name"
-                        )
-                        .originatorCity("originator_city")
-                        .originatorCountry("originator_country")
-                        .originatorIdentification("originator_identification")
-                        .originatorName("originator_name")
-                        .originatorPostalCode("originator_postal_code")
-                        .originatorStateOrProvince("originator_state_or_province")
-                        .originatorStreetAddress("originator_street_address")
-                        .paymentRelatedInformation("payment_related_information")
-                        .paymentRelatedInformation2("payment_related_information2")
-                        .receiverCity("receiver_city")
-                        .receiverCountry("receiver_country")
-                        .receiverIdentificationNumber("receiver_identification_number")
-                        .receiverPostalCode("receiver_postal_code")
-                        .receiverStateOrProvince("receiver_state_or_province")
-                        .receiverStreetAddress("receiver_street_address")
-                        .receivingCompanyOrIndividualName("receiving_company_or_individual_name")
-                        .receivingDepositoryFinancialInstitutionCountry(
-                            "receiving_depository_financial_institution_country"
-                        )
-                        .receivingDepositoryFinancialInstitutionId(
-                            "receiving_depository_financial_institution_id"
-                        )
+                        .originatingDepositoryFinancialInstitutionName("WELLS FARGO BANK")
+                        .originatorCity("BERLIN")
+                        .originatorCountry("DE")
+                        .originatorIdentification("770510487A")
+                        .originatorName("BERGHAIN")
+                        .originatorPostalCode("50825")
+                        .originatorStateOrProvince(null)
+                        .originatorStreetAddress("Ruedersdorferstr. 7")
+                        .paymentRelatedInformation(null)
+                        .paymentRelatedInformation2(null)
+                        .receiverCity("BEVERLY HILLS")
+                        .receiverCountry("US")
+                        .receiverIdentificationNumber("1018790279274")
+                        .receiverPostalCode("90210")
+                        .receiverStateOrProvince("CA")
+                        .receiverStreetAddress("123 FAKE ST")
+                        .receivingCompanyOrIndividualName("IAN CREASE")
+                        .receivingDepositoryFinancialInstitutionCountry("US")
+                        .receivingDepositoryFinancialInstitutionId("101050001")
                         .receivingDepositoryFinancialInstitutionIdQualifier(
                             InboundAchTransfer.InternationalAddenda
                                 .ReceivingDepositoryFinancialInstitutionIdQualifier
                                 .NATIONAL_CLEARING_SYSTEM_NUMBER
                         )
                         .receivingDepositoryFinancialInstitutionName(
-                            "receiving_depository_financial_institution_name"
+                            "BLUE RIDGE BANK, NATIONAL ASSOCIATI"
                         )
                         .build()
                 )
@@ -198,67 +188,57 @@ internal class InboundAchTransferTest {
         assertThat(inboundAchTransfer.internationalAddenda())
             .contains(
                 InboundAchTransfer.InternationalAddenda.builder()
-                    .destinationCountryCode("destination_country_code")
-                    .destinationCurrencyCode("destination_currency_code")
+                    .destinationCountryCode("US")
+                    .destinationCurrencyCode("USD")
                     .foreignExchangeIndicator(
                         InboundAchTransfer.InternationalAddenda.ForeignExchangeIndicator
-                            .FIXED_TO_VARIABLE
+                            .FIXED_TO_FIXED
                     )
-                    .foreignExchangeReference("foreign_exchange_reference")
+                    .foreignExchangeReference(null)
                     .foreignExchangeReferenceIndicator(
                         InboundAchTransfer.InternationalAddenda.ForeignExchangeReferenceIndicator
-                            .FOREIGN_EXCHANGE_RATE
+                            .BLANK
                     )
-                    .foreignPaymentAmount(0L)
-                    .foreignTraceNumber("foreign_trace_number")
+                    .foreignPaymentAmount(199L)
+                    .foreignTraceNumber(null)
                     .internationalTransactionTypeCode(
                         InboundAchTransfer.InternationalAddenda.InternationalTransactionTypeCode
-                            .ANNUITY
+                            .INTERNET_INITIATED
                     )
-                    .originatingCurrencyCode("originating_currency_code")
-                    .originatingDepositoryFinancialInstitutionBranchCountry(
-                        "originating_depository_financial_institution_branch_country"
-                    )
-                    .originatingDepositoryFinancialInstitutionId(
-                        "originating_depository_financial_institution_id"
-                    )
+                    .originatingCurrencyCode("USD")
+                    .originatingDepositoryFinancialInstitutionBranchCountry("US")
+                    .originatingDepositoryFinancialInstitutionId("091000019")
                     .originatingDepositoryFinancialInstitutionIdQualifier(
                         InboundAchTransfer.InternationalAddenda
                             .OriginatingDepositoryFinancialInstitutionIdQualifier
                             .NATIONAL_CLEARING_SYSTEM_NUMBER
                     )
-                    .originatingDepositoryFinancialInstitutionName(
-                        "originating_depository_financial_institution_name"
-                    )
-                    .originatorCity("originator_city")
-                    .originatorCountry("originator_country")
-                    .originatorIdentification("originator_identification")
-                    .originatorName("originator_name")
-                    .originatorPostalCode("originator_postal_code")
-                    .originatorStateOrProvince("originator_state_or_province")
-                    .originatorStreetAddress("originator_street_address")
-                    .paymentRelatedInformation("payment_related_information")
-                    .paymentRelatedInformation2("payment_related_information2")
-                    .receiverCity("receiver_city")
-                    .receiverCountry("receiver_country")
-                    .receiverIdentificationNumber("receiver_identification_number")
-                    .receiverPostalCode("receiver_postal_code")
-                    .receiverStateOrProvince("receiver_state_or_province")
-                    .receiverStreetAddress("receiver_street_address")
-                    .receivingCompanyOrIndividualName("receiving_company_or_individual_name")
-                    .receivingDepositoryFinancialInstitutionCountry(
-                        "receiving_depository_financial_institution_country"
-                    )
-                    .receivingDepositoryFinancialInstitutionId(
-                        "receiving_depository_financial_institution_id"
-                    )
+                    .originatingDepositoryFinancialInstitutionName("WELLS FARGO BANK")
+                    .originatorCity("BERLIN")
+                    .originatorCountry("DE")
+                    .originatorIdentification("770510487A")
+                    .originatorName("BERGHAIN")
+                    .originatorPostalCode("50825")
+                    .originatorStateOrProvince(null)
+                    .originatorStreetAddress("Ruedersdorferstr. 7")
+                    .paymentRelatedInformation(null)
+                    .paymentRelatedInformation2(null)
+                    .receiverCity("BEVERLY HILLS")
+                    .receiverCountry("US")
+                    .receiverIdentificationNumber("1018790279274")
+                    .receiverPostalCode("90210")
+                    .receiverStateOrProvince("CA")
+                    .receiverStreetAddress("123 FAKE ST")
+                    .receivingCompanyOrIndividualName("IAN CREASE")
+                    .receivingDepositoryFinancialInstitutionCountry("US")
+                    .receivingDepositoryFinancialInstitutionId("101050001")
                     .receivingDepositoryFinancialInstitutionIdQualifier(
                         InboundAchTransfer.InternationalAddenda
                             .ReceivingDepositoryFinancialInstitutionIdQualifier
                             .NATIONAL_CLEARING_SYSTEM_NUMBER
                     )
                     .receivingDepositoryFinancialInstitutionName(
-                        "receiving_depository_financial_institution_name"
+                        "BLUE RIDGE BANK, NATIONAL ASSOCIATI"
                     )
                     .build()
             )
@@ -342,68 +322,58 @@ internal class InboundAchTransferTest {
                 .effectiveDate(LocalDate.parse("2023-04-02"))
                 .internationalAddenda(
                     InboundAchTransfer.InternationalAddenda.builder()
-                        .destinationCountryCode("destination_country_code")
-                        .destinationCurrencyCode("destination_currency_code")
+                        .destinationCountryCode("US")
+                        .destinationCurrencyCode("USD")
                         .foreignExchangeIndicator(
                             InboundAchTransfer.InternationalAddenda.ForeignExchangeIndicator
-                                .FIXED_TO_VARIABLE
+                                .FIXED_TO_FIXED
                         )
-                        .foreignExchangeReference("foreign_exchange_reference")
+                        .foreignExchangeReference(null)
                         .foreignExchangeReferenceIndicator(
                             InboundAchTransfer.InternationalAddenda
                                 .ForeignExchangeReferenceIndicator
-                                .FOREIGN_EXCHANGE_RATE
+                                .BLANK
                         )
-                        .foreignPaymentAmount(0L)
-                        .foreignTraceNumber("foreign_trace_number")
+                        .foreignPaymentAmount(199L)
+                        .foreignTraceNumber(null)
                         .internationalTransactionTypeCode(
                             InboundAchTransfer.InternationalAddenda.InternationalTransactionTypeCode
-                                .ANNUITY
+                                .INTERNET_INITIATED
                         )
-                        .originatingCurrencyCode("originating_currency_code")
-                        .originatingDepositoryFinancialInstitutionBranchCountry(
-                            "originating_depository_financial_institution_branch_country"
-                        )
-                        .originatingDepositoryFinancialInstitutionId(
-                            "originating_depository_financial_institution_id"
-                        )
+                        .originatingCurrencyCode("USD")
+                        .originatingDepositoryFinancialInstitutionBranchCountry("US")
+                        .originatingDepositoryFinancialInstitutionId("091000019")
                         .originatingDepositoryFinancialInstitutionIdQualifier(
                             InboundAchTransfer.InternationalAddenda
                                 .OriginatingDepositoryFinancialInstitutionIdQualifier
                                 .NATIONAL_CLEARING_SYSTEM_NUMBER
                         )
-                        .originatingDepositoryFinancialInstitutionName(
-                            "originating_depository_financial_institution_name"
-                        )
-                        .originatorCity("originator_city")
-                        .originatorCountry("originator_country")
-                        .originatorIdentification("originator_identification")
-                        .originatorName("originator_name")
-                        .originatorPostalCode("originator_postal_code")
-                        .originatorStateOrProvince("originator_state_or_province")
-                        .originatorStreetAddress("originator_street_address")
-                        .paymentRelatedInformation("payment_related_information")
-                        .paymentRelatedInformation2("payment_related_information2")
-                        .receiverCity("receiver_city")
-                        .receiverCountry("receiver_country")
-                        .receiverIdentificationNumber("receiver_identification_number")
-                        .receiverPostalCode("receiver_postal_code")
-                        .receiverStateOrProvince("receiver_state_or_province")
-                        .receiverStreetAddress("receiver_street_address")
-                        .receivingCompanyOrIndividualName("receiving_company_or_individual_name")
-                        .receivingDepositoryFinancialInstitutionCountry(
-                            "receiving_depository_financial_institution_country"
-                        )
-                        .receivingDepositoryFinancialInstitutionId(
-                            "receiving_depository_financial_institution_id"
-                        )
+                        .originatingDepositoryFinancialInstitutionName("WELLS FARGO BANK")
+                        .originatorCity("BERLIN")
+                        .originatorCountry("DE")
+                        .originatorIdentification("770510487A")
+                        .originatorName("BERGHAIN")
+                        .originatorPostalCode("50825")
+                        .originatorStateOrProvince(null)
+                        .originatorStreetAddress("Ruedersdorferstr. 7")
+                        .paymentRelatedInformation(null)
+                        .paymentRelatedInformation2(null)
+                        .receiverCity("BEVERLY HILLS")
+                        .receiverCountry("US")
+                        .receiverIdentificationNumber("1018790279274")
+                        .receiverPostalCode("90210")
+                        .receiverStateOrProvince("CA")
+                        .receiverStreetAddress("123 FAKE ST")
+                        .receivingCompanyOrIndividualName("IAN CREASE")
+                        .receivingDepositoryFinancialInstitutionCountry("US")
+                        .receivingDepositoryFinancialInstitutionId("101050001")
                         .receivingDepositoryFinancialInstitutionIdQualifier(
                             InboundAchTransfer.InternationalAddenda
                                 .ReceivingDepositoryFinancialInstitutionIdQualifier
                                 .NATIONAL_CLEARING_SYSTEM_NUMBER
                         )
                         .receivingDepositoryFinancialInstitutionName(
-                            "receiving_depository_financial_institution_name"
+                            "BLUE RIDGE BANK, NATIONAL ASSOCIATI"
                         )
                         .build()
                 )

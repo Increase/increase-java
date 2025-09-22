@@ -17,22 +17,18 @@ internal class CardPushTransferTest {
                 .id("outbound_card_push_transfer_e0z9rdpamraczh4tvwye")
                 .acceptance(
                     CardPushTransfer.Acceptance.builder()
-                        .acceptedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .authorizationIdentificationResponse(
-                            "authorization_identification_response"
-                        )
-                        .cardVerificationValue2Result(
-                            CardPushTransfer.Acceptance.CardVerificationValue2Result.MATCH
-                        )
-                        .networkTransactionIdentifier("network_transaction_identifier")
+                        .acceptedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .authorizationIdentificationResponse("ABCDEF")
+                        .cardVerificationValue2Result(null)
+                        .networkTransactionIdentifier("841488484271872")
                         .build()
                 )
                 .accountId("account_in71c4amph0vgo2qllky")
                 .amount(100L)
                 .approval(
                     CardPushTransfer.Approval.builder()
-                        .approvedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .approvedBy("approved_by")
+                        .approvedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .approvedBy(null)
                         .build()
                 )
                 .businessApplicationIdentifier(
@@ -40,8 +36,8 @@ internal class CardPushTransferTest {
                 )
                 .cancellation(
                     CardPushTransfer.Cancellation.builder()
-                        .canceledAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .canceledBy("canceled_by")
+                        .canceledAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .canceledBy(null)
                         .build()
                 )
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
@@ -68,9 +64,11 @@ internal class CardPushTransferTest {
                 .currency(CardPushTransfer.Currency.USD)
                 .decline(
                     CardPushTransfer.Decline.builder()
-                        .declinedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .networkTransactionIdentifier("network_transaction_identifier")
-                        .reason(CardPushTransfer.Decline.Reason.DO_NOT_HONOR)
+                        .declinedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .networkTransactionIdentifier("841488484271872")
+                        .reason(
+                            CardPushTransfer.Decline.Reason.TRANSACTION_NOT_PERMITTED_TO_CARDHOLDER
+                        )
                         .build()
                 )
                 .idempotencyKey(null)
@@ -90,10 +88,10 @@ internal class CardPushTransferTest {
                 .status(CardPushTransfer.Status.PENDING_SUBMISSION)
                 .submission(
                     CardPushTransfer.Submission.builder()
-                        .retrievalReferenceNumber("retrieval_reference_number")
-                        .senderReference("sender_reference")
-                        .submittedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .traceNumber("trace_number")
+                        .retrievalReferenceNumber("123456789012")
+                        .senderReference("OPQRRX3BNAKA6QLT")
+                        .submittedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .traceNumber("123456")
                         .build()
                 )
                 .type(CardPushTransfer.Type.CARD_PUSH_TRANSFER)
@@ -104,12 +102,10 @@ internal class CardPushTransferTest {
         assertThat(cardPushTransfer.acceptance())
             .contains(
                 CardPushTransfer.Acceptance.builder()
-                    .acceptedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .authorizationIdentificationResponse("authorization_identification_response")
-                    .cardVerificationValue2Result(
-                        CardPushTransfer.Acceptance.CardVerificationValue2Result.MATCH
-                    )
-                    .networkTransactionIdentifier("network_transaction_identifier")
+                    .acceptedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                    .authorizationIdentificationResponse("ABCDEF")
+                    .cardVerificationValue2Result(null)
+                    .networkTransactionIdentifier("841488484271872")
                     .build()
             )
         assertThat(cardPushTransfer.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
@@ -117,8 +113,8 @@ internal class CardPushTransferTest {
         assertThat(cardPushTransfer.approval())
             .contains(
                 CardPushTransfer.Approval.builder()
-                    .approvedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .approvedBy("approved_by")
+                    .approvedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                    .approvedBy(null)
                     .build()
             )
         assertThat(cardPushTransfer.businessApplicationIdentifier())
@@ -126,8 +122,8 @@ internal class CardPushTransferTest {
         assertThat(cardPushTransfer.cancellation())
             .contains(
                 CardPushTransfer.Cancellation.builder()
-                    .canceledAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .canceledBy("canceled_by")
+                    .canceledAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                    .canceledBy(null)
                     .build()
             )
         assertThat(cardPushTransfer.createdAt())
@@ -153,9 +149,9 @@ internal class CardPushTransferTest {
         assertThat(cardPushTransfer.decline())
             .contains(
                 CardPushTransfer.Decline.builder()
-                    .declinedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .networkTransactionIdentifier("network_transaction_identifier")
-                    .reason(CardPushTransfer.Decline.Reason.DO_NOT_HONOR)
+                    .declinedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                    .networkTransactionIdentifier("841488484271872")
+                    .reason(CardPushTransfer.Decline.Reason.TRANSACTION_NOT_PERMITTED_TO_CARDHOLDER)
                     .build()
             )
         assertThat(cardPushTransfer.idempotencyKey()).isEmpty
@@ -177,10 +173,10 @@ internal class CardPushTransferTest {
         assertThat(cardPushTransfer.submission())
             .contains(
                 CardPushTransfer.Submission.builder()
-                    .retrievalReferenceNumber("retrieval_reference_number")
-                    .senderReference("sender_reference")
-                    .submittedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .traceNumber("trace_number")
+                    .retrievalReferenceNumber("123456789012")
+                    .senderReference("OPQRRX3BNAKA6QLT")
+                    .submittedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                    .traceNumber("123456")
                     .build()
             )
         assertThat(cardPushTransfer.type()).isEqualTo(CardPushTransfer.Type.CARD_PUSH_TRANSFER)
@@ -194,22 +190,18 @@ internal class CardPushTransferTest {
                 .id("outbound_card_push_transfer_e0z9rdpamraczh4tvwye")
                 .acceptance(
                     CardPushTransfer.Acceptance.builder()
-                        .acceptedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .authorizationIdentificationResponse(
-                            "authorization_identification_response"
-                        )
-                        .cardVerificationValue2Result(
-                            CardPushTransfer.Acceptance.CardVerificationValue2Result.MATCH
-                        )
-                        .networkTransactionIdentifier("network_transaction_identifier")
+                        .acceptedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .authorizationIdentificationResponse("ABCDEF")
+                        .cardVerificationValue2Result(null)
+                        .networkTransactionIdentifier("841488484271872")
                         .build()
                 )
                 .accountId("account_in71c4amph0vgo2qllky")
                 .amount(100L)
                 .approval(
                     CardPushTransfer.Approval.builder()
-                        .approvedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .approvedBy("approved_by")
+                        .approvedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .approvedBy(null)
                         .build()
                 )
                 .businessApplicationIdentifier(
@@ -217,8 +209,8 @@ internal class CardPushTransferTest {
                 )
                 .cancellation(
                     CardPushTransfer.Cancellation.builder()
-                        .canceledAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .canceledBy("canceled_by")
+                        .canceledAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .canceledBy(null)
                         .build()
                 )
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
@@ -245,9 +237,11 @@ internal class CardPushTransferTest {
                 .currency(CardPushTransfer.Currency.USD)
                 .decline(
                     CardPushTransfer.Decline.builder()
-                        .declinedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .networkTransactionIdentifier("network_transaction_identifier")
-                        .reason(CardPushTransfer.Decline.Reason.DO_NOT_HONOR)
+                        .declinedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .networkTransactionIdentifier("841488484271872")
+                        .reason(
+                            CardPushTransfer.Decline.Reason.TRANSACTION_NOT_PERMITTED_TO_CARDHOLDER
+                        )
                         .build()
                 )
                 .idempotencyKey(null)
@@ -267,10 +261,10 @@ internal class CardPushTransferTest {
                 .status(CardPushTransfer.Status.PENDING_SUBMISSION)
                 .submission(
                     CardPushTransfer.Submission.builder()
-                        .retrievalReferenceNumber("retrieval_reference_number")
-                        .senderReference("sender_reference")
-                        .submittedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .traceNumber("trace_number")
+                        .retrievalReferenceNumber("123456789012")
+                        .senderReference("OPQRRX3BNAKA6QLT")
+                        .submittedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .traceNumber("123456")
                         .build()
                 )
                 .type(CardPushTransfer.Type.CARD_PUSH_TRANSFER)

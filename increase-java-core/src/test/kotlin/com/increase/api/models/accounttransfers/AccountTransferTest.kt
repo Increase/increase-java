@@ -25,8 +25,8 @@ internal class AccountTransferTest {
                 )
                 .cancellation(
                     AccountTransfer.Cancellation.builder()
-                        .canceledAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .canceledBy("canceled_by")
+                        .canceledAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .canceledBy(null)
                         .build()
                 )
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
@@ -75,8 +75,8 @@ internal class AccountTransferTest {
         assertThat(accountTransfer.cancellation())
             .contains(
                 AccountTransfer.Cancellation.builder()
-                    .canceledAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .canceledBy("canceled_by")
+                    .canceledAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                    .canceledBy(null)
                     .build()
             )
         assertThat(accountTransfer.createdAt())
@@ -127,8 +127,8 @@ internal class AccountTransferTest {
                 )
                 .cancellation(
                     AccountTransfer.Cancellation.builder()
-                        .canceledAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .canceledBy("canceled_by")
+                        .canceledAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .canceledBy(null)
                         .build()
                 )
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
