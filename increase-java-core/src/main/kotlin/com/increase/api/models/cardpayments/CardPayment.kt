@@ -38952,7 +38952,7 @@ private constructor(
                 purchaseDetails.getOptional("purchase_details")
 
             /**
-             * Surcharge amount details, if applicable. The amounts positive if the surcharge is
+             * Surcharge amount details, if applicable. The amount is positive if the surcharge is
              * added to to the overall transaction amount (surcharge), and negative if the surcharge
              * is deducted from the overall transaction amount (discount).
              *
@@ -39646,8 +39646,8 @@ private constructor(
                 }
 
                 /**
-                 * Surcharge amount details, if applicable. The amounts positive if the surcharge is
-                 * added to to the overall transaction amount (surcharge), and negative if the
+                 * Surcharge amount details, if applicable. The amount is positive if the surcharge
+                 * is added to to the overall transaction amount (surcharge), and negative if the
                  * surcharge is deducted from the overall transaction amount (discount).
                  */
                 fun surcharge(surcharge: Surcharge?) = surcharge(JsonField.ofNullable(surcharge))
@@ -48295,7 +48295,7 @@ private constructor(
             }
 
             /**
-             * Surcharge amount details, if applicable. The amounts positive if the surcharge is
+             * Surcharge amount details, if applicable. The amount is positive if the surcharge is
              * added to to the overall transaction amount (surcharge), and negative if the surcharge
              * is deducted from the overall transaction amount (discount).
              */
