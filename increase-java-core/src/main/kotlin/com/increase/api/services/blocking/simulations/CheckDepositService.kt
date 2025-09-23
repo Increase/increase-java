@@ -68,7 +68,7 @@ interface CheckDepositService {
     fun return_(checkDepositId: String): CheckDeposit =
         return_(checkDepositId, CheckDepositReturnParams.none())
 
-    /** @see return\_ */
+    /** @see return_ */
     fun return_(
         checkDepositId: String,
         params: CheckDepositReturnParams = CheckDepositReturnParams.none(),
@@ -76,23 +76,23 @@ interface CheckDepositService {
     ): CheckDeposit =
         return_(params.toBuilder().checkDepositId(checkDepositId).build(), requestOptions)
 
-    /** @see return\_ */
+    /** @see return_ */
     fun return_(
         checkDepositId: String,
         params: CheckDepositReturnParams = CheckDepositReturnParams.none(),
     ): CheckDeposit = return_(checkDepositId, params, RequestOptions.none())
 
-    /** @see return\_ */
+    /** @see return_ */
     fun return_(
         params: CheckDepositReturnParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckDeposit
 
-    /** @see return\_ */
+    /** @see return_ */
     fun return_(params: CheckDepositReturnParams): CheckDeposit =
         return_(params, RequestOptions.none())
 
-    /** @see return\_ */
+    /** @see return_ */
     fun return_(checkDepositId: String, requestOptions: RequestOptions): CheckDeposit =
         return_(checkDepositId, CheckDepositReturnParams.none(), requestOptions)
 
@@ -199,7 +199,7 @@ interface CheckDepositService {
         fun return_(checkDepositId: String): HttpResponseFor<CheckDeposit> =
             return_(checkDepositId, CheckDepositReturnParams.none())
 
-        /** @see return\_ */
+        /** @see return_ */
         @MustBeClosed
         fun return_(
             checkDepositId: String,
@@ -208,26 +208,26 @@ interface CheckDepositService {
         ): HttpResponseFor<CheckDeposit> =
             return_(params.toBuilder().checkDepositId(checkDepositId).build(), requestOptions)
 
-        /** @see return\_ */
+        /** @see return_ */
         @MustBeClosed
         fun return_(
             checkDepositId: String,
             params: CheckDepositReturnParams = CheckDepositReturnParams.none(),
         ): HttpResponseFor<CheckDeposit> = return_(checkDepositId, params, RequestOptions.none())
 
-        /** @see return\_ */
+        /** @see return_ */
         @MustBeClosed
         fun return_(
             params: CheckDepositReturnParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CheckDeposit>
 
-        /** @see return\_ */
+        /** @see return_ */
         @MustBeClosed
         fun return_(params: CheckDepositReturnParams): HttpResponseFor<CheckDeposit> =
             return_(params, RequestOptions.none())
 
-        /** @see return\_ */
+        /** @see return_ */
         @MustBeClosed
         fun return_(
             checkDepositId: String,

@@ -71,7 +71,7 @@ interface CheckDepositServiceAsync {
     fun return_(checkDepositId: String): CompletableFuture<CheckDeposit> =
         return_(checkDepositId, CheckDepositReturnParams.none())
 
-    /** @see return\_ */
+    /** @see return_ */
     fun return_(
         checkDepositId: String,
         params: CheckDepositReturnParams = CheckDepositReturnParams.none(),
@@ -79,23 +79,23 @@ interface CheckDepositServiceAsync {
     ): CompletableFuture<CheckDeposit> =
         return_(params.toBuilder().checkDepositId(checkDepositId).build(), requestOptions)
 
-    /** @see return\_ */
+    /** @see return_ */
     fun return_(
         checkDepositId: String,
         params: CheckDepositReturnParams = CheckDepositReturnParams.none(),
     ): CompletableFuture<CheckDeposit> = return_(checkDepositId, params, RequestOptions.none())
 
-    /** @see return\_ */
+    /** @see return_ */
     fun return_(
         params: CheckDepositReturnParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CheckDeposit>
 
-    /** @see return\_ */
+    /** @see return_ */
     fun return_(params: CheckDepositReturnParams): CompletableFuture<CheckDeposit> =
         return_(params, RequestOptions.none())
 
-    /** @see return\_ */
+    /** @see return_ */
     fun return_(
         checkDepositId: String,
         requestOptions: RequestOptions,
@@ -204,7 +204,7 @@ interface CheckDepositServiceAsync {
         fun return_(checkDepositId: String): CompletableFuture<HttpResponseFor<CheckDeposit>> =
             return_(checkDepositId, CheckDepositReturnParams.none())
 
-        /** @see return\_ */
+        /** @see return_ */
         fun return_(
             checkDepositId: String,
             params: CheckDepositReturnParams = CheckDepositReturnParams.none(),
@@ -212,25 +212,25 @@ interface CheckDepositServiceAsync {
         ): CompletableFuture<HttpResponseFor<CheckDeposit>> =
             return_(params.toBuilder().checkDepositId(checkDepositId).build(), requestOptions)
 
-        /** @see return\_ */
+        /** @see return_ */
         fun return_(
             checkDepositId: String,
             params: CheckDepositReturnParams = CheckDepositReturnParams.none(),
         ): CompletableFuture<HttpResponseFor<CheckDeposit>> =
             return_(checkDepositId, params, RequestOptions.none())
 
-        /** @see return\_ */
+        /** @see return_ */
         fun return_(
             params: CheckDepositReturnParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<CheckDeposit>>
 
-        /** @see return\_ */
+        /** @see return_ */
         fun return_(
             params: CheckDepositReturnParams
         ): CompletableFuture<HttpResponseFor<CheckDeposit>> = return_(params, RequestOptions.none())
 
-        /** @see return\_ */
+        /** @see return_ */
         fun return_(
             checkDepositId: String,
             requestOptions: RequestOptions,
