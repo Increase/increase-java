@@ -128,7 +128,7 @@ interface InboundCheckDepositService {
         params: InboundCheckDepositReturnParams,
     ): InboundCheckDeposit = return_(inboundCheckDepositId, params, RequestOptions.none())
 
-    /** @see return\_ */
+    /** @see return_ */
     fun return_(
         inboundCheckDepositId: String,
         params: InboundCheckDepositReturnParams,
@@ -139,11 +139,11 @@ interface InboundCheckDepositService {
             requestOptions,
         )
 
-    /** @see return\_ */
+    /** @see return_ */
     fun return_(params: InboundCheckDepositReturnParams): InboundCheckDeposit =
         return_(params, RequestOptions.none())
 
-    /** @see return\_ */
+    /** @see return_ */
     fun return_(
         params: InboundCheckDepositReturnParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -305,7 +305,7 @@ interface InboundCheckDepositService {
         ): HttpResponseFor<InboundCheckDeposit> =
             return_(inboundCheckDepositId, params, RequestOptions.none())
 
-        /** @see return\_ */
+        /** @see return_ */
         @MustBeClosed
         fun return_(
             inboundCheckDepositId: String,
@@ -317,12 +317,12 @@ interface InboundCheckDepositService {
                 requestOptions,
             )
 
-        /** @see return\_ */
+        /** @see return_ */
         @MustBeClosed
         fun return_(params: InboundCheckDepositReturnParams): HttpResponseFor<InboundCheckDeposit> =
             return_(params, RequestOptions.none())
 
-        /** @see return\_ */
+        /** @see return_ */
         @MustBeClosed
         fun return_(
             params: InboundCheckDepositReturnParams,

@@ -106,7 +106,7 @@ interface AchTransferServiceAsync {
     fun return_(achTransferId: String): CompletableFuture<AchTransfer> =
         return_(achTransferId, AchTransferReturnParams.none())
 
-    /** @see return\_ */
+    /** @see return_ */
     fun return_(
         achTransferId: String,
         params: AchTransferReturnParams = AchTransferReturnParams.none(),
@@ -114,23 +114,23 @@ interface AchTransferServiceAsync {
     ): CompletableFuture<AchTransfer> =
         return_(params.toBuilder().achTransferId(achTransferId).build(), requestOptions)
 
-    /** @see return\_ */
+    /** @see return_ */
     fun return_(
         achTransferId: String,
         params: AchTransferReturnParams = AchTransferReturnParams.none(),
     ): CompletableFuture<AchTransfer> = return_(achTransferId, params, RequestOptions.none())
 
-    /** @see return\_ */
+    /** @see return_ */
     fun return_(
         params: AchTransferReturnParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AchTransfer>
 
-    /** @see return\_ */
+    /** @see return_ */
     fun return_(params: AchTransferReturnParams): CompletableFuture<AchTransfer> =
         return_(params, RequestOptions.none())
 
-    /** @see return\_ */
+    /** @see return_ */
     fun return_(
         achTransferId: String,
         requestOptions: RequestOptions,
@@ -321,7 +321,7 @@ interface AchTransferServiceAsync {
         fun return_(achTransferId: String): CompletableFuture<HttpResponseFor<AchTransfer>> =
             return_(achTransferId, AchTransferReturnParams.none())
 
-        /** @see return\_ */
+        /** @see return_ */
         fun return_(
             achTransferId: String,
             params: AchTransferReturnParams = AchTransferReturnParams.none(),
@@ -329,25 +329,25 @@ interface AchTransferServiceAsync {
         ): CompletableFuture<HttpResponseFor<AchTransfer>> =
             return_(params.toBuilder().achTransferId(achTransferId).build(), requestOptions)
 
-        /** @see return\_ */
+        /** @see return_ */
         fun return_(
             achTransferId: String,
             params: AchTransferReturnParams = AchTransferReturnParams.none(),
         ): CompletableFuture<HttpResponseFor<AchTransfer>> =
             return_(achTransferId, params, RequestOptions.none())
 
-        /** @see return\_ */
+        /** @see return_ */
         fun return_(
             params: AchTransferReturnParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<AchTransfer>>
 
-        /** @see return\_ */
+        /** @see return_ */
         fun return_(
             params: AchTransferReturnParams
         ): CompletableFuture<HttpResponseFor<AchTransfer>> = return_(params, RequestOptions.none())
 
-        /** @see return\_ */
+        /** @see return_ */
         fun return_(
             achTransferId: String,
             requestOptions: RequestOptions,

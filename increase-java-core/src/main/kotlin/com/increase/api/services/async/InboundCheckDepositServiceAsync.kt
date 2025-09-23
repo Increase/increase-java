@@ -133,7 +133,7 @@ interface InboundCheckDepositServiceAsync {
     ): CompletableFuture<InboundCheckDeposit> =
         return_(inboundCheckDepositId, params, RequestOptions.none())
 
-    /** @see return\_ */
+    /** @see return_ */
     fun return_(
         inboundCheckDepositId: String,
         params: InboundCheckDepositReturnParams,
@@ -144,11 +144,11 @@ interface InboundCheckDepositServiceAsync {
             requestOptions,
         )
 
-    /** @see return\_ */
+    /** @see return_ */
     fun return_(params: InboundCheckDepositReturnParams): CompletableFuture<InboundCheckDeposit> =
         return_(params, RequestOptions.none())
 
-    /** @see return\_ */
+    /** @see return_ */
     fun return_(
         params: InboundCheckDepositReturnParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -302,7 +302,7 @@ interface InboundCheckDepositServiceAsync {
         ): CompletableFuture<HttpResponseFor<InboundCheckDeposit>> =
             return_(inboundCheckDepositId, params, RequestOptions.none())
 
-        /** @see return\_ */
+        /** @see return_ */
         fun return_(
             inboundCheckDepositId: String,
             params: InboundCheckDepositReturnParams,
@@ -313,13 +313,13 @@ interface InboundCheckDepositServiceAsync {
                 requestOptions,
             )
 
-        /** @see return\_ */
+        /** @see return_ */
         fun return_(
             params: InboundCheckDepositReturnParams
         ): CompletableFuture<HttpResponseFor<InboundCheckDeposit>> =
             return_(params, RequestOptions.none())
 
-        /** @see return\_ */
+        /** @see return_ */
         fun return_(
             params: InboundCheckDepositReturnParams,
             requestOptions: RequestOptions = RequestOptions.none(),
