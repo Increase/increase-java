@@ -102,7 +102,7 @@ interface AchTransferService {
     fun return_(achTransferId: String): AchTransfer =
         return_(achTransferId, AchTransferReturnParams.none())
 
-    /** @see return\_ */
+    /** @see return_ */
     fun return_(
         achTransferId: String,
         params: AchTransferReturnParams = AchTransferReturnParams.none(),
@@ -110,23 +110,23 @@ interface AchTransferService {
     ): AchTransfer =
         return_(params.toBuilder().achTransferId(achTransferId).build(), requestOptions)
 
-    /** @see return\_ */
+    /** @see return_ */
     fun return_(
         achTransferId: String,
         params: AchTransferReturnParams = AchTransferReturnParams.none(),
     ): AchTransfer = return_(achTransferId, params, RequestOptions.none())
 
-    /** @see return\_ */
+    /** @see return_ */
     fun return_(
         params: AchTransferReturnParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AchTransfer
 
-    /** @see return\_ */
+    /** @see return_ */
     fun return_(params: AchTransferReturnParams): AchTransfer =
         return_(params, RequestOptions.none())
 
-    /** @see return\_ */
+    /** @see return_ */
     fun return_(achTransferId: String, requestOptions: RequestOptions): AchTransfer =
         return_(achTransferId, AchTransferReturnParams.none(), requestOptions)
 
@@ -310,7 +310,7 @@ interface AchTransferService {
         fun return_(achTransferId: String): HttpResponseFor<AchTransfer> =
             return_(achTransferId, AchTransferReturnParams.none())
 
-        /** @see return\_ */
+        /** @see return_ */
         @MustBeClosed
         fun return_(
             achTransferId: String,
@@ -319,26 +319,26 @@ interface AchTransferService {
         ): HttpResponseFor<AchTransfer> =
             return_(params.toBuilder().achTransferId(achTransferId).build(), requestOptions)
 
-        /** @see return\_ */
+        /** @see return_ */
         @MustBeClosed
         fun return_(
             achTransferId: String,
             params: AchTransferReturnParams = AchTransferReturnParams.none(),
         ): HttpResponseFor<AchTransfer> = return_(achTransferId, params, RequestOptions.none())
 
-        /** @see return\_ */
+        /** @see return_ */
         @MustBeClosed
         fun return_(
             params: AchTransferReturnParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AchTransfer>
 
-        /** @see return\_ */
+        /** @see return_ */
         @MustBeClosed
         fun return_(params: AchTransferReturnParams): HttpResponseFor<AchTransfer> =
             return_(params, RequestOptions.none())
 
-        /** @see return\_ */
+        /** @see return_ */
         @MustBeClosed
         fun return_(
             achTransferId: String,
