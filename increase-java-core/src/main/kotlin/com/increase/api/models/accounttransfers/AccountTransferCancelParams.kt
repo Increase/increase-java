@@ -11,7 +11,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Cancel an Account Transfer */
+/** Cancels an Account Transfer in status `pending_approval`. */
 class AccountTransferCancelParams
 private constructor(
     private val accountTransferId: String?,

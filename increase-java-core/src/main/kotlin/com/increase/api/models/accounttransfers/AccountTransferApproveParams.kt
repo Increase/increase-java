@@ -11,7 +11,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Approve an Account Transfer */
+/** Approves an Account Transfer in status `pending_approval`. */
 class AccountTransferApproveParams
 private constructor(
     private val accountTransferId: String?,
