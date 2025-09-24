@@ -94,7 +94,7 @@ interface AccountTransferServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<AccountTransferListPageAsync> =
         list(AccountTransferListParams.none(), requestOptions)
 
-    /** Approve an Account Transfer */
+    /** Approves an Account Transfer in status `pending_approval`. */
     fun approve(accountTransferId: String): CompletableFuture<AccountTransfer> =
         approve(accountTransferId, AccountTransferApproveParams.none())
 
@@ -130,7 +130,7 @@ interface AccountTransferServiceAsync {
     ): CompletableFuture<AccountTransfer> =
         approve(accountTransferId, AccountTransferApproveParams.none(), requestOptions)
 
-    /** Cancel an Account Transfer */
+    /** Cancels an Account Transfer in status `pending_approval`. */
     fun cancel(accountTransferId: String): CompletableFuture<AccountTransfer> =
         cancel(accountTransferId, AccountTransferCancelParams.none())
 

@@ -19,7 +19,13 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Account transfers move funds between your own accounts at Increase. */
+/**
+ * Account transfers move funds between your own accounts at Increase (accounting systems often
+ * refer to these as Book Transfers). Account Transfers are free and synchronous. Upon creation they
+ * create two Transactions, one negative on the originating account and one positive on the
+ * destination account (unless the transfer requires approval, in which case the Transactions will
+ * be created when the transfer is approved).
+ */
 class AccountTransfer
 private constructor(
     private val id: JsonField<String>,
@@ -34,7 +40,6 @@ private constructor(
     private val destinationAccountId: JsonField<String>,
     private val destinationTransactionId: JsonField<String>,
     private val idempotencyKey: JsonField<String>,
-    private val network: JsonField<Network>,
     private val pendingTransactionId: JsonField<String>,
     private val status: JsonField<Status>,
     private val transactionId: JsonField<String>,
@@ -70,7 +75,6 @@ private constructor(
         @JsonProperty("idempotency_key")
         @ExcludeMissing
         idempotencyKey: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("network") @ExcludeMissing network: JsonField<Network> = JsonMissing.of(),
         @JsonProperty("pending_transaction_id")
         @ExcludeMissing
         pendingTransactionId: JsonField<String> = JsonMissing.of(),
@@ -92,7 +96,6 @@ private constructor(
         destinationAccountId,
         destinationTransactionId,
         idempotencyKey,
-        network,
         pendingTransactionId,
         status,
         transactionId,
@@ -101,7 +104,7 @@ private constructor(
     )
 
     /**
-     * The account transfer's identifier.
+     * The Account Transfer's identifier.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -109,7 +112,7 @@ private constructor(
     fun id(): String = id.getRequired("id")
 
     /**
-     * The Account to which the transfer belongs.
+     * The Account from which the transfer originated.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -117,8 +120,8 @@ private constructor(
     fun accountId(): String = accountId.getRequired("account_id")
 
     /**
-     * The transfer amount in the minor unit of the destination account currency. For dollars, for
-     * example, this is cents.
+     * The transfer amount in cents. This will always be positive and indicates the amount of money
+     * leaving the originating account.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -161,8 +164,7 @@ private constructor(
     fun createdBy(): Optional<CreatedBy> = createdBy.getOptional("created_by")
 
     /**
-     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the destination account
-     * currency.
+     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's currency.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -170,7 +172,8 @@ private constructor(
     fun currency(): Currency = currency.getRequired("currency")
 
     /**
-     * The description that will show on the transactions.
+     * An internal-facing description for the transfer for display in the API and dashboard. This
+     * will also show in the description of the created Transactions.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -178,7 +181,7 @@ private constructor(
     fun description(): String = description.getRequired("description")
 
     /**
-     * The destination account's identifier.
+     * The destination Account's identifier.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -186,7 +189,7 @@ private constructor(
     fun destinationAccountId(): String = destinationAccountId.getRequired("destination_account_id")
 
     /**
-     * The ID for the transaction receiving the transfer.
+     * The identifier of the Transaction on the destination Account representing the received funds.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -203,14 +206,6 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun idempotencyKey(): Optional<String> = idempotencyKey.getOptional("idempotency_key")
-
-    /**
-     * The transfer's network.
-     *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
-    fun network(): Network = network.getRequired("network")
 
     /**
      * The ID for the pending transaction representing the transfer. A pending transaction is
@@ -233,7 +228,8 @@ private constructor(
     fun status(): Status = status.getRequired("status")
 
     /**
-     * The ID for the transaction funding the transfer.
+     * The identifier of the Transaction on the originating account representing the transferred
+     * funds.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -346,13 +342,6 @@ private constructor(
     fun _idempotencyKey(): JsonField<String> = idempotencyKey
 
     /**
-     * Returns the raw JSON value of [network].
-     *
-     * Unlike [network], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("network") @ExcludeMissing fun _network(): JsonField<Network> = network
-
-    /**
      * Returns the raw JSON value of [pendingTransactionId].
      *
      * Unlike [pendingTransactionId], this method doesn't throw if the JSON field has an unexpected
@@ -416,7 +405,6 @@ private constructor(
          * .destinationAccountId()
          * .destinationTransactionId()
          * .idempotencyKey()
-         * .network()
          * .pendingTransactionId()
          * .status()
          * .transactionId()
@@ -441,7 +429,6 @@ private constructor(
         private var destinationAccountId: JsonField<String>? = null
         private var destinationTransactionId: JsonField<String>? = null
         private var idempotencyKey: JsonField<String>? = null
-        private var network: JsonField<Network>? = null
         private var pendingTransactionId: JsonField<String>? = null
         private var status: JsonField<Status>? = null
         private var transactionId: JsonField<String>? = null
@@ -462,7 +449,6 @@ private constructor(
             destinationAccountId = accountTransfer.destinationAccountId
             destinationTransactionId = accountTransfer.destinationTransactionId
             idempotencyKey = accountTransfer.idempotencyKey
-            network = accountTransfer.network
             pendingTransactionId = accountTransfer.pendingTransactionId
             status = accountTransfer.status
             transactionId = accountTransfer.transactionId
@@ -470,7 +456,7 @@ private constructor(
             additionalProperties = accountTransfer.additionalProperties.toMutableMap()
         }
 
-        /** The account transfer's identifier. */
+        /** The Account Transfer's identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
         /**
@@ -481,7 +467,7 @@ private constructor(
          */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
-        /** The Account to which the transfer belongs. */
+        /** The Account from which the transfer originated. */
         fun accountId(accountId: String) = accountId(JsonField.of(accountId))
 
         /**
@@ -494,8 +480,8 @@ private constructor(
         fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
         /**
-         * The transfer amount in the minor unit of the destination account currency. For dollars,
-         * for example, this is cents.
+         * The transfer amount in cents. This will always be positive and indicates the amount of
+         * money leaving the originating account.
          */
         fun amount(amount: Long) = amount(JsonField.of(amount))
 
@@ -578,8 +564,7 @@ private constructor(
         fun createdBy(createdBy: JsonField<CreatedBy>) = apply { this.createdBy = createdBy }
 
         /**
-         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the destination account
-         * currency.
+         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's currency.
          */
         fun currency(currency: Currency) = currency(JsonField.of(currency))
 
@@ -592,7 +577,10 @@ private constructor(
          */
         fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
 
-        /** The description that will show on the transactions. */
+        /**
+         * An internal-facing description for the transfer for display in the API and dashboard.
+         * This will also show in the description of the created Transactions.
+         */
         fun description(description: String) = description(JsonField.of(description))
 
         /**
@@ -604,7 +592,7 @@ private constructor(
          */
         fun description(description: JsonField<String>) = apply { this.description = description }
 
-        /** The destination account's identifier. */
+        /** The destination Account's identifier. */
         fun destinationAccountId(destinationAccountId: String) =
             destinationAccountId(JsonField.of(destinationAccountId))
 
@@ -619,7 +607,10 @@ private constructor(
             this.destinationAccountId = destinationAccountId
         }
 
-        /** The ID for the transaction receiving the transfer. */
+        /**
+         * The identifier of the Transaction on the destination Account representing the received
+         * funds.
+         */
         fun destinationTransactionId(destinationTransactionId: String?) =
             destinationTransactionId(JsonField.ofNullable(destinationTransactionId))
 
@@ -664,17 +655,6 @@ private constructor(
             this.idempotencyKey = idempotencyKey
         }
 
-        /** The transfer's network. */
-        fun network(network: Network) = network(JsonField.of(network))
-
-        /**
-         * Sets [Builder.network] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.network] with a well-typed [Network] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun network(network: JsonField<Network>) = apply { this.network = network }
-
         /**
          * The ID for the pending transaction representing the transfer. A pending transaction is
          * created when the transfer
@@ -713,7 +693,10 @@ private constructor(
          */
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
-        /** The ID for the transaction funding the transfer. */
+        /**
+         * The identifier of the Transaction on the originating account representing the transferred
+         * funds.
+         */
         fun transactionId(transactionId: String?) =
             transactionId(JsonField.ofNullable(transactionId))
 
@@ -784,7 +767,6 @@ private constructor(
          * .destinationAccountId()
          * .destinationTransactionId()
          * .idempotencyKey()
-         * .network()
          * .pendingTransactionId()
          * .status()
          * .transactionId()
@@ -807,7 +789,6 @@ private constructor(
                 checkRequired("destinationAccountId", destinationAccountId),
                 checkRequired("destinationTransactionId", destinationTransactionId),
                 checkRequired("idempotencyKey", idempotencyKey),
-                checkRequired("network", network),
                 checkRequired("pendingTransactionId", pendingTransactionId),
                 checkRequired("status", status),
                 checkRequired("transactionId", transactionId),
@@ -835,7 +816,6 @@ private constructor(
         destinationAccountId()
         destinationTransactionId()
         idempotencyKey()
-        network().validate()
         pendingTransactionId()
         status().validate()
         transactionId()
@@ -870,7 +850,6 @@ private constructor(
             (if (destinationAccountId.asKnown().isPresent) 1 else 0) +
             (if (destinationTransactionId.asKnown().isPresent) 1 else 0) +
             (if (idempotencyKey.asKnown().isPresent) 1 else 0) +
-            (network.asKnown().getOrNull()?.validity() ?: 0) +
             (if (pendingTransactionId.asKnown().isPresent) 1 else 0) +
             (status.asKnown().getOrNull()?.validity() ?: 0) +
             (if (transactionId.asKnown().isPresent) 1 else 0) +
@@ -2272,10 +2251,7 @@ private constructor(
             "CreatedBy{apiKey=$apiKey, category=$category, oauthApplication=$oauthApplication, user=$user, additionalProperties=$additionalProperties}"
     }
 
-    /**
-     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the destination account
-     * currency.
-     */
+    /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's currency. */
     class Currency @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
@@ -2445,128 +2421,6 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    /** The transfer's network. */
-    class Network @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
-
-        /**
-         * Returns this class instance's raw value.
-         *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
-         */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        companion object {
-
-            @JvmField val ACCOUNT = of("account")
-
-            @JvmStatic fun of(value: String) = Network(JsonField.of(value))
-        }
-
-        /** An enum containing [Network]'s known values. */
-        enum class Known {
-            ACCOUNT
-        }
-
-        /**
-         * An enum containing [Network]'s known values, as well as an [_UNKNOWN] member.
-         *
-         * An instance of [Network] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
-         * - It was constructed with an arbitrary value using the [of] method.
-         */
-        enum class Value {
-            ACCOUNT,
-            /** An enum member indicating that [Network] was instantiated with an unknown value. */
-            _UNKNOWN,
-        }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
-         *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
-         */
-        fun value(): Value =
-            when (this) {
-                ACCOUNT -> Value.ACCOUNT
-                else -> Value._UNKNOWN
-            }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value.
-         *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
-         *
-         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
-         *   member.
-         */
-        fun known(): Known =
-            when (this) {
-                ACCOUNT -> Known.ACCOUNT
-                else -> throw IncreaseInvalidDataException("Unknown Network: $value")
-            }
-
-        /**
-         * Returns this class instance's primitive wire representation.
-         *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
-         *
-         * @throws IncreaseInvalidDataException if this class instance's value does not have the
-         *   expected primitive type.
-         */
-        fun asString(): String =
-            _value().asString().orElseThrow {
-                IncreaseInvalidDataException("Value is not a String")
-            }
-
-        private var validated: Boolean = false
-
-        fun validate(): Network = apply {
-            if (validated) {
-                return@apply
-            }
-
-            known()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: IncreaseInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Network && value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-    }
-
     /** The lifecycle status of the transfer. */
     class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
@@ -2582,10 +2436,10 @@ private constructor(
 
         companion object {
 
-            /** The transfer is pending approval. */
+            /** The transfer is pending approval from your team. */
             @JvmField val PENDING_APPROVAL = of("pending_approval")
 
-            /** The transfer has been canceled. */
+            /** The transfer was pending approval from your team and has been canceled. */
             @JvmField val CANCELED = of("canceled")
 
             /** The transfer has been completed. */
@@ -2596,9 +2450,9 @@ private constructor(
 
         /** An enum containing [Status]'s known values. */
         enum class Known {
-            /** The transfer is pending approval. */
+            /** The transfer is pending approval from your team. */
             PENDING_APPROVAL,
-            /** The transfer has been canceled. */
+            /** The transfer was pending approval from your team and has been canceled. */
             CANCELED,
             /** The transfer has been completed. */
             COMPLETE,
@@ -2614,9 +2468,9 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            /** The transfer is pending approval. */
+            /** The transfer is pending approval from your team. */
             PENDING_APPROVAL,
-            /** The transfer has been canceled. */
+            /** The transfer was pending approval from your team and has been canceled. */
             CANCELED,
             /** The transfer has been completed. */
             COMPLETE,
@@ -2853,7 +2707,6 @@ private constructor(
             destinationAccountId == other.destinationAccountId &&
             destinationTransactionId == other.destinationTransactionId &&
             idempotencyKey == other.idempotencyKey &&
-            network == other.network &&
             pendingTransactionId == other.pendingTransactionId &&
             status == other.status &&
             transactionId == other.transactionId &&
@@ -2875,7 +2728,6 @@ private constructor(
             destinationAccountId,
             destinationTransactionId,
             idempotencyKey,
-            network,
             pendingTransactionId,
             status,
             transactionId,
@@ -2887,5 +2739,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "AccountTransfer{id=$id, accountId=$accountId, amount=$amount, approval=$approval, cancellation=$cancellation, createdAt=$createdAt, createdBy=$createdBy, currency=$currency, description=$description, destinationAccountId=$destinationAccountId, destinationTransactionId=$destinationTransactionId, idempotencyKey=$idempotencyKey, network=$network, pendingTransactionId=$pendingTransactionId, status=$status, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
+        "AccountTransfer{id=$id, accountId=$accountId, amount=$amount, approval=$approval, cancellation=$cancellation, createdAt=$createdAt, createdBy=$createdBy, currency=$currency, description=$description, destinationAccountId=$destinationAccountId, destinationTransactionId=$destinationTransactionId, idempotencyKey=$idempotencyKey, pendingTransactionId=$pendingTransactionId, status=$status, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
 }
