@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.increase.api.models.carddetails
+package com.increase.api.models.cards
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
@@ -21,7 +21,7 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /** Update a Card's PIN */
-class CardDetailUpdateParams
+class CardUpdatePinParams
 private constructor(
     private val cardId: String?,
     private val body: Body,
@@ -29,7 +29,7 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** The card identifier. */
+    /** The identifier of the Card to update the PIN for. */
     fun cardId(): Optional<String> = Optional.ofNullable(cardId)
 
     /**
@@ -60,7 +60,7 @@ private constructor(
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of [CardDetailUpdateParams].
+         * Returns a mutable builder for constructing an instance of [CardUpdatePinParams].
          *
          * The following fields are required:
          * ```java
@@ -70,7 +70,7 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [CardDetailUpdateParams]. */
+    /** A builder for [CardUpdatePinParams]. */
     class Builder internal constructor() {
 
         private var cardId: String? = null
@@ -79,14 +79,14 @@ private constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
-        internal fun from(cardDetailUpdateParams: CardDetailUpdateParams) = apply {
-            cardId = cardDetailUpdateParams.cardId
-            body = cardDetailUpdateParams.body.toBuilder()
-            additionalHeaders = cardDetailUpdateParams.additionalHeaders.toBuilder()
-            additionalQueryParams = cardDetailUpdateParams.additionalQueryParams.toBuilder()
+        internal fun from(cardUpdatePinParams: CardUpdatePinParams) = apply {
+            cardId = cardUpdatePinParams.cardId
+            body = cardUpdatePinParams.body.toBuilder()
+            additionalHeaders = cardUpdatePinParams.additionalHeaders.toBuilder()
+            additionalQueryParams = cardUpdatePinParams.additionalQueryParams.toBuilder()
         }
 
-        /** The card identifier. */
+        /** The identifier of the Card to update the PIN for. */
         fun cardId(cardId: String?) = apply { this.cardId = cardId }
 
         /** Alias for calling [Builder.cardId] with `cardId.orElse(null)`. */
@@ -230,7 +230,7 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [CardDetailUpdateParams].
+         * Returns an immutable instance of [CardUpdatePinParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          *
@@ -241,8 +241,8 @@ private constructor(
          *
          * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): CardDetailUpdateParams =
-            CardDetailUpdateParams(
+        fun build(): CardUpdatePinParams =
+            CardUpdatePinParams(
                 cardId,
                 body.build(),
                 additionalHeaders.build(),
@@ -420,7 +420,7 @@ private constructor(
             return true
         }
 
-        return other is CardDetailUpdateParams &&
+        return other is CardUpdatePinParams &&
             cardId == other.cardId &&
             body == other.body &&
             additionalHeaders == other.additionalHeaders &&
@@ -431,5 +431,5 @@ private constructor(
         Objects.hash(cardId, body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "CardDetailUpdateParams{cardId=$cardId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "CardUpdatePinParams{cardId=$cardId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

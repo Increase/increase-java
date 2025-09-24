@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.increase.api.models.carddetails
+package com.increase.api.models.cards
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
@@ -23,7 +23,7 @@ import kotlin.jvm.optionals.getOrNull
  * Create an iframe URL for a Card to display the card details. More details about styling and usage
  * can be found in the [documentation](/documentation/embedded-card-component).
  */
-class CardDetailCreateDetailsIframeParams
+class CardCreateDetailsIframeParams
 private constructor(
     private val cardId: String?,
     private val body: Body,
@@ -31,11 +31,12 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** The identifier of the Card to retrieve details for. */
+    /** The identifier of the Card to create an iframe for. */
     fun cardId(): Optional<String> = Optional.ofNullable(cardId)
 
     /**
-     * The identifier of the Physical Card to retrieve details for.
+     * The identifier of the Physical Card to create an iframe for. This will inform the appearance
+     * of the card rendered in the iframe.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -61,16 +62,16 @@ private constructor(
 
     companion object {
 
-        @JvmStatic fun none(): CardDetailCreateDetailsIframeParams = builder().build()
+        @JvmStatic fun none(): CardCreateDetailsIframeParams = builder().build()
 
         /**
          * Returns a mutable builder for constructing an instance of
-         * [CardDetailCreateDetailsIframeParams].
+         * [CardCreateDetailsIframeParams].
          */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [CardDetailCreateDetailsIframeParams]. */
+    /** A builder for [CardCreateDetailsIframeParams]. */
     class Builder internal constructor() {
 
         private var cardId: String? = null
@@ -79,17 +80,14 @@ private constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
-        internal fun from(
-            cardDetailCreateDetailsIframeParams: CardDetailCreateDetailsIframeParams
-        ) = apply {
-            cardId = cardDetailCreateDetailsIframeParams.cardId
-            body = cardDetailCreateDetailsIframeParams.body.toBuilder()
-            additionalHeaders = cardDetailCreateDetailsIframeParams.additionalHeaders.toBuilder()
-            additionalQueryParams =
-                cardDetailCreateDetailsIframeParams.additionalQueryParams.toBuilder()
+        internal fun from(cardCreateDetailsIframeParams: CardCreateDetailsIframeParams) = apply {
+            cardId = cardCreateDetailsIframeParams.cardId
+            body = cardCreateDetailsIframeParams.body.toBuilder()
+            additionalHeaders = cardCreateDetailsIframeParams.additionalHeaders.toBuilder()
+            additionalQueryParams = cardCreateDetailsIframeParams.additionalQueryParams.toBuilder()
         }
 
-        /** The identifier of the Card to retrieve details for. */
+        /** The identifier of the Card to create an iframe for. */
         fun cardId(cardId: String?) = apply { this.cardId = cardId }
 
         /** Alias for calling [Builder.cardId] with `cardId.orElse(null)`. */
@@ -104,7 +102,10 @@ private constructor(
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
-        /** The identifier of the Physical Card to retrieve details for. */
+        /**
+         * The identifier of the Physical Card to create an iframe for. This will inform the
+         * appearance of the card rendered in the iframe.
+         */
         fun physicalCardId(physicalCardId: String) = apply { body.physicalCardId(physicalCardId) }
 
         /**
@@ -236,12 +237,12 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [CardDetailCreateDetailsIframeParams].
+         * Returns an immutable instance of [CardCreateDetailsIframeParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): CardDetailCreateDetailsIframeParams =
-            CardDetailCreateDetailsIframeParams(
+        fun build(): CardCreateDetailsIframeParams =
+            CardCreateDetailsIframeParams(
                 cardId,
                 body.build(),
                 additionalHeaders.build(),
@@ -275,7 +276,8 @@ private constructor(
         ) : this(physicalCardId, mutableMapOf())
 
         /**
-         * The identifier of the Physical Card to retrieve details for.
+         * The identifier of the Physical Card to create an iframe for. This will inform the
+         * appearance of the card rendered in the iframe.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -322,7 +324,10 @@ private constructor(
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
-            /** The identifier of the Physical Card to retrieve details for. */
+            /**
+             * The identifier of the Physical Card to create an iframe for. This will inform the
+             * appearance of the card rendered in the iframe.
+             */
             fun physicalCardId(physicalCardId: String) =
                 physicalCardId(JsonField.of(physicalCardId))
 
@@ -415,7 +420,7 @@ private constructor(
             return true
         }
 
-        return other is CardDetailCreateDetailsIframeParams &&
+        return other is CardCreateDetailsIframeParams &&
             cardId == other.cardId &&
             body == other.body &&
             additionalHeaders == other.additionalHeaders &&
@@ -426,5 +431,5 @@ private constructor(
         Objects.hash(cardId, body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "CardDetailCreateDetailsIframeParams{cardId=$cardId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "CardCreateDetailsIframeParams{cardId=$cardId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }
