@@ -22,8 +22,6 @@ import com.increase.api.services.async.BookkeepingEntryServiceAsync
 import com.increase.api.services.async.BookkeepingEntryServiceAsyncImpl
 import com.increase.api.services.async.BookkeepingEntrySetServiceAsync
 import com.increase.api.services.async.BookkeepingEntrySetServiceAsyncImpl
-import com.increase.api.services.async.CardDetailServiceAsync
-import com.increase.api.services.async.CardDetailServiceAsyncImpl
 import com.increase.api.services.async.CardPaymentServiceAsync
 import com.increase.api.services.async.CardPaymentServiceAsyncImpl
 import com.increase.api.services.async.CardPurchaseSupplementServiceAsync
@@ -146,10 +144,6 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
     }
 
     private val cards: CardServiceAsync by lazy { CardServiceAsyncImpl(clientOptionsWithUserAgent) }
-
-    private val cardDetails: CardDetailServiceAsync by lazy {
-        CardDetailServiceAsyncImpl(clientOptionsWithUserAgent)
-    }
 
     private val cardPayments: CardPaymentServiceAsync by lazy {
         CardPaymentServiceAsyncImpl(clientOptionsWithUserAgent)
@@ -365,8 +359,6 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
 
     override fun cards(): CardServiceAsync = cards
 
-    override fun cardDetails(): CardDetailServiceAsync = cardDetails
-
     override fun cardPayments(): CardPaymentServiceAsync = cardPayments
 
     override fun cardPurchaseSupplements(): CardPurchaseSupplementServiceAsync =
@@ -491,10 +483,6 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
 
         private val cards: CardServiceAsync.WithRawResponse by lazy {
             CardServiceAsyncImpl.WithRawResponseImpl(clientOptions)
-        }
-
-        private val cardDetails: CardDetailServiceAsync.WithRawResponse by lazy {
-            CardDetailServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
         private val cardPayments: CardPaymentServiceAsync.WithRawResponse by lazy {
@@ -718,8 +706,6 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
             accountTransfers
 
         override fun cards(): CardServiceAsync.WithRawResponse = cards
-
-        override fun cardDetails(): CardDetailServiceAsync.WithRawResponse = cardDetails
 
         override fun cardPayments(): CardPaymentServiceAsync.WithRawResponse = cardPayments
 

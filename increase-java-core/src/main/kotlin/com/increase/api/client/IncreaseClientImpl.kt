@@ -22,8 +22,6 @@ import com.increase.api.services.blocking.BookkeepingEntryService
 import com.increase.api.services.blocking.BookkeepingEntryServiceImpl
 import com.increase.api.services.blocking.BookkeepingEntrySetService
 import com.increase.api.services.blocking.BookkeepingEntrySetServiceImpl
-import com.increase.api.services.blocking.CardDetailService
-import com.increase.api.services.blocking.CardDetailServiceImpl
 import com.increase.api.services.blocking.CardPaymentService
 import com.increase.api.services.blocking.CardPaymentServiceImpl
 import com.increase.api.services.blocking.CardPurchaseSupplementService
@@ -144,10 +142,6 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
     }
 
     private val cards: CardService by lazy { CardServiceImpl(clientOptionsWithUserAgent) }
-
-    private val cardDetails: CardDetailService by lazy {
-        CardDetailServiceImpl(clientOptionsWithUserAgent)
-    }
 
     private val cardPayments: CardPaymentService by lazy {
         CardPaymentServiceImpl(clientOptionsWithUserAgent)
@@ -350,8 +344,6 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
 
     override fun cards(): CardService = cards
 
-    override fun cardDetails(): CardDetailService = cardDetails
-
     override fun cardPayments(): CardPaymentService = cardPayments
 
     override fun cardPurchaseSupplements(): CardPurchaseSupplementService = cardPurchaseSupplements
@@ -475,10 +467,6 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
 
         private val cards: CardService.WithRawResponse by lazy {
             CardServiceImpl.WithRawResponseImpl(clientOptions)
-        }
-
-        private val cardDetails: CardDetailService.WithRawResponse by lazy {
-            CardDetailServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
         private val cardPayments: CardPaymentService.WithRawResponse by lazy {
@@ -699,8 +687,6 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
         override fun accountTransfers(): AccountTransferService.WithRawResponse = accountTransfers
 
         override fun cards(): CardService.WithRawResponse = cards
-
-        override fun cardDetails(): CardDetailService.WithRawResponse = cardDetails
 
         override fun cardPayments(): CardPaymentService.WithRawResponse = cardPayments
 

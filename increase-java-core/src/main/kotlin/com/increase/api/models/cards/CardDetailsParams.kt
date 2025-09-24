@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.increase.api.models.carddetails
+package com.increase.api.models.cards
 
 import com.increase.api.core.Params
 import com.increase.api.core.http.Headers
@@ -13,7 +13,7 @@ import kotlin.jvm.optionals.getOrNull
  * Sensitive details for a Card include the primary account number, expiry, card verification code,
  * and PIN.
  */
-class CardDetailDetailsParams
+class CardDetailsParams
 private constructor(
     private val cardId: String?,
     private val additionalHeaders: Headers,
@@ -33,13 +33,13 @@ private constructor(
 
     companion object {
 
-        @JvmStatic fun none(): CardDetailDetailsParams = builder().build()
+        @JvmStatic fun none(): CardDetailsParams = builder().build()
 
-        /** Returns a mutable builder for constructing an instance of [CardDetailDetailsParams]. */
+        /** Returns a mutable builder for constructing an instance of [CardDetailsParams]. */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [CardDetailDetailsParams]. */
+    /** A builder for [CardDetailsParams]. */
     class Builder internal constructor() {
 
         private var cardId: String? = null
@@ -47,10 +47,10 @@ private constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
-        internal fun from(cardDetailDetailsParams: CardDetailDetailsParams) = apply {
-            cardId = cardDetailDetailsParams.cardId
-            additionalHeaders = cardDetailDetailsParams.additionalHeaders.toBuilder()
-            additionalQueryParams = cardDetailDetailsParams.additionalQueryParams.toBuilder()
+        internal fun from(cardDetailsParams: CardDetailsParams) = apply {
+            cardId = cardDetailsParams.cardId
+            additionalHeaders = cardDetailsParams.additionalHeaders.toBuilder()
+            additionalQueryParams = cardDetailsParams.additionalQueryParams.toBuilder()
         }
 
         /** The identifier of the Card to retrieve details for. */
@@ -158,16 +158,12 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [CardDetailDetailsParams].
+         * Returns an immutable instance of [CardDetailsParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): CardDetailDetailsParams =
-            CardDetailDetailsParams(
-                cardId,
-                additionalHeaders.build(),
-                additionalQueryParams.build(),
-            )
+        fun build(): CardDetailsParams =
+            CardDetailsParams(cardId, additionalHeaders.build(), additionalQueryParams.build())
     }
 
     fun _pathParam(index: Int): String =
@@ -185,7 +181,7 @@ private constructor(
             return true
         }
 
-        return other is CardDetailDetailsParams &&
+        return other is CardDetailsParams &&
             cardId == other.cardId &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
@@ -194,5 +190,5 @@ private constructor(
     override fun hashCode(): Int = Objects.hash(cardId, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "CardDetailDetailsParams{cardId=$cardId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "CardDetailsParams{cardId=$cardId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

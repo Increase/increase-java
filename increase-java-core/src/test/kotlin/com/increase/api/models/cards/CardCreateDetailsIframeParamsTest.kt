@@ -1,15 +1,15 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.increase.api.models.carddetails
+package com.increase.api.models.cards
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class CardDetailCreateDetailsIframeParamsTest {
+internal class CardCreateDetailsIframeParamsTest {
 
     @Test
     fun create() {
-        CardDetailCreateDetailsIframeParams.builder()
+        CardCreateDetailsIframeParams.builder()
             .cardId("card_oubs0hwk5rn6knuecxg2")
             .physicalCardId("physical_card_id")
             .build()
@@ -18,9 +18,7 @@ internal class CardDetailCreateDetailsIframeParamsTest {
     @Test
     fun pathParams() {
         val params =
-            CardDetailCreateDetailsIframeParams.builder()
-                .cardId("card_oubs0hwk5rn6knuecxg2")
-                .build()
+            CardCreateDetailsIframeParams.builder().cardId("card_oubs0hwk5rn6knuecxg2").build()
 
         assertThat(params._pathParam(0)).isEqualTo("card_oubs0hwk5rn6knuecxg2")
         // out-of-bound path param
@@ -30,7 +28,7 @@ internal class CardDetailCreateDetailsIframeParamsTest {
     @Test
     fun body() {
         val params =
-            CardDetailCreateDetailsIframeParams.builder()
+            CardCreateDetailsIframeParams.builder()
                 .cardId("card_oubs0hwk5rn6knuecxg2")
                 .physicalCardId("physical_card_id")
                 .build()
@@ -43,9 +41,7 @@ internal class CardDetailCreateDetailsIframeParamsTest {
     @Test
     fun bodyWithoutOptionalFields() {
         val params =
-            CardDetailCreateDetailsIframeParams.builder()
-                .cardId("card_oubs0hwk5rn6knuecxg2")
-                .build()
+            CardCreateDetailsIframeParams.builder().cardId("card_oubs0hwk5rn6knuecxg2").build()
 
         val body = params._body()
     }

@@ -17,12 +17,17 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.cards.Card
+import com.increase.api.models.cards.CardCreateDetailsIframeParams
 import com.increase.api.models.cards.CardCreateParams
+import com.increase.api.models.cards.CardDetails
+import com.increase.api.models.cards.CardDetailsParams
+import com.increase.api.models.cards.CardIframeUrl
 import com.increase.api.models.cards.CardListPage
 import com.increase.api.models.cards.CardListPageResponse
 import com.increase.api.models.cards.CardListParams
 import com.increase.api.models.cards.CardRetrieveParams
 import com.increase.api.models.cards.CardUpdateParams
+import com.increase.api.models.cards.CardUpdatePinParams
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -52,6 +57,24 @@ class CardServiceImpl internal constructor(private val clientOptions: ClientOpti
     override fun list(params: CardListParams, requestOptions: RequestOptions): CardListPage =
         // get /cards
         withRawResponse().list(params, requestOptions).parse()
+
+    override fun createDetailsIframe(
+        params: CardCreateDetailsIframeParams,
+        requestOptions: RequestOptions,
+    ): CardIframeUrl =
+        // post /cards/{card_id}/create_details_iframe
+        withRawResponse().createDetailsIframe(params, requestOptions).parse()
+
+    override fun details(params: CardDetailsParams, requestOptions: RequestOptions): CardDetails =
+        // get /cards/{card_id}/details
+        withRawResponse().details(params, requestOptions).parse()
+
+    override fun updatePin(
+        params: CardUpdatePinParams,
+        requestOptions: RequestOptions,
+    ): CardDetails =
+        // post /cards/{card_id}/update_pin
+        withRawResponse().updatePin(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         CardService.WithRawResponse {
@@ -182,6 +205,98 @@ class CardServiceImpl internal constructor(private val clientOptions: ClientOpti
                             .params(params)
                             .response(it)
                             .build()
+                    }
+            }
+        }
+
+        private val createDetailsIframeHandler: Handler<CardIframeUrl> =
+            jsonHandler<CardIframeUrl>(clientOptions.jsonMapper)
+
+        override fun createDetailsIframe(
+            params: CardCreateDetailsIframeParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<CardIframeUrl> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("cardId", params.cardId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("cards", params._pathParam(0), "create_details_iframe")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { createDetailsIframeHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val detailsHandler: Handler<CardDetails> =
+            jsonHandler<CardDetails>(clientOptions.jsonMapper)
+
+        override fun details(
+            params: CardDetailsParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<CardDetails> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("cardId", params.cardId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("cards", params._pathParam(0), "details")
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { detailsHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val updatePinHandler: Handler<CardDetails> =
+            jsonHandler<CardDetails>(clientOptions.jsonMapper)
+
+        override fun updatePin(
+            params: CardUpdatePinParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<CardDetails> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("cardId", params.cardId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("cards", params._pathParam(0), "update_pin")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { updatePinHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
                     }
             }
         }
