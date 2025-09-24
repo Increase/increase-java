@@ -30,6 +30,7 @@ internal class EventSubscriptionServiceTest {
                         EventSubscriptionCreateParams.SelectedEventCategory.ACCOUNT_CREATED
                     )
                     .sharedSecret("x")
+                    .status(EventSubscriptionCreateParams.Status.ACTIVE)
                     .build()
             )
 
