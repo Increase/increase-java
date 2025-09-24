@@ -55,7 +55,6 @@ internal class AccountTransferTest {
                 .destinationAccountId("account_uf16sut2ct5bevmq3eh")
                 .destinationTransactionId("transaction_j3itv8dtk5o8pw3p1xj4")
                 .idempotencyKey(null)
-                .network(AccountTransfer.Network.ACCOUNT)
                 .pendingTransactionId(null)
                 .status(AccountTransfer.Status.COMPLETE)
                 .transactionId("transaction_uyrp7fld2ium70oa7oi")
@@ -104,7 +103,6 @@ internal class AccountTransferTest {
         assertThat(accountTransfer.destinationTransactionId())
             .contains("transaction_j3itv8dtk5o8pw3p1xj4")
         assertThat(accountTransfer.idempotencyKey()).isEmpty
-        assertThat(accountTransfer.network()).isEqualTo(AccountTransfer.Network.ACCOUNT)
         assertThat(accountTransfer.pendingTransactionId()).isEmpty
         assertThat(accountTransfer.status()).isEqualTo(AccountTransfer.Status.COMPLETE)
         assertThat(accountTransfer.transactionId()).contains("transaction_uyrp7fld2ium70oa7oi")
@@ -157,7 +155,6 @@ internal class AccountTransferTest {
                 .destinationAccountId("account_uf16sut2ct5bevmq3eh")
                 .destinationTransactionId("transaction_j3itv8dtk5o8pw3p1xj4")
                 .idempotencyKey(null)
-                .network(AccountTransfer.Network.ACCOUNT)
                 .pendingTransactionId(null)
                 .status(AccountTransfer.Status.COMPLETE)
                 .transactionId("transaction_uyrp7fld2ium70oa7oi")
