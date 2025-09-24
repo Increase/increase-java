@@ -16,6 +16,7 @@ internal class EventSubscriptionCreateParamsTest {
                 EventSubscriptionCreateParams.SelectedEventCategory.ACCOUNT_CREATED
             )
             .sharedSecret("x")
+            .status(EventSubscriptionCreateParams.Status.ACTIVE)
             .build()
     }
 
@@ -29,6 +30,7 @@ internal class EventSubscriptionCreateParamsTest {
                     EventSubscriptionCreateParams.SelectedEventCategory.ACCOUNT_CREATED
                 )
                 .sharedSecret("x")
+                .status(EventSubscriptionCreateParams.Status.ACTIVE)
                 .build()
 
         val body = params._body()
@@ -38,6 +40,7 @@ internal class EventSubscriptionCreateParamsTest {
         assertThat(body.selectedEventCategory())
             .contains(EventSubscriptionCreateParams.SelectedEventCategory.ACCOUNT_CREATED)
         assertThat(body.sharedSecret()).contains("x")
+        assertThat(body.status()).contains(EventSubscriptionCreateParams.Status.ACTIVE)
     }
 
     @Test
