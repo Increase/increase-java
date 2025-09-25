@@ -24,6 +24,7 @@ import kotlin.jvm.optionals.getOrNull
  * listed here.
  */
 class Document
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
     private val accountVerificationLetter: JsonField<AccountVerificationLetter>,
@@ -525,6 +526,7 @@ private constructor(
 
     /** Properties of an account verification letter document. */
     class AccountVerificationLetter
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val accountNumberId: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -882,6 +884,7 @@ private constructor(
 
     /** Properties of a funding instructions document. */
     class FundingInstructions
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val accountNumberId: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,

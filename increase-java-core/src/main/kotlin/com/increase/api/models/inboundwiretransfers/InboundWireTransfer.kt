@@ -21,6 +21,7 @@ import kotlin.jvm.optionals.getOrNull
 
 /** An Inbound Wire Transfer is a wire transfer initiated outside of Increase to your account. */
 class InboundWireTransfer
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
     private val accountId: JsonField<String>,
@@ -1284,6 +1285,7 @@ private constructor(
 
     /** Information about the reversal of the inbound wire transfer if it has been reversed. */
     class Reversal
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val reason: JsonField<Reason>,
         private val reversedAt: JsonField<OffsetDateTime>,

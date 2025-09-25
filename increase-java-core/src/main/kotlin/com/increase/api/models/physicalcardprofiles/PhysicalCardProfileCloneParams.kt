@@ -417,6 +417,7 @@ private constructor(
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     class Body
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val carrierImageFileId: JsonField<String>,
         private val contactPhone: JsonField<String>,
@@ -801,6 +802,7 @@ private constructor(
      * [support@increase.com](mailto:support@increase.com) for more information.
      */
     class FrontText
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val line1: JsonField<String>,
         private val line2: JsonField<String>,

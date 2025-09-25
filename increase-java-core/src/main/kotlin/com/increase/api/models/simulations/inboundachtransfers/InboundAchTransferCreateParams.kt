@@ -603,6 +603,7 @@ private constructor(
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     class Body
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val accountNumberId: JsonField<String>,
         private val amount: JsonField<Long>,
@@ -1266,6 +1267,7 @@ private constructor(
 
     /** Additional information to include in the transfer. */
     class Addenda
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val category: JsonField<Category>,
         private val freeform: JsonField<Freeform>,
@@ -1575,6 +1577,7 @@ private constructor(
 
         /** Unstructured `payment_related_information` passed through with the transfer. */
         class Freeform
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val entries: JsonField<List<Entry>>,
             private val additionalProperties: MutableMap<String, JsonValue>,
@@ -1739,6 +1742,7 @@ private constructor(
                 (entries.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0)
 
             class Entry
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val paymentRelatedInformation: JsonField<String>,
                 private val additionalProperties: MutableMap<String, JsonValue>,

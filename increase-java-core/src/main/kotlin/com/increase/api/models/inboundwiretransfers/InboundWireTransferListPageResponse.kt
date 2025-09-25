@@ -21,6 +21,7 @@ import kotlin.jvm.optionals.getOrNull
 
 /** A list of Inbound Wire Transfer objects. */
 class InboundWireTransferListPageResponse
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val data: JsonField<List<InboundWireTransfer>>,
     private val nextCursor: JsonField<String>,

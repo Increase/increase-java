@@ -25,6 +25,7 @@ import kotlin.jvm.optionals.getOrNull
  * [Real-Time Decisions guide](https://increase.com/documentation/real-time-decisions).
  */
 class RealTimeDecision
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
     private val cardAuthentication: JsonField<CardAuthentication>,
@@ -636,6 +637,7 @@ private constructor(
 
     /** Fields related to a 3DS authentication attempt. */
     class CardAuthentication
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val accountId: JsonField<String>,
         private val cardId: JsonField<String>,
@@ -1076,6 +1078,7 @@ private constructor(
 
     /** Fields related to a 3DS authentication attempt. */
     class CardAuthenticationChallenge
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val accountId: JsonField<String>,
         private val cardId: JsonField<String>,
@@ -1552,6 +1555,7 @@ private constructor(
 
     /** Fields related to a card authorization. */
     class CardAuthorization
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val accountId: JsonField<String>,
         private val additionalAmounts: JsonField<AdditionalAmounts>,
@@ -2966,6 +2970,7 @@ private constructor(
          * information about the transaction.
          */
         class AdditionalAmounts
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val clinic: JsonField<Clinic>,
             private val dental: JsonField<Dental>,
@@ -3488,6 +3493,7 @@ private constructor(
 
             /** The part of this transaction amount that was for clinic-related services. */
             class Clinic
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val amount: JsonField<Long>,
                 private val currency: JsonField<String>,
@@ -3711,6 +3717,7 @@ private constructor(
 
             /** The part of this transaction amount that was for dental-related services. */
             class Dental
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val amount: JsonField<Long>,
                 private val currency: JsonField<String>,
@@ -3934,6 +3941,7 @@ private constructor(
 
             /** The part of this transaction amount that was for healthcare prescriptions. */
             class Prescription
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val amount: JsonField<Long>,
                 private val currency: JsonField<String>,
@@ -4157,6 +4165,7 @@ private constructor(
 
             /** The surcharge amount charged for this transaction by the merchant. */
             class Surcharge
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val amount: JsonField<Long>,
                 private val currency: JsonField<String>,
@@ -4380,6 +4389,7 @@ private constructor(
 
             /** The total amount of a series of incremental authorizations, optionally provided. */
             class TotalCumulative
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val amount: JsonField<Long>,
                 private val currency: JsonField<String>,
@@ -4603,6 +4613,7 @@ private constructor(
 
             /** The total amount of healthcare-related additional amounts. */
             class TotalHealthcare
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val amount: JsonField<Long>,
                 private val currency: JsonField<String>,
@@ -4826,6 +4837,7 @@ private constructor(
 
             /** The part of this transaction amount that was for transit-related services. */
             class Transit
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val amount: JsonField<Long>,
                 private val currency: JsonField<String>,
@@ -5049,6 +5061,7 @@ private constructor(
 
             /** An unknown additional amount. */
             class Unknown
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val amount: JsonField<Long>,
                 private val currency: JsonField<String>,
@@ -5272,6 +5285,7 @@ private constructor(
 
             /** The part of this transaction amount that was for vision-related services. */
             class Vision
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val amount: JsonField<Long>,
                 private val currency: JsonField<String>,
@@ -5674,6 +5688,7 @@ private constructor(
          * reason the authorization was declined.
          */
         class Decline
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val reason: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,
@@ -5984,6 +5999,7 @@ private constructor(
 
         /** Fields specific to the `network`. */
         class NetworkDetails
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val category: JsonField<Category>,
             private val visa: JsonField<Visa>,
@@ -6304,6 +6320,7 @@ private constructor(
 
             /** Fields specific to the `visa` network. */
             class Visa
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val electronicCommerceIndicator: JsonField<ElectronicCommerceIndicator>,
                 private val pointOfServiceEntryMode: JsonField<PointOfServiceEntryMode>,
@@ -7452,6 +7469,7 @@ private constructor(
 
         /** Network-specific identifiers for a specific request or transaction. */
         class NetworkIdentifiers
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val retrievalReferenceNumber: JsonField<String>,
             private val traceNumber: JsonField<String>,
@@ -8006,6 +8024,7 @@ private constructor(
 
         /** Fields specific to the type of request, such as an incremental authorization. */
         class RequestDetails
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val category: JsonField<Category>,
             private val incrementalAuthorization: JsonField<IncrementalAuthorization>,
@@ -8382,6 +8401,7 @@ private constructor(
 
             /** Fields specific to the category `incremental_authorization`. */
             class IncrementalAuthorization
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val cardPaymentId: JsonField<String>,
                 private val originalCardAuthorizationId: JsonField<String>,
@@ -8640,6 +8660,7 @@ private constructor(
 
         /** Fields related to verification of cardholder-provided values. */
         class Verification
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val cardVerificationCode: JsonField<CardVerificationCode>,
             private val cardholderAddress: JsonField<CardholderAddress>,
@@ -8854,6 +8875,7 @@ private constructor(
              * back of the card.
              */
             class CardVerificationCode
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val result: JsonField<Result>,
                 private val additionalProperties: MutableMap<String, JsonValue>,
@@ -9176,6 +9198,7 @@ private constructor(
              * verified it against.
              */
             class CardholderAddress
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val actualLine1: JsonField<String>,
                 private val actualPostalCode: JsonField<String>,
@@ -10058,6 +10081,7 @@ private constructor(
 
     /** Fields related to a digital wallet authentication attempt. */
     class DigitalWalletAuthentication
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val cardId: JsonField<String>,
         private val channel: JsonField<Channel>,
@@ -10923,6 +10947,7 @@ private constructor(
 
     /** Fields related to a digital wallet token provisioning attempt. */
     class DigitalWalletToken
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val cardId: JsonField<String>,
         private val cardProfileId: JsonField<String>,
@@ -11385,6 +11410,7 @@ private constructor(
 
         /** Device that is being used to provision the digital wallet token. */
         class Device
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val identifier: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,

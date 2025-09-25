@@ -424,6 +424,7 @@ private constructor(
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     class Body
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val cardAuthentication: JsonField<CardAuthentication>,
         private val cardAuthenticationChallenge: JsonField<CardAuthenticationChallenge>,
@@ -801,6 +802,7 @@ private constructor(
      * your response to the authentication.
      */
     class CardAuthentication
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val decision: JsonField<Decision>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -1112,6 +1114,7 @@ private constructor(
      * contains your response.
      */
     class CardAuthenticationChallenge
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val result: JsonField<Result>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -1417,6 +1420,7 @@ private constructor(
      * response to the authorization.
      */
     class CardAuthorization
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val decision: JsonField<Decision>,
         private val approval: JsonField<Approval>,
@@ -1785,6 +1789,7 @@ private constructor(
          * address does not match.
          */
         class Approval
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val cardholderAddressVerificationResult:
                 JsonField<CardholderAddressVerificationResult>,
@@ -1960,6 +1965,7 @@ private constructor(
              * guide.
              */
             class CardholderAddressVerificationResult
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val line1: JsonField<Line1>,
                 private val postalCode: JsonField<PostalCode>,
@@ -2521,6 +2527,7 @@ private constructor(
          * If your application declines the authorization, this contains details about the decline.
          */
         class Decline
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val reason: JsonField<Reason>,
             private val additionalProperties: MutableMap<String, JsonValue>,
@@ -2942,6 +2949,7 @@ private constructor(
      * contains your response to the authentication.
      */
     class DigitalWalletAuthentication
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val result: JsonField<Result>,
         private val success: JsonField<Success>,
@@ -3270,6 +3278,7 @@ private constructor(
          * about the delivery. Exactly one of `phone` or `email` must be provided.
          */
         class Success
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val email: JsonField<String>,
             private val phone: JsonField<String>,
@@ -3478,6 +3487,7 @@ private constructor(
      * contains your response to the attempt.
      */
     class DigitalWalletToken
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val approval: JsonField<Approval>,
         private val decline: JsonField<Decline>,
@@ -3650,6 +3660,7 @@ private constructor(
          * digital wallet token that will be generated.
          */
         class Approval
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val email: JsonField<String>,
             private val phone: JsonField<String>,
@@ -3839,6 +3850,7 @@ private constructor(
          * decline.
          */
         class Decline
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val reason: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,

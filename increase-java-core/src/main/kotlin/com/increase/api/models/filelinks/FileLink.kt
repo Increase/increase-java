@@ -21,6 +21,7 @@ import kotlin.jvm.optionals.getOrNull
 
 /** File Links let you generate a URL that can be used to download a File. */
 class FileLink
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,

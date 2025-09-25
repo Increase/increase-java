@@ -276,6 +276,7 @@ private constructor(
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     class Body
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val fileId: JsonField<String>,
         private val expiresAt: JsonField<OffsetDateTime>,

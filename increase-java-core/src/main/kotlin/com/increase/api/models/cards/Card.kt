@@ -25,6 +25,7 @@ import kotlin.jvm.optionals.getOrNull
  * transaction. Funds are deducted from the Account upon transaction settlement.
  */
 class Card
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
     private val accountId: JsonField<String>,
@@ -678,6 +679,7 @@ private constructor(
 
     /** The Card's billing address. */
     class BillingAddress
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val city: JsonField<String>,
         private val line1: JsonField<String>,
@@ -1011,6 +1013,7 @@ private constructor(
      * least one field must be present to complete the digital wallet steps.
      */
     class DigitalWallet
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val digitalCardProfileId: JsonField<String>,
         private val email: JsonField<String>,

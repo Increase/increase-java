@@ -471,6 +471,7 @@ private constructor(
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     class Body
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val corporation: JsonField<Corporation>,
         private val detailsConfirmedAt: JsonField<OffsetDateTime>,
@@ -928,6 +929,7 @@ private constructor(
      * not a corporation, the request will fail.
      */
     class Corporation
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val address: JsonField<Address>,
         private val industryCode: JsonField<String>,
@@ -1142,6 +1144,7 @@ private constructor(
          * disallowed.
          */
         class Address
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val city: JsonField<String>,
             private val line1: JsonField<String>,
@@ -1487,6 +1490,7 @@ private constructor(
      * entity is not a government authority, the request will fail.
      */
     class GovernmentAuthority
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val address: JsonField<Address>,
         private val name: JsonField<String>,
@@ -1653,6 +1657,7 @@ private constructor(
          * disallowed.
          */
         class Address
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val city: JsonField<String>,
             private val line1: JsonField<String>,
@@ -1995,6 +2000,7 @@ private constructor(
      * is not a natural person, the request will fail.
      */
     class NaturalPerson
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val address: JsonField<Address>,
         private val name: JsonField<String>,
@@ -2161,6 +2167,7 @@ private constructor(
          * disallowed.
          */
         class Address
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val city: JsonField<String>,
             private val line1: JsonField<String>,
@@ -2503,6 +2510,7 @@ private constructor(
      * money laundering.
      */
     class RiskRating
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val ratedAt: JsonField<OffsetDateTime>,
         private val rating: JsonField<Rating>,
@@ -2857,6 +2865,7 @@ private constructor(
      * associate this Entity with the identifier that represents them in that service.
      */
     class ThirdPartyVerification
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val reference: JsonField<String>,
         private val vendor: JsonField<Vendor>,
@@ -3205,6 +3214,7 @@ private constructor(
      * trust, the request will fail.
      */
     class Trust
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val address: JsonField<Address>,
         private val name: JsonField<String>,
@@ -3370,6 +3380,7 @@ private constructor(
          * disallowed.
          */
         class Address
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val city: JsonField<String>,
             private val line1: JsonField<String>,

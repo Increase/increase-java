@@ -21,6 +21,7 @@ import kotlin.jvm.optionals.getOrNull
 
 /** A list of Declined Transaction objects. */
 class DeclinedTransactionListPageResponse
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val data: JsonField<List<DeclinedTransaction>>,
     private val nextCursor: JsonField<String>,

@@ -25,6 +25,7 @@ import kotlin.jvm.optionals.getOrNull
  * configuration of the card range.
  */
 class CardTokenCapabilities
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val routes: JsonField<List<Route>>,
     private val type: JsonField<Type>,
@@ -219,6 +220,7 @@ private constructor(
             (type.asKnown().getOrNull()?.validity() ?: 0)
 
     class Route
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val crossBorderPushTransfers: JsonField<CrossBorderPushTransfers>,
         private val domesticPushTransfers: JsonField<DomesticPushTransfers>,

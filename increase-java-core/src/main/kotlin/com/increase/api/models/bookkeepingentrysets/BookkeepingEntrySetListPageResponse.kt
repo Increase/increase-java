@@ -21,6 +21,7 @@ import kotlin.jvm.optionals.getOrNull
 
 /** A list of Bookkeeping Entry Set objects. */
 class BookkeepingEntrySetListPageResponse
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val data: JsonField<List<BookkeepingEntrySet>>,
     private val nextCursor: JsonField<String>,

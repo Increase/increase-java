@@ -271,6 +271,7 @@ private constructor(
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     class Body
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val rejection: JsonField<Rejection>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -417,6 +418,7 @@ private constructor(
 
     /** If set, the simulation will reject the transfer. */
     class Rejection
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val rejectReasonCode: JsonField<RejectReasonCode>,
         private val additionalProperties: MutableMap<String, JsonValue>,

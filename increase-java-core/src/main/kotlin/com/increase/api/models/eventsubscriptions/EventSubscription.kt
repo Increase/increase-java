@@ -26,6 +26,7 @@ import kotlin.jvm.optionals.getOrNull
  * API. For more information, see our [webhooks guide](https://increase.com/documentation/webhooks).
  */
 class EventSubscription
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,

@@ -24,6 +24,7 @@ import kotlin.jvm.optionals.getOrNull
  * see our [webhooks guide](https://increase.com/documentation/webhooks).
  */
 class Event
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
     private val associatedObjectId: JsonField<String>,

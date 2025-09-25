@@ -28,6 +28,7 @@ import kotlin.jvm.optionals.getOrNull
  * [support@increase.com](mailto:support@increase.com) for pricing!
  */
 class PhysicalCard
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
     private val cardId: JsonField<String>,
@@ -514,6 +515,7 @@ private constructor(
 
     /** Details about the cardholder, as it appears on the printed card. */
     class Cardholder
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val firstName: JsonField<String>,
         private val lastName: JsonField<String>,
@@ -718,6 +720,7 @@ private constructor(
 
     /** The details used to ship this physical card. */
     class Shipment
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val address: JsonField<Address>,
         private val method: JsonField<Method>,
@@ -1021,6 +1024,7 @@ private constructor(
 
         /** The location to where the card's packing label is addressed. */
         class Address
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val city: JsonField<String>,
             private val country: JsonField<String>,
@@ -2017,6 +2021,7 @@ private constructor(
 
         /** Tracking details for the shipment. */
         class Tracking
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val number: JsonField<String>,
             private val returnNumber: JsonField<String>,
@@ -2365,6 +2370,7 @@ private constructor(
                     (updates.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0)
 
             class Update
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val carrierEstimatedDeliveryAt: JsonField<OffsetDateTime>,
                 private val category: JsonField<Category>,
