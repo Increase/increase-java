@@ -486,6 +486,7 @@ private constructor(
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     class Body
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val accountId: JsonField<String>,
         private val amount: JsonField<Long>,
@@ -1141,6 +1142,7 @@ private constructor(
      * `fulfillment_method` is provided.
      */
     class PhysicalCheck
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val mailingAddress: JsonField<MailingAddress>,
         private val memo: JsonField<String>,
@@ -1657,6 +1659,7 @@ private constructor(
 
         /** Details for where Increase will mail the check. */
         class MailingAddress
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val city: JsonField<String>,
             private val line1: JsonField<String>,
@@ -1979,6 +1982,7 @@ private constructor(
         }
 
         class Payer
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val contents: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,
@@ -2146,6 +2150,7 @@ private constructor(
          * Increase-owned address that will mark checks as delivery failed and shred them.
          */
         class ReturnAddress
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val city: JsonField<String>,
             private val line1: JsonField<String>,
@@ -2692,6 +2697,7 @@ private constructor(
      * `fulfillment_method` is provided.
      */
     class ThirdParty
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val recipientName: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,

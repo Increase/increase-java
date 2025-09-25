@@ -546,6 +546,7 @@ private constructor(
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     class Body
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val accountNumberId: JsonField<String>,
         private val amount: JsonField<Long>,
@@ -1139,6 +1140,7 @@ private constructor(
 
     /** The creditor's address. */
     class CreditorAddress
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val city: JsonField<String>,
         private val country: JsonField<String>,
@@ -1489,6 +1491,7 @@ private constructor(
 
     /** The debtor's address. */
     class DebtorAddress
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val city: JsonField<String>,
         private val country: JsonField<String>,

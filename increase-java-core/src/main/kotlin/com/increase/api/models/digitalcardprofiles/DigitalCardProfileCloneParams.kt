@@ -499,6 +499,7 @@ private constructor(
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     class Body
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val appIconFileId: JsonField<String>,
         private val backgroundImageFileId: JsonField<String>,
@@ -1010,6 +1011,7 @@ private constructor(
 
     /** The Card's text color, specified as an RGB triple. The default is white. */
     class TextColor
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val blue: JsonField<Long>,
         private val green: JsonField<Long>,

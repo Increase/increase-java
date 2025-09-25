@@ -373,6 +373,7 @@ private constructor(
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     class Body
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val accountId: JsonField<String>,
         private val billingAddress: JsonField<BillingAddress>,
@@ -723,6 +724,7 @@ private constructor(
 
     /** The card's billing address. */
     class BillingAddress
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val city: JsonField<String>,
         private val line1: JsonField<String>,
@@ -1041,6 +1043,7 @@ private constructor(
      * `digital_wallet_token_requested` or `digital_wallet_authentication_requested`.
      */
     class DigitalWallet
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val digitalCardProfileId: JsonField<String>,
         private val email: JsonField<String>,

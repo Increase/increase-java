@@ -26,6 +26,7 @@ import kotlin.jvm.optionals.getOrNull
  * House (ACH).
  */
 class AchPrenotification
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
     private val accountId: JsonField<String>,
@@ -1224,6 +1225,7 @@ private constructor(
     }
 
     class NotificationsOfChange
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val changeCode: JsonField<ChangeCode>,
         private val correctedData: JsonField<String>,
@@ -1880,6 +1882,7 @@ private constructor(
 
     /** If your prenotification is returned, this will contain details of the return. */
     class PrenotificationReturn
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val createdAt: JsonField<OffsetDateTime>,
         private val returnReasonCode: JsonField<ReturnReasonCode>,

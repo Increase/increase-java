@@ -21,6 +21,7 @@ import kotlin.jvm.optionals.getOrNull
 
 /** A list of Account Transfer objects. */
 class AccountTransferListPageResponse
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val data: JsonField<List<AccountTransfer>>,
     private val nextCursor: JsonField<String>,

@@ -21,6 +21,7 @@ import kotlin.jvm.optionals.getOrNull
 
 /** A list of ACH Prenotification objects. */
 class AchPrenotificationListPageResponse
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val data: JsonField<List<AchPrenotification>>,
     private val nextCursor: JsonField<String>,

@@ -20,6 +20,7 @@ import kotlin.jvm.optionals.getOrNull
 
 /** An object containing the iframe URL for a Card. */
 class CardIframeUrl
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val expiresAt: JsonField<OffsetDateTime>,
     private val iframeUrl: JsonField<String>,

@@ -25,6 +25,7 @@ import kotlin.jvm.optionals.getOrNull
  * [here](https://increase.com/documentation/oauth).
  */
 class Group
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
     private val achDebitStatus: JsonField<AchDebitStatus>,

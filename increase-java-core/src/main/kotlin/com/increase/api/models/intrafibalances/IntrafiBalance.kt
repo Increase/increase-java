@@ -26,6 +26,7 @@ import kotlin.jvm.optionals.getOrNull
  * various other institutions. Funds are rebalanced across banks as needed once per business day.
  */
 class IntrafiBalance
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
     private val balances: JsonField<List<Balance>>,
@@ -383,6 +384,7 @@ private constructor(
             (type.asKnown().getOrNull()?.validity() ?: 0)
 
     class Balance
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val id: JsonField<String>,
         private val balance: JsonField<Long>,
@@ -697,6 +699,7 @@ private constructor(
 
         /** The primary location of the bank. */
         class BankLocation
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val city: JsonField<String>,
             private val state: JsonField<String>,

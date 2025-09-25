@@ -335,6 +335,7 @@ private constructor(
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     class Body
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val accountId: JsonField<String>,
         private val name: JsonField<String>,
@@ -623,6 +624,7 @@ private constructor(
 
     /** Options related to how this Account Number should handle inbound ACH transfers. */
     class InboundAch
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val debitStatus: JsonField<DebitStatus>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -937,6 +939,7 @@ private constructor(
 
     /** Options related to how this Account Number should handle inbound check withdrawals. */
     class InboundChecks
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val status: JsonField<Status>,
         private val additionalProperties: MutableMap<String, JsonValue>,

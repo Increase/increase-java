@@ -26,6 +26,7 @@ import kotlin.jvm.optionals.getOrNull
  * item data.
  */
 class CardPurchaseSupplement
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
     private val cardPaymentId: JsonField<String>,
@@ -390,6 +391,7 @@ private constructor(
 
     /** Invoice-level information about the payment. */
     class Invoice
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val discountAmount: JsonField<Long>,
         private val discountCurrency: JsonField<String>,
@@ -1731,6 +1733,7 @@ private constructor(
     }
 
     class LineItem
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val id: JsonField<String>,
         private val detailIndicator: JsonField<DetailIndicator>,

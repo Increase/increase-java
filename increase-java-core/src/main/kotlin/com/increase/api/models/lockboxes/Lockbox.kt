@@ -24,6 +24,7 @@ import kotlin.jvm.optionals.getOrNull
  * automatically create a Check Deposit for checks received this way.
  */
 class Lockbox
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
     private val accountId: JsonField<String>,
@@ -503,6 +504,7 @@ private constructor(
 
     /** The mailing address for the Lockbox. */
     class Address
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val city: JsonField<String>,
         private val line1: JsonField<String>,

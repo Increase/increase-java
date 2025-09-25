@@ -26,6 +26,7 @@ import kotlin.jvm.optionals.getOrNull
  * account.
  */
 class InboundCheckDeposit
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
     private val acceptedAt: JsonField<OffsetDateTime>,
@@ -1067,6 +1068,7 @@ private constructor(
             (type.asKnown().getOrNull()?.validity() ?: 0)
 
     class Adjustment
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val adjustedAt: JsonField<OffsetDateTime>,
         private val amount: JsonField<Long>,
@@ -1714,6 +1716,7 @@ private constructor(
 
     /** If you requested a return of this deposit, this will contain details of the return. */
     class DepositReturn
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val reason: JsonField<Reason>,
         private val returnedAt: JsonField<OffsetDateTime>,

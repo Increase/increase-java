@@ -21,6 +21,7 @@ import kotlin.jvm.optionals.getOrNull
 
 /** A list of Digital Card Profile objects. */
 class DigitalCardProfileListPageResponse
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val data: JsonField<List<DigitalCardProfile>>,
     private val nextCursor: JsonField<String>,

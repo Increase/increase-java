@@ -24,6 +24,7 @@ import kotlin.jvm.optionals.getOrNull
  * Increase to your account.
  */
 class InboundRealTimePaymentsTransfer
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
     private val accountId: JsonField<String>,
@@ -809,6 +810,7 @@ private constructor(
 
     /** If your transfer is confirmed, this will contain details of the confirmation. */
     class Confirmation
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val confirmedAt: JsonField<OffsetDateTime>,
         private val transactionId: JsonField<String>,
@@ -1195,6 +1197,7 @@ private constructor(
 
     /** If your transfer is declined, this will contain details of the decline. */
     class Decline
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val declinedAt: JsonField<OffsetDateTime>,
         private val declinedTransactionId: JsonField<String>,

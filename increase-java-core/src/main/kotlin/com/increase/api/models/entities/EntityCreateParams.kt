@@ -553,6 +553,7 @@ private constructor(
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     class Body
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val structure: JsonField<Structure>,
         private val corporation: JsonField<Corporation>,
@@ -1323,6 +1324,7 @@ private constructor(
      * `corporation`.
      */
     class Corporation
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val address: JsonField<Address>,
         private val beneficialOwners: JsonField<List<BeneficialOwner>>,
@@ -1812,6 +1814,7 @@ private constructor(
          * disallowed.
          */
         class Address
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val city: JsonField<String>,
             private val line1: JsonField<String>,
@@ -2131,6 +2134,7 @@ private constructor(
         }
 
         class BeneficialOwner
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val individual: JsonField<Individual>,
             private val prongs: JsonField<List<Prong>>,
@@ -2385,6 +2389,7 @@ private constructor(
 
             /** Personal details for the beneficial owner. */
             class Individual
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val address: JsonField<Address>,
                 private val dateOfBirth: JsonField<LocalDate>,
@@ -2731,6 +2736,7 @@ private constructor(
                  * PMB's are disallowed.
                  */
                 class Address
+                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
                 private constructor(
                     private val city: JsonField<String>,
                     private val country: JsonField<String>,
@@ -3112,6 +3118,7 @@ private constructor(
 
                 /** A means of verifying the person's identity. */
                 class Identification
+                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
                 private constructor(
                     private val method: JsonField<Method>,
                     private val number: JsonField<String>,
@@ -3623,6 +3630,7 @@ private constructor(
                      * Required if `method` is equal to `drivers_license`.
                      */
                     class DriversLicense
+                    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
                     private constructor(
                         private val expirationDate: JsonField<LocalDate>,
                         private val fileId: JsonField<String>,
@@ -3947,6 +3955,7 @@ private constructor(
                      * is equal to `other`.
                      */
                     class Other
+                    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
                     private constructor(
                         private val country: JsonField<String>,
                         private val description: JsonField<String>,
@@ -4324,6 +4333,7 @@ private constructor(
                      * is equal to `passport`.
                      */
                     class Passport
+                    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
                     private constructor(
                         private val country: JsonField<String>,
                         private val expirationDate: JsonField<LocalDate>,
@@ -5014,6 +5024,7 @@ private constructor(
      * `government_authority`.
      */
     class GovernmentAuthority
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val address: JsonField<Address>,
         private val authorizedPersons: JsonField<List<AuthorizedPerson>>,
@@ -5372,6 +5383,7 @@ private constructor(
          * disallowed.
          */
         class Address
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val city: JsonField<String>,
             private val line1: JsonField<String>,
@@ -5691,6 +5703,7 @@ private constructor(
         }
 
         class AuthorizedPerson
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val name: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,
@@ -6042,6 +6055,7 @@ private constructor(
 
     /** Details of the joint entity to create. Required if `structure` is equal to `joint`. */
     class Joint
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val individuals: JsonField<List<Individual>>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -6202,6 +6216,7 @@ private constructor(
             (individuals.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0)
 
         class Individual
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val address: JsonField<Address>,
             private val dateOfBirth: JsonField<LocalDate>,
@@ -6534,6 +6549,7 @@ private constructor(
              * are disallowed.
              */
             class Address
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val city: JsonField<String>,
                 private val line1: JsonField<String>,
@@ -6868,6 +6884,7 @@ private constructor(
 
             /** A means of verifying the person's identity. */
             class Identification
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val method: JsonField<Method>,
                 private val number: JsonField<String>,
@@ -7368,6 +7385,7 @@ private constructor(
                  * Required if `method` is equal to `drivers_license`.
                  */
                 class DriversLicense
+                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
                 private constructor(
                     private val expirationDate: JsonField<LocalDate>,
                     private val fileId: JsonField<String>,
@@ -7685,6 +7703,7 @@ private constructor(
                  * equal to `other`.
                  */
                 class Other
+                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
                 private constructor(
                     private val country: JsonField<String>,
                     private val description: JsonField<String>,
@@ -8058,6 +8077,7 @@ private constructor(
                  * equal to `passport`.
                  */
                 class Passport
+                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
                 private constructor(
                     private val country: JsonField<String>,
                     private val expirationDate: JsonField<LocalDate>,
@@ -8408,6 +8428,7 @@ private constructor(
      * or `individual_taxpayer_identification_number` identification methods.
      */
     class NaturalPerson
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val address: JsonField<Address>,
         private val dateOfBirth: JsonField<LocalDate>,
@@ -8729,6 +8750,7 @@ private constructor(
          * disallowed.
          */
         class Address
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val city: JsonField<String>,
             private val line1: JsonField<String>,
@@ -9049,6 +9071,7 @@ private constructor(
 
         /** A means of verifying the person's identity. */
         class Identification
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val method: JsonField<Method>,
             private val number: JsonField<String>,
@@ -9541,6 +9564,7 @@ private constructor(
              * Required if `method` is equal to `drivers_license`.
              */
             class DriversLicense
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val expirationDate: JsonField<LocalDate>,
                 private val fileId: JsonField<String>,
@@ -9843,6 +9867,7 @@ private constructor(
              * to `other`.
              */
             class Other
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val country: JsonField<String>,
                 private val description: JsonField<String>,
@@ -10203,6 +10228,7 @@ private constructor(
              * to `passport`.
              */
             class Passport
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val country: JsonField<String>,
                 private val expirationDate: JsonField<LocalDate>,
@@ -10522,6 +10548,7 @@ private constructor(
      * money laundering.
      */
     class RiskRating
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val ratedAt: JsonField<OffsetDateTime>,
         private val rating: JsonField<Rating>,
@@ -10872,6 +10899,7 @@ private constructor(
     }
 
     class SupplementalDocument
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val fileId: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -11034,6 +11062,7 @@ private constructor(
      * associate this Entity with the identifier that represents them in that service.
      */
     class ThirdPartyVerification
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val reference: JsonField<String>,
         private val vendor: JsonField<Vendor>,
@@ -11379,6 +11408,7 @@ private constructor(
 
     /** Details of the trust entity to create. Required if `structure` is equal to `trust`. */
     class Trust
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val address: JsonField<Address>,
         private val category: JsonField<Category>,
@@ -11841,6 +11871,7 @@ private constructor(
          * disallowed.
          */
         class Address
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val city: JsonField<String>,
             private val line1: JsonField<String>,
@@ -12301,6 +12332,7 @@ private constructor(
         }
 
         class Trustee
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val structure: JsonField<Structure>,
             private val individual: JsonField<Individual>,
@@ -12632,6 +12664,7 @@ private constructor(
              * `structure` is equal to `individual`.
              */
             class Individual
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val address: JsonField<Address>,
                 private val dateOfBirth: JsonField<LocalDate>,
@@ -12978,6 +13011,7 @@ private constructor(
                  * PMB's are disallowed.
                  */
                 class Address
+                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
                 private constructor(
                     private val city: JsonField<String>,
                     private val line1: JsonField<String>,
@@ -13319,6 +13353,7 @@ private constructor(
 
                 /** A means of verifying the person's identity. */
                 class Identification
+                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
                 private constructor(
                     private val method: JsonField<Method>,
                     private val number: JsonField<String>,
@@ -13830,6 +13865,7 @@ private constructor(
                      * Required if `method` is equal to `drivers_license`.
                      */
                     class DriversLicense
+                    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
                     private constructor(
                         private val expirationDate: JsonField<LocalDate>,
                         private val fileId: JsonField<String>,
@@ -14154,6 +14190,7 @@ private constructor(
                      * is equal to `other`.
                      */
                     class Other
+                    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
                     private constructor(
                         private val country: JsonField<String>,
                         private val description: JsonField<String>,
@@ -14531,6 +14568,7 @@ private constructor(
                      * is equal to `passport`.
                      */
                     class Passport
+                    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
                     private constructor(
                         private val country: JsonField<String>,
                         private val expirationDate: JsonField<LocalDate>,
@@ -14884,6 +14922,7 @@ private constructor(
 
         /** The grantor of the trust. Required if `category` is equal to `revocable`. */
         class Grantor
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val address: JsonField<Address>,
             private val dateOfBirth: JsonField<LocalDate>,
@@ -15216,6 +15255,7 @@ private constructor(
              * are disallowed.
              */
             class Address
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val city: JsonField<String>,
                 private val line1: JsonField<String>,
@@ -15550,6 +15590,7 @@ private constructor(
 
             /** A means of verifying the person's identity. */
             class Identification
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val method: JsonField<Method>,
                 private val number: JsonField<String>,
@@ -16050,6 +16091,7 @@ private constructor(
                  * Required if `method` is equal to `drivers_license`.
                  */
                 class DriversLicense
+                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
                 private constructor(
                     private val expirationDate: JsonField<LocalDate>,
                     private val fileId: JsonField<String>,
@@ -16367,6 +16409,7 @@ private constructor(
                  * equal to `other`.
                  */
                 class Other
+                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
                 private constructor(
                     private val country: JsonField<String>,
                     private val description: JsonField<String>,
@@ -16740,6 +16783,7 @@ private constructor(
                  * equal to `passport`.
                  */
                 class Passport
+                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
                 private constructor(
                     private val country: JsonField<String>,
                     private val expirationDate: JsonField<LocalDate>,

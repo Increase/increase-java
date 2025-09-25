@@ -25,6 +25,7 @@ import kotlin.jvm.optionals.getOrNull
  * Fedwire.
  */
 class WireTransfer
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
     private val accountId: JsonField<String>,
@@ -1574,6 +1575,7 @@ private constructor(
      * contain details of the approval.
      */
     class Approval
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val approvedAt: JsonField<OffsetDateTime>,
         private val approvedBy: JsonField<String>,
@@ -1797,6 +1799,7 @@ private constructor(
      * contain details of the cancellation.
      */
     class Cancellation
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val canceledAt: JsonField<OffsetDateTime>,
         private val canceledBy: JsonField<String>,
@@ -2017,6 +2020,7 @@ private constructor(
 
     /** What object created the transfer, either via the API or the dashboard. */
     class CreatedBy
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val apiKey: JsonField<ApiKey>,
         private val category: JsonField<Category>,
@@ -2291,6 +2295,7 @@ private constructor(
 
         /** If present, details about the API key that created the transfer. */
         class ApiKey
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val description: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,
@@ -2621,6 +2626,7 @@ private constructor(
 
         /** If present, details about the OAuth Application that created the transfer. */
         class OAuthApplication
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val name: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,
@@ -2784,6 +2790,7 @@ private constructor(
 
         /** If present, details about the User that created the transfer. */
         class User
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val email: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,
@@ -3262,6 +3269,7 @@ private constructor(
 
     /** Remittance information sent with the wire transfer. */
     class Remittance
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val category: JsonField<Category>,
         private val tax: JsonField<Tax>,
@@ -3650,6 +3658,7 @@ private constructor(
          * to `tax`.
          */
         class Tax
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val date: JsonField<LocalDate>,
             private val identificationNumber: JsonField<String>,
@@ -3913,6 +3922,7 @@ private constructor(
          * Unstructured remittance information. Required if `category` is equal to `unstructured`.
          */
         class Unstructured
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val message: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,
@@ -4100,6 +4110,7 @@ private constructor(
 
     /** If your transfer is reversed, this will contain details of the reversal. */
     class Reversal
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val amount: JsonField<Long>,
         private val createdAt: JsonField<OffsetDateTime>,
@@ -5133,6 +5144,7 @@ private constructor(
 
     /** After the transfer is submitted to Fedwire, this will contain supplemental details. */
     class Submission
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val inputMessageAccountabilityData: JsonField<String>,
         private val submittedAt: JsonField<OffsetDateTime>,
