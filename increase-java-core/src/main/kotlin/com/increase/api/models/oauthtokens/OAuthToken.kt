@@ -22,6 +22,7 @@ import kotlin.jvm.optionals.getOrNull
  * to authenticate requests. Learn more about OAuth [here](/documentation/oauth).
  */
 class OAuthToken
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val accessToken: JsonField<String>,
     private val tokenType: JsonField<TokenType>,

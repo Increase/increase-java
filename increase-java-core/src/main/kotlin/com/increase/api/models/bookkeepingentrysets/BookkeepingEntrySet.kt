@@ -27,6 +27,7 @@ import kotlin.jvm.optionals.getOrNull
  * [guide to Bookkeeping](https://increase.com/documentation/bookkeeping#bookkeeping).
  */
 class BookkeepingEntrySet
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,
@@ -432,6 +433,7 @@ private constructor(
             (type.asKnown().getOrNull()?.validity() ?: 0)
 
     class Entry
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val id: JsonField<String>,
         private val accountId: JsonField<String>,

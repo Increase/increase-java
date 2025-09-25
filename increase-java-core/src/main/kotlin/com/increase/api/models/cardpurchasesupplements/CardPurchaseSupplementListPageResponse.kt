@@ -21,6 +21,7 @@ import kotlin.jvm.optionals.getOrNull
 
 /** A list of Card Purchase Supplement objects. */
 class CardPurchaseSupplementListPageResponse
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val data: JsonField<List<CardPurchaseSupplement>>,
     private val nextCursor: JsonField<String>,

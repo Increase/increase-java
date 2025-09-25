@@ -342,6 +342,7 @@ private constructor(
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     class Body
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val cardId: JsonField<String>,
         private val cardholder: JsonField<Cardholder>,
@@ -635,6 +636,7 @@ private constructor(
 
     /** Details about the cardholder, as it will appear on the physical card. */
     class Cardholder
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val firstName: JsonField<String>,
         private val lastName: JsonField<String>,
@@ -839,6 +841,7 @@ private constructor(
 
     /** The details used to ship this physical card. */
     class Shipment
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val address: JsonField<Address>,
         private val method: JsonField<Method>,
@@ -1063,6 +1066,7 @@ private constructor(
 
         /** The address to where the card should be shipped. */
         class Address
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val city: JsonField<String>,
             private val line1: JsonField<String>,

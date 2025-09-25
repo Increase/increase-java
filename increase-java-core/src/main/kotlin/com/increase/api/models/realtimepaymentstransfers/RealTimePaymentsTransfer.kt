@@ -24,6 +24,7 @@ import kotlin.jvm.optionals.getOrNull
  * other account on the Real-Time Payments network.
  */
 class RealTimePaymentsTransfer
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
     private val accountId: JsonField<String>,
@@ -1292,6 +1293,7 @@ private constructor(
      * details.
      */
     class Acknowledgement
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val acknowledgedAt: JsonField<OffsetDateTime>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -1463,6 +1465,7 @@ private constructor(
      * contain details of the approval.
      */
     class Approval
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val approvedAt: JsonField<OffsetDateTime>,
         private val approvedBy: JsonField<String>,
@@ -1686,6 +1689,7 @@ private constructor(
      * contain details of the cancellation.
      */
     class Cancellation
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val canceledAt: JsonField<OffsetDateTime>,
         private val canceledBy: JsonField<String>,
@@ -1906,6 +1910,7 @@ private constructor(
 
     /** What object created the transfer, either via the API or the dashboard. */
     class CreatedBy
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val apiKey: JsonField<ApiKey>,
         private val category: JsonField<Category>,
@@ -2180,6 +2185,7 @@ private constructor(
 
         /** If present, details about the API key that created the transfer. */
         class ApiKey
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val description: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,
@@ -2510,6 +2516,7 @@ private constructor(
 
         /** If present, details about the OAuth Application that created the transfer. */
         class OAuthApplication
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val name: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,
@@ -2673,6 +2680,7 @@ private constructor(
 
         /** If present, details about the User that created the transfer. */
         class User
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val email: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,
@@ -3032,6 +3040,7 @@ private constructor(
      * this will contain supplemental details.
      */
     class Rejection
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val rejectReasonAdditionalInformation: JsonField<String>,
         private val rejectReasonCode: JsonField<RejectReasonCode>,
@@ -4027,6 +4036,7 @@ private constructor(
      * details.
      */
     class Submission
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val submittedAt: JsonField<OffsetDateTime>,
         private val transactionIdentification: JsonField<String>,

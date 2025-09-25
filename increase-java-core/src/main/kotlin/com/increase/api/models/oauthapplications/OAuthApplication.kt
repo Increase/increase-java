@@ -25,6 +25,7 @@ import kotlin.jvm.optionals.getOrNull
  * Learn more about OAuth [here](https://increase.com/documentation/oauth).
  */
 class OAuthApplication
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
     private val clientId: JsonField<String>,

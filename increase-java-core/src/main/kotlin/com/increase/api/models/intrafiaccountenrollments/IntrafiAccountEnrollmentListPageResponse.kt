@@ -21,6 +21,7 @@ import kotlin.jvm.optionals.getOrNull
 
 /** A list of IntraFi Account Enrollment objects. */
 class IntrafiAccountEnrollmentListPageResponse
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val data: JsonField<List<IntrafiAccountEnrollment>>,
     private val nextCursor: JsonField<String>,

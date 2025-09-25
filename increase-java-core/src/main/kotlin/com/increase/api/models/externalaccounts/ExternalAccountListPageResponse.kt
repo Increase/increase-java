@@ -21,6 +21,7 @@ import kotlin.jvm.optionals.getOrNull
 
 /** A list of External Account objects. */
 class ExternalAccountListPageResponse
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val data: JsonField<List<ExternalAccount>>,
     private val nextCursor: JsonField<String>,

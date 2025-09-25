@@ -25,6 +25,7 @@ import kotlin.jvm.optionals.getOrNull
  * [digital card artwork](https://increase.com/documentation/card-art).
  */
 class DigitalCardProfile
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
     private val appIconFileId: JsonField<String>,
@@ -892,6 +893,7 @@ private constructor(
 
     /** The Card's text color, specified as an RGB triple. */
     class TextColor
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val blue: JsonField<Long>,
         private val green: JsonField<Long>,

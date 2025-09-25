@@ -27,6 +27,7 @@ import kotlin.jvm.optionals.getOrNull
  * Automated Clearing House (ACH).
  */
 class AchTransfer
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
     private val accountId: JsonField<String>,
@@ -1803,6 +1804,7 @@ private constructor(
      * Federal Reserve sends an acknowledgement message for each file that Increase submits.
      */
     class Acknowledgement
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val acknowledgedAt: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -1973,6 +1975,7 @@ private constructor(
 
     /** Additional information that will be sent to the recipient. */
     class Addenda
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val category: JsonField<Category>,
         private val freeform: JsonField<Freeform>,
@@ -2382,6 +2385,7 @@ private constructor(
 
         /** Unstructured `payment_related_information` passed through with the transfer. */
         class Freeform
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val entries: JsonField<List<Entry>>,
             private val additionalProperties: MutableMap<String, JsonValue>,
@@ -2546,6 +2550,7 @@ private constructor(
                 (entries.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0)
 
             class Entry
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val paymentRelatedInformation: JsonField<String>,
                 private val additionalProperties: MutableMap<String, JsonValue>,
@@ -2744,6 +2749,7 @@ private constructor(
          * [support@increase.com](mailto:support@increase.com) for more information.
          */
         class PaymentOrderRemittanceAdvice
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val invoices: JsonField<List<Invoice>>,
             private val additionalProperties: MutableMap<String, JsonValue>,
@@ -2912,6 +2918,7 @@ private constructor(
                 (invoices.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0)
 
             class Invoice
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val invoiceNumber: JsonField<String>,
                 private val paidAmount: JsonField<Long>,
@@ -3182,6 +3189,7 @@ private constructor(
      * contain details of the approval.
      */
     class Approval
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val approvedAt: JsonField<OffsetDateTime>,
         private val approvedBy: JsonField<String>,
@@ -3405,6 +3413,7 @@ private constructor(
      * contain details of the cancellation.
      */
     class Cancellation
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val canceledAt: JsonField<OffsetDateTime>,
         private val canceledBy: JsonField<String>,
@@ -3625,6 +3634,7 @@ private constructor(
 
     /** What object created the transfer, either via the API or the dashboard. */
     class CreatedBy
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val apiKey: JsonField<ApiKey>,
         private val category: JsonField<Category>,
@@ -3899,6 +3909,7 @@ private constructor(
 
         /** If present, details about the API key that created the transfer. */
         class ApiKey
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val description: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,
@@ -4229,6 +4240,7 @@ private constructor(
 
         /** If present, details about the OAuth Application that created the transfer. */
         class OAuthApplication
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val name: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,
@@ -4392,6 +4404,7 @@ private constructor(
 
         /** If present, details about the User that created the transfer. */
         class User
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val email: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,
@@ -5045,6 +5058,7 @@ private constructor(
      * sub-object will contain details of the hold.
      */
     class InboundFundsHold
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val amount: JsonField<Long>,
         private val automaticallyReleasesAt: JsonField<OffsetDateTime>,
@@ -6159,6 +6173,7 @@ private constructor(
     }
 
     class NotificationsOfChange
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val changeCode: JsonField<ChangeCode>,
         private val correctedData: JsonField<String>,
@@ -6819,6 +6834,7 @@ private constructor(
      * of `same_day`. If set, exactly one of the child attributes must be set.
      */
     class PreferredEffectiveDate
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val date: JsonField<LocalDate>,
         private val settlementSchedule: JsonField<SettlementSchedule>,
@@ -7210,6 +7226,7 @@ private constructor(
 
     /** If your transfer is returned, this will contain details of the return. */
     class Return
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val createdAt: JsonField<OffsetDateTime>,
         private val rawReturnReasonCode: JsonField<String>,
@@ -8883,6 +8900,7 @@ private constructor(
      * Reserve.
      */
     class Settlement
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val settledAt: JsonField<OffsetDateTime>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -9414,6 +9432,7 @@ private constructor(
      * [posted schedule](https://www.frbservices.org/resources/resource-centers/same-day-ach/fedach-processing-schedule.html).
      */
     class Submission
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val effectiveDate: JsonField<LocalDate>,
         private val expectedFundsSettlementAt: JsonField<OffsetDateTime>,

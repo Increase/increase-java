@@ -23,6 +23,7 @@ import kotlin.jvm.optionals.getOrNull
 
 /** Check Transfers move funds from your Increase account by mailing a physical check. */
 class CheckTransfer
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
     private val accountId: JsonField<String>,
@@ -1225,6 +1226,7 @@ private constructor(
      * contain details of the approval.
      */
     class Approval
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val approvedAt: JsonField<OffsetDateTime>,
         private val approvedBy: JsonField<String>,
@@ -1600,6 +1602,7 @@ private constructor(
      * contain details of the cancellation.
      */
     class Cancellation
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val canceledAt: JsonField<OffsetDateTime>,
         private val canceledBy: JsonField<String>,
@@ -1820,6 +1823,7 @@ private constructor(
 
     /** What object created the transfer, either via the API or the dashboard. */
     class CreatedBy
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val apiKey: JsonField<ApiKey>,
         private val category: JsonField<Category>,
@@ -2094,6 +2098,7 @@ private constructor(
 
         /** If present, details about the API key that created the transfer. */
         class ApiKey
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val description: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,
@@ -2424,6 +2429,7 @@ private constructor(
 
         /** If present, details about the OAuth Application that created the transfer. */
         class OAuthApplication
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val name: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,
@@ -2587,6 +2593,7 @@ private constructor(
 
         /** If present, details about the User that created the transfer. */
         class User
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val email: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,
@@ -3087,6 +3094,7 @@ private constructor(
 
     /** If the check has been mailed by Increase, this will contain details of the shipment. */
     class Mailing
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val imageId: JsonField<String>,
         private val mailedAt: JsonField<OffsetDateTime>,
@@ -3353,6 +3361,7 @@ private constructor(
      * and only if `fulfillment_method` is equal to `physical_check`.
      */
     class PhysicalCheck
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val attachmentFileId: JsonField<String>,
         private val mailingAddress: JsonField<MailingAddress>,
@@ -3948,6 +3957,7 @@ private constructor(
 
         /** Details for where Increase will mail the check. */
         class MailingAddress
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val city: JsonField<String>,
             private val line1: JsonField<String>,
@@ -4323,6 +4333,7 @@ private constructor(
         }
 
         class Payer
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val contents: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,
@@ -4487,6 +4498,7 @@ private constructor(
 
         /** The return address to be printed on the check. */
         class ReturnAddress
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val city: JsonField<String>,
             private val line1: JsonField<String>,
@@ -5001,6 +5013,7 @@ private constructor(
         }
 
         class TrackingUpdate
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val category: JsonField<Category>,
             private val createdAt: JsonField<OffsetDateTime>,
@@ -5670,6 +5683,7 @@ private constructor(
 
     /** After a stop-payment is requested on the check, this will contain supplemental details. */
     class StopPaymentRequest
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val reason: JsonField<Reason>,
         private val requestedAt: JsonField<OffsetDateTime>,
@@ -6247,6 +6261,7 @@ private constructor(
 
     /** After the transfer is submitted, this will contain supplemental details. */
     class Submission
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val addressCorrectionAction: JsonField<AddressCorrectionAction>,
         private val submittedAddress: JsonField<SubmittedAddress>,
@@ -6681,6 +6696,7 @@ private constructor(
          * The address we submitted to the printer. This is what is physically printed on the check.
          */
         class SubmittedAddress
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val city: JsonField<String>,
             private val line1: JsonField<String>,
@@ -7078,6 +7094,7 @@ private constructor(
      * `fulfillment_method` is equal to `third_party`.
      */
     class ThirdParty
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val recipientName: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,

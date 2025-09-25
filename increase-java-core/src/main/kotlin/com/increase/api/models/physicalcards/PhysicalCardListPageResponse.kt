@@ -21,6 +21,7 @@ import kotlin.jvm.optionals.getOrNull
 
 /** A list of Physical Card objects. */
 class PhysicalCardListPageResponse
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val data: JsonField<List<PhysicalCard>>,
     private val nextCursor: JsonField<String>,

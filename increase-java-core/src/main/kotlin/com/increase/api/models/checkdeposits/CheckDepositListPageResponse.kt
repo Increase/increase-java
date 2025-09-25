@@ -21,6 +21,7 @@ import kotlin.jvm.optionals.getOrNull
 
 /** A list of Check Deposit objects. */
 class CheckDepositListPageResponse
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val data: JsonField<List<CheckDeposit>>,
     private val nextCursor: JsonField<String>,

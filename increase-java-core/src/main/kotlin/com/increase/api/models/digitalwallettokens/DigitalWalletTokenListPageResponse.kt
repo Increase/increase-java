@@ -21,6 +21,7 @@ import kotlin.jvm.optionals.getOrNull
 
 /** A list of Digital Wallet Token objects. */
 class DigitalWalletTokenListPageResponse
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val data: JsonField<List<DigitalWalletToken>>,
     private val nextCursor: JsonField<String>,

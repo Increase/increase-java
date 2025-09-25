@@ -21,6 +21,7 @@ import kotlin.jvm.optionals.getOrNull
 
 /** Check Deposits allow you to deposit images of paper checks into your account. */
 class CheckDeposit
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
     private val accountId: JsonField<String>,
@@ -960,6 +961,7 @@ private constructor(
      * the parsed check.
      */
     class DepositAcceptance
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val accountNumber: JsonField<String>,
         private val amount: JsonField<Long>,
@@ -1605,6 +1607,7 @@ private constructor(
      * If your deposit is rejected by Increase, this will contain details as to why it was rejected.
      */
     class DepositRejection
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val amount: JsonField<Long>,
         private val checkDepositId: JsonField<String>,
@@ -2395,6 +2398,7 @@ private constructor(
 
     /** If your deposit is returned, this will contain details as to why it was returned. */
     class DepositReturn
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val amount: JsonField<Long>,
         private val checkDepositId: JsonField<String>,
@@ -3357,6 +3361,7 @@ private constructor(
      * contain details of the submission.
      */
     class DepositSubmission
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val backFileId: JsonField<String>,
         private val frontFileId: JsonField<String>,
@@ -3626,6 +3631,7 @@ private constructor(
      * will contain details of the hold.
      */
     class InboundFundsHold
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val amount: JsonField<Long>,
         private val automaticallyReleasesAt: JsonField<OffsetDateTime>,

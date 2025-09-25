@@ -23,6 +23,7 @@ import kotlin.jvm.optionals.getOrNull
  * data via the API or retrieve a PDF with its details via its associated File.
  */
 class AccountStatement
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
     private val accountId: JsonField<String>,
