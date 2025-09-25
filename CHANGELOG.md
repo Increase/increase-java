@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.337.1 (2025-09-25)
+
+Full Changelog: [v0.337.0...v0.337.1](https://github.com/Increase/increase-java/compare/v0.337.0...v0.337.1)
+
+### Bug Fixes
+
+* **client:** deserialization of empty objects ([7139f0f](https://github.com/Increase/increase-java/commit/7139f0f97cc8f47cc8c52008978afa27afd0ddfa))
+
 ## 0.337.0 (2025-09-24)
 
 Full Changelog: [v0.336.0...v0.337.0](https://github.com/Increase/increase-java/compare/v0.336.0...v0.337.0)
