@@ -28,14 +28,22 @@ interface CardRefundServiceAsync {
      * Simulates refunding a card transaction. The full value of the original sandbox transaction is
      * refunded.
      */
-    fun create(params: CardRefundCreateParams): CompletableFuture<Transaction> =
-        create(params, RequestOptions.none())
+    fun create(): CompletableFuture<Transaction> = create(CardRefundCreateParams.none())
 
     /** @see create */
     fun create(
-        params: CardRefundCreateParams,
+        params: CardRefundCreateParams = CardRefundCreateParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Transaction>
+
+    /** @see create */
+    fun create(
+        params: CardRefundCreateParams = CardRefundCreateParams.none()
+    ): CompletableFuture<Transaction> = create(params, RequestOptions.none())
+
+    /** @see create */
+    fun create(requestOptions: RequestOptions): CompletableFuture<Transaction> =
+        create(CardRefundCreateParams.none(), requestOptions)
 
     /**
      * A view of [CardRefundServiceAsync] that provides access to raw HTTP responses for each
@@ -56,14 +64,24 @@ interface CardRefundServiceAsync {
          * Returns a raw HTTP response for `post /simulations/card_refunds`, but is otherwise the
          * same as [CardRefundServiceAsync.create].
          */
+        fun create(): CompletableFuture<HttpResponseFor<Transaction>> =
+            create(CardRefundCreateParams.none())
+
+        /** @see create */
         fun create(
-            params: CardRefundCreateParams
+            params: CardRefundCreateParams = CardRefundCreateParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<Transaction>>
+
+        /** @see create */
+        fun create(
+            params: CardRefundCreateParams = CardRefundCreateParams.none()
         ): CompletableFuture<HttpResponseFor<Transaction>> = create(params, RequestOptions.none())
 
         /** @see create */
         fun create(
-            params: CardRefundCreateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<Transaction>>
+            requestOptions: RequestOptions
+        ): CompletableFuture<HttpResponseFor<Transaction>> =
+            create(CardRefundCreateParams.none(), requestOptions)
     }
 }
