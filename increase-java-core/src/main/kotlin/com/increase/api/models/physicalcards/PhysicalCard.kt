@@ -2051,13 +2051,12 @@ private constructor(
             ) : this(number, returnNumber, returnReason, shippedAt, updates, mutableMapOf())
 
             /**
-             * The tracking number.
+             * The tracking number. Not available for USPS shipments.
              *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
              */
-            fun number(): String = number.getRequired("number")
+            fun number(): Optional<String> = number.getOptional("number")
 
             /**
              * For returned shipments, the tracking number of the return shipment.
@@ -2189,8 +2188,11 @@ private constructor(
                     additionalProperties = tracking.additionalProperties.toMutableMap()
                 }
 
-                /** The tracking number. */
-                fun number(number: String) = number(JsonField.of(number))
+                /** The tracking number. Not available for USPS shipments. */
+                fun number(number: String?) = number(JsonField.ofNullable(number))
+
+                /** Alias for calling [Builder.number] with `number.orElse(null)`. */
+                fun number(number: Optional<String>) = number(number.getOrNull())
 
                 /**
                  * Sets [Builder.number] to an arbitrary JSON value.
