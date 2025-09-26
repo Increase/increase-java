@@ -23,6 +23,7 @@ internal class CardRefundServiceAsyncTest {
         val transactionFuture =
             cardRefundServiceAsync.create(
                 CardRefundCreateParams.builder()
+                    .pendingTransactionId("pending_transaction_id")
                     .transactionId("transaction_uyrp7fld2ium70oa7oi")
                     .build()
             )

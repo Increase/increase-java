@@ -11,12 +11,12 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Collections
 import java.util.Objects
+import java.util.Optional
 
 /**
  * Simulates refunding a card transaction. The full value of the original sandbox transaction is
@@ -30,13 +30,31 @@ private constructor(
 ) : Params {
 
     /**
+     * The identifier of the Pending Transaction for the refund authorization. If this is provided,
+     * `transaction` must not be provided as a refund with a refund authorized can not be linked to
+     * a regular transaction.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun pendingTransactionId(): Optional<String> = body.pendingTransactionId()
+
+    /**
      * The identifier for the Transaction to refund. The Transaction's source must have a category
      * of card_settlement.
      *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
-    fun transactionId(): String = body.transactionId()
+    fun transactionId(): Optional<String> = body.transactionId()
+
+    /**
+     * Returns the raw JSON value of [pendingTransactionId].
+     *
+     * Unlike [pendingTransactionId], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _pendingTransactionId(): JsonField<String> = body._pendingTransactionId()
 
     /**
      * Returns the raw JSON value of [transactionId].
@@ -57,14 +75,9 @@ private constructor(
 
     companion object {
 
-        /**
-         * Returns a mutable builder for constructing an instance of [CardRefundCreateParams].
-         *
-         * The following fields are required:
-         * ```java
-         * .transactionId()
-         * ```
-         */
+        @JvmStatic fun none(): CardRefundCreateParams = builder().build()
+
+        /** Returns a mutable builder for constructing an instance of [CardRefundCreateParams]. */
         @JvmStatic fun builder() = Builder()
     }
 
@@ -87,9 +100,30 @@ private constructor(
          *
          * This is generally only useful if you are already constructing the body separately.
          * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [pendingTransactionId]
          * - [transactionId]
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
+
+        /**
+         * The identifier of the Pending Transaction for the refund authorization. If this is
+         * provided, `transaction` must not be provided as a refund with a refund authorized can not
+         * be linked to a regular transaction.
+         */
+        fun pendingTransactionId(pendingTransactionId: String) = apply {
+            body.pendingTransactionId(pendingTransactionId)
+        }
+
+        /**
+         * Sets [Builder.pendingTransactionId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.pendingTransactionId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun pendingTransactionId(pendingTransactionId: JsonField<String>) = apply {
+            body.pendingTransactionId(pendingTransactionId)
+        }
 
         /**
          * The identifier for the Transaction to refund. The Transaction's source must have a
@@ -229,13 +263,6 @@ private constructor(
          * Returns an immutable instance of [CardRefundCreateParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```java
-         * .transactionId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): CardRefundCreateParams =
             CardRefundCreateParams(
@@ -254,25 +281,50 @@ private constructor(
     class Body
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
+        private val pendingTransactionId: JsonField<String>,
         private val transactionId: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         @JsonCreator
         private constructor(
+            @JsonProperty("pending_transaction_id")
+            @ExcludeMissing
+            pendingTransactionId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("transaction_id")
             @ExcludeMissing
-            transactionId: JsonField<String> = JsonMissing.of()
-        ) : this(transactionId, mutableMapOf())
+            transactionId: JsonField<String> = JsonMissing.of(),
+        ) : this(pendingTransactionId, transactionId, mutableMapOf())
+
+        /**
+         * The identifier of the Pending Transaction for the refund authorization. If this is
+         * provided, `transaction` must not be provided as a refund with a refund authorized can not
+         * be linked to a regular transaction.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun pendingTransactionId(): Optional<String> =
+            pendingTransactionId.getOptional("pending_transaction_id")
 
         /**
          * The identifier for the Transaction to refund. The Transaction's source must have a
          * category of card_settlement.
          *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
-        fun transactionId(): String = transactionId.getRequired("transaction_id")
+        fun transactionId(): Optional<String> = transactionId.getOptional("transaction_id")
+
+        /**
+         * Returns the raw JSON value of [pendingTransactionId].
+         *
+         * Unlike [pendingTransactionId], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("pending_transaction_id")
+        @ExcludeMissing
+        fun _pendingTransactionId(): JsonField<String> = pendingTransactionId
 
         /**
          * Returns the raw JSON value of [transactionId].
@@ -298,27 +350,41 @@ private constructor(
 
         companion object {
 
-            /**
-             * Returns a mutable builder for constructing an instance of [Body].
-             *
-             * The following fields are required:
-             * ```java
-             * .transactionId()
-             * ```
-             */
+            /** Returns a mutable builder for constructing an instance of [Body]. */
             @JvmStatic fun builder() = Builder()
         }
 
         /** A builder for [Body]. */
         class Builder internal constructor() {
 
-            private var transactionId: JsonField<String>? = null
+            private var pendingTransactionId: JsonField<String> = JsonMissing.of()
+            private var transactionId: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(body: Body) = apply {
+                pendingTransactionId = body.pendingTransactionId
                 transactionId = body.transactionId
                 additionalProperties = body.additionalProperties.toMutableMap()
+            }
+
+            /**
+             * The identifier of the Pending Transaction for the refund authorization. If this is
+             * provided, `transaction` must not be provided as a refund with a refund authorized can
+             * not be linked to a regular transaction.
+             */
+            fun pendingTransactionId(pendingTransactionId: String) =
+                pendingTransactionId(JsonField.of(pendingTransactionId))
+
+            /**
+             * Sets [Builder.pendingTransactionId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.pendingTransactionId] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun pendingTransactionId(pendingTransactionId: JsonField<String>) = apply {
+                this.pendingTransactionId = pendingTransactionId
             }
 
             /**
@@ -361,19 +427,9 @@ private constructor(
              * Returns an immutable instance of [Body].
              *
              * Further updates to this [Builder] will not mutate the returned instance.
-             *
-             * The following fields are required:
-             * ```java
-             * .transactionId()
-             * ```
-             *
-             * @throws IllegalStateException if any required field is unset.
              */
             fun build(): Body =
-                Body(
-                    checkRequired("transactionId", transactionId),
-                    additionalProperties.toMutableMap(),
-                )
+                Body(pendingTransactionId, transactionId, additionalProperties.toMutableMap())
         }
 
         private var validated: Boolean = false
@@ -383,6 +439,7 @@ private constructor(
                 return@apply
             }
 
+            pendingTransactionId()
             transactionId()
             validated = true
         }
@@ -402,7 +459,9 @@ private constructor(
          * Used for best match union deserialization.
          */
         @JvmSynthetic
-        internal fun validity(): Int = (if (transactionId.asKnown().isPresent) 1 else 0)
+        internal fun validity(): Int =
+            (if (pendingTransactionId.asKnown().isPresent) 1 else 0) +
+                (if (transactionId.asKnown().isPresent) 1 else 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -410,16 +469,19 @@ private constructor(
             }
 
             return other is Body &&
+                pendingTransactionId == other.pendingTransactionId &&
                 transactionId == other.transactionId &&
                 additionalProperties == other.additionalProperties
         }
 
-        private val hashCode: Int by lazy { Objects.hash(transactionId, additionalProperties) }
+        private val hashCode: Int by lazy {
+            Objects.hash(pendingTransactionId, transactionId, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{transactionId=$transactionId, additionalProperties=$additionalProperties}"
+            "Body{pendingTransactionId=$pendingTransactionId, transactionId=$transactionId, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
