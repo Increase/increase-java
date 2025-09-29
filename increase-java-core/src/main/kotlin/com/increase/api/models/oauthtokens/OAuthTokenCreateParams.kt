@@ -47,7 +47,7 @@ private constructor(
     fun clientId(): Optional<String> = body.clientId()
 
     /**
-     * The secret that confirms you own the application. This is redundent given that the request is
+     * The secret that confirms you own the application. This is redundant given that the request is
      * made with your API key but it's a required component of OAuth 2.0.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -185,7 +185,7 @@ private constructor(
         fun clientId(clientId: JsonField<String>) = apply { body.clientId(clientId) }
 
         /**
-         * The secret that confirms you own the application. This is redundent given that the
+         * The secret that confirms you own the application. This is redundant given that the
          * request is made with your API key but it's a required component of OAuth 2.0.
          */
         fun clientSecret(clientSecret: String) = apply { body.clientSecret(clientSecret) }
@@ -420,7 +420,7 @@ private constructor(
         fun clientId(): Optional<String> = clientId.getOptional("client_id")
 
         /**
-         * The secret that confirms you own the application. This is redundent given that the
+         * The secret that confirms you own the application. This is redundant given that the
          * request is made with your API key but it's a required component of OAuth 2.0.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
@@ -561,7 +561,7 @@ private constructor(
             fun clientId(clientId: JsonField<String>) = apply { this.clientId = clientId }
 
             /**
-             * The secret that confirms you own the application. This is redundent given that the
+             * The secret that confirms you own the application. This is redundant given that the
              * request is made with your API key but it's a required component of OAuth 2.0.
              */
             fun clientSecret(clientSecret: String) = clientSecret(JsonField.of(clientSecret))
