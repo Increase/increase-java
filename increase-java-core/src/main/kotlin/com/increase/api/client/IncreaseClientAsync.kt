@@ -12,6 +12,7 @@ import com.increase.api.services.async.AchTransferServiceAsync
 import com.increase.api.services.async.BookkeepingAccountServiceAsync
 import com.increase.api.services.async.BookkeepingEntryServiceAsync
 import com.increase.api.services.async.BookkeepingEntrySetServiceAsync
+import com.increase.api.services.async.CardDisputeServiceAsync
 import com.increase.api.services.async.CardPaymentServiceAsync
 import com.increase.api.services.async.CardPurchaseSupplementServiceAsync
 import com.increase.api.services.async.CardPushTransferServiceAsync
@@ -107,6 +108,8 @@ interface IncreaseClientAsync {
     fun cardPayments(): CardPaymentServiceAsync
 
     fun cardPurchaseSupplements(): CardPurchaseSupplementServiceAsync
+
+    fun cardDisputes(): CardDisputeServiceAsync
 
     fun physicalCards(): PhysicalCardServiceAsync
 
@@ -244,6 +247,8 @@ interface IncreaseClientAsync {
         fun cardPayments(): CardPaymentServiceAsync.WithRawResponse
 
         fun cardPurchaseSupplements(): CardPurchaseSupplementServiceAsync.WithRawResponse
+
+        fun cardDisputes(): CardDisputeServiceAsync.WithRawResponse
 
         fun physicalCards(): PhysicalCardServiceAsync.WithRawResponse
 
