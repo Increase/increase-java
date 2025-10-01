@@ -22,7 +22,7 @@ internal class CheckDepositTest {
                 .depositAcceptance(
                     CheckDeposit.DepositAcceptance.builder()
                         .accountNumber("987654321")
-                        .amount(100L)
+                        .amount(1000L)
                         .auxiliaryOnUs("101")
                         .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
                         .currency(CheckDeposit.DepositAcceptance.Currency.USD)
@@ -89,7 +89,7 @@ internal class CheckDepositTest {
             .contains(
                 CheckDeposit.DepositAcceptance.builder()
                     .accountNumber("987654321")
-                    .amount(100L)
+                    .amount(1000L)
                     .auxiliaryOnUs("101")
                     .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
                     .currency(CheckDeposit.DepositAcceptance.Currency.USD)
@@ -164,7 +164,7 @@ internal class CheckDepositTest {
                 .depositAcceptance(
                     CheckDeposit.DepositAcceptance.builder()
                         .accountNumber("987654321")
-                        .amount(100L)
+                        .amount(1000L)
                         .auxiliaryOnUs("101")
                         .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
                         .currency(CheckDeposit.DepositAcceptance.Currency.USD)
