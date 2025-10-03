@@ -56567,6 +56567,7 @@ private constructor(
         private val authorizedAmount: JsonField<Long>,
         private val fuelConfirmedAmount: JsonField<Long>,
         private val incrementedAmount: JsonField<Long>,
+        private val refundedAmount: JsonField<Long>,
         private val reversedAmount: JsonField<Long>,
         private val settledAmount: JsonField<Long>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -56583,6 +56584,9 @@ private constructor(
             @JsonProperty("incremented_amount")
             @ExcludeMissing
             incrementedAmount: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("refunded_amount")
+            @ExcludeMissing
+            refundedAmount: JsonField<Long> = JsonMissing.of(),
             @JsonProperty("reversed_amount")
             @ExcludeMissing
             reversedAmount: JsonField<Long> = JsonMissing.of(),
@@ -56593,6 +56597,7 @@ private constructor(
             authorizedAmount,
             fuelConfirmedAmount,
             incrementedAmount,
+            refundedAmount,
             reversedAmount,
             settledAmount,
             mutableMapOf(),
@@ -56626,6 +56631,15 @@ private constructor(
         fun incrementedAmount(): Long = incrementedAmount.getRequired("incremented_amount")
 
         /**
+         * The total refunded amount in the minor unit of the transaction's currency. For dollars,
+         * for example, this is cents.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun refundedAmount(): Long = refundedAmount.getRequired("refunded_amount")
+
+        /**
          * The total reversed amount in the minor unit of the transaction's currency. For dollars,
          * for example, this is cents.
          *
@@ -56635,8 +56649,8 @@ private constructor(
         fun reversedAmount(): Long = reversedAmount.getRequired("reversed_amount")
 
         /**
-         * The total settled or refunded amount in the minor unit of the transaction's currency. For
-         * dollars, for example, this is cents.
+         * The total settled amount in the minor unit of the transaction's currency. For dollars,
+         * for example, this is cents.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -56672,6 +56686,16 @@ private constructor(
         @JsonProperty("incremented_amount")
         @ExcludeMissing
         fun _incrementedAmount(): JsonField<Long> = incrementedAmount
+
+        /**
+         * Returns the raw JSON value of [refundedAmount].
+         *
+         * Unlike [refundedAmount], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("refunded_amount")
+        @ExcludeMissing
+        fun _refundedAmount(): JsonField<Long> = refundedAmount
 
         /**
          * Returns the raw JSON value of [reversedAmount].
@@ -56715,6 +56739,7 @@ private constructor(
              * .authorizedAmount()
              * .fuelConfirmedAmount()
              * .incrementedAmount()
+             * .refundedAmount()
              * .reversedAmount()
              * .settledAmount()
              * ```
@@ -56728,6 +56753,7 @@ private constructor(
             private var authorizedAmount: JsonField<Long>? = null
             private var fuelConfirmedAmount: JsonField<Long>? = null
             private var incrementedAmount: JsonField<Long>? = null
+            private var refundedAmount: JsonField<Long>? = null
             private var reversedAmount: JsonField<Long>? = null
             private var settledAmount: JsonField<Long>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -56737,6 +56763,7 @@ private constructor(
                 authorizedAmount = state.authorizedAmount
                 fuelConfirmedAmount = state.fuelConfirmedAmount
                 incrementedAmount = state.incrementedAmount
+                refundedAmount = state.refundedAmount
                 reversedAmount = state.reversedAmount
                 settledAmount = state.settledAmount
                 additionalProperties = state.additionalProperties.toMutableMap()
@@ -56797,6 +56824,23 @@ private constructor(
             }
 
             /**
+             * The total refunded amount in the minor unit of the transaction's currency. For
+             * dollars, for example, this is cents.
+             */
+            fun refundedAmount(refundedAmount: Long) = refundedAmount(JsonField.of(refundedAmount))
+
+            /**
+             * Sets [Builder.refundedAmount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.refundedAmount] with a well-typed [Long] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun refundedAmount(refundedAmount: JsonField<Long>) = apply {
+                this.refundedAmount = refundedAmount
+            }
+
+            /**
              * The total reversed amount in the minor unit of the transaction's currency. For
              * dollars, for example, this is cents.
              */
@@ -56814,8 +56858,8 @@ private constructor(
             }
 
             /**
-             * The total settled or refunded amount in the minor unit of the transaction's currency.
-             * For dollars, for example, this is cents.
+             * The total settled amount in the minor unit of the transaction's currency. For
+             * dollars, for example, this is cents.
              */
             fun settledAmount(settledAmount: Long) = settledAmount(JsonField.of(settledAmount))
 
@@ -56859,6 +56903,7 @@ private constructor(
              * .authorizedAmount()
              * .fuelConfirmedAmount()
              * .incrementedAmount()
+             * .refundedAmount()
              * .reversedAmount()
              * .settledAmount()
              * ```
@@ -56870,6 +56915,7 @@ private constructor(
                     checkRequired("authorizedAmount", authorizedAmount),
                     checkRequired("fuelConfirmedAmount", fuelConfirmedAmount),
                     checkRequired("incrementedAmount", incrementedAmount),
+                    checkRequired("refundedAmount", refundedAmount),
                     checkRequired("reversedAmount", reversedAmount),
                     checkRequired("settledAmount", settledAmount),
                     additionalProperties.toMutableMap(),
@@ -56886,6 +56932,7 @@ private constructor(
             authorizedAmount()
             fuelConfirmedAmount()
             incrementedAmount()
+            refundedAmount()
             reversedAmount()
             settledAmount()
             validated = true
@@ -56910,6 +56957,7 @@ private constructor(
             (if (authorizedAmount.asKnown().isPresent) 1 else 0) +
                 (if (fuelConfirmedAmount.asKnown().isPresent) 1 else 0) +
                 (if (incrementedAmount.asKnown().isPresent) 1 else 0) +
+                (if (refundedAmount.asKnown().isPresent) 1 else 0) +
                 (if (reversedAmount.asKnown().isPresent) 1 else 0) +
                 (if (settledAmount.asKnown().isPresent) 1 else 0)
 
@@ -56922,6 +56970,7 @@ private constructor(
                 authorizedAmount == other.authorizedAmount &&
                 fuelConfirmedAmount == other.fuelConfirmedAmount &&
                 incrementedAmount == other.incrementedAmount &&
+                refundedAmount == other.refundedAmount &&
                 reversedAmount == other.reversedAmount &&
                 settledAmount == other.settledAmount &&
                 additionalProperties == other.additionalProperties
@@ -56932,6 +56981,7 @@ private constructor(
                 authorizedAmount,
                 fuelConfirmedAmount,
                 incrementedAmount,
+                refundedAmount,
                 reversedAmount,
                 settledAmount,
                 additionalProperties,
@@ -56941,7 +56991,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "State{authorizedAmount=$authorizedAmount, fuelConfirmedAmount=$fuelConfirmedAmount, incrementedAmount=$incrementedAmount, reversedAmount=$reversedAmount, settledAmount=$settledAmount, additionalProperties=$additionalProperties}"
+            "State{authorizedAmount=$authorizedAmount, fuelConfirmedAmount=$fuelConfirmedAmount, incrementedAmount=$incrementedAmount, refundedAmount=$refundedAmount, reversedAmount=$reversedAmount, settledAmount=$settledAmount, additionalProperties=$additionalProperties}"
     }
 
     /**

@@ -19,7 +19,7 @@ internal class CheckDepositListPageResponseTest {
                         .id("check_deposit_f06n9gpg7sxn8t19lfc1")
                         .accountId("account_in71c4amph0vgo2qllky")
                         .amount(1000L)
-                        .backImageFileId(null)
+                        .backImageFileId("file_26khfk98mzfz90a11oqx")
                         .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                         .depositAcceptance(
                             CheckDeposit.DepositAcceptance.builder()
@@ -95,7 +95,7 @@ internal class CheckDepositListPageResponseTest {
                     .id("check_deposit_f06n9gpg7sxn8t19lfc1")
                     .accountId("account_in71c4amph0vgo2qllky")
                     .amount(1000L)
-                    .backImageFileId(null)
+                    .backImageFileId("file_26khfk98mzfz90a11oqx")
                     .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                     .depositAcceptance(
                         CheckDeposit.DepositAcceptance.builder()
@@ -173,7 +173,7 @@ internal class CheckDepositListPageResponseTest {
                         .id("check_deposit_f06n9gpg7sxn8t19lfc1")
                         .accountId("account_in71c4amph0vgo2qllky")
                         .amount(1000L)
-                        .backImageFileId(null)
+                        .backImageFileId("file_26khfk98mzfz90a11oqx")
                         .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                         .depositAcceptance(
                             CheckDeposit.DepositAcceptance.builder()
