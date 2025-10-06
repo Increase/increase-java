@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.347.0 (2025-10-06)
+
+Full Changelog: [v0.346.0...v0.347.0](https://github.com/Increase/increase-java/compare/v0.346.0...v0.347.0)
+
+### Features
+
+* **api:** api update ([1b2b27b](https://github.com/Increase/increase-java/commit/1b2b27b41fe9d1d2a00b1524e1ee6cc08809571a))
+* **api:** api update ([443e6d7](https://github.com/Increase/increase-java/commit/443e6d78698488c070a1346ff26655ff63f9ef9e))
+* **api:** api update ([7b3da9f](https://github.com/Increase/increase-java/commit/7b3da9f438112a023cb85f7b0296c4fb633c40bd))
+
+
+### Bug Fixes
+
+* **client:** handle some Dispute objects as empty rather than unknown ([ca24660](https://github.com/Increase/increase-java/commit/ca24660b0a5bf5c580d77e5a04be7498aaa0dd40))
+
 ## 0.346.0 (2025-10-01)
 
 Full Changelog: [v0.345.0...v0.346.0](https://github.com/Increase/increase-java/compare/v0.345.0...v0.346.0)
