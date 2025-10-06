@@ -37436,7 +37436,8 @@ private constructor(
             )
 
             /**
-             * The account number printed on the check.
+             * The account number printed on the check. This is an account at the bank that issued
+             * the check.
              *
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
@@ -37483,7 +37484,8 @@ private constructor(
             fun currency(): Currency = currency.getRequired("currency")
 
             /**
-             * The routing number printed on the check.
+             * The routing number printed on the check. This is a routing number for the bank that
+             * issued the check.
              *
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
@@ -37624,7 +37626,10 @@ private constructor(
                         checkDepositAcceptance.additionalProperties.toMutableMap()
                 }
 
-                /** The account number printed on the check. */
+                /**
+                 * The account number printed on the check. This is an account at the bank that
+                 * issued the check.
+                 */
                 fun accountNumber(accountNumber: String) =
                     accountNumber(JsonField.of(accountNumber))
 
@@ -37706,7 +37711,10 @@ private constructor(
                  */
                 fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
 
-                /** The routing number printed on the check. */
+                /**
+                 * The routing number printed on the check. This is a routing number for the bank
+                 * that issued the check.
+                 */
                 fun routingNumber(routingNumber: String) =
                     routingNumber(JsonField.of(routingNumber))
 
