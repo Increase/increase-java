@@ -6452,7 +6452,8 @@ private constructor(
                 private val cardholderNoLongerDisputes: JsonField<CardholderNoLongerDisputes>,
                 private val creditOrReversalProcessed: JsonField<CreditOrReversalProcessed>,
                 private val invalidDispute: JsonField<InvalidDispute>,
-                private val nonFiatCurrencyOrNonFungibleTokenAsDescribed: JsonValue,
+                private val nonFiatCurrencyOrNonFungibleTokenAsDescribed:
+                    JsonField<NonFiatCurrencyOrNonFungibleTokenAsDescribed>,
                 private val nonFiatCurrencyOrNonFungibleTokenReceived:
                     JsonField<NonFiatCurrencyOrNonFungibleTokenReceived>,
                 private val proofOfCashDisbursement: JsonField<ProofOfCashDisbursement>,
@@ -6476,7 +6477,9 @@ private constructor(
                     invalidDispute: JsonField<InvalidDispute> = JsonMissing.of(),
                     @JsonProperty("non_fiat_currency_or_non_fungible_token_as_described")
                     @ExcludeMissing
-                    nonFiatCurrencyOrNonFungibleTokenAsDescribed: JsonValue = JsonMissing.of(),
+                    nonFiatCurrencyOrNonFungibleTokenAsDescribed:
+                        JsonField<NonFiatCurrencyOrNonFungibleTokenAsDescribed> =
+                        JsonMissing.of(),
                     @JsonProperty("non_fiat_currency_or_non_fungible_token_received")
                     @ExcludeMissing
                     nonFiatCurrencyOrNonFungibleTokenReceived:
@@ -6535,11 +6538,15 @@ private constructor(
                 /**
                  * Non-fiat currency or non-fungible token as described details. Present if and only
                  * if `reason` is `non_fiat_currency_or_non_fungible_token_as_described`.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                 *   (e.g. if the server responded with an unexpected value).
                  */
-                @JsonProperty("non_fiat_currency_or_non_fungible_token_as_described")
-                @ExcludeMissing
-                fun _nonFiatCurrencyOrNonFungibleTokenAsDescribed(): JsonValue =
-                    nonFiatCurrencyOrNonFungibleTokenAsDescribed
+                fun nonFiatCurrencyOrNonFungibleTokenAsDescribed():
+                    Optional<NonFiatCurrencyOrNonFungibleTokenAsDescribed> =
+                    nonFiatCurrencyOrNonFungibleTokenAsDescribed.getOptional(
+                        "non_fiat_currency_or_non_fungible_token_as_described"
+                    )
 
                 /**
                  * Non-fiat currency or non-fungible token received details. Present if and only if
@@ -6614,6 +6621,18 @@ private constructor(
                 @JsonProperty("invalid_dispute")
                 @ExcludeMissing
                 fun _invalidDispute(): JsonField<InvalidDispute> = invalidDispute
+
+                /**
+                 * Returns the raw JSON value of [nonFiatCurrencyOrNonFungibleTokenAsDescribed].
+                 *
+                 * Unlike [nonFiatCurrencyOrNonFungibleTokenAsDescribed], this method doesn't throw
+                 * if the JSON field has an unexpected type.
+                 */
+                @JsonProperty("non_fiat_currency_or_non_fungible_token_as_described")
+                @ExcludeMissing
+                fun _nonFiatCurrencyOrNonFungibleTokenAsDescribed():
+                    JsonField<NonFiatCurrencyOrNonFungibleTokenAsDescribed> =
+                    nonFiatCurrencyOrNonFungibleTokenAsDescribed
 
                 /**
                  * Returns the raw JSON value of [nonFiatCurrencyOrNonFungibleTokenReceived].
@@ -6696,7 +6715,9 @@ private constructor(
                     private var creditOrReversalProcessed: JsonField<CreditOrReversalProcessed>? =
                         null
                     private var invalidDispute: JsonField<InvalidDispute>? = null
-                    private var nonFiatCurrencyOrNonFungibleTokenAsDescribed: JsonValue? = null
+                    private var nonFiatCurrencyOrNonFungibleTokenAsDescribed:
+                        JsonField<NonFiatCurrencyOrNonFungibleTokenAsDescribed>? =
+                        null
                     private var nonFiatCurrencyOrNonFungibleTokenReceived:
                         JsonField<NonFiatCurrencyOrNonFungibleTokenReceived>? =
                         null
@@ -6805,7 +6826,38 @@ private constructor(
                      * only if `reason` is `non_fiat_currency_or_non_fungible_token_as_described`.
                      */
                     fun nonFiatCurrencyOrNonFungibleTokenAsDescribed(
-                        nonFiatCurrencyOrNonFungibleTokenAsDescribed: JsonValue
+                        nonFiatCurrencyOrNonFungibleTokenAsDescribed:
+                            NonFiatCurrencyOrNonFungibleTokenAsDescribed?
+                    ) =
+                        nonFiatCurrencyOrNonFungibleTokenAsDescribed(
+                            JsonField.ofNullable(nonFiatCurrencyOrNonFungibleTokenAsDescribed)
+                        )
+
+                    /**
+                     * Alias for calling [Builder.nonFiatCurrencyOrNonFungibleTokenAsDescribed] with
+                     * `nonFiatCurrencyOrNonFungibleTokenAsDescribed.orElse(null)`.
+                     */
+                    fun nonFiatCurrencyOrNonFungibleTokenAsDescribed(
+                        nonFiatCurrencyOrNonFungibleTokenAsDescribed:
+                            Optional<NonFiatCurrencyOrNonFungibleTokenAsDescribed>
+                    ) =
+                        nonFiatCurrencyOrNonFungibleTokenAsDescribed(
+                            nonFiatCurrencyOrNonFungibleTokenAsDescribed.getOrNull()
+                        )
+
+                    /**
+                     * Sets [Builder.nonFiatCurrencyOrNonFungibleTokenAsDescribed] to an arbitrary
+                     * JSON value.
+                     *
+                     * You should usually call
+                     * [Builder.nonFiatCurrencyOrNonFungibleTokenAsDescribed] with a well-typed
+                     * [NonFiatCurrencyOrNonFungibleTokenAsDescribed] value instead. This method is
+                     * primarily for setting the field to an undocumented or not yet supported
+                     * value.
+                     */
+                    fun nonFiatCurrencyOrNonFungibleTokenAsDescribed(
+                        nonFiatCurrencyOrNonFungibleTokenAsDescribed:
+                            JsonField<NonFiatCurrencyOrNonFungibleTokenAsDescribed>
                     ) = apply {
                         this.nonFiatCurrencyOrNonFungibleTokenAsDescribed =
                             nonFiatCurrencyOrNonFungibleTokenAsDescribed
@@ -6986,6 +7038,7 @@ private constructor(
                     cardholderNoLongerDisputes().ifPresent { it.validate() }
                     creditOrReversalProcessed().ifPresent { it.validate() }
                     invalidDispute().ifPresent { it.validate() }
+                    nonFiatCurrencyOrNonFungibleTokenAsDescribed().ifPresent { it.validate() }
                     nonFiatCurrencyOrNonFungibleTokenReceived().ifPresent { it.validate() }
                     proofOfCashDisbursement().ifPresent { it.validate() }
                     reason().validate()
@@ -7012,6 +7065,10 @@ private constructor(
                     (cardholderNoLongerDisputes.asKnown().getOrNull()?.validity() ?: 0) +
                         (creditOrReversalProcessed.asKnown().getOrNull()?.validity() ?: 0) +
                         (invalidDispute.asKnown().getOrNull()?.validity() ?: 0) +
+                        (nonFiatCurrencyOrNonFungibleTokenAsDescribed
+                            .asKnown()
+                            .getOrNull()
+                            ?.validity() ?: 0) +
                         (nonFiatCurrencyOrNonFungibleTokenReceived.asKnown().getOrNull()?.validity()
                             ?: 0) +
                         (proofOfCashDisbursement.asKnown().getOrNull()?.validity() ?: 0) +
@@ -8351,6 +8408,132 @@ private constructor(
 
                     override fun toString() =
                         "InvalidDispute{explanation=$explanation, reason=$reason, additionalProperties=$additionalProperties}"
+                }
+
+                /**
+                 * Non-fiat currency or non-fungible token as described details. Present if and only
+                 * if `reason` is `non_fiat_currency_or_non_fungible_token_as_described`.
+                 */
+                class NonFiatCurrencyOrNonFungibleTokenAsDescribed
+                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                private constructor(
+                    private val additionalProperties: MutableMap<String, JsonValue>
+                ) {
+
+                    @JsonCreator private constructor() : this(mutableMapOf())
+
+                    @JsonAnySetter
+                    private fun putAdditionalProperty(key: String, value: JsonValue) {
+                        additionalProperties.put(key, value)
+                    }
+
+                    @JsonAnyGetter
+                    @ExcludeMissing
+                    fun _additionalProperties(): Map<String, JsonValue> =
+                        Collections.unmodifiableMap(additionalProperties)
+
+                    fun toBuilder() = Builder().from(this)
+
+                    companion object {
+
+                        /**
+                         * Returns a mutable builder for constructing an instance of
+                         * [NonFiatCurrencyOrNonFungibleTokenAsDescribed].
+                         */
+                        @JvmStatic fun builder() = Builder()
+                    }
+
+                    /** A builder for [NonFiatCurrencyOrNonFungibleTokenAsDescribed]. */
+                    class Builder internal constructor() {
+
+                        private var additionalProperties: MutableMap<String, JsonValue> =
+                            mutableMapOf()
+
+                        @JvmSynthetic
+                        internal fun from(
+                            nonFiatCurrencyOrNonFungibleTokenAsDescribed:
+                                NonFiatCurrencyOrNonFungibleTokenAsDescribed
+                        ) = apply {
+                            additionalProperties =
+                                nonFiatCurrencyOrNonFungibleTokenAsDescribed.additionalProperties
+                                    .toMutableMap()
+                        }
+
+                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                            apply {
+                                this.additionalProperties.clear()
+                                putAllAdditionalProperties(additionalProperties)
+                            }
+
+                        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                            additionalProperties.put(key, value)
+                        }
+
+                        fun putAllAdditionalProperties(
+                            additionalProperties: Map<String, JsonValue>
+                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                        fun removeAdditionalProperty(key: String) = apply {
+                            additionalProperties.remove(key)
+                        }
+
+                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                            keys.forEach(::removeAdditionalProperty)
+                        }
+
+                        /**
+                         * Returns an immutable instance of
+                         * [NonFiatCurrencyOrNonFungibleTokenAsDescribed].
+                         *
+                         * Further updates to this [Builder] will not mutate the returned instance.
+                         */
+                        fun build(): NonFiatCurrencyOrNonFungibleTokenAsDescribed =
+                            NonFiatCurrencyOrNonFungibleTokenAsDescribed(
+                                additionalProperties.toMutableMap()
+                            )
+                    }
+
+                    private var validated: Boolean = false
+
+                    fun validate(): NonFiatCurrencyOrNonFungibleTokenAsDescribed = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    @JvmSynthetic internal fun validity(): Int = 0
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is NonFiatCurrencyOrNonFungibleTokenAsDescribed &&
+                            additionalProperties == other.additionalProperties
+                    }
+
+                    private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+                    override fun hashCode(): Int = hashCode
+
+                    override fun toString() =
+                        "NonFiatCurrencyOrNonFungibleTokenAsDescribed{additionalProperties=$additionalProperties}"
                 }
 
                 /**
@@ -10658,7 +10841,7 @@ private constructor(
                     JsonField<ConsumerMerchandiseNotAsDescribed>,
                 private val consumerMerchandiseNotReceived:
                     JsonField<ConsumerMerchandiseNotReceived>,
-                private val consumerNonReceiptOfCash: JsonValue,
+                private val consumerNonReceiptOfCash: JsonField<ConsumerNonReceiptOfCash>,
                 private val consumerOriginalCreditTransactionNotAccepted:
                     JsonField<ConsumerOriginalCreditTransactionNotAccepted>,
                 private val consumerQualityMerchandise: JsonField<ConsumerQualityMerchandise>,
@@ -10723,7 +10906,8 @@ private constructor(
                         JsonMissing.of(),
                     @JsonProperty("consumer_non_receipt_of_cash")
                     @ExcludeMissing
-                    consumerNonReceiptOfCash: JsonValue = JsonMissing.of(),
+                    consumerNonReceiptOfCash: JsonField<ConsumerNonReceiptOfCash> =
+                        JsonMissing.of(),
                     @JsonProperty("consumer_original_credit_transaction_not_accepted")
                     @ExcludeMissing
                     consumerOriginalCreditTransactionNotAccepted:
@@ -10902,10 +11086,12 @@ private constructor(
                 /**
                  * Non-receipt of cash. Present if and only if `category` is
                  * `consumer_non_receipt_of_cash`.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                 *   (e.g. if the server responded with an unexpected value).
                  */
-                @JsonProperty("consumer_non_receipt_of_cash")
-                @ExcludeMissing
-                fun _consumerNonReceiptOfCash(): JsonValue = consumerNonReceiptOfCash
+                fun consumerNonReceiptOfCash(): Optional<ConsumerNonReceiptOfCash> =
+                    consumerNonReceiptOfCash.getOptional("consumer_non_receipt_of_cash")
 
                 /**
                  * Original Credit Transaction (OCT) not accepted. Present if and only if `category`
@@ -11113,6 +11299,17 @@ private constructor(
                     consumerMerchandiseNotReceived
 
                 /**
+                 * Returns the raw JSON value of [consumerNonReceiptOfCash].
+                 *
+                 * Unlike [consumerNonReceiptOfCash], this method doesn't throw if the JSON field
+                 * has an unexpected type.
+                 */
+                @JsonProperty("consumer_non_receipt_of_cash")
+                @ExcludeMissing
+                fun _consumerNonReceiptOfCash(): JsonField<ConsumerNonReceiptOfCash> =
+                    consumerNonReceiptOfCash
+
+                /**
                  * Returns the raw JSON value of [consumerOriginalCreditTransactionNotAccepted].
                  *
                  * Unlike [consumerOriginalCreditTransactionNotAccepted], this method doesn't throw
@@ -11271,7 +11468,8 @@ private constructor(
                     private var consumerMerchandiseNotReceived:
                         JsonField<ConsumerMerchandiseNotReceived>? =
                         null
-                    private var consumerNonReceiptOfCash: JsonValue? = null
+                    private var consumerNonReceiptOfCash: JsonField<ConsumerNonReceiptOfCash>? =
+                        null
                     private var consumerOriginalCreditTransactionNotAccepted:
                         JsonField<ConsumerOriginalCreditTransactionNotAccepted>? =
                         null
@@ -11670,9 +11868,28 @@ private constructor(
                      * Non-receipt of cash. Present if and only if `category` is
                      * `consumer_non_receipt_of_cash`.
                      */
-                    fun consumerNonReceiptOfCash(consumerNonReceiptOfCash: JsonValue) = apply {
-                        this.consumerNonReceiptOfCash = consumerNonReceiptOfCash
-                    }
+                    fun consumerNonReceiptOfCash(
+                        consumerNonReceiptOfCash: ConsumerNonReceiptOfCash?
+                    ) = consumerNonReceiptOfCash(JsonField.ofNullable(consumerNonReceiptOfCash))
+
+                    /**
+                     * Alias for calling [Builder.consumerNonReceiptOfCash] with
+                     * `consumerNonReceiptOfCash.orElse(null)`.
+                     */
+                    fun consumerNonReceiptOfCash(
+                        consumerNonReceiptOfCash: Optional<ConsumerNonReceiptOfCash>
+                    ) = consumerNonReceiptOfCash(consumerNonReceiptOfCash.getOrNull())
+
+                    /**
+                     * Sets [Builder.consumerNonReceiptOfCash] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.consumerNonReceiptOfCash] with a well-typed
+                     * [ConsumerNonReceiptOfCash] value instead. This method is primarily for
+                     * setting the field to an undocumented or not yet supported value.
+                     */
+                    fun consumerNonReceiptOfCash(
+                        consumerNonReceiptOfCash: JsonField<ConsumerNonReceiptOfCash>
+                    ) = apply { this.consumerNonReceiptOfCash = consumerNonReceiptOfCash }
 
                     /**
                      * Original Credit Transaction (OCT) not accepted. Present if and only if
@@ -12041,6 +12258,7 @@ private constructor(
                     consumerMerchandiseMisrepresentation().ifPresent { it.validate() }
                     consumerMerchandiseNotAsDescribed().ifPresent { it.validate() }
                     consumerMerchandiseNotReceived().ifPresent { it.validate() }
+                    consumerNonReceiptOfCash().ifPresent { it.validate() }
                     consumerOriginalCreditTransactionNotAccepted().ifPresent { it.validate() }
                     consumerQualityMerchandise().ifPresent { it.validate() }
                     consumerQualityServices().ifPresent { it.validate() }
@@ -12082,6 +12300,7 @@ private constructor(
                             ?: 0) +
                         (consumerMerchandiseNotAsDescribed.asKnown().getOrNull()?.validity() ?: 0) +
                         (consumerMerchandiseNotReceived.asKnown().getOrNull()?.validity() ?: 0) +
+                        (consumerNonReceiptOfCash.asKnown().getOrNull()?.validity() ?: 0) +
                         (consumerOriginalCreditTransactionNotAccepted
                             .asKnown()
                             .getOrNull()
@@ -26915,6 +27134,126 @@ private constructor(
 
                     override fun toString() =
                         "ConsumerMerchandiseNotReceived{cancellationOutcome=$cancellationOutcome, cardholderCancellationPriorToExpectedReceipt=$cardholderCancellationPriorToExpectedReceipt, delayed=$delayed, deliveredToWrongLocation=$deliveredToWrongLocation, deliveryIssue=$deliveryIssue, lastExpectedReceiptAt=$lastExpectedReceiptAt, merchantCancellation=$merchantCancellation, merchantResolutionAttempted=$merchantResolutionAttempted, noCancellation=$noCancellation, purchaseInfoAndExplanation=$purchaseInfoAndExplanation, additionalProperties=$additionalProperties}"
+                }
+
+                /**
+                 * Non-receipt of cash. Present if and only if `category` is
+                 * `consumer_non_receipt_of_cash`.
+                 */
+                class ConsumerNonReceiptOfCash
+                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                private constructor(
+                    private val additionalProperties: MutableMap<String, JsonValue>
+                ) {
+
+                    @JsonCreator private constructor() : this(mutableMapOf())
+
+                    @JsonAnySetter
+                    private fun putAdditionalProperty(key: String, value: JsonValue) {
+                        additionalProperties.put(key, value)
+                    }
+
+                    @JsonAnyGetter
+                    @ExcludeMissing
+                    fun _additionalProperties(): Map<String, JsonValue> =
+                        Collections.unmodifiableMap(additionalProperties)
+
+                    fun toBuilder() = Builder().from(this)
+
+                    companion object {
+
+                        /**
+                         * Returns a mutable builder for constructing an instance of
+                         * [ConsumerNonReceiptOfCash].
+                         */
+                        @JvmStatic fun builder() = Builder()
+                    }
+
+                    /** A builder for [ConsumerNonReceiptOfCash]. */
+                    class Builder internal constructor() {
+
+                        private var additionalProperties: MutableMap<String, JsonValue> =
+                            mutableMapOf()
+
+                        @JvmSynthetic
+                        internal fun from(consumerNonReceiptOfCash: ConsumerNonReceiptOfCash) =
+                            apply {
+                                additionalProperties =
+                                    consumerNonReceiptOfCash.additionalProperties.toMutableMap()
+                            }
+
+                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                            apply {
+                                this.additionalProperties.clear()
+                                putAllAdditionalProperties(additionalProperties)
+                            }
+
+                        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                            additionalProperties.put(key, value)
+                        }
+
+                        fun putAllAdditionalProperties(
+                            additionalProperties: Map<String, JsonValue>
+                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                        fun removeAdditionalProperty(key: String) = apply {
+                            additionalProperties.remove(key)
+                        }
+
+                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                            keys.forEach(::removeAdditionalProperty)
+                        }
+
+                        /**
+                         * Returns an immutable instance of [ConsumerNonReceiptOfCash].
+                         *
+                         * Further updates to this [Builder] will not mutate the returned instance.
+                         */
+                        fun build(): ConsumerNonReceiptOfCash =
+                            ConsumerNonReceiptOfCash(additionalProperties.toMutableMap())
+                    }
+
+                    private var validated: Boolean = false
+
+                    fun validate(): ConsumerNonReceiptOfCash = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    @JvmSynthetic internal fun validity(): Int = 0
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is ConsumerNonReceiptOfCash &&
+                            additionalProperties == other.additionalProperties
+                    }
+
+                    private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+                    override fun hashCode(): Int = hashCode
+
+                    override fun toString() =
+                        "ConsumerNonReceiptOfCash{additionalProperties=$additionalProperties}"
                 }
 
                 /**
