@@ -206,12 +206,7 @@ internal class CardDisputeListPageResponseTest {
                                                         )
                                                         .build()
                                                 )
-                                                .nonFiatCurrencyOrNonFungibleTokenAsDescribed(
-                                                    CardDispute.Visa.NetworkEvent.Represented
-                                                        .NonFiatCurrencyOrNonFungibleTokenAsDescribed
-                                                        .builder()
-                                                        .build()
-                                                )
+                                                .nonFiatCurrencyOrNonFungibleTokenAsDescribed(null)
                                                 .nonFiatCurrencyOrNonFungibleTokenReceived(
                                                     CardDispute.Visa.NetworkEvent.Represented
                                                         .NonFiatCurrencyOrNonFungibleTokenReceived
@@ -885,12 +880,7 @@ internal class CardDisputeListPageResponseTest {
                                                         )
                                                         .build()
                                                 )
-                                                .consumerNonReceiptOfCash(
-                                                    CardDispute.Visa.UserSubmission.Chargeback
-                                                        .ConsumerNonReceiptOfCash
-                                                        .builder()
-                                                        .build()
-                                                )
+                                                .consumerNonReceiptOfCash(null)
                                                 .consumerOriginalCreditTransactionNotAccepted(
                                                     CardDispute.Visa.UserSubmission.Chargeback
                                                         .ConsumerOriginalCreditTransactionNotAccepted
@@ -1507,12 +1497,7 @@ internal class CardDisputeListPageResponseTest {
                                                     )
                                                     .build()
                                             )
-                                            .nonFiatCurrencyOrNonFungibleTokenAsDescribed(
-                                                CardDispute.Visa.NetworkEvent.Represented
-                                                    .NonFiatCurrencyOrNonFungibleTokenAsDescribed
-                                                    .builder()
-                                                    .build()
-                                            )
+                                            .nonFiatCurrencyOrNonFungibleTokenAsDescribed(null)
                                             .nonFiatCurrencyOrNonFungibleTokenReceived(
                                                 CardDispute.Visa.NetworkEvent.Represented
                                                     .NonFiatCurrencyOrNonFungibleTokenReceived
@@ -2132,12 +2117,7 @@ internal class CardDisputeListPageResponseTest {
                                                     )
                                                     .build()
                                             )
-                                            .consumerNonReceiptOfCash(
-                                                CardDispute.Visa.UserSubmission.Chargeback
-                                                    .ConsumerNonReceiptOfCash
-                                                    .builder()
-                                                    .build()
-                                            )
+                                            .consumerNonReceiptOfCash(null)
                                             .consumerOriginalCreditTransactionNotAccepted(
                                                 CardDispute.Visa.UserSubmission.Chargeback
                                                     .ConsumerOriginalCreditTransactionNotAccepted
@@ -2732,12 +2712,7 @@ internal class CardDisputeListPageResponseTest {
                                                         )
                                                         .build()
                                                 )
-                                                .nonFiatCurrencyOrNonFungibleTokenAsDescribed(
-                                                    CardDispute.Visa.NetworkEvent.Represented
-                                                        .NonFiatCurrencyOrNonFungibleTokenAsDescribed
-                                                        .builder()
-                                                        .build()
-                                                )
+                                                .nonFiatCurrencyOrNonFungibleTokenAsDescribed(null)
                                                 .nonFiatCurrencyOrNonFungibleTokenReceived(
                                                     CardDispute.Visa.NetworkEvent.Represented
                                                         .NonFiatCurrencyOrNonFungibleTokenReceived
@@ -3411,12 +3386,7 @@ internal class CardDisputeListPageResponseTest {
                                                         )
                                                         .build()
                                                 )
-                                                .consumerNonReceiptOfCash(
-                                                    CardDispute.Visa.UserSubmission.Chargeback
-                                                        .ConsumerNonReceiptOfCash
-                                                        .builder()
-                                                        .build()
-                                                )
+                                                .consumerNonReceiptOfCash(null)
                                                 .consumerOriginalCreditTransactionNotAccepted(
                                                     CardDispute.Visa.UserSubmission.Chargeback
                                                         .ConsumerOriginalCreditTransactionNotAccepted
