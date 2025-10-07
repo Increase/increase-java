@@ -14,11 +14,13 @@ internal class OAuthTokenTest {
         val oauthToken =
             OAuthToken.builder()
                 .accessToken("12345")
+                .groupId("group_1g4mhziu6kvrs3vz35um")
                 .tokenType(OAuthToken.TokenType.BEARER)
                 .type(OAuthToken.Type.OAUTH_TOKEN)
                 .build()
 
         assertThat(oauthToken.accessToken()).isEqualTo("12345")
+        assertThat(oauthToken.groupId()).isEqualTo("group_1g4mhziu6kvrs3vz35um")
         assertThat(oauthToken.tokenType()).isEqualTo(OAuthToken.TokenType.BEARER)
         assertThat(oauthToken.type()).isEqualTo(OAuthToken.Type.OAUTH_TOKEN)
     }
@@ -29,6 +31,7 @@ internal class OAuthTokenTest {
         val oauthToken =
             OAuthToken.builder()
                 .accessToken("12345")
+                .groupId("group_1g4mhziu6kvrs3vz35um")
                 .tokenType(OAuthToken.TokenType.BEARER)
                 .type(OAuthToken.Type.OAUTH_TOKEN)
                 .build()
