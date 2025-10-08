@@ -46865,6 +46865,11 @@ private constructor(
                     /** Account closure */
                     @JvmField val ACCOUNT_CLOSURE = of("account_closure")
 
+                    /** Account revenue payment distribution */
+                    @JvmField
+                    val ACCOUNT_REVENUE_PAYMENT_DISTRIBUTION =
+                        of("account_revenue_payment_distribution")
+
                     /** Bank-drawn check */
                     @JvmField val BANK_DRAWN_CHECK = of("bank_drawn_check")
 
@@ -46882,6 +46887,9 @@ private constructor(
 
                     /** Collection receivable */
                     @JvmField val COLLECTION_RECEIVABLE = of("collection_receivable")
+
+                    /** Dishonored ACH return */
+                    @JvmField val DISHONORED_ACH_RETURN = of("dishonored_ach_return")
 
                     /** Empyreal adjustment */
                     @JvmField val EMPYREAL_ADJUSTMENT = of("empyreal_adjustment")
@@ -46907,11 +46915,6 @@ private constructor(
                     /** Sample funds return */
                     @JvmField val SAMPLE_FUNDS_RETURN = of("sample_funds_return")
 
-                    /** Account revenue payment distribution */
-                    @JvmField
-                    val ACCOUNT_REVENUE_PAYMENT_DISTRIBUTION =
-                        of("account_revenue_payment_distribution")
-
                     @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
                 }
 
@@ -46919,6 +46922,8 @@ private constructor(
                 enum class Known {
                     /** Account closure */
                     ACCOUNT_CLOSURE,
+                    /** Account revenue payment distribution */
+                    ACCOUNT_REVENUE_PAYMENT_DISTRIBUTION,
                     /** Bank-drawn check */
                     BANK_DRAWN_CHECK,
                     /** Bank-drawn check credit */
@@ -46931,6 +46936,8 @@ private constructor(
                     COLLECTION_PAYMENT,
                     /** Collection receivable */
                     COLLECTION_RECEIVABLE,
+                    /** Dishonored ACH return */
+                    DISHONORED_ACH_RETURN,
                     /** Empyreal adjustment */
                     EMPYREAL_ADJUSTMENT,
                     /** Error */
@@ -46947,8 +46954,6 @@ private constructor(
                     SAMPLE_FUNDS,
                     /** Sample funds return */
                     SAMPLE_FUNDS_RETURN,
-                    /** Account revenue payment distribution */
-                    ACCOUNT_REVENUE_PAYMENT_DISTRIBUTION,
                 }
 
                 /**
@@ -46963,6 +46968,8 @@ private constructor(
                 enum class Value {
                     /** Account closure */
                     ACCOUNT_CLOSURE,
+                    /** Account revenue payment distribution */
+                    ACCOUNT_REVENUE_PAYMENT_DISTRIBUTION,
                     /** Bank-drawn check */
                     BANK_DRAWN_CHECK,
                     /** Bank-drawn check credit */
@@ -46975,6 +46982,8 @@ private constructor(
                     COLLECTION_PAYMENT,
                     /** Collection receivable */
                     COLLECTION_RECEIVABLE,
+                    /** Dishonored ACH return */
+                    DISHONORED_ACH_RETURN,
                     /** Empyreal adjustment */
                     EMPYREAL_ADJUSTMENT,
                     /** Error */
@@ -46991,8 +47000,6 @@ private constructor(
                     SAMPLE_FUNDS,
                     /** Sample funds return */
                     SAMPLE_FUNDS_RETURN,
-                    /** Account revenue payment distribution */
-                    ACCOUNT_REVENUE_PAYMENT_DISTRIBUTION,
                     /**
                      * An enum member indicating that [Reason] was instantiated with an unknown
                      * value.
@@ -47010,12 +47017,15 @@ private constructor(
                 fun value(): Value =
                     when (this) {
                         ACCOUNT_CLOSURE -> Value.ACCOUNT_CLOSURE
+                        ACCOUNT_REVENUE_PAYMENT_DISTRIBUTION ->
+                            Value.ACCOUNT_REVENUE_PAYMENT_DISTRIBUTION
                         BANK_DRAWN_CHECK -> Value.BANK_DRAWN_CHECK
                         BANK_DRAWN_CHECK_CREDIT -> Value.BANK_DRAWN_CHECK_CREDIT
                         BANK_MIGRATION -> Value.BANK_MIGRATION
                         CHECK_ADJUSTMENT -> Value.CHECK_ADJUSTMENT
                         COLLECTION_PAYMENT -> Value.COLLECTION_PAYMENT
                         COLLECTION_RECEIVABLE -> Value.COLLECTION_RECEIVABLE
+                        DISHONORED_ACH_RETURN -> Value.DISHONORED_ACH_RETURN
                         EMPYREAL_ADJUSTMENT -> Value.EMPYREAL_ADJUSTMENT
                         ERROR -> Value.ERROR
                         ERROR_CORRECTION -> Value.ERROR_CORRECTION
@@ -47024,8 +47034,6 @@ private constructor(
                         NEGATIVE_BALANCE_FORGIVENESS -> Value.NEGATIVE_BALANCE_FORGIVENESS
                         SAMPLE_FUNDS -> Value.SAMPLE_FUNDS
                         SAMPLE_FUNDS_RETURN -> Value.SAMPLE_FUNDS_RETURN
-                        ACCOUNT_REVENUE_PAYMENT_DISTRIBUTION ->
-                            Value.ACCOUNT_REVENUE_PAYMENT_DISTRIBUTION
                         else -> Value._UNKNOWN
                     }
 
@@ -47041,12 +47049,15 @@ private constructor(
                 fun known(): Known =
                     when (this) {
                         ACCOUNT_CLOSURE -> Known.ACCOUNT_CLOSURE
+                        ACCOUNT_REVENUE_PAYMENT_DISTRIBUTION ->
+                            Known.ACCOUNT_REVENUE_PAYMENT_DISTRIBUTION
                         BANK_DRAWN_CHECK -> Known.BANK_DRAWN_CHECK
                         BANK_DRAWN_CHECK_CREDIT -> Known.BANK_DRAWN_CHECK_CREDIT
                         BANK_MIGRATION -> Known.BANK_MIGRATION
                         CHECK_ADJUSTMENT -> Known.CHECK_ADJUSTMENT
                         COLLECTION_PAYMENT -> Known.COLLECTION_PAYMENT
                         COLLECTION_RECEIVABLE -> Known.COLLECTION_RECEIVABLE
+                        DISHONORED_ACH_RETURN -> Known.DISHONORED_ACH_RETURN
                         EMPYREAL_ADJUSTMENT -> Known.EMPYREAL_ADJUSTMENT
                         ERROR -> Known.ERROR
                         ERROR_CORRECTION -> Known.ERROR_CORRECTION
@@ -47055,8 +47066,6 @@ private constructor(
                         NEGATIVE_BALANCE_FORGIVENESS -> Known.NEGATIVE_BALANCE_FORGIVENESS
                         SAMPLE_FUNDS -> Known.SAMPLE_FUNDS
                         SAMPLE_FUNDS_RETURN -> Known.SAMPLE_FUNDS_RETURN
-                        ACCOUNT_REVENUE_PAYMENT_DISTRIBUTION ->
-                            Known.ACCOUNT_REVENUE_PAYMENT_DISTRIBUTION
                         else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
                     }
 
