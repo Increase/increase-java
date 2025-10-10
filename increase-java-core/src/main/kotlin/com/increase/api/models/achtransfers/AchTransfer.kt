@@ -9480,11 +9480,11 @@ private constructor(
          * to be made available to the ODFI no later than the opening of business on the second
          * banking day following the Settlement Date of the original entry.".
          *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
-        fun administrativeReturnsExpectedBy(): Optional<OffsetDateTime> =
-            administrativeReturnsExpectedBy.getOptional("administrative_returns_expected_by")
+        fun administrativeReturnsExpectedBy(): OffsetDateTime =
+            administrativeReturnsExpectedBy.getRequired("administrative_returns_expected_by")
 
         /**
          * The ACH transfer's effective date as sent to the Federal Reserve. If a specific date was
@@ -9656,18 +9656,8 @@ private constructor(
              * return entry to be made available to the ODFI no later than the opening of business
              * on the second banking day following the Settlement Date of the original entry.".
              */
-            fun administrativeReturnsExpectedBy(administrativeReturnsExpectedBy: OffsetDateTime?) =
-                administrativeReturnsExpectedBy(
-                    JsonField.ofNullable(administrativeReturnsExpectedBy)
-                )
-
-            /**
-             * Alias for calling [Builder.administrativeReturnsExpectedBy] with
-             * `administrativeReturnsExpectedBy.orElse(null)`.
-             */
-            fun administrativeReturnsExpectedBy(
-                administrativeReturnsExpectedBy: Optional<OffsetDateTime>
-            ) = administrativeReturnsExpectedBy(administrativeReturnsExpectedBy.getOrNull())
+            fun administrativeReturnsExpectedBy(administrativeReturnsExpectedBy: OffsetDateTime) =
+                administrativeReturnsExpectedBy(JsonField.of(administrativeReturnsExpectedBy))
 
             /**
              * Sets [Builder.administrativeReturnsExpectedBy] to an arbitrary JSON value.
