@@ -9434,6 +9434,7 @@ private constructor(
     class Submission
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
+        private val administrativeReturnsExpectedBy: JsonField<OffsetDateTime>,
         private val effectiveDate: JsonField<LocalDate>,
         private val expectedFundsSettlementAt: JsonField<OffsetDateTime>,
         private val expectedSettlementSchedule: JsonField<ExpectedSettlementSchedule>,
@@ -9444,6 +9445,9 @@ private constructor(
 
         @JsonCreator
         private constructor(
+            @JsonProperty("administrative_returns_expected_by")
+            @ExcludeMissing
+            administrativeReturnsExpectedBy: JsonField<OffsetDateTime> = JsonMissing.of(),
             @JsonProperty("effective_date")
             @ExcludeMissing
             effectiveDate: JsonField<LocalDate> = JsonMissing.of(),
@@ -9460,6 +9464,7 @@ private constructor(
             @ExcludeMissing
             traceNumber: JsonField<String> = JsonMissing.of(),
         ) : this(
+            administrativeReturnsExpectedBy,
             effectiveDate,
             expectedFundsSettlementAt,
             expectedSettlementSchedule,
@@ -9467,6 +9472,19 @@ private constructor(
             traceNumber,
             mutableMapOf(),
         )
+
+        /**
+         * The timestamp by which any administrative returns are expected to be received by. This
+         * follows the NACHA guidelines for return windows, which are: "In general, return entries
+         * must be received by the RDFI’s ACH Operator by its deposit deadline for the return entry
+         * to be made available to the ODFI no later than the opening of business on the second
+         * banking day following the Settlement Date of the original entry.".
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun administrativeReturnsExpectedBy(): Optional<OffsetDateTime> =
+            administrativeReturnsExpectedBy.getOptional("administrative_returns_expected_by")
 
         /**
          * The ACH transfer's effective date as sent to the Federal Reserve. If a specific date was
@@ -9518,6 +9536,17 @@ private constructor(
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun traceNumber(): String = traceNumber.getRequired("trace_number")
+
+        /**
+         * Returns the raw JSON value of [administrativeReturnsExpectedBy].
+         *
+         * Unlike [administrativeReturnsExpectedBy], this method doesn't throw if the JSON field has
+         * an unexpected type.
+         */
+        @JsonProperty("administrative_returns_expected_by")
+        @ExcludeMissing
+        fun _administrativeReturnsExpectedBy(): JsonField<OffsetDateTime> =
+            administrativeReturnsExpectedBy
 
         /**
          * Returns the raw JSON value of [effectiveDate].
@@ -9587,6 +9616,7 @@ private constructor(
              *
              * The following fields are required:
              * ```java
+             * .administrativeReturnsExpectedBy()
              * .effectiveDate()
              * .expectedFundsSettlementAt()
              * .expectedSettlementSchedule()
@@ -9600,6 +9630,7 @@ private constructor(
         /** A builder for [Submission]. */
         class Builder internal constructor() {
 
+            private var administrativeReturnsExpectedBy: JsonField<OffsetDateTime>? = null
             private var effectiveDate: JsonField<LocalDate>? = null
             private var expectedFundsSettlementAt: JsonField<OffsetDateTime>? = null
             private var expectedSettlementSchedule: JsonField<ExpectedSettlementSchedule>? = null
@@ -9609,6 +9640,7 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(submission: Submission) = apply {
+                administrativeReturnsExpectedBy = submission.administrativeReturnsExpectedBy
                 effectiveDate = submission.effectiveDate
                 expectedFundsSettlementAt = submission.expectedFundsSettlementAt
                 expectedSettlementSchedule = submission.expectedSettlementSchedule
@@ -9616,6 +9648,37 @@ private constructor(
                 traceNumber = submission.traceNumber
                 additionalProperties = submission.additionalProperties.toMutableMap()
             }
+
+            /**
+             * The timestamp by which any administrative returns are expected to be received by.
+             * This follows the NACHA guidelines for return windows, which are: "In general, return
+             * entries must be received by the RDFI’s ACH Operator by its deposit deadline for the
+             * return entry to be made available to the ODFI no later than the opening of business
+             * on the second banking day following the Settlement Date of the original entry.".
+             */
+            fun administrativeReturnsExpectedBy(administrativeReturnsExpectedBy: OffsetDateTime?) =
+                administrativeReturnsExpectedBy(
+                    JsonField.ofNullable(administrativeReturnsExpectedBy)
+                )
+
+            /**
+             * Alias for calling [Builder.administrativeReturnsExpectedBy] with
+             * `administrativeReturnsExpectedBy.orElse(null)`.
+             */
+            fun administrativeReturnsExpectedBy(
+                administrativeReturnsExpectedBy: Optional<OffsetDateTime>
+            ) = administrativeReturnsExpectedBy(administrativeReturnsExpectedBy.getOrNull())
+
+            /**
+             * Sets [Builder.administrativeReturnsExpectedBy] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.administrativeReturnsExpectedBy] with a well-typed
+             * [OffsetDateTime] value instead. This method is primarily for setting the field to an
+             * undocumented or not yet supported value.
+             */
+            fun administrativeReturnsExpectedBy(
+                administrativeReturnsExpectedBy: JsonField<OffsetDateTime>
+            ) = apply { this.administrativeReturnsExpectedBy = administrativeReturnsExpectedBy }
 
             /**
              * The ACH transfer's effective date as sent to the Federal Reserve. If a specific date
@@ -9734,6 +9797,7 @@ private constructor(
              *
              * The following fields are required:
              * ```java
+             * .administrativeReturnsExpectedBy()
              * .effectiveDate()
              * .expectedFundsSettlementAt()
              * .expectedSettlementSchedule()
@@ -9745,6 +9809,10 @@ private constructor(
              */
             fun build(): Submission =
                 Submission(
+                    checkRequired(
+                        "administrativeReturnsExpectedBy",
+                        administrativeReturnsExpectedBy,
+                    ),
                     checkRequired("effectiveDate", effectiveDate),
                     checkRequired("expectedFundsSettlementAt", expectedFundsSettlementAt),
                     checkRequired("expectedSettlementSchedule", expectedSettlementSchedule),
@@ -9761,6 +9829,7 @@ private constructor(
                 return@apply
             }
 
+            administrativeReturnsExpectedBy()
             effectiveDate()
             expectedFundsSettlementAt()
             expectedSettlementSchedule().validate()
@@ -9785,7 +9854,8 @@ private constructor(
          */
         @JvmSynthetic
         internal fun validity(): Int =
-            (if (effectiveDate.asKnown().isPresent) 1 else 0) +
+            (if (administrativeReturnsExpectedBy.asKnown().isPresent) 1 else 0) +
+                (if (effectiveDate.asKnown().isPresent) 1 else 0) +
                 (if (expectedFundsSettlementAt.asKnown().isPresent) 1 else 0) +
                 (expectedSettlementSchedule.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (submittedAt.asKnown().isPresent) 1 else 0) +
@@ -9944,6 +10014,7 @@ private constructor(
             }
 
             return other is Submission &&
+                administrativeReturnsExpectedBy == other.administrativeReturnsExpectedBy &&
                 effectiveDate == other.effectiveDate &&
                 expectedFundsSettlementAt == other.expectedFundsSettlementAt &&
                 expectedSettlementSchedule == other.expectedSettlementSchedule &&
@@ -9954,6 +10025,7 @@ private constructor(
 
         private val hashCode: Int by lazy {
             Objects.hash(
+                administrativeReturnsExpectedBy,
                 effectiveDate,
                 expectedFundsSettlementAt,
                 expectedSettlementSchedule,
@@ -9966,7 +10038,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Submission{effectiveDate=$effectiveDate, expectedFundsSettlementAt=$expectedFundsSettlementAt, expectedSettlementSchedule=$expectedSettlementSchedule, submittedAt=$submittedAt, traceNumber=$traceNumber, additionalProperties=$additionalProperties}"
+            "Submission{administrativeReturnsExpectedBy=$administrativeReturnsExpectedBy, effectiveDate=$effectiveDate, expectedFundsSettlementAt=$expectedFundsSettlementAt, expectedSettlementSchedule=$expectedSettlementSchedule, submittedAt=$submittedAt, traceNumber=$traceNumber, additionalProperties=$additionalProperties}"
     }
 
     /**
