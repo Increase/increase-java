@@ -156,6 +156,7 @@ internal class AchTransferListPageResponseTest {
                         .status(AchTransfer.Status.RETURNED)
                         .submission(
                             AchTransfer.Submission.builder()
+                                .administrativeReturnsExpectedBy(null)
                                 .effectiveDate(LocalDate.parse("2020-01-31"))
                                 .expectedFundsSettlementAt(
                                     OffsetDateTime.parse("2020-02-03T13:30:00Z")
@@ -312,6 +313,7 @@ internal class AchTransferListPageResponseTest {
                     .status(AchTransfer.Status.RETURNED)
                     .submission(
                         AchTransfer.Submission.builder()
+                            .administrativeReturnsExpectedBy(null)
                             .effectiveDate(LocalDate.parse("2020-01-31"))
                             .expectedFundsSettlementAt(OffsetDateTime.parse("2020-02-03T13:30:00Z"))
                             .expectedSettlementSchedule(
@@ -474,6 +476,7 @@ internal class AchTransferListPageResponseTest {
                         .status(AchTransfer.Status.RETURNED)
                         .submission(
                             AchTransfer.Submission.builder()
+                                .administrativeReturnsExpectedBy(null)
                                 .effectiveDate(LocalDate.parse("2020-01-31"))
                                 .expectedFundsSettlementAt(
                                     OffsetDateTime.parse("2020-02-03T13:30:00Z")
