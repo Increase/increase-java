@@ -174,6 +174,7 @@ internal class CardAuthorizationCreateResponseTest {
                                                         .Category
                                                         .VISA
                                                 )
+                                                .pulse(null)
                                                 .visa(
                                                     DeclinedTransaction.Source.CardDecline
                                                         .NetworkDetails
@@ -509,6 +510,7 @@ internal class CardAuthorizationCreateResponseTest {
                                                         .Category
                                                         .VISA
                                                 )
+                                                .pulse(null)
                                                 .visa(
                                                     PendingTransaction.Source.CardAuthorization
                                                         .NetworkDetails
@@ -860,6 +862,7 @@ internal class CardAuthorizationCreateResponseTest {
                                                     .Category
                                                     .VISA
                                             )
+                                            .pulse(null)
                                             .visa(
                                                 DeclinedTransaction.Source.CardDecline
                                                     .NetworkDetails
@@ -1188,6 +1191,7 @@ internal class CardAuthorizationCreateResponseTest {
                                                     .Category
                                                     .VISA
                                             )
+                                            .pulse(null)
                                             .visa(
                                                 PendingTransaction.Source.CardAuthorization
                                                     .NetworkDetails
@@ -1536,6 +1540,7 @@ internal class CardAuthorizationCreateResponseTest {
                                                         .Category
                                                         .VISA
                                                 )
+                                                .pulse(null)
                                                 .visa(
                                                     DeclinedTransaction.Source.CardDecline
                                                         .NetworkDetails
@@ -1871,6 +1876,7 @@ internal class CardAuthorizationCreateResponseTest {
                                                         .Category
                                                         .VISA
                                                 )
+                                                .pulse(null)
                                                 .visa(
                                                     PendingTransaction.Source.CardAuthorization
                                                         .NetworkDetails
