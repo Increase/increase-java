@@ -172,6 +172,7 @@ internal class DeclinedTransactionListPageResponseTest {
                                                         .Category
                                                         .VISA
                                                 )
+                                                .pulse(null)
                                                 .visa(
                                                     DeclinedTransaction.Source.CardDecline
                                                         .NetworkDetails
@@ -510,6 +511,7 @@ internal class DeclinedTransactionListPageResponseTest {
                                                     .Category
                                                     .VISA
                                             )
+                                            .pulse(null)
                                             .visa(
                                                 DeclinedTransaction.Source.CardDecline
                                                     .NetworkDetails
@@ -850,6 +852,7 @@ internal class DeclinedTransactionListPageResponseTest {
                                                         .Category
                                                         .VISA
                                                 )
+                                                .pulse(null)
                                                 .visa(
                                                     DeclinedTransaction.Source.CardDecline
                                                         .NetworkDetails

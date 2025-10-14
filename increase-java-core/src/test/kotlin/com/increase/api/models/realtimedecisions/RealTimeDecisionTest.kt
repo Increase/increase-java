@@ -127,6 +127,7 @@ internal class RealTimeDecisionTest {
                                 .category(
                                     RealTimeDecision.CardAuthorization.NetworkDetails.Category.VISA
                                 )
+                                .pulse(null)
                                 .visa(
                                     RealTimeDecision.CardAuthorization.NetworkDetails.Visa.builder()
                                         .electronicCommerceIndicator(
@@ -360,6 +361,7 @@ internal class RealTimeDecisionTest {
                             .category(
                                 RealTimeDecision.CardAuthorization.NetworkDetails.Category.VISA
                             )
+                            .pulse(null)
                             .visa(
                                 RealTimeDecision.CardAuthorization.NetworkDetails.Visa.builder()
                                     .electronicCommerceIndicator(
@@ -599,6 +601,7 @@ internal class RealTimeDecisionTest {
                                 .category(
                                     RealTimeDecision.CardAuthorization.NetworkDetails.Category.VISA
                                 )
+                                .pulse(null)
                                 .visa(
                                     RealTimeDecision.CardAuthorization.NetworkDetails.Visa.builder()
                                         .electronicCommerceIndicator(

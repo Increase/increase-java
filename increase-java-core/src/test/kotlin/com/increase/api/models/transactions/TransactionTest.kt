@@ -196,6 +196,7 @@ internal class TransactionTest {
                                             Transaction.Source.CardFinancial.NetworkDetails.Category
                                                 .VISA
                                         )
+                                        .pulse(null)
                                         .visa(
                                             Transaction.Source.CardFinancial.NetworkDetails.Visa
                                                 .builder()
@@ -1174,6 +1175,7 @@ internal class TransactionTest {
                                         Transaction.Source.CardFinancial.NetworkDetails.Category
                                             .VISA
                                     )
+                                    .pulse(null)
                                     .visa(
                                         Transaction.Source.CardFinancial.NetworkDetails.Visa
                                             .builder()
@@ -2119,6 +2121,7 @@ internal class TransactionTest {
                                             Transaction.Source.CardFinancial.NetworkDetails.Category
                                                 .VISA
                                         )
+                                        .pulse(null)
                                         .visa(
                                             Transaction.Source.CardFinancial.NetworkDetails.Visa
                                                 .builder()
