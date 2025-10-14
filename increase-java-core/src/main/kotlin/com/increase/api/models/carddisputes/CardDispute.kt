@@ -1040,13 +1040,18 @@ private constructor(
             /** Visa: details will be under the `visa` object. */
             @JvmField val VISA = of("visa")
 
+            /** Pulse: details will be under the `pulse` object. */
+            @JvmField val PULSE = of("pulse")
+
             @JvmStatic fun of(value: String) = Network(JsonField.of(value))
         }
 
         /** An enum containing [Network]'s known values. */
         enum class Known {
             /** Visa: details will be under the `visa` object. */
-            VISA
+            VISA,
+            /** Pulse: details will be under the `pulse` object. */
+            PULSE,
         }
 
         /**
@@ -1061,6 +1066,8 @@ private constructor(
         enum class Value {
             /** Visa: details will be under the `visa` object. */
             VISA,
+            /** Pulse: details will be under the `pulse` object. */
+            PULSE,
             /** An enum member indicating that [Network] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -1075,6 +1082,7 @@ private constructor(
         fun value(): Value =
             when (this) {
                 VISA -> Value.VISA
+                PULSE -> Value.PULSE
                 else -> Value._UNKNOWN
             }
 
@@ -1090,6 +1098,7 @@ private constructor(
         fun known(): Known =
             when (this) {
                 VISA -> Known.VISA
+                PULSE -> Known.PULSE
                 else -> throw IncreaseInvalidDataException("Unknown Network: $value")
             }
 

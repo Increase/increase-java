@@ -215,6 +215,7 @@ internal class CardPaymentListPageResponseTest {
                                                             .Category
                                                             .VISA
                                                     )
+                                                    .pulse(null)
                                                     .visa(
                                                         CardPayment.Element.CardAuthorization
                                                             .NetworkDetails
@@ -451,6 +452,7 @@ internal class CardPaymentListPageResponseTest {
                                                             .Category
                                                             .VISA
                                                     )
+                                                    .pulse(null)
                                                     .visa(
                                                         CardPayment.Element.CardDecline
                                                             .NetworkDetails
@@ -1399,6 +1401,7 @@ internal class CardPaymentListPageResponseTest {
                                                             .Category
                                                             .VISA
                                                     )
+                                                    .pulse(null)
                                                     .visa(
                                                         CardPayment.Element.CardValidation
                                                             .NetworkDetails
@@ -1673,6 +1676,7 @@ internal class CardPaymentListPageResponseTest {
                                                             .Category
                                                             .VISA
                                                     )
+                                                    .pulse(null)
                                                     .visa(
                                                         CardPayment.Element.CardAuthorization
                                                             .NetworkDetails
@@ -1909,6 +1913,7 @@ internal class CardPaymentListPageResponseTest {
                                                             .Category
                                                             .VISA
                                                     )
+                                                    .pulse(null)
                                                     .visa(
                                                         CardPayment.Element.CardDecline
                                                             .NetworkDetails
@@ -2857,6 +2862,7 @@ internal class CardPaymentListPageResponseTest {
                                                             .Category
                                                             .VISA
                                                     )
+                                                    .pulse(null)
                                                     .visa(
                                                         CardPayment.Element.CardValidation
                                                             .NetworkDetails
@@ -3131,6 +3137,7 @@ internal class CardPaymentListPageResponseTest {
                                                             .Category
                                                             .VISA
                                                     )
+                                                    .pulse(null)
                                                     .visa(
                                                         CardPayment.Element.CardAuthorization
                                                             .NetworkDetails
@@ -3367,6 +3374,7 @@ internal class CardPaymentListPageResponseTest {
                                                             .Category
                                                             .VISA
                                                     )
+                                                    .pulse(null)
                                                     .visa(
                                                         CardPayment.Element.CardDecline
                                                             .NetworkDetails
@@ -4315,6 +4323,7 @@ internal class CardPaymentListPageResponseTest {
                                                             .Category
                                                             .VISA
                                                     )
+                                                    .pulse(null)
                                                     .visa(
                                                         CardPayment.Element.CardValidation
                                                             .NetworkDetails
@@ -4589,6 +4598,7 @@ internal class CardPaymentListPageResponseTest {
                                                             .Category
                                                             .VISA
                                                     )
+                                                    .pulse(null)
                                                     .visa(
                                                         CardPayment.Element.CardAuthorization
                                                             .NetworkDetails
@@ -4825,6 +4835,7 @@ internal class CardPaymentListPageResponseTest {
                                                             .Category
                                                             .VISA
                                                     )
+                                                    .pulse(null)
                                                     .visa(
                                                         CardPayment.Element.CardDecline
                                                             .NetworkDetails
@@ -5773,6 +5784,7 @@ internal class CardPaymentListPageResponseTest {
                                                             .Category
                                                             .VISA
                                                     )
+                                                    .pulse(null)
                                                     .visa(
                                                         CardPayment.Element.CardValidation
                                                             .NetworkDetails
@@ -6071,6 +6083,7 @@ internal class CardPaymentListPageResponseTest {
                                                         .Category
                                                         .VISA
                                                 )
+                                                .pulse(null)
                                                 .visa(
                                                     CardPayment.Element.CardAuthorization
                                                         .NetworkDetails
@@ -6293,6 +6306,7 @@ internal class CardPaymentListPageResponseTest {
                                                         .Category
                                                         .VISA
                                                 )
+                                                .pulse(null)
                                                 .visa(
                                                     CardPayment.Element.CardDecline.NetworkDetails
                                                         .Visa
@@ -7189,6 +7203,7 @@ internal class CardPaymentListPageResponseTest {
                                                         .Category
                                                         .VISA
                                                 )
+                                                .pulse(null)
                                                 .visa(
                                                     CardPayment.Element.CardValidation
                                                         .NetworkDetails
@@ -7455,6 +7470,7 @@ internal class CardPaymentListPageResponseTest {
                                                         .Category
                                                         .VISA
                                                 )
+                                                .pulse(null)
                                                 .visa(
                                                     CardPayment.Element.CardAuthorization
                                                         .NetworkDetails
@@ -7677,6 +7693,7 @@ internal class CardPaymentListPageResponseTest {
                                                         .Category
                                                         .VISA
                                                 )
+                                                .pulse(null)
                                                 .visa(
                                                     CardPayment.Element.CardDecline.NetworkDetails
                                                         .Visa
@@ -8573,6 +8590,7 @@ internal class CardPaymentListPageResponseTest {
                                                         .Category
                                                         .VISA
                                                 )
+                                                .pulse(null)
                                                 .visa(
                                                     CardPayment.Element.CardValidation
                                                         .NetworkDetails
@@ -8839,6 +8857,7 @@ internal class CardPaymentListPageResponseTest {
                                                         .Category
                                                         .VISA
                                                 )
+                                                .pulse(null)
                                                 .visa(
                                                     CardPayment.Element.CardAuthorization
                                                         .NetworkDetails
@@ -9061,6 +9080,7 @@ internal class CardPaymentListPageResponseTest {
                                                         .Category
                                                         .VISA
                                                 )
+                                                .pulse(null)
                                                 .visa(
                                                     CardPayment.Element.CardDecline.NetworkDetails
                                                         .Visa
@@ -9957,6 +9977,7 @@ internal class CardPaymentListPageResponseTest {
                                                         .Category
                                                         .VISA
                                                 )
+                                                .pulse(null)
                                                 .visa(
                                                     CardPayment.Element.CardValidation
                                                         .NetworkDetails
@@ -10223,6 +10244,7 @@ internal class CardPaymentListPageResponseTest {
                                                         .Category
                                                         .VISA
                                                 )
+                                                .pulse(null)
                                                 .visa(
                                                     CardPayment.Element.CardAuthorization
                                                         .NetworkDetails
@@ -10445,6 +10467,7 @@ internal class CardPaymentListPageResponseTest {
                                                         .Category
                                                         .VISA
                                                 )
+                                                .pulse(null)
                                                 .visa(
                                                     CardPayment.Element.CardDecline.NetworkDetails
                                                         .Visa
@@ -11341,6 +11364,7 @@ internal class CardPaymentListPageResponseTest {
                                                         .Category
                                                         .VISA
                                                 )
+                                                .pulse(null)
                                                 .visa(
                                                     CardPayment.Element.CardValidation
                                                         .NetworkDetails
@@ -11645,6 +11669,7 @@ internal class CardPaymentListPageResponseTest {
                                                             .Category
                                                             .VISA
                                                     )
+                                                    .pulse(null)
                                                     .visa(
                                                         CardPayment.Element.CardAuthorization
                                                             .NetworkDetails
@@ -11881,6 +11906,7 @@ internal class CardPaymentListPageResponseTest {
                                                             .Category
                                                             .VISA
                                                     )
+                                                    .pulse(null)
                                                     .visa(
                                                         CardPayment.Element.CardDecline
                                                             .NetworkDetails
@@ -12829,6 +12855,7 @@ internal class CardPaymentListPageResponseTest {
                                                             .Category
                                                             .VISA
                                                     )
+                                                    .pulse(null)
                                                     .visa(
                                                         CardPayment.Element.CardValidation
                                                             .NetworkDetails
@@ -13103,6 +13130,7 @@ internal class CardPaymentListPageResponseTest {
                                                             .Category
                                                             .VISA
                                                     )
+                                                    .pulse(null)
                                                     .visa(
                                                         CardPayment.Element.CardAuthorization
                                                             .NetworkDetails
@@ -13339,6 +13367,7 @@ internal class CardPaymentListPageResponseTest {
                                                             .Category
                                                             .VISA
                                                     )
+                                                    .pulse(null)
                                                     .visa(
                                                         CardPayment.Element.CardDecline
                                                             .NetworkDetails
@@ -14287,6 +14316,7 @@ internal class CardPaymentListPageResponseTest {
                                                             .Category
                                                             .VISA
                                                     )
+                                                    .pulse(null)
                                                     .visa(
                                                         CardPayment.Element.CardValidation
                                                             .NetworkDetails
@@ -14561,6 +14591,7 @@ internal class CardPaymentListPageResponseTest {
                                                             .Category
                                                             .VISA
                                                     )
+                                                    .pulse(null)
                                                     .visa(
                                                         CardPayment.Element.CardAuthorization
                                                             .NetworkDetails
@@ -14797,6 +14828,7 @@ internal class CardPaymentListPageResponseTest {
                                                             .Category
                                                             .VISA
                                                     )
+                                                    .pulse(null)
                                                     .visa(
                                                         CardPayment.Element.CardDecline
                                                             .NetworkDetails
@@ -15745,6 +15777,7 @@ internal class CardPaymentListPageResponseTest {
                                                             .Category
                                                             .VISA
                                                     )
+                                                    .pulse(null)
                                                     .visa(
                                                         CardPayment.Element.CardValidation
                                                             .NetworkDetails
@@ -16019,6 +16052,7 @@ internal class CardPaymentListPageResponseTest {
                                                             .Category
                                                             .VISA
                                                     )
+                                                    .pulse(null)
                                                     .visa(
                                                         CardPayment.Element.CardAuthorization
                                                             .NetworkDetails
@@ -16255,6 +16289,7 @@ internal class CardPaymentListPageResponseTest {
                                                             .Category
                                                             .VISA
                                                     )
+                                                    .pulse(null)
                                                     .visa(
                                                         CardPayment.Element.CardDecline
                                                             .NetworkDetails
@@ -17203,6 +17238,7 @@ internal class CardPaymentListPageResponseTest {
                                                             .Category
                                                             .VISA
                                                     )
+                                                    .pulse(null)
                                                     .visa(
                                                         CardPayment.Element.CardValidation
                                                             .NetworkDetails

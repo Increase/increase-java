@@ -223,6 +223,7 @@ internal class TransactionListPageResponseTest {
                                                         .Category
                                                         .VISA
                                                 )
+                                                .pulse(null)
                                                 .visa(
                                                     Transaction.Source.CardFinancial.NetworkDetails
                                                         .Visa
@@ -1308,6 +1309,7 @@ internal class TransactionListPageResponseTest {
                                                     .Category
                                                     .VISA
                                             )
+                                            .pulse(null)
                                             .visa(
                                                 Transaction.Source.CardFinancial.NetworkDetails.Visa
                                                     .builder()
@@ -2367,6 +2369,7 @@ internal class TransactionListPageResponseTest {
                                                         .Category
                                                         .VISA
                                                 )
+                                                .pulse(null)
                                                 .visa(
                                                     Transaction.Source.CardFinancial.NetworkDetails
                                                         .Visa

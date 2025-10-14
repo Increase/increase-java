@@ -159,6 +159,7 @@ internal class PendingTransactionTest {
                                                 .Category
                                                 .VISA
                                         )
+                                        .pulse(null)
                                         .visa(
                                             PendingTransaction.Source.CardAuthorization
                                                 .NetworkDetails
@@ -468,6 +469,7 @@ internal class PendingTransactionTest {
                                             .Category
                                             .VISA
                                     )
+                                    .pulse(null)
                                     .visa(
                                         PendingTransaction.Source.CardAuthorization.NetworkDetails
                                             .Visa
@@ -778,6 +780,7 @@ internal class PendingTransactionTest {
                                                 .Category
                                                 .VISA
                                         )
+                                        .pulse(null)
                                         .visa(
                                             PendingTransaction.Source.CardAuthorization
                                                 .NetworkDetails
