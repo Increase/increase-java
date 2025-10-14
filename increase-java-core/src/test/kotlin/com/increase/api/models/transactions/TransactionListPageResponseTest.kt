@@ -250,6 +250,7 @@ internal class TransactionListPageResponseTest {
                                         .networkIdentifiers(
                                             Transaction.Source.CardFinancial.NetworkIdentifiers
                                                 .builder()
+                                                .authorizationIdentificationResponse(null)
                                                 .retrievalReferenceNumber("785867080153")
                                                 .traceNumber("487941")
                                                 .transactionId("627199945183184")
@@ -349,6 +350,7 @@ internal class TransactionListPageResponseTest {
                                                 .builder()
                                                 .acquirerBusinessId("69650702")
                                                 .acquirerReferenceNumber("83163715445437604865089")
+                                                .authorizationIdentificationResponse("ABC123")
                                                 .transactionId("627199945183184")
                                                 .build()
                                         )
@@ -615,6 +617,7 @@ internal class TransactionListPageResponseTest {
                                                 .builder()
                                                 .acquirerBusinessId("69650702")
                                                 .acquirerReferenceNumber("83163715445437604865089")
+                                                .authorizationIdentificationResponse("ABC123")
                                                 .transactionId("627199945183184")
                                                 .build()
                                         )
@@ -1335,6 +1338,7 @@ internal class TransactionListPageResponseTest {
                                     .networkIdentifiers(
                                         Transaction.Source.CardFinancial.NetworkIdentifiers
                                             .builder()
+                                            .authorizationIdentificationResponse(null)
                                             .retrievalReferenceNumber("785867080153")
                                             .traceNumber("487941")
                                             .transactionId("627199945183184")
@@ -1428,6 +1432,7 @@ internal class TransactionListPageResponseTest {
                                         Transaction.Source.CardRefund.NetworkIdentifiers.builder()
                                             .acquirerBusinessId("69650702")
                                             .acquirerReferenceNumber("83163715445437604865089")
+                                            .authorizationIdentificationResponse("ABC123")
                                             .transactionId("627199945183184")
                                             .build()
                                     )
@@ -1682,6 +1687,7 @@ internal class TransactionListPageResponseTest {
                                             .builder()
                                             .acquirerBusinessId("69650702")
                                             .acquirerReferenceNumber("83163715445437604865089")
+                                            .authorizationIdentificationResponse("ABC123")
                                             .transactionId("627199945183184")
                                             .build()
                                     )
@@ -2396,6 +2402,7 @@ internal class TransactionListPageResponseTest {
                                         .networkIdentifiers(
                                             Transaction.Source.CardFinancial.NetworkIdentifiers
                                                 .builder()
+                                                .authorizationIdentificationResponse(null)
                                                 .retrievalReferenceNumber("785867080153")
                                                 .traceNumber("487941")
                                                 .transactionId("627199945183184")
@@ -2495,6 +2502,7 @@ internal class TransactionListPageResponseTest {
                                                 .builder()
                                                 .acquirerBusinessId("69650702")
                                                 .acquirerReferenceNumber("83163715445437604865089")
+                                                .authorizationIdentificationResponse("ABC123")
                                                 .transactionId("627199945183184")
                                                 .build()
                                         )
@@ -2761,6 +2769,7 @@ internal class TransactionListPageResponseTest {
                                                 .builder()
                                                 .acquirerBusinessId("69650702")
                                                 .acquirerReferenceNumber("83163715445437604865089")
+                                                .authorizationIdentificationResponse("ABC123")
                                                 .transactionId("627199945183184")
                                                 .build()
                                         )

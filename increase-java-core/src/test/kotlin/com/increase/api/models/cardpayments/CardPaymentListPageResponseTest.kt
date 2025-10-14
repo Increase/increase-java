@@ -246,6 +246,7 @@ internal class CardPaymentListPageResponseTest {
                                                 CardPayment.Element.CardAuthorization
                                                     .NetworkIdentifiers
                                                     .builder()
+                                                    .authorizationIdentificationResponse(null)
                                                     .retrievalReferenceNumber("785867080153")
                                                     .traceNumber("487941")
                                                     .transactionId("627199945183184")
@@ -480,6 +481,7 @@ internal class CardPaymentListPageResponseTest {
                                             .networkIdentifiers(
                                                 CardPayment.Element.CardDecline.NetworkIdentifiers
                                                     .builder()
+                                                    .authorizationIdentificationResponse(null)
                                                     .retrievalReferenceNumber("785867080153")
                                                     .traceNumber("487941")
                                                     .transactionId("627199945183184")
@@ -555,6 +557,7 @@ internal class CardPaymentListPageResponseTest {
                                                 CardPayment.Element.CardFuelConfirmation
                                                     .NetworkIdentifiers
                                                     .builder()
+                                                    .authorizationIdentificationResponse(null)
                                                     .retrievalReferenceNumber("785867080153")
                                                     .traceNumber("487941")
                                                     .transactionId("627199945183184")
@@ -673,6 +676,7 @@ internal class CardPaymentListPageResponseTest {
                                             .networkIdentifiers(
                                                 CardPayment.Element.CardIncrement.NetworkIdentifiers
                                                     .builder()
+                                                    .authorizationIdentificationResponse(null)
                                                     .retrievalReferenceNumber("785867080153")
                                                     .traceNumber("487941")
                                                     .transactionId("627199945183184")
@@ -733,6 +737,7 @@ internal class CardPaymentListPageResponseTest {
                                                     .acquirerReferenceNumber(
                                                         "83163715445437604865089"
                                                     )
+                                                    .authorizationIdentificationResponse("ABC123")
                                                     .transactionId("627199945183184")
                                                     .build()
                                             )
@@ -977,6 +982,7 @@ internal class CardPaymentListPageResponseTest {
                                             .networkIdentifiers(
                                                 CardPayment.Element.CardReversal.NetworkIdentifiers
                                                     .builder()
+                                                    .authorizationIdentificationResponse(null)
                                                     .retrievalReferenceNumber("785867080153")
                                                     .traceNumber("487941")
                                                     .transactionId("627199945183184")
@@ -1051,6 +1057,7 @@ internal class CardPaymentListPageResponseTest {
                                                     .acquirerReferenceNumber(
                                                         "83163715445437604865089"
                                                     )
+                                                    .authorizationIdentificationResponse("ABC123")
                                                     .transactionId("627199945183184")
                                                     .build()
                                             )
@@ -1430,6 +1437,7 @@ internal class CardPaymentListPageResponseTest {
                                                 CardPayment.Element.CardValidation
                                                     .NetworkIdentifiers
                                                     .builder()
+                                                    .authorizationIdentificationResponse(null)
                                                     .retrievalReferenceNumber("785867080153")
                                                     .traceNumber("487941")
                                                     .transactionId("627199945183184")
@@ -1707,6 +1715,7 @@ internal class CardPaymentListPageResponseTest {
                                                 CardPayment.Element.CardAuthorization
                                                     .NetworkIdentifiers
                                                     .builder()
+                                                    .authorizationIdentificationResponse(null)
                                                     .retrievalReferenceNumber("785867080153")
                                                     .traceNumber("487941")
                                                     .transactionId("627199945183184")
@@ -1941,6 +1950,7 @@ internal class CardPaymentListPageResponseTest {
                                             .networkIdentifiers(
                                                 CardPayment.Element.CardDecline.NetworkIdentifiers
                                                     .builder()
+                                                    .authorizationIdentificationResponse(null)
                                                     .retrievalReferenceNumber("785867080153")
                                                     .traceNumber("487941")
                                                     .transactionId("627199945183184")
@@ -2016,6 +2026,7 @@ internal class CardPaymentListPageResponseTest {
                                                 CardPayment.Element.CardFuelConfirmation
                                                     .NetworkIdentifiers
                                                     .builder()
+                                                    .authorizationIdentificationResponse(null)
                                                     .retrievalReferenceNumber("785867080153")
                                                     .traceNumber("487941")
                                                     .transactionId("627199945183184")
@@ -2134,6 +2145,7 @@ internal class CardPaymentListPageResponseTest {
                                             .networkIdentifiers(
                                                 CardPayment.Element.CardIncrement.NetworkIdentifiers
                                                     .builder()
+                                                    .authorizationIdentificationResponse(null)
                                                     .retrievalReferenceNumber("785867080153")
                                                     .traceNumber("487941")
                                                     .transactionId("627199945183184")
@@ -2194,6 +2206,7 @@ internal class CardPaymentListPageResponseTest {
                                                     .acquirerReferenceNumber(
                                                         "83163715445437604865089"
                                                     )
+                                                    .authorizationIdentificationResponse("ABC123")
                                                     .transactionId("627199945183184")
                                                     .build()
                                             )
@@ -2438,6 +2451,7 @@ internal class CardPaymentListPageResponseTest {
                                             .networkIdentifiers(
                                                 CardPayment.Element.CardReversal.NetworkIdentifiers
                                                     .builder()
+                                                    .authorizationIdentificationResponse(null)
                                                     .retrievalReferenceNumber("785867080153")
                                                     .traceNumber("487941")
                                                     .transactionId("627199945183184")
@@ -2512,6 +2526,7 @@ internal class CardPaymentListPageResponseTest {
                                                     .acquirerReferenceNumber(
                                                         "83163715445437604865089"
                                                     )
+                                                    .authorizationIdentificationResponse("ABC123")
                                                     .transactionId("627199945183184")
                                                     .build()
                                             )
@@ -2891,6 +2906,7 @@ internal class CardPaymentListPageResponseTest {
                                                 CardPayment.Element.CardValidation
                                                     .NetworkIdentifiers
                                                     .builder()
+                                                    .authorizationIdentificationResponse(null)
                                                     .retrievalReferenceNumber("785867080153")
                                                     .traceNumber("487941")
                                                     .transactionId("627199945183184")
@@ -3168,6 +3184,7 @@ internal class CardPaymentListPageResponseTest {
                                                 CardPayment.Element.CardAuthorization
                                                     .NetworkIdentifiers
                                                     .builder()
+                                                    .authorizationIdentificationResponse(null)
                                                     .retrievalReferenceNumber("785867080153")
                                                     .traceNumber("487941")
                                                     .transactionId("627199945183184")
@@ -3402,6 +3419,7 @@ internal class CardPaymentListPageResponseTest {
                                             .networkIdentifiers(
                                                 CardPayment.Element.CardDecline.NetworkIdentifiers
                                                     .builder()
+                                                    .authorizationIdentificationResponse(null)
                                                     .retrievalReferenceNumber("785867080153")
                                                     .traceNumber("487941")
                                                     .transactionId("627199945183184")
@@ -3477,6 +3495,7 @@ internal class CardPaymentListPageResponseTest {
                                                 CardPayment.Element.CardFuelConfirmation
                                                     .NetworkIdentifiers
                                                     .builder()
+                                                    .authorizationIdentificationResponse(null)
                                                     .retrievalReferenceNumber("785867080153")
                                                     .traceNumber("487941")
                                                     .transactionId("627199945183184")
@@ -3595,6 +3614,7 @@ internal class CardPaymentListPageResponseTest {
                                             .networkIdentifiers(
                                                 CardPayment.Element.CardIncrement.NetworkIdentifiers
                                                     .builder()
+                                                    .authorizationIdentificationResponse(null)
                                                     .retrievalReferenceNumber("785867080153")
                                                     .traceNumber("487941")
                                                     .transactionId("627199945183184")
@@ -3655,6 +3675,7 @@ internal class CardPaymentListPageResponseTest {
                                                     .acquirerReferenceNumber(
                                                         "83163715445437604865089"
                                                     )
+                                                    .authorizationIdentificationResponse("ABC123")
                                                     .transactionId("627199945183184")
                                                     .build()
                                             )
@@ -3899,6 +3920,7 @@ internal class CardPaymentListPageResponseTest {
                                             .networkIdentifiers(
                                                 CardPayment.Element.CardReversal.NetworkIdentifiers
                                                     .builder()
+                                                    .authorizationIdentificationResponse(null)
                                                     .retrievalReferenceNumber("785867080153")
                                                     .traceNumber("487941")
                                                     .transactionId("627199945183184")
@@ -3973,6 +3995,7 @@ internal class CardPaymentListPageResponseTest {
                                                     .acquirerReferenceNumber(
                                                         "83163715445437604865089"
                                                     )
+                                                    .authorizationIdentificationResponse("ABC123")
                                                     .transactionId("627199945183184")
                                                     .build()
                                             )
@@ -4352,6 +4375,7 @@ internal class CardPaymentListPageResponseTest {
                                                 CardPayment.Element.CardValidation
                                                     .NetworkIdentifiers
                                                     .builder()
+                                                    .authorizationIdentificationResponse(null)
                                                     .retrievalReferenceNumber("785867080153")
                                                     .traceNumber("487941")
                                                     .transactionId("627199945183184")
@@ -4629,6 +4653,7 @@ internal class CardPaymentListPageResponseTest {
                                                 CardPayment.Element.CardAuthorization
                                                     .NetworkIdentifiers
                                                     .builder()
+                                                    .authorizationIdentificationResponse(null)
                                                     .retrievalReferenceNumber("785867080153")
                                                     .traceNumber("487941")
                                                     .transactionId("627199945183184")
@@ -4863,6 +4888,7 @@ internal class CardPaymentListPageResponseTest {
                                             .networkIdentifiers(
                                                 CardPayment.Element.CardDecline.NetworkIdentifiers
                                                     .builder()
+                                                    .authorizationIdentificationResponse(null)
                                                     .retrievalReferenceNumber("785867080153")
                                                     .traceNumber("487941")
                                                     .transactionId("627199945183184")
@@ -4938,6 +4964,7 @@ internal class CardPaymentListPageResponseTest {
                                                 CardPayment.Element.CardFuelConfirmation
                                                     .NetworkIdentifiers
                                                     .builder()
+                                                    .authorizationIdentificationResponse(null)
                                                     .retrievalReferenceNumber("785867080153")
                                                     .traceNumber("487941")
                                                     .transactionId("627199945183184")
@@ -5056,6 +5083,7 @@ internal class CardPaymentListPageResponseTest {
                                             .networkIdentifiers(
                                                 CardPayment.Element.CardIncrement.NetworkIdentifiers
                                                     .builder()
+                                                    .authorizationIdentificationResponse(null)
                                                     .retrievalReferenceNumber("785867080153")
                                                     .traceNumber("487941")
                                                     .transactionId("627199945183184")
@@ -5116,6 +5144,7 @@ internal class CardPaymentListPageResponseTest {
                                                     .acquirerReferenceNumber(
                                                         "83163715445437604865089"
                                                     )
+                                                    .authorizationIdentificationResponse("ABC123")
                                                     .transactionId("627199945183184")
                                                     .build()
                                             )
@@ -5360,6 +5389,7 @@ internal class CardPaymentListPageResponseTest {
                                             .networkIdentifiers(
                                                 CardPayment.Element.CardReversal.NetworkIdentifiers
                                                     .builder()
+                                                    .authorizationIdentificationResponse(null)
                                                     .retrievalReferenceNumber("785867080153")
                                                     .traceNumber("487941")
                                                     .transactionId("627199945183184")
@@ -5434,6 +5464,7 @@ internal class CardPaymentListPageResponseTest {
                                                     .acquirerReferenceNumber(
                                                         "83163715445437604865089"
                                                     )
+                                                    .authorizationIdentificationResponse("ABC123")
                                                     .transactionId("627199945183184")
                                                     .build()
                                             )
@@ -5813,6 +5844,7 @@ internal class CardPaymentListPageResponseTest {
                                                 CardPayment.Element.CardValidation
                                                     .NetworkIdentifiers
                                                     .builder()
+                                                    .authorizationIdentificationResponse(null)
                                                     .retrievalReferenceNumber("785867080153")
                                                     .traceNumber("487941")
                                                     .transactionId("627199945183184")
@@ -6111,6 +6143,7 @@ internal class CardPaymentListPageResponseTest {
                                         .networkIdentifiers(
                                             CardPayment.Element.CardAuthorization.NetworkIdentifiers
                                                 .builder()
+                                                .authorizationIdentificationResponse(null)
                                                 .retrievalReferenceNumber("785867080153")
                                                 .traceNumber("487941")
                                                 .transactionId("627199945183184")
@@ -6333,6 +6366,7 @@ internal class CardPaymentListPageResponseTest {
                                         .networkIdentifiers(
                                             CardPayment.Element.CardDecline.NetworkIdentifiers
                                                 .builder()
+                                                .authorizationIdentificationResponse(null)
                                                 .retrievalReferenceNumber("785867080153")
                                                 .traceNumber("487941")
                                                 .transactionId("627199945183184")
@@ -6405,6 +6439,7 @@ internal class CardPaymentListPageResponseTest {
                                             CardPayment.Element.CardFuelConfirmation
                                                 .NetworkIdentifiers
                                                 .builder()
+                                                .authorizationIdentificationResponse(null)
                                                 .retrievalReferenceNumber("785867080153")
                                                 .traceNumber("487941")
                                                 .transactionId("627199945183184")
@@ -6521,6 +6556,7 @@ internal class CardPaymentListPageResponseTest {
                                         .networkIdentifiers(
                                             CardPayment.Element.CardIncrement.NetworkIdentifiers
                                                 .builder()
+                                                .authorizationIdentificationResponse(null)
                                                 .retrievalReferenceNumber("785867080153")
                                                 .traceNumber("487941")
                                                 .transactionId("627199945183184")
@@ -6575,6 +6611,7 @@ internal class CardPaymentListPageResponseTest {
                                                 .builder()
                                                 .acquirerBusinessId("69650702")
                                                 .acquirerReferenceNumber("83163715445437604865089")
+                                                .authorizationIdentificationResponse("ABC123")
                                                 .transactionId("627199945183184")
                                                 .build()
                                         )
@@ -6803,6 +6840,7 @@ internal class CardPaymentListPageResponseTest {
                                         .networkIdentifiers(
                                             CardPayment.Element.CardReversal.NetworkIdentifiers
                                                 .builder()
+                                                .authorizationIdentificationResponse(null)
                                                 .retrievalReferenceNumber("785867080153")
                                                 .traceNumber("487941")
                                                 .transactionId("627199945183184")
@@ -6865,6 +6903,7 @@ internal class CardPaymentListPageResponseTest {
                                                 .builder()
                                                 .acquirerBusinessId("69650702")
                                                 .acquirerReferenceNumber("83163715445437604865089")
+                                                .authorizationIdentificationResponse("ABC123")
                                                 .transactionId("627199945183184")
                                                 .build()
                                         )
@@ -7231,6 +7270,7 @@ internal class CardPaymentListPageResponseTest {
                                         .networkIdentifiers(
                                             CardPayment.Element.CardValidation.NetworkIdentifiers
                                                 .builder()
+                                                .authorizationIdentificationResponse(null)
                                                 .retrievalReferenceNumber("785867080153")
                                                 .traceNumber("487941")
                                                 .transactionId("627199945183184")
@@ -7498,6 +7538,7 @@ internal class CardPaymentListPageResponseTest {
                                         .networkIdentifiers(
                                             CardPayment.Element.CardAuthorization.NetworkIdentifiers
                                                 .builder()
+                                                .authorizationIdentificationResponse(null)
                                                 .retrievalReferenceNumber("785867080153")
                                                 .traceNumber("487941")
                                                 .transactionId("627199945183184")
@@ -7720,6 +7761,7 @@ internal class CardPaymentListPageResponseTest {
                                         .networkIdentifiers(
                                             CardPayment.Element.CardDecline.NetworkIdentifiers
                                                 .builder()
+                                                .authorizationIdentificationResponse(null)
                                                 .retrievalReferenceNumber("785867080153")
                                                 .traceNumber("487941")
                                                 .transactionId("627199945183184")
@@ -7792,6 +7834,7 @@ internal class CardPaymentListPageResponseTest {
                                             CardPayment.Element.CardFuelConfirmation
                                                 .NetworkIdentifiers
                                                 .builder()
+                                                .authorizationIdentificationResponse(null)
                                                 .retrievalReferenceNumber("785867080153")
                                                 .traceNumber("487941")
                                                 .transactionId("627199945183184")
@@ -7908,6 +7951,7 @@ internal class CardPaymentListPageResponseTest {
                                         .networkIdentifiers(
                                             CardPayment.Element.CardIncrement.NetworkIdentifiers
                                                 .builder()
+                                                .authorizationIdentificationResponse(null)
                                                 .retrievalReferenceNumber("785867080153")
                                                 .traceNumber("487941")
                                                 .transactionId("627199945183184")
@@ -7962,6 +8006,7 @@ internal class CardPaymentListPageResponseTest {
                                                 .builder()
                                                 .acquirerBusinessId("69650702")
                                                 .acquirerReferenceNumber("83163715445437604865089")
+                                                .authorizationIdentificationResponse("ABC123")
                                                 .transactionId("627199945183184")
                                                 .build()
                                         )
@@ -8190,6 +8235,7 @@ internal class CardPaymentListPageResponseTest {
                                         .networkIdentifiers(
                                             CardPayment.Element.CardReversal.NetworkIdentifiers
                                                 .builder()
+                                                .authorizationIdentificationResponse(null)
                                                 .retrievalReferenceNumber("785867080153")
                                                 .traceNumber("487941")
                                                 .transactionId("627199945183184")
@@ -8252,6 +8298,7 @@ internal class CardPaymentListPageResponseTest {
                                                 .builder()
                                                 .acquirerBusinessId("69650702")
                                                 .acquirerReferenceNumber("83163715445437604865089")
+                                                .authorizationIdentificationResponse("ABC123")
                                                 .transactionId("627199945183184")
                                                 .build()
                                         )
@@ -8618,6 +8665,7 @@ internal class CardPaymentListPageResponseTest {
                                         .networkIdentifiers(
                                             CardPayment.Element.CardValidation.NetworkIdentifiers
                                                 .builder()
+                                                .authorizationIdentificationResponse(null)
                                                 .retrievalReferenceNumber("785867080153")
                                                 .traceNumber("487941")
                                                 .transactionId("627199945183184")
@@ -8885,6 +8933,7 @@ internal class CardPaymentListPageResponseTest {
                                         .networkIdentifiers(
                                             CardPayment.Element.CardAuthorization.NetworkIdentifiers
                                                 .builder()
+                                                .authorizationIdentificationResponse(null)
                                                 .retrievalReferenceNumber("785867080153")
                                                 .traceNumber("487941")
                                                 .transactionId("627199945183184")
@@ -9107,6 +9156,7 @@ internal class CardPaymentListPageResponseTest {
                                         .networkIdentifiers(
                                             CardPayment.Element.CardDecline.NetworkIdentifiers
                                                 .builder()
+                                                .authorizationIdentificationResponse(null)
                                                 .retrievalReferenceNumber("785867080153")
                                                 .traceNumber("487941")
                                                 .transactionId("627199945183184")
@@ -9179,6 +9229,7 @@ internal class CardPaymentListPageResponseTest {
                                             CardPayment.Element.CardFuelConfirmation
                                                 .NetworkIdentifiers
                                                 .builder()
+                                                .authorizationIdentificationResponse(null)
                                                 .retrievalReferenceNumber("785867080153")
                                                 .traceNumber("487941")
                                                 .transactionId("627199945183184")
@@ -9295,6 +9346,7 @@ internal class CardPaymentListPageResponseTest {
                                         .networkIdentifiers(
                                             CardPayment.Element.CardIncrement.NetworkIdentifiers
                                                 .builder()
+                                                .authorizationIdentificationResponse(null)
                                                 .retrievalReferenceNumber("785867080153")
                                                 .traceNumber("487941")
                                                 .transactionId("627199945183184")
@@ -9349,6 +9401,7 @@ internal class CardPaymentListPageResponseTest {
                                                 .builder()
                                                 .acquirerBusinessId("69650702")
                                                 .acquirerReferenceNumber("83163715445437604865089")
+                                                .authorizationIdentificationResponse("ABC123")
                                                 .transactionId("627199945183184")
                                                 .build()
                                         )
@@ -9577,6 +9630,7 @@ internal class CardPaymentListPageResponseTest {
                                         .networkIdentifiers(
                                             CardPayment.Element.CardReversal.NetworkIdentifiers
                                                 .builder()
+                                                .authorizationIdentificationResponse(null)
                                                 .retrievalReferenceNumber("785867080153")
                                                 .traceNumber("487941")
                                                 .transactionId("627199945183184")
@@ -9639,6 +9693,7 @@ internal class CardPaymentListPageResponseTest {
                                                 .builder()
                                                 .acquirerBusinessId("69650702")
                                                 .acquirerReferenceNumber("83163715445437604865089")
+                                                .authorizationIdentificationResponse("ABC123")
                                                 .transactionId("627199945183184")
                                                 .build()
                                         )
@@ -10005,6 +10060,7 @@ internal class CardPaymentListPageResponseTest {
                                         .networkIdentifiers(
                                             CardPayment.Element.CardValidation.NetworkIdentifiers
                                                 .builder()
+                                                .authorizationIdentificationResponse(null)
                                                 .retrievalReferenceNumber("785867080153")
                                                 .traceNumber("487941")
                                                 .transactionId("627199945183184")
@@ -10272,6 +10328,7 @@ internal class CardPaymentListPageResponseTest {
                                         .networkIdentifiers(
                                             CardPayment.Element.CardAuthorization.NetworkIdentifiers
                                                 .builder()
+                                                .authorizationIdentificationResponse(null)
                                                 .retrievalReferenceNumber("785867080153")
                                                 .traceNumber("487941")
                                                 .transactionId("627199945183184")
@@ -10494,6 +10551,7 @@ internal class CardPaymentListPageResponseTest {
                                         .networkIdentifiers(
                                             CardPayment.Element.CardDecline.NetworkIdentifiers
                                                 .builder()
+                                                .authorizationIdentificationResponse(null)
                                                 .retrievalReferenceNumber("785867080153")
                                                 .traceNumber("487941")
                                                 .transactionId("627199945183184")
@@ -10566,6 +10624,7 @@ internal class CardPaymentListPageResponseTest {
                                             CardPayment.Element.CardFuelConfirmation
                                                 .NetworkIdentifiers
                                                 .builder()
+                                                .authorizationIdentificationResponse(null)
                                                 .retrievalReferenceNumber("785867080153")
                                                 .traceNumber("487941")
                                                 .transactionId("627199945183184")
@@ -10682,6 +10741,7 @@ internal class CardPaymentListPageResponseTest {
                                         .networkIdentifiers(
                                             CardPayment.Element.CardIncrement.NetworkIdentifiers
                                                 .builder()
+                                                .authorizationIdentificationResponse(null)
                                                 .retrievalReferenceNumber("785867080153")
                                                 .traceNumber("487941")
                                                 .transactionId("627199945183184")
@@ -10736,6 +10796,7 @@ internal class CardPaymentListPageResponseTest {
                                                 .builder()
                                                 .acquirerBusinessId("69650702")
                                                 .acquirerReferenceNumber("83163715445437604865089")
+                                                .authorizationIdentificationResponse("ABC123")
                                                 .transactionId("627199945183184")
                                                 .build()
                                         )
@@ -10964,6 +11025,7 @@ internal class CardPaymentListPageResponseTest {
                                         .networkIdentifiers(
                                             CardPayment.Element.CardReversal.NetworkIdentifiers
                                                 .builder()
+                                                .authorizationIdentificationResponse(null)
                                                 .retrievalReferenceNumber("785867080153")
                                                 .traceNumber("487941")
                                                 .transactionId("627199945183184")
@@ -11026,6 +11088,7 @@ internal class CardPaymentListPageResponseTest {
                                                 .builder()
                                                 .acquirerBusinessId("69650702")
                                                 .acquirerReferenceNumber("83163715445437604865089")
+                                                .authorizationIdentificationResponse("ABC123")
                                                 .transactionId("627199945183184")
                                                 .build()
                                         )
@@ -11392,6 +11455,7 @@ internal class CardPaymentListPageResponseTest {
                                         .networkIdentifiers(
                                             CardPayment.Element.CardValidation.NetworkIdentifiers
                                                 .builder()
+                                                .authorizationIdentificationResponse(null)
                                                 .retrievalReferenceNumber("785867080153")
                                                 .traceNumber("487941")
                                                 .transactionId("627199945183184")
@@ -11700,6 +11764,7 @@ internal class CardPaymentListPageResponseTest {
                                                 CardPayment.Element.CardAuthorization
                                                     .NetworkIdentifiers
                                                     .builder()
+                                                    .authorizationIdentificationResponse(null)
                                                     .retrievalReferenceNumber("785867080153")
                                                     .traceNumber("487941")
                                                     .transactionId("627199945183184")
@@ -11934,6 +11999,7 @@ internal class CardPaymentListPageResponseTest {
                                             .networkIdentifiers(
                                                 CardPayment.Element.CardDecline.NetworkIdentifiers
                                                     .builder()
+                                                    .authorizationIdentificationResponse(null)
                                                     .retrievalReferenceNumber("785867080153")
                                                     .traceNumber("487941")
                                                     .transactionId("627199945183184")
@@ -12009,6 +12075,7 @@ internal class CardPaymentListPageResponseTest {
                                                 CardPayment.Element.CardFuelConfirmation
                                                     .NetworkIdentifiers
                                                     .builder()
+                                                    .authorizationIdentificationResponse(null)
                                                     .retrievalReferenceNumber("785867080153")
                                                     .traceNumber("487941")
                                                     .transactionId("627199945183184")
@@ -12127,6 +12194,7 @@ internal class CardPaymentListPageResponseTest {
                                             .networkIdentifiers(
                                                 CardPayment.Element.CardIncrement.NetworkIdentifiers
                                                     .builder()
+                                                    .authorizationIdentificationResponse(null)
                                                     .retrievalReferenceNumber("785867080153")
                                                     .traceNumber("487941")
                                                     .transactionId("627199945183184")
@@ -12187,6 +12255,7 @@ internal class CardPaymentListPageResponseTest {
                                                     .acquirerReferenceNumber(
                                                         "83163715445437604865089"
                                                     )
+                                                    .authorizationIdentificationResponse("ABC123")
                                                     .transactionId("627199945183184")
                                                     .build()
                                             )
@@ -12431,6 +12500,7 @@ internal class CardPaymentListPageResponseTest {
                                             .networkIdentifiers(
                                                 CardPayment.Element.CardReversal.NetworkIdentifiers
                                                     .builder()
+                                                    .authorizationIdentificationResponse(null)
                                                     .retrievalReferenceNumber("785867080153")
                                                     .traceNumber("487941")
                                                     .transactionId("627199945183184")
@@ -12505,6 +12575,7 @@ internal class CardPaymentListPageResponseTest {
                                                     .acquirerReferenceNumber(
                                                         "83163715445437604865089"
                                                     )
+                                                    .authorizationIdentificationResponse("ABC123")
                                                     .transactionId("627199945183184")
                                                     .build()
                                             )
@@ -12884,6 +12955,7 @@ internal class CardPaymentListPageResponseTest {
                                                 CardPayment.Element.CardValidation
                                                     .NetworkIdentifiers
                                                     .builder()
+                                                    .authorizationIdentificationResponse(null)
                                                     .retrievalReferenceNumber("785867080153")
                                                     .traceNumber("487941")
                                                     .transactionId("627199945183184")
@@ -13161,6 +13233,7 @@ internal class CardPaymentListPageResponseTest {
                                                 CardPayment.Element.CardAuthorization
                                                     .NetworkIdentifiers
                                                     .builder()
+                                                    .authorizationIdentificationResponse(null)
                                                     .retrievalReferenceNumber("785867080153")
                                                     .traceNumber("487941")
                                                     .transactionId("627199945183184")
@@ -13395,6 +13468,7 @@ internal class CardPaymentListPageResponseTest {
                                             .networkIdentifiers(
                                                 CardPayment.Element.CardDecline.NetworkIdentifiers
                                                     .builder()
+                                                    .authorizationIdentificationResponse(null)
                                                     .retrievalReferenceNumber("785867080153")
                                                     .traceNumber("487941")
                                                     .transactionId("627199945183184")
@@ -13470,6 +13544,7 @@ internal class CardPaymentListPageResponseTest {
                                                 CardPayment.Element.CardFuelConfirmation
                                                     .NetworkIdentifiers
                                                     .builder()
+                                                    .authorizationIdentificationResponse(null)
                                                     .retrievalReferenceNumber("785867080153")
                                                     .traceNumber("487941")
                                                     .transactionId("627199945183184")
@@ -13588,6 +13663,7 @@ internal class CardPaymentListPageResponseTest {
                                             .networkIdentifiers(
                                                 CardPayment.Element.CardIncrement.NetworkIdentifiers
                                                     .builder()
+                                                    .authorizationIdentificationResponse(null)
                                                     .retrievalReferenceNumber("785867080153")
                                                     .traceNumber("487941")
                                                     .transactionId("627199945183184")
@@ -13648,6 +13724,7 @@ internal class CardPaymentListPageResponseTest {
                                                     .acquirerReferenceNumber(
                                                         "83163715445437604865089"
                                                     )
+                                                    .authorizationIdentificationResponse("ABC123")
                                                     .transactionId("627199945183184")
                                                     .build()
                                             )
@@ -13892,6 +13969,7 @@ internal class CardPaymentListPageResponseTest {
                                             .networkIdentifiers(
                                                 CardPayment.Element.CardReversal.NetworkIdentifiers
                                                     .builder()
+                                                    .authorizationIdentificationResponse(null)
                                                     .retrievalReferenceNumber("785867080153")
                                                     .traceNumber("487941")
                                                     .transactionId("627199945183184")
@@ -13966,6 +14044,7 @@ internal class CardPaymentListPageResponseTest {
                                                     .acquirerReferenceNumber(
                                                         "83163715445437604865089"
                                                     )
+                                                    .authorizationIdentificationResponse("ABC123")
                                                     .transactionId("627199945183184")
                                                     .build()
                                             )
@@ -14345,6 +14424,7 @@ internal class CardPaymentListPageResponseTest {
                                                 CardPayment.Element.CardValidation
                                                     .NetworkIdentifiers
                                                     .builder()
+                                                    .authorizationIdentificationResponse(null)
                                                     .retrievalReferenceNumber("785867080153")
                                                     .traceNumber("487941")
                                                     .transactionId("627199945183184")
@@ -14622,6 +14702,7 @@ internal class CardPaymentListPageResponseTest {
                                                 CardPayment.Element.CardAuthorization
                                                     .NetworkIdentifiers
                                                     .builder()
+                                                    .authorizationIdentificationResponse(null)
                                                     .retrievalReferenceNumber("785867080153")
                                                     .traceNumber("487941")
                                                     .transactionId("627199945183184")
@@ -14856,6 +14937,7 @@ internal class CardPaymentListPageResponseTest {
                                             .networkIdentifiers(
                                                 CardPayment.Element.CardDecline.NetworkIdentifiers
                                                     .builder()
+                                                    .authorizationIdentificationResponse(null)
                                                     .retrievalReferenceNumber("785867080153")
                                                     .traceNumber("487941")
                                                     .transactionId("627199945183184")
@@ -14931,6 +15013,7 @@ internal class CardPaymentListPageResponseTest {
                                                 CardPayment.Element.CardFuelConfirmation
                                                     .NetworkIdentifiers
                                                     .builder()
+                                                    .authorizationIdentificationResponse(null)
                                                     .retrievalReferenceNumber("785867080153")
                                                     .traceNumber("487941")
                                                     .transactionId("627199945183184")
@@ -15049,6 +15132,7 @@ internal class CardPaymentListPageResponseTest {
                                             .networkIdentifiers(
                                                 CardPayment.Element.CardIncrement.NetworkIdentifiers
                                                     .builder()
+                                                    .authorizationIdentificationResponse(null)
                                                     .retrievalReferenceNumber("785867080153")
                                                     .traceNumber("487941")
                                                     .transactionId("627199945183184")
@@ -15109,6 +15193,7 @@ internal class CardPaymentListPageResponseTest {
                                                     .acquirerReferenceNumber(
                                                         "83163715445437604865089"
                                                     )
+                                                    .authorizationIdentificationResponse("ABC123")
                                                     .transactionId("627199945183184")
                                                     .build()
                                             )
@@ -15353,6 +15438,7 @@ internal class CardPaymentListPageResponseTest {
                                             .networkIdentifiers(
                                                 CardPayment.Element.CardReversal.NetworkIdentifiers
                                                     .builder()
+                                                    .authorizationIdentificationResponse(null)
                                                     .retrievalReferenceNumber("785867080153")
                                                     .traceNumber("487941")
                                                     .transactionId("627199945183184")
@@ -15427,6 +15513,7 @@ internal class CardPaymentListPageResponseTest {
                                                     .acquirerReferenceNumber(
                                                         "83163715445437604865089"
                                                     )
+                                                    .authorizationIdentificationResponse("ABC123")
                                                     .transactionId("627199945183184")
                                                     .build()
                                             )
@@ -15806,6 +15893,7 @@ internal class CardPaymentListPageResponseTest {
                                                 CardPayment.Element.CardValidation
                                                     .NetworkIdentifiers
                                                     .builder()
+                                                    .authorizationIdentificationResponse(null)
                                                     .retrievalReferenceNumber("785867080153")
                                                     .traceNumber("487941")
                                                     .transactionId("627199945183184")
@@ -16083,6 +16171,7 @@ internal class CardPaymentListPageResponseTest {
                                                 CardPayment.Element.CardAuthorization
                                                     .NetworkIdentifiers
                                                     .builder()
+                                                    .authorizationIdentificationResponse(null)
                                                     .retrievalReferenceNumber("785867080153")
                                                     .traceNumber("487941")
                                                     .transactionId("627199945183184")
@@ -16317,6 +16406,7 @@ internal class CardPaymentListPageResponseTest {
                                             .networkIdentifiers(
                                                 CardPayment.Element.CardDecline.NetworkIdentifiers
                                                     .builder()
+                                                    .authorizationIdentificationResponse(null)
                                                     .retrievalReferenceNumber("785867080153")
                                                     .traceNumber("487941")
                                                     .transactionId("627199945183184")
@@ -16392,6 +16482,7 @@ internal class CardPaymentListPageResponseTest {
                                                 CardPayment.Element.CardFuelConfirmation
                                                     .NetworkIdentifiers
                                                     .builder()
+                                                    .authorizationIdentificationResponse(null)
                                                     .retrievalReferenceNumber("785867080153")
                                                     .traceNumber("487941")
                                                     .transactionId("627199945183184")
@@ -16510,6 +16601,7 @@ internal class CardPaymentListPageResponseTest {
                                             .networkIdentifiers(
                                                 CardPayment.Element.CardIncrement.NetworkIdentifiers
                                                     .builder()
+                                                    .authorizationIdentificationResponse(null)
                                                     .retrievalReferenceNumber("785867080153")
                                                     .traceNumber("487941")
                                                     .transactionId("627199945183184")
@@ -16570,6 +16662,7 @@ internal class CardPaymentListPageResponseTest {
                                                     .acquirerReferenceNumber(
                                                         "83163715445437604865089"
                                                     )
+                                                    .authorizationIdentificationResponse("ABC123")
                                                     .transactionId("627199945183184")
                                                     .build()
                                             )
@@ -16814,6 +16907,7 @@ internal class CardPaymentListPageResponseTest {
                                             .networkIdentifiers(
                                                 CardPayment.Element.CardReversal.NetworkIdentifiers
                                                     .builder()
+                                                    .authorizationIdentificationResponse(null)
                                                     .retrievalReferenceNumber("785867080153")
                                                     .traceNumber("487941")
                                                     .transactionId("627199945183184")
@@ -16888,6 +16982,7 @@ internal class CardPaymentListPageResponseTest {
                                                     .acquirerReferenceNumber(
                                                         "83163715445437604865089"
                                                     )
+                                                    .authorizationIdentificationResponse("ABC123")
                                                     .transactionId("627199945183184")
                                                     .build()
                                             )
@@ -17267,6 +17362,7 @@ internal class CardPaymentListPageResponseTest {
                                                 CardPayment.Element.CardValidation
                                                     .NetworkIdentifiers
                                                     .builder()
+                                                    .authorizationIdentificationResponse(null)
                                                     .retrievalReferenceNumber("785867080153")
                                                     .traceNumber("487941")
                                                     .transactionId("627199945183184")
