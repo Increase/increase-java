@@ -201,6 +201,7 @@ internal class DeclinedTransactionListPageResponseTest {
                                             DeclinedTransaction.Source.CardDecline
                                                 .NetworkIdentifiers
                                                 .builder()
+                                                .authorizationIdentificationResponse(null)
                                                 .retrievalReferenceNumber("785867080153")
                                                 .traceNumber("487941")
                                                 .transactionId("627199945183184")
@@ -539,6 +540,7 @@ internal class DeclinedTransactionListPageResponseTest {
                                     .networkIdentifiers(
                                         DeclinedTransaction.Source.CardDecline.NetworkIdentifiers
                                             .builder()
+                                            .authorizationIdentificationResponse(null)
                                             .retrievalReferenceNumber("785867080153")
                                             .traceNumber("487941")
                                             .transactionId("627199945183184")
@@ -881,6 +883,7 @@ internal class DeclinedTransactionListPageResponseTest {
                                             DeclinedTransaction.Source.CardDecline
                                                 .NetworkIdentifiers
                                                 .builder()
+                                                .authorizationIdentificationResponse(null)
                                                 .retrievalReferenceNumber("785867080153")
                                                 .traceNumber("487941")
                                                 .transactionId("627199945183184")
