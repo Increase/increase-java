@@ -105,7 +105,7 @@ internal class DigitalCardProfileServiceTest {
                     .appIconFileId("app_icon_file_id")
                     .backgroundImageFileId("file_1ai913suu1zfn1pdetru")
                     .cardDescription("x")
-                    .contactEmail("x")
+                    .contactEmail("dev@stainless.com")
                     .contactPhone("x")
                     .contactWebsite("contact_website")
                     .description("x")
