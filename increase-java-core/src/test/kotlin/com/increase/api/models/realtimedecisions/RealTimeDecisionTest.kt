@@ -235,7 +235,6 @@ internal class RealTimeDecisionTest {
                 .digitalWalletToken(
                     RealTimeDecision.DigitalWalletToken.builder()
                         .cardId("card_id")
-                        .cardProfileId("card_profile_id")
                         .decision(RealTimeDecision.DigitalWalletToken.Decision.APPROVE)
                         .device(
                             RealTimeDecision.DigitalWalletToken.Device.builder()
@@ -470,7 +469,6 @@ internal class RealTimeDecisionTest {
             .contains(
                 RealTimeDecision.DigitalWalletToken.builder()
                     .cardId("card_id")
-                    .cardProfileId("card_profile_id")
                     .decision(RealTimeDecision.DigitalWalletToken.Decision.APPROVE)
                     .device(
                         RealTimeDecision.DigitalWalletToken.Device.builder()
@@ -711,7 +709,6 @@ internal class RealTimeDecisionTest {
                 .digitalWalletToken(
                     RealTimeDecision.DigitalWalletToken.builder()
                         .cardId("card_id")
-                        .cardProfileId("card_profile_id")
                         .decision(RealTimeDecision.DigitalWalletToken.Decision.APPROVE)
                         .device(
                             RealTimeDecision.DigitalWalletToken.Device.builder()
