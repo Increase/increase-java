@@ -24,7 +24,7 @@ internal class CardCreateParamsTest {
             .digitalWallet(
                 CardCreateParams.DigitalWallet.builder()
                     .digitalCardProfileId("digital_card_profile_id")
-                    .email("x")
+                    .email("dev@stainless.com")
                     .phone("x")
                     .build()
             )
@@ -50,7 +50,7 @@ internal class CardCreateParamsTest {
                 .digitalWallet(
                     CardCreateParams.DigitalWallet.builder()
                         .digitalCardProfileId("digital_card_profile_id")
-                        .email("x")
+                        .email("dev@stainless.com")
                         .phone("x")
                         .build()
                 )
@@ -75,7 +75,7 @@ internal class CardCreateParamsTest {
             .contains(
                 CardCreateParams.DigitalWallet.builder()
                     .digitalCardProfileId("digital_card_profile_id")
-                    .email("x")
+                    .email("dev@stainless.com")
                     .phone("x")
                     .build()
             )
