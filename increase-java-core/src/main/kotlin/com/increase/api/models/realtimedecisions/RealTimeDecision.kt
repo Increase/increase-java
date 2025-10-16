@@ -11057,7 +11057,6 @@ private constructor(
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val cardId: JsonField<String>,
-        private val cardProfileId: JsonField<String>,
         private val decision: JsonField<Decision>,
         private val device: JsonField<Device>,
         private val digitalWallet: JsonField<DigitalWallet>,
@@ -11067,9 +11066,6 @@ private constructor(
         @JsonCreator
         private constructor(
             @JsonProperty("card_id") @ExcludeMissing cardId: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("card_profile_id")
-            @ExcludeMissing
-            cardProfileId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("decision")
             @ExcludeMissing
             decision: JsonField<Decision> = JsonMissing.of(),
@@ -11077,7 +11073,7 @@ private constructor(
             @JsonProperty("digital_wallet")
             @ExcludeMissing
             digitalWallet: JsonField<DigitalWallet> = JsonMissing.of(),
-        ) : this(cardId, cardProfileId, decision, device, digitalWallet, mutableMapOf())
+        ) : this(cardId, decision, device, digitalWallet, mutableMapOf())
 
         /**
          * The identifier of the Card that is being tokenized.
@@ -11086,16 +11082,6 @@ private constructor(
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun cardId(): String = cardId.getRequired("card_id")
-
-        /**
-         * The identifier of the Card Profile that was set via the real time decision. This will be
-         * null until the real time decision is responded to or if the real time decision did not
-         * set a card profile.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun cardProfileId(): Optional<String> = cardProfileId.getOptional("card_profile_id")
 
         /**
          * Whether or not the provisioning request was approved. This will be null until the real
@@ -11128,16 +11114,6 @@ private constructor(
          * Unlike [cardId], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("card_id") @ExcludeMissing fun _cardId(): JsonField<String> = cardId
-
-        /**
-         * Returns the raw JSON value of [cardProfileId].
-         *
-         * Unlike [cardProfileId], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("card_profile_id")
-        @ExcludeMissing
-        fun _cardProfileId(): JsonField<String> = cardProfileId
 
         /**
          * Returns the raw JSON value of [decision].
@@ -11183,7 +11159,6 @@ private constructor(
              * The following fields are required:
              * ```java
              * .cardId()
-             * .cardProfileId()
              * .decision()
              * .device()
              * .digitalWallet()
@@ -11196,7 +11171,6 @@ private constructor(
         class Builder internal constructor() {
 
             private var cardId: JsonField<String>? = null
-            private var cardProfileId: JsonField<String>? = null
             private var decision: JsonField<Decision>? = null
             private var device: JsonField<Device>? = null
             private var digitalWallet: JsonField<DigitalWallet>? = null
@@ -11205,7 +11179,6 @@ private constructor(
             @JvmSynthetic
             internal fun from(digitalWalletToken: DigitalWalletToken) = apply {
                 cardId = digitalWalletToken.cardId
-                cardProfileId = digitalWalletToken.cardProfileId
                 decision = digitalWalletToken.decision
                 device = digitalWalletToken.device
                 digitalWallet = digitalWalletToken.digitalWallet
@@ -11223,29 +11196,6 @@ private constructor(
              * supported value.
              */
             fun cardId(cardId: JsonField<String>) = apply { this.cardId = cardId }
-
-            /**
-             * The identifier of the Card Profile that was set via the real time decision. This will
-             * be null until the real time decision is responded to or if the real time decision did
-             * not set a card profile.
-             */
-            fun cardProfileId(cardProfileId: String?) =
-                cardProfileId(JsonField.ofNullable(cardProfileId))
-
-            /** Alias for calling [Builder.cardProfileId] with `cardProfileId.orElse(null)`. */
-            fun cardProfileId(cardProfileId: Optional<String>) =
-                cardProfileId(cardProfileId.getOrNull())
-
-            /**
-             * Sets [Builder.cardProfileId] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.cardProfileId] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun cardProfileId(cardProfileId: JsonField<String>) = apply {
-                this.cardProfileId = cardProfileId
-            }
 
             /**
              * Whether or not the provisioning request was approved. This will be null until the
@@ -11319,7 +11269,6 @@ private constructor(
              * The following fields are required:
              * ```java
              * .cardId()
-             * .cardProfileId()
              * .decision()
              * .device()
              * .digitalWallet()
@@ -11330,7 +11279,6 @@ private constructor(
             fun build(): DigitalWalletToken =
                 DigitalWalletToken(
                     checkRequired("cardId", cardId),
-                    checkRequired("cardProfileId", cardProfileId),
                     checkRequired("decision", decision),
                     checkRequired("device", device),
                     checkRequired("digitalWallet", digitalWallet),
@@ -11346,7 +11294,6 @@ private constructor(
             }
 
             cardId()
-            cardProfileId()
             decision().ifPresent { it.validate() }
             device().validate()
             digitalWallet().validate()
@@ -11370,7 +11317,6 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             (if (cardId.asKnown().isPresent) 1 else 0) +
-                (if (cardProfileId.asKnown().isPresent) 1 else 0) +
                 (decision.asKnown().getOrNull()?.validity() ?: 0) +
                 (device.asKnown().getOrNull()?.validity() ?: 0) +
                 (digitalWallet.asKnown().getOrNull()?.validity() ?: 0)
@@ -11852,7 +11798,6 @@ private constructor(
 
             return other is DigitalWalletToken &&
                 cardId == other.cardId &&
-                cardProfileId == other.cardProfileId &&
                 decision == other.decision &&
                 device == other.device &&
                 digitalWallet == other.digitalWallet &&
@@ -11860,20 +11805,13 @@ private constructor(
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(
-                cardId,
-                cardProfileId,
-                decision,
-                device,
-                digitalWallet,
-                additionalProperties,
-            )
+            Objects.hash(cardId, decision, device, digitalWallet, additionalProperties)
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "DigitalWalletToken{cardId=$cardId, cardProfileId=$cardProfileId, decision=$decision, device=$device, digitalWallet=$digitalWallet, additionalProperties=$additionalProperties}"
+            "DigitalWalletToken{cardId=$cardId, decision=$decision, device=$device, digitalWallet=$digitalWallet, additionalProperties=$additionalProperties}"
     }
 
     /** The status of the Real-Time Decision. */
