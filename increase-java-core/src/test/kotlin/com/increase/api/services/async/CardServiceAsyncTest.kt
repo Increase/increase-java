@@ -40,7 +40,7 @@ internal class CardServiceAsyncTest {
                     .digitalWallet(
                         CardCreateParams.DigitalWallet.builder()
                             .digitalCardProfileId("digital_card_profile_id")
-                            .email("x")
+                            .email("dev@stainless.com")
                             .phone("x")
                             .build()
                     )
@@ -93,7 +93,7 @@ internal class CardServiceAsyncTest {
                     .digitalWallet(
                         CardUpdateParams.DigitalWallet.builder()
                             .digitalCardProfileId("digital_card_profile_id")
-                            .email("x")
+                            .email("dev@stainless.com")
                             .phone("x")
                             .build()
                     )

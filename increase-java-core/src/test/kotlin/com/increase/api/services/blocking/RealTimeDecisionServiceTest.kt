@@ -103,7 +103,7 @@ internal class RealTimeDecisionServiceTest {
                             .success(
                                 RealTimeDecisionActionParams.DigitalWalletAuthentication.Success
                                     .builder()
-                                    .email("x")
+                                    .email("dev@stainless.com")
                                     .phone("x")
                                     .build()
                             )
@@ -113,7 +113,7 @@ internal class RealTimeDecisionServiceTest {
                         RealTimeDecisionActionParams.DigitalWalletToken.builder()
                             .approval(
                                 RealTimeDecisionActionParams.DigitalWalletToken.Approval.builder()
-                                    .email("x")
+                                    .email("dev@stainless.com")
                                     .phone("x")
                                     .build()
                             )
