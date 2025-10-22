@@ -57353,6 +57353,7 @@ private constructor(
         private val authorizedAmount: JsonField<Long>,
         private val fuelConfirmedAmount: JsonField<Long>,
         private val incrementedAmount: JsonField<Long>,
+        private val refundAuthorizedAmount: JsonField<Long>,
         private val refundedAmount: JsonField<Long>,
         private val reversedAmount: JsonField<Long>,
         private val settledAmount: JsonField<Long>,
@@ -57370,6 +57371,9 @@ private constructor(
             @JsonProperty("incremented_amount")
             @ExcludeMissing
             incrementedAmount: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("refund_authorized_amount")
+            @ExcludeMissing
+            refundAuthorizedAmount: JsonField<Long> = JsonMissing.of(),
             @JsonProperty("refunded_amount")
             @ExcludeMissing
             refundedAmount: JsonField<Long> = JsonMissing.of(),
@@ -57383,6 +57387,7 @@ private constructor(
             authorizedAmount,
             fuelConfirmedAmount,
             incrementedAmount,
+            refundAuthorizedAmount,
             refundedAmount,
             reversedAmount,
             settledAmount,
@@ -57415,6 +57420,16 @@ private constructor(
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun incrementedAmount(): Long = incrementedAmount.getRequired("incremented_amount")
+
+        /**
+         * The total refund authorized amount in the minor unit of the transaction's currency. For
+         * dollars, for example, this is cents.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun refundAuthorizedAmount(): Long =
+            refundAuthorizedAmount.getRequired("refund_authorized_amount")
 
         /**
          * The total refunded amount in the minor unit of the transaction's currency. For dollars,
@@ -57474,6 +57489,16 @@ private constructor(
         fun _incrementedAmount(): JsonField<Long> = incrementedAmount
 
         /**
+         * Returns the raw JSON value of [refundAuthorizedAmount].
+         *
+         * Unlike [refundAuthorizedAmount], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("refund_authorized_amount")
+        @ExcludeMissing
+        fun _refundAuthorizedAmount(): JsonField<Long> = refundAuthorizedAmount
+
+        /**
          * Returns the raw JSON value of [refundedAmount].
          *
          * Unlike [refundedAmount], this method doesn't throw if the JSON field has an unexpected
@@ -57525,6 +57550,7 @@ private constructor(
              * .authorizedAmount()
              * .fuelConfirmedAmount()
              * .incrementedAmount()
+             * .refundAuthorizedAmount()
              * .refundedAmount()
              * .reversedAmount()
              * .settledAmount()
@@ -57539,6 +57565,7 @@ private constructor(
             private var authorizedAmount: JsonField<Long>? = null
             private var fuelConfirmedAmount: JsonField<Long>? = null
             private var incrementedAmount: JsonField<Long>? = null
+            private var refundAuthorizedAmount: JsonField<Long>? = null
             private var refundedAmount: JsonField<Long>? = null
             private var reversedAmount: JsonField<Long>? = null
             private var settledAmount: JsonField<Long>? = null
@@ -57549,6 +57576,7 @@ private constructor(
                 authorizedAmount = state.authorizedAmount
                 fuelConfirmedAmount = state.fuelConfirmedAmount
                 incrementedAmount = state.incrementedAmount
+                refundAuthorizedAmount = state.refundAuthorizedAmount
                 refundedAmount = state.refundedAmount
                 reversedAmount = state.reversedAmount
                 settledAmount = state.settledAmount
@@ -57607,6 +57635,24 @@ private constructor(
              */
             fun incrementedAmount(incrementedAmount: JsonField<Long>) = apply {
                 this.incrementedAmount = incrementedAmount
+            }
+
+            /**
+             * The total refund authorized amount in the minor unit of the transaction's currency.
+             * For dollars, for example, this is cents.
+             */
+            fun refundAuthorizedAmount(refundAuthorizedAmount: Long) =
+                refundAuthorizedAmount(JsonField.of(refundAuthorizedAmount))
+
+            /**
+             * Sets [Builder.refundAuthorizedAmount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.refundAuthorizedAmount] with a well-typed [Long]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun refundAuthorizedAmount(refundAuthorizedAmount: JsonField<Long>) = apply {
+                this.refundAuthorizedAmount = refundAuthorizedAmount
             }
 
             /**
@@ -57689,6 +57735,7 @@ private constructor(
              * .authorizedAmount()
              * .fuelConfirmedAmount()
              * .incrementedAmount()
+             * .refundAuthorizedAmount()
              * .refundedAmount()
              * .reversedAmount()
              * .settledAmount()
@@ -57701,6 +57748,7 @@ private constructor(
                     checkRequired("authorizedAmount", authorizedAmount),
                     checkRequired("fuelConfirmedAmount", fuelConfirmedAmount),
                     checkRequired("incrementedAmount", incrementedAmount),
+                    checkRequired("refundAuthorizedAmount", refundAuthorizedAmount),
                     checkRequired("refundedAmount", refundedAmount),
                     checkRequired("reversedAmount", reversedAmount),
                     checkRequired("settledAmount", settledAmount),
@@ -57718,6 +57766,7 @@ private constructor(
             authorizedAmount()
             fuelConfirmedAmount()
             incrementedAmount()
+            refundAuthorizedAmount()
             refundedAmount()
             reversedAmount()
             settledAmount()
@@ -57743,6 +57792,7 @@ private constructor(
             (if (authorizedAmount.asKnown().isPresent) 1 else 0) +
                 (if (fuelConfirmedAmount.asKnown().isPresent) 1 else 0) +
                 (if (incrementedAmount.asKnown().isPresent) 1 else 0) +
+                (if (refundAuthorizedAmount.asKnown().isPresent) 1 else 0) +
                 (if (refundedAmount.asKnown().isPresent) 1 else 0) +
                 (if (reversedAmount.asKnown().isPresent) 1 else 0) +
                 (if (settledAmount.asKnown().isPresent) 1 else 0)
@@ -57756,6 +57806,7 @@ private constructor(
                 authorizedAmount == other.authorizedAmount &&
                 fuelConfirmedAmount == other.fuelConfirmedAmount &&
                 incrementedAmount == other.incrementedAmount &&
+                refundAuthorizedAmount == other.refundAuthorizedAmount &&
                 refundedAmount == other.refundedAmount &&
                 reversedAmount == other.reversedAmount &&
                 settledAmount == other.settledAmount &&
@@ -57767,6 +57818,7 @@ private constructor(
                 authorizedAmount,
                 fuelConfirmedAmount,
                 incrementedAmount,
+                refundAuthorizedAmount,
                 refundedAmount,
                 reversedAmount,
                 settledAmount,
@@ -57777,7 +57829,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "State{authorizedAmount=$authorizedAmount, fuelConfirmedAmount=$fuelConfirmedAmount, incrementedAmount=$incrementedAmount, refundedAmount=$refundedAmount, reversedAmount=$reversedAmount, settledAmount=$settledAmount, additionalProperties=$additionalProperties}"
+            "State{authorizedAmount=$authorizedAmount, fuelConfirmedAmount=$fuelConfirmedAmount, incrementedAmount=$incrementedAmount, refundAuthorizedAmount=$refundAuthorizedAmount, refundedAmount=$refundedAmount, reversedAmount=$reversedAmount, settledAmount=$settledAmount, additionalProperties=$additionalProperties}"
     }
 
     /**
