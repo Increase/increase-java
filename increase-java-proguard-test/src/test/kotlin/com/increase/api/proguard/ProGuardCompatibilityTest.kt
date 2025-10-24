@@ -74,6 +74,8 @@ internal class ProGuardCompatibilityTest {
         assertThat(client.inboundCheckDeposits()).isNotNull()
         assertThat(client.realTimePaymentsTransfers()).isNotNull()
         assertThat(client.inboundRealTimePaymentsTransfers()).isNotNull()
+        assertThat(client.fednowTransfers()).isNotNull()
+        assertThat(client.inboundFednowTransfers()).isNotNull()
         assertThat(client.checkDeposits()).isNotNull()
         assertThat(client.lockboxes()).isNotNull()
         assertThat(client.inboundMailItems()).isNotNull()

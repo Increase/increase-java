@@ -30,11 +30,13 @@ import com.increase.api.services.async.EventServiceAsync
 import com.increase.api.services.async.EventSubscriptionServiceAsync
 import com.increase.api.services.async.ExportServiceAsync
 import com.increase.api.services.async.ExternalAccountServiceAsync
+import com.increase.api.services.async.FednowTransferServiceAsync
 import com.increase.api.services.async.FileLinkServiceAsync
 import com.increase.api.services.async.FileServiceAsync
 import com.increase.api.services.async.GroupServiceAsync
 import com.increase.api.services.async.InboundAchTransferServiceAsync
 import com.increase.api.services.async.InboundCheckDepositServiceAsync
+import com.increase.api.services.async.InboundFednowTransferServiceAsync
 import com.increase.api.services.async.InboundMailItemServiceAsync
 import com.increase.api.services.async.InboundRealTimePaymentsTransferServiceAsync
 import com.increase.api.services.async.InboundWireDrawdownRequestServiceAsync
@@ -145,6 +147,10 @@ interface IncreaseClientAsync {
     fun realTimePaymentsTransfers(): RealTimePaymentsTransferServiceAsync
 
     fun inboundRealTimePaymentsTransfers(): InboundRealTimePaymentsTransferServiceAsync
+
+    fun fednowTransfers(): FednowTransferServiceAsync
+
+    fun inboundFednowTransfers(): InboundFednowTransferServiceAsync
 
     fun checkDeposits(): CheckDepositServiceAsync
 
@@ -283,6 +289,10 @@ interface IncreaseClientAsync {
 
         fun inboundRealTimePaymentsTransfers():
             InboundRealTimePaymentsTransferServiceAsync.WithRawResponse
+
+        fun fednowTransfers(): FednowTransferServiceAsync.WithRawResponse
+
+        fun inboundFednowTransfers(): InboundFednowTransferServiceAsync.WithRawResponse
 
         fun checkDeposits(): CheckDepositServiceAsync.WithRawResponse
 
