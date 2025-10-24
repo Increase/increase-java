@@ -30,11 +30,13 @@ import com.increase.api.services.blocking.EventService
 import com.increase.api.services.blocking.EventSubscriptionService
 import com.increase.api.services.blocking.ExportService
 import com.increase.api.services.blocking.ExternalAccountService
+import com.increase.api.services.blocking.FednowTransferService
 import com.increase.api.services.blocking.FileLinkService
 import com.increase.api.services.blocking.FileService
 import com.increase.api.services.blocking.GroupService
 import com.increase.api.services.blocking.InboundAchTransferService
 import com.increase.api.services.blocking.InboundCheckDepositService
+import com.increase.api.services.blocking.InboundFednowTransferService
 import com.increase.api.services.blocking.InboundMailItemService
 import com.increase.api.services.blocking.InboundRealTimePaymentsTransferService
 import com.increase.api.services.blocking.InboundWireDrawdownRequestService
@@ -146,6 +148,10 @@ interface IncreaseClient {
     fun realTimePaymentsTransfers(): RealTimePaymentsTransferService
 
     fun inboundRealTimePaymentsTransfers(): InboundRealTimePaymentsTransferService
+
+    fun fednowTransfers(): FednowTransferService
+
+    fun inboundFednowTransfers(): InboundFednowTransferService
 
     fun checkDeposits(): CheckDepositService
 
@@ -282,6 +288,10 @@ interface IncreaseClient {
 
         fun inboundRealTimePaymentsTransfers():
             InboundRealTimePaymentsTransferService.WithRawResponse
+
+        fun fednowTransfers(): FednowTransferService.WithRawResponse
+
+        fun inboundFednowTransfers(): InboundFednowTransferService.WithRawResponse
 
         fun checkDeposits(): CheckDepositService.WithRawResponse
 

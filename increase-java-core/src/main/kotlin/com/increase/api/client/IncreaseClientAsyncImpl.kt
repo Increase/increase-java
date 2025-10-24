@@ -58,6 +58,8 @@ import com.increase.api.services.async.ExportServiceAsync
 import com.increase.api.services.async.ExportServiceAsyncImpl
 import com.increase.api.services.async.ExternalAccountServiceAsync
 import com.increase.api.services.async.ExternalAccountServiceAsyncImpl
+import com.increase.api.services.async.FednowTransferServiceAsync
+import com.increase.api.services.async.FednowTransferServiceAsyncImpl
 import com.increase.api.services.async.FileLinkServiceAsync
 import com.increase.api.services.async.FileLinkServiceAsyncImpl
 import com.increase.api.services.async.FileServiceAsync
@@ -68,6 +70,8 @@ import com.increase.api.services.async.InboundAchTransferServiceAsync
 import com.increase.api.services.async.InboundAchTransferServiceAsyncImpl
 import com.increase.api.services.async.InboundCheckDepositServiceAsync
 import com.increase.api.services.async.InboundCheckDepositServiceAsyncImpl
+import com.increase.api.services.async.InboundFednowTransferServiceAsync
+import com.increase.api.services.async.InboundFednowTransferServiceAsyncImpl
 import com.increase.api.services.async.InboundMailItemServiceAsync
 import com.increase.api.services.async.InboundMailItemServiceAsyncImpl
 import com.increase.api.services.async.InboundRealTimePaymentsTransferServiceAsync
@@ -232,6 +236,14 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
     private val inboundRealTimePaymentsTransfers:
         InboundRealTimePaymentsTransferServiceAsync by lazy {
         InboundRealTimePaymentsTransferServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
+    private val fednowTransfers: FednowTransferServiceAsync by lazy {
+        FednowTransferServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
+    private val inboundFednowTransfers: InboundFednowTransferServiceAsync by lazy {
+        InboundFednowTransferServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
     private val checkDeposits: CheckDepositServiceAsync by lazy {
@@ -415,6 +427,11 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
     override fun inboundRealTimePaymentsTransfers(): InboundRealTimePaymentsTransferServiceAsync =
         inboundRealTimePaymentsTransfers
 
+    override fun fednowTransfers(): FednowTransferServiceAsync = fednowTransfers
+
+    override fun inboundFednowTransfers(): InboundFednowTransferServiceAsync =
+        inboundFednowTransfers
+
     override fun checkDeposits(): CheckDepositServiceAsync = checkDeposits
 
     override fun lockboxes(): LockboxServiceAsync = lockboxes
@@ -585,6 +602,15 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
         private val inboundRealTimePaymentsTransfers:
             InboundRealTimePaymentsTransferServiceAsync.WithRawResponse by lazy {
             InboundRealTimePaymentsTransferServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val fednowTransfers: FednowTransferServiceAsync.WithRawResponse by lazy {
+            FednowTransferServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val inboundFednowTransfers:
+            InboundFednowTransferServiceAsync.WithRawResponse by lazy {
+            InboundFednowTransferServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
         private val checkDeposits: CheckDepositServiceAsync.WithRawResponse by lazy {
@@ -781,6 +807,11 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
         override fun inboundRealTimePaymentsTransfers():
             InboundRealTimePaymentsTransferServiceAsync.WithRawResponse =
             inboundRealTimePaymentsTransfers
+
+        override fun fednowTransfers(): FednowTransferServiceAsync.WithRawResponse = fednowTransfers
+
+        override fun inboundFednowTransfers(): InboundFednowTransferServiceAsync.WithRawResponse =
+            inboundFednowTransfers
 
         override fun checkDeposits(): CheckDepositServiceAsync.WithRawResponse = checkDeposits
 
