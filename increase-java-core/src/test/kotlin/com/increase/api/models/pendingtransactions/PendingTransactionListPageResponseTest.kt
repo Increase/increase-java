@@ -75,6 +75,15 @@ internal class PendingTransactionListPageResponseTest {
                                                         .currency("currency")
                                                         .build()
                                                 )
+                                                .original(
+                                                    PendingTransaction.Source.CardAuthorization
+                                                        .AdditionalAmounts
+                                                        .Original
+                                                        .builder()
+                                                        .amount(0L)
+                                                        .currency("currency")
+                                                        .build()
+                                                )
                                                 .prescription(
                                                     PendingTransaction.Source.CardAuthorization
                                                         .AdditionalAmounts
@@ -428,6 +437,15 @@ internal class PendingTransactionListPageResponseTest {
                                                     .currency("currency")
                                                     .build()
                                             )
+                                            .original(
+                                                PendingTransaction.Source.CardAuthorization
+                                                    .AdditionalAmounts
+                                                    .Original
+                                                    .builder()
+                                                    .amount(0L)
+                                                    .currency("currency")
+                                                    .build()
+                                            )
                                             .prescription(
                                                 PendingTransaction.Source.CardAuthorization
                                                     .AdditionalAmounts
@@ -765,6 +783,15 @@ internal class PendingTransactionListPageResponseTest {
                                                     PendingTransaction.Source.CardAuthorization
                                                         .AdditionalAmounts
                                                         .Dental
+                                                        .builder()
+                                                        .amount(0L)
+                                                        .currency("currency")
+                                                        .build()
+                                                )
+                                                .original(
+                                                    PendingTransaction.Source.CardAuthorization
+                                                        .AdditionalAmounts
+                                                        .Original
                                                         .builder()
                                                         .amount(0L)
                                                         .currency("currency")

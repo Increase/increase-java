@@ -79,6 +79,15 @@ internal class CardAuthorizationCreateResponseTest {
                                                         .currency("currency")
                                                         .build()
                                                 )
+                                                .original(
+                                                    DeclinedTransaction.Source.CardDecline
+                                                        .AdditionalAmounts
+                                                        .Original
+                                                        .builder()
+                                                        .amount(0L)
+                                                        .currency("currency")
+                                                        .build()
+                                                )
                                                 .prescription(
                                                     DeclinedTransaction.Source.CardDecline
                                                         .AdditionalAmounts
@@ -413,6 +422,15 @@ internal class CardAuthorizationCreateResponseTest {
                                                     PendingTransaction.Source.CardAuthorization
                                                         .AdditionalAmounts
                                                         .Dental
+                                                        .builder()
+                                                        .amount(0L)
+                                                        .currency("currency")
+                                                        .build()
+                                                )
+                                                .original(
+                                                    PendingTransaction.Source.CardAuthorization
+                                                        .AdditionalAmounts
+                                                        .Original
                                                         .builder()
                                                         .amount(0L)
                                                         .currency("currency")
@@ -772,6 +790,15 @@ internal class CardAuthorizationCreateResponseTest {
                                                     .currency("currency")
                                                     .build()
                                             )
+                                            .original(
+                                                DeclinedTransaction.Source.CardDecline
+                                                    .AdditionalAmounts
+                                                    .Original
+                                                    .builder()
+                                                    .amount(0L)
+                                                    .currency("currency")
+                                                    .build()
+                                            )
                                             .prescription(
                                                 DeclinedTransaction.Source.CardDecline
                                                     .AdditionalAmounts
@@ -1097,6 +1124,15 @@ internal class CardAuthorizationCreateResponseTest {
                                                 PendingTransaction.Source.CardAuthorization
                                                     .AdditionalAmounts
                                                     .Dental
+                                                    .builder()
+                                                    .amount(0L)
+                                                    .currency("currency")
+                                                    .build()
+                                            )
+                                            .original(
+                                                PendingTransaction.Source.CardAuthorization
+                                                    .AdditionalAmounts
+                                                    .Original
                                                     .builder()
                                                     .amount(0L)
                                                     .currency("currency")
@@ -1449,6 +1485,15 @@ internal class CardAuthorizationCreateResponseTest {
                                                         .currency("currency")
                                                         .build()
                                                 )
+                                                .original(
+                                                    DeclinedTransaction.Source.CardDecline
+                                                        .AdditionalAmounts
+                                                        .Original
+                                                        .builder()
+                                                        .amount(0L)
+                                                        .currency("currency")
+                                                        .build()
+                                                )
                                                 .prescription(
                                                     DeclinedTransaction.Source.CardDecline
                                                         .AdditionalAmounts
@@ -1783,6 +1828,15 @@ internal class CardAuthorizationCreateResponseTest {
                                                     PendingTransaction.Source.CardAuthorization
                                                         .AdditionalAmounts
                                                         .Dental
+                                                        .builder()
+                                                        .amount(0L)
+                                                        .currency("currency")
+                                                        .build()
+                                                )
+                                                .original(
+                                                    PendingTransaction.Source.CardAuthorization
+                                                        .AdditionalAmounts
+                                                        .Original
                                                         .builder()
                                                         .amount(0L)
                                                         .currency("currency")

@@ -123,6 +123,15 @@ internal class CardPaymentListPageResponseTest {
                                                             .currency("currency")
                                                             .build()
                                                     )
+                                                    .original(
+                                                        CardPayment.Element.CardAuthorization
+                                                            .AdditionalAmounts
+                                                            .Original
+                                                            .builder()
+                                                            .amount(0L)
+                                                            .currency("currency")
+                                                            .build()
+                                                    )
                                                     .prescription(
                                                         CardPayment.Element.CardAuthorization
                                                             .AdditionalAmounts
@@ -356,6 +365,15 @@ internal class CardPaymentListPageResponseTest {
                                                         CardPayment.Element.CardDecline
                                                             .AdditionalAmounts
                                                             .Dental
+                                                            .builder()
+                                                            .amount(0L)
+                                                            .currency("currency")
+                                                            .build()
+                                                    )
+                                                    .original(
+                                                        CardPayment.Element.CardDecline
+                                                            .AdditionalAmounts
+                                                            .Original
                                                             .builder()
                                                             .amount(0L)
                                                             .currency("currency")
@@ -595,6 +613,15 @@ internal class CardPaymentListPageResponseTest {
                                                         CardPayment.Element.CardIncrement
                                                             .AdditionalAmounts
                                                             .Dental
+                                                            .builder()
+                                                            .amount(0L)
+                                                            .currency("currency")
+                                                            .build()
+                                                    )
+                                                    .original(
+                                                        CardPayment.Element.CardIncrement
+                                                            .AdditionalAmounts
+                                                            .Original
                                                             .builder()
                                                             .amount(0L)
                                                             .currency("currency")
@@ -1317,6 +1344,15 @@ internal class CardPaymentListPageResponseTest {
                                                         CardPayment.Element.CardValidation
                                                             .AdditionalAmounts
                                                             .Dental
+                                                            .builder()
+                                                            .amount(0L)
+                                                            .currency("currency")
+                                                            .build()
+                                                    )
+                                                    .original(
+                                                        CardPayment.Element.CardValidation
+                                                            .AdditionalAmounts
+                                                            .Original
                                                             .builder()
                                                             .amount(0L)
                                                             .currency("currency")
@@ -1592,6 +1628,15 @@ internal class CardPaymentListPageResponseTest {
                                                             .currency("currency")
                                                             .build()
                                                     )
+                                                    .original(
+                                                        CardPayment.Element.CardAuthorization
+                                                            .AdditionalAmounts
+                                                            .Original
+                                                            .builder()
+                                                            .amount(0L)
+                                                            .currency("currency")
+                                                            .build()
+                                                    )
                                                     .prescription(
                                                         CardPayment.Element.CardAuthorization
                                                             .AdditionalAmounts
@@ -1825,6 +1870,15 @@ internal class CardPaymentListPageResponseTest {
                                                         CardPayment.Element.CardDecline
                                                             .AdditionalAmounts
                                                             .Dental
+                                                            .builder()
+                                                            .amount(0L)
+                                                            .currency("currency")
+                                                            .build()
+                                                    )
+                                                    .original(
+                                                        CardPayment.Element.CardDecline
+                                                            .AdditionalAmounts
+                                                            .Original
                                                             .builder()
                                                             .amount(0L)
                                                             .currency("currency")
@@ -2064,6 +2118,15 @@ internal class CardPaymentListPageResponseTest {
                                                         CardPayment.Element.CardIncrement
                                                             .AdditionalAmounts
                                                             .Dental
+                                                            .builder()
+                                                            .amount(0L)
+                                                            .currency("currency")
+                                                            .build()
+                                                    )
+                                                    .original(
+                                                        CardPayment.Element.CardIncrement
+                                                            .AdditionalAmounts
+                                                            .Original
                                                             .builder()
                                                             .amount(0L)
                                                             .currency("currency")
@@ -2786,6 +2849,15 @@ internal class CardPaymentListPageResponseTest {
                                                         CardPayment.Element.CardValidation
                                                             .AdditionalAmounts
                                                             .Dental
+                                                            .builder()
+                                                            .amount(0L)
+                                                            .currency("currency")
+                                                            .build()
+                                                    )
+                                                    .original(
+                                                        CardPayment.Element.CardValidation
+                                                            .AdditionalAmounts
+                                                            .Original
                                                             .builder()
                                                             .amount(0L)
                                                             .currency("currency")
@@ -3061,6 +3133,15 @@ internal class CardPaymentListPageResponseTest {
                                                             .currency("currency")
                                                             .build()
                                                     )
+                                                    .original(
+                                                        CardPayment.Element.CardAuthorization
+                                                            .AdditionalAmounts
+                                                            .Original
+                                                            .builder()
+                                                            .amount(0L)
+                                                            .currency("currency")
+                                                            .build()
+                                                    )
                                                     .prescription(
                                                         CardPayment.Element.CardAuthorization
                                                             .AdditionalAmounts
@@ -3294,6 +3375,15 @@ internal class CardPaymentListPageResponseTest {
                                                         CardPayment.Element.CardDecline
                                                             .AdditionalAmounts
                                                             .Dental
+                                                            .builder()
+                                                            .amount(0L)
+                                                            .currency("currency")
+                                                            .build()
+                                                    )
+                                                    .original(
+                                                        CardPayment.Element.CardDecline
+                                                            .AdditionalAmounts
+                                                            .Original
                                                             .builder()
                                                             .amount(0L)
                                                             .currency("currency")
@@ -3533,6 +3623,15 @@ internal class CardPaymentListPageResponseTest {
                                                         CardPayment.Element.CardIncrement
                                                             .AdditionalAmounts
                                                             .Dental
+                                                            .builder()
+                                                            .amount(0L)
+                                                            .currency("currency")
+                                                            .build()
+                                                    )
+                                                    .original(
+                                                        CardPayment.Element.CardIncrement
+                                                            .AdditionalAmounts
+                                                            .Original
                                                             .builder()
                                                             .amount(0L)
                                                             .currency("currency")
@@ -4255,6 +4354,15 @@ internal class CardPaymentListPageResponseTest {
                                                         CardPayment.Element.CardValidation
                                                             .AdditionalAmounts
                                                             .Dental
+                                                            .builder()
+                                                            .amount(0L)
+                                                            .currency("currency")
+                                                            .build()
+                                                    )
+                                                    .original(
+                                                        CardPayment.Element.CardValidation
+                                                            .AdditionalAmounts
+                                                            .Original
                                                             .builder()
                                                             .amount(0L)
                                                             .currency("currency")
@@ -4530,6 +4638,15 @@ internal class CardPaymentListPageResponseTest {
                                                             .currency("currency")
                                                             .build()
                                                     )
+                                                    .original(
+                                                        CardPayment.Element.CardAuthorization
+                                                            .AdditionalAmounts
+                                                            .Original
+                                                            .builder()
+                                                            .amount(0L)
+                                                            .currency("currency")
+                                                            .build()
+                                                    )
                                                     .prescription(
                                                         CardPayment.Element.CardAuthorization
                                                             .AdditionalAmounts
@@ -4763,6 +4880,15 @@ internal class CardPaymentListPageResponseTest {
                                                         CardPayment.Element.CardDecline
                                                             .AdditionalAmounts
                                                             .Dental
+                                                            .builder()
+                                                            .amount(0L)
+                                                            .currency("currency")
+                                                            .build()
+                                                    )
+                                                    .original(
+                                                        CardPayment.Element.CardDecline
+                                                            .AdditionalAmounts
+                                                            .Original
                                                             .builder()
                                                             .amount(0L)
                                                             .currency("currency")
@@ -5002,6 +5128,15 @@ internal class CardPaymentListPageResponseTest {
                                                         CardPayment.Element.CardIncrement
                                                             .AdditionalAmounts
                                                             .Dental
+                                                            .builder()
+                                                            .amount(0L)
+                                                            .currency("currency")
+                                                            .build()
+                                                    )
+                                                    .original(
+                                                        CardPayment.Element.CardIncrement
+                                                            .AdditionalAmounts
+                                                            .Original
                                                             .builder()
                                                             .amount(0L)
                                                             .currency("currency")
@@ -5724,6 +5859,15 @@ internal class CardPaymentListPageResponseTest {
                                                         CardPayment.Element.CardValidation
                                                             .AdditionalAmounts
                                                             .Dental
+                                                            .builder()
+                                                            .amount(0L)
+                                                            .currency("currency")
+                                                            .build()
+                                                    )
+                                                    .original(
+                                                        CardPayment.Element.CardValidation
+                                                            .AdditionalAmounts
+                                                            .Original
                                                             .builder()
                                                             .amount(0L)
                                                             .currency("currency")
@@ -6024,6 +6168,15 @@ internal class CardPaymentListPageResponseTest {
                                                         .currency("currency")
                                                         .build()
                                                 )
+                                                .original(
+                                                    CardPayment.Element.CardAuthorization
+                                                        .AdditionalAmounts
+                                                        .Original
+                                                        .builder()
+                                                        .amount(0L)
+                                                        .currency("currency")
+                                                        .build()
+                                                )
                                                 .prescription(
                                                     CardPayment.Element.CardAuthorization
                                                         .AdditionalAmounts
@@ -6245,6 +6398,15 @@ internal class CardPaymentListPageResponseTest {
                                                     CardPayment.Element.CardDecline
                                                         .AdditionalAmounts
                                                         .Dental
+                                                        .builder()
+                                                        .amount(0L)
+                                                        .currency("currency")
+                                                        .build()
+                                                )
+                                                .original(
+                                                    CardPayment.Element.CardDecline
+                                                        .AdditionalAmounts
+                                                        .Original
                                                         .builder()
                                                         .amount(0L)
                                                         .currency("currency")
@@ -6478,6 +6640,15 @@ internal class CardPaymentListPageResponseTest {
                                                     CardPayment.Element.CardIncrement
                                                         .AdditionalAmounts
                                                         .Dental
+                                                        .builder()
+                                                        .amount(0L)
+                                                        .currency("currency")
+                                                        .build()
+                                                )
+                                                .original(
+                                                    CardPayment.Element.CardIncrement
+                                                        .AdditionalAmounts
+                                                        .Original
                                                         .builder()
                                                         .amount(0L)
                                                         .currency("currency")
@@ -7154,6 +7325,15 @@ internal class CardPaymentListPageResponseTest {
                                                     CardPayment.Element.CardValidation
                                                         .AdditionalAmounts
                                                         .Dental
+                                                        .builder()
+                                                        .amount(0L)
+                                                        .currency("currency")
+                                                        .build()
+                                                )
+                                                .original(
+                                                    CardPayment.Element.CardValidation
+                                                        .AdditionalAmounts
+                                                        .Original
                                                         .builder()
                                                         .amount(0L)
                                                         .currency("currency")
@@ -7419,6 +7599,15 @@ internal class CardPaymentListPageResponseTest {
                                                         .currency("currency")
                                                         .build()
                                                 )
+                                                .original(
+                                                    CardPayment.Element.CardAuthorization
+                                                        .AdditionalAmounts
+                                                        .Original
+                                                        .builder()
+                                                        .amount(0L)
+                                                        .currency("currency")
+                                                        .build()
+                                                )
                                                 .prescription(
                                                     CardPayment.Element.CardAuthorization
                                                         .AdditionalAmounts
@@ -7640,6 +7829,15 @@ internal class CardPaymentListPageResponseTest {
                                                     CardPayment.Element.CardDecline
                                                         .AdditionalAmounts
                                                         .Dental
+                                                        .builder()
+                                                        .amount(0L)
+                                                        .currency("currency")
+                                                        .build()
+                                                )
+                                                .original(
+                                                    CardPayment.Element.CardDecline
+                                                        .AdditionalAmounts
+                                                        .Original
                                                         .builder()
                                                         .amount(0L)
                                                         .currency("currency")
@@ -7873,6 +8071,15 @@ internal class CardPaymentListPageResponseTest {
                                                     CardPayment.Element.CardIncrement
                                                         .AdditionalAmounts
                                                         .Dental
+                                                        .builder()
+                                                        .amount(0L)
+                                                        .currency("currency")
+                                                        .build()
+                                                )
+                                                .original(
+                                                    CardPayment.Element.CardIncrement
+                                                        .AdditionalAmounts
+                                                        .Original
                                                         .builder()
                                                         .amount(0L)
                                                         .currency("currency")
@@ -8549,6 +8756,15 @@ internal class CardPaymentListPageResponseTest {
                                                     CardPayment.Element.CardValidation
                                                         .AdditionalAmounts
                                                         .Dental
+                                                        .builder()
+                                                        .amount(0L)
+                                                        .currency("currency")
+                                                        .build()
+                                                )
+                                                .original(
+                                                    CardPayment.Element.CardValidation
+                                                        .AdditionalAmounts
+                                                        .Original
                                                         .builder()
                                                         .amount(0L)
                                                         .currency("currency")
@@ -8814,6 +9030,15 @@ internal class CardPaymentListPageResponseTest {
                                                         .currency("currency")
                                                         .build()
                                                 )
+                                                .original(
+                                                    CardPayment.Element.CardAuthorization
+                                                        .AdditionalAmounts
+                                                        .Original
+                                                        .builder()
+                                                        .amount(0L)
+                                                        .currency("currency")
+                                                        .build()
+                                                )
                                                 .prescription(
                                                     CardPayment.Element.CardAuthorization
                                                         .AdditionalAmounts
@@ -9035,6 +9260,15 @@ internal class CardPaymentListPageResponseTest {
                                                     CardPayment.Element.CardDecline
                                                         .AdditionalAmounts
                                                         .Dental
+                                                        .builder()
+                                                        .amount(0L)
+                                                        .currency("currency")
+                                                        .build()
+                                                )
+                                                .original(
+                                                    CardPayment.Element.CardDecline
+                                                        .AdditionalAmounts
+                                                        .Original
                                                         .builder()
                                                         .amount(0L)
                                                         .currency("currency")
@@ -9268,6 +9502,15 @@ internal class CardPaymentListPageResponseTest {
                                                     CardPayment.Element.CardIncrement
                                                         .AdditionalAmounts
                                                         .Dental
+                                                        .builder()
+                                                        .amount(0L)
+                                                        .currency("currency")
+                                                        .build()
+                                                )
+                                                .original(
+                                                    CardPayment.Element.CardIncrement
+                                                        .AdditionalAmounts
+                                                        .Original
                                                         .builder()
                                                         .amount(0L)
                                                         .currency("currency")
@@ -9944,6 +10187,15 @@ internal class CardPaymentListPageResponseTest {
                                                     CardPayment.Element.CardValidation
                                                         .AdditionalAmounts
                                                         .Dental
+                                                        .builder()
+                                                        .amount(0L)
+                                                        .currency("currency")
+                                                        .build()
+                                                )
+                                                .original(
+                                                    CardPayment.Element.CardValidation
+                                                        .AdditionalAmounts
+                                                        .Original
                                                         .builder()
                                                         .amount(0L)
                                                         .currency("currency")
@@ -10209,6 +10461,15 @@ internal class CardPaymentListPageResponseTest {
                                                         .currency("currency")
                                                         .build()
                                                 )
+                                                .original(
+                                                    CardPayment.Element.CardAuthorization
+                                                        .AdditionalAmounts
+                                                        .Original
+                                                        .builder()
+                                                        .amount(0L)
+                                                        .currency("currency")
+                                                        .build()
+                                                )
                                                 .prescription(
                                                     CardPayment.Element.CardAuthorization
                                                         .AdditionalAmounts
@@ -10430,6 +10691,15 @@ internal class CardPaymentListPageResponseTest {
                                                     CardPayment.Element.CardDecline
                                                         .AdditionalAmounts
                                                         .Dental
+                                                        .builder()
+                                                        .amount(0L)
+                                                        .currency("currency")
+                                                        .build()
+                                                )
+                                                .original(
+                                                    CardPayment.Element.CardDecline
+                                                        .AdditionalAmounts
+                                                        .Original
                                                         .builder()
                                                         .amount(0L)
                                                         .currency("currency")
@@ -10663,6 +10933,15 @@ internal class CardPaymentListPageResponseTest {
                                                     CardPayment.Element.CardIncrement
                                                         .AdditionalAmounts
                                                         .Dental
+                                                        .builder()
+                                                        .amount(0L)
+                                                        .currency("currency")
+                                                        .build()
+                                                )
+                                                .original(
+                                                    CardPayment.Element.CardIncrement
+                                                        .AdditionalAmounts
+                                                        .Original
                                                         .builder()
                                                         .amount(0L)
                                                         .currency("currency")
@@ -11339,6 +11618,15 @@ internal class CardPaymentListPageResponseTest {
                                                     CardPayment.Element.CardValidation
                                                         .AdditionalAmounts
                                                         .Dental
+                                                        .builder()
+                                                        .amount(0L)
+                                                        .currency("currency")
+                                                        .build()
+                                                )
+                                                .original(
+                                                    CardPayment.Element.CardValidation
+                                                        .AdditionalAmounts
+                                                        .Original
                                                         .builder()
                                                         .amount(0L)
                                                         .currency("currency")
@@ -11643,6 +11931,15 @@ internal class CardPaymentListPageResponseTest {
                                                             .currency("currency")
                                                             .build()
                                                     )
+                                                    .original(
+                                                        CardPayment.Element.CardAuthorization
+                                                            .AdditionalAmounts
+                                                            .Original
+                                                            .builder()
+                                                            .amount(0L)
+                                                            .currency("currency")
+                                                            .build()
+                                                    )
                                                     .prescription(
                                                         CardPayment.Element.CardAuthorization
                                                             .AdditionalAmounts
@@ -11876,6 +12173,15 @@ internal class CardPaymentListPageResponseTest {
                                                         CardPayment.Element.CardDecline
                                                             .AdditionalAmounts
                                                             .Dental
+                                                            .builder()
+                                                            .amount(0L)
+                                                            .currency("currency")
+                                                            .build()
+                                                    )
+                                                    .original(
+                                                        CardPayment.Element.CardDecline
+                                                            .AdditionalAmounts
+                                                            .Original
                                                             .builder()
                                                             .amount(0L)
                                                             .currency("currency")
@@ -12115,6 +12421,15 @@ internal class CardPaymentListPageResponseTest {
                                                         CardPayment.Element.CardIncrement
                                                             .AdditionalAmounts
                                                             .Dental
+                                                            .builder()
+                                                            .amount(0L)
+                                                            .currency("currency")
+                                                            .build()
+                                                    )
+                                                    .original(
+                                                        CardPayment.Element.CardIncrement
+                                                            .AdditionalAmounts
+                                                            .Original
                                                             .builder()
                                                             .amount(0L)
                                                             .currency("currency")
@@ -12837,6 +13152,15 @@ internal class CardPaymentListPageResponseTest {
                                                         CardPayment.Element.CardValidation
                                                             .AdditionalAmounts
                                                             .Dental
+                                                            .builder()
+                                                            .amount(0L)
+                                                            .currency("currency")
+                                                            .build()
+                                                    )
+                                                    .original(
+                                                        CardPayment.Element.CardValidation
+                                                            .AdditionalAmounts
+                                                            .Original
                                                             .builder()
                                                             .amount(0L)
                                                             .currency("currency")
@@ -13112,6 +13436,15 @@ internal class CardPaymentListPageResponseTest {
                                                             .currency("currency")
                                                             .build()
                                                     )
+                                                    .original(
+                                                        CardPayment.Element.CardAuthorization
+                                                            .AdditionalAmounts
+                                                            .Original
+                                                            .builder()
+                                                            .amount(0L)
+                                                            .currency("currency")
+                                                            .build()
+                                                    )
                                                     .prescription(
                                                         CardPayment.Element.CardAuthorization
                                                             .AdditionalAmounts
@@ -13345,6 +13678,15 @@ internal class CardPaymentListPageResponseTest {
                                                         CardPayment.Element.CardDecline
                                                             .AdditionalAmounts
                                                             .Dental
+                                                            .builder()
+                                                            .amount(0L)
+                                                            .currency("currency")
+                                                            .build()
+                                                    )
+                                                    .original(
+                                                        CardPayment.Element.CardDecline
+                                                            .AdditionalAmounts
+                                                            .Original
                                                             .builder()
                                                             .amount(0L)
                                                             .currency("currency")
@@ -13584,6 +13926,15 @@ internal class CardPaymentListPageResponseTest {
                                                         CardPayment.Element.CardIncrement
                                                             .AdditionalAmounts
                                                             .Dental
+                                                            .builder()
+                                                            .amount(0L)
+                                                            .currency("currency")
+                                                            .build()
+                                                    )
+                                                    .original(
+                                                        CardPayment.Element.CardIncrement
+                                                            .AdditionalAmounts
+                                                            .Original
                                                             .builder()
                                                             .amount(0L)
                                                             .currency("currency")
@@ -14306,6 +14657,15 @@ internal class CardPaymentListPageResponseTest {
                                                         CardPayment.Element.CardValidation
                                                             .AdditionalAmounts
                                                             .Dental
+                                                            .builder()
+                                                            .amount(0L)
+                                                            .currency("currency")
+                                                            .build()
+                                                    )
+                                                    .original(
+                                                        CardPayment.Element.CardValidation
+                                                            .AdditionalAmounts
+                                                            .Original
                                                             .builder()
                                                             .amount(0L)
                                                             .currency("currency")
@@ -14581,6 +14941,15 @@ internal class CardPaymentListPageResponseTest {
                                                             .currency("currency")
                                                             .build()
                                                     )
+                                                    .original(
+                                                        CardPayment.Element.CardAuthorization
+                                                            .AdditionalAmounts
+                                                            .Original
+                                                            .builder()
+                                                            .amount(0L)
+                                                            .currency("currency")
+                                                            .build()
+                                                    )
                                                     .prescription(
                                                         CardPayment.Element.CardAuthorization
                                                             .AdditionalAmounts
@@ -14814,6 +15183,15 @@ internal class CardPaymentListPageResponseTest {
                                                         CardPayment.Element.CardDecline
                                                             .AdditionalAmounts
                                                             .Dental
+                                                            .builder()
+                                                            .amount(0L)
+                                                            .currency("currency")
+                                                            .build()
+                                                    )
+                                                    .original(
+                                                        CardPayment.Element.CardDecline
+                                                            .AdditionalAmounts
+                                                            .Original
                                                             .builder()
                                                             .amount(0L)
                                                             .currency("currency")
@@ -15053,6 +15431,15 @@ internal class CardPaymentListPageResponseTest {
                                                         CardPayment.Element.CardIncrement
                                                             .AdditionalAmounts
                                                             .Dental
+                                                            .builder()
+                                                            .amount(0L)
+                                                            .currency("currency")
+                                                            .build()
+                                                    )
+                                                    .original(
+                                                        CardPayment.Element.CardIncrement
+                                                            .AdditionalAmounts
+                                                            .Original
                                                             .builder()
                                                             .amount(0L)
                                                             .currency("currency")
@@ -15775,6 +16162,15 @@ internal class CardPaymentListPageResponseTest {
                                                         CardPayment.Element.CardValidation
                                                             .AdditionalAmounts
                                                             .Dental
+                                                            .builder()
+                                                            .amount(0L)
+                                                            .currency("currency")
+                                                            .build()
+                                                    )
+                                                    .original(
+                                                        CardPayment.Element.CardValidation
+                                                            .AdditionalAmounts
+                                                            .Original
                                                             .builder()
                                                             .amount(0L)
                                                             .currency("currency")
@@ -16050,6 +16446,15 @@ internal class CardPaymentListPageResponseTest {
                                                             .currency("currency")
                                                             .build()
                                                     )
+                                                    .original(
+                                                        CardPayment.Element.CardAuthorization
+                                                            .AdditionalAmounts
+                                                            .Original
+                                                            .builder()
+                                                            .amount(0L)
+                                                            .currency("currency")
+                                                            .build()
+                                                    )
                                                     .prescription(
                                                         CardPayment.Element.CardAuthorization
                                                             .AdditionalAmounts
@@ -16283,6 +16688,15 @@ internal class CardPaymentListPageResponseTest {
                                                         CardPayment.Element.CardDecline
                                                             .AdditionalAmounts
                                                             .Dental
+                                                            .builder()
+                                                            .amount(0L)
+                                                            .currency("currency")
+                                                            .build()
+                                                    )
+                                                    .original(
+                                                        CardPayment.Element.CardDecline
+                                                            .AdditionalAmounts
+                                                            .Original
                                                             .builder()
                                                             .amount(0L)
                                                             .currency("currency")
@@ -16522,6 +16936,15 @@ internal class CardPaymentListPageResponseTest {
                                                         CardPayment.Element.CardIncrement
                                                             .AdditionalAmounts
                                                             .Dental
+                                                            .builder()
+                                                            .amount(0L)
+                                                            .currency("currency")
+                                                            .build()
+                                                    )
+                                                    .original(
+                                                        CardPayment.Element.CardIncrement
+                                                            .AdditionalAmounts
+                                                            .Original
                                                             .builder()
                                                             .amount(0L)
                                                             .currency("currency")
@@ -17244,6 +17667,15 @@ internal class CardPaymentListPageResponseTest {
                                                         CardPayment.Element.CardValidation
                                                             .AdditionalAmounts
                                                             .Dental
+                                                            .builder()
+                                                            .amount(0L)
+                                                            .currency("currency")
+                                                            .build()
+                                                    )
+                                                    .original(
+                                                        CardPayment.Element.CardValidation
+                                                            .AdditionalAmounts
+                                                            .Original
                                                             .builder()
                                                             .amount(0L)
                                                             .currency("currency")
