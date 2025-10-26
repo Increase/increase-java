@@ -52,6 +52,13 @@ internal class RealTimeDecisionTest {
                                         .currency("currency")
                                         .build()
                                 )
+                                .original(
+                                    RealTimeDecision.CardAuthorization.AdditionalAmounts.Original
+                                        .builder()
+                                        .amount(0L)
+                                        .currency("currency")
+                                        .build()
+                                )
                                 .prescription(
                                     RealTimeDecision.CardAuthorization.AdditionalAmounts
                                         .Prescription
@@ -289,6 +296,13 @@ internal class RealTimeDecisionTest {
                                     .currency("currency")
                                     .build()
                             )
+                            .original(
+                                RealTimeDecision.CardAuthorization.AdditionalAmounts.Original
+                                    .builder()
+                                    .amount(0L)
+                                    .currency("currency")
+                                    .build()
+                            )
                             .prescription(
                                 RealTimeDecision.CardAuthorization.AdditionalAmounts.Prescription
                                     .builder()
@@ -521,6 +535,13 @@ internal class RealTimeDecisionTest {
                                 )
                                 .dental(
                                     RealTimeDecision.CardAuthorization.AdditionalAmounts.Dental
+                                        .builder()
+                                        .amount(0L)
+                                        .currency("currency")
+                                        .build()
+                                )
+                                .original(
+                                    RealTimeDecision.CardAuthorization.AdditionalAmounts.Original
                                         .builder()
                                         .amount(0L)
                                         .currency("currency")

@@ -77,6 +77,15 @@ internal class DeclinedTransactionListPageResponseTest {
                                                         .currency("currency")
                                                         .build()
                                                 )
+                                                .original(
+                                                    DeclinedTransaction.Source.CardDecline
+                                                        .AdditionalAmounts
+                                                        .Original
+                                                        .builder()
+                                                        .amount(0L)
+                                                        .currency("currency")
+                                                        .build()
+                                                )
                                                 .prescription(
                                                     DeclinedTransaction.Source.CardDecline
                                                         .AdditionalAmounts
@@ -420,6 +429,15 @@ internal class DeclinedTransactionListPageResponseTest {
                                                     .currency("currency")
                                                     .build()
                                             )
+                                            .original(
+                                                DeclinedTransaction.Source.CardDecline
+                                                    .AdditionalAmounts
+                                                    .Original
+                                                    .builder()
+                                                    .amount(0L)
+                                                    .currency("currency")
+                                                    .build()
+                                            )
                                             .prescription(
                                                 DeclinedTransaction.Source.CardDecline
                                                     .AdditionalAmounts
@@ -754,6 +772,15 @@ internal class DeclinedTransactionListPageResponseTest {
                                                     DeclinedTransaction.Source.CardDecline
                                                         .AdditionalAmounts
                                                         .Dental
+                                                        .builder()
+                                                        .amount(0L)
+                                                        .currency("currency")
+                                                        .build()
+                                                )
+                                                .original(
+                                                    DeclinedTransaction.Source.CardDecline
+                                                        .AdditionalAmounts
+                                                        .Original
                                                         .builder()
                                                         .amount(0L)
                                                         .currency("currency")

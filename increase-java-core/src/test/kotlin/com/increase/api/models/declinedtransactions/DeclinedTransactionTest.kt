@@ -66,6 +66,14 @@ internal class DeclinedTransactionTest {
                                                 .currency("currency")
                                                 .build()
                                         )
+                                        .original(
+                                            DeclinedTransaction.Source.CardDecline.AdditionalAmounts
+                                                .Original
+                                                .builder()
+                                                .amount(0L)
+                                                .currency("currency")
+                                                .build()
+                                        )
                                         .prescription(
                                             DeclinedTransaction.Source.CardDecline.AdditionalAmounts
                                                 .Prescription
@@ -362,6 +370,14 @@ internal class DeclinedTransactionTest {
                                             .currency("currency")
                                             .build()
                                     )
+                                    .original(
+                                        DeclinedTransaction.Source.CardDecline.AdditionalAmounts
+                                            .Original
+                                            .builder()
+                                            .amount(0L)
+                                            .currency("currency")
+                                            .build()
+                                    )
                                     .prescription(
                                         DeclinedTransaction.Source.CardDecline.AdditionalAmounts
                                             .Prescription
@@ -644,6 +660,14 @@ internal class DeclinedTransactionTest {
                                         .dental(
                                             DeclinedTransaction.Source.CardDecline.AdditionalAmounts
                                                 .Dental
+                                                .builder()
+                                                .amount(0L)
+                                                .currency("currency")
+                                                .build()
+                                        )
+                                        .original(
+                                            DeclinedTransaction.Source.CardDecline.AdditionalAmounts
+                                                .Original
                                                 .builder()
                                                 .amount(0L)
                                                 .currency("currency")
