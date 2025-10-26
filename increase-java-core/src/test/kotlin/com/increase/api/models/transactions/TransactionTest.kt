@@ -120,6 +120,14 @@ internal class TransactionTest {
                                                 .currency("currency")
                                                 .build()
                                         )
+                                        .original(
+                                            Transaction.Source.CardFinancial.AdditionalAmounts
+                                                .Original
+                                                .builder()
+                                                .amount(0L)
+                                                .currency("currency")
+                                                .build()
+                                        )
                                         .prescription(
                                             Transaction.Source.CardFinancial.AdditionalAmounts
                                                 .Prescription
@@ -1106,6 +1114,13 @@ internal class TransactionTest {
                                             .currency("currency")
                                             .build()
                                     )
+                                    .original(
+                                        Transaction.Source.CardFinancial.AdditionalAmounts.Original
+                                            .builder()
+                                            .amount(0L)
+                                            .currency("currency")
+                                            .build()
+                                    )
                                     .prescription(
                                         Transaction.Source.CardFinancial.AdditionalAmounts
                                             .Prescription
@@ -2046,6 +2061,14 @@ internal class TransactionTest {
                                         .dental(
                                             Transaction.Source.CardFinancial.AdditionalAmounts
                                                 .Dental
+                                                .builder()
+                                                .amount(0L)
+                                                .currency("currency")
+                                                .build()
+                                        )
+                                        .original(
+                                            Transaction.Source.CardFinancial.AdditionalAmounts
+                                                .Original
                                                 .builder()
                                                 .amount(0L)
                                                 .currency("currency")
