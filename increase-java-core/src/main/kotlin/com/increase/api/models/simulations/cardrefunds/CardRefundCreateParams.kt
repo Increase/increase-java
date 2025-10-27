@@ -30,6 +30,15 @@ private constructor(
 ) : Params {
 
     /**
+     * The refund amount in cents. Pulled off the `pending_transaction` or the `transaction` if not
+     * provided.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun amount(): Optional<Long> = body.amount()
+
+    /**
      * The identifier of the Pending Transaction for the refund authorization. If this is provided,
      * `transaction` must not be provided as a refund with a refund authorized can not be linked to
      * a regular transaction.
@@ -47,6 +56,13 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun transactionId(): Optional<String> = body.transactionId()
+
+    /**
+     * Returns the raw JSON value of [amount].
+     *
+     * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _amount(): JsonField<Long> = body._amount()
 
     /**
      * Returns the raw JSON value of [pendingTransactionId].
@@ -100,10 +116,25 @@ private constructor(
          *
          * This is generally only useful if you are already constructing the body separately.
          * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [amount]
          * - [pendingTransactionId]
          * - [transactionId]
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
+
+        /**
+         * The refund amount in cents. Pulled off the `pending_transaction` or the `transaction` if
+         * not provided.
+         */
+        fun amount(amount: Long) = apply { body.amount(amount) }
+
+        /**
+         * Sets [Builder.amount] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun amount(amount: JsonField<Long>) = apply { body.amount(amount) }
 
         /**
          * The identifier of the Pending Transaction for the refund authorization. If this is
@@ -281,6 +312,7 @@ private constructor(
     class Body
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
+        private val amount: JsonField<Long>,
         private val pendingTransactionId: JsonField<String>,
         private val transactionId: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -288,13 +320,23 @@ private constructor(
 
         @JsonCreator
         private constructor(
+            @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
             @JsonProperty("pending_transaction_id")
             @ExcludeMissing
             pendingTransactionId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("transaction_id")
             @ExcludeMissing
             transactionId: JsonField<String> = JsonMissing.of(),
-        ) : this(pendingTransactionId, transactionId, mutableMapOf())
+        ) : this(amount, pendingTransactionId, transactionId, mutableMapOf())
+
+        /**
+         * The refund amount in cents. Pulled off the `pending_transaction` or the `transaction` if
+         * not provided.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun amount(): Optional<Long> = amount.getOptional("amount")
 
         /**
          * The identifier of the Pending Transaction for the refund authorization. If this is
@@ -315,6 +357,13 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun transactionId(): Optional<String> = transactionId.getOptional("transaction_id")
+
+        /**
+         * Returns the raw JSON value of [amount].
+         *
+         * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
         /**
          * Returns the raw JSON value of [pendingTransactionId].
@@ -357,16 +406,33 @@ private constructor(
         /** A builder for [Body]. */
         class Builder internal constructor() {
 
+            private var amount: JsonField<Long> = JsonMissing.of()
             private var pendingTransactionId: JsonField<String> = JsonMissing.of()
             private var transactionId: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(body: Body) = apply {
+                amount = body.amount
                 pendingTransactionId = body.pendingTransactionId
                 transactionId = body.transactionId
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
+
+            /**
+             * The refund amount in cents. Pulled off the `pending_transaction` or the `transaction`
+             * if not provided.
+             */
+            fun amount(amount: Long) = amount(JsonField.of(amount))
+
+            /**
+             * Sets [Builder.amount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
             /**
              * The identifier of the Pending Transaction for the refund authorization. If this is
@@ -429,7 +495,12 @@ private constructor(
              * Further updates to this [Builder] will not mutate the returned instance.
              */
             fun build(): Body =
-                Body(pendingTransactionId, transactionId, additionalProperties.toMutableMap())
+                Body(
+                    amount,
+                    pendingTransactionId,
+                    transactionId,
+                    additionalProperties.toMutableMap(),
+                )
         }
 
         private var validated: Boolean = false
@@ -439,6 +510,7 @@ private constructor(
                 return@apply
             }
 
+            amount()
             pendingTransactionId()
             transactionId()
             validated = true
@@ -460,7 +532,8 @@ private constructor(
          */
         @JvmSynthetic
         internal fun validity(): Int =
-            (if (pendingTransactionId.asKnown().isPresent) 1 else 0) +
+            (if (amount.asKnown().isPresent) 1 else 0) +
+                (if (pendingTransactionId.asKnown().isPresent) 1 else 0) +
                 (if (transactionId.asKnown().isPresent) 1 else 0)
 
         override fun equals(other: Any?): Boolean {
@@ -469,19 +542,20 @@ private constructor(
             }
 
             return other is Body &&
+                amount == other.amount &&
                 pendingTransactionId == other.pendingTransactionId &&
                 transactionId == other.transactionId &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(pendingTransactionId, transactionId, additionalProperties)
+            Objects.hash(amount, pendingTransactionId, transactionId, additionalProperties)
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{pendingTransactionId=$pendingTransactionId, transactionId=$transactionId, additionalProperties=$additionalProperties}"
+            "Body{amount=$amount, pendingTransactionId=$pendingTransactionId, transactionId=$transactionId, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
