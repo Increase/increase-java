@@ -2595,6 +2595,7 @@ private constructor(
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val category: JsonField<Category>,
+        private val refund: JsonField<Refund>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -2602,8 +2603,9 @@ private constructor(
         private constructor(
             @JsonProperty("category")
             @ExcludeMissing
-            category: JsonField<Category> = JsonMissing.of()
-        ) : this(category, mutableMapOf())
+            category: JsonField<Category> = JsonMissing.of(),
+            @JsonProperty("refund") @ExcludeMissing refund: JsonField<Refund> = JsonMissing.of(),
+        ) : this(category, refund, mutableMapOf())
 
         /**
          * The processing category describes the intent behind the authorization, such as whether it
@@ -2615,11 +2617,26 @@ private constructor(
         fun category(): Category = category.getRequired("category")
 
         /**
+         * Details related to refund authorizations.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun refund(): Optional<Refund> = refund.getOptional("refund")
+
+        /**
          * Returns the raw JSON value of [category].
          *
          * Unlike [category], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("category") @ExcludeMissing fun _category(): JsonField<Category> = category
+
+        /**
+         * Returns the raw JSON value of [refund].
+         *
+         * Unlike [refund], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("refund") @ExcludeMissing fun _refund(): JsonField<Refund> = refund
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -2650,11 +2667,13 @@ private constructor(
         class Builder internal constructor() {
 
             private var category: JsonField<Category>? = null
+            private var refund: JsonField<Refund> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(processingCategory: ProcessingCategory) = apply {
                 category = processingCategory.category
+                refund = processingCategory.refund
                 additionalProperties = processingCategory.additionalProperties.toMutableMap()
             }
 
@@ -2672,6 +2691,18 @@ private constructor(
              * supported value.
              */
             fun category(category: JsonField<Category>) = apply { this.category = category }
+
+            /** Details related to refund authorizations. */
+            fun refund(refund: Refund) = refund(JsonField.of(refund))
+
+            /**
+             * Sets [Builder.refund] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.refund] with a well-typed [Refund] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun refund(refund: JsonField<Refund>) = apply { this.refund = refund }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -2707,6 +2738,7 @@ private constructor(
             fun build(): ProcessingCategory =
                 ProcessingCategory(
                     checkRequired("category", category),
+                    refund,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -2719,6 +2751,7 @@ private constructor(
             }
 
             category().validate()
+            refund().ifPresent { it.validate() }
             validated = true
         }
 
@@ -2737,7 +2770,9 @@ private constructor(
          * Used for best match union deserialization.
          */
         @JvmSynthetic
-        internal fun validity(): Int = (category.asKnown().getOrNull()?.validity() ?: 0)
+        internal fun validity(): Int =
+            (category.asKnown().getOrNull()?.validity() ?: 0) +
+                (refund.asKnown().getOrNull()?.validity() ?: 0)
 
         /**
          * The processing category describes the intent behind the authorization, such as whether it
@@ -2981,6 +3016,164 @@ private constructor(
             override fun toString() = value.toString()
         }
 
+        /** Details related to refund authorizations. */
+        class Refund
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(
+            private val originalCardPaymentId: JsonField<String>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("original_card_payment_id")
+                @ExcludeMissing
+                originalCardPaymentId: JsonField<String> = JsonMissing.of()
+            ) : this(originalCardPaymentId, mutableMapOf())
+
+            /**
+             * The card payment to link this refund to.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun originalCardPaymentId(): Optional<String> =
+                originalCardPaymentId.getOptional("original_card_payment_id")
+
+            /**
+             * Returns the raw JSON value of [originalCardPaymentId].
+             *
+             * Unlike [originalCardPaymentId], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("original_card_payment_id")
+            @ExcludeMissing
+            fun _originalCardPaymentId(): JsonField<String> = originalCardPaymentId
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /** Returns a mutable builder for constructing an instance of [Refund]. */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [Refund]. */
+            class Builder internal constructor() {
+
+                private var originalCardPaymentId: JsonField<String> = JsonMissing.of()
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(refund: Refund) = apply {
+                    originalCardPaymentId = refund.originalCardPaymentId
+                    additionalProperties = refund.additionalProperties.toMutableMap()
+                }
+
+                /** The card payment to link this refund to. */
+                fun originalCardPaymentId(originalCardPaymentId: String) =
+                    originalCardPaymentId(JsonField.of(originalCardPaymentId))
+
+                /**
+                 * Sets [Builder.originalCardPaymentId] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.originalCardPaymentId] with a well-typed
+                 * [String] value instead. This method is primarily for setting the field to an
+                 * undocumented or not yet supported value.
+                 */
+                fun originalCardPaymentId(originalCardPaymentId: JsonField<String>) = apply {
+                    this.originalCardPaymentId = originalCardPaymentId
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [Refund].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 */
+                fun build(): Refund =
+                    Refund(originalCardPaymentId, additionalProperties.toMutableMap())
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): Refund = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                originalCardPaymentId()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int = (if (originalCardPaymentId.asKnown().isPresent) 1 else 0)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Refund &&
+                    originalCardPaymentId == other.originalCardPaymentId &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy {
+                Objects.hash(originalCardPaymentId, additionalProperties)
+            }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "Refund{originalCardPaymentId=$originalCardPaymentId, additionalProperties=$additionalProperties}"
+        }
+
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
@@ -2988,15 +3181,16 @@ private constructor(
 
             return other is ProcessingCategory &&
                 category == other.category &&
+                refund == other.refund &&
                 additionalProperties == other.additionalProperties
         }
 
-        private val hashCode: Int by lazy { Objects.hash(category, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(category, refund, additionalProperties) }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "ProcessingCategory{category=$category, additionalProperties=$additionalProperties}"
+            "ProcessingCategory{category=$category, refund=$refund, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

@@ -42,6 +42,11 @@ internal class CardAuthorizationCreateParamsTest {
                     .category(
                         CardAuthorizationCreateParams.ProcessingCategory.Category.ACCOUNT_FUNDING
                     )
+                    .refund(
+                        CardAuthorizationCreateParams.ProcessingCategory.Refund.builder()
+                            .originalCardPaymentId("original_card_payment_id")
+                            .build()
+                    )
                     .build()
             )
             .terminalId("x")
@@ -85,6 +90,11 @@ internal class CardAuthorizationCreateParamsTest {
                             CardAuthorizationCreateParams.ProcessingCategory.Category
                                 .ACCOUNT_FUNDING
                         )
+                        .refund(
+                            CardAuthorizationCreateParams.ProcessingCategory.Refund.builder()
+                                .originalCardPaymentId("original_card_payment_id")
+                                .build()
+                        )
                         .build()
                 )
                 .terminalId("x")
@@ -127,6 +137,11 @@ internal class CardAuthorizationCreateParamsTest {
                 CardAuthorizationCreateParams.ProcessingCategory.builder()
                     .category(
                         CardAuthorizationCreateParams.ProcessingCategory.Category.ACCOUNT_FUNDING
+                    )
+                    .refund(
+                        CardAuthorizationCreateParams.ProcessingCategory.Refund.builder()
+                            .originalCardPaymentId("original_card_payment_id")
+                            .build()
                     )
                     .build()
             )
