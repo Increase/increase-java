@@ -56,6 +56,11 @@ internal class CardAuthorizationServiceAsyncTest {
                                 CardAuthorizationCreateParams.ProcessingCategory.Category
                                     .ACCOUNT_FUNDING
                             )
+                            .refund(
+                                CardAuthorizationCreateParams.ProcessingCategory.Refund.builder()
+                                    .originalCardPaymentId("original_card_payment_id")
+                                    .build()
+                            )
                             .build()
                     )
                     .terminalId("x")
