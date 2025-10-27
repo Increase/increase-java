@@ -10,6 +10,7 @@ internal class CardRefundCreateParamsTest {
     @Test
     fun create() {
         CardRefundCreateParams.builder()
+            .amount(1L)
             .pendingTransactionId("pending_transaction_id")
             .transactionId("transaction_uyrp7fld2ium70oa7oi")
             .build()
@@ -19,12 +20,14 @@ internal class CardRefundCreateParamsTest {
     fun body() {
         val params =
             CardRefundCreateParams.builder()
+                .amount(1L)
                 .pendingTransactionId("pending_transaction_id")
                 .transactionId("transaction_uyrp7fld2ium70oa7oi")
                 .build()
 
         val body = params._body()
 
+        assertThat(body.amount()).contains(1L)
         assertThat(body.pendingTransactionId()).contains("pending_transaction_id")
         assertThat(body.transactionId()).contains("transaction_uyrp7fld2ium70oa7oi")
     }
