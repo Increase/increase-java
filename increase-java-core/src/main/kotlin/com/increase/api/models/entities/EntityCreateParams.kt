@@ -4854,6 +4854,13 @@ private constructor(
                 /** A public entity acting on behalf of the federal or a state government. */
                 @JvmField val PUBLIC_ENTITY = of("public_entity")
 
+                /**
+                 * Any other reason why this entity is exempt from the requirement to submit
+                 * beneficial owners. You can only use this exemption after approval from your bank
+                 * partner.
+                 */
+                @JvmField val OTHER = of("other")
+
                 @JvmStatic
                 fun of(value: String) = BeneficialOwnershipExemptionReason(JsonField.of(value))
             }
@@ -4866,6 +4873,12 @@ private constructor(
                 PUBLICLY_TRADED_COMPANY,
                 /** A public entity acting on behalf of the federal or a state government. */
                 PUBLIC_ENTITY,
+                /**
+                 * Any other reason why this entity is exempt from the requirement to submit
+                 * beneficial owners. You can only use this exemption after approval from your bank
+                 * partner.
+                 */
+                OTHER,
             }
 
             /**
@@ -4887,6 +4900,12 @@ private constructor(
                 /** A public entity acting on behalf of the federal or a state government. */
                 PUBLIC_ENTITY,
                 /**
+                 * Any other reason why this entity is exempt from the requirement to submit
+                 * beneficial owners. You can only use this exemption after approval from your bank
+                 * partner.
+                 */
+                OTHER,
+                /**
                  * An enum member indicating that [BeneficialOwnershipExemptionReason] was
                  * instantiated with an unknown value.
                  */
@@ -4905,6 +4924,7 @@ private constructor(
                     REGULATED_FINANCIAL_INSTITUTION -> Value.REGULATED_FINANCIAL_INSTITUTION
                     PUBLICLY_TRADED_COMPANY -> Value.PUBLICLY_TRADED_COMPANY
                     PUBLIC_ENTITY -> Value.PUBLIC_ENTITY
+                    OTHER -> Value.OTHER
                     else -> Value._UNKNOWN
                 }
 
@@ -4922,6 +4942,7 @@ private constructor(
                     REGULATED_FINANCIAL_INSTITUTION -> Known.REGULATED_FINANCIAL_INSTITUTION
                     PUBLICLY_TRADED_COMPANY -> Known.PUBLICLY_TRADED_COMPANY
                     PUBLIC_ENTITY -> Known.PUBLIC_ENTITY
+                    OTHER -> Known.OTHER
                     else ->
                         throw IncreaseInvalidDataException(
                             "Unknown BeneficialOwnershipExemptionReason: $value"
