@@ -198,7 +198,12 @@ internal class CardDisputeTest {
                                                 )
                                                 .build()
                                         )
-                                        .nonFiatCurrencyOrNonFungibleTokenAsDescribed(null)
+                                        .nonFiatCurrencyOrNonFungibleTokenAsDescribed(
+                                            CardDispute.Visa.NetworkEvent.Represented
+                                                .NonFiatCurrencyOrNonFungibleTokenAsDescribed
+                                                .builder()
+                                                .build()
+                                        )
                                         .nonFiatCurrencyOrNonFungibleTokenReceived(
                                             CardDispute.Visa.NetworkEvent.Represented
                                                 .NonFiatCurrencyOrNonFungibleTokenReceived
@@ -756,7 +761,12 @@ internal class CardDisputeTest {
                                                 )
                                                 .build()
                                         )
-                                        .consumerNonReceiptOfCash(null)
+                                        .consumerNonReceiptOfCash(
+                                            CardDispute.Visa.UserSubmission.Chargeback
+                                                .ConsumerNonReceiptOfCash
+                                                .builder()
+                                                .build()
+                                        )
                                         .consumerOriginalCreditTransactionNotAccepted(
                                             CardDispute.Visa.UserSubmission.Chargeback
                                                 .ConsumerOriginalCreditTransactionNotAccepted
@@ -1290,7 +1300,12 @@ internal class CardDisputeTest {
                                             )
                                             .build()
                                     )
-                                    .nonFiatCurrencyOrNonFungibleTokenAsDescribed(null)
+                                    .nonFiatCurrencyOrNonFungibleTokenAsDescribed(
+                                        CardDispute.Visa.NetworkEvent.Represented
+                                            .NonFiatCurrencyOrNonFungibleTokenAsDescribed
+                                            .builder()
+                                            .build()
+                                    )
                                     .nonFiatCurrencyOrNonFungibleTokenReceived(
                                         CardDispute.Visa.NetworkEvent.Represented
                                             .NonFiatCurrencyOrNonFungibleTokenReceived
@@ -1826,7 +1841,12 @@ internal class CardDisputeTest {
                                             )
                                             .build()
                                     )
-                                    .consumerNonReceiptOfCash(null)
+                                    .consumerNonReceiptOfCash(
+                                        CardDispute.Visa.UserSubmission.Chargeback
+                                            .ConsumerNonReceiptOfCash
+                                            .builder()
+                                            .build()
+                                    )
                                     .consumerOriginalCreditTransactionNotAccepted(
                                         CardDispute.Visa.UserSubmission.Chargeback
                                             .ConsumerOriginalCreditTransactionNotAccepted
@@ -2364,7 +2384,12 @@ internal class CardDisputeTest {
                                                 )
                                                 .build()
                                         )
-                                        .nonFiatCurrencyOrNonFungibleTokenAsDescribed(null)
+                                        .nonFiatCurrencyOrNonFungibleTokenAsDescribed(
+                                            CardDispute.Visa.NetworkEvent.Represented
+                                                .NonFiatCurrencyOrNonFungibleTokenAsDescribed
+                                                .builder()
+                                                .build()
+                                        )
                                         .nonFiatCurrencyOrNonFungibleTokenReceived(
                                             CardDispute.Visa.NetworkEvent.Represented
                                                 .NonFiatCurrencyOrNonFungibleTokenReceived
@@ -2922,7 +2947,12 @@ internal class CardDisputeTest {
                                                 )
                                                 .build()
                                         )
-                                        .consumerNonReceiptOfCash(null)
+                                        .consumerNonReceiptOfCash(
+                                            CardDispute.Visa.UserSubmission.Chargeback
+                                                .ConsumerNonReceiptOfCash
+                                                .builder()
+                                                .build()
+                                        )
                                         .consumerOriginalCreditTransactionNotAccepted(
                                             CardDispute.Visa.UserSubmission.Chargeback
                                                 .ConsumerOriginalCreditTransactionNotAccepted
