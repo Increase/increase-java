@@ -357,7 +357,11 @@ internal class PendingTransactionListPageResponseTest {
                                         .transferId("swift_transfer_29h21xkng03788zwd3fh")
                                         .build()
                                 )
-                                .userInitiatedHold(JsonValue.from(mapOf<String, Any>()))
+                                .userInitiatedHold(
+                                    PendingTransaction.Source.UserInitiatedHold.builder()
+                                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                        .build()
+                                )
                                 .wireTransferInstruction(
                                     PendingTransaction.Source.WireTransferInstruction.builder()
                                         .accountNumber("987654321")
@@ -704,7 +708,11 @@ internal class PendingTransactionListPageResponseTest {
                                     .transferId("swift_transfer_29h21xkng03788zwd3fh")
                                     .build()
                             )
-                            .userInitiatedHold(JsonValue.from(mapOf<String, Any>()))
+                            .userInitiatedHold(
+                                PendingTransaction.Source.UserInitiatedHold.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                    .build()
+                            )
                             .wireTransferInstruction(
                                 PendingTransaction.Source.WireTransferInstruction.builder()
                                     .accountNumber("987654321")
@@ -1070,7 +1078,11 @@ internal class PendingTransactionListPageResponseTest {
                                         .transferId("swift_transfer_29h21xkng03788zwd3fh")
                                         .build()
                                 )
-                                .userInitiatedHold(JsonValue.from(mapOf<String, Any>()))
+                                .userInitiatedHold(
+                                    PendingTransaction.Source.UserInitiatedHold.builder()
+                                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                                        .build()
+                                )
                                 .wireTransferInstruction(
                                     PendingTransaction.Source.WireTransferInstruction.builder()
                                         .accountNumber("987654321")
