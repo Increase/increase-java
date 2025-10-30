@@ -28,6 +28,7 @@ internal class CheckTransferServiceTest {
                     .amount(1000L)
                     .fulfillmentMethod(CheckTransferCreateParams.FulfillmentMethod.PHYSICAL_CHECK)
                     .sourceAccountNumberId("account_number_v18nkfqm6afpsrvy82b2")
+                    .balanceCheck(CheckTransferCreateParams.BalanceCheck.FULL)
                     .checkNumber("x")
                     .physicalCheck(
                         CheckTransferCreateParams.PhysicalCheck.builder()
