@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.checkRequired
+import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Collections
@@ -1164,7 +1165,7 @@ private constructor(
         private val realTimePaymentsTransferInstruction:
             JsonField<RealTimePaymentsTransferInstruction>,
         private val swiftTransferInstruction: JsonField<SwiftTransferInstruction>,
-        private val userInitiatedHold: JsonValue,
+        private val userInitiatedHold: JsonField<UserInitiatedHold>,
         private val wireTransferInstruction: JsonField<WireTransferInstruction>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -1211,7 +1212,7 @@ private constructor(
             swiftTransferInstruction: JsonField<SwiftTransferInstruction> = JsonMissing.of(),
             @JsonProperty("user_initiated_hold")
             @ExcludeMissing
-            userInitiatedHold: JsonValue = JsonMissing.of(),
+            userInitiatedHold: JsonField<UserInitiatedHold> = JsonMissing.of(),
             @JsonProperty("wire_transfer_instruction")
             @ExcludeMissing
             wireTransferInstruction: JsonField<WireTransferInstruction> = JsonMissing.of(),
@@ -1370,10 +1371,12 @@ private constructor(
          * An User Initiated Hold object. This field will be present in the JSON response if and
          * only if `category` is equal to `user_initiated_hold`. Created when a user initiates a
          * hold on funds in their account.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
-        @JsonProperty("user_initiated_hold")
-        @ExcludeMissing
-        fun _userInitiatedHold(): JsonValue = userInitiatedHold
+        fun userInitiatedHold(): Optional<UserInitiatedHold> =
+            userInitiatedHold.getOptional("user_initiated_hold")
 
         /**
          * A Wire Transfer Instruction object. This field will be present in the JSON response if
@@ -1510,6 +1513,16 @@ private constructor(
             swiftTransferInstruction
 
         /**
+         * Returns the raw JSON value of [userInitiatedHold].
+         *
+         * Unlike [userInitiatedHold], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("user_initiated_hold")
+        @ExcludeMissing
+        fun _userInitiatedHold(): JsonField<UserInitiatedHold> = userInitiatedHold
+
+        /**
          * Returns the raw JSON value of [wireTransferInstruction].
          *
          * Unlike [wireTransferInstruction], this method doesn't throw if the JSON field has an
@@ -1576,7 +1589,7 @@ private constructor(
                 JsonField<RealTimePaymentsTransferInstruction>? =
                 null
             private var swiftTransferInstruction: JsonField<SwiftTransferInstruction>? = null
-            private var userInitiatedHold: JsonValue? = null
+            private var userInitiatedHold: JsonField<UserInitiatedHold>? = null
             private var wireTransferInstruction: JsonField<WireTransferInstruction>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -1924,7 +1937,23 @@ private constructor(
              * only if `category` is equal to `user_initiated_hold`. Created when a user initiates a
              * hold on funds in their account.
              */
-            fun userInitiatedHold(userInitiatedHold: JsonValue) = apply {
+            fun userInitiatedHold(userInitiatedHold: UserInitiatedHold?) =
+                userInitiatedHold(JsonField.ofNullable(userInitiatedHold))
+
+            /**
+             * Alias for calling [Builder.userInitiatedHold] with `userInitiatedHold.orElse(null)`.
+             */
+            fun userInitiatedHold(userInitiatedHold: Optional<UserInitiatedHold>) =
+                userInitiatedHold(userInitiatedHold.getOrNull())
+
+            /**
+             * Sets [Builder.userInitiatedHold] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.userInitiatedHold] with a well-typed
+             * [UserInitiatedHold] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun userInitiatedHold(userInitiatedHold: JsonField<UserInitiatedHold>) = apply {
                 this.userInitiatedHold = userInitiatedHold
             }
 
@@ -2042,6 +2071,7 @@ private constructor(
             inboundWireTransferReversal().ifPresent { it.validate() }
             realTimePaymentsTransferInstruction().ifPresent { it.validate() }
             swiftTransferInstruction().ifPresent { it.validate() }
+            userInitiatedHold().ifPresent { it.validate() }
             wireTransferInstruction().ifPresent { it.validate() }
             validated = true
         }
@@ -2074,6 +2104,7 @@ private constructor(
                 (inboundWireTransferReversal.asKnown().getOrNull()?.validity() ?: 0) +
                 (realTimePaymentsTransferInstruction.asKnown().getOrNull()?.validity() ?: 0) +
                 (swiftTransferInstruction.asKnown().getOrNull()?.validity() ?: 0) +
+                (userInitiatedHold.asKnown().getOrNull()?.validity() ?: 0) +
                 (wireTransferInstruction.asKnown().getOrNull()?.validity() ?: 0)
 
         /**
@@ -14559,6 +14590,118 @@ private constructor(
 
             override fun toString() =
                 "SwiftTransferInstruction{transferId=$transferId, additionalProperties=$additionalProperties}"
+        }
+
+        /**
+         * An User Initiated Hold object. This field will be present in the JSON response if and
+         * only if `category` is equal to `user_initiated_hold`. Created when a user initiates a
+         * hold on funds in their account.
+         */
+        class UserInitiatedHold
+        @JsonCreator
+        private constructor(
+            @com.fasterxml.jackson.annotation.JsonValue
+            private val additionalProperties: Map<String, JsonValue>
+        ) {
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of [UserInitiatedHold].
+                 */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [UserInitiatedHold]. */
+            class Builder internal constructor() {
+
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(userInitiatedHold: UserInitiatedHold) = apply {
+                    additionalProperties = userInitiatedHold.additionalProperties.toMutableMap()
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [UserInitiatedHold].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 */
+                fun build(): UserInitiatedHold =
+                    UserInitiatedHold(additionalProperties.toImmutable())
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): UserInitiatedHold = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is UserInitiatedHold &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "UserInitiatedHold{additionalProperties=$additionalProperties}"
         }
 
         /**
