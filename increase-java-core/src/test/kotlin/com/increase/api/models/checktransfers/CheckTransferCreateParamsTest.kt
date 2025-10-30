@@ -14,6 +14,7 @@ internal class CheckTransferCreateParamsTest {
             .amount(1000L)
             .fulfillmentMethod(CheckTransferCreateParams.FulfillmentMethod.PHYSICAL_CHECK)
             .sourceAccountNumberId("account_number_v18nkfqm6afpsrvy82b2")
+            .balanceCheck(CheckTransferCreateParams.BalanceCheck.FULL)
             .checkNumber("x")
             .physicalCheck(
                 CheckTransferCreateParams.PhysicalCheck.builder()
@@ -64,6 +65,7 @@ internal class CheckTransferCreateParamsTest {
                 .amount(1000L)
                 .fulfillmentMethod(CheckTransferCreateParams.FulfillmentMethod.PHYSICAL_CHECK)
                 .sourceAccountNumberId("account_number_v18nkfqm6afpsrvy82b2")
+                .balanceCheck(CheckTransferCreateParams.BalanceCheck.FULL)
                 .checkNumber("x")
                 .physicalCheck(
                     CheckTransferCreateParams.PhysicalCheck.builder()
@@ -114,6 +116,7 @@ internal class CheckTransferCreateParamsTest {
         assertThat(body.fulfillmentMethod())
             .isEqualTo(CheckTransferCreateParams.FulfillmentMethod.PHYSICAL_CHECK)
         assertThat(body.sourceAccountNumberId()).isEqualTo("account_number_v18nkfqm6afpsrvy82b2")
+        assertThat(body.balanceCheck()).contains(CheckTransferCreateParams.BalanceCheck.FULL)
         assertThat(body.checkNumber()).contains("x")
         assertThat(body.physicalCheck())
             .contains(
