@@ -25,10 +25,6 @@ internal class WireTransferTest {
                         .approvedBy(null)
                         .build()
                 )
-                .beneficiaryAddressLine1(null)
-                .beneficiaryAddressLine2(null)
-                .beneficiaryAddressLine3(null)
-                .beneficiaryName(null)
                 .cancellation(
                     WireTransfer.Cancellation.builder()
                         .canceledAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
@@ -52,16 +48,43 @@ internal class WireTransferTest {
                         )
                         .build()
                 )
+                .creditor(
+                    WireTransfer.Creditor.builder()
+                        .address(
+                            WireTransfer.Creditor.Address.builder()
+                                .unstructured(
+                                    WireTransfer.Creditor.Address.Unstructured.builder()
+                                        .line1("33 Liberty Street")
+                                        .line2(null)
+                                        .line3(null)
+                                        .build()
+                                )
+                                .build()
+                        )
+                        .name("National Phonograph Company")
+                        .build()
+                )
                 .currency(WireTransfer.Currency.USD)
+                .debtor(
+                    WireTransfer.Debtor.builder()
+                        .address(
+                            WireTransfer.Debtor.Address.builder()
+                                .unstructured(
+                                    WireTransfer.Debtor.Address.Unstructured.builder()
+                                        .line1("line1")
+                                        .line2("line2")
+                                        .line3("line3")
+                                        .build()
+                                )
+                                .build()
+                        )
+                        .name("name")
+                        .build()
+                )
                 .externalAccountId("external_account_ukk55lr923a3ac0pp7iv")
                 .idempotencyKey(null)
                 .inboundWireDrawdownRequestId(null)
-                .messageToRecipient("Message to recipient")
                 .network(WireTransfer.Network.WIRE)
-                .originatorAddressLine1(null)
-                .originatorAddressLine2(null)
-                .originatorAddressLine3(null)
-                .originatorName(null)
                 .pendingTransactionId(null)
                 .remittance(
                     WireTransfer.Remittance.builder()
@@ -75,7 +98,7 @@ internal class WireTransferTest {
                         )
                         .unstructured(
                             WireTransfer.Remittance.Unstructured.builder()
-                                .message("Payment for invoice 12345")
+                                .message("Invoice 29582")
                                 .build()
                         )
                         .build()
@@ -122,10 +145,6 @@ internal class WireTransferTest {
                     .approvedBy(null)
                     .build()
             )
-        assertThat(wireTransfer.beneficiaryAddressLine1()).isEmpty
-        assertThat(wireTransfer.beneficiaryAddressLine2()).isEmpty
-        assertThat(wireTransfer.beneficiaryAddressLine3()).isEmpty
-        assertThat(wireTransfer.beneficiaryName()).isEmpty
         assertThat(wireTransfer.cancellation())
             .contains(
                 WireTransfer.Cancellation.builder()
@@ -147,17 +166,46 @@ internal class WireTransferTest {
                     .user(WireTransfer.CreatedBy.User.builder().email("user@example.com").build())
                     .build()
             )
+        assertThat(wireTransfer.creditor())
+            .contains(
+                WireTransfer.Creditor.builder()
+                    .address(
+                        WireTransfer.Creditor.Address.builder()
+                            .unstructured(
+                                WireTransfer.Creditor.Address.Unstructured.builder()
+                                    .line1("33 Liberty Street")
+                                    .line2(null)
+                                    .line3(null)
+                                    .build()
+                            )
+                            .build()
+                    )
+                    .name("National Phonograph Company")
+                    .build()
+            )
         assertThat(wireTransfer.currency()).isEqualTo(WireTransfer.Currency.USD)
+        assertThat(wireTransfer.debtor())
+            .contains(
+                WireTransfer.Debtor.builder()
+                    .address(
+                        WireTransfer.Debtor.Address.builder()
+                            .unstructured(
+                                WireTransfer.Debtor.Address.Unstructured.builder()
+                                    .line1("line1")
+                                    .line2("line2")
+                                    .line3("line3")
+                                    .build()
+                            )
+                            .build()
+                    )
+                    .name("name")
+                    .build()
+            )
         assertThat(wireTransfer.externalAccountId())
             .contains("external_account_ukk55lr923a3ac0pp7iv")
         assertThat(wireTransfer.idempotencyKey()).isEmpty
         assertThat(wireTransfer.inboundWireDrawdownRequestId()).isEmpty
-        assertThat(wireTransfer.messageToRecipient()).isEqualTo("Message to recipient")
         assertThat(wireTransfer.network()).isEqualTo(WireTransfer.Network.WIRE)
-        assertThat(wireTransfer.originatorAddressLine1()).isEmpty
-        assertThat(wireTransfer.originatorAddressLine2()).isEmpty
-        assertThat(wireTransfer.originatorAddressLine3()).isEmpty
-        assertThat(wireTransfer.originatorName()).isEmpty
         assertThat(wireTransfer.pendingTransactionId()).isEmpty
         assertThat(wireTransfer.remittance())
             .contains(
@@ -172,7 +220,7 @@ internal class WireTransferTest {
                     )
                     .unstructured(
                         WireTransfer.Remittance.Unstructured.builder()
-                            .message("Payment for invoice 12345")
+                            .message("Invoice 29582")
                             .build()
                     )
                     .build()
@@ -225,10 +273,6 @@ internal class WireTransferTest {
                         .approvedBy(null)
                         .build()
                 )
-                .beneficiaryAddressLine1(null)
-                .beneficiaryAddressLine2(null)
-                .beneficiaryAddressLine3(null)
-                .beneficiaryName(null)
                 .cancellation(
                     WireTransfer.Cancellation.builder()
                         .canceledAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
@@ -252,16 +296,43 @@ internal class WireTransferTest {
                         )
                         .build()
                 )
+                .creditor(
+                    WireTransfer.Creditor.builder()
+                        .address(
+                            WireTransfer.Creditor.Address.builder()
+                                .unstructured(
+                                    WireTransfer.Creditor.Address.Unstructured.builder()
+                                        .line1("33 Liberty Street")
+                                        .line2(null)
+                                        .line3(null)
+                                        .build()
+                                )
+                                .build()
+                        )
+                        .name("National Phonograph Company")
+                        .build()
+                )
                 .currency(WireTransfer.Currency.USD)
+                .debtor(
+                    WireTransfer.Debtor.builder()
+                        .address(
+                            WireTransfer.Debtor.Address.builder()
+                                .unstructured(
+                                    WireTransfer.Debtor.Address.Unstructured.builder()
+                                        .line1("line1")
+                                        .line2("line2")
+                                        .line3("line3")
+                                        .build()
+                                )
+                                .build()
+                        )
+                        .name("name")
+                        .build()
+                )
                 .externalAccountId("external_account_ukk55lr923a3ac0pp7iv")
                 .idempotencyKey(null)
                 .inboundWireDrawdownRequestId(null)
-                .messageToRecipient("Message to recipient")
                 .network(WireTransfer.Network.WIRE)
-                .originatorAddressLine1(null)
-                .originatorAddressLine2(null)
-                .originatorAddressLine3(null)
-                .originatorName(null)
                 .pendingTransactionId(null)
                 .remittance(
                     WireTransfer.Remittance.builder()
@@ -275,7 +346,7 @@ internal class WireTransferTest {
                         )
                         .unstructured(
                             WireTransfer.Remittance.Unstructured.builder()
-                                .message("Payment for invoice 12345")
+                                .message("Invoice 29582")
                                 .build()
                         )
                         .build()

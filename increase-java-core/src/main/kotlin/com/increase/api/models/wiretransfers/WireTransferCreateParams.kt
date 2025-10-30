@@ -47,12 +47,20 @@ private constructor(
     fun amount(): Long = body.amount()
 
     /**
-     * The beneficiary's name.
+     * The person or business that is receiving the funds from the transfer.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun beneficiaryName(): String = body.beneficiaryName()
+    fun creditor(): Creditor = body.creditor()
+
+    /**
+     * Additional remittance information related to the wire transfer.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun remittance(): Remittance = body.remittance()
 
     /**
      * The account number for the destination account.
@@ -63,28 +71,13 @@ private constructor(
     fun accountNumber(): Optional<String> = body.accountNumber()
 
     /**
-     * The beneficiary's address line 1.
+     * The person or business whose funds are being transferred. This is only necessary if you're
+     * transferring from a commingled account. Otherwise, we'll use the associated entity's details.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun beneficiaryAddressLine1(): Optional<String> = body.beneficiaryAddressLine1()
-
-    /**
-     * The beneficiary's address line 2.
-     *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun beneficiaryAddressLine2(): Optional<String> = body.beneficiaryAddressLine2()
-
-    /**
-     * The beneficiary's address line 3.
-     *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun beneficiaryAddressLine3(): Optional<String> = body.beneficiaryAddressLine3()
+    fun debtor(): Optional<Debtor> = body.debtor()
 
     /**
      * The ID of an External Account to initiate a transfer to. If this parameter is provided,
@@ -102,50 +95,6 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun inboundWireDrawdownRequestId(): Optional<String> = body.inboundWireDrawdownRequestId()
-
-    /**
-     * The originator's address line 1. This is only necessary if you're transferring from a
-     * commingled account. Otherwise, we'll use the associated entity's details.
-     *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun originatorAddressLine1(): Optional<String> = body.originatorAddressLine1()
-
-    /**
-     * The originator's address line 2. This is only necessary if you're transferring from a
-     * commingled account. Otherwise, we'll use the associated entity's details.
-     *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun originatorAddressLine2(): Optional<String> = body.originatorAddressLine2()
-
-    /**
-     * The originator's address line 3. This is only necessary if you're transferring from a
-     * commingled account. Otherwise, we'll use the associated entity's details.
-     *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun originatorAddressLine3(): Optional<String> = body.originatorAddressLine3()
-
-    /**
-     * The originator's name. This is only necessary if you're transferring from a commingled
-     * account. Otherwise, we'll use the associated entity's details.
-     *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun originatorName(): Optional<String> = body.originatorName()
-
-    /**
-     * Additional remittance information related to the wire transfer.
-     *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun remittance(): Optional<Remittance> = body.remittance()
 
     /**
      * Whether the transfer requires explicit approval via the dashboard or API.
@@ -187,11 +136,18 @@ private constructor(
     fun _amount(): JsonField<Long> = body._amount()
 
     /**
-     * Returns the raw JSON value of [beneficiaryName].
+     * Returns the raw JSON value of [creditor].
      *
-     * Unlike [beneficiaryName], this method doesn't throw if the JSON field has an unexpected type.
+     * Unlike [creditor], this method doesn't throw if the JSON field has an unexpected type.
      */
-    fun _beneficiaryName(): JsonField<String> = body._beneficiaryName()
+    fun _creditor(): JsonField<Creditor> = body._creditor()
+
+    /**
+     * Returns the raw JSON value of [remittance].
+     *
+     * Unlike [remittance], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _remittance(): JsonField<Remittance> = body._remittance()
 
     /**
      * Returns the raw JSON value of [accountNumber].
@@ -201,28 +157,11 @@ private constructor(
     fun _accountNumber(): JsonField<String> = body._accountNumber()
 
     /**
-     * Returns the raw JSON value of [beneficiaryAddressLine1].
+     * Returns the raw JSON value of [debtor].
      *
-     * Unlike [beneficiaryAddressLine1], this method doesn't throw if the JSON field has an
-     * unexpected type.
+     * Unlike [debtor], this method doesn't throw if the JSON field has an unexpected type.
      */
-    fun _beneficiaryAddressLine1(): JsonField<String> = body._beneficiaryAddressLine1()
-
-    /**
-     * Returns the raw JSON value of [beneficiaryAddressLine2].
-     *
-     * Unlike [beneficiaryAddressLine2], this method doesn't throw if the JSON field has an
-     * unexpected type.
-     */
-    fun _beneficiaryAddressLine2(): JsonField<String> = body._beneficiaryAddressLine2()
-
-    /**
-     * Returns the raw JSON value of [beneficiaryAddressLine3].
-     *
-     * Unlike [beneficiaryAddressLine3], this method doesn't throw if the JSON field has an
-     * unexpected type.
-     */
-    fun _beneficiaryAddressLine3(): JsonField<String> = body._beneficiaryAddressLine3()
+    fun _debtor(): JsonField<Debtor> = body._debtor()
 
     /**
      * Returns the raw JSON value of [externalAccountId].
@@ -239,44 +178,6 @@ private constructor(
      * unexpected type.
      */
     fun _inboundWireDrawdownRequestId(): JsonField<String> = body._inboundWireDrawdownRequestId()
-
-    /**
-     * Returns the raw JSON value of [originatorAddressLine1].
-     *
-     * Unlike [originatorAddressLine1], this method doesn't throw if the JSON field has an
-     * unexpected type.
-     */
-    fun _originatorAddressLine1(): JsonField<String> = body._originatorAddressLine1()
-
-    /**
-     * Returns the raw JSON value of [originatorAddressLine2].
-     *
-     * Unlike [originatorAddressLine2], this method doesn't throw if the JSON field has an
-     * unexpected type.
-     */
-    fun _originatorAddressLine2(): JsonField<String> = body._originatorAddressLine2()
-
-    /**
-     * Returns the raw JSON value of [originatorAddressLine3].
-     *
-     * Unlike [originatorAddressLine3], this method doesn't throw if the JSON field has an
-     * unexpected type.
-     */
-    fun _originatorAddressLine3(): JsonField<String> = body._originatorAddressLine3()
-
-    /**
-     * Returns the raw JSON value of [originatorName].
-     *
-     * Unlike [originatorName], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    fun _originatorName(): JsonField<String> = body._originatorName()
-
-    /**
-     * Returns the raw JSON value of [remittance].
-     *
-     * Unlike [remittance], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    fun _remittance(): JsonField<Remittance> = body._remittance()
 
     /**
      * Returns the raw JSON value of [requireApproval].
@@ -319,7 +220,8 @@ private constructor(
          * ```java
          * .accountId()
          * .amount()
-         * .beneficiaryName()
+         * .creditor()
+         * .remittance()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -346,9 +248,9 @@ private constructor(
          * Otherwise, it's more convenient to use the top-level setters instead:
          * - [accountId]
          * - [amount]
-         * - [beneficiaryName]
+         * - [creditor]
+         * - [remittance]
          * - [accountNumber]
-         * - [beneficiaryAddressLine1]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -376,21 +278,29 @@ private constructor(
          */
         fun amount(amount: JsonField<Long>) = apply { body.amount(amount) }
 
-        /** The beneficiary's name. */
-        fun beneficiaryName(beneficiaryName: String) = apply {
-            body.beneficiaryName(beneficiaryName)
-        }
+        /** The person or business that is receiving the funds from the transfer. */
+        fun creditor(creditor: Creditor) = apply { body.creditor(creditor) }
 
         /**
-         * Sets [Builder.beneficiaryName] to an arbitrary JSON value.
+         * Sets [Builder.creditor] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.beneficiaryName] with a well-typed [String] value
+         * You should usually call [Builder.creditor] with a well-typed [Creditor] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun creditor(creditor: JsonField<Creditor>) = apply { body.creditor(creditor) }
+
+        /** Additional remittance information related to the wire transfer. */
+        fun remittance(remittance: Remittance) = apply { body.remittance(remittance) }
+
+        /**
+         * Sets [Builder.remittance] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.remittance] with a well-typed [Remittance] value
          * instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun beneficiaryName(beneficiaryName: JsonField<String>) = apply {
-            body.beneficiaryName(beneficiaryName)
-        }
+        fun remittance(remittance: JsonField<Remittance>) = apply { body.remittance(remittance) }
 
         /** The account number for the destination account. */
         fun accountNumber(accountNumber: String) = apply { body.accountNumber(accountNumber) }
@@ -406,53 +316,20 @@ private constructor(
             body.accountNumber(accountNumber)
         }
 
-        /** The beneficiary's address line 1. */
-        fun beneficiaryAddressLine1(beneficiaryAddressLine1: String) = apply {
-            body.beneficiaryAddressLine1(beneficiaryAddressLine1)
-        }
+        /**
+         * The person or business whose funds are being transferred. This is only necessary if
+         * you're transferring from a commingled account. Otherwise, we'll use the associated
+         * entity's details.
+         */
+        fun debtor(debtor: Debtor) = apply { body.debtor(debtor) }
 
         /**
-         * Sets [Builder.beneficiaryAddressLine1] to an arbitrary JSON value.
+         * Sets [Builder.debtor] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.beneficiaryAddressLine1] with a well-typed [String]
-         * value instead. This method is primarily for setting the field to an undocumented or not
-         * yet supported value.
+         * You should usually call [Builder.debtor] with a well-typed [Debtor] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun beneficiaryAddressLine1(beneficiaryAddressLine1: JsonField<String>) = apply {
-            body.beneficiaryAddressLine1(beneficiaryAddressLine1)
-        }
-
-        /** The beneficiary's address line 2. */
-        fun beneficiaryAddressLine2(beneficiaryAddressLine2: String) = apply {
-            body.beneficiaryAddressLine2(beneficiaryAddressLine2)
-        }
-
-        /**
-         * Sets [Builder.beneficiaryAddressLine2] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.beneficiaryAddressLine2] with a well-typed [String]
-         * value instead. This method is primarily for setting the field to an undocumented or not
-         * yet supported value.
-         */
-        fun beneficiaryAddressLine2(beneficiaryAddressLine2: JsonField<String>) = apply {
-            body.beneficiaryAddressLine2(beneficiaryAddressLine2)
-        }
-
-        /** The beneficiary's address line 3. */
-        fun beneficiaryAddressLine3(beneficiaryAddressLine3: String) = apply {
-            body.beneficiaryAddressLine3(beneficiaryAddressLine3)
-        }
-
-        /**
-         * Sets [Builder.beneficiaryAddressLine3] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.beneficiaryAddressLine3] with a well-typed [String]
-         * value instead. This method is primarily for setting the field to an undocumented or not
-         * yet supported value.
-         */
-        fun beneficiaryAddressLine3(beneficiaryAddressLine3: JsonField<String>) = apply {
-            body.beneficiaryAddressLine3(beneficiaryAddressLine3)
-        }
+        fun debtor(debtor: JsonField<Debtor>) = apply { body.debtor(debtor) }
 
         /**
          * The ID of an External Account to initiate a transfer to. If this parameter is provided,
@@ -491,92 +368,6 @@ private constructor(
         fun inboundWireDrawdownRequestId(inboundWireDrawdownRequestId: JsonField<String>) = apply {
             body.inboundWireDrawdownRequestId(inboundWireDrawdownRequestId)
         }
-
-        /**
-         * The originator's address line 1. This is only necessary if you're transferring from a
-         * commingled account. Otherwise, we'll use the associated entity's details.
-         */
-        fun originatorAddressLine1(originatorAddressLine1: String) = apply {
-            body.originatorAddressLine1(originatorAddressLine1)
-        }
-
-        /**
-         * Sets [Builder.originatorAddressLine1] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.originatorAddressLine1] with a well-typed [String] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun originatorAddressLine1(originatorAddressLine1: JsonField<String>) = apply {
-            body.originatorAddressLine1(originatorAddressLine1)
-        }
-
-        /**
-         * The originator's address line 2. This is only necessary if you're transferring from a
-         * commingled account. Otherwise, we'll use the associated entity's details.
-         */
-        fun originatorAddressLine2(originatorAddressLine2: String) = apply {
-            body.originatorAddressLine2(originatorAddressLine2)
-        }
-
-        /**
-         * Sets [Builder.originatorAddressLine2] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.originatorAddressLine2] with a well-typed [String] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun originatorAddressLine2(originatorAddressLine2: JsonField<String>) = apply {
-            body.originatorAddressLine2(originatorAddressLine2)
-        }
-
-        /**
-         * The originator's address line 3. This is only necessary if you're transferring from a
-         * commingled account. Otherwise, we'll use the associated entity's details.
-         */
-        fun originatorAddressLine3(originatorAddressLine3: String) = apply {
-            body.originatorAddressLine3(originatorAddressLine3)
-        }
-
-        /**
-         * Sets [Builder.originatorAddressLine3] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.originatorAddressLine3] with a well-typed [String] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun originatorAddressLine3(originatorAddressLine3: JsonField<String>) = apply {
-            body.originatorAddressLine3(originatorAddressLine3)
-        }
-
-        /**
-         * The originator's name. This is only necessary if you're transferring from a commingled
-         * account. Otherwise, we'll use the associated entity's details.
-         */
-        fun originatorName(originatorName: String) = apply { body.originatorName(originatorName) }
-
-        /**
-         * Sets [Builder.originatorName] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.originatorName] with a well-typed [String] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun originatorName(originatorName: JsonField<String>) = apply {
-            body.originatorName(originatorName)
-        }
-
-        /** Additional remittance information related to the wire transfer. */
-        fun remittance(remittance: Remittance) = apply { body.remittance(remittance) }
-
-        /**
-         * Sets [Builder.remittance] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.remittance] with a well-typed [Remittance] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun remittance(remittance: JsonField<Remittance>) = apply { body.remittance(remittance) }
 
         /** Whether the transfer requires explicit approval via the dashboard or API. */
         fun requireApproval(requireApproval: Boolean) = apply {
@@ -753,7 +544,8 @@ private constructor(
          * ```java
          * .accountId()
          * .amount()
-         * .beneficiaryName()
+         * .creditor()
+         * .remittance()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -777,18 +569,12 @@ private constructor(
     private constructor(
         private val accountId: JsonField<String>,
         private val amount: JsonField<Long>,
-        private val beneficiaryName: JsonField<String>,
+        private val creditor: JsonField<Creditor>,
+        private val remittance: JsonField<Remittance>,
         private val accountNumber: JsonField<String>,
-        private val beneficiaryAddressLine1: JsonField<String>,
-        private val beneficiaryAddressLine2: JsonField<String>,
-        private val beneficiaryAddressLine3: JsonField<String>,
+        private val debtor: JsonField<Debtor>,
         private val externalAccountId: JsonField<String>,
         private val inboundWireDrawdownRequestId: JsonField<String>,
-        private val originatorAddressLine1: JsonField<String>,
-        private val originatorAddressLine2: JsonField<String>,
-        private val originatorAddressLine3: JsonField<String>,
-        private val originatorName: JsonField<String>,
-        private val remittance: JsonField<Remittance>,
         private val requireApproval: JsonField<Boolean>,
         private val routingNumber: JsonField<String>,
         private val sourceAccountNumberId: JsonField<String>,
@@ -801,42 +587,22 @@ private constructor(
             @ExcludeMissing
             accountId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
-            @JsonProperty("beneficiary_name")
+            @JsonProperty("creditor")
             @ExcludeMissing
-            beneficiaryName: JsonField<String> = JsonMissing.of(),
+            creditor: JsonField<Creditor> = JsonMissing.of(),
+            @JsonProperty("remittance")
+            @ExcludeMissing
+            remittance: JsonField<Remittance> = JsonMissing.of(),
             @JsonProperty("account_number")
             @ExcludeMissing
             accountNumber: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("beneficiary_address_line1")
-            @ExcludeMissing
-            beneficiaryAddressLine1: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("beneficiary_address_line2")
-            @ExcludeMissing
-            beneficiaryAddressLine2: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("beneficiary_address_line3")
-            @ExcludeMissing
-            beneficiaryAddressLine3: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("debtor") @ExcludeMissing debtor: JsonField<Debtor> = JsonMissing.of(),
             @JsonProperty("external_account_id")
             @ExcludeMissing
             externalAccountId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("inbound_wire_drawdown_request_id")
             @ExcludeMissing
             inboundWireDrawdownRequestId: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("originator_address_line1")
-            @ExcludeMissing
-            originatorAddressLine1: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("originator_address_line2")
-            @ExcludeMissing
-            originatorAddressLine2: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("originator_address_line3")
-            @ExcludeMissing
-            originatorAddressLine3: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("originator_name")
-            @ExcludeMissing
-            originatorName: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("remittance")
-            @ExcludeMissing
-            remittance: JsonField<Remittance> = JsonMissing.of(),
             @JsonProperty("require_approval")
             @ExcludeMissing
             requireApproval: JsonField<Boolean> = JsonMissing.of(),
@@ -849,18 +615,12 @@ private constructor(
         ) : this(
             accountId,
             amount,
-            beneficiaryName,
+            creditor,
+            remittance,
             accountNumber,
-            beneficiaryAddressLine1,
-            beneficiaryAddressLine2,
-            beneficiaryAddressLine3,
+            debtor,
             externalAccountId,
             inboundWireDrawdownRequestId,
-            originatorAddressLine1,
-            originatorAddressLine2,
-            originatorAddressLine3,
-            originatorName,
-            remittance,
             requireApproval,
             routingNumber,
             sourceAccountNumberId,
@@ -884,12 +644,20 @@ private constructor(
         fun amount(): Long = amount.getRequired("amount")
 
         /**
-         * The beneficiary's name.
+         * The person or business that is receiving the funds from the transfer.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
-        fun beneficiaryName(): String = beneficiaryName.getRequired("beneficiary_name")
+        fun creditor(): Creditor = creditor.getRequired("creditor")
+
+        /**
+         * Additional remittance information related to the wire transfer.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun remittance(): Remittance = remittance.getRequired("remittance")
 
         /**
          * The account number for the destination account.
@@ -900,31 +668,14 @@ private constructor(
         fun accountNumber(): Optional<String> = accountNumber.getOptional("account_number")
 
         /**
-         * The beneficiary's address line 1.
+         * The person or business whose funds are being transferred. This is only necessary if
+         * you're transferring from a commingled account. Otherwise, we'll use the associated
+         * entity's details.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun beneficiaryAddressLine1(): Optional<String> =
-            beneficiaryAddressLine1.getOptional("beneficiary_address_line1")
-
-        /**
-         * The beneficiary's address line 2.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun beneficiaryAddressLine2(): Optional<String> =
-            beneficiaryAddressLine2.getOptional("beneficiary_address_line2")
-
-        /**
-         * The beneficiary's address line 3.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun beneficiaryAddressLine3(): Optional<String> =
-            beneficiaryAddressLine3.getOptional("beneficiary_address_line3")
+        fun debtor(): Optional<Debtor> = debtor.getOptional("debtor")
 
         /**
          * The ID of an External Account to initiate a transfer to. If this parameter is provided,
@@ -945,53 +696,6 @@ private constructor(
          */
         fun inboundWireDrawdownRequestId(): Optional<String> =
             inboundWireDrawdownRequestId.getOptional("inbound_wire_drawdown_request_id")
-
-        /**
-         * The originator's address line 1. This is only necessary if you're transferring from a
-         * commingled account. Otherwise, we'll use the associated entity's details.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun originatorAddressLine1(): Optional<String> =
-            originatorAddressLine1.getOptional("originator_address_line1")
-
-        /**
-         * The originator's address line 2. This is only necessary if you're transferring from a
-         * commingled account. Otherwise, we'll use the associated entity's details.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun originatorAddressLine2(): Optional<String> =
-            originatorAddressLine2.getOptional("originator_address_line2")
-
-        /**
-         * The originator's address line 3. This is only necessary if you're transferring from a
-         * commingled account. Otherwise, we'll use the associated entity's details.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun originatorAddressLine3(): Optional<String> =
-            originatorAddressLine3.getOptional("originator_address_line3")
-
-        /**
-         * The originator's name. This is only necessary if you're transferring from a commingled
-         * account. Otherwise, we'll use the associated entity's details.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun originatorName(): Optional<String> = originatorName.getOptional("originator_name")
-
-        /**
-         * Additional remittance information related to the wire transfer.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun remittance(): Optional<Remittance> = remittance.getOptional("remittance")
 
         /**
          * Whether the transfer requires explicit approval via the dashboard or API.
@@ -1034,14 +738,20 @@ private constructor(
         @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
         /**
-         * Returns the raw JSON value of [beneficiaryName].
+         * Returns the raw JSON value of [creditor].
          *
-         * Unlike [beneficiaryName], this method doesn't throw if the JSON field has an unexpected
-         * type.
+         * Unlike [creditor], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("beneficiary_name")
+        @JsonProperty("creditor") @ExcludeMissing fun _creditor(): JsonField<Creditor> = creditor
+
+        /**
+         * Returns the raw JSON value of [remittance].
+         *
+         * Unlike [remittance], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("remittance")
         @ExcludeMissing
-        fun _beneficiaryName(): JsonField<String> = beneficiaryName
+        fun _remittance(): JsonField<Remittance> = remittance
 
         /**
          * Returns the raw JSON value of [accountNumber].
@@ -1054,34 +764,11 @@ private constructor(
         fun _accountNumber(): JsonField<String> = accountNumber
 
         /**
-         * Returns the raw JSON value of [beneficiaryAddressLine1].
+         * Returns the raw JSON value of [debtor].
          *
-         * Unlike [beneficiaryAddressLine1], this method doesn't throw if the JSON field has an
-         * unexpected type.
+         * Unlike [debtor], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("beneficiary_address_line1")
-        @ExcludeMissing
-        fun _beneficiaryAddressLine1(): JsonField<String> = beneficiaryAddressLine1
-
-        /**
-         * Returns the raw JSON value of [beneficiaryAddressLine2].
-         *
-         * Unlike [beneficiaryAddressLine2], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("beneficiary_address_line2")
-        @ExcludeMissing
-        fun _beneficiaryAddressLine2(): JsonField<String> = beneficiaryAddressLine2
-
-        /**
-         * Returns the raw JSON value of [beneficiaryAddressLine3].
-         *
-         * Unlike [beneficiaryAddressLine3], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("beneficiary_address_line3")
-        @ExcludeMissing
-        fun _beneficiaryAddressLine3(): JsonField<String> = beneficiaryAddressLine3
+        @JsonProperty("debtor") @ExcludeMissing fun _debtor(): JsonField<Debtor> = debtor
 
         /**
          * Returns the raw JSON value of [externalAccountId].
@@ -1102,55 +789,6 @@ private constructor(
         @JsonProperty("inbound_wire_drawdown_request_id")
         @ExcludeMissing
         fun _inboundWireDrawdownRequestId(): JsonField<String> = inboundWireDrawdownRequestId
-
-        /**
-         * Returns the raw JSON value of [originatorAddressLine1].
-         *
-         * Unlike [originatorAddressLine1], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("originator_address_line1")
-        @ExcludeMissing
-        fun _originatorAddressLine1(): JsonField<String> = originatorAddressLine1
-
-        /**
-         * Returns the raw JSON value of [originatorAddressLine2].
-         *
-         * Unlike [originatorAddressLine2], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("originator_address_line2")
-        @ExcludeMissing
-        fun _originatorAddressLine2(): JsonField<String> = originatorAddressLine2
-
-        /**
-         * Returns the raw JSON value of [originatorAddressLine3].
-         *
-         * Unlike [originatorAddressLine3], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("originator_address_line3")
-        @ExcludeMissing
-        fun _originatorAddressLine3(): JsonField<String> = originatorAddressLine3
-
-        /**
-         * Returns the raw JSON value of [originatorName].
-         *
-         * Unlike [originatorName], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("originator_name")
-        @ExcludeMissing
-        fun _originatorName(): JsonField<String> = originatorName
-
-        /**
-         * Returns the raw JSON value of [remittance].
-         *
-         * Unlike [remittance], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("remittance")
-        @ExcludeMissing
-        fun _remittance(): JsonField<Remittance> = remittance
 
         /**
          * Returns the raw JSON value of [requireApproval].
@@ -1203,7 +841,8 @@ private constructor(
              * ```java
              * .accountId()
              * .amount()
-             * .beneficiaryName()
+             * .creditor()
+             * .remittance()
              * ```
              */
             @JvmStatic fun builder() = Builder()
@@ -1214,18 +853,12 @@ private constructor(
 
             private var accountId: JsonField<String>? = null
             private var amount: JsonField<Long>? = null
-            private var beneficiaryName: JsonField<String>? = null
+            private var creditor: JsonField<Creditor>? = null
+            private var remittance: JsonField<Remittance>? = null
             private var accountNumber: JsonField<String> = JsonMissing.of()
-            private var beneficiaryAddressLine1: JsonField<String> = JsonMissing.of()
-            private var beneficiaryAddressLine2: JsonField<String> = JsonMissing.of()
-            private var beneficiaryAddressLine3: JsonField<String> = JsonMissing.of()
+            private var debtor: JsonField<Debtor> = JsonMissing.of()
             private var externalAccountId: JsonField<String> = JsonMissing.of()
             private var inboundWireDrawdownRequestId: JsonField<String> = JsonMissing.of()
-            private var originatorAddressLine1: JsonField<String> = JsonMissing.of()
-            private var originatorAddressLine2: JsonField<String> = JsonMissing.of()
-            private var originatorAddressLine3: JsonField<String> = JsonMissing.of()
-            private var originatorName: JsonField<String> = JsonMissing.of()
-            private var remittance: JsonField<Remittance> = JsonMissing.of()
             private var requireApproval: JsonField<Boolean> = JsonMissing.of()
             private var routingNumber: JsonField<String> = JsonMissing.of()
             private var sourceAccountNumberId: JsonField<String> = JsonMissing.of()
@@ -1235,18 +868,12 @@ private constructor(
             internal fun from(body: Body) = apply {
                 accountId = body.accountId
                 amount = body.amount
-                beneficiaryName = body.beneficiaryName
+                creditor = body.creditor
+                remittance = body.remittance
                 accountNumber = body.accountNumber
-                beneficiaryAddressLine1 = body.beneficiaryAddressLine1
-                beneficiaryAddressLine2 = body.beneficiaryAddressLine2
-                beneficiaryAddressLine3 = body.beneficiaryAddressLine3
+                debtor = body.debtor
                 externalAccountId = body.externalAccountId
                 inboundWireDrawdownRequestId = body.inboundWireDrawdownRequestId
-                originatorAddressLine1 = body.originatorAddressLine1
-                originatorAddressLine2 = body.originatorAddressLine2
-                originatorAddressLine3 = body.originatorAddressLine3
-                originatorName = body.originatorName
-                remittance = body.remittance
                 requireApproval = body.requireApproval
                 routingNumber = body.routingNumber
                 sourceAccountNumberId = body.sourceAccountNumberId
@@ -1277,19 +904,30 @@ private constructor(
              */
             fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
-            /** The beneficiary's name. */
-            fun beneficiaryName(beneficiaryName: String) =
-                beneficiaryName(JsonField.of(beneficiaryName))
+            /** The person or business that is receiving the funds from the transfer. */
+            fun creditor(creditor: Creditor) = creditor(JsonField.of(creditor))
 
             /**
-             * Sets [Builder.beneficiaryName] to an arbitrary JSON value.
+             * Sets [Builder.creditor] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.beneficiaryName] with a well-typed [String] value
+             * You should usually call [Builder.creditor] with a well-typed [Creditor] value
              * instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun beneficiaryName(beneficiaryName: JsonField<String>) = apply {
-                this.beneficiaryName = beneficiaryName
+            fun creditor(creditor: JsonField<Creditor>) = apply { this.creditor = creditor }
+
+            /** Additional remittance information related to the wire transfer. */
+            fun remittance(remittance: Remittance) = remittance(JsonField.of(remittance))
+
+            /**
+             * Sets [Builder.remittance] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.remittance] with a well-typed [Remittance] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun remittance(remittance: JsonField<Remittance>) = apply {
+                this.remittance = remittance
             }
 
             /** The account number for the destination account. */
@@ -1306,50 +944,21 @@ private constructor(
                 this.accountNumber = accountNumber
             }
 
-            /** The beneficiary's address line 1. */
-            fun beneficiaryAddressLine1(beneficiaryAddressLine1: String) =
-                beneficiaryAddressLine1(JsonField.of(beneficiaryAddressLine1))
+            /**
+             * The person or business whose funds are being transferred. This is only necessary if
+             * you're transferring from a commingled account. Otherwise, we'll use the associated
+             * entity's details.
+             */
+            fun debtor(debtor: Debtor) = debtor(JsonField.of(debtor))
 
             /**
-             * Sets [Builder.beneficiaryAddressLine1] to an arbitrary JSON value.
+             * Sets [Builder.debtor] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.beneficiaryAddressLine1] with a well-typed [String]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
+             * You should usually call [Builder.debtor] with a well-typed [Debtor] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
-            fun beneficiaryAddressLine1(beneficiaryAddressLine1: JsonField<String>) = apply {
-                this.beneficiaryAddressLine1 = beneficiaryAddressLine1
-            }
-
-            /** The beneficiary's address line 2. */
-            fun beneficiaryAddressLine2(beneficiaryAddressLine2: String) =
-                beneficiaryAddressLine2(JsonField.of(beneficiaryAddressLine2))
-
-            /**
-             * Sets [Builder.beneficiaryAddressLine2] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.beneficiaryAddressLine2] with a well-typed [String]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
-             */
-            fun beneficiaryAddressLine2(beneficiaryAddressLine2: JsonField<String>) = apply {
-                this.beneficiaryAddressLine2 = beneficiaryAddressLine2
-            }
-
-            /** The beneficiary's address line 3. */
-            fun beneficiaryAddressLine3(beneficiaryAddressLine3: String) =
-                beneficiaryAddressLine3(JsonField.of(beneficiaryAddressLine3))
-
-            /**
-             * Sets [Builder.beneficiaryAddressLine3] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.beneficiaryAddressLine3] with a well-typed [String]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
-             */
-            fun beneficiaryAddressLine3(beneficiaryAddressLine3: JsonField<String>) = apply {
-                this.beneficiaryAddressLine3 = beneficiaryAddressLine3
-            }
+            fun debtor(debtor: JsonField<Debtor>) = apply { this.debtor = debtor }
 
             /**
              * The ID of an External Account to initiate a transfer to. If this parameter is
@@ -1387,92 +996,6 @@ private constructor(
                 apply {
                     this.inboundWireDrawdownRequestId = inboundWireDrawdownRequestId
                 }
-
-            /**
-             * The originator's address line 1. This is only necessary if you're transferring from a
-             * commingled account. Otherwise, we'll use the associated entity's details.
-             */
-            fun originatorAddressLine1(originatorAddressLine1: String) =
-                originatorAddressLine1(JsonField.of(originatorAddressLine1))
-
-            /**
-             * Sets [Builder.originatorAddressLine1] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.originatorAddressLine1] with a well-typed [String]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
-             */
-            fun originatorAddressLine1(originatorAddressLine1: JsonField<String>) = apply {
-                this.originatorAddressLine1 = originatorAddressLine1
-            }
-
-            /**
-             * The originator's address line 2. This is only necessary if you're transferring from a
-             * commingled account. Otherwise, we'll use the associated entity's details.
-             */
-            fun originatorAddressLine2(originatorAddressLine2: String) =
-                originatorAddressLine2(JsonField.of(originatorAddressLine2))
-
-            /**
-             * Sets [Builder.originatorAddressLine2] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.originatorAddressLine2] with a well-typed [String]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
-             */
-            fun originatorAddressLine2(originatorAddressLine2: JsonField<String>) = apply {
-                this.originatorAddressLine2 = originatorAddressLine2
-            }
-
-            /**
-             * The originator's address line 3. This is only necessary if you're transferring from a
-             * commingled account. Otherwise, we'll use the associated entity's details.
-             */
-            fun originatorAddressLine3(originatorAddressLine3: String) =
-                originatorAddressLine3(JsonField.of(originatorAddressLine3))
-
-            /**
-             * Sets [Builder.originatorAddressLine3] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.originatorAddressLine3] with a well-typed [String]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
-             */
-            fun originatorAddressLine3(originatorAddressLine3: JsonField<String>) = apply {
-                this.originatorAddressLine3 = originatorAddressLine3
-            }
-
-            /**
-             * The originator's name. This is only necessary if you're transferring from a
-             * commingled account. Otherwise, we'll use the associated entity's details.
-             */
-            fun originatorName(originatorName: String) =
-                originatorName(JsonField.of(originatorName))
-
-            /**
-             * Sets [Builder.originatorName] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.originatorName] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun originatorName(originatorName: JsonField<String>) = apply {
-                this.originatorName = originatorName
-            }
-
-            /** Additional remittance information related to the wire transfer. */
-            fun remittance(remittance: Remittance) = remittance(JsonField.of(remittance))
-
-            /**
-             * Sets [Builder.remittance] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.remittance] with a well-typed [Remittance] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun remittance(remittance: JsonField<Remittance>) = apply {
-                this.remittance = remittance
-            }
 
             /** Whether the transfer requires explicit approval via the dashboard or API. */
             fun requireApproval(requireApproval: Boolean) =
@@ -1549,7 +1072,8 @@ private constructor(
              * ```java
              * .accountId()
              * .amount()
-             * .beneficiaryName()
+             * .creditor()
+             * .remittance()
              * ```
              *
              * @throws IllegalStateException if any required field is unset.
@@ -1558,18 +1082,12 @@ private constructor(
                 Body(
                     checkRequired("accountId", accountId),
                     checkRequired("amount", amount),
-                    checkRequired("beneficiaryName", beneficiaryName),
+                    checkRequired("creditor", creditor),
+                    checkRequired("remittance", remittance),
                     accountNumber,
-                    beneficiaryAddressLine1,
-                    beneficiaryAddressLine2,
-                    beneficiaryAddressLine3,
+                    debtor,
                     externalAccountId,
                     inboundWireDrawdownRequestId,
-                    originatorAddressLine1,
-                    originatorAddressLine2,
-                    originatorAddressLine3,
-                    originatorName,
-                    remittance,
                     requireApproval,
                     routingNumber,
                     sourceAccountNumberId,
@@ -1586,18 +1104,12 @@ private constructor(
 
             accountId()
             amount()
-            beneficiaryName()
+            creditor().validate()
+            remittance().validate()
             accountNumber()
-            beneficiaryAddressLine1()
-            beneficiaryAddressLine2()
-            beneficiaryAddressLine3()
+            debtor().ifPresent { it.validate() }
             externalAccountId()
             inboundWireDrawdownRequestId()
-            originatorAddressLine1()
-            originatorAddressLine2()
-            originatorAddressLine3()
-            originatorName()
-            remittance().ifPresent { it.validate() }
             requireApproval()
             routingNumber()
             sourceAccountNumberId()
@@ -1622,18 +1134,12 @@ private constructor(
         internal fun validity(): Int =
             (if (accountId.asKnown().isPresent) 1 else 0) +
                 (if (amount.asKnown().isPresent) 1 else 0) +
-                (if (beneficiaryName.asKnown().isPresent) 1 else 0) +
+                (creditor.asKnown().getOrNull()?.validity() ?: 0) +
+                (remittance.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (accountNumber.asKnown().isPresent) 1 else 0) +
-                (if (beneficiaryAddressLine1.asKnown().isPresent) 1 else 0) +
-                (if (beneficiaryAddressLine2.asKnown().isPresent) 1 else 0) +
-                (if (beneficiaryAddressLine3.asKnown().isPresent) 1 else 0) +
+                (debtor.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (externalAccountId.asKnown().isPresent) 1 else 0) +
                 (if (inboundWireDrawdownRequestId.asKnown().isPresent) 1 else 0) +
-                (if (originatorAddressLine1.asKnown().isPresent) 1 else 0) +
-                (if (originatorAddressLine2.asKnown().isPresent) 1 else 0) +
-                (if (originatorAddressLine3.asKnown().isPresent) 1 else 0) +
-                (if (originatorName.asKnown().isPresent) 1 else 0) +
-                (remittance.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (requireApproval.asKnown().isPresent) 1 else 0) +
                 (if (routingNumber.asKnown().isPresent) 1 else 0) +
                 (if (sourceAccountNumberId.asKnown().isPresent) 1 else 0)
@@ -1646,18 +1152,12 @@ private constructor(
             return other is Body &&
                 accountId == other.accountId &&
                 amount == other.amount &&
-                beneficiaryName == other.beneficiaryName &&
+                creditor == other.creditor &&
+                remittance == other.remittance &&
                 accountNumber == other.accountNumber &&
-                beneficiaryAddressLine1 == other.beneficiaryAddressLine1 &&
-                beneficiaryAddressLine2 == other.beneficiaryAddressLine2 &&
-                beneficiaryAddressLine3 == other.beneficiaryAddressLine3 &&
+                debtor == other.debtor &&
                 externalAccountId == other.externalAccountId &&
                 inboundWireDrawdownRequestId == other.inboundWireDrawdownRequestId &&
-                originatorAddressLine1 == other.originatorAddressLine1 &&
-                originatorAddressLine2 == other.originatorAddressLine2 &&
-                originatorAddressLine3 == other.originatorAddressLine3 &&
-                originatorName == other.originatorName &&
-                remittance == other.remittance &&
                 requireApproval == other.requireApproval &&
                 routingNumber == other.routingNumber &&
                 sourceAccountNumberId == other.sourceAccountNumberId &&
@@ -1668,18 +1168,12 @@ private constructor(
             Objects.hash(
                 accountId,
                 amount,
-                beneficiaryName,
+                creditor,
+                remittance,
                 accountNumber,
-                beneficiaryAddressLine1,
-                beneficiaryAddressLine2,
-                beneficiaryAddressLine3,
+                debtor,
                 externalAccountId,
                 inboundWireDrawdownRequestId,
-                originatorAddressLine1,
-                originatorAddressLine2,
-                originatorAddressLine3,
-                originatorName,
-                remittance,
                 requireApproval,
                 routingNumber,
                 sourceAccountNumberId,
@@ -1690,7 +1184,620 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{accountId=$accountId, amount=$amount, beneficiaryName=$beneficiaryName, accountNumber=$accountNumber, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, externalAccountId=$externalAccountId, inboundWireDrawdownRequestId=$inboundWireDrawdownRequestId, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, remittance=$remittance, requireApproval=$requireApproval, routingNumber=$routingNumber, sourceAccountNumberId=$sourceAccountNumberId, additionalProperties=$additionalProperties}"
+            "Body{accountId=$accountId, amount=$amount, creditor=$creditor, remittance=$remittance, accountNumber=$accountNumber, debtor=$debtor, externalAccountId=$externalAccountId, inboundWireDrawdownRequestId=$inboundWireDrawdownRequestId, requireApproval=$requireApproval, routingNumber=$routingNumber, sourceAccountNumberId=$sourceAccountNumberId, additionalProperties=$additionalProperties}"
+    }
+
+    /** The person or business that is receiving the funds from the transfer. */
+    class Creditor
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val name: JsonField<String>,
+        private val address: JsonField<Address>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("address") @ExcludeMissing address: JsonField<Address> = JsonMissing.of(),
+        ) : this(name, address, mutableMapOf())
+
+        /**
+         * The person or business's name.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun name(): String = name.getRequired("name")
+
+        /**
+         * The person or business's address.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun address(): Optional<Address> = address.getOptional("address")
+
+        /**
+         * Returns the raw JSON value of [name].
+         *
+         * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+
+        /**
+         * Returns the raw JSON value of [address].
+         *
+         * Unlike [address], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("address") @ExcludeMissing fun _address(): JsonField<Address> = address
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [Creditor].
+             *
+             * The following fields are required:
+             * ```java
+             * .name()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Creditor]. */
+        class Builder internal constructor() {
+
+            private var name: JsonField<String>? = null
+            private var address: JsonField<Address> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(creditor: Creditor) = apply {
+                name = creditor.name
+                address = creditor.address
+                additionalProperties = creditor.additionalProperties.toMutableMap()
+            }
+
+            /** The person or business's name. */
+            fun name(name: String) = name(JsonField.of(name))
+
+            /**
+             * Sets [Builder.name] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.name] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun name(name: JsonField<String>) = apply { this.name = name }
+
+            /** The person or business's address. */
+            fun address(address: Address) = address(JsonField.of(address))
+
+            /**
+             * Sets [Builder.address] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.address] with a well-typed [Address] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun address(address: JsonField<Address>) = apply { this.address = address }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Creditor].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .name()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): Creditor =
+                Creditor(checkRequired("name", name), address, additionalProperties.toMutableMap())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Creditor = apply {
+            if (validated) {
+                return@apply
+            }
+
+            name()
+            address().ifPresent { it.validate() }
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (name.asKnown().isPresent) 1 else 0) +
+                (address.asKnown().getOrNull()?.validity() ?: 0)
+
+        /** The person or business's address. */
+        class Address
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(
+            private val unstructured: JsonField<Unstructured>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("unstructured")
+                @ExcludeMissing
+                unstructured: JsonField<Unstructured> = JsonMissing.of()
+            ) : this(unstructured, mutableMapOf())
+
+            /**
+             * Unstructured address lines.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun unstructured(): Unstructured = unstructured.getRequired("unstructured")
+
+            /**
+             * Returns the raw JSON value of [unstructured].
+             *
+             * Unlike [unstructured], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("unstructured")
+            @ExcludeMissing
+            fun _unstructured(): JsonField<Unstructured> = unstructured
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of [Address].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .unstructured()
+                 * ```
+                 */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [Address]. */
+            class Builder internal constructor() {
+
+                private var unstructured: JsonField<Unstructured>? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(address: Address) = apply {
+                    unstructured = address.unstructured
+                    additionalProperties = address.additionalProperties.toMutableMap()
+                }
+
+                /** Unstructured address lines. */
+                fun unstructured(unstructured: Unstructured) =
+                    unstructured(JsonField.of(unstructured))
+
+                /**
+                 * Sets [Builder.unstructured] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.unstructured] with a well-typed [Unstructured]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun unstructured(unstructured: JsonField<Unstructured>) = apply {
+                    this.unstructured = unstructured
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [Address].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .unstructured()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
+                fun build(): Address =
+                    Address(
+                        checkRequired("unstructured", unstructured),
+                        additionalProperties.toMutableMap(),
+                    )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): Address = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                unstructured().validate()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int = (unstructured.asKnown().getOrNull()?.validity() ?: 0)
+
+            /** Unstructured address lines. */
+            class Unstructured
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+            private constructor(
+                private val line1: JsonField<String>,
+                private val line2: JsonField<String>,
+                private val line3: JsonField<String>,
+                private val additionalProperties: MutableMap<String, JsonValue>,
+            ) {
+
+                @JsonCreator
+                private constructor(
+                    @JsonProperty("line1")
+                    @ExcludeMissing
+                    line1: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("line2")
+                    @ExcludeMissing
+                    line2: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("line3")
+                    @ExcludeMissing
+                    line3: JsonField<String> = JsonMissing.of(),
+                ) : this(line1, line2, line3, mutableMapOf())
+
+                /**
+                 * The address line 1.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
+                fun line1(): String = line1.getRequired("line1")
+
+                /**
+                 * The address line 2.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                 *   (e.g. if the server responded with an unexpected value).
+                 */
+                fun line2(): Optional<String> = line2.getOptional("line2")
+
+                /**
+                 * The address line 3.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                 *   (e.g. if the server responded with an unexpected value).
+                 */
+                fun line3(): Optional<String> = line3.getOptional("line3")
+
+                /**
+                 * Returns the raw JSON value of [line1].
+                 *
+                 * Unlike [line1], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
+
+                /**
+                 * Returns the raw JSON value of [line2].
+                 *
+                 * Unlike [line2], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
+
+                /**
+                 * Returns the raw JSON value of [line3].
+                 *
+                 * Unlike [line3], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("line3") @ExcludeMissing fun _line3(): JsonField<String> = line3
+
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /**
+                     * Returns a mutable builder for constructing an instance of [Unstructured].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .line1()
+                     * ```
+                     */
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                /** A builder for [Unstructured]. */
+                class Builder internal constructor() {
+
+                    private var line1: JsonField<String>? = null
+                    private var line2: JsonField<String> = JsonMissing.of()
+                    private var line3: JsonField<String> = JsonMissing.of()
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(unstructured: Unstructured) = apply {
+                        line1 = unstructured.line1
+                        line2 = unstructured.line2
+                        line3 = unstructured.line3
+                        additionalProperties = unstructured.additionalProperties.toMutableMap()
+                    }
+
+                    /** The address line 1. */
+                    fun line1(line1: String) = line1(JsonField.of(line1))
+
+                    /**
+                     * Sets [Builder.line1] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.line1] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
+
+                    /** The address line 2. */
+                    fun line2(line2: String) = line2(JsonField.of(line2))
+
+                    /**
+                     * Sets [Builder.line2] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.line2] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
+
+                    /** The address line 3. */
+                    fun line3(line3: String) = line3(JsonField.of(line3))
+
+                    /**
+                     * Sets [Builder.line3] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.line3] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun line3(line3: JsonField<String>) = apply { this.line3 = line3 }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [Unstructured].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .line1()
+                     * ```
+                     *
+                     * @throws IllegalStateException if any required field is unset.
+                     */
+                    fun build(): Unstructured =
+                        Unstructured(
+                            checkRequired("line1", line1),
+                            line2,
+                            line3,
+                            additionalProperties.toMutableMap(),
+                        )
+                }
+
+                private var validated: Boolean = false
+
+                fun validate(): Unstructured = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    line1()
+                    line2()
+                    line3()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic
+                internal fun validity(): Int =
+                    (if (line1.asKnown().isPresent) 1 else 0) +
+                        (if (line2.asKnown().isPresent) 1 else 0) +
+                        (if (line3.asKnown().isPresent) 1 else 0)
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Unstructured &&
+                        line1 == other.line1 &&
+                        line2 == other.line2 &&
+                        line3 == other.line3 &&
+                        additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy {
+                    Objects.hash(line1, line2, line3, additionalProperties)
+                }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() =
+                    "Unstructured{line1=$line1, line2=$line2, line3=$line3, additionalProperties=$additionalProperties}"
+            }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Address &&
+                    unstructured == other.unstructured &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy { Objects.hash(unstructured, additionalProperties) }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "Address{unstructured=$unstructured, additionalProperties=$additionalProperties}"
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Creditor &&
+                name == other.name &&
+                address == other.address &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(name, address, additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Creditor{name=$name, address=$address, additionalProperties=$additionalProperties}"
     }
 
     /** Additional remittance information related to the wire transfer. */
@@ -2350,7 +2457,7 @@ private constructor(
             ) : this(message, mutableMapOf())
 
             /**
-             * The message to the beneficiary.
+             * The information.
              *
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
@@ -2402,7 +2509,7 @@ private constructor(
                     additionalProperties = unstructured.additionalProperties.toMutableMap()
                 }
 
-                /** The message to the beneficiary. */
+                /** The information. */
                 fun message(message: String) = message(JsonField.of(message))
 
                 /**
@@ -2520,6 +2627,622 @@ private constructor(
 
         override fun toString() =
             "Remittance{category=$category, tax=$tax, unstructured=$unstructured, additionalProperties=$additionalProperties}"
+    }
+
+    /**
+     * The person or business whose funds are being transferred. This is only necessary if you're
+     * transferring from a commingled account. Otherwise, we'll use the associated entity's details.
+     */
+    class Debtor
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val name: JsonField<String>,
+        private val address: JsonField<Address>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("address") @ExcludeMissing address: JsonField<Address> = JsonMissing.of(),
+        ) : this(name, address, mutableMapOf())
+
+        /**
+         * The person or business's name.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun name(): String = name.getRequired("name")
+
+        /**
+         * The person or business's address.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun address(): Optional<Address> = address.getOptional("address")
+
+        /**
+         * Returns the raw JSON value of [name].
+         *
+         * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+
+        /**
+         * Returns the raw JSON value of [address].
+         *
+         * Unlike [address], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("address") @ExcludeMissing fun _address(): JsonField<Address> = address
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [Debtor].
+             *
+             * The following fields are required:
+             * ```java
+             * .name()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Debtor]. */
+        class Builder internal constructor() {
+
+            private var name: JsonField<String>? = null
+            private var address: JsonField<Address> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(debtor: Debtor) = apply {
+                name = debtor.name
+                address = debtor.address
+                additionalProperties = debtor.additionalProperties.toMutableMap()
+            }
+
+            /** The person or business's name. */
+            fun name(name: String) = name(JsonField.of(name))
+
+            /**
+             * Sets [Builder.name] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.name] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun name(name: JsonField<String>) = apply { this.name = name }
+
+            /** The person or business's address. */
+            fun address(address: Address) = address(JsonField.of(address))
+
+            /**
+             * Sets [Builder.address] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.address] with a well-typed [Address] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun address(address: JsonField<Address>) = apply { this.address = address }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Debtor].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .name()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): Debtor =
+                Debtor(checkRequired("name", name), address, additionalProperties.toMutableMap())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Debtor = apply {
+            if (validated) {
+                return@apply
+            }
+
+            name()
+            address().ifPresent { it.validate() }
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (name.asKnown().isPresent) 1 else 0) +
+                (address.asKnown().getOrNull()?.validity() ?: 0)
+
+        /** The person or business's address. */
+        class Address
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(
+            private val unstructured: JsonField<Unstructured>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("unstructured")
+                @ExcludeMissing
+                unstructured: JsonField<Unstructured> = JsonMissing.of()
+            ) : this(unstructured, mutableMapOf())
+
+            /**
+             * Unstructured address lines.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun unstructured(): Unstructured = unstructured.getRequired("unstructured")
+
+            /**
+             * Returns the raw JSON value of [unstructured].
+             *
+             * Unlike [unstructured], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("unstructured")
+            @ExcludeMissing
+            fun _unstructured(): JsonField<Unstructured> = unstructured
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of [Address].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .unstructured()
+                 * ```
+                 */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [Address]. */
+            class Builder internal constructor() {
+
+                private var unstructured: JsonField<Unstructured>? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(address: Address) = apply {
+                    unstructured = address.unstructured
+                    additionalProperties = address.additionalProperties.toMutableMap()
+                }
+
+                /** Unstructured address lines. */
+                fun unstructured(unstructured: Unstructured) =
+                    unstructured(JsonField.of(unstructured))
+
+                /**
+                 * Sets [Builder.unstructured] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.unstructured] with a well-typed [Unstructured]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun unstructured(unstructured: JsonField<Unstructured>) = apply {
+                    this.unstructured = unstructured
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [Address].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .unstructured()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
+                fun build(): Address =
+                    Address(
+                        checkRequired("unstructured", unstructured),
+                        additionalProperties.toMutableMap(),
+                    )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): Address = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                unstructured().validate()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int = (unstructured.asKnown().getOrNull()?.validity() ?: 0)
+
+            /** Unstructured address lines. */
+            class Unstructured
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+            private constructor(
+                private val line1: JsonField<String>,
+                private val line2: JsonField<String>,
+                private val line3: JsonField<String>,
+                private val additionalProperties: MutableMap<String, JsonValue>,
+            ) {
+
+                @JsonCreator
+                private constructor(
+                    @JsonProperty("line1")
+                    @ExcludeMissing
+                    line1: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("line2")
+                    @ExcludeMissing
+                    line2: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("line3")
+                    @ExcludeMissing
+                    line3: JsonField<String> = JsonMissing.of(),
+                ) : this(line1, line2, line3, mutableMapOf())
+
+                /**
+                 * The address line 1.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
+                fun line1(): String = line1.getRequired("line1")
+
+                /**
+                 * The address line 2.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                 *   (e.g. if the server responded with an unexpected value).
+                 */
+                fun line2(): Optional<String> = line2.getOptional("line2")
+
+                /**
+                 * The address line 3.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                 *   (e.g. if the server responded with an unexpected value).
+                 */
+                fun line3(): Optional<String> = line3.getOptional("line3")
+
+                /**
+                 * Returns the raw JSON value of [line1].
+                 *
+                 * Unlike [line1], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
+
+                /**
+                 * Returns the raw JSON value of [line2].
+                 *
+                 * Unlike [line2], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
+
+                /**
+                 * Returns the raw JSON value of [line3].
+                 *
+                 * Unlike [line3], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("line3") @ExcludeMissing fun _line3(): JsonField<String> = line3
+
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /**
+                     * Returns a mutable builder for constructing an instance of [Unstructured].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .line1()
+                     * ```
+                     */
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                /** A builder for [Unstructured]. */
+                class Builder internal constructor() {
+
+                    private var line1: JsonField<String>? = null
+                    private var line2: JsonField<String> = JsonMissing.of()
+                    private var line3: JsonField<String> = JsonMissing.of()
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(unstructured: Unstructured) = apply {
+                        line1 = unstructured.line1
+                        line2 = unstructured.line2
+                        line3 = unstructured.line3
+                        additionalProperties = unstructured.additionalProperties.toMutableMap()
+                    }
+
+                    /** The address line 1. */
+                    fun line1(line1: String) = line1(JsonField.of(line1))
+
+                    /**
+                     * Sets [Builder.line1] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.line1] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
+
+                    /** The address line 2. */
+                    fun line2(line2: String) = line2(JsonField.of(line2))
+
+                    /**
+                     * Sets [Builder.line2] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.line2] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
+
+                    /** The address line 3. */
+                    fun line3(line3: String) = line3(JsonField.of(line3))
+
+                    /**
+                     * Sets [Builder.line3] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.line3] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun line3(line3: JsonField<String>) = apply { this.line3 = line3 }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [Unstructured].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .line1()
+                     * ```
+                     *
+                     * @throws IllegalStateException if any required field is unset.
+                     */
+                    fun build(): Unstructured =
+                        Unstructured(
+                            checkRequired("line1", line1),
+                            line2,
+                            line3,
+                            additionalProperties.toMutableMap(),
+                        )
+                }
+
+                private var validated: Boolean = false
+
+                fun validate(): Unstructured = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    line1()
+                    line2()
+                    line3()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic
+                internal fun validity(): Int =
+                    (if (line1.asKnown().isPresent) 1 else 0) +
+                        (if (line2.asKnown().isPresent) 1 else 0) +
+                        (if (line3.asKnown().isPresent) 1 else 0)
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Unstructured &&
+                        line1 == other.line1 &&
+                        line2 == other.line2 &&
+                        line3 == other.line3 &&
+                        additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy {
+                    Objects.hash(line1, line2, line3, additionalProperties)
+                }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() =
+                    "Unstructured{line1=$line1, line2=$line2, line3=$line3, additionalProperties=$additionalProperties}"
+            }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Address &&
+                    unstructured == other.unstructured &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy { Objects.hash(unstructured, additionalProperties) }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "Address{unstructured=$unstructured, additionalProperties=$additionalProperties}"
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Debtor &&
+                name == other.name &&
+                address == other.address &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(name, address, additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Debtor{name=$name, address=$address, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
