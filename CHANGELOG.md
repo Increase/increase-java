@@ -1,5 +1,42 @@
 # Changelog
 
+## 0.348.0 (2025-10-31)
+
+Full Changelog: [v0.347.0...v0.348.0](https://github.com/Increase/increase-java/compare/v0.347.0...v0.348.0)
+
+### Features
+
+* **api:** api update ([5d1526d](https://github.com/Increase/increase-java/commit/5d1526d1629bb1dcbf40e3e09a921746c2927337))
+* **api:** api update ([c4c5a15](https://github.com/Increase/increase-java/commit/c4c5a15738430ba9fbd51e320cdbcd5db3060240))
+* **api:** api update ([d3025b1](https://github.com/Increase/increase-java/commit/d3025b144aa584b898034e04f7fc1cb53f0ed5de))
+* **api:** api update ([3b68ad7](https://github.com/Increase/increase-java/commit/3b68ad78944655bafdafdf3c0323652e11576841))
+* **api:** api update ([945eed1](https://github.com/Increase/increase-java/commit/945eed1c35b0d13b9f75b3a7830d0ead3f366db0))
+* **api:** api update ([d0e687c](https://github.com/Increase/increase-java/commit/d0e687c0f89f2a26f0a93a706ed365a906a1bfb9))
+* **api:** api update ([5803cda](https://github.com/Increase/increase-java/commit/5803cdab7196ff122cf8f9aedfaf89e3d33d231e))
+* **api:** api update ([05fd77e](https://github.com/Increase/increase-java/commit/05fd77ecbab2646bc41fcbde45b746f6c74d4674))
+* **api:** api update ([4082773](https://github.com/Increase/increase-java/commit/408277389cbc77d1a840a57a6ad0694bdef6a5e9))
+* **api:** api update ([9438908](https://github.com/Increase/increase-java/commit/94389080530654e684f60a910d4581f6edc19841))
+* **api:** api update ([e135f5f](https://github.com/Increase/increase-java/commit/e135f5f9de55f04bffdd9bf8cdf432cc185ff7dd))
+* **api:** api update ([26c0a6f](https://github.com/Increase/increase-java/commit/26c0a6f5543f3c6b5800b774c37b49c3efdecad7))
+* **api:** api update ([f7b88d8](https://github.com/Increase/increase-java/commit/f7b88d8b6148ab0f33f8c4f937346b2ef0c670d8))
+* **api:** api update ([a57da18](https://github.com/Increase/increase-java/commit/a57da1835b758b295c18930ead890ab1469997f5))
+* **api:** api update ([a7c29d9](https://github.com/Increase/increase-java/commit/a7c29d9eb1fcd85020ae654163f7a08aa6d606dd))
+* **api:** api update ([ee7968d](https://github.com/Increase/increase-java/commit/ee7968ddfed0a889d9c6cb4a0033d041ed07f751))
+* **api:** api update ([2111373](https://github.com/Increase/increase-java/commit/2111373ba896c63c028db86bc55b4f4cc15ab84c))
+* **api:** api update ([4cc243c](https://github.com/Increase/increase-java/commit/4cc243c53315482c3f0c4e66b83e1a97002075ad))
+* **api:** api update ([627c529](https://github.com/Increase/increase-java/commit/627c5290ea4b54edabb8ac80c45c5c4309ece8a1))
+* **api:** api update ([c2aa9ee](https://github.com/Increase/increase-java/commit/c2aa9ee013d28d1f078de229881f1feb3dfc32b4))
+* **api:** api update ([5bf05d8](https://github.com/Increase/increase-java/commit/5bf05d830f2ce0adeb347c992ae637d2256e2523))
+* **api:** api update ([2049ebb](https://github.com/Increase/increase-java/commit/2049ebb7ae2a221317c692c6b5e66860937e88f5))
+* **api:** api update ([4e3ec15](https://github.com/Increase/increase-java/commit/4e3ec15caa8c049362a17bd5d29c0f1857d6c711))
+* **api:** api update ([dbb50b0](https://github.com/Increase/increase-java/commit/dbb50b0f1b0225cda41b3cb3a2c3e0394be13f09))
+* **api:** api update ([a14bd3d](https://github.com/Increase/increase-java/commit/a14bd3d085793249c465069b89c3260e1b5ccfec))
+* **api:** api update ([a053a21](https://github.com/Increase/increase-java/commit/a053a213225c53d204b741b9c149ac0448aa60f3))
+* **api:** api update ([2344228](https://github.com/Increase/increase-java/commit/2344228fddb443ad50a3c4c0b6b6d8a6054f9125))
+* **api:** api update ([8933f23](https://github.com/Increase/increase-java/commit/8933f23c50360ad105a07d1b885f4a64143830be))
+* **api:** api update ([1c75bae](https://github.com/Increase/increase-java/commit/1c75baeb3991dc02fa1898d0a77c0f662473f610))
+* **api:** api update ([0b6df76](https://github.com/Increase/increase-java/commit/0b6df767c9f4b65cf437e57d55377a258d49c1a4))
+
 ## 0.347.0 (2025-10-06)
 
 Full Changelog: [v0.346.0...v0.347.0](https://github.com/Increase/increase-java/compare/v0.346.0...v0.347.0)
