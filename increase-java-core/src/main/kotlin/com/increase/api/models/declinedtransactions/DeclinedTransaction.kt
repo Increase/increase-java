@@ -878,7 +878,7 @@ private constructor(
         private val inboundFednowTransferDecline: JsonField<InboundFednowTransferDecline>,
         private val inboundRealTimePaymentsTransferDecline:
             JsonField<InboundRealTimePaymentsTransferDecline>,
-        private val other: JsonValue,
+        private val other: JsonField<Other>,
         private val wireDecline: JsonField<WireDecline>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -909,7 +909,7 @@ private constructor(
             inboundRealTimePaymentsTransferDecline:
                 JsonField<InboundRealTimePaymentsTransferDecline> =
                 JsonMissing.of(),
-            @JsonProperty("other") @ExcludeMissing other: JsonValue = JsonMissing.of(),
+            @JsonProperty("other") @ExcludeMissing other: JsonField<Other> = JsonMissing.of(),
             @JsonProperty("wire_decline")
             @ExcludeMissing
             wireDecline: JsonField<WireDecline> = JsonMissing.of(),
@@ -999,8 +999,11 @@ private constructor(
         /**
          * If the category of this Transaction source is equal to `other`, this field will contain
          * an empty object, otherwise it will contain null.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
-        @JsonProperty("other") @ExcludeMissing fun _other(): JsonValue = other
+        fun other(): Optional<Other> = other.getOptional("other")
 
         /**
          * A Wire Decline object. This field will be present in the JSON response if and only if
@@ -1080,6 +1083,13 @@ private constructor(
             inboundRealTimePaymentsTransferDecline
 
         /**
+         * Returns the raw JSON value of [other].
+         *
+         * Unlike [other], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("other") @ExcludeMissing fun _other(): JsonField<Other> = other
+
+        /**
          * Returns the raw JSON value of [wireDecline].
          *
          * Unlike [wireDecline], this method doesn't throw if the JSON field has an unexpected type.
@@ -1134,7 +1144,7 @@ private constructor(
             private var inboundRealTimePaymentsTransferDecline:
                 JsonField<InboundRealTimePaymentsTransferDecline>? =
                 null
-            private var other: JsonValue? = null
+            private var other: JsonField<Other>? = null
             private var wireDecline: JsonField<WireDecline>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -1327,7 +1337,19 @@ private constructor(
              * If the category of this Transaction source is equal to `other`, this field will
              * contain an empty object, otherwise it will contain null.
              */
-            fun other(other: JsonValue) = apply { this.other = other }
+            fun other(other: Other?) = other(JsonField.ofNullable(other))
+
+            /** Alias for calling [Builder.other] with `other.orElse(null)`. */
+            fun other(other: Optional<Other>) = other(other.getOrNull())
+
+            /**
+             * Sets [Builder.other] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.other] with a well-typed [Other] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun other(other: JsonField<Other>) = apply { this.other = other }
 
             /**
              * A Wire Decline object. This field will be present in the JSON response if and only if
@@ -1422,6 +1444,7 @@ private constructor(
             checkDepositRejection().ifPresent { it.validate() }
             inboundFednowTransferDecline().ifPresent { it.validate() }
             inboundRealTimePaymentsTransferDecline().ifPresent { it.validate() }
+            other().ifPresent { it.validate() }
             wireDecline().ifPresent { it.validate() }
             validated = true
         }
@@ -1449,6 +1472,7 @@ private constructor(
                 (checkDepositRejection.asKnown().getOrNull()?.validity() ?: 0) +
                 (inboundFednowTransferDecline.asKnown().getOrNull()?.validity() ?: 0) +
                 (inboundRealTimePaymentsTransferDecline.asKnown().getOrNull()?.validity() ?: 0) +
+                (other.asKnown().getOrNull()?.validity() ?: 0) +
                 (wireDecline.asKnown().getOrNull()?.validity() ?: 0)
 
         /**
@@ -7587,7 +7611,7 @@ private constructor(
             @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
                 private val category: JsonField<Category>,
-                private val pulse: JsonValue,
+                private val pulse: JsonField<Pulse>,
                 private val visa: JsonField<Visa>,
                 private val additionalProperties: MutableMap<String, JsonValue>,
             ) {
@@ -7597,7 +7621,9 @@ private constructor(
                     @JsonProperty("category")
                     @ExcludeMissing
                     category: JsonField<Category> = JsonMissing.of(),
-                    @JsonProperty("pulse") @ExcludeMissing pulse: JsonValue = JsonMissing.of(),
+                    @JsonProperty("pulse")
+                    @ExcludeMissing
+                    pulse: JsonField<Pulse> = JsonMissing.of(),
                     @JsonProperty("visa") @ExcludeMissing visa: JsonField<Visa> = JsonMissing.of(),
                 ) : this(category, pulse, visa, mutableMapOf())
 
@@ -7610,8 +7636,13 @@ private constructor(
                  */
                 fun category(): Category = category.getRequired("category")
 
-                /** Fields specific to the `pulse` network. */
-                @JsonProperty("pulse") @ExcludeMissing fun _pulse(): JsonValue = pulse
+                /**
+                 * Fields specific to the `pulse` network.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                 *   (e.g. if the server responded with an unexpected value).
+                 */
+                fun pulse(): Optional<Pulse> = pulse.getOptional("pulse")
 
                 /**
                  * Fields specific to the `visa` network.
@@ -7630,6 +7661,14 @@ private constructor(
                 @JsonProperty("category")
                 @ExcludeMissing
                 fun _category(): JsonField<Category> = category
+
+                /**
+                 * Returns the raw JSON value of [pulse].
+                 *
+                 * Unlike [pulse], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("pulse") @ExcludeMissing fun _pulse(): JsonField<Pulse> = pulse
 
                 /**
                  * Returns the raw JSON value of [visa].
@@ -7670,7 +7709,7 @@ private constructor(
                 class Builder internal constructor() {
 
                     private var category: JsonField<Category>? = null
-                    private var pulse: JsonValue? = null
+                    private var pulse: JsonField<Pulse>? = null
                     private var visa: JsonField<Visa>? = null
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -7695,7 +7734,19 @@ private constructor(
                     fun category(category: JsonField<Category>) = apply { this.category = category }
 
                     /** Fields specific to the `pulse` network. */
-                    fun pulse(pulse: JsonValue) = apply { this.pulse = pulse }
+                    fun pulse(pulse: Pulse?) = pulse(JsonField.ofNullable(pulse))
+
+                    /** Alias for calling [Builder.pulse] with `pulse.orElse(null)`. */
+                    fun pulse(pulse: Optional<Pulse>) = pulse(pulse.getOrNull())
+
+                    /**
+                     * Sets [Builder.pulse] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.pulse] with a well-typed [Pulse] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun pulse(pulse: JsonField<Pulse>) = apply { this.pulse = pulse }
 
                     /** Fields specific to the `visa` network. */
                     fun visa(visa: Visa?) = visa(JsonField.ofNullable(visa))
@@ -7765,6 +7816,7 @@ private constructor(
                     }
 
                     category().validate()
+                    pulse().ifPresent { it.validate() }
                     visa().ifPresent { it.validate() }
                     validated = true
                 }
@@ -7786,6 +7838,7 @@ private constructor(
                 @JvmSynthetic
                 internal fun validity(): Int =
                     (category.asKnown().getOrNull()?.validity() ?: 0) +
+                        (pulse.asKnown().getOrNull()?.validity() ?: 0) +
                         (visa.asKnown().getOrNull()?.validity() ?: 0)
 
                 /** The payment network used to process this card authorization. */
@@ -7928,6 +7981,115 @@ private constructor(
                     override fun hashCode() = value.hashCode()
 
                     override fun toString() = value.toString()
+                }
+
+                /** Fields specific to the `pulse` network. */
+                class Pulse
+                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                private constructor(
+                    private val additionalProperties: MutableMap<String, JsonValue>
+                ) {
+
+                    @JsonCreator private constructor() : this(mutableMapOf())
+
+                    @JsonAnySetter
+                    private fun putAdditionalProperty(key: String, value: JsonValue) {
+                        additionalProperties.put(key, value)
+                    }
+
+                    @JsonAnyGetter
+                    @ExcludeMissing
+                    fun _additionalProperties(): Map<String, JsonValue> =
+                        Collections.unmodifiableMap(additionalProperties)
+
+                    fun toBuilder() = Builder().from(this)
+
+                    companion object {
+
+                        /** Returns a mutable builder for constructing an instance of [Pulse]. */
+                        @JvmStatic fun builder() = Builder()
+                    }
+
+                    /** A builder for [Pulse]. */
+                    class Builder internal constructor() {
+
+                        private var additionalProperties: MutableMap<String, JsonValue> =
+                            mutableMapOf()
+
+                        @JvmSynthetic
+                        internal fun from(pulse: Pulse) = apply {
+                            additionalProperties = pulse.additionalProperties.toMutableMap()
+                        }
+
+                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                            apply {
+                                this.additionalProperties.clear()
+                                putAllAdditionalProperties(additionalProperties)
+                            }
+
+                        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                            additionalProperties.put(key, value)
+                        }
+
+                        fun putAllAdditionalProperties(
+                            additionalProperties: Map<String, JsonValue>
+                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                        fun removeAdditionalProperty(key: String) = apply {
+                            additionalProperties.remove(key)
+                        }
+
+                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                            keys.forEach(::removeAdditionalProperty)
+                        }
+
+                        /**
+                         * Returns an immutable instance of [Pulse].
+                         *
+                         * Further updates to this [Builder] will not mutate the returned instance.
+                         */
+                        fun build(): Pulse = Pulse(additionalProperties.toMutableMap())
+                    }
+
+                    private var validated: Boolean = false
+
+                    fun validate(): Pulse = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    @JvmSynthetic internal fun validity(): Int = 0
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is Pulse && additionalProperties == other.additionalProperties
+                    }
+
+                    private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+                    override fun hashCode(): Int = hashCode
+
+                    override fun toString() = "Pulse{additionalProperties=$additionalProperties}"
                 }
 
                 /** Fields specific to the `visa` network. */
@@ -14809,6 +14971,115 @@ private constructor(
 
             override fun toString() =
                 "InboundRealTimePaymentsTransferDecline{amount=$amount, creditorName=$creditorName, currency=$currency, debtorAccountNumber=$debtorAccountNumber, debtorName=$debtorName, debtorRoutingNumber=$debtorRoutingNumber, reason=$reason, remittanceInformation=$remittanceInformation, transactionIdentification=$transactionIdentification, transferId=$transferId, additionalProperties=$additionalProperties}"
+        }
+
+        /**
+         * If the category of this Transaction source is equal to `other`, this field will contain
+         * an empty object, otherwise it will contain null.
+         */
+        class Other
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
+
+            @JsonCreator private constructor() : this(mutableMapOf())
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /** Returns a mutable builder for constructing an instance of [Other]. */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [Other]. */
+            class Builder internal constructor() {
+
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(other: Other) = apply {
+                    additionalProperties = other.additionalProperties.toMutableMap()
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [Other].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 */
+                fun build(): Other = Other(additionalProperties.toMutableMap())
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): Other = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = 0
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Other && additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() = "Other{additionalProperties=$additionalProperties}"
         }
 
         /**

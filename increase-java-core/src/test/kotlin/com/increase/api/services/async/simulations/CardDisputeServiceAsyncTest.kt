@@ -4,7 +4,6 @@ package com.increase.api.services.async.simulations
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
-import com.increase.api.core.JsonValue
 import com.increase.api.models.simulations.carddisputes.CardDisputeActionParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -29,20 +28,40 @@ internal class CardDisputeServiceAsyncTest {
                     .visa(
                         CardDisputeActionParams.Visa.builder()
                             .action(CardDisputeActionParams.Visa.Action.ACCEPT_USER_SUBMISSION)
-                            .acceptChargeback(JsonValue.from(mapOf<String, Any>()))
-                            .acceptUserSubmission(JsonValue.from(mapOf<String, Any>()))
-                            .declineUserPrearbitration(JsonValue.from(mapOf<String, Any>()))
-                            .receiveMerchantPrearbitration(JsonValue.from(mapOf<String, Any>()))
-                            .represent(JsonValue.from(mapOf<String, Any>()))
+                            .acceptChargeback(
+                                CardDisputeActionParams.Visa.AcceptChargeback.builder().build()
+                            )
+                            .acceptUserSubmission(
+                                CardDisputeActionParams.Visa.AcceptUserSubmission.builder().build()
+                            )
+                            .declineUserPrearbitration(
+                                CardDisputeActionParams.Visa.DeclineUserPrearbitration.builder()
+                                    .build()
+                            )
+                            .receiveMerchantPrearbitration(
+                                CardDisputeActionParams.Visa.ReceiveMerchantPrearbitration.builder()
+                                    .build()
+                            )
+                            .represent(CardDisputeActionParams.Visa.Represent.builder().build())
                             .requestFurtherInformation(
                                 CardDisputeActionParams.Visa.RequestFurtherInformation.builder()
                                     .reason("x")
                                     .build()
                             )
-                            .timeOutChargeback(JsonValue.from(mapOf<String, Any>()))
-                            .timeOutMerchantPrearbitration(JsonValue.from(mapOf<String, Any>()))
-                            .timeOutRepresentment(JsonValue.from(mapOf<String, Any>()))
-                            .timeOutUserPrearbitration(JsonValue.from(mapOf<String, Any>()))
+                            .timeOutChargeback(
+                                CardDisputeActionParams.Visa.TimeOutChargeback.builder().build()
+                            )
+                            .timeOutMerchantPrearbitration(
+                                CardDisputeActionParams.Visa.TimeOutMerchantPrearbitration.builder()
+                                    .build()
+                            )
+                            .timeOutRepresentment(
+                                CardDisputeActionParams.Visa.TimeOutRepresentment.builder().build()
+                            )
+                            .timeOutUserPrearbitration(
+                                CardDisputeActionParams.Visa.TimeOutUserPrearbitration.builder()
+                                    .build()
+                            )
                             .build()
                     )
                     .build()

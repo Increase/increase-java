@@ -177,7 +177,13 @@ internal class PendingTransactionListPageResponseTest {
                                                         .Category
                                                         .VISA
                                                 )
-                                                .pulse(null)
+                                                .pulse(
+                                                    PendingTransaction.Source.CardAuthorization
+                                                        .NetworkDetails
+                                                        .Pulse
+                                                        .builder()
+                                                        .build()
+                                                )
                                                 .visa(
                                                     PendingTransaction.Source.CardAuthorization
                                                         .NetworkDetails
@@ -342,7 +348,7 @@ internal class PendingTransactionListPageResponseTest {
                                         )
                                         .build()
                                 )
-                                .other(JsonValue.from(mapOf<String, Any>()))
+                                .other(PendingTransaction.Source.Other.builder().build())
                                 .realTimePaymentsTransferInstruction(
                                     PendingTransaction.Source.RealTimePaymentsTransferInstruction
                                         .builder()
@@ -542,7 +548,13 @@ internal class PendingTransactionListPageResponseTest {
                                                     .Category
                                                     .VISA
                                             )
-                                            .pulse(null)
+                                            .pulse(
+                                                PendingTransaction.Source.CardAuthorization
+                                                    .NetworkDetails
+                                                    .Pulse
+                                                    .builder()
+                                                    .build()
+                                            )
                                             .visa(
                                                 PendingTransaction.Source.CardAuthorization
                                                     .NetworkDetails
@@ -695,7 +707,7 @@ internal class PendingTransactionListPageResponseTest {
                                     )
                                     .build()
                             )
-                            .other(JsonValue.from(mapOf<String, Any>()))
+                            .other(PendingTransaction.Source.Other.builder().build())
                             .realTimePaymentsTransferInstruction(
                                 PendingTransaction.Source.RealTimePaymentsTransferInstruction
                                     .builder()
@@ -898,7 +910,13 @@ internal class PendingTransactionListPageResponseTest {
                                                         .Category
                                                         .VISA
                                                 )
-                                                .pulse(null)
+                                                .pulse(
+                                                    PendingTransaction.Source.CardAuthorization
+                                                        .NetworkDetails
+                                                        .Pulse
+                                                        .builder()
+                                                        .build()
+                                                )
                                                 .visa(
                                                     PendingTransaction.Source.CardAuthorization
                                                         .NetworkDetails
@@ -1063,7 +1081,7 @@ internal class PendingTransactionListPageResponseTest {
                                         )
                                         .build()
                                 )
-                                .other(JsonValue.from(mapOf<String, Any>()))
+                                .other(PendingTransaction.Source.Other.builder().build())
                                 .realTimePaymentsTransferInstruction(
                                     PendingTransaction.Source.RealTimePaymentsTransferInstruction
                                         .builder()

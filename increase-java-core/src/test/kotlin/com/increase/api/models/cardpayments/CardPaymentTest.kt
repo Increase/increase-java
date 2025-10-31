@@ -3,7 +3,6 @@
 package com.increase.api.models.cardpayments
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import com.increase.api.core.JsonValue
 import com.increase.api.core.jsonMapper
 import java.time.LocalDate
 import java.time.OffsetDateTime
@@ -207,7 +206,12 @@ internal class CardPaymentTest {
                                                     .Category
                                                     .VISA
                                             )
-                                            .pulse(null)
+                                            .pulse(
+                                                CardPayment.Element.CardAuthorization.NetworkDetails
+                                                    .Pulse
+                                                    .builder()
+                                                    .build()
+                                            )
                                             .visa(
                                                 CardPayment.Element.CardAuthorization.NetworkDetails
                                                     .Visa
@@ -419,7 +423,11 @@ internal class CardPaymentTest {
                                                     .Category
                                                     .VISA
                                             )
-                                            .pulse(null)
+                                            .pulse(
+                                                CardPayment.Element.CardDecline.NetworkDetails.Pulse
+                                                    .builder()
+                                                    .build()
+                                            )
                                             .visa(
                                                 CardPayment.Element.CardDecline.NetworkDetails.Visa
                                                     .builder()
@@ -607,7 +615,12 @@ internal class CardPaymentTest {
                                                     .Category
                                                     .VISA
                                             )
-                                            .pulse(null)
+                                            .pulse(
+                                                CardPayment.Element.CardFinancial.NetworkDetails
+                                                    .Pulse
+                                                    .builder()
+                                                    .build()
+                                            )
                                             .visa(
                                                 CardPayment.Element.CardFinancial.NetworkDetails
                                                     .Visa
@@ -1466,7 +1479,12 @@ internal class CardPaymentTest {
                                                     .Category
                                                     .VISA
                                             )
-                                            .pulse(null)
+                                            .pulse(
+                                                CardPayment.Element.CardValidation.NetworkDetails
+                                                    .Pulse
+                                                    .builder()
+                                                    .build()
+                                            )
                                             .visa(
                                                 CardPayment.Element.CardValidation.NetworkDetails
                                                     .Visa
@@ -1545,7 +1563,7 @@ internal class CardPaymentTest {
                             )
                             .category(CardPayment.Element.Category.CARD_AUTHORIZATION)
                             .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                            .other(JsonValue.from(mapOf<String, Any>()))
+                            .other(CardPayment.Element.Other.builder().build())
                             .build(),
                         CardPayment.Element.builder()
                             .cardAuthentication(
@@ -1731,7 +1749,12 @@ internal class CardPaymentTest {
                                                     .Category
                                                     .VISA
                                             )
-                                            .pulse(null)
+                                            .pulse(
+                                                CardPayment.Element.CardAuthorization.NetworkDetails
+                                                    .Pulse
+                                                    .builder()
+                                                    .build()
+                                            )
                                             .visa(
                                                 CardPayment.Element.CardAuthorization.NetworkDetails
                                                     .Visa
@@ -1943,7 +1966,11 @@ internal class CardPaymentTest {
                                                     .Category
                                                     .VISA
                                             )
-                                            .pulse(null)
+                                            .pulse(
+                                                CardPayment.Element.CardDecline.NetworkDetails.Pulse
+                                                    .builder()
+                                                    .build()
+                                            )
                                             .visa(
                                                 CardPayment.Element.CardDecline.NetworkDetails.Visa
                                                     .builder()
@@ -2131,7 +2158,12 @@ internal class CardPaymentTest {
                                                     .Category
                                                     .VISA
                                             )
-                                            .pulse(null)
+                                            .pulse(
+                                                CardPayment.Element.CardFinancial.NetworkDetails
+                                                    .Pulse
+                                                    .builder()
+                                                    .build()
+                                            )
                                             .visa(
                                                 CardPayment.Element.CardFinancial.NetworkDetails
                                                     .Visa
@@ -2990,7 +3022,12 @@ internal class CardPaymentTest {
                                                     .Category
                                                     .VISA
                                             )
-                                            .pulse(null)
+                                            .pulse(
+                                                CardPayment.Element.CardValidation.NetworkDetails
+                                                    .Pulse
+                                                    .builder()
+                                                    .build()
+                                            )
                                             .visa(
                                                 CardPayment.Element.CardValidation.NetworkDetails
                                                     .Visa
@@ -3069,7 +3106,7 @@ internal class CardPaymentTest {
                             )
                             .category(CardPayment.Element.Category.CARD_REVERSAL)
                             .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                            .other(JsonValue.from(mapOf<String, Any>()))
+                            .other(CardPayment.Element.Other.builder().build())
                             .build(),
                         CardPayment.Element.builder()
                             .cardAuthentication(
@@ -3255,7 +3292,12 @@ internal class CardPaymentTest {
                                                     .Category
                                                     .VISA
                                             )
-                                            .pulse(null)
+                                            .pulse(
+                                                CardPayment.Element.CardAuthorization.NetworkDetails
+                                                    .Pulse
+                                                    .builder()
+                                                    .build()
+                                            )
                                             .visa(
                                                 CardPayment.Element.CardAuthorization.NetworkDetails
                                                     .Visa
@@ -3467,7 +3509,11 @@ internal class CardPaymentTest {
                                                     .Category
                                                     .VISA
                                             )
-                                            .pulse(null)
+                                            .pulse(
+                                                CardPayment.Element.CardDecline.NetworkDetails.Pulse
+                                                    .builder()
+                                                    .build()
+                                            )
                                             .visa(
                                                 CardPayment.Element.CardDecline.NetworkDetails.Visa
                                                     .builder()
@@ -3655,7 +3701,12 @@ internal class CardPaymentTest {
                                                     .Category
                                                     .VISA
                                             )
-                                            .pulse(null)
+                                            .pulse(
+                                                CardPayment.Element.CardFinancial.NetworkDetails
+                                                    .Pulse
+                                                    .builder()
+                                                    .build()
+                                            )
                                             .visa(
                                                 CardPayment.Element.CardFinancial.NetworkDetails
                                                     .Visa
@@ -4514,7 +4565,12 @@ internal class CardPaymentTest {
                                                     .Category
                                                     .VISA
                                             )
-                                            .pulse(null)
+                                            .pulse(
+                                                CardPayment.Element.CardValidation.NetworkDetails
+                                                    .Pulse
+                                                    .builder()
+                                                    .build()
+                                            )
                                             .visa(
                                                 CardPayment.Element.CardValidation.NetworkDetails
                                                     .Visa
@@ -4593,7 +4649,7 @@ internal class CardPaymentTest {
                             )
                             .category(CardPayment.Element.Category.CARD_INCREMENT)
                             .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                            .other(JsonValue.from(mapOf<String, Any>()))
+                            .other(CardPayment.Element.Other.builder().build())
                             .build(),
                         CardPayment.Element.builder()
                             .cardAuthentication(
@@ -4779,7 +4835,12 @@ internal class CardPaymentTest {
                                                     .Category
                                                     .VISA
                                             )
-                                            .pulse(null)
+                                            .pulse(
+                                                CardPayment.Element.CardAuthorization.NetworkDetails
+                                                    .Pulse
+                                                    .builder()
+                                                    .build()
+                                            )
                                             .visa(
                                                 CardPayment.Element.CardAuthorization.NetworkDetails
                                                     .Visa
@@ -4991,7 +5052,11 @@ internal class CardPaymentTest {
                                                     .Category
                                                     .VISA
                                             )
-                                            .pulse(null)
+                                            .pulse(
+                                                CardPayment.Element.CardDecline.NetworkDetails.Pulse
+                                                    .builder()
+                                                    .build()
+                                            )
                                             .visa(
                                                 CardPayment.Element.CardDecline.NetworkDetails.Visa
                                                     .builder()
@@ -5179,7 +5244,12 @@ internal class CardPaymentTest {
                                                     .Category
                                                     .VISA
                                             )
-                                            .pulse(null)
+                                            .pulse(
+                                                CardPayment.Element.CardFinancial.NetworkDetails
+                                                    .Pulse
+                                                    .builder()
+                                                    .build()
+                                            )
                                             .visa(
                                                 CardPayment.Element.CardFinancial.NetworkDetails
                                                     .Visa
@@ -6038,7 +6108,12 @@ internal class CardPaymentTest {
                                                     .Category
                                                     .VISA
                                             )
-                                            .pulse(null)
+                                            .pulse(
+                                                CardPayment.Element.CardValidation.NetworkDetails
+                                                    .Pulse
+                                                    .builder()
+                                                    .build()
+                                            )
                                             .visa(
                                                 CardPayment.Element.CardValidation.NetworkDetails
                                                     .Visa
@@ -6117,7 +6192,7 @@ internal class CardPaymentTest {
                             )
                             .category(CardPayment.Element.Category.CARD_SETTLEMENT)
                             .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                            .other(JsonValue.from(mapOf<String, Any>()))
+                            .other(CardPayment.Element.Other.builder().build())
                             .build(),
                     )
                 )
@@ -6303,7 +6378,11 @@ internal class CardPaymentTest {
                                             .Category
                                             .VISA
                                     )
-                                    .pulse(null)
+                                    .pulse(
+                                        CardPayment.Element.CardAuthorization.NetworkDetails.Pulse
+                                            .builder()
+                                            .build()
+                                    )
                                     .visa(
                                         CardPayment.Element.CardAuthorization.NetworkDetails.Visa
                                             .builder()
@@ -6490,7 +6569,11 @@ internal class CardPaymentTest {
                                     .category(
                                         CardPayment.Element.CardDecline.NetworkDetails.Category.VISA
                                     )
-                                    .pulse(null)
+                                    .pulse(
+                                        CardPayment.Element.CardDecline.NetworkDetails.Pulse
+                                            .builder()
+                                            .build()
+                                    )
                                     .visa(
                                         CardPayment.Element.CardDecline.NetworkDetails.Visa
                                             .builder()
@@ -6662,7 +6745,11 @@ internal class CardPaymentTest {
                                         CardPayment.Element.CardFinancial.NetworkDetails.Category
                                             .VISA
                                     )
-                                    .pulse(null)
+                                    .pulse(
+                                        CardPayment.Element.CardFinancial.NetworkDetails.Pulse
+                                            .builder()
+                                            .build()
+                                    )
                                     .visa(
                                         CardPayment.Element.CardFinancial.NetworkDetails.Visa
                                             .builder()
@@ -7441,7 +7528,11 @@ internal class CardPaymentTest {
                                         CardPayment.Element.CardValidation.NetworkDetails.Category
                                             .VISA
                                     )
-                                    .pulse(null)
+                                    .pulse(
+                                        CardPayment.Element.CardValidation.NetworkDetails.Pulse
+                                            .builder()
+                                            .build()
+                                    )
                                     .visa(
                                         CardPayment.Element.CardValidation.NetworkDetails.Visa
                                             .builder()
@@ -7511,7 +7602,7 @@ internal class CardPaymentTest {
                     )
                     .category(CardPayment.Element.Category.CARD_AUTHORIZATION)
                     .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                    .other(JsonValue.from(mapOf<String, Any>()))
+                    .other(CardPayment.Element.Other.builder().build())
                     .build(),
                 CardPayment.Element.builder()
                     .cardAuthentication(
@@ -7673,7 +7764,11 @@ internal class CardPaymentTest {
                                             .Category
                                             .VISA
                                     )
-                                    .pulse(null)
+                                    .pulse(
+                                        CardPayment.Element.CardAuthorization.NetworkDetails.Pulse
+                                            .builder()
+                                            .build()
+                                    )
                                     .visa(
                                         CardPayment.Element.CardAuthorization.NetworkDetails.Visa
                                             .builder()
@@ -7860,7 +7955,11 @@ internal class CardPaymentTest {
                                     .category(
                                         CardPayment.Element.CardDecline.NetworkDetails.Category.VISA
                                     )
-                                    .pulse(null)
+                                    .pulse(
+                                        CardPayment.Element.CardDecline.NetworkDetails.Pulse
+                                            .builder()
+                                            .build()
+                                    )
                                     .visa(
                                         CardPayment.Element.CardDecline.NetworkDetails.Visa
                                             .builder()
@@ -8032,7 +8131,11 @@ internal class CardPaymentTest {
                                         CardPayment.Element.CardFinancial.NetworkDetails.Category
                                             .VISA
                                     )
-                                    .pulse(null)
+                                    .pulse(
+                                        CardPayment.Element.CardFinancial.NetworkDetails.Pulse
+                                            .builder()
+                                            .build()
+                                    )
                                     .visa(
                                         CardPayment.Element.CardFinancial.NetworkDetails.Visa
                                             .builder()
@@ -8811,7 +8914,11 @@ internal class CardPaymentTest {
                                         CardPayment.Element.CardValidation.NetworkDetails.Category
                                             .VISA
                                     )
-                                    .pulse(null)
+                                    .pulse(
+                                        CardPayment.Element.CardValidation.NetworkDetails.Pulse
+                                            .builder()
+                                            .build()
+                                    )
                                     .visa(
                                         CardPayment.Element.CardValidation.NetworkDetails.Visa
                                             .builder()
@@ -8881,7 +8988,7 @@ internal class CardPaymentTest {
                     )
                     .category(CardPayment.Element.Category.CARD_REVERSAL)
                     .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                    .other(JsonValue.from(mapOf<String, Any>()))
+                    .other(CardPayment.Element.Other.builder().build())
                     .build(),
                 CardPayment.Element.builder()
                     .cardAuthentication(
@@ -9043,7 +9150,11 @@ internal class CardPaymentTest {
                                             .Category
                                             .VISA
                                     )
-                                    .pulse(null)
+                                    .pulse(
+                                        CardPayment.Element.CardAuthorization.NetworkDetails.Pulse
+                                            .builder()
+                                            .build()
+                                    )
                                     .visa(
                                         CardPayment.Element.CardAuthorization.NetworkDetails.Visa
                                             .builder()
@@ -9230,7 +9341,11 @@ internal class CardPaymentTest {
                                     .category(
                                         CardPayment.Element.CardDecline.NetworkDetails.Category.VISA
                                     )
-                                    .pulse(null)
+                                    .pulse(
+                                        CardPayment.Element.CardDecline.NetworkDetails.Pulse
+                                            .builder()
+                                            .build()
+                                    )
                                     .visa(
                                         CardPayment.Element.CardDecline.NetworkDetails.Visa
                                             .builder()
@@ -9402,7 +9517,11 @@ internal class CardPaymentTest {
                                         CardPayment.Element.CardFinancial.NetworkDetails.Category
                                             .VISA
                                     )
-                                    .pulse(null)
+                                    .pulse(
+                                        CardPayment.Element.CardFinancial.NetworkDetails.Pulse
+                                            .builder()
+                                            .build()
+                                    )
                                     .visa(
                                         CardPayment.Element.CardFinancial.NetworkDetails.Visa
                                             .builder()
@@ -10181,7 +10300,11 @@ internal class CardPaymentTest {
                                         CardPayment.Element.CardValidation.NetworkDetails.Category
                                             .VISA
                                     )
-                                    .pulse(null)
+                                    .pulse(
+                                        CardPayment.Element.CardValidation.NetworkDetails.Pulse
+                                            .builder()
+                                            .build()
+                                    )
                                     .visa(
                                         CardPayment.Element.CardValidation.NetworkDetails.Visa
                                             .builder()
@@ -10251,7 +10374,7 @@ internal class CardPaymentTest {
                     )
                     .category(CardPayment.Element.Category.CARD_INCREMENT)
                     .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                    .other(JsonValue.from(mapOf<String, Any>()))
+                    .other(CardPayment.Element.Other.builder().build())
                     .build(),
                 CardPayment.Element.builder()
                     .cardAuthentication(
@@ -10413,7 +10536,11 @@ internal class CardPaymentTest {
                                             .Category
                                             .VISA
                                     )
-                                    .pulse(null)
+                                    .pulse(
+                                        CardPayment.Element.CardAuthorization.NetworkDetails.Pulse
+                                            .builder()
+                                            .build()
+                                    )
                                     .visa(
                                         CardPayment.Element.CardAuthorization.NetworkDetails.Visa
                                             .builder()
@@ -10600,7 +10727,11 @@ internal class CardPaymentTest {
                                     .category(
                                         CardPayment.Element.CardDecline.NetworkDetails.Category.VISA
                                     )
-                                    .pulse(null)
+                                    .pulse(
+                                        CardPayment.Element.CardDecline.NetworkDetails.Pulse
+                                            .builder()
+                                            .build()
+                                    )
                                     .visa(
                                         CardPayment.Element.CardDecline.NetworkDetails.Visa
                                             .builder()
@@ -10772,7 +10903,11 @@ internal class CardPaymentTest {
                                         CardPayment.Element.CardFinancial.NetworkDetails.Category
                                             .VISA
                                     )
-                                    .pulse(null)
+                                    .pulse(
+                                        CardPayment.Element.CardFinancial.NetworkDetails.Pulse
+                                            .builder()
+                                            .build()
+                                    )
                                     .visa(
                                         CardPayment.Element.CardFinancial.NetworkDetails.Visa
                                             .builder()
@@ -11551,7 +11686,11 @@ internal class CardPaymentTest {
                                         CardPayment.Element.CardValidation.NetworkDetails.Category
                                             .VISA
                                     )
-                                    .pulse(null)
+                                    .pulse(
+                                        CardPayment.Element.CardValidation.NetworkDetails.Pulse
+                                            .builder()
+                                            .build()
+                                    )
                                     .visa(
                                         CardPayment.Element.CardValidation.NetworkDetails.Visa
                                             .builder()
@@ -11621,7 +11760,7 @@ internal class CardPaymentTest {
                     )
                     .category(CardPayment.Element.Category.CARD_SETTLEMENT)
                     .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                    .other(JsonValue.from(mapOf<String, Any>()))
+                    .other(CardPayment.Element.Other.builder().build())
                     .build(),
             )
         assertThat(cardPayment.physicalCardId()).isEmpty
@@ -11836,7 +11975,12 @@ internal class CardPaymentTest {
                                                     .Category
                                                     .VISA
                                             )
-                                            .pulse(null)
+                                            .pulse(
+                                                CardPayment.Element.CardAuthorization.NetworkDetails
+                                                    .Pulse
+                                                    .builder()
+                                                    .build()
+                                            )
                                             .visa(
                                                 CardPayment.Element.CardAuthorization.NetworkDetails
                                                     .Visa
@@ -12048,7 +12192,11 @@ internal class CardPaymentTest {
                                                     .Category
                                                     .VISA
                                             )
-                                            .pulse(null)
+                                            .pulse(
+                                                CardPayment.Element.CardDecline.NetworkDetails.Pulse
+                                                    .builder()
+                                                    .build()
+                                            )
                                             .visa(
                                                 CardPayment.Element.CardDecline.NetworkDetails.Visa
                                                     .builder()
@@ -12236,7 +12384,12 @@ internal class CardPaymentTest {
                                                     .Category
                                                     .VISA
                                             )
-                                            .pulse(null)
+                                            .pulse(
+                                                CardPayment.Element.CardFinancial.NetworkDetails
+                                                    .Pulse
+                                                    .builder()
+                                                    .build()
+                                            )
                                             .visa(
                                                 CardPayment.Element.CardFinancial.NetworkDetails
                                                     .Visa
@@ -13095,7 +13248,12 @@ internal class CardPaymentTest {
                                                     .Category
                                                     .VISA
                                             )
-                                            .pulse(null)
+                                            .pulse(
+                                                CardPayment.Element.CardValidation.NetworkDetails
+                                                    .Pulse
+                                                    .builder()
+                                                    .build()
+                                            )
                                             .visa(
                                                 CardPayment.Element.CardValidation.NetworkDetails
                                                     .Visa
@@ -13174,7 +13332,7 @@ internal class CardPaymentTest {
                             )
                             .category(CardPayment.Element.Category.CARD_AUTHORIZATION)
                             .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                            .other(JsonValue.from(mapOf<String, Any>()))
+                            .other(CardPayment.Element.Other.builder().build())
                             .build(),
                         CardPayment.Element.builder()
                             .cardAuthentication(
@@ -13360,7 +13518,12 @@ internal class CardPaymentTest {
                                                     .Category
                                                     .VISA
                                             )
-                                            .pulse(null)
+                                            .pulse(
+                                                CardPayment.Element.CardAuthorization.NetworkDetails
+                                                    .Pulse
+                                                    .builder()
+                                                    .build()
+                                            )
                                             .visa(
                                                 CardPayment.Element.CardAuthorization.NetworkDetails
                                                     .Visa
@@ -13572,7 +13735,11 @@ internal class CardPaymentTest {
                                                     .Category
                                                     .VISA
                                             )
-                                            .pulse(null)
+                                            .pulse(
+                                                CardPayment.Element.CardDecline.NetworkDetails.Pulse
+                                                    .builder()
+                                                    .build()
+                                            )
                                             .visa(
                                                 CardPayment.Element.CardDecline.NetworkDetails.Visa
                                                     .builder()
@@ -13760,7 +13927,12 @@ internal class CardPaymentTest {
                                                     .Category
                                                     .VISA
                                             )
-                                            .pulse(null)
+                                            .pulse(
+                                                CardPayment.Element.CardFinancial.NetworkDetails
+                                                    .Pulse
+                                                    .builder()
+                                                    .build()
+                                            )
                                             .visa(
                                                 CardPayment.Element.CardFinancial.NetworkDetails
                                                     .Visa
@@ -14619,7 +14791,12 @@ internal class CardPaymentTest {
                                                     .Category
                                                     .VISA
                                             )
-                                            .pulse(null)
+                                            .pulse(
+                                                CardPayment.Element.CardValidation.NetworkDetails
+                                                    .Pulse
+                                                    .builder()
+                                                    .build()
+                                            )
                                             .visa(
                                                 CardPayment.Element.CardValidation.NetworkDetails
                                                     .Visa
@@ -14698,7 +14875,7 @@ internal class CardPaymentTest {
                             )
                             .category(CardPayment.Element.Category.CARD_REVERSAL)
                             .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                            .other(JsonValue.from(mapOf<String, Any>()))
+                            .other(CardPayment.Element.Other.builder().build())
                             .build(),
                         CardPayment.Element.builder()
                             .cardAuthentication(
@@ -14884,7 +15061,12 @@ internal class CardPaymentTest {
                                                     .Category
                                                     .VISA
                                             )
-                                            .pulse(null)
+                                            .pulse(
+                                                CardPayment.Element.CardAuthorization.NetworkDetails
+                                                    .Pulse
+                                                    .builder()
+                                                    .build()
+                                            )
                                             .visa(
                                                 CardPayment.Element.CardAuthorization.NetworkDetails
                                                     .Visa
@@ -15096,7 +15278,11 @@ internal class CardPaymentTest {
                                                     .Category
                                                     .VISA
                                             )
-                                            .pulse(null)
+                                            .pulse(
+                                                CardPayment.Element.CardDecline.NetworkDetails.Pulse
+                                                    .builder()
+                                                    .build()
+                                            )
                                             .visa(
                                                 CardPayment.Element.CardDecline.NetworkDetails.Visa
                                                     .builder()
@@ -15284,7 +15470,12 @@ internal class CardPaymentTest {
                                                     .Category
                                                     .VISA
                                             )
-                                            .pulse(null)
+                                            .pulse(
+                                                CardPayment.Element.CardFinancial.NetworkDetails
+                                                    .Pulse
+                                                    .builder()
+                                                    .build()
+                                            )
                                             .visa(
                                                 CardPayment.Element.CardFinancial.NetworkDetails
                                                     .Visa
@@ -16143,7 +16334,12 @@ internal class CardPaymentTest {
                                                     .Category
                                                     .VISA
                                             )
-                                            .pulse(null)
+                                            .pulse(
+                                                CardPayment.Element.CardValidation.NetworkDetails
+                                                    .Pulse
+                                                    .builder()
+                                                    .build()
+                                            )
                                             .visa(
                                                 CardPayment.Element.CardValidation.NetworkDetails
                                                     .Visa
@@ -16222,7 +16418,7 @@ internal class CardPaymentTest {
                             )
                             .category(CardPayment.Element.Category.CARD_INCREMENT)
                             .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                            .other(JsonValue.from(mapOf<String, Any>()))
+                            .other(CardPayment.Element.Other.builder().build())
                             .build(),
                         CardPayment.Element.builder()
                             .cardAuthentication(
@@ -16408,7 +16604,12 @@ internal class CardPaymentTest {
                                                     .Category
                                                     .VISA
                                             )
-                                            .pulse(null)
+                                            .pulse(
+                                                CardPayment.Element.CardAuthorization.NetworkDetails
+                                                    .Pulse
+                                                    .builder()
+                                                    .build()
+                                            )
                                             .visa(
                                                 CardPayment.Element.CardAuthorization.NetworkDetails
                                                     .Visa
@@ -16620,7 +16821,11 @@ internal class CardPaymentTest {
                                                     .Category
                                                     .VISA
                                             )
-                                            .pulse(null)
+                                            .pulse(
+                                                CardPayment.Element.CardDecline.NetworkDetails.Pulse
+                                                    .builder()
+                                                    .build()
+                                            )
                                             .visa(
                                                 CardPayment.Element.CardDecline.NetworkDetails.Visa
                                                     .builder()
@@ -16808,7 +17013,12 @@ internal class CardPaymentTest {
                                                     .Category
                                                     .VISA
                                             )
-                                            .pulse(null)
+                                            .pulse(
+                                                CardPayment.Element.CardFinancial.NetworkDetails
+                                                    .Pulse
+                                                    .builder()
+                                                    .build()
+                                            )
                                             .visa(
                                                 CardPayment.Element.CardFinancial.NetworkDetails
                                                     .Visa
@@ -17667,7 +17877,12 @@ internal class CardPaymentTest {
                                                     .Category
                                                     .VISA
                                             )
-                                            .pulse(null)
+                                            .pulse(
+                                                CardPayment.Element.CardValidation.NetworkDetails
+                                                    .Pulse
+                                                    .builder()
+                                                    .build()
+                                            )
                                             .visa(
                                                 CardPayment.Element.CardValidation.NetworkDetails
                                                     .Visa
@@ -17746,7 +17961,7 @@ internal class CardPaymentTest {
                             )
                             .category(CardPayment.Element.Category.CARD_SETTLEMENT)
                             .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                            .other(JsonValue.from(mapOf<String, Any>()))
+                            .other(CardPayment.Element.Other.builder().build())
                             .build(),
                     )
                 )

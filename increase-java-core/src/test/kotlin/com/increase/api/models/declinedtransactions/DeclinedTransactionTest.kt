@@ -3,7 +3,6 @@
 package com.increase.api.models.declinedtransactions
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import com.increase.api.core.JsonValue
 import com.increase.api.core.jsonMapper
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
@@ -155,7 +154,12 @@ internal class DeclinedTransactionTest {
                                                 .Category
                                                 .VISA
                                         )
-                                        .pulse(null)
+                                        .pulse(
+                                            DeclinedTransaction.Source.CardDecline.NetworkDetails
+                                                .Pulse
+                                                .builder()
+                                                .build()
+                                        )
                                         .visa(
                                             DeclinedTransaction.Source.CardDecline.NetworkDetails
                                                 .Visa
@@ -304,7 +308,7 @@ internal class DeclinedTransactionTest {
                                 )
                                 .build()
                         )
-                        .other(JsonValue.from(mapOf<String, Any>()))
+                        .other(DeclinedTransaction.Source.Other.builder().build())
                         .wireDecline(
                             DeclinedTransaction.Source.WireDecline.builder()
                                 .inboundWireTransferId("inbound_wire_transfer_f228m6bmhtcxjco9pwp0")
@@ -457,7 +461,11 @@ internal class DeclinedTransactionTest {
                                             .Category
                                             .VISA
                                     )
-                                    .pulse(null)
+                                    .pulse(
+                                        DeclinedTransaction.Source.CardDecline.NetworkDetails.Pulse
+                                            .builder()
+                                            .build()
+                                    )
                                     .visa(
                                         DeclinedTransaction.Source.CardDecline.NetworkDetails.Visa
                                             .builder()
@@ -593,7 +601,7 @@ internal class DeclinedTransactionTest {
                             .transferId("inbound_real_time_payments_transfer_63hlz498vcxg644hcrzr")
                             .build()
                     )
-                    .other(JsonValue.from(mapOf<String, Any>()))
+                    .other(DeclinedTransaction.Source.Other.builder().build())
                     .wireDecline(
                         DeclinedTransaction.Source.WireDecline.builder()
                             .inboundWireTransferId("inbound_wire_transfer_f228m6bmhtcxjco9pwp0")
@@ -754,7 +762,12 @@ internal class DeclinedTransactionTest {
                                                 .Category
                                                 .VISA
                                         )
-                                        .pulse(null)
+                                        .pulse(
+                                            DeclinedTransaction.Source.CardDecline.NetworkDetails
+                                                .Pulse
+                                                .builder()
+                                                .build()
+                                        )
                                         .visa(
                                             DeclinedTransaction.Source.CardDecline.NetworkDetails
                                                 .Visa
@@ -903,7 +916,7 @@ internal class DeclinedTransactionTest {
                                 )
                                 .build()
                         )
-                        .other(JsonValue.from(mapOf<String, Any>()))
+                        .other(DeclinedTransaction.Source.Other.builder().build())
                         .wireDecline(
                             DeclinedTransaction.Source.WireDecline.builder()
                                 .inboundWireTransferId("inbound_wire_transfer_f228m6bmhtcxjco9pwp0")

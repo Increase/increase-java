@@ -183,7 +183,13 @@ internal class CardAuthorizationCreateResponseTest {
                                                         .Category
                                                         .VISA
                                                 )
-                                                .pulse(null)
+                                                .pulse(
+                                                    DeclinedTransaction.Source.CardDecline
+                                                        .NetworkDetails
+                                                        .Pulse
+                                                        .builder()
+                                                        .build()
+                                                )
                                                 .visa(
                                                     DeclinedTransaction.Source.CardDecline
                                                         .NetworkDetails
@@ -350,7 +356,7 @@ internal class CardAuthorizationCreateResponseTest {
                                         )
                                         .build()
                                 )
-                                .other(JsonValue.from(mapOf<String, Any>()))
+                                .other(DeclinedTransaction.Source.Other.builder().build())
                                 .wireDecline(
                                     DeclinedTransaction.Source.WireDecline.builder()
                                         .inboundWireTransferId(
@@ -529,7 +535,13 @@ internal class CardAuthorizationCreateResponseTest {
                                                         .Category
                                                         .VISA
                                                 )
-                                                .pulse(null)
+                                                .pulse(
+                                                    PendingTransaction.Source.CardAuthorization
+                                                        .NetworkDetails
+                                                        .Pulse
+                                                        .builder()
+                                                        .build()
+                                                )
                                                 .visa(
                                                     PendingTransaction.Source.CardAuthorization
                                                         .NetworkDetails
@@ -692,7 +704,7 @@ internal class CardAuthorizationCreateResponseTest {
                                         )
                                         .build()
                                 )
-                                .other(JsonValue.from(mapOf<String, Any>()))
+                                .other(PendingTransaction.Source.Other.builder().build())
                                 .realTimePaymentsTransferInstruction(
                                     PendingTransaction.Source.RealTimePaymentsTransferInstruction
                                         .builder()
@@ -895,7 +907,13 @@ internal class CardAuthorizationCreateResponseTest {
                                                     .Category
                                                     .VISA
                                             )
-                                            .pulse(null)
+                                            .pulse(
+                                                DeclinedTransaction.Source.CardDecline
+                                                    .NetworkDetails
+                                                    .Pulse
+                                                    .builder()
+                                                    .build()
+                                            )
                                             .visa(
                                                 DeclinedTransaction.Source.CardDecline
                                                     .NetworkDetails
@@ -1055,7 +1073,7 @@ internal class CardAuthorizationCreateResponseTest {
                                     )
                                     .build()
                             )
-                            .other(JsonValue.from(mapOf<String, Any>()))
+                            .other(DeclinedTransaction.Source.Other.builder().build())
                             .wireDecline(
                                 DeclinedTransaction.Source.WireDecline.builder()
                                     .inboundWireTransferId(
@@ -1234,7 +1252,13 @@ internal class CardAuthorizationCreateResponseTest {
                                                     .Category
                                                     .VISA
                                             )
-                                            .pulse(null)
+                                            .pulse(
+                                                PendingTransaction.Source.CardAuthorization
+                                                    .NetworkDetails
+                                                    .Pulse
+                                                    .builder()
+                                                    .build()
+                                            )
                                             .visa(
                                                 PendingTransaction.Source.CardAuthorization
                                                     .NetworkDetails
@@ -1387,7 +1411,7 @@ internal class CardAuthorizationCreateResponseTest {
                                     )
                                     .build()
                             )
-                            .other(JsonValue.from(mapOf<String, Any>()))
+                            .other(PendingTransaction.Source.Other.builder().build())
                             .realTimePaymentsTransferInstruction(
                                 PendingTransaction.Source.RealTimePaymentsTransferInstruction
                                     .builder()
@@ -1597,7 +1621,13 @@ internal class CardAuthorizationCreateResponseTest {
                                                         .Category
                                                         .VISA
                                                 )
-                                                .pulse(null)
+                                                .pulse(
+                                                    DeclinedTransaction.Source.CardDecline
+                                                        .NetworkDetails
+                                                        .Pulse
+                                                        .builder()
+                                                        .build()
+                                                )
                                                 .visa(
                                                     DeclinedTransaction.Source.CardDecline
                                                         .NetworkDetails
@@ -1764,7 +1794,7 @@ internal class CardAuthorizationCreateResponseTest {
                                         )
                                         .build()
                                 )
-                                .other(JsonValue.from(mapOf<String, Any>()))
+                                .other(DeclinedTransaction.Source.Other.builder().build())
                                 .wireDecline(
                                     DeclinedTransaction.Source.WireDecline.builder()
                                         .inboundWireTransferId(
@@ -1943,7 +1973,13 @@ internal class CardAuthorizationCreateResponseTest {
                                                         .Category
                                                         .VISA
                                                 )
-                                                .pulse(null)
+                                                .pulse(
+                                                    PendingTransaction.Source.CardAuthorization
+                                                        .NetworkDetails
+                                                        .Pulse
+                                                        .builder()
+                                                        .build()
+                                                )
                                                 .visa(
                                                     PendingTransaction.Source.CardAuthorization
                                                         .NetworkDetails
@@ -2106,7 +2142,7 @@ internal class CardAuthorizationCreateResponseTest {
                                         )
                                         .build()
                                 )
-                                .other(JsonValue.from(mapOf<String, Any>()))
+                                .other(PendingTransaction.Source.Other.builder().build())
                                 .realTimePaymentsTransferInstruction(
                                     PendingTransaction.Source.RealTimePaymentsTransferInstruction
                                         .builder()

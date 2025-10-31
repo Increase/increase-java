@@ -2,7 +2,6 @@
 
 package com.increase.api.models.exports
 
-import com.increase.api.core.JsonValue
 import java.time.LocalDate
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
@@ -84,7 +83,7 @@ internal class ExportCreateParamsTest {
                     .programId("program_id")
                     .build()
             )
-            .vendorCsv(JsonValue.from(mapOf<String, Any>()))
+            .vendorCsv(ExportCreateParams.VendorCsv.builder().build())
             .build()
     }
 
@@ -163,7 +162,7 @@ internal class ExportCreateParamsTest {
                         .programId("program_id")
                         .build()
                 )
-                .vendorCsv(JsonValue.from(mapOf<String, Any>()))
+                .vendorCsv(ExportCreateParams.VendorCsv.builder().build())
                 .build()
 
         val body = params._body()
@@ -245,7 +244,7 @@ internal class ExportCreateParamsTest {
                     .programId("program_id")
                     .build()
             )
-        assertThat(body._vendorCsv()).isEqualTo(JsonValue.from(mapOf<String, Any>()))
+        assertThat(body.vendorCsv()).contains(ExportCreateParams.VendorCsv.builder().build())
     }
 
     @Test
