@@ -639,16 +639,16 @@ private constructor(
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val action: JsonField<Action>,
-        private val acceptChargeback: JsonValue,
-        private val acceptUserSubmission: JsonValue,
-        private val declineUserPrearbitration: JsonValue,
-        private val receiveMerchantPrearbitration: JsonValue,
-        private val represent: JsonValue,
+        private val acceptChargeback: JsonField<AcceptChargeback>,
+        private val acceptUserSubmission: JsonField<AcceptUserSubmission>,
+        private val declineUserPrearbitration: JsonField<DeclineUserPrearbitration>,
+        private val receiveMerchantPrearbitration: JsonField<ReceiveMerchantPrearbitration>,
+        private val represent: JsonField<Represent>,
         private val requestFurtherInformation: JsonField<RequestFurtherInformation>,
-        private val timeOutChargeback: JsonValue,
-        private val timeOutMerchantPrearbitration: JsonValue,
-        private val timeOutRepresentment: JsonValue,
-        private val timeOutUserPrearbitration: JsonValue,
+        private val timeOutChargeback: JsonField<TimeOutChargeback>,
+        private val timeOutMerchantPrearbitration: JsonField<TimeOutMerchantPrearbitration>,
+        private val timeOutRepresentment: JsonField<TimeOutRepresentment>,
+        private val timeOutUserPrearbitration: JsonField<TimeOutUserPrearbitration>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -657,32 +657,36 @@ private constructor(
             @JsonProperty("action") @ExcludeMissing action: JsonField<Action> = JsonMissing.of(),
             @JsonProperty("accept_chargeback")
             @ExcludeMissing
-            acceptChargeback: JsonValue = JsonMissing.of(),
+            acceptChargeback: JsonField<AcceptChargeback> = JsonMissing.of(),
             @JsonProperty("accept_user_submission")
             @ExcludeMissing
-            acceptUserSubmission: JsonValue = JsonMissing.of(),
+            acceptUserSubmission: JsonField<AcceptUserSubmission> = JsonMissing.of(),
             @JsonProperty("decline_user_prearbitration")
             @ExcludeMissing
-            declineUserPrearbitration: JsonValue = JsonMissing.of(),
+            declineUserPrearbitration: JsonField<DeclineUserPrearbitration> = JsonMissing.of(),
             @JsonProperty("receive_merchant_prearbitration")
             @ExcludeMissing
-            receiveMerchantPrearbitration: JsonValue = JsonMissing.of(),
-            @JsonProperty("represent") @ExcludeMissing represent: JsonValue = JsonMissing.of(),
+            receiveMerchantPrearbitration: JsonField<ReceiveMerchantPrearbitration> =
+                JsonMissing.of(),
+            @JsonProperty("represent")
+            @ExcludeMissing
+            represent: JsonField<Represent> = JsonMissing.of(),
             @JsonProperty("request_further_information")
             @ExcludeMissing
             requestFurtherInformation: JsonField<RequestFurtherInformation> = JsonMissing.of(),
             @JsonProperty("time_out_chargeback")
             @ExcludeMissing
-            timeOutChargeback: JsonValue = JsonMissing.of(),
+            timeOutChargeback: JsonField<TimeOutChargeback> = JsonMissing.of(),
             @JsonProperty("time_out_merchant_prearbitration")
             @ExcludeMissing
-            timeOutMerchantPrearbitration: JsonValue = JsonMissing.of(),
+            timeOutMerchantPrearbitration: JsonField<TimeOutMerchantPrearbitration> =
+                JsonMissing.of(),
             @JsonProperty("time_out_representment")
             @ExcludeMissing
-            timeOutRepresentment: JsonValue = JsonMissing.of(),
+            timeOutRepresentment: JsonField<TimeOutRepresentment> = JsonMissing.of(),
             @JsonProperty("time_out_user_prearbitration")
             @ExcludeMissing
-            timeOutUserPrearbitration: JsonValue = JsonMissing.of(),
+            timeOutUserPrearbitration: JsonField<TimeOutUserPrearbitration> = JsonMissing.of(),
         ) : this(
             action,
             acceptChargeback,
@@ -710,40 +714,51 @@ private constructor(
         /**
          * The parameters for accepting the chargeback. Required if and only if `action` is
          * `accept_chargeback`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
-        @JsonProperty("accept_chargeback")
-        @ExcludeMissing
-        fun _acceptChargeback(): JsonValue = acceptChargeback
+        fun acceptChargeback(): Optional<AcceptChargeback> =
+            acceptChargeback.getOptional("accept_chargeback")
 
         /**
          * The parameters for accepting the user submission. Required if and only if `action` is
          * `accept_user_submission`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
-        @JsonProperty("accept_user_submission")
-        @ExcludeMissing
-        fun _acceptUserSubmission(): JsonValue = acceptUserSubmission
+        fun acceptUserSubmission(): Optional<AcceptUserSubmission> =
+            acceptUserSubmission.getOptional("accept_user_submission")
 
         /**
          * The parameters for declining the prearbitration. Required if and only if `action` is
          * `decline_user_prearbitration`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
-        @JsonProperty("decline_user_prearbitration")
-        @ExcludeMissing
-        fun _declineUserPrearbitration(): JsonValue = declineUserPrearbitration
+        fun declineUserPrearbitration(): Optional<DeclineUserPrearbitration> =
+            declineUserPrearbitration.getOptional("decline_user_prearbitration")
 
         /**
          * The parameters for receiving the prearbitration. Required if and only if `action` is
          * `receive_merchant_prearbitration`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
-        @JsonProperty("receive_merchant_prearbitration")
-        @ExcludeMissing
-        fun _receiveMerchantPrearbitration(): JsonValue = receiveMerchantPrearbitration
+        fun receiveMerchantPrearbitration(): Optional<ReceiveMerchantPrearbitration> =
+            receiveMerchantPrearbitration.getOptional("receive_merchant_prearbitration")
 
         /**
          * The parameters for re-presenting the dispute. Required if and only if `action` is
          * `represent`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
-        @JsonProperty("represent") @ExcludeMissing fun _represent(): JsonValue = represent
+        fun represent(): Optional<Represent> = represent.getOptional("represent")
 
         /**
          * The parameters for requesting further information from the user. Required if and only if
@@ -758,34 +773,42 @@ private constructor(
         /**
          * The parameters for timing out the chargeback. Required if and only if `action` is
          * `time_out_chargeback`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
-        @JsonProperty("time_out_chargeback")
-        @ExcludeMissing
-        fun _timeOutChargeback(): JsonValue = timeOutChargeback
+        fun timeOutChargeback(): Optional<TimeOutChargeback> =
+            timeOutChargeback.getOptional("time_out_chargeback")
 
         /**
          * The parameters for timing out the merchant prearbitration. Required if and only if
          * `action` is `time_out_merchant_prearbitration`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
-        @JsonProperty("time_out_merchant_prearbitration")
-        @ExcludeMissing
-        fun _timeOutMerchantPrearbitration(): JsonValue = timeOutMerchantPrearbitration
+        fun timeOutMerchantPrearbitration(): Optional<TimeOutMerchantPrearbitration> =
+            timeOutMerchantPrearbitration.getOptional("time_out_merchant_prearbitration")
 
         /**
          * The parameters for timing out the re-presentment. Required if and only if `action` is
          * `time_out_representment`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
-        @JsonProperty("time_out_representment")
-        @ExcludeMissing
-        fun _timeOutRepresentment(): JsonValue = timeOutRepresentment
+        fun timeOutRepresentment(): Optional<TimeOutRepresentment> =
+            timeOutRepresentment.getOptional("time_out_representment")
 
         /**
          * The parameters for timing out the user prearbitration. Required if and only if `action`
          * is `time_out_user_prearbitration`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
-        @JsonProperty("time_out_user_prearbitration")
-        @ExcludeMissing
-        fun _timeOutUserPrearbitration(): JsonValue = timeOutUserPrearbitration
+        fun timeOutUserPrearbitration(): Optional<TimeOutUserPrearbitration> =
+            timeOutUserPrearbitration.getOptional("time_out_user_prearbitration")
 
         /**
          * Returns the raw JSON value of [action].
@@ -793,6 +816,57 @@ private constructor(
          * Unlike [action], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("action") @ExcludeMissing fun _action(): JsonField<Action> = action
+
+        /**
+         * Returns the raw JSON value of [acceptChargeback].
+         *
+         * Unlike [acceptChargeback], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("accept_chargeback")
+        @ExcludeMissing
+        fun _acceptChargeback(): JsonField<AcceptChargeback> = acceptChargeback
+
+        /**
+         * Returns the raw JSON value of [acceptUserSubmission].
+         *
+         * Unlike [acceptUserSubmission], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("accept_user_submission")
+        @ExcludeMissing
+        fun _acceptUserSubmission(): JsonField<AcceptUserSubmission> = acceptUserSubmission
+
+        /**
+         * Returns the raw JSON value of [declineUserPrearbitration].
+         *
+         * Unlike [declineUserPrearbitration], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("decline_user_prearbitration")
+        @ExcludeMissing
+        fun _declineUserPrearbitration(): JsonField<DeclineUserPrearbitration> =
+            declineUserPrearbitration
+
+        /**
+         * Returns the raw JSON value of [receiveMerchantPrearbitration].
+         *
+         * Unlike [receiveMerchantPrearbitration], this method doesn't throw if the JSON field has
+         * an unexpected type.
+         */
+        @JsonProperty("receive_merchant_prearbitration")
+        @ExcludeMissing
+        fun _receiveMerchantPrearbitration(): JsonField<ReceiveMerchantPrearbitration> =
+            receiveMerchantPrearbitration
+
+        /**
+         * Returns the raw JSON value of [represent].
+         *
+         * Unlike [represent], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("represent")
+        @ExcludeMissing
+        fun _represent(): JsonField<Represent> = represent
 
         /**
          * Returns the raw JSON value of [requestFurtherInformation].
@@ -804,6 +878,48 @@ private constructor(
         @ExcludeMissing
         fun _requestFurtherInformation(): JsonField<RequestFurtherInformation> =
             requestFurtherInformation
+
+        /**
+         * Returns the raw JSON value of [timeOutChargeback].
+         *
+         * Unlike [timeOutChargeback], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("time_out_chargeback")
+        @ExcludeMissing
+        fun _timeOutChargeback(): JsonField<TimeOutChargeback> = timeOutChargeback
+
+        /**
+         * Returns the raw JSON value of [timeOutMerchantPrearbitration].
+         *
+         * Unlike [timeOutMerchantPrearbitration], this method doesn't throw if the JSON field has
+         * an unexpected type.
+         */
+        @JsonProperty("time_out_merchant_prearbitration")
+        @ExcludeMissing
+        fun _timeOutMerchantPrearbitration(): JsonField<TimeOutMerchantPrearbitration> =
+            timeOutMerchantPrearbitration
+
+        /**
+         * Returns the raw JSON value of [timeOutRepresentment].
+         *
+         * Unlike [timeOutRepresentment], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("time_out_representment")
+        @ExcludeMissing
+        fun _timeOutRepresentment(): JsonField<TimeOutRepresentment> = timeOutRepresentment
+
+        /**
+         * Returns the raw JSON value of [timeOutUserPrearbitration].
+         *
+         * Unlike [timeOutUserPrearbitration], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("time_out_user_prearbitration")
+        @ExcludeMissing
+        fun _timeOutUserPrearbitration(): JsonField<TimeOutUserPrearbitration> =
+            timeOutUserPrearbitration
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -834,17 +950,21 @@ private constructor(
         class Builder internal constructor() {
 
             private var action: JsonField<Action>? = null
-            private var acceptChargeback: JsonValue = JsonMissing.of()
-            private var acceptUserSubmission: JsonValue = JsonMissing.of()
-            private var declineUserPrearbitration: JsonValue = JsonMissing.of()
-            private var receiveMerchantPrearbitration: JsonValue = JsonMissing.of()
-            private var represent: JsonValue = JsonMissing.of()
+            private var acceptChargeback: JsonField<AcceptChargeback> = JsonMissing.of()
+            private var acceptUserSubmission: JsonField<AcceptUserSubmission> = JsonMissing.of()
+            private var declineUserPrearbitration: JsonField<DeclineUserPrearbitration> =
+                JsonMissing.of()
+            private var receiveMerchantPrearbitration: JsonField<ReceiveMerchantPrearbitration> =
+                JsonMissing.of()
+            private var represent: JsonField<Represent> = JsonMissing.of()
             private var requestFurtherInformation: JsonField<RequestFurtherInformation> =
                 JsonMissing.of()
-            private var timeOutChargeback: JsonValue = JsonMissing.of()
-            private var timeOutMerchantPrearbitration: JsonValue = JsonMissing.of()
-            private var timeOutRepresentment: JsonValue = JsonMissing.of()
-            private var timeOutUserPrearbitration: JsonValue = JsonMissing.of()
+            private var timeOutChargeback: JsonField<TimeOutChargeback> = JsonMissing.of()
+            private var timeOutMerchantPrearbitration: JsonField<TimeOutMerchantPrearbitration> =
+                JsonMissing.of()
+            private var timeOutRepresentment: JsonField<TimeOutRepresentment> = JsonMissing.of()
+            private var timeOutUserPrearbitration: JsonField<TimeOutUserPrearbitration> =
+                JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -882,7 +1002,17 @@ private constructor(
              * The parameters for accepting the chargeback. Required if and only if `action` is
              * `accept_chargeback`.
              */
-            fun acceptChargeback(acceptChargeback: JsonValue) = apply {
+            fun acceptChargeback(acceptChargeback: AcceptChargeback) =
+                acceptChargeback(JsonField.of(acceptChargeback))
+
+            /**
+             * Sets [Builder.acceptChargeback] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.acceptChargeback] with a well-typed
+             * [AcceptChargeback] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun acceptChargeback(acceptChargeback: JsonField<AcceptChargeback>) = apply {
                 this.acceptChargeback = acceptChargeback
             }
 
@@ -890,31 +1020,72 @@ private constructor(
              * The parameters for accepting the user submission. Required if and only if `action` is
              * `accept_user_submission`.
              */
-            fun acceptUserSubmission(acceptUserSubmission: JsonValue) = apply {
-                this.acceptUserSubmission = acceptUserSubmission
-            }
+            fun acceptUserSubmission(acceptUserSubmission: AcceptUserSubmission) =
+                acceptUserSubmission(JsonField.of(acceptUserSubmission))
+
+            /**
+             * Sets [Builder.acceptUserSubmission] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.acceptUserSubmission] with a well-typed
+             * [AcceptUserSubmission] value instead. This method is primarily for setting the field
+             * to an undocumented or not yet supported value.
+             */
+            fun acceptUserSubmission(acceptUserSubmission: JsonField<AcceptUserSubmission>) =
+                apply {
+                    this.acceptUserSubmission = acceptUserSubmission
+                }
 
             /**
              * The parameters for declining the prearbitration. Required if and only if `action` is
              * `decline_user_prearbitration`.
              */
-            fun declineUserPrearbitration(declineUserPrearbitration: JsonValue) = apply {
-                this.declineUserPrearbitration = declineUserPrearbitration
-            }
+            fun declineUserPrearbitration(declineUserPrearbitration: DeclineUserPrearbitration) =
+                declineUserPrearbitration(JsonField.of(declineUserPrearbitration))
+
+            /**
+             * Sets [Builder.declineUserPrearbitration] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.declineUserPrearbitration] with a well-typed
+             * [DeclineUserPrearbitration] value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
+             */
+            fun declineUserPrearbitration(
+                declineUserPrearbitration: JsonField<DeclineUserPrearbitration>
+            ) = apply { this.declineUserPrearbitration = declineUserPrearbitration }
 
             /**
              * The parameters for receiving the prearbitration. Required if and only if `action` is
              * `receive_merchant_prearbitration`.
              */
-            fun receiveMerchantPrearbitration(receiveMerchantPrearbitration: JsonValue) = apply {
-                this.receiveMerchantPrearbitration = receiveMerchantPrearbitration
-            }
+            fun receiveMerchantPrearbitration(
+                receiveMerchantPrearbitration: ReceiveMerchantPrearbitration
+            ) = receiveMerchantPrearbitration(JsonField.of(receiveMerchantPrearbitration))
+
+            /**
+             * Sets [Builder.receiveMerchantPrearbitration] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.receiveMerchantPrearbitration] with a well-typed
+             * [ReceiveMerchantPrearbitration] value instead. This method is primarily for setting
+             * the field to an undocumented or not yet supported value.
+             */
+            fun receiveMerchantPrearbitration(
+                receiveMerchantPrearbitration: JsonField<ReceiveMerchantPrearbitration>
+            ) = apply { this.receiveMerchantPrearbitration = receiveMerchantPrearbitration }
 
             /**
              * The parameters for re-presenting the dispute. Required if and only if `action` is
              * `represent`.
              */
-            fun represent(represent: JsonValue) = apply { this.represent = represent }
+            fun represent(represent: Represent) = represent(JsonField.of(represent))
+
+            /**
+             * Sets [Builder.represent] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.represent] with a well-typed [Represent] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun represent(represent: JsonField<Represent>) = apply { this.represent = represent }
 
             /**
              * The parameters for requesting further information from the user. Required if and only
@@ -938,7 +1109,17 @@ private constructor(
              * The parameters for timing out the chargeback. Required if and only if `action` is
              * `time_out_chargeback`.
              */
-            fun timeOutChargeback(timeOutChargeback: JsonValue) = apply {
+            fun timeOutChargeback(timeOutChargeback: TimeOutChargeback) =
+                timeOutChargeback(JsonField.of(timeOutChargeback))
+
+            /**
+             * Sets [Builder.timeOutChargeback] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.timeOutChargeback] with a well-typed
+             * [TimeOutChargeback] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun timeOutChargeback(timeOutChargeback: JsonField<TimeOutChargeback>) = apply {
                 this.timeOutChargeback = timeOutChargeback
             }
 
@@ -946,25 +1127,57 @@ private constructor(
              * The parameters for timing out the merchant prearbitration. Required if and only if
              * `action` is `time_out_merchant_prearbitration`.
              */
-            fun timeOutMerchantPrearbitration(timeOutMerchantPrearbitration: JsonValue) = apply {
-                this.timeOutMerchantPrearbitration = timeOutMerchantPrearbitration
-            }
+            fun timeOutMerchantPrearbitration(
+                timeOutMerchantPrearbitration: TimeOutMerchantPrearbitration
+            ) = timeOutMerchantPrearbitration(JsonField.of(timeOutMerchantPrearbitration))
+
+            /**
+             * Sets [Builder.timeOutMerchantPrearbitration] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.timeOutMerchantPrearbitration] with a well-typed
+             * [TimeOutMerchantPrearbitration] value instead. This method is primarily for setting
+             * the field to an undocumented or not yet supported value.
+             */
+            fun timeOutMerchantPrearbitration(
+                timeOutMerchantPrearbitration: JsonField<TimeOutMerchantPrearbitration>
+            ) = apply { this.timeOutMerchantPrearbitration = timeOutMerchantPrearbitration }
 
             /**
              * The parameters for timing out the re-presentment. Required if and only if `action` is
              * `time_out_representment`.
              */
-            fun timeOutRepresentment(timeOutRepresentment: JsonValue) = apply {
-                this.timeOutRepresentment = timeOutRepresentment
-            }
+            fun timeOutRepresentment(timeOutRepresentment: TimeOutRepresentment) =
+                timeOutRepresentment(JsonField.of(timeOutRepresentment))
+
+            /**
+             * Sets [Builder.timeOutRepresentment] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.timeOutRepresentment] with a well-typed
+             * [TimeOutRepresentment] value instead. This method is primarily for setting the field
+             * to an undocumented or not yet supported value.
+             */
+            fun timeOutRepresentment(timeOutRepresentment: JsonField<TimeOutRepresentment>) =
+                apply {
+                    this.timeOutRepresentment = timeOutRepresentment
+                }
 
             /**
              * The parameters for timing out the user prearbitration. Required if and only if
              * `action` is `time_out_user_prearbitration`.
              */
-            fun timeOutUserPrearbitration(timeOutUserPrearbitration: JsonValue) = apply {
-                this.timeOutUserPrearbitration = timeOutUserPrearbitration
-            }
+            fun timeOutUserPrearbitration(timeOutUserPrearbitration: TimeOutUserPrearbitration) =
+                timeOutUserPrearbitration(JsonField.of(timeOutUserPrearbitration))
+
+            /**
+             * Sets [Builder.timeOutUserPrearbitration] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.timeOutUserPrearbitration] with a well-typed
+             * [TimeOutUserPrearbitration] value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
+             */
+            fun timeOutUserPrearbitration(
+                timeOutUserPrearbitration: JsonField<TimeOutUserPrearbitration>
+            ) = apply { this.timeOutUserPrearbitration = timeOutUserPrearbitration }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1022,7 +1235,16 @@ private constructor(
             }
 
             action().validate()
+            acceptChargeback().ifPresent { it.validate() }
+            acceptUserSubmission().ifPresent { it.validate() }
+            declineUserPrearbitration().ifPresent { it.validate() }
+            receiveMerchantPrearbitration().ifPresent { it.validate() }
+            represent().ifPresent { it.validate() }
             requestFurtherInformation().ifPresent { it.validate() }
+            timeOutChargeback().ifPresent { it.validate() }
+            timeOutMerchantPrearbitration().ifPresent { it.validate() }
+            timeOutRepresentment().ifPresent { it.validate() }
+            timeOutUserPrearbitration().ifPresent { it.validate() }
             validated = true
         }
 
@@ -1043,7 +1265,16 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             (action.asKnown().getOrNull()?.validity() ?: 0) +
-                (requestFurtherInformation.asKnown().getOrNull()?.validity() ?: 0)
+                (acceptChargeback.asKnown().getOrNull()?.validity() ?: 0) +
+                (acceptUserSubmission.asKnown().getOrNull()?.validity() ?: 0) +
+                (declineUserPrearbitration.asKnown().getOrNull()?.validity() ?: 0) +
+                (receiveMerchantPrearbitration.asKnown().getOrNull()?.validity() ?: 0) +
+                (represent.asKnown().getOrNull()?.validity() ?: 0) +
+                (requestFurtherInformation.asKnown().getOrNull()?.validity() ?: 0) +
+                (timeOutChargeback.asKnown().getOrNull()?.validity() ?: 0) +
+                (timeOutMerchantPrearbitration.asKnown().getOrNull()?.validity() ?: 0) +
+                (timeOutRepresentment.asKnown().getOrNull()?.validity() ?: 0) +
+                (timeOutUserPrearbitration.asKnown().getOrNull()?.validity() ?: 0)
 
         /**
          * The action to take. Details specific to the action are required under the sub-object with
@@ -1349,6 +1580,573 @@ private constructor(
         }
 
         /**
+         * The parameters for accepting the chargeback. Required if and only if `action` is
+         * `accept_chargeback`.
+         */
+        class AcceptChargeback
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
+
+            @JsonCreator private constructor() : this(mutableMapOf())
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /** Returns a mutable builder for constructing an instance of [AcceptChargeback]. */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [AcceptChargeback]. */
+            class Builder internal constructor() {
+
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(acceptChargeback: AcceptChargeback) = apply {
+                    additionalProperties = acceptChargeback.additionalProperties.toMutableMap()
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [AcceptChargeback].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 */
+                fun build(): AcceptChargeback =
+                    AcceptChargeback(additionalProperties.toMutableMap())
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): AcceptChargeback = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = 0
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is AcceptChargeback &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() = "AcceptChargeback{additionalProperties=$additionalProperties}"
+        }
+
+        /**
+         * The parameters for accepting the user submission. Required if and only if `action` is
+         * `accept_user_submission`.
+         */
+        class AcceptUserSubmission
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
+
+            @JsonCreator private constructor() : this(mutableMapOf())
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of [AcceptUserSubmission].
+                 */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [AcceptUserSubmission]. */
+            class Builder internal constructor() {
+
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(acceptUserSubmission: AcceptUserSubmission) = apply {
+                    additionalProperties = acceptUserSubmission.additionalProperties.toMutableMap()
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [AcceptUserSubmission].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 */
+                fun build(): AcceptUserSubmission =
+                    AcceptUserSubmission(additionalProperties.toMutableMap())
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): AcceptUserSubmission = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = 0
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is AcceptUserSubmission &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "AcceptUserSubmission{additionalProperties=$additionalProperties}"
+        }
+
+        /**
+         * The parameters for declining the prearbitration. Required if and only if `action` is
+         * `decline_user_prearbitration`.
+         */
+        class DeclineUserPrearbitration
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
+
+            @JsonCreator private constructor() : this(mutableMapOf())
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of
+                 * [DeclineUserPrearbitration].
+                 */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [DeclineUserPrearbitration]. */
+            class Builder internal constructor() {
+
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(declineUserPrearbitration: DeclineUserPrearbitration) = apply {
+                    additionalProperties =
+                        declineUserPrearbitration.additionalProperties.toMutableMap()
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [DeclineUserPrearbitration].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 */
+                fun build(): DeclineUserPrearbitration =
+                    DeclineUserPrearbitration(additionalProperties.toMutableMap())
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): DeclineUserPrearbitration = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = 0
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is DeclineUserPrearbitration &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "DeclineUserPrearbitration{additionalProperties=$additionalProperties}"
+        }
+
+        /**
+         * The parameters for receiving the prearbitration. Required if and only if `action` is
+         * `receive_merchant_prearbitration`.
+         */
+        class ReceiveMerchantPrearbitration
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
+
+            @JsonCreator private constructor() : this(mutableMapOf())
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of
+                 * [ReceiveMerchantPrearbitration].
+                 */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [ReceiveMerchantPrearbitration]. */
+            class Builder internal constructor() {
+
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(receiveMerchantPrearbitration: ReceiveMerchantPrearbitration) =
+                    apply {
+                        additionalProperties =
+                            receiveMerchantPrearbitration.additionalProperties.toMutableMap()
+                    }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [ReceiveMerchantPrearbitration].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 */
+                fun build(): ReceiveMerchantPrearbitration =
+                    ReceiveMerchantPrearbitration(additionalProperties.toMutableMap())
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): ReceiveMerchantPrearbitration = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = 0
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is ReceiveMerchantPrearbitration &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "ReceiveMerchantPrearbitration{additionalProperties=$additionalProperties}"
+        }
+
+        /**
+         * The parameters for re-presenting the dispute. Required if and only if `action` is
+         * `represent`.
+         */
+        class Represent
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
+
+            @JsonCreator private constructor() : this(mutableMapOf())
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /** Returns a mutable builder for constructing an instance of [Represent]. */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [Represent]. */
+            class Builder internal constructor() {
+
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(represent: Represent) = apply {
+                    additionalProperties = represent.additionalProperties.toMutableMap()
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [Represent].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 */
+                fun build(): Represent = Represent(additionalProperties.toMutableMap())
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): Represent = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = 0
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Represent && additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() = "Represent{additionalProperties=$additionalProperties}"
+        }
+
+        /**
          * The parameters for requesting further information from the user. Required if and only if
          * `action` is `request_further_information`.
          */
@@ -1515,6 +2313,467 @@ private constructor(
 
             override fun toString() =
                 "RequestFurtherInformation{reason=$reason, additionalProperties=$additionalProperties}"
+        }
+
+        /**
+         * The parameters for timing out the chargeback. Required if and only if `action` is
+         * `time_out_chargeback`.
+         */
+        class TimeOutChargeback
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
+
+            @JsonCreator private constructor() : this(mutableMapOf())
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of [TimeOutChargeback].
+                 */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [TimeOutChargeback]. */
+            class Builder internal constructor() {
+
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(timeOutChargeback: TimeOutChargeback) = apply {
+                    additionalProperties = timeOutChargeback.additionalProperties.toMutableMap()
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [TimeOutChargeback].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 */
+                fun build(): TimeOutChargeback =
+                    TimeOutChargeback(additionalProperties.toMutableMap())
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): TimeOutChargeback = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = 0
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is TimeOutChargeback &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "TimeOutChargeback{additionalProperties=$additionalProperties}"
+        }
+
+        /**
+         * The parameters for timing out the merchant prearbitration. Required if and only if
+         * `action` is `time_out_merchant_prearbitration`.
+         */
+        class TimeOutMerchantPrearbitration
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
+
+            @JsonCreator private constructor() : this(mutableMapOf())
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of
+                 * [TimeOutMerchantPrearbitration].
+                 */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [TimeOutMerchantPrearbitration]. */
+            class Builder internal constructor() {
+
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(timeOutMerchantPrearbitration: TimeOutMerchantPrearbitration) =
+                    apply {
+                        additionalProperties =
+                            timeOutMerchantPrearbitration.additionalProperties.toMutableMap()
+                    }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [TimeOutMerchantPrearbitration].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 */
+                fun build(): TimeOutMerchantPrearbitration =
+                    TimeOutMerchantPrearbitration(additionalProperties.toMutableMap())
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): TimeOutMerchantPrearbitration = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = 0
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is TimeOutMerchantPrearbitration &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "TimeOutMerchantPrearbitration{additionalProperties=$additionalProperties}"
+        }
+
+        /**
+         * The parameters for timing out the re-presentment. Required if and only if `action` is
+         * `time_out_representment`.
+         */
+        class TimeOutRepresentment
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
+
+            @JsonCreator private constructor() : this(mutableMapOf())
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of [TimeOutRepresentment].
+                 */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [TimeOutRepresentment]. */
+            class Builder internal constructor() {
+
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(timeOutRepresentment: TimeOutRepresentment) = apply {
+                    additionalProperties = timeOutRepresentment.additionalProperties.toMutableMap()
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [TimeOutRepresentment].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 */
+                fun build(): TimeOutRepresentment =
+                    TimeOutRepresentment(additionalProperties.toMutableMap())
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): TimeOutRepresentment = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = 0
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is TimeOutRepresentment &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "TimeOutRepresentment{additionalProperties=$additionalProperties}"
+        }
+
+        /**
+         * The parameters for timing out the user prearbitration. Required if and only if `action`
+         * is `time_out_user_prearbitration`.
+         */
+        class TimeOutUserPrearbitration
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
+
+            @JsonCreator private constructor() : this(mutableMapOf())
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of
+                 * [TimeOutUserPrearbitration].
+                 */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [TimeOutUserPrearbitration]. */
+            class Builder internal constructor() {
+
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(timeOutUserPrearbitration: TimeOutUserPrearbitration) = apply {
+                    additionalProperties =
+                        timeOutUserPrearbitration.additionalProperties.toMutableMap()
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [TimeOutUserPrearbitration].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 */
+                fun build(): TimeOutUserPrearbitration =
+                    TimeOutUserPrearbitration(additionalProperties.toMutableMap())
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): TimeOutUserPrearbitration = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = 0
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is TimeOutUserPrearbitration &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "TimeOutUserPrearbitration{additionalProperties=$additionalProperties}"
         }
 
         override fun equals(other: Any?): Boolean {

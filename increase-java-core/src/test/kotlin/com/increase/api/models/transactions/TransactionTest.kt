@@ -3,7 +3,6 @@
 package com.increase.api.models.transactions
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import com.increase.api.core.JsonValue
 import com.increase.api.core.jsonMapper
 import java.time.LocalDate
 import java.time.OffsetDateTime
@@ -204,7 +203,11 @@ internal class TransactionTest {
                                             Transaction.Source.CardFinancial.NetworkDetails.Category
                                                 .VISA
                                         )
-                                        .pulse(null)
+                                        .pulse(
+                                            Transaction.Source.CardFinancial.NetworkDetails.Pulse
+                                                .builder()
+                                                .build()
+                                        )
                                         .visa(
                                             Transaction.Source.CardFinancial.NetworkDetails.Visa
                                                 .builder()
@@ -974,7 +977,7 @@ internal class TransactionTest {
                                 .reason(Transaction.Source.InternalSource.Reason.SAMPLE_FUNDS)
                                 .build()
                         )
-                        .other(JsonValue.from(mapOf<String, Any>()))
+                        .other(Transaction.Source.Other.builder().build())
                         .realTimePaymentsTransferAcknowledgement(
                             Transaction.Source.RealTimePaymentsTransferAcknowledgement.builder()
                                 .amount(100L)
@@ -1193,7 +1196,11 @@ internal class TransactionTest {
                                         Transaction.Source.CardFinancial.NetworkDetails.Category
                                             .VISA
                                     )
-                                    .pulse(null)
+                                    .pulse(
+                                        Transaction.Source.CardFinancial.NetworkDetails.Pulse
+                                            .builder()
+                                            .build()
+                                    )
                                     .visa(
                                         Transaction.Source.CardFinancial.NetworkDetails.Visa
                                             .builder()
@@ -1920,7 +1927,7 @@ internal class TransactionTest {
                             .reason(Transaction.Source.InternalSource.Reason.SAMPLE_FUNDS)
                             .build()
                     )
-                    .other(JsonValue.from(mapOf<String, Any>()))
+                    .other(Transaction.Source.Other.builder().build())
                     .realTimePaymentsTransferAcknowledgement(
                         Transaction.Source.RealTimePaymentsTransferAcknowledgement.builder()
                             .amount(100L)
@@ -2150,7 +2157,11 @@ internal class TransactionTest {
                                             Transaction.Source.CardFinancial.NetworkDetails.Category
                                                 .VISA
                                         )
-                                        .pulse(null)
+                                        .pulse(
+                                            Transaction.Source.CardFinancial.NetworkDetails.Pulse
+                                                .builder()
+                                                .build()
+                                        )
                                         .visa(
                                             Transaction.Source.CardFinancial.NetworkDetails.Visa
                                                 .builder()
@@ -2920,7 +2931,7 @@ internal class TransactionTest {
                                 .reason(Transaction.Source.InternalSource.Reason.SAMPLE_FUNDS)
                                 .build()
                         )
-                        .other(JsonValue.from(mapOf<String, Any>()))
+                        .other(Transaction.Source.Other.builder().build())
                         .realTimePaymentsTransferAcknowledgement(
                             Transaction.Source.RealTimePaymentsTransferAcknowledgement.builder()
                                 .amount(100L)

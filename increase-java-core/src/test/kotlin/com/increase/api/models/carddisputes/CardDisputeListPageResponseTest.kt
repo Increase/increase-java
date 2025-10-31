@@ -3,7 +3,6 @@
 package com.increase.api.models.carddisputes
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import com.increase.api.core.JsonValue
 import com.increase.api.core.jsonMapper
 import java.time.LocalDate
 import java.time.OffsetDateTime
@@ -47,15 +46,30 @@ internal class CardDisputeListPageResponseTest {
                                             CardDispute.Visa.NetworkEvent.Category
                                                 .CHARGEBACK_ACCEPTED
                                         )
-                                        .chargebackAccepted(JsonValue.from(mapOf<String, Any>()))
-                                        .chargebackSubmitted(JsonValue.from(mapOf<String, Any>()))
-                                        .chargebackTimedOut(JsonValue.from(mapOf<String, Any>()))
+                                        .chargebackAccepted(
+                                            CardDispute.Visa.NetworkEvent.ChargebackAccepted
+                                                .builder()
+                                                .build()
+                                        )
+                                        .chargebackSubmitted(
+                                            CardDispute.Visa.NetworkEvent.ChargebackSubmitted
+                                                .builder()
+                                                .build()
+                                        )
+                                        .chargebackTimedOut(
+                                            CardDispute.Visa.NetworkEvent.ChargebackTimedOut
+                                                .builder()
+                                                .build()
+                                        )
                                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                         .disputeFinancialTransactionId(
                                             "dispute_financial_transaction_id"
                                         )
                                         .merchantPrearbitrationDeclineSubmitted(
-                                            JsonValue.from(mapOf<String, Any>())
+                                            CardDispute.Visa.NetworkEvent
+                                                .MerchantPrearbitrationDeclineSubmitted
+                                                .builder()
+                                                .build()
                                         )
                                         .merchantPrearbitrationReceived(
                                             CardDispute.Visa.NetworkEvent
@@ -165,7 +179,10 @@ internal class CardDisputeListPageResponseTest {
                                                 .build()
                                         )
                                         .merchantPrearbitrationTimedOut(
-                                            JsonValue.from(mapOf<String, Any>())
+                                            CardDispute.Visa.NetworkEvent
+                                                .MerchantPrearbitrationTimedOut
+                                                .builder()
+                                                .build()
                                         )
                                         .represented(
                                             CardDispute.Visa.NetworkEvent.Represented.builder()
@@ -206,7 +223,12 @@ internal class CardDisputeListPageResponseTest {
                                                         )
                                                         .build()
                                                 )
-                                                .nonFiatCurrencyOrNonFungibleTokenAsDescribed(null)
+                                                .nonFiatCurrencyOrNonFungibleTokenAsDescribed(
+                                                    CardDispute.Visa.NetworkEvent.Represented
+                                                        .NonFiatCurrencyOrNonFungibleTokenAsDescribed
+                                                        .builder()
+                                                        .build()
+                                                )
                                                 .nonFiatCurrencyOrNonFungibleTokenReceived(
                                                     CardDispute.Visa.NetworkEvent.Represented
                                                         .NonFiatCurrencyOrNonFungibleTokenReceived
@@ -244,21 +266,36 @@ internal class CardDisputeListPageResponseTest {
                                                 )
                                                 .build()
                                         )
-                                        .representmentTimedOut(JsonValue.from(mapOf<String, Any>()))
+                                        .representmentTimedOut(
+                                            CardDispute.Visa.NetworkEvent.RepresentmentTimedOut
+                                                .builder()
+                                                .build()
+                                        )
                                         .userPrearbitrationAccepted(
-                                            JsonValue.from(mapOf<String, Any>())
+                                            CardDispute.Visa.NetworkEvent.UserPrearbitrationAccepted
+                                                .builder()
+                                                .build()
                                         )
                                         .userPrearbitrationDeclined(
-                                            JsonValue.from(mapOf<String, Any>())
+                                            CardDispute.Visa.NetworkEvent.UserPrearbitrationDeclined
+                                                .builder()
+                                                .build()
                                         )
                                         .userPrearbitrationSubmitted(
-                                            JsonValue.from(mapOf<String, Any>())
+                                            CardDispute.Visa.NetworkEvent
+                                                .UserPrearbitrationSubmitted
+                                                .builder()
+                                                .build()
                                         )
                                         .userPrearbitrationTimedOut(
-                                            JsonValue.from(mapOf<String, Any>())
+                                            CardDispute.Visa.NetworkEvent.UserPrearbitrationTimedOut
+                                                .builder()
+                                                .build()
                                         )
                                         .userWithdrawalSubmitted(
-                                            JsonValue.from(mapOf<String, Any>())
+                                            CardDispute.Visa.NetworkEvent.UserWithdrawalSubmitted
+                                                .builder()
+                                                .build()
                                         )
                                         .build()
                                 )
@@ -335,7 +372,12 @@ internal class CardDisputeListPageResponseTest {
                                                                 .ATTEMPTED
                                                         )
                                                         .notReturned(
-                                                            JsonValue.from(mapOf<String, Any>())
+                                                            CardDispute.Visa.UserSubmission
+                                                                .Chargeback
+                                                                .ConsumerCanceledMerchandise
+                                                                .NotReturned
+                                                                .builder()
+                                                                .build()
                                                         )
                                                         .purchaseExplanation("purchase_explanation")
                                                         .receivedOrExpectedAt(
@@ -488,7 +530,14 @@ internal class CardDisputeListPageResponseTest {
                                                                 .MerchantResolutionAttempted
                                                                 .ATTEMPTED
                                                         )
-                                                        .other(JsonValue.from(mapOf<String, Any>()))
+                                                        .other(
+                                                            CardDispute.Visa.UserSubmission
+                                                                .Chargeback
+                                                                .ConsumerCanceledServices
+                                                                .Other
+                                                                .builder()
+                                                                .build()
+                                                        )
                                                         .purchaseExplanation("purchase_explanation")
                                                         .serviceType(
                                                             CardDispute.Visa.UserSubmission
@@ -498,7 +547,12 @@ internal class CardDisputeListPageResponseTest {
                                                                 .GUARANTEED_RESERVATION
                                                         )
                                                         .timeshare(
-                                                            JsonValue.from(mapOf<String, Any>())
+                                                            CardDispute.Visa.UserSubmission
+                                                                .Chargeback
+                                                                .ConsumerCanceledServices
+                                                                .Timeshare
+                                                                .builder()
+                                                                .build()
                                                         )
                                                         .build()
                                                 )
@@ -540,7 +594,12 @@ internal class CardDisputeListPageResponseTest {
                                                                 .ATTEMPTED
                                                         )
                                                         .notReturned(
-                                                            JsonValue.from(mapOf<String, Any>())
+                                                            CardDispute.Visa.UserSubmission
+                                                                .Chargeback
+                                                                .ConsumerDamagedOrDefectiveMerchandise
+                                                                .NotReturned
+                                                                .builder()
+                                                                .build()
                                                         )
                                                         .orderAndIssueExplanation(
                                                             "order_and_issue_explanation"
@@ -621,7 +680,12 @@ internal class CardDisputeListPageResponseTest {
                                                             "misrepresentation_explanation"
                                                         )
                                                         .notReturned(
-                                                            JsonValue.from(mapOf<String, Any>())
+                                                            CardDispute.Visa.UserSubmission
+                                                                .Chargeback
+                                                                .ConsumerMerchandiseMisrepresentation
+                                                                .NotReturned
+                                                                .builder()
+                                                                .build()
                                                         )
                                                         .purchaseExplanation("purchase_explanation")
                                                         .receivedAt(LocalDate.parse("2019-12-27"))
@@ -788,9 +852,13 @@ internal class CardDisputeListPageResponseTest {
                                                                 .builder()
                                                                 .explanation("explanation")
                                                                 .notReturned(
-                                                                    JsonValue.from(
-                                                                        mapOf<String, Any>()
-                                                                    )
+                                                                    CardDispute.Visa.UserSubmission
+                                                                        .Chargeback
+                                                                        .ConsumerMerchandiseNotReceived
+                                                                        .Delayed
+                                                                        .NotReturned
+                                                                        .builder()
+                                                                        .build()
                                                                 )
                                                                 .returnAttempted(
                                                                     CardDispute.Visa.UserSubmission
@@ -873,14 +941,24 @@ internal class CardDisputeListPageResponseTest {
                                                                 .ATTEMPTED
                                                         )
                                                         .noCancellation(
-                                                            JsonValue.from(mapOf<String, Any>())
+                                                            CardDispute.Visa.UserSubmission
+                                                                .Chargeback
+                                                                .ConsumerMerchandiseNotReceived
+                                                                .NoCancellation
+                                                                .builder()
+                                                                .build()
                                                         )
                                                         .purchaseInfoAndExplanation(
                                                             "purchase_info_and_explanation"
                                                         )
                                                         .build()
                                                 )
-                                                .consumerNonReceiptOfCash(null)
+                                                .consumerNonReceiptOfCash(
+                                                    CardDispute.Visa.UserSubmission.Chargeback
+                                                        .ConsumerNonReceiptOfCash
+                                                        .builder()
+                                                        .build()
+                                                )
                                                 .consumerOriginalCreditTransactionNotAccepted(
                                                     CardDispute.Visa.UserSubmission.Chargeback
                                                         .ConsumerOriginalCreditTransactionNotAccepted
@@ -908,7 +986,12 @@ internal class CardDisputeListPageResponseTest {
                                                                 .ATTEMPTED
                                                         )
                                                         .notReturned(
-                                                            JsonValue.from(mapOf<String, Any>())
+                                                            CardDispute.Visa.UserSubmission
+                                                                .Chargeback
+                                                                .ConsumerQualityMerchandise
+                                                                .NotReturned
+                                                                .builder()
+                                                                .build()
                                                         )
                                                         .ongoingNegotiations(
                                                             CardDispute.Visa.UserSubmission
@@ -1174,7 +1257,12 @@ internal class CardDisputeListPageResponseTest {
                                                                 .ATTEMPTED
                                                         )
                                                         .noCancellation(
-                                                            JsonValue.from(mapOf<String, Any>())
+                                                            CardDispute.Visa.UserSubmission
+                                                                .Chargeback
+                                                                .ConsumerServicesNotReceived
+                                                                .NoCancellation
+                                                                .builder()
+                                                                .build()
                                                         )
                                                         .purchaseInfoAndExplanation(
                                                             "purchase_info_and_explanation"
@@ -1340,15 +1428,27 @@ internal class CardDisputeListPageResponseTest {
                                     .category(
                                         CardDispute.Visa.NetworkEvent.Category.CHARGEBACK_ACCEPTED
                                     )
-                                    .chargebackAccepted(JsonValue.from(mapOf<String, Any>()))
-                                    .chargebackSubmitted(JsonValue.from(mapOf<String, Any>()))
-                                    .chargebackTimedOut(JsonValue.from(mapOf<String, Any>()))
+                                    .chargebackAccepted(
+                                        CardDispute.Visa.NetworkEvent.ChargebackAccepted.builder()
+                                            .build()
+                                    )
+                                    .chargebackSubmitted(
+                                        CardDispute.Visa.NetworkEvent.ChargebackSubmitted.builder()
+                                            .build()
+                                    )
+                                    .chargebackTimedOut(
+                                        CardDispute.Visa.NetworkEvent.ChargebackTimedOut.builder()
+                                            .build()
+                                    )
                                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .disputeFinancialTransactionId(
                                         "dispute_financial_transaction_id"
                                     )
                                     .merchantPrearbitrationDeclineSubmitted(
-                                        JsonValue.from(mapOf<String, Any>())
+                                        CardDispute.Visa.NetworkEvent
+                                            .MerchantPrearbitrationDeclineSubmitted
+                                            .builder()
+                                            .build()
                                     )
                                     .merchantPrearbitrationReceived(
                                         CardDispute.Visa.NetworkEvent.MerchantPrearbitrationReceived
@@ -1457,7 +1557,9 @@ internal class CardDisputeListPageResponseTest {
                                             .build()
                                     )
                                     .merchantPrearbitrationTimedOut(
-                                        JsonValue.from(mapOf<String, Any>())
+                                        CardDispute.Visa.NetworkEvent.MerchantPrearbitrationTimedOut
+                                            .builder()
+                                            .build()
                                     )
                                     .represented(
                                         CardDispute.Visa.NetworkEvent.Represented.builder()
@@ -1497,7 +1599,12 @@ internal class CardDisputeListPageResponseTest {
                                                     )
                                                     .build()
                                             )
-                                            .nonFiatCurrencyOrNonFungibleTokenAsDescribed(null)
+                                            .nonFiatCurrencyOrNonFungibleTokenAsDescribed(
+                                                CardDispute.Visa.NetworkEvent.Represented
+                                                    .NonFiatCurrencyOrNonFungibleTokenAsDescribed
+                                                    .builder()
+                                                    .build()
+                                            )
                                             .nonFiatCurrencyOrNonFungibleTokenReceived(
                                                 CardDispute.Visa.NetworkEvent.Represented
                                                     .NonFiatCurrencyOrNonFungibleTokenReceived
@@ -1535,20 +1642,36 @@ internal class CardDisputeListPageResponseTest {
                                             )
                                             .build()
                                     )
-                                    .representmentTimedOut(JsonValue.from(mapOf<String, Any>()))
+                                    .representmentTimedOut(
+                                        CardDispute.Visa.NetworkEvent.RepresentmentTimedOut
+                                            .builder()
+                                            .build()
+                                    )
                                     .userPrearbitrationAccepted(
-                                        JsonValue.from(mapOf<String, Any>())
+                                        CardDispute.Visa.NetworkEvent.UserPrearbitrationAccepted
+                                            .builder()
+                                            .build()
                                     )
                                     .userPrearbitrationDeclined(
-                                        JsonValue.from(mapOf<String, Any>())
+                                        CardDispute.Visa.NetworkEvent.UserPrearbitrationDeclined
+                                            .builder()
+                                            .build()
                                     )
                                     .userPrearbitrationSubmitted(
-                                        JsonValue.from(mapOf<String, Any>())
+                                        CardDispute.Visa.NetworkEvent.UserPrearbitrationSubmitted
+                                            .builder()
+                                            .build()
                                     )
                                     .userPrearbitrationTimedOut(
-                                        JsonValue.from(mapOf<String, Any>())
+                                        CardDispute.Visa.NetworkEvent.UserPrearbitrationTimedOut
+                                            .builder()
+                                            .build()
                                     )
-                                    .userWithdrawalSubmitted(JsonValue.from(mapOf<String, Any>()))
+                                    .userWithdrawalSubmitted(
+                                        CardDispute.Visa.NetworkEvent.UserWithdrawalSubmitted
+                                            .builder()
+                                            .build()
+                                    )
                                     .build()
                             )
                             .requiredUserSubmissionCategory(null)
@@ -1618,7 +1741,11 @@ internal class CardDisputeListPageResponseTest {
                                                             .ATTEMPTED
                                                     )
                                                     .notReturned(
-                                                        JsonValue.from(mapOf<String, Any>())
+                                                        CardDispute.Visa.UserSubmission.Chargeback
+                                                            .ConsumerCanceledMerchandise
+                                                            .NotReturned
+                                                            .builder()
+                                                            .build()
                                                     )
                                                     .purchaseExplanation("purchase_explanation")
                                                     .receivedOrExpectedAt(
@@ -1757,7 +1884,13 @@ internal class CardDisputeListPageResponseTest {
                                                             .MerchantResolutionAttempted
                                                             .ATTEMPTED
                                                     )
-                                                    .other(JsonValue.from(mapOf<String, Any>()))
+                                                    .other(
+                                                        CardDispute.Visa.UserSubmission.Chargeback
+                                                            .ConsumerCanceledServices
+                                                            .Other
+                                                            .builder()
+                                                            .build()
+                                                    )
                                                     .purchaseExplanation("purchase_explanation")
                                                     .serviceType(
                                                         CardDispute.Visa.UserSubmission.Chargeback
@@ -1765,7 +1898,13 @@ internal class CardDisputeListPageResponseTest {
                                                             .ServiceType
                                                             .GUARANTEED_RESERVATION
                                                     )
-                                                    .timeshare(JsonValue.from(mapOf<String, Any>()))
+                                                    .timeshare(
+                                                        CardDispute.Visa.UserSubmission.Chargeback
+                                                            .ConsumerCanceledServices
+                                                            .Timeshare
+                                                            .builder()
+                                                            .build()
+                                                    )
                                                     .build()
                                             )
                                             .consumerCounterfeitMerchandise(
@@ -1803,7 +1942,11 @@ internal class CardDisputeListPageResponseTest {
                                                             .ATTEMPTED
                                                     )
                                                     .notReturned(
-                                                        JsonValue.from(mapOf<String, Any>())
+                                                        CardDispute.Visa.UserSubmission.Chargeback
+                                                            .ConsumerDamagedOrDefectiveMerchandise
+                                                            .NotReturned
+                                                            .builder()
+                                                            .build()
                                                     )
                                                     .orderAndIssueExplanation(
                                                         "order_and_issue_explanation"
@@ -1878,7 +2021,11 @@ internal class CardDisputeListPageResponseTest {
                                                         "misrepresentation_explanation"
                                                     )
                                                     .notReturned(
-                                                        JsonValue.from(mapOf<String, Any>())
+                                                        CardDispute.Visa.UserSubmission.Chargeback
+                                                            .ConsumerMerchandiseMisrepresentation
+                                                            .NotReturned
+                                                            .builder()
+                                                            .build()
                                                     )
                                                     .purchaseExplanation("purchase_explanation")
                                                     .receivedAt(LocalDate.parse("2019-12-27"))
@@ -2031,7 +2178,13 @@ internal class CardDisputeListPageResponseTest {
                                                             .builder()
                                                             .explanation("explanation")
                                                             .notReturned(
-                                                                JsonValue.from(mapOf<String, Any>())
+                                                                CardDispute.Visa.UserSubmission
+                                                                    .Chargeback
+                                                                    .ConsumerMerchandiseNotReceived
+                                                                    .Delayed
+                                                                    .NotReturned
+                                                                    .builder()
+                                                                    .build()
                                                             )
                                                             .returnAttempted(
                                                                 CardDispute.Visa.UserSubmission
@@ -2110,14 +2263,23 @@ internal class CardDisputeListPageResponseTest {
                                                             .ATTEMPTED
                                                     )
                                                     .noCancellation(
-                                                        JsonValue.from(mapOf<String, Any>())
+                                                        CardDispute.Visa.UserSubmission.Chargeback
+                                                            .ConsumerMerchandiseNotReceived
+                                                            .NoCancellation
+                                                            .builder()
+                                                            .build()
                                                     )
                                                     .purchaseInfoAndExplanation(
                                                         "purchase_info_and_explanation"
                                                     )
                                                     .build()
                                             )
-                                            .consumerNonReceiptOfCash(null)
+                                            .consumerNonReceiptOfCash(
+                                                CardDispute.Visa.UserSubmission.Chargeback
+                                                    .ConsumerNonReceiptOfCash
+                                                    .builder()
+                                                    .build()
+                                            )
                                             .consumerOriginalCreditTransactionNotAccepted(
                                                 CardDispute.Visa.UserSubmission.Chargeback
                                                     .ConsumerOriginalCreditTransactionNotAccepted
@@ -2143,7 +2305,11 @@ internal class CardDisputeListPageResponseTest {
                                                             .ATTEMPTED
                                                     )
                                                     .notReturned(
-                                                        JsonValue.from(mapOf<String, Any>())
+                                                        CardDispute.Visa.UserSubmission.Chargeback
+                                                            .ConsumerQualityMerchandise
+                                                            .NotReturned
+                                                            .builder()
+                                                            .build()
                                                     )
                                                     .ongoingNegotiations(
                                                         CardDispute.Visa.UserSubmission.Chargeback
@@ -2390,7 +2556,11 @@ internal class CardDisputeListPageResponseTest {
                                                             .ATTEMPTED
                                                     )
                                                     .noCancellation(
-                                                        JsonValue.from(mapOf<String, Any>())
+                                                        CardDispute.Visa.UserSubmission.Chargeback
+                                                            .ConsumerServicesNotReceived
+                                                            .NoCancellation
+                                                            .builder()
+                                                            .build()
                                                     )
                                                     .purchaseInfoAndExplanation(
                                                         "purchase_info_and_explanation"
@@ -2553,15 +2723,30 @@ internal class CardDisputeListPageResponseTest {
                                             CardDispute.Visa.NetworkEvent.Category
                                                 .CHARGEBACK_ACCEPTED
                                         )
-                                        .chargebackAccepted(JsonValue.from(mapOf<String, Any>()))
-                                        .chargebackSubmitted(JsonValue.from(mapOf<String, Any>()))
-                                        .chargebackTimedOut(JsonValue.from(mapOf<String, Any>()))
+                                        .chargebackAccepted(
+                                            CardDispute.Visa.NetworkEvent.ChargebackAccepted
+                                                .builder()
+                                                .build()
+                                        )
+                                        .chargebackSubmitted(
+                                            CardDispute.Visa.NetworkEvent.ChargebackSubmitted
+                                                .builder()
+                                                .build()
+                                        )
+                                        .chargebackTimedOut(
+                                            CardDispute.Visa.NetworkEvent.ChargebackTimedOut
+                                                .builder()
+                                                .build()
+                                        )
                                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                         .disputeFinancialTransactionId(
                                             "dispute_financial_transaction_id"
                                         )
                                         .merchantPrearbitrationDeclineSubmitted(
-                                            JsonValue.from(mapOf<String, Any>())
+                                            CardDispute.Visa.NetworkEvent
+                                                .MerchantPrearbitrationDeclineSubmitted
+                                                .builder()
+                                                .build()
                                         )
                                         .merchantPrearbitrationReceived(
                                             CardDispute.Visa.NetworkEvent
@@ -2671,7 +2856,10 @@ internal class CardDisputeListPageResponseTest {
                                                 .build()
                                         )
                                         .merchantPrearbitrationTimedOut(
-                                            JsonValue.from(mapOf<String, Any>())
+                                            CardDispute.Visa.NetworkEvent
+                                                .MerchantPrearbitrationTimedOut
+                                                .builder()
+                                                .build()
                                         )
                                         .represented(
                                             CardDispute.Visa.NetworkEvent.Represented.builder()
@@ -2712,7 +2900,12 @@ internal class CardDisputeListPageResponseTest {
                                                         )
                                                         .build()
                                                 )
-                                                .nonFiatCurrencyOrNonFungibleTokenAsDescribed(null)
+                                                .nonFiatCurrencyOrNonFungibleTokenAsDescribed(
+                                                    CardDispute.Visa.NetworkEvent.Represented
+                                                        .NonFiatCurrencyOrNonFungibleTokenAsDescribed
+                                                        .builder()
+                                                        .build()
+                                                )
                                                 .nonFiatCurrencyOrNonFungibleTokenReceived(
                                                     CardDispute.Visa.NetworkEvent.Represented
                                                         .NonFiatCurrencyOrNonFungibleTokenReceived
@@ -2750,21 +2943,36 @@ internal class CardDisputeListPageResponseTest {
                                                 )
                                                 .build()
                                         )
-                                        .representmentTimedOut(JsonValue.from(mapOf<String, Any>()))
+                                        .representmentTimedOut(
+                                            CardDispute.Visa.NetworkEvent.RepresentmentTimedOut
+                                                .builder()
+                                                .build()
+                                        )
                                         .userPrearbitrationAccepted(
-                                            JsonValue.from(mapOf<String, Any>())
+                                            CardDispute.Visa.NetworkEvent.UserPrearbitrationAccepted
+                                                .builder()
+                                                .build()
                                         )
                                         .userPrearbitrationDeclined(
-                                            JsonValue.from(mapOf<String, Any>())
+                                            CardDispute.Visa.NetworkEvent.UserPrearbitrationDeclined
+                                                .builder()
+                                                .build()
                                         )
                                         .userPrearbitrationSubmitted(
-                                            JsonValue.from(mapOf<String, Any>())
+                                            CardDispute.Visa.NetworkEvent
+                                                .UserPrearbitrationSubmitted
+                                                .builder()
+                                                .build()
                                         )
                                         .userPrearbitrationTimedOut(
-                                            JsonValue.from(mapOf<String, Any>())
+                                            CardDispute.Visa.NetworkEvent.UserPrearbitrationTimedOut
+                                                .builder()
+                                                .build()
                                         )
                                         .userWithdrawalSubmitted(
-                                            JsonValue.from(mapOf<String, Any>())
+                                            CardDispute.Visa.NetworkEvent.UserWithdrawalSubmitted
+                                                .builder()
+                                                .build()
                                         )
                                         .build()
                                 )
@@ -2841,7 +3049,12 @@ internal class CardDisputeListPageResponseTest {
                                                                 .ATTEMPTED
                                                         )
                                                         .notReturned(
-                                                            JsonValue.from(mapOf<String, Any>())
+                                                            CardDispute.Visa.UserSubmission
+                                                                .Chargeback
+                                                                .ConsumerCanceledMerchandise
+                                                                .NotReturned
+                                                                .builder()
+                                                                .build()
                                                         )
                                                         .purchaseExplanation("purchase_explanation")
                                                         .receivedOrExpectedAt(
@@ -2994,7 +3207,14 @@ internal class CardDisputeListPageResponseTest {
                                                                 .MerchantResolutionAttempted
                                                                 .ATTEMPTED
                                                         )
-                                                        .other(JsonValue.from(mapOf<String, Any>()))
+                                                        .other(
+                                                            CardDispute.Visa.UserSubmission
+                                                                .Chargeback
+                                                                .ConsumerCanceledServices
+                                                                .Other
+                                                                .builder()
+                                                                .build()
+                                                        )
                                                         .purchaseExplanation("purchase_explanation")
                                                         .serviceType(
                                                             CardDispute.Visa.UserSubmission
@@ -3004,7 +3224,12 @@ internal class CardDisputeListPageResponseTest {
                                                                 .GUARANTEED_RESERVATION
                                                         )
                                                         .timeshare(
-                                                            JsonValue.from(mapOf<String, Any>())
+                                                            CardDispute.Visa.UserSubmission
+                                                                .Chargeback
+                                                                .ConsumerCanceledServices
+                                                                .Timeshare
+                                                                .builder()
+                                                                .build()
                                                         )
                                                         .build()
                                                 )
@@ -3046,7 +3271,12 @@ internal class CardDisputeListPageResponseTest {
                                                                 .ATTEMPTED
                                                         )
                                                         .notReturned(
-                                                            JsonValue.from(mapOf<String, Any>())
+                                                            CardDispute.Visa.UserSubmission
+                                                                .Chargeback
+                                                                .ConsumerDamagedOrDefectiveMerchandise
+                                                                .NotReturned
+                                                                .builder()
+                                                                .build()
                                                         )
                                                         .orderAndIssueExplanation(
                                                             "order_and_issue_explanation"
@@ -3127,7 +3357,12 @@ internal class CardDisputeListPageResponseTest {
                                                             "misrepresentation_explanation"
                                                         )
                                                         .notReturned(
-                                                            JsonValue.from(mapOf<String, Any>())
+                                                            CardDispute.Visa.UserSubmission
+                                                                .Chargeback
+                                                                .ConsumerMerchandiseMisrepresentation
+                                                                .NotReturned
+                                                                .builder()
+                                                                .build()
                                                         )
                                                         .purchaseExplanation("purchase_explanation")
                                                         .receivedAt(LocalDate.parse("2019-12-27"))
@@ -3294,9 +3529,13 @@ internal class CardDisputeListPageResponseTest {
                                                                 .builder()
                                                                 .explanation("explanation")
                                                                 .notReturned(
-                                                                    JsonValue.from(
-                                                                        mapOf<String, Any>()
-                                                                    )
+                                                                    CardDispute.Visa.UserSubmission
+                                                                        .Chargeback
+                                                                        .ConsumerMerchandiseNotReceived
+                                                                        .Delayed
+                                                                        .NotReturned
+                                                                        .builder()
+                                                                        .build()
                                                                 )
                                                                 .returnAttempted(
                                                                     CardDispute.Visa.UserSubmission
@@ -3379,14 +3618,24 @@ internal class CardDisputeListPageResponseTest {
                                                                 .ATTEMPTED
                                                         )
                                                         .noCancellation(
-                                                            JsonValue.from(mapOf<String, Any>())
+                                                            CardDispute.Visa.UserSubmission
+                                                                .Chargeback
+                                                                .ConsumerMerchandiseNotReceived
+                                                                .NoCancellation
+                                                                .builder()
+                                                                .build()
                                                         )
                                                         .purchaseInfoAndExplanation(
                                                             "purchase_info_and_explanation"
                                                         )
                                                         .build()
                                                 )
-                                                .consumerNonReceiptOfCash(null)
+                                                .consumerNonReceiptOfCash(
+                                                    CardDispute.Visa.UserSubmission.Chargeback
+                                                        .ConsumerNonReceiptOfCash
+                                                        .builder()
+                                                        .build()
+                                                )
                                                 .consumerOriginalCreditTransactionNotAccepted(
                                                     CardDispute.Visa.UserSubmission.Chargeback
                                                         .ConsumerOriginalCreditTransactionNotAccepted
@@ -3414,7 +3663,12 @@ internal class CardDisputeListPageResponseTest {
                                                                 .ATTEMPTED
                                                         )
                                                         .notReturned(
-                                                            JsonValue.from(mapOf<String, Any>())
+                                                            CardDispute.Visa.UserSubmission
+                                                                .Chargeback
+                                                                .ConsumerQualityMerchandise
+                                                                .NotReturned
+                                                                .builder()
+                                                                .build()
                                                         )
                                                         .ongoingNegotiations(
                                                             CardDispute.Visa.UserSubmission
@@ -3680,7 +3934,12 @@ internal class CardDisputeListPageResponseTest {
                                                                 .ATTEMPTED
                                                         )
                                                         .noCancellation(
-                                                            JsonValue.from(mapOf<String, Any>())
+                                                            CardDispute.Visa.UserSubmission
+                                                                .Chargeback
+                                                                .ConsumerServicesNotReceived
+                                                                .NoCancellation
+                                                                .builder()
+                                                                .build()
                                                         )
                                                         .purchaseInfoAndExplanation(
                                                             "purchase_info_and_explanation"

@@ -4,7 +4,6 @@ package com.increase.api.services.blocking
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.core.JsonValue
 import com.increase.api.models.exports.ExportCreateParams
 import java.time.LocalDate
 import java.time.OffsetDateTime
@@ -97,7 +96,7 @@ internal class ExportServiceTest {
                             .programId("program_id")
                             .build()
                     )
-                    .vendorCsv(JsonValue.from(mapOf<String, Any>()))
+                    .vendorCsv(ExportCreateParams.VendorCsv.builder().build())
                     .build()
             )
 

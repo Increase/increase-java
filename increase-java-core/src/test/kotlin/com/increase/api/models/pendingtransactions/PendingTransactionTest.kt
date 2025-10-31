@@ -168,7 +168,13 @@ internal class PendingTransactionTest {
                                                 .Category
                                                 .VISA
                                         )
-                                        .pulse(null)
+                                        .pulse(
+                                            PendingTransaction.Source.CardAuthorization
+                                                .NetworkDetails
+                                                .Pulse
+                                                .builder()
+                                                .build()
+                                        )
                                         .visa(
                                             PendingTransaction.Source.CardAuthorization
                                                 .NetworkDetails
@@ -309,7 +315,7 @@ internal class PendingTransactionTest {
                                 .inboundWireTransferId("inbound_wire_transfer_f228m6bmhtcxjco9pwp0")
                                 .build()
                         )
-                        .other(JsonValue.from(mapOf<String, Any>()))
+                        .other(PendingTransaction.Source.Other.builder().build())
                         .realTimePaymentsTransferInstruction(
                             PendingTransaction.Source.RealTimePaymentsTransferInstruction.builder()
                                 .amount(100L)
@@ -491,7 +497,12 @@ internal class PendingTransactionTest {
                                             .Category
                                             .VISA
                                     )
-                                    .pulse(null)
+                                    .pulse(
+                                        PendingTransaction.Source.CardAuthorization.NetworkDetails
+                                            .Pulse
+                                            .builder()
+                                            .build()
+                                    )
                                     .visa(
                                         PendingTransaction.Source.CardAuthorization.NetworkDetails
                                             .Visa
@@ -626,7 +637,7 @@ internal class PendingTransactionTest {
                             .inboundWireTransferId("inbound_wire_transfer_f228m6bmhtcxjco9pwp0")
                             .build()
                     )
-                    .other(JsonValue.from(mapOf<String, Any>()))
+                    .other(PendingTransaction.Source.Other.builder().build())
                     .realTimePaymentsTransferInstruction(
                         PendingTransaction.Source.RealTimePaymentsTransferInstruction.builder()
                             .amount(100L)
@@ -816,7 +827,13 @@ internal class PendingTransactionTest {
                                                 .Category
                                                 .VISA
                                         )
-                                        .pulse(null)
+                                        .pulse(
+                                            PendingTransaction.Source.CardAuthorization
+                                                .NetworkDetails
+                                                .Pulse
+                                                .builder()
+                                                .build()
+                                        )
                                         .visa(
                                             PendingTransaction.Source.CardAuthorization
                                                 .NetworkDetails
@@ -957,7 +974,7 @@ internal class PendingTransactionTest {
                                 .inboundWireTransferId("inbound_wire_transfer_f228m6bmhtcxjco9pwp0")
                                 .build()
                         )
-                        .other(JsonValue.from(mapOf<String, Any>()))
+                        .other(PendingTransaction.Source.Other.builder().build())
                         .realTimePaymentsTransferInstruction(
                             PendingTransaction.Source.RealTimePaymentsTransferInstruction.builder()
                                 .amount(100L)
