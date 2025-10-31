@@ -3,7 +3,6 @@
 package com.increase.api.models.realtimedecisions
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import com.increase.api.core.JsonValue
 import com.increase.api.core.jsonMapper
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
@@ -134,7 +133,11 @@ internal class RealTimeDecisionTest {
                                 .category(
                                     RealTimeDecision.CardAuthorization.NetworkDetails.Category.VISA
                                 )
-                                .pulse(null)
+                                .pulse(
+                                    RealTimeDecision.CardAuthorization.NetworkDetails.Pulse
+                                        .builder()
+                                        .build()
+                                )
                                 .visa(
                                     RealTimeDecision.CardAuthorization.NetworkDetails.Visa.builder()
                                         .electronicCommerceIndicator(
@@ -183,7 +186,12 @@ internal class RealTimeDecisionTest {
                                         )
                                         .build()
                                 )
-                                .initialAuthorization(JsonValue.from(mapOf<String, Any>()))
+                                .initialAuthorization(
+                                    RealTimeDecision.CardAuthorization.RequestDetails
+                                        .InitialAuthorization
+                                        .builder()
+                                        .build()
+                                )
                                 .build()
                         )
                         .settlementAmount(100L)
@@ -375,7 +383,10 @@ internal class RealTimeDecisionTest {
                             .category(
                                 RealTimeDecision.CardAuthorization.NetworkDetails.Category.VISA
                             )
-                            .pulse(null)
+                            .pulse(
+                                RealTimeDecision.CardAuthorization.NetworkDetails.Pulse.builder()
+                                    .build()
+                            )
                             .visa(
                                 RealTimeDecision.CardAuthorization.NetworkDetails.Visa.builder()
                                     .electronicCommerceIndicator(
@@ -422,7 +433,12 @@ internal class RealTimeDecisionTest {
                                     .originalCardAuthorizationId("original_card_authorization_id")
                                     .build()
                             )
-                            .initialAuthorization(JsonValue.from(mapOf<String, Any>()))
+                            .initialAuthorization(
+                                RealTimeDecision.CardAuthorization.RequestDetails
+                                    .InitialAuthorization
+                                    .builder()
+                                    .build()
+                            )
                             .build()
                     )
                     .settlementAmount(100L)
@@ -622,7 +638,11 @@ internal class RealTimeDecisionTest {
                                 .category(
                                     RealTimeDecision.CardAuthorization.NetworkDetails.Category.VISA
                                 )
-                                .pulse(null)
+                                .pulse(
+                                    RealTimeDecision.CardAuthorization.NetworkDetails.Pulse
+                                        .builder()
+                                        .build()
+                                )
                                 .visa(
                                     RealTimeDecision.CardAuthorization.NetworkDetails.Visa.builder()
                                         .electronicCommerceIndicator(
@@ -671,7 +691,12 @@ internal class RealTimeDecisionTest {
                                         )
                                         .build()
                                 )
-                                .initialAuthorization(JsonValue.from(mapOf<String, Any>()))
+                                .initialAuthorization(
+                                    RealTimeDecision.CardAuthorization.RequestDetails
+                                        .InitialAuthorization
+                                        .builder()
+                                        .build()
+                                )
                                 .build()
                         )
                         .settlementAmount(100L)

@@ -1063,7 +1063,7 @@ private constructor(
             JsonField<ConsumerMerchandiseMisrepresentation>,
         private val consumerMerchandiseNotAsDescribed: JsonField<ConsumerMerchandiseNotAsDescribed>,
         private val consumerMerchandiseNotReceived: JsonField<ConsumerMerchandiseNotReceived>,
-        private val consumerNonReceiptOfCash: JsonValue,
+        private val consumerNonReceiptOfCash: JsonField<ConsumerNonReceiptOfCash>,
         private val consumerOriginalCreditTransactionNotAccepted:
             JsonField<ConsumerOriginalCreditTransactionNotAccepted>,
         private val consumerQualityMerchandise: JsonField<ConsumerQualityMerchandise>,
@@ -1120,7 +1120,7 @@ private constructor(
                 JsonMissing.of(),
             @JsonProperty("consumer_non_receipt_of_cash")
             @ExcludeMissing
-            consumerNonReceiptOfCash: JsonValue = JsonMissing.of(),
+            consumerNonReceiptOfCash: JsonField<ConsumerNonReceiptOfCash> = JsonMissing.of(),
             @JsonProperty("consumer_original_credit_transaction_not_accepted")
             @ExcludeMissing
             consumerOriginalCreditTransactionNotAccepted:
@@ -1286,10 +1286,12 @@ private constructor(
         /**
          * Non-receipt of cash. Required if and only if `category` is
          * `consumer_non_receipt_of_cash`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
-        @JsonProperty("consumer_non_receipt_of_cash")
-        @ExcludeMissing
-        fun _consumerNonReceiptOfCash(): JsonValue = consumerNonReceiptOfCash
+        fun consumerNonReceiptOfCash(): Optional<ConsumerNonReceiptOfCash> =
+            consumerNonReceiptOfCash.getOptional("consumer_non_receipt_of_cash")
 
         /**
          * Original Credit Transaction (OCT) not accepted. Required if and only if `category` is
@@ -1488,6 +1490,17 @@ private constructor(
             consumerMerchandiseNotReceived
 
         /**
+         * Returns the raw JSON value of [consumerNonReceiptOfCash].
+         *
+         * Unlike [consumerNonReceiptOfCash], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("consumer_non_receipt_of_cash")
+        @ExcludeMissing
+        fun _consumerNonReceiptOfCash(): JsonField<ConsumerNonReceiptOfCash> =
+            consumerNonReceiptOfCash
+
+        /**
          * Returns the raw JSON value of [consumerOriginalCreditTransactionNotAccepted].
          *
          * Unlike [consumerOriginalCreditTransactionNotAccepted], this method doesn't throw if the
@@ -1622,7 +1635,8 @@ private constructor(
                 JsonMissing.of()
             private var consumerMerchandiseNotReceived: JsonField<ConsumerMerchandiseNotReceived> =
                 JsonMissing.of()
-            private var consumerNonReceiptOfCash: JsonValue = JsonMissing.of()
+            private var consumerNonReceiptOfCash: JsonField<ConsumerNonReceiptOfCash> =
+                JsonMissing.of()
             private var consumerOriginalCreditTransactionNotAccepted:
                 JsonField<ConsumerOriginalCreditTransactionNotAccepted> =
                 JsonMissing.of()
@@ -1885,9 +1899,19 @@ private constructor(
              * Non-receipt of cash. Required if and only if `category` is
              * `consumer_non_receipt_of_cash`.
              */
-            fun consumerNonReceiptOfCash(consumerNonReceiptOfCash: JsonValue) = apply {
-                this.consumerNonReceiptOfCash = consumerNonReceiptOfCash
-            }
+            fun consumerNonReceiptOfCash(consumerNonReceiptOfCash: ConsumerNonReceiptOfCash) =
+                consumerNonReceiptOfCash(JsonField.of(consumerNonReceiptOfCash))
+
+            /**
+             * Sets [Builder.consumerNonReceiptOfCash] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.consumerNonReceiptOfCash] with a well-typed
+             * [ConsumerNonReceiptOfCash] value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
+             */
+            fun consumerNonReceiptOfCash(
+                consumerNonReceiptOfCash: JsonField<ConsumerNonReceiptOfCash>
+            ) = apply { this.consumerNonReceiptOfCash = consumerNonReceiptOfCash }
 
             /**
              * Original Credit Transaction (OCT) not accepted. Required if and only if `category` is
@@ -2112,6 +2136,7 @@ private constructor(
             consumerMerchandiseMisrepresentation().ifPresent { it.validate() }
             consumerMerchandiseNotAsDescribed().ifPresent { it.validate() }
             consumerMerchandiseNotReceived().ifPresent { it.validate() }
+            consumerNonReceiptOfCash().ifPresent { it.validate() }
             consumerOriginalCreditTransactionNotAccepted().ifPresent { it.validate() }
             consumerQualityMerchandise().ifPresent { it.validate() }
             consumerQualityServices().ifPresent { it.validate() }
@@ -2150,6 +2175,7 @@ private constructor(
                 (consumerMerchandiseMisrepresentation.asKnown().getOrNull()?.validity() ?: 0) +
                 (consumerMerchandiseNotAsDescribed.asKnown().getOrNull()?.validity() ?: 0) +
                 (consumerMerchandiseNotReceived.asKnown().getOrNull()?.validity() ?: 0) +
+                (consumerNonReceiptOfCash.asKnown().getOrNull()?.validity() ?: 0) +
                 (consumerOriginalCreditTransactionNotAccepted.asKnown().getOrNull()?.validity()
                     ?: 0) +
                 (consumerQualityMerchandise.asKnown().getOrNull()?.validity() ?: 0) +
@@ -2808,7 +2834,7 @@ private constructor(
             private val receivedOrExpectedAt: JsonField<LocalDate>,
             private val returnOutcome: JsonField<ReturnOutcome>,
             private val cardholderCancellation: JsonField<CardholderCancellation>,
-            private val notReturned: JsonValue,
+            private val notReturned: JsonField<NotReturned>,
             private val returnAttempted: JsonField<ReturnAttempted>,
             private val returned: JsonField<Returned>,
             private val additionalProperties: MutableMap<String, JsonValue>,
@@ -2834,7 +2860,7 @@ private constructor(
                 cardholderCancellation: JsonField<CardholderCancellation> = JsonMissing.of(),
                 @JsonProperty("not_returned")
                 @ExcludeMissing
-                notReturned: JsonValue = JsonMissing.of(),
+                notReturned: JsonField<NotReturned> = JsonMissing.of(),
                 @JsonProperty("return_attempted")
                 @ExcludeMissing
                 returnAttempted: JsonField<ReturnAttempted> = JsonMissing.of(),
@@ -2901,10 +2927,13 @@ private constructor(
             fun cardholderCancellation(): Optional<CardholderCancellation> =
                 cardholderCancellation.getOptional("cardholder_cancellation")
 
-            /** Not returned. Required if and only if `return_outcome` is `not_returned`. */
-            @JsonProperty("not_returned")
-            @ExcludeMissing
-            fun _notReturned(): JsonValue = notReturned
+            /**
+             * Not returned. Required if and only if `return_outcome` is `not_returned`.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun notReturned(): Optional<NotReturned> = notReturned.getOptional("not_returned")
 
             /**
              * Return attempted. Required if and only if `return_outcome` is `return_attempted`.
@@ -2976,6 +3005,16 @@ private constructor(
                 cardholderCancellation
 
             /**
+             * Returns the raw JSON value of [notReturned].
+             *
+             * Unlike [notReturned], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("not_returned")
+            @ExcludeMissing
+            fun _notReturned(): JsonField<NotReturned> = notReturned
+
+            /**
              * Returns the raw JSON value of [returnAttempted].
              *
              * Unlike [returnAttempted], this method doesn't throw if the JSON field has an
@@ -3034,7 +3073,7 @@ private constructor(
                 private var returnOutcome: JsonField<ReturnOutcome>? = null
                 private var cardholderCancellation: JsonField<CardholderCancellation> =
                     JsonMissing.of()
-                private var notReturned: JsonValue = JsonMissing.of()
+                private var notReturned: JsonField<NotReturned> = JsonMissing.of()
                 private var returnAttempted: JsonField<ReturnAttempted> = JsonMissing.of()
                 private var returned: JsonField<Returned> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -3132,7 +3171,18 @@ private constructor(
                 ) = apply { this.cardholderCancellation = cardholderCancellation }
 
                 /** Not returned. Required if and only if `return_outcome` is `not_returned`. */
-                fun notReturned(notReturned: JsonValue) = apply { this.notReturned = notReturned }
+                fun notReturned(notReturned: NotReturned) = notReturned(JsonField.of(notReturned))
+
+                /**
+                 * Sets [Builder.notReturned] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.notReturned] with a well-typed [NotReturned]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun notReturned(notReturned: JsonField<NotReturned>) = apply {
+                    this.notReturned = notReturned
+                }
 
                 /**
                  * Return attempted. Required if and only if `return_outcome` is `return_attempted`.
@@ -3226,6 +3276,7 @@ private constructor(
                 receivedOrExpectedAt()
                 returnOutcome().validate()
                 cardholderCancellation().ifPresent { it.validate() }
+                notReturned().ifPresent { it.validate() }
                 returnAttempted().ifPresent { it.validate() }
                 returned().ifPresent { it.validate() }
                 validated = true
@@ -3252,6 +3303,7 @@ private constructor(
                     (if (receivedOrExpectedAt.asKnown().isPresent) 1 else 0) +
                     (returnOutcome.asKnown().getOrNull()?.validity() ?: 0) +
                     (cardholderCancellation.asKnown().getOrNull()?.validity() ?: 0) +
+                    (notReturned.asKnown().getOrNull()?.validity() ?: 0) +
                     (returnAttempted.asKnown().getOrNull()?.validity() ?: 0) +
                     (returned.asKnown().getOrNull()?.validity() ?: 0)
 
@@ -4174,6 +4226,113 @@ private constructor(
 
                 override fun toString() =
                     "CardholderCancellation{canceledAt=$canceledAt, canceledPriorToShipDate=$canceledPriorToShipDate, cancellationPolicyProvided=$cancellationPolicyProvided, reason=$reason, additionalProperties=$additionalProperties}"
+            }
+
+            /** Not returned. Required if and only if `return_outcome` is `not_returned`. */
+            class NotReturned
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+            private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
+
+                @JsonCreator private constructor() : this(mutableMapOf())
+
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /** Returns a mutable builder for constructing an instance of [NotReturned]. */
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                /** A builder for [NotReturned]. */
+                class Builder internal constructor() {
+
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(notReturned: NotReturned) = apply {
+                        additionalProperties = notReturned.additionalProperties.toMutableMap()
+                    }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [NotReturned].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     */
+                    fun build(): NotReturned = NotReturned(additionalProperties.toMutableMap())
+                }
+
+                private var validated: Boolean = false
+
+                fun validate(): NotReturned = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic internal fun validity(): Int = 0
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is NotReturned &&
+                        additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() = "NotReturned{additionalProperties=$additionalProperties}"
             }
 
             /** Return attempted. Required if and only if `return_outcome` is `return_attempted`. */
@@ -6160,8 +6319,8 @@ private constructor(
             private val purchaseExplanation: JsonField<String>,
             private val serviceType: JsonField<ServiceType>,
             private val guaranteedReservation: JsonField<GuaranteedReservation>,
-            private val other: JsonValue,
-            private val timeshare: JsonValue,
+            private val other: JsonField<Other>,
+            private val timeshare: JsonField<Timeshare>,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
 
@@ -6186,8 +6345,10 @@ private constructor(
                 @JsonProperty("guaranteed_reservation")
                 @ExcludeMissing
                 guaranteedReservation: JsonField<GuaranteedReservation> = JsonMissing.of(),
-                @JsonProperty("other") @ExcludeMissing other: JsonValue = JsonMissing.of(),
-                @JsonProperty("timeshare") @ExcludeMissing timeshare: JsonValue = JsonMissing.of(),
+                @JsonProperty("other") @ExcludeMissing other: JsonField<Other> = JsonMissing.of(),
+                @JsonProperty("timeshare")
+                @ExcludeMissing
+                timeshare: JsonField<Timeshare> = JsonMissing.of(),
             ) : this(
                 cardholderCancellation,
                 contractedAt,
@@ -6260,11 +6421,19 @@ private constructor(
 
             /**
              * Other service type explanation. Required if and only if `service_type` is `other`.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
              */
-            @JsonProperty("other") @ExcludeMissing fun _other(): JsonValue = other
+            fun other(): Optional<Other> = other.getOptional("other")
 
-            /** Timeshare explanation. Required if and only if `service_type` is `timeshare`. */
-            @JsonProperty("timeshare") @ExcludeMissing fun _timeshare(): JsonValue = timeshare
+            /**
+             * Timeshare explanation. Required if and only if `service_type` is `timeshare`.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun timeshare(): Optional<Timeshare> = timeshare.getOptional("timeshare")
 
             /**
              * Returns the raw JSON value of [cardholderCancellation].
@@ -6328,6 +6497,23 @@ private constructor(
             @ExcludeMissing
             fun _guaranteedReservation(): JsonField<GuaranteedReservation> = guaranteedReservation
 
+            /**
+             * Returns the raw JSON value of [other].
+             *
+             * Unlike [other], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("other") @ExcludeMissing fun _other(): JsonField<Other> = other
+
+            /**
+             * Returns the raw JSON value of [timeshare].
+             *
+             * Unlike [timeshare], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("timeshare")
+            @ExcludeMissing
+            fun _timeshare(): JsonField<Timeshare> = timeshare
+
             @JsonAnySetter
             private fun putAdditionalProperty(key: String, value: JsonValue) {
                 additionalProperties.put(key, value)
@@ -6369,8 +6555,8 @@ private constructor(
                 private var serviceType: JsonField<ServiceType>? = null
                 private var guaranteedReservation: JsonField<GuaranteedReservation> =
                     JsonMissing.of()
-                private var other: JsonValue = JsonMissing.of()
-                private var timeshare: JsonValue = JsonMissing.of()
+                private var other: JsonField<Other> = JsonMissing.of()
+                private var timeshare: JsonField<Timeshare> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
@@ -6485,10 +6671,30 @@ private constructor(
                  * Other service type explanation. Required if and only if `service_type` is
                  * `other`.
                  */
-                fun other(other: JsonValue) = apply { this.other = other }
+                fun other(other: Other) = other(JsonField.of(other))
+
+                /**
+                 * Sets [Builder.other] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.other] with a well-typed [Other] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun other(other: JsonField<Other>) = apply { this.other = other }
 
                 /** Timeshare explanation. Required if and only if `service_type` is `timeshare`. */
-                fun timeshare(timeshare: JsonValue) = apply { this.timeshare = timeshare }
+                fun timeshare(timeshare: Timeshare) = timeshare(JsonField.of(timeshare))
+
+                /**
+                 * Sets [Builder.timeshare] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.timeshare] with a well-typed [Timeshare] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun timeshare(timeshare: JsonField<Timeshare>) = apply {
+                    this.timeshare = timeshare
+                }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -6555,6 +6761,8 @@ private constructor(
                 purchaseExplanation()
                 serviceType().validate()
                 guaranteedReservation().ifPresent { it.validate() }
+                other().ifPresent { it.validate() }
+                timeshare().ifPresent { it.validate() }
                 validated = true
             }
 
@@ -6579,7 +6787,9 @@ private constructor(
                     (merchantResolutionAttempted.asKnown().getOrNull()?.validity() ?: 0) +
                     (if (purchaseExplanation.asKnown().isPresent) 1 else 0) +
                     (serviceType.asKnown().getOrNull()?.validity() ?: 0) +
-                    (guaranteedReservation.asKnown().getOrNull()?.validity() ?: 0)
+                    (guaranteedReservation.asKnown().getOrNull()?.validity() ?: 0) +
+                    (other.asKnown().getOrNull()?.validity() ?: 0) +
+                    (timeshare.asKnown().getOrNull()?.validity() ?: 0)
 
             /** Cardholder cancellation. */
             class CardholderCancellation
@@ -7640,6 +7850,220 @@ private constructor(
                     "GuaranteedReservation{explanation=$explanation, additionalProperties=$additionalProperties}"
             }
 
+            /**
+             * Other service type explanation. Required if and only if `service_type` is `other`.
+             */
+            class Other
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+            private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
+
+                @JsonCreator private constructor() : this(mutableMapOf())
+
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /** Returns a mutable builder for constructing an instance of [Other]. */
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                /** A builder for [Other]. */
+                class Builder internal constructor() {
+
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(other: Other) = apply {
+                        additionalProperties = other.additionalProperties.toMutableMap()
+                    }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [Other].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     */
+                    fun build(): Other = Other(additionalProperties.toMutableMap())
+                }
+
+                private var validated: Boolean = false
+
+                fun validate(): Other = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic internal fun validity(): Int = 0
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Other && additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() = "Other{additionalProperties=$additionalProperties}"
+            }
+
+            /** Timeshare explanation. Required if and only if `service_type` is `timeshare`. */
+            class Timeshare
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+            private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
+
+                @JsonCreator private constructor() : this(mutableMapOf())
+
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /** Returns a mutable builder for constructing an instance of [Timeshare]. */
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                /** A builder for [Timeshare]. */
+                class Builder internal constructor() {
+
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(timeshare: Timeshare) = apply {
+                        additionalProperties = timeshare.additionalProperties.toMutableMap()
+                    }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [Timeshare].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     */
+                    fun build(): Timeshare = Timeshare(additionalProperties.toMutableMap())
+                }
+
+                private var validated: Boolean = false
+
+                fun validate(): Timeshare = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic internal fun validity(): Int = 0
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Timeshare && additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() = "Timeshare{additionalProperties=$additionalProperties}"
+            }
+
             override fun equals(other: Any?): Boolean {
                 if (this === other) {
                     return true
@@ -8236,7 +8660,7 @@ private constructor(
             private val orderAndIssueExplanation: JsonField<String>,
             private val receivedAt: JsonField<LocalDate>,
             private val returnOutcome: JsonField<ReturnOutcome>,
-            private val notReturned: JsonValue,
+            private val notReturned: JsonField<NotReturned>,
             private val returnAttempted: JsonField<ReturnAttempted>,
             private val returned: JsonField<Returned>,
             private val additionalProperties: MutableMap<String, JsonValue>,
@@ -8259,7 +8683,7 @@ private constructor(
                 returnOutcome: JsonField<ReturnOutcome> = JsonMissing.of(),
                 @JsonProperty("not_returned")
                 @ExcludeMissing
-                notReturned: JsonValue = JsonMissing.of(),
+                notReturned: JsonField<NotReturned> = JsonMissing.of(),
                 @JsonProperty("return_attempted")
                 @ExcludeMissing
                 returnAttempted: JsonField<ReturnAttempted> = JsonMissing.of(),
@@ -8315,10 +8739,13 @@ private constructor(
              */
             fun returnOutcome(): ReturnOutcome = returnOutcome.getRequired("return_outcome")
 
-            /** Not returned. Required if and only if `return_outcome` is `not_returned`. */
-            @JsonProperty("not_returned")
-            @ExcludeMissing
-            fun _notReturned(): JsonValue = notReturned
+            /**
+             * Not returned. Required if and only if `return_outcome` is `not_returned`.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun notReturned(): Optional<NotReturned> = notReturned.getOptional("not_returned")
 
             /**
              * Return attempted. Required if and only if `return_outcome` is `return_attempted`.
@@ -8379,6 +8806,16 @@ private constructor(
             fun _returnOutcome(): JsonField<ReturnOutcome> = returnOutcome
 
             /**
+             * Returns the raw JSON value of [notReturned].
+             *
+             * Unlike [notReturned], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("not_returned")
+            @ExcludeMissing
+            fun _notReturned(): JsonField<NotReturned> = notReturned
+
+            /**
              * Returns the raw JSON value of [returnAttempted].
              *
              * Unlike [returnAttempted], this method doesn't throw if the JSON field has an
@@ -8435,7 +8872,7 @@ private constructor(
                 private var orderAndIssueExplanation: JsonField<String>? = null
                 private var receivedAt: JsonField<LocalDate>? = null
                 private var returnOutcome: JsonField<ReturnOutcome>? = null
-                private var notReturned: JsonValue = JsonMissing.of()
+                private var notReturned: JsonField<NotReturned> = JsonMissing.of()
                 private var returnAttempted: JsonField<ReturnAttempted> = JsonMissing.of()
                 private var returned: JsonField<Returned> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -8518,7 +8955,18 @@ private constructor(
                 }
 
                 /** Not returned. Required if and only if `return_outcome` is `not_returned`. */
-                fun notReturned(notReturned: JsonValue) = apply { this.notReturned = notReturned }
+                fun notReturned(notReturned: NotReturned) = notReturned(JsonField.of(notReturned))
+
+                /**
+                 * Sets [Builder.notReturned] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.notReturned] with a well-typed [NotReturned]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun notReturned(notReturned: JsonField<NotReturned>) = apply {
+                    this.notReturned = notReturned
+                }
 
                 /**
                  * Return attempted. Required if and only if `return_outcome` is `return_attempted`.
@@ -8610,6 +9058,7 @@ private constructor(
                 orderAndIssueExplanation()
                 receivedAt()
                 returnOutcome().validate()
+                notReturned().ifPresent { it.validate() }
                 returnAttempted().ifPresent { it.validate() }
                 returned().ifPresent { it.validate() }
                 validated = true
@@ -8635,6 +9084,7 @@ private constructor(
                     (if (orderAndIssueExplanation.asKnown().isPresent) 1 else 0) +
                     (if (receivedAt.asKnown().isPresent) 1 else 0) +
                     (returnOutcome.asKnown().getOrNull()?.validity() ?: 0) +
+                    (notReturned.asKnown().getOrNull()?.validity() ?: 0) +
                     (returnAttempted.asKnown().getOrNull()?.validity() ?: 0) +
                     (returned.asKnown().getOrNull()?.validity() ?: 0)
 
@@ -8930,6 +9380,113 @@ private constructor(
                 override fun hashCode() = value.hashCode()
 
                 override fun toString() = value.toString()
+            }
+
+            /** Not returned. Required if and only if `return_outcome` is `not_returned`. */
+            class NotReturned
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+            private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
+
+                @JsonCreator private constructor() : this(mutableMapOf())
+
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /** Returns a mutable builder for constructing an instance of [NotReturned]. */
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                /** A builder for [NotReturned]. */
+                class Builder internal constructor() {
+
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(notReturned: NotReturned) = apply {
+                        additionalProperties = notReturned.additionalProperties.toMutableMap()
+                    }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [NotReturned].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     */
+                    fun build(): NotReturned = NotReturned(additionalProperties.toMutableMap())
+                }
+
+                private var validated: Boolean = false
+
+                fun validate(): NotReturned = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic internal fun validity(): Int = 0
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is NotReturned &&
+                        additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() = "NotReturned{additionalProperties=$additionalProperties}"
             }
 
             /** Return attempted. Required if and only if `return_outcome` is `return_attempted`. */
@@ -10029,7 +10586,7 @@ private constructor(
             private val purchaseExplanation: JsonField<String>,
             private val receivedAt: JsonField<LocalDate>,
             private val returnOutcome: JsonField<ReturnOutcome>,
-            private val notReturned: JsonValue,
+            private val notReturned: JsonField<NotReturned>,
             private val returnAttempted: JsonField<ReturnAttempted>,
             private val returned: JsonField<Returned>,
             private val additionalProperties: MutableMap<String, JsonValue>,
@@ -10055,7 +10612,7 @@ private constructor(
                 returnOutcome: JsonField<ReturnOutcome> = JsonMissing.of(),
                 @JsonProperty("not_returned")
                 @ExcludeMissing
-                notReturned: JsonValue = JsonMissing.of(),
+                notReturned: JsonField<NotReturned> = JsonMissing.of(),
                 @JsonProperty("return_attempted")
                 @ExcludeMissing
                 returnAttempted: JsonField<ReturnAttempted> = JsonMissing.of(),
@@ -10122,10 +10679,13 @@ private constructor(
              */
             fun returnOutcome(): ReturnOutcome = returnOutcome.getRequired("return_outcome")
 
-            /** Not returned. Required if and only if `return_outcome` is `not_returned`. */
-            @JsonProperty("not_returned")
-            @ExcludeMissing
-            fun _notReturned(): JsonValue = notReturned
+            /**
+             * Not returned. Required if and only if `return_outcome` is `not_returned`.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun notReturned(): Optional<NotReturned> = notReturned.getOptional("not_returned")
 
             /**
              * Return attempted. Required if and only if `return_outcome` is `return_attempted`.
@@ -10196,6 +10756,16 @@ private constructor(
             fun _returnOutcome(): JsonField<ReturnOutcome> = returnOutcome
 
             /**
+             * Returns the raw JSON value of [notReturned].
+             *
+             * Unlike [notReturned], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("not_returned")
+            @ExcludeMissing
+            fun _notReturned(): JsonField<NotReturned> = notReturned
+
+            /**
              * Returns the raw JSON value of [returnAttempted].
              *
              * Unlike [returnAttempted], this method doesn't throw if the JSON field has an
@@ -10254,7 +10824,7 @@ private constructor(
                 private var purchaseExplanation: JsonField<String>? = null
                 private var receivedAt: JsonField<LocalDate>? = null
                 private var returnOutcome: JsonField<ReturnOutcome>? = null
-                private var notReturned: JsonValue = JsonMissing.of()
+                private var notReturned: JsonField<NotReturned> = JsonMissing.of()
                 private var returnAttempted: JsonField<ReturnAttempted> = JsonMissing.of()
                 private var returned: JsonField<Returned> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -10354,7 +10924,18 @@ private constructor(
                 }
 
                 /** Not returned. Required if and only if `return_outcome` is `not_returned`. */
-                fun notReturned(notReturned: JsonValue) = apply { this.notReturned = notReturned }
+                fun notReturned(notReturned: NotReturned) = notReturned(JsonField.of(notReturned))
+
+                /**
+                 * Sets [Builder.notReturned] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.notReturned] with a well-typed [NotReturned]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun notReturned(notReturned: JsonField<NotReturned>) = apply {
+                    this.notReturned = notReturned
+                }
 
                 /**
                  * Return attempted. Required if and only if `return_outcome` is `return_attempted`.
@@ -10449,6 +11030,7 @@ private constructor(
                 purchaseExplanation()
                 receivedAt()
                 returnOutcome().validate()
+                notReturned().ifPresent { it.validate() }
                 returnAttempted().ifPresent { it.validate() }
                 returned().ifPresent { it.validate() }
                 validated = true
@@ -10475,6 +11057,7 @@ private constructor(
                     (if (purchaseExplanation.asKnown().isPresent) 1 else 0) +
                     (if (receivedAt.asKnown().isPresent) 1 else 0) +
                     (returnOutcome.asKnown().getOrNull()?.validity() ?: 0) +
+                    (notReturned.asKnown().getOrNull()?.validity() ?: 0) +
                     (returnAttempted.asKnown().getOrNull()?.validity() ?: 0) +
                     (returned.asKnown().getOrNull()?.validity() ?: 0)
 
@@ -10770,6 +11353,113 @@ private constructor(
                 override fun hashCode() = value.hashCode()
 
                 override fun toString() = value.toString()
+            }
+
+            /** Not returned. Required if and only if `return_outcome` is `not_returned`. */
+            class NotReturned
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+            private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
+
+                @JsonCreator private constructor() : this(mutableMapOf())
+
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /** Returns a mutable builder for constructing an instance of [NotReturned]. */
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                /** A builder for [NotReturned]. */
+                class Builder internal constructor() {
+
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(notReturned: NotReturned) = apply {
+                        additionalProperties = notReturned.additionalProperties.toMutableMap()
+                    }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [NotReturned].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     */
+                    fun build(): NotReturned = NotReturned(additionalProperties.toMutableMap())
+                }
+
+                private var validated: Boolean = false
+
+                fun validate(): NotReturned = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic internal fun validity(): Int = 0
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is NotReturned &&
+                        additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() = "NotReturned{additionalProperties=$additionalProperties}"
             }
 
             /** Return attempted. Required if and only if `return_outcome` is `return_attempted`. */
@@ -13591,7 +14281,7 @@ private constructor(
             private val delayed: JsonField<Delayed>,
             private val deliveredToWrongLocation: JsonField<DeliveredToWrongLocation>,
             private val merchantCancellation: JsonField<MerchantCancellation>,
-            private val noCancellation: JsonValue,
+            private val noCancellation: JsonField<NoCancellation>,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
 
@@ -13629,7 +14319,7 @@ private constructor(
                 merchantCancellation: JsonField<MerchantCancellation> = JsonMissing.of(),
                 @JsonProperty("no_cancellation")
                 @ExcludeMissing
-                noCancellation: JsonValue = JsonMissing.of(),
+                noCancellation: JsonField<NoCancellation> = JsonMissing.of(),
             ) : this(
                 cancellationOutcome,
                 deliveryIssue,
@@ -13736,10 +14426,12 @@ private constructor(
 
             /**
              * No cancellation. Required if and only if `cancellation_outcome` is `no_cancellation`.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
              */
-            @JsonProperty("no_cancellation")
-            @ExcludeMissing
-            fun _noCancellation(): JsonValue = noCancellation
+            fun noCancellation(): Optional<NoCancellation> =
+                noCancellation.getOptional("no_cancellation")
 
             /**
              * Returns the raw JSON value of [cancellationOutcome].
@@ -13832,6 +14524,16 @@ private constructor(
             @ExcludeMissing
             fun _merchantCancellation(): JsonField<MerchantCancellation> = merchantCancellation
 
+            /**
+             * Returns the raw JSON value of [noCancellation].
+             *
+             * Unlike [noCancellation], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("no_cancellation")
+            @ExcludeMissing
+            fun _noCancellation(): JsonField<NoCancellation> = noCancellation
+
             @JsonAnySetter
             private fun putAdditionalProperty(key: String, value: JsonValue) {
                 additionalProperties.put(key, value)
@@ -13878,7 +14580,7 @@ private constructor(
                 private var deliveredToWrongLocation: JsonField<DeliveredToWrongLocation> =
                     JsonMissing.of()
                 private var merchantCancellation: JsonField<MerchantCancellation> = JsonMissing.of()
-                private var noCancellation: JsonValue = JsonMissing.of()
+                private var noCancellation: JsonField<NoCancellation> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
@@ -14063,7 +14765,17 @@ private constructor(
                  * No cancellation. Required if and only if `cancellation_outcome` is
                  * `no_cancellation`.
                  */
-                fun noCancellation(noCancellation: JsonValue) = apply {
+                fun noCancellation(noCancellation: NoCancellation) =
+                    noCancellation(JsonField.of(noCancellation))
+
+                /**
+                 * Sets [Builder.noCancellation] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.noCancellation] with a well-typed
+                 * [NoCancellation] value instead. This method is primarily for setting the field to
+                 * an undocumented or not yet supported value.
+                 */
+                fun noCancellation(noCancellation: JsonField<NoCancellation>) = apply {
                     this.noCancellation = noCancellation
                 }
 
@@ -14137,6 +14849,7 @@ private constructor(
                 delayed().ifPresent { it.validate() }
                 deliveredToWrongLocation().ifPresent { it.validate() }
                 merchantCancellation().ifPresent { it.validate() }
+                noCancellation().ifPresent { it.validate() }
                 validated = true
             }
 
@@ -14165,7 +14878,8 @@ private constructor(
                         ?: 0) +
                     (delayed.asKnown().getOrNull()?.validity() ?: 0) +
                     (deliveredToWrongLocation.asKnown().getOrNull()?.validity() ?: 0) +
-                    (merchantCancellation.asKnown().getOrNull()?.validity() ?: 0)
+                    (merchantCancellation.asKnown().getOrNull()?.validity() ?: 0) +
+                    (noCancellation.asKnown().getOrNull()?.validity() ?: 0)
 
             /** Cancellation outcome. */
             class CancellationOutcome
@@ -14838,7 +15552,7 @@ private constructor(
             private constructor(
                 private val explanation: JsonField<String>,
                 private val returnOutcome: JsonField<ReturnOutcome>,
-                private val notReturned: JsonValue,
+                private val notReturned: JsonField<NotReturned>,
                 private val returnAttempted: JsonField<ReturnAttempted>,
                 private val returned: JsonField<Returned>,
                 private val additionalProperties: MutableMap<String, JsonValue>,
@@ -14854,7 +15568,7 @@ private constructor(
                     returnOutcome: JsonField<ReturnOutcome> = JsonMissing.of(),
                     @JsonProperty("not_returned")
                     @ExcludeMissing
-                    notReturned: JsonValue = JsonMissing.of(),
+                    notReturned: JsonField<NotReturned> = JsonMissing.of(),
                     @JsonProperty("return_attempted")
                     @ExcludeMissing
                     returnAttempted: JsonField<ReturnAttempted> = JsonMissing.of(),
@@ -14888,10 +15602,13 @@ private constructor(
                  */
                 fun returnOutcome(): ReturnOutcome = returnOutcome.getRequired("return_outcome")
 
-                /** Not returned. Required if and only if `return_outcome` is `not_returned`. */
-                @JsonProperty("not_returned")
-                @ExcludeMissing
-                fun _notReturned(): JsonValue = notReturned
+                /**
+                 * Not returned. Required if and only if `return_outcome` is `not_returned`.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                 *   (e.g. if the server responded with an unexpected value).
+                 */
+                fun notReturned(): Optional<NotReturned> = notReturned.getOptional("not_returned")
 
                 /**
                  * Return attempted. Required if and only if `return_outcome` is `return_attempted`.
@@ -14929,6 +15646,16 @@ private constructor(
                 @JsonProperty("return_outcome")
                 @ExcludeMissing
                 fun _returnOutcome(): JsonField<ReturnOutcome> = returnOutcome
+
+                /**
+                 * Returns the raw JSON value of [notReturned].
+                 *
+                 * Unlike [notReturned], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
+                @JsonProperty("not_returned")
+                @ExcludeMissing
+                fun _notReturned(): JsonField<NotReturned> = notReturned
 
                 /**
                  * Returns the raw JSON value of [returnAttempted].
@@ -14981,7 +15708,7 @@ private constructor(
 
                     private var explanation: JsonField<String>? = null
                     private var returnOutcome: JsonField<ReturnOutcome>? = null
-                    private var notReturned: JsonValue = JsonMissing.of()
+                    private var notReturned: JsonField<NotReturned> = JsonMissing.of()
                     private var returnAttempted: JsonField<ReturnAttempted> = JsonMissing.of()
                     private var returned: JsonField<Returned> = JsonMissing.of()
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -15026,7 +15753,17 @@ private constructor(
                     }
 
                     /** Not returned. Required if and only if `return_outcome` is `not_returned`. */
-                    fun notReturned(notReturned: JsonValue) = apply {
+                    fun notReturned(notReturned: NotReturned) =
+                        notReturned(JsonField.of(notReturned))
+
+                    /**
+                     * Sets [Builder.notReturned] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.notReturned] with a well-typed [NotReturned]
+                     * value instead. This method is primarily for setting the field to an
+                     * undocumented or not yet supported value.
+                     */
+                    fun notReturned(notReturned: JsonField<NotReturned>) = apply {
                         this.notReturned = notReturned
                     }
 
@@ -15115,6 +15852,7 @@ private constructor(
 
                     explanation()
                     returnOutcome().validate()
+                    notReturned().ifPresent { it.validate() }
                     returnAttempted().ifPresent { it.validate() }
                     returned().ifPresent { it.validate() }
                     validated = true
@@ -15138,6 +15876,7 @@ private constructor(
                 internal fun validity(): Int =
                     (if (explanation.asKnown().isPresent) 1 else 0) +
                         (returnOutcome.asKnown().getOrNull()?.validity() ?: 0) +
+                        (notReturned.asKnown().getOrNull()?.validity() ?: 0) +
                         (returnAttempted.asKnown().getOrNull()?.validity() ?: 0) +
                         (returned.asKnown().getOrNull()?.validity() ?: 0)
 
@@ -15292,6 +16031,119 @@ private constructor(
                     override fun hashCode() = value.hashCode()
 
                     override fun toString() = value.toString()
+                }
+
+                /** Not returned. Required if and only if `return_outcome` is `not_returned`. */
+                class NotReturned
+                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                private constructor(
+                    private val additionalProperties: MutableMap<String, JsonValue>
+                ) {
+
+                    @JsonCreator private constructor() : this(mutableMapOf())
+
+                    @JsonAnySetter
+                    private fun putAdditionalProperty(key: String, value: JsonValue) {
+                        additionalProperties.put(key, value)
+                    }
+
+                    @JsonAnyGetter
+                    @ExcludeMissing
+                    fun _additionalProperties(): Map<String, JsonValue> =
+                        Collections.unmodifiableMap(additionalProperties)
+
+                    fun toBuilder() = Builder().from(this)
+
+                    companion object {
+
+                        /**
+                         * Returns a mutable builder for constructing an instance of [NotReturned].
+                         */
+                        @JvmStatic fun builder() = Builder()
+                    }
+
+                    /** A builder for [NotReturned]. */
+                    class Builder internal constructor() {
+
+                        private var additionalProperties: MutableMap<String, JsonValue> =
+                            mutableMapOf()
+
+                        @JvmSynthetic
+                        internal fun from(notReturned: NotReturned) = apply {
+                            additionalProperties = notReturned.additionalProperties.toMutableMap()
+                        }
+
+                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                            apply {
+                                this.additionalProperties.clear()
+                                putAllAdditionalProperties(additionalProperties)
+                            }
+
+                        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                            additionalProperties.put(key, value)
+                        }
+
+                        fun putAllAdditionalProperties(
+                            additionalProperties: Map<String, JsonValue>
+                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                        fun removeAdditionalProperty(key: String) = apply {
+                            additionalProperties.remove(key)
+                        }
+
+                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                            keys.forEach(::removeAdditionalProperty)
+                        }
+
+                        /**
+                         * Returns an immutable instance of [NotReturned].
+                         *
+                         * Further updates to this [Builder] will not mutate the returned instance.
+                         */
+                        fun build(): NotReturned = NotReturned(additionalProperties.toMutableMap())
+                    }
+
+                    private var validated: Boolean = false
+
+                    fun validate(): NotReturned = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    @JvmSynthetic internal fun validity(): Int = 0
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is NotReturned &&
+                            additionalProperties == other.additionalProperties
+                    }
+
+                    private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+                    override fun hashCode(): Int = hashCode
+
+                    override fun toString() =
+                        "NotReturned{additionalProperties=$additionalProperties}"
                 }
 
                 /**
@@ -16085,6 +16937,119 @@ private constructor(
                     "MerchantCancellation{canceledAt=$canceledAt, additionalProperties=$additionalProperties}"
             }
 
+            /**
+             * No cancellation. Required if and only if `cancellation_outcome` is `no_cancellation`.
+             */
+            class NoCancellation
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+            private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
+
+                @JsonCreator private constructor() : this(mutableMapOf())
+
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /**
+                     * Returns a mutable builder for constructing an instance of [NoCancellation].
+                     */
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                /** A builder for [NoCancellation]. */
+                class Builder internal constructor() {
+
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(noCancellation: NoCancellation) = apply {
+                        additionalProperties = noCancellation.additionalProperties.toMutableMap()
+                    }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [NoCancellation].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     */
+                    fun build(): NoCancellation =
+                        NoCancellation(additionalProperties.toMutableMap())
+                }
+
+                private var validated: Boolean = false
+
+                fun validate(): NoCancellation = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic internal fun validity(): Int = 0
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is NoCancellation &&
+                        additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() =
+                    "NoCancellation{additionalProperties=$additionalProperties}"
+            }
+
             override fun equals(other: Any?): Boolean {
                 if (this === other) {
                     return true
@@ -16125,6 +17090,122 @@ private constructor(
 
             override fun toString() =
                 "ConsumerMerchandiseNotReceived{cancellationOutcome=$cancellationOutcome, deliveryIssue=$deliveryIssue, lastExpectedReceiptAt=$lastExpectedReceiptAt, merchantResolutionAttempted=$merchantResolutionAttempted, purchaseInfoAndExplanation=$purchaseInfoAndExplanation, cardholderCancellationPriorToExpectedReceipt=$cardholderCancellationPriorToExpectedReceipt, delayed=$delayed, deliveredToWrongLocation=$deliveredToWrongLocation, merchantCancellation=$merchantCancellation, noCancellation=$noCancellation, additionalProperties=$additionalProperties}"
+        }
+
+        /**
+         * Non-receipt of cash. Required if and only if `category` is
+         * `consumer_non_receipt_of_cash`.
+         */
+        class ConsumerNonReceiptOfCash
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
+
+            @JsonCreator private constructor() : this(mutableMapOf())
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of
+                 * [ConsumerNonReceiptOfCash].
+                 */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [ConsumerNonReceiptOfCash]. */
+            class Builder internal constructor() {
+
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(consumerNonReceiptOfCash: ConsumerNonReceiptOfCash) = apply {
+                    additionalProperties =
+                        consumerNonReceiptOfCash.additionalProperties.toMutableMap()
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [ConsumerNonReceiptOfCash].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 */
+                fun build(): ConsumerNonReceiptOfCash =
+                    ConsumerNonReceiptOfCash(additionalProperties.toMutableMap())
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): ConsumerNonReceiptOfCash = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = 0
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is ConsumerNonReceiptOfCash &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "ConsumerNonReceiptOfCash{additionalProperties=$additionalProperties}"
         }
 
         /**
@@ -16503,7 +17584,7 @@ private constructor(
             private val purchaseInfoAndQualityIssue: JsonField<String>,
             private val receivedAt: JsonField<LocalDate>,
             private val returnOutcome: JsonField<ReturnOutcome>,
-            private val notReturned: JsonValue,
+            private val notReturned: JsonField<NotReturned>,
             private val ongoingNegotiations: JsonField<OngoingNegotiations>,
             private val returnAttempted: JsonField<ReturnAttempted>,
             private val returned: JsonField<Returned>,
@@ -16530,7 +17611,7 @@ private constructor(
                 returnOutcome: JsonField<ReturnOutcome> = JsonMissing.of(),
                 @JsonProperty("not_returned")
                 @ExcludeMissing
-                notReturned: JsonValue = JsonMissing.of(),
+                notReturned: JsonField<NotReturned> = JsonMissing.of(),
                 @JsonProperty("ongoing_negotiations")
                 @ExcludeMissing
                 ongoingNegotiations: JsonField<OngoingNegotiations> = JsonMissing.of(),
@@ -16600,10 +17681,13 @@ private constructor(
              */
             fun returnOutcome(): ReturnOutcome = returnOutcome.getRequired("return_outcome")
 
-            /** Not returned. Required if and only if `return_outcome` is `not_returned`. */
-            @JsonProperty("not_returned")
-            @ExcludeMissing
-            fun _notReturned(): JsonValue = notReturned
+            /**
+             * Not returned. Required if and only if `return_outcome` is `not_returned`.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun notReturned(): Optional<NotReturned> = notReturned.getOptional("not_returned")
 
             /**
              * Ongoing negotiations. Exclude if there is no evidence of ongoing negotiations.
@@ -16683,6 +17767,16 @@ private constructor(
             fun _returnOutcome(): JsonField<ReturnOutcome> = returnOutcome
 
             /**
+             * Returns the raw JSON value of [notReturned].
+             *
+             * Unlike [notReturned], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("not_returned")
+            @ExcludeMissing
+            fun _notReturned(): JsonField<NotReturned> = notReturned
+
+            /**
              * Returns the raw JSON value of [ongoingNegotiations].
              *
              * Unlike [ongoingNegotiations], this method doesn't throw if the JSON field has an
@@ -16751,7 +17845,7 @@ private constructor(
                 private var purchaseInfoAndQualityIssue: JsonField<String>? = null
                 private var receivedAt: JsonField<LocalDate>? = null
                 private var returnOutcome: JsonField<ReturnOutcome>? = null
-                private var notReturned: JsonValue = JsonMissing.of()
+                private var notReturned: JsonField<NotReturned> = JsonMissing.of()
                 private var ongoingNegotiations: JsonField<OngoingNegotiations> = JsonMissing.of()
                 private var returnAttempted: JsonField<ReturnAttempted> = JsonMissing.of()
                 private var returned: JsonField<Returned> = JsonMissing.of()
@@ -16850,7 +17944,18 @@ private constructor(
                 }
 
                 /** Not returned. Required if and only if `return_outcome` is `not_returned`. */
-                fun notReturned(notReturned: JsonValue) = apply { this.notReturned = notReturned }
+                fun notReturned(notReturned: NotReturned) = notReturned(JsonField.of(notReturned))
+
+                /**
+                 * Sets [Builder.notReturned] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.notReturned] with a well-typed [NotReturned]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun notReturned(notReturned: JsonField<NotReturned>) = apply {
+                    this.notReturned = notReturned
+                }
 
                 /**
                  * Ongoing negotiations. Exclude if there is no evidence of ongoing negotiations.
@@ -16964,6 +18069,7 @@ private constructor(
                 purchaseInfoAndQualityIssue()
                 receivedAt()
                 returnOutcome().validate()
+                notReturned().ifPresent { it.validate() }
                 ongoingNegotiations().ifPresent { it.validate() }
                 returnAttempted().ifPresent { it.validate() }
                 returned().ifPresent { it.validate() }
@@ -16991,6 +18097,7 @@ private constructor(
                     (if (purchaseInfoAndQualityIssue.asKnown().isPresent) 1 else 0) +
                     (if (receivedAt.asKnown().isPresent) 1 else 0) +
                     (returnOutcome.asKnown().getOrNull()?.validity() ?: 0) +
+                    (notReturned.asKnown().getOrNull()?.validity() ?: 0) +
                     (ongoingNegotiations.asKnown().getOrNull()?.validity() ?: 0) +
                     (returnAttempted.asKnown().getOrNull()?.validity() ?: 0) +
                     (returned.asKnown().getOrNull()?.validity() ?: 0)
@@ -17287,6 +18394,113 @@ private constructor(
                 override fun hashCode() = value.hashCode()
 
                 override fun toString() = value.toString()
+            }
+
+            /** Not returned. Required if and only if `return_outcome` is `not_returned`. */
+            class NotReturned
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+            private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
+
+                @JsonCreator private constructor() : this(mutableMapOf())
+
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /** Returns a mutable builder for constructing an instance of [NotReturned]. */
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                /** A builder for [NotReturned]. */
+                class Builder internal constructor() {
+
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(notReturned: NotReturned) = apply {
+                        additionalProperties = notReturned.additionalProperties.toMutableMap()
+                    }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [NotReturned].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     */
+                    fun build(): NotReturned = NotReturned(additionalProperties.toMutableMap())
+                }
+
+                private var validated: Boolean = false
+
+                fun validate(): NotReturned = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic internal fun validity(): Int = 0
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is NotReturned &&
+                        additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() = "NotReturned{additionalProperties=$additionalProperties}"
             }
 
             /** Ongoing negotiations. Exclude if there is no evidence of ongoing negotiations. */
@@ -22140,7 +23354,7 @@ private constructor(
             private val cardholderCancellationPriorToExpectedReceipt:
                 JsonField<CardholderCancellationPriorToExpectedReceipt>,
             private val merchantCancellation: JsonField<MerchantCancellation>,
-            private val noCancellation: JsonValue,
+            private val noCancellation: JsonField<NoCancellation>,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
 
@@ -22169,7 +23383,7 @@ private constructor(
                 merchantCancellation: JsonField<MerchantCancellation> = JsonMissing.of(),
                 @JsonProperty("no_cancellation")
                 @ExcludeMissing
-                noCancellation: JsonValue = JsonMissing.of(),
+                noCancellation: JsonField<NoCancellation> = JsonMissing.of(),
             ) : this(
                 cancellationOutcome,
                 lastExpectedReceiptAt,
@@ -22246,10 +23460,12 @@ private constructor(
 
             /**
              * No cancellation. Required if and only if `cancellation_outcome` is `no_cancellation`.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
              */
-            @JsonProperty("no_cancellation")
-            @ExcludeMissing
-            fun _noCancellation(): JsonValue = noCancellation
+            fun noCancellation(): Optional<NoCancellation> =
+                noCancellation.getOptional("no_cancellation")
 
             /**
              * Returns the raw JSON value of [cancellationOutcome].
@@ -22314,6 +23530,16 @@ private constructor(
             @ExcludeMissing
             fun _merchantCancellation(): JsonField<MerchantCancellation> = merchantCancellation
 
+            /**
+             * Returns the raw JSON value of [noCancellation].
+             *
+             * Unlike [noCancellation], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("no_cancellation")
+            @ExcludeMissing
+            fun _noCancellation(): JsonField<NoCancellation> = noCancellation
+
             @JsonAnySetter
             private fun putAdditionalProperty(key: String, value: JsonValue) {
                 additionalProperties.put(key, value)
@@ -22355,7 +23581,7 @@ private constructor(
                     JsonField<CardholderCancellationPriorToExpectedReceipt> =
                     JsonMissing.of()
                 private var merchantCancellation: JsonField<MerchantCancellation> = JsonMissing.of()
-                private var noCancellation: JsonValue = JsonMissing.of()
+                private var noCancellation: JsonField<NoCancellation> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
@@ -22490,7 +23716,17 @@ private constructor(
                  * No cancellation. Required if and only if `cancellation_outcome` is
                  * `no_cancellation`.
                  */
-                fun noCancellation(noCancellation: JsonValue) = apply {
+                fun noCancellation(noCancellation: NoCancellation) =
+                    noCancellation(JsonField.of(noCancellation))
+
+                /**
+                 * Sets [Builder.noCancellation] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.noCancellation] with a well-typed
+                 * [NoCancellation] value instead. This method is primarily for setting the field to
+                 * an undocumented or not yet supported value.
+                 */
+                fun noCancellation(noCancellation: JsonField<NoCancellation>) = apply {
                     this.noCancellation = noCancellation
                 }
 
@@ -22557,6 +23793,7 @@ private constructor(
                 purchaseInfoAndExplanation()
                 cardholderCancellationPriorToExpectedReceipt().ifPresent { it.validate() }
                 merchantCancellation().ifPresent { it.validate() }
+                noCancellation().ifPresent { it.validate() }
                 validated = true
             }
 
@@ -22582,7 +23819,8 @@ private constructor(
                     (if (purchaseInfoAndExplanation.asKnown().isPresent) 1 else 0) +
                     (cardholderCancellationPriorToExpectedReceipt.asKnown().getOrNull()?.validity()
                         ?: 0) +
-                    (merchantCancellation.asKnown().getOrNull()?.validity() ?: 0)
+                    (merchantCancellation.asKnown().getOrNull()?.validity() ?: 0) +
+                    (noCancellation.asKnown().getOrNull()?.validity() ?: 0)
 
             /** Cancellation outcome. */
             class CancellationOutcome
@@ -23284,6 +24522,119 @@ private constructor(
 
                 override fun toString() =
                     "MerchantCancellation{canceledAt=$canceledAt, additionalProperties=$additionalProperties}"
+            }
+
+            /**
+             * No cancellation. Required if and only if `cancellation_outcome` is `no_cancellation`.
+             */
+            class NoCancellation
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+            private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
+
+                @JsonCreator private constructor() : this(mutableMapOf())
+
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /**
+                     * Returns a mutable builder for constructing an instance of [NoCancellation].
+                     */
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                /** A builder for [NoCancellation]. */
+                class Builder internal constructor() {
+
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(noCancellation: NoCancellation) = apply {
+                        additionalProperties = noCancellation.additionalProperties.toMutableMap()
+                    }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [NoCancellation].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     */
+                    fun build(): NoCancellation =
+                        NoCancellation(additionalProperties.toMutableMap())
+                }
+
+                private var validated: Boolean = false
+
+                fun validate(): NoCancellation = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic internal fun validity(): Int = 0
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is NoCancellation &&
+                        additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() =
+                    "NoCancellation{additionalProperties=$additionalProperties}"
             }
 
             override fun equals(other: Any?): Boolean {

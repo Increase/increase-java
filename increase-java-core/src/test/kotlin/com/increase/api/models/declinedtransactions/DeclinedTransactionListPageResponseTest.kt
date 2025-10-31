@@ -3,7 +3,6 @@
 package com.increase.api.models.declinedtransactions
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import com.increase.api.core.JsonValue
 import com.increase.api.core.jsonMapper
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
@@ -181,7 +180,13 @@ internal class DeclinedTransactionListPageResponseTest {
                                                         .Category
                                                         .VISA
                                                 )
-                                                .pulse(null)
+                                                .pulse(
+                                                    DeclinedTransaction.Source.CardDecline
+                                                        .NetworkDetails
+                                                        .Pulse
+                                                        .builder()
+                                                        .build()
+                                                )
                                                 .visa(
                                                     DeclinedTransaction.Source.CardDecline
                                                         .NetworkDetails
@@ -348,7 +353,7 @@ internal class DeclinedTransactionListPageResponseTest {
                                         )
                                         .build()
                                 )
-                                .other(JsonValue.from(mapOf<String, Any>()))
+                                .other(DeclinedTransaction.Source.Other.builder().build())
                                 .wireDecline(
                                     DeclinedTransaction.Source.WireDecline.builder()
                                         .inboundWireTransferId(
@@ -530,7 +535,13 @@ internal class DeclinedTransactionListPageResponseTest {
                                                     .Category
                                                     .VISA
                                             )
-                                            .pulse(null)
+                                            .pulse(
+                                                DeclinedTransaction.Source.CardDecline
+                                                    .NetworkDetails
+                                                    .Pulse
+                                                    .builder()
+                                                    .build()
+                                            )
                                             .visa(
                                                 DeclinedTransaction.Source.CardDecline
                                                     .NetworkDetails
@@ -690,7 +701,7 @@ internal class DeclinedTransactionListPageResponseTest {
                                     )
                                     .build()
                             )
-                            .other(JsonValue.from(mapOf<String, Any>()))
+                            .other(DeclinedTransaction.Source.Other.builder().build())
                             .wireDecline(
                                 DeclinedTransaction.Source.WireDecline.builder()
                                     .inboundWireTransferId(
@@ -881,7 +892,13 @@ internal class DeclinedTransactionListPageResponseTest {
                                                         .Category
                                                         .VISA
                                                 )
-                                                .pulse(null)
+                                                .pulse(
+                                                    DeclinedTransaction.Source.CardDecline
+                                                        .NetworkDetails
+                                                        .Pulse
+                                                        .builder()
+                                                        .build()
+                                                )
                                                 .visa(
                                                     DeclinedTransaction.Source.CardDecline
                                                         .NetworkDetails
@@ -1048,7 +1065,7 @@ internal class DeclinedTransactionListPageResponseTest {
                                         )
                                         .build()
                                 )
-                                .other(JsonValue.from(mapOf<String, Any>()))
+                                .other(DeclinedTransaction.Source.Other.builder().build())
                                 .wireDecline(
                                     DeclinedTransaction.Source.WireDecline.builder()
                                         .inboundWireTransferId(

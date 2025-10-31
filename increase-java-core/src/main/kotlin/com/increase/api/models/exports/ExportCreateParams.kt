@@ -91,8 +91,13 @@ private constructor(
      */
     fun transactionCsv(): Optional<TransactionCsv> = body.transactionCsv()
 
-    /** Options for the created export. Required if `category` is equal to `vendor_csv`. */
-    fun _vendorCsv(): JsonValue = body._vendorCsv()
+    /**
+     * Options for the created export. Required if `category` is equal to `vendor_csv`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun vendorCsv(): Optional<VendorCsv> = body.vendorCsv()
 
     /**
      * Returns the raw JSON value of [category].
@@ -146,6 +151,13 @@ private constructor(
      * Unlike [transactionCsv], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _transactionCsv(): JsonField<TransactionCsv> = body._transactionCsv()
+
+    /**
+     * Returns the raw JSON value of [vendorCsv].
+     *
+     * Unlike [vendorCsv], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _vendorCsv(): JsonField<VendorCsv> = body._vendorCsv()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -308,7 +320,16 @@ private constructor(
         }
 
         /** Options for the created export. Required if `category` is equal to `vendor_csv`. */
-        fun vendorCsv(vendorCsv: JsonValue) = apply { body.vendorCsv(vendorCsv) }
+        fun vendorCsv(vendorCsv: VendorCsv) = apply { body.vendorCsv(vendorCsv) }
+
+        /**
+         * Sets [Builder.vendorCsv] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.vendorCsv] with a well-typed [VendorCsv] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun vendorCsv(vendorCsv: JsonField<VendorCsv>) = apply { body.vendorCsv(vendorCsv) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -463,7 +484,7 @@ private constructor(
         private val bookkeepingAccountBalanceCsv: JsonField<BookkeepingAccountBalanceCsv>,
         private val entityCsv: JsonField<EntityCsv>,
         private val transactionCsv: JsonField<TransactionCsv>,
-        private val vendorCsv: JsonValue,
+        private val vendorCsv: JsonField<VendorCsv>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -491,7 +512,9 @@ private constructor(
             @JsonProperty("transaction_csv")
             @ExcludeMissing
             transactionCsv: JsonField<TransactionCsv> = JsonMissing.of(),
-            @JsonProperty("vendor_csv") @ExcludeMissing vendorCsv: JsonValue = JsonMissing.of(),
+            @JsonProperty("vendor_csv")
+            @ExcludeMissing
+            vendorCsv: JsonField<VendorCsv> = JsonMissing.of(),
         ) : this(
             category,
             accountStatementBai2,
@@ -567,8 +590,13 @@ private constructor(
         fun transactionCsv(): Optional<TransactionCsv> =
             transactionCsv.getOptional("transaction_csv")
 
-        /** Options for the created export. Required if `category` is equal to `vendor_csv`. */
-        @JsonProperty("vendor_csv") @ExcludeMissing fun _vendorCsv(): JsonValue = vendorCsv
+        /**
+         * Options for the created export. Required if `category` is equal to `vendor_csv`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun vendorCsv(): Optional<VendorCsv> = vendorCsv.getOptional("vendor_csv")
 
         /**
          * Returns the raw JSON value of [category].
@@ -636,6 +664,15 @@ private constructor(
         @ExcludeMissing
         fun _transactionCsv(): JsonField<TransactionCsv> = transactionCsv
 
+        /**
+         * Returns the raw JSON value of [vendorCsv].
+         *
+         * Unlike [vendorCsv], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("vendor_csv")
+        @ExcludeMissing
+        fun _vendorCsv(): JsonField<VendorCsv> = vendorCsv
+
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
             additionalProperties.put(key, value)
@@ -672,7 +709,7 @@ private constructor(
                 JsonMissing.of()
             private var entityCsv: JsonField<EntityCsv> = JsonMissing.of()
             private var transactionCsv: JsonField<TransactionCsv> = JsonMissing.of()
-            private var vendorCsv: JsonValue = JsonMissing.of()
+            private var vendorCsv: JsonField<VendorCsv> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -800,7 +837,16 @@ private constructor(
             }
 
             /** Options for the created export. Required if `category` is equal to `vendor_csv`. */
-            fun vendorCsv(vendorCsv: JsonValue) = apply { this.vendorCsv = vendorCsv }
+            fun vendorCsv(vendorCsv: VendorCsv) = vendorCsv(JsonField.of(vendorCsv))
+
+            /**
+             * Sets [Builder.vendorCsv] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.vendorCsv] with a well-typed [VendorCsv] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun vendorCsv(vendorCsv: JsonField<VendorCsv>) = apply { this.vendorCsv = vendorCsv }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -861,6 +907,7 @@ private constructor(
             bookkeepingAccountBalanceCsv().ifPresent { it.validate() }
             entityCsv().ifPresent { it.validate() }
             transactionCsv().ifPresent { it.validate() }
+            vendorCsv().ifPresent { it.validate() }
             validated = true
         }
 
@@ -886,7 +933,8 @@ private constructor(
                 (balanceCsv.asKnown().getOrNull()?.validity() ?: 0) +
                 (bookkeepingAccountBalanceCsv.asKnown().getOrNull()?.validity() ?: 0) +
                 (entityCsv.asKnown().getOrNull()?.validity() ?: 0) +
-                (transactionCsv.asKnown().getOrNull()?.validity() ?: 0)
+                (transactionCsv.asKnown().getOrNull()?.validity() ?: 0) +
+                (vendorCsv.asKnown().getOrNull()?.validity() ?: 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -3876,6 +3924,109 @@ private constructor(
 
         override fun toString() =
             "TransactionCsv{accountId=$accountId, createdAt=$createdAt, programId=$programId, additionalProperties=$additionalProperties}"
+    }
+
+    /** Options for the created export. Required if `category` is equal to `vendor_csv`. */
+    class VendorCsv
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
+
+        @JsonCreator private constructor() : this(mutableMapOf())
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [VendorCsv]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [VendorCsv]. */
+        class Builder internal constructor() {
+
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(vendorCsv: VendorCsv) = apply {
+                additionalProperties = vendorCsv.additionalProperties.toMutableMap()
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [VendorCsv].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): VendorCsv = VendorCsv(additionalProperties.toMutableMap())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): VendorCsv = apply {
+            if (validated) {
+                return@apply
+            }
+
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = 0
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is VendorCsv && additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() = "VendorCsv{additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
