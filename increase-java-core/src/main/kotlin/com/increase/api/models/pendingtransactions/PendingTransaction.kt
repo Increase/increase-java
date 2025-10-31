@@ -31,11 +31,11 @@ private constructor(
     private val id: JsonField<String>,
     private val accountId: JsonField<String>,
     private val amount: JsonField<Long>,
-    private val balanceImpact: JsonField<BalanceImpact>,
     private val completedAt: JsonField<OffsetDateTime>,
     private val createdAt: JsonField<OffsetDateTime>,
     private val currency: JsonField<Currency>,
     private val description: JsonField<String>,
+    private val heldAmount: JsonField<Long>,
     private val routeId: JsonField<String>,
     private val routeType: JsonField<RouteType>,
     private val source: JsonField<Source>,
@@ -49,9 +49,6 @@ private constructor(
         @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
         @JsonProperty("account_id") @ExcludeMissing accountId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
-        @JsonProperty("balance_impact")
-        @ExcludeMissing
-        balanceImpact: JsonField<BalanceImpact> = JsonMissing.of(),
         @JsonProperty("completed_at")
         @ExcludeMissing
         completedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
@@ -62,6 +59,7 @@ private constructor(
         @JsonProperty("description")
         @ExcludeMissing
         description: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("held_amount") @ExcludeMissing heldAmount: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("route_id") @ExcludeMissing routeId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("route_type")
         @ExcludeMissing
@@ -73,11 +71,11 @@ private constructor(
         id,
         accountId,
         amount,
-        balanceImpact,
         completedAt,
         createdAt,
         currency,
         description,
+        heldAmount,
         routeId,
         routeType,
         source,
@@ -110,14 +108,6 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun amount(): Long = amount.getRequired("amount")
-
-    /**
-     * How the Pending Transaction affects the balance of its Account while its status is `pending`.
-     *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
-    fun balanceImpact(): BalanceImpact = balanceImpact.getRequired("balance_impact")
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date on which the Pending Transaction
@@ -154,6 +144,15 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun description(): String = description.getRequired("description")
+
+    /**
+     * The amount that this Pending Transaction decrements the available balance of its Account.
+     * This is usually the same as `amount`, but will differ if the amount is positive.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun heldAmount(): Long = heldAmount.getRequired("held_amount")
 
     /**
      * The identifier for the route this Pending Transaction came through. Routes are things like
@@ -221,15 +220,6 @@ private constructor(
     @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
     /**
-     * Returns the raw JSON value of [balanceImpact].
-     *
-     * Unlike [balanceImpact], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("balance_impact")
-    @ExcludeMissing
-    fun _balanceImpact(): JsonField<BalanceImpact> = balanceImpact
-
-    /**
      * Returns the raw JSON value of [completedAt].
      *
      * Unlike [completedAt], this method doesn't throw if the JSON field has an unexpected type.
@@ -260,6 +250,13 @@ private constructor(
      * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("description") @ExcludeMissing fun _description(): JsonField<String> = description
+
+    /**
+     * Returns the raw JSON value of [heldAmount].
+     *
+     * Unlike [heldAmount], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("held_amount") @ExcludeMissing fun _heldAmount(): JsonField<Long> = heldAmount
 
     /**
      * Returns the raw JSON value of [routeId].
@@ -318,11 +315,11 @@ private constructor(
          * .id()
          * .accountId()
          * .amount()
-         * .balanceImpact()
          * .completedAt()
          * .createdAt()
          * .currency()
          * .description()
+         * .heldAmount()
          * .routeId()
          * .routeType()
          * .source()
@@ -339,11 +336,11 @@ private constructor(
         private var id: JsonField<String>? = null
         private var accountId: JsonField<String>? = null
         private var amount: JsonField<Long>? = null
-        private var balanceImpact: JsonField<BalanceImpact>? = null
         private var completedAt: JsonField<OffsetDateTime>? = null
         private var createdAt: JsonField<OffsetDateTime>? = null
         private var currency: JsonField<Currency>? = null
         private var description: JsonField<String>? = null
+        private var heldAmount: JsonField<Long>? = null
         private var routeId: JsonField<String>? = null
         private var routeType: JsonField<RouteType>? = null
         private var source: JsonField<Source>? = null
@@ -356,11 +353,11 @@ private constructor(
             id = pendingTransaction.id
             accountId = pendingTransaction.accountId
             amount = pendingTransaction.amount
-            balanceImpact = pendingTransaction.balanceImpact
             completedAt = pendingTransaction.completedAt
             createdAt = pendingTransaction.createdAt
             currency = pendingTransaction.currency
             description = pendingTransaction.description
+            heldAmount = pendingTransaction.heldAmount
             routeId = pendingTransaction.routeId
             routeType = pendingTransaction.routeType
             source = pendingTransaction.source
@@ -405,23 +402,6 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
-
-        /**
-         * How the Pending Transaction affects the balance of its Account while its status is
-         * `pending`.
-         */
-        fun balanceImpact(balanceImpact: BalanceImpact) = balanceImpact(JsonField.of(balanceImpact))
-
-        /**
-         * Sets [Builder.balanceImpact] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.balanceImpact] with a well-typed [BalanceImpact] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun balanceImpact(balanceImpact: JsonField<BalanceImpact>) = apply {
-            this.balanceImpact = balanceImpact
-        }
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date on which the Pending
@@ -489,6 +469,20 @@ private constructor(
          * value.
          */
         fun description(description: JsonField<String>) = apply { this.description = description }
+
+        /**
+         * The amount that this Pending Transaction decrements the available balance of its Account.
+         * This is usually the same as `amount`, but will differ if the amount is positive.
+         */
+        fun heldAmount(heldAmount: Long) = heldAmount(JsonField.of(heldAmount))
+
+        /**
+         * Sets [Builder.heldAmount] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.heldAmount] with a well-typed [Long] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun heldAmount(heldAmount: JsonField<Long>) = apply { this.heldAmount = heldAmount }
 
         /**
          * The identifier for the route this Pending Transaction came through. Routes are things
@@ -591,11 +585,11 @@ private constructor(
          * .id()
          * .accountId()
          * .amount()
-         * .balanceImpact()
          * .completedAt()
          * .createdAt()
          * .currency()
          * .description()
+         * .heldAmount()
          * .routeId()
          * .routeType()
          * .source()
@@ -610,11 +604,11 @@ private constructor(
                 checkRequired("id", id),
                 checkRequired("accountId", accountId),
                 checkRequired("amount", amount),
-                checkRequired("balanceImpact", balanceImpact),
                 checkRequired("completedAt", completedAt),
                 checkRequired("createdAt", createdAt),
                 checkRequired("currency", currency),
                 checkRequired("description", description),
+                checkRequired("heldAmount", heldAmount),
                 checkRequired("routeId", routeId),
                 checkRequired("routeType", routeType),
                 checkRequired("source", source),
@@ -634,11 +628,11 @@ private constructor(
         id()
         accountId()
         amount()
-        balanceImpact().validate()
         completedAt()
         createdAt()
         currency().validate()
         description()
+        heldAmount()
         routeId()
         routeType().ifPresent { it.validate() }
         source().validate()
@@ -665,165 +659,16 @@ private constructor(
         (if (id.asKnown().isPresent) 1 else 0) +
             (if (accountId.asKnown().isPresent) 1 else 0) +
             (if (amount.asKnown().isPresent) 1 else 0) +
-            (balanceImpact.asKnown().getOrNull()?.validity() ?: 0) +
             (if (completedAt.asKnown().isPresent) 1 else 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
             (currency.asKnown().getOrNull()?.validity() ?: 0) +
             (if (description.asKnown().isPresent) 1 else 0) +
+            (if (heldAmount.asKnown().isPresent) 1 else 0) +
             (if (routeId.asKnown().isPresent) 1 else 0) +
             (routeType.asKnown().getOrNull()?.validity() ?: 0) +
             (source.asKnown().getOrNull()?.validity() ?: 0) +
             (status.asKnown().getOrNull()?.validity() ?: 0) +
             (type.asKnown().getOrNull()?.validity() ?: 0)
-
-    /**
-     * How the Pending Transaction affects the balance of its Account while its status is `pending`.
-     */
-    class BalanceImpact @JsonCreator private constructor(private val value: JsonField<String>) :
-        Enum {
-
-        /**
-         * Returns this class instance's raw value.
-         *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
-         */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        companion object {
-
-            /**
-             * This Pending Transaction will decrement the available balance on the Account while
-             * its status is `pending`.
-             */
-            @JvmField val AFFECTS_AVAILABLE_BALANCE = of("affects_available_balance")
-
-            /** This Pending Transaction does not affect the available balance on the Account. */
-            @JvmField val NONE = of("none")
-
-            @JvmStatic fun of(value: String) = BalanceImpact(JsonField.of(value))
-        }
-
-        /** An enum containing [BalanceImpact]'s known values. */
-        enum class Known {
-            /**
-             * This Pending Transaction will decrement the available balance on the Account while
-             * its status is `pending`.
-             */
-            AFFECTS_AVAILABLE_BALANCE,
-            /** This Pending Transaction does not affect the available balance on the Account. */
-            NONE,
-        }
-
-        /**
-         * An enum containing [BalanceImpact]'s known values, as well as an [_UNKNOWN] member.
-         *
-         * An instance of [BalanceImpact] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
-         * - It was constructed with an arbitrary value using the [of] method.
-         */
-        enum class Value {
-            /**
-             * This Pending Transaction will decrement the available balance on the Account while
-             * its status is `pending`.
-             */
-            AFFECTS_AVAILABLE_BALANCE,
-            /** This Pending Transaction does not affect the available balance on the Account. */
-            NONE,
-            /**
-             * An enum member indicating that [BalanceImpact] was instantiated with an unknown
-             * value.
-             */
-            _UNKNOWN,
-        }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
-         *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
-         */
-        fun value(): Value =
-            when (this) {
-                AFFECTS_AVAILABLE_BALANCE -> Value.AFFECTS_AVAILABLE_BALANCE
-                NONE -> Value.NONE
-                else -> Value._UNKNOWN
-            }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value.
-         *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
-         *
-         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
-         *   member.
-         */
-        fun known(): Known =
-            when (this) {
-                AFFECTS_AVAILABLE_BALANCE -> Known.AFFECTS_AVAILABLE_BALANCE
-                NONE -> Known.NONE
-                else -> throw IncreaseInvalidDataException("Unknown BalanceImpact: $value")
-            }
-
-        /**
-         * Returns this class instance's primitive wire representation.
-         *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
-         *
-         * @throws IncreaseInvalidDataException if this class instance's value does not have the
-         *   expected primitive type.
-         */
-        fun asString(): String =
-            _value().asString().orElseThrow {
-                IncreaseInvalidDataException("Value is not a String")
-            }
-
-        private var validated: Boolean = false
-
-        fun validate(): BalanceImpact = apply {
-            if (validated) {
-                return@apply
-            }
-
-            known()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: IncreaseInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is BalanceImpact && value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-    }
 
     /**
      * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the Pending Transaction's
@@ -15410,11 +15255,11 @@ private constructor(
             id == other.id &&
             accountId == other.accountId &&
             amount == other.amount &&
-            balanceImpact == other.balanceImpact &&
             completedAt == other.completedAt &&
             createdAt == other.createdAt &&
             currency == other.currency &&
             description == other.description &&
+            heldAmount == other.heldAmount &&
             routeId == other.routeId &&
             routeType == other.routeType &&
             source == other.source &&
@@ -15428,11 +15273,11 @@ private constructor(
             id,
             accountId,
             amount,
-            balanceImpact,
             completedAt,
             createdAt,
             currency,
             description,
+            heldAmount,
             routeId,
             routeType,
             source,
@@ -15445,5 +15290,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "PendingTransaction{id=$id, accountId=$accountId, amount=$amount, balanceImpact=$balanceImpact, completedAt=$completedAt, createdAt=$createdAt, currency=$currency, description=$description, routeId=$routeId, routeType=$routeType, source=$source, status=$status, type=$type, additionalProperties=$additionalProperties}"
+        "PendingTransaction{id=$id, accountId=$accountId, amount=$amount, completedAt=$completedAt, createdAt=$createdAt, currency=$currency, description=$description, heldAmount=$heldAmount, routeId=$routeId, routeType=$routeType, source=$source, status=$status, type=$type, additionalProperties=$additionalProperties}"
 }
