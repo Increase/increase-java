@@ -18,6 +18,7 @@ internal class ExportCreateParamsTest {
                 ExportCreateParams.AccountStatementBai2.builder()
                     .accountId("account_id")
                     .effectiveDate(LocalDate.parse("2019-12-27"))
+                    .programId("program_id")
                     .build()
             )
             .accountStatementOfx(
@@ -96,6 +97,7 @@ internal class ExportCreateParamsTest {
                     ExportCreateParams.AccountStatementBai2.builder()
                         .accountId("account_id")
                         .effectiveDate(LocalDate.parse("2019-12-27"))
+                        .programId("program_id")
                         .build()
                 )
                 .accountStatementOfx(
@@ -172,6 +174,7 @@ internal class ExportCreateParamsTest {
                 ExportCreateParams.AccountStatementBai2.builder()
                     .accountId("account_id")
                     .effectiveDate(LocalDate.parse("2019-12-27"))
+                    .programId("program_id")
                     .build()
             )
         assertThat(body.accountStatementOfx())
