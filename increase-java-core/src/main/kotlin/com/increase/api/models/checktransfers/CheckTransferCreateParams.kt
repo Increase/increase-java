@@ -64,8 +64,8 @@ private constructor(
     fun sourceAccountNumberId(): String = body.sourceAccountNumberId()
 
     /**
-     * How the account's available balance should be checked. Please contact
-     * [support@increase.com](mailto:support@increase.com) to enable this parameter.
+     * How the account's available balance should be checked. If omitted, the default behavior is
+     * `balance_check: full`.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -288,8 +288,8 @@ private constructor(
         }
 
         /**
-         * How the account's available balance should be checked. Please contact
-         * [support@increase.com](mailto:support@increase.com) to enable this parameter.
+         * How the account's available balance should be checked. If omitted, the default behavior
+         * is `balance_check: full`.
          */
         fun balanceCheck(balanceCheck: BalanceCheck) = apply { body.balanceCheck(balanceCheck) }
 
@@ -609,8 +609,8 @@ private constructor(
             sourceAccountNumberId.getRequired("source_account_number_id")
 
         /**
-         * How the account's available balance should be checked. Please contact
-         * [support@increase.com](mailto:support@increase.com) to enable this parameter.
+         * How the account's available balance should be checked. If omitted, the default behavior
+         * is `balance_check: full`.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -851,8 +851,8 @@ private constructor(
             }
 
             /**
-             * How the account's available balance should be checked. Please contact
-             * [support@increase.com](mailto:support@increase.com) to enable this parameter.
+             * How the account's available balance should be checked. If omitted, the default
+             * behavior is `balance_check: full`.
              */
             fun balanceCheck(balanceCheck: BalanceCheck) = balanceCheck(JsonField.of(balanceCheck))
 
@@ -1218,8 +1218,8 @@ private constructor(
     }
 
     /**
-     * How the account's available balance should be checked. Please contact
-     * [support@increase.com](mailto:support@increase.com) to enable this parameter.
+     * How the account's available balance should be checked. If omitted, the default behavior is
+     * `balance_check: full`.
      */
     class BalanceCheck @JsonCreator private constructor(private val value: JsonField<String>) :
         Enum {
@@ -1238,7 +1238,8 @@ private constructor(
 
             /**
              * The available balance of the account must be at least the amount of the check, and a
-             * Pending Transaction will be created for the full amount.
+             * Pending Transaction will be created for the full amount. This is the default behavior
+             * if `balance_check` is omitted.
              */
             @JvmField val FULL = of("full")
 
@@ -1256,7 +1257,8 @@ private constructor(
         enum class Known {
             /**
              * The available balance of the account must be at least the amount of the check, and a
-             * Pending Transaction will be created for the full amount.
+             * Pending Transaction will be created for the full amount. This is the default behavior
+             * if `balance_check` is omitted.
              */
             FULL,
             /**
@@ -1279,7 +1281,8 @@ private constructor(
         enum class Value {
             /**
              * The available balance of the account must be at least the amount of the check, and a
-             * Pending Transaction will be created for the full amount.
+             * Pending Transaction will be created for the full amount. This is the default behavior
+             * if `balance_check` is omitted.
              */
             FULL,
             /**
