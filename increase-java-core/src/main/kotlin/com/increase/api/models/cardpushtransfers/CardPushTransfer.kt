@@ -3543,21 +3543,6 @@ private constructor(
 
         companion object {
 
-            /** Canadian Dollar (CAD) */
-            @JvmField val CAD = of("CAD")
-
-            /** Swiss Franc (CHF) */
-            @JvmField val CHF = of("CHF")
-
-            /** Euro (EUR) */
-            @JvmField val EUR = of("EUR")
-
-            /** British Pound (GBP) */
-            @JvmField val GBP = of("GBP")
-
-            /** Japanese Yen (JPY) */
-            @JvmField val JPY = of("JPY")
-
             /** US Dollar (USD) */
             @JvmField val USD = of("USD")
 
@@ -3566,18 +3551,8 @@ private constructor(
 
         /** An enum containing [Currency]'s known values. */
         enum class Known {
-            /** Canadian Dollar (CAD) */
-            CAD,
-            /** Swiss Franc (CHF) */
-            CHF,
-            /** Euro (EUR) */
-            EUR,
-            /** British Pound (GBP) */
-            GBP,
-            /** Japanese Yen (JPY) */
-            JPY,
             /** US Dollar (USD) */
-            USD,
+            USD
         }
 
         /**
@@ -3590,16 +3565,6 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            /** Canadian Dollar (CAD) */
-            CAD,
-            /** Swiss Franc (CHF) */
-            CHF,
-            /** Euro (EUR) */
-            EUR,
-            /** British Pound (GBP) */
-            GBP,
-            /** Japanese Yen (JPY) */
-            JPY,
             /** US Dollar (USD) */
             USD,
             /** An enum member indicating that [Currency] was instantiated with an unknown value. */
@@ -3615,11 +3580,6 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                CAD -> Value.CAD
-                CHF -> Value.CHF
-                EUR -> Value.EUR
-                GBP -> Value.GBP
-                JPY -> Value.JPY
                 USD -> Value.USD
                 else -> Value._UNKNOWN
             }
@@ -3635,11 +3595,6 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                CAD -> Known.CAD
-                CHF -> Known.CHF
-                EUR -> Known.EUR
-                GBP -> Known.GBP
-                JPY -> Known.JPY
                 USD -> Known.USD
                 else -> throw IncreaseInvalidDataException("Unknown Currency: $value")
             }
