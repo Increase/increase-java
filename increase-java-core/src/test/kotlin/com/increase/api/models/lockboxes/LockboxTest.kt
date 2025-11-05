@@ -26,11 +26,11 @@ internal class LockboxTest {
                         .state("CA")
                         .build()
                 )
+                .checkDepositBehavior(Lockbox.CheckDepositBehavior.ENABLED)
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .description("Lockbox 1")
                 .idempotencyKey(null)
                 .recipientName("Company Inc.")
-                .status(Lockbox.Status.ACTIVE)
                 .type(Lockbox.Type.LOCKBOX)
                 .build()
 
@@ -47,11 +47,11 @@ internal class LockboxTest {
                     .state("CA")
                     .build()
             )
+        assertThat(lockbox.checkDepositBehavior()).isEqualTo(Lockbox.CheckDepositBehavior.ENABLED)
         assertThat(lockbox.createdAt()).isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
         assertThat(lockbox.description()).contains("Lockbox 1")
         assertThat(lockbox.idempotencyKey()).isEmpty
         assertThat(lockbox.recipientName()).contains("Company Inc.")
-        assertThat(lockbox.status()).isEqualTo(Lockbox.Status.ACTIVE)
         assertThat(lockbox.type()).isEqualTo(Lockbox.Type.LOCKBOX)
     }
 
@@ -72,11 +72,11 @@ internal class LockboxTest {
                         .state("CA")
                         .build()
                 )
+                .checkDepositBehavior(Lockbox.CheckDepositBehavior.ENABLED)
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .description("Lockbox 1")
                 .idempotencyKey(null)
                 .recipientName("Company Inc.")
-                .status(Lockbox.Status.ACTIVE)
                 .type(Lockbox.Type.LOCKBOX)
                 .build()
 
