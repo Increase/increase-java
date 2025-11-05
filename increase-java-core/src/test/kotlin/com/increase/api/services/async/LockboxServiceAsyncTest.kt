@@ -62,9 +62,9 @@ internal class LockboxServiceAsyncTest {
             lockboxServiceAsync.update(
                 LockboxUpdateParams.builder()
                     .lockboxId("lockbox_3xt21ok13q19advds4t5")
+                    .checkDepositBehavior(LockboxUpdateParams.CheckDepositBehavior.DISABLED)
                     .description("x")
                     .recipientName("x")
-                    .status(LockboxUpdateParams.Status.INACTIVE)
                     .build()
             )
 
