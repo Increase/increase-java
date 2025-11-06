@@ -149,6 +149,7 @@ internal class CheckTransferTest {
                     CheckTransfer.ThirdParty.builder().recipientName("recipient_name").build()
                 )
                 .type(CheckTransfer.Type.CHECK_TRANSFER)
+                .validUntilDate(null)
                 .build()
 
         assertThat(checkTransfer.id()).isEqualTo("check_transfer_30b43acfu9vw8fyc4f5")
@@ -290,6 +291,7 @@ internal class CheckTransferTest {
         assertThat(checkTransfer.thirdParty())
             .contains(CheckTransfer.ThirdParty.builder().recipientName("recipient_name").build())
         assertThat(checkTransfer.type()).isEqualTo(CheckTransfer.Type.CHECK_TRANSFER)
+        assertThat(checkTransfer.validUntilDate()).isEmpty
     }
 
     @Test
@@ -432,6 +434,7 @@ internal class CheckTransferTest {
                     CheckTransfer.ThirdParty.builder().recipientName("recipient_name").build()
                 )
                 .type(CheckTransfer.Type.CHECK_TRANSFER)
+                .validUntilDate(null)
                 .build()
 
         val roundtrippedCheckTransfer =
