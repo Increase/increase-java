@@ -6,6 +6,7 @@ import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
 import com.increase.api.models.checktransfers.CheckTransferCreateParams
 import com.increase.api.models.checktransfers.CheckTransferStopPaymentParams
+import java.time.LocalDate
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -71,6 +72,7 @@ internal class CheckTransferServiceAsyncTest {
                     .thirdParty(
                         CheckTransferCreateParams.ThirdParty.builder().recipientName("x").build()
                     )
+                    .validUntilDate(LocalDate.parse("2019-12-27"))
                     .build()
             )
 

@@ -2,6 +2,7 @@
 
 package com.increase.api.models.checktransfers
 
+import java.time.LocalDate
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -54,6 +55,7 @@ internal class CheckTransferCreateParamsTest {
             )
             .requireApproval(true)
             .thirdParty(CheckTransferCreateParams.ThirdParty.builder().recipientName("x").build())
+            .validUntilDate(LocalDate.parse("2019-12-27"))
             .build()
     }
 
@@ -107,6 +109,7 @@ internal class CheckTransferCreateParamsTest {
                 .thirdParty(
                     CheckTransferCreateParams.ThirdParty.builder().recipientName("x").build()
                 )
+                .validUntilDate(LocalDate.parse("2019-12-27"))
                 .build()
 
         val body = params._body()
@@ -158,6 +161,7 @@ internal class CheckTransferCreateParamsTest {
         assertThat(body.requireApproval()).contains(true)
         assertThat(body.thirdParty())
             .contains(CheckTransferCreateParams.ThirdParty.builder().recipientName("x").build())
+        assertThat(body.validUntilDate()).contains(LocalDate.parse("2019-12-27"))
     }
 
     @Test
