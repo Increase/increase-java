@@ -5515,14 +5515,17 @@ private constructor(
             /** The transfer has been canceled. */
             @JvmField val CANCELED = of("canceled")
 
-            /** The transfer is pending submission. */
-            @JvmField val PENDING_SUBMISSION = of("pending_submission")
+            /** The transfer is pending review. */
+            @JvmField val PENDING_REVIEWING = of("pending_reviewing")
 
             /** The transfer requires attention from an Increase operator. */
             @JvmField val REQUIRES_ATTENTION = of("requires_attention")
 
             /** The transfer has been rejected. */
             @JvmField val REJECTED = of("rejected")
+
+            /** The transfer is pending submission. */
+            @JvmField val PENDING_SUBMISSION = of("pending_submission")
 
             /** The check is queued for mailing. */
             @JvmField val PENDING_MAILING = of("pending_mailing")
@@ -5548,12 +5551,14 @@ private constructor(
             PENDING_APPROVAL,
             /** The transfer has been canceled. */
             CANCELED,
-            /** The transfer is pending submission. */
-            PENDING_SUBMISSION,
+            /** The transfer is pending review. */
+            PENDING_REVIEWING,
             /** The transfer requires attention from an Increase operator. */
             REQUIRES_ATTENTION,
             /** The transfer has been rejected. */
             REJECTED,
+            /** The transfer is pending submission. */
+            PENDING_SUBMISSION,
             /** The check is queued for mailing. */
             PENDING_MAILING,
             /** The check has been mailed. */
@@ -5580,12 +5585,14 @@ private constructor(
             PENDING_APPROVAL,
             /** The transfer has been canceled. */
             CANCELED,
-            /** The transfer is pending submission. */
-            PENDING_SUBMISSION,
+            /** The transfer is pending review. */
+            PENDING_REVIEWING,
             /** The transfer requires attention from an Increase operator. */
             REQUIRES_ATTENTION,
             /** The transfer has been rejected. */
             REJECTED,
+            /** The transfer is pending submission. */
+            PENDING_SUBMISSION,
             /** The check is queued for mailing. */
             PENDING_MAILING,
             /** The check has been mailed. */
@@ -5611,9 +5618,10 @@ private constructor(
             when (this) {
                 PENDING_APPROVAL -> Value.PENDING_APPROVAL
                 CANCELED -> Value.CANCELED
-                PENDING_SUBMISSION -> Value.PENDING_SUBMISSION
+                PENDING_REVIEWING -> Value.PENDING_REVIEWING
                 REQUIRES_ATTENTION -> Value.REQUIRES_ATTENTION
                 REJECTED -> Value.REJECTED
+                PENDING_SUBMISSION -> Value.PENDING_SUBMISSION
                 PENDING_MAILING -> Value.PENDING_MAILING
                 MAILED -> Value.MAILED
                 DEPOSITED -> Value.DEPOSITED
@@ -5635,9 +5643,10 @@ private constructor(
             when (this) {
                 PENDING_APPROVAL -> Known.PENDING_APPROVAL
                 CANCELED -> Known.CANCELED
-                PENDING_SUBMISSION -> Known.PENDING_SUBMISSION
+                PENDING_REVIEWING -> Known.PENDING_REVIEWING
                 REQUIRES_ATTENTION -> Known.REQUIRES_ATTENTION
                 REJECTED -> Known.REJECTED
+                PENDING_SUBMISSION -> Known.PENDING_SUBMISSION
                 PENDING_MAILING -> Known.PENDING_MAILING
                 MAILED -> Known.MAILED
                 DEPOSITED -> Known.DEPOSITED
