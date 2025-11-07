@@ -72,7 +72,7 @@ internal class CheckTransferServiceTest {
                     .thirdParty(
                         CheckTransferCreateParams.ThirdParty.builder().recipientName("x").build()
                     )
-                    .validUntilDate(LocalDate.parse("2019-12-27"))
+                    .validUntilDate(LocalDate.parse("2025-12-31"))
                     .build()
             )
 
