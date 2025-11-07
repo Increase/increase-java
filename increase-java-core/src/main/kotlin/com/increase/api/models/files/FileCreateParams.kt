@@ -618,6 +618,11 @@ private constructor(
             /** An image of a government-issued ID. */
             @JvmField val IDENTITY_DOCUMENT = of("identity_document")
 
+            /** A supplemental document for a Loan Application. */
+            @JvmField
+            val LOAN_APPLICATION_SUPPLEMENTAL_DOCUMENT =
+                of("loan_application_supplemental_document")
+
             /** A file purpose not covered by any of the other cases. */
             @JvmField val OTHER = of("other")
 
@@ -688,6 +693,8 @@ private constructor(
             FORM_SS_4,
             /** An image of a government-issued ID. */
             IDENTITY_DOCUMENT,
+            /** A supplemental document for a Loan Application. */
+            LOAN_APPLICATION_SUPPLEMENTAL_DOCUMENT,
             /** A file purpose not covered by any of the other cases. */
             OTHER,
             /** A legal document forming a trust. */
@@ -752,6 +759,8 @@ private constructor(
             FORM_SS_4,
             /** An image of a government-issued ID. */
             IDENTITY_DOCUMENT,
+            /** A supplemental document for a Loan Application. */
+            LOAN_APPLICATION_SUPPLEMENTAL_DOCUMENT,
             /** A file purpose not covered by any of the other cases. */
             OTHER,
             /** A legal document forming a trust. */
@@ -807,6 +816,8 @@ private constructor(
                 CHECK_ATTACHMENT -> Value.CHECK_ATTACHMENT
                 FORM_SS_4 -> Value.FORM_SS_4
                 IDENTITY_DOCUMENT -> Value.IDENTITY_DOCUMENT
+                LOAN_APPLICATION_SUPPLEMENTAL_DOCUMENT ->
+                    Value.LOAN_APPLICATION_SUPPLEMENTAL_DOCUMENT
                 OTHER -> Value.OTHER
                 TRUST_FORMATION_DOCUMENT -> Value.TRUST_FORMATION_DOCUMENT
                 DIGITAL_WALLET_ARTWORK -> Value.DIGITAL_WALLET_ARTWORK
@@ -839,6 +850,8 @@ private constructor(
                 CHECK_ATTACHMENT -> Known.CHECK_ATTACHMENT
                 FORM_SS_4 -> Known.FORM_SS_4
                 IDENTITY_DOCUMENT -> Known.IDENTITY_DOCUMENT
+                LOAN_APPLICATION_SUPPLEMENTAL_DOCUMENT ->
+                    Known.LOAN_APPLICATION_SUPPLEMENTAL_DOCUMENT
                 OTHER -> Known.OTHER
                 TRUST_FORMATION_DOCUMENT -> Known.TRUST_FORMATION_DOCUMENT
                 DIGITAL_WALLET_ARTWORK -> Known.DIGITAL_WALLET_ARTWORK
