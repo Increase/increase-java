@@ -21,6 +21,7 @@ internal class InboundMailItemTest {
                         .backFileId("file_makxrc67oh9l6sg7w9yc")
                         .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
                         .frontFileId("file_makxrc67oh9l6sg7w9yc")
+                        .status(InboundMailItem.Check.Status.DEPOSITED)
                         .build()
                 )
                 .addCheck(
@@ -29,6 +30,7 @@ internal class InboundMailItemTest {
                         .backFileId("file_makxrc67oh9l6sg7w9yc")
                         .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
                         .frontFileId("file_makxrc67oh9l6sg7w9yc")
+                        .status(InboundMailItem.Check.Status.DEPOSITED)
                         .build()
                 )
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
@@ -48,12 +50,14 @@ internal class InboundMailItemTest {
                     .backFileId("file_makxrc67oh9l6sg7w9yc")
                     .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
                     .frontFileId("file_makxrc67oh9l6sg7w9yc")
+                    .status(InboundMailItem.Check.Status.DEPOSITED)
                     .build(),
                 InboundMailItem.Check.builder()
                     .amount(1750L)
                     .backFileId("file_makxrc67oh9l6sg7w9yc")
                     .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
                     .frontFileId("file_makxrc67oh9l6sg7w9yc")
+                    .status(InboundMailItem.Check.Status.DEPOSITED)
                     .build(),
             )
         assertThat(inboundMailItem.createdAt())
@@ -78,6 +82,7 @@ internal class InboundMailItemTest {
                         .backFileId("file_makxrc67oh9l6sg7w9yc")
                         .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
                         .frontFileId("file_makxrc67oh9l6sg7w9yc")
+                        .status(InboundMailItem.Check.Status.DEPOSITED)
                         .build()
                 )
                 .addCheck(
@@ -86,6 +91,7 @@ internal class InboundMailItemTest {
                         .backFileId("file_makxrc67oh9l6sg7w9yc")
                         .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
                         .frontFileId("file_makxrc67oh9l6sg7w9yc")
+                        .status(InboundMailItem.Check.Status.DEPOSITED)
                         .build()
                 )
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
