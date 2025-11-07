@@ -354,8 +354,8 @@ private constructor(
 
     /**
      * If set, the check will be valid on or before this date. After this date, the check transfer
-     * will be stopped and deposits will not be accepted. For checks printed by Increase, this date
-     * is included on the check as its expiry.
+     * will be automatically stopped and deposits will not be accepted. For checks printed by
+     * Increase, this date is included on the check as its expiry.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -1093,8 +1093,8 @@ private constructor(
 
         /**
          * If set, the check will be valid on or before this date. After this date, the check
-         * transfer will be stopped and deposits will not be accepted. For checks printed by
-         * Increase, this date is included on the check as its expiry.
+         * transfer will be automatically stopped and deposits will not be accepted. For checks
+         * printed by Increase, this date is included on the check as its expiry.
          */
         fun validUntilDate(validUntilDate: LocalDate?) =
             validUntilDate(JsonField.ofNullable(validUntilDate))
@@ -6002,6 +6002,9 @@ private constructor(
                 /** The check was not authorized. */
                 @JvmField val NOT_AUTHORIZED = of("not_authorized")
 
+                /** The check was stopped for `valid_until_date` being in the past. */
+                @JvmField val VALID_UNTIL_DATE_PASSED = of("valid_until_date_passed")
+
                 /** The check was stopped for another reason. */
                 @JvmField val UNKNOWN = of("unknown")
 
@@ -6019,6 +6022,8 @@ private constructor(
                 REJECTED_BY_INCREASE,
                 /** The check was not authorized. */
                 NOT_AUTHORIZED,
+                /** The check was stopped for `valid_until_date` being in the past. */
+                VALID_UNTIL_DATE_PASSED,
                 /** The check was stopped for another reason. */
                 UNKNOWN,
             }
@@ -6042,6 +6047,8 @@ private constructor(
                 REJECTED_BY_INCREASE,
                 /** The check was not authorized. */
                 NOT_AUTHORIZED,
+                /** The check was stopped for `valid_until_date` being in the past. */
+                VALID_UNTIL_DATE_PASSED,
                 /** The check was stopped for another reason. */
                 UNKNOWN,
                 /**
@@ -6062,6 +6069,7 @@ private constructor(
                     MAIL_DELIVERY_FAILED -> Value.MAIL_DELIVERY_FAILED
                     REJECTED_BY_INCREASE -> Value.REJECTED_BY_INCREASE
                     NOT_AUTHORIZED -> Value.NOT_AUTHORIZED
+                    VALID_UNTIL_DATE_PASSED -> Value.VALID_UNTIL_DATE_PASSED
                     UNKNOWN -> Value.UNKNOWN
                     else -> Value._UNKNOWN
                 }
@@ -6080,6 +6088,7 @@ private constructor(
                     MAIL_DELIVERY_FAILED -> Known.MAIL_DELIVERY_FAILED
                     REJECTED_BY_INCREASE -> Known.REJECTED_BY_INCREASE
                     NOT_AUTHORIZED -> Known.NOT_AUTHORIZED
+                    VALID_UNTIL_DATE_PASSED -> Known.VALID_UNTIL_DATE_PASSED
                     UNKNOWN -> Known.UNKNOWN
                     else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
                 }
