@@ -55,7 +55,7 @@ internal class CheckTransferCreateParamsTest {
             )
             .requireApproval(true)
             .thirdParty(CheckTransferCreateParams.ThirdParty.builder().recipientName("x").build())
-            .validUntilDate(LocalDate.parse("2019-12-27"))
+            .validUntilDate(LocalDate.parse("2025-12-31"))
             .build()
     }
 
@@ -109,7 +109,7 @@ internal class CheckTransferCreateParamsTest {
                 .thirdParty(
                     CheckTransferCreateParams.ThirdParty.builder().recipientName("x").build()
                 )
-                .validUntilDate(LocalDate.parse("2019-12-27"))
+                .validUntilDate(LocalDate.parse("2025-12-31"))
                 .build()
 
         val body = params._body()
@@ -161,7 +161,7 @@ internal class CheckTransferCreateParamsTest {
         assertThat(body.requireApproval()).contains(true)
         assertThat(body.thirdParty())
             .contains(CheckTransferCreateParams.ThirdParty.builder().recipientName("x").build())
-        assertThat(body.validUntilDate()).contains(LocalDate.parse("2019-12-27"))
+        assertThat(body.validUntilDate()).contains(LocalDate.parse("2025-12-31"))
     }
 
     @Test
