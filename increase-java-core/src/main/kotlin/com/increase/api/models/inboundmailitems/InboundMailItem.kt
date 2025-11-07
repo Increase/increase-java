@@ -523,6 +523,7 @@ private constructor(
         private val backFileId: JsonField<String>,
         private val checkDepositId: JsonField<String>,
         private val frontFileId: JsonField<String>,
+        private val status: JsonField<Status>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -538,7 +539,8 @@ private constructor(
             @JsonProperty("front_file_id")
             @ExcludeMissing
             frontFileId: JsonField<String> = JsonMissing.of(),
-        ) : this(amount, backFileId, checkDepositId, frontFileId, mutableMapOf())
+            @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
+        ) : this(amount, backFileId, checkDepositId, frontFileId, status, mutableMapOf())
 
         /**
          * The amount of the check.
@@ -571,6 +573,14 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun frontFileId(): Optional<String> = frontFileId.getOptional("front_file_id")
+
+        /**
+         * The status of the Inbound Mail Item Check.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun status(): Optional<Status> = status.getOptional("status")
 
         /**
          * Returns the raw JSON value of [amount].
@@ -607,6 +617,13 @@ private constructor(
         @ExcludeMissing
         fun _frontFileId(): JsonField<String> = frontFileId
 
+        /**
+         * Returns the raw JSON value of [status].
+         *
+         * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
+
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
             additionalProperties.put(key, value)
@@ -630,6 +647,7 @@ private constructor(
              * .backFileId()
              * .checkDepositId()
              * .frontFileId()
+             * .status()
              * ```
              */
             @JvmStatic fun builder() = Builder()
@@ -642,6 +660,7 @@ private constructor(
             private var backFileId: JsonField<String>? = null
             private var checkDepositId: JsonField<String>? = null
             private var frontFileId: JsonField<String>? = null
+            private var status: JsonField<Status>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -650,6 +669,7 @@ private constructor(
                 backFileId = check.backFileId
                 checkDepositId = check.checkDepositId
                 frontFileId = check.frontFileId
+                status = check.status
                 additionalProperties = check.additionalProperties.toMutableMap()
             }
 
@@ -716,6 +736,21 @@ private constructor(
                 this.frontFileId = frontFileId
             }
 
+            /** The status of the Inbound Mail Item Check. */
+            fun status(status: Status?) = status(JsonField.ofNullable(status))
+
+            /** Alias for calling [Builder.status] with `status.orElse(null)`. */
+            fun status(status: Optional<Status>) = status(status.getOrNull())
+
+            /**
+             * Sets [Builder.status] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.status] with a well-typed [Status] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun status(status: JsonField<Status>) = apply { this.status = status }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
@@ -746,6 +781,7 @@ private constructor(
              * .backFileId()
              * .checkDepositId()
              * .frontFileId()
+             * .status()
              * ```
              *
              * @throws IllegalStateException if any required field is unset.
@@ -756,6 +792,7 @@ private constructor(
                     checkRequired("backFileId", backFileId),
                     checkRequired("checkDepositId", checkDepositId),
                     checkRequired("frontFileId", frontFileId),
+                    checkRequired("status", status),
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -771,6 +808,7 @@ private constructor(
             backFileId()
             checkDepositId()
             frontFileId()
+            status().ifPresent { it.validate() }
             validated = true
         }
 
@@ -793,7 +831,153 @@ private constructor(
             (if (amount.asKnown().isPresent) 1 else 0) +
                 (if (backFileId.asKnown().isPresent) 1 else 0) +
                 (if (checkDepositId.asKnown().isPresent) 1 else 0) +
-                (if (frontFileId.asKnown().isPresent) 1 else 0)
+                (if (frontFileId.asKnown().isPresent) 1 else 0) +
+                (status.asKnown().getOrNull()?.validity() ?: 0)
+
+        /** The status of the Inbound Mail Item Check. */
+        class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                /** The check is pending processing. */
+                @JvmField val PENDING = of("pending")
+
+                /** The check has been deposited. */
+                @JvmField val DEPOSITED = of("deposited")
+
+                /** The check has been ignored. */
+                @JvmField val IGNORED = of("ignored")
+
+                @JvmStatic fun of(value: String) = Status(JsonField.of(value))
+            }
+
+            /** An enum containing [Status]'s known values. */
+            enum class Known {
+                /** The check is pending processing. */
+                PENDING,
+                /** The check has been deposited. */
+                DEPOSITED,
+                /** The check has been ignored. */
+                IGNORED,
+            }
+
+            /**
+             * An enum containing [Status]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [Status] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                /** The check is pending processing. */
+                PENDING,
+                /** The check has been deposited. */
+                DEPOSITED,
+                /** The check has been ignored. */
+                IGNORED,
+                /**
+                 * An enum member indicating that [Status] was instantiated with an unknown value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    PENDING -> Value.PENDING
+                    DEPOSITED -> Value.DEPOSITED
+                    IGNORED -> Value.IGNORED
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    PENDING -> Known.PENDING
+                    DEPOSITED -> Known.DEPOSITED
+                    IGNORED -> Known.IGNORED
+                    else -> throw IncreaseInvalidDataException("Unknown Status: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    IncreaseInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            fun validate(): Status = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Status && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -805,17 +989,25 @@ private constructor(
                 backFileId == other.backFileId &&
                 checkDepositId == other.checkDepositId &&
                 frontFileId == other.frontFileId &&
+                status == other.status &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(amount, backFileId, checkDepositId, frontFileId, additionalProperties)
+            Objects.hash(
+                amount,
+                backFileId,
+                checkDepositId,
+                frontFileId,
+                status,
+                additionalProperties,
+            )
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Check{amount=$amount, backFileId=$backFileId, checkDepositId=$checkDepositId, frontFileId=$frontFileId, additionalProperties=$additionalProperties}"
+            "Check{amount=$amount, backFileId=$backFileId, checkDepositId=$checkDepositId, frontFileId=$frontFileId, status=$status, additionalProperties=$additionalProperties}"
     }
 
     /** If the mail item has been rejected, why it was rejected. */

@@ -23,6 +23,7 @@ internal class InboundMailItemListPageResponseTest {
                                 .backFileId("file_makxrc67oh9l6sg7w9yc")
                                 .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
                                 .frontFileId("file_makxrc67oh9l6sg7w9yc")
+                                .status(InboundMailItem.Check.Status.DEPOSITED)
                                 .build()
                         )
                         .addCheck(
@@ -31,6 +32,7 @@ internal class InboundMailItemListPageResponseTest {
                                 .backFileId("file_makxrc67oh9l6sg7w9yc")
                                 .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
                                 .frontFileId("file_makxrc67oh9l6sg7w9yc")
+                                .status(InboundMailItem.Check.Status.DEPOSITED)
                                 .build()
                         )
                         .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
@@ -55,6 +57,7 @@ internal class InboundMailItemListPageResponseTest {
                             .backFileId("file_makxrc67oh9l6sg7w9yc")
                             .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
                             .frontFileId("file_makxrc67oh9l6sg7w9yc")
+                            .status(InboundMailItem.Check.Status.DEPOSITED)
                             .build()
                     )
                     .addCheck(
@@ -63,6 +66,7 @@ internal class InboundMailItemListPageResponseTest {
                             .backFileId("file_makxrc67oh9l6sg7w9yc")
                             .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
                             .frontFileId("file_makxrc67oh9l6sg7w9yc")
+                            .status(InboundMailItem.Check.Status.DEPOSITED)
                             .build()
                     )
                     .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
@@ -91,6 +95,7 @@ internal class InboundMailItemListPageResponseTest {
                                 .backFileId("file_makxrc67oh9l6sg7w9yc")
                                 .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
                                 .frontFileId("file_makxrc67oh9l6sg7w9yc")
+                                .status(InboundMailItem.Check.Status.DEPOSITED)
                                 .build()
                         )
                         .addCheck(
@@ -99,6 +104,7 @@ internal class InboundMailItemListPageResponseTest {
                                 .backFileId("file_makxrc67oh9l6sg7w9yc")
                                 .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
                                 .frontFileId("file_makxrc67oh9l6sg7w9yc")
+                                .status(InboundMailItem.Check.Status.DEPOSITED)
                                 .build()
                         )
                         .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
