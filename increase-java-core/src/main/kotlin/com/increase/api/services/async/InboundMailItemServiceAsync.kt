@@ -6,6 +6,7 @@ import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.inboundmailitems.InboundMailItem
+import com.increase.api.models.inboundmailitems.InboundMailItemActionParams
 import com.increase.api.models.inboundmailitems.InboundMailItemListPageAsync
 import com.increase.api.models.inboundmailitems.InboundMailItemListParams
 import com.increase.api.models.inboundmailitems.InboundMailItemRetrieveParams
@@ -80,6 +81,30 @@ interface InboundMailItemServiceAsync {
     /** @see list */
     fun list(requestOptions: RequestOptions): CompletableFuture<InboundMailItemListPageAsync> =
         list(InboundMailItemListParams.none(), requestOptions)
+
+    /** Action a Inbound Mail Item */
+    fun action(
+        inboundMailItemId: String,
+        params: InboundMailItemActionParams,
+    ): CompletableFuture<InboundMailItem> = action(inboundMailItemId, params, RequestOptions.none())
+
+    /** @see action */
+    fun action(
+        inboundMailItemId: String,
+        params: InboundMailItemActionParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<InboundMailItem> =
+        action(params.toBuilder().inboundMailItemId(inboundMailItemId).build(), requestOptions)
+
+    /** @see action */
+    fun action(params: InboundMailItemActionParams): CompletableFuture<InboundMailItem> =
+        action(params, RequestOptions.none())
+
+    /** @see action */
+    fun action(
+        params: InboundMailItemActionParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<InboundMailItem>
 
     /**
      * A view of [InboundMailItemServiceAsync] that provides access to raw HTTP responses for each
@@ -166,5 +191,35 @@ interface InboundMailItemServiceAsync {
             requestOptions: RequestOptions
         ): CompletableFuture<HttpResponseFor<InboundMailItemListPageAsync>> =
             list(InboundMailItemListParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post /inbound_mail_items/{inbound_mail_item_id}/action`,
+         * but is otherwise the same as [InboundMailItemServiceAsync.action].
+         */
+        fun action(
+            inboundMailItemId: String,
+            params: InboundMailItemActionParams,
+        ): CompletableFuture<HttpResponseFor<InboundMailItem>> =
+            action(inboundMailItemId, params, RequestOptions.none())
+
+        /** @see action */
+        fun action(
+            inboundMailItemId: String,
+            params: InboundMailItemActionParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<InboundMailItem>> =
+            action(params.toBuilder().inboundMailItemId(inboundMailItemId).build(), requestOptions)
+
+        /** @see action */
+        fun action(
+            params: InboundMailItemActionParams
+        ): CompletableFuture<HttpResponseFor<InboundMailItem>> =
+            action(params, RequestOptions.none())
+
+        /** @see action */
+        fun action(
+            params: InboundMailItemActionParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<InboundMailItem>>
     }
 }

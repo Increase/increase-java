@@ -579,6 +579,9 @@ private constructor(
             /** Checks mailed to this Lockbox will not be deposited. */
             @JvmField val DISABLED = of("disabled")
 
+            /** Checks mailed to this Lockbox will be pending until actioned. */
+            @JvmField val PEND_FOR_PROCESSING = of("pend_for_processing")
+
             @JvmStatic fun of(value: String) = CheckDepositBehavior(JsonField.of(value))
         }
 
@@ -588,6 +591,8 @@ private constructor(
             ENABLED,
             /** Checks mailed to this Lockbox will not be deposited. */
             DISABLED,
+            /** Checks mailed to this Lockbox will be pending until actioned. */
+            PEND_FOR_PROCESSING,
         }
 
         /**
@@ -605,6 +610,8 @@ private constructor(
             ENABLED,
             /** Checks mailed to this Lockbox will not be deposited. */
             DISABLED,
+            /** Checks mailed to this Lockbox will be pending until actioned. */
+            PEND_FOR_PROCESSING,
             /**
              * An enum member indicating that [CheckDepositBehavior] was instantiated with an
              * unknown value.
@@ -623,6 +630,7 @@ private constructor(
             when (this) {
                 ENABLED -> Value.ENABLED
                 DISABLED -> Value.DISABLED
+                PEND_FOR_PROCESSING -> Value.PEND_FOR_PROCESSING
                 else -> Value._UNKNOWN
             }
 
@@ -639,6 +647,7 @@ private constructor(
             when (this) {
                 ENABLED -> Known.ENABLED
                 DISABLED -> Known.DISABLED
+                PEND_FOR_PROCESSING -> Known.PEND_FOR_PROCESSING
                 else -> throw IncreaseInvalidDataException("Unknown CheckDepositBehavior: $value")
             }
 

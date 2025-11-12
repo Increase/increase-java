@@ -4,6 +4,7 @@ package com.increase.api.services.async
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
+import com.increase.api.models.inboundmailitems.InboundMailItemActionParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -39,5 +40,37 @@ internal class InboundMailItemServiceAsyncTest {
 
         val page = pageFuture.get()
         page.response().validate()
+    }
+
+    @Test
+    fun action() {
+        val client =
+            IncreaseOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val inboundMailItemServiceAsync = client.inboundMailItems()
+
+        val inboundMailItemFuture =
+            inboundMailItemServiceAsync.action(
+                InboundMailItemActionParams.builder()
+                    .inboundMailItemId("inbound_mail_item_q6rrg7mmqpplx80zceev")
+                    .addCheck(
+                        InboundMailItemActionParams.Check.builder()
+                            .action(InboundMailItemActionParams.Check.Action.DEPOSIT)
+                            .account("account_in71c4amph0vgo2qllky")
+                            .build()
+                    )
+                    .addCheck(
+                        InboundMailItemActionParams.Check.builder()
+                            .action(InboundMailItemActionParams.Check.Action.IGNORE)
+                            .account("account")
+                            .build()
+                    )
+                    .build()
+            )
+
+        val inboundMailItem = inboundMailItemFuture.get()
+        inboundMailItem.validate()
     }
 }
