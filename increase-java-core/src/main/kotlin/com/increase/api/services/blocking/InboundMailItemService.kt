@@ -7,6 +7,7 @@ import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.inboundmailitems.InboundMailItem
+import com.increase.api.models.inboundmailitems.InboundMailItemActionParams
 import com.increase.api.models.inboundmailitems.InboundMailItemListPage
 import com.increase.api.models.inboundmailitems.InboundMailItemListParams
 import com.increase.api.models.inboundmailitems.InboundMailItemRetrieveParams
@@ -75,6 +76,28 @@ interface InboundMailItemService {
     /** @see list */
     fun list(requestOptions: RequestOptions): InboundMailItemListPage =
         list(InboundMailItemListParams.none(), requestOptions)
+
+    /** Action a Inbound Mail Item */
+    fun action(inboundMailItemId: String, params: InboundMailItemActionParams): InboundMailItem =
+        action(inboundMailItemId, params, RequestOptions.none())
+
+    /** @see action */
+    fun action(
+        inboundMailItemId: String,
+        params: InboundMailItemActionParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): InboundMailItem =
+        action(params.toBuilder().inboundMailItemId(inboundMailItemId).build(), requestOptions)
+
+    /** @see action */
+    fun action(params: InboundMailItemActionParams): InboundMailItem =
+        action(params, RequestOptions.none())
+
+    /** @see action */
+    fun action(
+        params: InboundMailItemActionParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): InboundMailItem
 
     /**
      * A view of [InboundMailItemService] that provides access to raw HTTP responses for each
@@ -164,5 +187,37 @@ interface InboundMailItemService {
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<InboundMailItemListPage> =
             list(InboundMailItemListParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post /inbound_mail_items/{inbound_mail_item_id}/action`,
+         * but is otherwise the same as [InboundMailItemService.action].
+         */
+        @MustBeClosed
+        fun action(
+            inboundMailItemId: String,
+            params: InboundMailItemActionParams,
+        ): HttpResponseFor<InboundMailItem> =
+            action(inboundMailItemId, params, RequestOptions.none())
+
+        /** @see action */
+        @MustBeClosed
+        fun action(
+            inboundMailItemId: String,
+            params: InboundMailItemActionParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<InboundMailItem> =
+            action(params.toBuilder().inboundMailItemId(inboundMailItemId).build(), requestOptions)
+
+        /** @see action */
+        @MustBeClosed
+        fun action(params: InboundMailItemActionParams): HttpResponseFor<InboundMailItem> =
+            action(params, RequestOptions.none())
+
+        /** @see action */
+        @MustBeClosed
+        fun action(
+            params: InboundMailItemActionParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<InboundMailItem>
     }
 }
