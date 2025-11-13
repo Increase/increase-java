@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.361.1 (2025-11-13)
+
+Full Changelog: [v0.361.0...v0.361.1](https://github.com/Increase/increase-java/compare/v0.361.0...v0.361.1)
+
+### Bug Fixes
+
+* **client:** multi-value header serialization ([5bec988](https://github.com/Increase/increase-java/commit/5bec988e759471ee0f3a8af6173636866a44ade7))
+
 ## 0.361.0 (2025-11-12)
 
 Full Changelog: [v0.360.0...v0.361.0](https://github.com/Increase/increase-java/compare/v0.360.0...v0.361.0)
