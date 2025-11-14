@@ -724,7 +724,7 @@ private constructor(
             @JvmField val DIGITAL_WALLET_APP_ICON = of("digital_wallet_app_icon")
 
             /**
-             * A card image to be printed on the front of a physical card. This must be a 2100x1340
+             * A card image to be printed on the front of a physical card. This must be a 2100x1344
              * pixel PNG with no other color but black.
              */
             @JvmField val PHYSICAL_CARD_FRONT = of("physical_card_front")
@@ -829,7 +829,7 @@ private constructor(
              */
             DIGITAL_WALLET_APP_ICON,
             /**
-             * A card image to be printed on the front of a physical card. This must be a 2100x1340
+             * A card image to be printed on the front of a physical card. This must be a 2100x1344
              * pixel PNG with no other color but black.
              */
             PHYSICAL_CARD_FRONT,
@@ -925,7 +925,7 @@ private constructor(
              */
             DIGITAL_WALLET_APP_ICON,
             /**
-             * A card image to be printed on the front of a physical card. This must be a 2100x1340
+             * A card image to be printed on the front of a physical card. This must be a 2100x1344
              * pixel PNG with no other color but black.
              */
             PHYSICAL_CARD_FRONT,
