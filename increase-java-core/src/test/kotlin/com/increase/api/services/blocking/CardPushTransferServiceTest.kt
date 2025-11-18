@@ -23,7 +23,6 @@ internal class CardPushTransferServiceTest {
         val cardPushTransfer =
             cardPushTransferService.create(
                 CardPushTransferCreateParams.builder()
-                    .amount(100L)
                     .businessApplicationIdentifier(
                         CardPushTransferCreateParams.BusinessApplicationIdentifier
                             .FUNDS_DISBURSEMENT
@@ -35,6 +34,12 @@ internal class CardPushTransferServiceTest {
                     .merchantNamePrefix("Acme")
                     .merchantPostalCode("10045")
                     .merchantState("NY")
+                    .presentmentAmount(
+                        CardPushTransferCreateParams.PresentmentAmount.builder()
+                            .currency(CardPushTransferCreateParams.PresentmentAmount.Currency.USD)
+                            .value("1234.56")
+                            .build()
+                    )
                     .recipientName("Ian Crease")
                     .senderAddressCity("New York")
                     .senderAddressLine1("33 Liberty Street")
